@@ -464,8 +464,8 @@ void testDialog::testCommands()
 
   QTest::qWait(1000);
 
-  CommandList* commands = dialog->getCommands();
-  QCOMPARE(commands->count(), 4); 
+  CommandList commands = dialog->getCommands();
+  QCOMPARE(commands.count(), 4); 
   QCOMPARE(dialog->rowCount(), 1); // transitions are hidden internal commands
 
   QCOMPARE(dialog->trigger("bla"), false);

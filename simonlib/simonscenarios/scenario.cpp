@@ -888,7 +888,7 @@ bool Scenario::triggerCommand(const QString& type, const QString& trigger, bool 
 }
 
 
-CommandList* Scenario::getCommandList()
+CommandList Scenario::getCommandList()
 {
   return m_actionCollection->getCommandList();
 }

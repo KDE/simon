@@ -1,5 +1,3 @@
-find_package(KDE4 "4.4" REQUIRED)
-
 add_definitions(-DUSE_WITH_SIMON)
 set (USE_WITH_SIMON "1")
 

@@ -196,7 +196,7 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 }
 
 
-CommandList* ActionManager::getCommandList()
+CommandList ActionManager::getCommandList()
 {
   return ScenarioManager::getInstance()->getCommandList();
 }

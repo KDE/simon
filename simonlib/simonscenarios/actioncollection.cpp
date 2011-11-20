@@ -383,16 +383,12 @@ bool ActionCollection::setTrigger(const QString& trigger)
 }
 
 
-CommandList* ActionCollection::getCommandList()
+CommandList ActionCollection::getCommandList()
 {
-  CommandList *commandList = new CommandList();
+  CommandList commandList;
   foreach (Action *a, m_actions) {
-    CommandList *list = a->manager()->getCommands();
-
-    if (list)
-      commandList->append(*list);
+      commandList.append(a->manager()->getCommands());
   }
-
   return commandList;
 }
 

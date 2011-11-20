@@ -64,7 +64,7 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
     void deRegisterGreedyReceiver(GreedyReceiver *);
     void registerGreedyReceiver(GreedyReceiver *);
 
-    CommandList* getCommandList();
+    CommandList getCommandList();
 
     QFont pluginBaseFont();
 

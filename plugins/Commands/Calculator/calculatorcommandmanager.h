@@ -120,7 +120,7 @@ class CalculatorCommandManager : public CommandManager, public GreedyReceiver
 
     bool deSerializeConfig(const QDomElement& elem);
 
-    //CommandList* getCommands() const { return 0; }
+    //CommandList getCommands() const { return 0; }
 
     /**
      * @brief Constructor

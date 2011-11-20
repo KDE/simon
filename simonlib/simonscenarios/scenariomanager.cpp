@@ -474,17 +474,12 @@ bool ScenarioManager::processResult(RecognitionResult recognitionResult)
 }
 
 
-CommandList* ScenarioManager::getCommandList()
+CommandList ScenarioManager::getCommandList()
 {
-  CommandList* commandList = new CommandList();
+  CommandList commandList;
   foreach (Scenario *s, scenarios) {
-    CommandList *list = s->getCommandList();
-    if (list) {
-      commandList->append(*list);
-      delete list;
-    }
+      commandList.append(s->getCommandList());
   }
-
   return commandList;
 }
 

@@ -42,7 +42,7 @@ class CreateListCommandWidget : public CreateCommandWidget
   Q_OBJECT
 
     private:
-    CommandList* allCommands;
+    CommandList allCommands;
     QList<Command*> commandsToDelete;
     Ui::CreateListCommandWidget ui;
     CommandTableModel *model;

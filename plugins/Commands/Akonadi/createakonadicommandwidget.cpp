@@ -32,7 +32,7 @@ allCommands(ActionManager::getInstance()->getCommandList())
   setWindowIcon(AkonadiCommand::staticCategoryIcon());
   setWindowTitle(AkonadiCommand::staticCategoryText());
 
-  foreach (const Command* com, *allCommands) {
+  foreach (const Command* com, allCommands) {
     QString name = com->getTrigger();
     QString category = com->getCategoryText();
     ui.cbCommand->addItem(com->getIcon(), name+" ("+category+')');
@@ -56,11 +56,11 @@ bool CreateAkonadiCommandWidget::init(Command* command)
   if (!akonadiCommand) return false;
   
   bool found = false;
-  foreach (Command* com, *allCommands) {
+  foreach (Command* com, allCommands) {
     if ((com->getTrigger() == akonadiCommand->getChildTrigger()) &&
     (com->getCategoryText() == akonadiCommand->getChildType())) {
       //found the command
-      ui.cbCommand->setCurrentIndex(allCommands->indexOf(com));
+      ui.cbCommand->setCurrentIndex(allCommands.indexOf(com));
       found = true;
       break;
     }
@@ -86,7 +86,7 @@ bool CreateAkonadiCommandWidget::init(Command* command)
 
 Command* CreateAkonadiCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-  Command *childCommand = allCommands->at(ui.cbCommand->currentIndex());
+  Command *childCommand = allCommands.at(ui.cbCommand->currentIndex());
   AkonadiCommand::TimerType type;
   if (ui.rbAbsolute->isChecked())
     type = AkonadiCommand::Absolute;

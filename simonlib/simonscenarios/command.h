@@ -287,7 +287,7 @@ class MODELMANAGEMENT_EXPORT  Command
       announce(announce_),
       hidden(false),
       boundStates(QList<int>() << boundState_),
-    switchToState(newState_)
+      switchToState(newState_)
     {}
     
     
@@ -311,7 +311,7 @@ class MODELMANAGEMENT_EXPORT  Command
       announce(announce_),
       hidden(false),
       boundStates(boundStates_),
-    switchToState(newState_)
+      switchToState(newState_)
     {Q_ASSERT(boundStates.count());}
 
     /**

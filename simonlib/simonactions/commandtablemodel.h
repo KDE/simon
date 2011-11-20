@@ -32,7 +32,7 @@ class SIMONACTIONS_EXPORT CommandTableModel : public QAbstractTableModel
   Q_OBJECT
 
     private:
-    CommandList *commands;
+    CommandList commands;
 
     QVariant data(const QModelIndex &index, int role) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -52,8 +52,8 @@ class SIMONACTIONS_EXPORT CommandTableModel : public QAbstractTableModel
     void removeCommand(int index);
     void moveUp(const QModelIndex&);
     void moveDown(const QModelIndex&);
-    CommandList* selectedCommands() { return commands; }
-    CommandTableModel(CommandList *commands=0);
+    CommandList selectedCommands() { return commands; }
+    CommandTableModel(const CommandList &commands = CommandList());
     ~CommandTableModel();
 
 };

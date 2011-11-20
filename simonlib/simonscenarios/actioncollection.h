@@ -83,7 +83,7 @@ class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public Ac
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
     void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 
-    CommandList* getCommandList();
+    CommandList getCommandList();
 
     QList<QAction*> getGuiActions();
     ~ActionCollection();

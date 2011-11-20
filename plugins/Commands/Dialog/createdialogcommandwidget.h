@@ -45,7 +45,7 @@ class CreateDialogCommandWidget : public CreateCommandWidget
   private:
     Ui::CreateDialogCommandWidget ui;
 
-    CommandList* m_allCommands;
+    CommandList m_allCommands;
     CommandTableModel *m_model;
 
     void initStates();

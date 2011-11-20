@@ -38,7 +38,7 @@ model(new CommandTableModel())
   setWindowIcon(CompositeCommand::staticCategoryIcon());
   setWindowTitle(CompositeCommand::staticCategoryText());
 
-  foreach (const Command* com, *allCommands) {
+  foreach (const Command* com, allCommands) {
     QString name = com->getTrigger();
     QString category = com->getCategoryText();
     ui.cbCommands->addItem(com->getIcon(), name+" ("+category+')');
@@ -71,7 +71,6 @@ void CreateCompositeCommandWidget::enableButtons(const QModelIndex& index)
   } else
   ui.pbRemove->setEnabled(true);
 
-  Q_ASSERT(allCommands);
   ui.pbMoveUp->setEnabled(index.row() > 0);
   ui.pbMoveDown->setEnabled(index.row() < model->rowCount()-1);
 
@@ -131,7 +130,7 @@ bool CreateCompositeCommandWidget::init(Command* command)
     }
     else {
       bool found=false;
-      foreach (Command* com, *allCommands) {
+      foreach (Command* com, allCommands) {
         if ((com->getTrigger() == trigger) &&
         (com->getCategoryText() == cat)) {
           //found the command
@@ -158,7 +157,7 @@ bool CreateCompositeCommandWidget::init(Command* command)
 
 void CreateCompositeCommandWidget::addCommandToComp()
 {
-  model->selectCommand(allCommands->at(ui.cbCommands->currentIndex()));
+  model->selectCommand(allCommands.at(ui.cbCommands->currentIndex()));
   enableButtons(ui.tvCommands->currentIndex());
   emit completeChanged();
 }
@@ -186,10 +185,10 @@ void CreateCompositeCommandWidget::addDelayToComp()
 
 Command* CreateCompositeCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-  CommandList *selectedCommands = model->selectedCommands();
+  CommandList selectedCommands = model->selectedCommands();
   QStringList selectedTriggers, selectedCategories;
 
-  foreach (Command* com, *selectedCommands) {
+  foreach (Command* com, selectedCommands) {
     selectedTriggers << com->getTrigger();
     selectedCategories << com->getCategoryText();
   }
@@ -202,5 +201,4 @@ Command* CreateCompositeCommandWidget::createCommand(const QString& name, const 
 CreateCompositeCommandWidget::~CreateCompositeCommandWidget()
 {
   qDeleteAll(commandsToDelete);
-  delete allCommands;
 }

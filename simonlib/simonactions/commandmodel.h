@@ -32,12 +32,12 @@ class SIMONACTIONS_EXPORT CommandModel : public QAbstractItemModel
   Q_OBJECT
 
     public slots:
-    void updateCommands(CommandList *commands);
+    void updateCommands(const CommandList &commands);
 
   private:
-    CommandList *commands;
+    CommandList commands;
 
-    const QStringList getCategories(const CommandList *commands) const;
+    const QStringList getCategories(const CommandList &commands) const;
 
     QVariant data(const QModelIndex &index, int role) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -54,7 +54,7 @@ class SIMONACTIONS_EXPORT CommandModel : public QAbstractItemModel
     QModelIndex index(int row, int column,
       const QModelIndex &parent = QModelIndex()) const;
 
-    CommandModel(CommandList *commands);
+    CommandModel(CommandList commands);
     ~CommandModel();
 
 };

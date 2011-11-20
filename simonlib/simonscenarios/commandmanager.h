@@ -50,18 +50,16 @@
   bool x::deSerializeCommandsPrivate(const QDomElement& elem) \
   { \
     if (elem.isNull()) return false; \
-if (!commands) \
-  commands = new CommandList(); \
-  QDomElement commandElem = elem.firstChildElement("command"); \
-  while(!commandElem.isNull()) \
-{ \
-  Command *c = y::createInstance(commandElem); \
-  if (c) \
-    commands->append(c); \
-    commandElem = commandElem.nextSiblingElement("command"); \
-} \
-return true; \
-}
+    QDomElement commandElem = elem.firstChildElement("command"); \
+    while(!commandElem.isNull()) \
+    { \
+      Command *c = y::createInstance(commandElem); \
+      if (c) \
+	commands.append(c); \
+	commandElem = commandElem.nextSiblingElement("command"); \
+    } \
+    return true; \
+  }
 
 
 #include "simonmodelmanagement_export.h"
@@ -148,7 +146,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      *
      * \sa addCommand(), appendCommand(), deleteCommand()
      */
-    CommandList *commands;
+    CommandList commands;
 
     /**
      * \brief Plugin source id
@@ -331,7 +329,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      * \brief Returns the #commands
      * \return List of commands of this plugin
      */
-    virtual CommandList* getCommands() const
+    virtual CommandList getCommands() const
     {
       return commands;
     }
@@ -341,7 +339,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      */
     bool hasCommands() const
     {
-      return (commands && !commands->isEmpty());
+      return !commands.isEmpty();
     }
 
     virtual void setFont(const QFont& font);
@@ -431,7 +429,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      */
     CommandManager(Scenario *parentScenario, const QVariantList& args) : QAbstractItemModel((QObject*) parentScenario),
     ScenarioObject(parentScenario),
-    m_currentState(SimonCommand::DefaultState), commands(0), config(0) {
+    m_currentState(SimonCommand::DefaultState), config(0) {
       Q_UNUSED(args);
     }
 

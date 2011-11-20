@@ -61,7 +61,7 @@ CreateCommandWidget* ListCommandManager::getCreateCommandWidget(QWidget *parent)
 
 void ListCommandManager::setFont(const QFont& font)
 {
-  foreach (Command *c, *commands) {
+  foreach (Command *c, commands) {
     ListCommand *lc = dynamic_cast<ListCommand*>(c);
     if (!lc) continue;
     lc->setFont(font);
@@ -73,13 +73,11 @@ bool ListCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 {
   if (elem.isNull()) return false;
 
-  if (!commands)
-    commands = new CommandList();
   QDomElement commandElem = elem.firstChildElement("command");
   while(!commandElem.isNull()) {
     Command *c = ListCommand::createInstance(this, commandElem);
     if (c)
-      commands->append(c);
+      commands.append(c);
 
     commandElem = commandElem.nextSiblingElement("command");
   }

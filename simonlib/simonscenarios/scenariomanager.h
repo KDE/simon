@@ -110,7 +110,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     
     bool processResult(RecognitionResult recognitionResult);
 
-    CommandList* getCommandList();
+    CommandList getCommandList();
 
     void startGroup();
     bool commitGroup(bool silent=false);
