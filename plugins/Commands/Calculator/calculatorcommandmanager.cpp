@@ -532,7 +532,8 @@ QString CalculatorCommandManager::toString(double in)
 
 QList<Token *> CalculatorCommandManager::parseString(QString calc, bool *success)
 {
-  *success = false;
+  if (success != 0)
+    *success = false;
   QList<Token *> list;
   //status: Explains the status from the parser. 0=start, 1=number, 2=comma, 3=arithmetic operator, 4=commanumber, 5=percent, -1=fail
   int status=0;
@@ -564,7 +565,8 @@ QList<Token *> CalculatorCommandManager::parseString(QString calc, bool *success
       }
       if((i+1)==calc.size()) {
         list.append(new Token(number));
-	*success = true;
+	if (success != 0)
+	  *success = true;
         return list;
       }
     }
@@ -639,14 +641,16 @@ QList<Token *> CalculatorCommandManager::parseString(QString calc, bool *success
   if(status==-1)
     return QList<Token *>();
   
-  *success = true;
+  if (success != 0)
+    *success = true;
   return list;
 }
 
 
 QList<Token *> CalculatorCommandManager::toPostfix(QList<Token *> calcList, bool *success)
 {
-  *success = false;
+  if (success != 0)
+    *success = false;
   QStack<Token *> arOperatoren;
   QList<Token *> list;
 
@@ -698,7 +702,8 @@ QList<Token *> CalculatorCommandManager::toPostfix(QList<Token *> calcList, bool
   while(!arOperatoren.isEmpty()) {
     list.append(arOperatoren.pop());
   }
-  *success = true;
+  if (success != 0)
+    *success = true;
   return list;
 }
 

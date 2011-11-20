@@ -214,7 +214,8 @@ User* DatabaseAccess::getUser(qint32 id)
  */
 QList<User*> DatabaseAccess::getUsers(User* u, qint32 institutionId, const QString& referenceId, bool *success)
 {
-  *success = false;
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
   bool includeUserId = (u->userId() > 0);
   bool includeSurname = (!u->surname().isEmpty());
@@ -286,7 +287,8 @@ QList<User*> DatabaseAccess::getUsers(User* u, qint32 institutionId, const QStri
       q.value(15).toBool(),
       q.value(16).toBool()));
   }
-  *success = true;
+  if (success != 0)
+    *success = true;
   return users;
 }
 
@@ -365,7 +367,8 @@ bool DatabaseAccess::deleteUserInstitutionAssociation(qint32 userId, qint32 inst
 
 QList<UserInInstitution*> DatabaseAccess::getUserInstitutionAssociation(qint32 userId, bool *success)
 {
-  *success = false;
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
   QList<UserInInstitution*> uiis;
 
@@ -424,7 +427,8 @@ bool DatabaseAccess::removeUser(qint32 id)
 
 QList<Language*> DatabaseAccess::getLanguages(bool *success)
 {
-  *success = false;
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
   QList<Language*> ll;
 
@@ -437,14 +441,16 @@ QList<Language*> DatabaseAccess::getLanguages(bool *success)
     ll.append(new Language(q.value(0).toString(),
       q.value(1).toString()));
   }
-  *success = true;
+  if (success != 0)
+    *success = true;
   return ll;
 }
 
 
 QList<Microphone*> DatabaseAccess::getMicrophones(bool *success)
 {
-  *success = false;
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
   QList<Microphone*> ml;
 
@@ -457,14 +463,16 @@ QList<Microphone*> DatabaseAccess::getMicrophones(bool *success)
     ml.append(new Microphone(q.value(0).toInt(),
       q.value(1).toString(), q.value(1).toString()));
   }
-  *success = true;
+  if (success != 0)
+    *success = true;
   return ml;
 }
 
 
 QList<SoundCard*> DatabaseAccess::getSoundCards(bool *success)
 {
-  *success = false;
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
   QList<SoundCard*> sl;
 
@@ -478,6 +486,8 @@ QList<SoundCard*> DatabaseAccess::getSoundCards(bool *success)
       q.value(1).toString(), q.value(1).toString()));
   }
 
+  if (success != 0)
+    *success = true;
   return sl;
 }
 
@@ -553,7 +563,8 @@ Institution* DatabaseAccess::getInstitution(qint32 id)
 
 QList<Institution*> DatabaseAccess::getInstitutions(bool *success)
 {
-  *success = false;
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
   QList<Institution*> ins;
 
@@ -565,7 +576,8 @@ QList<Institution*> DatabaseAccess::getInstitutions(bool *success)
     ins.append(new Institution(q.value(0).toInt(),
       q.value(1).toString()));
   }
-
+  if (success != 0)
+    *success = true;
   return ins;
 }
 
