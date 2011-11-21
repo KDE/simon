@@ -65,7 +65,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
   QObject::connect(RecognitionControl::getInstance(), SIGNAL(loggedIn()), this, SLOT(loggedIn()));
 
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognised(RecognitionResultList)), this, SLOT(wordRecognised(RecognitionResultList)));
   QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
 
   QObject::connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SIGNAL(deactivatedScenarioListChanged()));

@@ -94,7 +94,7 @@ void ActionManager::retrieveRecognitionResultFilteringParameters()
 
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger, bool silent)
 {
-  if (type == "simonrecognitionresult") {
+  if (type == "simonrecognitionresult" && currentlyPromptedListOfResults.count()) {
     //result from a did-you-mean popup
     QString selectedSentence = trigger;
     selectedSentence.remove(QRegExp("^[0-9][0-9]?[0-9]?%: "));
