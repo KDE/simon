@@ -34,10 +34,9 @@
 class SpeechModelSettings : public KCModule
 {
   Q_OBJECT
-  
+
   public:
     explicit SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
-    ~SpeechModelSettings();
 
   public slots:
     void load();
