@@ -55,10 +55,14 @@ class SpeechModelSettings : public KCModule
     void loadBaseStats();
 
   private:
+    void touchLanguageProfileDate();
+    QString translateDefault(const QString& in);
+    void importBaseModelFromDirectory(QDir dir);
+    
     Ui::TrainingSettingsWidget uiTrainingsData;
     Ui::LanguageProfileSettingsWidget uiLanguageProfile;
     Ui::ModelDlg ui;
-    QString lastDirectory;
+    QString m_lastDirectory;
     QString m_hmmDefsToImport;
     QString m_tiedlistToImport;
     QString m_macrosToImport;
@@ -66,10 +70,5 @@ class SpeechModelSettings : public KCModule
     QString m_languageProfileToImport;
 
     int m_storedModelType;
-    void touchLanguageProfileDate();
-    
-    QString translateDefault(const QString& in);
-    
-    void importBaseModelFromDirectory(QDir dir);
 };
 #endif

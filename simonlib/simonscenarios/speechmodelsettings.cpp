@@ -222,6 +222,11 @@ void SpeechModelSettings::defaults()
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/basestats"));
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
 
+  m_hmmDefsToImport.clear();
+  m_tiedlistToImport.clear();
+  m_macrosToImport.clear();
+  m_statsToImport.clear();
+  
   KCModule::defaults();
 
   load();
@@ -238,30 +243,30 @@ void SpeechModelSettings::touchLanguageProfileDate()
 
 void SpeechModelSettings::importBaseModelFromDirectory(QDir dir)
 {
-  lastDirectory = dir.path();
+  m_lastDirectory = dir.path();
   dir.setFilter(QDir::Files);
 
   Q_FOREACH(const QString& file, dir.entryList()) {
     if (m_hmmDefsToImport.isEmpty() && file.toLower().contains("hmm")) {
-      m_tiedlistToImport = file;
+      m_tiedlistToImport = dir.path() + '/' + file;
       QFileInfo f(file);
       ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
     }
 
     if (m_tiedlistToImport.isEmpty() && file.toLower().contains("tiedlist")) {
-      m_tiedlistToImport = file;
+      m_tiedlistToImport = dir.path() + '/' + file;
       QFileInfo f(file);
       ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
     }
 
     if (m_macrosToImport.isEmpty() && file.toLower().contains("macros")) {
-      m_macrosToImport = file;
+      m_macrosToImport = dir.path() + '/' + file;
       QFileInfo f(file);
       ui.lbLastLoadedBaseMacros->setText(QFileInfo(file).fileName());
     }
 
     if (m_statsToImport.isEmpty() && file.toLower().contains("stats")) {
-      m_statsToImport = file;
+      m_statsToImport = dir.path() + '/' + file;
       QFileInfo f(file);
       ui.lbLastLoadedBaseStats->setText(f.fileName());
     }
@@ -271,7 +276,7 @@ void SpeechModelSettings::importBaseModelFromDirectory(QDir dir)
 
 void SpeechModelSettings::loadBaseHMM()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(lastDirectory), QString(), this, i18n("Select base hmmdefs"));
+  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select base hmmdefs"));
   if (path.isEmpty()) return;
 
   m_hmmDefsToImport = path;
@@ -282,7 +287,7 @@ void SpeechModelSettings::loadBaseHMM()
 
 void SpeechModelSettings::loadBaseTiedlist()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(lastDirectory), QString(), this, i18n("Select base tiedlist"));
+  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select base tiedlist"));
   if (path.isEmpty()) return;
 
   m_tiedlistToImport = path;
@@ -293,7 +298,7 @@ void SpeechModelSettings::loadBaseTiedlist()
 
 void SpeechModelSettings::loadBaseMacros()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(lastDirectory), QString(), this, i18n("Select base macros"));
+  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select base macros"));
   if (path.isEmpty()) return;
 
   m_macrosToImport = path;
@@ -304,7 +309,7 @@ void SpeechModelSettings::loadBaseMacros()
 
 void SpeechModelSettings::loadBaseStats()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(lastDirectory), QString(), this, i18n("Select base stats"));
+  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select base stats"));
   if (path.isEmpty()) return;
 
   m_statsToImport = path;
@@ -315,7 +320,7 @@ void SpeechModelSettings::loadBaseStats()
 
 void SpeechModelSettings::loadLanguageProfile()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(lastDirectory), QString(), this, i18n("Select language profile"));
+  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select language profile"));
   if (path.isEmpty()) return;
 
   m_languageProfileToImport = path;
