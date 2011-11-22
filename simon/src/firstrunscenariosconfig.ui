@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>359</width>
+    <height>287</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,11 +17,11 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Scenarios reflect specific use cases of voice recognition.
+      <string>Scenarios are specific use cases of voice recognition.
 
-You can for example simply set up simon to control firefox by using the appropriate firefox scenario.
+You can for example find a scenario to control the Firefox web browser.
 
-Select &quot;Get scenarios&quot; to browse and download scenarios from an online repository.</string>
+Select &quot;Get scenarios&quot; to conveniently download scenarios.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
