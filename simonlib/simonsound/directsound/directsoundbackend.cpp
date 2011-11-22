@@ -79,26 +79,26 @@ public:
 
 
 			//Copy AudioBuffer to DirectSoundBuffer
-			memset(m_parent->m_audioBufferC, 0, m_parent->m_bufferSizeC);
-
+			//todo: if its working I can probably remove the buffer and write direct
 			memcpy(m_parent->m_audioBufferC, capture1,captureLength1);
 			readCount = captureLength1;     
 
 			if (capture2 != NULL){
-				memcpy(m_parent->m_audioBufferC, capture2,captureLength2);
+				memcpy(m_parent->m_audioBufferC+captureLength1, capture2,captureLength2);
 				readCount += captureLength2;
 			}
 
-			dataWritten  = m_parent->m_client->writeData((char*)capture1, captureLength1);
-			if(dataWritten==NULL)
+			dataWritten  = m_parent->m_client->writeData((char*)m_parent->m_audioBufferC, readCount);
+			if(dataWritten == 0|| dataWritten != readCount)
 				kWarning()<<"Writing captured data failed";
-
+			
 			m_parent->m_primaryBufferC->Unlock(capture1,captureLength1,capture2,captureLength2);  
 			dwMyReadCursor += lockSize;
 			dwMyReadCursor %= m_parent->m_bufferSizeC;
 
 
 		}
+		m_parent->closeSoundSystem();
 		shouldRun = false;
 	}
 };
