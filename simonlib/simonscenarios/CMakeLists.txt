@@ -9,9 +9,8 @@ include_directories(
 	${CMAKE_BINARY_DIR}
 )
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LIB)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
-include(KDE4Defaults)
 set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
