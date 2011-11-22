@@ -60,20 +60,33 @@ public:
 		UINT dataWritten = 0;
 		DWORD dwMyReadCursor = 0;  
 		DWORD dwReadPos;
+		DWORD dwReadPosOld = 0;
 		DWORD lockSize;
 		qint64 readCount;
 
+		if(FAILED(hr = m_parent->m_primaryBufferC->Start( DSCBSTART_LOOPING ) )){
+			kWarning()<<"Failed to start recording"<<DXERR_TO_STRING(hr);
+			shouldRun = false;
+		}
 
 
 		while(shouldRun && !FAILED(m_parent->m_primaryBufferC->GetCurrentPosition(NULL,&dwReadPos))){
+			if(dwReadPosOld == dwReadPos){
+				kWarning()<<"Cursor didnt move";
+				Sleep(300);
+				continue;
+			}
+			kWarning()<<"Recording";
+			dwReadPosOld = dwReadPos;
 			lockSize = dwReadPos - dwMyReadCursor;
-			if (lockSize == 0)
+			if (lockSize <= 0)
 				lockSize += m_parent->m_bufferSizeC;
 
 
 			if (FAILED(hr = m_parent->m_primaryBufferC->Lock(dwMyReadCursor, lockSize,&capture1, &captureLength1, &capture2, &captureLength2, NULL))){
 				kWarning()<<"Capture lock failure"<<DXERR_TO_STRING(hr);
-				return;   
+				shouldRun = false;
+				continue;
 			} 
 
 
@@ -405,10 +418,10 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 
 	memset( &CaptureBufferDesc, 0,sizeof(CaptureBufferDesc) ); 
 	CaptureBufferDesc.dwSize     = sizeof(DSCBUFFERDESC);
-	CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec; // 2 seconds of sound
+	CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec * 2; // 2 seconds of sound
 	CaptureBufferDesc.lpwfxFormat    = &m_waveFormat;
 
-	if(FAILED(hr = (*ppDS8C)->CreateCaptureBuffer(&CaptureBufferDesc,primaryBufferC, 0))) {
+	if(FAILED(hr = (*ppDS8C)->CreateCaptureBuffer(&CaptureBufferDesc,primaryBufferC, NULL))) {
 		kWarning() << "Failed to create primary recording buffer"<<DXERR_TO_STRING(hr);
 		(*ppDS8C)->Release();
 		*ppDS8C = 0;
@@ -418,11 +431,11 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 
 	kWarning() << "Allocating buffer";
 	delete[] m_audioBufferC;
-	m_audioBufferC = new BYTE[m_waveFormat.nAvgBytesPerSec];
+	m_audioBufferC = new BYTE[CaptureBufferDesc.dwBufferBytes];
 	m_bufferSizeC = m_waveFormat.nAvgBytesPerSec;
 
 	//Init Audio Buffer
-	memset(m_audioBufferC, 0, m_waveFormat.nAvgBytesPerSec);
+	memset(m_audioBufferC, 0, CaptureBufferDesc.dwBufferBytes);
 	kWarning() << "Opened device";
 	return true;
 }
@@ -455,7 +468,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 	internalDeviceName = internalDeviceName.left(internalDeviceName.length()-1);
 
 	kDebug() << "Opening device: " << internalDeviceName; // contains the GUID or "" for default
-	wchar_t *internalDeviceNameW= new wchar_t[internalDeviceName.length()*sizeof(wchar_t)+1];
+	wchar_t *internalDeviceNameW= new wchar_t[internalDeviceName.length()+1];
 	internalDeviceNameW[internalDeviceName.toWCharArray(internalDeviceNameW)] = '\0';
 
 	GUID deviceID;
