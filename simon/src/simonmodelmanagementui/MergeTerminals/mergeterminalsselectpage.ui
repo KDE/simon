@@ -17,11 +17,32 @@
    <item>
     <widget class="QLabel" name="lbDesc">
      <property name="text">
-      <string>Please select both categories from the lists below and assign a name for the new, combined category.</string>
+      <string>Select a category in each list and assign a name for the combined category.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
      </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout">
+       <item>
+        <widget class="TextListWidget" name="lwA"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget2">
+      <layout class="QVBoxLayout">
+       <item>
+        <widget class="TextListWidget" name="lwB"/>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
@@ -39,44 +60,9 @@
     </layout>
    </item>
    <item>
-    <widget class="QSplitter" name="splitter">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <widget class="QWidget" name="layoutWidget">
-      <layout class="QVBoxLayout">
-       <item>
-        <widget class="QLabel" name="lbTerminalA">
-         <property name="text">
-          <string>Category A:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="TextListWidget" name="lwA"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget2">
-      <layout class="QVBoxLayout">
-       <item>
-        <widget class="QLabel" name="lbTerminalB">
-         <property name="text">
-          <string>Category B:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="TextListWidget" name="lwB"/>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-   </item>
-   <item>
     <widget class="QCheckBox" name="cbIncludeShadow">
      <property name="text">
-      <string>Change shadow vocabulary</string>
+      <string>Update shadow vocabulary</string>
      </property>
      <property name="checked">
       <bool>true</bool>
@@ -86,7 +72,7 @@
    <item>
     <widget class="QCheckBox" name="cbIncludeGrammar">
      <property name="text">
-      <string>Change grammar</string>
+      <string>Update grammar</string>
      </property>
      <property name="checked">
       <bool>true</bool>
