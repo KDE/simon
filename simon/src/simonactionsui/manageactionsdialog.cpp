@@ -103,7 +103,6 @@ int ManageActionsDialog::exec()
   ui.lvPlugins->setModel(aC);
 
   configurationPages = aC->getConfigurationPages();
-  if (configurationPages.isEmpty()) return 0;
 
   foreach (CommandConfiguration *m, configurationPages) {
     registerCommandConfiguration(m);
