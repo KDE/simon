@@ -27,7 +27,7 @@
 
 MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): SimonWizard(parent)
 {
-  setWindowTitle(i18n("Merge Terminals"));
+  setWindowTitle(i18n("Merge Categories"));
   addPage(createIntroPage());
   addPage(createSelectTerminalsPage());
   addPage(createWorkingPage());
@@ -45,8 +45,8 @@ QWizardPage* MergeTerminalsWizard::createIntroPage()
   intro->setLayout(lay);
 
   desc->setWordWrap(true);
-  intro->setTitle(i18n("Welcome to the Merging of Terminals"));
-  desc->setText(i18n("This assistant will guide you through the process of merging two Terminals.\n\n"
+  intro->setTitle(i18n("Welcome to the Merging of Categories"));
+  desc->setText(i18n("This assistant will guide you through the process of merging two Categories.\n\n"
     "Using this procedure you can keep your grammar structures to a needed minmum "
     "and improve the readability of both your grammar and your wordlist."));
 
@@ -78,7 +78,7 @@ QWizardPage* MergeTerminalsWizard::createFinishedPage()
 
   desc->setWordWrap(true);
   finished->setTitle(i18n("Import completed"));
-  desc->setText(i18n("The terminals have been merged.\n\nThank you for improving simon."));
+  desc->setText(i18n("The categories have been merged.\n\nThank you for improving simon."));
 
   return finished;
 }

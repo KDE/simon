@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="lbDesc">
      <property name="text">
-      <string>Please select both terminals from the lists below and assign a name for the new, combined terminal.</string>
+      <string>Please select both categories from the lists below and assign a name for the new, combined category.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -48,7 +48,7 @@
        <item>
         <widget class="QLabel" name="lbTerminalA">
          <property name="text">
-          <string>Terminal A:</string>
+          <string>Category A:</string>
          </property>
         </widget>
        </item>
@@ -62,7 +62,7 @@
        <item>
         <widget class="QLabel" name="lbTerminalB">
          <property name="text">
-          <string>Terminal B:</string>
+          <string>Category B:</string>
          </property>
         </widget>
        </item>

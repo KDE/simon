@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MergeTerminalsWorkingPage</class>
- <widget class="QWidget" name="MergeTerminalsWorkingPage" >
-  <property name="geometry" >
+ <widget class="QWidget" name="MergeTerminalsWorkingPage">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,28 +10,28 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
    <item>
-    <widget class="QLabel" name="lbDesc" >
-     <property name="text" >
-      <string>The selected terminals will be now merged to a new one.
+    <widget class="QLabel" name="lbDesc">
+     <property name="text">
+      <string>The selected categories will be now merged to a new one.
 
 This can take some time...</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -39,33 +40,33 @@ This can take some time...</string>
     </spacer>
    </item>
    <item>
-    <widget class="QProgressBar" name="pbProgress" >
-     <property name="value" >
+    <widget class="QProgressBar" name="pbProgress">
+     <property name="value">
       <number>24</number>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="lbStatus" >
-     <property name="font" >
+    <widget class="QLabel" name="lbStatus">
+     <property name="font">
       <font>
        <italic>true</italic>
       </font>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>TextLabel</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
