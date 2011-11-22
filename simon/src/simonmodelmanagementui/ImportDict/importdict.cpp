@@ -35,7 +35,6 @@
 ImportDict::ImportDict(QObject* parent) : QThread(parent),
 type(0),
 dict(0),
-wordList(0),
 deleteFileWhenDone(false)
 {
 }
@@ -55,10 +54,10 @@ void ImportDict::parseWordList(QString pathToDict, QString encoding, int type, b
 }
 
 
-QList<Word*>* ImportDict::getCurrentWordList()
+QList<Word*> ImportDict::getCurrentWordList()
 {
-  QList<Word*>* realList = wordList;
-  wordList = 0;
+  QList<Word*> realList = wordList;
+  wordList.clear();
   return realList;
 }
 
@@ -76,9 +75,8 @@ void ImportDict::run()
 
   emit progress(10, 1000);
   delete dict;
-  if (wordList) wordList->clear();
-  else wordList = new QList<Word*>();
-
+  wordList.clear();
+  
   switch (type) {
     case Dict::HadifixBOMP:
       dict = new BOMPDict();
@@ -116,7 +114,7 @@ void ImportDict::run()
 
   int wordCount = words.count();
   for (int i=0; i<wordCount; i++) {
-    wordList->append( new Word(words.at(i),
+    wordList.append( new Word(words.at(i),
       pronunciations.at(i),
       terminals.at(i) ) );
     if ((i%1000) == 0)
@@ -128,7 +126,7 @@ void ImportDict::run()
 
   if (type != Dict::HTKLexicon) {
     emit status(i18n("Sorting Dictionary..."));
-    qSort(wordList->begin(), wordList->end(), isWordLessThan);
+    qSort(wordList.begin(), wordList.end(), isWordLessThan);
   }
   emit progress(1000, 1000);
   emit status(i18n("Storing Dictionary..."));

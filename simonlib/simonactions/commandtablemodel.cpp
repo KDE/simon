@@ -24,49 +24,46 @@
 #include <QDebug>
 #include <QMutexLocker>
 
-CommandTableModel::CommandTableModel(CommandList *commands)
+CommandTableModel::CommandTableModel(const CommandList &newCommands)
 {
-  if (commands)
-    this->commands = commands;
-  else this->commands = new CommandList();
+  commands = newCommands;
 }
 
 
 QVariant CommandTableModel::data(const QModelIndex &index, int role) const
 {
-  Q_ASSERT(commands);
   if (!index.isValid()) return QVariant();
 
-  if (index.row() > commands->count())
+  if (index.row() > commands.count())
     return QVariant();
 
   int pos = index.row();
-  Command *com = dynamic_cast<Command*>(commands->at(pos));
+  Command *com = dynamic_cast<Command*>(commands.at(pos));
 
   switch (index.column()) {
     case 0:
       if (role == Qt::DisplayRole) {
         if (com)
-          return commands->at(pos)->getTrigger();
+          return commands.at(pos)->getTrigger();
         else
           return QString::number(5);
       }
       else if (role == Qt::DecorationRole) {
         if (com)
-          return commands->at(pos)->getIcon();
+          return commands.at(pos)->getIcon();
         else
           return KIcon("player-time");
       }
     case 1:
       if (role == Qt::DisplayRole) {
         if (com)
-          return commands->at(pos)->getCategoryText();
+          return commands.at(pos)->getCategoryText();
         else
           return i18n("Delay");
       }
       else if (role == Qt::DecorationRole) {
         if (com)
-          return commands->at(pos)->getCategoryIcon();
+          return commands.at(pos)->getCategoryIcon();
         else
           return KIcon("chronometer");
       }
@@ -80,8 +77,6 @@ QVariant CommandTableModel::data(const QModelIndex &index, int role) const
 
 Qt::ItemFlags CommandTableModel::flags(const QModelIndex &index) const
 {
-  Q_ASSERT(commands);
-
   if (!index.isValid())
     return 0;
 
@@ -92,7 +87,6 @@ Qt::ItemFlags CommandTableModel::flags(const QModelIndex &index) const
 QVariant CommandTableModel::headerData(int section, Qt::Orientation orientation,
 int role) const
 {
-  Q_ASSERT(commands);
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     switch (section) {
       case 0:
@@ -113,8 +107,6 @@ const QModelIndex &parent) const
   if (!hasIndex(row, column, parent))
     return QModelIndex();
 
-  Q_ASSERT(commands);
-
   if (parent.isValid())                           //no such thing
     return QModelIndex();
   return createIndex(row, column);
@@ -127,10 +119,10 @@ void CommandTableModel::moveUp(const QModelIndex& index)
   int i = index.row();
 
   if (i == 0) return;
-  if (i>= commands->count()) return;
+  if (i>= commands.count()) return;
 
-  Command *com = commands->takeAt(i);
-  commands->insert(i-1, com);
+  Command *com = commands.takeAt(i);
+  commands.insert(i-1, com);
   emit dataChanged(this->index(i-1, 0), this->index(i, 1));
 }
 
@@ -140,10 +132,10 @@ void CommandTableModel::moveDown(const QModelIndex& index)
   if (!index.isValid()) return;
   int i = index.row();
 
-  if (i>= commands->count()) return;
+  if (i>= commands.count()) return;
 
-  Command *com = commands->takeAt(i);
-  commands->insert(i+1, com);
+  Command *com = commands.takeAt(i);
+  commands.insert(i+1, com);
   emit dataChanged(this->index(i, 0), this->index(i+1, 1));
 }
 
@@ -151,7 +143,6 @@ void CommandTableModel::moveDown(const QModelIndex& index)
 QModelIndex CommandTableModel::parent(const QModelIndex &index) const
 {
   Q_UNUSED(index);
-  Q_ASSERT(commands);
 
   return QModelIndex();
 }
@@ -160,9 +151,7 @@ QModelIndex CommandTableModel::parent(const QModelIndex &index) const
 int CommandTableModel::rowCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
-  Q_ASSERT(commands);
-
-  return commands->count();
+  return commands.count();
 }
 
 
@@ -176,8 +165,7 @@ int CommandTableModel::columnCount(const QModelIndex &parent) const
 void CommandTableModel::selectCommand(Command* com)
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
-  *commands << com;
-
+  commands << com;
   endInsertRows();
   //	reset();
 }
@@ -186,7 +174,7 @@ void CommandTableModel::selectCommand(Command* com)
 void CommandTableModel::removeCommand(int i)
 {
   beginRemoveRows(QModelIndex(), i, i);
-  commands->removeAt(i);
+  commands.removeAt(i);
   endRemoveRows();
   //	reset();
 }

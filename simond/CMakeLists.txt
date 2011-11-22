@@ -3,9 +3,9 @@ project(simond)
 
 include(FindKDE4)
 include(KDE4Defaults)
-include(FindQt4)
 
-find_package(KDE4 REQUIRED)
+
+
 include (KDE4Defaults)
 
 set (QT_USE_QTMAIN true)

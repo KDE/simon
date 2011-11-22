@@ -103,9 +103,8 @@ int ManageActionsDialog::exec()
   ui.lvPlugins->setModel(aC);
 
   configurationPages = aC->getConfigurationPages();
-  if (!configurationPages) return 0;
 
-  foreach (CommandConfiguration *m, *configurationPages) {
+  foreach (CommandConfiguration *m, configurationPages) {
     registerCommandConfiguration(m);
   }
 
@@ -218,6 +217,5 @@ ManageActionsDialog::~ManageActionsDialog()
     pageWidget->removePage(i);
   }
   pages.clear();
-  delete configurationPages;
   delete manageActionsAutorunWidget;
 }

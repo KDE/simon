@@ -28,7 +28,7 @@ class ManageActionsAutorunWidget : public QWidget
 {
   private:
     Ui::ManageActionsAutorunWidget ui;
-    CommandList *allCommands;
+    CommandList allCommands;
 
     void initCommands();
 

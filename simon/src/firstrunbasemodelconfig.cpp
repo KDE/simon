@@ -35,19 +35,11 @@ FirstRunBaseModelConfig::FirstRunBaseModelConfig(QWidget* parent)
     "<p>If you do not select a base model, you need to train one yourself by reading trainingstexts aloud (\"Training\").</p>"
     "<p>If you do select a base model you do not need any training but the recognition may be less accurate. <span style=\" font-weight:600;\">When using static base models, the installation of the HTK is not required.</span></p>"
     "<p>You can find more information on <a href=\"http://www.simon-listens.org/wiki/index.php/English:_Base_models\">base models on our wikis</a>.</p></body></html>"));
-
 }
-
 
 void FirstRunBaseModelConfig::configureBaseModel()
 {
-  QPointer<KCMultiDialog> configDialog = new KCMultiDialog(this);
-  configDialog->addModule("simonmodelconfig", QStringList() << "");
-  configDialog->exec();
-  delete configDialog;
-}
-
-
-FirstRunBaseModelConfig::~FirstRunBaseModelConfig()
-{
+  KCMultiDialog configDialog(this);
+  configDialog.addModule("simonspeechmodelmanagementconfig");
+  configDialog.exec();
 }

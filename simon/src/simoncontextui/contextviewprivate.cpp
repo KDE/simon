@@ -72,17 +72,16 @@ Condition* ContextViewPrivate::getCurrentCondition()
 void ContextViewPrivate::addCondition()
 {
     NewCondition *newCondition = new NewCondition(this);
-    QList<CreateConditionWidget*>* widgets = new QList<CreateConditionWidget*>();
-    QList<Condition*>* conditions;
+    QList<CreateConditionWidget*> widgets;
+    QList<Condition*> conditions;
     ContextManager* manager = ContextManager::instance();
 
     conditions = manager->getConditions();
 
-    foreach (Condition* condition, *conditions)
+    foreach (Condition* condition, conditions)
     {
-        widgets->push_back(condition->getCreateConditionWidget(scenario->compoundCondition(), this));
+        widgets.push_back(condition->getCreateConditionWidget(scenario->compoundCondition(), this));
     }
-    delete conditions;
 
     newCondition->registerCreators(widgets);
     newCondition->newCondition();
@@ -98,17 +97,16 @@ void ContextViewPrivate::editCondition()
         return;
 
     //get the CreateConditionWidgets
-    QList<CreateConditionWidget*>* widgets = new QList<CreateConditionWidget*>();
-    QList<Condition*>* conditions = new QList<Condition*>();
+    QList<CreateConditionWidget*> widgets;
+    QList<Condition*> conditions;
     ContextManager* manager = ContextManager::instance();
 
     conditions = manager->getConditions();
 
-    foreach (Condition* c, *conditions)
+    foreach (Condition* c, conditions)
     {
-        widgets->push_back(c->getCreateConditionWidget(scenario->compoundCondition(), this));
+        widgets.push_back(c->getCreateConditionWidget(scenario->compoundCondition(), this));
     }
-    delete conditions;
 
     //prepare the edit condition dialog and launch it
     NewCondition *editCondition = new NewCondition(this);

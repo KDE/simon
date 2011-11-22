@@ -19,8 +19,6 @@
 
 #include "dialogcommand.h"
 
-#include <simonactions/actionmanager.h>
-
 #include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
@@ -30,6 +28,9 @@
 #include <KIcon>
 #include <KLocalizedString>
 #include <KDebug>
+
+#include <simonactions/actionmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 DialogCommand::DialogCommand(const QString& name, const QString& iconSrc, const QString& description,
         const QString& text, bool showIcon, bool silent, bool triggerAutomatically, int triggerAfter,

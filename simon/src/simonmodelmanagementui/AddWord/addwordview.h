@@ -51,7 +51,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public SimonWizard
     private:
     Vocabulary *targetVocabulary;
 
-    QList<Word*> *listToAdd;
+    QList<Word*> listToAdd;
     QHash<QString,QString> promptsToAdd;
     QHash<QString,QString> sampleGroupsToAdd;
 

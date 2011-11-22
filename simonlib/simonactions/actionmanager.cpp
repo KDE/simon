@@ -50,8 +50,6 @@
 ActionManager* ActionManager::instance;
 
 ActionManager::ActionManager(QObject* parent) : QObject(parent),
-currentlyPromptedListOfResults(0),
-greedyReceivers(new QList<GreedyReceiver*>()),
 minimumConfidenceThreshold(0.45),
 useDYM(false)
 {
@@ -75,13 +73,13 @@ ActionManager* ActionManager::getInstance()
 
 void ActionManager::registerGreedyReceiver(GreedyReceiver *receiver)
 {
-  greedyReceivers->insert(0, receiver);
+  greedyReceivers.insert(0, receiver);
 }
 
 
 void ActionManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
 {
-  greedyReceivers->removeAll(receiver);
+  greedyReceivers.removeAll(receiver);
 }
 
 
@@ -96,18 +94,17 @@ void ActionManager::retrieveRecognitionResultFilteringParameters()
 
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger, bool silent)
 {
-  if (type == "simonrecognitionresult" && currentlyPromptedListOfResults) {
+  if (type == "simonrecognitionresult" && currentlyPromptedListOfResults.count()) {
     //result from a did-you-mean popup
     QString selectedSentence = trigger;
     selectedSentence.remove(QRegExp("^[0-9][0-9]?[0-9]?%: "));
-    for (int i=0; i< currentlyPromptedListOfResults->count(); i++) {
-      QString sentence = currentlyPromptedListOfResults->at(i).sentence();
+    foreach (const RecognitionResult &result, currentlyPromptedListOfResults) {
+      QString sentence = result.sentence();
       if (sentence == selectedSentence) {
         kDebug() << "Found the result!";
-        RecognitionResultList *list = new RecognitionResultList();
-        list->append(RecognitionResult(currentlyPromptedListOfResults->at(i)));
-        delete currentlyPromptedListOfResults;
-        currentlyPromptedListOfResults = 0;
+        RecognitionResultList list;
+        list.append(result);
+        currentlyPromptedListOfResults.clear();
         processRawResults(list);
         return true;
       }
@@ -121,10 +118,10 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger, 
 
 bool ActionManager::processResult(RecognitionResult recognitionResult)
 {
-  if (!greedyReceivers->isEmpty()) {
+  if (!greedyReceivers.isEmpty()) {
     bool accepted = false;
     //		for (int i=0; i < greedyReceivers->count(); i++) {
-    if (greedyReceivers->at(0)->greedyTriggerRaw(recognitionResult))
+    if (greedyReceivers.at(0)->greedyTriggerRaw(recognitionResult))
       accepted = true;
     //			break;
     //		}
@@ -135,68 +132,66 @@ bool ActionManager::processResult(RecognitionResult recognitionResult)
 }
 
 
-void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
+void ActionManager::processRawResults(const RecognitionResultList &recognitionResults)
 {
-  if (recognitionResults->isEmpty())
+  if (recognitionResults.isEmpty())
     return;
 
-  kDebug() << "Processing " << recognitionResults->count() << " raw results";
+  kDebug() << "Processing " << recognitionResults.count() << " raw results";
 
-  RecognitionResultList *selectedRecognitionResults = new RecognitionResultList();
+  RecognitionResultList selectedRecognitionResults;
 
-  if (!currentlyPromptedListOfResults || currentlyPromptedListOfResults->isEmpty()) {
-    for (int i=0; i < recognitionResults->count(); i++) {
+  if (currentlyPromptedListOfResults.isEmpty()) {
+    for (int i=0; i < recognitionResults.count(); i++) {
       //foreach (const RecognitionResult& result, recognitionResults) {
       //if the recognition result has:
       //	* One word that has a score of 0
       //	* An average score of below the minimum confidence
       //it will be not be included in the list of results
 
-      QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
+      QList<float> confidenceScores = recognitionResults.at(i).confidenceScores();
       kDebug() << confidenceScores;
 
       //calc average
-      float avg= recognitionResults->at(i).averageConfidenceScore();
+      float avg= recognitionResults.at(i).averageConfidenceScore();
       kDebug() << avg << minimumConfidenceThreshold;
 
       if (!confidenceScores.contains(0.0f) && (avg >= minimumConfidenceThreshold))
-        selectedRecognitionResults->append(recognitionResults->at(i));
+        selectedRecognitionResults.append(recognitionResults.at(i));
     }
 
-    kDebug() << "Viable recognition results: " << selectedRecognitionResults->count();
+    kDebug() << "Viable recognition results: " << selectedRecognitionResults.count();
 
-    if (selectedRecognitionResults->count() == 0) {
-      delete selectedRecognitionResults;
+    if (selectedRecognitionResults.isEmpty()) {
       return;
     }
   }
   else {
     //we are already asking...
-    selectedRecognitionResults->append(recognitionResults->at(0));
+    selectedRecognitionResults.append(recognitionResults.at(0));
   }
 
-  kDebug() << "Greedy Recievers: " << greedyReceivers->count();
+  kDebug() << "Greedy Recievers: " << greedyReceivers.count();
 
-  if (!greedyReceivers->isEmpty()) {
+  if (!greedyReceivers.isEmpty()) {
     //		for (int i=0; i < greedyReceivers->count(); i++) {
-    /*if (*/ greedyReceivers->at(0)->greedyTriggerRawList(selectedRecognitionResults); //)
+    /*if (*/ greedyReceivers.at(0)->greedyTriggerRawList(selectedRecognitionResults); //)
     //				break;
     //		}
-    delete selectedRecognitionResults;
+    selectedRecognitionResults.clear();
     return;
   }
 
-  if (selectedRecognitionResults->count() == 1) {
-    processResult(selectedRecognitionResults->at(0));
-  }
-  else {
+  if (selectedRecognitionResults.count() == 1) {
+    processResult(selectedRecognitionResults.at(0));
+  } else {
     presentUserWithResults(selectedRecognitionResults);
   }
-  delete selectedRecognitionResults;
+  selectedRecognitionResults.clear();
 }
 
 
-CommandList* ActionManager::getCommandList()
+CommandList ActionManager::getCommandList()
 {
   return ScenarioManager::getInstance()->getCommandList();
 }
@@ -205,39 +200,34 @@ CommandList* ActionManager::getCommandList()
 void ActionManager::resultSelectionDone()
 {
   kDebug() << "resultSelectionDone()";
-  delete currentlyPromptedListOfResults;
-  currentlyPromptedListOfResults = 0;
+  currentlyPromptedListOfResults.clear();
 }
 
 
-void ActionManager::presentUserWithResults(RecognitionResultList* recognitionResults)
+void ActionManager::presentUserWithResults(const RecognitionResultList &recognitionResults)
 {
   kDebug() << "More than one possible recognition result ... should display list!";
-  if (!useDYM || (currentlyPromptedListOfResults &&
-  !currentlyPromptedListOfResults->isEmpty())) {
+  if (!useDYM || !currentlyPromptedListOfResults.isEmpty()) {
     //no double did-you-means...
-    processResult(recognitionResults->at(0));
+    processResult(recognitionResults.at(0));
     return;
   }
-
-  delete currentlyPromptedListOfResults;
-  currentlyPromptedListOfResults = new RecognitionResultList();
-
+  currentlyPromptedListOfResults.clear();
+  
   QStringList sentences;
   QStringList trigger;
   QStringList iconSrcs;
-  for (int i=0; i<recognitionResults->count(); i++) {
+  for (int i=0; i<recognitionResults.count(); i++) {
 
-    QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
+    QList<float> confidenceScores = recognitionResults.at(i).confidenceScores();
 
-    float avg = recognitionResults->at(i).averageConfidenceScore();
+    float avg = recognitionResults.at(i).averageConfidenceScore();
     avg *= 100;
 
-    sentences << QString("%1%: %2").arg(qRound(avg)/*, 0, 'f', 0*/).arg(recognitionResults->at(i).sentence());
+    sentences << QString("%1%: %2").arg(qRound(avg)/*, 0, 'f', 0*/).arg(recognitionResults.at(i).sentence());
     iconSrcs << "";
     trigger << "simonrecognitionresult";
-    currentlyPromptedListOfResults->append(recognitionResults->at(i));
-
+    currentlyPromptedListOfResults.append(recognitionResults.at(i));
   }
 
   ListCommand *list = new ListCommand(0 /* no manager */, i18n("Did you mean ...?"), "help-hint", i18n("simon is not sure what you meant.\n\nPlease select the correct result from the list below."), sentences, iconSrcs, trigger);
@@ -269,6 +259,4 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getGl
 
 ActionManager::~ActionManager()
 {
-  delete greedyReceivers;
-  delete currentlyPromptedListOfResults;
 }

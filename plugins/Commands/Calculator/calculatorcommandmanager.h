@@ -22,14 +22,13 @@
 
 #include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
-#include <QVariantList>
-#include <QList>
-#include <QStack>
+
 #include "ui_calculatorwidget.h"
-#include "token.h"
 
 class KDialog;
+
 class CommandListWidget;
+class Token;
 
 /**
  *	@class CalculatorCommandManager
@@ -42,7 +41,27 @@ class CommandListWidget;
 class CalculatorCommandManager : public CommandManager, public GreedyReceiver
 {
   Q_OBJECT
-    private:
+
+  public:
+    const QString preferredTrigger() const;
+    const QString iconSrc() const;
+    const QString name() const;
+    void setFont(const QFont& font);
+
+    bool deSerializeConfig(const QDomElement& elem);
+
+    //CommandList getCommands() const { return 0; }
+
+    /**
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    CalculatorCommandManager(QObject* parent, const QVariantList& args);
+
+    ~CalculatorCommandManager();
+
+  private:
     enum NumberType
     {
       Default=1,
@@ -52,9 +71,9 @@ class CalculatorCommandManager : public CommandManager, public GreedyReceiver
     Ui::CalculatorDlg ui;
     KDialog *widget;
     CommandListWidget *commandListWidget;
-    QList<Token *> * parseString(QString calc);
-    QList<Token *> * toPostfix(QList<Token *> *calcList);
-    double calculate(QList<Token *>* postList);
+    QList<Token *> parseString(QString calc, bool *success = 0);
+    QList<Token *> toPostfix(QList<Token *> calcList, bool *success = 0);
+    double calculate(QList<Token *> postList);
 
     double currentResult;
     bool resultCurrentlyDisplayed;
@@ -111,25 +130,5 @@ class CalculatorCommandManager : public CommandManager, public GreedyReceiver
 
   public slots:
     void activate();
-
-  public:
-    const QString preferredTrigger() const;
-    const QString iconSrc() const;
-    const QString name() const;
-    void setFont(const QFont& font);
-
-    bool deSerializeConfig(const QDomElement& elem);
-
-    //CommandList* getCommands() const { return 0; }
-
-    /**
-     * @brief Constructor
-     *
-     *	@author Peter Grasch
-     */
-    CalculatorCommandManager(QObject* parent, const QVariantList& args);
-
-    ~CalculatorCommandManager();
-
 };
 #endif

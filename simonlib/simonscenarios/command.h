@@ -70,6 +70,9 @@
 class QDomElement;
 class QDomDocument;
 
+#include "simoncommand.h"
+class CommandManager;
+
 /**
  * @class Command
  * @brief This class represents one command with all its attributes
@@ -93,19 +96,6 @@ class QDomDocument;
 *
 * \sa CreateCommandWidget
 */
-class Command;
-
-/**
- *	@typedef CommandList
- *	QList of Commands
- */
-typedef QList<Command*> CommandList;
-
-#include "commandmanager.h"
-#include <QStringList>
-
-class CommandManager;
-
 class MODELMANAGEMENT_EXPORT  Command
 {
 
@@ -287,7 +277,7 @@ class MODELMANAGEMENT_EXPORT  Command
       announce(announce_),
       hidden(false),
       boundStates(QList<int>() << boundState_),
-    switchToState(newState_)
+      switchToState(newState_)
     {}
     
     
@@ -311,28 +301,28 @@ class MODELMANAGEMENT_EXPORT  Command
       announce(announce_),
       hidden(false),
       boundStates(boundStates_),
-    switchToState(newState_)
+      switchToState(newState_)
     {Q_ASSERT(boundStates.count());}
 
     /**
      * @brief Returns the trigger of the command
      * @return Returns the name / trigger of the command (#triggerName)
      */
-    QString getTrigger() const { return this->triggerName; }
+    QString getTrigger() const { return triggerName; }
 
     /**
      * \brief Returns the bound state of the command
      * \return The state the command manager should be in for this command to be relevant
      */
-    QList<int> getBoundStates() const { return this->boundStates; }
+    QList<int> getBoundStates() const { return boundStates; }
 
     /**
      * \brief Re-binds the command to a different state
      * \param state The state the command manager should be in for this command to be relevant
      */
     void setBoundState(int state) { 
-      this->boundStates.clear();
-      this->boundStates << state;
+      boundStates.clear();
+      boundStates << state;
     }
     
     /**
@@ -340,7 +330,7 @@ class MODELMANAGEMENT_EXPORT  Command
      * \param states The states the command manager should be in for this command to be relevant
      */
     void setBoundState(QList<int> states) { 
-      this->boundStates = states;
+      boundStates = states;
     }
 
     /**
@@ -437,4 +427,11 @@ class MODELMANAGEMENT_EXPORT  Command
     
     static bool parseArguments(const QString& input, const QString& scheme, QStringList& arguments);
 };
+
+/**
+ *	@typedef CommandList
+ *	QList of Commands
+ */
+typedef QList<Command*> CommandList;
+
 #endif

@@ -38,7 +38,7 @@
               <string/>
              </property>
              <property name="clickMessage">
-              <string>Filter...</string>
+              <string>Search</string>
              </property>
              <property name="showClearButton" stdset="0">
               <bool>true</bool>

@@ -81,7 +81,7 @@ public:
     /**
      * \return The list of all available Condition plugins
      */
-    QList<Condition*>* getConditions();
+    QList<Condition*> getConditions();
 
     /**
      * \return A QDomElement specification of an empty condition plugin of the type specified by \var pluginName

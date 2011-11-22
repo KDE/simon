@@ -1,5 +1,3 @@
-find_package(KDE4 REQUIRED)
-find_package (KdepimLibs REQUIRED)
 include (KDE4Defaults)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -8,8 +6,8 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 
 include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 	${KDEPIMLIBS_INCLUDE_DIRS}
-	${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib
-	${CMAKE_CURRENT_SOURCE_DIR}/../../..
+	${CMAKE_SOURCE_DIR}/simonlib
+	${CMAKE_SOURCE_DIR}
 )
 
 
@@ -18,10 +16,10 @@ set(speechcal_SRCS
    calendarmodel.cpp
    speechcal.cpp
    speechcalview.cpp
- )
+)
 
 kde4_add_ui_files( speechcal_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
+  main.ui
 )
 
 

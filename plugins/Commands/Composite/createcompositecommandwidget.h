@@ -44,7 +44,7 @@ class CreateCompositeCommandWidget : public CreateCommandWidget
 
     private:
     bool isDelay;
-    CommandList* allCommands;
+    CommandList allCommands;
     QList<Command*> commandsToDelete;
     Ui::CreateCompositeCommandWidget ui;
     CommandTableModel *model;

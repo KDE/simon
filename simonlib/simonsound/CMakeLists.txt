@@ -1,7 +1,7 @@
-include(FindQt4)
+
 include(SimonDirs)
 
-find_package(KDE4 REQUIRED)
+
 find_package(LibSampleRate)
 
 

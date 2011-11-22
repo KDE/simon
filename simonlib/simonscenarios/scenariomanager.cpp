@@ -36,7 +36,16 @@
 #include <KConfigGroup>
 #include <KDateTime>
 
-ScenarioManager* ScenarioManager::instance;
+ScenarioManager *ScenarioManager::instance;
+
+ScenarioManager *ScenarioManager::getInstance()
+{
+  if (!instance) {
+    instance = new ScenarioManager();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
+  return instance;
+}
 
 ScenarioManager::ScenarioManager(QObject *parent) : QObject(parent),
 m_inGroup(false),
@@ -47,23 +56,13 @@ currentScenario(0)
 {
 }
 
-ScenarioManager* ScenarioManager::getInstance()
-{
-  if (!instance) {
-    instance = new ScenarioManager();
-    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
-  }
-  return instance;
-}
-
-
 bool ScenarioManager::init()
 {
   bool succ = true;
   if (!setupScenarios())
     succ = false;
 
-  shadowVocab = new ShadowVocabulary();
+  shadowVocab = new ShadowVocabulary(this);
   connect(shadowVocab, SIGNAL(changed()), this, SIGNAL(shadowVocabularyChanged()));
   return succ && !shadowVocab->isNull();
 }
@@ -175,7 +174,7 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
     return false;
 
   for (int i=0; i < scenarios.count(); i++) {
-    if (scenarios[i]->id() == id) {
+    if (scenarios.at(i)->id() == id) {
       kDebug() << "Found scenario in the old list; replacing it with new version";
       Scenario *s = scenarios.takeAt(i);
       s->deleteLater();
@@ -260,8 +259,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 
     if (cg.hasKey("SelectedScenarios")) {
         scenarioIds = cg.readEntry("SelectedScenarios", defaultScenarioIds);
-    }
-    else {
+    } else {
         scenarioIds = defaultScenarioIds;
         cg.writeEntry("SelectedScenarios", defaultScenarioIds);
         cg.writeEntry("LastModified", QDateTime::currentDateTime());
@@ -271,7 +269,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
     kDebug() << "Loading scenario: " << scenarioIds;
 
     foreach (const QString& id, scenarioIds) {
-        Scenario *s = new Scenario(id);
+        Scenario *s = new Scenario(id, QString(), this);
         kDebug() << "Initializing scenario" << id;
 
         if (setupScenario(s))
@@ -296,7 +294,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
     //we have to have at least one scenario loaded anyways; If not this
     //crash here is the least of our worries...
     kDebug() << "Updating displays here";
-    updateDisplays(scenarios[0], true);
+    updateDisplays(scenarios.at(0), true);
 
     return success;
 }
@@ -479,17 +477,12 @@ bool ScenarioManager::processResult(RecognitionResult recognitionResult)
 }
 
 
-CommandList* ScenarioManager::getCommandList()
+CommandList ScenarioManager::getCommandList()
 {
-  CommandList* commandList = new CommandList();
+  CommandList commandList;
   foreach (Scenario *s, scenarios) {
-    CommandList *list = s->getCommandList();
-    if (list) {
-      commandList->append(*list);
-      delete list;
-    }
+      commandList.append(s->getCommandList());
   }
-
   return commandList;
 }
 
@@ -626,14 +619,6 @@ ScenarioManager::~ScenarioManager()
   foreach (Scenario *s, scenarios)
     s->blockSignals(true);
   blockSignals(true);
-  
-  instance = 0;
-  while (!scenarioDisplays.isEmpty()) {
-        kDebug() << "Deleting scenario display..." ;
-  	delete scenarioDisplays.takeFirst();
-  }
-  
-  delete shadowVocab;
-  qDeleteAll(scenarios);
+
   qDeleteAll(listInterfaceCommands.values());
 }

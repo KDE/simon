@@ -335,16 +335,16 @@ void QMLSimoneView::buildStaticCommandList()
         currentLanguagePublicCommands << "Nine";
     }
     if (language == "Deutsch") {
-        currentLanguagePublicCommands << "Nummer wählen";
+        currentLanguagePublicCommands << "Nummer wï¿½hlen";
         currentLanguagePublicCommands << "Anruf annehmen";
         currentLanguagePublicCommands << "Navigation starten";
         currentLanguagePublicCommands << "Navigation stoppen";
-        currentLanguagePublicCommands << "Zurück";
+        currentLanguagePublicCommands << "Zurï¿½ck";
         currentLanguagePublicCommands << "Eins";
         currentLanguagePublicCommands << "Zwei";
         currentLanguagePublicCommands << "Drei";
         currentLanguagePublicCommands << "Vier";
-        currentLanguagePublicCommands << "Fünf";
+        currentLanguagePublicCommands << "Fï¿½nf";
         currentLanguagePublicCommands << "Sechs";
         currentLanguagePublicCommands << "Sieben";
         currentLanguagePublicCommands << "Acht";

@@ -182,11 +182,11 @@ void DeviceInformationPage::initializePage()
   }
 }
 
-QList<SimonSound::DeviceConfiguration>* DeviceInformationPage::buildDeviceList()
+QList<SimonSound::DeviceConfiguration> DeviceInformationPage::buildDeviceList()
 {
-  QList<SimonSound::DeviceConfiguration> *devices = new QList<SimonSound::DeviceConfiguration>();
+  QList<SimonSound::DeviceConfiguration> devices;
   foreach (DeviceInformationWidget *wg, informationWidgets)
-    devices->append(wg->buildDevice());
+    devices.append(wg->buildDevice());
   return devices;
 }
 

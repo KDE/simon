@@ -18,22 +18,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "calculatorcommandmanager.h"
-#include "calculatorconfiguration.h"
-#include <eventsimulation/eventhandler.h>
-#include <simonactions/actionmanager.h>
-#include <simonscenarios/simoncommand.h>
-#include <simoninfo/simoninfo.h>
-#include <simonactions/commandlistwidget.h>
-
-#include <QDesktopWidget>
-#include <KDialog>
-#include <QList>
-
-#include <KLocalizedString>
-#include <KAction>
-#include <klocale.h>
-#include <kglobal.h>
-#include <KDebug>
 
 #ifdef Q_OS_WIN32
 #include <windows.h>
@@ -41,6 +25,20 @@
 #include <unistd.h>
 #endif
 #include <stdlib.h>
+
+#include <QDesktopWidget>
+#include <QStack>
+#include <KAction>
+#include <KDialog>
+
+#include <eventsimulation/eventhandler.h>
+#include <simonactions/actionmanager.h>
+#include <simonactions/commandlistwidget.h>
+#include <simoninfo/simoninfo.h>
+
+#include "calculatorconfiguration.h"
+#include "token.h"
+
 
 K_PLUGIN_FACTORY( CalculatorCommandPluginFactory,
 registerPlugin< CalculatorCommandManager >();
@@ -338,16 +336,17 @@ QString CalculatorCommandManager::formatInput(CalculatorCommandManager::NumberTy
   QString input = ui.leNumber->text();
   if (input.contains('='))
     input = input.left(input.indexOf('='));
-  QList<Token*> *parsedString = parseString(input);
-  if (!parsedString) {
+  bool success;
+  QList<Token*> parsedString = parseString(input, &success);
+  if (!success) {
     SimonInfo::showMessage(i18n("Error in output"), 3000);
     return QString();
   }
 
   QString output;
 
-  for (int i=0; i < parsedString->count(); i++) {
-    Token *t = parsedString->at(i);
+  for (int i=0; i < parsedString.count(); i++) {
+    Token *t = parsedString.at(i);
 
     //format number / operator
     switch (t->getType()) {
@@ -360,7 +359,7 @@ QString CalculatorCommandManager::formatInput(CalculatorCommandManager::NumberTy
             output += KGlobal::locale()->formatNumber(t->getNumber());
             break;
           case CalculatorCommandManager::Money:
-            if ((i+1 < parsedString->count()) && (parsedString->at(i+1)->getType() == 3))
+            if ((i+1 < parsedString.count()) && (parsedString.at(i+1)->getType() == 3))
               //percentage coming up so do not format it as money
               output += KGlobal::locale()->formatNumber(t->getNumber());
             else
@@ -506,17 +505,18 @@ void CalculatorCommandManager::sendEquals()
   QString input = ui.leNumber->text();
   if (input.contains('='))
     input = input.left(input.indexOf('='));
-  QList<Token*> *parsedInput = parseString(input);
-  if(parsedInput!=0) {
-    QList<Token*> *postfixedInput =  toPostfix(parsedInput);
+  bool success;
+  QList<Token*> parsedInput = parseString(input, &success);
+  if (success) {
+    QList<Token*> postfixedInput =  toPostfix(parsedInput);
 
     currentResult = calculate(postfixedInput);
     //ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
     ui.leNumber->setText(ui.leNumber->text()+'='+toString(currentResult));
     resultCurrentlyDisplayed = true;
-  }
-  else
+  } else {
     resetInput();
+  }
 }
 
 
@@ -528,9 +528,11 @@ QString CalculatorCommandManager::toString(double in)
 }
 
 
-QList<Token *> * CalculatorCommandManager::parseString(QString calc)
+QList<Token *> CalculatorCommandManager::parseString(QString calc, bool *success)
 {
-  QList<Token *> *list=new QList<Token *>();
+  if (success != 0)
+    *success = false;
+  QList<Token *> list;
   //status: Explains the status from the parser. 0=start, 1=number, 2=comma, 3=arithmetic operator, 4=commanumber, 5=percent, -1=fail
   int status=0;
   double number=0.0;
@@ -560,16 +562,18 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
         break;
       }
       if((i+1)==calc.size()) {
-        list->append(new Token(number));
+        list.append(new Token(number));
+	if (success != 0)
+	  *success = true;
         return list;
       }
     }
     else if(calc.at(i)=='(' && (status==3 || status==5 || status==0)) {
-      list->append(new Token('(', -1));
+      list.append(new Token('(', -1));
       status=3;
     }
     else if(calc.at(i)==')' && ((status==1)||status==5 || (status==4))) {
-      list->append(new Token(')', -1));
+      list.append(new Token(')', -1));
     }
     else if((status==1) || (status==4) || (status == 5)) {
       if((i+1)!=calc.size()) {
@@ -586,23 +590,23 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
         else {
           switch(calc.at(i).toAscii()) {
 
-            case '+': if (status != 5) list->append(new Token(number));
-            list->append(new Token('+', 1));
+            case '+': if (status != 5) list.append(new Token(number));
+            list.append(new Token('+', 1));
             isFloat=false;
             status=3;
             break;
-            case '-': if (status != 5) list->append(new Token(number));
-            list->append(new Token('-',1));
+            case '-': if (status != 5) list.append(new Token(number));
+            list.append(new Token('-',1));
             isFloat=false;
             status=3;
             break;
-            case '*': if (status != 5) list->append(new Token(number));
-            list->append(new Token('*',2));
+            case '*': if (status != 5) list.append(new Token(number));
+            list.append(new Token('*',2));
             isFloat=false;
             status=3;
             break;
-            case '/': if (status != 5) list->append(new Token(number));
-            list->append(new Token('/',2));
+            case '/': if (status != 5) list.append(new Token(number));
+            list.append(new Token('/',2));
             isFloat=false;
             status=3;
             break;
@@ -610,8 +614,8 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
         }
       }
       if (calc.at(i).toAscii() == '%') {
-        list->append(new Token(number));
-        list->append(new Token('%', 3));
+        list.append(new Token(number));
+        list.append(new Token('%', 3));
         isFloat=false;
         status=5;
       }
@@ -631,29 +635,33 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
   }
 
   if (status != 5)
-    list->append(new Token(number));
+    list.append(new Token(number));
   if(status==-1)
-    return 0;
-
+    return QList<Token *>();
+  
+  if (success != 0)
+    *success = true;
   return list;
 }
 
 
-QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
+QList<Token *> CalculatorCommandManager::toPostfix(QList<Token *> calcList, bool *success)
 {
-  QStack<Token *> *arOperatoren=new QStack<Token *>();
-  QList<Token *> *list=new QList<Token *>();
+  if (success != 0)
+    *success = false;
+  QStack<Token *> arOperatoren;
+  QList<Token *> list;
 
-  for(int i=0;i<calcList->size();i++) {
+  for(int i=0;i<calcList.size();i++) {
     //brackets
-    if(calcList->at(i)->getType()==-1) {
-      if(calcList->at(i)->getArOperator()=='(') {
-        arOperatoren->push(calcList->at(i));
+    if(calcList.at(i)->getType()==-1) {
+      if(calcList.at(i)->getArOperator()=='(') {
+        arOperatoren.push(calcList.at(i));
       }
-      if(calcList->at(i)->getArOperator()==')') {
-        while(!arOperatoren->isEmpty()) {
-          if(arOperatoren->top()->getType()!=-1) {
-            list->append(arOperatoren->pop());
+      if(calcList.at(i)->getArOperator()==')') {
+        while(!arOperatoren.isEmpty()) {
+          if(arOperatoren.top()->getType()!=-1) {
+            list.append(arOperatoren.pop());
           }
           else
             break;
@@ -661,52 +669,51 @@ QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
       }
     }
     //number
-    else if(calcList->at(i)->getType()==0) {
-      list->append((*calcList)[i]);
+    else if(calcList.at(i)->getType()==0) {
+      list.append(calcList.at(i));
     }
 
     //+, -
-    else if(calcList->at(i)->getType()==1) {
-      while(!arOperatoren->isEmpty()) {
-        list->append(arOperatoren->pop());
+    else if(calcList.at(i)->getType()==1) {
+      while(!arOperatoren.isEmpty()) {
+        list.append(arOperatoren.pop());
       }
-      arOperatoren->push(calcList->at(i));
+      arOperatoren.push(calcList.at(i));
     }
 
     //*, /
-    else if(calcList->at(i)->getType()==2) {
+    else if(calcList.at(i)->getType()==2) {
                                                   //if there are more then 2 types, exchange the if with a while-loop
-      if(!arOperatoren->isEmpty() && arOperatoren->top()->getType()==2) {
-        list->append(arOperatoren->pop());
+      if(!arOperatoren.isEmpty() && arOperatoren.top()->getType()==2) {
+        list.append(arOperatoren.pop());
       }
-      arOperatoren->push(calcList->at(i));
+      arOperatoren.push(calcList.at(i));
     }
-    else if (calcList->at(i)->getType() == 3) {
-      list->append(calcList->at(i));
+    else if (calcList.at(i)->getType() == 3) {
+      list.append(calcList.at(i));
     }
     else {
       kWarning() << "Error in function: toPostfix()";
     }
   }
 
-  while(!arOperatoren->isEmpty()) {
-    list->append(arOperatoren->pop());
+  while(!arOperatoren.isEmpty()) {
+    list.append(arOperatoren.pop());
   }
-
-  delete arOperatoren;
-  delete calcList;
+  if (success != 0)
+    *success = true;
   return list;
 }
 
 
-double CalculatorCommandManager::calculate(QList<Token *>* postList)
+double CalculatorCommandManager::calculate(QList<Token *> postList)
 {
   int i;
   QStack<Token *> calc;
   Token *t;
 
-  for(i=0;i<postList->size();i++) {
-    t=postList->at(i);
+  for(i=0;i<postList.size();i++) {
+    t=postList.at(i);
 
     if(t->getType()==0) {
       calc.push(t);
@@ -756,8 +763,6 @@ double CalculatorCommandManager::calculate(QList<Token *>* postList)
     }
 
   }
-
-  delete postList;
 
   double result = calc.pop()->getNumber();
   return result;
@@ -834,8 +839,6 @@ void CalculatorCommandManager::printCancel()
 void CalculatorCommandManager::activate()
 {
   clear();
-  QDesktopWidget* tmp = QApplication::desktop();
-  int x,y;
   switch (static_cast<CalculatorConfiguration*>(config)->controlMode()) {
     case CalculatorConfiguration::FullCalculator:
       ui.wgCalculator->show();
@@ -853,6 +856,8 @@ void CalculatorCommandManager::activate()
 
   widget->resize(widget->sizeHint());
 
+  QDesktopWidget* tmp = QApplication::desktop();
+  int x,y;
   x=(tmp->width()/2)-(widget->width()/2);
   y=(tmp->height()/2)-(widget->height()/2);
   widget->move(x, y);

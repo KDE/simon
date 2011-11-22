@@ -40,5 +40,4 @@ void TrainingView::displayScenarioPrivate(Scenario *scenario)
 
 TrainingView::~TrainingView()
 {
-  d->deleteLater();
 }

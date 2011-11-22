@@ -40,7 +40,7 @@ CreateDialogCommandWidget::CreateDialogCommandWidget(CommandManager *manager, QW
   setWindowIcon(DialogCommand::staticCategoryIcon());
   setWindowTitle(DialogCommand::staticCategoryText());
 
-  foreach (const Command* com, *m_allCommands) {
+  foreach (const Command* com, m_allCommands) {
     QString name = com->getTrigger();
     QString category = com->getCategoryText();
     ui.cbCommands->addItem(com->getIcon(), name+" ("+category+')');
@@ -70,7 +70,6 @@ void CreateDialogCommandWidget::enableButtons(const QModelIndex& index)
   } else
   ui.pbRemove->setEnabled(true);
 
-  Q_ASSERT(m_allCommands);
   ui.pbMoveUp->setEnabled(index.row() > 0);
   ui.pbMoveDown->setEnabled(index.row() < m_model->rowCount()-1);
 
@@ -143,7 +142,7 @@ bool CreateDialogCommandWidget::init(Command* command)
   foreach (const QString& trigger, selectedTriggers) {
     QString cat = selectedCategories[i];
     bool found=false;
-    foreach (Command* com, *m_allCommands) {
+    foreach (Command* com, m_allCommands) {
       if ((com->getTrigger() == trigger) &&
         (com->getCategoryText() == cat)) {
         //found the command
@@ -169,7 +168,7 @@ bool CreateDialogCommandWidget::init(Command* command)
 
 void CreateDialogCommandWidget::addCommandToDialog()
 {
-  m_model->selectCommand(m_allCommands->at(ui.cbCommands->currentIndex()));
+  m_model->selectCommand(m_allCommands.at(ui.cbCommands->currentIndex()));
   enableButtons(ui.tvCommands->currentIndex());
   emit completeChanged();
 }
@@ -184,10 +183,10 @@ void CreateDialogCommandWidget::removeCommand()
 
 Command* CreateDialogCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-  CommandList *selectedCommands = m_model->selectedCommands();
+  CommandList selectedCommands = m_model->selectedCommands();
   QStringList selectedTriggers, selectedCategories;
 
-  foreach (Command* com, *selectedCommands) {
+  foreach (Command* com, selectedCommands) {
     selectedTriggers << com->getTrigger();
     selectedCategories << com->getCategoryText();
   }
@@ -204,10 +203,10 @@ Command* CreateDialogCommandWidget::createCommand(const QString& name, const QSt
 void CreateDialogCommandWidget::editCommand(DialogCommand *dialogCommand, const QString& name, 
     const QString& iconSrc, const QString& description)
 {
-  CommandList *selectedCommands = m_model->selectedCommands();
+  CommandList selectedCommands = m_model->selectedCommands();
   QStringList selectedTriggers, selectedCategories;
 
-  foreach (Command* com, *selectedCommands) {
+  foreach (Command* com, selectedCommands) {
     selectedTriggers << com->getTrigger();
     selectedCategories << com->getCategoryText();
   }
@@ -228,5 +227,4 @@ void CreateDialogCommandWidget::updatePresentation(const QString& presentation)
 
 CreateDialogCommandWidget::~CreateDialogCommandWidget()
 {
-  delete m_allCommands;
 }

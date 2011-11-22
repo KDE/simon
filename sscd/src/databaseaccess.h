@@ -64,17 +64,17 @@ class DatabaseAccess : public QObject
     bool isConnected();
 
     User* getUser(qint32 id);
-    QList<User*>* getUsers(User* filterUser, qint32 institutionId, const QString& referenceId);
+    QList<User*> getUsers(User* filterUser, qint32 institutionId, const QString& referenceId, bool *success);
     bool addUser(User *u, int& userId);
     bool modifyUser(User *u);
     bool removeUser(qint32 id);
     int getLastUserId();
 
-    QList<Language*>* getLanguages();
-    QList<Microphone*>* getMicrophones();
-    QList<SoundCard*>* getSoundCards();
+    QList<Language*> getLanguages(bool *success = 0);
+    QList<Microphone*> getMicrophones(bool *success = 0);
+    QList<SoundCard*> getSoundCards(bool *success = 0);
     Institution* getInstitution(qint32 id);
-    QList<Institution*>* getInstitutions();
+    QList<Institution*> getInstitutions(bool *success = 0);
     bool addInstitution(Institution *i);
     bool modifyInstitution(Institution *i);
     bool removeInstitution(qint32 id);
@@ -84,7 +84,7 @@ class DatabaseAccess : public QObject
 
     int addUserInstitutionAssociation(UserInInstitution *uii);
     bool deleteUserInstitutionAssociation(qint32 userId, qint32 institutionId);
-    QList<UserInInstitution*>* getUserInstitutionAssociation(qint32 userId);
+    QList<UserInInstitution*> getUserInstitutionAssociation(qint32 userId, bool *success);
 
     qint32 nextSampleId();
     bool storeSample(Sample *s);

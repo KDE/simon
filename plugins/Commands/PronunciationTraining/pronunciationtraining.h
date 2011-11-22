@@ -49,7 +49,7 @@ class PronunciationTraining : public QWidget, public GreedyReceiver
     void closeEvent(QCloseEvent *);
 
   public:
-    bool greedyTriggerRawList(RecognitionResultList* results);
+    bool greedyTriggerRawList(RecognitionResultList results);
     void init();
     explicit PronunciationTraining(const QString& terminal, QWidget* parent=0);
 

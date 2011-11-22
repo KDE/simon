@@ -42,7 +42,7 @@ class ImportDict : public QThread
     QString encoding;                             //!< the encoding of the dictionary
     int type;
     Dict *dict;
-    QList<Word*> *wordList;
+    QList<Word*> wordList;
     bool deleteFileWhenDone;
 
     signals:
@@ -59,7 +59,7 @@ class ImportDict : public QThread
   public slots:
     void deleteDict();
   public:
-    QList<Word*>* getCurrentWordList();
+    QList<Word*> getCurrentWordList();
     ImportDict(QObject *parent=0);
     void run();
     void parseWordList(QString pathToDict, QString encoding, int type, bool deleteFileWhenDone);

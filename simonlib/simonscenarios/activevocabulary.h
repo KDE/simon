@@ -41,7 +41,7 @@ class MODELMANAGEMENT_EXPORT ActiveVocabulary : public Vocabulary, public Scenar
 
   public:
     static ActiveVocabulary* createVocabulary(Scenario *parent, const QDomElement&);
-    bool addWords(QList<Word*>* w);
+    bool addWords(QList<Word*> w);
     bool addWord(Word* w);
     bool reOrder(Word* w);
     bool removeWord(Word* w, bool deleteWord=true);

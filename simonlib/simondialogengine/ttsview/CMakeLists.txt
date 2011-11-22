@@ -1,4 +1,4 @@
-find_package(KDE4 REQUIRED)
+
 include(SimonDirs)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})

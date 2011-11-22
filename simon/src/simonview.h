@@ -37,7 +37,6 @@
 #include <simoncontrol.h>
 #include <simonscenarios/scenariodisplay.h>
 
-#include <QList>
 #include <QMutex>
 
 #ifdef DEBUG_TEST_SYNCHRONIZATION
@@ -45,81 +44,20 @@
 #endif
 
 #include <KDE/KHTMLPart>
-// #include "operation.h"
 
-class QPoint;
-class QCloseEvent;
-class QWidget;
-class InlineWidgetView;
-class QString;
-class SimonControl;
-class SimonInfo;
-class TrainingView;
-class AddWordView;
 class TrayIconManager;
-class RunCommandView;
-class QAction;
-class GrammarView;
-class ContextView;
 class KCMultiDialog;
 class KAction;
-class Operation;
-class QThread;
-class VocabularyView;
 class KComboBox;
-class KHTMLPart;
-class WelcomeHTMLPart;
 
 class SimonView : public KXmlGuiWindow, public ScenarioDisplay
 {
+    Q_OBJECT
+  public:
+    explicit SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
+    ~SimonView();
 
-  Q_OBJECT
-
-    private:
-  #ifdef DEBUG_TEST_SYNCHRONIZATION
-    QTimer t;
-    int wordI;
-  #endif
-    WelcomeHTMLPart *welcomePart;
-    QMutex guiUpdateMutex;
-
-    bool settingsShown;
-    int shownDialogs;
-    QPoint currentPos;
-    QPoint addWordDlgPos;
-
-    KAction *disconnectAction;
-    KAction *activateAction, *connectAction;
-
-    Ui::MainWindow ui;                            //!< Mainwindow UI definition - made by uic from the QTDesigner .ui
-    SimonControl *control;                        //!< Pointer to the main concept class
-    TrayIconManager *trayManager;                 //!< Handles the TrayIcon
-    VocabularyView *vocabularyView;
-    GrammarView *grammarView;                     //!< Pointer on the Dialog "WordList"
-    RunCommandView *runDialog;                    //!< Pointer on the Dialog "RunCommand"
-    TrainingView *trainDialog;                    //!< Pointer on the Dialog "Training"
-    ContextView *contextDialog;
-    KCMultiDialog *configDialog;
-
-    KComboBox *cbCurrentScenario;
-
-    void setupSignalSlots();
-    void setupActions();
-
-  protected:
-    void displayAboutPage();
-    void displayScenarioPrivate(Scenario *scenario);
-
-  private slots:
-    void manageScenarios();
-    void updateScenarioDisplays();
-    void updateActionList();
-    void displayScenarios();
-    void showVolumeCalibration();
-
-  #ifdef DEBUG_TEST_SYNCHRONIZATION
-    void testSlot();
-  #endif
+    void closeEvent ( QCloseEvent * event );
 
   public slots:
     void displayConnectionStatus(const QString &status);
@@ -133,21 +71,48 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void setActivation(bool active);
     void representState(SimonControl::SystemStatus status);
     
-    void showAddWordDialog();
-    void showRunDialog();
-    void showContextDialog();
-    void showTrainDialog();
-    void showWordListDialog();
-    void showGrammarDialog();
     void showSystemDialog();
+    void showTrainDialog();
+    
+   private slots:
+    void manageScenarios();
+    void updateScenarioDisplays();
+    void updateActionList();
+    void displayScenarios();
+    void showVolumeCalibration();
 
-  public:
-    explicit SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
+  #ifdef DEBUG_TEST_SYNCHRONIZATION
+    void testSlot();
+  #endif
+   
+  private:
+    void setupSignalSlots();
+    void setupActions();
 
-    ~SimonView();
+    void setupWelcomePage();
+    void displayScenarioPrivate(Scenario *scenario);
+    
+  #ifdef DEBUG_TEST_SYNCHRONIZATION
+    QTimer t;
+    int wordI;
+  #endif
+    QMutex guiUpdateMutex;
 
-    void closeEvent ( QCloseEvent * event );
+    bool settingsShown;
+    int shownDialogs;
+    QPoint currentPos;
+    QPoint addWordDlgPos;
 
+    KAction *disconnectAction;
+    KAction *activateAction;
+    KAction *connectAction;
+
+    Ui::MainWindow ui;                            //!< Mainwindow UI definition - made by uic from the QTDesigner .ui
+    SimonControl *control;                        //!< Pointer to the main concept class
+    TrayIconManager *trayManager;                 //!< Handles the TrayIcon
+    KCMultiDialog *configDialog;
+
+    KComboBox *cbCurrentScenario;
 };
 
 class WelcomeHTMLPart : public KHTMLPart

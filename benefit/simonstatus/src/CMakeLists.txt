@@ -1,4 +1,4 @@
-find_package(KDE4 REQUIRED)
+
 include (KDE4Defaults)
 
 include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}

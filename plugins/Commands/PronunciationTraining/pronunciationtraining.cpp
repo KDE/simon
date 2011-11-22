@@ -119,9 +119,9 @@ void PronunciationTraining::quit()
 }
 
 
-bool PronunciationTraining::greedyTriggerRawList(RecognitionResultList* results)
+bool PronunciationTraining::greedyTriggerRawList(RecognitionResultList results)
 {
-  if (results->isEmpty()) return false;
+  if (results.isEmpty()) return false;
 
   if (m_currentWordIndex >= m_wordsToTest.count())
     return false;
@@ -130,7 +130,7 @@ bool PronunciationTraining::greedyTriggerRawList(RecognitionResultList* results)
 
   int i=0;
   bool found = false;
-  foreach (const RecognitionResult& result, *results) {
+  foreach (const RecognitionResult& result, results) {
     if (result.sentence() == searchedSentence) {
       kDebug() << "Found result: at index: " << i << result.toString();
       ui.pbScore->setValue(qRound(100.0f * result.averageConfidenceScore()));

@@ -143,19 +143,19 @@ void ClientSocket::sendUser(qint32 id)
 
 void ClientSocket::sendUsers(User *filterUser, qint32 institutionId, const QString& referenceId)
 {
-  QList<User*>* users = databaseAccess->getUsers(filterUser, institutionId, referenceId);
-  if (!users) {
+  bool success;
+  QList<User*> users = databaseAccess->getUsers(filterUser, institutionId, referenceId, &success);
+  if (!success) {
     sendCode(SSC::UserRetrievalFailed);
     return;
   }
   QList<SSCObject*> sendMe;
 
-  foreach (User* u, *users)
+  foreach (User* u, users)
     sendMe << u;
 
   sendObjects(SSC::Users, sendMe);
-  qDeleteAll(*users);
-  delete users;
+  qDeleteAll(users);
 }
 
 
@@ -205,91 +205,91 @@ void ClientSocket::removeUserInInstitution(qint32 userId, qint32 institutionId)
 
 void ClientSocket::sendLanguages()
 {
-  QList<Language*>* ll = databaseAccess->getLanguages();
-  if (!ll) {
+  bool success;
+  QList<Language*> ll = databaseAccess->getLanguages(&success);
+  if (!success) {
     sendCode(SSC::LanguageRetrievalFailed);
     return;
   }
   QList<SSCObject*> sendMe;
 
-  foreach (Language* l, *ll)
+  foreach (Language* l, ll)
     sendMe << l;
 
   sendObjects(SSC::Languages, sendMe);
-  qDeleteAll(*ll);
-  delete ll;
+  qDeleteAll(ll);
 }
 
 
 void ClientSocket::sendMicrophones()
 {
-  QList<Microphone*>* ml = databaseAccess->getMicrophones();
-  if (!ml) {
+  bool success;
+  QList<Microphone*> ml = databaseAccess->getMicrophones(&success);
+  if (!success) {
     sendCode(SSC::MicrophoneRetrievalFailed);
     return;
   }
   QList<SSCObject*> sendMe;
 
-  foreach (Microphone* m, *ml)
+  foreach (Microphone* m, ml)
     sendMe << m;
 
   sendObjects(SSC::Microphones, sendMe);
-  qDeleteAll(*ml);
-  delete ml;
+  qDeleteAll(ml);
 }
 
 
 void ClientSocket::sendSoundCards()
 {
-  QList<SoundCard*>* sl = databaseAccess->getSoundCards();
-  if (!sl) {
+  bool success;
+  QList<SoundCard*> sl = databaseAccess->getSoundCards(&success);
+  if (!success) {
     sendCode(SSC::SoundCardRetrievalFailed);
     return;
   }
   QList<SSCObject*> sendMe;
 
-  foreach (SoundCard* s, *sl)
+  foreach (SoundCard* s, sl)
     sendMe << s;
 
   sendObjects(SSC::SoundCards, sendMe);
-  qDeleteAll(*sl);
-  delete sl;
+  qDeleteAll(sl);
 }
 
 
 void ClientSocket::sendInstitutions()
 {
-  QList<Institution*>* ins = databaseAccess->getInstitutions();
-  if (!ins) {
+  bool success;
+  QList<Institution*> ins = databaseAccess->getInstitutions(&success);
+  if (!success) {
     sendCode(SSC::InstitutionRetrievalFailed);
     return;
   }
   QList<SSCObject*> sendMe;
 
-  foreach (Institution* i, *ins)
+  foreach (Institution* i, ins)
     sendMe << i;
 
   sendObjects(SSC::Institutions, sendMe);
-  qDeleteAll(*ins);
-  delete ins;
+  qDeleteAll(ins);
 }
 
 
 void ClientSocket::sendUserInstitutionAssociations(qint32 userId)
 {
-  QList<UserInInstitution*>* uiis = databaseAccess->getUserInstitutionAssociation(userId);
-  if (!uiis) {
+  bool success;
+  QList<UserInInstitution*> uiis = databaseAccess->getUserInstitutionAssociation(userId, &success);
+  if (!success) {
     sendCode(SSC::UserRetrievalFailed);
     return;
   }
   QList<SSCObject*> sendMe;
 
-  foreach (UserInInstitution* uii, *uiis)
+  foreach (UserInInstitution* uii, uiis)
     sendMe << uii;
 
   sendObjects(SSC::UserInstitutionAssociations, sendMe);
-  qDeleteAll(*uiis);
-  delete uiis;
+  qDeleteAll(uiis);
 }
 
 

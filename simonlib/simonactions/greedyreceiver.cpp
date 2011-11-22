@@ -21,18 +21,17 @@
 #include "actionmanager.h"
 #include <simonscenarios/commandmanager.h>
 
-bool GreedyReceiver::greedyTriggerRawList(RecognitionResultList* resultList)
+bool GreedyReceiver::greedyTriggerRawList(const RecognitionResultList &resultList)
 {
   kDebug() << "Greedy triggering raw list";
-  if (resultList->isEmpty()) return false;
+  if (resultList.isEmpty()) return false;
 
-  if (resultList->count() > 1) {
+  if (resultList.count() > 1) {
     kDebug() << "Presenting user with results...";
     ActionManager::getInstance()->presentUserWithResults(resultList);
     return true;
-  }
-  else {
-    return greedyTriggerRaw(resultList->at(0));
+  } else {
+    return greedyTriggerRaw(resultList.at(0));
   }
 }
 

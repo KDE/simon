@@ -31,23 +31,15 @@
 #include <KIcon>
 #include <simonscenarios/action.h>
 
+class Action;
 class CommandManager;
 class CommandSettings;
-class Action;
+class VoiceInterfaceCommand;
 
 class SIMONACTIONS_EXPORT ActionManager : public QObject
 {
   Q_OBJECT
   Q_CLASSINFO("simons action interface", "org.simon-listens.ActionManager")
-
-  private:
-    static ActionManager* instance;
-
-    RecognitionResultList *currentlyPromptedListOfResults;
-    QList<GreedyReceiver*> *greedyReceivers;
-
-    float minimumConfidenceThreshold;
-    bool useDYM;
 
   private slots:
     void resultSelectionDone();
@@ -56,15 +48,15 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
     ActionManager(QObject *parent=0);
 
   public slots:
-    void processRawResults(RecognitionResultList* recognitionResults);
-    void presentUserWithResults(RecognitionResultList* recognitionResults);
+    void processRawResults(const RecognitionResultList &recognitionResults);
+    void presentUserWithResults(const RecognitionResultList &recognitionResults);
     bool processResult(RecognitionResult recognitionResult);
     bool triggerCommand(const QString& type, const QString& trigger, bool silent=false);
 
     void deRegisterGreedyReceiver(GreedyReceiver *);
     void registerGreedyReceiver(GreedyReceiver *);
 
-    CommandList* getCommandList();
+    CommandList getCommandList();
 
     QFont pluginBaseFont();
 
@@ -77,5 +69,12 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
 
     ~ActionManager();
 
+  private:
+    RecognitionResultList currentlyPromptedListOfResults;
+    QList<GreedyReceiver*> greedyReceivers;
+    static ActionManager *instance;
+
+    float minimumConfidenceThreshold;
+    bool useDYM;
 };
 #endif

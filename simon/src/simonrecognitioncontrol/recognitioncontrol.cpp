@@ -1750,7 +1750,7 @@ void RecognitionControl::messageReceived()
           msg >> sentenceCount;
 
 	  emit receivedResults();
-          RecognitionResultList* recognitionResults = new RecognitionResultList();
+          RecognitionResultList recognitionResults;
 
           for (int i=0; i < sentenceCount; i++) {
             QByteArray word, sampa, samparaw;
@@ -1759,7 +1759,7 @@ void RecognitionControl::messageReceived()
             msg >> sampa;
             msg >> samparaw;
             msg >> confidenceScores;
-            recognitionResults->append(RecognitionResult(QString::fromUtf8(word),
+            recognitionResults.append(RecognitionResult(QString::fromUtf8(word),
               QString::fromUtf8(sampa),
               QString::fromUtf8(samparaw),
               confidenceScores));

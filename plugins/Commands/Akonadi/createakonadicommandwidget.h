@@ -42,7 +42,7 @@ class CreateAkonadiCommandWidget : public CreateCommandWidget
 
   private:
     Ui::CreateAkonadiCommandWidget ui;
-    CommandList* allCommands;
+    CommandList allCommands;
 
 
   public:

@@ -47,9 +47,9 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 {
   Q_OBJECT
 
-    signals:
-  void changed(Scenario*);
-  void activationChanged();
+  signals:
+    void changed(Scenario*);
+    void activationChanged();
 
   private:
     QString m_prefix;
@@ -70,8 +70,8 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     ActiveVocabulary *m_vocabulary;
     TrainingTextCollection *m_texts;
     Grammar *m_grammar;
-    ActionCollection* m_actionCollection;
-    CompoundCondition* m_compoundCondition;
+    ActionCollection *m_actionCollection;
+    CompoundCondition *m_compoundCondition;
     QStringList m_childScenarioIds;
     QList<Scenario*> m_childScenarios;
     Scenario* m_parentScenario;
@@ -83,7 +83,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     static QDateTime utcTime();
 
   public:
-    explicit Scenario(const QString& scenarioId, const QString& prefix=QString());
+    explicit Scenario(const QString& scenarioId, const QString& prefix=QString(), QObject *parent = 0);
 
     KIcon icon() { return KIcon(m_iconSrc); }
     QString iconSrc() { return m_iconSrc; }
@@ -99,7 +99,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     QString serialize();
 
-    bool addWords(QList<Word*>* w);
+    bool addWords(QList<Word*> w);
     bool addWord(Word* w);
     bool removeWord(Word* w);
 
@@ -163,7 +163,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool processResult(RecognitionResult recognitionResult);
     bool triggerCommand(const QString& type, const QString& trigger, bool silent);
 
-    CommandList* getCommandList();
+    CommandList getCommandList();
 
     void startGroup();
     bool commitGroup();

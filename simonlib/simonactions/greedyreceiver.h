@@ -87,7 +87,7 @@ class SIMONACTIONS_EXPORT GreedyReceiver
      * \param results The received list of recognition results
      * \return True, if the command was accepted
      */
-    virtual bool greedyTriggerRawList(RecognitionResultList* results);
+    virtual bool greedyTriggerRawList(const RecognitionResultList &results);
 
     /**
      * \brief Trigger with the raw recognition result

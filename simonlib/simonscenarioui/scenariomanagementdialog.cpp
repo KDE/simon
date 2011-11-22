@@ -322,6 +322,7 @@ void ScenarioManagementDialog::deleteScenario()
   }
 
   s->deleteLater();
+  m_lastSelectedIndex = QModelIndex();
   //ui->asScenarios->setButtonsEnabled();
 }
 

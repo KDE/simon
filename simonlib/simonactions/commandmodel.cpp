@@ -22,23 +22,21 @@
 #include <KLocale>
 #include <QMutexLocker>
 
-CommandModel::CommandModel(CommandList* CL)
+CommandModel::CommandModel(CommandList CL)
 : commands(CL)
 {
 }
 
 
-void CommandModel::updateCommands(CommandList *commands)
+void CommandModel::updateCommands(const CommandList& newCommands)
 {
-  delete this->commands;
-  this->commands = commands;
+  commands = newCommands;
   reset();
 }
 
 
 QVariant CommandModel::data(const QModelIndex &index, int role) const
 {
-  Q_ASSERT(commands);
   if (!index.isValid()) return QVariant();
 
   if (! index.parent().isValid()) {
@@ -53,9 +51,9 @@ QVariant CommandModel::data(const QModelIndex &index, int role) const
       return strCategory;
     } else if (role == Qt::DecorationRole)
     {
-      for (int i=0; i<commands->count(); i++)
-        if (commands->at(i)->getCategoryText()==strCategory)
-          return commands->at(i)->getCategoryIcon();
+      for (int i=0; i<commands.count(); i++)
+        if (commands.at(i)->getCategoryText()==strCategory)
+          return commands.at(i)->getCategoryIcon();
     }
   } else
           {                                       //command
@@ -76,8 +74,6 @@ QVariant CommandModel::data(const QModelIndex &index, int role) const
 
 Qt::ItemFlags CommandModel::flags(const QModelIndex &index) const
 {
-  Q_ASSERT(commands);
-
   if (!index.isValid()) {
     return 0;
   }
@@ -89,7 +85,6 @@ Qt::ItemFlags CommandModel::flags(const QModelIndex &index) const
 QVariant CommandModel::headerData(int, Qt::Orientation orientation,
 int role) const
 {
-  Q_ASSERT(commands);
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     return i18n("Command");
   }
@@ -105,26 +100,24 @@ const QModelIndex &parent) const
   if (!hasIndex(row, column, parent))
     return QModelIndex();
 
-  Q_ASSERT(commands);
-
   if (parent.isValid()) {
     //child
     QString catStr = parent.data(Qt::DisplayRole).toString();
 
     //find line
-    if (row < commands->count()) {
+    if (row < commands.count()) {
       int i;
       int counter=-1;
       for (i=0; counter < row; i++) {
-        if (commands->at(i)->getCategoryText() == catStr)
+        if (commands.at(i)->getCategoryText() == catStr)
           counter++;
       }
       i--;
-      return createIndex(row, column, commands->at(i));
+      return createIndex(row, column, commands.at(i));
     }
   }
   else {
-    QStringList cats = getCategories(this->commands);
+    QStringList cats = getCategories(commands);
     return createIndex(row, column, 0);
   }
 
@@ -134,13 +127,11 @@ const QModelIndex &parent) const
 
 QModelIndex CommandModel::parent(const QModelIndex &index) const
 {
-  Q_ASSERT(commands);
-
   if (!index.isValid()) {
     return QModelIndex();
   }
 
-  if (commands->contains((Command*) index.internalPointer())) {
+  if (commands.contains((Command*) index.internalPointer())) {
     QStringList cats = getCategories(commands);
 
     Command *com = static_cast<Command*>(index.internalPointer());
@@ -160,18 +151,16 @@ QModelIndex CommandModel::parent(const QModelIndex &index) const
 
 int CommandModel::rowCount(const QModelIndex &parent) const
 {
-  Q_ASSERT(commands);
-
   if (!parent.isValid()) {
-    int rowCount = getCategories(this->commands).count();
+    int rowCount = getCategories(commands).count();
     return rowCount;
   }
   else {
     QString strCat = parent.data(Qt::DisplayRole).toString();
     int count=0;
 
-    for (int i=0; i < commands->count(); i++)
-      if (commands->at(i)->getCategoryText() == strCat)
+    for (int i=0; i < commands.count(); i++)
+      if (commands.at(i)->getCategoryText() == strCat)
         count++;
 
     return count;
@@ -179,13 +168,12 @@ int CommandModel::rowCount(const QModelIndex &parent) const
 }
 
 
-const QStringList CommandModel::getCategories(const CommandList *commands) const
+const QStringList CommandModel::getCategories(const CommandList &commands) const
 {
-  Q_ASSERT(commands);
   QStringList strCategories;
-  for (int i=0; i < commands->count(); i++) {
-    if (commands->at(i) && !strCategories.contains(commands->at(i)->getCategoryText()))
-      strCategories << commands->at(i)->getCategoryText();
+  for (int i=0; i < commands.count(); i++) {
+    if (commands.at(i) && !strCategories.contains(commands.at(i)->getCategoryText()))
+      strCategories << commands.at(i)->getCategoryText();
   }
   return strCategories;
 }

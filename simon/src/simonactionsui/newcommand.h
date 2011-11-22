@@ -38,7 +38,7 @@ class NewCommand : protected KDialog
 
   private:
     Ui::DlgModifyCommands ui;
-    QList<CreateCommandWidget*> *commandCreaters;
+    QList<CreateCommandWidget*> commandCreaters;
     void switchToTypeOfManager(CommandManager* manager);
 
   private slots:
@@ -49,7 +49,7 @@ class NewCommand : protected KDialog
     NewCommand(QWidget *parent=0);
     ~NewCommand();
 
-    bool registerCreators(QList<CreateCommandWidget*>* commandCreaters);
+    bool registerCreators(QList<CreateCommandWidget*> commandCreaters);
 
     bool newCommand(CommandManager* preSelectedCategory=0);
 
