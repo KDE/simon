@@ -43,8 +43,8 @@ class RunCommandViewPrivate : public QWidget, public ScenarioDisplay
 {
   Q_OBJECT
 
-    signals:
-  void actionsChanged();
+  signals:
+    void actionsChanged();
 
   private:
     Ui::RunDlg ui;
