@@ -73,15 +73,16 @@ public:
 
 		while(shouldRun && !FAILED(m_parent->m_primaryBufferC->GetCurrentPosition(NULL,&dwReadPos))){
 			if(dwReadPosOld == dwReadPos){
-				kWarning()<<"Cursor didnt move";
+				//TODO:could cause lags?
 				Sleep(300);
 				continue;
 			}
-			kWarning()<<"Recording";
 			dwReadPosOld = dwReadPos;
 			lockSize = dwReadPos - dwMyReadCursor;
 			if (lockSize <= 0)
 				lockSize += bufferSize;
+ 
+			lockSize -= (lockSize % bufferSize);  
 
 
 			if (FAILED(hr = m_parent->m_primaryBufferC->Lock(dwMyReadCursor, lockSize,&capture1, &captureLength1, &capture2, &captureLength2, NULL))){
@@ -95,6 +96,7 @@ public:
 			//Copy AudioBuffer to DirectSoundBuffer
 			dataWritten  = m_parent->m_client->writeData((char*)capture1, captureLength1);
 			readCount = captureLength1;     
+
 
 			if (capture2 != NULL){
 				dataWritten  += m_parent->m_client->writeData((char*)capture2, captureLength2);
