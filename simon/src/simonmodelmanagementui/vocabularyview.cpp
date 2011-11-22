@@ -29,11 +29,12 @@
  *
  * @author Peter Grasch
  */
-VocabularyView::VocabularyView(QWidget *parent) : InlineWidget(i18n("Wordlist"),
-KIcon("format-justify-fill"),
-i18n("View and modify the vocabulary."), parent)
+VocabularyView::VocabularyView(QWidget *parent)
+: InlineWidget(i18n("Wordlist"),
+  KIcon("format-justify-fill"),
+  i18n("View and modify the vocabulary."), parent),
+  d(new VocabularyViewPrivate(this))
 {
-  d = new VocabularyViewPrivate(this);
   QVBoxLayout *lay = new QVBoxLayout(this);
   lay->addWidget(d);
 
@@ -44,17 +45,4 @@ i18n("View and modify the vocabulary."), parent)
 void VocabularyView::displayScenarioPrivate(Scenario *scenario)
 {
   d->displayScenario(scenario);
-}
-
-
-/**
- * @brief Destructor
- *
- * Empty Destructor
- *
- * @author Peter Grasch
- */
-VocabularyView::~VocabularyView()
-{
-  d->deleteLater();
 }

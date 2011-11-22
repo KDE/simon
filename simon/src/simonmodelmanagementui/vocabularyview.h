@@ -38,16 +38,14 @@ class VocabularyViewPrivate;
 class SIMONMODELMANAGEMENTUI_EXPORT VocabularyView : public InlineWidget, public ScenarioDisplay
 {
   Q_OBJECT
-    private:
-    VocabularyViewPrivate *d;
-
-  protected:
-    void displayScenarioPrivate(Scenario *scenario);
 
   public:
     VocabularyView(QWidget *parent=0);
 
-    ~VocabularyView();
+  protected:
+    void displayScenarioPrivate(Scenario *scenario);
 
+  private:
+    VocabularyViewPrivate *d;
 };
 #endif
