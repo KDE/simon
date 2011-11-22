@@ -52,7 +52,6 @@ class DirectSoundBackend : public SoundBackend
     WAVEFORMATEX    m_waveFormat;
 
     LPBYTE m_audioBuffer;
-    LPBYTE m_audioBufferC;
     LPDIRECTSOUNDNOTIFY m_notify;
 
     LPDIRECTSOUND8 m_handle;
@@ -65,7 +64,6 @@ class DirectSoundBackend : public SoundBackend
     QStringList m_devices;
 
     int m_bufferSize;
-    int m_bufferSizeC;
     int m_blockAlign;
     int m_sampleRate;
 

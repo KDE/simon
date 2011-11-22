@@ -63,6 +63,7 @@ public:
 		DWORD dwReadPosOld = 0;
 		DWORD lockSize;
 		qint64 readCount;
+		int bufferSize = 1024;
 
 		if(FAILED(hr = m_parent->m_primaryBufferC->Start( DSCBSTART_LOOPING ) )){
 			kWarning()<<"Failed to start recording"<<DXERR_TO_STRING(hr);
@@ -80,7 +81,7 @@ public:
 			dwReadPosOld = dwReadPos;
 			lockSize = dwReadPos - dwMyReadCursor;
 			if (lockSize <= 0)
-				lockSize += m_parent->m_bufferSizeC;
+				lockSize += bufferSize;
 
 
 			if (FAILED(hr = m_parent->m_primaryBufferC->Lock(dwMyReadCursor, lockSize,&capture1, &captureLength1, &capture2, &captureLength2, NULL))){
@@ -92,22 +93,20 @@ public:
 
 
 			//Copy AudioBuffer to DirectSoundBuffer
-			//todo: if its working I can probably remove the buffer and write direct
-			memcpy(m_parent->m_audioBufferC, capture1,captureLength1);
+			dataWritten  = m_parent->m_client->writeData((char*)capture1, captureLength1);
 			readCount = captureLength1;     
 
 			if (capture2 != NULL){
-				memcpy(m_parent->m_audioBufferC+captureLength1, capture2,captureLength2);
+				dataWritten  += m_parent->m_client->writeData((char*)capture2, captureLength2);
 				readCount += captureLength2;
 			}
-
-			dataWritten  = m_parent->m_client->writeData((char*)m_parent->m_audioBufferC, readCount);
-			if(dataWritten == 0|| dataWritten != readCount)
+			
+			if(dataWritten == 0 || dataWritten != readCount)
 				kWarning()<<"Writing captured data failed";
 			
 			m_parent->m_primaryBufferC->Unlock(capture1,captureLength1,capture2,captureLength2);  
 			dwMyReadCursor += lockSize;
-			dwMyReadCursor %= m_parent->m_bufferSizeC;
+			dwMyReadCursor %= bufferSize;
 
 
 		}
@@ -243,15 +242,13 @@ public:
 DirectSoundBackend::DirectSoundBackend() : 
 m_loop(0),
 	m_audioBuffer(0),
-	m_audioBufferC(0),
 	m_notify(0),
 	m_handle(0),
 	m_primaryBuffer(0),
 	m_secondaryBuffer(0),
 	m_handleC(0),
 	m_primaryBufferC(0),
-	m_bufferSize(1024),
-	m_bufferSizeC(1024)
+	m_bufferSize(1024)
 {
 	ZeroMemory(&m_waveFormat, sizeof(m_waveFormat));
 	m_bufferEvents[0] = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify_0");
@@ -345,9 +342,9 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	kWarning() << "Creating sound buffer";
 
 	// DSBUFFERDESC
-	BufferDesc.dwFlags      = DSBCAPS_CTRLPOSITIONNOTIFY |
-		DSBCAPS_CTRLFREQUENCY |
-		DSBCAPS_GLOBALFOCUS;
+	BufferDesc.dwFlags      =	DSBCAPS_CTRLPOSITIONNOTIFY |
+								DSBCAPS_CTRLFREQUENCY |
+								DSBCAPS_GLOBALFOCUS;
 	BufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec * 2; // 2 seconds of sound
 	BufferDesc.lpwfxFormat    = &m_waveFormat;
 
@@ -428,14 +425,6 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 		*primaryBufferC = 0;
 		return false;
 	}
-
-	kWarning() << "Allocating buffer";
-	delete[] m_audioBufferC;
-	m_audioBufferC = new BYTE[CaptureBufferDesc.dwBufferBytes];
-	m_bufferSizeC = m_waveFormat.nAvgBytesPerSec;
-
-	//Init Audio Buffer
-	memset(m_audioBufferC, 0, CaptureBufferDesc.dwBufferBytes);
 	kWarning() << "Opened device";
 	return true;
 }
