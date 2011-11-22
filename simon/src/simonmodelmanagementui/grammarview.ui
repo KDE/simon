@@ -98,7 +98,7 @@
        <item>
         <widget class="KPushButton" name="pbRename">
          <property name="text">
-          <string>Rename Terminal</string>
+          <string>Rename Category</string>
          </property>
          <property name="checkable">
           <bool>false</bool>
@@ -108,7 +108,7 @@
        <item>
         <widget class="KPushButton" name="pbMerge">
          <property name="text">
-          <string>Merge Terminals</string>
+          <string>Merge Categories</string>
          </property>
          <property name="checkable">
           <bool>false</bool>
