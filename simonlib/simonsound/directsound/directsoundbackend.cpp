@@ -74,7 +74,7 @@ public:
 		while(shouldRun && !FAILED(m_parent->m_primaryBufferC->GetCurrentPosition(NULL,&dwReadPos))){
 			if(dwReadPosOld == dwReadPos){
 				//TODO:could cause lags?
-				Sleep(300);
+				Sleep(100);
 				continue;
 			}
 			dwReadPosOld = dwReadPos;
@@ -112,6 +112,7 @@ public:
 
 
 		}
+		kWarning()<<"Record loop ended";
 		m_parent->closeSoundSystem();
 		shouldRun = false;
 	}
@@ -363,7 +364,7 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 
 
 	kWarning() << "Query interface";
-	if(FAILED(hr = (*secondaryBuffer)->QueryInterface(IID_IDirectSoundBuffer8, (void**)(notify)))){
+	if(FAILED(hr = (*secondaryBuffer)->QueryInterface(IID_IDirectSoundNotify, (void**)(notify)))){
 
 		kWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
 		freeAllResources();
@@ -381,8 +382,8 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	pPosNotify[1].hEventNotify = m_bufferEvents[1];  
 
 	kWarning() << "Calling SetNotificationPositions on notify";
-	if ( FAILED((*notify)->SetNotificationPositions(2, pPosNotify)) ) {
-		kWarning() << "Set NotificationPosition Failed!";
+	if ( FAILED(hr = (*notify)->SetNotificationPositions(2, pPosNotify)) ) {
+		kWarning() << "Set NotificationPosition Failed!"<<DX_SHARED_DEFINES(hr);
 		freeAllResources();
 		return false;
 	} 
@@ -634,7 +635,7 @@ bool DirectSoundBackend::preparePlayback(const QString& device, int& channels, i
 		return false;
 	}
 
-	if (!openDevice(SimonSound::Input, device, channels, samplerate, 
+	if (!openDevice(SimonSound::Output, device, channels, samplerate, 
 		&m_handle, &m_primaryBuffer, &m_secondaryBuffer, 
 		&m_handleC, &m_primaryBufferC,&m_notify)) {
 			kWarning() << "Failed to open device";
