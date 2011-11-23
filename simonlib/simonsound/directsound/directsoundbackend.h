@@ -48,7 +48,7 @@ class DirectSoundBackend : public SoundBackend
   private:
     DirectSoundLoop *m_loop;
 
-    HANDLE m_bufferEvents[2];
+    HANDLE m_bufferEvents[3];
     WAVEFORMATEX    m_waveFormat;
 
     LPBYTE m_audioBuffer;

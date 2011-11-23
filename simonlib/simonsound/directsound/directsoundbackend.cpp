@@ -62,9 +62,9 @@ public:
 		DWORD dwMyReadCursor = 0;  
 		DWORD dwReadPos;
 		DWORD dwReadPosOld = 0;
-		DWORD lockSize;
+		LONG lockSize;
 		qint64 readCount;
-		int bufferSize = m_parent->m_bufferSize/2 -1;
+		int bufferSize = m_parent->m_bufferSize;
 
 		WAV tmp("simon-test.wav",m_parent->m_waveFormat.nChannels,m_parent->m_sampleRate);
 		tmp.beginAddSequence();
@@ -91,11 +91,13 @@ public:
 			}
 
 			lockSize = dwReadPos - dwMyReadCursor;
-			if (lockSize <= 0)
-				lockSize += bufferSize;
+			if( lockSize  < 0 )   
+				lockSize += bufferSize; 
 
-			lockSize -= (lockSize % bufferSize);  
-
+			if (lockSize == 0){
+				kWarning()<<"lock size shouldnt be 0";
+				continue;
+			}
 
 			if (FAILED(hr = m_parent->m_primaryBufferC->Lock(dwMyReadCursor, lockSize,&capture1, &captureLength1, &capture2, &captureLength2, NULL))){
 				kWarning()<<"Capture lock failure"<<QString::number(lockSize)<<DXERR_TO_STRING(hr);
@@ -117,6 +119,7 @@ public:
 			if(dataWritten == 0 || dataWritten != readCount){
 				kWarning()<<"Writing captured data failed";
 				shouldRun = false;
+				continue;
 			}
 
 			kWarning()<<"Wrote "<<dataWritten;
@@ -124,11 +127,8 @@ public:
 			dwMyReadCursor += readCount;
 			dwMyReadCursor %= bufferSize;
 
-
-
-
-
 		}
+
 		kWarning()<<"Record loop ended";
 		tmp.endAddSequence();
 		tmp.writeFile();
@@ -275,6 +275,7 @@ m_loop(0),
 	ZeroMemory(&m_waveFormat, sizeof(m_waveFormat));
 	m_bufferEvents[0] = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify_0");
 	m_bufferEvents[1] = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify_1");
+	m_bufferEvents[2] = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify_2");
 }
 
 int DirectSoundBackend::bufferSize()
@@ -395,8 +396,8 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	kWarning() << "Notify positions";
 	//calculate notify positions
 	DSBPOSITIONNOTIFY pPosNotify[2];
-	pPosNotify[0].dwOffset = m_waveFormat.nAvgBytesPerSec/2 - 1;
-	pPosNotify[1].dwOffset = 3*m_waveFormat.nAvgBytesPerSec/2 - 1;   
+	pPosNotify[0].dwOffset = m_waveFormat.nAvgBytesPerSec -1;
+	pPosNotify[1].dwOffset = 2*m_waveFormat.nAvgBytesPerSec;   
 	pPosNotify[0].hEventNotify = m_bufferEvents[0];
 	pPosNotify[1].hEventNotify = m_bufferEvents[1];  
 
@@ -437,7 +438,7 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 
 	memset( &CaptureBufferDesc, 0,sizeof(CaptureBufferDesc) ); 
 	CaptureBufferDesc.dwSize     = sizeof(DSCBUFFERDESC);
-	CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec * 2; // 2 seconds of sound
+	CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec ; // 2 seconds of sound
 	CaptureBufferDesc.lpwfxFormat    = &m_waveFormat;
 
 	if(FAILED(hr = (*ppDS8C)->CreateCaptureBuffer(&CaptureBufferDesc,primaryBufferC, NULL))) {
@@ -461,14 +462,18 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 
 	kWarning() << "Notify positions";
 	//calculate notify positions
-	DSBPOSITIONNOTIFY pPosNotify[2];
-	pPosNotify[0].dwOffset = m_waveFormat.nAvgBytesPerSec/2-1;  
-	pPosNotify[0].hEventNotify = m_bufferEvents[0];
-	pPosNotify[1].dwOffset = 3*m_waveFormat.nAvgBytesPerSec/2-1;
-	pPosNotify[1].hEventNotify = m_bufferEvents[1];
+	DSBPOSITIONNOTIFY pPosNotify[3];
+	  pPosNotify[0].dwOffset = (m_waveFormat.nAvgBytesPerSec/2) -1;
+	  pPosNotify[0].hEventNotify = m_bufferEvents[0];
+ 
+	  pPosNotify[1].dwOffset = m_waveFormat.nAvgBytesPerSec - 1;
+	  pPosNotify[1].hEventNotify = m_bufferEvents[1];
+ 
+	pPosNotify[2].dwOffset = DSBPN_OFFSETSTOP;
+	pPosNotify[2].hEventNotify = m_bufferEvents[2];
 
 	kWarning() << "Calling SetNotificationPositions on notify";
-	if ( FAILED(hr = (*notify)->SetNotificationPositions(2, pPosNotify)) ) {
+	if ( FAILED(hr = (*notify)->SetNotificationPositions(3, pPosNotify)) ) {
 		kWarning() << "Set NotificationPosition Failed!"<<DX_SHARED_DEFINES(hr);
 		freeAllResources();
 		return false;
@@ -619,6 +624,7 @@ bool DirectSoundBackend::closeSoundSystem()
 	//Reset Event
 	ResetEvent(m_bufferEvents[0]);
 	ResetEvent(m_bufferEvents[1]);
+	ResetEvent(m_bufferEvents[2]);
 
 	freeAllResources();
 
