@@ -95,8 +95,7 @@ public:
 
 			//Copy AudioBuffer to DirectSoundBuffer
 			dataWritten  = m_parent->m_client->writeData((char*)capture1, captureLength1);
-			readCount = captureLength1;     
-
+			readCount = captureLength1;
 
 			if (capture2 != NULL){
 				dataWritten  += m_parent->m_client->writeData((char*)capture2, captureLength2);
@@ -107,7 +106,7 @@ public:
 				kWarning()<<"Writing captured data failed";
 			
 			m_parent->m_primaryBufferC->Unlock(capture1,captureLength1,capture2,captureLength2);  
-			dwMyReadCursor += lockSize;
+			dwMyReadCursor += readCount;
 			dwMyReadCursor %= bufferSize;
 
 
