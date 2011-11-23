@@ -396,8 +396,8 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	kWarning() << "Notify positions";
 	//calculate notify positions
 	DSBPOSITIONNOTIFY pPosNotify[2];
-	pPosNotify[0].dwOffset = m_waveFormat.nAvgBytesPerSec -1;
-	pPosNotify[1].dwOffset = 2*m_waveFormat.nAvgBytesPerSec;   
+	pPosNotify[0].dwOffset = m_waveFormat.nAvgBytesPerSec/2 - 1;
+	pPosNotify[1].dwOffset = 3*m_waveFormat.nAvgBytesPerSec/2 - 1;   
 	pPosNotify[0].hEventNotify = m_bufferEvents[0];
 	pPosNotify[1].hEventNotify = m_bufferEvents[1];  
 
@@ -464,12 +464,12 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 	kWarning() << "Notify positions";
 	//calculate notify positions
 	DSBPOSITIONNOTIFY pPosNotify[3];
-	  pPosNotify[0].dwOffset = (m_waveFormat.nAvgBytesPerSec/2) -1;
-	  pPosNotify[0].hEventNotify = m_bufferEvents[0];
- 
-	  pPosNotify[1].dwOffset = m_waveFormat.nAvgBytesPerSec - 1;
-	  pPosNotify[1].hEventNotify = m_bufferEvents[0];
- 
+	pPosNotify[0].dwOffset = (m_waveFormat.nAvgBytesPerSec/2) -1;
+	pPosNotify[0].hEventNotify = m_bufferEvents[0];
+
+	pPosNotify[1].dwOffset = m_waveFormat.nAvgBytesPerSec - 1;
+	pPosNotify[1].hEventNotify = m_bufferEvents[0];
+
 	pPosNotify[2].dwOffset = DSBPN_OFFSETSTOP;
 	pPosNotify[2].hEventNotify = m_bufferEvents[0];
 
