@@ -32,7 +32,7 @@ void MergeTerminals::run()
 {
   ModelManagerUiProxy::getInstance()->startGroup();
 
-  emit status(i18n("Processing Words of Terminal %1", this->terminalA));
+  emit status(i18n("Processing Words of Category %1", this->terminalA));
   emit progress(0,100);
 
   SpeechModel::ModelElements elements = SpeechModel::ScenarioVocabulary;
@@ -44,7 +44,7 @@ void MergeTerminals::run()
 
   ScenarioManager::getInstance()->renameTerminal(terminalA, newName, elements);
 
-  emit status(i18n("Processing Words of Terminal %1", this->terminalB));
+  emit status(i18n("Processing Words of Category %1", this->terminalB));
   emit progress(50,100);
 
   ScenarioManager::getInstance()->renameTerminal(terminalB, newName, elements);

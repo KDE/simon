@@ -83,11 +83,11 @@ void GrammarViewPrivate::currentSelectionChanged()
 
 void GrammarViewPrivate::addStructure()
 {
-  QString structure = KInputDialog::getText(i18n("Add structure"), i18n("Please enter the new grammar structure.\n\nNote: Use terminals instead of distinct words!"));
+  QString structure = KInputDialog::getText(i18n("Add Sentence"), i18n("Enter the new sentence structure.\n\nUse categories instead of distinct words (e.g \"Trigger Program\")."));
   if (structure.isEmpty()) return;
 
   if (!ScenarioManager::getInstance()->getCurrentScenario()->grammar()->addStructure(structure))
-    KMessageBox::error(this, i18n("Could not add structure to the grammar."));
+    KMessageBox::error(this, i18n("Could not add sentence to the grammar."));
 }
 
 
@@ -96,9 +96,9 @@ void GrammarViewPrivate::deleteStructure()
   int structureIndex = ui.lvStructures->currentIndex().row();
   if (structureIndex == -1) return;
 
-  if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the selected grammar structure?"))==KMessageBox::Yes) {
+  if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the selected sentence?"))==KMessageBox::Yes) {
     if (!ScenarioManager::getInstance()->getCurrentScenario()->grammar()->deleteStructure(structureIndex))
-      KMessageBox::error(this, i18n("Could not delete structure."));
+      KMessageBox::error(this, i18n("Could not delete the sentence."));
     else currentSelectionChanged();
   }
 }

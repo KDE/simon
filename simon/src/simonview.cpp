@@ -183,8 +183,8 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   
   ui.inlineView->registerPage(vocabularyView);
   ui.inlineView->registerPage(grammarView);
-  ui.inlineView->registerPage(contextDialog);
   ui.inlineView->registerPage(runDialog);
+  ui.inlineView->registerPage(contextDialog);
   ui.inlineView->registerPage(trainDialog);
   
   setupSignalSlots();

@@ -1,43 +1,54 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ResolveWordPage</class>
- <widget class="QWidget" name="ResolveWordPage" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ResolveWordPage">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>375</width>
+    <width>518</width>
     <height>337</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QFormLayout" name="formLayout" >
-     <item row="0" column="0" >
-      <widget class="QLabel" name="lbWordDesc" >
-       <property name="text" >
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="lbWordDesc">
+       <property name="text">
         <string>Word:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="KLineEdit" name="leWord" />
+     <item row="0" column="1">
+      <widget class="KLineEdit" name="leWord"/>
      </item>
-     <item row="1" column="0" >
-      <widget class="QLabel" name="lbTypeDesc" >
-       <property name="text" >
-        <string comment="Grammar category">Terminal:</string>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lbSampa">
+       <property name="text">
+        <string>Pronunciation:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1" >
-      <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item row="2" column="1">
+      <widget class="KLineEdit" name="leSampa"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="lbTypeDesc">
+       <property name="text">
+        <string comment="Grammar category">Category:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="KComboBox" name="cbType" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+        <widget class="KComboBox" name="cbType">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -45,146 +56,138 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="tbAddTerminal" >
-         <property name="text" >
+        <widget class="QToolButton" name="tbAddTerminal">
+         <property name="text">
           <string>...</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
-     <item row="2" column="0" >
-      <widget class="QLabel" name="lbSampa" >
-       <property name="text" >
-        <string>Pronunciation:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1" >
-      <widget class="KLineEdit" name="leSampa" />
-     </item>
     </layout>
    </item>
    <item>
-    <widget class="KTabWidget" name="twModules" >
-     <property name="currentIndex" >
+    <widget class="KTabWidget" name="twModules">
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>Similar Words</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QTableWidget" name="twSuggestions" >
-         <property name="minimumSize" >
+        <widget class="QTableWidget" name="twSuggestions">
+         <property name="minimumSize">
           <size>
            <width>0</width>
            <height>94</height>
           </size>
          </property>
-         <property name="selectionMode" >
+         <property name="selectionMode">
           <enum>QAbstractItemView::SingleSelection</enum>
          </property>
-         <property name="selectionBehavior" >
+         <property name="selectionBehavior">
           <enum>QAbstractItemView::SelectRows</enum>
          </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
          <column>
-          <property name="text" >
+          <property name="text">
            <string>Word</string>
           </property>
          </column>
          <column>
-          <property name="text" >
+          <property name="text">
            <string>Pronunciation</string>
           </property>
          </column>
          <column>
-          <property name="text" >
+          <property name="text">
            <string>Type</string>
           </property>
          </column>
          <column>
-          <property name="text" >
+          <property name="text">
            <string>Recognition Rate</string>
           </property>
          </column>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbSimilarSearch" >
-         <property name="text" >
+        <widget class="QCheckBox" name="cbSimilarSearch">
+         <property name="text">
           <string>Include similar words</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbContainsSearch" >
-         <property name="text" >
+        <widget class="QCheckBox" name="cbContainsSearch">
+         <property name="text">
           <string>Include all words containing the search string</string>
          </property>
         </widget>
        </item>
-
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
        <string>Examples</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout" >
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lbSample1Desc" >
-         <property name="maximumSize" >
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="lbSample1Desc">
+         <property name="maximumSize">
           <size>
            <width>16</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="font" >
+         <property name="font">
           <font>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>1:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <widget class="KLineEdit" name="leExample1" />
+       <item row="0" column="1">
+        <widget class="KLineEdit" name="leExample1"/>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lbSample2Desc" >
-         <property name="maximumSize" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="lbSample2Desc">
+         <property name="maximumSize">
           <size>
            <width>16</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="font" >
+         <property name="font">
           <font>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>2:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1" >
-        <widget class="KLineEdit" name="leExample2" />
+       <item row="1" column="1">
+        <widget class="KLineEdit" name="leExample2"/>
        </item>
-       <item row="2" column="1" >
-        <layout class="QHBoxLayout" >
+       <item row="2" column="1">
+        <layout class="QHBoxLayout">
          <item>
           <spacer>
-           <property name="orientation" >
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
              <height>20</height>
@@ -193,8 +196,8 @@
           </spacer>
          </item>
          <item>
-          <widget class="KPushButton" name="pbReGuess" >
-           <property name="text" >
+          <widget class="KPushButton" name="pbReGuess">
+           <property name="text">
             <string>Re-Guess</string>
            </property>
           </widget>
@@ -208,6 +211,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
@@ -223,11 +231,6 @@
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

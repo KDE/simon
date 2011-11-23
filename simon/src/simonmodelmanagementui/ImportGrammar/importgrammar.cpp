@@ -174,8 +174,8 @@ QStringList ImportGrammar::importFile(QString path)
 
       if (wordTerminals.count() != 1 /*change this to include ambigous terminals */) {
         if (includeUnknown)
-          words.replace(j, i18nc("Terminal name for words that are imported from a dictionary "
-				  "which does not provide terminal information", "Unknown"));
+          words.replace(j, i18nc("Category name for words that are imported from a dictionary "
+				  "which does not provide category information", "Unknown"));
         else
           everyWordSure = false;
       } else
@@ -202,8 +202,8 @@ QStringList ImportGrammar::terminals(QList<Word*> in)
     terminal = w->getTerminal();
     if (!terminals.contains(terminal)) terminals << terminal;
   }
-  if (!includeUnknown) terminals.removeAll(i18nc("Terminal name for words that are imported from a dictionary "
-				  "which does not provide terminal information", "Unknown"));
+  if (!includeUnknown) terminals.removeAll(i18nc("Category name for words that are imported from a dictionary "
+				  "which does not provide category information", "Unknown"));
   return terminals;
 }
 

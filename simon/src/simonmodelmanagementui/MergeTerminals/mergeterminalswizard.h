@@ -29,16 +29,16 @@ class QWizardPage;
 
 class MergeTerminalsWizard : public SimonWizard
 {
-  Q_OBJECT
-    private:
+    Q_OBJECT
+
+  public:
+    MergeTerminalsWizard(QWidget* parent);
+
+  private:
     QWizardPage* createIntroPage();
     QWizardPage* createSelectTerminalsPage();
     QWizardPage* createWorkingPage();
     QWizardPage* createFinishedPage();
-  public:
-    MergeTerminalsWizard(QWidget* parent);
-
-    ~MergeTerminalsWizard();
 
 };
 #endif
