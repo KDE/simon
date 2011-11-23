@@ -48,7 +48,7 @@ class DirectSoundBackend : public SoundBackend
   private:
     DirectSoundLoop *m_loop;
 
-    HANDLE m_bufferEvents[3];
+    HANDLE m_bufferEvents[2];
     WAVEFORMATEX    m_waveFormat;
 
     LPBYTE m_audioBuffer;
@@ -64,7 +64,8 @@ class DirectSoundBackend : public SoundBackend
     QStringList m_devices;
 
     int m_bufferSize;
-    int m_blockAlign;
+    int m_bufferSizeC;
+	int m_blockAlign;
     int m_sampleRate;
 
     QStringList getDevices(SimonSound::SoundDeviceType type);

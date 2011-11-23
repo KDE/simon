@@ -64,7 +64,7 @@ public:
 		DWORD dwReadPosOld = 0;
 		LONG lockSize;
 		qint64 readCount;
-		int bufferSize = m_parent->m_bufferSize;
+		int bufferSize = m_parent->m_bufferSizeC;
 
 		WAV tmp("simon-test.wav",m_parent->m_waveFormat.nChannels,m_parent->m_sampleRate);
 		tmp.beginAddSequence();
@@ -270,12 +270,12 @@ m_loop(0),
 	m_secondaryBuffer(0),
 	m_handleC(0),
 	m_primaryBufferC(0),
-	m_bufferSize(1024)
+	m_bufferSize(1024),
+	m_bufferSizeC(1024)
 {
 	ZeroMemory(&m_waveFormat, sizeof(m_waveFormat));
 	m_bufferEvents[0] = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify_0");
 	m_bufferEvents[1] = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify_1");
-	m_bufferEvents[2] = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify_2");
 }
 
 int DirectSoundBackend::bufferSize()
@@ -438,8 +438,9 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 
 	memset( &CaptureBufferDesc, 0,sizeof(CaptureBufferDesc) ); 
 	CaptureBufferDesc.dwSize     = sizeof(DSCBUFFERDESC);
-	CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec ; // 2 seconds of sound
+	CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec ; // 1 seconds of sound
 	CaptureBufferDesc.lpwfxFormat    = &m_waveFormat;
+	m_bufferSizeC = CaptureBufferDesc.dwBufferBytes;
 
 	if(FAILED(hr = (*ppDS8C)->CreateCaptureBuffer(&CaptureBufferDesc,primaryBufferC, NULL))) {
 		kWarning() << "Failed to create primary recording buffer"<<DXERR_TO_STRING(hr);
@@ -467,10 +468,10 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 	  pPosNotify[0].hEventNotify = m_bufferEvents[0];
  
 	  pPosNotify[1].dwOffset = m_waveFormat.nAvgBytesPerSec - 1;
-	  pPosNotify[1].hEventNotify = m_bufferEvents[1];
+	  pPosNotify[1].hEventNotify = m_bufferEvents[0];
  
 	pPosNotify[2].dwOffset = DSBPN_OFFSETSTOP;
-	pPosNotify[2].hEventNotify = m_bufferEvents[2];
+	pPosNotify[2].hEventNotify = m_bufferEvents[0];
 
 	kWarning() << "Calling SetNotificationPositions on notify";
 	if ( FAILED(hr = (*notify)->SetNotificationPositions(3, pPosNotify)) ) {
@@ -624,7 +625,6 @@ bool DirectSoundBackend::closeSoundSystem()
 	//Reset Event
 	ResetEvent(m_bufferEvents[0]);
 	ResetEvent(m_bufferEvents[1]);
-	ResetEvent(m_bufferEvents[2]);
 
 	freeAllResources();
 
