@@ -24,7 +24,6 @@
 #include <KDebug>
 #include <KLocalizedString>
 #include "directsoundbackend.h"
-#include "simonwav\wav.h"
 
 #define SAFE_RELEASE(x) if (x) { x->Release(); x = 0; }
 #define DXERR_TO_STRING(x) QString::fromWCharArray(DXGetErrorDescription(x))<<QString::fromWCharArray(DXGetErrorString(x))
@@ -66,9 +65,6 @@ public:
 		qint64 readCount;
 		int bufferSize = m_parent->m_bufferSizeC;
 
-		WAV tmp("simon-test.wav",m_parent->m_waveFormat.nChannels,m_parent->m_sampleRate);
-		tmp.beginAddSequence();
-
 		if(FAILED(hr = m_parent->m_primaryBufferC->Start( DSCBSTART_LOOPING ) )){
 			kWarning()<<"Failed to start recording"<<DXERR_TO_STRING(hr);
 			shouldRun = false;
@@ -107,12 +103,10 @@ public:
 			kWarning()<<"In Recorde loop";
 			//Copy AudioBuffer to DirectSoundBuffer
 			dataWritten  = m_parent->m_client->writeData((char*)capture1, captureLength1);
-			tmp.write((char*)capture1, captureLength1);
 			readCount = captureLength1;
 
 			if (capture2 != NULL){
 				dataWritten  += m_parent->m_client->writeData((char*)capture2, captureLength2);
-				tmp.write((char*)capture2, captureLength2);
 				readCount += captureLength2;
 			}
 
@@ -130,8 +124,6 @@ public:
 		}
 
 		kWarning()<<"Record loop ended";
-		tmp.endAddSequence();
-		tmp.writeFile();
 		m_parent->closeSoundSystem();
 		shouldRun = false;
 	}
@@ -365,9 +357,7 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	kWarning() << "Creating sound buffer";
 
 	// DSBUFFERDESC
-	BufferDesc.dwFlags      =	DSBCAPS_CTRLPOSITIONNOTIFY |
-		DSBCAPS_CTRLFREQUENCY |
-		DSBCAPS_GLOBALFOCUS;
+	BufferDesc.dwFlags      =	DSBCAPS_CTRLPOSITIONNOTIFY |DSBCAPS_CTRLFREQUENCY |DSBCAPS_GLOBALFOCUS;
 	BufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec * 2; // 2 seconds of sound
 	BufferDesc.lpwfxFormat    = &m_waveFormat;
 
