@@ -25,8 +25,15 @@
 #include <KLocalizedString>
 #include "directsoundbackend.h"
 
-#define SAFE_RELEASE(x) if (x) { x->Release(); x = 0; }
+#ifdef __MINGW64_VERSION_MAJOR
+//libdxerr.a is missing on mingw so no error support :(
+#define DXERR_TO_STRING(x) ""
+#else
+#include <dxerr.h>
 #define DXERR_TO_STRING(x) QString::fromWCharArray(DXGetErrorDescription(x))<<QString::fromWCharArray(DXGetErrorString(x))
+#endif
+
+#define SAFE_RELEASE(x) if (x) { x->Release(); x = 0; }
 
 class DirectSoundLoop : public QThread {
 protected:

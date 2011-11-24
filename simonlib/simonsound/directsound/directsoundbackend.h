@@ -28,13 +28,6 @@
 #include <mmsystem.h>
 #include <dsound.h>
 
-#ifdef __MINGW64_VERSION_MAJOR
-//libdxerr.a is missing on mingw so no error support :(
-#define DXGetErrorString(x) x
-#else
-#include <dxerr.h>
-#endif
-
 
 class DirectSoundLoop;
 class DirectSoundCaptureLoop;
