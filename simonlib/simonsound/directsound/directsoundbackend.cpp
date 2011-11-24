@@ -99,7 +99,7 @@ public:
 				shouldRun = false;
 				continue;
 			} 
-			
+
 			dataWritten  = m_parent->m_client->writeData((char*)capture1, captureLength1);
 			readCount = captureLength1;
 
@@ -124,7 +124,7 @@ public:
 			m_parent->errorRecoveryFailed();
 		}
 
-		
+
 		kWarning()<<"Record loop ended";
 		m_parent->closeSoundSystem();
 		shouldRun = false;
@@ -201,7 +201,7 @@ public:
 		///////////////
 		while (shouldRun && hr == 0) {
 			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents, 0);
-		if(lr == WAIT_FAILED){
+			if(lr == WAIT_FAILED){
 				kWarning()<<"Event loop failed";
 				shouldRun = false;
 				continue;
@@ -209,7 +209,7 @@ public:
 				continue;
 			}
 
-		if(FAILED(hr = m_parent->m_primaryBuffer->GetCurrentPosition(&dwWritePos,NULL))){
+			if(FAILED(hr = m_parent->m_primaryBuffer->GetCurrentPosition(&dwWritePos,NULL))){
 				kWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
 				shouldRun =  false;
 				continue;
@@ -223,7 +223,7 @@ public:
 				kWarning()<<"lock size shouldnt be 0";
 				continue;
 			}
-					//Lock DirectSoundBuffer Second Part
+			//Lock DirectSoundBuffer Second Part
 			if ( FAILED(hr = m_parent->m_primaryBuffer->Lock(dwMyWriteCursor, lockSize, &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, 0)) ) {
 				kWarning() << "Lock DirectSoundBuffer Failed!"<<lockSize<<DXERR_TO_STRING(hr);
 				break;
@@ -241,7 +241,7 @@ public:
 			if (written < m_parent->m_bufferSize)
 				memset(m_parent->m_audioBuffer+written, 0, m_parent->m_bufferSize - written);       
 
-						memcpy(lpvAudio1, m_parent->m_audioBuffer, dwBytesAudio1);
+			memcpy(lpvAudio1, m_parent->m_audioBuffer, dwBytesAudio1);
 			//Copy AudioBuffer to DirectSoundBuffer
 			if (lpvAudio2 !=NULL) {
 				memcpy(lpvAudio1, m_parent->m_audioBuffer, dwBytesAudio1);
@@ -333,7 +333,40 @@ QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
 	return m_devices;
 }
 
-bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer,LPDIRECTSOUNDNOTIFY *notify){
+bool DirectSoundBackend::setupNotifer( IUnknown **primaryBuffer,LPDIRECTSOUNDNOTIFY *notify){
+	HRESULT hr;
+	kWarning() << "Query interface";
+	if(FAILED(hr = (*primaryBuffer)->QueryInterface(IID_IDirectSoundNotify, (void**)(notify)))){
+
+		kWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
+		freeAllResources();
+		return false;
+	}
+
+
+
+	kWarning() << "Notify positions";
+	//calculate notify positions
+	DSBPOSITIONNOTIFY pPosNotify[3];
+	pPosNotify[0].dwOffset = (m_bufferSize/2) -1;
+	pPosNotify[0].hEventNotify = m_bufferEvents;
+
+	pPosNotify[1].dwOffset = m_bufferSize - 1;
+	pPosNotify[1].hEventNotify = m_bufferEvents;
+
+	pPosNotify[2].dwOffset = DSBPN_OFFSETSTOP;
+	pPosNotify[2].hEventNotify = m_bufferEvents;
+
+	kWarning() << "Calling SetNotificationPositions on notify";
+	if ( FAILED(hr = (*notify)->SetNotificationPositions(3, pPosNotify)) ) {
+		kWarning() << "Set NotificationPosition Failed!"<<DX_SHARED_DEFINES(hr);
+		freeAllResources();
+		return false;
+	} 
+	return true;
+}
+
+bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer){
 	HRESULT hr;
 
 	if(FAILED(hr = DirectSoundCreate8(deviceID, ppDS8, 0))) {
@@ -342,6 +375,7 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 		emit errorOccured(SimonSound::OpenError);
 		return false;
 	}
+
 	DSBUFFERDESC BufferDesc;
 	HWND hWnd = GetForegroundWindow();
 	if (hWnd == 0)
@@ -373,37 +407,6 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	}
 
 
-	kWarning() << "Query interface";
-	if(FAILED(hr = (*primaryBuffer)->QueryInterface(IID_IDirectSoundNotify, (void**)(notify)))){
-
-		kWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
-		freeAllResources();
-		return false;
-	}
-
-
-
-	kWarning() << "Notify positions";
-	//calculate notify positions
-	DSBPOSITIONNOTIFY pPosNotify[3];
-	pPosNotify[0].dwOffset = (m_bufferSize/2) -1;
-	pPosNotify[0].hEventNotify = m_bufferEvents;
-
-	pPosNotify[1].dwOffset = m_bufferSize - 1;
-	pPosNotify[1].hEventNotify = m_bufferEvents;
-
-	pPosNotify[2].dwOffset = DSBPN_OFFSETSTOP;
-	pPosNotify[2].hEventNotify = m_bufferEvents; 
-
-	kWarning() << "Calling SetNotificationPositions on notify";
-	if ( FAILED(hr = (*notify)->SetNotificationPositions(3, pPosNotify)) ) {
-		kWarning() << "Set NotificationPosition Failed!"<<DX_SHARED_DEFINES(hr);
-		freeAllResources();
-		return false;
-	} 
-
-
-
 	kWarning() << "Allocating buffer";
 	//New audio buffer
 	//if (m_audioBuffer != 0)
@@ -416,7 +419,8 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	kWarning() << "Opened device";
 	return true;
 }
-bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC,LPDIRECTSOUNDNOTIFY *notify){
+
+bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC){
 	HRESULT hr;
 
 	if(FAILED( hr = DirectSoundCaptureCreate8(deviceID, ppDS8C, 0))) {
@@ -441,35 +445,6 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 		return false;
 	}
 
-
-	kWarning() << "Query interface";
-	if(FAILED(hr = (*primaryBufferC)->QueryInterface(IID_IDirectSoundNotify, (void**)(notify)))){
-
-		kWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
-		freeAllResources();
-		return false;
-	}
-
-
-
-	kWarning() << "Notify positions";
-	//calculate notify positions
-	DSBPOSITIONNOTIFY pPosNotify[3];
-	pPosNotify[0].dwOffset = (m_bufferSize/2) -1;
-	pPosNotify[0].hEventNotify = m_bufferEvents;
-
-	pPosNotify[1].dwOffset = m_bufferSize - 1;
-	pPosNotify[1].hEventNotify = m_bufferEvents;
-
-	pPosNotify[2].dwOffset = DSBPN_OFFSETSTOP;
-	pPosNotify[2].hEventNotify = m_bufferEvents;
-
-	kWarning() << "Calling SetNotificationPositions on notify";
-	if ( FAILED(hr = (*notify)->SetNotificationPositions(3, pPosNotify)) ) {
-		kWarning() << "Set NotificationPosition Failed!"<<DX_SHARED_DEFINES(hr);
-		freeAllResources();
-		return false;
-	} 
 	kWarning() << "Opened device";
 	return true;
 }
@@ -514,11 +489,13 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 
 	kWarning() << "Opened the device";
 	if (type == SimonSound::Output) {
-		return openOutputDevice(&deviceID, ppDS8,primaryBuffer,notify);
+		if(openOutputDevice(&deviceID, ppDS8,primaryBuffer))
+			return setupNotifer((IUnknown**)primaryBuffer,notify);
 	} else { // recording
-		return openInputDevice(&deviceID,ppDS8C,primaryBufferC,notify);
+		if(openInputDevice(&deviceID,ppDS8C,primaryBufferC))
+			return setupNotifer((IUnknown**)primaryBufferC,notify);
 	}
-
+	return false;
 
 }
 

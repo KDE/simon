@@ -1,22 +1,22 @@
 /*
- *   Copyright (C) 2011 Patrick von Reth <patrick.vonreth@gmail.com>
- *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   or (at your option) any later version, as published by the Free
- *   Software Foundation
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
- *
- *   You should have received a copy of the GNU General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+*   Copyright (C) 2011 Patrick von Reth <patrick.vonreth@gmail.com>
+*   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+*
+*   This program is free software; you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License version 2,
+*   or (at your option) any later version, as published by the Free
+*   Software Foundation
+*
+*   This program is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details
+*
+*   You should have received a copy of the GNU General Public
+*   License along with this program; if not, write to the
+*   Free Software Foundation, Inc.,
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 #ifndef SIMON_DIRECTSOUNDBACKEND_H_BAC60651BE6A419EA6156220815A2AAD
 #define SIMON_DIRECTSOUNDBACKEND_H_BAC60651BE6A419EA6156220815A2AAD
@@ -29,10 +29,10 @@
 #include <dsound.h>
 
 #ifdef __MINGW64_VERSION_MAJOR
-    //libdxerr.a is missing on mingw so no error support :(
-    #define DXGetErrorString(x) x
+//libdxerr.a is missing on mingw so no error support :(
+#define DXGetErrorString(x) x
 #else
-    #include <dxerr.h>
+#include <dxerr.h>
 #endif
 
 
@@ -42,68 +42,70 @@ class DirectSoundPlaybackLoop;
 
 class DirectSoundBackend : public SoundBackend
 {
-  friend class DirectSoundPlaybackLoop;
-  friend class DirectSoundCaptureLoop;
+	friend class DirectSoundPlaybackLoop;
+	friend class DirectSoundCaptureLoop;
 
-  private:
-    DirectSoundLoop *m_loop;
+private:
+	DirectSoundLoop *m_loop;
 
-    HANDLE m_bufferEvents;
-    WAVEFORMATEX    m_waveFormat;
+	HANDLE m_bufferEvents;
+	WAVEFORMATEX    m_waveFormat;
 
-    LPBYTE m_audioBuffer;
-    LPDIRECTSOUNDNOTIFY m_notify;
+	LPBYTE m_audioBuffer;
+	LPDIRECTSOUNDNOTIFY m_notify;
 
-    LPDIRECTSOUND8 m_handle;
-    LPDIRECTSOUNDBUFFER m_primaryBuffer;
+	LPDIRECTSOUND8 m_handle;
+	LPDIRECTSOUNDBUFFER m_primaryBuffer;
 
-    LPDIRECTSOUNDCAPTURE8 m_handleC;
-    LPDIRECTSOUNDCAPTUREBUFFER m_primaryBufferC;
+	LPDIRECTSOUNDCAPTURE8 m_handleC;
+	LPDIRECTSOUNDCAPTUREBUFFER m_primaryBufferC;
 
-    QStringList m_devices;
+	QStringList m_devices;
 
-    int m_bufferSize;
+	int m_bufferSize;
 	int m_blockAlign;
-    int m_sampleRate;
+	int m_sampleRate;
 
-    QStringList getDevices(SimonSound::SoundDeviceType type);
+	QStringList getDevices(SimonSound::SoundDeviceType type);
 
-  protected:
-    void errorRecoveryFailed();
-    void freeAllResources();
-    bool stop();
-    bool closeSoundSystem();
+protected:
+	void errorRecoveryFailed();
+	void freeAllResources();
+	bool stop();
+	bool closeSoundSystem();
 
-	bool openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer,LPDIRECTSOUNDNOTIFY *notify);
+	bool setupNotifer( IUnknown **primaryBuffer,LPDIRECTSOUNDNOTIFY *notify);
 
-	bool openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC,LPDIRECTSOUNDNOTIFY *notify);
+	bool openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer);
 
-    bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, 
-        LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC, 
-        LPDIRECTSOUNDNOTIFY *notify);
+	bool openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC);
 
-  public:
-    DirectSoundBackend();
-    ~DirectSoundBackend();
+	bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, 
+		LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC, 
+		LPDIRECTSOUNDNOTIFY *notify);
 
-    QStringList getAvailableInputDevices();
-    QStringList getAvailableOutputDevices();
-    bool check(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate);
+public:
+	DirectSoundBackend();
+	~DirectSoundBackend();
 
-    QString getDefaultInputDevice();
-    QString getDefaultOutputDevice();
+	QStringList getAvailableInputDevices();
+	QStringList getAvailableOutputDevices();
+	bool check(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate);
 
-    bool prepareRecording(const QString& device, int& channels, int& samplerate);
-    bool startRecording(SoundBackendClient *client);
-    bool stopRecording();
+	QString getDefaultInputDevice();
+	QString getDefaultOutputDevice();
 
-    bool preparePlayback(const QString& device, int& channels, int& samplerate);
-    bool startPlayback(SoundBackendClient *client);
-    bool stopPlayback();
+	bool prepareRecording(const QString& device, int& channels, int& samplerate);
+	bool startRecording(SoundBackendClient *client);
+	bool stopRecording();
 
-    int bufferSize();
+	bool preparePlayback(const QString& device, int& channels, int& samplerate);
+	bool startPlayback(SoundBackendClient *client);
+	bool stopPlayback();
 
-    void deviceFound(const QString& name);
+	int bufferSize();
+
+	void deviceFound(const QString& name);
 };
 
 #endif
