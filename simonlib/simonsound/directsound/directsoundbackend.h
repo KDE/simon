@@ -48,7 +48,7 @@ class DirectSoundBackend : public SoundBackend
   private:
     DirectSoundLoop *m_loop;
 
-    HANDLE m_bufferEvents[2];
+    HANDLE m_bufferEvents;
     WAVEFORMATEX    m_waveFormat;
 
     LPBYTE m_audioBuffer;
@@ -63,7 +63,6 @@ class DirectSoundBackend : public SoundBackend
     QStringList m_devices;
 
     int m_bufferSize;
-    int m_bufferSizeC;
 	int m_blockAlign;
     int m_sampleRate;
 

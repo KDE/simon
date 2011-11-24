@@ -63,7 +63,7 @@ public:
 		DWORD dwReadPosOld = 0;
 		LONG lockSize;
 		qint64 readCount;
-		int bufferSize = m_parent->m_bufferSizeC;
+
 
 		if(FAILED(hr = m_parent->m_primaryBufferC->Start( DSCBSTART_LOOPING ) )){
 			kWarning()<<"Failed to start recording"<<DXERR_TO_STRING(hr);
@@ -71,7 +71,7 @@ public:
 
 
 		while(shouldRun && hr == 0){
-			HRESULT lr = WaitForMultipleObjects(1, m_parent->m_bufferEvents, FALSE,0);
+			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents,0);
 			if(lr == WAIT_FAILED){
 				kWarning()<<"Event loop failed";
 				shouldRun = false;
@@ -87,7 +87,7 @@ public:
 
 			lockSize = dwReadPos - dwMyReadCursor;
 			if( lockSize  < 0 )   
-				lockSize += bufferSize; 
+				lockSize += m_parent->m_bufferSize; 
 
 			if (lockSize == 0){
 				kWarning()<<"lock size shouldnt be 0";
@@ -99,8 +99,7 @@ public:
 				shouldRun = false;
 				continue;
 			} 
-			kWarning()<<"In Recorde loop";
-			//Copy AudioBuffer to DirectSoundBuffer
+			
 			dataWritten  = m_parent->m_client->writeData((char*)capture1, captureLength1);
 			readCount = captureLength1;
 
@@ -115,10 +114,9 @@ public:
 				continue;
 			}
 
-			kWarning()<<"Wrote "<<dataWritten;
 			m_parent->m_primaryBufferC->Unlock(capture1,captureLength1,capture2,captureLength2);  
 			dwMyReadCursor += readCount;
-			dwMyReadCursor %= bufferSize;
+			dwMyReadCursor %= m_parent->m_bufferSize;
 
 		}
 		if(hr != 0){
@@ -126,6 +124,7 @@ public:
 			m_parent->errorRecoveryFailed();
 		}
 
+		
 		kWarning()<<"Record loop ended";
 		m_parent->closeSoundSystem();
 		shouldRun = false;
@@ -201,7 +200,7 @@ public:
 		//Playback Loop
 		///////////////
 		while (shouldRun && hr == 0) {
-			HRESULT lr = WaitForMultipleObjects(1, m_parent->m_bufferEvents, FALSE, 0);
+			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents, 0);
 		if(lr == WAIT_FAILED){
 				kWarning()<<"Event loop failed";
 				shouldRun = false;
@@ -232,7 +231,6 @@ public:
 
 			//Get 1 Second Audio Buffer 
 			written = m_parent->m_client->readData((char*) m_parent->m_audioBuffer, lockSize);
-			kWarning() << "Written: " << written;
 			if (written < 0) {
 				kWarning() << "Reached the end of the data";
 				shouldRun = false;
@@ -276,12 +274,9 @@ m_loop(0),
 	m_primaryBuffer(0),
 	m_handleC(0),
 	m_primaryBufferC(0),
-	m_bufferSize(1024),
-	m_bufferSizeC(1024)
+	m_bufferSize(1024)
 {
-	ZeroMemory(&m_waveFormat, sizeof(m_waveFormat));
-	m_bufferEvents[0] = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify_0");
-	m_bufferEvents[1] = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify_1");
+	m_bufferEvents = CreateEvent(0, FALSE, FALSE, L"Direct_Sound_Buffer_Notify");
 }
 
 int DirectSoundBackend::bufferSize()
@@ -392,13 +387,13 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	//calculate notify positions
 	DSBPOSITIONNOTIFY pPosNotify[3];
 	pPosNotify[0].dwOffset = (m_bufferSize/2) -1;
-	pPosNotify[0].hEventNotify = m_bufferEvents[0];
+	pPosNotify[0].hEventNotify = m_bufferEvents;
 
 	pPosNotify[1].dwOffset = m_bufferSize - 1;
-	pPosNotify[1].hEventNotify = m_bufferEvents[0];
+	pPosNotify[1].hEventNotify = m_bufferEvents;
 
 	pPosNotify[2].dwOffset = DSBPN_OFFSETSTOP;
-	pPosNotify[2].hEventNotify = m_bufferEvents[0]; 
+	pPosNotify[2].hEventNotify = m_bufferEvents; 
 
 	kWarning() << "Calling SetNotificationPositions on notify";
 	if ( FAILED(hr = (*notify)->SetNotificationPositions(3, pPosNotify)) ) {
@@ -436,7 +431,7 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 	CaptureBufferDesc.dwSize     = sizeof(DSCBUFFERDESC);
 	CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec ; // 1 seconds of sound
 	CaptureBufferDesc.lpwfxFormat    = &m_waveFormat;
-	m_bufferSizeC = CaptureBufferDesc.dwBufferBytes;
+	m_bufferSize = CaptureBufferDesc.dwBufferBytes;
 
 	if(FAILED(hr = (*ppDS8C)->CreateCaptureBuffer(&CaptureBufferDesc,primaryBufferC, NULL))) {
 		kWarning() << "Failed to create primary recording buffer"<<DXERR_TO_STRING(hr);
@@ -460,14 +455,14 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 	kWarning() << "Notify positions";
 	//calculate notify positions
 	DSBPOSITIONNOTIFY pPosNotify[3];
-	pPosNotify[0].dwOffset = (m_bufferSizeC/2) -1;
-	pPosNotify[0].hEventNotify = m_bufferEvents[0];
+	pPosNotify[0].dwOffset = (m_bufferSize/2) -1;
+	pPosNotify[0].hEventNotify = m_bufferEvents;
 
-	pPosNotify[1].dwOffset = m_bufferSizeC - 1;
-	pPosNotify[1].hEventNotify = m_bufferEvents[0];
+	pPosNotify[1].dwOffset = m_bufferSize - 1;
+	pPosNotify[1].hEventNotify = m_bufferEvents;
 
 	pPosNotify[2].dwOffset = DSBPN_OFFSETSTOP;
-	pPosNotify[2].hEventNotify = m_bufferEvents[0];
+	pPosNotify[2].hEventNotify = m_bufferEvents;
 
 	kWarning() << "Calling SetNotificationPositions on notify";
 	if ( FAILED(hr = (*notify)->SetNotificationPositions(3, pPosNotify)) ) {
@@ -483,12 +478,10 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 	LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer, 
 	LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC, LPDIRECTSOUNDNOTIFY *notify)
 {
-	HRESULT hr;
-
-
 	//init sound
 	kWarning() << "Creating audio format";
 	// audioformat
+	memset(&m_waveFormat,0, sizeof(m_waveFormat));
 	m_waveFormat.wFormatTag   = WAVE_FORMAT_PCM;
 	m_waveFormat.nChannels    = channels;
 	m_waveFormat.nSamplesPerSec = samplerate;
@@ -515,8 +508,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 	delete [] internalDeviceNameW;
 	if (err != NOERROR) {
 		kWarning() << "Couldn't parse: " << internalDeviceName << " assuming default";
-		deviceID = ((type == SimonSound::Output) ? GUID_NULL : DSDEVID_DefaultVoiceCapture);
-	}
+		deviceID = ((type == SimonSound::Output) ? GUID_NULL : DSDEVID_DefaultVoiceCapture);	}
 
 
 
@@ -562,7 +554,7 @@ void DirectSoundBackend::freeAllResources()
 	if (m_handle) {
 		m_handle->Release();
 		m_handle = 0;
-	}
+	} 
 	if (m_primaryBufferC) {
 		m_primaryBufferC->Release();
 		m_primaryBufferC = 0;
@@ -614,8 +606,7 @@ bool DirectSoundBackend::closeSoundSystem()
 	}
 
 	//Reset Event
-	ResetEvent(m_bufferEvents[0]);
-	ResetEvent(m_bufferEvents[1]);
+	ResetEvent(m_bufferEvents);
 
 	freeAllResources();
 
