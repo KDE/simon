@@ -102,7 +102,7 @@ public:
 			}
 
 			if (FAILED(hr = m_parent->m_primaryBufferC->Lock(dwMyReadCursor, lockSize,&capture1, &captureLength1, &capture2, &captureLength2, NULL))){
-				kWarning()<<"Capture lock failure"<<QString::number(lockSize)<<DXERR_TO_STRING(hr);
+				kWarning()<<"Capture lock failure"<<lockSize<<DXERR_TO_STRING(hr);
 				shouldRun = false;
 				continue;
 			} 
@@ -153,14 +153,8 @@ public:
 
 		//init for first run
 		////////////////////
-		qint64 written = m_parent->m_client->readData((char*) m_parent->m_audioBuffer, m_parent->m_bufferSize);
-		kWarning() << "First written: " << written;
-		if (written < 0) {
-			kWarning() << "exiting prematurely";
-			shouldRun = false;
-			m_parent->errorRecoveryFailed();
-			return;
-		}
+
+
 
 		//Write the audio data to DirectSoundBuffer
 		void* lpvAudio1 = 0;
@@ -169,34 +163,31 @@ public:
 		DWORD dwBytesAudio2 = 0; 
 		DWORD dwMyWriteCursor = 0;  
 		DWORD dwWritePos;
-		LONG lockSize;
+		LONG lockSize = m_parent->m_bufferSize;//position of the first notification
+		qint64 written = 0;
 
 		//Lock DirectSoundBuffer
 		//Locking with 0,  written, 0, 0, 0, 0, 0
-		if (FAILED(hr = m_parent->m_primaryBuffer->Lock(0, written, &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, 0))) {
+		if (FAILED(hr = m_parent->m_primaryBuffer->Lock(0, lockSize , &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, 0))) {
 			kWarning() << "Lock DirectSoundBuffer Failed!"<<DXERR_TO_STRING(hr);
 			m_parent->errorRecoveryFailed();
 			return;
 		}
 
 		//Init lpvAudio1
-		if (lpvAudio1) {      
-			memset(lpvAudio1, 0, dwBytesAudio1);      
-		}
-
-		//Init lpvAudio2
-		if (lpvAudio2) {      
-			memset(lpvAudio2, 0, dwBytesAudio2);      
-
-			memcpy(lpvAudio1, m_parent->m_audioBuffer, dwBytesAudio1);
-			memcpy(lpvAudio2, m_parent->m_audioBuffer + dwBytesAudio1, dwBytesAudio2);
-		} else {
-			//Copy Audio Buffer to DirectSoundBuffer
-			memcpy(lpvAudio1, m_parent->m_audioBuffer, written);
+		memset(m_parent->m_audioBuffer,0,dwBytesAudio1);
+		written = m_parent->m_client->readData((char*) m_parent->m_audioBuffer, dwBytesAudio1);
+		memcpy(lpvAudio1, m_parent->m_audioBuffer, dwBytesAudio1);
+		if (lpvAudio2) {
+			memset(m_parent->m_audioBuffer,0,dwBytesAudio2);
+			written += m_parent->m_client->readData((char*) m_parent->m_audioBuffer, dwBytesAudio2);
+			memcpy(lpvAudio2, m_parent->m_audioBuffer, dwBytesAudio2);
 		}
 
 		//Unlock DirectSoundBuffer
 		m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1, lpvAudio2, dwBytesAudio2);
+		dwMyWriteCursor += written;
+		dwMyWriteCursor %= m_parent->m_bufferSize;
 
 		//Begin playback
 		if(FAILED(hr = m_parent->m_primaryBuffer->Play(0, 0, DSBPLAY_LOOPING))){
@@ -221,8 +212,7 @@ public:
 				shouldRun =  false;
 				continue;
 			}
-
-			lockSize = dwWritePos- dwMyWriteCursor;
+			lockSize = dwWritePos - dwMyWriteCursor;
 			if( lockSize  < 0 )   
 				lockSize += m_parent->m_bufferSize; 
 
@@ -236,29 +226,27 @@ public:
 				break;
 			}   
 
-			//Get 1 Second Audio Buffer 
-			written = m_parent->m_client->readData((char*) m_parent->m_audioBuffer, lockSize);
-			if (written < 0) {
-				kWarning() << "Reached the end of the data";
-				shouldRun = false;
-				break;
-			}
-
-			//If near the end of the audio data set undefined block of buffer to 0
-			if (written < m_parent->m_bufferSize)
-				memset(m_parent->m_audioBuffer+written, 0, m_parent->m_bufferSize - written);       
-
+			memset(m_parent->m_audioBuffer,0,dwBytesAudio1);
+			written = m_parent->m_client->readData((char*) m_parent->m_audioBuffer, dwBytesAudio1);
 			memcpy(lpvAudio1, m_parent->m_audioBuffer, dwBytesAudio1);
-			//Copy AudioBuffer to DirectSoundBuffer
-			if (lpvAudio2 !=NULL) {
-				memcpy(lpvAudio1, m_parent->m_audioBuffer, dwBytesAudio1);
-				memcpy(lpvAudio2, m_parent->m_audioBuffer + dwBytesAudio1, dwBytesAudio2);
-			}
+			if (lpvAudio2) {
+				memset(m_parent->m_audioBuffer,0,dwBytesAudio2);
+				written += m_parent->m_client->readData((char*) m_parent->m_audioBuffer, dwBytesAudio2);
+				memcpy(lpvAudio2, m_parent->m_audioBuffer, dwBytesAudio2);
+			} 
+
 
 			//Unlock DirectSoundBuffer
 			m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1, lpvAudio2, dwBytesAudio2);
 			dwMyWriteCursor += written;
 			dwMyWriteCursor %= m_parent->m_bufferSize;
+
+			if(written < 0){
+				//end of file
+				shouldRun = false;
+				continue;
+			}
+
 		}
 		if(hr != 0){
 			m_parent->errorRecoveryFailed();
