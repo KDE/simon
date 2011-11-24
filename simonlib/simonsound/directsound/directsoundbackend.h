@@ -56,7 +56,6 @@ class DirectSoundBackend : public SoundBackend
 
     LPDIRECTSOUND8 m_handle;
     LPDIRECTSOUNDBUFFER m_primaryBuffer;
-    LPDIRECTSOUNDBUFFER m_secondaryBuffer;
 
     LPDIRECTSOUNDCAPTURE8 m_handleC;
     LPDIRECTSOUNDCAPTUREBUFFER m_primaryBufferC;
@@ -76,13 +75,12 @@ class DirectSoundBackend : public SoundBackend
     bool stop();
     bool closeSoundSystem();
 
-	bool openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer,LPDIRECTSOUNDBUFFER *secondaryBuffer,LPDIRECTSOUNDNOTIFY *notify);
+	bool openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer,LPDIRECTSOUNDNOTIFY *notify);
 
 	bool openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC,LPDIRECTSOUNDNOTIFY *notify);
 
     bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, 
-        LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer, LPDIRECTSOUNDBUFFER *secondaryBuffer, 
-        LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC, 
+        LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC, 
         LPDIRECTSOUNDNOTIFY *notify);
 
   public:
