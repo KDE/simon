@@ -74,7 +74,6 @@ public:
 		DWORD dwReadPos;
 		DWORD dwReadPosOld = 0;
 		LONG lockSize;
-		qint64 readCount;
 
 		WAV tmp("simon-test.wav",m_parent->m_waveFormat.nChannels,m_parent->m_sampleRate);
 		tmp.beginAddSequence();
@@ -118,7 +117,7 @@ public:
 
 			memcpy(m_parent->m_audioBuffer,capture1,captureLength1);
 			if (capture2 != NULL){
-				memcpy(m_parent->m_audioBuffer,capture2,captureLength2);
+				memcpy(m_parent->m_audioBuffer+captureLength1,capture2,captureLength2);
 			}
 
 			dataWritten  = m_parent->m_client->writeData((char*)m_parent->m_audioBuffer, lockSize);
