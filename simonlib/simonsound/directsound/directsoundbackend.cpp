@@ -163,12 +163,12 @@ public:
 		DWORD dwBytesAudio2 = 0; 
 		DWORD dwMyWriteCursor = 0;  
 		DWORD dwWritePos;
-		LONG lockSize = m_parent->m_bufferSize;//position of the first notification
+		LONG lockSize = 0;
 		qint64 written = 0;
 
 		//Lock DirectSoundBuffer
 		//Locking with 0,  written, 0, 0, 0, 0, 0
-		if (FAILED(hr = m_parent->m_primaryBuffer->Lock(0, lockSize , &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, 0))) {
+		if (FAILED(hr = m_parent->m_primaryBuffer->Lock(0, m_parent->m_bufferSize , &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, 0))) {
 			kWarning() << "Lock DirectSoundBuffer Failed!"<<DXERR_TO_STRING(hr);
 			m_parent->errorRecoveryFailed();
 			return;
@@ -186,8 +186,6 @@ public:
 
 		//Unlock DirectSoundBuffer
 		m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1, lpvAudio2, dwBytesAudio2);
-		dwMyWriteCursor += written;
-		dwMyWriteCursor %= m_parent->m_bufferSize;
 
 		//Begin playback
 		if(FAILED(hr = m_parent->m_primaryBuffer->Play(0, 0, DSBPLAY_LOOPING))){
@@ -221,6 +219,7 @@ public:
 				continue;
 			}
 			//Lock DirectSoundBuffer Second Part
+			
 			if ( FAILED(hr = m_parent->m_primaryBuffer->Lock(dwMyWriteCursor, lockSize, &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, 0)) ) {
 				kWarning() << "Lock DirectSoundBuffer Failed!"<<lockSize<<DXERR_TO_STRING(hr);
 				break;
@@ -240,7 +239,6 @@ public:
 			m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1, lpvAudio2, dwBytesAudio2);
 			dwMyWriteCursor += written;
 			dwMyWriteCursor %= m_parent->m_bufferSize;
-
 			if(written < 0){
 				//end of file
 				shouldRun = false;
@@ -344,6 +342,7 @@ bool DirectSoundBackend::setupNotifer( IUnknown **primaryBuffer,LPDIRECTSOUNDNOT
 	//calculate notify positions
 	DSBPOSITIONNOTIFY pPosNotify[3];
 	pPosNotify[0].dwOffset = (m_bufferSize/2) -1;
+	kWarning()<<"buffer not1"<<(m_bufferSize/2) -1;
 	pPosNotify[0].hEventNotify = m_bufferEvents;
 
 	pPosNotify[1].dwOffset = m_bufferSize - 1;
@@ -384,7 +383,23 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	memset( &BufferDesc, 0,sizeof(BufferDesc) );
 	BufferDesc.dwSize     = sizeof(DSBUFFERDESC);
 	kWarning() << "Creating sound buffer";
+	BufferDesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
+	BufferDesc.dwBufferBytes = 0;
+	BufferDesc.lpwfxFormat    = NULL;
 
+	LPDIRECTSOUNDBUFFER lpDSB = NULL;
+	if ( FAILED(hr = (*ppDS8)->CreateSoundBuffer(&BufferDesc, &lpDSB, NULL)) ) {
+		kWarning()<<"Failed to create primary buffer"<<DXERR_TO_STRING(hr);
+		return false;
+	}
+
+	if(FAILED(hr = lpDSB->SetFormat(&m_waveFormat))){
+		kWarning()<<"failed to set wave format"<<DXERR_TO_STRING(hr);
+		return false;
+	}
+
+
+	 
 	// DSBUFFERDESC
 	BufferDesc.dwFlags      =	DSBCAPS_CTRLPOSITIONNOTIFY |DSBCAPS_CTRLFREQUENCY |DSBCAPS_GLOBALFOCUS;
 	BufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec; 
@@ -412,6 +427,8 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 
 
 	kWarning() << "Opened device";
+	SAFE_RELEASE(lpDSB);
+
 	return true;
 }
 
