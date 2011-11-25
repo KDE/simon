@@ -46,6 +46,7 @@ private:
 
 	LPBYTE m_audioBuffer;
 	LPDIRECTSOUNDNOTIFY m_notify;
+	DWORD m_notifySize;
 
 	LPDIRECTSOUND8 m_handle;
 	LPDIRECTSOUNDBUFFER m_primaryBuffer;
