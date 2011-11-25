@@ -48,10 +48,10 @@ private:
 	DWORD m_notifySize;
 
 	LPDIRECTSOUND8 m_handle;
-	LPDIRECTSOUNDBUFFER m_primaryBuffer;
+	LPDIRECTSOUNDBUFFER8 m_primaryBuffer;
 
 	LPDIRECTSOUNDCAPTURE8 m_handleC;
-	LPDIRECTSOUNDCAPTUREBUFFER m_primaryBufferC;
+	LPDIRECTSOUNDCAPTUREBUFFER8 m_primaryBufferC;
 
 	QStringList m_devices;
 
@@ -69,12 +69,12 @@ protected:
 
 	bool setupNotifer( IUnknown **primaryBuffer,LPDIRECTSOUNDNOTIFY *notify);
 
-	bool openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer);
+	bool openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER8 *primaryBuffer);
 
-	bool openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC);
+	bool openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER8 *primaryBufferC);
 
 	bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, 
-		LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER *primaryBufferC, 
+		LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER8 *primaryBuffer,LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER8 *primaryBufferC, 
 		LPDIRECTSOUNDNOTIFY *notify);
 
 public:
