@@ -235,7 +235,7 @@ public:
 				break;
 			}   
 
-			memset(buffer,0,lockSize);
+			
 			written = m_parent->m_client->readData((char*) buffer, lockSize);
 			if(written == -1 ){
 				//end of file
@@ -246,6 +246,7 @@ public:
 			if (lpvAudio2 != NULL) {
 				memcpy(lpvAudio2, buffer+dwBytesAudio1, dwBytesAudio2);
 			}
+			tmp.write(buffer,lockSize);
 
 
 			//Unlock DirectSoundBuffer
