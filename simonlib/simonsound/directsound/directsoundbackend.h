@@ -44,7 +44,6 @@ private:
 	HANDLE m_bufferEvents;
 	WAVEFORMATEX    m_waveFormat;
 
-	LPBYTE m_audioBuffer;
 	LPDIRECTSOUNDNOTIFY m_notify;
 	DWORD m_notifySize;
 

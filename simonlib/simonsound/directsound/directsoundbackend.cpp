@@ -66,6 +66,9 @@ public:
 		shouldRun = true;
 
 		HRESULT hr = 0;
+		char * buffer = new char[m_parent->m_bufferSize];
+		memset(buffer, 0, m_parent->m_bufferSize);
+
 		void* capture1 =NULL;
 		void* capture2=NULL;
 		DWORD captureLength1, captureLength2;
@@ -87,15 +90,13 @@ public:
 			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents,0);
 			if(lr == WAIT_FAILED){
 				kWarning()<<"Event loop failed";
-				shouldRun = false;
-				continue;
+				break;
 			}else if(lr != WAIT_OBJECT_0){
 				continue;
 			}
 			if(FAILED(hr = m_parent->m_primaryBufferC->GetCurrentPosition(NULL,&dwReadPos))){
 				kWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
-				shouldRun =  false;
-				continue;
+				break;
 			}
 
 			lockSize = dwReadPos - dwMyReadCursor;
@@ -109,19 +110,18 @@ public:
 
 			if (FAILED(hr = m_parent->m_primaryBufferC->Lock(dwMyReadCursor, lockSize,&capture1, &captureLength1, &capture2, &captureLength2, NULL))){
 				kWarning()<<"Capture lock failure"<<lockSize<<DXERR_TO_STRING(hr);
-				shouldRun = false;
-				continue;
+				break;
 			} 
 
 
 
-			memcpy(m_parent->m_audioBuffer,capture1,captureLength1);
+			memcpy(buffer,capture1,captureLength1);
 			if (capture2 != NULL){
-				memcpy(m_parent->m_audioBuffer+captureLength1,capture2,captureLength2);
+				memcpy(buffer+captureLength1,capture2,captureLength2);
 			}
 
-			dataWritten  = m_parent->m_client->writeData((char*)m_parent->m_audioBuffer, lockSize);
-			tmp.write((char*)m_parent->m_audioBuffer,lockSize);
+			dataWritten  = m_parent->m_client->writeData(buffer, lockSize);
+			tmp.write(buffer,lockSize);
 
 	
 
@@ -140,6 +140,7 @@ public:
 		tmp.writeFile();
 
 		kWarning()<<"Record loop ended";
+		delete[] buffer;
 		m_parent->closeSoundSystem();
 		shouldRun = false;
 	}
@@ -157,6 +158,8 @@ public:
 	{
 		shouldRun = true;
 		HRESULT hr = 0;
+		char * buffer = new char[m_parent->m_bufferSize];
+		memset(buffer, 0, m_parent->m_bufferSize);
 
 		//init for first run
 		////////////////////
@@ -173,6 +176,9 @@ public:
 		LONG lockSize = 0;
 		qint64 written = 0;
 
+		WAV tmp("simon-test-out.wav",m_parent->m_waveFormat.nChannels,m_parent->m_sampleRate);
+		tmp.beginAddSequence();
+
 		//Lock DirectSoundBuffer
 		//Locking with 0,  written, 0, 0, 0, 0, 0
 		if (FAILED(hr = m_parent->m_primaryBuffer->Lock(0, m_parent->m_bufferSize , &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, 0))) {
@@ -182,14 +188,14 @@ public:
 		}
 
 		//Init lpvAudio1
-		memset(m_parent->m_audioBuffer,0,lockSize);
-		written = m_parent->m_client->readData((char*) m_parent->m_audioBuffer, lockSize);
+		memset(buffer,0,lockSize);
+		written = m_parent->m_client->readData( buffer, lockSize);
 
-		memcpy(lpvAudio1, m_parent->m_audioBuffer, dwBytesAudio1);
+		memcpy(lpvAudio1, buffer, dwBytesAudio1);
 		if (lpvAudio2 != NULL) {
-			memcpy(lpvAudio2, m_parent->m_audioBuffer+dwBytesAudio1, dwBytesAudio2);
+			memcpy(lpvAudio2, buffer+dwBytesAudio1, dwBytesAudio2);
 		}
-
+		tmp.write(buffer,lockSize);
 		//Unlock DirectSoundBuffer
 		m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1, lpvAudio2, dwBytesAudio2);
 
@@ -205,16 +211,14 @@ public:
 			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents, 0);
 			if(lr == WAIT_FAILED){
 				kWarning()<<"Event loop failed";
-				shouldRun = false;
-				continue;
+				break;
 			}else if(lr != WAIT_OBJECT_0){
 				continue;
 			}
 
 			if(FAILED(hr = m_parent->m_primaryBuffer->GetCurrentPosition(&dwWritePos,NULL))){
 				kWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
-				shouldRun =  false;
-				continue;
+				break;
 			}
 			lockSize = dwWritePos - dwMyWriteCursor;
 			if( lockSize  < 0 )   
@@ -231,17 +235,16 @@ public:
 				break;
 			}   
 
-			memset(m_parent->m_audioBuffer,0,lockSize);
-			written = m_parent->m_client->readData((char*) m_parent->m_audioBuffer, lockSize);
-			if(written < 0){
+			memset(buffer,0,lockSize);
+			written = m_parent->m_client->readData((char*) buffer, lockSize);
+			if(written == -1 ){
 				//end of file
-				shouldRun = false;
-				continue;
+				break;
 			}
 
-			memcpy(lpvAudio1, m_parent->m_audioBuffer, dwBytesAudio1);
+			memcpy(lpvAudio1, buffer, dwBytesAudio1);
 			if (lpvAudio2 != NULL) {
-				memcpy(lpvAudio2, m_parent->m_audioBuffer+dwBytesAudio1, dwBytesAudio2);
+				memcpy(lpvAudio2, buffer+dwBytesAudio1, dwBytesAudio2);
 			}
 
 
@@ -255,8 +258,11 @@ public:
 		if(hr != 0){
 			m_parent->errorRecoveryFailed();
 		}
+		tmp.endAddSequence();
+		tmp.writeFile();
 		kWarning() << "Exiting run loop";
 		shouldRun = false;
+		delete[] buffer;
 		m_parent->closeSoundSystem();
 	}
 };
@@ -267,7 +273,6 @@ public:
 
 DirectSoundBackend::DirectSoundBackend() : 
 m_loop(0),
-	m_audioBuffer(0),
 	m_notify(0),
 	m_handle(0),
 	m_primaryBuffer(0),
@@ -473,9 +478,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 	m_bufferSize = m_notifySize * NOTIFY_NUM;
 
 		//if (m_audioBuffer != 0)
-	delete[] m_audioBuffer;
-	m_audioBuffer = new BYTE[m_bufferSize];
-	memset(m_audioBuffer, 0, m_bufferSize);
+
 
 
 	m_sampleRate = samplerate;
@@ -553,9 +556,7 @@ void DirectSoundBackend::freeAllResources()
 		m_handleC->Release();
 		m_handleC = 0;
 	}
-
-	delete[] m_audioBuffer;
-	m_audioBuffer = 0;    
+   
 }
 
 // stop playback / recording
