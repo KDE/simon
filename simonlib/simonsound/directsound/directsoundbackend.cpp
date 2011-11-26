@@ -195,7 +195,7 @@ public:
 
 		tmp.write(buffer,written);
 		//Unlock DirectSoundBuffer
-		m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1, 0, 0);
+		m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1,NULL, NULL);
 
 		//Begin playback
 		if(FAILED(hr = m_parent->m_primaryBuffer->Play(0, 0, DSBPLAY_LOOPING))){
@@ -231,13 +231,14 @@ public:
 			//Lock DirectSoundBuffer Second Part
 			kWarning()<<"Playback from:"<<dwMyWriteCursor<<"to:"<<dwMyWriteCursor+lockSize<<"lock size:"<<lockSize<<"playbackpos:"<<dwWritePos<<"bufferSize:"<<m_parent->m_bufferSize;
 
-			if ( FAILED(hr = m_parent->m_primaryBuffer->Lock(dwMyWriteCursor, lockSize, &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, 0)) ) {
+			if ( FAILED(hr = m_parent->m_primaryBuffer->Lock(dwMyWriteCursor, lockSize, &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, NULL)) ) {
 				kWarning() << "Lock DirectSoundBuffer Failed!"<<lockSize<<DXERR_TO_STRING(hr);
 				break;
 			}   
 
 
 			written = m_parent->m_client->readData(buffer, lockSize);
+
 			if(written == -1 ){
 				//end of file
 				break;
@@ -387,7 +388,7 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	(*ppDS8)->SetCooperativeLevel(hWnd, DSSCL_PRIORITY);
 
 
-	//not sure if need atall
+	//init the primary buffer which will contain the raw data
 	//--------------------------------
 	memset( &BufferDesc, 0,sizeof(BufferDesc) );
 	BufferDesc.dwSize     = sizeof(DSBUFFERDESC);
@@ -395,6 +396,7 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	BufferDesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
 	BufferDesc.dwBufferBytes = 0;
 	BufferDesc.lpwfxFormat    = NULL;
+	BufferDesc.guid3DAlgorithm = GUID_NULL;
 
 	LPDIRECTSOUNDBUFFER tmp = NULL;
 	if ( FAILED(hr = (*ppDS8)->CreateSoundBuffer(&BufferDesc, &tmp, NULL)) ) {
@@ -406,11 +408,11 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 		kWarning()<<"failed to set wave format"<<DXERR_TO_STRING(hr);
 		return false;
 	}
-	tmp->Release();
 
+	tmp->Release();
 	//--------------------------------
 
-
+	//init the secondary buffer on which we will write, if there would be multiple secondary buffers they would get autmaticaly merged in the primary buffer
 
 	// DSBUFFERDESC
 	BufferDesc.dwFlags      =	DSBCAPS_CTRLPOSITIONNOTIFY |DSBCAPS_CTRLFREQUENCY |DSBCAPS_GLOBALFOCUS;
@@ -437,7 +439,6 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	}
 
 	kWarning() << "Opened device";
-
 	tmp->Release();
 	return true;
 }
@@ -497,9 +498,6 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 	m_notifySize= MAX( 1024, m_waveFormat.nAvgBytesPerSec / 8 );   
 	m_notifySize -= m_notifySize % m_waveFormat.nBlockAlign; 
 	m_bufferSize = m_notifySize * NOTIFY_NUM;
-
-	//if (m_audioBuffer != 0)
-
 
 
 	m_sampleRate = samplerate;
