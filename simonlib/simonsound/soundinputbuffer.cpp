@@ -33,8 +33,8 @@ void SoundInputBuffer::write(const char *toWrite, qint64 len)
 
   m_bufferAllocLock.lock();
   char *newBuffer = (char*) malloc(sizeof(char)*(m_bufferLength+len+1));
-  memcpy(newBuffer, toWrite, len);
-  memcpy(newBuffer+len, m_buffer, m_bufferLength);
+  memcpy(newBuffer, m_buffer, m_bufferLength);
+  memcpy(newBuffer+m_bufferLength, toWrite, len);
   
   char *oldBuffer = m_buffer;
   m_buffer = newBuffer;
