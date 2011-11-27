@@ -1,7 +1,7 @@
-include(FindQt4)
+
 include(SimonDirs)
 
-find_package(KDE4 REQUIRED)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
@@ -24,7 +24,7 @@ target_link_libraries( simonrecognitionresult ${QT_LIBRARIES} ${KDE4_KDECORE_LIB
 
 
 set_target_properties( simonrecognitionresult
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonrecognitionresult_LIB_HDRS}

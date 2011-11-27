@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>272</width>
-    <height>100</height>
+    <width>349</width>
+    <height>102</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,19 +22,25 @@
      <property name="text">
       <string>Word:</string>
      </property>
+     <property name="buddy">
+      <cstring>leWord</cstring>
+     </property>
     </widget>
    </item>
    <item row="0" column="1">
     <widget class="KLineEdit" name="leWord"/>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QLabel" name="lbTypeDesc">
      <property name="text">
-      <string comment="Grammar category">Terminal:</string>
+      <string comment="Grammar category">Category:</string>
+     </property>
+     <property name="buddy">
+      <cstring>cbType</cstring>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
+   <item row="2" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="KComboBox" name="cbType">
@@ -55,30 +61,39 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0">
+   <item row="1" column="0">
     <widget class="QLabel" name="lbSampa">
      <property name="text">
       <string>Pronunciation:</string>
      </property>
+     <property name="buddy">
+      <cstring>leSampa</cstring>
+     </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="1" column="1">
     <widget class="KLineEdit" name="leSampa"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
   </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>leWord</tabstop>
+  <tabstop>leSampa</tabstop>
+  <tabstop>cbType</tabstop>
+  <tabstop>tbAddTerminal</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

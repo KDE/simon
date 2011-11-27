@@ -29,38 +29,21 @@ class QKeyEvent;
 /**
  \class InlineWidgetView
  \author Peter Grasch
- \brief Extends the QTabWidget to display InlienWidgets
+ \brief Extends the QTabWidget to display InlineWidgets
  \version 0.1
  \date 10.8.2007
 */
 class SIMONUICOMPONENTS_EXPORT InlineWidgetView : public KTabWidget
 {
-  Q_OBJECT
-    signals:
-  void hidden();
+    Q_OBJECT
+  
+signals:
+    void guiAction(QString);
+    void registeredPage(InlineWidget *page);
 
-  void guiAction(QString);
-
-  void registeredPage(InlineWidget *page);
-  void unRegisteredPage(InlineWidget *page);
-
-  private slots:
-    void processCloseRequest(QWidget* page);
-
-  private:
-    void hideEvent(QHideEvent *event) { emit hidden(); return QWidget::hideEvent(event); }
-
-  public:
-    InlineWidgetView(QWidget* parent=0);
-    void registerPage(InlineWidget *page);
-    void focusPage(InlineWidget *page);
-    void keyPressEvent(QKeyEvent * event);
-    void unRegisterPage(InlineWidget *page);
-    void unRegisterCurrentPage();
-
-    void toggleDisplay(InlineWidget *page);
-
-    ~InlineWidgetView();
-
+public:
+      InlineWidgetView(QWidget* parent=0);
+      void registerPage(InlineWidget *page);
+      void focusPage(InlineWidget *page);
 };
 #endif

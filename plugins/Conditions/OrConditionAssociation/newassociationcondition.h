@@ -52,7 +52,7 @@ class NewAssociationCondition : protected KDialog
 
   private:
     Ui::DlgAssociationCondition ui;
-    QList<CreateConditionWidget*> *m_conditionCreators;
+    QList<CreateConditionWidget*> m_conditionCreators;
     //void switchToTypeOfCondition(Condition* condition);
 
   private slots:
@@ -63,7 +63,7 @@ class NewAssociationCondition : protected KDialog
     NewAssociationCondition(QWidget *parent=0);
     ~NewAssociationCondition();
 
-    bool registerCreators(QList<CreateConditionWidget*>* conditionCreators);
+    bool registerCreators(QList<CreateConditionWidget*> conditionCreators);
 
     bool newAssociationCondition();
 

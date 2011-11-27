@@ -1,7 +1,7 @@
 find_package(Qt4 COMPONENTS QtGui REQUIRED)
 include (${QT_USE_FILE})
 
-find_package(KDE4 REQUIRED)
+
 include(KDE4Defaults)
 include(KDE4Macros)
 include(SimonDirs)
@@ -52,6 +52,9 @@ kde4_add_ui_files(simondialogengineconfui_SRCS
 )
 
 kde4_add_library(simondialogengineconfui SHARED ${simondialogengineconfui_SRCS})
+set_target_properties( simondialogengineconfui
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
+)
 
 if (USE_PLASMA)
 target_link_libraries(simondialogengineconfui 

@@ -3,7 +3,7 @@ ENABLE_TESTING()
 find_package(Qt4 COMPONENTS QtGui QtCore QtXml QtScript REQUIRED)
 include (${QT_USE_FILE})
 
-find_package(KDE4 REQUIRED)
+
 include(KDE4Defaults)
 include(KDE4Macros)
 include(SimonDirs)
@@ -61,6 +61,10 @@ set (simondialogengine_SRCS
 endif(USE_PLASMA)
 
 kde4_add_library(simondialogengine SHARED ${simondialogengine_SRCS})
+
+set_target_properties( simondialogengine
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
+)
 
 if (USE_PLASMA)
 target_link_libraries(simondialogengine 

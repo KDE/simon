@@ -1,4 +1,4 @@
-find_package(KDE4 REQUIRED)
+
 find_package(Qt4 COMPONENTS QtConcurrent)
 include(KDE4Defaults)
 include(KDE4Macros)

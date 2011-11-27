@@ -27,9 +27,10 @@
 
 class MODELMANAGEMENT_EXPORT ShadowVocabulary : public Vocabulary
 {
-  Q_OBJECT
-    signals:
-  void changed();
+    Q_OBJECT
+
+  signals:
+    void changed();
 
   private:
     QDateTime lastModifiedDate;
@@ -43,10 +44,10 @@ class MODELMANAGEMENT_EXPORT ShadowVocabulary : public Vocabulary
     bool isNull() { return loadFailed; }
     QDateTime lastModified() { return  lastModifiedDate; }
 
-    ShadowVocabulary();
+    ShadowVocabulary(QObject *parent = 0);
     bool save();
     bool addWord(Word* w);
-    bool addWords(QList<Word*>* w);
+    bool addWords(QList<Word*> w);
     bool reOrder(Word* w);
     bool removeWord(Word* w, bool deleteWord=true);
     bool renameTerminal(const QString& from, const QString& to);

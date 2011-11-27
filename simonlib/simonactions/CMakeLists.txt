@@ -1,7 +1,7 @@
 find_package(Qt4 COMPONENTS QtCore QtDbus QtGui)
 include(SimonDirs)
 
-find_package(KDE4 REQUIRED)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
@@ -43,7 +43,7 @@ ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}  simonscenarios simonrecognitionresult
 simonscenariobase)
 
 set_target_properties( simonactions
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonactions_LIB_HDRS}

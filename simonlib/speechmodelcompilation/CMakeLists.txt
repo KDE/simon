@@ -1,7 +1,7 @@
-include(FindQt4)
+
 include(SimonDirs)
 
-find_package(KDE4 REQUIRED)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../ ../../julius/libjulius/include)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -D__INTERLOCKED_DECLARED)
@@ -22,7 +22,7 @@ target_link_libraries( simonmodelcompilation ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS
 
 
 set_target_properties( simonmodelcompilation
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonmodelcompilation_LIB_HDRS}

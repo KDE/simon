@@ -29,7 +29,8 @@
  * @param parent The parent of the dialog
  * @param f Window flags
  */
-EditWordDialog::EditWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(parent, f)
+EditWordDialog::EditWordDialog(QWidget* parent, Qt::WindowFlags f)
+  : KDialog(parent, f)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
@@ -56,8 +57,8 @@ int EditWordDialog::exec(Word *word)
     SpeechModel::AllScenariosVocabulary|
     SpeechModel::AllScenariosGrammar|
     SpeechModel::ScenarioGrammar));
-  if (!terminals.contains(i18nc("Standard terminal for unused words", "Unused")))
-    terminals << i18nc("Standard terminal for unused words", "Unused");
+  if (!terminals.contains(i18nc("Standard category for unused words", "Unused")))
+    terminals << i18nc("Standard category for unused words", "Unused");
   ui.cbType->addItems(terminals);
   ui.cbType->setCurrentIndex(ui.cbType->findText(word->getTerminal()));
   ui.leSampa->setText(word->getPronunciation());
@@ -81,7 +82,7 @@ int EditWordDialog::exec(Word *word)
  */
 void EditWordDialog::addTerminal()
 {
-  QString newTerminal = KInputDialog::getText(i18n("Add Terminal"), i18n("You are about to add a new terminal.\n\nPlease enter the name of this new terminal:"));
+  QString newTerminal = KInputDialog::getText(i18n("Add Category"), i18n("Name of new category:"));
 
   if (newTerminal.isEmpty()) return;
 

@@ -1,7 +1,7 @@
 include(UseQt4)
 include(SimonDirs)
 
-find_package(KDE4 REQUIRED)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../ )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
@@ -28,7 +28,7 @@ target_link_libraries( simonxml ${QT_LIBRARIES} ${QT_QTXML_LIBRARY} ${KDE4_KDEUI
 
 
 set_target_properties( simonxml
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonxml_LIB_HDRS}

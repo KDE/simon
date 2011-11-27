@@ -45,15 +45,9 @@ class TrainingViewPrivate : public QWidget, public ScenarioDisplay
 {
   Q_OBJECT
 
-    private:
-    Ui::TrainMain ui;                             //!< UI definition - made by uic from the QTDesigner .ui
-    ImportTrainingTexts *import;
-    QSortFilterProxyModel *textsProxy;
-
-    TrainingText* getCurrentlySelectedText();
-
-  protected:
-    void displayScenarioPrivate(Scenario *scenario);
+  public:
+    TrainingViewPrivate(QWidget *parent=0);
+    ~TrainingViewPrivate();
 
   public slots:
     void deleteSelected();
@@ -65,9 +59,14 @@ class TrainingViewPrivate : public QWidget, public ScenarioDisplay
 
     void clearTrainingdata();
 
-  public:
-    TrainingViewPrivate(QWidget *parent=0);
-    ~TrainingViewPrivate();
+  protected:
+    void displayScenarioPrivate(Scenario *scenario);
 
+  private:
+    Ui::TrainMain ui;                             //!< UI definition - made by uic from the QTDesigner .ui
+    ImportTrainingTexts *import;
+    QSortFilterProxyModel *textsProxy;
+
+    TrainingText* getCurrentlySelectedText();
 };
 #endif

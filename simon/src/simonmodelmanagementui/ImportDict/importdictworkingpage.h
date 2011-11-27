@@ -68,7 +68,7 @@ class ImportDictWorkingPage : public QWizardPage
 
   public:
     void initializePage();
-    QList<Word*>* getCurrentWordList();
+    QList<Word*> getCurrentWordList();
     ImportDictWorkingPage(QWidget* parent);
 
     ~ImportDictWorkingPage();

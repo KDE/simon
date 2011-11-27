@@ -124,7 +124,7 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     void loggedIn();
 
     void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
-    void recognised(RecognitionResultList* recognitionResults);
+    void recognised(RecognitionResultList recognitionResults);
 
     void modelsAvailable(const QList<QDateTime>& models);
 

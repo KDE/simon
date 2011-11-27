@@ -76,7 +76,7 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
 
   private slots:
     void initialize();
-    void initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices);
+    void initialize(QList<SimonSound::DeviceConfiguration> forcedDevices);
 
     void changePromptFont(const QFont& font);
     void displayError(const QString& error);
@@ -100,7 +100,7 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
 
   public:
     RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode=false, 
-	              QWidget *parent=0, QList<SimonSound::DeviceConfiguration>* forcedDevices=0,
+	              QWidget *parent=0, QList<SimonSound::DeviceConfiguration> forcedDevices = QList<SimonSound::DeviceConfiguration>(),
                 bool playbackOnly=false);
     ~RecWidget();
     bool hasRecordingReady();

@@ -28,8 +28,7 @@
 #include <KKeySequenceWidget>
 #include <KDialogButtonBox>
 
-NewCommand::NewCommand(QWidget* parent) : KDialog(parent),
-commandCreaters(0)
+NewCommand::NewCommand(QWidget* parent) : KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
@@ -52,21 +51,18 @@ void NewCommand::deleteLater()
 }
 
 
-bool NewCommand::registerCreators(QList<CreateCommandWidget*>* commandCreaters)
+bool NewCommand::registerCreators(QList<CreateCommandWidget*> newCommandCreaters)
 {
-  if (this->commandCreaters) {
-    qDeleteAll(*commandCreaters);
-    delete this->commandCreaters;
-  }
-
-  foreach (CreateCommandWidget *widget, *commandCreaters) {
+  qDeleteAll(commandCreaters);
+  
+  foreach (CreateCommandWidget *widget, newCommandCreaters) {
     ui.cbType->addItem(widget->windowIcon(), widget->windowTitle());
     ui.swCommandCreaters->addWidget(widget);
     connect(widget, SIGNAL(completeChanged()), this, SLOT(checkIfComplete()));
     connect(widget, SIGNAL(commandSuggested(Command*)), this, SLOT(commandSuggested(Command*)));
   }
 
-  this->commandCreaters = commandCreaters;
+  commandCreaters = newCommandCreaters;
   return true;
 }
 
@@ -81,7 +77,7 @@ void NewCommand::commandSuggested(Command *command)
 void NewCommand::switchToTypeOfManager(CommandManager *manager)
 {
   int i = 0;
-  foreach (CreateCommandWidget *widget, *commandCreaters) {
+  foreach (CreateCommandWidget *widget, commandCreaters) {
     if (widget->isInstanceOfSameManager(manager)) {
       ui.cbType->setCurrentIndex(i);
       break;
@@ -100,7 +96,7 @@ void NewCommand::init(Command *command)
 
   bool found=false;
   int i=0;
-  foreach (CreateCommandWidget *widget, *commandCreaters) {
+  foreach (CreateCommandWidget *widget, commandCreaters) {
     if (widget->isInstanceOfSameManager(command)) {
       widget->init(command);
       found=true;
@@ -164,8 +160,5 @@ bool NewCommand::newCommand(CommandManager* preSelectedCategory)
 
 NewCommand::~NewCommand()
 {
-  if (commandCreaters) {
-    qDeleteAll(*commandCreaters);
-    delete commandCreaters;
-  }
+  qDeleteAll(commandCreaters);
 }

@@ -43,7 +43,7 @@ void ManageActionsAutorunWidget::initCommands()
 
   allCommands = ScenarioManager::getInstance()->getCurrentScenario()->getCommandList();
   int i = 1;
-  foreach (const Command* com, *allCommands) {
+  foreach (const Command* com, allCommands) {
     QString name = com->getTrigger();
     QString category = com->getCategoryText();
     ui.cbAutoStartCommand->addItem(com->getIcon(), name+" ("+category+')');

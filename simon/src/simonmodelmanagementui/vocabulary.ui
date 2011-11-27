@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>789</width>
+    <width>929</width>
     <height>407</height>
    </rect>
   </property>
@@ -14,6 +14,9 @@
    <string>Vocabulary</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="margin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
@@ -32,38 +35,14 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <layout class="QHBoxLayout" name="_2">
-             <item>
-              <widget class="QLabel" name="lbActiveVocab">
-               <property name="text">
-                <string>Vocabulary:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="KLineEdit" name="leActiveVocabSearch">
-               <property name="clickMessage">
-                <string>Filter</string>
-               </property>
-               <property name="showClearButton" stdset="0">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <widget class="KLineEdit" name="leActiveVocabSearch">
+             <property name="clickMessage">
+              <string>Search</string>
+             </property>
+             <property name="showClearButton" stdset="0">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="DragTableView" name="tvActiveVocab">
@@ -79,6 +58,9 @@
                <height>0</height>
               </size>
              </property>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
             </widget>
            </item>
           </layout>
@@ -89,38 +71,14 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <layout class="QHBoxLayout">
-             <item>
-              <widget class="QLabel" name="lbShadowVocab">
-               <property name="text">
-                <string>Vocabulary:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="KLineEdit" name="leShadowVocabSearch">
-               <property name="clickMessage">
-                <string>Filter</string>
-               </property>
-               <property name="showClearButton" stdset="0">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <widget class="KLineEdit" name="leShadowVocabSearch">
+             <property name="clickMessage">
+              <string>Search</string>
+             </property>
+             <property name="showClearButton" stdset="0">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="DragTableView" name="tvShadowVocab">
@@ -136,6 +94,9 @@
                <height>0</height>
               </size>
              </property>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
             </widget>
            </item>
           </layout>
@@ -177,6 +138,13 @@
             </size>
            </property>
           </spacer>
+         </item>
+         <item>
+          <widget class="KPushButton" name="pbAddWord">
+           <property name="text">
+            <string>Add Word</string>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="KPushButton" name="pbEditWord">

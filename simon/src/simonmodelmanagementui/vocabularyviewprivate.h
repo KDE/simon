@@ -59,6 +59,7 @@ class VocabularyViewPrivate : public QWidget, public ScenarioDisplay
     void showImportDictDialog();
     void displayScenarioPrivate(Scenario *scenario);
 
+    void addWord();
     void editSelectedWord();
     void clear();
     void clearTrainingList();

@@ -1,8 +1,8 @@
 find_package(Qt4 COMPONENTS QtCore QtDbus)
-include(FindQt4)
+
 include(SimonDirs)
 
-find_package(KDE4 REQUIRED)
+
 
 #set (QT_USE_QTNETWORK true)
 #include(${QT_USE_FILE})
@@ -42,7 +42,7 @@ target_link_libraries( simondstreamer ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
 
 
 set_target_properties( simondstreamer
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simondstreamer_LIB_HDRS}

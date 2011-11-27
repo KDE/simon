@@ -37,7 +37,6 @@ FirstRunWizard::FirstRunWizard(QWidget* parent, Qt::WFlags flags)
   addPage(createSimondConfigPage());
   addPage(createSoundConfigPage());
   addPage(createSoundVolumePage());
-  addPage(createFinishedPage());
   setBanner("firstrun");
 }
 
@@ -51,10 +50,15 @@ QWizardPage* FirstRunWizard::createIntroPage()
   intro->setLayout(lay);
 
   desc->setWordWrap(true);
-  intro->setTitle(i18n("Welcome to simon"));
+  intro->setTitle(i18n("Welcome to Simon"));
   desc->setOpenExternalLinks(true);
-  desc->setText(i18n("<html><head /><body><p>simon is an open source speech recognition solution enabling you to control your computer with voice commands.</p><p>This assistant will guide you through some key settings that will help you to get simon up and running.</p>"
-    "<p><em>Please</em> follow the following steps very carefully and read the accompanying instructions.</p><p>You can change all these options later on manually too (see the manual for more infromation). You can find an option to display the wizard on the next start in the simon configuration window.</p><p>You can find some beginners instructions on <a href=\"http://simon-listens.org/wiki\">our wiki</a>.</p></body></html>"));
+  desc->setText(i18n("<html><head /><body>"
+    "<p>Simon is a speech recognition solution enabling you to control your computer with your voice.</p>"
+    "<p>This assistant will help you to get simon up and running.</p>"
+    "<p>Go through the following steps carefully and read the instructions.</p>"
+    "<p>You can still change these options later (see the manual for more information)."
+    "<p>Find more instructions on <a href=\"http://simon-listens.org/wiki\">our wiki</a>.</p>"
+    "</body></html>"));
 
   return intro;
 }
@@ -87,22 +91,6 @@ QWizardPage* FirstRunWizard::createBaseModelConfigPage()
 QWizardPage* FirstRunWizard::createScenariosConfigPage()
 {
   return new FirstRunScenariosConfig(this);
-}
-
-
-QWizardPage* FirstRunWizard::createFinishedPage()
-{
-  QWizardPage *finish = new QWizardPage(this);
-  QHBoxLayout *lay = new QHBoxLayout(finish);
-  QLabel *desc = new QLabel(finish);
-  lay->addWidget(desc);
-  finish->setLayout(lay);
-
-  desc->setWordWrap(true);
-  finish->setTitle(i18nc("The user has completed the wizard", "Finished"));
-  desc->setText(i18n("<html><head /><body><p>You completed the initial setup of simon.</p><p>You can find more information on simon and helpful guides and instructions in the simon manual (press F1 in the simon main window to display).</p></body></html>"));
-
-  return finish;
 }
 
 

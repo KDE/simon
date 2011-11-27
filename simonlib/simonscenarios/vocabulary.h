@@ -65,7 +65,7 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
       SPHINX=1
     };
 
-    Vocabulary();
+    Vocabulary(QObject *parent = 0);
     bool deSerialize(const QDomElement&);
     QDomElement serialize(QDomDocument *doc);
     static QDomElement createEmpty(QDomDocument *doc);
@@ -73,7 +73,7 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
     /**
      * Adds the specified words to the vocabulary
      */
-    virtual bool addWords(QList<Word*> *w);
+    virtual bool addWords(QList<Word*> w);
     virtual bool addWord(Word* w);
 
     virtual bool reOrder(Word* w);
@@ -98,7 +98,7 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
     virtual bool empty() { return false; }
     void clear();
     void deleteAll();
-    
+
     bool exportToFile(const QString& path, Vocabulary::ExportFormat format);
 
     enum VocabularyType

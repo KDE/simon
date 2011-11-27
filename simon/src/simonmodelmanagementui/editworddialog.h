@@ -33,18 +33,16 @@ class Word;
 
 class EditWordDialog : public KDialog
 {
+    Q_OBJECT
 
-  Q_OBJECT
-    private:
-    Ui::EditWordView ui;
+  public:
+    explicit EditWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
+    int exec(Word *word);
 
   private slots:
     void addTerminal();
-  public:
 
-    explicit EditWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
-
-    int exec(Word *word);
-
+  private:
+    Ui::EditWordView ui;
 };
 #endif

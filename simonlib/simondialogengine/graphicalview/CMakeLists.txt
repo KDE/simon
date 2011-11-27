@@ -1,7 +1,7 @@
 find_package(Qt4 COMPONENTS QtGui REQUIRED)
 include (${QT_USE_FILE})
 
-find_package(KDE4 REQUIRED)
+
 include(KDE4Defaults)
 include(KDE4Macros)
 include(SimonDirs)
@@ -30,6 +30,10 @@ kde4_add_library(simondialogenginegraphicalview SHARED ${simondialogenginegraphi
 
 target_link_libraries(simondialogenginegraphicalview 
   ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simonactions simondialogengine)
+
+set_target_properties( simondialogenginegraphicalview
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
+)
 
 install(TARGETS simondialogenginegraphicalview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 

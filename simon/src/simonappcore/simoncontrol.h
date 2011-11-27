@@ -51,9 +51,9 @@ class ContextManager;
 
 class SIMONAPPCORE_EXPORT SimonControl : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
-    public:
+  public:
     enum SystemStatus
     {
       Disconnected=0,
@@ -103,7 +103,7 @@ class SIMONAPPCORE_EXPORT SimonControl : public QObject
     void disconnectFromServer();
     void connectedToServer();
     void disconnectedFromServer();
-    void wordRecognised(RecognitionResultList* recognitionResults);
+    void wordRecognised(RecognitionResultList recognitionResults);
     void abortConnecting();
 
     void compileModel();

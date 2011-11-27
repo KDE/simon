@@ -39,7 +39,8 @@
 #include <KDateTime>
 #include <KConfigGroup>
 
-Scenario::Scenario(const QString& scenarioId, const QString& prefix) :
+Scenario::Scenario(const QString& scenarioId, const QString& prefix, QObject *parent)
+: QObject(parent),
 m_prefix(prefix),
 m_inGroup(0),
 m_dirty(true),
@@ -604,7 +605,7 @@ QString Scenario::serialize()
 }
 
 
-bool Scenario::addWords(QList<Word*>* w)
+bool Scenario::addWords(QList<Word*> w)
 {
   return (m_vocabulary->addWords(w));
 }
@@ -888,7 +889,7 @@ bool Scenario::triggerCommand(const QString& type, const QString& trigger, bool 
 }
 
 
-CommandList* Scenario::getCommandList()
+CommandList Scenario::getCommandList()
 {
   return m_actionCollection->getCommandList();
 }

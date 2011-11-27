@@ -56,7 +56,7 @@ class ImportDictView : public SimonWizard
     ImportDictWorkingPage* createImportDictWorkingPage();
     QWizardPage* createFinishedPage();
 
-    QList<Word*>* importDict(Vocabulary::VocabularyType& type);
+    QList<Word*> importDict(Vocabulary::VocabularyType& type);
 
   public:
     enum ImportDictWizardPages

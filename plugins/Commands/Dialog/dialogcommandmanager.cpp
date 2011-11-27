@@ -248,15 +248,13 @@ DialogConfiguration* DialogCommandManager::getDialogConfiguration() const
 QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
 {
   QDomElement commandsElem = doc->createElement("commands");
-  if (commands) {
-    foreach (Command *c, *commands) {
-      //only store voice interface commands
-      if (dynamic_cast<VoiceInterfaceCommand*>(c))
-      {
-        QDomElement commandElem = c->serialize(doc);
-        commandElem.setTagName("voiceInterfaceCommand");
-        commandsElem.appendChild(commandElem);
-      }
+  foreach (Command *c, commands) {
+    //only store voice interface commands
+    if (dynamic_cast<VoiceInterfaceCommand*>(c))
+    {
+      QDomElement commandElem = c->serialize(doc);
+      commandElem.setTagName("voiceInterfaceCommand");
+      commandsElem.appendChild(commandElem);
     }
   }
 
@@ -276,9 +274,6 @@ void DialogCommandManager::stateChanged()
 bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 { 
   if (elem.isNull()) return false;
-
-  if (!commands)
-    commands = new CommandList();
 
   QDomElement stateElem = elem.firstChildElement("state");
   while(!stateElem.isNull())
@@ -313,11 +308,11 @@ void DialogCommandManager::bindStateCommands()
   kDebug() << "rebinding";
   QList<Command*> oldCommands;
 
-  foreach (Command* c, *commands)
+  foreach (Command* c, commands)
   {
     if (dynamic_cast<DialogCommand*>(c))
     {
-      commands->removeAll(c);
+      commands.removeAll(c);
       oldCommands << c;
     }
   }
@@ -330,7 +325,7 @@ void DialogCommandManager::bindStateCommands()
     foreach (DialogCommand* transition, transitions)
     {
       transition->createStateLink(stateId);
-      *commands << transition;
+      commands << transition;
     }
 
     stateId++;
@@ -338,7 +333,7 @@ void DialogCommandManager::bindStateCommands()
 
   foreach (Command* c, oldCommands)
   {
-    if (!commands->contains(c))
+    if (!commands.contains(c))
       delete c;
   }
 }

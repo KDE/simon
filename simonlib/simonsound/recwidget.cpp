@@ -60,7 +60,7 @@
  * @param *parent
  * The parent of the object
  */
-RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode, QWidget *parent, QList<SimonSound::DeviceConfiguration>* forcedDevices, bool playbackOnly) : QWidget(parent),
+RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode, QWidget *parent, QList<SimonSound::DeviceConfiguration> forcedDevices, bool playbackOnly) : QWidget(parent),
 statusTimer(new QTimer(this)),
 ui(new Ui::RecWidgetUi()),
 m_simpleMode(forceSimpleMode),
@@ -86,7 +86,7 @@ m_playbackOnly(playbackOnly)
   setupSignalsSlots();
   initialize(forcedDevices);
   
-  if (!forcedDevices)
+  if (forcedDevices.isEmpty())
     connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
 
   hideActionPrompt();
@@ -204,21 +204,21 @@ QStringList RecWidget::getDevices()
 
 void RecWidget::initialize()
 {
-  initialize(0);
+  initialize(QList<SimonSound::DeviceConfiguration>());
 }
 
-void RecWidget::initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices)
+void RecWidget::initialize(QList<SimonSound::DeviceConfiguration> forcedDevices)
 {
   foreach (WavFileWidget *wg, waves)
     wg->deleteLater();
   waves.clear();
 
   QList<SimonSound::DeviceConfiguration> devices;
-  if (!forcedDevices)
+  if (forcedDevices.isEmpty())
     devices = SoundServer::getTrainingInputDevices();
   else
-    devices = *forcedDevices;
-	
+    devices = forcedDevices;
+  
   if (m_simpleMode) {
       ui->cbSampleGroup->hide();
       ui->lbSampleGroup->hide();

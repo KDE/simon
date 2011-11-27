@@ -27,10 +27,18 @@ class Action;
 
 class MODELMANAGEMENT_EXPORT ActionModel : public QAbstractItemModel
 {
+    Q_OBJECT
 
-  Q_OBJECT
+  public:
+    ActionModel(QObject *parent=0);
 
-    protected:
+    virtual bool appendAction(Action*, bool silent);
+    bool clearActions();
+    bool takeAction(Action*);
+
+    virtual ~ActionModel();
+
+  protected:
     QList<Action*> m_actions;
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -44,15 +52,5 @@ class MODELMANAGEMENT_EXPORT ActionModel : public QAbstractItemModel
 
   private slots:
     void updateAction();
-
-  public:
-    ActionModel(QObject *parent=0);
-
-    virtual bool appendAction(Action*, bool silent);
-    bool clearActions();
-    bool takeAction(Action*);
-
-    virtual ~ActionModel();
-
 };
 #endif

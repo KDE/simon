@@ -19,7 +19,7 @@
 
 #include "simonview.h"
 #include "firstrunwizard.h"
-#include "../version.h"
+#include "version.h"
 
 #include <simonuicomponents/inlinewidgetview.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
@@ -94,7 +94,7 @@
  */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 : KXmlGuiWindow(parent, flags), ScenarioDisplay(),
-welcomePart(0), shownDialogs(0), configDialog(0)
+  shownDialogs(0), configDialog(0)
 {
   Logger::log ( i18n ( "Starting simon..." ) );
 
@@ -132,10 +132,6 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   cbCurrentScenario = new KComboBox(this);
   cbCurrentScenario->setToolTip(i18n("The currently displayed scenario. Select \"Manage scenarios\" to edit the available options."));
 
-  #if KDE_IS_VERSION(4,0,80)
-  ui.inlineView->setCloseButtonEnabled(true);
-  #endif
-
   statusBar()->insertItem(i18n("Not connected"),0);
   statusBar()->insertItem("",1,10);
   statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
@@ -145,28 +141,29 @@ welcomePart(0), shownDialogs(0), configDialog(0)
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading training..." ) );
-  this->trainDialog = new TrainingView();
+  TrainingView *trainDialog = new TrainingView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
+  connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading vocabulary..." ) );
-  vocabularyView = new VocabularyView();
+  VocabularyView *vocabularyView = new VocabularyView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading grammar..." ) );
-  this->grammarView = new GrammarView();
+  GrammarView *grammarView = new GrammarView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading context..." ) );
-  this->contextDialog = new ContextView();
+  ContextView *contextDialog = new ContextView(this);
   connect(contextDialog, SIGNAL(manageScenariosTriggered()), this, SLOT(manageScenarios()));
   ScenarioManager::getInstance()->registerScenarioDisplay(contextDialog);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading run..." ) );
-  this->runDialog = new RunCommandView ();
+  RunCommandView *runDialog = new RunCommandView(this);
   connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
   ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
   kDebug() << "SoundServer: " << SoundServer::getInstance();
@@ -174,17 +171,23 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading interface..." ) );
 
-  displayAboutPage();
-
-  settingsShown=false;
+  setupWelcomePage();
+  settingsShown = false;
 
   displayScenarios();
   updateScenarioDisplays();
-
   setupActions();
 
+  setupGUI();
+  displayScenarioPrivate(ScenarioManager::getInstance()->getCurrentScenario());
+  
+  ui.inlineView->registerPage(vocabularyView);
+  ui.inlineView->registerPage(grammarView);
+  ui.inlineView->registerPage(runDialog);
+  ui.inlineView->registerPage(contextDialog);
+  ui.inlineView->registerPage(trainDialog);
+  
   setupSignalSlots();
-
   control->startup();
 
   //hiding splash again after loading
@@ -192,7 +195,6 @@ welcomePart(0), shownDialogs(0), configDialog(0)
     info->hideSplash();
     delete info;
   }
-
 
   if (!control->startMinimized())
     show();
@@ -216,7 +218,7 @@ void SimonView::testSlot()
 }
 #endif
 
-void SimonView::displayAboutPage()
+void SimonView::setupWelcomePage()
 {
   QString location = KStandardDirs::locate("data", "simon/about/main.html");
 
@@ -245,9 +247,7 @@ void SimonView::displayAboutPage()
   QString simoncss = KStandardDirs::locate( "appdata", "about/simon.css" );
   QString rtl = kapp->isRightToLeft() ? QString("@import \"%1\";" ).arg( KStandardDirs::locate( "data", "kdeui/about/kde_infopage_rtl.css" )) : QString();
 
-  if (welcomePart)
-    welcomePart->deleteLater();
-  welcomePart = new WelcomeHTMLPart(ui.inlineView, this);
+  WelcomeHTMLPart *welcomePart = new WelcomeHTMLPart(ui.inlineView, this);
 
   KIconLoader *iconLoader = KIconLoader::global();
   QString internetIconPath = iconLoader->iconPath("applications-internet", KIconLoader::Desktop);
@@ -401,38 +401,6 @@ void SimonView::setupActions()
   connect(connectActivate, SIGNAL(triggered(bool)),
     this, SLOT(toggleConnection()));
 
-  KAction* addWord = new KAction(this);
-  addWord->setText(i18n("Add Word"));
-  addWord->setIcon(KIcon("list-add"));
-  addWord->setShortcut(Qt::CTRL + Qt::Key_N);
-  actionCollection()->addAction("addword", addWord);
-  connect(addWord, SIGNAL(triggered(bool)),
-    this, SLOT(showAddWordDialog()));
-
-  KAction* train = new KAction(this);
-  train->setText(i18n("Training"));
-  train->setIcon(KIcon("view-pim-news"));
-  train->setShortcut(Qt::CTRL + Qt::Key_T);
-  actionCollection()->addAction("train", train);
-  connect(train, SIGNAL(triggered(bool)),
-    this, SLOT(showTrainDialog()));
-
-  KAction* commands = new KAction(this);
-  commands->setText(i18n("Commands"));
-  commands->setIcon(KIcon("system-run"));
-  commands->setShortcut(Qt::CTRL + Qt::Key_K);
-  actionCollection()->addAction("commands", commands);
-  connect(commands, SIGNAL(triggered(bool)),
-    this, SLOT(showRunDialog()));
-
-  KAction* context = new KAction(this);
-  context->setText(i18n("Context"));
-  context->setIcon(KIcon("preferences-activities"));
-  context->setShortcut(Qt::CTRL + Qt::Key_E);
-  actionCollection()->addAction("context", context);
-  connect(context, SIGNAL(triggered(bool)),
-    this, SLOT(showContextDialog()));
-
   KAction* volumeCalibration = new KAction(this);
   volumeCalibration->setText(i18n("Volume calibration"));
   volumeCalibration->setIcon(KIcon("player-volume"));
@@ -441,21 +409,6 @@ void SimonView::setupActions()
   connect(volumeCalibration, SIGNAL(triggered(bool)),
     this, SLOT(showVolumeCalibration()));
 
-  KAction* wordlist = new KAction(this);
-  wordlist->setText(i18n("Vocabulary"));
-  wordlist->setIcon(KIcon("format-justify-fill"));
-  wordlist->setShortcut(Qt::CTRL + Qt::Key_L);
-  actionCollection()->addAction("wordlist", wordlist);
-  connect(wordlist, SIGNAL(triggered(bool)),
-    this, SLOT(showWordListDialog()));
-
-  KAction* grammar = new KAction(this);
-  grammar->setText(i18n("Grammar"));
-  grammar->setIcon(KIcon("applications-education-language"));
-  grammar->setShortcut(Qt::CTRL + Qt::Key_G);
-  actionCollection()->addAction("grammar", grammar);
-  connect(grammar, SIGNAL(triggered(bool)),
-    this, SLOT(showGrammarDialog()));
 
   KAction* recompile = new KAction(this);
   recompile->setEnabled(control->getStatus() != SimonControl::Disconnected);
@@ -487,9 +440,6 @@ void SimonView::setupActions()
 
   KStandardAction::quit(this, SLOT(closeSimon()),
     actionCollection());
-
-  setupGUI();
-  displayScenarioPrivate(ScenarioManager::getInstance()->getCurrentScenario());
 }
 
 void SimonView::showVolumeCalibration()
@@ -542,7 +492,6 @@ void SimonView::setupSignalSlots()
   QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
   connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 
-  connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
   connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));
   connect(ScenarioManager::getInstance(), SIGNAL(scenarioSelectionChanged()), this, SLOT(displayScenarios()));
   connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SLOT(displayScenarios()));
@@ -583,41 +532,6 @@ void SimonView::displayError ( const QString& error )
   KMessageBox::error ( this, error );
 }
 
-
-/**
- * @brief Shows the Run Dialog
- *
- * @author Peter Grasch
- */
-void SimonView::showRunDialog ()
-{
-  ui.inlineView->toggleDisplay(runDialog);
-}
-
-/**
- * @brief Shows the Context Dialog
- *
- * @author Adam Nash
- */
-void SimonView::showContextDialog ()
-{
-  ui.inlineView->toggleDisplay(contextDialog);
-}
-
-
-/**
- * @brief Shows a dialog to add a new Word to the model
- *
- * @author Peter Grasch
- */
-void SimonView::showAddWordDialog ( )
-{
-  AddWordView *addWordView = new AddWordView();
-  addWordView->show();
-  connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));
-}
-
-
 /**
  * @brief Shows a dialog to configure simon
  *
@@ -644,39 +558,10 @@ void SimonView::showSystemDialog ()
   configDialog = 0;
 }
 
-
-/**
- * @brief Shows a dialog to train the language model
- *
- * @author Peter Grasch
- */
-void SimonView::showTrainDialog ()
+void SimonView::showTrainDialog()
 {
-  ui.inlineView->toggleDisplay(trainDialog);
+  ui.inlineView->setCurrentIndex(5);
 }
-
-
-/**
- * @brief Shows a dialog to Control the Language Model
- *
- * @author Peter Grasch
- */
-void SimonView::showWordListDialog ()
-{
-  ui.inlineView->toggleDisplay(vocabularyView);
-}
-
-
-/**
- * @brief Shows a dialog to Control the Language Model
- *
- * @author Peter Grasch
- */
-void SimonView::showGrammarDialog ()
-{
-  ui.inlineView->toggleDisplay(grammarView);
-}
-
 
 /**
  * @brief Toggles the activation state
@@ -931,10 +816,7 @@ const KParts::BrowserArguments& browserArgs)
  */
 SimonView::~SimonView()
 {
-  if (welcomePart)
-    welcomePart->deleteLater();
-
-  Logger::log ( i18n ( "Quitting..." ) );
+  Logger::log( i18n ( "Quitting..." ) );
   trayManager->deleteLater();
   delete control;
   Logger::close();

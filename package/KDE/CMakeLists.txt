@@ -1,7 +1,7 @@
 # "Installing" KDE files required for simon / simond / ksimond to the same location they are from
 # Use this to bundle KDE / Qt / Portaudio with simon for (cpack generated) windows installer
 IF(WIN32)
-find_package(KDE4 REQUIRED)
+
 ADD_CUSTOM_TARGET(package) #remove all
 #set_target_properties(package PROPERTIES EXCLUDE_FROM_ALL)
 

@@ -1,9 +1,9 @@
-include(FindQt4)
+
 include(SimonDirs)
 
 find_package(Qt4 COMPONENTS QtCore QtXml REQUIRED)
 include(${QT_USE_FILE})
-find_package(KDE4 REQUIRED)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
@@ -36,7 +36,7 @@ target_link_libraries( simontts simonsound simonwav ${QT_LIBRARIES} ${KDE4_KDECO
 
 
 set_target_properties( simontts
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simontts_LIB_HDRS}

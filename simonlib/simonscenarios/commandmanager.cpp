@@ -85,9 +85,7 @@ const KIcon CommandManager::icon() const
  */
 bool CommandManager::trigger(const QString& triggerName, bool silent)
 {
-  if (!commands) return false;
-
-  foreach (Command* c, *commands) {
+  foreach (Command* c, commands) {
     if (c->matches(m_currentState, triggerName))
     {
       kDebug() << "Matches: " << c->getTrigger();
@@ -114,7 +112,7 @@ bool CommandManager::trigger(const QString& triggerName, bool silent)
  */
 bool CommandManager::triggerCommand(Command *command, bool silent)
 {
-  if (!commands || !commands->contains(command))
+  if (!commands.contains(command))
     return false;
 
   return command->trigger(&m_currentState, silent);
@@ -153,8 +151,6 @@ bool CommandManager::addCommand(Command *command)
 {
   VoiceInterfaceCommand *c = dynamic_cast<VoiceInterfaceCommand*>(command);
   if (c) {
-    if (!commands)
-      commands = new CommandList();
     bool accept = appendCommand(command);
     adaptUi();
     return accept;
@@ -191,13 +187,10 @@ bool CommandManager::addCommandPrivate(Command *command)
  */
 bool CommandManager::appendCommand(Command *c)
 {
-  if (!commands)
-    commands = new CommandList();
-
   int visibleCommands = rowCount();
   beginInsertRows(QModelIndex(), visibleCommands, visibleCommands);
   c->setParent(this);                             //assign parent
-  *commands << c;
+  commands << c;
   endInsertRows();
 
   return parentScenario->save();
@@ -284,13 +277,11 @@ QString id)
   templ->assignAction(object, slot);
   voiceInterfaceCommandTemplates.append(templ);
 
-  if (commands) {
-    foreach (Command *c, *commands) {
-      VoiceInterfaceCommand *iC = dynamic_cast<VoiceInterfaceCommand*>(c);
-      if (!iC) continue;
-      if (iC->id() == id)
-        iC->assignAction(this, object, slot);
-    }
+  foreach (Command *c, commands) {
+    VoiceInterfaceCommand *iC = dynamic_cast<VoiceInterfaceCommand*>(c);
+    if (!iC) continue;
+    if (iC->id() == id)
+      iC->assignAction(this, object, slot);
   }
   return true;
 }
@@ -540,13 +531,12 @@ commandElem.setTagName("voiceInterfaceCommand");
 QDomElement CommandManager::serializeCommands(QDomDocument *doc)
 {
   QDomElement commandsElem = doc->createElement("commands");
-  if (commands) {
-    foreach (Command *c, *commands) {
-      QDomElement commandElem = c->serialize(doc);
-      if (dynamic_cast<VoiceInterfaceCommand*>(c))
-        commandElem.setTagName("voiceInterfaceCommand");
-      commandsElem.appendChild(commandElem);
-    }
+  
+  foreach (Command *c, commands) {
+    QDomElement commandElem = c->serialize(doc);
+    if (dynamic_cast<VoiceInterfaceCommand*>(c))
+      commandElem.setTagName("voiceInterfaceCommand");
+    commandsElem.appendChild(commandElem);
   }
 
   return commandsElem;
@@ -580,15 +570,11 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
     //load defaults
     bool childSucc = deSerializeCommandsPrivate(elem);
 
-    if (!voiceInterfaceCommandTemplates.isEmpty())
-      if (!commands)
-        commands = new CommandList();
-
     foreach (VoiceInterfaceCommandTemplate *tem, voiceInterfaceCommandTemplates) {
       VoiceInterfaceCommand *com = new VoiceInterfaceCommand(this, tem);
       com->assignAction(this, tem->receiver(), tem->slot());
       com->setParent(this);
-      *commands << com;
+      commands << com;
     }
 
     return childSucc;
@@ -598,13 +584,8 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
 
   QDomElement command = elem.firstChildElement("voiceInterfaceCommand");
 
-  if (commands)
-    qDeleteAll(*commands);
-
-  commands = 0;
-
-  if (!command.isNull())                          //we need commands
-    commands = new CommandList();
+  qDeleteAll(commands);
+  commands.clear();
 
   while (!command.isNull()) {
     VoiceInterfaceCommand *com = VoiceInterfaceCommand::createInstance(command);
@@ -615,21 +596,18 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
     foreach (VoiceInterfaceCommandTemplate *tem, voiceInterfaceCommandTemplates) {
       if (tem->id() == com->id()) {
         com->assignAction(this, tem->receiver(), tem->slot());
-        *commands << com;
+        commands << com;
         break;
       }
     }
   }
 
-  if (commands)
-    kDebug() << "Loaded commands: " << commands->count();
+  kDebug() << "Loaded commands: " << commands.count();
 
   bool succ = deSerializeCommandsPrivate(elem);
 
-  if (!commands) return succ;
-
-  foreach (Command *c, *commands)
-    c->setParent(this);                           //assign parent
+  foreach (Command *c, commands)
+    c->setParent(this); //assign parent
 
   return succ;
 }
@@ -642,7 +620,7 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
  */
 VoiceInterfaceCommand* CommandManager::getVoiceInterfaceCommand(const QString& id)
 {
-  foreach (Command *c, *commands) {
+  foreach (Command *c, commands) {
     VoiceInterfaceCommand *iC = dynamic_cast<VoiceInterfaceCommand*>(c);
     if (!iC) continue;
     if (iC->id() == id)
@@ -762,13 +740,11 @@ const QString CommandManager::preferredTrigger() const
  */
 bool CommandManager::deleteCommand(Command *command)
 {
-  if (!commands) return false;
-
   int visibleIndex = 0;
-  for (int i=0; i < commands->count(); i++) {
-    if (commands->at(i) == command) {
+  for (int i=0; i < commands.count(); i++) {
+    if (commands.at(i) == command) {
       beginRemoveRows(QModelIndex(), visibleIndex, visibleIndex);
-      commands->removeAt(i);
+      commands.removeAt(i);
       endRemoveRows();
 
       if (dynamic_cast<VoiceInterfaceCommand*>(command))
@@ -777,7 +753,7 @@ bool CommandManager::deleteCommand(Command *command)
       delete command;
       return parentScenario->save();
     }
-    if (!commands->at(i)->getHidden())
+    if (!commands.at(i)->getHidden())
       ++visibleIndex;
   }
 
@@ -797,12 +773,10 @@ bool CommandManager::deleteCommand(Command *command)
  */
 void CommandManager::adaptUi()
 {
-  if (!commands) return;
-
   QHash<QObject* /*receiver*/, QStringList /*visible triggers*/> voiceCommands;
   QHash<QObject* /*receiver*/, QStringList /*triggers*/> voiceCommandsTrigger;
 
-  foreach (Command *c, *commands) {
+  foreach (Command *c, commands) {
     VoiceInterfaceCommand *com = dynamic_cast<VoiceInterfaceCommand*>(c);
     if (!com) continue;
     if (!com->receiver()) continue;
@@ -847,13 +821,14 @@ void CommandManager::adaptUi()
 
 QVariant CommandManager::data(const QModelIndex &index, int role) const
 {
-  if (!index.isValid() || !commands) return QVariant();
+  if (!index.isValid() || commands.count() < resolveRowNumber(index.row()))
+    return QVariant();
 
   if (role == Qt::DisplayRole)
-    return commands->at(resolveRowNumber(index.row()))->getTrigger();
+    return commands.at(resolveRowNumber(index.row()))->getTrigger();
 
   if (role == Qt::DecorationRole)
-    return commands->at(resolveRowNumber(index.row()))->getIcon();
+    return commands.at(resolveRowNumber(index.row()))->getIcon();
 
   return QVariant();
 }
@@ -892,15 +867,16 @@ QModelIndex CommandManager::parent(const QModelIndex &index) const
 
 int CommandManager::rowCount(const QModelIndex &parent) const
 {
-  if (!parent.isValid() && commands)
+  if (!parent.isValid())
   {
     int count = 0;
-    foreach (Command* c, *commands)
+    foreach (Command* c, commands)
       if (!c->getHidden())
         ++count;
     return count;
+  } else {
+    return 0;
   }
-  else return 0;
 }
 
 
@@ -913,11 +889,10 @@ int CommandManager::columnCount(const QModelIndex &parent) const
 
 QModelIndex CommandManager::index(int row, int column, const QModelIndex &parent) const
 {
-  if (!hasIndex(row, column, parent) || parent.isValid() || !commands)
+  if (!hasIndex(row, column, parent) || parent.isValid() || commands.count() < resolveRowNumber(row))
     return QModelIndex();
 
-
-   return createIndex(row, column, commands->at(resolveRowNumber(row)));
+  return createIndex(row, column, commands.at(resolveRowNumber(row)));
 }
 
 int CommandManager::resolveRowNumber(int in) const
@@ -927,13 +902,13 @@ int CommandManager::resolveRowNumber(int in) const
 
   while (shownBefore < in)
   {
-    if (commands->at(shownBefore+hiddenBefore)->getHidden())
+    if (commands.at(shownBefore+hiddenBefore)->getHidden())
       ++hiddenBefore;
     else 
       ++shownBefore;
   }
 
-  while (commands->at(shownBefore+hiddenBefore)->getHidden())
+  while (commands.at(shownBefore+hiddenBefore)->getHidden())
     hiddenBefore++;
 
   return hiddenBefore + shownBefore;
@@ -973,9 +948,8 @@ void CommandManager::switchToState(int newState)
  * \warning Beware of dangling pointers!
  */
 CommandManager::~CommandManager()
-{
-  if (commands)
-    qDeleteAll(*commands);
+{ 
+  qDeleteAll(commands);
 
   if (config)
     config->deleteLater();

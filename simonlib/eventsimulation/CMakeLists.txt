@@ -1,7 +1,7 @@
-include(FindQt4)
+
 include(SimonDirs)
 
-find_package(KDE4 REQUIRED)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -D__INTERLOCKED_DECLARED)
@@ -47,11 +47,6 @@ IF(WIN32)
 	kde4_add_library( eventsimulation  SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_WINDOWS_SRCS} )
 	target_link_libraries( eventsimulation ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} )
 ENDIF(WIN32)
-
-
-set_target_properties( eventsimulation
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
-)
 
 install( FILES ${eventsimulation_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/eventsimulation

@@ -212,8 +212,10 @@ User* DatabaseAccess::getUser(qint32 id)
  * Returns all users matching the given filter criteria
  * Criteria that doesn't contain valid data will be ignored
  */
-QList<User*>* DatabaseAccess::getUsers(User* u, qint32 institutionId, const QString& referenceId)
+QList<User*> DatabaseAccess::getUsers(User* u, qint32 institutionId, const QString& referenceId, bool *success)
 {
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
   bool includeUserId = (u->userId() > 0);
   bool includeSurname = (!u->surname().isEmpty());
@@ -261,11 +263,13 @@ QList<User*>* DatabaseAccess::getUsers(User* u, qint32 institutionId, const QStr
   if (includeInstitutionId) q.bindValue(":institutionId", institutionId);
   if (includeReferenceId) q.bindValue(":referenceId", referenceId);
 
-  if (!executeQuery(q)) return 0;
+  if (!executeQuery(q)) {
+    return QList<User*>();
+  }
 
-  QList<User*>* users = new QList<User*>();
+  QList<User*> users;
   while (q.next()) {
-    users->append(new User(q.value(0).toInt(),
+    users.append(new User(q.value(0).toInt(),
       q.value(1).toString(),
       q.value(2).toString(),
       q.value(3).toString().at(0),
@@ -283,7 +287,8 @@ QList<User*>* DatabaseAccess::getUsers(User* u, qint32 institutionId, const QStr
       q.value(15).toBool(),
       q.value(16).toBool()));
   }
-
+  if (success != 0)
+    *success = true;
   return users;
 }
 
@@ -360,20 +365,22 @@ bool DatabaseAccess::deleteUserInstitutionAssociation(qint32 userId, qint32 inst
 }
 
 
-QList<UserInInstitution*>* DatabaseAccess::getUserInstitutionAssociation(qint32 userId)
+QList<UserInInstitution*> DatabaseAccess::getUserInstitutionAssociation(qint32 userId, bool *success)
 {
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
-  QList<UserInInstitution*>* uiis = new QList<UserInInstitution*>();
+  QList<UserInInstitution*> uiis;
 
   QSqlQuery q = queryProvider->getUserInstitutionAssociation();
   q.bindValue(":userid", userId);
 
   qDebug() << "Executing query...";
-  if (!executeQuery(q)) return 0;
+  if (!executeQuery(q)) return QList<UserInInstitution*>();
   qDebug() << "Survived query...";
 
   while (q.next()) {
-    uiis->append(new UserInInstitution(q.value(0).toInt(),
+    uiis.append(new UserInInstitution(q.value(0).toInt(),
       q.value(1).toInt(), q.value(2).toString()));
   }
 
@@ -418,59 +425,69 @@ bool DatabaseAccess::removeUser(qint32 id)
 }
 
 
-QList<Language*>* DatabaseAccess::getLanguages()
+QList<Language*> DatabaseAccess::getLanguages(bool *success)
 {
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
-  QList<Language*>* ll = new QList<Language*>();
+  QList<Language*> ll;
 
   QSqlQuery q = queryProvider->getLanguages();
 
   if (!executeQuery(q))
-    return 0;
+    return QList<Language*>();
 
   while (q.next()) {
-    ll->append(new Language(q.value(0).toString(),
+    ll.append(new Language(q.value(0).toString(),
       q.value(1).toString()));
   }
-
+  if (success != 0)
+    *success = true;
   return ll;
 }
 
 
-QList<Microphone*>* DatabaseAccess::getMicrophones()
+QList<Microphone*> DatabaseAccess::getMicrophones(bool *success)
 {
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
-  QList<Microphone*>* ml = new QList<Microphone*>();
+  QList<Microphone*> ml;
 
   QSqlQuery q = queryProvider->getMicrophones();
 
   if (!executeQuery(q))
-    return 0;
+    return QList<Microphone*>();
 
   while (q.next()) {
-    ml->append(new Microphone(q.value(0).toInt(),
+    ml.append(new Microphone(q.value(0).toInt(),
       q.value(1).toString(), q.value(1).toString()));
   }
-
+  if (success != 0)
+    *success = true;
   return ml;
 }
 
 
-QList<SoundCard*>* DatabaseAccess::getSoundCards()
+QList<SoundCard*> DatabaseAccess::getSoundCards(bool *success)
 {
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
-  QList<SoundCard*>* sl = new QList<SoundCard*>();
+  QList<SoundCard*> sl;
 
   QSqlQuery q = queryProvider->getSoundCards();
 
   if (!executeQuery(q))
-    return 0;
+    return QList<SoundCard*>();
 
   while (q.next()) {
-    sl->append(new SoundCard(q.value(0).toInt(),
+    sl.append(new SoundCard(q.value(0).toInt(),
       q.value(1).toString(), q.value(1).toString()));
   }
 
+  if (success != 0)
+    *success = true;
   return sl;
 }
 
@@ -544,20 +561,23 @@ Institution* DatabaseAccess::getInstitution(qint32 id)
 }
 
 
-QList<Institution*>* DatabaseAccess::getInstitutions()
+QList<Institution*> DatabaseAccess::getInstitutions(bool *success)
 {
+  if (success != 0)
+    *success = false;
   QMutexLocker l(&transactionLock);
-  QList<Institution*>* ins = new QList<Institution*>();
+  QList<Institution*> ins;
 
   QSqlQuery q = queryProvider->getInstitutions();
 
-  if (!executeQuery(q)) return 0;
+  if (!executeQuery(q)) return QList<Institution*>();
 
   while (q.next()) {
-    ins->append(new Institution(q.value(0).toInt(),
+    ins.append(new Institution(q.value(0).toInt(),
       q.value(1).toString()));
   }
-
+  if (success != 0)
+    *success = true;
   return ins;
 }
 

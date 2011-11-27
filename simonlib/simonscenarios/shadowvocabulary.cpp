@@ -32,7 +32,8 @@
 /**
  * Empty, private constructor
  */
-ShadowVocabulary::ShadowVocabulary() : Vocabulary(), loadFailed(false)
+ShadowVocabulary::ShadowVocabulary(QObject *parent)
+  : Vocabulary(parent), loadFailed(false)
 {
   kDebug() << "Initializing shadow dictionary: " << this;
   QString vocabFilename = KStandardDirs::locate("appdata", "shadowvocabulary.xml");
@@ -188,10 +189,9 @@ bool ShadowVocabulary::save()
 }
 
 
-bool ShadowVocabulary::addWords(QList<Word*>* w)
+bool ShadowVocabulary::addWords(QList<Word*> w)
 {
   if (!Vocabulary::addWords(w)) return false;
-
   return save();
 }
 

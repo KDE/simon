@@ -1,10 +1,12 @@
-find_package(KDE4 REQUIRED)
+
 include(KDE4Defaults)
 include(KDE4Macros)
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
-include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
-${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib)
+include_directories(
+  ${KDE4_INCLUDE_DIR}
+  ${QT_INCLUDES}
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib
+)
 
 set (simoncalculatorplugin_SRCS 
 	calculatorcommandmanager.cpp
@@ -15,7 +17,6 @@ set (simoncalculatorplugin_SRCS
 kde4_add_ui_files(simoncalculatorplugin_SRCS calculatorconfigurationdlg.ui calculatorwidget.ui)
 
 kde4_add_plugin(simoncalculatorplugin ${simoncalculatorplugin_SRCS})
-
 
 target_link_libraries(simoncalculatorplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
 	eventsimulation simonlogging simonscenarios simonactions

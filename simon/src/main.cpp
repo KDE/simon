@@ -31,7 +31,7 @@
 #endif
 #include <KAboutData>
 #include <KCmdLineArgs>
-#include "../../version.h"
+#include "version.h"
 
 #include <KDebug>
 
@@ -63,18 +63,20 @@ public KApplication
 int main(int argc, char *argv[])
 {
   KAboutData aboutData( "simon", "simon",
-    ki18n("simon"), simon_version,
-    ki18n("<html><head /><body>\
-					      <h2>Development and Distribution</h2>\
-					      <p>Developed and distributed by the friendly society <a href=\"http://simon-listens.org\">simon listens e.V.</a> in cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
-					      <h3>Special Thanks To</h3> \
-					      <ul><li>Franz Stieger</li><li>Mathias Stieger</li><li>Phillip Theussl</li><li>Moacyr Prado</li><li>Michael Stieger</li><li>Ralf Herzog</li></ul> \
-					      </body></html>"),
-	    KAboutData::License_GPL,
-	    ki18n("Copyright (c) 2008-2010 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
+    ki18n("Simon"), simon_version,
+    ki18n("<html><head /><body>"
+          "<h2>Development and Distribution</h2>"
+          "<p>Developed and distributed by the friendly society"
+          " <a href=\"http://simon-listens.org\">simon listens e.V.</a>"
+          " in cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>"
+          "<h3>Special Thanks To</h3>"
+          "<ul><li>Franz Stieger</li><li>Mathias Stieger</li><li>Phillip Theussl</li><li>Moacyr Prado</li><li>Michael Stieger</li><li>Ralf Herzog</li></ul>"
+          "</body></html>"),
+          KAboutData::License_GPL,
+          ki18n("Copyright (c) 2008-2010 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
 
   KCmdLineOptions options;
-  options.add("nosplash", ki18n("Disable simons splash screen"));
+  options.add("nosplash", ki18n("Disable Simon's splash screen"));
   KCmdLineArgs::addCmdLineOptions(options);
 
   KCmdLineArgs::init(argc, argv, &aboutData);

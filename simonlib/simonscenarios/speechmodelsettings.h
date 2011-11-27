@@ -34,22 +34,14 @@
 class SpeechModelSettings : public KCModule
 {
   Q_OBJECT
-  private:
-    Ui::TrainingSettingsWidget uiTrainingsData;
-    Ui::LanguageProfileSettingsWidget uiLanguageProfile;
 
-    Ui::ModelDlg ui;
-    QString lastDirectory;
-    QString m_hmmDefsToImport;
-    QString m_tiedlistToImport;
-    QString m_macrosToImport;
-    QString m_statsToImport;
-    QString m_languageProfileToImport;
+  public:
+    explicit SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
 
-    int m_storedModelType;
-    void touchLanguageProfileDate();
-    
-    QString translateDefault(const QString& in);
+  public slots:
+    void load();
+    void save();
+    void defaults();
     
   signals:
     void changed(bool);
@@ -61,17 +53,22 @@ class SpeechModelSettings : public KCModule
     void loadBaseTiedlist();
     void loadBaseMacros();
     void loadBaseStats();
-    void displayHelp();
+
+  private:
+    void touchLanguageProfileDate();
+    QString translateDefault(const QString& in);
+    void importBaseModelFromDirectory(QDir dir);
     
-  public slots:
-    void load();
-    void save();
-    void defaults();
+    Ui::TrainingSettingsWidget uiTrainingsData;
+    Ui::LanguageProfileSettingsWidget uiLanguageProfile;
+    Ui::ModelDlg ui;
+    QString m_lastDirectory;
+    QString m_hmmDefsToImport;
+    QString m_tiedlistToImport;
+    QString m_macrosToImport;
+    QString m_statsToImport;
+    QString m_languageProfileToImport;
 
-  public:
-    explicit SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
-
-    ~SpeechModelSettings();
-
+    int m_storedModelType;
 };
 #endif

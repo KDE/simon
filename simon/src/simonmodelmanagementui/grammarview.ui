@@ -19,6 +19,9 @@
    </iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout4">
+   <property name="margin">
+    <number>0</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="hori2">
      <item>
@@ -95,7 +98,7 @@
        <item>
         <widget class="KPushButton" name="pbRename">
          <property name="text">
-          <string>Rename Terminal</string>
+          <string>Rename Category</string>
          </property>
          <property name="checkable">
           <bool>false</bool>
@@ -104,8 +107,11 @@
        </item>
        <item>
         <widget class="KPushButton" name="pbMerge">
+         <property name="toolTip">
+          <string>Using this procedure you can keep your grammar structures to a minmum and improve the readability of grammar and wordlist.</string>
+         </property>
          <property name="text">
-          <string>Merge Terminals</string>
+          <string>Merge Categories</string>
          </property>
          <property name="checkable">
           <bool>false</bool>

@@ -61,17 +61,16 @@ bool isWordLessThan(Word *w1, Word *w2)
 AddWordView::AddWordView(Vocabulary *vocab, QWidget *parent)
 : SimonWizard(parent),
 targetVocabulary(vocab),
-listToAdd(new QList<Word*>()),
 record1(createRecordPage("wordExample1", 1, 2)),
 record2(createRecordPage("wordExample2", 2, 2))
 {
-  this->addPage(createWelcomePage());
-  this->addPage(createResolvePage());
+  addPage(createWelcomePage());
+  addPage(createResolvePage());
   if (SoundServer::getCalibrateVolume())
     addPage(new TrainSampleVolumePage(this));
-  this->addPage(record1);
-  this->addPage(record2);
-  this->addPage(createFinishedPage());
+  addPage(record1);
+  addPage(record2);
+  addPage(createFinishedPage());
 
   connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
 
@@ -87,7 +86,7 @@ void AddWordView::accept()
   Logger::log(i18n("Adding the new Word to the Model..."));
   Logger::log(i18n("New word: ")+word);
 
-  listToAdd->append(new Word(word.trimmed(), field("wordPronunciation").toString(),
+  listToAdd.append(new Word(word.trimmed(), field("wordPronunciation").toString(),
     field("wordTerminal").toString()));
 
   QList<AddWordRecordPage*> recordPages;
@@ -126,12 +125,12 @@ void AddWordView::accept()
 void AddWordView::cleanUp()
 {
   setField("wordNameIntro", QString());
-  if (!listToAdd->isEmpty()) {
+  if (!listToAdd.isEmpty()) {
     if (KMessageBox::questionYesNoCancel(this, i18n("Do you want to add the words that have been completely described up until now?")) == KMessageBox::Yes)
       commitList();
     else {
-      qDeleteAll(*listToAdd);
-      listToAdd->clear();
+      qDeleteAll(listToAdd);
+      listToAdd.clear();
       promptsToAdd.clear();
       sampleGroupsToAdd.clear();
     }
@@ -212,13 +211,8 @@ void AddWordView::commitList()
   promptsToAdd.clear();
   sampleGroupsToAdd.clear();
 
-  for (int i=0; i < listToAdd->count(); i++) {
-    Word *w = listToAdd->takeAt(i);
-    listToAdd->insert(i, w);
-  }
-
   //sort the list
-  qSort(listToAdd->begin(), listToAdd->end(), isWordLessThan);
+  qSort(listToAdd.begin(), listToAdd.end(), isWordLessThan);
 
   bool success=true;
   if (!targetVocabulary) {
@@ -231,7 +225,7 @@ void AddWordView::commitList()
   if (!success)
     KMessageBox::sorry(this, "Could not add word(s).");
 
-  listToAdd = new QList<Word*>();
+  listToAdd.clear();
   ModelManagerUiProxy::getInstance()->commitGroup();
 }
 

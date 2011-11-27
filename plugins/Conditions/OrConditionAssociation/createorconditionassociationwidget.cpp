@@ -134,17 +134,16 @@ Condition* CreateOrConditionAssociationWidget::getCurrentCondition()
 void CreateOrConditionAssociationWidget::addAssociationCondition()
 {
     NewAssociationCondition *associationConditionDlg = new NewAssociationCondition(this);
-    QList<CreateConditionWidget*>* widgets = new QList<CreateConditionWidget*>();
-    QList<Condition*>* conditions;
+    QList<CreateConditionWidget*> widgets;
+    QList<Condition*> conditions;
     ContextManager* manager = ContextManager::instance();
 
     conditions = manager->getConditions();
 
-    foreach (Condition* condition, *conditions)
+    foreach (Condition* condition, conditions)
     {
-        widgets->push_back(condition->getCreateConditionWidget(m_compoundAssociationCondition, this));
+        widgets.push_back(condition->getCreateConditionWidget(m_compoundAssociationCondition, this));
     }
-    delete conditions;
 
     associationConditionDlg->registerCreators(widgets);
     associationConditionDlg->newAssociationCondition();
@@ -162,17 +161,16 @@ void CreateOrConditionAssociationWidget::editAssociationCondition()
         return;
 
     //get the CreateConditionWidgets
-    QList<CreateConditionWidget*>* widgets = new QList<CreateConditionWidget*>();
-    QList<Condition*>* conditions = new QList<Condition*>();
+    QList<CreateConditionWidget*> widgets;
+    QList<Condition*> conditions;
     ContextManager* manager = ContextManager::instance();
 
     conditions = manager->getConditions();
 
-    foreach (Condition* c, *conditions)
+    foreach (Condition* c, conditions)
     {
-        widgets->push_back(c->getCreateConditionWidget(m_compoundAssociationCondition, this));
+        widgets.push_back(c->getCreateConditionWidget(m_compoundAssociationCondition, this));
     }
-    delete conditions;
 
     //prepare the edit condition dialog and launch it
     NewAssociationCondition *editCondition = new NewAssociationCondition(this);

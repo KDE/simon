@@ -1,14 +1,15 @@
-include(FindQt4)
 include(SimonDirs)
+include(KDE4Defaults)
 
-find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../
-			${CMAKE_CURRENT_SOURCE_DIR}/..
-			${CMAKE_CURRENT_SOURCE_DIR}/../
+
+include_directories(
+	${KDE4_INCLUDES}
+	${QT_INCLUDES}
+	${CMAKE_CURRENT_SOURCE_DIR}/..
+	${CMAKE_BINARY_DIR}
 )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LIB)
-include(KDE4Defaults)
 
 set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
@@ -43,33 +44,29 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.cpp
-
 	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.cpp
-
-        ${CMAKE_CURRENT_SOURCE_DIR}/promptstable.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/promptstable.cpp
 )
 
 
 set( simonscenarios_LIB_HDRS
-  ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagement_export.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/speechmodel.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/word.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/model.h
-
-
-${CMAKE_CURRENT_SOURCE_DIR}/author.h
-${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
+	${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagement_export.h
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
+	${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.h
+	${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.h
+	${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
+	${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/grammar.h
+	${CMAKE_CURRENT_SOURCE_DIR}/speechmodel.h
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.h
+	${CMAKE_CURRENT_SOURCE_DIR}/word.h
+	${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.h
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.h
+	${CMAKE_CURRENT_SOURCE_DIR}/model.h
+	${CMAKE_CURRENT_SOURCE_DIR}/author.h
+	${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmanager.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.h
@@ -84,8 +81,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistelements.h
-
-        ${CMAKE_CURRENT_SOURCE_DIR}/promptstable.h
+	${CMAKE_CURRENT_SOURCE_DIR}/promptstable.h
 )
 
 
@@ -104,7 +100,7 @@ target_link_libraries( simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE
 	simonscenariobase simoncontextdetection simongraphemetophoneme )
 
 set_target_properties( simonscenarios
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonscenarios_LIB_HDRS}

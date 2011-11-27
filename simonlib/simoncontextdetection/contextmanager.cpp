@@ -50,9 +50,9 @@ ContextManager* ContextManager::instance()
     return m_instance;
 }
 
-QList<Condition*>* ContextManager::getConditions()
+QList<Condition*> ContextManager::getConditions()
 {
-    QList<Condition*>* conditions = new QList<Condition*>();
+    QList<Condition*> conditions;
     KService::List services;
     KServiceTypeTrader* trader = KServiceTypeTrader::self();
     Condition *condition;
@@ -63,7 +63,7 @@ QList<Condition*>* ContextManager::getConditions()
         condition = getCondition(getEmptyCondition(service->storageId()));
 
         if (condition)
-            conditions->push_back(condition);
+            conditions.push_back(condition);
     }
 
     return conditions;
