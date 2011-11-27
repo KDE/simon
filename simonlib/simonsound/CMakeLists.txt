@@ -141,7 +141,7 @@ else(LIBSAMPLERATE_FOUND)
 	message(STATUS "Disabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
   simonlogging
-  ${KDE4_KDEUI_LIBS} simonwav)
+  ${KDE4_KDEUI_LIBS})
 endif(LIBSAMPLERATE_FOUND)
 
 set_target_properties( simonsound

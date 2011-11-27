@@ -25,9 +25,6 @@
 #include <KLocalizedString>
 #include "directsoundbackend.h"
 
-
-#include "simonwav\wav.h"
-
 #ifdef __MINGW64_VERSION_MAJOR
 //libdxerr.a is missing on mingw so no error support :(
 #define DXERR_TO_STRING(x) ""
@@ -78,9 +75,6 @@ public:
 		DWORD dwReadPosOld = 0;
 		LONG lockSize;
 
-		WAV tmp("simon-test.wav",m_parent->m_waveFormat.nChannels,m_parent->m_sampleRate);
-		tmp.beginAddSequence();
-
 		if(FAILED(hr = m_parent->m_primaryBufferC->Start( DSCBSTART_LOOPING ) )){
 			kWarning()<<"Failed to start recording"<<DXERR_TO_STRING(hr);
 		}
@@ -121,9 +115,6 @@ public:
 			}
 
 			dataWritten  = m_parent->m_client->writeData(buffer, lockSize);
-			tmp.write(buffer,lockSize);
-
-
 
 
 			m_parent->m_primaryBufferC->Unlock(capture1,captureLength1,capture2,captureLength2);  
@@ -135,9 +126,6 @@ public:
 			kWarning()<<"Recorde error";
 			m_parent->errorRecoveryFailed();
 		}
-
-		tmp.endAddSequence();
-		tmp.writeFile();
 
 		kWarning()<<"Record loop ended";
 		delete[] buffer;
@@ -176,8 +164,6 @@ public:
 		LONG lockSize = 0;
 		qint64 written = 0;
 
-		WAV tmp("simon-test-out.wav",m_parent->m_waveFormat.nChannels,m_parent->m_sampleRate);
-		tmp.beginAddSequence();
 
 		//Lock DirectSoundBuffer
 		//Locking with 0,  written, 0, 0, 0, 0, 0
@@ -193,7 +179,6 @@ public:
 
 		memcpy(lpvAudio1, buffer, written);
 
-		tmp.write(buffer,written);
 		//Unlock DirectSoundBuffer
 		m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1,NULL, NULL);
 
@@ -249,8 +234,6 @@ public:
 				//make sure we only write stuff that we read in case for written<lockSize
 				memcpy(lpvAudio2, buffer+dwBytesAudio1, written-dwBytesAudio1);
 			}
-			tmp.write(buffer,written);
-
 
 			//Unlock DirectSoundBuffer
 			m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1, lpvAudio2, dwBytesAudio2);
@@ -262,8 +245,6 @@ public:
 		if(hr != 0){
 			m_parent->errorRecoveryFailed();
 		}
-		tmp.endAddSequence();
-		tmp.writeFile();
 		kWarning() << "Exiting run loop";
 		shouldRun = false;
 		delete[] buffer;
@@ -343,15 +324,12 @@ QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
 
 bool DirectSoundBackend::setupNotifer( IUnknown **primaryBuffer,LPDIRECTSOUNDNOTIFY *notify){
 	HRESULT hr;
-	kWarning() << "Query interface";
 	if(FAILED(hr = (*primaryBuffer)->QueryInterface(IID_IDirectSoundNotify, (void**)(notify)))){
 		kWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
 		freeAllResources();
 		return false;
 	}
 
-
-	kWarning() << "Notify positions";
 	//calculate notify positions
 
 	DSBPOSITIONNOTIFY pPosNotify[NOTIFY_NUM];
@@ -360,7 +338,6 @@ bool DirectSoundBackend::setupNotifer( IUnknown **primaryBuffer,LPDIRECTSOUNDNOT
 		pPosNotify[i].hEventNotify = m_bufferEvents;
 	}
 
-	kWarning() << "Calling SetNotificationPositions on notify";
 	if ( FAILED(hr = (*notify)->SetNotificationPositions(NOTIFY_NUM, pPosNotify)) ) {
 		kWarning() << "Set NotificationPosition Failed!"<<DX_SHARED_DEFINES(hr);
 		freeAllResources();
@@ -384,15 +361,16 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 	if (hWnd == 0)
 		hWnd = GetDesktopWindow();
 
-	kWarning() << "Setting cooperation level";
-	(*ppDS8)->SetCooperativeLevel(hWnd, DSSCL_PRIORITY);
+	if(FAILED(hr = (*ppDS8)->SetCooperativeLevel(hWnd, DSSCL_PRIORITY))){
+		kWarning() << "Failed to set CooperationLevel"<<DXERR_TO_STRING(hr);
+		return false;
+	}
 
 
 	//init the primary buffer which will contain the raw data
 	//--------------------------------
 	memset( &BufferDesc, 0,sizeof(BufferDesc) );
 	BufferDesc.dwSize     = sizeof(DSBUFFERDESC);
-	kWarning() << "Creating sound buffer";
 	BufferDesc.dwFlags = DSBCAPS_PRIMARYBUFFER;
 	BufferDesc.dwBufferBytes = 0;
 	BufferDesc.lpwfxFormat    = NULL;
@@ -438,7 +416,6 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 		return false;
 	}
 
-	kWarning() << "Opened device";
 	tmp->Release();
 	return true;
 }
@@ -475,7 +452,6 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
 		return false;
 	}
 	tmp->Release();
-	kWarning() << "Opened device";
 	return true;
 }
 
@@ -484,7 +460,6 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 	LPDIRECTSOUNDCAPTURE8* ppDS8C, LPDIRECTSOUNDCAPTUREBUFFER8 *primaryBufferC, LPDIRECTSOUNDNOTIFY *notify)
 {
 	//init sound
-	kWarning() << "Creating audio format";
 	// audioformat
 	memset(&m_waveFormat,0, sizeof(m_waveFormat));
 	m_waveFormat.wFormatTag   = WAVE_FORMAT_PCM;
@@ -509,7 +484,6 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 	// remove )
 	internalDeviceName = internalDeviceName.left(internalDeviceName.length()-1);
 
-	kDebug() << "Opening device: " << internalDeviceName; // contains the GUID or "" for default
 	wchar_t *internalDeviceNameW= new wchar_t[internalDeviceName.length()+1];
 	internalDeviceNameW[internalDeviceName.toWCharArray(internalDeviceNameW)] = '\0';
 
@@ -518,11 +492,9 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 	delete [] internalDeviceNameW;
 	if (err != NOERROR) {
 		kWarning() << "Couldn't parse: " << internalDeviceName << " assuming default";
-		deviceID = ((type == SimonSound::Output) ? GUID_NULL : DSDEVID_DefaultVoiceCapture);	}
+		deviceID = ((type == SimonSound::Output) ? GUID_NULL : DSDEVID_DefaultVoiceCapture);
+	}
 
-
-
-	kWarning() << "Opened the device";
 	if (type == SimonSound::Output) {
 		if(openOutputDevice(&deviceID, ppDS8,primaryBuffer))
 			return setupNotifer((IUnknown**)primaryBuffer,notify);
@@ -691,7 +663,6 @@ bool DirectSoundBackend::preparePlayback(const QString& device, int& channels, i
 
 	m_loop = new DirectSoundPlaybackLoop(this);
 	emit stateChanged(SimonSound::PreparedState);
-	kWarning() << "Prepared playback: " << m_handle;
 
 	return true;
 }
