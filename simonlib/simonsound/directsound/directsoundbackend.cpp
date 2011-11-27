@@ -37,6 +37,8 @@
 #define NOTIFY_NUM 16
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )  
 
+static HANDLE s_deviceCallbackEvent = CreateEvent(0, FALSE, FALSE, NULL);
+
 class DirectSoundLoop : public QThread {
 protected:
 	DirectSoundBackend *m_parent;
@@ -66,8 +68,8 @@ public:
 		char * buffer = new char[m_parent->m_bufferSize];
 		memset(buffer, 0, m_parent->m_bufferSize);
 
-		void* capture1 =NULL;
-		void* capture2=NULL;
+		void* capture1 = NULL;
+		void* capture2 = NULL;
 		DWORD captureLength1, captureLength2;
 		UINT dataWritten = 0;
 		DWORD dwMyReadCursor = 0;  
@@ -298,6 +300,7 @@ BOOL CALLBACK DirectSoundEnumerateCallback(LPGUID pGUID, LPCWSTR pcName, LPCWSTR
 
 	kDebug() << "Found device: " << deviceName;
 	((DirectSoundBackend*) pContext)->deviceFound(deviceName);
+	SetEvent(s_deviceCallbackEvent);
 	return TRUE;
 }
 
@@ -317,8 +320,7 @@ QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
 	else
 		DirectSoundEnumerate(DirectSoundEnumerateCallback, this);
 
-
-	Sleep(1000); // yes, this is the ugliest hack in the universe // have seen more ugly thingss
+	WaitForSingleObject(s_deviceCallbackEvent,0);
 	return m_devices;
 }
 
