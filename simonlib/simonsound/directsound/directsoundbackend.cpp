@@ -216,8 +216,6 @@ public:
 				continue;
 			}
 			//Lock DirectSoundBuffer Second Part
-			kWarning()<<"Playback from:"<<dwMyWriteCursor<<"to:"<<dwMyWriteCursor+lockSize<<"lock size:"<<lockSize<<"playbackpos:"<<dwWritePos<<"bufferSize:"<<m_parent->m_bufferSize;
-
 			if ( FAILED(hr = m_parent->m_primaryBuffer->Lock(dwMyWriteCursor, lockSize, &lpvAudio1, &dwBytesAudio1, &lpvAudio2, &dwBytesAudio2, NULL)) ) {
 				kWarning() << "Lock DirectSoundBuffer Failed!"<<lockSize<<DXERR_TO_STRING(hr);
 				break;
