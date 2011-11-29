@@ -78,6 +78,8 @@ protected:
 		LPDIRECTSOUNDNOTIFY *notify);
 
 public:
+	static HANDLE s_deviceCallbackEvent;
+
 	DirectSoundBackend();
 	~DirectSoundBackend();
 

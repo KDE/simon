@@ -37,7 +37,7 @@
 #define NOTIFY_NUM 16
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )  
 
-static HANDLE s_deviceCallbackEvent = CreateEvent(0, FALSE, FALSE, NULL);
+HANDLE DirectSoundBackend::s_deviceCallbackEvent = CreateEvent(0, FALSE, FALSE, NULL);
 
 class DirectSoundLoop : public QThread {
 protected:
@@ -298,7 +298,7 @@ BOOL CALLBACK DirectSoundEnumerateCallback(LPGUID pGUID, LPCWSTR pcName, LPCWSTR
 
 	kDebug() << "Found device: " << deviceName;
 	((DirectSoundBackend*) pContext)->deviceFound(deviceName);
-	SetEvent(s_deviceCallbackEvent);
+	SetEvent(DirectSoundBackend::s_deviceCallbackEvent);
 	return TRUE;
 }
 
@@ -318,7 +318,8 @@ QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
 	else
 		DirectSoundEnumerate(DirectSoundEnumerateCallback, this);
 
-	WaitForSingleObject(s_deviceCallbackEvent,0);
+	WaitForSingleObject(DirectSoundBackend::s_deviceCallbackEvent ,0);
+	ResetEvent(DirectSoundBackend::s_deviceCallbackEvent);
 	return m_devices;
 }
 
