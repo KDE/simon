@@ -37,10 +37,8 @@
 #undef bzero
 #endif
 
-extern "C"
-{
-  #include <julius/julius.h>
-}
+#include <julius/julius.h>
+
 
 
 class RecognizerResult;
