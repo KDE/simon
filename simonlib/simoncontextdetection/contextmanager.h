@@ -37,6 +37,9 @@
  *      The ContextManager is a factory for Condition objects.  If a Condition that has already been loaded
  *      is requested with getCondition, the ContextManager returns a pointer to the already instantiated Condition.
  *
+ *      The ContextManager also keeps track of conditions that are affecting the acoustic model context, and will determine
+ *      the appropriate sample group when those conditions change.
+ *
  *      The ContextManager also contains a function that returns intantiations of every available Condition plugin.
  *      This allows, for example, the ContextViewPrivate class to create a CreateConditionWidget for every available
  *      Condition plugin.
@@ -88,6 +91,22 @@ public:
      */
     QDomElement getEmptyCondition(const QString &pluginName);
 
+    QString getSampleGroup(int index);
+
+    Condition* getSampleGroupCondition(int index);
+
+    int getSampleGroupConditionCount();
+
+    void addSampleGroupCondition(Condition* condition, QString sampleGroup, int index = -1);
+
+    bool removeSampleGroupCondition(int index);
+
+    bool changeSampleGroup(int index, QString);
+
+    bool promoteCondition(int index);
+
+    bool demoteCondition(int index);
+
 private:
     explicit ContextManager(QObject *parent = 0);
     
@@ -97,12 +116,25 @@ private:
     /// A hash table where currently existing Condition objects can be looked up by their xml specifications in QString format
     QHash<QString, Condition*> m_conditionLookup;
 
-    /// A list of the corrently existing Condition objects
+    /// A list of the currently existing Condition objects
     QList<Condition*> m_conditions;
 
+    /// A list of the currently active Acoustic Context condition objects in order of priority
+    QList<Condition*> m_sampleGroupConditions;
+
+    /// A hash table that contains the mapping of acoustic conditions to sample groups
+    QList<QString> m_sampleGroups;
+
+    /// A string containing the most recently determined sample group
+    QString m_currentSampleGroup;
+
 signals:
+    /// Emitted when changes in the acoustic model conditions change the sample group
+    void sampleGroupChanged(QString);
 
 public slots:
+    /// Checks for a change in sample group when the acoustic model conditions change
+    void checkAcousticContext();
 };
 
 #endif // CONTEXTMANAGER_H

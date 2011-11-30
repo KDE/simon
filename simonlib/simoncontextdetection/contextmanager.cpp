@@ -33,7 +33,6 @@ ContextManager* ContextManager::m_instance;
 ContextManager::ContextManager(QObject *parent) :
     QObject(parent)
 {
-
 }
 
 ContextManager::~ContextManager()
@@ -152,4 +151,132 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
     m_conditionLookup.insert(str, condition);
 
     return condition;
+}
+
+QString ContextManager::getSampleGroup(int index)
+{
+    if (index < getSampleGroupConditionCount() && index >= 0)
+        return m_sampleGroups.at(index);
+    else
+        return QString();
+}
+
+Condition* ContextManager::getSampleGroupCondition(int index)
+{
+    if (index < getSampleGroupConditionCount() && index >= 0)
+        return m_sampleGroupConditions.at(index);
+    else
+        return 0;
+}
+
+int ContextManager::getSampleGroupConditionCount()
+{
+    if (m_sampleGroupConditions.count() != m_sampleGroups.count())
+    {
+        kDebug() << "Sample group condition list is a different size from the sample group list!!";
+        return 0;
+    }
+
+    return m_sampleGroupConditions.count();
+}
+
+void ContextManager::addSampleGroupCondition(Condition* condition, QString sampleGroup, int index)
+{
+    if (!condition)
+        return;
+
+    if (index < 0 || index >= getSampleGroupConditionCount())
+    {
+        m_sampleGroupConditions.push_back(condition);
+        m_sampleGroups.push_back(sampleGroup);
+    }
+    else
+    {
+        m_sampleGroupConditions.insert(index, condition);
+        m_sampleGroups.insert(index, sampleGroup);
+    }
+
+    connect(condition, SIGNAL(conditionChanged()),
+            this, SLOT(checkAcousticContext()));
+}
+
+bool ContextManager::removeSampleGroupCondition(int index)
+{
+    if (index < getSampleGroupConditionCount() && index >= 0)
+    {
+        disconnect(m_sampleGroupConditions.at(index), SIGNAL(conditionChanged()),
+                this, SLOT(checkAcousticContext()));
+
+        m_sampleGroupConditions.removeAt(index);
+        m_sampleGroups.removeAt(index);
+
+        return true;
+    }
+    else
+    {
+        kDebug() << "Error: can't remove specified condition!";
+        return false;
+    }
+}
+
+bool ContextManager::changeSampleGroup(int index, QString sampleGroup)
+{
+    if (index < getSampleGroupConditionCount())
+    {
+        m_sampleGroups[index] = sampleGroup;
+        return true;
+    }
+    else
+        return false;
+}
+
+bool ContextManager::promoteCondition(int index)
+{
+    if (index < 1 || index >= getSampleGroupConditionCount())
+        return false;
+    else
+    {
+        m_sampleGroupConditions.move(index, index-1);
+        m_sampleGroups.move(index, index-1);
+        return true;
+    }
+}
+
+bool ContextManager::demoteCondition(int index)
+{
+    if (index < 0 || index >= getSampleGroupConditionCount()-1)
+        return false;
+    else
+    {
+        m_sampleGroupConditions.move(index, index+1);
+        m_sampleGroups.move(index, index+1);
+        return true;
+    }
+}
+
+void ContextManager::checkAcousticContext()
+{
+    QString sampleGroup = "default";
+
+    kDebug() << "Evaluating Acoustic Model Context...";
+
+    for (int i=0; i<getSampleGroupConditionCount(); i++)
+    {
+        if (m_sampleGroupConditions.at(i)->isSatisfied())
+        {
+            if (!m_sampleGroups.at(i).isEmpty())
+            {
+                sampleGroup = m_sampleGroups.at(i);
+                break;
+            }
+        }
+    }
+
+    if (sampleGroup != m_currentSampleGroup)
+    {
+        kDebug() << "New Sample Group:" << sampleGroup;
+
+        m_currentSampleGroup = sampleGroup;
+        emit sampleGroupChanged(sampleGroup);
+    }
 }
