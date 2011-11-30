@@ -88,6 +88,7 @@ public:
 				kWarning()<<"Event loop failed";
 				break;
 			}else if(lr != WAIT_OBJECT_0){
+				Sleep(300);
 				continue;
 			}
 			if(FAILED(hr = m_parent->m_primaryBufferC->GetCurrentPosition(NULL,&dwReadPos))){
@@ -200,6 +201,7 @@ public:
 				kWarning()<<"Event loop failed";
 				break;
 			}else if(lr != WAIT_OBJECT_0){
+				Sleep(300);
 				continue;
 			}
 
