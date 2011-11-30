@@ -83,12 +83,11 @@ public:
 
 
 		while(shouldRun && hr == 0){
-			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents,0);
+			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents,INFINITE);
 			if(lr == WAIT_FAILED){
 				kWarning()<<"Event loop failed";
 				break;
 			}else if(lr != WAIT_OBJECT_0){
-				Sleep(300);
 				continue;
 			}
 			if(FAILED(hr = m_parent->m_primaryBufferC->GetCurrentPosition(NULL,&dwReadPos))){
@@ -196,12 +195,11 @@ public:
 		//Playback Loop
 		///////////////
 		while (shouldRun && hr == 0) {
-			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents, 0);
+			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents, INFINITE);
 			if(lr == WAIT_FAILED){
 				kWarning()<<"Event loop failed";
 				break;
 			}else if(lr != WAIT_OBJECT_0){
-				Sleep(300);
 				continue;
 			}
 
@@ -320,7 +318,7 @@ QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
 	else
 		DirectSoundEnumerate(DirectSoundEnumerateCallback, this);
 
-	WaitForSingleObject(DirectSoundBackend::s_deviceCallbackEvent ,0);
+	WaitForSingleObject(DirectSoundBackend::s_deviceCallbackEvent ,INFINITE);
 	ResetEvent(DirectSoundBackend::s_deviceCallbackEvent);
 	return m_devices;
 }
