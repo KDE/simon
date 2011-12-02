@@ -226,6 +226,7 @@ public:
 
 			if(written == -1 ){
 				//end of file
+				m_parent->m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1, lpvAudio2, dwBytesAudio2);
 				break;
 			}
 
@@ -576,10 +577,10 @@ bool DirectSoundBackend::closeSoundSystem()
 		m_primaryBuffer->Stop();
 
 	//Empty the buffer
-	LPVOID lpvAudio1 = 0;
+	void* lpvAudio1 = 0;
 	DWORD dwBytesAudio1 = 0;
 	if (m_primaryBuffer) {
-		HRESULT hr = m_primaryBuffer->Lock(0, 0, &lpvAudio1, &dwBytesAudio1, 0, 0, DSBLOCK_ENTIREBUFFER);
+		HRESULT hr = m_primaryBuffer->Lock(0, 0, &lpvAudio1, &dwBytesAudio1, NULL, NULL, DSBLOCK_ENTIREBUFFER);
 		if ( FAILED(hr) )  {
 			kWarning() << "Couldn't lock buffer to clear"<<DXERR_TO_STRING(hr);
 		} else {
