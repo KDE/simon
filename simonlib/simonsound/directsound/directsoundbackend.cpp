@@ -35,7 +35,6 @@
 
 #define SAFE_RELEASE(x) if (x) { x->Release(); x = 0; }
 #define NOTIFY_NUM 16
-#define MAX(a,b)        ( (a) > (b) ? (a) : (b) )  
 #define SIMON_WAIT_TIMEOUT 5000
 
 HANDLE DirectSoundBackend::s_deviceCallbackEvent = CreateEvent(0, FALSE, FALSE, NULL);
@@ -165,7 +164,7 @@ public:
 		DWORD dwMyWriteCursor = 0;  
 		DWORD dwWritePos;
 		LONG lockSize = 0;
-		qint64 written = 0;
+		DWORD written = 0;
 
 
 		//Lock DirectSoundBuffer
@@ -231,9 +230,9 @@ public:
 			}
 
 			memcpy(lpvAudio1, buffer, dwBytesAudio1);
-			if (lpvAudio2 != NULL) {
+			if (written > dwBytesAudio1 && lpvAudio2 != NULL) {
 				//make sure we only write stuff that we read in case for written<lockSize
-				memcpy(lpvAudio2, buffer+dwBytesAudio1, written-dwBytesAudio1);
+				memcpy(lpvAudio2, buffer+dwBytesAudio1, qMin(dwBytesAudio2,written-dwBytesAudio1));
 			}
 
 			//Unlock DirectSoundBuffer
@@ -473,7 +472,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 	m_waveFormat.nAvgBytesPerSec  = m_waveFormat.nSamplesPerSec * m_waveFormat.nBlockAlign;
 	m_waveFormat.cbSize     = 0;
 
-	m_notifySize= MAX( 1024, m_waveFormat.nAvgBytesPerSec / 8 );   
+	m_notifySize= qMax( (ulong)1024, m_waveFormat.nAvgBytesPerSec / 8 );   
 	m_notifySize -= m_notifySize % m_waveFormat.nBlockAlign; 
 	m_bufferSize = m_notifySize * NOTIFY_NUM;
 
