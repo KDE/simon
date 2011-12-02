@@ -175,6 +175,7 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     void sendScenario(QString scenarioId);
 
     void sendDeactivatedScenarioList();
+    void sendSampleGroup(QString sampleGroup);
 
     void sendLanguageDescriptionModifiedDate();
     void sendLanguageDescription();

@@ -632,6 +632,21 @@ void RecognitionControl::sendDeactivatedScenarioList()
   socket->write(body);
 }
 
+void RecognitionControl::sendSampleGroup(QString sampleGroup)
+{
+    QByteArray toWrite;
+    QDataStream out(&toWrite, QIODevice::WriteOnly);
+    QByteArray body;
+    QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+    QByteArray sampleGroupBytes = sampleGroup.toUtf8();
+    bodyStream << sampleGroupBytes;
+
+    out << (qint32) Simond::SampleGroup << (qint64) (body.count());
+
+    socket->write(toWrite);
+    socket->write(body);
+}
 
 void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
 {
