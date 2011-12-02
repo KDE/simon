@@ -36,6 +36,7 @@
 #define SAFE_RELEASE(x) if (x) { x->Release(); x = 0; }
 #define NOTIFY_NUM 16
 #define MAX(a,b)        ( (a) > (b) ? (a) : (b) )  
+#define SIMON_WAIT_TIMEOUT 5000
 
 HANDLE DirectSoundBackend::s_deviceCallbackEvent = CreateEvent(0, FALSE, FALSE, NULL);
 
@@ -83,7 +84,7 @@ public:
 
 
 		while(shouldRun && hr == 0){
-			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents,300);
+			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents,SIMON_WAIT_TIMEOUT);
 			if(lr == WAIT_FAILED){
 				kWarning()<<"Event loop failed";
 				break;
@@ -195,7 +196,7 @@ public:
 		//Playback Loop
 		///////////////
 		while (shouldRun && hr == 0) {
-			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents, 300);
+			HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents, SIMON_WAIT_TIMEOUT);
 			if(lr == WAIT_FAILED){
 				kWarning()<<"Event loop failed";
 				break;
@@ -270,7 +271,8 @@ m_loop(0),
 
 int DirectSoundBackend::bufferSize()
 {
-	return m_bufferSize;
+	//dont return the size of the directsound ring buffer but the size when we probably will write data
+	return m_notifySize;
 }
 
 QStringList DirectSoundBackend::getAvailableInputDevices()
@@ -318,7 +320,7 @@ QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
 	else
 		DirectSoundEnumerate(DirectSoundEnumerateCallback, this);
 
-	WaitForSingleObject(DirectSoundBackend::s_deviceCallbackEvent ,5000);
+	WaitForSingleObject(DirectSoundBackend::s_deviceCallbackEvent ,SIMON_WAIT_TIMEOUT);
 	ResetEvent(DirectSoundBackend::s_deviceCallbackEvent);
 	return m_devices;
 }
