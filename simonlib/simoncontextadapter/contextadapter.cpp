@@ -290,8 +290,8 @@ void ContextAdapter::storeAcousticModelInCache(QString sampleGroup)
     QString cachedModelDir;
     QDir dir;
 
-    if (!QFile::exists(activeDir + "hmmDefs")
-            || !QFile::exists(activeDir + "tiedList"))
+    if (!QFile::exists(activeDir + "hmmdefs")
+            || !QFile::exists(activeDir + "tiedlist"))
     {
         kDebug() << "There is no acoustic model to store";
 
@@ -564,6 +564,8 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     if (m_currentScenarioSet.join(",") != scenarioPathsIn.join(","))
     {
         kDebug() << "There is a new base scenario list!";
+        kDebug() << "old: " << m_currentScenarioSet;
+        kDebug() << "new: " << scenarioPathsIn;
         clearCache();
         m_attemptRecompileOnAbort = true;
 
@@ -657,6 +659,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
 
         storeLanguageModelInCache(m_currentModelDeactivatedScenarios);
         m_currentlyCompilingDeactivatedScenarios.clear();
+
         QString sampleGroupPromptsIn = acousticDir + m_compilingSampleGroup + "/prompts";
 
         //when the acoustic model is recompiled, all scenarios are used in the speech model
@@ -670,6 +673,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     }
     else if (m_requestedSampleGroup != m_currentSampleGroup)
     {
+        kDebug() << "Attempting to store acoustic model in cache";
         storeAcousticModelInCache(m_currentSampleGroup);
         m_compilingSampleGroup = m_requestedSampleGroup;
         //check the cache for that sample group and start an adaption like above otherwise
@@ -680,12 +684,17 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
             return true;
         }
 
+        storeLanguageModelInCache(m_currentModelDeactivatedScenarios);
+        m_currentlyCompilingDeactivatedScenarios.clear();
+
+        QString sampleGroupPromptsIn = acousticDir + m_compilingSampleGroup + "/prompts";
+        m_currentAdaptionType = adaptionType;
+
         kDebug() << "Compiling just the acoustic model with all scenarios";
-        m_currentAdaptionType = ModelCompilationAdapter::AdaptAcousticModel;
-        return m_modelCompilationAdapter->startAdaption(ModelCompilationAdapter::AdaptAcousticModel, lexiconPathOut,
+        return m_modelCompilationAdapter->startAdaption(adaptionType, lexiconPathOut,
                                                             grammarPathOut, simpleVocabPathOut,
                                                             promptsPathOut, scenarioPathsIn,
-                                                            promptsIn);
+                                                            sampleGroupPromptsIn);
     }
     else
     {
@@ -698,12 +707,14 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
             return true;
         }
 
+        QString sampleGroupPromptsIn = acousticDir + m_currentSampleGroup + "/prompts";
+
         kDebug() << "Compiling just the language model with the currently active scenarios";
         m_currentAdaptionType = ModelCompilationAdapter::AdaptLanguageModel;
         return m_modelCompilationAdapter->startAdaption(ModelCompilationAdapter::AdaptLanguageModel, lexiconPathOut,
                                                             grammarPathOut, simpleVocabPathOut,
                                                             promptsPathOut, activeScenarioPathsIn,
-                                                            promptsIn);
+                                                            sampleGroupPromptsIn);
     }
 }
 
