@@ -1383,6 +1383,10 @@ bool ClientSocket::shouldRecompileModel()
       return true;
   }
 
+  //check if the context adapter requires a recompile
+  if (contextAdapter->shouldCompileAfterAdaption())
+      return true;
+
   //check if simple.voca, lexicon or model.grammar changed
   if (!readHashesFromActiveModel())
       return true;

@@ -16,7 +16,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     m_requestedDeactivatedScenarios = QStringList("unknown");
     m_currentlyCompilingDeactivatedScenarios = QStringList("unknown");
     m_currentScenarioSet = QStringList("unknown");
-    m_newAcousticModel = true;
+    m_newAcousticModel = false;
     m_currentSampleGroup = "default";
     m_requestedSampleGroup = "default";
     m_compilingSampleGroup = "default";
@@ -159,6 +159,7 @@ ContextAdapter::~ContextAdapter()
 
 void ContextAdapter::aborted()
 {
+    kDebug() << "Resetting context adapter activity state after abort.";
     m_currentActivity = ContextAdapter::NoActivity;
 
     //TODO: account for all of the possible reasons for compilation aborting.  There is probably no model or a partially complete model in the active folder...
@@ -535,6 +536,18 @@ bool ContextAdapter::shouldRecompileModel()
     return true;
 }
 
+bool ContextAdapter::shouldCompileAfterAdaption()
+{
+    if (m_requestedDeactivatedScenarios.join(",") == m_currentModelDeactivatedScenarios.join(",")
+            && m_currentSampleGroup == m_requestedSampleGroup)
+    {
+        kDebug() << "requested deactivated list and sample group is the same as the current model's!  No need to compile for context.";
+        return false;
+    }
+
+    return true;
+}
+
 bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,
                                    const QString& grammarPathOut, const QString& simpleVocabPathOut,
                                    const QString& promptsPathOut, const QStringList& scenarioPathsIn,
@@ -667,11 +680,11 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
             return true;
         }
 
-        kDebug() << "Compiling just the acoustic model with the currently active scenarios";
+        kDebug() << "Compiling just the acoustic model with all scenarios";
         m_currentAdaptionType = ModelCompilationAdapter::AdaptAcousticModel;
         return m_modelCompilationAdapter->startAdaption(ModelCompilationAdapter::AdaptAcousticModel, lexiconPathOut,
                                                             grammarPathOut, simpleVocabPathOut,
-                                                            promptsPathOut, activeScenarioPathsIn,
+                                                            promptsPathOut, scenarioPathsIn,
                                                             promptsIn);
     }
     else

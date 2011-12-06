@@ -1318,6 +1318,9 @@ void RecognitionControl::messageReceived()
 
         case Simond::GetTrainingDate:
         {
+          if (!synchronisationOperation)
+            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing Training"), 1, 100, false);
+
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
           synchronisationOperation->update(i18n("Synchronizing Training"), 10);

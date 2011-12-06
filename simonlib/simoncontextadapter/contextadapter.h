@@ -61,6 +61,7 @@ public:
     void clearLanguageModelCache();
     void currentCompilationAborted();
     bool shouldRecompileModel();
+    bool shouldCompileAfterAdaption();
 
     void setShouldRecompileOnAbort(bool attemptRecompile) {m_attemptRecompileOnAbort = attemptRecompile;}
     void setShouldCompileAcousticModel(bool newAcousticModel) {m_newAcousticModel = newAcousticModel;}
