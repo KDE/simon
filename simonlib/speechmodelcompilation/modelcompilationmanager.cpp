@@ -1570,8 +1570,6 @@ bool ModelCompilationManager::makeMonophones()
   //make monophones0
   //ditch the "sp" phoneme
   QFile monophones0(tempDir+"/monophones0");
-  if (!monophones1.open(QIODevice::ReadOnly))
-    return false;
   if (!monophones0.open(QIODevice::WriteOnly|QIODevice::Truncate))
     return false;
 

@@ -21,6 +21,7 @@
 #include "soundconfig.h"
 #include "soundserver.h"
 #include "devicesettings.h"
+#include "samplegroupcontext.h"
 
 #include <KMessageBox>
 #include <QVBoxLayout>
@@ -68,6 +69,8 @@ KCModule(KGlobal::mainComponent(), parent)
   QWidget *trainingConfig = new QWidget(this);
   trainingSettignsUi.setupUi(trainingConfig);
 
+  QWidget *sampleGroupConditions = new SampleGroupContext(this);
+
   //	QWidget *promptConfig = new QWidget(this);
   //	promptUi.setupUi(promptConfig);
 
@@ -76,18 +79,21 @@ KCModule(KGlobal::mainComponent(), parent)
   KPageWidgetItem *trainingConfigItem = pageWidget->addPage(trainingConfig, i18n("Training"));
   //KPageWidgetItem *promptConfItem = pageWidget->addPage(promptConfig, i18n("Prompt Font"));
   KPageWidgetItem *postProcConfItem = pageWidget->addPage(postProcessingConfig, i18n("Post-Processing"));
+  KPageWidgetItem *sampleGroupConditionItem = pageWidget->addPage(sampleGroupConditions, i18n("Context"));
 
   deviceConfItem->setIcon(KIcon("audio-card"));
   vadConfItem->setIcon(KIcon("media-playback-start"));
   trainingConfigItem->setIcon(KIcon("view-pim-news"));
   //promptConfItem->setIcon(KIcon("draw-text"));
   postProcConfItem->setIcon(KIcon("applications-other"));
+  sampleGroupConditionItem->setIcon(KIcon("preferences-activities"));
 
   deviceConfItem->setHeader("");
   vadConfItem->setHeader("");
   trainingConfigItem->setHeader("");
   //promptConfItem->setHeader("");
   postProcConfItem->setHeader("");
+  sampleGroupConditionItem->setHeader("");
 
   KAboutData *about = new KAboutData(
     "soundsettings", "", ki18n("Recordings"),

@@ -1,6 +1,8 @@
 
 include(SimonDirs)
 
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../../simon/src/simoncontextui/)
+
 
 find_package(LibSampleRate)
 
@@ -167,7 +169,7 @@ kde4_add_kcfg_files(kcm_simonsound_LIB_SRCS soundconfig.kcfgc)
 
 kde4_add_plugin(simonsoundkcm ${kcm_simonsound_LIB_SRCS})
 target_link_libraries( simonsoundkcm  ${KDE4_KDEUI_LIBS} 
-simonsound
+simonsound simoncontextui
 )
 
 install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT

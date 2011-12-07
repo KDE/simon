@@ -463,8 +463,12 @@ void ClientSocket::processRequest()
 
     case Simond::SampleGroup:
     {
-        QString sampleGroup;
-        waitForMessage(sizeof(QString), stream, msg);
+        waitForMessage(sizeof(qint64), stream, msg);
+        qint64 length;
+        stream >> length;
+        waitForMessage(length, stream, msg);
+
+        QByteArray sampleGroup;
         stream >> sampleGroup;
 
         kDebug() << "Received Sample Group: " << sampleGroup;
@@ -1378,6 +1382,10 @@ bool ClientSocket::shouldRecompileModel()
       recompileOverride = false;
       return true;
   }
+
+  //check if the context adapter requires a recompile
+  if (contextAdapter->shouldCompileAfterAdaption())
+      return true;
 
   //check if simple.voca, lexicon or model.grammar changed
   if (!readHashesFromActiveModel())
