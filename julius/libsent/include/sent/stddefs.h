@@ -134,7 +134,9 @@ typedef unsigned char boolean;
 #undef min
 #define	max(A,B)	((A)>=(B)?(A):(B))
 #define	min(A,B)	((A)<(B)?(A):(B))
-#define	abs(X)		((X)>0?(X):-(X))
+#ifndef _WIN32//availibe by default, and it would break mingw-w64 builds
+# define	abs(X)		((X)>0?(X):-(X))
+#endif
 /// String match function, 0 if the given strings did not match
 #define strmatch	!strcmp
 /// String match function with length limit, 0 if the given strings did not match
