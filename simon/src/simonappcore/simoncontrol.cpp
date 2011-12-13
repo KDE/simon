@@ -369,5 +369,6 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
-    ContextManager::instance()->deleteLater();
+    ContextManager::instance()->saveSampleGroupContext();
+    delete ContextManager::instance();
 }

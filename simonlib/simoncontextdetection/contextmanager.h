@@ -109,6 +109,9 @@ public:
 
     bool demoteCondition(int index);
 
+    void saveSampleGroupContext();
+    void loadSampleGroupContext();
+
 private:
     explicit ContextManager(QObject *parent = 0);
     

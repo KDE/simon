@@ -21,6 +21,7 @@
 #include "processinfo.h"
 #include <KService>
 #include <KServiceTypeTrader>
+#include <KStandardDirs>
 #include <KDebug>
 #include <QTextStream>
 
@@ -33,10 +34,14 @@ ContextManager* ContextManager::m_instance;
 ContextManager::ContextManager(QObject *parent) :
     QObject(parent)
 {
+    m_currentSampleGroup = "default";
+    loadSampleGroupContext();
 }
 
 ContextManager::~ContextManager()
 {
+    saveSampleGroupContext();
+
     qDeleteAll(m_conditions);
     ProcessInfo::instance()->deleteLater();
 }
@@ -209,6 +214,9 @@ void ContextManager::addSampleGroupCondition(Condition* condition, QString sampl
 
     connect(condition, SIGNAL(conditionChanged()),
             this, SLOT(checkAcousticContext()));
+
+    saveSampleGroupContext();
+    checkAcousticContext();
 }
 
 bool ContextManager::removeSampleGroupCondition(int index)
@@ -228,6 +236,9 @@ bool ContextManager::removeSampleGroupCondition(int index)
         kDebug() << "Error: can't remove specified condition!";
         return false;
     }
+
+    saveSampleGroupContext();
+    checkAcousticContext();
 }
 
 bool ContextManager::changeSampleGroup(int index, QString sampleGroup)
@@ -239,6 +250,9 @@ bool ContextManager::changeSampleGroup(int index, QString sampleGroup)
     }
     else
         return false;
+
+    saveSampleGroupContext();
+    checkAcousticContext();
 }
 
 bool ContextManager::promoteCondition(int index)
@@ -251,6 +265,9 @@ bool ContextManager::promoteCondition(int index)
         m_sampleGroups.move(index, index-1);
         return true;
     }
+
+    saveSampleGroupContext();
+    checkAcousticContext();
 }
 
 bool ContextManager::demoteCondition(int index)
@@ -263,6 +280,9 @@ bool ContextManager::demoteCondition(int index)
         m_sampleGroups.move(index, index+1);
         return true;
     }
+
+    saveSampleGroupContext();
+    checkAcousticContext();
 }
 
 void ContextManager::checkAcousticContext()
@@ -289,5 +309,65 @@ void ContextManager::checkAcousticContext()
 
         m_currentSampleGroup = sampleGroup;
         emit sampleGroupChanged(sampleGroup);
+    }
+}
+
+void ContextManager::saveSampleGroupContext()
+{
+    QDomDocument doc;
+    QDomElement root = doc.createElement("samplegroupcontextroot");
+
+    kDebug() << "Saving sample group context";
+
+    for (int i=0 ; i<this->getSampleGroupConditionCount(); i++)
+    {
+        QDomElement sampleGroupContext = doc.createElement("samplegroupcontext");
+        sampleGroupContext.appendChild(getSampleGroupCondition(i)->serialize(&doc));
+
+        QDomElement sampleGroup = doc.createElement("samplegroup");
+        sampleGroup.setAttribute("name", getSampleGroup(i));
+        sampleGroupContext.appendChild(sampleGroup);
+
+        root.appendChild(sampleGroupContext);
+    }
+
+    QString contextDir = KStandardDirs::locateLocal("appdata", "context/");
+    QFile sampleGroupContextFile(contextDir + "sampleGroupContext");
+
+    sampleGroupContextFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
+    QTextStream stream(&sampleGroupContextFile);
+    root.save(stream, 2);
+    sampleGroupContextFile.close();
+}
+
+void ContextManager::loadSampleGroupContext()
+{
+    QString contextDir = KStandardDirs::locateLocal("appdata", "context/");
+    QFile sampleGroupContextFile(contextDir + "sampleGroupContext");
+
+    if (!sampleGroupContextFile.exists())
+        return;
+
+    sampleGroupContextFile.open(QIODevice::ReadOnly);
+    QDomDocument doc;
+    doc.setContent(&sampleGroupContextFile);
+    sampleGroupContextFile.close();
+
+    QDomElement root = doc.documentElement();
+
+    QDomElement sampleGroupContext = root.firstChildElement("samplegroupcontext");
+    while (!sampleGroupContext.isNull())
+    {
+        QDomElement conditionElement = sampleGroupContext.firstChildElement("condition");
+        Condition* condition = getCondition(conditionElement);
+
+        if (condition)
+        {
+            QDomElement sampleGroup = sampleGroupContext.firstChildElement("samplegroup");
+
+            addSampleGroupCondition(condition, sampleGroup.attribute("name", "default"));
+        }
+
+        sampleGroupContext = sampleGroupContext.nextSiblingElement("samplegroupcontext");
     }
 }
