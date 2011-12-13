@@ -161,6 +161,17 @@ QString ContextManager::getSampleGroup(int index)
         return QString();
 }
 
+QStringList ContextManager::getSampleGroups()
+{
+    QStringList sampleGroups;
+
+    sampleGroups << m_sampleGroups;
+
+    sampleGroups.removeDuplicates();
+
+    return sampleGroups;
+}
+
 Condition* ContextManager::getSampleGroupCondition(int index)
 {
     if (index < getSampleGroupConditionCount() && index >= 0)

@@ -29,6 +29,9 @@ SampleGroupContext::SampleGroupContext(QWidget *parent) :
 
     m_model = new SampleGroupConditionModel();
     ui->tvSampleGroupConditions->setModel(m_model);
+
+    m_sampleGroupDelegate = new SampleGroupItemDelegate();
+    ui->tvSampleGroupConditions->setItemDelegateForColumn(1, m_sampleGroupDelegate);
 }
 
 SampleGroupContext::~SampleGroupContext()

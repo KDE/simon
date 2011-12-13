@@ -395,6 +395,11 @@ bool SoundServer::check(SimonSound::SoundDeviceType type, const QString& device,
   return backend->check(type, device, channels, samplerate);
 }
 
+QStringList SoundServer::getInputDeviceDefaultSampleGroups()
+{
+    return SoundConfiguration::soundInputDefaultSampleGroups();
+}
+
 QList<SimonSound::DeviceConfiguration> SoundServer::getInputDevices(SimonSound::SoundDeviceUses uses)
 {
   QList<SimonSound::DeviceConfiguration> devices;

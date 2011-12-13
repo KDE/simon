@@ -5,6 +5,7 @@
 #include "simoncontextui_export.h"
 #include "simoncontextdetection/contextmanager.h"
 #include "simoncontextdetection/samplegroupconditionmodel.h"
+#include "samplegroupitemdelegate.h"
 
 namespace Ui {
     class SampleGroupContext;
@@ -24,6 +25,7 @@ private:
     Ui::SampleGroupContext *ui;
 
     SampleGroupConditionModel* m_model;
+    SampleGroupItemDelegate* m_sampleGroupDelegate;
 
 public slots:
     void addCondition();

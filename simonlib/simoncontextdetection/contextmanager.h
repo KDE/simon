@@ -93,6 +93,8 @@ public:
 
     QString getSampleGroup(int index);
 
+    QStringList getSampleGroups();
+
     Condition* getSampleGroupCondition(int index);
 
     int getSampleGroupConditionCount();

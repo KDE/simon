@@ -104,6 +104,7 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
     static QList<SimonSound::DeviceConfiguration> getTrainingOutputDevices();
 
     static QStringList getDevices(SimonSound::SoundDeviceType type);
+    static QStringList getInputDeviceDefaultSampleGroups();
     
     void uninitializeSoundSystem();
 
