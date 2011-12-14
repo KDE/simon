@@ -24,6 +24,7 @@
 #include <QString>
 #include <QFile>
 #include <QRegExp>
+#include <KDebug>
 #include <QTextCodec>
 #include <KLocalizedString>
 #include <KMimeType>
@@ -79,7 +80,9 @@ const QXmlAttributes &attributes)
   if (qName == "lexeme") {
     currentTagType = PLSDict::Lexeme;
     currentWord.clear();
+    currentWords.clear();
     phonemeDefinitions.clear();
+    currentPhonemeDefinition.clear();
 
     int typeIndex = attributes.index("role");
     if (typeIndex != -1)
@@ -139,16 +142,25 @@ const QString &qName)
     currentPhonemeDefinition.clear();
   } else
   if (qName == "lexeme") {
-    // add the found words to the word
-    foreach (const QString& phonemeDefinition, phonemeDefinitions) {
-      words << currentWord.trimmed();
-      pronunciations << phonemeDefinition;
-      terminals << currentTerminal;
+    kDebug() << currentWord;
+    kDebug() << currentWords;
+    foreach (QString w, currentWords) {
+      // add the found words to the word
+      foreach (const QString& phonemeDefinition, phonemeDefinitions) {
+        words << w.trimmed();
+        pronunciations << phonemeDefinition;
+        terminals << currentTerminal;
+      }
     }
     //cleanup
+    //currentWord.clear();
+    //currentWords.clear();
+    //phonemeDefinitions.clear();
+  } else
+  if (qName == "grapheme") {
+    currentWords.append(currentWord);
     currentWord.clear();
-    currentPhonemeDefinition.clear();
-    phonemeDefinitions.clear();
+    kDebug() << currentWords;
   }
 
   if (maxpos == 0)
