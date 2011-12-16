@@ -44,7 +44,7 @@ set( simoncontextdetection_LIB_HDRS
 
 kde4_add_library( simoncontextdetection  SHARED ${simoncontextdetection_LIB_SRCS} )
 
-target_link_libraries( simoncontextdetection ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} 
+target_link_libraries( simoncontextdetection ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS}
         ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS})
 
 if(WIN32)

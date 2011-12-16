@@ -14,12 +14,14 @@ set( simoncontextui_LIB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/contextviewprivate.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/newcondition.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupcontext.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupitemdelegate.cpp
 )
 
 set( simoncontextui_LIB_HDRS
         ${CMAKE_CURRENT_SOURCE_DIR}/contextview.h
         ${CMAKE_CURRENT_SOURCE_DIR}/newcondition.h
         ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupcontext.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupitemdelegate.h
         ${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui_export.h
 )
 

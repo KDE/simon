@@ -65,6 +65,7 @@ public:
 
     QList<QString> keys() { return m_wordBySample.keys(); }
     QList<QString> words() { return m_wordBySample.values(); }
+    QStringList sampleGroups() { return m_groupBySample.values(); }
 
 private:
     QString m_filePath;

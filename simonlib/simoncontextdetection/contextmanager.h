@@ -93,6 +93,8 @@ public:
 
     QString getSampleGroup(int index);
 
+    QStringList getSampleGroups();
+
     Condition* getSampleGroupCondition(int index);
 
     int getSampleGroupConditionCount();
@@ -106,6 +108,9 @@ public:
     bool promoteCondition(int index);
 
     bool demoteCondition(int index);
+
+    void saveSampleGroupContext();
+    void loadSampleGroupContext();
 
 private:
     explicit ContextManager(QObject *parent = 0);
