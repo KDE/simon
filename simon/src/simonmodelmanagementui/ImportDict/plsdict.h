@@ -50,6 +50,7 @@ class PLSDict : public QXmlDefaultHandler, public Dict
     XMLSAXReader *reader;
 
     QString currentWord;
+    QStringList currentWords;
     QString currentTerminal;
     QString currentPhonemeDefinition;
     QStringList phonemeDefinitions;
