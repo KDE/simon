@@ -26,7 +26,7 @@
 #include <QStringList>
 #include <QMutex>
 
-class QSslSocket;
+class ThreadedSSLSocket;
 class QTimer;
 class QProcess;
 class ModelManagerUiProxy;
@@ -49,7 +49,7 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
 {
   Q_OBJECT
 
-    public:
+  public:
     RecognitionControl();
 
     ~RecognitionControl();
@@ -83,7 +83,7 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     QByteArray stillToProcess;
     QStringList missingScenarios;
     bool recognitionReady;
-    QSslSocket *socket;                           //!< QSslSocket for communicating with the simond-socket
+    ThreadedSSLSocket *socket;
 
     Operation *synchronisationOperation;
     Operation *modelCompilationOperation;
@@ -102,6 +102,8 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
 
     bool startSimondStreamer();
     bool stopSimondStreamer();
+    
+    void send(qint32 requestId, const QByteArray& data, bool includeLength=true);
 
   signals:
     void connected();

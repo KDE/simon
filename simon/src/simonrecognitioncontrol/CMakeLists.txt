@@ -23,7 +23,9 @@ set (QT_USE_QTNETWORK true)
 include(UseQt4)
 
 set( simonrecognition_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/recognitioncontrol.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/recognitioncontrol.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/threadedsslsocket.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/simonsslsocket.cpp
 )
 
 set( simonrecognition_LIB_HDRS

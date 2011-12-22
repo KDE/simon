@@ -18,6 +18,7 @@
  */
 
 #include "recognitioncontrol.h"
+#include "threadedsslsocket.h"
 #include "recognitionconfiguration.h"
 
 #include <simondstreamer/simondstreamer.h>
@@ -40,7 +41,6 @@
 #include <stdio.h>
 
 #include <QByteArray>
-#include <QSslSocket>
 #include <QTimer>
 #include <QProcess>
 #include <QFile>
@@ -97,7 +97,7 @@ localSimond(0),
 blockAutoStart(false),
 simondStreamer(new SimondStreamer(this, this)),
 recognitionReady(false),
-socket(new QSslSocket()),
+socket(new ThreadedSSLSocket(this)),
 synchronisationOperation(0),
 modelCompilationOperation(0),
 timeoutWatcher(new QTimer(this))
@@ -371,10 +371,8 @@ void RecognitionControl::disconnectFromServer()
     return;
   }
 
+  this->socket->abort();
   this->socket->disconnectFromHost();
-  if ((socket->state() != QAbstractSocket::UnconnectedState) &&
-    (!socket->waitForDisconnected(500)))
-    this->socket->abort();
 }
 
 
@@ -394,7 +392,6 @@ void RecognitionControl::connectedTo()
   login();
 }
 
-
 /**
  * \brief Sends a simple request identified by the request id
  * \author Peter Grasch
@@ -408,6 +405,19 @@ void RecognitionControl::sendRequest(qint32 request)
   socket->write(toWrite);
 }
 
+
+void RecognitionControl::send(qint32 requestId, const QByteArray& data, bool includeLength)
+{
+  QByteArray toWrite;
+  QDataStream out(&toWrite, QIODevice::WriteOnly);
+  out << (qint32) requestId;
+  
+  if (includeLength)
+    out << (qint64) data.count();
+  
+  socket->write(toWrite);
+  socket->write(data);
+}
 
 void RecognitionControl::login()
 {
@@ -446,22 +456,17 @@ void RecognitionControl::login()
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
   bodyStream << protocolVersion << userBytes << passBytes;
-
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << (qint32) Simond::Login << (qint64) body.count();
-  socket->write(toWrite);
-  socket->write(body);
+  
+  send(Simond::Login, body);
 }
 
 
 void RecognitionControl::sendActiveModelModifiedDate()
 {
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << (qint32) Simond::ActiveModelDate
-    << ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime();
-  socket->write(toWrite);
+  QByteArray body;
+  QDataStream out(&body, QIODevice::WriteOnly);
+  out << ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime();
+  send(Simond::ActiveModelDate, body, false);
 }
 
 
@@ -474,8 +479,6 @@ bool RecognitionControl::sendActiveModel()
     return false;
   }
 
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -486,12 +489,8 @@ bool RecognitionControl::sendActiveModel()
     << model->data1()
     << model->data2();
 
-  out << (qint32) Simond::ActiveModel
-    << (qint64) body.count();
-
-  socket->write(toWrite);
-  socket->write(body);
-
+  send(Simond::ActiveModel, body);
+  
   delete model;
   return true;
 }
@@ -503,18 +502,15 @@ void RecognitionControl::sendActiveModelSampleRate()
 
   QByteArray toWrite;
   QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << (qint32) Simond::ActiveModelSampleRate
-    << smpFreq;
+  out << smpFreq;
 
-  socket->write(toWrite);
+  send(Simond::ActiveModelSampleRate, toWrite, false);
 }
 
 
 void RecognitionControl::sendScenariosToDelete()
 {
   kDebug() << "Now sending scenarios to delete...";
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -527,11 +523,7 @@ void RecognitionControl::sendScenariosToDelete()
   bodyStream << deletedScenarios
     << deletedScenariosTimes;
 
-  out << (qint32) Simond::ScenariosToDelete
-    << (qint64) body.count();
-
-  socket->write(toWrite);
-  socket->write(body);
+  send(Simond::ScenariosToDelete, body);
 
   cg.writeEntry("DeletedScenarios", QStringList());
   cg.writeEntry("DeletedScenariosTimes", QStringList());
@@ -543,9 +535,8 @@ void RecognitionControl::sendBaseModelDate()
 {
   QByteArray toWrite;
   QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << (qint32) Simond::BaseModelDate
-    << ModelManagerUiProxy::getInstance()->getBaseModelDate();
-  socket->write(toWrite);
+  out << ModelManagerUiProxy::getInstance()->getBaseModelDate();
+  send(Simond::BaseModelDate, toWrite, false);
 }
 
 
@@ -559,8 +550,6 @@ bool RecognitionControl::sendBaseModel()
     return false;
   }
 
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -571,11 +560,7 @@ bool RecognitionControl::sendBaseModel()
     << model->data1()
     << model->data2();
 
-  out << (qint32) Simond::BaseModel
-    << (qint64) body.count();
-
-  socket->write(toWrite);
-  socket->write(body);
+  send(Simond::BaseModel, body);
 
   delete model;
   return true;
@@ -590,95 +575,68 @@ void RecognitionControl::requestMissingScenario()
     return;
   }
 
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
   QByteArray requestName = missingScenarios.takeAt(0).toUtf8();
-
-  out << (qint32) Simond::GetScenario
-    << (qint64) (requestName.count()+sizeof(qint32)) /*sep*/ << requestName;
-  socket->write(toWrite);
+  send(Simond::GetScenario, requestName);
 }
 
 
 void RecognitionControl::sendScenarioList()
 {
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
   bodyStream << ScenarioManager::getInstance()->getAllAvailableScenarioIds();
 
-  out << (qint32) Simond::ScenarioList
-    << (qint64) body.count();
-  socket->write(toWrite);
-  socket->write(body);
+  send(Simond::ScenarioList, body);
 }
 
 void RecognitionControl::sendDeactivatedScenarioList()
 {
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
   bodyStream << ScenarioManager::getInstance()->getAllDeactivatedScenarioIds();
 
-  out << (qint32) Simond::DeactivatedScenarioList
-    << (qint64) body.count();
-  socket->write(toWrite);
-  socket->write(body);
+  send(Simond::DeactivatedScenarioList, body);
 }
 
 void RecognitionControl::sendSampleGroup(QString sampleGroup)
 {
-    QByteArray toWrite;
-    QDataStream out(&toWrite, QIODevice::WriteOnly);
-    QByteArray body;
-    QDataStream bodyStream(&body, QIODevice::WriteOnly);
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-    QByteArray sampleGroupBytes = sampleGroup.toUtf8();
-    bodyStream << sampleGroupBytes;
+  QByteArray sampleGroupBytes = sampleGroup.toUtf8();
+  bodyStream << sampleGroupBytes;
 
-    out << (qint32) Simond::SampleGroup << (qint64) (body.count());
-
-    socket->write(toWrite);
-    socket->write(body);
+  send(Simond::SampleGroup, body);
 }
 
 void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
 {
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-
   Scenario *s = new Scenario(scenarioId);
   if (!s->skim())
-    out << (qint32) Simond::ErrorRetrievingScenario;
+    sendRequest(Simond::ErrorRetrievingScenario);
   else {
     kDebug() << "Sending scenario date of scenario " << scenarioId << ": " << s->modifiedDate();
-    out << (qint32) Simond::ScenarioDate
-      << s->modifiedDate();
+    QByteArray toWrite;
+    QDataStream out(&toWrite, QIODevice::WriteOnly);
+    out << s->modifiedDate();
+    send(Simond::ScenarioDate, toWrite, false);
   }
 
   s->deleteLater();
-  socket->write(toWrite);
 }
 
 
 void RecognitionControl::sendScenario(QString scenarioId)
 {
   checkIfSynchronisationIsAborting();
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
 
   kDebug() << "Sending scenario " << scenarioId;
   QFile f(KStandardDirs::locate("appdata", "scenarios/"+scenarioId));
   if (!f.open(QIODevice::ReadOnly)) {
     kDebug() << "Could not retrieve scenario";
-    out << (qint32) Simond::ErrorRetrievingScenario;
-    socket->write(toWrite);
+    sendRequest(Simond::ErrorRetrievingScenario);
   }
   else {
     kDebug() << "Really sending scenario...";
@@ -687,9 +645,7 @@ void RecognitionControl::sendScenario(QString scenarioId)
     QByteArray scenarioIdByte = scenarioId.toUtf8();
     QByteArray scenarioByte = f.readAll();
     bodyStream << scenarioIdByte << scenarioByte;
-    out << (qint32) Simond::Scenario << (qint64) (body.count());
-    socket->write(toWrite);
-    socket->write(body);
+    send(Simond::Scenario, body);
   }
 }
 
@@ -703,18 +659,14 @@ void RecognitionControl::sendSelectedScenarioListModifiedDate()
   KConfigGroup cg(config, "");
   QDateTime lastModifiedDate = cg.readEntry("LastModified", QDateTime());
 
-  out << (qint32) Simond::SelectedScenarioDate
-    << lastModifiedDate;
+  out << lastModifiedDate;
 
-  socket->write(toWrite);
+  send(Simond::SelectedScenarioDate, toWrite, false);
 }
 
 
 void RecognitionControl::sendSelectedScenarioList()
 {
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -725,11 +677,7 @@ void RecognitionControl::sendSelectedScenarioList()
 
   bodyStream << lastModifiedDate << selectedScenarios;
 
-  out << (qint32) Simond::SelectedScenarioList
-    << (qint64) body.count();
-  socket->write(toWrite);
-  socket->write(body);
-
+  send(Simond::SelectedScenarioList, body);
 }
 
 
@@ -737,17 +685,14 @@ void RecognitionControl::sendLanguageDescriptionModifiedDate()
 {
   QByteArray toWrite;
   QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << (qint32) Simond::LanguageDescriptionDate
-    << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
+  out << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
   kDebug() << "Language description modified time " << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
-  socket->write(toWrite);
+  send(Simond::LanguageDescriptionDate, toWrite, false);
 }
 
 
 void RecognitionControl::sendLanguageDescription()
 {
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -758,11 +703,7 @@ void RecognitionControl::sendLanguageDescription()
     << languageDescription->shadowVocab()
     << languageDescription->languageProfile();
 
-  out << (qint32) Simond::LanguageDescription
-    << (qint64) body.count();
-
-  socket->write(toWrite);
-  socket->write(body);
+  send(Simond::LanguageDescription, body);
 
   delete languageDescription;
 }
@@ -772,16 +713,13 @@ void RecognitionControl::sendTrainingModifiedDate()
 {
   QByteArray toWrite;
   QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << (qint32) Simond::TrainingDate
-    << ModelManagerUiProxy::getInstance()->getTrainingModifiedTime();
-  socket->write(toWrite);
+  out << ModelManagerUiProxy::getInstance()->getTrainingModifiedTime();
+  send(Simond::TrainingDate, toWrite, false);
 }
 
 
 void RecognitionControl::sendTraining()
 {
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -791,12 +729,7 @@ void RecognitionControl::sendTraining()
     << training->sampleRate()
     << training->wavConfig()
     << training->prompts();
-
-  out << (qint32) Simond::Training
-    << (qint64) body.count();
-
-  socket->write(toWrite);
-  socket->write(body);
+  send(Simond::Training, body);
 
   delete training;
 }
@@ -823,13 +756,7 @@ void RecognitionControl::fetchMissingSamples()
   }
 
   QByteArray sampleByte = sample.toUtf8();
-
-  QByteArray toWrite;
-  QDataStream stream(&toWrite, QIODevice::WriteOnly);
-  stream << (qint32) Simond::GetTrainingsSample
-    << (qint64) sampleByte.count()+sizeof(qint32) /*separator*/
-    << sampleByte;
-  socket->write(toWrite);
+  send(Simond::GetTrainingsSample, sampleByte);
 }
 
 
@@ -853,10 +780,7 @@ void RecognitionControl::sendSample(QString sampleName)
     return;
   }
 
-  out << (qint32) Simond::TrainingsSample
-    << (qint64) sample.count()+sizeof(qint32)     /*separator*/
-    << sample;
-  socket->write(toWrite);
+  send(Simond::TrainingsSample, sample);
 }
 
 
@@ -1803,7 +1727,6 @@ void RecognitionControl::messageReceived()
   }
 }
 
-
 void RecognitionControl::abortModelCompilation()
 {
   sendRequest(Simond::AbortModelCompilation);
@@ -1816,27 +1739,21 @@ bool RecognitionControl::getAvailableModels()
   return true;
 }
 
-
 bool RecognitionControl::switchToModel(const QDateTime& model)
 {
-  QByteArray toWrite, body;
+  QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
-  QDataStream stream(&toWrite, QIODevice::WriteOnly);
 
   bodyStream << model;
-  stream << (qint32) Simond::SwitchToModel << (qint64) body.count();
 
-  socket->write(toWrite);
-  socket->write(body);
+  send(Simond::SwitchToModel, body);
   return true;
 }
-
 
 void RecognitionControl::fetchCompilationProtocol()
 {
   sendRequest(Simond::GetModelCompilationProtocol);
 }
-
 
 bool RecognitionControl::startRecognition()
 {
@@ -1856,7 +1773,6 @@ bool RecognitionControl::startRecognition()
   return true;
 }
 
-
 bool RecognitionControl::stopRecognition()
 {
   bool succ = stopSimondStreamer();
@@ -1869,7 +1785,6 @@ void RecognitionControl::displayCompilationProtocol(const QString& protocol)
 {
   KMessageBox::detailedSorry(0, i18n("Protocol:"), protocol);
 }
-
 
 void RecognitionControl::sampleNotAvailable(const QString& sample)
 {
@@ -1891,7 +1806,6 @@ void RecognitionControl::sampleNotAvailable(const QString& sample)
       KMessageBox::error(0, i18n("Could not remove Sample from the Trainingscorpus"));
   }
 }
-
 
 void RecognitionControl::wordUndefined(const QString& word)
 {
@@ -1920,7 +1834,6 @@ void RecognitionControl::wordUndefined(const QString& word)
   }
 }
 
-
 void RecognitionControl::classUndefined(const QString& undefClass)
 {
   KMessageBox::sorry(0, i18n("Your grammar uses the undefined terminal \"%1\".\n\nPlease add a word that uses this terminal or remove the structure(s) containing the terminal from your grammar.", undefClass));
@@ -1940,18 +1853,15 @@ Operation* RecognitionControl::createModelCompilationOperation()
   return modelCompilationOperation;
 }
 
-
 bool RecognitionControl::pauseRecognition()
 {
   return stopSimondStreamer();
 }
 
-
 bool RecognitionControl::resumeRecognition()
 {
   return startSimondStreamer();
 }
-
 
 void RecognitionControl::startSampleToRecognizePrivate(qint8 id, qint8 channels, qint32 sampleRate)
 {
@@ -1959,13 +1869,8 @@ void RecognitionControl::startSampleToRecognizePrivate(qint8 id, qint8 channels,
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
   bodyStream << id << channels << sampleRate;
 
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << (qint32) Simond::RecognitionStartSample << (qint64) body.count();
-  socket->write(toWrite);
-  socket->write(body);
+  send(Simond::RecognitionStartSample, body);
 }
-
 
 void RecognitionControl::sendSampleToRecognizePrivate(qint8 id, const QByteArray& data)
 {
@@ -1973,14 +1878,9 @@ void RecognitionControl::sendSampleToRecognizePrivate(qint8 id, const QByteArray
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
   bodyStream << id << data;
 
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << (qint32) Simond::RecognitionSampleData << (qint64) body.count();
-  socket->write(toWrite);
-  socket->write(body);
+  send(Simond::RecognitionSampleData, body);
 
 }
-
 
 void RecognitionControl::recognizeSamplePrivate(qint8 id)
 {
@@ -1988,8 +1888,8 @@ void RecognitionControl::recognizeSamplePrivate(qint8 id)
 
   QByteArray toWrite;
   QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << (qint32) Simond::RecognitionSampleFinished << id;
-  socket->write(toWrite);
+  out << id;
+  send(Simond::RecognitionSampleFinished, toWrite);
 }
 
 void RecognitionControl::setBlockAutoStart(bool block)
@@ -1997,11 +1897,6 @@ void RecognitionControl::setBlockAutoStart(bool block)
   blockAutoStart = block;
 }
 
-/**
- *	@brief Destructor
- *
- *	@author Peter Grasch
- */
 RecognitionControl::~RecognitionControl()
 {
   simondStreamer->stop();
