@@ -131,6 +131,10 @@ bool WebserviceTTSProvider::say(const QString& text)
   QString url = TTSConfiguration::webserviceURL().replace("%1", text);
   kDebug() << "Getting: " << url;
  
+  QBuffer *b = new QBuffer(this);
+  b->open(QIODevice::ReadWrite);
+  filesToPlay.enqueue(b);
+
   if (currentConnection)
     filesToDownload.enqueue(url);
   else {
@@ -138,9 +142,6 @@ bool WebserviceTTSProvider::say(const QString& text)
     connect(currentConnection, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(downloadProgress(qint64,qint64)));
     connect(currentConnection, SIGNAL(finished()), this, SLOT(replyReceived()));
   }
-  QBuffer *b = new QBuffer(this);
-  b->open(QIODevice::ReadWrite);
-  filesToPlay.enqueue(b);
   return true;
 }
 
