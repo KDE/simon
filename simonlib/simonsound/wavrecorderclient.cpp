@@ -104,7 +104,8 @@ bool WavRecorderClient::finish()
     emit signalToNoiseRatioLow();
 
   wavData->endAddSequence();
-  if (! wavData->writeFile()) succ = false;
+  if (!wavData->writeFile())
+    succ = false;
   wavData->deleteLater();
   wavData = 0;
 
