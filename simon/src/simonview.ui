@@ -17,13 +17,13 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>simon</string>
+   <string>Simon</string>
   </property>
   <property name="accessibleName">
-   <string>simon</string>
+   <string/>
   </property>
   <property name="accessibleDescription">
-   <string>simon Main Window</string>
+   <string>Simon Main Window</string>
   </property>
   <property name="toolButtonStyle">
    <enum>Qt::ToolButtonTextUnderIcon</enum>

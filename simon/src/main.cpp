@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     ki18n("<html><head /><body>"
           "<h2>Development and Distribution</h2>"
           "<p>Developed and distributed by the friendly society"
-          " <a href=\"http://simon-listens.org\">simon listens e.V.</a>"
+          " <a href=\"http://simon-listens.org\">Simon listens e.V.</a>"
           " in cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>"
           "<h3>Special Thanks To</h3>"
           "<ul><li>Franz Stieger</li><li>Mathias Stieger</li><li>Phillip Theussl</li><li>Moacyr Prado</li><li>Michael Stieger</li><li>Ralf Herzog</li></ul>"
