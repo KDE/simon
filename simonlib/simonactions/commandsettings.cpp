@@ -41,8 +41,9 @@ K_EXPORT_PLUGIN( CommandSettingsFactory("simonlib") )
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent),
-	ui(new Ui::CommandSettingsDlg)
+CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args)
+  : KCModule(KGlobal::mainComponent(), parent),
+    ui(new Ui::CommandSettingsDlg)
 {
   Q_UNUSED(args)
 

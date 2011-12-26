@@ -75,7 +75,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Plugin base font</string>
+       <string>Dialog font</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>

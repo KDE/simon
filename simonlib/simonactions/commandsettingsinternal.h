@@ -36,32 +36,12 @@ class Action;
 class VoiceInterfaceCommand;
 class ListConfiguration;
 
-class SIMONACTIONS_EXPORT CommandSettingsInternal : public QObject
+class SIMONACTIONS_EXPORT CommandSettingsInternal
+  : public QObject
 {
     Q_OBJECT
 
-  signals:
-    void recognitionResultsFilterParametersChanged();
-
-  private:
-    bool forceChangeFlag;
-    static CommandSettingsInternal* instance;
-
-    KSharedConfig::Ptr config;
-
-    bool storedDYM;
-    float storedConfidence;
-    QFont storedFont;
-
-    ListConfiguration *listConfiguration;
-
-  public slots:
-    virtual void save(bool dym, float confidence, const QFont& font);
-    virtual void load();
-    virtual void defaults();
-
   public:
-    CommandSettingsInternal(QWidget *parent=0);
     virtual ~CommandSettingsInternal();
 
     static CommandSettingsInternal* getInstance(QWidget *parent=0) {
@@ -75,6 +55,23 @@ class SIMONACTIONS_EXPORT CommandSettingsInternal : public QObject
     bool useDYM();
     QFont pluginBaseFont();
     ListConfiguration* getListConfiguration();
+
+  signals:
+    void recognitionResultsFilterParametersChanged();
+
+  public slots:
+    virtual void save(bool dym, float confidence, const QFont& font);
+    virtual void load();
+    virtual void defaults();
+
+  private:
+    CommandSettingsInternal(QWidget *parent=0);
+    bool storedDYM;
+    float storedConfidence;
+    QFont storedFont;
+    KSharedConfig::Ptr config;
+    ListConfiguration *listConfiguration;
+    static CommandSettingsInternal* instance;
 };
 
 #endif // COMMANDSETTINGSINTERNAL_H
