@@ -65,7 +65,7 @@ void GeneralSettings::load()
   KSharedConfig::Ptr config = KSharedConfig::openConfig("simonrc");
   KConfigGroup group(config, "Notification Messages");
   ui.cbAskBeforeQuit->setChecked(!group.readEntry("AskForQuitSimonMainWindow", false));
-  ui.cbShowSampleWarning->setChecked(!group.readEntry("ShowSampleWarning", false));
+  ui.cbShowSampleWarning->setChecked(group.readEntry("ShowSampleWarning", false));
 }
 
 
@@ -81,7 +81,7 @@ void GeneralSettings::save()
   else
     group.writeEntry("AskForQuitSimonMainWindow", true);
 
-  if (ui.cbShowSampleWarning->isChecked())
+  if (!ui.cbShowSampleWarning->isChecked())
     group.deleteEntry("ShowSampleWarning");
   else
     group.writeEntry("ShowSampleWarning", true);
@@ -102,13 +102,4 @@ void GeneralSettings::save()
   }
   settings.sync();
   #endif
-}
-
-
-/**
- * \brief Destructor
- * \author Peter Grasch
- */
-GeneralSettings::~GeneralSettings()
-{
 }

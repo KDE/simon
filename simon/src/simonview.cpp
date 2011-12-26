@@ -769,9 +769,13 @@ void SimonView::representState(SimonControl::SystemStatus status)
  */
 void SimonView::closeSimon()
 {
-  if ( KMessageBox::questionYesNoCancel ( this, i18n ( "If you quit the application the connection to the server will be closed and "
-    "you will no longer be able to dictate texts or use command.\n\nDo you want to "
-  "quit?"), QString(), KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(), "AskForQuitSimonMainWindow" ) == KMessageBox::Yes ) {
+  if (KMessageBox::questionYesNo(this,
+        i18n ("If you quit the application "
+        "you will no longer be able to dictate "
+        "texts or use commands.\n\nDo you want to quit?"),
+        QString(), KStandardGuiItem::yes(), KStandardGuiItem::cancel(),
+        "AskForQuitSimonMainWindow")
+      == KMessageBox::Yes) {
     close();
     qApp->quit();
   }
