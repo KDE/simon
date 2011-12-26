@@ -288,8 +288,7 @@ QFont CommandSettingsInternal::pluginBaseFont()
 
 ListConfiguration* CommandSettingsInternal::getListConfiguration()
 {
-	kDebug() << "here";
-	return listConfiguration; 
+  return listConfiguration;
 }
 
 

@@ -26,7 +26,7 @@
 
 namespace Ui
 {
-	class CommandSettingsDlg;
+  class CommandSettingsDlg;
 }
 
 class KPageWidgetItem;
@@ -42,7 +42,7 @@ class CommandSettings : public KCModule
 {
   Q_OBJECT
 
-	private:
+  private:
     Ui::CommandSettingsDlg *ui;
 
   public slots:
@@ -52,7 +52,7 @@ class CommandSettings : public KCModule
 
   private slots:
     void slotChanged();
-		void adaptViewToValues();
+    void adaptViewToValues();
 
   public:
 
