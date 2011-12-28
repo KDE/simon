@@ -52,6 +52,7 @@ install( FILES ${CMAKE_BINARY_DIR}/version.h
 # if(WIN32)
 # add_subdirectory(package/KDE)
 # ENDIF(WIN32)
-
+if(NOT WIN32)
 include(simon_package_settings)
+endif(NOT WIN32)
 
