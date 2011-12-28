@@ -59,6 +59,7 @@
 #include <QHBoxLayout>
 #include <KDE/KComboBox>
 #include <QDesktopServices>
+#include <QWebView>
 
 #include <KMessageBox>
 #include <KApplication>
@@ -247,7 +248,9 @@ void SimonView::setupWelcomePage()
   QString simoncss = KStandardDirs::locate( "appdata", "about/simon.css" );
   QString rtl = kapp->isRightToLeft() ? QString("@import \"%1\";" ).arg( KStandardDirs::locate( "data", "kdeui/about/kde_infopage_rtl.css" )) : QString();
 
-  WelcomeHTMLPart *welcomePart = new WelcomeHTMLPart(ui.inlineView, this);
+  QWebView *welcomePart = new QWebView(this);
+  welcomePart->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+  connect(welcomePart,SIGNAL(linkClicked(const QUrl&)),this,SLOT(welcomeUrlClicked(const QUrl&)));
 
   KIconLoader *iconLoader = KIconLoader::global();
   QString internetIconPath = iconLoader->iconPath("applications-internet", KIconLoader::Desktop);
@@ -276,18 +279,8 @@ void SimonView::setupWelcomePage()
     .arg(i18n("simon Homepage")).arg(i18n("Official simon homepage"))
     ;
 
-  welcomePart->setJScriptEnabled(false);
-  welcomePart->setJavaEnabled(false);
-  welcomePart->setMetaRefreshEnabled(false);
-  welcomePart->setPluginsEnabled(false);
-  welcomePart->setOnlyLocalReferences(false);
-  welcomePart->setStatusMessagesEnabled(false);
-
-  welcomePart->begin(KUrl::fromPath(location));
-  welcomePart->write(content);
-  welcomePart->end();
-  welcomePart->show();
-  ui.inlineView->addTab(welcomePart->widget(), KIcon("simon"), i18n("Welcome"));
+  welcomePart->setHtml(content);
+  ui.inlineView->addTab(welcomePart, KIcon("simon"), i18n("Welcome"));
 }
 
 
@@ -440,6 +433,11 @@ void SimonView::setupActions()
 
   KStandardAction::quit(this, SLOT(closeSimon()),
     actionCollection());
+}
+
+void SimonView::welcomeUrlClicked(const QUrl& url)
+{
+  QDesktopServices::openUrl(url);
 }
 
 void SimonView::showVolumeCalibration()
@@ -792,26 +790,6 @@ void SimonView::closeEvent ( QCloseEvent * event )
   hide();
   event->ignore();
 }
-
-
-WelcomeHTMLPart::WelcomeHTMLPart(QWidget *parentWidget, QObject *parent) :
-KHTMLPart(parentWidget, parent)
-{
-}
-
-
-bool WelcomeHTMLPart::urlSelected(const QString& url, int button, int state,
-const QString& _target, const KParts::OpenUrlArguments& args,
-const KParts::BrowserArguments& browserArgs)
-{
-  Q_UNUSED(button);
-  Q_UNUSED(state);
-  Q_UNUSED(_target);
-  Q_UNUSED(args);
-  Q_UNUSED(browserArgs);
-  return QDesktopServices::openUrl(KUrl(url));
-}
-
 
 /**
  * @brief Destructor
