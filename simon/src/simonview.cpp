@@ -96,7 +96,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 : KXmlGuiWindow(parent, flags), ScenarioDisplay(),
   shownDialogs(0), configDialog(0)
 {
-  Logger::log ( i18n ( "Starting Simon..." ) );
+  Logger::log ( i18n ( "Starting simon..." ) );
 
   //showing splash
   bool showSplash = KCmdLineArgs::parsedArgs()->isSet("splash");
@@ -118,17 +118,13 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
     bool firstRunWizardCompleted = firstRun->exec();
     delete firstRun;
 
-    if (firstRunWizardCompleted || KMessageBox::questionYesNo(
-        this, i18n("You did not complete the initial configuration. "
-        "Simon will continue with default values.\n\n"
-        "Do you want Simon to display the wizard again on the next start?"
-        )) == KMessageBox::No)
+    if (firstRunWizardCompleted || KMessageBox::questionYesNo(this, i18n("You did not complete the initial configuration. simon will continue with default values.\n\nDo you want simon to display the wizard again on the next start?"))==KMessageBox::No)
       control->setFirstRunWizardCompleted(true);
   }
 
   trayManager = new TrayIconManager(this);
 
-  this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deactivated" ) );
+  this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
 
   QMainWindow ( parent,flags );
   qApp->setQuitOnLastWindowClosed(false);
@@ -228,18 +224,18 @@ void SimonView::setupWelcomePage()
 
   //    m_part->begin(KUrl::fromPath( location ));
   QString info =
-    i18nc("%1: Simon version"
+    i18nc("%1: simon version"
     "--- end of comment ---",
-    "<h2 style='margin-top: 0px;'>Welcome to Simon %1</h2>"
+    "<h2 style='margin-top: 0px;'>Welcome to simon %1</h2>"
 
-    "<p>Simon is an open-source speech recognition program and replaces the mouse and keyboard. "
+    "<p>simon is an open-source speech recognition program and replaces the mouse and keyboard. "
     "It is designed to be as flexible as possible and allows customization for any application where speech recognition is needed.</p>"
     ,
     simon_version);                                // simon version
 
   QString fontSize = QString::number(15);         //QFont().pixelSize());//QString::number( pointsToPixel( Settings::mediumFontSize() ));
-  QString appTitle = i18n("Simon");
-  QString catchPhrase = i18n("Simon listens.");
+  QString appTitle = i18n("simon");
+  QString catchPhrase = i18n("simon listens.");
                                                   // looks ugly i18n("Open Source Speech Recognition Suite");
   QString quickDescription = i18n("Open Source Speech Recognition Suite");
 
@@ -262,7 +258,7 @@ void SimonView::setupWelcomePage()
     .arg("http://sourceforge.net/projects/speech2text/forums/forum/672427")
     .arg(internetIconPath)                        //icon
     .arg(iconSize).arg(iconSize)
-    .arg(i18n("Community forums")).arg(i18n("Get in touch with the Simon community"))
+    .arg(i18n("Community forums")).arg(i18n("Get in touch with the simon community"))
 
     .arg("mailto:support@simon-listens.org")
     .arg(mailIconPath)                            //icon
@@ -272,12 +268,12 @@ void SimonView::setupWelcomePage()
     .arg("http://simon-listens.org/wiki")
     .arg(helpIconPath)                            //icon
     .arg(iconSize).arg(iconSize)
-    .arg(i18n("Simon WIKI")).arg(i18n("The simon knowledge base"))
+    .arg(i18n("simon WIKI")).arg(i18n("The simon knowledge base"))
 
     .arg("http://simon-listens.org/")
     .arg(internetIconPath)                        //icon
     .arg(iconSize).arg(iconSize)
-    .arg(i18n("Simon Homepage")).arg(i18n("Official Simon homepage"))
+    .arg(i18n("simon Homepage")).arg(i18n("Official simon homepage"))
     ;
 
   welcomePart->setJScriptEnabled(false);
@@ -708,7 +704,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
       connectAction->setIcon(KIcon("network-connect"));
       connectAction->setChecked(true);
 
-      SimonInfo::showMessage ( i18n ( "Simon has been deactivated" ), 2000 );
+      SimonInfo::showMessage ( i18n ( "simon has been deactivated" ), 2000 );
 
       this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
       //repaint();
@@ -750,7 +746,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 
       this->trayManager->createIcon ( KIcon ( "simon" ), "Simon" );
 
-      SimonInfo::showMessage ( i18n ( "Simon has been activated" ), 2000 );
+      SimonInfo::showMessage ( i18n ( "simon has been activated" ), 2000 );
 
       break;
     }
