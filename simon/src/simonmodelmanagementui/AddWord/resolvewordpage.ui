@@ -235,9 +235,9 @@
  </customwidgets>
  <tabstops>
   <tabstop>leWord</tabstop>
+  <tabstop>leSampa</tabstop>
   <tabstop>cbType</tabstop>
   <tabstop>tbAddTerminal</tabstop>
-  <tabstop>leSampa</tabstop>
   <tabstop>twModules</tabstop>
   <tabstop>twSuggestions</tabstop>
   <tabstop>cbSimilarSearch</tabstop>
