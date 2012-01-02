@@ -591,30 +591,30 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
         kDebug() << "Still using base scenario list: " << m_currentScenarioSet;
     }
 
-    if (ModelCompilationAdapter::AdaptAcousticModel & adaptionType)
+    //check if there is a new prompts file
+    QFile promptsFile(promptsIn);
+    promptsFile.open(QIODevice::ReadOnly);
+    uint newPromptsHash = qHash(promptsFile.readAll());
+    promptsFile.close();
+    if (m_promptsHash != newPromptsHash)
     {
-        //check if there is a new prompts file
-        QFile promptsFile(promptsIn);
-        promptsFile.open(QIODevice::ReadOnly);
-        uint newPromptsHash = qHash(promptsFile.readAll());
-        promptsFile.close();
-        if (m_promptsHash != newPromptsHash)
-        {
-            kDebug() << "New Prompts File!  Resetting acoustic model cache.";
-            setupAcousticModelCache(promptsIn);
-            m_newAcousticModel = true;
+        kDebug() << "New Prompts File!  Resetting acoustic model cache.";
+        setupAcousticModelCache(promptsIn);
 
-            m_promptsHash = newPromptsHash;
-            //save the new prompts hash
-            QFile promptsHashFile(acousticDir + "PromptsHash");
-            promptsHashFile.open(QFile::Truncate | QFile::WriteOnly);
-            QDataStream fileStream(&promptsHashFile);
-            fileStream << m_promptsHash;
-            promptsHashFile.close();
-            kDebug() << "Saved new prompts hash: " << m_promptsHash;
+        m_promptsHash = newPromptsHash;
+        //save the new prompts hash
+        QFile promptsHashFile(acousticDir + "PromptsHash");
+        promptsHashFile.open(QFile::Truncate | QFile::WriteOnly);
+        QDataStream fileStream(&promptsHashFile);
+        fileStream << m_promptsHash;
+        promptsHashFile.close();
+        kDebug() << "Saved new prompts hash: " << m_promptsHash;
+
+        if (ModelCompilationAdapter::AdaptAcousticModel & adaptionType)
+        {
+            m_newAcousticModel = true;
         }
     }
-
 
     //if for some reason newAcousticModel is true
     //but a static model is being used, set it to false

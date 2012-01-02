@@ -66,7 +66,6 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
 
   public:
     PromptsTable* getPrompts();
-    bool writePromptsFile(PromptsTable* prompts, QString path);
 
     static TrainingManager* getInstance();
 
