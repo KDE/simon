@@ -51,9 +51,5 @@ class OSD : public QLabel
     void mouseReleaseEvent ( QMouseEvent * );
   public:
     OSD(QString message, int timeout, KIcon *icon=0);
-    // 	void paintEvent(QPaintEvent *e);
-
-    ~OSD();
-
 };
 #endif

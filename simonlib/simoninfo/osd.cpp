@@ -49,7 +49,7 @@
  */
 OSD::OSD(QString message_, int timeout, KIcon* icon_)
 : QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint),
-timer(new QTimer()),
+timer(new QTimer(this)),
 message(new QLabel(this)),
 icon(new QLabel(this))
 {
@@ -100,14 +100,3 @@ void OSD::mouseReleaseEvent(QMouseEvent *event)
   deleteLater();
 }
 
-
-/**
- * \brief Destructor
- * \author Peter Grasch
- */
-OSD::~OSD()
-{
-  timer->deleteLater();
-  message->deleteLater();
-  icon->deleteLater();
-}
