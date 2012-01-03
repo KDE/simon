@@ -79,7 +79,8 @@ void SimondControl::handleError(const QString& error)
 void SimondControl::startServer(const QHostAddress& allowedClient, quint16 port)
 {
   kWarning() << "Starting server listening on port " << port;
-  listen(allowedClient, port);
+  if (!listen(allowedClient, port))
+    qFatal("Couldn't bind to port");
   kWarning() << "Server listening on port  " << port;
 }
 
