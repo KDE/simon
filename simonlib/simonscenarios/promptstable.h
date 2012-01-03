@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -47,10 +48,10 @@ class MODELMANAGEMENT_EXPORT PromptsTable : public QObject
 {
     Q_OBJECT
 public:
-    explicit PromptsTable(QString filePath, QObject *parent = 0);
+    explicit PromptsTable(QObject *parent = 0);
 
-    bool init();
-    bool save();
+    bool init(const QString& path);
+    bool save(const QString& path);
     bool deletePrompt(QString key);
     bool deleteWord(Word *w);
     bool deleteWord(const QString & word);
@@ -61,14 +62,12 @@ public:
     int count();
     QString value(const QString& key);
     QString sampleGroup(const QString& key);
-    void setFileName(QString fileName);
 
     QList<QString> keys() { return m_wordBySample.keys(); }
     QList<QString> words() { return m_wordBySample.values(); }
     QStringList sampleGroups() { return m_groupBySample.values(); }
 
 private:
-    QString m_filePath;
     QHash<QString,QString> m_wordBySample;
     QHash<QString,QString> m_groupBySample;
 
