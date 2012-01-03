@@ -262,7 +262,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
     } else {
         scenarioIds = defaultScenarioIds;
         cg.writeEntry("SelectedScenarios", defaultScenarioIds);
-        cg.writeEntry("LastModified", QDateTime::currentDateTime());
+        cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
         cg.sync();
     }
 
