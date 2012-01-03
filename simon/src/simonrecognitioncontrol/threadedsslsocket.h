@@ -65,6 +65,9 @@ public:
 
   bool processBuffer();
   void readFromSocket();
+  
+  virtual void close();
+  QString errorString() const;
 
 protected:
   virtual qint64 readData(char* data, qint64 maxlen);

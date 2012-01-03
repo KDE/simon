@@ -107,16 +107,18 @@ timeoutWatcher(new QTimer(this))
 
   connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 
-  connect(socket, SIGNAL(readyRead()), this, SLOT(messageReceived()));
-  connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()));
-  connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()));
+  connect(socket, SIGNAL(readyRead()), this, SLOT(messageReceived()), Qt::QueuedConnection);
+  connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()), Qt::QueuedConnection);
+  connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()), Qt::QueuedConnection);
 
-  connect(socket, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
-  connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
+  connect(socket, SIGNAL(disconnected()), this, SLOT(slotDisconnected()), Qt::QueuedConnection);
+  connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()), Qt::QueuedConnection);
 
   connect(this, SIGNAL(simondSystemError(const QString&)), this, SLOT(disconnectFromServer()));
 
   connect(ModelManagerUiProxy::getInstance(), SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
+  
+  timeoutWatcher->setSingleShot(true);
 }
 
 
@@ -306,9 +308,9 @@ void RecognitionControl::errorOccured()
       socket->close();
     }
   }
-  if (socket->error() != QAbstractSocket::UnknownSocketError)
+  if (socket->error() != QAbstractSocket::UnknownSocketError) {
     serverConnectionErrors << socket->errorString();
-  else {
+  } else {
                                                   //build ssl error list
     for (int i=0; i < errors.count(); i++)
       serverConnectionErrors << errors[i].errorString();
@@ -334,7 +336,6 @@ bool RecognitionControl::isConnected()
 
 void RecognitionControl::timeoutReached()
 {
-  timeoutWatcher->stop();
   serverConnectionErrors << i18n("Request timed out (%1 ms)", RecognitionConfiguration::juliusdConnectionTimeout());
   socket->abort();
   connectToNext();

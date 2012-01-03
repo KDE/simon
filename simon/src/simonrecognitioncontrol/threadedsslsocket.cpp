@@ -91,6 +91,16 @@ qint64 ThreadedSSLSocket::writeData(const char* data, qint64 len)
   return out;
 }
 
+void ThreadedSSLSocket::close()
+{
+  socket->close();
+}
+
+QString ThreadedSSLSocket::errorString() const
+{
+  return socket->errorString();
+}
+
 qint64 ThreadedSSLSocket::bytesAvailable() const
 {
   return readBuffer.bytesAvailable();
