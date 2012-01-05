@@ -23,99 +23,99 @@ msgstr ""
 #: afarasview.cpp:80
 #, qt-format
 msgid "Could not open input prompts: %1"
-msgstr ""
+msgstr "non poteva aprire i prompt dei comandi:%1"
 
 #: afarasview.cpp:137
 msgid "Prompts file is empty or has an invalid format"
-msgstr ""
+msgstr "il file del prompt è vuoto o ha un formato invalido"
 
 #: afarasview.cpp:192
 msgid "Couldn't open blacklist file for reading"
-msgstr ""
+msgstr "non poteva aprire il file \"blacklist\"per leggere"
 
 #: afarasview.cpp:206
 #, qt-format
 msgid "Sample %1 of %2"
-msgstr ""
+msgstr "sample: %1 di %2"
 
 #: main.cpp:28
 msgid "An automatic sample review tool"
-msgstr ""
+msgstr "tool automatico per la revisione dei sample"
 
 #. i18n: file: main.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
 #: main.cpp:32 rc.cpp:3
 msgid "afaras"
-msgstr ""
+msgstr "afaras"
 
 #: main.cpp:33
 msgid "(C) 2011 Peter Grasch"
-msgstr ""
+msgstr "(C) 2011 Peter Grasch"
 
 #: main.cpp:34
 msgid "Peter Grasch"
-msgstr ""
+msgstr "Peter Grasch"
 
 #. i18n: file: main.ui:30
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:6
 msgid "Input prompts:"
-msgstr ""
+msgstr "prompt dei comandi:"
 
 #. i18n: file: main.ui:40
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: rc.cpp:9
 msgid "Path prefix:"
-msgstr ""
+msgstr "prefisso del percorso:"
 
 #. i18n: file: main.ui:54
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: rc.cpp:12
 msgid "Output (blacklist):"
-msgstr ""
+msgstr "output (blacklist):"
 
 #. i18n: file: main.ui:68
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:15
 msgid "Sam build log (optional):"
-msgstr ""
+msgstr "Sam build log (opzionale):"
 
 #. i18n: file: main.ui:98
 #. i18n: ectx: property (text), widget (KPushButton, pbStartReview)
 #: rc.cpp:18
 msgid "Start review"
-msgstr ""
+msgstr "revisione dell'avvio"
 
 #. i18n: file: main.ui:133
 #. i18n: ectx: property (text), widget (KPushButton, pbBack)
 #: rc.cpp:21
 msgid "Back"
-msgstr ""
+msgstr "indietro"
 
 #. i18n: file: main.ui:147
 #. i18n: ectx: property (text), widget (KPushButton, pbPreviousSample)
 #: rc.cpp:24
 msgid "Previous sample"
-msgstr ""
+msgstr "sample precedente"
 
 #. i18n: file: main.ui:167
 #. i18n: ectx: property (text), widget (KPushButton, pbBlacklistSample)
 #: rc.cpp:27
 msgid "Blacklist sample"
-msgstr ""
+msgstr "sample del blacklist"
 
 #. i18n: file: main.ui:190
 #. i18n: ectx: property (text), widget (KPushButton, pbNextSample)
 #: rc.cpp:30
 msgid "Next sample"
-msgstr ""
+msgstr "prossimo sample"
 
 #: rc.cpp:31
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "I Suoi nomi"
 
 #: rc.cpp:32
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "Le Sue e-mail"

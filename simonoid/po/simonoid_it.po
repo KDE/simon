@@ -48,7 +48,6 @@ msgstr ""
 
 #: simonoid.cpp:47
 msgid "Could not load simon icon!"
-msgstr ""
 
 #: simonoid.cpp:63 simonoid.cpp:165
 msgid "Waiting"
@@ -68,7 +67,7 @@ msgstr ""
 
 #: simonoid.cpp:153
 msgid "Listening"
-msgstr ""
+msgstr "Höre zu"
 
 #: simonoid.cpp:159
 msgid "Processing"
