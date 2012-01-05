@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,16 +23,14 @@
 #include "speechmodelmanagementconfiguration.h"
 #include <KDebug>
 
-PromptsTable::PromptsTable(QString filePath, QObject *parent) :
-    QObject(parent),
-    m_filePath(filePath)
+PromptsTable::PromptsTable(QObject *parent) :
+    QObject(parent)
 {
-    init();
 }
 
-bool PromptsTable::init()
+bool PromptsTable::init(const QString& path)
 {
-    QFile *prompts = new QFile ( m_filePath );
+    QFile *prompts = new QFile ( path );
     prompts->open ( QFile::ReadOnly );
     if ( !prompts->isReadable() ) return false;
 
@@ -72,10 +71,14 @@ bool PromptsTable::init()
     return true;
 }
 
-bool PromptsTable::save()
+bool PromptsTable::save(const QString& path)
 {
-    QFile promptsFile ( m_filePath );
-    if ( !promptsFile.open ( QIODevice::WriteOnly ) ) return false;
+    kDebug() << "Opening prompts table at output path: " << path;
+    QFile promptsFile ( path );
+    if ( !promptsFile.open ( QIODevice::WriteOnly ) ) {
+        kDebug() << "Open failed";
+        return false;
+    }
 
     QStringList samples = m_wordBySample.keys();
 
@@ -119,7 +122,7 @@ bool PromptsTable::deleteWord(Word *w)
             if (!deletePrompt(sample)) succ = false;
         }
     }
-    return (save() && succ);
+    return succ;
 }
 
 bool PromptsTable::deleteWord(const QString & word)
@@ -149,7 +152,7 @@ bool PromptsTable::clear()
     m_wordBySample.clear();
     m_groupBySample.clear();
 
-    return save();
+    return true;
 }
 
 bool PromptsTable::contains(const QString &key)
@@ -178,7 +181,3 @@ QString PromptsTable::sampleGroup(const QString& key)
     return m_groupBySample.value(key);
 }
 
-void PromptsTable::setFileName(QString fileName)
-{
-    m_filePath = fileName;
-}

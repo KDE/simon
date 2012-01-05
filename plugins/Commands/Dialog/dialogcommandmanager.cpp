@@ -392,4 +392,5 @@ DialogCommandManager::~DialogCommandManager()
 {
   activateAction->deleteLater();
   qDeleteAll(dialogViews);
+  qDeleteAll(dialogStates);
 }

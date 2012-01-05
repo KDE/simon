@@ -61,16 +61,16 @@ bool TrainingManager::init()
 {
   //init prompts
   QMutexLocker lock(&m_promptsLock);
-  PromptsTable *promptsTable = new PromptsTable(KStandardDirs::locate("appdata", "model/prompts"));
-  if (promptsTable)
-  {
+  PromptsTable *promptsTable = new PromptsTable();
+  if (promptsTable->init(KStandardDirs::locate("appdata", "model/prompts"))) {
     delete this->m_promptsTable;
     m_promptsTable = promptsTable;
-    m_dirty=false;
+    m_dirty = false;
     return true;
   }
-  else
-    return false;
+
+  delete promptsTable;
+  return false;
 }
 
 
@@ -105,13 +105,13 @@ bool TrainingManager::deleteWord ( Word *w )
 {
   if (!m_promptsTable) init();
 
-  return m_promptsTable->deleteWord(w);
+  return (m_promptsTable->deleteWord(w) && savePrompts());
 }
 
 
 bool TrainingManager::deleteWord(const QString& word)
 {
-  return m_promptsTable->deleteWord(word);
+  return (m_promptsTable->deleteWord(word) && savePrompts());
 }
 
 
@@ -163,7 +163,7 @@ bool TrainingManager::savePrompts()
 
   if (!m_promptsTable) init();
 
-  if (!m_promptsTable->save()) return false;
+  if (!m_promptsTable->save(KStandardDirs::locateLocal("appdata", "model/prompts"))) return false;
 
   if (m_dirty)
   {
@@ -182,23 +182,6 @@ bool TrainingManager::savePrompts()
   return true;
 }
 
-
-/**
- * \brief Saves any given promptstable to the given path. To save the main promptstable use savePrompts instead
- * \author Peter Grasch
- * \param prompts The promptstable to store
- * \param path Where to store the file
- * \return Success
- */
-bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
-{
-  //FIXME: does trainingdate get written?
-
-  prompts->setFileName(path);
-  return prompts->save();
-}
-
-
 PromptsTable* TrainingManager::getPrompts()
 {
   if (!m_promptsTable) init();
@@ -216,7 +199,11 @@ PromptsTable* TrainingManager::getPrompts()
  */
 PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 {
-    return new PromptsTable(promptspath);
+  PromptsTable *t =  new PromptsTable();
+  if (t->init(promptspath))
+    return t;
+  delete t;
+  return 0;
 }
 
 
@@ -400,7 +387,7 @@ bool TrainingManager::clear()
 {
   if (!m_promptsTable) init();
 
-  return m_promptsTable->clear();
+  return (m_promptsTable->clear() && savePrompts());
 }
 
 

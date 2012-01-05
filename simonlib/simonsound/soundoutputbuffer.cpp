@@ -57,10 +57,10 @@ void SoundOutputBuffer::run()
     int bufferSize = m_output->bufferSize();
     int bufferLength = m_output->bufferTime();
     if (m_buffer.size() < BUFFER_MAX_LENGTH) {
-      kDebug() << "Buffer not full";
+      //kDebug() << "Buffer not full";
       //fill buffer
       QByteArray currentData = m_output->requestData(bufferSize);
-      kDebug() << "Got " << currentData.size() << " bytes of data from clients";
+      //kDebug() << "Got " << currentData.size() << " bytes of data from clients";
 
       //if currentData is empty, just keep going as read() will pop the
       //output client as soon as the buffer is empty to make sure that
@@ -73,7 +73,7 @@ void SoundOutputBuffer::run()
 
     //either half of the buffered time or 50 milliseconds, whichever is shorter
     int sleepDuration = qMin((bufferLength*100)/2, 50000);
-    kDebug() << "Sleeping: " << sleepDuration << " microseconds; Buffersize: " << bufferSize << bufferLength;
+    //kDebug() << "Sleeping: " << sleepDuration << " microseconds; Buffersize: " << bufferSize << bufferLength;
     usleep(sleepDuration);
   }
   kWarning() << "Left run loop";

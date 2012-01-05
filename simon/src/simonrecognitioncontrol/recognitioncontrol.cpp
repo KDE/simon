@@ -729,7 +729,6 @@ void RecognitionControl::sendSelectedScenarioList()
     << (qint64) body.count();
   socket->write(toWrite);
   socket->write(body);
-
 }
 
 
