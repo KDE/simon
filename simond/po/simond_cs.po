@@ -1,17 +1,17 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Pavel Fric <pavelfric@seznam.cz>, 2009, 2010.
+# Pavel Fric <pavelfric@seznam.cz>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: simond\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2011-02-03 16:14+0100\n"
-"PO-Revision-Date: 2010-06-26 21:19+0200\n"
-"Last-Translator: Pavel Fric\n"
+"PO-Revision-Date: 2011-10-12 14:03+0200\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
-"Language: cs\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,45 +27,40 @@ msgid "Network"
 msgstr "Síť"
 
 #: config/simonduserconfiguration.cpp:73
-#, fuzzy
 msgid "Could not connect to database"
-msgstr "K databázi se nelze připojit"
+msgstr "Nepodařilo se připojit k databázi"
 
 #: config/simonduserconfiguration.cpp:90
 msgid "Add a new user"
 msgstr "Přidat nového uživatele"
 
 #: config/simonduserconfiguration.cpp:100
-#, fuzzy
 msgid "Could not add user"
-msgstr "Nelze přidat nového uživatele"
+msgstr "Nepodařilo se přidat uživatele"
 
 #: config/simonduserconfiguration.cpp:109
 msgid "Do you really want to remove the user from the database?"
-msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
+msgstr "Opravdu chcete uživatele odstranit z databáze?"
 
 #: config/simonduserconfiguration.cpp:115
-#, fuzzy
 msgid "Could not remove User"
-msgstr "Uživatele nelze odstranit"
+msgstr "Nepodařilo se odstranit uživatele"
 
 #: config/simonduserconfiguration.cpp:121
 msgid "Do you also want to remove the speech model from the server?"
-msgstr "Chcete, aby byl model řeči odstraněn ze serveru?"
+msgstr "Chcete ze serveru odstranit i model řeči?"
 
 #: config/simonduserconfiguration.cpp:125
-#, fuzzy
 msgid "Could not remove the speech model"
-msgstr "Model řeči nelze odstranit"
+msgstr "Nepodařilo se odstranit model řeči"
 
 #: config/simonduserconfiguration.cpp:171
 msgid "Change Password for User \"%1\""
-msgstr "Změnit heslo uživatele \"%1\""
+msgstr "Změnit heslo pro uživatele \"%1\""
 
 #: config/simonduserconfiguration.cpp:174
-#, fuzzy
 msgid "Could not change Password"
-msgstr "Heslo nelze změnit"
+msgstr "Nepodařilo se změnit heslo"
 
 #. i18n: file: config/simondconfiguration.kcfg:11
 #. i18n: ectx: label, entry (Port), group (Network)
@@ -77,21 +72,19 @@ msgstr "Heslo nelze změnit"
 #. i18n: ectx: tooltip, entry (Port), group (Network)
 #: po/rc.cpp:3 po/rc.cpp:6 rc.cpp:3 rc.cpp:6
 msgid "The port to use for the server."
-msgstr "Brána, která se použije pro server."
+msgstr "Přípojka k užití pro server."
 
 #. i18n: file: config/simondconfiguration.kcfg:16
 #. i18n: ectx: label, entry (BindTo), group (Network)
 #: po/rc.cpp:9 rc.cpp:9
-#, fuzzy
 msgid "whether we want to restrict access to a certain ip."
-msgstr "Zda chceme omezit přístup k určité IP."
+msgstr "Zda se má omezit přístup k určité IP."
 
 #. i18n: file: config/simondconfiguration.kcfg:18
 #. i18n: ectx: tooltip, entry (BindTo), group (Network)
 #: po/rc.cpp:12 rc.cpp:12
-#, fuzzy
 msgid "Whether we want to restrict access to a certain ip."
-msgstr "Zda chceme omezit přístup k určité IP."
+msgstr "Zda se má omezit přístup k určité IP."
 
 #. i18n: file: config/simondconfiguration.kcfg:21
 #. i18n: ectx: label, entry (Host), group (Network)
@@ -102,23 +95,20 @@ msgstr "Zda chceme omezit přístup k určité IP."
 #. i18n: file: config/simondconfiguration.kcfg:23
 #. i18n: ectx: tooltip, entry (Host), group (Network)
 #: po/rc.cpp:15 po/rc.cpp:18 rc.cpp:15 rc.cpp:18
-#, fuzzy
 msgid "The only host to allow to connect to the server."
-msgstr "Jediný hostitelský počítač, kterému je povoleno připojit se k serveru."
+msgstr "Jediný hostitel, kterému se má povolit připojení k serveru."
 
 #. i18n: file: config/simondconfiguration.kcfg:27
 #. i18n: ectx: label, entry (UseEncryption), group (Network)
 #: po/rc.cpp:21 rc.cpp:21
-#, fuzzy
 msgid "whether we want to encrypt the communication between simon and simond."
-msgstr "Zda chceme, aby komunikace mezi simonem a simonemd byla zašifrována."
+msgstr "Zda se má zašifrovat komunikace mezi simon a simond."
 
 #. i18n: file: config/simondconfiguration.kcfg:29
 #. i18n: ectx: tooltip, entry (UseEncryption), group (Network)
 #: po/rc.cpp:24 rc.cpp:24
-#, fuzzy
 msgid "Whether we want to encrypt the communication between simon and simond."
-msgstr "Zda chceme, aby komunikace mezi simonem a simonemd byla zašifrována."
+msgstr "Zda se má zašifrovat komunikace mezi simon a simond."
 
 #. i18n: file: config/simondconfiguration.kcfg:32
 #. i18n: ectx: label, entry (EncryptionMethod), group (Network)
@@ -130,32 +120,31 @@ msgstr "Zda chceme, aby komunikace mezi simonem a simonemd byla zašifrována."
 #. i18n: ectx: tooltip, entry (EncryptionMethod), group (Network)
 #: po/rc.cpp:27 po/rc.cpp:30 rc.cpp:27 rc.cpp:30
 msgid "The encryption method to use."
-msgstr "Použít způsob zašifrování."
+msgstr "Způsob šifrování, který se má použít."
 
 #. i18n: file: config/simondconfiguration.kcfg:36
 #. i18n: ectx: label, entry (Certificate), group (Network)
 #: po/rc.cpp:33 rc.cpp:33
 msgid "the path to the SSL certificate."
-msgstr "Cesta k potvrzení SSL."
+msgstr "Cesta k osvědčení SSL."
 
 #. i18n: file: config/simondconfiguration.kcfg:37
 #. i18n: ectx: tooltip, entry (Certificate), group (Network)
 #: po/rc.cpp:36 rc.cpp:36
-#, fuzzy
 msgid "The path to the SSL certificate."
-msgstr "Cesta k potvrzení SSL."
+msgstr "Cesta k osvědčení SSL."
 
 #. i18n: file: config/simondconfiguration.kcfg:43
 #. i18n: ectx: label, entry (KeepRecognitionSamples), group (User)
 #: po/rc.cpp:39 rc.cpp:39
 msgid "keep temporary samples."
-msgstr "Zachovat dočasné nahrávky"
+msgstr "Uchovat dočasné nahrávky."
 
 #. i18n: file: config/simondconfiguration.kcfg:45
 #. i18n: ectx: tooltip, entry (KeepRecognitionSamples), group (User)
 #: po/rc.cpp:42 rc.cpp:42
 msgid "Keep the samples used for the recognition."
-msgstr ""
+msgstr "Uchovat nahrávky používané pro rozpoznávání."
 
 #. i18n: file: config/simondconfiguration.kcfg:50
 #. i18n: ectx: label, entry (DatabaseUrl), group (Database)
@@ -173,15 +162,14 @@ msgstr "Cesta k databázi."
 #. i18n: ectx: label, entry (ModelBackups), group (ModelManagement)
 #: po/rc.cpp:51 rc.cpp:51
 msgid "how many model versions we should preserve."
-msgstr "Kolik verzí modelu se má zachovat."
+msgstr "Kolik verzí modelů se má zachovat."
 
 #. i18n: file: config/simondconfiguration.kcfg:60
 #. i18n: ectx: tooltip, entry (ModelBackups), group (ModelManagement)
 #: po/rc.cpp:54 rc.cpp:54
-#, fuzzy
 msgid ""
 "How many model versions we should preserv for the model backup / restore."
-msgstr "Kolik verzí modelu se má zachovat."
+msgstr "Kolik verzí modelů se má zachovat pro zálohu/obnovení modelu."
 
 #. i18n: file: config/simondnetworkconfiguration.ui:24
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -209,51 +197,53 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Bitstream Vera Sans'; font-weight:600;\">Poznámka:</span><span style="
-"\" font-family:'Bitstream Vera Sans';\"> Simond musíte spustit znovu, aby se "
-"změny mohly projevit.</span></p></body></html>"
+"family:'Bitstream Vera Sans'; font-weight:600;\">Poznámka:</span><span "
+"style=\" "
+"font-family:'Bitstream Vera Sans';\"> Simond musíte spustit znovu, aby se "
+"změny "
+"mohly projevit.</span></p></body></html>"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:36
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:64 rc.cpp:64
 msgid "Port:"
-msgstr "Brána:"
+msgstr "Přípojka:"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:56
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_BindTo)
 #: po/rc.cpp:67 rc.cpp:67
 msgid "Only allow connections from:"
-msgstr "Pouze povolit spojení z:"
+msgstr "Povolit spojení pouze od:"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:75
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseEncryption)
 #: po/rc.cpp:70 rc.cpp:70
 msgid "Encryption"
-msgstr "Zašifrování"
+msgstr "Šifrování"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:84
 #. i18n: ectx: property (text), widget (QLabel, lbCipher)
 #: po/rc.cpp:73 rc.cpp:73
 msgid "Algorithm:"
-msgstr "Algoritmus"
+msgstr "Algoritmus:"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:94
 #. i18n: ectx: property (text), widget (QLabel, lbCert)
 #: po/rc.cpp:76 rc.cpp:76
 msgid "Certificate:"
-msgstr "Potvrzení:"
+msgstr "Osvědčení:"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:101
 #. i18n: ectx: property (filter), widget (KUrlComboRequester, kcfg_Certificate)
 #: po/rc.cpp:79 rc.cpp:79
 msgid "SSL-Certificate *.pem"
-msgstr "SSL-potvrzení *.pem"
+msgstr "Osvědčení SSL *.pem"
 
 #. i18n: file: config/simonduserconfiguration.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, cbKeepSamples)
 #: po/rc.cpp:82 rc.cpp:82
 msgid "Keep recognition samples"
-msgstr "Zachovat nahrávky s rozpoznáváním"
+msgstr "Uchovat nahrávky pro rozpoznávání"
 
 #. i18n: file: config/simonduserconfiguration.ui:31
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -282,8 +272,9 @@ msgstr ""
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "family:'Bitstream Vera Sans'; font-weight:600;\">VAROVÁNÍ:</span><span style="
-"\" font-family:'Bitstream Vera Sans';\"> Všechny změny uživatelské databáze "
-"budou použity okamžitě.</span></p></body></html>"
+"\" font-family:'Bitstream Vera Sans';\">Všechny změny v uživatelské databázi "
+"se "
+"se použijí okamžitě.</span></p></body></html>"
 
 #. i18n: file: config/simonduserconfiguration.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -317,10 +308,9 @@ msgstr "Pavel Fric"
 #: po/rc.cpp:103 rc.cpp:103
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "pavelfric@seznam.cz"
+msgstr "fripohled.blogspot.com"
 
 #: src/juliuscontrol.cpp:446
-#, fuzzy
 msgid ""
 "The recognition could not be started because your model contains words that "
 "consists of sounds that are not covered by your acoustic model.\n"
@@ -339,29 +329,28 @@ msgid ""
 "The following phonemes are affected (list may not be complete):\n"
 "%2"
 msgstr ""
-"Rozpoznávání se nepodařilo spustit, protože váš model obsahuje slova, která "
-"sestávají ze zvuků, které nejsou pokryty vaším akustickým modelem.\n"
+"Rozpoznávání se nepodařilo spustit, protože váš model obsahuje slova, "
+"která se skládají ze zvuků, které váš zvukový model nepokrývá.\n"
 "\n"
 "Musíte tato slova buď odstranit, přepsat je jinak nebo je nacvičit.\n"
 "\n"
-"Varování: Posledně jmenované nebude pracovat, pokud používáte statické "
+"Varování: Posledně jmenované nebude pracovat, pokud používáte neměnné "
 "základní modely!\n"
 "\n"
-"Také by to mohlo být známkou základního modelu, který používá jinou sadu "
-"fonémů,  než  jakou používá váš slovník pro tento scénář.\n"
+"také to může znamenat základní model, který používá odlišnou sadu fonémů, "
+"než jakou používá slovní zásoba vašeho scénáře.\n"
 "\n"
-"Jsou postižena následující slova (seznam nemusí být úplný)::\n"
+"Následující slova jsou ovlivněna (seznam nemusí být úplný):\n"
 "%1\n"
 "\n"
-"Jsou postiženy následující fonémy (seznam nemusí být úplný)::\n"
+"Následující fonémy jsou ovlivněny (seznam nemusí být úplný):\n"
 "%2"
 
 #: src/juliuscontrol.cpp:473
-#, fuzzy
 msgid "Could not open log file. Please ignore detailed log output!"
 msgstr ""
-"Nepodařilo se otevřít soubor se zápisem. Nevšímejte si, prosím, podrobného "
-"výstupu zápisu!"
+"Nepodařilo se otevřít soubor se zápisem. Nevšímejte si, prosím, výstupu s "
+"podrobným zápisem!"
 
 #: src/juliuscontrol.cpp:481
 msgid "Internal Jconf error"
@@ -369,14 +358,11 @@ msgstr "Vnitřní chyba Jconf"
 
 #: src/juliuscontrol.cpp:493
 msgid "Could not initialize recognition"
-msgstr "Rozpoznávání nelze inicializovat"
+msgstr "Nepodařilo se zapnout rozpoznávání"
 
 #: src/juliuscontrol.cpp:510
-#, fuzzy
 msgid "Could not start adin-thread"
-msgstr ""
-"Nelze spustit zachytávání dat z mikrofonu a jejich posílání serveru, který "
-"je zodpovědný za rozpoznávání"
+msgstr "Nepodařilo se spustit adin-vlákno"
 
 #: src/juliuscontrol.cpp:532
 msgid "Unknown error"
@@ -384,13 +370,16 @@ msgstr "Neznámá chyba"
 
 #: src/juliuscontrol.cpp:536
 msgid "Error with the audio stream"
-msgstr "U zvukového proudu došlo k chybě"
+msgstr "Chyba u proudu zvuku"
 
 #: src/main.cpp:35
 msgid ""
 "The simon recognition daemon (powered by the Large Vocabulary Continuous "
 "Speech Recognition Engine Julius)"
 msgstr ""
+"Simonův rozpoznávací démon (poháněný strojem na nepřetržité rozpoznávání "
+"řeči "
+"s rozsáhlou slovní zásobou Julius)"
 
 #: src/main.cpp:39
 msgid "simond"
@@ -407,1072 +396,17 @@ msgid ""
 "Technology\n"
 "Copyright (c) 2005-2009 Julius project team, Nagoya Institute of Technology\n"
 msgstr ""
+"(C) 2008-2010 Peter Grasch\n"
+"\n"
+"Julius:\n"
+"Autorské právo (c) 1997-2000 Information-technology Promotion Agency, Japan\n"
+"Autorské právo (c) 1991-2009 Kawahara Lab., Kyoto University\n"
+"Autorské právo (c) 2000-2005 Shikano Lab., Nara Institute of Science and "
+"Technology\n"
+"Autorské právo (c) 2005-2009 skupina projektu Julius, Nagoya Institute of "
+"Technology\n"
 
 #: src/main.cpp:46
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
-#, fuzzy
-#~ msgid "Artwork"
-#~ msgstr "Síť"
-
-#, fuzzy
-#~ msgid "Description"
-#~ msgstr "Zašifrování"
-
-#, fuzzy
-#~ msgid "Create new audio stream item"
-#~ msgstr "U zvukového proudu došlo k chybě"
-
-#, fuzzy
-#~ msgid "Do you really want to remove this Daisy?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Do you really want to remove this launcher from dock?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Do you really want to remove this trash plugin?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Do you really want to empty the trash? All items will be deleted."
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Example:</p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "weight:600;\">Command</span>: <span style=\" font-style:italic;"
-#~ "\">kfmclient openURL</span></p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "weight:600;\">Alias</span>: <span style=\" font-style:italic;"
-#~ "\">konqueror</span></p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "family:'Bitstream Vera Sans'; font-weight:600;\">Poznámka:</span><span "
-#~ "style=\" font-family:'Bitstream Vera Sans';\"> Simond musíte spustit "
-#~ "znovu, aby se změny mohly projevit.</span></p></body></html>"
-
-#, fuzzy
-#~ msgid "Add page numbers"
-#~ msgstr "Přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Internal library"
-#~ msgstr "Vnitřní chyba Jconf"
-
-#, fuzzy
-#~ msgid "Add a new attribute"
-#~ msgstr "Přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Do you want to reload files from previous session?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Do you want to reload files from the previous session?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Unknown error running %1."
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgid "Portrait"
-#~ msgstr "Brána:"
-
-#, fuzzy
-#~ msgid "Could not read file"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not parse file"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Add another filter"
-#~ msgstr "Přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "or"
-#~ msgstr "Formulář"
-
-#, fuzzy
-#~ msgctxt "Unknown type of vehicle"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "The changes of a journey"
-#~ msgid "Changes:"
-#~ msgstr "Změnit heslo"
-
-#, fuzzy
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgid "&Add a feed:"
-#~ msgstr "Přidat nového uživatele"
-
-#~ msgid "Form"
-#~ msgstr "Formulář"
-
-#, fuzzy
-#~ msgid "Copyright (c) 2011 Peter Grasch"
-#~ msgstr "(C) 2008 Peter Grasch"
-
-#, fuzzy
-#~ msgid ""
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Serif'; font-size:9pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Change the <span style="
-#~ "\" font-weight:600;\">background</span> color by clicking here and choose "
-#~ "the new <span style=\" color:#ff0000;\">color</span> in the <span style="
-#~ "\" font-style:italic;\">color dialog</span>.</p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "weight:600;\">VAROVÁNÍ:</span> Všechny zde provedené změny budou okamžitě "
-#~ "použity.</p></body></html>"
-
-#, fuzzy
-#~ msgid ""
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Serif'; font-size:9pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Change the <span style="
-#~ "\" font-weight:600;\">foreground</span> color by clicking here and choose "
-#~ "the new <span style=\" color:#ff0000;\">color</span> in the <span style="
-#~ "\" font-style:italic;\">color dialog</span>.</p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "weight:600;\">VAROVÁNÍ:</span> Všechny zde provedené změny budou okamžitě "
-#~ "použity.</p></body></html>"
-
-#, fuzzy
-#~ msgid "(C) 2010 Peter Grasch"
-#~ msgstr "(C) 2008 Peter Grasch"
-
-#, fuzzy
-#~ msgid "Could not open temporary image"
-#~ msgstr "K databázi se nelze připojit"
-
-#, fuzzy
-#~ msgid "SimonVideo"
-#~ msgstr "Simond"
-
-#, fuzzy
-#~ msgid "Dataengine:"
-#~ msgstr "Databáze:"
-
-#, fuzzy
-#~ msgid "Data source:"
-#~ msgstr "Databáze:"
-
-#, fuzzy
-#~ msgid "Description:"
-#~ msgstr "Zašifrování"
-
-#, fuzzy
-#~ msgid "User:"
-#~ msgstr "Uživatel"
-
-#, fuzzy
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
-#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
-#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "weight:600;\">VAROVÁNÍ:</span> Všechny zde provedené změny budou okamžitě "
-#~ "použity.</p></body></html>"
-
-#, fuzzy
-#~ msgid "Your name:"
-#~ msgstr "Pavel Fric"
-
-#, fuzzy
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Bitstream "
-#~ "Vera Sans';\">Please select the SPHINX dictionary that you want to import "
-#~ "below.<br /></p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Please keep in mind "
-#~ "that those dictionaries do not provide information about terminals of the "
-#~ "words.</p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "family:'Bitstream Vera Sans'; font-weight:600;\">Poznámka:</span><span "
-#~ "style=\" font-family:'Bitstream Vera Sans';\"> Simond musíte spustit "
-#~ "znovu, aby se změny mohly projevit.</span></p></body></html>"
-
-#, fuzzy
-#~ msgid "Change grammar"
-#~ msgstr "Změnit heslo"
-
-#, fuzzy
-#~ msgid "Recognition Rate:"
-#~ msgstr "Zachovat nahrávky s rozpoznáváním"
-
-#, fuzzy
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">This will remove the "
-#~ "word from both active and shadow vocabulary. All associated samples will "
-#~ "be deleted.</p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "weight:600;\">Warning: simon will also remove all samples of other words "
-#~ "with the same name - even across scenarios!</span></p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "family:'Bitstream Vera Sans'; font-weight:600;\">Poznámka:</span><span "
-#~ "style=\" font-family:'Bitstream Vera Sans';\"> Simond musíte spustit "
-#~ "znovu, aby se změny mohly projevit.</span></p></body></html>"
-
-#, fuzzy
-#~ msgid "Recognition Rate"
-#~ msgstr "Zachovat nahrávky s rozpoznáváním"
-
-#, fuzzy
-#~ msgid "Username:"
-#~ msgstr "Uživatel"
-
-#, fuzzy
-#~ msgid "Password:"
-#~ msgstr "Změnit heslo"
-
-#, fuzzy
-#~ msgid "Use Encryption"
-#~ msgstr "Zašifrování"
-
-#, fuzzy
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Please select the sound "
-#~ "devices that simon will use for recording and playback.</p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "weight:600;\">VAROVÁNÍ:</span> Všechny zde provedené změny budou okamžitě "
-#~ "použity.</p></body></html>"
-
-#, fuzzy
-#~ msgid "simon"
-#~ msgstr "Simond"
-
-#, fuzzy
-#~ msgid "New"
-#~ msgstr "Síť"
-
-#, fuzzy
-#~ msgid "Delete all"
-#~ msgstr "Smazat"
-
-#, fuzzy
-#~ msgid "Data"
-#~ msgstr "Databáze:"
-
-#, fuzzy
-#~ msgid "Surname:"
-#~ msgstr "Pavel Fric"
-
-#, fuzzy
-#~ msgid "Education:"
-#~ msgstr "Zašifrování"
-
-#, fuzzy
-#~ msgid "Manage users"
-#~ msgstr "Přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "User ID:"
-#~ msgstr "Uživatel"
-
-#, fuzzy
-#~ msgid "Start simond"
-#~ msgstr "Simond"
-
-#, fuzzy
-#~ msgid "Restart simond"
-#~ msgstr "Simond"
-
-#, fuzzy
-#~ msgid "Stop simond"
-#~ msgstr "Simond"
-
-#, fuzzy
-#~ msgid "simond stopped"
-#~ msgstr "Simond"
-
-#, fuzzy
-#~ msgid "simond started"
-#~ msgstr "Simond"
-
-#, fuzzy
-#~ msgid "Unknown Error"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgid "ksimond"
-#~ msgstr "Simond"
-
-#~ msgid "(C) 2008 Peter Grasch"
-#~ msgstr "(C) 2008 Peter Grasch"
-
-#, fuzzy
-#~ msgid "Failed to initialize dialog configuration."
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Do you really want to remove the selected text variant?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Couldn't remove text from state."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Do you really want to remove the selected state?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Failed to remove state"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Do you really want to remove the selected transition?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Do you really want to remove the selected template option?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Could not edit bound value."
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Do you really want to remove the selected bound value option?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Do you really want to remove the avatar \"%1\" from your dialog?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Could not speak text: %1"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Filter recognition results"
-#~ msgstr "Zachovat nahrávky s rozpoznáváním"
-
-#, fuzzy
-#~ msgid "Failed to add set"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Do you really want to delete the selected set?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Could not delete set"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Do you really want to delete the selected tab?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Do you really want to delete the selected button?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "(C) 2009 Peter Grasch"
-#~ msgstr "(C) 2008 Peter Grasch"
-
-#, fuzzy
-#~ msgid "Could not find scenario: %1"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not modify prompts file"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not overwrite prompts file"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not remove original sample:  %1."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not re-initialize scenarios. Please restart simon!"
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Could not initialize scenarios and shadow dictionary."
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "simond: %1"
-#~ msgstr "Simond"
-
-#, fuzzy
-#~ msgid "Continuing recognition"
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Add a new Word"
-#~ msgstr "Přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not save prompts"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not retrieve BOMP license terms."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgctxt ""
-#~ "Terminal name for words that are imported from a dictionary which does "
-#~ "not provide terminal information"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgid "Could not process soundfiles"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not store Trainingstext"
-#~ msgstr ""
-#~ "Nelze spustit zachytávání dat z mikrofonu a jejich posílání serveru, "
-#~ "který je zodpovědný za rozpoznávání"
-
-#, fuzzy
-#~ msgid "Could not remove samples \"%1\"."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Do you really want to delete the selected grammar structure?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Could not delete structure."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not remove current base model"
-#~ msgstr "Model řeči nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not import hmm definitions."
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Could not import tiedlist."
-#~ msgstr ""
-#~ "Nelze spustit zachytávání dat z mikrofonu a jejich posílání serveru, "
-#~ "který je zodpovědný za rozpoznávání"
-
-#, fuzzy
-#~ msgid "Could not import macros."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not import stats."
-#~ msgstr "K databázi se nelze připojit"
-
-#, fuzzy
-#~ msgid "Do you really want to delete the selected text?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Do you really want to clear all the collected samples?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Could not clear trainingdata"
-#~ msgstr ""
-#~ "Nelze spustit zachytávání dat z mikrofonu a jejich posílání serveru, "
-#~ "který je zodpovědný za rozpoznávání"
-
-#, fuzzy
-#~ msgid "Could not add words to the list"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Do you really want to clear the whole vocabulary?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Self-Signed Certificate"
-#~ msgstr "Potvrzení:"
-
-#, fuzzy
-#~ msgid "Could not create active model container"
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Could not create base model container"
-#~ msgstr "Model řeči nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not abort synchronization."
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Could not complete Synchronization"
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Could not restore old model"
-#~ msgstr "Model řeči nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not send Request to Server"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Do you really want to revert all changes made since this Model?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "simon WIKI"
-#~ msgstr "Simond"
-
-#, fuzzy
-#~ msgid "Could not retrieve Scenario \"%1\""
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgctxt "Name of the simond user"
-#~ msgid "Username"
-#~ msgstr "Uživatel"
-
-#, fuzzy
-#~ msgid "Encrypted Password"
-#~ msgstr "Změnit heslo"
-
-#, fuzzy
-#~ msgid "Could not open hmm definitions"
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Insertion errors"
-#~ msgstr "Vnitřní chyba Jconf"
-
-#, fuzzy
-#~ msgid "Action"
-#~ msgstr "Zašifrování"
-
-#, fuzzy
-#~ msgid "Could not load scenario."
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not find scenario \"%1\""
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid ""
-#~ "Do you really want to irrecoverably delete the selected scenario "
-#~ "\"%1\" (\"%2\")?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Could not init scenario \"%1\""
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Could not remove %1"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not remove file %1"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Couldn't add set: %1"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Couldn't rename set to: %1"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid ""
-#~ "Do you really want to irreversibly delete the current set and all "
-#~ "associated samples?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Couldn't remove set"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Do you really want to irreversibly remove this recording?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Failed to remove the recording."
-#~ msgstr "Model řeči nelze odstranit"
-
-#, fuzzy
-#~ msgctxt "Network port"
-#~ msgid "Port:"
-#~ msgstr "Brána:"
-
-#, fuzzy
-#~ msgid "Add new Host"
-#~ msgstr "Přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not create temporary vocabular."
-#~ msgstr "K databázi se nelze připojit"
-
-#, fuzzy
-#~ msgid "Could not create codetrain-file."
-#~ msgstr "K databázi se nelze připojit"
-
-#, fuzzy
-#~ msgid "Could not generate the dict1"
-#~ msgstr "K databázi se nelze připojit"
-
-#, fuzzy
-#~ msgid "Could not generate tree.hed."
-#~ msgstr "Model řeči nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not generate mktri.hed"
-#~ msgstr ""
-#~ "Nelze spustit zachytávání dat z mikrofonu a jejich posílání serveru, "
-#~ "který je zodpovědný za rozpoznávání"
-
-#, fuzzy
-#~ msgid "Could not create regtree.hed."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not switch to new model."
-#~ msgstr "Model řeči nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not add institution: %1"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Users"
-#~ msgstr "Uživatel"
-
-#, fuzzy
-#~ msgid "Could not retrieve languages: %1"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not delete user: %1"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not retrieve users: %1"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Do you really want to remove this user - institution association?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Could not add user: %1"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not modify user \"%1\": %2"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Not connected to server."
-#~ msgstr "K databázi se nelze připojit"
-
-#, fuzzy
-#~ msgid "Could not send sample"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not write request"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not add institution"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not delete institution"
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Could not delete user"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not find user"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not find institution"
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Could not find record"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Could not retrieve user: %1"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Add user"
-#~ msgstr "Přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Show, edit and add users"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Do you really want to delete the stored samples at \"%1\"?"
-#~ msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
-
-#, fuzzy
-#~ msgid "Could not move \"%1\" to \"%2\"."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Surname"
-#~ msgstr "Pavel Fric"
-
-#, fuzzy
-#~ msgid "Forename"
-#~ msgstr "Pavel Fric"
-
-#, fuzzy
-#~ msgid "Occupation"
-#~ msgstr "Zašifrování"
-
-#, fuzzy
-#~ msgid "&Stop/Delete"
-#~ msgstr "Smazat"
-
-#, fuzzy
-#~ msgid "&Delete"
-#~ msgstr "Smazat"
-
-#, fuzzy
-#~ msgid "Adds a new phrase"
-#~ msgstr "Přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "without name"
-#~ msgstr "Pavel Fric"
-
-#, fuzzy
-#~ msgid "Vertical"
-#~ msgstr "Potvrzení:"
-
-#, fuzzy
-#~ msgid "Could not load document %1"
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgctxt "@info"
-#~ msgid "Could not open file for writing."
-#~ msgstr "Rozpoznávání nelze inicializovat"
-
-#, fuzzy
-#~ msgid "Click this button to remove the selected camera from the list."
-#~ msgstr "Chcete, aby byl model řeči odstraněn ze serveru?"
-
-#, fuzzy
-#~ msgid "Could not load ability list."
-#~ msgstr "Nelze přidat nového uživatele"
-
-#, fuzzy
-#~ msgid "Unknown port"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgid "Port"
-#~ msgstr "Brána:"
-
-#, fuzzy
-#~ msgid "Vertical:"
-#~ msgstr "Potvrzení:"
-
-#, fuzzy
-#~ msgid "&Delete Row"
-#~ msgstr "Smazat"
-
-#, fuzzy
-#~ msgid "&Vertical:"
-#~ msgstr "Potvrzení:"
-
-#, fuzzy
-#~ msgid "Could not open \"%1\"."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Internal Error"
-#~ msgstr "Vnitřní chyba Jconf"
-
-#, fuzzy
-#~ msgid "Could not save as \"%1\"."
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgid "Could not change wallpaper."
-#~ msgstr "Heslo nelze změnit"
-
-#, fuzzy
-#~ msgid "Text: Delete"
-#~ msgstr "Smazat"
-
-#, fuzzy
-#~ msgid "Portugal"
-#~ msgstr "Brána:"
-
-#, fuzzy
-#~ msgid "Suriname"
-#~ msgstr "Pavel Fric"
-
-#, fuzzy
-#~ msgctxt "Unknown title"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown author"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown editor"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown publisher"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown creation date"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown volume information"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown type of document"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown number of component files"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Type of DjVu document"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgid "Document Password"
-#~ msgstr "Změnit heslo"
-
-#, fuzzy
-#~ msgid "Incorrect password"
-#~ msgstr "Změnit heslo"
-
-#, fuzzy
-#~ msgid "Format"
-#~ msgstr "Formulář"
-
-#, fuzzy
-#~ msgid "Encrypted"
-#~ msgstr "Zašifrování"
-
-#, fuzzy
-#~ msgid "Unknown Date"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgid "Unknown Encryption"
-#~ msgstr "Zašifrování"
-
-#, fuzzy
-#~ msgctxt "Unknown description"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown producer"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown copyright statement"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgid "Could not open %1"
-#~ msgstr "Uživatele nelze odstranit"
-
-#, fuzzy
-#~ msgctxt "Unknown date"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "@title:column"
-#~ msgid "Description"
-#~ msgstr "Zašifrování"
-
-#, fuzzy
-#~ msgid "Could not load print preview part"
-#~ msgstr ""
-#~ "Nelze spustit zachytávání dat z mikrofonu a jejich posílání serveru, "
-#~ "který je zodpovědný za rozpoznávání"
-
-#, fuzzy
-#~ msgid "Unknown File"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Unknown font type"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgid "Unknown font"
-#~ msgstr "Neznámá chyba"
-
-#, fuzzy
-#~ msgctxt "Compression"
-#~ msgid "Unknown"
-#~ msgstr "Neznámá chyba"
-
-#~ msgid "The simon recognition daemon"
-#~ msgstr "Démon rozpoznávání programu Simon"
-
-#~ msgid "Couldn't initialize microphone"
-#~ msgstr "Mikrofon nelze inicializovat"
