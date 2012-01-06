@@ -152,6 +152,7 @@ bool SimonSoundOutput::preparePlayback(SimonSound::DeviceConfiguration& device)
 
 bool SimonSoundOutput::startPlayback()
 {
+  QMutexLocker m(&killBufferLock);
   killBuffer();
   m_buffer = new SoundOutputBuffer(this);
   connect(m_buffer, SIGNAL(started()), this, SLOT(startSoundPlayback()));
