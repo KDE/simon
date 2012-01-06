@@ -7,7 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2011-11-11 17:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -16,94 +17,84 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Language: it\n"
-"X-Source-Language: en\n"
 
 #: accuracydisplay.cpp:36
-#, qt-format
 msgid "Recognized %1 of %2: Recognition rate:"
-msgstr "riconosciuto %1 di %2 tasso di riconoscimento:"
+msgstr ""
 
 #: conservativetraining.cpp:36
 msgid "Conservative Training"
-msgstr "allenamento conservatorio"
+msgstr ""
 
 #: conservativetraining.cpp:74
 msgid "Couldn't open output prompts"
-msgstr "non poteva aprire i prompt d'output"
+msgstr ""
 
 #: exporttestresults.cpp:48
 msgid "Export test results"
-msgstr "esportare i risultati del test"
+msgstr ""
 
 #: exporttestresults.cpp:93
-#, qt-format
 msgid "sam: part of simon %1\n"
-msgstr "sam: parte di simon %1"
+msgstr ""
 
 #: exporttestresults.cpp:210
-#, qt-format
 msgid ""
 "Could not initialize output template at \"%1\". Please select a valid output "
 "format."
 msgstr ""
-"non poteva inizializzare il template d'output a \"%1\". Per favore seleziona "
-"un formato d'output valido."
 
 #: exporttestresults.cpp:221
-#, qt-format
 msgid ""
 "Output type not supported: %1.\n"
 "\n"
 "Please make sure that your output format is compatible with this version of "
 "sam."
-msgstr "il tipo d'output non viene supportato: %1."
+msgstr ""
 
 #: exporttestresults.cpp:240
-#, qt-format
 msgid "Failed to parse template: %1"
-msgstr "fare il parse del template è fallito :%1"
+msgstr ""
 
 #: latexreporttemplateengine.cpp:70
 msgid "LaTeX files (zipped) *.zip"
-msgstr "La TeX files (zipped) zip"
+msgstr ""
 
 #: main.cpp:28
 msgid "An acoustic model modeller"
-msgstr "un modellatore acustico di modelli"
+msgstr ""
 
 #: main.cpp:32
 msgid "sam"
-msgstr "sam"
+msgstr ""
 
 #: main.cpp:33
 msgid "(C) 2009 Peter Grasch"
-msgstr "(c) 2009 Peter Grasch"
+msgstr ""
 
 #: main.cpp:34
 msgid "Peter Grasch"
-msgstr "Peter Grasch"
+msgstr ""
 
 #: main.cpp:38
 msgid "Get configuration from simon"
-msgstr "ottenere una configurazione di simon"
+msgstr ""
 
 #: main.cpp:39
 msgid "Automatically start compiling the model"
-msgstr "avviare automaticamente di compilare il modello"
+msgstr ""
 
 #: main.cpp:40
 msgid "Automatically start testing the model(s)"
-msgstr "avviare automaticamente di testare il/i modello/i"
+msgstr ""
 
 #: main.cpp:41
 msgid "Export test results to the given filename"
-msgstr "esportare i risultati del test al nome del file presente"
+msgstr ""
 
 #: main.cpp:42
 msgid "Batch processing: Close after all other arguments have been processed"
-msgstr "batch processing: chiudere solo dopo che tutto è stato elaborato"
+msgstr ""
 
 #: main.cpp:43
 msgid "Store compilation log"
@@ -115,9 +106,8 @@ msgstr ""
 
 #: main.cpp:46
 msgid "If provided, this file will automatically be loaded"
-msgstr "Se viene supportato, questo file verrá automaticamente caricato"
+msgstr ""
 
-# mir fehlt der Kontext um overview auf Ital zu übersetzen
 #: reporttemplateengine.cpp:174
 msgid "Overview"
 msgstr ""
@@ -128,25 +118,25 @@ msgstr ""
 
 #: reporttemplateengine.cpp:255
 msgid "Failed to store file."
-msgstr "l'immagazzinamento del file è fallito ."
+msgstr ""
 
 #: samview.cpp:81
 msgid "Modify simons model"
-msgstr "modificare il modello di simon"
+msgstr ""
 
 #: samview.cpp:82
 msgid "Manage simons current model with ssc"
-msgstr "gestire il modello attuale di simon con ssc"
+msgstr ""
 
 #. i18n: file: main.ui:490
 #. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
 #: samview.cpp:89 rc.cpp:241
 msgid "Build model"
-msgstr "costruire il modello"
+msgstr ""
 
 #: samview.cpp:90
 msgid "Build the currently open model."
-msgstr "costruire il modello attualmente aperto."
+msgstr ""
 
 #. i18n: file: main.ui:545
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
@@ -154,29 +144,29 @@ msgstr "costruire il modello attualmente aperto."
 #. i18n: ectx: property (text), widget (KPushButton, pbTestModel)
 #: samview.cpp:98 rc.cpp:253 rc.cpp:256
 msgid "Test model"
-msgstr "modello di test"
+msgstr ""
 
 #: samview.cpp:99
 msgid "Test the model."
-msgstr "testare il modello."
+msgstr ""
 
 #. i18n: file: main.ui:598
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_4)
 #: samview.cpp:106 rc.cpp:265
 msgid "Test results"
-msgstr "risultati del test"
+msgstr ""
 
 #: samview.cpp:107
 msgid "Display the test results."
-msgstr "mostrare i risultati del test."
+msgstr ""
 
 #: samview.cpp:114
 msgid "Export test result"
-msgstr "esportare il risultato del test"
+msgstr ""
 
 #: samview.cpp:115
 msgid "Export the test results to a file."
-msgstr "esportare il risultato del test a un file."
+msgstr ""
 
 #: samview.cpp:243
 msgid ""
@@ -184,9 +174,6 @@ msgid ""
 "\n"
 "Do you want to save?"
 msgstr ""
-"La Sua configurazione sam è cambiata.\n"
-"\n"
-"Vorrebbe salvare?"
 
 #: samview.cpp:278
 msgid "No current log."
@@ -194,195 +181,171 @@ msgstr ""
 
 #: samview.cpp:288
 msgid "HTML files *.html"
-msgstr "i file HTML. html"
+msgstr ""
 
 #: samview.cpp:293
-#, qt-format
 msgid "Could not open output file %1."
-msgstr "non poteva aprire il file d'output %1."
+msgstr ""
 
 #: samview.cpp:379
-#, qt-format
 msgid "Test started: %1"
-msgstr "test è avviato %1"
+msgstr ""
 
 #: samview.cpp:388
-#, qt-format
 msgid "Test aborted: %1"
-msgstr "test interrotto: %1"
+msgstr ""
 
 #: samview.cpp:396
-#, qt-format
 msgid "Test completed: %1"
-msgstr "test finito: %1"
+msgstr ""
 
 #: samview.cpp:418
 msgid "Ran 1 test."
-msgstr "Ran 1 test."
+msgstr ""
 
 #: samview.cpp:420
-#, qt-format
 msgid "Ran %1 tests."
-msgstr "Ran %1 test."
+msgstr ""
 
 #: samview.cpp:523 samview.cpp:554
 msgid "sam projects *.sam"
-msgstr "progetti sam "
+msgstr ""
 
 #: samview.cpp:567
 msgid "Untitled"
-msgstr "senza titolo"
+msgstr ""
 
 #: samview.cpp:569
-#, qt-format
 msgid "sam - %1 [*]"
-msgstr "sam - %1 "
+msgstr ""
 
 #: samview.cpp:579 samview.cpp:659
-#, qt-format
 msgid "Cannot open file: %1"
-msgstr "non può aprire il file: %1"
+msgstr ""
 
 #: samview.cpp:588
 msgid "Corrupt or outdated sam configuration file."
-msgstr "Il file di configurazione non è leggibile o antiquato."
+msgstr ""
 
 #: samview.cpp:809
 msgid ""
 "You now have to provide a (preferably empty) directory where you want to "
 "serialize the scenarios to"
 msgstr ""
-"Adesso deve provvedere un elenco (preferibilmente vuoto) dove vuole creare "
-"gli scenari in serie"
 
 #: samview.cpp:809
 msgid "Do not ask again"
-msgstr "non chiedere di nuovo"
+msgstr ""
 
 #: samview.cpp:810
 msgid "Serialized scenario output"
-msgstr "output del scenario in serie"
+msgstr ""
 
 #: samview.cpp:826
 msgid "Open simon prompts"
-msgstr "open simon prompts"
+msgstr ""
 
 #: samview.cpp:891
-#, qt-format
 msgid "Could not find scenario: %1"
-msgstr "non poteva trovare lo scenario: %1"
+msgstr ""
 
 #: samview.cpp:930
 msgid "Unknown model type"
-msgstr "sconosciuto tipo di modello"
+msgstr ""
 
 #: samview.cpp:1031
 msgctxt ""
 "The tag name of an automatically added test set. The needed string really is "
 "please change this (for the user to change)."
 msgid "PLEASE_CHANGE_THIS"
-msgstr "PER FAVORE_CAMBIA_QUESTO"
+msgstr ""
 
 #: samview.cpp:1041
 msgid "Adaption aborted"
-msgstr "adattamento interrotto"
+msgstr ""
 
 #: samview.cpp:1054
-#, qt-format
 msgid ""
 "Failed to adapt model:\n"
 "\n"
 "%1"
 msgstr ""
-"L'adattamento del modello è fallito:\n"
-"\n"
-"%1"
 
 #: samview.cpp:1086
-#, qt-format
 msgid "Grammar class undefined: %1"
-msgstr "classe grammaticale indefinita: %1"
+msgstr ""
 
 #: samview.cpp:1093
-#, qt-format
 msgid "Word undefined: %1"
-msgstr "parola indefinita: %1"
+msgstr ""
 
 #: samview.cpp:1100
-#, qt-format
 msgid "Phoneme undefined: %1"
-msgstr "fonema indefinita: %1"
+msgstr ""
 
 #: samview.cpp:1116
 msgid ""
 "Build log too big to display. Please use the button below to store it to a "
 "local file."
 msgstr ""
-"build log è troppo grande per il display. Per favore utilizza il pulsante al "
-"di sotto per salvarlo in un file locale."
 
 #: samview.cpp:1174
 msgid ""
-"No tests configured yet. Please provide your test configuration in the input "
-"/ output section."
+"No tests configured yet. Please provide your test configuration in the "
+"input / output section."
 msgstr ""
-"Ancora non esistono dei test configurati. Per favore provvede la Sua "
-"configurazione di test nella sezione input/output."
 
 #: testresultplotter.cpp:48
 msgid "Accuracy"
-msgstr "acuratezza"
+msgstr ""
 
 #: testresultplotter.cpp:51
 msgid "Confidence"
-msgstr "fiducia"
+msgstr ""
 
 #: testresultwidget.cpp:124
 msgid "Modify sample"
-msgstr "modificare sample"
+msgstr ""
 
 #: testresultwidget.cpp:136 testresultwidget.cpp:161
 msgid "Could not modify prompts file"
-msgstr "non poteva modificare il file dei prompt"
+msgstr ""
 
 #: testresultwidget.cpp:148
 msgid "Could not overwrite prompts file"
-msgstr "non poteva sovrascrivere il file dei prompt"
+msgstr ""
 
 #: testresultwidget.cpp:152 testresultwidget.cpp:168
-#, qt-format
 msgid "Could not remove original sample:  %1."
-msgstr "non poteva rimuovere il sample originale: %1."
+msgstr ""
 
 #: testresultwidget.cpp:173
-#, qt-format
 msgid "Could not copy sample from temporary path %1 to %2."
-msgstr "non poteva copiare il sample dal temporary path %1 a %2."
+msgstr ""
 
 #: testresultwidget.cpp:197
-#, qt-format
 msgid ""
 "Result %1 of %2\n"
 "=====================\n"
-msgstr "risultato %1 di %2"
+msgstr ""
 
 #. i18n: file: conservativetraining.ui:25
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:3
 msgid "Input folder:"
-msgstr "cartella di input:"
+msgstr ""
 
 #. i18n: file: conservativetraining.ui:39
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: rc.cpp:6
 msgid "Output prompts:"
-msgstr "i prompt d'output:"
+msgstr ""
 
 #. i18n: file: conservativetraining.ui:53
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: rc.cpp:9
 msgid "Minimum confidence:"
-msgstr "fiducia minima:"
+msgstr ""
 
 #. i18n: file: conservativetraining.ui:60
 #. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, sbMinimumConfidence)
@@ -403,13 +366,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:18
 msgid "Activate filter:"
-msgstr "attivare filtro:"
+msgstr ""
 
 #. i18n: file: conservativetraining.ui:103
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: rc.cpp:21
 msgid "Deactivate filter:"
-msgstr "disattivare il filtro:"
+msgstr ""
 
 #. i18n: file: corpusinformation.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CorpusInformationWidget)
@@ -417,7 +380,7 @@ msgstr "disattivare il filtro:"
 #. i18n: ectx: property (windowTitle), widget (QWidget, ExportTestDlg)
 #: rc.cpp:24 rc.cpp:42
 msgid "Form"
-msgstr "forma"
+msgstr ""
 
 #. i18n: file: corpusinformation.ui:20
 #. i18n: ectx: property (text), widget (QLabel, label_19)
@@ -435,7 +398,7 @@ msgstr "forma"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:27 rc.cpp:51 rc.cpp:82 rc.cpp:103 rc.cpp:109 rc.cpp:124 rc.cpp:280
 msgid "Tag:"
-msgstr "tag:"
+msgstr ""
 
 #. i18n: file: corpusinformation.ui:30
 #. i18n: ectx: property (text), widget (QLabel, label_18)
@@ -445,25 +408,25 @@ msgstr "tag:"
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: rc.cpp:30 rc.cpp:112 rc.cpp:127
 msgid "Notes:"
-msgstr "annotazione:"
+msgstr ""
 
 #. i18n: file: corpusinformation.ui:44
 #. i18n: ectx: property (text), widget (QLabel, label_26)
 #: rc.cpp:33
 msgid "Speakers:"
-msgstr "parlanti:"
+msgstr ""
 
 #. i18n: file: corpusinformation.ui:58
 #. i18n: ectx: property (text), widget (QLabel, label_24)
 #: rc.cpp:36
 msgid "Samples:"
-msgstr "sample:"
+msgstr ""
 
 #. i18n: file: corpusinformation.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbAutomaticallyDetermine)
 #: rc.cpp:39
 msgid "Determine automatically"
-msgstr "determinare automaticamente"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:24
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
@@ -471,77 +434,77 @@ msgstr "determinare automaticamente"
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: rc.cpp:45 rc.cpp:268
 msgid "General"
-msgstr "generale"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:48
 msgid "Title:"
-msgstr "titolo:"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:53
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: rc.cpp:54
 msgid "Task definition:"
-msgstr "definizione del task:"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:67
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:57
 msgid "Output format:"
-msgstr "formato dell'output:"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: rc.cpp:60
 msgid "Options:"
-msgstr "opzioni:"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, cbTables)
 #: rc.cpp:63
 msgid "Tables"
-msgstr "tabella di banca-dati"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:97
 #. i18n: ectx: property (text), widget (QCheckBox, cbGraphs)
 #: rc.cpp:66
 msgid "Graphs"
-msgstr "grafica"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:104
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: rc.cpp:69
 msgid "Conclusion:"
-msgstr "conclusione:"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:115
 #. i18n: ectx: property (html), widget (KTextEdit, teConclusion)
 #: rc.cpp:72
 msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" "
-"\"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style "
-"type=\"text/css\">\n"
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
-"font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-"
+"weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
-"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
-"font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-"
+"family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
 msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:126
 #. i18n: ectx: attribute (title), widget (QWidget, tab_9)
 #: rc.cpp:79
 msgid "Experiment"
-msgstr "esperimento"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:142
 #. i18n: ectx: property (text), widget (QLabel, label_29)
 #: rc.cpp:85
 msgid "Short description:"
-msgstr "descrizione breve:"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:156
 #. i18n: ectx: property (text), widget (QLabel, label_30)
@@ -553,91 +516,91 @@ msgstr ""
 #. i18n: ectx: attribute (title), widget (QWidget, tab_8)
 #: rc.cpp:91
 msgid "System"
-msgstr "sistema"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:177
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: rc.cpp:94
 msgid "System definition:"
-msgstr "definizione del sistema:"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:193
 #. i18n: ectx: property (text), widget (QCheckBox, cbDetailedSystemInformation)
 #: rc.cpp:97
 msgid "Detailed"
-msgstr "dettagliato"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:200
 #. i18n: ectx: property (text), widget (KPushButton, pbRetrieveSystemInformation)
 #: rc.cpp:100
 msgid "Retrieve system information"
-msgstr "richiamare le informazioni del sistema"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:220
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: rc.cpp:106
 msgid "Vocabulary"
-msgstr "vocabolario"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:250
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: rc.cpp:115
 msgid "Number of words:"
-msgstr "numero di parole:"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:271
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: rc.cpp:118
 msgid "Number of pronunciations:"
-msgstr "numero di pronuncia:"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:279
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: rc.cpp:121
 msgid "Grammar"
-msgstr "grammatica"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:310
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: rc.cpp:130
 msgid "Trainingssamples"
-msgstr "sample dell'allenamento"
+msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:324
 #. i18n: ectx: attribute (title), widget (QWidget, tab_5)
 #: rc.cpp:133
 msgid "Testset"
-msgstr "testset"
+msgstr ""
 
 #. i18n: file: main.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
 #: rc.cpp:136
 msgid "sam - Untitled"
-msgstr "sam- senza titolo"
+msgstr ""
 
 #. i18n: file: main.ui:25
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_3)
 #: rc.cpp:139
 msgid "Input && output files"
-msgstr "file d' input e d'output"
+msgstr ""
 
 #. i18n: file: main.ui:35
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: rc.cpp:142
 msgid "Creating"
-msgstr "creazione"
+msgstr ""
 
 #. i18n: file: main.ui:43
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
 #: rc.cpp:145
 msgid "Model type"
-msgstr "tipo di modello"
+msgstr ""
 
 #. i18n: file: main.ui:49
 #. i18n: ectx: property (text), widget (QRadioButton, rbStaticModel)
 #: rc.cpp:148
 msgid "Static model"
-msgstr "modello statico"
+msgstr ""
 
 #. i18n: file: main.ui:56
 #. i18n: ectx: property (text), widget (QRadioButton, rbAdaptedBaseModel)
