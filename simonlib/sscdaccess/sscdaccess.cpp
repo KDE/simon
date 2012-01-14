@@ -18,7 +18,7 @@
  */
 
 #include "sscdaccess.h"
-#include "sscconfig.h"
+//#include "build/ssc/src/sscconfig.h"
 
 #include <simonprogresstracking/operation.h>
 #include <sscprotocol/sscprotocol.h>
@@ -48,8 +48,6 @@
 #include <KLocalizedString>
 #include <KDebug>
 
-SSCDAccess* SSCDAccess::instance;
-
 #define parseLengthHeader()     waitForMessage(sizeof(qint64),stream, msg); \
   qint64 length; \
   stream >> length; \
@@ -57,33 +55,36 @@ SSCDAccess* SSCDAccess::instance;
 
 /**
  *	@brief Constructor
- *
- *	Creates the Server and sets it up to listen on the supplied port
- *	Default: 4444
- *
  *	@author Peter Grasch
- *	@param qint16 port
- *	Port the Server should listen to
  */
 SSCDAccess::SSCDAccess(QWidget* parent) : QObject(parent),
 readyToRead(false),
 socket(new QSslSocket()),
+timeout(3000), //default timeout
 timeoutWatcher(new QTimer(this))
 {
   connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
-
   connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()), Qt::DirectConnection);
   connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()), Qt::DirectConnection);
-
   connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()), Qt::DirectConnection);
   connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-}
 
+}
 
 void SSCDAccess::readyRead()
 {
   fprintf(stderr, "Reading...\n");
+  qDebug() << "Available: " << socket->bytesAvailable();
+  qDebug() << "Thread: " << thread();
   readyToRead = true;
+}
+const int& SSCDAccess::getTimeout() const
+{
+  return timeout;
+}
+void SSCDAccess::setTimeout(const int& timeout_)
+{
+  timeout=timeout_;
 }
 
 
@@ -104,8 +105,7 @@ void SSCDAccess::connectTo(QString server, quint16 port, bool encrypted)
     connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
     socket->connectToHost( server, port );
   }
-  timeoutWatcher->start(SSCConfig::timeout());
-
+  timeoutWatcher->start(timeout);
 }
 
 
@@ -171,7 +171,7 @@ bool SSCDAccess::isConnected()
 
 void SSCDAccess::timeoutReached()
 {
-  emit error(i18n("Request timed out (%1 ms) or connection was reset.\n\nPlease check your network connection and try again.", SSCConfig::timeout()));
+  emit error(i18n("Request timed out (%1 ms) or connection was reset.\n\nPlease check your network connection and try again.", timeout));
   abort();
 }
 
@@ -185,7 +185,7 @@ void SSCDAccess::abort()
 
 
 /**
- *	@brief Disconnects the socket from julius
+ *	@brief Disconnects the socket from sscd
  *
  *	@author Peter Grasch
  */
@@ -277,15 +277,19 @@ bool SSCDAccess::sendRequest (qint32 request, qint32 message, qint32 message2)
 
 bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
 {
+  kDebug() << "Socket state: " << socket->state();
   Q_ASSERT(stream.device());
   while (stream.device()->bytesAvailable() < length) {
+    qDebug() << thread();
+    qDebug() << QThread::currentThread();
+    qDebug() << socket->thread();
     if (QThread::currentThread() == socket->thread()) {
-      if (socket->waitForReadyRead(SSCConfig::timeout() /*timeout*/)) {
+      if (socket->waitForReadyRead(timeout /*timeout*/)) {
         message += socket->readAll();
       }
       else {
         //timeout reached
-        kDebug() << "Timeout reached!";
+        kDebug() << "Timeout reached!" << socket->errorString() << socket->error() << socket->state();
         abort();
         return false;
       }
@@ -293,7 +297,7 @@ bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& 
     else {
       fprintf(stderr, "Calling from a different thread!\n");
       int passedTime = 0;
-      while (!readyToRead && (passedTime < SSCConfig::timeout())) {
+      while (!readyToRead && (passedTime < timeout)) {
       //while ((socket->bytesAvailable() == 0) && (passedTime < SSCConfig::timeout()))
         #ifdef Q_OS_WIN32
         Sleep(100 /* 100 ms */);
@@ -304,7 +308,7 @@ bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& 
         fprintf(stderr, "Time passed: %d, bytes available: %d\n", (int) passedTime,
           (int) socket->bytesAvailable());
       }
-      if (passedTime >= SSCConfig::timeout()) {
+      if (passedTime >= timeout) {
         //timeout
         abort();
         return false;
@@ -1046,37 +1050,47 @@ bool SSCDAccess::sendSample(Sample *s)
 
 bool SSCDAccess::processSampleAnswer()
 {
-  fprintf(stderr, "Processing sample answer: %d\n", (int) socket->bytesAvailable());
-  QByteArray msg = socket->readAll();
-  QDataStream streamRet(&msg, QIODevice::ReadOnly);
-  int messageCountTheSame = 0;
-  qint32 previousMessageCount = 0;
+//   fprintf(stderr, "Processing sample answer: %d\n", (int) socket->bytesAvailable());
+//   QByteArray msg = socket->readAll();
+//   QDataStream streamRet(&msg, QIODevice::ReadOnly);
+//   int messageCountTheSame = 0;
+//   qint32 previousMessageCount = 0;
+// 
+//   int breakTime = timeout / 100 /* milliseconds */;
+//   kDebug() << "Break time: " << breakTime;
+// 
+//   while ((unsigned int) msg.count() < (unsigned int) sizeof(qint32)) {
+//     kDebug() << "Bytes available: " << msg.count() <<
+//       " looking for " << (unsigned int) sizeof(qint32);
+//     qDebug() << "Thread: " << thread();
+//     #ifdef Q_OS_WIN32
+//     Sleep(100 /* 100 ms */);
+//     #else
+//     usleep(100000 /* 100 ms */);
+//     #endif
+//     msg += socket->readAll();
+// 
+//     kDebug() << "Bytes still to write: " << socket->bytesToWrite();
+//     previousMessageCount = socket->bytesToWrite();
+//     if (previousMessageCount == msg.count()) {
+//       if (messageCountTheSame++ == breakTime) {
+//         abort();
+// 	kDebug() << "Timeout";
+//         return false;
+//       }
+//     }
+//     else messageCountTheSame = 0;
+//     previousMessageCount = msg.count();
+//   }
+//   msg += socket->readAll();
 
-  int breakTime = SSCConfig::timeout() / 100 /* milliseconds */;
-  kDebug() << "Break time: " << breakTime;
-
-  while ((unsigned int) msg.count() < (unsigned int) sizeof(qint32)) {
-    kDebug() << "Bytes available: " << msg.count() <<
-      " looking for " << (unsigned int) sizeof(qint32);
-    #ifdef Q_OS_WIN32
-    Sleep(100 /* 100 ms */);
-    #else
-    usleep(100000 /* 100 ms */);
-    #endif
-    msg += socket->readAll();
-
-    kDebug() << "Bytes still to write: " << socket->bytesToWrite();
-    previousMessageCount = socket->bytesToWrite();
-    if (previousMessageCount == msg.count()) {
-      if (messageCountTheSame++ == breakTime) {
-        abort();
-        return false;
-      }
-    }
-    else messageCountTheSame = 0;
-    previousMessageCount = msg.count();
-  }
-  msg += socket->readAll();
+//   bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
+  QByteArray message;
+  QDataStream streamRet(&message, QIODevice::ReadOnly);
+  bool ok = waitForMessage(sizeof(qint32), streamRet, message);
+  if (!ok)
+    return false;
+  
   qint32 type;
   streamRet >> type;
   fprintf(stderr, "Server returned on sample storage request: %d\n", type);

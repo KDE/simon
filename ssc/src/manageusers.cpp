@@ -1,3 +1,4 @@
+
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
  *
@@ -22,7 +23,7 @@
 #include "modifyuser.h"
 #include "manageinstitutions.h"
 
-#include "sscdaccess.h"
+#include <sscdaccess/sscdaccess.h>
 #include <sscobjects/user.h>
 #include <sscobjects/institution.h>
 #include <QSortFilterProxyModel>
@@ -30,6 +31,7 @@
 #include <KDebug>
 #include <KMessageBox>
 #include <KDialogButtonBox>
+#include <sscdaccess/sscdaccesssingleton.h>
 
 ManageUsers::ManageUsers(QWidget* parent) :
 KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
@@ -71,9 +73,9 @@ void ManageUsers::displayLanguages()
   ui.cbMothersTongue->addItem(i18n("Ignored"), "");
 
   bool ok;
-  QList<Language*> langs = SSCDAccess::getInstance()->getLanguages(&ok);
+  QList<Language*> langs = SSCDAccessSingleton::getInstance()->getLanguages(&ok);
   if (!ok) {
-    KMessageBox::sorry(this, i18n("Could not retrieve languages: %1", SSCDAccess::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18n("Could not retrieve languages: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return;
   }
 
@@ -142,8 +144,8 @@ void ManageUsers::deleteUser()
     KMessageBox::Yes)
     return;
 
-  if (!SSCDAccess::getInstance()->deleteUser(u))
-    KMessageBox::sorry(this, i18n("Could not delete user: %1", SSCDAccess::getInstance()->lastError()));
+  if (!SSCDAccessSingleton::getInstance()->deleteUser(u))
+    KMessageBox::sorry(this, i18n("Could not delete user: %1", SSCDAccessSingleton::getInstance()->lastError()));
 
   updateList();
 }
@@ -181,12 +183,12 @@ void ManageUsers::updateList()
     getInterviewingPossible(),
     getRepeatingPossible());
 
-  QList<User*> users = SSCDAccess::getInstance()->getUsers(filterUser, institutionId, referenceId, &ok);
+  QList<User*> users = SSCDAccessSingleton::getInstance()->getUsers(filterUser, institutionId, referenceId, &ok);
 
   delete filterUser;
 
   if (!ok) {
-    KMessageBox::sorry(this, i18n("Could not retrieve users: %1", SSCDAccess::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18n("Could not retrieve users: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return;
   }
 

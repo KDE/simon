@@ -63,6 +63,7 @@ public:
     QString value(const QString& key);
     QString sampleGroup(const QString& key);
 
+    QHash<QString,QString> samples() { return m_wordBySample; }
     QList<QString> keys() { return m_wordBySample.keys(); }
     QList<QString> words() { return m_wordBySample.values(); }
     QStringList sampleGroups() { return m_groupBySample.values(); }

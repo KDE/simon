@@ -20,7 +20,7 @@
 #include "trainingswizard.h"
 #include "trainsamplepage.h"
 #include "deviceinformationpage.h"
-#include "sampledataprovider.h"
+#include "sscsampledataprovider.h"
 #include "sendsamplespage.h"
 #include "trainsampleintropage.h"
 #include "sscconfig.h"
@@ -71,11 +71,11 @@ DeviceInformationPage* TrainingsWizard::createDeviceDescPage()
 bool TrainingsWizard::init(qint32 userId, const QString& path)
 {
   QSettings ini(path+"/profile.ini", QSettings::IniFormat);
-  TrainingsWizard::TrainingsType type = (TrainingsWizard::TrainingsType)
+  Sample::SampleType type = (Sample::SampleType)
     ini.value("Type").toInt();
   QString name = ini.value("Name").toString();
 
-  SampleDataProvider *sampleDataProvider = new SampleDataProvider(userId, type, name);
+  SSCSampleDataProvider *sampleDataProvider = new SSCSampleDataProvider(userId, type, name);
   m_infoPage->deserializeFromStorage(ini);
   sampleDataProvider->registerMicrophoneInfo(m_infoPage);
 
@@ -104,13 +104,13 @@ bool TrainingsWizard::init(qint32 userId, const QString& path)
 }
 
 
-bool TrainingsWizard::init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name)
+bool TrainingsWizard::init(qint32 userId, Sample::SampleType type, const QStringList& prompts, const QString& name)
 {
   setWindowTitle(name);
 
   if (prompts.isEmpty()) return false;
 
-  SampleDataProvider *sampleDataProvider = new SampleDataProvider(userId, type, name);
+  SSCSampleDataProvider *sampleDataProvider = new SSCSampleDataProvider(userId, type, name);
   int nowPage=1;
   int maxPage=prompts.count();
   sampleDataProvider->registerMicrophoneInfo(m_infoPage);
@@ -163,26 +163,26 @@ QStringList TrainingsWizard::parsePromptsFromFile(const QString& path)
 }
 
 
-int TrainingsWizard::collectSamples(TrainingsType type, qint32 userId)
+int TrainingsWizard::collectSamples(Sample::SampleType type, qint32 userId)
 {
   // 	if (!cleanUp())
   // 		return -1;
   QString name;
   QStringList prompts;
   switch (type) {
-    case Repeating:
+    case Sample::Repeating:
     {
       name = i18nc("Trainings type where the user is required to repeat what the recording facilitator tells him", "Repeating");
       prompts = repeatPrompts();
       break;
     }
-    case Training:
+    case Sample::Training:
     {
       name = i18nc("Trainings type where the user reads prompts off the screen", "Training");
       prompts = trainingPrompts();
       break;
     }
-    case Interview:
+    case Sample::Interview:
     {
       name = i18nc("Trainings type where the facilitator asks general questions and the interviee answers them", "Interview");
       prompts = interviewQuestions();

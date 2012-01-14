@@ -57,7 +57,8 @@ class SSCOBJECTS_EXPORT User : public SSCObject
       qint8 motorFunction,qint8 communication,QString mouthMotoric,
       qint8 interviewPossible,qint8 repeatingPossible);
 
-    User() {}
+    User() : m_userId(0), m_birthYear(0), m_orientation(0), m_motorFunction(0), 
+    m_communication(0), m_interviewPossible(2), m_repeatingPossible(2) {}
 
     void deserialize(QByteArray data);
     QByteArray serialize();
@@ -80,6 +81,14 @@ class SSCOBJECTS_EXPORT User : public SSCObject
     qint8 interviewPossible() { return m_interviewPossible; }
     qint8 repeatingPossible() { return m_repeatingPossible; }
 
+    void setBirthYear(qint16 birthYear) { m_birthYear = birthYear; }
+    void setInterviewPossible(qint8 interviewPossible) { m_interviewPossible = interviewPossible; }
+    void setRepeatingPossible(qint8 repeatingPossible) { m_repeatingPossible = repeatingPossible; }
+    
+    void setOrientation(qint8 orientation) { m_orientation = orientation; }
+    void setMotorFunction(qint8 motorFunction) { m_motorFunction = motorFunction; }
+    void setCommunication(qint8 communication) { m_communication = communication; }
+    
     ~User() {}
 };
 #endif

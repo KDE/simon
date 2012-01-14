@@ -18,9 +18,9 @@
  */
 
 #include "sendsampleworker.h"
-#include "sscconfig.h"
-#include "sscdaccess.h"
-#include "sampledataprovider.h"
+#include "abstractsampledataprovider.h"
+
+#include <sscdaccess/sscdaccess.h>
 #include <sscobjects/sample.h>
 #include <simonprogresstracking/operation.h>
 #include <simonprogresstracking/progresswidget.h>
@@ -38,6 +38,7 @@
 #include <KLocalizedString>
 #include <KPushButton>
 #include <KDebug>
+#include <sscdaccess/sscdaccess.h>
 
 
 /**
@@ -73,9 +74,9 @@ bool SendSampleWorker::sendSamples()
     emit sendSample(s);
 
     kDebug() << "Emit signal";
-    if (!SSCDAccess::getInstance()->processSampleAnswer() && (retryAmount < 3)) {
-      kDebug() << "Error processing sample";
-      if (!SSCDAccess::getInstance()->isConnected()) {
+    if (!m_server->processSampleAnswer() && (retryAmount < 3)) {
+      kDebug() << "Error processing sample"  << retryAmount;
+      if (!m_server->isConnected()) {
         shouldAbort = true;
         successful = false;
       }
@@ -87,7 +88,7 @@ bool SendSampleWorker::sendSamples()
         m_dataProvider->sampleTransmitted();
       else {
         emit error(i18n("Server could not process sample: %1",
-          SSCDAccess::getInstance()->lastError()));
+          m_server->lastError()));
         shouldAbort = true;                       //m_dataProvider->skipSample();
       }
       retryAmount = 0;
@@ -121,7 +122,6 @@ bool SendSampleWorker::sendSamples()
   if (shouldDelete)
     deleteLater();
 
-  //SSCDAccess::getInstance()->moveToThread(prevThread);
   return successful;
 }
 

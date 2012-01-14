@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,31 +17,27 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "sscdcontrol.h"
 
-#include <QCoreApplication>
+#ifndef TRAININGSAMPLESDESCRIPTOR_H
+#define TRAININGSAMPLESDESCRIPTOR_H
 
-#include <QApplication>
-#include "version.h"
-#include "basedirectory.h"
+#include "sscdaccess_export.h"
 #include <QStringList>
 
-int main(int argc, char **argv)
+class SSCDACCESS_EXPORT TrainingSamplesDescriptor
 {
-  QCoreApplication::addLibraryPath(SSCD_BASE_DIRECTORY);
+private:
+  QString prompt;
+  QStringList fileNames;
+  QStringList devices;
+  
+public:
+  TrainingSamplesDescriptor(const QString& prompt, const QStringList& fileNames, const QStringList& devices);
+  
+  QString getPrompt() { return prompt; }
+  QStringList getFileNames() { return fileNames; }
+  QStringList getDevices() { return devices; }
+  
+};
 
-  QCoreApplication app(argc,argv);
-
-  if (app.arguments().contains("-h") || app.arguments().contains("--help")) {
-    qWarning() << "Run without arguments to start a full server (to be used with SSC).";
-    qWarning() << "Use the -l Argument (or --locked) to only allow functions needed to submit samples with simon.";
-    return 0;
-  }
-  SSCDControl *control = new SSCDControl();
-  if (!control->init())
-    return 2;
-
-  app.exec();
-  delete control;
-  return 0;
-}
+#endif // TRAININGSAMPLESDESCRIPTOR_H

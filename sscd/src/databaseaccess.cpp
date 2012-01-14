@@ -314,7 +314,9 @@ bool DatabaseAccess::addUser(User *u, int& userId)
   q.bindValue(":interviewpossible", u->interviewPossible());
   q.bindValue(":repeatpossible", u->repeatingPossible());
 
-  if (!executeQuery(q)) return false;
+  if (!executeQuery(q)) {
+    return false;
+  }
 
   userId = getLastInsertedId();
   return true;
@@ -461,7 +463,7 @@ QList<Microphone*> DatabaseAccess::getMicrophones(bool *success)
 
   while (q.next()) {
     ml.append(new Microphone(q.value(0).toInt(),
-      q.value(1).toString(), q.value(1).toString()));
+      q.value(1).toString(), q.value(2).toString()));
   }
   if (success != 0)
     *success = true;
@@ -483,7 +485,7 @@ QList<SoundCard*> DatabaseAccess::getSoundCards(bool *success)
 
   while (q.next()) {
     sl.append(new SoundCard(q.value(0).toInt(),
-      q.value(1).toString(), q.value(1).toString()));
+      q.value(1).toString(), q.value(2).toString()));
   }
 
   if (success != 0)

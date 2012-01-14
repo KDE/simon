@@ -41,6 +41,8 @@
 
 #include <simonscenarios/scenariomanager.h>
 
+#include <simonsampleshare/sampleshare.h>
+
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
@@ -435,6 +437,12 @@ void SimonView::setupActions()
   connect(manageScenariosAction, SIGNAL(triggered(bool)),
     this, SLOT(manageScenarios()));
 
+  KAction* sendSampleShareAction = new KAction(this);
+  sendSampleShareAction->setText(i18n("Contribute samples"));
+  sendSampleShareAction->setIcon(KIcon("repository"));
+  actionCollection()->addAction("sampleShare", sendSampleShareAction);
+  connect(sendSampleShareAction, SIGNAL(triggered(bool)),this, SLOT(showSampleShare()));
+  
   actionCollection()->addAction(KStandardAction::Preferences, "configuration",
     this, SLOT(showSystemDialog()));
 
@@ -497,12 +505,21 @@ void SimonView::setupSignalSlots()
   connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SLOT(displayScenarios()));
 }
 
+/**
+ * \brief Sets up the dialog to send samples to Voxforge
+ * \author Alessandro Buggin
+ */
+void SimonView::showSampleShare()
+{
+  SampleShare *sampleShareWidget = new SampleShare;
+  sampleShareWidget->show();
+  connect(sampleShareWidget, SIGNAL(finished(int)), sampleShareWidget, SLOT(deleteLater()));
+}
 
 void SimonView::displayConnectionStatus(const QString &status)
 {
   statusBar()->changeItem(status, 0);
 }
-
 
 void SimonView::toggleConnection()
 {

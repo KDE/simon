@@ -35,8 +35,8 @@
 *   @param QWidget *parent
 */
 SelectProgramDialog::SelectProgramDialog(QWidget* parent):
-    ui(new Ui::SelectProgramDlg),
-    KDialog(parent)
+    KDialog(parent),
+    ui(new Ui::SelectProgramDlg)
 {
   QWidget *widget = new QWidget( this );
   ui->setupUi(widget);

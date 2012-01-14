@@ -22,6 +22,7 @@
 
 #include <QWidget>
 #include <QPointer>
+#include <QSharedPointer>
 #include "simonprogresstracking_export.h"
 
 class Operation;
@@ -37,7 +38,7 @@ class SIMONPROGRESSTRACKING_EXPORT ProgressWidget : public QWidget
 {
   Q_OBJECT
     private:
-    Operation *op;
+    QPointer<Operation> op;
     QLabel *name;
     QLabel *currentAction;
     QProgressBar *bar;

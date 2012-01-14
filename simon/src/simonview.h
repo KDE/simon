@@ -73,6 +73,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     
     void showSystemDialog();
     void showTrainDialog();
+    void showSampleShare();
     
    private slots:
     void manageScenarios();
@@ -111,7 +112,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     SimonControl *control;                        //!< Pointer to the main concept class
     TrayIconManager *trayManager;                 //!< Handles the TrayIcon
     KCMultiDialog *configDialog;
-
+    
     KComboBox *cbCurrentScenario;
 };
 

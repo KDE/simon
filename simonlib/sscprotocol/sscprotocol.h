@@ -34,6 +34,7 @@ namespace SSC
     Ok=1000,
     Login=1001,
     VersionIncompatible=1002,
+    InsufficientPrivileges=1002,
     LoginSuccessful=1005,
 
     GetInstitutions=6001,
