@@ -5,32 +5,35 @@
 #  DIRECTSOUND_INCLUDE_DIR - include directory
 #  DIRECTSOUND_LIBRARY - Link these to use direct sound
 
+# Copyright (c) 2011, Patrick von Reth, <patrick.vonreth@gmail.com>
 # Copyright (c) 2008-2011, Peter Grasch, <grasch@simon-listens.org>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 
+if(MSVC)
+    set(DIRECTSOUND_INCLUDE_DIRS $ENV{DXSDK_DIR}/include $ENV{DXSDK_DIR})
+    IF(CMAKE_CL_64)
+        SET(CMAKE_MSVC_ARCH amd64)
+    ELSE(CMAKE_CL_64)
+        SET(CMAKE_MSVC_ARCH x86)
+    ENDIF(CMAKE_CL_64)
 
-FIND_PATH(DIRECTSOUND_INCLUDE_DIR dsound.h PATHS
-		${CMAKE_CURRENT_SOURCE_DIR} 
-    "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Include"
-    )
+    FIND_LIBRARY(_DSOUD_LIB NAMES dsound PATHS
+        $ENV{DXSDK_DIR}/Lib/${CMAKE_MSVC_ARCH})
 
-FIND_PATH(DIRECTSOUND_SAL_INCLUDE_DIR sal.h PATHS
-		${CMAKE_CURRENT_SOURCE_DIR} 
-    "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Include"
-    "C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC/include"
-    )
+    FIND_LIBRARY(_DXGUID_LIB NAMES dxguid PATHS
+        $ENV{DXSDK_DIR}/Lib/${CMAKE_MSVC_ARCH})
 
-  SET (DIRECTSOUND_LIBRARY " -ldsound -ldxguid")
-  #FIND_LIBRARY(DIRECTSOUND_LIBRARY NAMES dsound.lib PATHS
-  #${CMAKE_CURRENT_SOURCE_DIR}
-  #"C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86"
-  #C:/Windows/system32)
+    FIND_LIBRARY(_DXERR_LIB NAMES dxerr PATHS
+        $ENV{DXSDK_DIR}/Lib/${CMAKE_MSVC_ARCH})
 
-set(DIRECTSOUND_INCLUDE_DIRS ${DIRECTSOUND_INCLUDE_DIR})# ${DIRECTSOUND_SAL_INCLUDE_DIR})
+    SET (DIRECTSOUND_LIBRARY ${_DSOUD_LIB} ${_DXGUID_LIB} ${_DXERR_LIB})
+else(MSVC)
+    set (DIRECTSOUND_LIBRARY dsound dxguid)
+endif(MSVC)
 
 INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(DIRECTSOUND DEFAULT_MSG SENT_LIBRARY DIRECTSOUND_LIBRARY)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(DIRECTSOUND DEFAULT_MSG DIRECTSOUND_LIBRARY)
 
 if (DIRECTSOUND_FOUND)
 	if (NOT DIRECTSOUND_FIND_QUIETLY)
@@ -39,7 +42,7 @@ if (DIRECTSOUND_FOUND)
 	
 else (DIRECTSOUND_FOUND)
 	if (DIRECTSOUND_FIND_QUIETLY)
-		message(FATAL_ERROR "Could not find dsound.dll! Please COPY C:/Windows/system32/dsound.dll to ${CMAKE_CURRENT_SOURCE_DIR}, rename it to dsound_simon.dll and try again!")
+		message(FATAL_ERROR "Could not find dsound! Please install the directx sdk http://msdn.microsoft.com/en-us/directx/aa937788")
 	endif (DIRECTSOUND_FIND_QUIETLY)
 endif (DIRECTSOUND_FOUND)
 

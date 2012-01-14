@@ -97,7 +97,10 @@
 /* #undef HAVE_SNDFILE_H */
 
 /* Define if you have the <unistd.h> header file.   */
+
+#ifndef _MSC_VER
 #define HAVE_UNISTD_H 1
+#endif
 
 /* Define if you have the nsl library (-lnsl).   */
 /* #undef HAVE_LIBNSL */

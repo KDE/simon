@@ -50,10 +50,10 @@ QWizardPage* FirstRunWizard::createIntroPage()
   intro->setLayout(lay);
 
   desc->setWordWrap(true);
-  intro->setTitle(i18n("Welcome to Simon"));
+  intro->setTitle(i18n("Welcome to simon"));
   desc->setOpenExternalLinks(true);
   desc->setText(i18n("<html><head /><body>"
-    "<p>Simon is a speech recognition solution enabling you to control your computer with your voice.</p>"
+    "<p>simon is a speech recognition solution enabling you to control your computer with your voice.</p>"
     "<p>This assistant will help you to get simon up and running.</p>"
     "<p>Go through the following steps carefully and read the instructions.</p>"
     "<p>You can still change these options later (see the manual for more information)."

@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,23 +17,33 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_MODELTEST_EXPORT_H_4E3834CE9F11405A8CDD7F9BF76585E7
-#define SIMON_MODELTEST_EXPORT_H_4E3834CE9F11405A8CDD7F9BF76585E7
 
-// needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#ifndef SIMONSSLSOCKET_H
+#define SIMONSSLSOCKET_H
 
-#ifndef MODELTEST_EXPORT
-# if defined(MAKE_SIMONMODELTEST_LIB)
-// We are building this library
-#  define MODELTEST_EXPORT KDE_EXPORT
-# else
-// We are using this library
-#  define MODELTEST_EXPORT KDE_IMPORT
-# endif
-#endif
+#include <QSslSocket>
 
-# ifndef MODELTEST_EXPORT_DEPRECATED
-#  define MODELTEST_EXPORT_DEPRECATED KDE_DEPRECATED MODELTEST_EXPORT
-# endif
-#endif
+class ThreadedSSLSocket;
+
+class SimonSSLSocket : public QSslSocket
+{
+Q_OBJECT
+
+public:
+  SimonSSLSocket(ThreadedSSLSocket *socket, QObject* parent = 0);
+  virtual qint64 writeData(const char* data, qint64 len);
+  virtual qint64 readData(char* data, qint64 maxlen);
+    
+private slots:
+  void processBuffer();
+  void readFromSocket();
+  
+private slots:
+  void connectToHostWrapper(const QString& hostName, quint16 port);
+  void connectToHostEncryptedWrapper(const QString& hostName, quint16 port);
+    
+private:
+  ThreadedSSLSocket *socket;
+};
+
+#endif // SIMONSSLSOCKET_H

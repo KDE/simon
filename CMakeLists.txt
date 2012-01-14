@@ -18,6 +18,9 @@ if(WIN32)
 # old gcc because of MinGW
 #add_definitions(-std=c++98 -D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
 add_definitions(-D__INTERLOCKED_DECLARED)
+if(MSVC)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif(MSVC)
 else(WIN32)
 	#add_definitions(-pedantic-errors -std=c++98 -Wno-variadic-macros)
 endif(WIN32)
@@ -46,9 +49,10 @@ install( FILES ${CMAKE_BINARY_DIR}/version.h
 )
 
 
-if(WIN32)
-add_subdirectory(package/KDE)
-ENDIF(WIN32)
-
+# if(WIN32)
+# add_subdirectory(package/KDE)
+# ENDIF(WIN32)
+if(NOT WIN32)
 include(simon_package_settings)
+endif(NOT WIN32)
 

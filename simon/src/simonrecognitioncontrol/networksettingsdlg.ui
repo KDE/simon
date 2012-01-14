@@ -32,7 +32,7 @@
        <item>
         <widget class="QCheckBox" name="kcfg_StartLocalSimond">
          <property name="text">
-          <string>Start the server automatically when simon starts</string>
+          <string>Start server when simon starts</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -42,7 +42,7 @@
        <item>
         <widget class="QCheckBox" name="kcfg_StopLocalSimond">
          <property name="text">
-          <string>Stop the server automatically when simon stops</string>
+          <string>Stop server when simon stops</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -50,33 +50,9 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="KPushButton" name="pbConfigureSimond">
-           <property name="text">
-            <string>Configure simond</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
         <widget class="QCheckBox" name="kcfg_JuliusdAutoConnect">
          <property name="text">
-          <string>Connect automatically on simon start</string>
+          <string>Connect to server on startup</string>
          </property>
          <property name="tristate">
           <bool>false</bool>
@@ -86,7 +62,7 @@
        <item>
         <widget class="QCheckBox" name="kcfg_AutomaticallyEnableRecognition">
          <property name="text">
-          <string>Start Recognition immediately once available</string>
+          <string>Activate speech recognition on startup</string>
          </property>
         </widget>
        </item>
@@ -121,6 +97,30 @@
             <enum>QLineEdit::Password</enum>
            </property>
           </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="KPushButton" name="pbConfigureSimond">
+           <property name="text">
+            <string>&amp;Configure server</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>
@@ -198,14 +198,14 @@
    <header>keditlistbox.h</header>
   </customwidget>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>

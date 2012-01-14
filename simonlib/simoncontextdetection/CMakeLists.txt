@@ -47,6 +47,9 @@ kde4_add_library( simoncontextdetection  SHARED ${simoncontextdetection_LIB_SRCS
 target_link_libraries( simoncontextdetection ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS}
         ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS})
 
+if(WIN32)
+target_link_libraries( simoncontextdetection psapi)
+endif(WIN32)
 
 set_target_properties( simoncontextdetection
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

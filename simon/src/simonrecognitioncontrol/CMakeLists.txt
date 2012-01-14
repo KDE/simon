@@ -9,7 +9,7 @@ set (QT_USE_QTNETWORK true)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../../simonlib/ ../  ../../../julius/libjulius/include 
  ../../../julius/libsent/include)
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_RECOGNITIONCONTROL_LIB)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} )
 
 
 IF(WIN32)
@@ -23,7 +23,9 @@ set (QT_USE_QTNETWORK true)
 include(UseQt4)
 
 set( simonrecognition_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/recognitioncontrol.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/recognitioncontrol.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/threadedsslsocket.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/simonsslsocket.cpp
 )
 
 set( simonrecognition_LIB_HDRS
@@ -41,7 +43,7 @@ target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
   simonmodelmanagementui simonscenarios simonrecognitionresult simonprogresstracking )
 
 set_target_properties( simonrecognitioncontrol
-  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR} DEFINE_SYMBOL MAKE_RECOGNITIONCONTROL_LIB
 )
 
 install( FILES ${simonrecognition_LIB_HDRS}

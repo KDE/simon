@@ -32,6 +32,7 @@ LinuxProcessInfoGathererHelper::LinuxProcessInfoGathererHelper(QObject *parent) 
 
 void LinuxProcessInfoGathererHelper::checkActiveWindow()
 {
+#ifndef Q_OS_WIN32
     //Get the active window info
     WId wid = KWindowSystem::activeWindow();
 
@@ -70,4 +71,5 @@ void LinuxProcessInfoGathererHelper::checkActiveWindow()
             emit activeWindowProcessChanged(processName);
         }
     }
+#endif
 }

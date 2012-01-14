@@ -22,7 +22,7 @@ set( simonmodelcompilationadapter_LIB_HDRS
 kde4_add_library( simonmodelcompilationadapter  SHARED
 	${simonmodelcompilationadapter_LIB_SRCS} )
 target_link_libraries( simonmodelcompilationadapter ${QT_LIBRARIES}
-	${KDE4_KDECORE_LIBS} simonlogging simonscenarios)
+	${KDE4_KDECORE_LIBS} simonlogging simonscenarios simonscenariobase)
 
 
 set_target_properties( simonmodelcompilationadapter

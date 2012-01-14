@@ -88,7 +88,7 @@ class SIMONWAV_EXPORT WAV : public QBuffer
 
     QString getFilename() { return filename; }
     int getLength() { return length; }
-    bool writeFile(QString filename="");
+    bool writeFile(QString filename = QString());
     int getSampleRate() { return samplerate; }
     int getChannels() { return channels; }
     ~WAV();

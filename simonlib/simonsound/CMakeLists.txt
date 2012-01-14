@@ -12,7 +12,7 @@ IF(UNIX)
   set (plattformLibraries ${ALSA_LIBRARY})
   include_directories ( ${ALSA_INCLUDE_DIR} )
 ELSE(UNIX)
-	find_package(DirectSound REQUIRED)
+  find_package(DirectSound REQUIRED)
   set (plattformLibraries ${DIRECTSOUND_LIBRARY})
   include_directories ( ${DIRECTSOUND_INCLUDE_DIRS} )
 ENDIF(UNIX)
@@ -134,16 +134,19 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 
 if(LIBSAMPLERATE_FOUND)
-	message(STATUS "Enabling resample support")
+  message(STATUS "Enabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
   simonlogging
+  simonwav
   ${LIBSAMPLERATE_LIBRARY}
-		${KDE4_KDEUI_LIBS} simonwav)
+  ${KDE4_KDEUI_LIBS}
+)
 else(LIBSAMPLERATE_FOUND)
-	message(STATUS "Disabling resample support")
+  message(STATUS "Disabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
   simonlogging
-  ${KDE4_KDEUI_LIBS} simonwav)
+  simonwav
+  ${KDE4_KDEUI_LIBS})
 endif(LIBSAMPLERATE_FOUND)
 
 set_target_properties( simonsound

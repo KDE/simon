@@ -43,11 +43,7 @@
 #define __SENT_STANDARD_DEFS__
 
 /* load site-dependent configuration by configure script */
-#if defined(_WIN32) && !defined(__CYGWIN32__) && !defined(__MINGW32__)
-#include <config-msvc-libsent.h>
-#else
 #include <sent/config.h>
-#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -105,25 +101,15 @@ typedef unsigned char boolean;
 #define TRUE 1
 #define FALSE 0
 
-#if defined(_WIN32) && !defined(__CYGWIN32__) && !defined(__MINGW32__)
-/* win32 functions */
-#define getpagesize() (4096)
-#define access _access        
-#define chmod _chmod
-#define close _close
-#define eof _eof
-#define filelength _filelength
-#define lseek _lseek
-#define open _open
-#define read _read
-#define write _write
-#define mkdir _mkdir
-#define unlink _unlink
-#define getcwd _getcwd
-#define getpid _getpid
-#define vsnprintf _vsnprintf
+#ifdef _MSC_VER
+#ifndef _CRT_NONSTDC_NO_DEPRECATE
+#define _CRT_NONSTDC_NO_DEPRECATE
+#endif
+#ifndef snprintf 
 #define snprintf _snprintf
-#define strdup _strdup
+#endif
+#define strcasecmp _stricmp
+#define strncasecmp _strnicmp
 #endif
 
 #ifndef R_OK
@@ -148,7 +134,9 @@ typedef unsigned char boolean;
 #undef min
 #define	max(A,B)	((A)>=(B)?(A):(B))
 #define	min(A,B)	((A)<(B)?(A):(B))
-#define	abs(X)		((X)>0?(X):-(X))
+#ifndef _WIN32//availibe by default, and it would break mingw-w64 builds
+# define	abs(X)		((X)>0?(X):-(X))
+#endif
 /// String match function, 0 if the given strings did not match
 #define strmatch	!strcmp
 /// String match function with length limit, 0 if the given strings did not match

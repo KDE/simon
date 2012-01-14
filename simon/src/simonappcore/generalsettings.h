@@ -37,7 +37,7 @@ class GeneralSettings : public KCModule
 {
   Q_OBJECT
 
-    private:
+  private:
     Ui::GeneralSettingsDlg ui;                    //!< UI definition - made by uic from the QTDesigner .ui
 
   private slots:
@@ -47,8 +47,5 @@ class GeneralSettings : public KCModule
     explicit GeneralSettings(QWidget* parent, const QVariantList& args=QVariantList());
     void load();
     void save();
-
-    ~GeneralSettings();
-
 };
 #endif

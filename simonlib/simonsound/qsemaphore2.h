@@ -48,7 +48,7 @@
 
 class QSemaphore2Private;
 
-class Q_CORE_EXPORT QSemaphore2
+class QSemaphore2
 {
 public:
     explicit QSemaphore2(int n = 0);

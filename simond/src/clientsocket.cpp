@@ -351,10 +351,10 @@ void ClientSocket::processRequest()
 
         QDateTime localModelDate = synchronisationManager->getBaseModelDate();
         if (remoteModelDate != localModelDate) {
-//          if (remoteModelDate > localModelDate)
-//            sendCode(Simond::GetBaseModel);
-//          else if (!sendBaseModel())
+          if (remoteModelDate > localModelDate)
             sendCode(Simond::GetBaseModel);
+          else if (!sendBaseModel())
+              sendCode(Simond::GetBaseModel);
         }
         else {
           kDebug() << "Base model is up-to-date";

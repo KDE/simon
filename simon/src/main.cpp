@@ -63,7 +63,7 @@ public KApplication
 int main(int argc, char *argv[])
 {
   KAboutData aboutData( "simon", "simon",
-    ki18n("Simon"), simon_version,
+    ki18n("simon"), simon_version,
     ki18n("<html><head /><body>"
           "<h2>Development and Distribution</h2>"
           "<p>Developed and distributed by the friendly society"
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
           ki18n("Copyright (c) 2008-2010 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
 
   KCmdLineOptions options;
-  options.add("nosplash", ki18n("Disable Simon's splash screen"));
+  options.add("nosplash", ki18n("Disable simon's splash screen"));
   KCmdLineArgs::addCmdLineOptions(options);
 
   KCmdLineArgs::init(argc, argv, &aboutData);

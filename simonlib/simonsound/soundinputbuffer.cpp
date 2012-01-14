@@ -32,16 +32,13 @@ void SoundInputBuffer::write(const char *toWrite, qint64 len)
 //   kDebug() << "Writing: " << len;
 
   m_bufferAllocLock.lock();
-  char *newBuffer = (char*) malloc(sizeof(char)*(m_bufferLength+len+1));
-  memcpy(newBuffer, m_buffer, m_bufferLength);
-  memcpy(newBuffer+m_bufferLength, toWrite, len);
+  m_buffer = (char*) realloc(m_buffer,sizeof(char)*(m_bufferLength+len+1));
+ 
+  memcpy(m_buffer + m_bufferLength, toWrite, len);
   
-  char *oldBuffer = m_buffer;
-  m_buffer = newBuffer;
   m_bufferLength += len;
   m_bufferLock.release(len);
   m_bufferAllocLock.unlock();
-  free(oldBuffer);
 
   //m_buffer.append(toWrite, len);
 }

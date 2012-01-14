@@ -24,16 +24,11 @@
 #include <kdemacros.h>
 
 #ifndef MODELCOMPILATIONMANAGEMENT_EXPORT
-# if defined(MAKE_MODELCOMPILATIONMANAGEMENT_LIB)
+# if defined(MAKE_SIMONMODELCOMPILATION_LIB)
 // We are building this library
 #  define MODELCOMPILATIONMANAGEMENT_EXPORT KDE_EXPORT
 # else
-// We are using this library
-#ifdef Q_OS_WIN
-#  define MODELCOMPILATIONMANAGEMENT_EXPORT
-#else
 #  define MODELCOMPILATIONMANAGEMENT_EXPORT KDE_IMPORT
-#endif
 # endif
 #endif
 

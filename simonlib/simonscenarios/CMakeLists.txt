@@ -9,7 +9,7 @@ include_directories(
 	${CMAKE_BINARY_DIR}
 )
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LIB)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
 set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
@@ -100,7 +100,7 @@ target_link_libraries( simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE
 	simonscenariobase simoncontextdetection simongraphemetophoneme )
 
 set_target_properties( simonscenarios
-  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR} DEFINE_SYMBOL MAKE_MODELMANAGEMENT_LIB
 )
 
 install( FILES ${simonscenarios_LIB_HDRS}
@@ -128,7 +128,7 @@ kde4_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfigurati
 
 kde4_add_plugin(simonscenarioskcm ${kcm_simonscenarios_LIB_SRCS})
 target_link_libraries( simonscenarioskcm  ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-simonscenarios
+simonscenarios simonscenariobase
 )
 
 install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT

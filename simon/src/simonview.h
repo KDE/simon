@@ -81,6 +81,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void updateActionList();
     void displayScenarios();
     void showVolumeCalibration();
+    void welcomeUrlClicked(const QUrl& url ); 
 
   #ifdef DEBUG_TEST_SYNCHRONIZATION
     void testSlot();
@@ -116,13 +117,5 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     KComboBox *cbCurrentScenario;
 };
 
-class WelcomeHTMLPart : public KHTMLPart
-{
-  public:
-    WelcomeHTMLPart(QWidget *parentWidget, QObject *parent);
-    bool urlSelected(const QString& url, int button, int state,
-      const QString& _target, const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments(),
-      const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments());
 
-};
 #endif

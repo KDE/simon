@@ -20,7 +20,7 @@ FIND_PATH(LIBSAMPLERATE_INCLUDE_DIR samplerate.h)
 # Find the library
 #
 FIND_LIBRARY(LIBSAMPLERATE_LIBRARY samplerate
-	NAMES samplerate samplerate-0
+	NAMES samplerate samplerate-0 libsamplerate-0
     DOC "The libsamplerate library")
 
 IF(LIBSAMPLERATE_INCLUDE_DIR AND LIBSAMPLERATE_LIBRARY)

@@ -1,6 +1,12 @@
 #project(julius)
 
 #add_definitions(-lang-c-c++-comments -std=c99)
+if(WIN32)
+    if(MSVC)
+        add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+    endif(MSVC)
+endif(WIN32)
+
 include_directories(../libsent/include ../libjulius/include)
 set (juliusexe_SRCS ./main.c
   ./output_stdout.c
@@ -22,5 +28,6 @@ ENDIF(WIN32)
 
 add_executable(juliusexe ${juliusexe_SRCS} ${juliusexe_NonPortable_SRCS})
 target_link_libraries(juliusexe julius sent)
+
 install (TARGETS juliusexe DESTINATION bin COMPONENT julius)
 

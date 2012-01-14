@@ -24,15 +24,7 @@
 #include <simonactions/listconfiguration.h>
 
 #include <QVariant>
-// #include <QPointer>
-// #include <QListWidget>
-// #include <QListWidgetItem>
-
 #include <KAboutData>
-// #include <KMessageBox>
-// #include <KService>
-// #include <KServiceTypeTrader>
-// #include <KPageWidget>
 #include <kgenericfactory.h>
 
 K_PLUGIN_FACTORY( CommandSettingsFactory,
@@ -49,12 +41,13 @@ K_EXPORT_PLUGIN( CommandSettingsFactory("simonlib") )
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent),
-	ui(new Ui::CommandSettingsDlg)
+CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args)
+  : KCModule(KGlobal::mainComponent(), parent),
+    ui(new Ui::CommandSettingsDlg)
 {
   Q_UNUSED(args)
 
-	ui->setupUi(this);
+  ui->setupUi(this);
 
   KAboutData *about = new KAboutData(
     "commandsettings", "", ki18n("Command Settings"),
@@ -68,11 +61,11 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
   QObject::connect(ui->sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
   QObject::connect(ui->fcFont, SIGNAL(fontSelected(const QFont&)), this, SLOT(slotChanged()));
 
-	kDebug() << "List configuration: " << CommandSettingsInternal::getInstance()->minimumConfidence();
-	ListConfiguration *listConfig = CommandSettingsInternal::getInstance()->getListConfiguration();
-	kDebug() << "Returned...";
-	
-	kDebug() << "Got list config: " << listConfig;
+  kDebug() << "List configuration: " << CommandSettingsInternal::getInstance()->minimumConfidence();
+  ListConfiguration *listConfig = CommandSettingsInternal::getInstance()->getListConfiguration();
+  kDebug() << "Returned...";
+
+  kDebug() << "Got list config: " << listConfig;
   connect(listConfig, SIGNAL(changed()), this, SLOT(slotChanged()));
 
   ui->twActionConfig->addTab(CommandSettingsInternal::getInstance()->getListConfiguration(), i18n("Lists"));
@@ -83,8 +76,8 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 
 void CommandSettings::save()
 {
-	CommandSettingsInternal::getInstance()->save(ui->cbUseDYM->isChecked(), ui->sbMinimumConfidence->value(),
-																									ui->fcFont->font());
+  CommandSettingsInternal::getInstance()->save(
+    ui->cbUseDYM->isChecked(), ui->sbMinimumConfidence->value(), ui->fcFont->font());
   KCModule::save();
   emit changed(false);
 }
@@ -92,12 +85,13 @@ void CommandSettings::save()
 
 void CommandSettings::load()
 {
-	CommandSettingsInternal::getInstance()->load();
-	adaptViewToValues();
-	
+  CommandSettingsInternal::getInstance()->load();
+  adaptViewToValues();
+
   emit changed(false);
   KCModule::load();
 }
+
 
 void CommandSettings::adaptViewToValues()
 {
@@ -108,11 +102,10 @@ void CommandSettings::adaptViewToValues()
 }
 
 
-
 void CommandSettings::defaults()
 {
   KCModule::defaults();
-	CommandSettingsInternal::getInstance()->defaults();
+  CommandSettingsInternal::getInstance()->defaults();
 
   load();
   save();
@@ -124,13 +117,10 @@ void CommandSettings::slotChanged()
   emit changed(true);
 }
 
-/**
- * \brief Destructor
- * \author Peter Grasch
- */
+
 CommandSettings::~CommandSettings()
 {
-	ui->twActionConfig->removePage(CommandSettingsInternal::getInstance()->getListConfiguration());
-	CommandSettingsInternal::getInstance()->getListConfiguration()->setParent(0);
-	delete ui;
+  ui->twActionConfig->removePage(CommandSettingsInternal::getInstance()->getListConfiguration());
+  CommandSettingsInternal::getInstance()->getListConfiguration()->setParent(0);
+  delete ui;
 }

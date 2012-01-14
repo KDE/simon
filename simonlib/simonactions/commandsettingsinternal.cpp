@@ -29,23 +29,20 @@
 
 CommandSettingsInternal* CommandSettingsInternal::instance;
 
-CommandSettingsInternal::CommandSettingsInternal(QWidget *parent) : QObject(parent),
-	forceChangeFlag(false),
-	listConfiguration(new ListConfiguration(parent))
+CommandSettingsInternal::CommandSettingsInternal(QWidget *parent)
+  : QObject(parent),
+    listConfiguration(new ListConfiguration(parent))
 {
   if (instance) instance->deleteLater();
-
   instance = this;
-  config = KSharedConfig::openConfig(KGlobal::mainComponent(),
-    "simoncommandrc");
-
+  config = KSharedConfig::openConfig(KGlobal::mainComponent(), "simoncommandrc");
   load();
 }
 
 
 void CommandSettingsInternal::save(bool dym, float confidence, const QFont& font)
 {
-  KConfigGroup cg(config, "");
+  KConfigGroup cg(config, QString());
   cg.writeEntry("MinimumConfidence", confidence);
   cg.writeEntry("UseDYM", dym);
 
@@ -117,11 +114,11 @@ void CommandSettingsInternal::load()
 {
   Q_ASSERT(config);
 
-  KConfigGroup cg(config, "");
+  KConfigGroup cg(config, QString());
 
   storedConfidence = cg.readEntry("MinimumConfidence", 0.45f);
 
-	storedDYM = cg.readEntry("UseDYM", false);
+  storedDYM = cg.readEntry("UseDYM", false);
   storedFont = cg.readEntry("PluginBaseFont", QFont());
 
   QStringList backTriggers, oneTriggers, twoTriggers, threeTriggers, fourTriggers,
@@ -286,10 +283,10 @@ QFont CommandSettingsInternal::pluginBaseFont()
   return storedFont;
 }
 
+
 ListConfiguration* CommandSettingsInternal::getListConfiguration()
 {
-	kDebug() << "here";
-	return listConfiguration; 
+  return listConfiguration;
 }
 
 
@@ -297,6 +294,7 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> CommandSettingsInter
 {
   return listConfiguration->getListInterfaceCommands();
 }
+
 
 CommandSettingsInternal::~CommandSettingsInternal()
 {

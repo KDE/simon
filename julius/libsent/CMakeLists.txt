@@ -7,7 +7,11 @@ if(UNIX)
 endif(UNIX)
 
 include(SimonDirs)
-
+if(WIN32)
+    if(MSVC)
+        add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+    endif(MSVC)
+endif(WIN32)
 add_definitions(-DHAVE_ZLIB)
 #add_definitions(-DHAVE_ZLIB -lang-c-c++-comments -std=c99)
 
@@ -137,11 +141,19 @@ set (libsent_SRCS_PA
 
 FILE(GLOB libsent_LIB_HDRS ./include/sent/*.h) 
 
-if (PORTAUDIO_FOUND)
-add_library(sent SHARED ${libsent_SRCS} ${libsent_SRCS_PA})
-else (PORTAUDIO_FOUND)
-add_library(sent SHARED ${libsent_SRCS})
-endif (PORTAUDIO_FOUND)
+if(MSVC)#there are no symbols exported and msvc has no auto export/import so I need to build it staticaly
+    if (PORTAUDIO_FOUND)
+    add_library(sent STATIC ${libsent_SRCS} ${libsent_SRCS_PA})
+    else (PORTAUDIO_FOUND)
+    add_library(sent STATIC ${libsent_SRCS})
+    endif (PORTAUDIO_FOUND)
+else(MSVC)
+    if (PORTAUDIO_FOUND)
+    add_library(sent SHARED ${libsent_SRCS} ${libsent_SRCS_PA})
+    else (PORTAUDIO_FOUND)
+    add_library(sent SHARED ${libsent_SRCS})
+    endif (PORTAUDIO_FOUND)
+endif(MSVC)
 
 if(UNIX)
 if (PORTAUDIO_FOUND)
@@ -157,7 +169,7 @@ if (PORTAUDIO_FOUND)
 target_link_libraries(sent ${ZLIB_LIBRARY} ${PORTAUDIO_LIBRARY}
        wsock32 winmm ws2_32)
 else (PORTAUDIO_FOUND)
-target_link_libraries(sent ${ZLIB_LIBRARY} wsock32 winmm ws2_32)
+target_link_libraries(sent ${ZLIB_LIBRARY} wsock32 winmm ws2_32 )
 endif (PORTAUDIO_FOUND)
 endif(WIN32)
 

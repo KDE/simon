@@ -22,7 +22,7 @@ set_target_properties( simondialogenginettsview
 )
 
 target_link_libraries(simondialogenginettsview 
-  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simontts simondialogengine)
+  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simontts simondialogengine simonscenarios)
 
 install(TARGETS simondialogenginettsview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 

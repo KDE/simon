@@ -2,7 +2,12 @@
 FIND_PACKAGE(FLEX)
 FIND_PACKAGE(BISON)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+
 #add_definitions(-lang-c-c++-comments -std=c99 )
+if(MSVC)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif(MSVC)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}

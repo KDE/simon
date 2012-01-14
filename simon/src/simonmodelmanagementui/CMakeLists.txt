@@ -6,7 +6,7 @@ include(SimonDirs)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib/simonscenarios ${KCFG_INSTALL_DIR} )
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_SIMONMODELMANAGEMENTUI_LIB)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 set( simonmodelmanagementui_LIB_SRCS
@@ -132,11 +132,11 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 kde4_add_library( simonmodelmanagementui  SHARED ${simonmodelmanagementui_LIB_SRCS} )
 
 target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES}
-${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging simonscenarios simoninfo simonxml
+${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging simonscenarios simonscenariobase simoninfo simonxml
 simonsound simonuicomponents simongraphemetophoneme)
 
 set_target_properties( simonmodelmanagementui
-  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR} DEFINE_SYMBOL MAKE_SIMONMODELMANAGEMENTUI_LIB
 )
 
 install( FILES ${simonmodelmanagementui_LIB_HDRS}
