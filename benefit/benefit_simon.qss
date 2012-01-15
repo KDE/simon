@@ -1,7 +1,0 @@
-QWidget#DialogView {
-    background-color: #fffbc7;
-}
-
-QWidget#DialogView * {
-    font: 28px;
-}
