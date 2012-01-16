@@ -268,7 +268,7 @@ void SSCView::toggleOfflineMode(bool offline)
 {
   if (offline) {
     if (SSCDAccessSingleton::getInstance()->isConnected()) {
-      if (KMessageBox::questionYesNoCancel(this, i18n("You are currently connected. If you switch to offline mode you will first be disconnected form the server.\n\nDo you want to continue?")) != KMessageBox::Yes) {
+      if (KMessageBox::questionYesNoCancel(this, i18n("You are currently connected. If you switch to offline mode you will first be disconnected from the server.\n\nDo you want to continue?")) != KMessageBox::Yes) {
         actionCollection()->action("offline")->setChecked(false);
         return;
       }
