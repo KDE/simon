@@ -4,9 +4,7 @@ Icon=games-config-board
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=simoncalculatorplugin
 Name=simon Calculator Plugin
-Name[de]=simon Taschenrechner Modul
 Comment=Calculator
-Comment[de]=Taschenrechner
 
 X-KDE-PluginKeyword=simoncalculatorpluginconfig
 X-KDE-FactoryName=simoncalculatorpluginconfig

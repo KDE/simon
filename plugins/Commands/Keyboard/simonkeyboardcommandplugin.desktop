@@ -4,9 +4,7 @@ Icon=input-keyboard
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonkeyboardcommandplugin
 Name=simon Keyboard Command Plugin
-Name[de]=simon Tastatur-Kommando Modul
 Comment=Provides a full keyboard functionality
-Comment[de]=Bietet eine volle Tastaturfunktionalität
 
 X-KDE-PluginInfo-Author=Neumeister Dominik und Strametz Mario
 X-KDE-PluginInfo-Email=neudob06@edvhtl.at

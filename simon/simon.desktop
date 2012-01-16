@@ -1,21 +1,15 @@
 [Desktop Entry]
-Icon=simon 
+Icon=simon
 Type=Application
 X-DocPath=simon/index.html
 
 Name=simon
-Name[de]=simon
-Name[fr]=simon
 
 GenericName=Speech Recognition
-GenericName[de]=Spracherkennung
-GenericName[fr]=Reconnaissance vocale
 
 Exec=simon
 
 Comment=Speech Recognition and Model Management
-Comment[de]=Spracherkennung und Modelverwaltung
-Comment[fr]=Reconnaissance vocale et gestion des modèles vocaux
 
 Terminal=false
 

@@ -1,12 +1,10 @@
 [Desktop Entry]
 Name=ssc
-Name[fr]=ssc
 Exec=ssc %i -caption "%c"
 Icon=ssc
 Type=Application
 X-DocPath=ssc/index.html
 GenericName=simon sample collector
-GenericName[de]=simon Aufnahmetool
 Terminal=false
 Categories=Qt;KDE;Utility;Accessibility;
 X-KDE-StartupNotify=false

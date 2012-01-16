@@ -4,11 +4,7 @@ Icon=system-run
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simoncompositecommandplugin
 Name=simon Composite Command Plugin
-Name[de]=simon Kombinations-Kommando Modul
-Name[fr]=Module de commande composite de simon
 Comment=Combines multiple commands into one
-Comment[de]=Kombinierte mehrere Kommando zu einem Kommando
-Comment[fr]=Rassemble plusieurs commandes en une seule
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

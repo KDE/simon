@@ -16,10 +16,6 @@ X-KDE-ParentApp=simon
 X-KDE-PluginKeyword=SynchronisationSettings
 
 Name=Synchronization
-Name[de]=Synchronisation
-Name[fr]=Synchronisation
 
 Comment=Configuration of the model synchronization
-Comment[de]=Konfiguration der Modellsynchronisation
-Comment[fr]=Configuration de la synchronisation du modèle
 

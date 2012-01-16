@@ -4,9 +4,7 @@ Icon=help-hint
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonatspicommandplugin
 Name=simon ATSPI Command Plugin
-Name[de]=simon ATSPI-Kommando Modul
 Comment=Allows controlling an ATSPI2 enabled desktop
-Comment[de]=Erlaubt das Kontrollieren eines ATSPI2 Desktops
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=support@simon-listens.org

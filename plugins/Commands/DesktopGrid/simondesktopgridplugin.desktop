@@ -4,11 +4,7 @@ Icon=games-config-board
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simondesktopgridplugin
 Name=simon DesktopGrid Plugin
-Name[de]=simon Desktopgitter Modul
-Name[fr]=Module de quadrillage du bureau de simon
 Comment=Voice-controlled mouseclicks
-Comment[de]=Sprachgesteuerte Mausklicks
-Comment[fr]=Clic de souris contrôlé par la voix
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

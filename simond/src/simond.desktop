@@ -1,12 +1,9 @@
 [Desktop Entry]
 Name=simond
-Name[fr]=simond
-Name[x-test]=xxsimondxx
 Exec=simond %i -caption "%c"
 Icon=simond
 Type=Application
 X-DocPath=simond/index.html
 GenericName=Speech Recognition Server
-GenericName[fr]=Serveur de reconnaissance vocale
 Terminal=true
 Categories=Qt;KDE;Utility;Accessibility;

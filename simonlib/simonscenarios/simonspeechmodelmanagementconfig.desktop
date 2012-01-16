@@ -14,10 +14,6 @@ X-KDE-System-Settings-Parent-Category=simon
 
 
 Name=Speech Model
-Name[de]=Sprachmodell
-Name[fr]=Modèle vocal
 
 Comment=Configuration of simons Speech Model
-Comment[de]=Konfiguration des Sprachmodells von simon
-Comment[fr]=Configuration du modèle vocal de simon
 

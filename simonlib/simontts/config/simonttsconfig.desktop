@@ -12,8 +12,6 @@ X-KDE-System-Settings-Parent-Category=simon
 
 
 Name=Text-to-speech
-Name[de]=Text-to-speech
 
 Comment=Configuration of simons text-to-speech layer
-Comment[de]=Konfiguration der Text-to-speech Funktionalität von simon
 

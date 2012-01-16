@@ -4,9 +4,7 @@ Icon=network-connect
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonjsoncommandplugin
 Name=simon Json Command Plugin
-Name[de]=simon Json-Kommando Modul
 Comment=Provides a way to create interface to other applications through JSON
-Comment[de]=Bietet ein Möglichkeit mit anderen Anwendungen durch JSON zu kommunizieren
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=support@simon-listens.org

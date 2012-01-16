@@ -4,9 +4,7 @@ Icon=accessories-calculator
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simoncalculatorplugin
 Name=simon Calculator Command Plugin
-Name[de]=simon Taschenrechner Modul
 Comment=Provides a voice controllable user interface
-Comment[de]=Bietet eine einfache Möglichkeit jede Zahl auszubuchstabieren
 
 X-KDE-PluginInfo-Author=Dominik Neumeister
 X-KDE-PluginInfo-Email=domar@gmx.at

@@ -4,9 +4,7 @@ Icon=applications-education
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonpronunciationtrainingplugin
 Name=simon pronunciation training Plugin
-Name[de]=simon Aussprachetraining-Modul
 Comment=Educational software to train the pronuncation of a foreign language
-Comment[de]=Lernsoftware um die Aussprache einer Fremdsprache zu lernen
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

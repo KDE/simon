@@ -13,10 +13,6 @@ X-KDE-ParentApp=simon
 X-KDE-System-Settings-Parent-Category=simon
 
 Name=General
-Name[de]=Allgemein
-Name[fr]=Général
 
 Comment=Configuration of the general Options of simon
-Comment[de]=Konfiguration der allgemeinen simon Einstellungen
-Comment[fr]=Configuration des options générales de simon
 

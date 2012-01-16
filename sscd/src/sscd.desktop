@@ -1,7 +1,5 @@
 [Desktop Entry]
 Name=sscd
-Name[fr]=sscd
-Name[x-test]=xxsscdxx
 Exec=sscd %i -caption "%c"
 Icon=sscd
 Type=Application

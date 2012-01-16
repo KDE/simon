@@ -4,9 +4,7 @@ Icon=network-connect
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simondbuscommandplugin
 Name=simon DBus Command Plugin
-Name[de]=simon DBus-Kommando Modul
 Comment=Provides a way to create interface to other applications through DBus
-Comment[de]=Bietet ein Möglichkeit mit anderen Anwendungen durch DBus zu kommunizieren
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=support@simon-listens.org

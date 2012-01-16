@@ -4,9 +4,7 @@ Icon=akonadi
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonakonadicommandplugin
 Name=simon Akonadi Command Plugin
-Name[de]=simon Akonadi-Kommando Modul
 Comment=Provides a way to create interactive akonadis with the user
-Comment[de]=Bietet ein Möglichkeit interaktive Akonadie mit dem Benutzer abzuhalten
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=support@simon-listens.org

@@ -2,5 +2,3 @@
 Type=ServiceType
 X-KDE-ServiceType=simon/ConditionPlugin
 Name=simon condition plugin
-Name[de]=simon condition plug-in
-Name[fr]=Module de condition de simon

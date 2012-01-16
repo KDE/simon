@@ -4,9 +4,7 @@ Icon=network-connect
 ServiceTypes=simon/ConditionPlugin
 X-KDE-Library=simondbusconditionplugin
 Name=simon DBus Condition Plugin
-Name[de]=simon DBus Bedingungsplugin
 Comment=Checks application state over DBus
-Comment[de]=Überprüft den Anwendungszustand über DBus
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org
