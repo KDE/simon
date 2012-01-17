@@ -21,5 +21,4 @@ target_link_libraries(simonfilterplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
 
 install(TARGETS simonfilterplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandfilterplugin )
 install( FILES simonfilterplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandfilterplugin )
-install( FILES simonfilterpluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandfilterplugin )
 add_subdirectory(po)

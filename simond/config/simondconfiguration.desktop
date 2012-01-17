@@ -10,7 +10,7 @@ X-KDE-FactoryName=simondsettingsfactory
 X-KDE-ParentComponents=simondsettings
 
 X-KDE-ParentApp=simond
-X-KDE-System-Settings-Parent-Category=simond
+X-KDE-System-Settings-Parent-Category=accessibility
 
 #X-KDE-PluginKeyword=SimondNetworkConfiguration
 

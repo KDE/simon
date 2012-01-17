@@ -9,7 +9,7 @@ X-KDE-ParentComponents=simonttsconfiguration
 
 X-KDE-ParentApp=simon
 X-KDE-System-Settings-Parent-Category=simon
-
+Hidden=true
 
 Name=Text-to-speech
 

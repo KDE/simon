@@ -11,7 +11,7 @@ X-KDE-ParentComponents=libsimonscenarios
 
 X-KDE-ParentApp=simon
 X-KDE-System-Settings-Parent-Category=simon
-
+Hidden=true
 
 Name=Speech Model
 

@@ -28,10 +28,6 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoncontextdetection)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoncontextadapter)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sscdaccess)
 
-#install( FILES settings-simon.desktop  DESTINATION  ${SERVICES_INSTALL_DIR}  COMPONENT simon)
-install( FILES settings-simond.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simond )
-
-message(STATUS "Enabling simon scenario support.")
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenariobase)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenarios)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenarioui)

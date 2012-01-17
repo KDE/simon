@@ -10,7 +10,7 @@ X-KDE-FactoryName=ksimondsettingsfactory
 X-KDE-ParentComponents=libksimondsettings
 
 X-KDE-ParentApp=ksimond
-X-KDE-System-Settings-Parent-Category=simond
+X-KDE-System-Settings-Parent-Category=accessibility
 
 #X-KDE-PluginKeyword=KSimondSettings
 

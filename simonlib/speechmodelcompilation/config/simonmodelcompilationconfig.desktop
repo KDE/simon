@@ -7,9 +7,8 @@ X-KDE-Library=simonmodelcompilationconfiguration
 X-KDE-FactoryName=modelcompilationsettingsfactory
 X-KDE-ParentComponents=simonmodelcompilationconfiguration
 
-X-KDE-ParentApp=simon
-X-KDE-System-Settings-Parent-Category=simon
-
+X-KDE-ParentApp=simond
+X-KDE-System-Settings-Parent-Category=accessibility
 
 Name=Speech Model Compilation
 

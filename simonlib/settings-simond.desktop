@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Service
-X-KDE-ServiceTypes=SystemSettingsCategory
-X-KDE-System-Settings-Category=simond
-X-KDE-System-Settings-Parent-Category=general
-Icon=simond
-
-Name=simond
