@@ -6,7 +6,6 @@ include (KDE4Defaults)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
 
 add_subdirectory( doc )
-add_subdirectory( po )
 add_subdirectory( config )
 #add_subdirectory( sscdaccess )
 add_subdirectory( src )
