@@ -17,7 +17,6 @@ include(${QT_USE_FILE})
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../simonlib )
 
 add_subdirectory( po )
-add_subdirectory( config )
 add_subdirectory( doc )
 add_subdirectory( src )
 add_subdirectory( icons )

@@ -5,6 +5,8 @@ ENDIF(WIN32)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../julius/libsent/include/ ../../julius/libjulius/include/
 	../../simonlib)
 
+add_subdirectory( config )
+
 set(simond_SRCS
    main.cpp
    simondcontrol.cpp
