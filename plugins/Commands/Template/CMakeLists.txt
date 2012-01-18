@@ -27,7 +27,6 @@ target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIB
 
 install(TARGETS simondialogcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddialogplugin )
 install( FILES simondialogcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddialogplugin )
-add_subdirectory(po)
 
 # install(FILES dialogsets.xml DESTINATION
 # 	${DATA_INSTALL_DIR}/simon/conf COMPONENT simoncommanddialogplugin)

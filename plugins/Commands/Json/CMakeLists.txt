@@ -27,5 +27,4 @@ target_link_libraries(simonjsoncommandplugin ${KDE4_KDEUI_LIBS}
 
 install(TARGETS simonjsoncommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandjsonplugin )
 install( FILES simonjsoncommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandjsonplugin )
-add_subdirectory(po)
 
