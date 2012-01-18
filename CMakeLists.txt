@@ -36,6 +36,7 @@ add_subdirectory(sam)
 add_subdirectory(ssc)
 add_subdirectory(sscd)
 add_subdirectory(afaras)
+add_subdirectory(doc)
 
 if (USE_PLASMA)
 add_subdirectory(simonoid)

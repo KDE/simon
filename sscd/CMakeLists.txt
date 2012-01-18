@@ -11,7 +11,6 @@ include_directories( ${QT_INCLUDES} ../simonlib )
 
 add_subdirectory( src )
 add_subdirectory( icons )
-add_subdirectory( doc )
 
 if(WIN32)
 install( FILES sscd.conf mysql_create_script.sql DESTINATION ${BIN_INSTALL_DIR} COMPONENT sscd )

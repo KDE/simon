@@ -1,0 +1,6 @@
+add_subdirectory(simon)
+add_subdirectory(simond)
+add_subdirectory(ksimond)
+add_subdirectory(sam)
+add_subdirectory(ssc)
+add_subdirectory(sscd)
