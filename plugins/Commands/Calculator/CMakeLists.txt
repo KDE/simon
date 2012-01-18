@@ -24,4 +24,3 @@ target_link_libraries(simoncalculatorplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRAR
 
 install(TARGETS simoncalculatorplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandcalculatorplugin )
 install( FILES simoncalculatorcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandcalculatorplugin )
-add_subdirectory(po)

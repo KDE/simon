@@ -24,4 +24,3 @@ target_link_libraries(simonlistcommandplugin ${KDE4_KDEUI_LIBS}
 
 install(TARGETS simonlistcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandlistplugin )
 install( FILES simonlistcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandlistplugin )
-add_subdirectory(po)
