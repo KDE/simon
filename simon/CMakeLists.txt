@@ -7,7 +7,6 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 add_subdirectory(src)
-add_subdirectory(po)
 add_subdirectory(icons)
 add_subdirectory(themes)
 add_subdirectory(conf)
