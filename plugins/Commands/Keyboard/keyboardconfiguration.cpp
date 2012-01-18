@@ -41,7 +41,7 @@ K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
 
 KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
 : CommandConfiguration(parent,  "keyboard", ki18n( "Keyboard" ),
-"0.1", ki18n("Input signes with ease"),
+"0.1", ki18n("Input signs with ease"),
 "input-keyboard",
 KeyboardCommandPluginFactory::componentData()),
 storedSet(0),

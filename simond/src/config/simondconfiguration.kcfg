@@ -56,7 +56,7 @@
       <tooltip>Keep the samples used for the recognition.</tooltip>
     </entry>
     <entry name="IsolatedMode" type="Bool">
-      <label>exlusive recognition instance for each connection.</label>
+      <label>exclusive recognition instance for each connection.</label>
       <default>false</default>
       <tooltip>Exclusive recognition instance for each connection instead of shared rec. instance for each user.</tooltip>
     </entry>
@@ -73,7 +73,7 @@
     <entry name="ModelBackups" type="Int">
       <label>how many model versions we should preserve.</label>
       <default>8</default>
-      <tooltip>How many model versions we should preserv for the model backup / restore.</tooltip>
+      <tooltip>How many model versions we should preserve for the model backup / restore.</tooltip>
     </entry>
   </group>
 </kcfg>
