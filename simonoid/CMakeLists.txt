@@ -5,8 +5,6 @@ project(plasma-simonoid)
 
 include(KDE4Defaults)
 
-add_subdirectory(po)
- 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include_directories(
    ${CMAKE_SOURCE_DIR}
