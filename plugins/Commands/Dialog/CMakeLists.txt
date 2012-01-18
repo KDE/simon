@@ -48,7 +48,6 @@ endif(USE_PLASMA)
 
 install(TARGETS simondialogcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddialogplugin )
 install( FILES simondialogcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddialogplugin )
-add_subdirectory(po)
 
 ########
 # Tests
