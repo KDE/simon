@@ -39,7 +39,7 @@ ImportDictIntroPage::ImportDictIntroPage(QWidget* parent): QWizardPage(parent)
     "contains information about the known words like how they are written and how "
     "they are pronounced.\n\nThe dictionary is an essential core-component of your "
     "language model. Please ensure that every dictionary that you import is of "
-    "high quality as it will massivly impact your recognition performance.\n\nWe "
+    "high quality as it will massively impact your recognition performance.\n\nWe "
     "suggest that you use the Voxforge English Dictionary which is a HTK "
     "compatible lexicon and of very high quality."));
 

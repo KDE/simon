@@ -21,7 +21,7 @@
 
 To do this, enter the name of the word in the field below and continue by clicking &quot;Next&quot;.
 
-You can easily add mutliple words by separating them with spaces and/or commas.</string>
+You can easily add multiple words by separating them with spaces and/or commas.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

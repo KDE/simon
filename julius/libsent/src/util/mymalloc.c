@@ -35,7 +35,7 @@
  * 
  * @param size [in] required size in bytes.
  * 
- * @return pointer to the the newly allocated area.
+ * @return pointer to the newly allocated area.
  */
 void *
 mymalloc(size_t size)
@@ -57,7 +57,7 @@ mymalloc(size_t size)
  * 
  * @param size [in] required size in bytes.
  * 
- * @return pointer to the the newly allocated area.
+ * @return pointer to the newly allocated area.
  */
 void *
 mymalloc_big(size_t elsize, size_t nelem)
@@ -93,7 +93,7 @@ mymalloc_big(size_t elsize, size_t nelem)
  * @param ptr [in] memory pointer to be re-allocated
  * @param size [in] required new size in bytes
  * 
- * @return pointer to the the newly allocated area with existing data.
+ * @return pointer to the newly allocated area with existing data.
  */
 void *
 myrealloc(void *ptr, size_t size)

@@ -155,7 +155,7 @@ void SampleShare::disconnected()
 void SampleShare::transmissionError(const QString& err)
 {
   kDebug() << "Transmission error: " << err;
-  KMessageBox::sorry(this, i18n("The following error occured:\n\n%1", err));
+  KMessageBox::sorry(this, i18n("The following error occurred:\n\n%1", err));
   
   if (connectionProgressDialog) {
     enableButtonOk(true); // let the user try again

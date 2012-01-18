@@ -426,7 +426,7 @@ void ModelCompilationManager::run()
 
   if (!keepGoing) return;
   Logger::log("Compiling model...");
-  emit status(i18n("Preperation"), 0);
+  emit status(i18n("Preparation"), 0);
 
   if ((compilationType & ModelCompilationManager::CompileSpeechModel) ||
   (compilationType & ModelCompilationManager::AdaptSpeechModel)) {

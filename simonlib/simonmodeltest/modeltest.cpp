@@ -257,7 +257,7 @@ void ModelTest::run()
 
   if (!keepGoing) return;
   Logger::log(i18n("Testing model..."));
-  emit status(i18n("Preperation"), 0,100);
+  emit status(i18n("Preparation"), 0,100);
 
   if (!recodeAudio()) return;
   if (!generateMLF()) return;

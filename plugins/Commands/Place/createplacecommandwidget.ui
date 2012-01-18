@@ -33,7 +33,7 @@
       <bool>true</bool>
      </property>
      <property name="description">
-      <string>Configure the necessairy parameters manually</string>
+      <string>Configure the necessary parameters manually</string>
      </property>
     </widget>
    </item>

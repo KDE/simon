@@ -681,7 +681,7 @@ QList<QAction*> CommandManager::getGuiActions() const
  * \brief Returns the CreateCommandWidget used for configuring a new/existing command
  * \author Peter Grasch
  *
- * If you want your command to be add-able (the user can add a new command of the the type of your plugin)
+ * If you want your command to be add-able (the user can add a new command of the type of your plugin)
  * you must override this method and provide your own CreateCommandWidget.
  *
  * See the CreateCommandWidget documentation for details.
