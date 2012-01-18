@@ -4,7 +4,14 @@ Icon=system-run
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simoninputnumbercommandplugin
 Name=simon Input Number Command Plugin
+Name[pt]='Plugin' do Comando de Introdução Numérica do Simon
+Name[uk]=Додаток команд з введення чисел simon
+Name[x-test]=xxsimon Input Number Command Pluginxx
 Comment=Provides an easy way to spell out any number
+Comment[es]=Proporciona un modo fácil de deletrear cualquier número
+Comment[pt]=Oferece uma forma simples de sintetizar um número qualquer
+Comment[uk]=Простий спосіб фільтрування у мовленні будь-яких чисел
+Comment[x-test]=xxProvides an easy way to spell out any numberxx
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

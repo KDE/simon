@@ -15,6 +15,18 @@ Hidden=true
 
 
 Name=Actions
+Name[es]=Acciones
+Name[ga]=Gníomhartha
+Name[nds]=Akschonen
+Name[nl]=Acties
+Name[pt]=Acções
+Name[pt_BR]=Ações
+Name[uk]=Дії
+Name[x-test]=xxActionsxx
 
 Comment=Configuration of simons Actions
+Comment[es]=Configuración de las acciones de simon
+Comment[pt]=Configuração das Acções do Simon
+Comment[uk]=Налаштування дій simon
+Comment[x-test]=xxConfiguration of simons Actionsxx
 

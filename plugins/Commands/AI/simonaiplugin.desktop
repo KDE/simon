@@ -4,7 +4,14 @@ Icon=view-media-artist
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonaiplugin
 Name=simon AI Plugin
+Name[es]=Complemento de IA para simon
+Name[pt]='Plugin' de IA do Simon
+Name[uk]=Додаток штучного інтелекту simon
+Name[x-test]=xxsimon AI Pluginxx
 Comment=Voicecontrolled Chatbot with Festival based speech output
+Comment[pt]=Área de conversação com o resultado da fala baseado no Festival
+Comment[uk]=Керований голосом бот з заснованим на Festival мовленням
+Comment[x-test]=xxVoicecontrolled Chatbot with Festival based speech outputxx
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

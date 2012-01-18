@@ -4,7 +4,15 @@ Icon=view-filter
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonfilterplugin
 Name=simon Filter Plugin
+Name[es]=Complemento de filtrado para simon
+Name[pt]='Plugin' de Filtragem do Simon
+Name[uk]=Додаток фільтрування simon
+Name[x-test]=xxsimon Filter Pluginxx
 Comment=Filters recognition results
+Comment[es]=Filtra el resultado del reconocimiento
+Comment[pt]=Filtra os resultados do reconhecimento
+Comment[uk]=Додаток фільтрування результатів розпізнавання
+Comment[x-test]=xxFilters recognition resultsxx
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

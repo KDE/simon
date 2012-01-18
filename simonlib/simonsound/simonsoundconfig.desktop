@@ -14,6 +14,14 @@ X-KDE-System-Settings-Parent-Category=simon
 Hidden=true
 
 Name=Recordings
+Name[es]=Grabaciones
+Name[pt]=Gravações
+Name[uk]=Записи
+Name[x-test]=xxRecordingsxx
 
 Comment=Configuration of simons Soundsystem
+Comment[es]=Configuración del sistema de sonido de simon
+Comment[pt]=Configuração do sistema de som do Simon
+Comment[uk]=Налаштування звукової системи simon
+Comment[x-test]=xxConfiguration of simons Soundsystemxx
 

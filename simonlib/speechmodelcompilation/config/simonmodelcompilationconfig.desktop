@@ -11,6 +11,12 @@ X-KDE-ParentApp=simond
 X-KDE-System-Settings-Parent-Category=accessibility
 
 Name=Speech Model Compilation
+Name[pt]=Compilação do Modelo de Fala
+Name[uk]=Компіляція моделі мовлення
+Name[x-test]=xxSpeech Model Compilationxx
 
 Comment=Configuration of simons Speech-Model-Compilation
+Comment[pt]=Configuração da compilação do modelo de fala do Simon
+Comment[uk]=Налаштування компіляції моделі мовлення simon
+Comment[x-test]=xxConfiguration of simons Speech-Model-Compilationxx
 

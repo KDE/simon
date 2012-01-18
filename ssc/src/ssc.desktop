@@ -1,10 +1,19 @@
 [Desktop Entry]
 Name=ssc
+Name[es]=ssc
+Name[ga]=ssc
+Name[pt]=ssc
+Name[pt_BR]=ssc
+Name[uk]=ssc
+Name[x-test]=xxsscxx
 Exec=ssc %i -caption "%c"
 Icon=ssc
 Type=Application
 X-DocPath=ssc/index.html
 GenericName=simon sample collector
+GenericName[pt]=recolha de amostras do Simon
+GenericName[uk]=Збирач зразків simon
+GenericName[x-test]=xxsimon sample collectorxx
 Terminal=false
 Categories=Qt;KDE;Utility;Accessibility;
 X-KDE-StartupNotify=false

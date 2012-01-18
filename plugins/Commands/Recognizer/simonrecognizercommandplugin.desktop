@@ -4,7 +4,15 @@ Icon=text-field
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonrecognizercommandplugin
 Name=simon Recognizer Plugin
+Name[es]=Complemento de reconocimiento para simon
+Name[pt]='Plugin' de Reconhecimento do Simon
+Name[uk]=Додаток розпізнавання simon
+Name[x-test]=xxsimon Recognizer Pluginxx
 Comment=Recognize
+Comment[es]=Reconocer
+Comment[pt]=Reconhecer
+Comment[uk]=Розпізнати
+Comment[x-test]=xxRecognizexx
 
 X-KDE-PluginInfo-Author=Adam Nash
 X-KDE-PluginInfo-Email=adam.t.nash@gmail.com

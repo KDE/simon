@@ -1,9 +1,19 @@
 [Desktop Entry]
 Name=afaras
+Name[es]=afaras
+Name[ga]=afaras
+Name[nds]=afaras
+Name[nl]=afaras
+Name[pt]=afaras
+Name[uk]=afaras
+Name[x-test]=xxafarasxx
 Exec=afaras %i -caption "%c"
 Icon=afaras
 Type=Application
 X-DocPath=afaras/index.html
 GenericName=Find and remove bad samples
+GenericName[pt]=Procurar e remover amostras inválidas
+GenericName[uk]=Знайти і вилучити помилкові зразки
+GenericName[x-test]=xxFind and remove bad samplesxx
 Terminal=false
 Categories=Qt;KDE;Utility

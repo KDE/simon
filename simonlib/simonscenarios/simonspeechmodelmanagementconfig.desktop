@@ -14,6 +14,13 @@ X-KDE-System-Settings-Parent-Category=simon
 Hidden=true
 
 Name=Speech Model
+Name[es]=Modelo de habla
+Name[pt]=Modelo de Fala
+Name[uk]=Модель мовлення
+Name[x-test]=xxSpeech Modelxx
 
 Comment=Configuration of simons Speech Model
+Comment[pt]=Configuração do modelo de fala do Simon
+Comment[uk]=Налаштування моделі мовлення simon
+Comment[x-test]=xxConfiguration of simons Speech Modelxx
 

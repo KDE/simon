@@ -16,5 +16,13 @@ X-KDE-System-Settings-Parent-Category=ssc
 Hidden=true
 
 Name=SSC
+Name[es]=SSC
+Name[pt]=SSC
+Name[pt_BR]=SSC
+Name[uk]=SSC
+Name[x-test]=xxSSCxx
 
 Comment=Configuration of the simon sample collector
+Comment[pt]=Configuração da recolha de amostras do Simon
+Comment[uk]=Налаштування збирача зразків simon
+Comment[x-test]=xxConfiguration of the simon sample collectorxx

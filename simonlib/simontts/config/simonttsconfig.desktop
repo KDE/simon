@@ -12,6 +12,16 @@ X-KDE-System-Settings-Parent-Category=simon
 Hidden=true
 
 Name=Text-to-speech
+Name[es]=Lectura de texto
+Name[nl]=Tekst-naar-spraak
+Name[pt]=Texto-para-fala
+Name[pt_BR]=Sintetizador de voz
+Name[uk]=Синтез мовлення з тексту
+Name[x-test]=xxText-to-speechxx
 
 Comment=Configuration of simons text-to-speech layer
+Comment[es]=Configuración de la capa de lectura de texto de simon
+Comment[pt]=Configuração da interface de texto-para-fala Simon
+Comment[uk]=Налаштування шару перетворення тексту у мовлення simon
+Comment[x-test]=xxConfiguration of simons text-to-speech layerxx
 

@@ -4,7 +4,13 @@ Icon=accessories-calculator
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simoncalculatorplugin
 Name=simon Calculator Command Plugin
+Name[pt]='Plugin' de Comandos da Calculadora do Simon
+Name[uk]=Додаток команд калькулятора simon
+Name[x-test]=xxsimon Calculator Command Pluginxx
 Comment=Provides a voice controllable user interface
+Comment[pt]=Oferece uma interface de utilizador controlada pela voz
+Comment[uk]=Надає інтерфейс користувача з керуванням за допомогою голосу
+Comment[x-test]=xxProvides a voice controllable user interfacexx
 
 X-KDE-PluginInfo-Author=Dominik Neumeister
 X-KDE-PluginInfo-Email=domar@gmx.at
