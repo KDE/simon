@@ -508,7 +508,7 @@ This method of visual feedback proved especially valuable when recording with pe
 
 <para>However, even relatively cheap headsets (around 30 Euros) achieve very good results - magnitudes better than internal microphones.</para>
 
-<para>For maximum compatability we recommend USB headsets as they usually support the necessary samplerate of 16 kHz, are very well supported from both Microsoft Windows as well as GNU/Linux and normally don't require special, proprietary drivers to operate.</para>
+<para>For maximum compatibility we recommend USB headsets as they usually support the necessary samplerate of 16 kHz, are very well supported from both Microsoft Windows as well as GNU/Linux and normally don't require special, proprietary drivers to operate.</para>
 </sect2>
 
 
@@ -921,7 +921,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-<para>When creating a new scenario, please give it a descriptive name. For the later upload on <ulink url="http://kde-files.org/index.php?xcontentmode=692">KDE files</ulink> we would kindly ask you to follow a certain naming scheme altough this is of course not a requirement: "[&lt;language&gt;/&lt;base model&gt;] &lt;name&gt;". If, for example you create a scenario in English that works with the Voxforge base model and controls Mozilla Firefox this becomes: "[EN/VF] Firefox". If your scenario is not specifically tailored to one phoneme set (base model), just omit the second tag like this: "[EN] Firefox".</para>
+<para>When creating a new scenario, please give it a descriptive name. For the later upload on <ulink url="http://kde-files.org/index.php?xcontentmode=692">KDE files</ulink> we would kindly ask you to follow a certain naming scheme although this is of course not a requirement: "[&lt;language&gt;/&lt;base model&gt;] &lt;name&gt;". If, for example you create a scenario in English that works with the Voxforge base model and controls Mozilla Firefox this becomes: "[EN/VF] Firefox". If your scenario is not specifically tailored to one phoneme set (base model), just omit the second tag like this: "[EN] Firefox".</para>
 
 <para>The scenario version is just an incremental version number that makes it easier to distinguish between different revisions of a scenario.</para>
 
@@ -1413,7 +1413,7 @@ The dialog offers four choices:
     <para>Delete the word but keep the samples</para>
     <para>Removes the word completely but keeps the associated samples. Whenever you add another word with the same word name the samples will be re-associated.</para>
     <para>Be careful with this option as the new word you add again might be transcribed differently and this difference can not be taken into account automatically (simon will then try to force the new transcription on the old recordings during the model compilation).</para>
-    <para>Do not use this option if the samples you recorded for this word were errenous.</para>
+    <para>Do not use this option if the samples you recorded for this word were erroneous.</para>
   </listitem>
   <listitem><para>Remove the word completely</para>
   <para>Just remove the word. All the recordings containing the word will be removed too.</para>
@@ -2779,13 +2779,13 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   </screenshot>
   </para>
 
-  <para>The keyboard consits of multiple tabs, each possibly containing many keys. The entirety of tabs and keys are collected in "sets".</para>
+  <para>The keyboard consists of multiple tabs, each possibly containing many keys. The entirety of tabs and keys are collected in "sets".</para>
 
-  <para>You can select sets in the configuration but also create new ones from scratch in the keyboard command confiugration.</para>
+  <para>You can select sets in the configuration but also create new ones from scratch in the keyboard command configuration.</para>
 
   <para>
   <screenshot>
-  <screeninfo>Keyboard: Confiugration</screeninfo>
+  <screeninfo>Keyboard: Configuration</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="keyboard_2.png" format="PNG"/>
@@ -2796,7 +2796,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
   <para>Keys are usually mapped to single characters but can also hold long texts and even shortcuts. Because of this, keyboard sets can contain special keys like a "select all" key or a "Password" key (typing your password).</para>
 
-  <para>Next to the tabs that hold the keys of your set, the keyboard my also show special keys like Ctrl, Shift, etc. Those keys are provided as voice inteface commands and are displayed regardless of what tab of the set is currently active.</para>
+  <para>Next to the tabs that hold the keys of your set, the keyboard my also show special keys like &Ctrl;, &Shift;, etc. Those keys are provided as voice interface commands and are displayed regardless of what tab of the set is currently active.</para>
   <para>As with all voice triggers, removing the associated command, hides the buttons as well.</para>
 
   <para>Moreover, the keyboard provides a numpad that can be shown by selecting the appropriate option in the keyboard configuration.</para>

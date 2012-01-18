@@ -7,7 +7,7 @@
                                      this unchanged if your
                                      application is not maintained in KDE CVS -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> 
+  <!ENTITY % English "INCLUDE">
 
 ]>
 <book lang="&language;">
@@ -101,7 +101,7 @@
 </para>
 
 <para>
-  To use ssc connect to the sscd by pressing <guibutton>Connect</guibutton>. As soon as you are connected, the user interface will allow you to manage users and insitutions and record new samples.</para>
+  To use ssc connect to the sscd by pressing <guibutton>Connect</guibutton>. As soon as you are connected, the user interface will allow you to manage users and institutions and record new samples.</para>
 <para>To proceed without connecting to the sscd, you may use the <link linkend="offline_mode">offline mode</link>.
 </para>
 
@@ -130,7 +130,7 @@
 
   <para>Here you see a list of all existing speakers in the database. For performance reason the list <emphasis>may not be complete</emphasis>. To find users in large deployments you can apply filters to the result set by filling out the mask above and pressing <guibutton>Apply Filters</guibutton>. The default is no filter. Empty fields are ignored when filtering.</para>
 
-  <para>To filter for a specific institution enter the institution id into the <guilabel>Institution</guilabel> field. If you don't know the intitution id by hard you can use the <guibutton>Search</guibutton> menu.</para>
+  <para>To filter for a specific institution enter the institution id into the <guilabel>Institution</guilabel> field. If you don't know the institution id by hard you can use the <guibutton>Search</guibutton> menu.</para>
 
   <para>To add, edit or remove users simply press the buttons <guibutton>Add</guibutton>, <guibutton>Edit</guibutton> and <guibutton>Remove</guibutton>, respectively.</para>
 
@@ -174,7 +174,7 @@
 
       <para>Simply enter the id of the institution the identifier originates from (you may want to use the <guibutton>Search</guibutton> to find institution ids) and the id that identifies the user in that institution.</para>
 
-      <para>For example: The speaker "Jack Jones" is currently a patient in institution #1. There he is patient "#520f". You can then add an instition association associating the speaker "Jack Jones" (internal sscd id "7")  with the institution "1" and institution id "520f". If &kmyapplication; is the configured to use institution specific ids of institution "1" you can refer to "Jack Jones" by using the id "520f" instead of "7".</para>
+      <para>For example: The speaker "Jack Jones" is currently a patient in institution #1. There he is patient "#520f". You can then add an institution association associating the speaker "Jack Jones" (internal sscd id "7")  with the institution "1" and institution id "520f". If &kmyapplication; is the configured to use institution specific ids of institution "1" you can refer to "Jack Jones" by using the id "520f" instead of "7".</para>
     </sect3>
 
     <sect3 id="user_capabilities">
@@ -239,7 +239,7 @@
   <sect2 id="files">
     <title>Setting up trainings material</title>
     <para>Before you can use ssc you will likely want to adjust the trainings prompts for the recordings.</para>
-    <para>They are three, one for each trainingy type, simple text files containing one line per prompt. The encoding is UTF-8.</para>
+    <para>They are three, one for each training type, simple text files containing one line per prompt. The encoding is UTF-8.</para>
     <para>Their location depends on your operation system:
       <table frame='all'><title>Trainings data files</title>
       <tgroup cols='2' align='left' colsep='1' rowsep='1'>

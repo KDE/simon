@@ -7,7 +7,7 @@
                                      this unchanged if your
                                      application is not maintained in KDE CVS -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> 
+  <!ENTITY % English "INCLUDE">
 
 ]>
 <book lang="&language;">
@@ -180,7 +180,7 @@
 
   <para>Here you can build the model using the input and output files defined in the <link linkend="input_output">input &amp; output section</link>.</para>
 
-  <para>The compilation process is identical to the one used by simond. Unlike simond, however, the full log of all called external programs, their output as well as progress information is shown regardless of wether the compilation was successful or not.</para>
+  <para>The compilation process is identical to the one used by simond. Unlike simond, however, the full log of all called external programs, their output as well as progress information is shown regardless of whether the compilation was successful or not.</para>
 
 <para>
 <screenshot>
@@ -250,7 +250,7 @@
     <title>Word</title>
 
     <para>&kmyapplication; will list recognition accuracy for each word individually.</para>
-    
+
     <para>
     <screenshot>
     <screeninfo>Word results</screeninfo>
@@ -265,7 +265,7 @@
     </screenshot>
     </para>
 
-    <para>If you have samples containing more than one word they will be segment during recognition. Each word will be scored individually altough the different words of course still influence each other.</para>
+    <para>If you have samples containing more than one word they will be segment during recognition. Each word will be scored individually although the different words of course still influence each other.</para>
   </sect2>
 
   <sect2 id="test_results_sentences">
