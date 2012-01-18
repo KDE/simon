@@ -38,7 +38,6 @@ target_link_libraries(simonakonadicommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LI
 
 install(TARGETS simonakonadicommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandakonadiplugin )
 install( FILES simonakonadicommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandakonadiplugin )
-add_subdirectory(po)
 
 # install(FILES akonadisets.xml DESTINATION
 # 	${DATA_INSTALL_DIR}/simon/conf COMPONENT simoncommandakonadiplugin)

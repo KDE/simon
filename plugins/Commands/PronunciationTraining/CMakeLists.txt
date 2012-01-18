@@ -24,4 +24,3 @@ target_link_libraries(simonpronunciationtrainingplugin ${KDE4_KDEUI_LIBS}
 
 install(TARGETS simonpronunciationtrainingplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandpronunciationtrainingplugin )
 install( FILES simonpronunciationtrainingplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandpronunciationtrainingplugin )
-add_subdirectory(po)
