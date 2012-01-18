@@ -23,4 +23,3 @@ target_link_libraries(simondictationcommandplugin ${KDE4_KDEUI_LIBS}
 
 install(TARGETS simondictationcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddictationplugin )
 install( FILES simondictationcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddictationplugin )
-add_subdirectory(po)
