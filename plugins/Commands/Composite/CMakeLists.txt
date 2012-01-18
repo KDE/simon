@@ -26,4 +26,3 @@ target_link_libraries(simoncompositecommandplugin ${KDE4_KDEUI_LIBS}
 
 install(TARGETS simoncompositecommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandcompositeplugin )
 install( FILES simoncompositecommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandcompositeplugin )
-add_subdirectory(po)
