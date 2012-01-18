@@ -31,7 +31,6 @@ target_link_libraries(simonkeyboardcommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_L
 
 install(TARGETS simonkeyboardcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandkeyboardplugin )
 install( FILES simonkeyboardcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandkeyboardplugin )
-add_subdirectory(po)
 
 install(FILES keyboardsets.xml DESTINATION
 	${DATA_INSTALL_DIR}/simon/conf COMPONENT simoncommandkeyboardplugin)

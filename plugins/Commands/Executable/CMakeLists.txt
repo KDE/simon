@@ -26,4 +26,3 @@ target_link_libraries(simonexecutablecommandplugin ${KDE4_KDEUI_LIBS} ${KDE4_KIO
 
 install(TARGETS simonexecutablecommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandexecutableplugin )
 install( FILES simonexecutablecommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandexecutableplugin )
-add_subdirectory(po)

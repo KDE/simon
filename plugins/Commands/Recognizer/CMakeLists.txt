@@ -23,4 +23,3 @@ target_link_libraries(simonrecognizercommandplugin ${KDE4_KDEUI_LIBS}
 
 install(TARGETS simonrecognizercommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandrecognizerplugin )
 install( FILES simonrecognizercommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandrecognizerplugin )
-add_subdirectory(po)
