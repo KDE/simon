@@ -158,7 +158,7 @@ bool CreateDialogCommandWidget::init(Command* command)
   }
 
   if (!notFound.isEmpty()) {
-    KMessageBox::sorry(this, i18n("Could not find all of the commands that are referenced form this dialog command.\n\n"
+    KMessageBox::sorry(this, i18n("Could not find all of the commands that are referenced from this dialog command.\n\n"
       "The missing commands are: %1.", notFound.join(", ")));
   }
 

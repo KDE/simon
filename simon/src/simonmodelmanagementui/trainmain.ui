@@ -75,7 +75,7 @@
      <item>
       <widget class="KPushButton" name="pbImportText">
        <property name="toolTip">
-        <string>Import new texts from local files or form an oline repository</string>
+        <string>Import new texts from local files or from an oline repository</string>
        </property>
        <property name="text">
         <string>Add Text</string>

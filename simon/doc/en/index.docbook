@@ -8,7 +8,7 @@
                                      this unchanged if your
                                      application is not maintained in KDE CVS -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> 
+  <!ENTITY % English "INCLUDE">
 
 ]>
 
@@ -95,7 +95,7 @@ Because of it's architecture, the same version of simon can be used with all lan
 <sect1 id="architecture">
 <title>Architecture</title>
 <para>
-The main recognition architecture of simon consits of three applications.
+The main recognition architecture of simon consists of three applications.
 <itemizedlist>
   <listitem><para>&kmyapplication;</para><para>This is the main graphical interface.</para><para>It acts as a client to the simond server.</para></listitem>
   <listitem><para>simond</para><para>The recognition server.</para></listitem>
@@ -104,7 +104,7 @@ The main recognition architecture of simon consits of three applications.
 </para>
 
 <para>
-These three components form a real a client / server solution for the recognition. That means that there is one server (simond) for one or more clients (&kmyapplication;; This application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with simond graphically.
+These three components form a real client / server solution for the recognition. That means that there is one server (simond) for one or more clients (&kmyapplication;; This application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with simond graphically.
 </para>
 
 <para>
@@ -137,7 +137,7 @@ Please refer to the individual handbooks of those applications for more details.
 
 <para>simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users. By default a standard user is set up in both simon and simond so the typical use case of one simond server per simon client will work "out of the box".</para>
 <para> Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond server. One simond instance can of course also serve multiple users.</para>
-<para>If you want to open up the server to the internet or use multiple users on one server, you will have to configure simond. Please see the <ulink url="help:/simond">simond manual</ulink> for details.
+<para>If you want to open up the server to the Internet or use multiple users on one server, you will have to configure simond. Please see the <ulink url="help:/simond">simond manual</ulink> for details.
 </para>
 </sect1>
 
@@ -260,7 +260,7 @@ However, in most cases scenarios are tailored to work best with a specific <link
 </para>
 
 <para>
-Because scenarios are not specifically bound to the acoustic model, they can be shared and exchanged between different simon users without problems. To accomodate this community based repository pool, a <ulink url="http://kde-files.org/index.php?xcontentmode=692">category for simon scenarios has been created on kde-files.org</ulink> where the scenarios, which are just simple text files (XML format), can be exchanged easily.
+Because scenarios are not specifically bound to the acoustic model, they can be shared and exchanged between different simon users without problems. To accommodate this community based repository pool, a <ulink url="http://kde-files.org/index.php?xcontentmode=692">category for simon scenarios has been created on kde-files.org</ulink> where the scenarios, which are just simple text files (XML format), can be exchanged easily.
 </para>
 
 <para>
@@ -514,7 +514,7 @@ This method of visual feedback proved especially valuable when recording with pe
 
 <sect2 id="sample_quality_assurance">
 <title>Sample Quality Assurance</title>
-<para>simon will check each recording against certain criteria to ensure that the recorded samples are not errenous or of poor quality.</para>
+<para>simon will check each recording against certain criteria to ensure that the recorded samples are not erroneous or of poor quality.</para>
 
 <para>If simon detects a problematic sample, it will warn the user to re-record the sample.</para>
 
@@ -669,7 +669,7 @@ For more information about speech models, please refer to the <link linkend="spe
 
 <para>Speech models describe how your voice sounds, what words exist, how they sound and what word combination ("sentences" or "structures") exist.</para>
 
-<para>A speech model basically consists of two parts: 
+<para>A speech model basically consists of two parts:
 <itemizedlist>
 <listitem><para>Language model: Describes all existing words and what sentences are grammatically correct </para></listitem>
 <listitem><para>Acoustic model: Describes how words sound </para></listitem>
@@ -681,7 +681,7 @@ For more information about speech models, please refer to the <link linkend="spe
 <sect2>
 <title>Language Model</title>
 <para>
-In most cases you only need to <link linkend="scenarios_use">install the appropriate scenario</link> for your use case to set up your language model. 
+In most cases you only need to <link linkend="scenarios_use">install the appropriate scenario</link> for your use case to set up your language model.
 </para>
 <para>
 To create your own language model, you can use simon to <link linkend="add_word">add</link> / <link linkend="edit_word">edit</link> / <link linkend="remove_word">remove</link> words and <link linkend="grammar">grammar structures</link>.
@@ -695,7 +695,7 @@ To make the adding of words easier, you can import a <link linkend="shadow_dicti
 <sect2>
 <title>Acoustic Model</title>
 <para>
-To create your own acoustic model you can simple <link linkend="training">read the trainings texts</link> that come with your selected scenarios a couple of times. 
+To create your own acoustic model you can simple <link linkend="training">read the trainings texts</link> that come with your selected scenarios a couple of times.
 </para>
 <para>
 If you are creating your own scenario you can easily <link linkend="training">create trainingstexts yourself</link>.
@@ -727,7 +727,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 <sect2 id="first_run_scenarios">
 <title>Scenarios</title>
 
-<para>In this step you can download <link linkend="scenarios">scenarios</link> from the internet and import them into simon.</para>
+<para>In this step you can download <link linkend="scenarios">scenarios</link> from the Internet and import them into simon.</para>
 
 <para>
   <screenshot>
@@ -1312,7 +1312,7 @@ We can now enter the pronunciation and change the terminal to something appropri
 <title>Training the Word</title>
 <para>
   To complete the wizard we can now train the word twice. If you don't want to do this or for example use a <link linkend="base_model_static">static base model</link>, you can skip these two pages.
-</para> 
+</para>
 
 <para>
   Because you are about to record some training samples, simon will display the volume calibration to make sure that your microphone is set up correctly. For more information please refer to the <link linkend="volume_calibration">volume calibration section</link>
@@ -1677,7 +1677,7 @@ This allows all the combinations described above. However, it also limits the po
 
 <sect2>
 <title>Defining your Grammar</title>
-<para> 
+<para>
 simon provides an easy to use text based interface to change the grammar. You can simply list all the allowed sentences (without any punctuation marks, obviously) like described above.
 
 <screenshot>
@@ -1712,7 +1712,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 
 <para>simon can read and import text files but also provides an input field if you want to simply type the text into simon.</para>
 
-<para>Say we have a vocabulary like in the general section above: 
+<para>Say we have a vocabulary like in the general section above:
 
 <table frame='all'><title>Improved Sample Vocabulary</title>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -1778,7 +1778,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 <para>simon will then read the entered text or all the given text files (in this case the only given text file is "simongrammar.txt") and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
 <para>In our example this would mean that he would find the sentence "Computer Internet". simon would find out that "Computer" is of the terminal "Trigger" and "Internet" of the terminal "Command". Because of this simon would "learn" that "Trigger Command" is a valid sentence and add it to its grammar.</para>
 <para>The import automatically segments the input text by punctuation marks (".", " - ", "!", etc.) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
-<para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the "Also import unknown sentences" checkbox in which case those words are replaced with "Unknown".</para> 
+<para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the "Also import unknown sentences" checkbox in which case those words are replaced with "Unknown".</para>
 
 </sect2>
 
@@ -1846,7 +1846,7 @@ The interface lists all installed trainings-texts in a table consisting of three
 </para>
 
 <para>
-To improve the acoustic model - and thus the recognition rate - you have to record trainings-texts. This means that simon gets essentially two needed parts: 
+To improve the acoustic model - and thus the recognition rate - you have to record trainings-texts. This means that simon gets essentially two needed parts:
 
 <itemizedlist>
   <listitem><para>Samples of your speech</para></listitem>
@@ -1995,7 +1995,7 @@ The add texts wizard provides a simple way to add new trainings-texts to simon.
 
 <sect2 id="import_trainings-data">
 <title>Importing Trainings Samples</title>
-<para> 
+<para>
 Using the import trainings-data field one can import previously gathered trainings-samples from previous simon versions or manual trainings without copying the whole dictionary.</para>
 
 <para>
@@ -2492,7 +2492,7 @@ By default the desktopgrid uses numbers to select the individual fields. To use 
 <para>While this seems like the most elegant solution as it would enable the user to say "fivehundredseventytwo" we can easily see that it would be quite a problem to add all these words - let alone train them. What about "twothousandninehundredtwo"? Where to stop?</para></listitem>
 <listitem><para><emphasis>Spell out the number using the individual digits</emphasis></para>
 <para>While this is not as elegant as stating the complete number it is much more practical.</para>
-<para>However, many applications (like the great mouseless browsing firefox addon) rely on the user to input large numbers without too much time passing between the individual keystrokes (mouselss browsing for example will wait exactly 500ms per default before it considers the input of the number complete). So if you want to enter 52 you would first say "Five (pause) Two". Because of the needed pause, the application (like the mouseless browsing plugin) would consider the input of "Five" complete.</para></listitem>
+<para>However, many applications (like the great mouseless browsing firefox addon) rely on the user to input large numbers without too much time passing between the individual keystrokes (mouseless browsing for example will wait exactly 500ms per default before it considers the input of the number complete). So if you want to enter 52 you would first say "Five (pause) Two". Because of the needed pause, the application (like the mouseless browsing plugin) would consider the input of "Five" complete.</para></listitem>
 </itemizedlist>
 </para>
 
@@ -2605,9 +2605,9 @@ By default the input number plugin uses numbers to select the individual digits 
 The plugin registers a configuration screen in the command configuration menu where you can choose which AIML set to load.
 </para>
 
-<para>simon will look for AIML sets in the following directory: 
+<para>simon will look for AIML sets in the following directory:
 <itemizedlist>
-<listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/aimls/</filename></para></listitem> 
+<listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/aimls/</filename></para></listitem>
 <listitem><para>Microsoft Windows: <filename>[installation folder (C:\Program Files\simon 0.2\ by default)]\share\apps\ai\aimls\</filename></para></listitem>
 </itemizedlist>
 To add a new set just create a new directory with a descriptive name and copy the .aiml files into it.
@@ -2616,7 +2616,7 @@ To add a new set just create a new directory with a descriptive name and copy th
 <para>
 To adjust your bots personality have a look at the bot.xml and vars.xml files in the following directory:
 <itemizedlist>
-<listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename></para></listitem> 
+<listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename></para></listitem>
 <listitem><para>Microsoft Windows: <filename>[installation folder (C:\Program Files\simon 0.2\ by default)]\share\apps\ai\util\</filename></para></listitem>
 </itemizedlist>
 </para>
@@ -2709,7 +2709,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   <para>
     The filter command plugin registers a configuration screen in the command configuration where you can change what results should be filtered.
   </para>
- 
+
   <para>
   <screenshot>
   <screeninfo>Filter plugin: Configuration</screeninfo>
@@ -2731,7 +2731,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   <title>Pronunciation Training</title>
 
   <para>The pronunciation training, when combined with a good <link linkend="base_model">static base model</link>, can be a powerful tool to improve your pronunciation of a new language.</para>
- 
+
   <para>
   <screenshot>
   <screeninfo>Pronunciation training</screeninfo>
@@ -2968,7 +2968,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 <para>On this configuration page you can also set the parameters for the <link linkend="volume_calibration">volume calibration</link>.</para>
 
 <para>It can be deactivated for both the add word dialog and the trainings wizard by unchecking the group box itself. As long as the volume is not louder than the minimum volume simon will prompt the user to raise the microphone volume. If the recording hits the maximum volume once, simon will tell the user to lower the volume.</para>
-<para>Clipping (hitting the maximum amplitute) will always cause a "too loud" warning.</para>
+<para>Clipping (hitting the maximum amplitude) will always cause a "too loud" warning.</para>
 <para>The prompted text can be configured by entering text in the input field below. If the edit is empty a default text will be used.</para>
 </sect3>
 
@@ -3141,7 +3141,7 @@ The timeout setting specifies, how long simon will wait for a first reply when c
 </para>
 
 <para>
-Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default simon will always synchronize the model with the server when it changes. This is called "Automatic Synchronization" and is the recommended setting. 
+Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default simon will always synchronize the model with the server when it changes. This is called "Automatic Synchronization" and is the recommended setting.
 </para>
 <para>
 However, if you want more control you can instruct simon to ask you before starting the synchronization after the model has changed or to rely on manual synchronization all together. When selecting the manual synchronization you have to manually use the "Synchronization" menu item of the simon main window (also see the section <link linkend="main_window">simon main window</link>) every time you want to compile the speech model.
