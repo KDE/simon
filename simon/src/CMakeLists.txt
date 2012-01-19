@@ -24,6 +24,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonappcore)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonrecognitioncontrol)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/about)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonsampleshare)
 
 set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
@@ -47,18 +48,25 @@ kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-
 
 kde4_add_executable( simon ${simonGeneralSources} )
 
-target_link_libraries( simon ${KDE4_KDEUI_LIBS} 
+if(UNIX)
+	FIND_LIBRARY(X11_X11_LIB X11 ${X11_LIB_SEARCH_PATH})
+target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
+${QT_LIBRARIES} ${QT_QTWEBKIT_LIBRARY}
+${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} ${X11_X11_LIB}
+simonappcore simonactions simoninfo
+simonlogging simonxml simonuicomponents simonsound simonscenarios 
+simonmodelmanagementui simonscenariobase simonscenarioui
+simonrecognitioncontrol simonactionsui simonprogresstracking
+simoncontextui simonsampleshare)
+else(UNIX)
+target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
 ${QT_LIBRARIES} ${QT_QTWEBKIT_LIBRARY}
 ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
 simonappcore simonactions simoninfo
 simonlogging simonxml simonuicomponents simonsound simonscenarios 
 simonmodelmanagementui simonscenariobase simonscenarioui
 simonrecognitioncontrol simonactionsui simonprogresstracking
-simoncontextui)
-
-if(UNIX)
-	FIND_LIBRARY(X11_X11_LIB X11 ${X11_LIB_SEARCH_PATH})
-        target_link_libraries( simon ${X11_X11_LIB})
+simoncontextui simonsampleshare)
 endif(UNIX)
 
 install (TARGETS simon DESTINATION bin COMPONENT simon) #${BIN_INSTALL_DIR} COMPONENT simon)

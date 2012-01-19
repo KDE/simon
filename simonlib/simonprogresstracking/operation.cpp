@@ -21,9 +21,12 @@
 #include <QTimer>
 
 #include <KLocalizedString>
+#include <QMutex>
 
 Operation::Operation(QThread* thread, const QString& name, const QString& currentAction, int now, int max, bool isAtomic) : QObject(0),
 m_thread(thread),
+m_deletionLocker(new QMutex(QMutex::Recursive)),
+m_deletionTimer(new QTimer(this)),
 m_name(name),
 m_currentAction(currentAction),
 m_now(now),
@@ -31,12 +34,14 @@ m_max(max),
 m_isAtomic(isAtomic),
 m_status(Operation::Running)
 {
+  connect(m_deletionTimer, SIGNAL(timeout()), this, SLOT(deleteLater()));
   registerWith(StatusManager::global());
 }
 
 
 void Operation::registerWith(StatusManager *man)
 {
+  QMutexLocker l(m_deletionLocker);
   manager << man;
   man->registerOperation(this);
 }
@@ -44,6 +49,7 @@ void Operation::registerWith(StatusManager *man)
 
 QString Operation::currentAction()
 {
+  QMutexLocker l(m_deletionLocker);
   switch (m_status) {
     case Finished:
       return i18nc("The operation has completed", "Finished");
@@ -59,6 +65,7 @@ QString Operation::currentAction()
 
 void Operation::update(const QString& currentAction, int newProgress, int newMaximum)
 {
+  QMutexLocker l(m_deletionLocker);
   m_currentAction = currentAction;
   m_now = newProgress;
 
@@ -71,6 +78,7 @@ void Operation::update(const QString& currentAction, int newProgress, int newMax
 
 void Operation::update(int newProgress, int newMaximum)
 {
+  QMutexLocker l(m_deletionLocker);
   m_now = newProgress;
   if (newMaximum != -1)
     m_max = newMaximum;
@@ -80,6 +88,7 @@ void Operation::update(int newProgress, int newMaximum)
 
 void Operation::cancel()
 {
+  QMutexLocker l(m_deletionLocker);
   m_cancel=true;
   m_status = Aborting;
   emit aborting();
@@ -89,6 +98,7 @@ void Operation::cancel()
 
 void Operation::maxProgressBar()
 {
+  QMutexLocker l(m_deletionLocker);
   if (maxProgress() > 0)
     update(maxProgress(), maxProgress());
   else update(1,1);
@@ -97,26 +107,29 @@ void Operation::maxProgressBar()
 
 void Operation::canceled()
 {
+  QMutexLocker l(m_deletionLocker);
   m_status = Aborted;
   maxProgressBar();
   pushUpdate();
-  QTimer::singleShot(3000, this, SLOT(deleteLater()));
+  m_deletionTimer->start(3000);
 }
 
 
 void Operation::finished()
 {
+  QMutexLocker l(m_deletionLocker);
   m_status = Finished;
 
   maxProgressBar();
 
   pushUpdate();
-  QTimer::singleShot(3000, this, SLOT(deleteLater()));
+  m_deletionTimer->start(3000);
 }
 
 
 void Operation::pushUpdate()
 {
+  QMutexLocker l(m_deletionLocker);
   foreach (StatusManager *man, manager)
     man->update();
 }
@@ -124,6 +137,7 @@ void Operation::pushUpdate()
 
 Operation::~Operation()
 {
+  QMutexLocker l(m_deletionLocker);
   foreach (StatusManager *man, manager)
     man->removeOperation(this);
 }

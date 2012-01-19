@@ -38,6 +38,13 @@ class SSCOBJECTS_EXPORT Sample : public SSCObject
     QByteArray m_data;
 
   public:
+    enum SampleType
+    {
+      Repeating=1,
+      Training=2,
+      Interview=3
+    };
+    
     Sample(qint32 sampleId, qint32 typeId, qint32 userId, qint16 microphoneId,
       qint16 soundCardId, const QString& path, const QString& prompt,
       const QByteArray& data);

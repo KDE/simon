@@ -19,8 +19,8 @@
 #include "deviceinformationpage.h"
 #include "deviceinformationwidget.h"
 #include "sscconfig.h"
-#include "sscdaccess.h"
 
+#include <sscdaccess/sscdaccess.h>
 #include <simonsound/soundserver.h>
 #include <sscobjects/microphone.h>
 #include <sscobjects/soundcard.h>
@@ -32,6 +32,7 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <sscdaccess/sscdaccesssingleton.h>
 
 DeviceInformationPage::DeviceInformationPage(QWidget *parent) : QWizardPage(parent),
 scrollWidget(new QScrollArea(this))
@@ -124,7 +125,7 @@ QHash<QString, Microphone*> DeviceInformationPage::buildMicrophoneMappings(bool 
     Microphone *mic = new Microphone(0, micModel, micType);
     bool succ = true;
     kDebug() << "Calling server to get or create mic";
-    qint32 id = SSCDAccess::getInstance()->getOrCreateMicrophone(mic, &succ);
+    qint32 id = SSCDAccessSingleton::getInstance()->getOrCreateMicrophone(mic, &succ);
 
     if (!succ) {
       fprintf(stderr, "failed to get / create microphone\n");
@@ -152,7 +153,7 @@ QHash<QString, SoundCard*> DeviceInformationPage::buildSoundCardMappings(bool &o
 
     SoundCard *soundCard = new SoundCard(0, model, type);
     bool succ = true;
-    qint32 id = SSCDAccess::getInstance()->getOrCreateSoundCard(soundCard, &succ);
+    qint32 id = SSCDAccessSingleton::getInstance()->getOrCreateSoundCard(soundCard, &succ);
 
     if (!succ) {
       fprintf(stderr, "failed to get / create soundcard\n");

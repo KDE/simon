@@ -23,6 +23,8 @@
 #include <KMessageBox>
 #include <QSslSocket>
 #include <QSslCipher>
+#include "../../simonlib/sscdaccess/sscdaccess.h"
+#include <sscdaccess/sscdaccesssingleton.h>
 
 SSCConfiguration::SSCConfiguration(QWidget* parent, const QVariantList& args)
 : KCModule(KGlobal::mainComponent(), parent)
@@ -102,6 +104,12 @@ void SSCConfiguration::save()
   SSCConfig::setUseInstitutionSpecificIDs(ui.kcfg_UseInstitutionSpecificIDs->isChecked());
   SSCConfig::setReferenceInstitute(ui.kcfg_ReferenceInstitute->value());
   SSCConfig::self()->config()->sync();
+  
+  kDebug() << SSCConfig::self();
+  kDebug() << "Getting sscd access...";
+  SSCDAccessSingleton::getInstance()->setTimeout(SSCConfig::timeout());
+ kDebug() << "Got sscd access...";
+  kDebug() << "timeout synced";
   // 	if (ui.cbAskForOfflineMode->isChecked())
   // 	{
   // 		kDebug() << "Asking for offline mode is deleted before";

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="simon" version="5">
+<gui name="simon" version="6">
 	<ToolBar name="mainToolBar" >
 		<text>Main actions</text>
 		<Action name="connectActivate" />
@@ -18,6 +18,7 @@
 		<Menu name="file">
 			<Action name="connect" />
 			<Action name="manageScenarios" />
+			<Action name="sampleShare" />
 		</Menu>
 		<Menu name="commands">
 			<text>Commands</text>
@@ -32,3 +33,5 @@
 		</Menu>
 	</MenuBar>
 </gui>
+
+

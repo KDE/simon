@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,48 +17,38 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
-#define SIMON_SAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
+#ifndef SIMON_ABSTRACTSAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
+#define SIMON_ABSTRACTSAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
 
+#include "sscdaccess_export.h"
 #include <QList>
-#include "trainingswizard.h"
+#include <QHash>
+#include <sscobjects/sample.h>
 
-class DeviceInformationPage;
-class TrainSamplePage;
 class Sample;
 class Microphone;
 class SoundCard;
+class TrainingSamplesDescriptor;
 
-/**
- *	@class SampleDataProvider
- *	@brief Combines all data gathered from one training session
- *
- *	@date 22.05.2010
- *	@author Peter Grasch
- */
-class SampleDataProvider
+class SSCDACCESS_EXPORT AbstractSampleDataProvider
 {
-
-  private:
+  protected:
     qint32 m_userId;
-    TrainingsWizard::TrainingsType m_sampleType;
+    Sample::SampleType m_sampleType;
     QString m_name;
-    DeviceInformationPage* m_infoPage;
-    QList<TrainSamplePage*> m_trainSamplePages;
-
     QList<Sample*> m_samplesToTransmit;
+    bool m_keepSamples;
 
-    QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
-    QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
+    virtual QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok)=0;
+    virtual QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok)=0;
+    virtual QList<TrainingSamplesDescriptor*> buildSampleDescriptors(bool &ok)=0;
 
   public:
-    SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QString& name);
-
-    void registerMicrophoneInfo(DeviceInformationPage* infoPage);
-    void registerDataProvider(TrainSamplePage* trainSamplePage);
+    AbstractSampleDataProvider(qint32 userId, Sample::SampleType sampleType, const QString& name, bool keepSamples);
+    virtual ~AbstractSampleDataProvider();
 
     bool startTransmission();
-    bool store();
+    virtual bool store()=0;
 
     bool hasSamplesToTransmit()
       { return !m_samplesToTransmit.isEmpty(); }
@@ -69,10 +59,9 @@ class SampleDataProvider
     Sample* getSample();
     void sampleTransmitted();
 
+    void skipSample();
     void stopTransmission();
 
-    ~SampleDataProvider();
-    void skipSample();
 
 };
 #endif

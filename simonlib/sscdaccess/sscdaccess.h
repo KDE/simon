@@ -20,11 +20,12 @@
 #ifndef SIMON_SSCDACCESS_H_58DB5F6A2C9049A79FFCD02D32604B02
 #define SIMON_SSCDACCESS_H_58DB5F6A2C9049A79FFCD02D32604B02
 
-#include <sscobjects/user.h>
-#include <sscobjects/language.h>
-#include <sscprotocol/sscprotocol.h>
+#include "../sscobjects/user.h"
+#include "../sscobjects/language.h"
+#include "../sscprotocol/sscprotocol.h"
 #include <QList>
 #include <QObject>
+#include "sscdaccess_export.h"
 
 class QSslSocket;
 class QTimer;
@@ -48,33 +49,28 @@ const qint8 protocolVersion=1;
  *	@date 24.10.2009
  *	@author Peter Grasch
  */
-class SSCDAccess : public QObject
+class SSCDACCESS_EXPORT SSCDAccess : public QObject
 {
   Q_OBJECT
 
-    signals:
-  void connected();
-  void disconnected();
+  signals:
+    void connected();
+    void disconnected();
 
-  void error(const QString& errStr);
+    void error(const QString& errStr);
 
-  void warning(const QString&);
+    void warning(const QString&);
 
-  void status(const QString&, int progNow=-1, int progMax=0);
-  void progress(int now, int max=-1);
+    void status(const QString&, int progNow=-1, int progMax=0);
+    void progress(int now, int max=-1);
 
   public:
     SSCDAccess(QWidget *parent=0);
     ~SSCDAccess();
-
-    static SSCDAccess* getInstance(QWidget *parent=0) {
-      if (!instance) instance = new SSCDAccess(parent);
-      return instance;
-    }
-
+    
     bool isConnected();
     QString lastError();
-
+      
     User *getUser(qint32 id);
     QList<User*> getUsers(User *filter,qint32 institutionId, const QString& referenceId, bool *ok);
     qint32 addUser(User* u);
@@ -105,11 +101,12 @@ class SSCDAccess : public QObject
   public slots:
     void disconnectFromServer();
     void connectTo( QString server, quint16 port, bool encrypted );
-
+    const int& getTimeout() const;
+    void setTimeout(const int& timeout_);
   private:
     bool readyToRead;
-    static SSCDAccess *instance;
     QSslSocket *socket;                           //!< QSslSocket for communicating with the sscd-socket
+    int timeout;
 
     QTimer *timeoutWatcher;
     QString lastErrorString;

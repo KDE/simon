@@ -28,7 +28,7 @@
 #include <QPointer>
 
 class Operation;
-class SampleDataProvider;
+class AbstractSampleDataProvider;
 class QVBoxLayout;
 class ProgressWidget;
 class Sample;
@@ -72,7 +72,7 @@ class SendSamplePage : public QWizardPage
     void storeData();
 
   public:
-    SendSamplePage(SampleDataProvider *dataProvider, bool isStored, const QString& ini, QWidget *parent=0);
+    SendSamplePage(AbstractSampleDataProvider *dataProvider, bool isStored, const QString& ini, QWidget *parent=0);
 
     ~SendSamplePage();
     bool isComplete() const;

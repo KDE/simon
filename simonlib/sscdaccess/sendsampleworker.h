@@ -20,35 +20,38 @@
 #ifndef SIMON_SENDSAMPLEWORKER_H_7C93ADEB2453450C88A2A4C90F5D82F1
 #define SIMON_SENDSAMPLEWORKER_H_7C93ADEB2453450C88A2A4C90F5D82F1
 
-#include "trainingswizard.h"
+#include "sscdaccess_export.h"
+#include <sscobjects/sample.h>
 #include <QString>
 #include <QWizardPage>
 #include <QFutureWatcher>
 #include <QTimer>
 #include <QPointer>
 
+class SSCDAccess;
 class Operation;
-class SampleDataProvider;
+class AbstractSampleDataProvider;
 class QVBoxLayout;
 class ProgressWidget;
 class Sample;
 class KPushButton;
 
-class SendSampleWorker : public QObject
+class SSCDACCESS_EXPORT SendSampleWorker : public QObject
 {
   Q_OBJECT
 
-    signals:
-  void status(QString, int now, int max);
-  void error(QString);
-  void aborted();
-  void finished();
-  void sendSample(Sample *s);
+  signals:
+    void status(QString, int now, int max);
+    void error(QString);
+    void aborted();
+    void finished();
+    void sendSample(Sample *s);
 
   private:
+    SSCDAccess *m_server;
     bool shouldAbort;
     bool shouldDelete;
-    SampleDataProvider *m_dataProvider;
+    AbstractSampleDataProvider *m_dataProvider;
     bool m_isStored;
     QString m_storageDirectory;
 
@@ -56,8 +59,10 @@ class SendSampleWorker : public QObject
     void abort() { shouldAbort = true; }
 
   public:
-    SendSampleWorker(SampleDataProvider *dataProvider, bool isStored, const QString& storageDirectory=QString()) :
-    shouldAbort(false),
+    SendSampleWorker(SSCDAccess *server, AbstractSampleDataProvider *dataProvider, 
+		     bool isStored=false, const QString& storageDirectory=QString()) :
+      m_server(server),
+      shouldAbort(false),
       shouldDelete(false),
       m_dataProvider(dataProvider),
       m_isStored(isStored),
@@ -68,7 +73,7 @@ class SendSampleWorker : public QObject
     bool sendSamples();
     bool storeData();
     bool getShouldAbort() { return shouldAbort; }
-    void deleteThatSometimes() { shouldDelete = true; }
+    void deleteThatSometime() { shouldDelete = true; }
 };
 
 #endif

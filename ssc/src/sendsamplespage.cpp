@@ -19,9 +19,10 @@
 
 #include "sendsamplespage.h"
 #include "sscconfig.h"
-#include "sscdaccess.h"
-#include "sendsampleworker.h"
-#include "sampledataprovider.h"
+#include "sscsampledataprovider.h"
+
+#include <sscdaccess/sscdaccess.h>
+#include <sscdaccess/sendsampleworker.h>
 #include <sscobjects/sample.h>
 #include <simonprogresstracking/operation.h>
 #include <simonprogresstracking/progresswidget.h>
@@ -39,11 +40,12 @@
 #include <KLocalizedString>
 #include <KPushButton>
 #include <KDebug>
+#include <sscdaccess/sscdaccesssingleton.h>
 
-SendSamplePage::SendSamplePage(SampleDataProvider* dataProvider, bool isStored, const QString& ini, QWidget* parent) :
+SendSamplePage::SendSamplePage(AbstractSampleDataProvider* dataProvider, bool isStored, const QString& ini, QWidget* parent) :
     QWizardPage(parent),
     m_isStored(isStored),
-    worker(new SendSampleWorker(dataProvider, isStored, ini)),
+    worker(new SendSampleWorker(SSCDAccessSingleton::getInstance(), dataProvider, isStored, ini)),
     layout(new QVBoxLayout()),
     m_transmitOperation(0),
     m_progressWidget(0)
@@ -85,7 +87,7 @@ void SendSamplePage::setupOperation(const QString& name)
   }
 
   if (m_transmitOperation && m_transmitOperation->isRunning())
-    m_transmitOperation->cancel();
+    m_transmitOperation->canceled();
 
   m_transmitOperation = new Operation(QThread::currentThread(), name, i18n("Initializing"), 0, 0, false);
   m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
@@ -177,7 +179,7 @@ SendSamplePage::~SendSamplePage()
     //make sure the thread is done before we delete it
     if (futureWatcher->isRunning()) {
       m_transmitOperation->cancel();
-      worker->deleteThatSometimes();
+      worker->deleteThatSometime();
     }
     else {
       worker->deleteLater();
@@ -206,15 +208,15 @@ void SendSamplePage::initializePage()
 
 void SendSamplePage::prepareDataSending()
 {
-  if (!SSCDAccess::getInstance()->isConnected()) {
+  if (!SSCDAccessSingleton::getInstance()->isConnected()) {
     if (KMessageBox::questionYesNo(this, i18n("Not connected to the server.\n\nDo you want to establish a connection now?")) == KMessageBox::Yes) {
       //connect
-      connect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(prepareDataSending()));
-      connect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(disassociateFromSSCDAccess()));
-      connect(SSCDAccess::getInstance(), SIGNAL(disconnected()), this, SLOT(disassociateFromSSCDAccess()));
-      connect(SSCDAccess::getInstance(), SIGNAL(error(const QString&)), this, SLOT(disassociateFromSSCDAccess()));
+      connect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(prepareDataSending()));
+      connect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(disassociateFromSSCDAccessSingleton()));
+      connect(SSCDAccessSingleton::getInstance(), SIGNAL(disconnected()), this, SLOT(disassociateFromSSCDAccessSingleton()));
+      connect(SSCDAccessSingleton::getInstance(), SIGNAL(error(const QString&)), this, SLOT(disassociateFromSSCDAccessSingleton()));
 
-      SSCDAccess::getInstance()->connectTo(SSCConfig::host(), SSCConfig::port(), SSCConfig::useEncryption());
+      SSCDAccessSingleton::getInstance()->connectTo(SSCConfig::host(), SSCConfig::port(), SSCConfig::useEncryption());
     }
   }
   else
@@ -224,16 +226,16 @@ void SendSamplePage::prepareDataSending()
 
 void SendSamplePage::disassociateFromSSCDAccess()
 {
-  disconnect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(prepareDataSending()));
-  disconnect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(disassociateFromSSCDAccess()));
-  disconnect(SSCDAccess::getInstance(), SIGNAL(disconnected()), this, SLOT(disassociateFromSSCDAccess()));
-  disconnect(SSCDAccess::getInstance(), SIGNAL(error(const QString&)), this, SLOT(disassociateFromSSCDAccess()));
+  disconnect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(prepareDataSending()));
+  disconnect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(disassociateFromSSCDAccessSingleton()));
+  disconnect(SSCDAccessSingleton::getInstance(), SIGNAL(disconnected()), this, SLOT(disassociateFromSSCDAccessSingleton()));
+  disconnect(SSCDAccessSingleton::getInstance(), SIGNAL(error(const QString&)), this, SLOT(disassociateFromSSCDAccessSingleton()));
 }
 
 
 void SendSamplePage::sendData()
 {
-  if (!SSCDAccess::getInstance()->isConnected())
+  if (!SSCDAccessSingleton::getInstance()->isConnected())
     KMessageBox::information(this, i18n("Not connected to server."));
 
   kDebug() << "Sending data";
@@ -253,6 +255,6 @@ void SendSamplePage::sendData()
 
 void SendSamplePage::sendSample(Sample *s)
 {
-  if (!SSCDAccess::getInstance()->sendSample(s))
+  if (!SSCDAccessSingleton::getInstance()->sendSample(s))
     KMessageBox::error(this, i18n("Could not send sample"));
 }
