@@ -1007,7 +1007,7 @@ void RecognitionControl::messageReceived()
           checkIfSynchronisationIsAborting();
 
           kDebug() << "Could not store active model on server";
-          emit synchronisationError(i18n("The server could not store the the active model."));
+          emit synchronisationError(i18n("The server could not store the active model."));
           sendBaseModelDate();
 
           break;

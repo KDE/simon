@@ -15,7 +15,7 @@
     <entry name="StopLocalSimond" type="Bool">
       <label>If we should automatically stop the local simond server when simon exits.</label>
       <default>false</default>
-      <tooltip>If the locally started simond server should be started when simon stops.</tooltip>
+      <tooltip>If the locally started simond server should be stopped when simon stops.</tooltip>
     </entry>
     <entry name="JuliusdAutoConnect" type="Bool">
       <label>If we should automatically connect to the simond.</label>
@@ -56,7 +56,7 @@
 
   <group name="Synchronization">
     <entry name="SynchronizationMode" type="Int">
-      <label>if and how we should start the synchronization when the  model changed.</label>
+      <label>if and how we should start the synchronization when the model changed.</label>
       <default>0</default>
       <tooltip>If and how we should start the synchronization when the model changes.</tooltip>
     </entry>

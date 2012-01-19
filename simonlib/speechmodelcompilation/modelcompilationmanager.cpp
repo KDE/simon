@@ -1697,7 +1697,7 @@ bool ModelCompilationManager::generateMlf()
 bool ModelCompilationManager::adaptBaseModel()
 {
   if (!keepGoing) return false;
-  emit status(i18n("Re-aligninging to base model..."), 550);
+  emit status(i18n("Re-aligning to base model..."), 550);
   if (!realignToBaseModel()) {
     analyseError(i18n("Could not re-align model to the selected base model.\n\nThis error is often caused when you are trying to adapt to a model with a different phoneme set. Ideally you should use the same dictionary as the basemodel.\n\nThis error also occurs if you have no training data to adapt to!"));
     return false;
