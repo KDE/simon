@@ -52,7 +52,10 @@ QDomElement ProcessOpenedCondition::privateSerialize(QDomDocument *doc, QDomElem
 
 QString ProcessOpenedCondition::name()
 {
-    return i18n("'%1' is%2 opened", m_processName, (isInverted() ? " not" : ""));
+    if (!isInverted())
+      return i18nc("The given process needs to be running to satisfy the condition", "'%1' is opened", m_processName);
+    else
+      return i18nc("The given process must not be running to satisfy the condition", "'%1' is not opened", m_processName);
 }
 
 bool ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
