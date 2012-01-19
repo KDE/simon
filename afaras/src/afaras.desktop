@@ -10,7 +10,6 @@ Name[x-test]=xxafarasxx
 Exec=afaras %i -caption "%c"
 Icon=afaras
 Type=Application
-X-DocPath=afaras/index.html
 GenericName=Find and remove bad samples
 GenericName[pt]=Procurar e remover amostras inválidas
 GenericName[uk]=Знайти і вилучити помилкові зразки
