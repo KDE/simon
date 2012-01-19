@@ -244,10 +244,10 @@ One scenario makes up one complete use case of simon. To control firefox, for ex
 <para>
 Each scenario consists of the following components:
 <itemizedlist>
-<listitem><para><link linkend="vocabulary">Vocabulary</link></para></listitem>
-<listitem><para><link linkend="grammar">Grammar</link></para></listitem>
-<listitem><para><link linkend="training">Trainingstexts</link></para></listitem>
-<listitem><para><link linkend="commands">Commands</link></para></listitem>
+<listitem><para><link linkend="vocabulary">Vocabulary</link>&nbsp;</para></listitem>
+<listitem><para><link linkend="grammar">Grammar</link>&nbsp;</para></listitem>
+<listitem><para><link linkend="training">Trainingstexts</link>&nbsp;</para></listitem>
+<listitem><para><link linkend="commands">Commands</link>&nbsp;</para></listitem>
 </itemizedlist>
 </para>
 
@@ -753,7 +753,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-<para>If you import some scenarios here (or later on in the <link linkend="scenarios_use">scenario management dialog</link>) you don't need to set up the vocuablary, grammar, commands, etc. for yourself. Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
+<para>If you import some scenarios here (or later on in the <link linkend="scenarios_use">scenario management dialog</link>) you don't need to set up the vocabulary, grammar, commands, etc. for yourself. Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
 
 </sect2>
 

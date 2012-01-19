@@ -218,7 +218,7 @@ BindHost=127.0.0.1
   
   <para>&kmyapplication; stores the speaker and sample data (but not the samples themselves) in a database. At the moment, only MySQL databases are fully supported. Adding support for a new database is trivial, tough. Contact the <ulink url="mailto:support@simon-listens.org">simon team</ulink> if necessary.</para>
 
-  <para>To set up the requried tables &kmyapplication; ships with an appropriate create script <filename>mysql_create_script.sql</filename> installed in the <link linkend="sscd_directory">base directory</link> of &kmyapplication;.</para>
+  <para>To set up the required tables &kmyapplication; ships with an appropriate create script <filename>mysql_create_script.sql</filename> installed in the <link linkend="sscd_directory">base directory</link> of &kmyapplication;.</para>
 
 
   <para>Database errors can be found in the <filename>error.log</filename> which also resides in the base folder.</para>
