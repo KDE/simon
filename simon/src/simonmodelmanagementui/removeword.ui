@@ -178,7 +178,7 @@
      <item>
       <widget class="QLabel" name="lbTerminalDesc">
        <property name="text">
-        <string>The word will stay in your active dictionary and all samples will be kept. The samples will still be used to improve the acoustic model but simon the word will no longer be considered during the recognition.</string>
+        <string>The word will stay in your active dictionary and all samples will be kept. The samples will still be used to improve the acoustic model but in simon the word will no longer be considered during the recognition.</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
