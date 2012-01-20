@@ -22,6 +22,7 @@ Name[x-test]=xxText-to-speechxx
 Comment=Configuration of simons text-to-speech layer
 Comment[es]=Configuración de la capa de lectura de texto de simon
 Comment[pt]=Configuração da interface de texto-para-fala Simon
+Comment[pt_BR]=Configuração da interface do sintetizador de voz do simon
 Comment[uk]=Налаштування шару перетворення тексту у мовлення simon
 Comment[x-test]=xxConfiguration of simons text-to-speech layerxx
 

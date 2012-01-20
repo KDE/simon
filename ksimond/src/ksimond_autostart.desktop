@@ -13,6 +13,7 @@ Type=Application
 X-DocPath=ksimond/index.html
 GenericName=KDE Front-End to simond
 GenericName[pt]=Interface para o KDE do Simond
+GenericName[pt_BR]=Interface gráfica do simond para o KDE
 GenericName[uk]=Графічна оболонка KDE до simond
 GenericName[x-test]=xxKDE Front-End to simondxx
 Terminal=false

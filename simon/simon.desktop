@@ -7,12 +7,14 @@ Name=simon
 Name[es]=simon
 Name[ga]=simon
 Name[pt]=Simon
+Name[pt_BR]=simon
 Name[uk]=simon
 Name[x-test]=xxsimonxx
 
 GenericName=Speech Recognition
 GenericName[es]=Reconocimiento del habla
 GenericName[pt]=Reconhecimento de Fala
+GenericName[pt_BR]=Reconhecimento de fala
 GenericName[uk]=Розпізнавання мовлення
 GenericName[x-test]=xxSpeech Recognitionxx
 
@@ -21,6 +23,7 @@ Exec=simon
 Comment=Speech Recognition and Model Management
 Comment[es]=Reconocimiento del habla y gestión del modelo
 Comment[pt]=Gestão do Modelo e do Reconhecimento de Fala
+Comment[pt_BR]=Gerenciamento do modelo e do reconhecimento de fala
 Comment[uk]=Керування розпізнаванням мовлення та моделями
 Comment[x-test]=xxSpeech Recognition and Model Managementxx
 

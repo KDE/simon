@@ -5,10 +5,12 @@ ServiceTypes=simon/ConditionPlugin
 X-KDE-Library=simonactivewindowplugin
 Name=simon Active Window Plugin
 Name[pt]='Plugin' da Janela Activa do Simon
+Name[pt_BR]=Plugin da janela ativa do simon
 Name[uk]=Додаток активного вікна simon
 Name[x-test]=xxsimon Active Window Pluginxx
 Comment=Checks for Active Window
 Comment[pt]=Procura pela janela activa
+Comment[pt_BR]=Procura pela janela ativa
 Comment[uk]=Визначення активного вікна
 Comment[x-test]=xxChecks for Active Windowxx
 

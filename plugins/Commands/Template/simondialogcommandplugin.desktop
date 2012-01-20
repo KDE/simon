@@ -5,10 +5,12 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simondialogcommandplugin
 Name=simon Dialog Command Plugin
 Name[pt]='Plugin' de Comandos de Janelas do Simon
+Name[pt_BR]=Plugin de comandos de janelas do simon
 Name[uk]=Додаток команд у діалогових вікнах simon
 Name[x-test]=xxsimon Dialog Command Pluginxx
 Comment=Provides a way to create interactive dialogs with the user
 Comment[pt]=Oferece uma forma de criar janelas interactivas com o utilizador
+Comment[pt_BR]=Oferece uma forma de criar janelas interativas com o usuário
 Comment[uk]=Надає змогу створювати інтерактивні діалогові вікна
 Comment[x-test]=xxProvides a way to create interactive dialogs with the userxx
 

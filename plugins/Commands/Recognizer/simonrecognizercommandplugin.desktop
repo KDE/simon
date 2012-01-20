@@ -6,11 +6,13 @@ X-KDE-Library=simonrecognizercommandplugin
 Name=simon Recognizer Plugin
 Name[es]=Complemento de reconocimiento para simon
 Name[pt]='Plugin' de Reconhecimento do Simon
+Name[pt_BR]=Plugin de reconhecimento do simon
 Name[uk]=Додаток розпізнавання simon
 Name[x-test]=xxsimon Recognizer Pluginxx
 Comment=Recognize
 Comment[es]=Reconocer
 Comment[pt]=Reconhecer
+Comment[pt_BR]=Reconhecer
 Comment[uk]=Розпізнати
 Comment[x-test]=xxRecognizexx
 

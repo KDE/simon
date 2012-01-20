@@ -6,11 +6,13 @@ X-KDE-Library=simondictationcommandplugin
 Name=simon Dictation Plugin
 Name[es]=Complemento de dictado para simon
 Name[pt]='Plugin' de Ditados do Simon
+Name[pt_BR]=Plugin de ditados do simon
 Name[uk]=Додаток диктування simon
 Name[x-test]=xxsimon Dictation Pluginxx
 Comment=Dictate Texts
 Comment[es]=Dictar textos
 Comment[pt]=Fazer ditados de texto
+Comment[pt_BR]=Ditados de texto
 Comment[uk]=Диктування текстів
 Comment[x-test]=xxDictate Textsxx
 

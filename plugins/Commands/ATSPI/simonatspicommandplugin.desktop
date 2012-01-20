@@ -5,10 +5,12 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonatspicommandplugin
 Name=simon ATSPI Command Plugin
 Name[pt]='Plugin' de Comandos AT-SPI do Simon
+Name[pt_BR]=Plugin de comandos ATSPI do simon
 Name[uk]=Додаток команд ATSPI simon
 Name[x-test]=xxsimon ATSPI Command Pluginxx
 Comment=Allows controlling an ATSPI2 enabled desktop
 Comment[pt]=Permite controlar um ambiente com suporte para o AT-SPI2
+Comment[pt_BR]=Permite controlar um ambiente com suporte para o ATSPI2
 Comment[uk]=Надає змогу керувати стільницею з увімкненим ATSPI2
 Comment[x-test]=xxAllows controlling an ATSPI2 enabled desktopxx
 

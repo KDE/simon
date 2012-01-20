@@ -5,10 +5,12 @@ ServiceTypes=simon/ConditionPlugin
 X-KDE-Library=simonprocessopenedconditionplugin
 Name=simon Process Opened Plugin
 Name[pt]='Plugin' de Processo Aberto do Simon
+Name[pt_BR]=Plugin de processo aberto do simon
 Name[uk]=Додаток відкритих процесів simon
 Name[x-test]=xxsimon Process Opened Pluginxx
 Comment=Checks for opened process
 Comment[pt]=Verifica qual o processo aberto
+Comment[pt_BR]=Verifica qual o processo aberto
 Comment[uk]=Перевірка відкритих процесів
 Comment[x-test]=xxChecks for opened processxx
 

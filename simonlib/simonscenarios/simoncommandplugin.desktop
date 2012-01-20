@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=simon/CommandPlugin
 Name=simon command plugin
 Name[pt]='Plugin' de comandos do Simon
+Name[pt_BR]=Plugin de comandos do simon
 Name[uk]=Додаток умов simon
 Name[x-test]=xxsimon command pluginxx
 

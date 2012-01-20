@@ -15,6 +15,7 @@ X-KDE-ParentApp=simon
 Name=Model Extensions
 Name[es]=Extensiones del modelo
 Name[pt]=Extensões do Modelo
+Name[pt_BR]=Extensões do modelo
 Name[uk]=Розширення моделі
 Name[x-test]=xxModel Extensionsxx
 
@@ -22,5 +23,6 @@ Name[x-test]=xxModel Extensionsxx
 
 Comment=Configuration of the simon speech model extensions
 Comment[pt]=Configuração das extensões do modelo de fala do Simon
+Comment[pt_BR]=Configuração das extensões do modelo de fala do simon
 Comment[uk]=Налаштування розширень моделі мовлення simon
 Comment[x-test]=xxConfiguration of the simon speech model extensionsxx
