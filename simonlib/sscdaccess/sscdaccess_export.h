@@ -30,7 +30,7 @@
 #  define SSCDACCESS_EXPORT KDE_EXPORT
 # else
 // We are using this library
-#  define SSCDACCESS_EXPORT
+#  define SSCDACCESS_EXPORT KDE_IMPORT
 # endif
 #endif
 
