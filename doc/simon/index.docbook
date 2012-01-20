@@ -2351,7 +2351,7 @@ By default the list command uses the following trigger words. To use list comman
 </para>
 
 <para>
-List commands are internally also used by other plugins like for example the <link linkend="desktopgrid">desktopgrid</link>. The confiugration of the triggers also affects their displayed lists.
+List commands are internally also used by other plugins like for example the <link linkend="desktopgrid">desktopgrid</link>. The configuration of the triggers also affects their displayed lists.
 </para>
 
 </sect3>
@@ -2647,7 +2647,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
 <para>The calculator extends the <link linkend="input_number">Input Number</link> plugin by providing additional features.</para>
 
-<para>When loading the plugin, a configuration screen is added to the plugin confiugration.</para>
+<para>When loading the plugin, a configuration screen is added to the plugin configuration.</para>
 
 <para>
 <screenshot>
@@ -2660,7 +2660,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 </screenshot>
 </para>
 
-<para>There you can also confiugre the control mode of the calculator. Setting the mode to something else than <guimenuitem>Full calculator</guimenuitem> will hide options from the displayed widget.</para>
+<para>There you can also configure the control mode of the calculator. Setting the mode to something else than <guimenuitem>Full calculator</guimenuitem> will hide options from the displayed widget.</para>
 
 <para>
 <screenshot>
@@ -2753,7 +2753,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
   <para>
   <screenshot>
-  <screeninfo>Pronunciation training: Confiugration</screeninfo>
+  <screeninfo>Pronunciation training: Configuration</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="pronunciation_training_configuration.png" format="PNG"/>
@@ -2934,7 +2934,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
       </listitem>
       <listitem>
         <para><guilabel>Tail margin</guilabel></para>
-        <para>After the recording went below the cutoff level, simon will wait for as long as tail margin to consider the current recording a finished sammple.</para>
+        <para>After the recording went below the cutoff level, simon will wait for as long as tail margin to consider the current recording a finished sample.</para>
       </listitem>
       <listitem>
         <para><guilabel>Skip samples shorter than</guilabel></para>
@@ -2960,7 +2960,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
   <para>When the option <guibutton>Default to power training</guibutton> is selected, simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session.</para>
 
-<para>The confiugrable font here refers to the text that is recorded to train the acoustic model (through explicit training or when adding a word).</para>
+<para>The configurable font here refers to the text that is recorded to train the acoustic model (through explicit training or when adding a word).</para>
 
 <para>This option has been introduced after we have worked with a few clients suffering spastic disability. While we used the mouse to control simon during the training, they had to read what was on the screen. At first this was very problematic as the regular font size is relatively small and they had trouble making out what to read. This is why we made the font and the font size of the recording prompt configurable.</para>
 
@@ -3188,7 +3188,7 @@ However, if you want more control you can instruct simon to ask you before start
 <sect3>
   <title>Plugin base font</title>
   <para>Many plugins of simon have a graphical user interface.</para>
-  <para>The fonts of these interfaces can be configured centrally and independant of the systems font settings here.</para>
+  <para>The fonts of these interfaces can be configured centrally and independent of the systems font settings here.</para>
 
   <para>
   <screenshot>
