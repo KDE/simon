@@ -17,7 +17,7 @@
       <label>Currently active set</label>
     </entry>
     <entry name="useRecordingsAcrossSets" type="Bool">
-      <label>Search all sets when looking for a recording instead of only the currently active one"</label>
+      <label>Search all sets when looking for a recording instead of only the currently active one.</label>
       <default>true</default>
     </entry>
   </group>

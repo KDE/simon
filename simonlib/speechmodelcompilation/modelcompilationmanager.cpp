@@ -815,7 +815,7 @@ bool ModelCompilationManager::createMonophones()
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm0..."), 550);
   if (!buildHMM0()) {
-    analyseError(i18n("Error when generating the HMM0.\n\nPlease check if there is enough training material and that the path tos HCompV(%1), the config (%2) and the phoneme prototype (%3) are correct.", hCompV, getScriptFile("config"), getScriptFile("proto")));
+    analyseError(i18n("Error when generating the HMM0.\n\nPlease check if there is enough training material and that the path to HCompV(%1), the config (%2) and the phoneme prototype (%3) are correct.", hCompV, getScriptFile("config"), getScriptFile("proto")));
     return false;
   }
   if (!keepGoing) return false;
@@ -1233,7 +1233,7 @@ bool ModelCompilationManager::makeTriphones()
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm10..."),1470);
   if (!buildHMM10()) {
-    analyseError(i18n("Could not generate HMM10. Please check th e path to HHEd (%1).", hHEd));
+    analyseError(i18n("Could not generate HMM10. Please check the path to HHEd (%1).", hHEd));
     return false;
   }
 
