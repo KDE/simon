@@ -155,13 +155,11 @@ bool ModelCompilationManager::parseConfiguration()
     !QFile::exists(hCompV) || !QFile::exists(hERest) ||
   !QFile::exists(hVite))) {
     //HTK not found
-    QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\n"
-      #ifdef Q_OS_WIN32
-      "More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows"
-      #else
-      "More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation"
-      #endif
-      );
+    #ifdef Q_OS_WIN32
+    QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\nMore information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
+    #else
+    QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\nMore information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
+    #endif
     emit error(errorMsg);
     return false;
   }
