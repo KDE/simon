@@ -156,7 +156,7 @@
 
     <sect3 id="institution_association">
       <title>Associating with an institution</title>
-      <para>Often institutions give unique ideas to each patient to reference them in their computer system. &kmyapplication; can be configured to use those institution ids instead of the internal sscd identifiers. To connect a ssc user to the institution id add a new institution connection to the user by pressing <guibutton>Add</guibutton> bellow <guilabel>Institution(s):</guilabel>.</para>
+      <para>Often institutions give unique ideas to each patient to reference them in their computer system. &kmyapplication; can be configured to use those institution ids instead of the internal sscd identifiers. To connect a ssc user to the institution id add a new institution connection to the user by pressing <guibutton>Add</guibutton> below <guilabel>Institution(s):</guilabel>.</para>
 
       <para>
       <screenshot>
@@ -332,7 +332,7 @@
         </mediaobject>
       </screenshot>
       </para>
-      <para>Please enter the model and type of the sound card in the <guilabel>Model</guilabel> and <guilabel>Type</guilabel> fields. Enter the information about the microphone in the two input boxes bellow.</para>
+      <para>Please enter the model and type of the sound card in the <guilabel>Model</guilabel> and <guilabel>Type</guilabel> fields. Enter the information about the microphone in the two input boxes below.</para>
       <para>The drop down boxes are filled with the current list of makes and models from already recorded samples. Before entering a new device please make sure that the same device, maybe named a little bit differently, doesn't already exist to avoid duplicates.</para>
     </sect3>
 
