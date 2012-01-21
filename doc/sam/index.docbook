@@ -238,7 +238,7 @@
 
     <para>To best reflect the recognition performance, &kmyapplication; uses multiple, ranked results for the tests.</para>
 
-    <para>A correctly recognized word or sentence will be scored with the confidence score the word achieved and the word will still be listed as "recognized" even tough another recognition result might be ranked higher than the correct one.</para>
+    <para>A correctly recognized word or sentence will be scored with the confidence score the word achieved and the word will still be listed as "recognized" even though another recognition result might be ranked higher than the correct one.</para>
 
     <para>If for example the sample "flowers" is recognized as "flower" (90%), "flowers" (70%), "apple" (12%) it will be marked as "recognized" with a score of 70%.</para>
 
@@ -265,7 +265,7 @@
     </screenshot>
     </para>
 
-    <para>If you have samples containing more than one word they will be segment during recognition. Each word will be scored individually although the different words of course still influence each other.</para>
+    <para>If you have samples containing more than one word they will be segmented during recognition. Each word will be scored individually although the different words of course still influence each other.</para>
   </sect2>
 
   <sect2 id="test_results_sentences">

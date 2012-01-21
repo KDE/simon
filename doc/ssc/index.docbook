@@ -443,7 +443,7 @@
 
   <para>Most of the time when working with &kmyapplication; you will want to connect to the server to access the remotely stored database containing users, institutions, etc. When recording samples you will also transfer them to the server directly in most cases.</para>
 
-  <para>Sometimes, tough, you might not have a (trusted) internet connection available and still need to record samples with &kmyapplication;. For this purpose &kmyapplication; contains an offline mode allowing you to gather speech data without a connection to the sscd server.</para>
+  <para>Sometimes, though, you might not have a (trusted) internet connection available and still need to record samples with &kmyapplication;. For this purpose &kmyapplication; contains an offline mode allowing you to gather speech data without a connection to the sscd server.</para>
 
   <para>In offline mode you can not add / edit or view users or institutions. You can only gather new samples to send to the server later on through the <link linkend="stored_samples">stored samples</link> functionality.</para>
 

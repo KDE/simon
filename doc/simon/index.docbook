@@ -2625,7 +2625,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
 <para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog.</para>
 
-<para>It is recommended to not use any trigger for this plugin to provide a more natural "feel" for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even tough it will react on any input given. This makes it possible to add a "conversation" to the command &amp; control use-case by developing custom AIMLs sets (e.g.: User: "Computer, open Firefox"; Computer: "Certainly, Sir! Starting Firefox..."; Firefox opens).</para>
+<para>It is recommended to not use any trigger for this plugin to provide a more natural "feel" for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even though it will react on any input given. This makes it possible to add a "conversation" to the command &amp; control use-case by developing custom AIMLs sets (e.g.: User: "Computer, open Firefox"; Computer: "Certainly, Sir! Starting Firefox..."; Firefox opens).</para>
 
 <para>Please keep in mind that the AI plugin will only work if festival is installed, set-up correctly and lies in your system path.</para>
 </sect2>

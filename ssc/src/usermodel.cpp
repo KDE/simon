@@ -153,7 +153,7 @@ int role) const
       case 11:
         return i18n("Interview Possible");
       case 12:
-        return i18n("Repeate Possible");
+        return i18n("Repeat Possible");
     }
   }
 
