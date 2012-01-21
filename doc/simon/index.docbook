@@ -3231,7 +3231,7 @@ simon is targeted towards end-users. It's interface is designed to allow even us
 In special cases (severe speech impairments for example), special configuration might be needed. This is why the raw configuration files for the recognition are also respected by simon and can of course be modified to suit your needs.
 </para>
 
-<para>There are basically to parts of the Julius configuration that can be adjusted:
+<para>There are basically two parts of the Julius configuration that can be adjusted:
 <itemizedlist>
 <listitem><para>adin.jconf</para><para>This is the configuration of the simon client of the Soundstream sent from simon to the simond. This file is directly read by the adinstreamer.</para>
 <para>simon ships with a default adin.jconf without any special parameters. You can change this system wide configuration which will affect all users if there are different user accounts on your machine who all use simon. To just change the configuration of one of those users copy the file to the user path (see below) and edit this copy.</para>
