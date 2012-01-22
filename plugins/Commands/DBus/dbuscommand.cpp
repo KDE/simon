@@ -32,7 +32,7 @@
 
 const QString DBusCommand::staticCategoryText()
 {
-  return i18n("DBus");
+  return i18n("D-Bus");
 }
 
 
@@ -59,7 +59,7 @@ const QMap<QString,QVariant> DBusCommand::getValueMapPrivate() const
   QMap<QString,QVariant> out;
   out.insert(i18nc("Name of the service", "Servicename"), m_serviceName);
   out.insert(i18nc("Name of the path", "Path"), m_path);
-  out.insert(i18nc("Name of the DBus interface", "Interface"), m_interface);
+  out.insert(i18nc("Name of the D-Bus interface", "Interface"), m_interface);
   out.insert(i18nc("Name of the method to call", "Method"), m_method);
   out.insert(i18nc("Arguments of the call", "Arguments"), m_args.join(", "));
   return out;

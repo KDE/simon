@@ -13,18 +13,18 @@
       <tooltip>The port to use for the server.</tooltip>
     </entry>
     <entry name="BindTo" type="Bool">
-      <label>whether we want to restrict access to a certain ip.</label>
+      <label>Whether we want to restrict access to a certain ip.</label>
       <default>true</default>
       <tooltip>Whether we want to restrict access to a certain ip.</tooltip>
     </entry>
     <entry name="Host" type="String">
-      <label>The only host allow to connect to the server.</label>
+      <label>The only host allowed to connect to the server.</label>
       <default>127.0.0.1</default>
       <tooltip>The only host allowed to connect to the server.</tooltip>
     </entry>
     
     <entry name="LimitedWriteAccess" type="Bool">
-      <label>whether we want to restrict write access to a certain ip.</label>
+      <label>Whether we want to restrict write access to a certain ip.</label>
       <default>true</default>
       <tooltip>Whether we want to restrict write access to a certain ip.</tooltip>
     </entry>
@@ -35,7 +35,7 @@
     </entry>
 
     <entry name="UseEncryption" type="Bool">
-      <label>whether we want to encrypt the communication between simon and simond.</label>
+      <label>Whether we want to encrypt the communication between simon and simond.</label>
       <default>false</default>
       <tooltip>Whether we want to encrypt the communication between simon and simond.</tooltip>
     </entry>
@@ -44,19 +44,19 @@
       <tooltip>The encryption method to use.</tooltip>
     </entry>
     <entry name="Certificate" type="Url">
-      <label>the path to the SSL certificate.</label>
+      <label>The path to the SSL certificate.</label>
       <tooltip>The path to the SSL certificate.</tooltip>
     </entry>
     
   </group>
   <group name="User">
     <entry name="KeepRecognitionSamples" type="Bool">
-      <label>keep temporary samples.</label>
+      <label>Keep temporary samples.</label>
       <default>false</default>
       <tooltip>Keep the samples used for the recognition.</tooltip>
     </entry>
     <entry name="IsolatedMode" type="Bool">
-      <label>exclusive recognition instance for each connection.</label>
+      <label>Exclusive recognition instance for each connection.</label>
       <default>false</default>
       <tooltip>Exclusive recognition instance for each connection instead of shared rec. instance for each user.</tooltip>
     </entry>
@@ -71,7 +71,7 @@
 
   <group name="ModelManagement">
     <entry name="ModelBackups" type="Int">
-      <label>how many model versions we should preserve.</label>
+      <label>How many model versions we should preserve.</label>
       <default>8</default>
       <tooltip>How many model versions we should preserve for the model backup / restore.</tooltip>
     </entry>

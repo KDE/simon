@@ -45,7 +45,7 @@ const QString DBusCommandManager::iconSrc() const
 
 const QString DBusCommandManager::name() const
 {
-  return i18n("DBus");
+  return i18n("D-Bus");
 }
 
 

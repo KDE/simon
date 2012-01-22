@@ -32,7 +32,7 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
 {
   ui.setupUi(this);
 
-  setWindowTitle(i18n("DBus Condition"));
+  setWindowTitle(i18n("D-Bus Condition"));
   setWindowIcon(KIcon("network-connect"));
 
   connect(ui.leServiceName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));

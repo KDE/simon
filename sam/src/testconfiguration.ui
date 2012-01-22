@@ -54,7 +54,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="lbHmmdefs_2">
           <property name="text">
-           <string>HMM-definitions:</string>
+           <string>HMM definitions:</string>
           </property>
           <property name="buddy">
            <cstring>urHmmDefs</cstring>

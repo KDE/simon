@@ -50,7 +50,7 @@
      <item>
       <widget class="QRadioButton" name="rbActionAskAndDefault">
        <property name="text">
-        <string>Ask, but select default user idles for:</string>
+        <string>Ask, but select default when user idles for:</string>
        </property>
       </widget>
      </item>
