@@ -189,7 +189,7 @@ void AfarasView::save()
   QFile f(ui.urOutputBlacklist->url().toLocalFile());
   if (!f.open(QIODevice::WriteOnly))
   {
-    KMessageBox::sorry(this, i18n("Couldn't open blacklist file for reading"));
+    KMessageBox::sorry(this, i18n("Could not open blacklist file for reading"));
     return;
   }
   f.write(blackListedRecordings.join("\n").toUtf8());

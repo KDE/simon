@@ -99,7 +99,7 @@ void LanguageProfileView::createProfile()
   //prepare sphinx dict
   if (!ScenarioManager::getInstance()->getShadowVocabulary()->
     exportToFile(KStandardDirs::locateLocal("tmp", "simon/sequitur/train.lex"), Vocabulary::SPHINX)) {
-    KMessageBox::sorry(this, i18n("Couldn't export current shadow dictionary to file for further processing."));
+    KMessageBox::sorry(this, i18n("Could not export current shadow dictionary to file for further processing."));
     return;
   }
   

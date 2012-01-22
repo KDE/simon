@@ -93,7 +93,7 @@ void TTSSettings::exportSet()
 
   kDebug() << "Exporting set to: " << path;
   if (!sets->exportSet(path, currentSet))
-    KMessageBox::sorry(this, i18n("Couldn't export set to \"%1\".", path));
+    KMessageBox::sorry(this, i18n("Could not export set to \"%1\".", path));
 }
 
 void TTSSettings::importSet()
@@ -103,7 +103,7 @@ void TTSSettings::importSet()
 
   kDebug() << "Importing set from: " << path;
   if (!sets->importSet(path))
-    KMessageBox::sorry(this, i18n("Couldn't import set from \"%1\".", path));
+    KMessageBox::sorry(this, i18n("Could not import set from \"%1\".", path));
   displaySets();
 }
 
@@ -174,7 +174,7 @@ void TTSSettings::setupSets()
   delete sets;
   sets =  new RecordingSetCollection;
   if (!sets->init(KStandardDirs::locate("appdata", "ttsrec/ttssets.xml")))
-    KMessageBox::sorry(this, i18n("Couldn't read recording sets from the configuration file."));
+    KMessageBox::sorry(this, i18n("Could not read recording sets from the configuration file."));
 
   displaySets(TTSConfiguration::activeSet());
 }
@@ -222,7 +222,7 @@ void TTSSettings::save()
 
   kDebug() << "Saving sets...";
   if (!sets->save(KStandardDirs::locateLocal("appdata", "ttsrec/ttssets.xml")))
-    KMessageBox::sorry(this, i18n("Couldn't write recording sets to the configuration file."));
+    KMessageBox::sorry(this, i18n("Could not write recording sets to the configuration file."));
 
   SimonTTS::uninitialize();
   emit changed(false);
@@ -240,7 +240,7 @@ void TTSSettings::addSet()
   if (!ok) return;
 
   if (!sets->addSet(setName))
-    KMessageBox::sorry(this, i18n("Couldn't add set: %1", setName));
+    KMessageBox::sorry(this, i18n("Could not add set: %1", setName));
 
   emit changed(true);
   displaySets();
@@ -260,7 +260,7 @@ void TTSSettings::renameSet()
   if (!ok) return;
 
   if (!sets->renameSet(getCurrentlySelectedSet(), setName))
-    KMessageBox::sorry(this, i18n("Couldn't rename set to: %1", setName));
+    KMessageBox::sorry(this, i18n("Could not rename set to: %1", setName));
 
   emit changed(true);
   displaySets();
@@ -273,7 +273,7 @@ void TTSSettings::removeSet()
   if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to irreversibly delete "
           "the current set and all associated samples?")) == KMessageBox::Yes)
     if (!sets->removeSet(getCurrentlySelectedSet()))
-      KMessageBox::sorry(this, i18n("Couldn't remove set"));
+      KMessageBox::sorry(this, i18n("Could not remove set"));
 
   emit changed(true);
   displaySets();
@@ -323,7 +323,7 @@ void TTSSettings::addRecording()
 
   kDebug() << "Adding: " << text << path << " to set " << currentSet;
   if (!sets->addRecording(currentSet, text, path))
-    KMessageBox::sorry(this, i18n("Couldn't add recording to set."));
+    KMessageBox::sorry(this, i18n("Could not add recording to set."));
 
   emit changed(true);
   delete dlg;
@@ -351,7 +351,7 @@ void TTSSettings::editRecording()
   }
 
   if (!sets->editRecording(currentSet, text, path))
-    KMessageBox::sorry(this, i18n("Couldn't edit recording of set."));
+    KMessageBox::sorry(this, i18n("Could not edit recording of set."));
   emit changed(true);
 
   delete dlg;

@@ -64,7 +64,7 @@ void AkonadiCommandManager::checkSchedule()
   while ((i != schedule.end()) && (i.key() < QDateTime::currentDateTime()))
   {
     if (!(*i)->trigger())
-      Logger::log(i18n("Couldn't execute schedule item: %1", (*i)->getSummary()), Logger::Warning);
+      Logger::log(i18n("Could not execute schedule item: %1", (*i)->getSummary()), Logger::Warning);
       
     delete *i;
     schedule.remove(i.key());

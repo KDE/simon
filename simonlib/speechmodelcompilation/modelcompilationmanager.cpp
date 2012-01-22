@@ -156,9 +156,9 @@ bool ModelCompilationManager::parseConfiguration()
   !QFile::exists(hVite))) {
     //HTK not found
     #ifdef Q_OS_WIN32
-    QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\nMore information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
+    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
     #else
-    QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\nMore information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
+    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
     #endif
     emit error(errorMsg);
     return false;
@@ -167,7 +167,7 @@ bool ModelCompilationManager::parseConfiguration()
   if ((compilationType & ModelCompilationManager::CompileLanguageModel) &&
   (!QFile::exists(mkfa) || !QFile::exists(dfaMinimize))) {
     //julius grammar tools not found
-    emit error(i18n("The julius related grammar tools mkfa and dfa_minimize can not be found.\n\nA reinstallation of simon could solve this problem."));
+    emit error(i18n("The julius related grammar tools mkfa and dfa_minimize cannot be found.\n\nA reinstallation of simon could solve this problem."));
     return false;
   }
 

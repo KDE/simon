@@ -178,7 +178,7 @@ void DialogConfiguration::removeText()
     return;
   }
   if (!state->removeText(ui.sbText->value()-1))
-    KMessageBox::sorry(this, i18n("Couldn't remove text from state."));
+    KMessageBox::sorry(this, i18n("Could not remove text from state."));
   updateTextSelector();
 }
 

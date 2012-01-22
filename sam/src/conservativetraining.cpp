@@ -71,7 +71,7 @@ void ConservativeTraining::accept()
 
   QFile prompts(promptsPath);
   if (!prompts.open(QIODevice::WriteOnly)) {
-    KMessageBox::sorry(this, i18n("Couldn't open output prompts"));
+    KMessageBox::sorry(this, i18n("Could not open output prompts"));
     return;
   }
 
@@ -86,7 +86,7 @@ void ConservativeTraining::accept()
   foreach (const QString& log, logs) {
     QFile f(path+QDir::separator()+log);
     if (!f.open(QIODevice::ReadOnly)) {
-      kWarning() << "Couldn't open file: " << log;
+      kWarning() << "Could not open file: " << log;
       continue;
     }
     QList< QPair<double, QString> > scoring;

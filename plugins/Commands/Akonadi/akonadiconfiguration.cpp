@@ -193,9 +193,9 @@ void AkonadiConfiguration::uncheckAkonadiCommandRequests()
   if (ui.cbExecuteAkonadiRequests->isChecked())
     return;
   
-  KMessageBox::information(this, i18n("Without this option, you can not use commands to schedule events.\n\n"
-				      "You can still configure them through simon but triggering them will not have any effect."), 
-			   QString(), i18n("Don't show this info again"));
+  KMessageBox::information(this, i18n("Without this option, you cannot use commands to schedule events.\n\n"
+                    "You can still configure them through simon but triggering them will not have any effect."),
+                    QString(), i18n("Do not show this info again"));
 }
 
 bool AkonadiConfiguration::deSerialize(const QDomElement& elem)

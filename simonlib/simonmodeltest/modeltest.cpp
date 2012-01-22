@@ -86,7 +86,7 @@ bool ModelTest::parseConfiguration()
   sox = programGroup.readEntry("SOX", KUrl(KStandardDirs::findExe("sox"))).toLocalFile();
 
   if (!QFile::exists(sox)) {
-    QString errorMsg = i18n("SOX can not be found. Please make sure it is installed correctly.");
+    QString errorMsg = i18n("SOX cannot be found. Please make sure it is installed correctly.");
     emitError(errorMsg);
     return false;
   }

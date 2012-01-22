@@ -71,7 +71,7 @@ void CreateAvatarDialog::editAvatar(Avatar* avatar)
   
   if (!f.open(QIODevice::WriteOnly))
   {
-    KMessageBox::sorry(this, i18n("Couldn't open temporary file at \"%1\".", fileName));
+    KMessageBox::sorry(this, i18n("Could not open temporary file at \"%1\".", fileName));
     return;
   }
   

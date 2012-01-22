@@ -288,7 +288,7 @@ void ScenarioManagementDialog::deleteScenario()
     bool wasSelected = selected->currentIndex() == m_lastSelectedIndex;
 
     if (!QFile::remove(path)) {
-      KMessageBox::information(this, i18n("Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user can not remove it. Please remove the file manually.\n\nIn the mean time, simon has automatically deactivated the scenario if it was not already.", path));
+      KMessageBox::information(this, i18n("Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user cannot remove it. Please remove the file manually.\n\nIn the meantime, simon has automatically deactivated the scenario if it was not already.", path));
       //remove it from selected if needed
       if (wasSelected) {
         //scenario was selected
