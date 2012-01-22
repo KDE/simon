@@ -141,7 +141,7 @@ Please report any problems or feature requests to <ulink url="http://sourceforge
 <title>Using &kappname;</title>
 
 <para>
-Due to it's minimalistic nature ksimond itself doesn't even have an application window. However, it the tray icon has a context menu from where you can start and stop simond and also open the configuration.
+Due to its minimalistic nature ksimond itself does not even have an application window. However, the tray icon has a context menu from where you can start and stop simond and also open the configuration.
 
 <screenshot>
 <screeninfo>screenshot of &kappname;</screeninfo>
@@ -157,7 +157,7 @@ Due to it's minimalistic nature ksimond itself doesn't even have an application 
 </para>
 
 <para>
-ksimond has the ability to launch automatically when KDE starts and to handle unexpected simond-crashes.
+ksimond has the ability to launch automatically when KDE starts and to handle unexpected simond crashes.
 
 <screenshot>
 <screeninfo>screenshot of the &kappname;-configuration</screeninfo>

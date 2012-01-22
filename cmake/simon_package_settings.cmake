@@ -35,7 +35,7 @@ kdebase4-runtime, libasound2, zlib, portaudio, libqt4-sql, qt4-qtscript, libqt4-
 
 SET(CPACK_PACKAGE_NAME "simon")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open-Source Speech Recognition")
-SET(CPACK_PACKAGE_DESCRIPTION "simon provides an easy to use interface to the open-source speech recognizer julius (this package shipps it's own modified version of julius) and the HTK (has to be installed sperately).\n\nsimon does not include a speech model but provides the means to create it's own.\n\nWith the recognition results simon can type, open programs and places and more.")
+SET(CPACK_PACKAGE_DESCRIPTION "simon provides an easy to use interface to the open-source speech recognizer julius (this package ships its own modified version of julius) and the HTK (has to be installed separately).\n\nsimon does not include a speech model but provides the means to create its own.\n\nWith the recognition results simon can type, open programs and places and more.")
 SET(CPACK_PACKAGE_VENDOR "SIMON listens e.V.")
 #SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ReadMe.txt")
 SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENCE.txt")

@@ -60,7 +60,7 @@
                  <item>
                   <widget class="QRadioButton" name="rbDynamicModel">
                    <property name="text">
-                    <string>Entirely user generated model</string>
+                    <string>Entirely user-generated model</string>
                    </property>
                    <property name="checked">
                     <bool>true</bool>

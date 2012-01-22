@@ -386,7 +386,7 @@ void SampleShare::startTransmission()
   QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
   futureWatcher->setFuture(future);
   kDebug() << "Thread started";
-  enableButtonCancel(false); //job has it's own cancel button
+  enableButtonCancel(false); //job has its own cancel button
 }
 
 void SampleShare::displayError(QString error)

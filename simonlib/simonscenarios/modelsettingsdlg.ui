@@ -38,7 +38,7 @@
    <item>
     <widget class="QRadioButton" name="rbDynamic">
      <property name="text">
-      <string>User generated model</string>
+      <string>User-generated model</string>
      </property>
      <property name="checked">
       <bool>true</bool>

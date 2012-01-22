@@ -356,7 +356,7 @@ int SynchronisationManager::getBaseModelType()
   int baseModelType = cGroup.readEntry("BaseModelType").toInt(&ok);
   if (!ok)
   {
-      kDebug() << "Could not read BaseModelType!!  Defaulting to user generated model.";
+      kDebug() << "Could not read BaseModelType!!  Defaulting to user-generated model.";
       return 2;
   }
 

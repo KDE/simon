@@ -84,7 +84,7 @@ The current release can be used to set up command-and-control solutions especial
 </para>
 
 <para>
-Because of it's architecture, the same version of simon can be used with all languages and dialects. One can even mix languages within one model if necessary.
+Because of its architecture, the same version of simon can be used with all languages and dialects. One can even mix languages within one model if necessary.
 </para>
 </chapter>
 
@@ -312,7 +312,7 @@ There are three types of base models:
 </listitem>
 <listitem><para>Adapted base model</para>
 </listitem>
-<listitem><para>User generated model</para>
+<listitem><para>User-generated model</para>
 </listitem>
 </itemizedlist>
 </para>
@@ -344,9 +344,9 @@ For information on how to use base models in simon, please refer to the <link li
 </sect3>
 
 <sect3 id="base_model_user_generated">
-<title>User generated model</title>
+<title>User-generated model</title>
 
-<para>When using user generated models, the user is responsible for training his own model. No base model will be used.</para>
+<para>When using user-generated models, the user is responsible for training his own model. No base model will be used.</para>
 
 <para>The training data will be used to compile your own acoustic model allowing you to create a system which directly reflects your voice.</para>
 
@@ -367,7 +367,7 @@ For information on how to use base models in simon, please refer to the <link li
 <para>If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way simon will suggest the "correct" phonemes when adding the words automatically.</para>
 
 <para>
-If you try to use scenarios designed for a different phoneme set (different base model) then you will get an error when starting the recognition listing the affected phonemes and words. To fix this, either transcribe the words according to the base models phoneme set, use a different base model or use an user generated model.
+If you try to use scenarios designed for a different phoneme set (different base model) then you will get an error when starting the recognition listing the affected phonemes and words. To fix this, either transcribe the words according to the base models phoneme set, use a different base model or use an user-generated model.
 </para>
 </sect2>
 </sect1>
@@ -381,7 +381,7 @@ If you try to use scenarios designed for a different phoneme set (different base
 
 <sect1 id="recording">
 <title>Recordings</title>
-<para>If you are using user generated or adapted models, simon builds it's acoustic model based on transcribed samples of the users voice. Because of this, the recorded samples are of vital importance for the recognition performance.</para>
+<para>If you are using user-generated or adapted models, simon builds its acoustic model based on transcribed samples of the users voice. Because of this, the recorded samples are of vital importance for the recognition performance.</para>
 
 <sect2 id="volume">
 <title>Volume</title>
@@ -1122,7 +1122,7 @@ Example vocabulary (please note that the terminals here are deliberately set to 
 <sect3 id="shadow_dictionary">
 <title>Shadow Dictionary</title>
 <para>
-As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about it's pronunciation, it would also be good to have large dictionary where you could look up the pronunciation and other characteristics of the words.
+As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about its pronunciation, it would also be good to have a large dictionary where you could look up the pronunciation and other characteristics of the words.
 </para>
 <para>
 simon provides this functionality. We refer to this large reference dictionary as "shadow dictionary". This shadow dictionary is not created by the user but can be imported from various sources.
@@ -1243,11 +1243,11 @@ You can add new terminals to the drop-down menu by using the green plus sign nex
 <sect4 id="manual_transcription">
 <title>Manually Providing the Phonetic Transcription</title>
 <para>
-The pronunciation is a bit trickier. simon does not need a certain type of phonetics so you are free to use any method as long as it uses only ASCII characters and no numbers. However, if you want to use a shadow dictionary and want to use it to it's full potential you should use the same phonetics as the shadow dictionary.
+The pronunciation is a bit trickier. simon does not need a certain type of phonetics so you are free to use any method as long as it uses only ASCII characters and no numbers. However, if you want to use a shadow dictionary and want to use it to its full potential you should use the same phonetics as the shadow dictionary.
 </para>
 
 <para>
-If you don't know how to transcribe a word yourself you can easily use your shadow dictionary to help you with the transcription - even if the word is not listed in it. Let's say we want to add the word "Firefox" (to launch firefox) which is of course not listed in our shadow dictionary.
+If you do not know how to transcribe a word yourself you can easily use your shadow dictionary to help you with the transcription - even if the word is not listed in it. Let's say we want to add the word "Firefox" (to launch firefox) which is of course not listed in our shadow dictionary.
 </para>
 
 <para>
@@ -1255,7 +1255,7 @@ If you don't know how to transcribe a word yourself you can easily use your shad
 </para>
 
 <para>
-"Firefox" is not listed in our shadow dictionary so we don't get any suggestion at all.
+"Firefox" is not listed in our shadow dictionary so we do not get any suggestion at all.
 <screenshot>
 <screeninfo>Adding an unknown word</screeninfo>
   <mediaobject>
@@ -1328,7 +1328,7 @@ For example: You have the grammar structure "Trigger Command" and have the word 
 If simon is unable to find appropriate sentences using the word (i.e.: No grammar, not enough words in your active lexicon, etc.) it will just prompt you for the word alone.
 </para>
 <para>
-Although simon ensures that the automatically generated examples are valid, you can always override it's suggestion. Just switch to the "Examples" tab on the "Define Word" page.
+Although simon ensures that the automatically generated examples are valid, you can always override its suggestions. Just switch to the "Examples" tab on the "Define Word" page.
 <screenshot>
 <screeninfo>Editing word examples</screeninfo>
   <mediaobject>
