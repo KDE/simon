@@ -263,7 +263,7 @@
                  <item row="0" column="0">
                   <widget class="QLabel" name="label">
                    <property name="text">
-                    <string>Base HMM-definitions:</string>
+                    <string>Base HMM definitions:</string>
                    </property>
                   </widget>
                  </item>
