@@ -414,10 +414,7 @@ void SamView::startNextScheduledTest()
 void SamView::allTestsFinished()
 {
   //fill general tab with information
-  if (testResults.count() == 1)
-    ui.lbTestResultInformation->setText(i18n("Ran 1 test.", testResults.count()));
-  else 
-    ui.lbTestResultInformation->setText(i18n("Ran %1 tests.", testResults.count()));
+  ui.lbTestResultInformation->setText(i18np("Ran 1 test.", "Ran %1 tests.", testResults.count()));
 
   ui.qpPlot->show();
 
