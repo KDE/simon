@@ -33,7 +33,7 @@ CreateCommandWidget(manager, parent),  d(new CreateVoiceInterfaceCommandWidgetPr
   lay->addWidget(d);
 
   setWindowIcon(manager->icon());
-  setWindowTitle(i18n("%1: Voice commands", manager->name()));
+  setWindowTitle(i18nc("%1 is name of the parent command manager (plugin name)", "%1: Voice commands", manager->name()));
 }
 
 

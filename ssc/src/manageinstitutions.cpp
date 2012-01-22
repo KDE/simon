@@ -71,7 +71,7 @@ void ManageInstitutions::addInstitution()
   if (name.isEmpty()) return;
 
   if (!SSCDAccessSingleton::getInstance()->addInstitution(new Institution(0, name)))
-    KMessageBox::sorry(this, i18n("Could not add institution: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not add institution: %1", SSCDAccessSingleton::getInstance()->lastError()));
 
   updateList();
 }
@@ -94,15 +94,15 @@ void ManageInstitutions::editInstitution()
   Institution *i = getCurrentlySelectedInstitution();
   if (!i) return;
 
-  QString name = KInputDialog::getText(i18n("Modify \"%1\"", i->id()),
-    i18n("New institution name for institution \"%1\":", i->id()),
+  QString name = KInputDialog::getText(i18nc("%1 is institution id", "Modify \"%1\"", i->id()),
+    i18nc("%1 is institution id", "New institution name for institution \"%1\":", i->id()),
     i->name());
 
   if (name.isEmpty()) return;
 
   i->setName(name);
   if (!SSCDAccessSingleton::getInstance()->modifyInstitution(i)) {
-    KMessageBox::sorry(this, i18n("Could not modify institution: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not modify institution: %1", SSCDAccessSingleton::getInstance()->lastError()));
     updateList();
   }
 }
@@ -117,7 +117,7 @@ void ManageInstitutions::deleteInstitution()
   if (!i) return;
 
   if (!SSCDAccessSingleton::getInstance()->deleteInstitution(i))
-    KMessageBox::sorry(this, i18n("Could not delete institution: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not delete institution: %1", SSCDAccessSingleton::getInstance()->lastError()));
 
   updateList();
 }
@@ -132,7 +132,7 @@ void ManageInstitutions::updateList()
   QList<Institution*> institutions = SSCDAccessSingleton::getInstance()->getInstitutions(&ok);
 
   if (!ok) {
-    KMessageBox::sorry(this, i18n("Could not retrieve institutions: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not retrieve institutions: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return;
   }
 

@@ -46,12 +46,12 @@ void ImportTrainingData::run()
     emit status(i18n("Reading prompts file..."));
     PromptsTable *prompts = TrainingManager::getInstance()->readPrompts(promptsPath);
     if (!prompts) {
-      emit error(i18n("Could not parse input prompts: %1", promptsPath));
+      emit error(i18nc("%1 is path", "Could not parse input prompts: %1", promptsPath));
       return;
     }
 
     emit progress(0, prompts->count());
-    emit status(i18n("Importing %1 Files...", prompts->count()));
+    emit status(i18nc("%1 is file count", "Importing %1 Files...", prompts->count()));
 
     QStringList files = prompts->keys();
     QStringList filesFullPath;
@@ -74,7 +74,7 @@ void ImportTrainingData::run()
       }
       if (!fileFound)
       {
-        emit error(i18n("Can not find file referenced in prompts: %1", file));
+        emit error(i18nc("%1 is path", "Can not find file referenced in prompts: %1", file));
         return;
       }
     }
@@ -108,7 +108,7 @@ void ImportTrainingData::run()
     if (!dataFiles) return;
 
     emit progress(0, dataFiles->count());
-    emit status(i18n("Importing %1 Files...", dataFiles->count()));
+    emit status(i18nc("%1 is file count", "Importing %1 Files...", dataFiles->count()));
 
     QStringList *newFiles = processSounds(*dataFiles, wavDestDir);
     delete dataFiles;

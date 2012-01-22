@@ -251,7 +251,7 @@ void ModelTest::deleteAllResults()
 void ModelTest::run()
 {
   if (!createDirs())
-    emitError(i18n("Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
+    emitError(i18nc("%1 is temporary folder path", "Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
   deleteAllResults();
 
@@ -277,13 +277,13 @@ bool ModelTest::recodeAudio()
 
   QFile promptsF(promptsPath);
   if (!promptsF.open(QIODevice::ReadOnly)) {
-    emitError(i18n("Could not open prompts file for reading: %1", promptsPath));
+    emitError(i18nc("%1 is path to the prompts file", "Could not open prompts file for reading: %1", promptsPath));
     return false;
   }
 
   QFile wavListF(tempDir+"wavlist");
   if (!wavListF.open(QIODevice::WriteOnly)) {
-    emitError(i18n("Could not open wavlist file for writing: %1", tempDir+"wavlist"));
+    emitError(i18nc("%1 is path to the wav list", "Could not open wavlist file for writing: %1", tempDir+"wavlist"));
     return false;
   }
 
@@ -501,7 +501,7 @@ bool ModelTest::recognize()
   jlog_set_output(logFile);
 
   if (!QFile::exists(juliusJConf)) {
-    emitError(i18n("Could not open julius jconf file: \"%1\".", juliusJConf));
+    emitError(i18nc("%1 is path to the jconf file", "Could not open julius jconf file: \"%1\".", juliusJConf));
     return false;
   }
   kDebug() << "Using hmm definitions: " << hmmDefsPath;
@@ -656,7 +656,7 @@ void ModelTest::searchFailed()
 {
   QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
 
-  emit recognitionInfo(i18n("Search failed for: %1", fileName));
+  emit recognitionInfo(i18nc("%1 is file name", "Search failed for: %1", fileName));
 
   QString prompt = promptsTable.value(fileName);
   QStringList promptWordList = prompt.split(' ');
@@ -706,10 +706,10 @@ void ModelTest::recognized(RecognitionResultList results)
   QString prompt = promptsTable.value(fileName);
   recognizerResults.insert(fileName, new RecognizerResult(prompt, results));
 
-  emit recognitionInfo(i18n("Prompts entry: %1", prompt));
+  emit recognitionInfo(i18nc("%1 is prompt", "Prompts entry: %1", prompt));
   if (results.count() > 0)
   {
-    emit recognitionInfo(i18n("Received recognition result for: %1: %2", fileName, results.at(0).sentence()));
+    emit recognitionInfo(i18nc("%1 is filename, %2 is sentence", "Received recognition result for: %1: %2", fileName, results.at(0).sentence()));
 
     RecognitionResult& highestRatedResult = results.first();
 

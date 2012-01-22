@@ -59,7 +59,7 @@ m_directory(directory)
 void TrainSamplePage::setupUi()
 {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  QString title = i18n("Page %1 of %2", m_thisPage, m_maxPage);
+  QString title = i18nc("%1 is current page index, %2 is max page index", "Page %1 of %2", m_thisPage, m_maxPage);
   setTitle(m_name+": "+title);
 
   QVBoxLayout *lay = new QVBoxLayout(this);
@@ -154,7 +154,7 @@ bool TrainSamplePage::cleanUp()
   if (recorder->hasRecordingReady()) {
     succ = recorder->deleteAll();
     if (!succ)
-      KMessageBox::error(this, i18n("Could not remove samples \"%1\".", getFileNames().join("\", \"")));
+      KMessageBox::error(this, i18nc("%1 is file names", "Could not remove samples \"%1\".", getFileNames().join("\", \"")));
   }
 
   return succ;

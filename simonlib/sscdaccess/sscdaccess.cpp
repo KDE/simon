@@ -171,7 +171,7 @@ bool SSCDAccess::isConnected()
 
 void SSCDAccess::timeoutReached()
 {
-  emit error(i18n("Request timed out (%1 ms) or connection was reset.\n\nPlease check your network connection and try again.", timeout));
+  emit error(i18nc("%1 is the timeout length", "Request timed out (%1 ms) or connection was reset.\n\nPlease check your network connection and try again.", timeout));
   abort();
 }
 

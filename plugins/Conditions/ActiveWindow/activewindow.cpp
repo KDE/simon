@@ -66,7 +66,10 @@ QDomElement ActiveWindow::privateSerialize(QDomDocument *doc, QDomElement elem)
 
 QString ActiveWindow::name()
 {
-    return i18n("'%1' %2 the active window with title '%3'", m_processName, (isInverted() ? "does not have" : "has"), m_windowName);
+    if (isInverted())
+        return i18nc("%1 is process name, %2 is window name", "'%1' does not have the active window with title '%2'", m_processName, m_windowName);
+    else
+        return i18nc("%1 is process name, %2 is window name", "'%1' has the active window with title '%2'", m_processName, m_windowName);
 }
 
 bool ActiveWindow::privateDeSerialize(QDomElement elem)

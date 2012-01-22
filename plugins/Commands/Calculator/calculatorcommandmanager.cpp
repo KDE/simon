@@ -511,7 +511,6 @@ void CalculatorCommandManager::sendEquals()
     QList<Token*> postfixedInput =  toPostfix(parsedInput);
 
     currentResult = calculate(postfixedInput);
-    //ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
     ui.leNumber->setText(ui.leNumber->text()+'='+toString(currentResult));
     resultCurrentlyDisplayed = true;
   } else {

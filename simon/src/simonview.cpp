@@ -353,7 +353,7 @@ void SimonView::updateScenarioDisplays()
 
   kDebug() << "Scenario " << scenario;
   if (!scenario) {
-    KMessageBox::error(this, i18n("Could not retrieve Scenario \"%1\"", currentId));
+    KMessageBox::error(this, i18nc("%1 is scenario id", "Could not retrieve Scenario \"%1\"", currentId));
     return;
   }
   ScenarioManager::getInstance()->updateDisplays(scenario, true);

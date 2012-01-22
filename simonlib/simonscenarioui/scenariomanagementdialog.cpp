@@ -266,7 +266,7 @@ Scenario* ScenarioManagementDialog::getCurrentlySelectedScenario()
   QString scenarioSource = m_lastSelectedIndex.data(Qt::UserRole).toString();
   Scenario *s = new Scenario(scenarioSource);
   if (!s || !s->skim()) {
-    KMessageBox::sorry(this, i18n("Could not find scenario \"%1\"", scenarioSource));
+    KMessageBox::sorry(this, i18nc("%1 is scenario id", "Could not find scenario \"%1\"", scenarioSource));
     s->deleteLater();
     return 0;
   }
@@ -280,7 +280,7 @@ void ScenarioManagementDialog::deleteScenario()
   Scenario *s = getCurrentlySelectedScenario();
   if (!s) return;
 
-  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2\")?",
+  if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is scenario name, %2 is scenario id", "Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2\")?",
   s->name(), s->id())) == KMessageBox::Yes) {
     QString path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+s->id());
     QTreeWidget *available = ui->twAvailable;
@@ -288,7 +288,7 @@ void ScenarioManagementDialog::deleteScenario()
     bool wasSelected = selected->currentIndex() == m_lastSelectedIndex;
 
     if (!QFile::remove(path)) {
-      KMessageBox::information(this, i18n("Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user cannot remove it. Please remove the file manually.\n\nIn the meantime, simon has automatically deactivated the scenario if it was not already.", path));
+      KMessageBox::information(this, i18nc("%1 is scenario path", "Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user cannot remove it. Please remove the file manually.\n\nIn the meantime, simon has automatically deactivated the scenario if it was not already.", path));
       //remove it from selected if needed
       if (wasSelected) {
         //scenario was selected
@@ -464,7 +464,7 @@ void ScenarioManagementDialog::initDisplay()
     Scenario *s = new Scenario(id, m_dataPrefix);
     if (!s->init())
     {
-      KMessageBox::information(this, i18n("Could not init scenario \"%1\"", id));
+      KMessageBox::information(this, i18nc("%1 is scenario id", "Could not init scenario \"%1\"", id));
     }
     else
     {

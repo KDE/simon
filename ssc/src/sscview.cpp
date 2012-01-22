@@ -108,7 +108,7 @@ User* SSCView::retrieveUser()
   }
 
   if (!u) {
-    KMessageBox::sorry(this, i18n("Could not retrieve user: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not retrieve user: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return 0;
   }
   return u;
@@ -342,11 +342,12 @@ void SSCView::deleteUser()
   User *u = retrieveUser();
   if (!u) return;
 
-  if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the user \"%1\" (\"%2\")?\n\nAll collected samples associated with this user will be irreversibly destroyed!",
+  if (KMessageBox::questionYesNo(this, i18nc("%1 is user id, %2 is use rname", 
+    "Do you really want to delete the user \"%1\" (\"%2\")?\n\nAll collected samples associated with this user will be irreversibly destroyed!",
     u->userId(), QString("%1, %2").arg(u->surname()).arg(u->givenName()))) ==
   KMessageBox::Yes) {
     if (!SSCDAccessSingleton::getInstance()->deleteUser(u))
-      KMessageBox::sorry(this, i18n("Could not delete user: %1", SSCDAccessSingleton::getInstance()->lastError()));
+      KMessageBox::sorry(this, i18nc("%1 is error message", "Could not delete user: %1", SSCDAccessSingleton::getInstance()->lastError()));
     else {
       ui.lbPatientName->clear();
       ui.cbPatientId->clear();

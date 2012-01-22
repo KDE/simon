@@ -201,7 +201,7 @@ void ModifyUser::displayLanguages()
   bool ok;
   QList<Language*> langs = SSCDAccessSingleton::getInstance()->getLanguages(&ok);
   if (!ok) {
-    KMessageBox::sorry(this, i18n("Could not retrieve languages: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not retrieve languages: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return;
   }
 
@@ -218,7 +218,7 @@ void ModifyUser::displayCurrentInstitutionAssociation(qint32 userId)
   bool ok;
   QList<UserInInstitution*> uiis = SSCDAccessSingleton::getInstance()->getUserInInstitutions(userId, &ok);
   if (!ok) {
-    KMessageBox::sorry(this, i18n("Could not retrieve user - institution associations: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not retrieve user - institution associations: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return;
   }
 
@@ -244,7 +244,7 @@ int ModifyUser::newUser()
     User *newUser = createUser();
     int userId = SSCDAccessSingleton::getInstance()->addUser(newUser);
     if (!userId) {
-      KMessageBox::sorry(this, i18n("Could not add user: %1", SSCDAccessSingleton::getInstance()->lastError()));
+      KMessageBox::sorry(this, i18nc("%1 is error message", "Could not add user: %1", SSCDAccessSingleton::getInstance()->lastError()));
       succ = false;
     }
 
@@ -271,7 +271,7 @@ int ModifyUser::modifyUser(User *u)
     bool succ = true;
     User *newUser = createUser(u->userId());
     if (!SSCDAccessSingleton::getInstance()->modifyUser(newUser)) {
-      KMessageBox::sorry(this, i18n("Could not modify user \"%1\": %2", u->userId(), SSCDAccessSingleton::getInstance()->lastError()));
+      KMessageBox::sorry(this, i18nc("%1 is user id, %2 is error message", "Could not modify user \"%1\": %2", u->userId(), SSCDAccessSingleton::getInstance()->lastError()));
       succ = false;
     }
 
@@ -291,13 +291,13 @@ void ModifyUser::commitUserInInstitutions(qint32 userId)
   foreach (UserInInstitution* uii, uiisDelete) {
     uii->setUserId(userId);
     if (!SSCDAccessSingleton::getInstance()->deleteUserInInstitution(uii)) {
-      KMessageBox::sorry(this, i18n("Could not delete user - institution association: %1", SSCDAccessSingleton::getInstance()->lastError()));
+      KMessageBox::sorry(this, i18nc("%1 is error message", "Could not delete user - institution association: %1", SSCDAccessSingleton::getInstance()->lastError()));
     }
   }
   foreach (UserInInstitution* uii, uiisAdd) {
     uii->setUserId(userId);
     if (!SSCDAccessSingleton::getInstance()->addUserInInstitution(uii)) {
-      KMessageBox::sorry(this, i18n("Could not add user - institution association: %1", SSCDAccessSingleton::getInstance()->lastError()));
+      KMessageBox::sorry(this, i18nc("%1 is error message", "Could not add user - institution association: %1", SSCDAccessSingleton::getInstance()->lastError()));
     }
   }
 

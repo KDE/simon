@@ -133,7 +133,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     if (!promptsFile.open(QIODevice::ReadOnly) ||
       (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel) &&
     !promptsFileOut.open(QIODevice::WriteOnly))) {
-      emit error(i18n("Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
+      emit error(i18nc("%1 is source file path", "Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
       return false;
     }
 

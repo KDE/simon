@@ -52,7 +52,10 @@ QString OrConditionAssociation::name()
         str += "(" + m_conditions.at(i)->name() + ")";
     }
 
-    return i18n("%1 %2", (isInverted() ? "Not: " : ""), str);
+    if (isInverted()) 
+        return i18nc("%1 is the conditions composited name", "Not: %1", str);
+    else 
+        return str;
 }
 
 void OrConditionAssociation::evaluateConditions()

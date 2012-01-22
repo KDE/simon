@@ -63,7 +63,7 @@ void GraphemeToPhoneme::nextStep(int finish)
 {
   if (finish != 0) {
     //error handling
-    error = i18n("An unexpected error occurred when creating the model with sequitur:\n\n%1").arg(QString::fromUtf8(sequitur->readAllStandardError()));
+    error = i18nc("%1 is error message", "An unexpected error occurred when creating the model with sequitur:\n\n%1").arg(QString::fromUtf8(sequitur->readAllStandardError()));
     
     sequitur->terminate(); //if we are not yet done, abort
     m_state = Idle;

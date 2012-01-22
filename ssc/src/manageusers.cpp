@@ -75,7 +75,7 @@ void ManageUsers::displayLanguages()
   bool ok;
   QList<Language*> langs = SSCDAccessSingleton::getInstance()->getLanguages(&ok);
   if (!ok) {
-    KMessageBox::sorry(this, i18n("Could not retrieve languages: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not retrieve languages: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return;
   }
 
@@ -138,14 +138,15 @@ void ManageUsers::deleteUser()
   User *u = getCurrentlySelectedUser();
   if (!u) return;
 
-  if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the user \"%1\" (\"%2\")?\n\n"
+  if (KMessageBox::questionYesNo(this, i18nc("%1 is user id, %2 is name",
+    "Do you really want to delete the user \"%1\" (\"%2\")?\n\n"
     "All collected samples associated with this user will be irreversibly destroyed!",
     u->userId(), QString("%1, %2").arg(u->surname()).arg(u->givenName()))) !=
     KMessageBox::Yes)
     return;
 
   if (!SSCDAccessSingleton::getInstance()->deleteUser(u))
-    KMessageBox::sorry(this, i18n("Could not delete user: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not delete user: %1", SSCDAccessSingleton::getInstance()->lastError()));
 
   updateList();
 }
@@ -188,7 +189,7 @@ void ManageUsers::updateList()
   delete filterUser;
 
   if (!ok) {
-    KMessageBox::sorry(this, i18n("Could not retrieve users: %1", SSCDAccessSingleton::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18nc("%1 is error message", "Could not retrieve users: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return;
   }
 

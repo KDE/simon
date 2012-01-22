@@ -336,7 +336,7 @@ bool RecognitionControl::isConnected()
 
 void RecognitionControl::timeoutReached()
 {
-  serverConnectionErrors << i18n("Request timed out (%1 ms)", RecognitionConfiguration::juliusdConnectionTimeout());
+  serverConnectionErrors << i18nc("%1 is timeout length in ms", "Request timed out (%1 ms)", RecognitionConfiguration::juliusdConnectionTimeout());
   socket->abort();
   connectToNext();
 }
@@ -1789,7 +1789,8 @@ void RecognitionControl::displayCompilationProtocol(const QString& protocol)
 
 void RecognitionControl::sampleNotAvailable(const QString& sample)
 {
-  if (KMessageBox::questionYesNo(0, i18n("The sample \"%1\" could not be found neither on the local computer nor the "
+  if (KMessageBox::questionYesNo(0, i18nc("%1 is sample path",
+  "The sample \"%1\" could not be found neither on the local computer nor the "
   "server.\n\nDo you want to remove it from the Trainings-Database?", sample)) == KMessageBox::Yes) {
     //kick some poor samples ass
     ModelManagerUiProxy::getInstance()->startGroup();

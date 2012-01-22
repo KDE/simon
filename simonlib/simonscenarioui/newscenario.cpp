@@ -73,7 +73,7 @@ QString NewScenario::createId()
 void NewScenario::setWindowTitleToScenarioName(QString name)
 {
   if (!name.isEmpty())
-    setCaption(i18n("Scenario: %1", name));
+    setCaption(i18nc("%1 is scenario name", "Scenario: %1", name));
   else setCaption(i18n("Scenario"));
 }
 

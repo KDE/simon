@@ -183,7 +183,7 @@ void KSimondView::slotError(QProcess::ProcessError err)
       break;
     case QProcess::Crashed:
       if (!stopIntended)
-        KMessageBox::error(0, i18n("simond crashed. (Status: %1)", process->exitStatus()));
+        KMessageBox::error(0, i18nc("%1 is a status message", "simond crashed. (Status: %1)", process->exitStatus()));
 
       break;
     case QProcess::Timedout:

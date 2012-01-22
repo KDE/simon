@@ -77,7 +77,7 @@ void AfarasView::start()
   QString promptsPath = ui.urInputPrompts->url().toLocalFile();
   QFile promptsF(promptsPath);
   if (!promptsF.open(QIODevice::ReadOnly)) {
-    KMessageBox::sorry(this, i18n("Could not open input prompts: %1", promptsPath));
+    KMessageBox::sorry(this, i18nc("%1 is the path to the prompts file", "Could not open input prompts: %1", promptsPath));
     return;
   }
   while (!promptsF.atEnd()) {

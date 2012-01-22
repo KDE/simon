@@ -418,7 +418,7 @@ bool ModelCompilationManager::startCompilation(ModelCompilationManager::Compilat
 void ModelCompilationManager::run()
 {
   if (!createDirs())
-    analyseError(i18n("Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
+    analyseError(i18nc("%1 is path to the temporary directory", "Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
   fprintf(stderr, "Temp dir in run(): %s\n", tempDir.toUtf8().data());
 
@@ -470,7 +470,8 @@ bool ModelCompilationManager::compileGrammar()
   if (!keepGoing) return false;
   emit status(i18n("Generating DFA..."), 2550);
   if (!makeDfa()) {
-    analyseError(i18n("Could not generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %2).", mkfa, dfaMinimize));
+    analyseError(i18nc("%1 is path to mkfa tool, %2 is path to dfaminimize",
+                       "Could not generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %2).", mkfa, dfaMinimize));
     return false;
   }
 
@@ -815,7 +816,7 @@ bool ModelCompilationManager::createMonophones()
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm0..."), 550);
   if (!buildHMM0()) {
-    analyseError(i18n("Error when generating the HMM0.\n\nPlease check if there is enough training material and that the path to HCompV(%1), the config (%2) and the phoneme prototype (%3) are correct.", hCompV, getScriptFile("config"), getScriptFile("proto")));
+    analyseError(i18n("Error when generating the HMM0.\n\nPlease check if there is enough training material and that the path to HCompV (%1), the config (%2) and the phoneme prototype (%3) are correct.", hCompV, getScriptFile("config"), getScriptFile("proto")));
     return false;
   }
   if (!keepGoing) return false;

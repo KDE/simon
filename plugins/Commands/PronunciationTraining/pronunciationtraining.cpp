@@ -87,7 +87,7 @@ void PronunciationTraining::displayCurrentWord()
   ui.teWord->setPlainText(w->getWord());
   ui.pbScore->setValue(m_scores.at(m_currentWordIndex));
 
-  ui.lbSampleTitle->setText(i18n("Sample %1 of %2:", m_currentWordIndex+1, m_wordsToTest.count()));
+  ui.lbSampleTitle->setText(i18nc("%1 and %2 are numbers", "Sample %1 of %2:", m_currentWordIndex+1, m_wordsToTest.count()));
 }
 
 

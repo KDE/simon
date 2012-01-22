@@ -38,7 +38,7 @@ fileName( prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\', '
 + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") )
 {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  QString title = i18n("Page %1 of %2", nowPage, maxPage);
+  QString title = i18nc("%1 is current page number, %2 is total page count", "Page %1 of %2", nowPage, maxPage);
   setTitle(name+": "+title);
 
   QVBoxLayout *lay = new QVBoxLayout(this);
@@ -132,7 +132,7 @@ bool TrainSamplePage::cleanUp()
   if (recorder->hasRecordingReady()) {
     succ = recorder->deleteAll();
     if (!succ)
-      KMessageBox::error(this, i18n("Could not remove samples \"%1\".", getFileNames().join("\", \"")));
+      KMessageBox::error(this, i18nc("%1 is list of filenames", "Could not remove samples \"%1\".", getFileNames().join("\", \"")));
   }
 
   return succ;

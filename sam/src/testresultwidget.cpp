@@ -149,7 +149,7 @@ void TestResultWidget::slotEditSelectedSample()
         }
 
         if (!QFile::remove(originalFileName)) {
-          KMessageBox::error(this, i18n("Could not remove original sample:  %1.", originalFileName));
+          KMessageBox::error(this, i18nc("%1 is file name", "Could not remove original sample:  %1.", originalFileName));
         }
       }
     }
@@ -165,12 +165,12 @@ void TestResultWidget::slotEditSelectedSample()
         }
       }
       else if (!QFile::remove(originalFileName)) {
-        KMessageBox::error(this, i18n("Could not remove original sample:  %1.", originalFileName));
+        KMessageBox::error(this, i18nc("%1 is file name", "Could not remove original sample:  %1.", originalFileName));
       }
 
       //copy sample back
       if (!QFile::copy(tempFileName, originalFileName)) {
-        KMessageBox::error(this, i18n("Could not copy sample from temporary path %1 to %2.",
+        KMessageBox::error(this, i18nc("%1 is source file name, %2 is destination file name", "Could not copy sample from temporary path %1 to %2.",
           tempFileName, originalFileName));
       }
     }

@@ -145,7 +145,7 @@ void SampleGroupContext::removeCondition()
     if (!condition)
         return;
 
-    if (KMessageBox::questionYesNoCancel(this, i18n("Are you sure that you want to irreversibly remove the sample group condition \"%1\"?", condition->name()), i18n("Remove Condition")) == KMessageBox::Yes)
+    if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is the conditions name", "Are you sure that you want to irreversibly remove the sample group condition \"%1\"?", condition->name()), i18n("Remove Condition")) == KMessageBox::Yes)
     {
         int row = ui->tvSampleGroupConditions->currentIndex().row();
         if (!ContextManager::instance()->removeSampleGroupCondition(row))

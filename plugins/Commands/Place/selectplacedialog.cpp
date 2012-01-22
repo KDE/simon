@@ -65,15 +65,15 @@ PlaceCommand* SelectPlaceDialog::selectPlace()
   QString description;
   if (ui.rbLocalPlace->isChecked()) {
     iconSrc = "folder";
-    description = i18n("Open local path: %1", ui.urLocalPlaceUrl->url().path());
+    description = i18nc("%1 is a path", "Open local path: %1", ui.urLocalPlaceUrl->url().path());
   }
   else if (ui.rbLocalFile->isChecked()) {
     iconSrc = "folder";
-    description = i18n("Open local file: %1", ui.urLocalFileUrl->url().path());
+    description = i18nc("%1 is a path", "Open local file: %1", ui.urLocalFileUrl->url().path());
   }
   else {
     iconSrc = "internet-web-browser";
-    description = i18n("Open remote URL: %1", ui.leRemoteUrl->text());
+    description = i18nc("%1 is a URL", "Open remote URL: %1", ui.leRemoteUrl->text());
   }
 
   return new PlaceCommand(getName(), iconSrc, description, getUrl());

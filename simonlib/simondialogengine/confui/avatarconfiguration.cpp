@@ -93,7 +93,7 @@ void AvatarConfiguration::editAvatar()
 void AvatarConfiguration::removeAvatar()
 {
   Avatar *a = getCurrentAvatarGraphical();
-  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to remove the avatar \"%1\" from your dialog?", a->name())) == KMessageBox::Yes)
+  if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is avatar name", "Do you really want to remove the avatar \"%1\" from your dialog?", a->name())) == KMessageBox::Yes)
   {
     if (!avatarModel->removeAvatar(a))
       KMessageBox::sorry(this, i18n("Failed to remove avatar."));

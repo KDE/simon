@@ -90,7 +90,7 @@ void ExportTestResults::clearCorpora()
 void ExportTestResults::initSystemDefinition()
 {
   QString systemInfo;
-  systemInfo += i18n("sam: part of simon %1\n", QString::fromAscii(simon_version));
+  systemInfo += i18nc("%1 is simon version", "sam: part of simon %1\n", QString::fromAscii(simon_version));
   
   systemInfo += ModelCompilationManager::information(
       !ui.cbDetailedSystemInformation->isChecked() /*short version*/);
@@ -207,7 +207,7 @@ void ExportTestResults::createReport()
   QFile f(templateFile);
   if (!f.open(QIODevice::ReadOnly))
   {
-    fatalError(i18n("Could not initialize output template at \"%1\". "
+    fatalError(i18nc("%1 is filename", "Could not initialize output template at \"%1\". "
           "Please select a valid output format.", templateFile));
     return;
   }
@@ -218,7 +218,7 @@ void ExportTestResults::createReport()
   //hardcode only currently available output engine
   if (outputEngine != "LATEX")
   {
-    fatalError(i18n("Output type not supported: %1.\n\n"
+    fatalError(i18nc("%1 is output type", "Output type not supported: %1.\n\n"
           "Please make sure that your output format is compatible with this version of sam.", QString::fromUtf8(outputEngine)));
     return;
   }
@@ -237,7 +237,7 @@ void ExportTestResults::createReport()
     saveCorporaInformation();
     if (!engine->parse(templateData, createTemplateValues(), createTemplateValueLists(),
           ui.cbGraphs->isChecked(), ui.cbTables->isChecked(), outputFile))
-      fatalError(i18n("Failed to parse template: %1", engine->lastError()));
+      fatalError(i18nc("%1 is error message", "Failed to parse template: %1", engine->lastError()));
   }
    
   delete engine;

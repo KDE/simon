@@ -50,30 +50,22 @@ Display* XEventsPrivate::openDisplay(char* displayName)
   int Event, Error;
   int Major, Minor;
 
-  // 	Logger::log(i18n("Öffne display \"%1\"", QString(displayName)));
-
   Display * display = XOpenDisplay(displayName);
 
   if (!display) {
-    // 		Logger::log(i18n("[ERR] Fehler beim öffnen des display \"%1\"", QString(displayName)));
-    KMessageBox::error(0,i18n("Could not open display. Please check your configuration and / or contact the simond developers. (Display: \"%1\")", QString(XDisplayName ( displayName ))));
+    KMessageBox::error(0,i18nc("%1 is display name", "Could not open display. Please check your configuration and / or contact the simond developers. (Display: \"%1\")", QString(XDisplayName ( displayName ))));
     return 0;
   }
 
   //check whether the XTest extension is installed
   if ( !XTestQueryExtension(display, &Event, &Error, &Major, &Minor) ) {
-    // 		Logger::log("[ERR] Display "+QString(displayName)+" unterstützt XTest nicht");
     KMessageBox::error(0,i18n("The X-Server does not support the XTest extension. Please install it."));
 
     XCloseDisplay(display);
     return 0;
   }
 
-  // 	Logger::log(i18n("XTest für Server \"%1\" ist Version %2.%3", QString(DisplayString(display)), Major, Minor));
-
-  // 	Logger::log(i18n("Aufnahme der Display-Kontrolle"));
   XTestGrabControl( display, True );
-  // 	Logger::log(i18n("Synchronisiere Display"));
   XSync( display,True );
   return display;
 }

@@ -130,7 +130,7 @@ void ContextViewPrivate::deleteCondition()
     if (!condition)
         return;
 
-    if (KMessageBox::questionYesNoCancel(this, i18n("Are you sure that you want to irreversibly remove the condition \"%1\"?", condition->name()), i18n("Remove Condition")) == KMessageBox::Yes)
+    if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is condition name", "Are you sure that you want to irreversibly remove the condition \"%1\"?", condition->name()), i18n("Remove Condition")) == KMessageBox::Yes)
     {
         if (!scenario->compoundCondition()->removeCondition(condition))
         {

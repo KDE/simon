@@ -112,7 +112,7 @@ void SimonControl::loggedIn()
 
 void SimonControl::slotConnectionError(const QString &err)
 {
-  KMessageBox::error(0, i18n("Connection error: \n%1", err));
+  KMessageBox::error(0, i18nc("%1 is error message", "Connection error: \n%1", err));
   setStatus(SimonControl::Disconnected);
 }
 
@@ -152,25 +152,25 @@ void SimonControl::slotCompilationError(const QString &err, const QString& proto
 
 void SimonControl::slotSimondSystemWarning(const QString& warning)
 {
-  SimonInfo::showMessage(i18n("simond: %1", warning), 5000);
+  SimonInfo::showMessage(i18nc("%1 is warning message", "simond: %1", warning), 5000);
 }
 
 
 void SimonControl::slotSynchronisationWarning(const QString& warning)
 {
-  SimonInfo::showMessage(i18n("Model synchronization %1", warning), 5000);
+  SimonInfo::showMessage(i18nc("%1 is warning message", "Model synchronization %1", warning), 5000);
 }
 
 
 void SimonControl::slotRecognitionWarning(const QString& warning)
 {
-  SimonInfo::showMessage(i18n("Recognition: %1", warning), 5000);
+  SimonInfo::showMessage(i18nc("%1 is warning message", "Recognition: %1", warning), 5000);
 }
 
 
 void SimonControl::slotCompilationWarning(const QString& warning)
 {
-  SimonInfo::showMessage(i18n("Model management: %1", warning), 5000);
+  SimonInfo::showMessage(i18nc("%1 is warning message", "Model management: %1", warning), 5000);
 }
 
 

@@ -74,8 +74,14 @@ QDomElement DBusCondition::privateSerialize(QDomDocument *doc, QDomElement elem)
 
 QString DBusCondition::name()
 {
-    return i18n("Method '%1' of service '%2' %3 '%4'", m_checkMethod, m_serviceName, 
-                (isInverted() ? i18n("does not evaluate to") : i18n("evaluates to")), m_value);
+    if (isInverted())
+        return i18nc("%1...Check method name, %2...Service name, %3...value to match", 
+	            "Method '%1' of service '%2' does not evaluate to '%4'", m_checkMethod, m_serviceName, 
+                    m_value);
+    else
+        return i18nc("%1...Check method name, %2...Service name, %3...value to match", 
+	            "Method '%1' of service '%2' evaluates to '%4'", m_checkMethod, m_serviceName, 
+                    m_value);
 }
 
 void DBusCondition::check()

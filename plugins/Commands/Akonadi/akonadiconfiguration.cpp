@@ -101,7 +101,7 @@ void AkonadiConfiguration::collectionJobFinished(KJob* job)
 {
   Akonadi::CollectionFetchJob *fetchJob = static_cast<Akonadi::CollectionFetchJob*>( job );
   if ( job->error() ) {
-      Logger::log(i18n("Job returned error: %1", job->errorString()), Logger::Error);
+      Logger::log(i18nc("%1 is error string", "Job returned error: %1", job->errorString()), Logger::Error);
       kError() << job->errorString();
       return;
   }

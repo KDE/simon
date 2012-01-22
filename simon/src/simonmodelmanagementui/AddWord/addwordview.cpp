@@ -203,7 +203,7 @@ void AddWordView::commitList()
   QStringList promptsKeys = promptsToAdd.keys();
   foreach (const QString& key, promptsKeys) {
     if (!TrainingManager::getInstance()->addSample(key, sampleGroupsToAdd.value(key), promptsToAdd.value(key)))
-      KMessageBox::error(this, i18n("Could not add %1 to the Prompts-Table", key));
+      KMessageBox::error(this, i18nc("%1 is the sample key", "Could not add %1 to the Prompts-Table", key));
   }
   if (!TrainingManager::getInstance()->savePrompts())
     KMessageBox::error(this, i18n("Could not save prompts"));
@@ -232,7 +232,7 @@ void AddWordView::commitList()
 
 void AddWordView::askToAddWord(QString word)
 {
-  if (KMessageBox::questionYesNoCancel(this, i18n("The word \"%1\" appears to be missing in your language model.\n\nDo you want to add it now?", word)) == KMessageBox::Yes) {
+  if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is the word name", "The word \"%1\" appears to be missing in your language model.\n\nDo you want to add it now?", word)) == KMessageBox::Yes) {
     createWord(word);
   }
 }

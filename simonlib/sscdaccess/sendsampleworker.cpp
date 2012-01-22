@@ -68,7 +68,7 @@ bool SendSampleWorker::sendSamples()
 
   while (!shouldAbort && (m_dataProvider->hasSamplesToTransmit())) {
     Sample *s = m_dataProvider->getSample();
-    emit status(i18n("Sending: %1", s->path()), i, maxProgress);
+    emit status(i18nc("%1 is a path", "Sending: %1", s->path()), i, maxProgress);
 
     //    QFile f(s->path());
     emit sendSample(s);
@@ -87,7 +87,7 @@ bool SendSampleWorker::sendSamples()
       if (retryAmount < 3)
         m_dataProvider->sampleTransmitted();
       else {
-        emit error(i18n("Server could not process sample: %1",
+        emit error(i18nc("%1 is an error message", "Server could not process sample: %1",
           m_server->lastError()));
         shouldAbort = true;                       //m_dataProvider->skipSample();
       }
@@ -110,10 +110,10 @@ bool SendSampleWorker::sendSamples()
       //remove storage
       if (QFile::exists(m_storageDirectory+"/profile.ini") &&
         !QFile::remove(m_storageDirectory+"/profile.ini"))
-        emit error(i18n("Profile information could not be removed: %1.", m_storageDirectory+"/profile.ini"));
+        emit error(i18nc("%1 is a path", "Profile information could not be removed: %1.", m_storageDirectory+"/profile.ini"));
       QDir d(m_storageDirectory);
       if (d.exists(m_storageDirectory) && !d.rmdir(m_storageDirectory))
-        emit error(i18n("Storage directory could not be removed: %1.", m_storageDirectory));
+        emit error(i18nc("%1 is a path", "Storage directory could not be removed: %1.", m_storageDirectory));
     }
     emit finished();
   } else

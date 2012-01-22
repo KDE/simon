@@ -33,7 +33,8 @@ pbAccuracy(new QProgressBar(this))
 
   lbName->setText(name);
 
-  lbBreakdown->setText(i18n("Recognized %1 of %2: Recognition rate:", correct, count));
+  lbBreakdown->setText(i18nc("%1 is the amount of correctly recognized samples, %2 is the amount of total samples", 
+                             "Recognized %1 of %2: Recognition rate:", correct, count));
 
   pbAccuracy->setMaximumWidth(200);
   pbAccuracy->setMaximum(100);

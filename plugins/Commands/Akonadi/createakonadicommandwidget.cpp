@@ -67,7 +67,7 @@ bool CreateAkonadiCommandWidget::init(Command* command)
   }
 
   if (!found) {
-    KMessageBox::sorry(this, i18n("Could not find child command: %1 (%2).", akonadiCommand->getChildTrigger(), 
+    KMessageBox::sorry(this, i18nc("%1 is child command trigger; %2 is child command type", "Could not find child command: %1 (%2).", akonadiCommand->getChildTrigger(), 
 				  akonadiCommand->getChildType()));
   }
   

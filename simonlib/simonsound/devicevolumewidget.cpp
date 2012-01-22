@@ -35,7 +35,7 @@ m_isTooLoud(false)
   ui->setupUi(this);
   if (m_deviceName.contains("CARD="))
     m_deviceName = m_deviceName.mid(m_deviceName.indexOf("CARD=")+5);
-  ui->lbDeviceName->setText(i18n("Device \"%1\":", m_deviceName));
+  ui->lbDeviceName->setText(i18nc("%1 is the devices name", "Device \"%1\":", m_deviceName));
   connect(rec, SIGNAL(level(qint64, float)), this, SLOT(deviceReportedLevel(qint64, float)));
   connect(rec, SIGNAL(clippingOccured()), this, SLOT(clipping()));
 
@@ -103,14 +103,14 @@ void DeviceVolumeWidget::tooLow()
 void DeviceVolumeWidget::start()
 {
   if (!rec->start())
-    KMessageBox::error(this, i18n("Recording could not be started for device: %1.", m_deviceName));
+    KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be started for device: %1.", m_deviceName));
 }
 
 
 void DeviceVolumeWidget::stop()
 {
   if (!rec->finish())
-    KMessageBox::error(this, i18n("Recording could not be stopped for device: %1.", m_deviceName));
+    KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be stopped for device: %1.", m_deviceName));
 }
 
 

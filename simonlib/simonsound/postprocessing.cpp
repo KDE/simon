@@ -65,7 +65,8 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
     int ret = QProcess::execute(execStr);
     if (ret) {
       //something went wrong
-      emit error(i18n("Could not process \"%1\" to \"%2\". Please check if the command:\n\"%4\". (Return value: %3)", in, out, ret, execStr));
+      emit error(i18nc("%1 is input file name, %2 is output file name, %3 is the return value and %4 is the executed command string",
+                       "Could not process \"%1\" to \"%2\". Please check if the command:\n\"%4\". (Return value: %3)", in, out, ret, execStr));
       return 0;
     }
     if (!silent) {

@@ -124,7 +124,7 @@ void VisualDialogView::correctInputReceived()
 
 void VisualDialogView::warnOfInvalidInput(const QString& input)
 {
-  ui->lbInvalidInput->setText(i18n("Invalid input: %1\nPlease say one of the displayed options.", input));
+  ui->lbInvalidInput->setText(i18nc("%1 is the invalid input provided", "Invalid input: %1\nPlease say one of the displayed options.", input));
   ui->frmWrongInput->show();
 }
 

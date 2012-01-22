@@ -134,7 +134,8 @@ QString defaultSampleGroup)
   hasChanged=false;
   if ((!deviceName.isEmpty()) &&
   (ui->cbSoundDevice->currentText() != deviceName)) {
-    if (KMessageBox::questionYesNoCancel(this, i18n("<html><head/><body><p>simon noticed that the sound device "
+    if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is the device name",
+            "<html><head/><body><p>simon noticed that the sound device "
             "\"%1\" is no longer available.</p><p>This is perfectly normal if you are "
             "connected to simond or are otherwise using an application that blocks the "
             "device.</p><p><b>Did you plug / unplug a device or otherwise change your systems "

@@ -61,7 +61,7 @@ bool TTSDialogView::say(const QString& text)
 {
   if (!SimonTTS::say(text))
   {
-    KMessageBox::sorry(0, i18n("Could not speak text: %1", text));
+    KMessageBox::sorry(0, i18nc("%1 is errenous text", "Could not speak text: %1", text));
     return false;
   }
   return true;

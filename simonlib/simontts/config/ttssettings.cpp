@@ -93,7 +93,7 @@ void TTSSettings::exportSet()
 
   kDebug() << "Exporting set to: " << path;
   if (!sets->exportSet(path, currentSet))
-    KMessageBox::sorry(this, i18n("Could not export set to \"%1\".", path));
+    KMessageBox::sorry(this, i18nc("%1 is path", "Could not export set to \"%1\".", path));
 }
 
 void TTSSettings::importSet()

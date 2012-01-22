@@ -130,7 +130,8 @@ void SelectProgramDialog::searchForPrograms()
 
       QString displayName;
       if (!service->genericName().isEmpty())
-        displayName = i18n("%1 (%2)", service->name(), service->genericName());
+        displayName = i18nc("%1 is an application name, %2 is the generic name",
+	                    "%1 (%2)", service->name(), service->genericName());
       else displayName = service->name();
       QListWidgetItem *item = new QListWidgetItem(KIcon(service->icon()), displayName);
 

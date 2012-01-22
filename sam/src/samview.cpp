@@ -290,7 +290,7 @@ void SamView::storeBuildLog()
   QFile f(filename);
   if (!f.open(QIODevice::WriteOnly))
   {
-    fatalError(i18n("Could not open output file %1.", filename));
+    fatalError(i18nc("%1 is the file name", "Could not open output file %1.", filename));
     return;
   }
   f.write(buildLog.toUtf8());
@@ -376,7 +376,7 @@ void SamView::displayModelTestStatus()
 void SamView::subTestStarted()
 {
   kDebug() << "Subtest started...";
-  ui.teTestLog->append(i18n("Test started: %1", 
+  ui.teTestLog->append(i18nc("Tag of the test", "Test started: %1", 
         static_cast<TestResultWidget*>(sender())->getTag()));
 
   displayModelTestStatus();
@@ -385,7 +385,7 @@ void SamView::subTestStarted()
 void SamView::subTestAborted()
 {
   kDebug() << "Subtest aborted...";
-  ui.teTestLog->append(i18n("Test aborted: %1", 
+  ui.teTestLog->append(i18nc("Tag of the test", "Test aborted: %1", 
         static_cast<TestResultWidget*>(sender())->getTag()));
   displayModelTestStatus();
 }
@@ -393,7 +393,7 @@ void SamView::subTestAborted()
 void SamView::subTestComplete()
 {
   kDebug() << "Subtest completed...";
-  ui.teTestLog->append(i18n("Test completed: %1", 
+  ui.teTestLog->append(i18nc("Tag of the test", "Test completed: %1", 
         static_cast<TestResultWidget*>(sender())->getTag()));
   displayModelTestStatus();
   startNextScheduledTest();
@@ -563,7 +563,7 @@ void SamView::updateWindowTitle()
   if (m_filename.isEmpty())
     decoFile = i18n("Untitled");
 
-  setWindowTitle(i18n("sam - %1 [*]", decoFile));
+  setWindowTitle(i18nc("%1 is file name", "sam - %1 [*]", decoFile));
   setWindowModified(m_dirty);
 }
 
@@ -573,7 +573,7 @@ void SamView::parseFile()
   //read from m_filename
   QFile f(m_filename);
   if (!f.open(QIODevice::ReadOnly)) {
-    fatalError(i18n("Cannot open file: %1", m_filename));
+    fatalError(i18nc("%1 is file name", "Cannot open file: %1", m_filename));
   }
   
   QDomDocument doc;
@@ -653,7 +653,7 @@ void SamView::storeFile()
   //store to m_filename
   QFile f(m_filename);
   if (!f.open(QIODevice::WriteOnly)) {
-    fatalError(i18n("Cannot open file: %1", m_filename));
+    fatalError(i18nc("%1 is file name", "Cannot open file: %1", m_filename));
     return;
   }
   
@@ -885,7 +885,7 @@ QStringList SamView::findScenarios(const QStringList& ids)
   foreach (const QString& id, ids) {
     QString resolvedPath = KStandardDirs::locate("data", "simon/scenarios/"+id);
     if (!QFile::exists(resolvedPath))
-      KMessageBox::information(this, i18n("Could not find scenario: %1", id));
+      KMessageBox::information(this, i18nc("%1 is scenario id", "Could not find scenario: %1", id));
     else scenarioPaths << resolvedPath;
   }
   return scenarioPaths;
@@ -1048,7 +1048,7 @@ void SamView::slotModelAdaptionStatus(QString status, int progress)
 
 void SamView::slotModelAdaptionError(QString errorMessage)
 {
-  fatalError(i18n("Failed to adapt model:\n\n%1", errorMessage));
+  fatalError(i18nc("%1 is error message", "Failed to adapt model:\n\n%1", errorMessage));
 }
 
 

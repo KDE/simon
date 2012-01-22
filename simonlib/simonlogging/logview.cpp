@@ -109,7 +109,7 @@ void LogView::viewDay(QDate day)
 {
   displayCancel();
   readLog();
-  setStatus(i18n("Loading Day %1", day.toString("yyyy/MM/dd")));
+  setStatus(i18nc("%1 is date", "Loading Day %1", day.toString("yyyy/MM/dd")));
   manager->getDay(day);
 }
 

@@ -115,7 +115,7 @@ void ImportDictWorkingPage::importLexicon(QString path)
 {
   if (path.isEmpty()) return;
 
-  displayStatus(i18n("Importing HTK-Dictionary %1...", path));
+  displayStatus(i18nc("%1 is path", "Importing HTK-Dictionary %1...", path));
 
   QString encoding = field("lexiconEncoding").toString();
   if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic"))
@@ -132,7 +132,7 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 {
   if (path.isEmpty()) return;
 
-  displayStatus(i18n("Importing HADIFIX-dictionary %1...", path));
+  displayStatus(i18nc("%1 is path", "Importing HADIFIX-dictionary %1...", path));
 
   QString encoding;
   if (field("bompSource").toBool()) {             //true means a manual import
@@ -149,7 +149,7 @@ void ImportDictWorkingPage::importPLS(QString path)
 {
   if (path.isEmpty()) return;
 
-  displayStatus(i18n("Importing PLS-dictionary %1...", path));
+  displayStatus(i18nc("%1 is path", "Importing PLS-dictionary %1...", path));
 
   import->parseWordList(path, "" /*encoding is determined by SAX*/, Dict::PLS, true /* remove input file when done */);
 }
@@ -159,7 +159,7 @@ void ImportDictWorkingPage::importSPHINX(QString path)
 {
   if (path.isEmpty()) return;
 
-  displayStatus(i18n("Importing SPHINX-dictionary %1...", path));
+  displayStatus(i18nc("%1 is path", "Importing SPHINX-dictionary %1...", path));
 
   QString encoding = field("sphinxEncoding").toString();
   if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic"))
@@ -172,7 +172,7 @@ void ImportDictWorkingPage::importJulius(QString path)
 {
   if (path.isEmpty()) return;
 
-  displayStatus(i18n("Importing Julius vocabulary %1...", path));
+  displayStatus(i18nc("%1 is path", "Importing Julius vocabulary %1...", path));
 
   QString encoding = field("juliusVocabularyEncoding").toString();
   if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic"))
