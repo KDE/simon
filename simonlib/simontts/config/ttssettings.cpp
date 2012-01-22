@@ -98,7 +98,7 @@ void TTSSettings::exportSet()
 
 void TTSSettings::importSet()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(), i18n("TTS Files *.tts"), this, i18n("Set file"));
+  QString path = KFileDialog::getOpenFileName(KUrl(), i18n("TTS Files *.tts"), this, i18nc("\"Set file\" is a substantive stating the file type", "Set file"));
   if (path.isEmpty()) return;
 
   kDebug() << "Importing set from: " << path;
@@ -233,7 +233,7 @@ void TTSSettings::addSet()
   if (!sets) return;
 
   bool ok = false;
-  QString setName = KInputDialog::getText(i18n("Set name"), 
+  QString setName = KInputDialog::getText(i18nc("Means: the name of the set", "Set name"),
       i18n("Please enter the name of the new set of recordings:"), QString(), 
       &ok, this);
 
@@ -253,7 +253,7 @@ void TTSSettings::renameSet()
   if (currentIndex == -1) return;
 
   bool ok = false;
-  QString setName = KInputDialog::getText(i18n("Set name"), 
+  QString setName = KInputDialog::getText(i18nc("Means: the name of the set", "Set name"),
       i18n("Please enter the changed name of the set of recordings:"), ui.cbActiveSet->currentText(), 
       &ok, this);
 
