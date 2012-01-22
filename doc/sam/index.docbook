@@ -139,9 +139,9 @@
 </screenshot>
 </para>
 
-<para>If you want to compile and / or test the simon model, you can use the <guibutton>Modify simons model</guibutton> option to load the appropriate files. Both scenarios and prompts will be serialized as appropriate.</para>
+<para>If you want to compile and / or test the simon model, you can use the <guibutton>Modify simon's model</guibutton> option to load the appropriate files. Both scenarios and prompts will be serialized as appropriate.</para>
 
-<para>When simon compiles the model, it will automatically remove untrained words during serialization as well as adapting the prompts appropriately. This will also happen when selecting <guibutton>Modify simons model</guibutton>. If you do, however serialize them separately using <guibutton>Serialize scenarios</guibutton> and <guibutton>Serialize prompts</guibutton> this adaption will not be performed and you alone are responsible for the validity of the input files. If you provide file names directly this of course applies even more so.</para>
+<para>When simon compiles the model, it will automatically remove untrained words during serialization as well as adapting the prompts appropriately. This will also happen when selecting <guibutton>Modify simon's model</guibutton>. If you do, however serialize them separately using <guibutton>Serialize scenarios</guibutton> and <guibutton>Serialize prompts</guibutton> this adaption will not be performed and you alone are responsible for the validity of the input files. If you provide file names directly this of course applies even more so.</para>
 
 <para>Selecting a static model as the used model type will still compile the language model, just like simon would do as well. It also copies the given base model input files to the output paths.</para>
 
@@ -170,7 +170,7 @@
 </screenshot>
 </para>
 
-  <para>To do this, select <guibutton>Serialize scenarios</guibutton> button in the <link linkend="input_output">Input output tab</link>. simons scenarios will also be serialized when using the <guibutton>Modify simons model</guibutton> options.</para>
+  <para>To do this, select <guibutton>Serialize scenarios</guibutton> button in the <link linkend="input_output">Input output tab</link>. simon's scenarios will also be serialized when using the <guibutton>Modify simon's model</guibutton> options.</para>
 
   <para>In this page you can find status information of the adaption and read detailed error messages if an error occurs.</para>
 </sect1>

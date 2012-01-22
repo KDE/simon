@@ -78,8 +78,8 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.saTestConfigurations->setWidget(ui.wgTestConfigurations);
 
   KAction* getPathsFromSimon = new KAction(this);
-  getPathsFromSimon->setText(i18n("Modify simons model"));
-  getPathsFromSimon->setStatusTip(i18n("Manage simons current model with ssc"));
+  getPathsFromSimon->setText(i18n("Modify simon's model"));
+  getPathsFromSimon->setStatusTip(i18n("Manage simon's current model with ssc"));
   getPathsFromSimon->setIcon(KIcon("simon"));
   actionCollection()->addAction("getPathsFromSimon", getPathsFromSimon);
   connect(getPathsFromSimon, SIGNAL(triggered(bool)),
