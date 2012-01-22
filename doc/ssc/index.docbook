@@ -156,7 +156,7 @@
 
     <sect3 id="institution_association">
       <title>Associating with an institution</title>
-      <para>Often institutions give unique ideas to each patient to reference them in their computer system. &kmyapplication; can be configured to use those institution ids instead of the internal sscd identifiers. To connect a ssc user to the institution id add a new institution connection to the user by pressing <guibutton>Add</guibutton> below <guilabel>Institution(s):</guilabel>.</para>
+      <para>Often institutions give unique ids to each patient to reference them in their computer system. &kmyapplication; can be configured to use those institution ids instead of the internal sscd identifiers. To connect a ssc user to the institution id add a new institution connection to the user by pressing <guibutton>Add</guibutton> below <guilabel>Institution(s):</guilabel>.</para>
 
       <para>
       <screenshot>
@@ -179,7 +179,7 @@
 
     <sect3 id="user_capabilities">
       <title>Capabilities</title>
-      <para>If the speaker is not able to answer interview questions or repeat words spoken by the facilitator then you can let &kmyapplication; know about it by unchecking <guibutton>Interview possible</guibutton> and / or <guibutton>Repeating possible</guibutton>. The unchecked training modes (Repeat and Interview) will then no longer be available for this speaker.</para>
+      <para>If the speaker is not able to answer interview questions or repeat words spoken by the facilitator then you can let &kmyapplication; know about it by unchecking <guibutton>Interview possible</guibutton> and / or <guibutton>Repeat possible</guibutton>. The unchecked training modes (Repeat and Interview) will then no longer be available for this speaker.</para>
     </sect3>
   </sect2>
 
@@ -357,7 +357,7 @@
 
       <para>To calibrate simply read the text displayed.</para>
 
-      <para>The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the "Volume changed" button next to the affected device. This will reset the volume status.
+      <para>The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the <guibutton>Volume changed</guibutton> button next to the affected device. This will reset the volume status.
       </para>
 
       <para>During calibration, try to talk normally. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsciously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
@@ -468,7 +468,7 @@
   </screenshot>
   </para>
 
-  <para>When you set up &kmyapplication; for a specific institution you might want to bind it directly to this institution. The user can then use the institution specific ids of the users (instead of the internal ssc ids) when referencing the users. To set up the bound institution, use the <guibutton>Use institution specific ids instead of ssc ids</guibutton> checkbox. For more information see the <link linkend="institution_association">section about institution associations</link>.</para>
+  <para>When you set up &kmyapplication; for a specific institution you might want to bind it directly to this institution. The user can then use the institution specific ids of the users (instead of the internal ssc ids) when referencing the users. To set up the bound institution, use the <guilabel>Use institution specific ids instead of ssc ids</guilabel> checkbox. For more information see the <link linkend="institution_association">section about institution associations</link>.</para>
 
   <para>The sound configuration is shared with the whole of the simon application suite. Read more about it in <ulink url="help:/simon/configuration.html#soundconfiguration">simons manual</ulink>.</para>
 </sect1>
