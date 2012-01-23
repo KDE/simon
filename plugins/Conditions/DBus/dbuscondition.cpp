@@ -76,11 +76,11 @@ QString DBusCondition::name()
 {
     if (isInverted())
         return i18nc("%1...Check method name, %2...Service name, %3...value to match", 
-	            "Method '%1' of service '%2' does not evaluate to '%4'", m_checkMethod, m_serviceName, 
+	            "Method '%1' of service '%2' does not evaluate to '%3'", m_checkMethod, m_serviceName, 
                     m_value);
     else
         return i18nc("%1...Check method name, %2...Service name, %3...value to match", 
-	            "Method '%1' of service '%2' evaluates to '%4'", m_checkMethod, m_serviceName, 
+	            "Method '%1' of service '%2' evaluates to '%3'", m_checkMethod, m_serviceName, 
                     m_value);
 }
 
