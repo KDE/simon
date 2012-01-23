@@ -35,13 +35,18 @@ ImportDictIntroPage::ImportDictIntroPage(QWidget* parent): QWizardPage(parent)
 
   QLabel *lbIntro = new QLabel(this);
   lbIntro->setWordWrap(true);
-  lbIntro->setText(i18n("This assistant will help you to import a new dictionary.\n\nA dictionary "
+  lbIntro->setOpenExternalLinks(true);
+  lbIntro->setText(i18n("<html><head /><body>"
+    "<p>This assistant will help you to import a new dictionary.</p><p>A dictionary "
     "contains information about the known words like how they are written and how "
-    "they are pronounced.\n\nThe dictionary is an essential core-component of your "
+    "they are pronounced.</p><p>The dictionary is an essential core component of your "
     "language model. Please ensure that every dictionary that you import is of "
-    "high quality as it will massively impact your recognition performance.\n\nWe "
+    "high quality as it will massively impact your recognition performance.</p><p>We "
     "suggest that you use the Voxforge English Dictionary which is a HTK "
-    "compatible lexicon and of very high quality."));
+    "compatible lexicon and of very high quality.</p><p>"
+    "For more information about available dictionaries, please <a "
+    "href=\"http://simon-listens.org/wiki/index.php/English:_Shadow_dictionary\">"
+    "visit our Wiki</a>.</body></html>"));
 
   QLabel *lbTarget = new QLabel(this);
   lbTarget->setText(i18n("Target:"));
