@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=ksimond
+Name[de]=KSimond
 Name[es]=ksimond
 Name[ga]=ksimond
 Name[nds]=KSimond
+Name[nl]=ksimond
 Name[pt]=ksimond
 Name[pt_BR]=ksimond
 Name[uk]=ksimond
@@ -12,6 +14,8 @@ Icon=ksimond
 Type=Application
 X-DocPath=ksimond/index.html
 GenericName=KDE Front-End to simond
+GenericName[de]=KDE-Programm für Simond
+GenericName[nl]=KDE-frontend naar simond
 GenericName[pt]=Interface para o KDE do Simond
 GenericName[pt_BR]=Interface gráfica do simond para o KDE
 GenericName[uk]=Графічна оболонка KDE до simond
