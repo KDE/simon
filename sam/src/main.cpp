@@ -41,7 +41,7 @@ int main(int argc, char **argv)
   options.add("e <filename>", ki18n("Export test results to the given filename"), "");
   options.add("b", ki18n("Batch processing: Close after all other arguments have been processed"), "");
   options.add("l <filename>", ki18n("Store compilation log"), "");
-  options.add("w", ki18n("Write opened file when done (batch mode)."), "");
+  options.add("w", ki18n("Write opened file to disk when done (batch mode)."), "");
 
   options.add("+samfile", ki18n("If provided, this file will automatically be loaded"), "");
      
