@@ -2488,7 +2488,7 @@ By default the desktopgrid uses numbers to select the individual fields. To use 
 <para>Using the Dictation or the Text-Macro plugin one could associate the numbers with their digits and use that as input method. however, to input larger numbers there are two ways that both have significant disadvantages:
 
 <itemizedlist>
-<listitem><para><emphasis>Adding the words "eleven, "twelve", etc.</emphasis></para>
+<listitem><para><emphasis>Adding the words "eleven", "twelve", etc.</emphasis></para>
 <para>While this seems like the most elegant solution as it would enable the user to say "fivehundredseventytwo" we can easily see that it would be quite a problem to add all these words - let alone train them. What about "twothousandninehundredtwo"? Where to stop?</para></listitem>
 <listitem><para><emphasis>Spell out the number using the individual digits</emphasis></para>
 <para>While this is not as elegant as stating the complete number it is much more practical.</para>
