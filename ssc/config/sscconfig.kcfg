@@ -34,7 +34,7 @@
     </entry>
     
     <entry name="ReferenceInstitute" type="Int">
-      <label>the institution who is used to resolve the reference ids.</label>
+      <label>the institution which is used to resolve the reference ids.</label>
       <default>0</default>
       <tooltip>Reference institute used to check the ids against.</tooltip>
     </entry>
