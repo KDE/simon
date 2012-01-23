@@ -65,9 +65,9 @@ QDomElement FileContent::privateSerialize(QDomDocument *doc, QDomElement elem)
 QString FileContent::name()
 {
     if (isInverted())
-        return i18nc("%1 is filename, %2 is the content to look for", "'%1' does not have the content'%2'", m_filename, m_fileContent);
+        return i18nc("%1 is filename, %2 is the content to look for", "'%1' does not have the content '%2'", m_filename, m_fileContent);
     else
-        return i18nc("%1 is filename, %2 is the content to look for", "'%1' has the content'%2'", m_filename, m_fileContent);
+        return i18nc("%1 is filename, %2 is the content to look for", "'%1' has the content '%2'", m_filename, m_fileContent);
 }
 
 bool FileContent::privateDeSerialize(QDomElement elem)
