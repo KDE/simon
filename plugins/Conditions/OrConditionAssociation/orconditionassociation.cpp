@@ -49,7 +49,7 @@ QString OrConditionAssociation::name()
         {
             str += " or ";
         }
-        str += "(" + m_conditions.at(i)->name() + ")";
+        str += '(' + m_conditions.at(i)->name() + ')';
     }
 
     if (isInverted()) 
@@ -60,11 +60,9 @@ QString OrConditionAssociation::name()
 
 void OrConditionAssociation::evaluateConditions()
 {
-   Condition* condition;
-  
    if (m_satisfied)
    {
-      foreach(condition, m_conditions)
+      foreach(Condition* condition, m_conditions)
       {
 	if (condition->isSatisfied())
 	{
@@ -79,7 +77,7 @@ void OrConditionAssociation::evaluateConditions()
    }
    else
    {
-     foreach(condition, m_conditions)
+     foreach(Condition* condition, m_conditions)
      {
        if (condition->isSatisfied())
        {

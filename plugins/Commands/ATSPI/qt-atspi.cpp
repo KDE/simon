@@ -53,3 +53,4 @@ const QDBusArgument &operator>>(const QDBusArgument &argument, QSpiObjectReferen
     argument.endStructure();
     return argument;
 }
+

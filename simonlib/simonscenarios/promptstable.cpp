@@ -82,7 +82,7 @@ bool PromptsTable::save(const QString& path)
 
     QStringList samples = m_wordBySample.keys();
 
-    foreach (QString sample, samples)
+    foreach (const QString& sample, samples)
         promptsFile.write(sample.toUtf8() + " \""
                           + m_groupBySample.value(sample).toUtf8() + "\" "
                           + m_wordBySample.value(sample).toUtf8() + '\n');
@@ -114,7 +114,7 @@ bool PromptsTable::deleteWord(Word *w)
 
     QStringList sampleFileNames = keys();
     bool succ = true;
-    foreach(QString sample, sampleFileNames)
+    foreach(const QString& sample, sampleFileNames)
     {
         QStringList promptWords = m_wordBySample.value(sample).split(' ');
         if (promptWords.contains(wordToDelete))

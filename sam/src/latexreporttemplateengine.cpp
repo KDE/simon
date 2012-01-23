@@ -31,13 +31,13 @@ QByteArray LatexReportTemplateEngine::lineBreak()
 QByteArray LatexReportTemplateEngine::escape(const QByteArray& in, bool extraSafety)
 {
   QByteArray out = in;
-  out = out.replace("%", "\\%");
-  out = out.replace("#", "\\#");
+  out = out.replace('%', "\\%");
+  out = out.replace('#', "\\#");
 
   if (extraSafety)
-    out = out.replace("_", "-");
+    out = out.replace('_', '-');
   else
-    out = out.replace("_", "\\_");
+    out = out.replace('_', "\\_");
 
   return ReportTemplateEngine::escape(out, extraSafety);
 }

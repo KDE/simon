@@ -38,7 +38,6 @@
 #include <KLocalizedString>
 #include <KPushButton>
 #include <KDebug>
-#include <sscdaccess/sscdaccess.h>
 
 
 /**

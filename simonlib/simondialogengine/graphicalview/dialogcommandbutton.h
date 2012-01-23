@@ -38,7 +38,7 @@ class DialogCommandButton : public KPushButton
     void go();
 
   public:
-    DialogCommandButton(DialogCommand* transition, QWidget *parent=0);
+    explicit DialogCommandButton(DialogCommand* transition, QWidget *parent=0);
 
 };
 

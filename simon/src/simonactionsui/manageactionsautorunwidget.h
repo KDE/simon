@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_MANAGEACTIONSAUTOSTARTWIDGET_H_FFF7A6377C9C4E42B2B5636676AD423F
-#define SIMON_MANAGEACTIONSAUTOSTARTWIDGET_H_FFF7A6377C9C4E42B2B5636676AD423F
+#ifndef SIMON_MANAGEACTIONSAUTORUNWIDGET_H_FFF7A6377C9C4E42B2B5636676AD423F
+#define SIMON_MANAGEACTIONSAUTORUNWIDGET_H_FFF7A6377C9C4E42B2B5636676AD423F
 
 #include <QWidget>
 #include "ui_manageactionsautorunwidget.h"
@@ -39,5 +39,6 @@ class ManageActionsAutorunWidget : public QWidget
     ManageActionsAutorunWidget(QWidget *parent = 0);
     bool save();
 };
+
 #endif
 

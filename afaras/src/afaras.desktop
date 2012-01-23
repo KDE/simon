@@ -19,4 +19,4 @@ GenericName[pt_BR]=Procurar e remover amostras inválidas
 GenericName[uk]=Знайти і вилучити помилкові зразки
 GenericName[x-test]=xxFind and remove bad samplesxx
 Terminal=false
-Categories=Qt;KDE;Utility
+Categories=Qt;KDE;Utility;

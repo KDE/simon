@@ -24,7 +24,6 @@
 #include <QDir>
 #include <QFileInfo>
 #include <KStandardDirs>
-#include <QFileInfo>
 #include <QDebug>
 #include <QMutex>
 #include <QMutexLocker>

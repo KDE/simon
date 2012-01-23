@@ -44,7 +44,7 @@ QByteArray ReportTemplateEngine::escape(const QByteArray& in, bool extraSafety)
 {
   Q_UNUSED(extraSafety);
   QByteArray out = in;
-  out = out.replace("\n", lineBreak());
+  out = out.replace('\n', lineBreak());
   return in;
 }
 
@@ -67,8 +67,8 @@ QByteArray ReportTemplateEngine::replaceTemplateParameters(const QByteArray& tem
 bool ReportTemplateEngine::splitTemplate(const QByteArray& input, const QByteArray& id, const QByteArray& conditionStartPrefix,
             const QByteArray& conditionEndPrefix, QByteArray& pre, QByteArray& part, QByteArray& post)
 {
-  QByteArray beginTag = "$"+conditionStartPrefix+"_"+id+"$";
-  QByteArray endTag = "$"+conditionEndPrefix+"_"+id+"$";
+  QByteArray beginTag = '$'+conditionStartPrefix+'_'+id+'$';
+  QByteArray endTag = '$'+conditionEndPrefix+'_'+id+'$';
   int startIndex = input.indexOf(beginTag);
   int endIndex = input.indexOf(endTag, startIndex);
   if ((startIndex == -1) || (endIndex == -1))
@@ -114,8 +114,8 @@ QByteArray ReportTemplateEngine::parseIf(const QByteArray& templateData, const Q
 
   if (value)
   {
-    output.replace("$IF_"+condition+"$", "");
-    output.replace("$ENDIF_"+condition+"$", "");
+    output.replace("$IF_"+condition+'$', "");
+    output.replace("$ENDIF_"+condition+'$', "");
   } else {
     //remove block
     QByteArray pre;
@@ -160,7 +160,7 @@ bool ReportTemplateEngine::cleanTempDir()
 
 float ReportTemplateEngine::parsePrettyPrintedPercentage(QString in)
 {
-  return in.remove("%").trimmed().toFloat();
+  return in.remove('%').trimmed().toFloat();
 }
 
 

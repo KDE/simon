@@ -25,7 +25,6 @@
 #include <qwt_plot.h>
 #include <qwt_legend.h>
 #include <qwt_legend_item.h>
-#include <qwt_series_data.h>
 #include <QStringList>
 
 

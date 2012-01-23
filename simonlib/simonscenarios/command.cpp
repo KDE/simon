@@ -200,7 +200,7 @@ QDomElement Command::serialize(QDomDocument *doc)
   
   QString states;
   foreach (int elem, boundStates)
-    states += QString::number(elem)+",";
+    states += QString::number(elem)+',';
   states = states.left(states.length()-1); //remove last ,
   
   stateElem.appendChild(doc->createTextNode(states));
@@ -248,7 +248,7 @@ bool Command::deSerialize(const QDomElement& elem)
   
   boundStates.clear();
   QString states = stateElem.text();
-  foreach (const QString& s, states.split(","))
+  foreach (const QString& s, states.split(','))
     boundStates << s.toInt();
   
   switchToState = newStateElem.text().toInt();

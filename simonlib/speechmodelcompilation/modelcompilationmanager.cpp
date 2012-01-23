@@ -1053,7 +1053,7 @@ bool ModelCompilationManager::doesIncreaseMixtures(const QString& script)
 
 QString ModelCompilationManager::createHMMPath(int number)
 {
-  return htkIfyPath(tempDir)+"/hmm"+QString::number(number)+"/";
+  return htkIfyPath(tempDir)+"/hmm"+QString::number(number)+'/';
 }
 
 bool ModelCompilationManager::increaseMixtures()
@@ -1108,7 +1108,7 @@ bool ModelCompilationManager::increaseMixtures()
     if (!succ)
     {
       analyseError(i18n("Could not generate increase mixtures according to this config: %1.\n\n"
-            "Please check the path to HHEd (%1), HERest (%2) and the content of the config file.", config, hHEd, hERest));
+            "Please check the path to HHEd (%2), HERest (%3) and the content of the config file.", config, hHEd, hERest));
       return false;
     }
   }
@@ -1862,7 +1862,7 @@ QString ModelCompilationManager::htkInformation(bool condensed)
   QString information = proc.readAllStandardOutput().trimmed();
   if (condensed)
   {
-    QStringList info = information.split("\n");
+    QStringList info = information.split('\n');
     info.removeAt(0);
     info.removeAt(0);
     QStringList versions;
@@ -1909,7 +1909,7 @@ bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, cons
     command += "-C \""+c+"\" ";
 
   if (!additionalParameters.isEmpty())
-    command += additionalParameters+" ";
+    command += additionalParameters+' ';
 
   //Pruning threshold (was: 3000.0 / 1000.0)
   command += "-I \""+mlf+"\" -t 250.0 150.0 3000.0 ";

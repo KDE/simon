@@ -191,7 +191,7 @@ void AkonadiCommandManager::parseConfiguration()
   
   //setup monitoring
   Akonadi::Collection::List monitoredCollections = akonadiMonitor->collectionsMonitored();
-  foreach (Akonadi::Collection c, monitoredCollections)
+  foreach (const Akonadi::Collection& c, monitoredCollections)
     akonadiMonitor->setCollectionMonitored(c, false);
   akonadiMonitor->setCollectionMonitored(Akonadi::Collection(getAkonadiConfiguration()->getCollection()), true);
   
@@ -209,7 +209,7 @@ bool AkonadiCommandManager::deSerializeConfig(const QDomElement& elem)
   config = new AkonadiConfiguration(this, parentScenario);
   
   if ( !Akonadi::Control::start( config ) ) {
-    Logger::log(i18n("Failed to contact akonadi.", Logger::Error));
+    Logger::log(i18n("Failed to contact akonadi."), Logger::Error);
     return false;
   }
   

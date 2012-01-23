@@ -46,6 +46,8 @@
 #include <KMimeType>
 #include <locale.h>
 
+//krazy:excludeall=captruefalse
+//
 #ifdef FALSE
 #undef FALSE
 #endif

@@ -77,3 +77,4 @@ private slots:
     void slotButtonClicked(int button);
 };
 #endif
+

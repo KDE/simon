@@ -18,14 +18,14 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "simonoid.h"
+
 #include <QPainter>
 #include <QFontMetrics>
 #include <KConfigGroup>
 #include <KLocale>
 #include <QDBusInterface>
 #include <KConfigDialog>
-
-#include "simonoid.h"
 
 Simonoid::Simonoid ( QObject *parent, const QVariantList &args )
   : Plasma::Applet ( parent, args ),

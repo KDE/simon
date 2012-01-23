@@ -74,6 +74,7 @@ bool DBusCommand::triggerPrivate(int *state)
                                                     m_interface,
                                                     m_method);
   QList<QVariant> args;
+  //krazy:exclude=foreach
   foreach (QString arg, m_args) {
     int i=0; 
     while ((arg.contains("%")) && (i < currentArguments().count())) {

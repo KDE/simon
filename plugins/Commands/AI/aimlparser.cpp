@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+//krazy:skip
+
 #include "aimlparser.h"
 #include <QFile>
 #include <QDateTime>

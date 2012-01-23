@@ -24,7 +24,6 @@
 #include <QThread>
 #include <KLocalizedString>
 #include <KDebug>
-#include <KLocalizedString>
 
 //Basic functions to set up alsa
 static int set_hwparams(snd_pcm_t *handle,
@@ -203,7 +202,7 @@ QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
     //is this device of the right type
     if ((ioid == 0) || (strcmp(ioid, (type == SimonSound::Input) ? "Input" : "Output") == 0)) {
       //add it to the list
-      QString userDeviceName = QString("%1 (%2)").arg(description).arg(name).replace("\n", " ");
+      QString userDeviceName = QString("%1 (%2)").arg(description).arg(name).replace('\n', ' ');
       if (userDeviceName.contains("Default Audio Device"))
         devices.insert(0, userDeviceName);
       else

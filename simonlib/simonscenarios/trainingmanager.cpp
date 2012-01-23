@@ -38,7 +38,6 @@
 #include <KStandardDirs>
 #include <KDateTime>
 #include <KLocale>
-#include <KDateTime>
 #include <math.h>
 
 TrainingManager* TrainingManager::m_instance;

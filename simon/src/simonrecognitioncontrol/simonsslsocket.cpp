@@ -60,3 +60,4 @@ void SimonSSLSocket::readFromSocket()
 {
   socket->readFromSocket();
 }
+

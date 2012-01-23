@@ -40,7 +40,7 @@ private slots:
   void updateImagePreview();
   
 public:
-    CreateAvatarDialog(QWidget* parent = 0, Qt::WFlags flags = 0);
+    explicit CreateAvatarDialog(QWidget* parent = 0, Qt::WFlags flags = 0);
     virtual ~CreateAvatarDialog();
     void addAvatar(AvatarModel *model);
     void editAvatar(Avatar* avatar);

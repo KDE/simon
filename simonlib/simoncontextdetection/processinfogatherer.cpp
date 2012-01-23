@@ -39,10 +39,9 @@ ProcessInfoGatherer::~ProcessInfoGatherer()
 
 void ProcessInfoGatherer::checkProcessListChanges()
 {
-    QString processName;
     bool dirty = false;
 
-    foreach(processName, m_currentlyRunningProcesses)
+    foreach(const QString& processName, m_currentlyRunningProcesses)
     {
         //check to see if the name is new
         if (m_previouslyRunningProcesses.contains(processName))
@@ -57,7 +56,7 @@ void ProcessInfoGatherer::checkProcessListChanges()
     }
 
     //signal any processes that were removed
-    foreach (processName, m_previouslyRunningProcesses)
+    foreach (const QString& processName, m_previouslyRunningProcesses)
     {
         dirty = true;
         emit processRemoved(processName);

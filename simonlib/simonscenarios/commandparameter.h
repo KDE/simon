@@ -29,7 +29,7 @@ class CommandParameter
     bool m_optional;
 
   public:
-    CommandParameter(const QString& name, bool optional=false);
+    explicit CommandParameter(const QString& name, bool optional=false);
     QString name() { return m_name; }
     bool optional() { return m_optional; }
 

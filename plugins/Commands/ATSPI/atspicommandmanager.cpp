@@ -235,7 +235,7 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
       int commandIndex = commandsToRemove.indexOf(exampleSentences.at(0));
       if (commandIndex == -1) continue;
       
-      QStringList terminals = sent.split(" ");
+      QStringList terminals = sent.split(' ');
       
       foreach (const QString& t, terminals) {
         QList<Word*> w = vocab->findWordsByTerminal(t);
@@ -285,7 +285,7 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
     QStringList allWords;
     QList<QStringList> sentenceWords;
     foreach (const QString& command, newCommands) {
-      QStringList words = command.split(" ");
+      QStringList words = command.split(' ');
       allWords << words;
       sentenceWords << words;
     }
@@ -299,7 +299,7 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
       QString structure;
       foreach (const QString& word, sentenceWords[i]) {
         QString terminal = QString("ATSPI_INTERNAL_%1_%2").arg(sentenceNr).arg(++wordNr);
-        structure.append(terminal+" ");
+        structure.append(terminal+' ');
         
         QString transcription = transcriptions.value(word.toUpper());
         if (transcription.isEmpty()) {

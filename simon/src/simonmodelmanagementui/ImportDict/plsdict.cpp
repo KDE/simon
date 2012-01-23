@@ -144,7 +144,7 @@ const QString &qName)
   if (qName == "lexeme") {
     kDebug() << currentWord;
     kDebug() << currentWords;
-    foreach (QString w, currentWords) {
+    foreach (const QString& w, currentWords) {
       // add the found words to the word
       foreach (const QString& phonemeDefinition, phonemeDefinitions) {
         words << w.trimmed();

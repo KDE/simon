@@ -30,7 +30,6 @@
 #include <KDebug>
 #include <KMessageBox>
 #include <QFile>
-#include <QMutexLocker>
 
 SimonSoundOutput::SimonSoundOutput(QObject *parent) : QObject(parent),
 killBufferLock(QMutex::Recursive),

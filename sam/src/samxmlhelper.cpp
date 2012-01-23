@@ -54,3 +54,4 @@ int SamXMLHelper::getInt(QDomElement parent, const QString& tagName)
 {
   return getText(parent, tagName).toInt();
 }
+

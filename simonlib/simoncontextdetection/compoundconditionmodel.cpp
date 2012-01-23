@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "compoundcondition.h"
 #include "compoundconditionmodel.h"
+#include "compoundcondition.h"
 #include <KDebug>
 #include <QFont>
 #include <KColorScheme>

@@ -49,7 +49,7 @@ class SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT VisualDialogView : public QWidget, p
     void closeEvent(QCloseEvent* event);
 
   public:
-    VisualDialogView(DialogManager *dialog, QWidget *parent=0, Qt::WindowFlags flags=0);
+    explicit VisualDialogView(DialogManager *dialog, QWidget *parent=0, Qt::WindowFlags flags=0);
 
     bool start();
     bool stop();

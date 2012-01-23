@@ -1,3 +1,22 @@
+/*
+ *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 #include "contextadapter.h"
 #include <KDebug>
 #include <QDir>
@@ -249,16 +268,16 @@ void ContextAdapter::storeLanguageModelInCache(QStringList deactivatedScenarios)
     if (m_modelCache.value(deactivatedList, "").isEmpty())
     {
         cachedModelDir.setNum(m_modelCache.count());
-        kDebug() << "Adding the following entry to cache '" + deactivatedList + "'";
+        kDebug() << "Adding the following entry to cache '" + deactivatedList + '\'';
         m_modelCache.insert(deactivatedList, cachedModelDir);
-        cachedModelDir = languageDir + cachedModelDir + "/";
+        cachedModelDir = languageDir + cachedModelDir + '/';
         dir.mkpath(cachedModelDir);
         kDebug() << "With the following cache directory " + cachedModelDir;
     }
     else
     {
-        kDebug() << "RE-Adding the following entry to cache '" + deactivatedList + "'";
-        cachedModelDir = languageDir + m_modelCache.value(deactivatedList, "") + "/";
+        kDebug() << "RE-Adding the following entry to cache '" + deactivatedList + '\'';
+        cachedModelDir = languageDir + m_modelCache.value(deactivatedList, "") + '/';
     }
 
     //make sure cache directory exists
@@ -303,7 +322,7 @@ void ContextAdapter::storeAcousticModelInCache(QString sampleGroup)
     }
 
     kDebug() << "Storing acoustic model for sample group '" << sampleGroup << "' in cache.";
-    cachedModelDir = acousticDir + sampleGroup + "/";
+    cachedModelDir = acousticDir + sampleGroup + '/';
 
     //make sure cache directory exists
     dir.mkpath(cachedModelDir);
@@ -393,7 +412,7 @@ bool ContextAdapter::loadLanguageModelFromCache(QStringList deactivatedScenarios
         kDebug() << "Entry found!  Retrieving files from cache location " << m_modelCache.value(deactivatedList);
 
         //if so, replace the active files with the cached ones and return
-        cachedModelDir = languageDir + m_modelCache.value(deactivatedList) + "/";
+        cachedModelDir = languageDir + m_modelCache.value(deactivatedList) + '/';
 
         dir.rename(cachedModelDir+"lexicon", activeDir+"lexicon");
         dir.rename(cachedModelDir+"model.grammar", activeDir+"model.grammar");
@@ -459,11 +478,11 @@ void ContextAdapter::clearAcousticModelCache()
     //clear the acoustic model cache
     dir.setCurrent(acousticDir);
     cacheDirs = dir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
-    foreach (QString dirInfo, cacheDirs)
+    foreach (const QString& dirInfo, cacheDirs)
     {
-        dir.setCurrent(dir.absolutePath() + "/" + dirInfo);
+        dir.setCurrent(dir.absolutePath() + '/' + dirInfo);
         cachedFiles = dir.entryList(QDir::Files);
-        foreach (QString fileInfo, cachedFiles)
+        foreach (const QString& fileInfo, cachedFiles)
         {
             QFile::remove(fileInfo);
         }
@@ -501,12 +520,12 @@ void ContextAdapter::clearLanguageModelCache()
     //clear the language model cache
     dir.setCurrent(languageDir);
     cacheDirs = dir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
-    foreach (QString dirInfo, cacheDirs)
+    foreach (const QString& dirInfo, cacheDirs)
     {
         kDebug() << "clearing " + dirInfo;
-        dir.setCurrent(dir.absolutePath() + "/" + dirInfo);
+        dir.setCurrent(dir.absolutePath() + '/' + dirInfo);
         cachedFiles = dir.entryList(QDir::Files);
-        foreach (QString fileInfo, cachedFiles)
+        foreach (const QString& fileInfo, cachedFiles)
         {
             kDebug() << "removing file " + fileInfo;
             QFile::remove(fileInfo);
@@ -628,7 +647,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     QStringList activeScenarioPathsIn;
     QRegExp slashes = QRegExp("/+");
     bool hasDeactivatedScenarios = false;
-    foreach (QString path, scenarioPathsIn)
+    foreach (const QString& path, scenarioPathsIn)
     {
         if (!m_currentlyCompilingDeactivatedScenarios.contains(path.split(slashes).back()))
         {
@@ -841,7 +860,7 @@ void ContextAdapter::setupAcousticModelCache(const QString &promptsIn)
 
     QStringList sampleGroups = linesBySampleGroup.keys();
 
-    foreach (QString sampleGroup, sampleGroups)
+    foreach (const QString& sampleGroup, sampleGroups)
     {
         //make the directory in the cache
         QDir dir;
@@ -854,9 +873,9 @@ void ContextAdapter::setupAcousticModelCache(const QString &promptsIn)
         QTextStream sampleGroupStream(&sampleGroupFile);
         QStringList lines = linesBySampleGroup.values(sampleGroup);
 
-        foreach (QString promptsLine, lines)
+        foreach (const QString& promptsLine, lines)
         {
-            sampleGroupStream << promptsLine + "\n";
+            sampleGroupStream << promptsLine + '\n';
         }
         sampleGroupFile.close();
     }

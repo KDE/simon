@@ -26,6 +26,7 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodeltest_export.h"
 
+//krazy:excludeall=captruefalse
 #ifdef FALSE
 #undef FALSE
 #endif

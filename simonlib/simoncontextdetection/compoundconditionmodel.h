@@ -26,8 +26,11 @@
 
 #include <QString>
 #include <QAbstractItemModel>
-class CompoundCondition;
 #include "simoncontextdetection_export.h"
+
+class CompoundCondition;
+class Condition;
+
 
 /**
  *	@class CompoundConditionModel

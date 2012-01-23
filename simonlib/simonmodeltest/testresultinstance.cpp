@@ -40,7 +40,7 @@ TestResultInstance* TestResultInstance::createInstance(const QString& label, con
 bool TestResultInstance::registerChildren(const QString& label, 
     const QList<TestResultLeaf*>& children)
 {
-  QStringList labels = label.split(" ", QString::SkipEmptyParts);
+  QStringList labels = label.split(' ', QString::SkipEmptyParts);
   m_children.clear();
   for (int i=0; i < children.count(); i++)
   {

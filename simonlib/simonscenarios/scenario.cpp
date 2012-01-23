@@ -129,7 +129,7 @@ bool Scenario::setupChildScenarios()
 {
     m_childScenarios.clear();
 
-    foreach (QString id, m_childScenarioIds)
+    foreach (const QString& id, m_childScenarioIds)
     {
         Scenario* child = ScenarioManager::getInstance()->getScenario(id);
 
@@ -590,7 +590,7 @@ QString Scenario::serialize()
   //************************************************/
   QDomElement childrenElem = doc.createElement("childscenarioids");
   QDomElement idElem;
-  foreach(QString id, m_childScenarioIds)
+  foreach(const QString& id, m_childScenarioIds)
   {
       idElem = doc.createElement("scenarioid");
       idElem.appendChild(doc.createTextNode(id));

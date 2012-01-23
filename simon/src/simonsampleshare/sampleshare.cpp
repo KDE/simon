@@ -263,7 +263,7 @@ void SampleShare::listDialects()
     foreach (User *u, users) {
       QString dialect = u->surname();
       if (!u->givenName().isEmpty())
-	dialect += " "+u->givenName();
+	dialect += ' '+u->givenName();
       
       if (dialect == i18n("Other / None"))
 	otherAlreadyIn = true;

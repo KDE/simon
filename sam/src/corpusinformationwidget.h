@@ -35,7 +35,7 @@ class CorpusInformationWidget : public QWidget
     void determineSampleCount();
     
   public:
-    CorpusInformationWidget(CorpusInformation *information, QWidget *parent=0);
+    explicit CorpusInformationWidget(CorpusInformation *information, QWidget *parent=0);
 
     CorpusInformation* information() { return m_information; }
     void submit();

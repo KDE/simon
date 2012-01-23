@@ -68,7 +68,7 @@ class TestResultWidget : public QWidget
     void slotModelTestCompleted();
 
   public:
-    TestResultWidget(TestConfigurationWidget *configuration, QWidget *parent=0);
+    explicit TestResultWidget(TestConfigurationWidget *configuration, QWidget *parent=0);
     ~TestResultWidget();
 
     TestState getState() { return currentState; }

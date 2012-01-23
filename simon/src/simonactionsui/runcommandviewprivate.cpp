@@ -88,11 +88,12 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 
 void RunCommandViewPrivate::managePlugIns()
 {
-  ManageActionsDialog dlg(this);
-  if (dlg.exec()) {
+  QPointer<ManageActionsDialog> dlg = new ManageActionsDialog(this);
+  if (dlg->exec()) {
     emit actionsChanged();
   }
   updateCommandDetail();
+  delete dlg;
 }
 
 

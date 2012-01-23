@@ -85,7 +85,7 @@ private:
  */
 class QwtScaleDrawLabels : public QwtScaleDraw {
 public:
-	QwtScaleDrawLabels( const QStringList& l = QStringList(), int indexOffset = 0 );
+	explicit QwtScaleDrawLabels( const QStringList& l = QStringList(), int indexOffset = 0 );
 	virtual QwtText label(double val) const;
 private:
 	QStringList d_labels;

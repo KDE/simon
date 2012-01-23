@@ -26,6 +26,7 @@
 #include <KLocale>
 
 //include order defined by X11 includes in header...
+//krazy:exclude=includes
 #include "xeventsprivate.h"
 
 // #include "../Logging/logger.h"

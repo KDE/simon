@@ -52,3 +52,4 @@ QDBusArgument &operator<<(QDBusArgument &argument, const QSpiObjectReference &ad
 const QDBusArgument &operator>>(const QDBusArgument &argument, QSpiObjectReference &address);
 
 #endif
+

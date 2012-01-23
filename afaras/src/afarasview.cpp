@@ -140,7 +140,7 @@ void AfarasView::start()
 
   QFile blackListF(ui.urOutputBlacklist->url().toLocalFile());
   if (blackListF.open(QIODevice::ReadOnly))
-    blackListedRecordings = QString::fromUtf8(blackListF.readAll()).split("\n", QString::SkipEmptyParts);
+    blackListedRecordings = QString::fromUtf8(blackListF.readAll()).split('\n', QString::SkipEmptyParts);
 
   currentIndex = 0;
   setupRecorder();

@@ -30,7 +30,7 @@ class SimonSSLSocket : public QSslSocket
 Q_OBJECT
 
 public:
-  SimonSSLSocket(ThreadedSSLSocket *socket, QObject* parent = 0);
+  explicit SimonSSLSocket(ThreadedSSLSocket *socket, QObject* parent = 0);
   virtual qint64 writeData(const char* data, qint64 len);
   virtual qint64 readData(char* data, qint64 maxlen);
     

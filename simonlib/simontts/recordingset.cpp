@@ -217,7 +217,7 @@ bool RecordingSet::keepFile(const QString& file)
     if (!toRemove.open(QIODevice::WriteOnly|QIODevice::Truncate))
       return false;
     foreach (const QString& l, lines)
-      toRemove.write(l.toUtf8()+"\n");
+      toRemove.write(l.toUtf8()+'\n');
     toRemove.close();
   }
   return true;
@@ -290,8 +290,8 @@ bool RecordingSet::removeRecording(const QString& text)
     kDebug() << "Torm file:" << getTempDirectory()+"torm";
     if (f.open(QIODevice::WriteOnly|QIODevice::Append))
     {
-      kDebug() << "Wrote to file" << file.toUtf8()+"\n";
-      f.write(file.toUtf8()+"\n");
+      kDebug() << "Wrote to file" << file.toUtf8()+'\n';
+      f.write(file.toUtf8()+'\n');
     }
     else succ = false;
     f.close();
@@ -392,7 +392,7 @@ QVariant RecordingSet::data (const QModelIndex& index, int role) const
     case Qt::DisplayRole:
       {
       QString text = m_recordings.keys().at(index.row());
-      return text.replace("\n", " ");
+      return text.replace('\n', ' ');
       }
     case Qt::UserRole:
       {

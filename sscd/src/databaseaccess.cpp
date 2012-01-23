@@ -157,6 +157,7 @@ bool DatabaseAccess::executeQuery(QSqlQuery& query)
   }
   #endif
 
+  //krazy:exclude=crashy
   bool succ = query.exec();
   if (!succ)
     emit error(query.lastError().text());

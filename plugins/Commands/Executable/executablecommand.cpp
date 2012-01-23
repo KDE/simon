@@ -73,6 +73,7 @@ bool ExecutableCommand::triggerPrivate(int *state)
     QString currentItem;
     bool isQuoted=false;
     //we need the copy here
+    //krazy:exclude=foreach
     foreach (QString com, coms) {
       if ((com.startsWith('"')) && (com.endsWith('"'))) {
         com.remove(QRegExp(QLatin1String("^\"")));

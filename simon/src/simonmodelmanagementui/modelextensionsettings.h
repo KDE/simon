@@ -17,16 +17,14 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_MODELSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
-#define SIMON_MODELSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
+#ifndef SIMON_MODELEXTENSIONSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
+#define SIMON_MODELEXTENSIONSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
 
 #include "ui_modelextensionsettingsdlg.h"
 #include <KCModule>
 #include <QVariantList>
 #include <QString>
-/**
-  @author Peter Grasch <bedahr@gmx.net>
-*/
+
 class ModelExtensionSettings : public KCModule
 {
   Q_OBJECT
@@ -39,4 +37,6 @@ class ModelExtensionSettings : public KCModule
     ~ModelExtensionSettings();
 
 };
+
 #endif
+

@@ -166,6 +166,7 @@ void CompoundCondition::evaluateConditions()
     }
     else
     {
+        //krazy:exclude=foreach
         foreach (condition, m_conditions)
         {
             if (!condition->isSatisfied())

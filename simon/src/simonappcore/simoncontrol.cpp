@@ -32,7 +32,6 @@
 #include <simontts/simontts.h>
 #include <simoncontextdetection/contextmanager.h>
 #include <simonscenarios/scenariomanager.h>
-#include <simoncontextdetection/contextmanager.h>
 #include <simoncontextdetection/processinfo.h>
 
 #include <QFileInfo>

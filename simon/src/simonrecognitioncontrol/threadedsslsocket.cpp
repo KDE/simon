@@ -148,3 +148,4 @@ void ThreadedSSLSocket::disconnectFromHost()
 {
   socket->disconnectFromHost();
 }
+

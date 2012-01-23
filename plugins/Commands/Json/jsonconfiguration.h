@@ -39,7 +39,7 @@ class JsonConfiguration : public CommandConfiguration
     virtual void defaults();
 
   public:
-    JsonConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    explicit JsonConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
     ~JsonConfiguration();
 
     QString host();

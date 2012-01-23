@@ -46,6 +46,8 @@
 #include <KDebug>
 #include "recognitioncontrol.h"
 
+//krazy:excludeall=captruefalse
+
 #ifdef bzero
 #undef bzero
 #endif

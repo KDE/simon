@@ -18,12 +18,14 @@
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "directsoundbackend.h"
 #include <unistd.h>
 #include <simonsound/soundbackendclient.h>
 #include <QThread>
 #include <KDebug>
 #include <KLocalizedString>
-#include "directsoundbackend.h"
+
+//krazy:excludeall=captruefalse
 
 #ifdef __MINGW64_VERSION_MAJOR
 //libdxerr.a is missing on mingw so no error support :(

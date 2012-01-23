@@ -168,7 +168,7 @@ void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
       QList<Condition*> conditions = parent->compoundCondition()->getConditions();
       foreach(Condition* c, conditions)
       {
-          inheritedRequirements.push_back("[" + parent->name() + "]: " + c->name());
+          inheritedRequirements.push_back('[' + parent->name() + "]: " + c->name());
       }
 
       parent = parent->parentScenario();

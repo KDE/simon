@@ -490,7 +490,7 @@ void ScenarioManagementDialog::initDisplay()
   {
       QStringList ids = s->childScenarioIds();
       kDebug() << "Setting up children of " << s->id() << ": " << ids;
-      foreach (QString id, ids)
+      foreach (const QString& id, ids)
       {
           QTreeWidgetItem *childItem = itemsByScenarioIds.value(id);
           QTreeWidgetItem *parentItem = itemsByScenarioIds.value(s->id());

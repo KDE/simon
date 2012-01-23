@@ -80,7 +80,7 @@ void ConservativeTraining::accept()
   QString delimiter = ".wav-log.txt";
   int delimiterSize = delimiter.size();
 
-  QStringList logs = QDir(path).entryList(QStringList() << "*"+delimiter, 
+  QStringList logs = QDir(path).entryList(QStringList() << '*'+delimiter, 
       QDir::Files|QDir::Readable|QDir::NoDotAndDotDot);
 
   foreach (const QString& log, logs) {
