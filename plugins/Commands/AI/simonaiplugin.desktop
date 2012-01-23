@@ -5,6 +5,7 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonaiplugin
 Name=simon AI Plugin
 Name[es]=Complemento de IA para simon
+Name[nl]=Plug-in van simon AI
 Name[pt]='Plugin' de IA do Simon
 Name[pt_BR]=Plugin de inteligência artificial do simon
 Name[uk]=Додаток штучного інтелекту simon
