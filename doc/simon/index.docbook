@@ -104,7 +104,7 @@ The main recognition architecture of simon consists of three applications.
 </para>
 
 <para>
-These three components form a real client / server solution for the recognition. That means that there is one server (simond) for one or more clients (&kmyapplication;; This application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with simond graphically.
+These three components form a real client / server solution for the recognition. That means that there is one server (simond) for one or more clients (&kmyapplication;; this application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with simond graphically.
 </para>
 
 <para>
@@ -133,9 +133,9 @@ Please refer to the individual handbooks of those applications for more details.
 
 <para>&kmyapplication; is used to create and maintain a representation of your pronunciation and language. This representation is then sent to the server simond which compiles it into a usable speech model.</para>
 <para>&kmyapplication; then records sound from the microphone and transmits it to the server which runs the recognition on the received input stream. simond sends the recognition result back to the client (&kmyapplication;).</para>
-<para>&kmyapplication; then uses this recognition result to execute commands like opening programs, following links, etc.</para>
+<para>&kmyapplication; then uses this recognition result to execute commands like opening programs, following links, &etc;</para>
 
-<para>simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users. By default a standard user is set up in both simon and simond so the typical use case of one simond server per simon client will work "out of the box".</para>
+<para>simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users. By default a standard user is set up in both simon and simond so the typical use case of one simond server per simon client will work <quote>out of the box</quote>.</para>
 <para> Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond server. One simond instance can of course also serve multiple users.</para>
 <para>If you want to open up the server to the Internet or use multiple users on one server, you will have to configure simond. Please see the <ulink url="help:/simond">simond manual</ulink> for details.
 </para>
@@ -208,7 +208,7 @@ A speech model consists of two distinct parts:
 </para>
 
 <para>
-The pronunciation of each word is composed of individual sounds which are separated by spaces. For example, the word "close" consists of the following sounds:
+The pronunciation of each word is composed of individual sounds which are separated by spaces. For example, the word <quote>close</quote> consists of the following sounds:
 
 <itemizedlist>
   <listitem><para>k</para></listitem>
@@ -217,17 +217,17 @@ The pronunciation of each word is composed of individual sounds which are separa
   <listitem><para>s</para></listitem>
 </itemizedlist>
 
-The acoustic model uses the fact that spoken words are composed of sounds much like written words are composed of letters. Using this knowledge, we can segment words into sounds (represented by the pronunciation) and assemble them back when recognizing. These building blocks are called "phonemes".
+The acoustic model uses the fact that spoken words are composed of sounds much like written words are composed of letters. Using this knowledge, we can segment words into sounds (represented by the pronunciation) and assemble them back when recognizing. These building blocks are called <quote>phonemes</quote>.
 </para>
 
 <para>
 Because the acoustic model actually represents how you speak the phonemes of the words, trainings material is shared among all words that use the same phonemes.
 </para>
 <para>
-That means if you add the word "clothes" to the language model, your acoustic model already has an idea how the "clo" part is going to sound as they share the same phonemes ("k", "l", "ow") at the beginning.
+That means if you add the word <quote>clothes</quote> to the language model, your acoustic model already has an idea how the <quote>clo</quote> part is going to sound as they share the same phonemes (<quote>k</quote>, <quote>l</quote>, <quote>ow</quote>) at the beginning.
 </para>
 <para>
-To train the acoustic model (in other words to tell him how you pronounce the phonemes) you have to "train" words from your language model. That means that simon displays a word which you read out loud. Because the word is listed in your vocabulary, simon already knows what phonemes it contains and can thus "learn" from your pronunciation of the word.
+To train the acoustic model (in other words to tell him how you pronounce the phonemes) you have to <quote>train</quote> words from your language model. That means that simon displays a word which you read out loud. Because the word is listed in your vocabulary, simon already knows what phonemes it contains and can thus <quote>learn</quote> from your pronunciation of the word.
 </para>
 </sect2>
 </sect1>
@@ -364,7 +364,7 @@ For information on how to use base models in simon, please refer to the <link li
 
 <para>In order for this association to work, both your scenarios and your base model need to use the same set of phonemes.</para>
 
-<para>If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way simon will suggest the "correct" phonemes when adding the words automatically.</para>
+<para>If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way simon will suggest the <quote>correct</quote> phonemes when adding the words automatically.</para>
 
 <para>
 If you try to use scenarios designed for a different phoneme set (different base model) then you will get an error when starting the recognition listing the affected phonemes and words. To fix this, either transcribe the words according to the base models phoneme set, use a different base model or use an user-generated model.
@@ -407,7 +407,7 @@ If you try to use scenarios designed for a different phoneme set (different base
 
 <para>To calibrate simply read the text displayed.</para>
 
-<para>The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the "Volume changed" button next to the affected device. This will reset the volume status.
+<para>The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the <guibutton>Volume changed</guibutton> button next to the affected device. This will reset the volume status.
 </para>
 
 <para>During calibration, try to talk normally. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsciously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
@@ -498,7 +498,7 @@ This method of visual feedback proved especially valuable when recording with pe
 <para>Generally we recommend to record roughly the same sentences that simon should recognize later.</para>
 <para>(Obviously that does not apply to massive sample acquisitions where other properties like phonetic balance are more important)</para>
 
-<para>Care should be taken to avoid recordings like "One One One" to quickly ramp up the "recognition rate" property. Such recordings often decrease recognition performance because the pronunciation differs greatly from saying the word in isolation.</para>
+<para>Care should be taken to avoid recordings like <quote>One One One</quote> to quickly ramp up the <quote>recognition rate</quote> property. Such recordings often decrease recognition performance because the pronunciation differs greatly from saying the word in isolation.</para>
 </sect2>
 
 
@@ -523,14 +523,14 @@ Currently, simon checks the following criteria:
 <itemizedlist>
 <listitem>
 <para>Sample peak volume</para>
-<para>If the volume is too loud and the microphone started to "clip" (<ulink url="http://en.wikipedia.org/wiki/Clipping_%28audio%29">Clipping on wikipedia</ulink>), simon will display a warning message urging the user to lower the microphone volume.</para>
+<para>If the volume is too loud and the microphone started to <quote>clip</quote> (<ulink url="http://en.wikipedia.org/wiki/Clipping_%28audio%29">Clipping on wikipedia</ulink>), simon will display a warning message urging the user to lower the microphone volume.</para>
 </listitem>
 <listitem>
 <para>Signal to noise ratio (SNR)</para>
 <para>simon will automatically determine the signal to noise ratio of each recording. If the ratio is below a configurable threshold, a warning message will be displayed.</para>
-<para>The default value of 5000 % means that for simon to accept a sample as correctly recorded the peak volume has to be 500 times louder than the noise baseline (lowest average over 50 ms).</para>
+<para>The default value of 5000 % means that for simon to accept a sample as correctly recorded the peak volume has to be 50 times louder than the noise baseline (lowest average over 50 ms).</para>
 <para>
-Often this can be a result of either a very low quality microphone, high levels of ambient noise or a low microphone gain coupled with a "microphone boost" option in the system mixer.
+Often this can be a result of either a very low quality microphone, high levels of ambient noise or a low microphone gain coupled with a <quote>microphone boost</quote> option in the system mixer.
 </para>
 </listitem>
 </itemizedlist>
@@ -538,7 +538,7 @@ Often this can be a result of either a very low quality microphone, high levels 
 
 
 <para>
-SNR warning message triggered by an empty sample; This information dialog is displayed when clicking on the "More information" button visible in the background.
+SNR warning message triggered by an empty sample. This information dialog is displayed when clicking on the <guibutton>More information</guibutton> button visible in the background.
 <screenshot>
 <screeninfo>Empty sample triggering the SNR warning</screeninfo>
   <mediaobject>
@@ -584,19 +584,19 @@ The simon main window provides quick access to most of its features through the 
 <para>This menu item has several states:
 <itemizedlist>
 <listitem><para>Connect</para>
-<para>When simon is not connected to simond the option says "Connect". When activated, simon will start to connect to simond and change to the "Connecting" state.</para>
+<para>When simon is not connected to simond the option says <guilabel>Connect</guilabel>. When activated, simon will start to connect to simond and change to the <guilabel>Connecting</guilabel> state.</para>
 <para>Upon connecting to the server from simon for the first time, you might be prompted for a username and a password. If you haven't done so already, set up a user for simond (see the <ulink url="help:/simond">simond manual</ulink> for details) before continuing and enter the same username and corresponding password in the login dialog from simon. If you choose to store the password, you can still change it in the <link linkend="configure_server_general">server configuration</link> at any time.</para>
 </listitem>
 <listitem><para>Connecting</para>
-<para>When simon is currently connecting to the configured simond server(s) the option says "Connecting" and is pressed down. When activated, simon will stop trying to connect to simond and go back to the "Connect" state.</para>
+<para>When simon is currently connecting to the configured simond server(s) the option says <guilabel>Connecting</guilabel> and is pressed down. When activated, simon will stop trying to connect to simond and go back to the <guilabel>Connect</guilabel> state.</para>
 </listitem>
 <listitem><para>Activate</para>
-<para>When simon established a connection to the server the option will say "Activate" and will not be pressed down. When activated (or automatically when simon is configured to automatically start the recognition when it is available) simon will try to start the recognition.</para>
-<para>An option to close the connection to simond ("Disconnect") is available through the small down-arrow next to it.</para>
+<para>When simon established a connection to the server the option will say <guilabel>Activate</guilabel> and will not be pressed down. When activated (or automatically when simon is configured to automatically start the recognition when it is available) simon will try to start the recognition.</para>
+<para>An option to close the connection to simond (<guilabel>Disconnect</guilabel>) is available through the small down-arrow next to it.</para>
 </listitem>
 <listitem><para>Activated</para>
-<para>When simon established a connection to the server and has successfully started the recognition the option will say "Activated" and will be pressed down. When activated simon will deactivate the recognition but not close the connection to simond - it changes back to the previous "Activate" state.</para>
-<para>An option to close the connection to simond ("Disconnect") is available through the small down-arrow next to it.</para>
+<para>When simon established a connection to the server and has successfully started the recognition the option will say <guilabel>Activated</guilabel> and will be pressed down. When activated simon will deactivate the recognition but not close the connection to simond &mdash; it changes back to the previous <guilabel>Activate</guilabel> state.</para>
+<para>An option to close the connection to simond (<guilabel>Disconnect</guilabel>) is available through the small down-arrow next to it.</para>
 </listitem>
 </itemizedlist>
 </para>
@@ -632,7 +632,7 @@ The simon main window provides quick access to most of its features through the 
 <para>Synchronize</para>
 <para>When connected to the simond, this option will be available.</para>
 <para>simon creates the speech input files which are then compiled and used by the simond server (see the <link linkend="architecture">section architecture for more details</link>).</para>
-<para>The process of sending the speech input files, compiling them and receiving the compiled versions is called "synchronization". By default, simon will initiate a synchronization immediately after the connection has been established and whenever the model changes (please see the <link linkend="configure_synchronization">configure synchronization section</link> for information on how to change that).</para>
+<para>The process of sending the speech input files, compiling them and receiving the compiled versions is called <quote>synchronization</quote>. By default, simon will initiate a synchronization immediately after the connection has been established and whenever the model changes (please see the <link linkend="configure_synchronization">configure synchronization section</link> for information on how to change that).</para>
 <para>Using this menu option the synchronization can be triggered manually at any time.</para>
 </listitem>
 
@@ -667,7 +667,7 @@ For more information about speech models, please refer to the <link linkend="spe
 
 <para>To get simon to recognize speech and react to it you need a speech model. </para>
 
-<para>Speech models describe how your voice sounds, what words exist, how they sound and what word combination ("sentences" or "structures") exist.</para>
+<para>Speech models describe how your voice sounds, what words exist, how they sound and what word combination (<quote>sentences</quote> or <quote>structures</quote>) exist.</para>
 
 <para>A speech model basically consists of two parts:
 <itemizedlist>
@@ -753,7 +753,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-<para>If you import some scenarios here (or later on in the <link linkend="scenarios_use">scenario management dialog</link>) you don't need to set up the vocabulary, grammar, commands, etc. for yourself. Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
+<para>If you import some scenarios here (or later on in the <link linkend="scenarios_use">scenario management dialog</link>) you don't need to set up the vocabulary, grammar, commands, &etc; for yourself. Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
 
 </sect2>
 
@@ -807,7 +807,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-<para>The default configuration is sufficient for a "normal" installation and will assume that you use a local simond server that will be automatically be started and stopped with simon.</para>
+<para>The default configuration is sufficient for a <quote>normal</quote> installation and will assume that you use a local simond server that will be automatically be started and stopped with simon.</para>
 
 <para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="configure_server">server configuration</link>.</para>
 
@@ -829,7 +829,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-<para>simon can use one or more input- and output devices for different tasks. You can find more information about simons multiple device capabilities in the <link linkend="soundconfiguration_device">simon sound configuration section</link>.</para>
+<para>simon can use one or more input- and output devices for different tasks. You can find more information about simon's multiple device capabilities in the <link linkend="soundconfiguration_device">simon sound configuration section</link>.</para>
 
 <para>If you don't set at least one input device to be used for recognition, you will not be able to activate simon.</para>
 
@@ -867,10 +867,10 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <sect2 id="using_scenarios">
 <title>Using scenarios</title>
-<para>Beginning with &kmyapplication; 0.3, each word you add will be added to the currently active scenario. The same goes for grammar sentences, commands, etc.</para>
+<para>Beginning with &kmyapplication; 0.3, each word you add will be added to the currently active scenario. The same goes for grammar sentences, commands, &etc;</para>
 <para>Using scenarios then becomes just using &kmyapplication; as you did in 0.2.</para>
 
-<para>Per default, simon ships with an empty scenario names "Standard", so your configuration will be stored in this scenario.</para>
+<para>Per default, simon ships with an empty scenario names <guilabel>Standard</guilabel>, so your configuration will be stored in this scenario.</para>
 
 <para>To select which of your currently active scenarios should be changed (for example before adding new words), just select it from the drop down list in the upper right corner of the simon main window.</para>
 
@@ -921,7 +921,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-<para>When creating a new scenario, please give it a descriptive name. For the later upload on <ulink url="http://kde-files.org/index.php?xcontentmode=692">KDE files</ulink> we would kindly ask you to follow a certain naming scheme although this is of course not a requirement: "[&lt;language&gt;/&lt;base model&gt;] &lt;name&gt;". If, for example you create a scenario in English that works with the Voxforge base model and controls Mozilla Firefox this becomes: "[EN/VF] Firefox". If your scenario is not specifically tailored to one phoneme set (base model), just omit the second tag like this: "[EN] Firefox".</para>
+<para>When creating a new scenario, please give it a descriptive name. For the later upload on <ulink url="http://kde-files.org/index.php?xcontentmode=692">KDE files</ulink> we would kindly ask you to follow a certain naming scheme although this is of course not a requirement: <quote>[&lt;language&gt;/&lt;base model&gt;] &lt;name&gt;</quote>. If, for example you create a scenario in English that works with the Voxforge base model and controls Mozilla Firefox this becomes: <quote>[EN/VF] Firefox</quote>. If your scenario is not specifically tailored to one phoneme set (base model), just omit the second tag like this: <quote>[EN] Firefox</quote>.</para>
 
 <para>The scenario version is just an incremental version number that makes it easier to distinguish between different revisions of a scenario.</para>
 
@@ -929,27 +929,27 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <para>The license of your scenario can be set through the drop down. You can of course also add an arbitrary license text directly in the input field.</para>
 
-<para>You can then add your name (or alias) to the list of scenario authors. There you will also be asked for contact information. This field is purely provided as a convenient way to contact a scenario author for changes, problems, fanmail etc. If you don't feel comfortable providing your e-Mail address you can simply enter a dash "-" denoting that you are not willing to divulge this information.</para>
+<para>You can then add your name (or alias) to the list of scenario authors. There you will also be asked for contact information. This field is purely provided as a convenient way to contact a scenario author for changes, problems, fanmail &etc; If you don't feel comfortable providing your e-Mail address you can simply enter a dash <quote>-</quote> denoting that you are not willing to divulge this information.</para>
 
 </sect3>
 
 <sect3 id="edit_scenario">
 <title>Edit Scenario</title>
-<para>To edit scenarios, just select "Edit" from the "Manage scenarios" dialog.</para>
+<para>To edit scenarios, just select <guibutton>Edit</guibutton> from the <guilabel>Manage scenarios</guilabel> dialog.</para>
 <para>The dialog works exactly the same as the <link linkend="add_scenario">add scenario</link> dialog.</para>
 </sect3>
 
 <sect3 id="delete_scenario">
 <title>Delete Scenario</title>
 
-<para>To delete a scenario, select the scenario and click the "Delete" button.</para>
+<para>To delete a scenario, select the scenario and click the <guibutton>Delete</guibutton> button.</para>
 
 <para>Because scenarios are synchronized with the recognition server, you can restore deleted scenarios through the <link linkend="configure_synchronization">model synchronization backup</link>.</para>
 </sect3>
 
 <sect3 id="import_scenario">
   <title>Import Scenario</title>
-  <para>Scenarios can be imported from a local file in simons XML scenario file format but can also be directly downloaded and imported from the internet.</para>
+  <para>Scenarios can be imported from a local file in simon's XML scenario file format but can also be directly downloaded and imported from the internet.</para>
 
   <para>When downloading scenarios, the list of scenarios is retrieved from <ulink url="http://kde-files.org/index.php?xcontentmode=692">simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
 
@@ -969,7 +969,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <sect3 id="export_scenario">
   <title>Export Scenario</title>
-  <para>Scenarios can be exported to a local file in simons XML scenario file format and directly uploaded to the <ulink url="http://kde-files.org/index.php?xcontentmode=692">simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
+  <para>Scenarios can be exported to a local file in simon's XML scenario file format and directly uploaded to the <ulink url="http://kde-files.org/index.php?xcontentmode=692">simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
 
   <para>To upload to OpenDesktop sites, you need an account on the site. <ulink url="http://opendesktop.org/usermanager/new.php">Registration</ulink> is very easy and of course free of charge.</para>
 
@@ -1029,7 +1029,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 <title>Base models</title>
 <para>This section describes how to use base models from within simon. For <link linkend="base_model">general information about base models, please refer to the chapter background</link>.</para>
 
-<para>To configure simon to use base models, simply select the base model type you want to use and point simon to the valid files in simons configuration: <guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Model Settings</guimenuitem> </para>
+<para>To configure simon to use base models, simply select the base model type you want to use and point simon to the valid files in simon's configuration: <guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Model Settings</guimenuitem> </para>
 
 <para>
   <screenshot>
@@ -1042,7 +1042,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-<para>Load the files with the appropriate "Load" button next to the file you want to set. The files will be copied to an internal location so the source files can be removed once you have selected them here.</para>
+<para>Load the files with the appropriate <guibutton>Load</guibutton> button next to the file you want to set. The files will be copied to an internal location so the source files can be removed once you have selected them here.</para>
 
 <para>For static models you don't need macros or stats but simon will not start a model compilation (which is needed even for setups using static base models to generate the language model) without them. If your base model doesn't provide them you can simply point simon to empty files instead.</para>
 
@@ -1059,14 +1059,14 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 The vocabulary defines what words the recognition process should recognize. Every word you want to be able to use with simon should be contained in your vocabulary.
 </para>
 <para>
-One entry in the vocabulary defines exactly one "word". In contrast to the common use of the word "word", in simon "word" means one unique combination of the following:
+One entry in the vocabulary defines exactly one <quote>word</quote>. In contrast to the common use of the word <quote>word</quote>, in simon <quote>word</quote> means one unique combination of the following:
 <itemizedlist>
   <listitem><para>Wordname</para><para>(The written word itself)</para></listitem>
-  <listitem><para>Terminal</para><para>(Grammatical category; For example: "Noun", "Verb", etc.)</para></listitem>
+  <listitem><para>Terminal</para><para>(Grammatical category; For example: <quote>Noun</quote>, <quote>Verb</quote>, &etc;)</para></listitem>
   <listitem><para>Pronunciation</para><para>(How the word is pronounced; simon accepts any kind of phonetic as long as it does not use special characters or numbers)</para></listitem>
 </itemizedlist>
 
-That means that plurals or even different cases are different "words" to simon.
+That means that plurals or even different cases are different <quote>words</quote> to simon.
 This is an important design decision to allow more control when using a sophisticated grammar.
 </para>
 
@@ -1125,7 +1125,7 @@ Example vocabulary (please note that the terminals here are deliberately set to 
 As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about its pronunciation, it would also be good to have a large dictionary where you could look up the pronunciation and other characteristics of the words.
 </para>
 <para>
-simon provides this functionality. We refer to this large reference dictionary as "shadow dictionary". This shadow dictionary is not created by the user but can be imported from various sources.
+simon provides this functionality. We refer to this large reference dictionary as <quote>shadow dictionary</quote>. This shadow dictionary is not created by the user but can be imported from various sources.
 </para>
 <para>
 As simon is a multi-language solution we do not ship shadow dictionaries with simon. However, it is very easy to import them yourself using the import dictionary wizard. This is described in the <link linkend="import_dictionary">Import Dictionary section</link>.
@@ -1138,10 +1138,10 @@ As simon is a multi-language solution we do not ship shadow dictionaries with si
 <sect2>
 <title>Maintaining the Vocabulary</title>
 <para>
-simon provides a "Vocabulary" menu which lists the current vocabulary.
+simon provides a <guimenu>Vocabulary</guimenu> menu which lists the current vocabulary.
 
 <screenshot>
-<screeninfo>simons Vocabulary</screeninfo>
+<screeninfo>simon's Vocabulary</screeninfo>
 <mediaobject>
 <imageobject>
   <imagedata fileref="vocabulary.png"   format="PNG"/>
@@ -1153,7 +1153,7 @@ simon provides a "Vocabulary" menu which lists the current vocabulary.
 <para>Per default, the active vocabulary is shown. To display the shadow vocabulary select the tab <guilabel>Shadow Vocabulary</guilabel>.</para>
 
 <para>
-Every word states it "recognition rate" which at the moment is just a counter of how often the word has been recorded (alone or together with other words).
+Every word states it <quote>recognition rate</quote> which at the moment is just a counter of how often the word has been recorded (alone or together with other words).
 </para>
 <para>
 When this number is only one or zero the word entry is colored red (1: light red; 0: dark red). This is a visual warning. When a word contains a phoneme combination that is not covered by any other word and the word with this unusual phoneme combination is never recorded (recognition rate = 0), the model <emphasis>will</emphasis> fail to compile. However, simon will display an appropriate error message when the compilation of the model fails because of such an issue. In general it is a good idea to record each word at least once or twice (at best when <link linkend="add_word_record">adding the word</link>) to avoid such problems.
@@ -1216,7 +1216,7 @@ If the word is listed in the shadow dictionary, simon automatically fills out al
   </mediaobject>
 </screenshot>
 </para>
-<para> All suggestions from the shadow dictionary are listed in the table "Similar words". Per default only exact word matches are shown. However, this can be changed by checking the "Also show non-perfect matches" checkbox below the suggestion table. Using similar words you can quickly deduce the correct pronunciation of the word you are actually trying to add. See <link linkend="manual_transcription">below</link> for details.</para>
+<para> All suggestions from the shadow dictionary are listed in the table <guilabel>Similar words</guilabel>. Per default only exact word matches are shown. However, this can be changed by checking the <guilabel>Also show non-perfect matches</guilabel> checkbox below the suggestion table. Using similar words you can quickly deduce the correct pronunciation of the word you are actually trying to add. See <link linkend="manual_transcription">below</link> for details.</para>
 
 <para>
 Of course this really depends on your shadow dictionary. If the shadow dictionary does not contain the word you are trying to add, the required fields have to be filled out manually.</para>
@@ -1225,13 +1225,13 @@ Of course this really depends on your shadow dictionary. If the shadow dictionar
 Some dictionaries that can be imported with simon (SPHINX, HTK) do not differentiate between upper and lower case. Suggestions based on those dictionaries will always be uppercase. You are of course free to change these suggestions to the correct case.
 </para>
 
-<para>Some dictionaries that can be imported with simon (SPHINX, PLS and HTK) provide no grammatical information at all. These will assign all the words to the terminal "Unknown". You should change this to something appropriate when adding those words.
+<para>Some dictionaries that can be imported with simon (SPHINX, PLS and HTK) provide no grammatical information at all. These will assign all the words to the terminal <guilabel>Unknown</guilabel>. You should change this to something appropriate when adding those words.
 </para>
 
 <sect4>
 <title>Manually Selecting a Terminal</title>
 <para>
-The terminal of the word is defined as the grammatical category the word belongs to. This might be "Noun", "Verb" or completely new categories like "Command". For more information see the <link linkend="grammar">grammar section</link>.</para>
+The terminal of the word is defined as the grammatical category the word belongs to. This might be <guilabel>Noun</guilabel>, <guilabel>Verb</guilabel> or completely new categories like <guilabel>Command</guilabel>. For more information see the <link linkend="grammar">grammar section</link>.</para>
 <para>
 The list contains all terminals used in both your active and your shadow lexicon and in your grammar.
 </para>
@@ -1247,7 +1247,7 @@ The pronunciation is a bit trickier. simon does not need a certain type of phone
 </para>
 
 <para>
-If you do not know how to transcribe a word yourself you can easily use your shadow dictionary to help you with the transcription - even if the word is not listed in it. Let's say we want to add the word "Firefox" (to launch firefox) which is of course not listed in our shadow dictionary.
+If you do not know how to transcribe a word yourself you can easily use your shadow dictionary to help you with the transcription - even if the word is not listed in it. Let's say we want to add the word <quote>Firefox</quote> (to launch firefox) which is of course not listed in our shadow dictionary.
 </para>
 
 <para>
@@ -1255,7 +1255,7 @@ If you do not know how to transcribe a word yourself you can easily use your sha
 </para>
 
 <para>
-"Firefox" is not listed in our shadow dictionary so we do not get any suggestion at all.
+<quote>Firefox</quote> is not listed in our shadow dictionary so we do not get any suggestion at all.
 <screenshot>
 <screeninfo>Adding an unknown word</screeninfo>
   <mediaobject>
@@ -1267,12 +1267,12 @@ If you do not know how to transcribe a word yourself you can easily use your sha
 </para>
 
 <para>
-However, we know that firefox sounds like "fire" and "fox" put together. So let's just open the vocabulary (you can keep the wizard open) by selecting "Vocabulary" from your simon main toolbar.
+However, we know that firefox sounds like <quote>fire</quote> and <quote>fox</quote> put together. So let's just open the vocabulary (you can keep the wizard open) by selecting <guibutton>Vocabulary</guibutton> from your simon main toolbar.
 </para>
 <para>
   Switch to the shadow vocabulary by clicking on the tab <guilabel>Shadow Vocabulary</guilabel>.</para>
 <para>
-Use the "Filter"-Box above the list to search for "Fire":
+Use the <guilabel>Filter</guilabel> box above the list to search for <quote>Fire</quote>:
 
 <screenshot>
 <screeninfo>Adding an unknown word: Search for the Pronunciation</screeninfo>
@@ -1285,7 +1285,7 @@ Use the "Filter"-Box above the list to search for "Fire":
 </para>
 
 <para>
-We can see, that the word "Fire" is transcribed as "f ay r". Now filter for "fox" instead of "Fire" and we can see that "Fox" is transcribed as "f ao k s". We can assume, that firefox should be transcribed as "f ay r f ao k s".
+We can see, that the word <quote>Fire</quote> is transcribed as <quote>f ay r</quote>. Now filter for <quote>fox</quote> instead of <quote>Fire</quote> and we can see that <quote>Fox</quote> is transcribed as <quote>f ao k s</quote>. We can assume, that firefox should be transcribed as <quote>f ay r f ao k s</quote>.
 </para>
 
 <para>
@@ -1322,13 +1322,13 @@ We can now enter the pronunciation and change the terminal to something appropri
 simon will try to prompt you for real-world examples. To do that, simon will automatically fetch grammar structures using the terminal of the word and substitute the generic terminals with example words from your active lexicon.
 </para>
 <para>
-For example: You have the grammar structure "Trigger Command" and have the word "Computer" of the terminal "Trigger" in your vocabulary. You then add a new word "Firefox" of the terminal "Command". simon will now automatically prompt you for "Computer Firefox" as it is - according to your grammar - a valid sentence.
+For example: You have the grammar structure <quote>Trigger Command</quote> and have the word <quote>Computer</quote> of the terminal <quote>Trigger</quote> in your vocabulary. You then add a new word <quote>Firefox</quote> of the terminal <quote>Command</quote>. simon will now automatically prompt you for <quote>Computer Firefox</quote> as it is - according to your grammar - a valid sentence.
 </para>
 <para>
-If simon is unable to find appropriate sentences using the word (i.e.: No grammar, not enough words in your active lexicon, etc.) it will just prompt you for the word alone.
+If simon is unable to find appropriate sentences using the word (&ie;: No grammar, not enough words in your active lexicon, &etc;) it will just prompt you for the word alone.
 </para>
 <para>
-Although simon ensures that the automatically generated examples are valid, you can always override its suggestions. Just switch to the "Examples" tab on the "Define Word" page.
+Although simon ensures that the automatically generated examples are valid, you can always override its suggestions. Just switch to the <guilabel>Examples</guilabel> tab on the <guilabel>Define Word</guilabel> page.
 <screenshot>
 <screeninfo>Editing word examples</screeninfo>
   <mediaobject>
@@ -1384,7 +1384,7 @@ All that is left is to record the examples.
 <sect2 id="remove_word">
 <title>Removing a word</title>
 
-<para>To remove a word from your language model, select it in the vocabulary view and click on "Remove selected word".
+<para>To remove a word from your language model, select it in the vocabulary view and click on <guibutton>Remove selected word</guibutton>.
 
 <screenshot>
 <screeninfo>Recording</screeninfo>
@@ -1399,15 +1399,15 @@ All that is left is to record the examples.
 The dialog offers four choices:
 <itemizedlist>
   <listitem>
-    <para>Move the word to the "Unused" terminal.</para>
-    <para>Because you (hopefully) don't use the terminal "Unused" in your grammar, the word will no longer be considered for recognition. In fact, it will be removed from the active vocabulary before compiling the model because no grammar sentence references it.</para>
-    <para>If you want to use the terminal "Unused" in your grammar, you can of course use a different terminal for unused words. Just set the terminal through the <link linkend="edit_word">Edit word</link> dialog.</para>
+    <para>Move the word to the <guilabel>Unused</guilabel> terminal.</para>
+    <para>Because you (hopefully) don't use the terminal <guilabel>Unused</guilabel> in your grammar, the word will no longer be considered for recognition. In fact, it will be removed from the active vocabulary before compiling the model because no grammar sentence references it.</para>
+    <para>If you want to use the terminal <guilabel>Unused</guilabel> in your grammar, you can of course use a different terminal for unused words. Just set the terminal through the <link linkend="edit_word">Edit word</link> dialog.</para>
     <para>To use the word again, just set the right terminal again. No data will be lost.</para>
   </listitem>
   <listitem>
     <para>Move the word to the shadow lexicon</para>
     <para>This will remove the selected word from the active lexicon (and thus from the recognition) but will keep a copy in the shadow vocabulary. All the recordings containing the word will be preserved.</para>
-    <para>To use the word again, add it again to the active vocabulary. When adding a "new" word with the same name the values of the moved word will be suggested to you. Therefore, no data will be lost.</para>
+    <para>To use the word again, add it again to the active vocabulary. When adding a <quote>new</quote> word with the same name the values of the moved word will be suggested to you. Therefore, no data will be lost.</para>
   </listitem>
   <listitem>
     <para>Delete the word but keep the samples</para>
@@ -1516,7 +1516,7 @@ simon can import HTK lexica.
 One example of a HTK lexicon is the English <ulink url="http://www.repository.voxforge1.org/downloads/SpeechCorpus/Trunk/Lexicon/">Voxforge dictionary</ulink>.
 </para>
 <para>
-Hadifix dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal "Unknown".
+Hadifix dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal <guilabel>Unknown</guilabel>.
 </para>
 </sect3>
 
@@ -1529,7 +1529,7 @@ simon can import PLS dictionaries.
 One example of a PLS dictionary is the <ulink url="http://www.repository.voxforge1.org/downloads/de/Trunk/Lexicon/">German GPL dictionary from Voxforge</ulink>.
 </para>
 <para>
-PLS dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal "Unknown".
+PLS dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal <guilabel>Unknown</guilabel>.
 </para>
 </sect3>
 
@@ -1542,7 +1542,7 @@ simon can import SPHINX dictionaries.
 One example of a SPHINX dictionary is this <ulink url="http://speech.mty.itesm.mx/~jnolazco/proyectos.htm">dictionary for Mexican Spanish</ulink>.
 </para>
 <para>
-SPHINX dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal "Unknown".
+SPHINX dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal <guilabel>Unknown</guilabel>.
 </para>
 </sect3>
 
@@ -1574,9 +1574,9 @@ The grammar defines which combinations of words are correct.
 <para>
 Let's look at an example: You want to use simon to launch programs and close those windows when you are done. You would like to use the following commands:
 <itemizedlist>
-  <listitem><para>"Computer, Internet" to open a browser</para></listitem>
-  <listitem><para>"Computer, Mail"</para><para>To open a mail client</para></listitem>
-  <listitem><para>"Computer, close"</para><para>To close the current window</para></listitem>
+  <listitem><para><quote>Computer, Internet</quote> to open a browser</para></listitem>
+  <listitem><para><quote>Computer, Mail</quote></para><para>To open a mail client</para></listitem>
+  <listitem><para><quote>Computer, close</quote></para><para>To close the current window</para></listitem>
 </itemizedlist>
 </para>
 <para>
@@ -1617,21 +1617,21 @@ Following English grammar, your vocabulary would contain the following:
 <para>
 To allow the sentences defined above simon would need the following grammar:
 <itemizedlist>
-  <listitem><para>"Noun Noun" for sentences like "Computer Internet"</para></listitem>
-  <listitem><para>"Noun Verb" for sentences like "Computer close"</para></listitem>
+  <listitem><para><quote>Noun Noun</quote> for sentences like <quote>Computer Internet</quote></para></listitem>
+  <listitem><para><quote>Noun Verb</quote> for sentences like <quote>Computer close</quote></para></listitem>
 </itemizedlist>
 </para>
 <para>
-While this would work, it would also allow the combinations "Computer Computer", "Internet Computer", "Internet Internet", etc. which are obviously bogus.
+While this would work, it would also allow the combinations <quote>Computer Computer</quote>, <quote>Internet Computer</quote>, <quote>Internet Internet</quote>, &etc; which are obviously bogus.
 To improve the recognition accuracy, we can try to create a grammar that better reflects what we are trying to do with simon.
 </para>
 
 <para>
-It is important to remember that you define your own "language" when using simon. That means that you are not bound to grammar rules that exist in whatever language you want to use simon with. For a simple command and control use-case it would for example be advisable to invent new grammatical rules to eliminate the differences between different commands imposed by grammatical information not relevant for this use case.
+It is important to remember that you define your own <quote>language</quote> when using simon. That means that you are not bound to grammar rules that exist in whatever language you want to use simon with. For a simple command and control use-case it would for example be advisable to invent new grammatical rules to eliminate the differences between different commands imposed by grammatical information not relevant for this use case.
 </para>
 
 <para>
-In the example above it is for example not relevant that "close" is a verb or that "Computer" and "Internet" are nouns. Instead, why not define them as something that better reflects what we want them to be:
+In the example above it is for example not relevant that <quote>close</quote> is a verb or that <quote>Computer</quote> and <quote>Internet</quote> are nouns. Instead, why not define them as something that better reflects what we want them to be:
 
 <table frame='all'><title>Improved Sample Vocabulary</title>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -1668,7 +1668,7 @@ In the example above it is for example not relevant that "close" is a verb or th
 <para>
 Now we change the grammar to the following:
 <itemizedlist>
-  <listitem><para>"Trigger Command"</para></listitem>
+  <listitem><para><quote>Trigger Command</quote></para></listitem>
 </itemizedlist>
 
 This allows all the combinations described above. However, it also limits the possibilities to exactly those three sentences. Especially in larger models a well thought grammar and vocabulary can mean a huge difference in recognition results.
@@ -1745,7 +1745,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 </tgroup>
 </table></para>
 
-<para>We want simon to recognize the sentence "Computer Internet!". So we either enter the text using the <guibutton>Import text</guibutton> option or create a simple text file with this content "Computer Internet!" (any punctuation mark would work) and save it as "simongrammar.txt" to use the <guibutton>Import files</guibutton> option.
+<para>We want simon to recognize the sentence <quote>Computer Internet!</quote>. So we either enter the text using the <guibutton>Import text</guibutton> option or create a simple text file with this content <quote>Computer Internet!</quote> (any punctuation mark would work) and save it as <filename>simongrammar.txt</filename> to use the <guibutton>Import files</guibutton> option.
 
 <screenshot>
 <screeninfo>Import Grammar: Enter text</screeninfo>
@@ -1775,10 +1775,10 @@ simon provides an easy to use text based interface to change the grammar. You ca
 </screenshot>
 </para>
 
-<para>simon will then read the entered text or all the given text files (in this case the only given text file is "simongrammar.txt") and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
-<para>In our example this would mean that he would find the sentence "Computer Internet". simon would find out that "Computer" is of the terminal "Trigger" and "Internet" of the terminal "Command". Because of this simon would "learn" that "Trigger Command" is a valid sentence and add it to its grammar.</para>
-<para>The import automatically segments the input text by punctuation marks (".", " - ", "!", etc.) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
-<para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the "Also import unknown sentences" checkbox in which case those words are replaced with "Unknown".</para>
+<para>simon will then read the entered text or all the given text files (in this case the only given text file is <filename>simongrammar.txt</filename>) and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
+<para>In our example this would mean that he would find the sentence <quote>Computer Internet</quote>. simon would find out that <quote>Computer</quote> is of the terminal <guilabel>Trigger</guilabel> and <quote>Internet</quote> of the terminal <guilabel>Command</guilabel>. Because of this simon would <quote>learn</quote> that <quote>Trigger Command</quote> is a valid sentence and add it to its grammar.</para>
+<para>The import automatically segments the input text by punctuation marks (<quote>.</quote>, <quote> - </quote>, <quote>!</quote>, &etc;) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
+<para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the <guilabel>lso import unknown sentences</guilabel> checkbox in which case those words are replaced with <guilabel>Unknown</guilabel>.</para>
 
 </sect2>
 
@@ -1831,7 +1831,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 The interface lists all installed trainings-texts in a table consisting of three columns:
 <itemizedlist>
 <listitem><para>Name</para><para>A descriptive name for the text.</para></listitem>
-<listitem><para>Pages</para><para>The number of "pages" the text consists of. Each page represents one recording.</para></listitem>
+<listitem><para>Pages</para><para>The number of <quote>pages</quote> the text consists of. Each page represents one recording.</para></listitem>
 <listitem><para>Recognition Rate</para><para>Analogue to the vocabulary; Represents how likely simon will recognize the words (higher is better). The recognition rate of the trainings-text is the average recognition rate of all the words in the text.</para></listitem>
 </itemizedlist>
 
@@ -1918,7 +1918,7 @@ Trainings-texts are stored at two different locations:
 The add texts wizard provides a simple way to add new trainings-texts to simon.
 </para>
 
-<para>When importing text files, simon will automatically try to recognize individual sentences and split the text into appropriate "pages" (recordings). The algorithm treats text between "normal" punctuation (".", "!", "?", "...", """,...) and line breaks as "sentences". Each "sentence" will be on its own page.</para>
+<para>When importing text files, simon will automatically try to recognize individual sentences and split the text into appropriate <quote>pages</quote> (recordings). The algorithm treats text between <quote>normal</quote> punctuation (<quote>.</quote>, <quote>!</quote>, <quote>?</quote>, <quote>...</quote>, <quote>"</quote>,...) and line breaks as <quote>sentences</quote>. Each <quote>sentence</quote> will be on its own page.</para>
 
 <para>
   simon supports two different sources for new trainings-texts.
@@ -1973,9 +1973,9 @@ The add texts wizard provides a simple way to add new trainings-texts to simon.
 </screenshot>
 </para>
 
-<para>Select the words to train from the vocabulary on the left and simply drag them to the selection list to the right (you could also select them in the table on the left and add them by clicking "Add to Training".</para>
+<para>Select the words to train from the vocabulary on the left and simply drag them to the selection list to the right (you could also select them in the table on the left and add them by clicking <guibutton>Add to Training</guibutton>.</para>
 
-<para>Start the training by selecting "Train selected words". The training itself is exactly the same as if it were a pre-composed trainings-text.</para>
+<para>Start the training by selecting <guibutton>Train selected words</guibutton>. The training itself is exactly the same as if it were a pre-composed trainings-text.</para>
 
 <para>
 <screenshot>
@@ -2004,12 +2004,12 @@ This feature is very specific. Please use it with caution and make sure that you
 
 <para>You can either provide a separate prompts file or let simon extract the transcriptions from the filenames.</para>
 
-<para>When using prompts based transcriptions your prompts file (UTF-8) needs to contain lines of the following content: "[filename] [content]". Filenames are without file extensions and the content has to be uppercase. For example: "demo_2007_03_20 DEMO" to import the file "demo_2007_03_20.wav" containing the spoken word "Demo".</para>
+<para>When using prompts based transcriptions your prompts file (UTF-8) needs to contain lines of the following content: <quote>[filename] [content]</quote>. Filenames are without file extensions and the content has to be uppercase. For example: <userinput>demo_2007_03_20 DEMO</userinput> to import the file <filename>demo_2007_03_20.wav</filename> containing the spoken word <quote>Demo</quote>.</para>
 
 <para>Because prompts files do not contain a file extension, simon will try wav, mp3, ogg and flac (in that order). If one of those match, no other extension will be tested and only the first file will be imported (in contrast to file based transcription where all files would be imported).</para>
 
 <para>
-When using file based transcriptions, a file called this_is_a_test.wav <emphasis>must</emphasis> contain "This is a test" and nothing else. Numbers and special characters (".", "-",...) in the filename are ignored and stripped.
+When using file based transcriptions, a file called this_is_a_test.wav <emphasis>must</emphasis> contain <quote>This is a test</quote> and nothing else. Numbers and special characters (<quote>.</quote>, <quote>-</quote>,...) in the filename are ignored and stripped.
 </para>
 
 <para>Files recorded by simon 0.2 <emphasis>will</emphasis> follow this naming scheme so you can safely import them using the file name extraction method. Files generated by previous simon versions should not be imported using this function but you can use the prompts based import for that.</para>
@@ -2053,7 +2053,7 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 
 <para>
 <screenshot id="command_dialog">
-<screeninfo>simons Command Dialog</screeninfo>
+<screeninfo>simon's Command Dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="command_main.png" format="PNG"/>
@@ -2062,12 +2062,12 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 </screenshot>
 </para>
 
-<para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (e.g. "Karl" knows how to start a program and "Joe" knows how to open a folder, etc.). Whenever simon recognizes something it is given to "Karl" who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to "Joe" and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guibutton>Commands</guibutton> > <guibutton>Manage plugins</guibutton>).</para>
+<para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (e.g. <quote>Karl</quote> knows how to start a program and <quote>Joe</quote> knows how to open a folder, &etc;). Whenever simon recognizes something it is given to <quote>Karl</quote> who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to <quote>Joe</quote> and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guibutton>Commands</guibutton> > <guibutton>Manage plugins</guibutton>).</para>
 
 
 <para>
 <screenshot>
-<screeninfo>simons Action Configuration</screeninfo>
+<screeninfo>simon's Action Configuration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="configure_actions_1.png" format="PNG"/>
@@ -2077,13 +2077,13 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 </para>
 
 <para>
-Each plugin can be associated with a "trigger". Using triggers, the responsibility of each plugin can be easily be divided.
+Each plugin can be associated with a <quote>trigger</quote>. Using triggers, the responsibility of each plugin can be easily be divided.
 </para>
-<para>Using the factory workers abstraction from above it could be compared to stating the name of who you mean to process your request. So instead of "Open my home folder" you say "Joe, open my home folder" and "Joe" (the plugin responsible for opening folders) will instantly know that the request is meant for him.</para>
-<para>In practice you could have commands like the executable command "Firefox" to open the popular browser and the place command "Google" to open the web search engine. If you assign the trigger "Start" to the executable plugin and the trigger "Open" to the place command you would have to say "Start Firefox" (instead of just "Firefox" if you don't use a trigger for the executable plugin) and "Open Google" to open the search engine (instead of just "Google").</para>
-<para>Triggers are of course no requirement and you can easily use simon without defining any plugin triggers (although many plugins come with a default trigger of "Computer" set which you would have to remove). But even if you use just on trigger for all your commands (like "Computer" to say "Computer, Firefox" and "Computer, Google" like) it has the advantage of greatly limiting the number false-positives.</para>
+<para>Using the factory workers abstraction from above it could be compared to stating the name of who you mean to process your request. So instead of <quote>Open my home folder</quote> you say <quote>Joe, open my home folder</quote> and <quote>Joe</quote> (the plugin responsible for opening folders) will instantly know that the request is meant for him.</para>
+<para>In practice you could have commands like the executable command <quote>Firefox</quote> to open the popular browser and the place command <quote>Google</quote> to open the web search engine. If you assign the trigger <quote>Start</quote> to the executable plugin and the trigger <quote>Open</quote> to the place command you would have to say <quote>Start Firefox</quote> (instead of just <quote>Firefox</quote> if you don't use a trigger for the executable plugin) and <quote>Open Google</quote> to open the search engine (instead of just <quote>Google</quote>).</para>
+<para>Triggers are of course no requirement and you can easily use simon without defining any plugin triggers (although many plugins come with a default trigger of <quote>Computer</quote> set which you would have to remove). But even if you use just on trigger for all your commands (like <quote>Computer</quote> to say <quote>Computer, Firefox</quote> and <quote>Computer, Google</quote> like) it has the advantage of greatly limiting the number false-positives.</para>
 
-<para>simons <link linkend="command_dialog">command dialog</link> displays the complete phrase associated with a command in the upper right corner of the command configuration.</para>
+<para>simon's <link linkend="command_dialog">command dialog</link> displays the complete phrase associated with a command in the upper right corner of the command configuration.</para>
 
 <para>You can load multiple instances of one plugin even in one scenario. Each instance can of course also have a different plugin trigger.</para>
 
@@ -2096,7 +2096,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 </para>
 
 <para>
-  Plugins that provide a graphical user interface (like for example the <link linkend="input_number">input number command plugin</link>) can be configured by configuring "Voice commands". You can change the associated word that will trigger the button, for example, but also change the displayed icon, etc. If you remove all voice interface commands from a graphical element, the element will be hidden automatically.
+  Plugins that provide a graphical user interface (like for example the <link linkend="input_number">input number command plugin</link>) can be configured by configuring <guilabel>Voice commands</guilabel>. You can change the associated word that will trigger the button, for example, but also change the displayed icon, &etc; If you remove all voice interface commands from a graphical element, the element will be hidden automatically.
 </para>
 
 <para>Voice interface commands are added just like normal commands through the command configuration.</para>
@@ -2132,7 +2132,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 <sect2 id="executable_commands">
 <title>Executable Commands</title>
 
-<para>Executable commands are associated with an executable file ("Program") which is started when the command is invoked.</para>
+<para>Executable commands are associated with an executable file (<quote>Program</quote>) which is started when the command is invoked.</para>
 
 <screenshot>
 <screeninfo>Executable Commands</screeninfo>
@@ -2145,7 +2145,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 
 <para>Arguments to the commands are supported. If either path to the executable or the parameters contain spaces they <emphasis>must</emphasis> be wrapped in quotes.</para>
 
-<para>Given the executable file <filename>C:\Program Files\Mozilla Firefox\firefox.exe</filename> the local html file <filename>C:\test file.html</filename> the correct line for the "Executable" would be: <filename>"C:\Program Files\Mozilla Firefox\firefox.exe" "C:\test file.html"</filename>.</para>
+<para>Given the executable file <filename>C:\Program Files\Mozilla Firefox\firefox.exe</filename> the local html file <filename>C:\test file.html</filename> the correct line for the <guilabel>Executable</guilabel> would be: <filename>"C:\Program Files\Mozilla Firefox\firefox.exe" "C:\test file.html"</filename>.</para>
 
 <para>The working directory defines where the process should be launched from. Given the working directory <filename>C:\folder</filename>, the command <filename>"C:\Program Files\Mozilla Firefox\firefox.exe" file.html</filename> would cause firefox to search for the file <filename>C:\folder\file.html</filename>.</para>
 
@@ -2178,7 +2178,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 
 <sect2 id="place_commands">
 <title>Place Commands</title>
-<para>With place commands you can allow simon to open any given URL. Because simon just hands the address over to the platforms URL handler, special Protocols like "remote:/" (on Linux/KDE) or even KDEs "Web-Shortcuts" are supported.</para>
+<para>With place commands you can allow simon to open any given URL. Because simon just hands the address over to the platforms URL handler, special Protocols like <quote>remote:/</quote> (on &Linux;/&kde;) or even &kde;'s <quote>Web-Shortcuts</quote> are supported.</para>
 <para>Instead of folders, files can also be set as the commands URL which will cause the file to be opened with the application which is associated with it when the command is invoked.</para>
 
 <screenshot>
@@ -2210,7 +2210,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 </screenshot>
 </para>
 
-<para>To add a remote URL (HTTP, FTP, etc.) choose <guibutton>Remote URL</guibutton>
+<para>To add a remote URL (HTTP, FTP, &etc;) choose <guibutton>Remote URL</guibutton>
 
 <screenshot>
 <screeninfo>Import Places: Remote</screeninfo>
@@ -2230,7 +2230,7 @@ Please note that for URLs with authentication information the password will be s
 <title>Shortcut Commands</title>
 <para>Using shortcut commands the user can associate commands with key-combinations.</para>
 
-<para>The command will simulate keyboard input to "press" shortcuts like "Ctrl+C" or "Alt+F4".
+<para>The command will simulate keyboard input to <quote>press</quote> shortcuts like <keycombo>&Ctrl;<keycap>C</keycap></keycombo> or <keycombo>&Alt;<keycap>F4</keycap></keycombo>.
 
 <screenshot>
 <screeninfo>Defining Shortcut Commands</screeninfo>
@@ -2244,14 +2244,14 @@ Please note that for URLs with authentication information the password will be s
 
 <para>To select the shortcut you wish to simulate just toggle the shortcut button and press the key combination on your keyboard.</para>
 <para>simon will capture the shortcut and associate it with the command.</para>
-<para>Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes e.g. Ctrl+Alt+Del and Alt+F4). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
+<para>Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes e.g. <keycombo>&Ctrl;&Alt;<keycap>Del</keycap></keycombo> and <keycombo>&Alt;<keycap>F4</keycap></keycombo>). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
 
 <note><para>This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon.</para></note>
 </sect2>
 
 <sect2 id="text_macro_commands">
 <title>Text-Macro Commands</title>
-<para>Using text-macro commands, the user can associate text with a command. When the command is invoked, the associated text will be "written" by simulating keystrokes.</para>
+<para>Using text-macro commands, the user can associate text with a command. When the command is invoked, the associated text will be <quote>written</quote> by simulating keystrokes.</para>
 
 <para>
 <screenshot>
@@ -2282,7 +2282,7 @@ Please note that for URLs with authentication information the password will be s
 </screenshot>
 </para>
 
-<para>List commands are especially useful when using commands with difficult triggers or commands that can be grouped under a general theme. A typical example would be a command "Startmenu" to present a list of programs to launch. That way the specific executable commands can still retain very descriptive names (like "OpenOffice.org Writer 3.1") without the user having to include these words in his vocabulary and consider them in the grammar just to trigger them.</para>
+<para>List commands are especially useful when using commands with difficult triggers or commands that can be grouped under a general theme. A typical example would be a command <quote>Startmenu</quote> to present a list of programs to launch. That way the specific executable commands can still retain very descriptive names (like <quote>OpenOffice.org Writer 3.1</quote>) without the user having to include these words in his vocabulary and consider them in the grammar just to trigger them.</para>
 
 <para>Commands of different types can of course be mixed.</para>
 
@@ -2299,14 +2299,14 @@ When invoked, the command will display the list centered on the screen. The list
     </imageobject>
   </mediaobject>
 </screenshot>
-The user can invoke the commands contained in the list by simply saying their associated number (In this example: "One" to launch Mozilla Firefox).
+The user can invoke the commands contained in the list by simply saying their associated number (In this example: <quote>One</quote> to launch Mozilla Firefox).
 </para>
 
 <para>
-While a list command is active (displayed), all input that is not directed at the list itself (other commands, etc.) will be rejected. The process can be canceled by pressing the "Cancel" button or by saying "Cancel".</para>
+While a list command is active (displayed), all input that is not directed at the list itself (other commands, &etc;) will be rejected. The process can be canceled by pressing the <guibutton>Cancel</guibutton> button or by saying <quote>Cancel</quote>.</para>
 
 <para>
-If there are more than 9 items simon will add "Next" and "Back" options to the list ("Zero" will be associated with "Back" and "Nine" with "Next").
+If there are more than 9 items simon will add <quote>Next</quote> and <quote>Back</quote> options to the list (<quote>Zero</quote> will be associated with <quote>Back</quote> and <quote>Nine</quote> with <quote>Next</quote>).
 
 <screenshot>
 <screeninfo>List Command with many entries</screeninfo>
@@ -2323,19 +2323,19 @@ If there are more than 9 items simon will add "Next" and "Back" options to the l
 <title>Configuring list elements</title>
 
 <para>
-By default the list command uses the following trigger words. To use list commands to their full potential, make sure that your language and acoustic model contains and allows for the following "sentences":
+By default the list command uses the following trigger words. To use list commands to their full potential, make sure that your language and acoustic model contains and allows for the following <quote>sentences</quote>:
 <itemizedlist>
-<listitem><para>"Zero"</para></listitem>
-<listitem><para>"One"</para></listitem>
-<listitem><para>"Two"</para></listitem>
-<listitem><para>"Three"</para></listitem>
-<listitem><para>"Four"</para></listitem>
-<listitem><para>"Five"</para></listitem>
-<listitem><para>"Six"</para></listitem>
-<listitem><para>"Seven"</para></listitem>
-<listitem><para>"Eight"</para></listitem>
-<listitem><para>"Nine"</para></listitem>
-<listitem><para>"Cancel"</para></listitem>
+<listitem><para><quote>Zero</quote></para></listitem>
+<listitem><para><quote>One</quote></para></listitem>
+<listitem><para><quote>Two</quote></para></listitem>
+<listitem><para><quote>Three</quote></para></listitem>
+<listitem><para><quote>Four</quote></para></listitem>
+<listitem><para><quote>Five</quote></para></listitem>
+<listitem><para><quote>Six</quote></para></listitem>
+<listitem><para><quote>Seven</quote></para></listitem>
+<listitem><para><quote>Eight</quote></para></listitem>
+<listitem><para><quote>Nine</quote></para></listitem>
+<listitem><para><quote>Cancel</quote></para></listitem>
 </itemizedlist>
 </para>
 
@@ -2375,16 +2375,16 @@ List commands are internally also used by other plugins like for example the <li
 </para>
 
 <para>
-Using the composite command the user can compose complex "macros". The screenshot above - for example - does the following:
+Using the composite command the user can compose complex <quote>macros</quote>. The screenshot above - for example - does the following:
 <itemizedlist>
 <listitem><para>Start Kopete (Executable Command)</para></listitem>
 <listitem><para>Wait 2000ms for Kopete do be started</para></listitem>
-<listitem><para>Type "Mathias" (Text-Macro Command) which will select Mathias in my contact list</para></listitem>
+<listitem><para>Type <quote>Mathias</quote> (Text-Macro Command) which will select Mathias in my contact list</para></listitem>
 <listitem><para>Press Enter (Shortcut Command)</para></listitem>
 <listitem><para>Wait 1000ms for the chat window to appear</para></listitem>
-<listitem><para>Write "Hi!" (Text-Macro Command); The text associated to this command contains a newline at the end so that the message will be send.</para></listitem>
-<listitem><para>Press Alt+F4 (Shortcut Command) to close the chat window</para></listitem>
-<listitem><para>Press Alt+F4 (Shortcut Command) to close the kopete main window</para></listitem>
+<listitem><para>Write <quote>Hi!</quote> (Text-Macro Command); The text associated to this command contains a newline at the end so that the message will be send.</para></listitem>
+<listitem><para>Press <keycombo>&Alt;<keycap>F4</keycap></keycombo> (Shortcut Command) to close the chat window</para></listitem>
+<listitem><para>Press <keycombo>&Alt;<keycap>F4</keycap></keycombo> (Shortcut Command) to close the kopete main window</para></listitem>
 </itemizedlist>
 </para>
 
@@ -2403,7 +2403,7 @@ Using the composite command the user can compose complex "macros". The screensho
     </imageobject>
   </mediaobject>
 </screenshot>
-The desktopgrid divides the screen into nine parts which are numbered from 1-9. Saying one of these numbers will again divide the selected field into 9 fields again numbered from 1-9, etc. This is repeated 3 times. After the fourth time the desktopgrid will be closed and simon will click in the middle of the selected area.</para>
+The desktopgrid divides the screen into nine parts which are numbered from 1-9. Saying one of these numbers will again divide the selected field into 9 fields again numbered from 1-9, &etc; This is repeated 3 times. After the fourth time the desktopgrid will be closed and simon will click in the middle of the selected area.</para>
 
 <para>The exact click action is configurable but defaults to asking the user. Therefore you will be presented with a list of possible click modes. When selecting Drag and Drop, the desktopgrid will be displayed again to select the drop point.</para>
 
@@ -2419,7 +2419,7 @@ The desktopgrid divides the screen into nine parts which are numbered from 1-9. 
 </para>
 
 <para>
-While the desktopgrid is active (displayed), all input that is not directed at the desktopgrid itself (other commands, etc.) will be rejected. Say "Cancel" at any time to abort the process.
+While the desktopgrid is active (displayed), all input that is not directed at the desktopgrid itself (other commands, &etc;) will be rejected. Say <quote>Cancel</quote> at any time to abort the process.
 </para>
 
 <para>The desktopgrid plugin registers a configuration screen right in the command configuration when it is loaded.</para>
@@ -2433,7 +2433,7 @@ While the desktopgrid is active (displayed), all input that is not directed at t
     </imageobject>
   </mediaobject>
 </screenshot>
-The trigger that invokes the desktopgrid is of course completely configurable. Moreover the user can use "real" or "fake" transparency. If your graphical environment allows for compositing effects ("desktop effects") then you can safely use "real" transparency which will make the desktogrid transparent. If your platform does not support compositing simon will simulate transparency by taking a screenshot of the screen before displaying the desktopgrid and display that picture behind the desktopgrid.
+The trigger that invokes the desktopgrid is of course completely configurable. Moreover the user can use <quote>real</quote> or <quote>fake</quote> transparency. If your graphical environment allows for compositing effects (<quote>desktop effects</quote>) then you can safely use <quote>real</quote> transparency which will make the desktogrid transparent. If your platform does not support compositing simon will simulate transparency by taking a screenshot of the screen before displaying the desktopgrid and display that picture behind the desktopgrid.
 </para>
 
 <para>If the desktopgrid is configured to use real transparency and the system does not support compositing it will display a solid gray background.</para>
@@ -2444,24 +2444,24 @@ However, nearly all up-to-date systems will support compositing (real transparen
 <para>This includes:
 <itemizedlist>
 <listitem><para>Microsoft Windows 2000 or higher (XP, Vista, 7)</para></listitem>
-<listitem><para>GNU/Linux using a composite manager like Compiz, KWin4, xcompmgr, etc.</para></listitem>
+<listitem><para>GNU/Linux using a composite manager like Compiz, KWin4, xcompmgr, &etc;</para></listitem>
 </itemizedlist>
 </para>
 
 
 <para>
-By default the desktopgrid uses numbers to select the individual fields. To use the desktopgrid, make sure that your language and acoustic model contains and allows for the following "sentences":
+By default the desktopgrid uses numbers to select the individual fields. To use the desktopgrid, make sure that your language and acoustic model contains and allows for the following <quote>sentences</quote>:
 <itemizedlist>
-<listitem><para>"One"</para></listitem>
-<listitem><para>"Two"</para></listitem>
-<listitem><para>"Three"</para></listitem>
-<listitem><para>"Four"</para></listitem>
-<listitem><para>"Five"</para></listitem>
-<listitem><para>"Six"</para></listitem>
-<listitem><para>"Seven"</para></listitem>
-<listitem><para>"Eight"</para></listitem>
-<listitem><para>"Nine"</para></listitem>
-<listitem><para>"Cancel"</para></listitem>
+<listitem><para><quote>One</quote></para></listitem>
+<listitem><para><quote>Two</quote></para></listitem>
+<listitem><para><quote>Three</quote></para></listitem>
+<listitem><para><quote>Four</quote></para></listitem>
+<listitem><para><quote>Five</quote></para></listitem>
+<listitem><para><quote>Six</quote></para></listitem>
+<listitem><para><quote>Seven</quote></para></listitem>
+<listitem><para><quote>Eight</quote></para></listitem>
+<listitem><para><quote>Nine</quote></para></listitem>
+<listitem><para><quote>Cancel</quote></para></listitem>
 </itemizedlist>
 </para>
 
@@ -2485,19 +2485,19 @@ By default the desktopgrid uses numbers to select the individual fields. To use 
 <para>Using the input-number plugin the user can input large numbers easily.</para>
 
 
-<para>Using the Dictation or the Text-Macro plugin one could associate the numbers with their digits and use that as input method. however, to input larger numbers there are two ways that both have significant disadvantages:
+<para>Using the Dictation or the Text-Macro plugin one could associate the numbers with their digits and use that as input method. However, to input larger numbers there are two ways that both have significant disadvantages:
 
 <itemizedlist>
-<listitem><para><emphasis>Adding the words "eleven", "twelve", etc.</emphasis></para>
-<para>While this seems like the most elegant solution as it would enable the user to say "fivehundredseventytwo" we can easily see that it would be quite a problem to add all these words - let alone train them. What about "twothousandninehundredtwo"? Where to stop?</para></listitem>
+<listitem><para><emphasis>Adding the words <quote>eleven</quote>, <quote>twelve</quote>, &etc;</emphasis></para>
+<para>While this seems like the most elegant solution as it would enable the user to say <quote>fivehundredseventytwo</quote> we can easily see that it would be quite a problem to add all these words - let alone train them. What about <quote>twothousandninehundredtwo</quote>? Where to stop?</para></listitem>
 <listitem><para><emphasis>Spell out the number using the individual digits</emphasis></para>
 <para>While this is not as elegant as stating the complete number it is much more practical.</para>
-<para>However, many applications (like the great mouseless browsing firefox addon) rely on the user to input large numbers without too much time passing between the individual keystrokes (mouseless browsing for example will wait exactly 500ms per default before it considers the input of the number complete). So if you want to enter 52 you would first say "Five (pause) Two". Because of the needed pause, the application (like the mouseless browsing plugin) would consider the input of "Five" complete.</para></listitem>
+<para>However, many applications (like the great mouseless browsing firefox addon) rely on the user to input large numbers without too much time passing between the individual keystrokes (mouseless browsing for example will wait exactly 500ms per default before it considers the input of the number complete). So if you want to enter 52 you would first say <quote>Five (pause) Two</quote>. Because of the needed pause, the application (like the mouseless browsing plugin) would consider the input of <quote>Five</quote> complete.</para></listitem>
 </itemizedlist>
 </para>
 
 <para>
-The input number plugin - when triggered - presents a calculator-like interface for inputting a number. The input can be corrected by saying "Back". It features a decimal point accessible by saying "Comma". When saying "Ok" the number will be typed out. As all the voice-input and the correction is handled by the plugin itself the application that finally receive the input will only get couple of milliseconds between the individual digits.
+The input number plugin - when triggered - presents a calculator-like interface for inputting a number. The input can be corrected by saying <quote>Back</quote>. It features a decimal point accessible by saying <quote>Comma</quote>. When saying <quote>Ok</quote> the number will be typed out. As all the voice-input and the correction is handled by the plugin itself the application that finally receive the input will only get couple of milliseconds between the individual digits.
 
 <screenshot>
 <screeninfo>Input Number Plugin</screeninfo>
@@ -2510,10 +2510,10 @@ The input number plugin - when triggered - presents a calculator-like interface 
 </para>
 
 <para>
-While the input number plugin is active (the user currently inputs a number), all input that is not directed at the input number plugin (other commands, etc.) will be rejected. Say "Cancel" at any time to abort the process.
+While the input number plugin is active (the user currently inputs a number), all input that is not directed at the input number plugin (other commands, &etc;) will be rejected. Say <quote>Cancel</quote> at any time to abort the process.
 </para>
 
-<para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog. However, the input number plugin registers a configuration screen right in the command configuration when it is loaded.
+<para>As there can no command instances be created of this plugin it is not listed in the <guilabel>New Command</guilabel> dialog. However, the input number plugin registers a configuration screen right in the command configuration when it is loaded.
 
 <screenshot>
 <screeninfo>Input Number Plugin</screeninfo>
@@ -2529,22 +2529,22 @@ The trigger defines what word or phrase that will trigger the display of the int
 
 
 <para>
-By default the input number plugin uses numbers to select the individual digits and a couple of control words. To use the input number plugin, make sure that your language and acoustic model contains and allows for the following "sentences":
+By default the input number plugin uses numbers to select the individual digits and a couple of control words. To use the input number plugin, make sure that your language and acoustic model contains and allows for the following <quote>sentences</quote>:
 <itemizedlist>
-<listitem><para>"Zero"</para></listitem>
-<listitem><para>"One"</para></listitem>
-<listitem><para>"Two"</para></listitem>
-<listitem><para>"Three"</para></listitem>
-<listitem><para>"Four"</para></listitem>
-<listitem><para>"Five"</para></listitem>
-<listitem><para>"Six"</para></listitem>
-<listitem><para>"Seven"</para></listitem>
-<listitem><para>"Eight"</para></listitem>
-<listitem><para>"Nine"</para></listitem>
-<listitem><para>"Back"</para></listitem>
-<listitem><para>"Comma"</para></listitem>
-<listitem><para>"Ok"</para></listitem>
-<listitem><para>"Cancel"</para></listitem>
+<listitem><para><quote>Zero</quote></para></listitem>
+<listitem><para><quote>One</quote></para></listitem>
+<listitem><para><quote>Two</quote></para></listitem>
+<listitem><para><quote>Three</quote></para></listitem>
+<listitem><para><quote>Four</quote></para></listitem>
+<listitem><para><quote>Five</quote></para></listitem>
+<listitem><para><quote>Six</quote></para></listitem>
+<listitem><para><quote>Seven</quote></para></listitem>
+<listitem><para><quote>Eight</quote></para></listitem>
+<listitem><para><quote>Nine</quote></para></listitem>
+<listitem><para><quote>Back</quote></para></listitem>
+<listitem><para><quote>Comma</quote></para></listitem>
+<listitem><para><quote>Ok</quote></para></listitem>
+<listitem><para><quote>Cancel</quote></para></listitem>
 </itemizedlist>
 </para>
 
@@ -2567,9 +2567,9 @@ By default the input number plugin uses numbers to select the individual digits 
 <title>Dictation</title>
 <para>The dictation plugin writes the recognition result it gets using simulated keystrokes.</para>
 
-<para>Assuming you didn't define a trigger for the dictation plugin it will accept all recognition results and just write them out. The written input will be considered as "processed input" and thus not be relayed to other plugins. This means that if you loaded the dictation plugin and defined no trigger for it, all plugins <emphasis>below it</emphasis> in the "Selected Plug-Ins" list in the command configuration will never receive any input.</para>
+<para>Assuming you didn't define a trigger for the dictation plugin it will accept all recognition results and just write them out. The written input will be considered as <quote>processed input</quote> and thus not be relayed to other plugins. This means that if you loaded the dictation plugin and defined no trigger for it, all plugins <emphasis>below it</emphasis> in the <guilabel>Selected Plug-Ins</guilabel> list in the command configuration will never receive any input.</para>
 
-<para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog.</para>
+<para>As there can no command instances be created of this plugin it is not listed in the <guilabel>New Command</guilabel> dialog.</para>
 
 <para>The dictation plugin can be configured to append texts after recognition results to for example add a space after each recognized word.</para>
 
@@ -2589,9 +2589,9 @@ By default the input number plugin uses numbers to select the individual digits 
 <title>Artificial Intelligence</title>
 <para>The Artificial Intelligence is a just-for-fun plugin that emulates a human conversation.</para>
 
-<para>Using the festival text to speech technology the computer can "talk" with the user and answer question or chat about the weather.</para>
+<para>Using the festival text to speech technology the computer can <quote>talk</quote> with the user and answer question or chat about the weather.</para>
 
-<para>The plugin uses AIMLs for the actual "intelligence". Most AIML sets should be supported. The popular <ulink url="http://www.pandorabots.com/pandora/talk?botid=f5d922d97e345aa1">A. L. I. C. E. bot</ulink> and a German version work and are shipped with the plugin.
+<para>The plugin uses AIMLs for the actual <quote>intelligence</quote>. Most AIML sets should be supported. The popular <ulink url="http://www.pandorabots.com/pandora/talk?botid=f5d922d97e345aa1">A. L. I. C. E. bot</ulink> and a German version work and are shipped with the plugin.
 
 <screenshot>
 <screeninfo>AI Plugin</screeninfo>
@@ -2623,9 +2623,9 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
 <para>The plugin will use <ulink url="http://tcts.fpms.ac.be/synthesis/mbrola.html">mbrola voices</ulink> if they are installed.</para>
 
-<para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog.</para>
+<para>As there can no command instances be created of this plugin it is not listed in the <guilabel>New Command</guilabel> dialog.</para>
 
-<para>It is recommended to not use any trigger for this plugin to provide a more natural "feel" for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even though it will react on any input given. This makes it possible to add a "conversation" to the command &amp; control use-case by developing custom AIMLs sets (e.g.: User: "Computer, open Firefox"; Computer: "Certainly, Sir! Starting Firefox..."; Firefox opens).</para>
+<para>It is recommended to not use any trigger for this plugin to provide a more natural <quote>feel</quote> for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even though it will react on any input given. This makes it possible to add a <quote>conversation</quote> to the command &amp; control use-case by developing custom AIMLs sets (e.g.: User: <quote>Computer, open Firefox</quote>; Computer: <quote>Certainly, Sir! Starting Firefox...</quote>; Firefox opens).</para>
 
 <para>Please keep in mind that the AI plugin will only work if festival is installed, set-up correctly and lies in your system path.</para>
 </sect2>
@@ -2675,7 +2675,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
 <para>However, the hidden controls will, in contrast to simply removing all associated command from the functions, still react to the configured voice commands.</para>
 
-<para>When selecting <guibutton>Ok</guibutton>, the calculator will by default ask you what to do with the generated result. You can for example output the calculation, the result, both, etc. Besides always selecting this from the displayed list after selecting the <guibutton>Ok</guibutton> button, this can also be set in the configuration options.</para>
+<para>When selecting <guibutton>Ok</guibutton>, the calculator will by default ask you what to do with the generated result. You can for example output the calculation, the result, both, &etc; Besides always selecting this from the displayed list after selecting the <guibutton>Ok</guibutton> button, this can also be set in the configuration options.</para>
 
 <para>
 <screenshot>
@@ -2701,7 +2701,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
       </listitem>
       <listitem>
         <para>Active</para>
-        <para>When activated, the filter will "eat" all results that match the configured pattern. By default this means every result that simon recognizes will be accepted by the filter and therefore not relayed to any of the plugins following the filter plugin.</para>
+        <para>When activated, the filter will <quote>eat</quote> all results that match the configured pattern. By default this means every result that simon recognizes will be accepted by the filter and therefore not relayed to any of the plugins following the filter plugin.</para>
       </listitem>
     </itemizedlist>
   </para>
@@ -2779,7 +2779,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   </screenshot>
   </para>
 
-  <para>The keyboard consists of multiple tabs, each possibly containing many keys. The entirety of tabs and keys are collected in "sets".</para>
+  <para>The keyboard consists of multiple tabs, each possibly containing many keys. The entirety of tabs and keys are collected in <quote>sets</quote>.</para>
 
   <para>You can select sets in the configuration but also create new ones from scratch in the keyboard command configuration.</para>
 
@@ -2794,9 +2794,9 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   </screenshot>
   </para>
 
-  <para>Keys are usually mapped to single characters but can also hold long texts and even shortcuts. Because of this, keyboard sets can contain special keys like a "select all" key or a "Password" key (typing your password).</para>
+  <para>Keys are usually mapped to single characters but can also hold long texts and even shortcuts. Because of this, keyboard sets can contain special keys like a <quote>select all</quote> key or a <quote>Password</quote> key (typing your password).</para>
 
-  <para>Next to the tabs that hold the keys of your set, the keyboard my also show special keys like &Ctrl;, &Shift;, etc. Those keys are provided as voice interface commands and are displayed regardless of what tab of the set is currently active.</para>
+  <para>Next to the tabs that hold the keys of your set, the keyboard my also show special keys like &Ctrl;, &Shift;, &etc; Those keys are provided as voice interface commands and are displayed regardless of what tab of the set is currently active.</para>
   <para>As with all voice triggers, removing the associated command, hides the buttons as well.</para>
 
   <para>Moreover, the keyboard provides a numpad that can be shown by selecting the appropriate option in the keyboard configuration.</para>
@@ -2852,7 +2852,7 @@ simon was designed with high configurability in mind.
 </screenshot>
 </para>
 <para>
-Please note that the option to start simon at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, etc. might require manually placing simon in the session autostart (please refer to the respective manuals of your desktop environment).
+Please note that the option to start simon at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, &etc; might require manually placing simon in the session autostart (please refer to the respective manuals of your desktop environment).
 </para>
 <para>
 When the option to start simon minimized is selected, simon will minimize to the system tray immediately after starting.
@@ -2909,7 +2909,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
   <para>The recognition is done one the simond server. See the <link linkend="architecture">architecture section</link> for more details.</para>
 
-  <para>The sound stream is not continuous but is segmented by the simon client. This is done by something called "voice activity detection".</para>
+  <para>The sound stream is not continuous but is segmented by the simon client. This is done by something called <quote>voice activity detection</quote>.</para>
 
   <para>
   <screenshot>
@@ -2926,7 +2926,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
     <itemizedlist>
       <listitem>
         <para><guilabel>Cutoff level</guilabel></para>
-        <para>Everything below this level is considered "silence" (background noise).</para>
+        <para>Everything below this level is considered <quote>silence</quote> (background noise).</para>
       </listitem>
       <listitem>
         <para><guilabel>Head margin</guilabel></para>
@@ -2938,7 +2938,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
       </listitem>
       <listitem>
         <para><guilabel>Skip samples shorter than</guilabel></para>
-        <para>Samples that are shorter than this value are not considered for recognition. (coughs, etc.)</para>
+        <para>Samples that are shorter than this value are not considered for recognition. (coughs, &etc;)</para>
       </listitem>
     </itemizedlist>
   </para>
@@ -2968,7 +2968,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 <para>On this configuration page you can also set the parameters for the <link linkend="volume_calibration">volume calibration</link>.</para>
 
 <para>It can be deactivated for both the add word dialog and the trainings wizard by unchecking the group box itself. As long as the volume is not louder than the minimum volume simon will prompt the user to raise the microphone volume. If the recording hits the maximum volume once, simon will tell the user to lower the volume.</para>
-<para>Clipping (hitting the maximum amplitude) will always cause a "too loud" warning.</para>
+<para>Clipping (hitting the maximum amplitude) will always cause a <quote>too loud</quote> warning.</para>
 <para>The prompted text can be configured by entering text in the input field below. If the edit is empty a default text will be used.</para>
 </sect3>
 
@@ -2987,13 +2987,13 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 </screenshot>
 </para>
 
-<para>The postprocessing commands can be seen as a chain of filters through which the recordings have to pass through. Using these "filters" one could define commands to suppress background noise in the training data or normalize the recordings.</para>
+<para>The postprocessing commands can be seen as a chain of filters through which the recordings have to pass through. Using these <quote>filters</quote> one could define commands to suppress background noise in the training data or normalize the recordings.</para>
 
-<para>Given the program "process_audio" which takes the input- and output files as its arguments (e.g.: "process_audio in.wav out.wav") the postprocessing command would be: "process_audio %1 %2". The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
+<para>Given the program <application>process_audio</application> which takes the input- and output files as its arguments (e.g.: <command>process_audio in.wav out.wav</command>) the postprocessing command would be: <userinput>process_audio %1 %2</userinput>. The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
 
-<para>The switch to "apply filters to recordings recorded with simon" enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_trainings-data">import trainings-data wizard</link>).</para>
+<para>The switch to <quote>apply filters to recordings recorded with simon</quote> enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_trainings-data">import trainings-data wizard</link>).</para>
 
-<para>One common use-case of postprocessing chains would be the resampling of audio because of hardware limitations. Given a soundcard that does not support mono 16kHz recordings but only supports 44100Hz stereo ("CD") recordings, one could use the free command line sound processing utility <ulink url="http://sox.sourceforge.net">SoX</ulink> to resample the recorded files after the recording.</para>
+<para>One common use-case of postprocessing chains would be the resampling of audio because of hardware limitations. Given a soundcard that does not support mono 16kHz recordings but only supports 44100Hz stereo (<acronym>CD</acronym>) recordings, one could use the free command line sound processing utility <ulink url="http://sox.sourceforge.net">SoX</ulink> to resample the recorded files after the recording.</para>
 <para>This example would require the following postprocessing command:
 <itemizedlist>
 <listitem><para><filename>sox %1 -c 1 -r 16000 %2</filename></para></listitem>
@@ -3095,7 +3095,7 @@ To identify individual users of the system (one simond server can of course serv
 
 <para>The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - vocabulary, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available).</para>
 
-<para>Using the "Connect automatically on simon start" option, simon will automatically start the connection to the configured simond servers after it has finished loading the user interface.</para>
+<para>Using the <guilabel>Connect automatically on simon start</guilabel> option, simon will automatically start the connection to the configured simond servers after it has finished loading the user interface.</para>
 </sect4>
 
 <sect4 id="configure_server_network">
@@ -3116,11 +3116,11 @@ To identify individual users of the system (one simond server can of course serv
 As of yet (simon 0.3), encryption is not yet supported.
 </para>
 <para>
-The timeout setting specifies, how long simon will wait for a first reply when contacting the hosts. If you are on a very, very slow network and/or use "connect on start" on a very slow machine, you may want to increase this value if you keep getting timeout errors and can resolve them by trying again repeatedly.
+The timeout setting specifies, how long simon will wait for a first reply when contacting the hosts. If you are on a very, very slow network and/or use <quote>connect on start</quote> on a very slow machine, you may want to increase this value if you keep getting timeout errors and can resolve them by trying again repeatedly.
 </para>
 <para>simon supports to be configured to use more than one simond. This is very useful if you for example are going to use simon on a laptop which connects to a different server depending where you are. You could for example add the server you use when you are home and the server used when you are at work. When connecting, simon will try to connect to each of the servers (in order) until it finds one server that accepts the connection.</para>
 
-<para>To add a server, just enter the hostname or IP and the port (separated by ":") or use the dialog that appears when you select the blue arrow next to the input field.</para>
+<para>To add a server, just enter the hostname or IP and the port (separated by <quote>:</quote>) or use the dialog that appears when you select the blue arrow next to the input field.</para>
 
 </sect4>
 </sect3>
@@ -3141,15 +3141,15 @@ The timeout setting specifies, how long simon will wait for a first reply when c
 </para>
 
 <para>
-Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default simon will always synchronize the model with the server when it changes. This is called "Automatic Synchronization" and is the recommended setting.
+Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default simon will always synchronize the model with the server when it changes. This is called <guimenuitem>Automatic Synchronization</guimenuitem> and is the recommended setting.
 </para>
 <para>
-However, if you want more control you can instruct simon to ask you before starting the synchronization after the model has changed or to rely on manual synchronization all together. When selecting the manual synchronization you have to manually use the "Synchronization" menu item of the simon main window (also see the section <link linkend="main_window">simon main window</link>) every time you want to compile the speech model.
+However, if you want more control you can instruct simon to ask you before starting the synchronization after the model has changed or to rely on manual synchronization all together. When selecting the manual synchronization you have to manually use the <guimenuitem>Synchronization</guimenuitem> menu item of the simon main window (also see the section <link linkend="main_window">simon main window</link>) every time you want to compile the speech model.
 </para>
 
-<para>The simon server will maintain a copy of the last five iterations of model files. However, this only includes the "source files" (the vocabulary, grammar, etc.) - <emphasis>not the compiled model</emphasis>. However, the compiled model will be regenerated from the restored source files automatically.</para>
+<para>The simon server will maintain a copy of the last five iterations of model files. However, this only includes the <quote>source files</quote> (the vocabulary, grammar, &etc;) - <emphasis>not the compiled model</emphasis>. However, the compiled model will be regenerated from the restored source files automatically.</para>
 
-<para>After you have connected to the server, you can select one of the available models and restore it by clicking on "Restore Model".</para>
+<para>After you have connected to the server, you can select one of the available models and restore it by clicking on <guimenuitem>Restore Model</guimenuitem>.</para>
 
 <para>Please note that the synchronization will only accept complete source models (containing a vocabulary, a grammar and some trainingssamples) so incomplete models will not be stored on the server and thus not be backed up.</para>
 
@@ -3237,7 +3237,7 @@ In special cases (severe speech impairments for example), special configuration 
 <para>simon ships with a default adin.jconf without any special parameters. You can change this system wide configuration which will affect all users if there are different user accounts on your machine who all use simon. To just change the configuration of one of those users copy the file to the user path (see below) and edit this copy.</para>
 </listitem>
 <listitem><para>julius.jconf</para><para>This is a configuration of the simond server and directly influences the recognition. This file is parsed by libjulius and libsent directly.</para>
-<para>simond ships with a default julius.jconf. Whenever there is a new user added to the simond database, simond will automatically copy this system wide configuration to the new user. After that the user is of course free to change it but it won't affect the other users. This way the "template" (the system wide configuration) can be changed without affecting other users.</para>
+<para>simond ships with a default julius.jconf. Whenever there is a new user added to the simond database, simond will automatically copy this system wide configuration to the new user. After that the user is of course free to change it but it won't affect the other users. This way the <quote>template</quote> (the system wide configuration) can be changed without affecting other users.</para>
 </listitem>
 </itemizedlist>
 </para>
