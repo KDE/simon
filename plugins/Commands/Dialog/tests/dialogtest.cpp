@@ -468,8 +468,8 @@ void testDialog::testCommands()
   QCOMPARE(commands.count(), 4); 
   QCOMPARE(dialog->rowCount(), 1); // transitions are hidden internal commands
 
-  QCOMPARE(dialog->trigger("bla"), false);
-  QCOMPARE(dialog->trigger("Dialog"), true);
+  QCOMPARE(dialog->trigger("bla", true), false);
+  QCOMPARE(dialog->trigger("Dialog", true), true);
 }
 
 void testDialog::createTransition()
@@ -632,7 +632,7 @@ void testDialog::testView()
 
   //activate first option to go back to page 1
   QTimer::singleShot(500, this, SLOT(checkView1()));
-  dialog->trigger("Back");
+  dialog->trigger("Back", true);
   //clickDialogOption("Back", 500, SLOT(checkView1()));
 
   //let timeout run out
