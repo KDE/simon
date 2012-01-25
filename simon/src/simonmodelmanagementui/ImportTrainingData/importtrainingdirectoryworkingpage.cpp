@@ -39,7 +39,7 @@ completed(false)
   setTitle(i18n("Processing folder..."));
 
   connect(importer, SIGNAL(done()), this, SLOT(setComplete()));
-  connect(importer, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
+  connect(importer, SIGNAL(progress(int,int)), this, SLOT(displayProgress(int,int)));
   connect(importer, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
   connect(importer, SIGNAL(error(QString)), this, SLOT(displayError(QString)));
 }

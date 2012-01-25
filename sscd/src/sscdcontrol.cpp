@@ -26,7 +26,7 @@
 SSCDControl::SSCDControl(QObject* parent) : QTcpServer(parent)
 ,db(new DatabaseAccess(this))
 {
-  connect (db, SIGNAL(error(const QString&)), this, SLOT(handleError(const QString&)));
+  connect (db, SIGNAL(error(QString)), this, SLOT(handleError(QString)));
 }
 
 

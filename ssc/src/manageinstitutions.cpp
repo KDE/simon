@@ -47,7 +47,7 @@ KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
   connect(ui.pbEdit, SIGNAL(clicked()), this, SLOT(editInstitution()));
   connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteInstitution()));
 
-  connect(ui.leInstitutionName, SIGNAL(returnPressed(const QString&)), proxyModel, SLOT(setFilterRegExp(const QString&)));
+  connect(ui.leInstitutionName, SIGNAL(returnPressed(QString)), proxyModel, SLOT(setFilterRegExp(QString)));
   connect(ui.pbFilter, SIGNAL(clicked()), this, SLOT(filter()));
   setCaption( i18n("Institutions") );
 

@@ -65,8 +65,8 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
   connect(ui.pbEditWord, SIGNAL(clicked()), this, SLOT(editSelectedWord()));
   connect(ui.pbAddWord, SIGNAL(clicked()), this, SLOT(addWord()));
   connect(ui.pbClear, SIGNAL(clicked()), this, SLOT(clear()));
-  //connect(ui.leActiveVocabSearch, SIGNAL(textChanged(const QString&)), this, SLOT(refreshActiveView()));
-  //connect(ui.leShadowVocabSearch, SIGNAL(textChanged(const QString&)), this, SLOT(refreshShadowView()));
+  //connect(ui.leActiveVocabSearch, SIGNAL(textChanged(QString)), this, SLOT(refreshActiveView()));
+  //connect(ui.leShadowVocabSearch, SIGNAL(textChanged(QString)), this, SLOT(refreshShadowView()));
   connect(ui.leActiveVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshActiveView()));
   connect(ui.leShadowVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshShadowView()));
   connect(ui.leActiveVocabSearch, SIGNAL(clearButtonClicked()), this, SLOT(refreshActiveView()));

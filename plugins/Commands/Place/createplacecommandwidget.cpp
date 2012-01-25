@@ -28,7 +28,7 @@ CreatePlaceCommandWidget::CreatePlaceCommandWidget(CommandManager *manager, QWid
   setWindowIcon(PlaceCommand::staticCategoryIcon());
   setWindowTitle(PlaceCommand::staticCategoryText());
 
-  connect(ui.urUrl, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.urUrl, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.cbImportPlace, SIGNAL(clicked()), this, SLOT(selectPlace()));
 }
 

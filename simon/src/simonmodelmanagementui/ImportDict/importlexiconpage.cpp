@@ -27,7 +27,7 @@ ImportLexiconPage::ImportLexiconPage(QWidget* parent): QWizardPage(parent)
   ui.urPath->setMode(KFile::File|KFile::ExistingOnly);
 
   setTitle(i18n("Import Lexicon"));
-  connect(ui.urPath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.urPath, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   registerField("lexiconEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
   registerField("lexiconFilename", ui.urPath, "url", SIGNAL(textChanged(QString)));
 }

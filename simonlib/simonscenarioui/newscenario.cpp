@@ -38,10 +38,10 @@ NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
   setMainWidget( widget );
   setCaption( i18n("Scenario") );
 
-  connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(setWindowTitleToScenarioName(QString)));
-  connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
-  connect(ui.leMinVersion, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
-  connect(ui.cbLicense, SIGNAL(editTextChanged(const QString&)), this, SLOT(checkIfComplete()));
+  connect(ui.leName, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToScenarioName(QString)));
+  connect(ui.leName, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+  connect(ui.leMinVersion, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+  connect(ui.cbLicense, SIGNAL(editTextChanged(QString)), this, SLOT(checkIfComplete()));
 
   connect(ui.pbAddAuthor, SIGNAL(clicked()), this, SLOT(addAuthor()));
   connect(ui.pbRemoveAuthor, SIGNAL(clicked()), this, SLOT(removeAuthor()));

@@ -122,7 +122,7 @@ void Simonoid::init() {
   initLayout ( m_layouttype );
   m_interval = m_interval;
 
-  connect ( &m_checkConnectionTimer, SIGNAL ( timeout() ), this, SLOT ( checkConnection() ) );
+  connect ( &m_checkConnectionTimer, SIGNAL (timeout()), this, SLOT (checkConnection()) );
   m_checkConnectionTimer.start ( 1000*m_interval );
 
   checkConnection();
@@ -160,19 +160,19 @@ bool Simonoid::connectSignalsAndSlots() {
 
   bool success = true;
   if ( success ) {
-    success = connect ( m_dbusinterface, SIGNAL ( listening() ), this, SLOT ( listeningCalled() ) );
+    success = connect ( m_dbusinterface, SIGNAL (listening()), this, SLOT (listeningCalled()) );
     kDebug() << "connecting listening:" << ( success?"connected":"disconnected" ) ;
   }
   if ( success ) {
-    success = connect ( m_dbusinterface, SIGNAL ( processing() ), this, SLOT ( processingCalled() ) );
+    success = connect ( m_dbusinterface, SIGNAL (processing()), this, SLOT (processingCalled()) );
     kDebug() << "connecting processing:" << ( success?"connected":"disconnected" ) ;
   }
   if ( success ) {
-    success = connect ( m_dbusinterface, SIGNAL ( receivedResults() ), this, SLOT ( receivedResultsCalled() ) );
+    success = connect ( m_dbusinterface, SIGNAL (receivedResults()), this, SLOT (receivedResultsCalled()) );
     kDebug() << "connecting receivedResults:" << ( success?"connected":"disconnected" ) ;
   }
   if ( success ) {
-    success = connect ( m_dbusinterface, SIGNAL ( recordingLevel ( double ) ), this, SLOT ( recordingLevelCalled ( double ) ) );
+    success = connect ( m_dbusinterface, SIGNAL (recordingLevel(double)), this, SLOT (recordingLevelCalled(double)) );
     kDebug() << "connecting recordingLevel:" << ( success?"connected":"disconnected" ) ;
   }
   if ( success ) {

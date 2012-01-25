@@ -27,7 +27,7 @@ ImportDictJuliusPage::ImportDictJuliusPage(QWidget* parent): QWizardPage(parent)
   ui.urPath->setMode(KFile::File|KFile::ExistingOnly);
 
   setTitle(i18n("Import Julius Vocabulary"));
-  connect(ui.urPath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.urPath, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   registerField("juliusVocabularyEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
   registerField("juliusVocabularyFilename", ui.urPath, "url", SIGNAL(textChanged(QString)));
 }

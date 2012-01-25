@@ -59,13 +59,13 @@ SampleShare::SampleShare(QWidget* parent):
   setButtonText(Ok, i18n("Connect to server"));
   
   connect(ui->cbLicense, SIGNAL(clicked(bool)), this, SLOT(checkCompletion()));
-  connect(ui->cbDialect, SIGNAL(editTextChanged(const QString&)), this, SLOT(checkCompletion()));
+  connect(ui->cbDialect, SIGNAL(editTextChanged(QString)), this, SLOT(checkCompletion()));
   
   connect(ui->cbLanguage, SIGNAL(currentIndexChanged(int)), this, SLOT(listDialects()));
   
-  connect(server, SIGNAL(error(const QString&)), this, SLOT(transmissionError(const QString&)));
-  connect(server, SIGNAL(warning(const QString&)), this, SLOT(transmissionWarning(const QString&)));
-  connect(server, SIGNAL(status(const QString&, int, int)), this, SLOT(transmissionStatus(const QString&)));
+  connect(server, SIGNAL(error(QString)), this, SLOT(transmissionError(QString)));
+  connect(server, SIGNAL(warning(QString)), this, SLOT(transmissionWarning(QString)));
+  connect(server, SIGNAL(status(QString,int,int)), this, SLOT(transmissionStatus(QString)));
   
   connect(server, SIGNAL(connected()), this, SLOT(connected()));
   connect(server, SIGNAL(disconnected()), this, SLOT(disconnected()));
@@ -376,7 +376,7 @@ void SampleShare::startTransmission()
   connect(transmissionOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
   
   connect(worker, SIGNAL(error(QString)), this, SLOT(displayError(QString)), Qt::QueuedConnection);
-  connect(worker, SIGNAL(status(QString, int, int)), this, SLOT(displayStatus(QString, int, int)), Qt::QueuedConnection);
+  connect(worker, SIGNAL(status(QString,int,int)), this, SLOT(displayStatus(QString,int,int)), Qt::QueuedConnection);
   
   connect(worker, SIGNAL(sendSample(Sample*)), this, SLOT(sendSample(Sample*)));
 

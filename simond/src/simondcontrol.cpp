@@ -30,7 +30,7 @@ SimondControl::SimondControl(QObject* parent) : QTcpServer(parent),
 db(new DatabaseAccess(this)),
 m_recognitionControlFactory(new RecognitionControlFactory())
 {
-  connect (db, SIGNAL(error(const QString&)), this, SLOT(handleError(const QString&)));
+  connect (db, SIGNAL(error(QString)), this, SLOT(handleError(QString)));
 }
 
 

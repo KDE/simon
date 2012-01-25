@@ -59,7 +59,7 @@ listConfiguration(new ListConfiguration(this))
   connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(remove()));
   connect(ui.pbUp, SIGNAL(clicked()), this, SLOT(moveUp()));
   connect(ui.pbDown, SIGNAL(clicked()), this, SLOT(moveDown()));
-  connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(applyTrigger(const QString&)));
+  connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(applyTrigger(QString)));
   connect(ui.pbApplyForAll, SIGNAL(clicked()), this, SLOT(applyTriggerToAll()));
 
   ui.lvPlugins->setIconSize(QSize(24,24));
@@ -67,7 +67,7 @@ listConfiguration(new ListConfiguration(this))
 
   setButtons(KDialog::Ok);
 
-  connect(ui.lvPlugins, SIGNAL(clicked(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
+  connect(ui.lvPlugins, SIGNAL(clicked(QModelIndex)), this, SLOT(currentSelectionChanged()));
 
   ui.twActionConfig->addTab(listConfiguration, i18n("Lists"));
   ui.twActionConfig->addTab(manageActionsAutorunWidget, i18n("Autorun"));

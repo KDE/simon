@@ -75,8 +75,8 @@ void ImportGrammarWorkingPage::initializePage()
 
   grammarImporter = new ImportGrammar(this);
   connect(grammarImporter, SIGNAL(status(QString)), this, SLOT(printStatus(QString)));
-  connect(grammarImporter, SIGNAL(fileProgress(int, int)), this, SLOT(displayFileProgress(int, int)));
-  connect(grammarImporter, SIGNAL(allProgress(int, int)), this, SLOT(displayWholeProgress(int, int)));
+  connect(grammarImporter, SIGNAL(fileProgress(int,int)), this, SLOT(displayFileProgress(int,int)));
+  connect(grammarImporter, SIGNAL(allProgress(int,int)), this, SLOT(displayWholeProgress(int,int)));
   connect(grammarImporter, SIGNAL(grammarCreated()), this, SIGNAL(grammarCreated()));
   connect(grammarImporter, SIGNAL(terminated()), this, SLOT(processCompletion()));
 

@@ -57,13 +57,13 @@ ui(new Ui::ScenarioManagementDialog()), m_dataPrefix(dataPrefix), m_dirty(false)
 
   connect(ui->twAvailable, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
     this, SLOT(availableScenarioSelected()));
-  connect(ui->twSelected, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
+  connect(ui->twSelected, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
     this, SLOT(selectedScenarioSelected()));
 
-  connect(ui->twAvailable, SIGNAL(clicked(const QModelIndex&)),
-    this, SLOT(updateLastSelectedIndex(const QModelIndex&)));
-  connect(ui->twSelected, SIGNAL(clicked(const QModelIndex&)),
-    this, SLOT(updateLastSelectedIndex(const QModelIndex&)));
+  connect(ui->twAvailable, SIGNAL(clicked(QModelIndex)),
+    this, SLOT(updateLastSelectedIndex(QModelIndex)));
+  connect(ui->twSelected, SIGNAL(clicked(QModelIndex)),
+    this, SLOT(updateLastSelectedIndex(QModelIndex)));
 
   connect(ui->twAvailable, SIGNAL(doubleClicked(QModelIndex)),
           ui->pbAddToSelected, SIGNAL(clicked()));

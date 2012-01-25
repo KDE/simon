@@ -42,7 +42,7 @@ ListConfiguration::ListConfiguration(QWidget* parent): QWidget(parent)
   QObject::connect(ui->leVisibleTrigger, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
   QObject::connect(ui->ibIcon, SIGNAL(iconChanged(QString)), this, SIGNAL(changed()));
 
-  QObject::connect(ui->lwActions, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(listActionsItemChanged(QListWidgetItem*, QListWidgetItem*)));
+  QObject::connect(ui->lwActions, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(listActionsItemChanged(QListWidgetItem*,QListWidgetItem*)));
 }
 
 

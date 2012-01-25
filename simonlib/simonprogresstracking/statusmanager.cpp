@@ -37,7 +37,7 @@ CompositeProgressWidget* StatusManager::createWidget(QWidget *parent)
 {
   CompositeProgressWidget* widget = new CompositeProgressWidget(parent);
   widget->display(runningOperations);
-  connect(this, SIGNAL(operationsChanged(const OperationList&)),
+  connect(this, SIGNAL(operationsChanged(OperationList)),
     widget, SLOT(display(OperationList)));
   return widget;
 }

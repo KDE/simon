@@ -59,7 +59,7 @@ ready(false)
   setLayout(lay);
 
   connect(import, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
-  connect(import, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
+  connect(import, SIGNAL(progress(int,int)), this, SLOT(displayProgress(int,int)));
   connect(import, SIGNAL(successful()), this, SIGNAL(done()));
   connect(import, SIGNAL(failed()), this, SIGNAL(failed()));
 

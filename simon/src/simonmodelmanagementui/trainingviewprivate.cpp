@@ -51,13 +51,13 @@ import(new ImportTrainingTexts())
 {
   ui.setupUi ( this );
 
-  connect ( ui.pbTrainText, SIGNAL ( clicked() ), this, SLOT ( trainSelected() ) );
-  connect ( ui.tvTrainingTexts, SIGNAL ( doubleClicked ( const QModelIndex& ) ), this, SLOT ( trainSelected() ) );
+  connect ( ui.pbTrainText, SIGNAL (clicked()), this, SLOT (trainSelected()) );
+  connect ( ui.tvTrainingTexts, SIGNAL (doubleClicked(QModelIndex)), this, SLOT (trainSelected()) );
 
-  connect ( ui.pbImportText, SIGNAL ( clicked() ), this, SLOT ( importTexts() ) );
-  connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
-  connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
-  connect ( ui.pbClearTrainingdata, SIGNAL ( clicked() ), this, SLOT ( clearTrainingdata() ) );
+  connect ( ui.pbImportText, SIGNAL (clicked()), this, SLOT (importTexts()) );
+  connect ( ui.pbDelText, SIGNAL (clicked()), this, SLOT (deleteSelected()) );
+  connect ( ui.pbImportDir, SIGNAL (clicked()), this, SLOT (importDirectory()) );
+  connect ( ui.pbClearTrainingdata, SIGNAL (clicked()), this, SLOT (clearTrainingdata()) );
 
   textsProxy = new QSortFilterProxyModel();
   textsProxy->setFilterKeyColumn(0);

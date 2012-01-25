@@ -90,7 +90,7 @@ wantReload(false)
 
   connect(process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(matchDisplayToState()));
   connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(slotError(QProcess::ProcessError)));
-  connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(simondFinished()));
+  connect(process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(simondFinished()));
 
   if (KSimondConfiguration::autoStartSimond())
     startSimond();

@@ -39,11 +39,11 @@ AccessibleObject::AccessibleObject ( QDBusConnection &conn, const QString &servi
   //setting up monitoring
   if (!parent) {
     m_conn.connect(m_service, "", "org.a11y.atspi.Event.Object", "StateChanged", this, 
-                              SLOT(slotStateChanged(QString, int, int, QDBusVariant, QSpiObjectReference)));
+                              SLOT(slotStateChanged(QString,int,int,QDBusVariant,QSpiObjectReference)));
     m_conn.connect(m_service, "", "org.a11y.atspi.Event.Object", "ChildrenChanged", this, 
-                              SLOT(slotChildrenChanged(QString, int, int, QDBusVariant, QSpiObjectReference)));
+                              SLOT(slotChildrenChanged(QString,int,int,QDBusVariant,QSpiObjectReference)));
     m_conn.connect(m_service, "", "org.a11y.atspi.Event.Object", "PropertyChanged", this, 
-                              SLOT(slotPropertyChange(QString, int, int, QDBusVariant, QSpiObjectReference)));
+                              SLOT(slotPropertyChange(QString,int,int,QDBusVariant,QSpiObjectReference)));
   }
   
   kDebug() << "Created new accessible object: " << m_name << m_path << role() << roleName();

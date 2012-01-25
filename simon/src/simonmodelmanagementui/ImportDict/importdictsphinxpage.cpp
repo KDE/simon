@@ -31,8 +31,8 @@ ImportDictSPHINXPage::ImportDictSPHINXPage(QWidget* parent): QWizardPage(parent)
 
   ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
 
-  connect(ui.urFile, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-  registerField("sphinxFilename*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
+  connect(ui.urFile, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  registerField("sphinxFilename*", ui.urFile, "url", SIGNAL(textChanged(QString)));
   registerField("sphinxEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
   setTitle(i18n("Import SPHINX Dictionary"));
 }

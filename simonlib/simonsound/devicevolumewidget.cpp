@@ -36,7 +36,7 @@ m_isTooLoud(false)
   if (m_deviceName.contains("CARD="))
     m_deviceName = m_deviceName.mid(m_deviceName.indexOf("CARD=")+5);
   ui->lbDeviceName->setText(i18nc("%1 is the devices name", "Device \"%1\":", m_deviceName));
-  connect(rec, SIGNAL(level(qint64, float)), this, SLOT(deviceReportedLevel(qint64, float)));
+  connect(rec, SIGNAL(level(qint64,float)), this, SLOT(deviceReportedLevel(qint64,float)));
   connect(rec, SIGNAL(clippingOccured()), this, SLOT(clipping()));
 
   connect(ui->pbVolumeChanged, SIGNAL(clicked()), this, SLOT(reset()));

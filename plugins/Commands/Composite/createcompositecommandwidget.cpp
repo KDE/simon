@@ -50,7 +50,7 @@ model(new CommandTableModel())
   connect(ui.pbAddDelay, SIGNAL(clicked()), this, SLOT(addDelayToComp()));
   connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
   connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
-  connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
+  connect(ui.tvCommands, SIGNAL(clicked(QModelIndex)), this, SLOT(enableButtons(QModelIndex)));
   enableButtons(ui.tvCommands->currentIndex());
 
   ui.pbAddCommand->setIcon(KIcon("list-add"));

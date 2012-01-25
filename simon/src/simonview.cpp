@@ -253,7 +253,7 @@ void SimonView::setupWelcomePage()
   QWebView *welcomePart = new QWebView(this);
   welcomePart->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
   welcomePart->setContextMenuPolicy(Qt::NoContextMenu);
-  connect(welcomePart,SIGNAL(linkClicked(const QUrl&)),this,SLOT(welcomeUrlClicked(const QUrl&)));
+  connect(welcomePart,SIGNAL(linkClicked(QUrl)),this,SLOT(welcomeUrlClicked(QUrl)));
 
   KIconLoader *iconLoader = KIconLoader::global();
   QString internetIconPath = iconLoader->iconPath("applications-internet", KIconLoader::Desktop);
@@ -496,7 +496,7 @@ void SimonView::manageScenarios()
 void SimonView::setupSignalSlots()
 {
   //Setting up Signal/Slots
-  QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
+  QObject::connect ( control,SIGNAL (guiAction(QString)), ui.inlineView,SIGNAL (guiAction(QString)) );
   connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 
   connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));

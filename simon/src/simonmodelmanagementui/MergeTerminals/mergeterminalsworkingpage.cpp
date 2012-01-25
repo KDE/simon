@@ -25,9 +25,9 @@ mergeTerminals(new MergeTerminals(this))
 {
   ui.setupUi ( this );
 
-  connect ( mergeTerminals, SIGNAL ( status ( QString ) ), this, SLOT ( displayStatus ( QString ) ) );
-  connect ( mergeTerminals, SIGNAL ( done() ), this, SLOT ( finished() ) );
-  connect ( mergeTerminals, SIGNAL ( progress ( int, int ) ), this, SLOT ( displayProgress ( int, int ) ) );
+  connect ( mergeTerminals, SIGNAL (status(QString)), this, SLOT (displayStatus(QString)) );
+  connect ( mergeTerminals, SIGNAL (done()), this, SLOT (finished()) );
+  connect ( mergeTerminals, SIGNAL (progress(int,int)), this, SLOT (displayProgress(int,int)) );
 
   setTitle ( i18n ( "Merging..." ) );
 }

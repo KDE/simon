@@ -38,16 +38,16 @@ LogView::LogView(QWidget* parent):QWidget(parent) // SystemWidget(i18n("Protokol
   // 	guessChildTriggers(this);
 
   clickedDate = QDate();
-  connect (ui.gbOnlyDay, SIGNAL (toggled (bool)), ui.cwLogDay, SLOT (setEnabled(bool)));
+  connect (ui.gbOnlyDay, SIGNAL (toggled(bool)), ui.cwLogDay, SLOT (setEnabled(bool)));
 
-  connect (ui.twLogEntries, SIGNAL (itemClicked(QTreeWidgetItem*, int)),
+  connect (ui.twLogEntries, SIGNAL (itemClicked(QTreeWidgetItem*,int)),
     this, SLOT (displayDay(QTreeWidgetItem*)));
 
   connect ( ui.cwLogDay, SIGNAL (selectionChanged()), this, SLOT (startLogLoad()));
   connect ( ui.gbOnlyDay, SIGNAL (toggled(bool)), this, SLOT (startLogLoad()));
-  connect ( ui.pbAbort, SIGNAL (clicked (bool)),this, SLOT(abort()));
+  connect ( ui.pbAbort, SIGNAL (clicked(bool)),this, SLOT(abort()));
 
-  connect (ui.leSearchLogs, SIGNAL(returnPressed ()), this, SLOT(startLogLoad()));
+  connect (ui.leSearchLogs, SIGNAL(returnPressed()), this, SLOT(startLogLoad()));
   connect (ui.pbLogSearch, SIGNAL(clicked()),this,SLOT(startLogLoad()));
 
   this->abortInsertingEntries = false;

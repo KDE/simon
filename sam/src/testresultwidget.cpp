@@ -42,9 +42,9 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
   modelTest = new ModelTest("internalsamuser_"+config->tag(), this);
   connect(modelTest, SIGNAL(testComplete()), this, SLOT(slotModelTestCompleted()));
   connect(modelTest, SIGNAL(testAborted()), this, SLOT(slotModelTestAborted()));
-  connect(modelTest, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelTestStatus(const QString&, int, int)));
-  connect(modelTest, SIGNAL(recognitionInfo(const QString&)), this, SLOT(slotModelTestRecognitionInfo(const QString&)));
-  connect(modelTest, SIGNAL(error(const QString&, const QByteArray&)), this, SLOT(slotModelTestError(const QString&, const QByteArray&)));
+  connect(modelTest, SIGNAL(status(QString,int,int)), this, SLOT(slotModelTestStatus(QString,int,int)));
+  connect(modelTest, SIGNAL(recognitionInfo(QString)), this, SLOT(slotModelTestRecognitionInfo(QString)));
+  connect(modelTest, SIGNAL(error(QString,QByteArray)), this, SLOT(slotModelTestError(QString,QByteArray)));
 
   ui.tvFiles->setModel(fileResultModelProxy);
   ui.tvFiles->setSortingEnabled(true);
@@ -52,10 +52,10 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
   fileResultModelProxy->setFilterKeyColumn(0);
   fileResultModelProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   fileResultModelProxy->setSortRole(Qt::UserRole+1);
-  connect(ui.leResultFilesFilter, SIGNAL(textChanged(const QString&)), fileResultModelProxy, SLOT(setFilterFixedString(const QString&)));
+  connect(ui.leResultFilesFilter, SIGNAL(textChanged(QString)), fileResultModelProxy, SLOT(setFilterFixedString(QString)));
 
   ui.tvFiles->setSelectionBehavior(QAbstractItemView::SelectRows);
-  connect(ui.tvFiles, SIGNAL(pressed(const QModelIndex&)), this, SLOT(slotFileResultSelected(const QModelIndex&)));
+  connect(ui.tvFiles, SIGNAL(pressed(QModelIndex)), this, SLOT(slotFileResultSelected(QModelIndex)));
   connect(ui.pbEditSample, SIGNAL(clicked()), this, SLOT(slotEditSelectedSample()));
 
   fileResultModelProxy->setSourceModel(modelTest->recognizerResultsModel());

@@ -77,12 +77,12 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
   actionsProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   ui.lvActions->setModel(actionsProxy);
 
-  connect(ui.leCommandsFilter, SIGNAL(textChanged(const QString&)), commandsProxy, SLOT(setFilterRegExp(const QString&)));
-  connect(ui.leActionsFilter, SIGNAL(textChanged(const QString&)), actionsProxy, SLOT(setFilterRegExp(const QString&)));
+  connect(ui.leCommandsFilter, SIGNAL(textChanged(QString)), commandsProxy, SLOT(setFilterRegExp(QString)));
+  connect(ui.leActionsFilter, SIGNAL(textChanged(QString)), actionsProxy, SLOT(setFilterRegExp(QString)));
 
-  connect(ui.leActionsFilter, SIGNAL(textChanged(const QString&)), this, SLOT(fetchCommandsFromCategory()));
-  connect(ui.lvActions->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(fetchCommandsFromCategory()));
-  connect(ui.lvCommands->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(updateCommandDetail()));
+  connect(ui.leActionsFilter, SIGNAL(textChanged(QString)), this, SLOT(fetchCommandsFromCategory()));
+  connect(ui.lvActions->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(fetchCommandsFromCategory()));
+  connect(ui.lvCommands->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(updateCommandDetail()));
 }
 
 

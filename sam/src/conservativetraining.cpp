@@ -35,8 +35,8 @@ ConservativeTraining::ConservativeTraining(QWidget *parent) : KDialog(parent),
   setMainWidget( widget );
   setCaption( i18n("Conservative Training") );
 
-  connect(ui->urInputFolder, SIGNAL(textChanged(const QString&)), this, SLOT(updateComplete()));
-  connect(ui->urOutputPrompts, SIGNAL(textChanged(const QString&)), this, SLOT(updateComplete()));
+  connect(ui->urInputFolder, SIGNAL(textChanged(QString)), this, SLOT(updateComplete()));
+  connect(ui->urOutputPrompts, SIGNAL(textChanged(QString)), this, SLOT(updateComplete()));
   connect(ui->sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(updateComplete()));
 
   updateComplete();

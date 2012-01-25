@@ -37,8 +37,8 @@ CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *man
   ui.cbManual->hide();
   #endif
 
-  connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-  connect(ui.urExecutable, SIGNAL(urlSelected(const KUrl&)), this, SLOT(urlSelected(const KUrl&)));
+  connect(ui.urExecutable, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.urExecutable, SIGNAL(urlSelected(KUrl)), this, SLOT(urlSelected(KUrl)));
 
   connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(selectProgram()));
 }

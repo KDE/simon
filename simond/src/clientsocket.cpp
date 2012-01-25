@@ -176,23 +176,23 @@ void ClientSocket::processRequest()
                     this, SLOT(activeModelCompiled()));
             connect(contextAdapter, SIGNAL(activeModelCompilationAborted()),
                     this, SLOT(activeModelCompilationAborted()));
-            connect(contextAdapter, SIGNAL(manageStatus(QString, int, int)),
-                    this, SLOT(slotModelCompilationStatus(QString, int, int)));
+            connect(contextAdapter, SIGNAL(manageStatus(QString,int,int)),
+                    this, SLOT(slotModelCompilationStatus(QString,int,int)));
             connect(contextAdapter, SIGNAL(manageError(QString)),
                     this, SLOT(slotModelCompilationError(QString)));
-            connect(contextAdapter, SIGNAL(classUndefined(const QString&)),
-                    this, SLOT(slotModelCompilationClassUndefined(const QString&)));
-            connect(contextAdapter, SIGNAL(wordUndefined(const QString&)),
-                    this, SLOT(slotModelCompilationWordUndefined(const QString&)));
-            connect(contextAdapter, SIGNAL(phonemeUndefined(const QString&)),
-                    this, SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
+            connect(contextAdapter, SIGNAL(classUndefined(QString)),
+                    this, SLOT(slotModelCompilationClassUndefined(QString)));
+            connect(contextAdapter, SIGNAL(wordUndefined(QString)),
+                    this, SLOT(slotModelCompilationWordUndefined(QString)));
+            connect(contextAdapter, SIGNAL(phonemeUndefined(QString)),
+                    this, SLOT(slotModelCompilationPhonemeUndefined(QString)));
 
             connect(contextAdapter, SIGNAL(adaptionComplete()),
                     this, SLOT(slotModelAdaptionComplete()));
             connect(contextAdapter, SIGNAL(adaptionAborted()),
                     this, SLOT(slotModelAdaptionAborted()));
-            connect(contextAdapter, SIGNAL(adaptStatus(QString, int)),
-                    this, SLOT(slotModelAdaptionStatus(QString, int)));
+            connect(contextAdapter, SIGNAL(adaptStatus(QString,int)),
+                    this, SLOT(slotModelAdaptionStatus(QString,int)));
             connect(contextAdapter, SIGNAL(adaptError(QString)),
                     this, SLOT(slotModelAdaptionError(QString)));
 
@@ -208,12 +208,12 @@ void ClientSocket::processRequest()
           // MANI TODO
           recognitionControl = recognitionControlFactory->recognitionControl(username);
           connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
-          connect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
-          connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
+          connect(recognitionControl, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(recognitionError(QString,QByteArray)));
+          connect(recognitionControl, SIGNAL(recognitionWarning(QString)), this, SLOT(recognitionWarning(QString)));
           connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
           connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
-          connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
-          connect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
+          connect(recognitionControl, SIGNAL(recognitionResult(QString,RecognitionResultList)), this, SLOT(processRecognitionResults(QString,RecognitionResultList)));
+          connect(recognitionControl, SIGNAL(recognitionDone(QString)), this, SLOT(recognitionDone(QString)));
 
           if (synchronisationManager )
               synchronisationManager->deleteLater();
@@ -1836,12 +1836,12 @@ QString ClientSocket::getUsername()
 void ClientSocket::closeRecognitionControl()
 {
   disconnect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
-  disconnect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
-  disconnect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
+  disconnect(recognitionControl, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(recognitionError(QString,QByteArray)));
+  disconnect(recognitionControl, SIGNAL(recognitionWarning(QString)), this, SLOT(recognitionWarning(QString)));
   disconnect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
   disconnect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
-  disconnect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
-  disconnect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
+  disconnect(recognitionControl, SIGNAL(recognitionResult(QString,RecognitionResultList)), this, SLOT(processRecognitionResults(QString,RecognitionResultList)));
+  disconnect(recognitionControl, SIGNAL(recognitionDone(QString)), this, SLOT(recognitionDone(QString)));
   recognitionControlFactory->closeRecognitionControl(username,recognitionControl);
 }
 

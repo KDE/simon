@@ -77,7 +77,7 @@ TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KG
 
   connect(ui.kcfg_useRecordingsAcrossSets, SIGNAL(clicked()), this, SLOT(slotChanged()));
 
-  connect(ui.leFilter, SIGNAL(textChanged(const QString&)), recordings, SLOT(setFilterWildcard(const QString&)));
+  connect(ui.leFilter, SIGNAL(textChanged(QString)), recordings, SLOT(setFilterWildcard(QString)));
   ui.tvRecordings->setSortingEnabled(true);
 
   addConfig(TTSConfiguration::self(), this);

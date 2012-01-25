@@ -28,9 +28,9 @@ CreateDBusCommandWidget::CreateDBusCommandWidget(CommandManager *manager, QWidge
   setWindowIcon(DBusCommand::staticCategoryIcon());
   setWindowTitle(DBusCommand::staticCategoryText());
 
-  connect(ui.leServiceName, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-  connect(ui.lePath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-  connect(ui.leMethod, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.leServiceName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.lePath, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.leMethod, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
 }
 
 

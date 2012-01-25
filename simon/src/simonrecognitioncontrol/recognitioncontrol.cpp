@@ -114,7 +114,7 @@ timeoutWatcher(new QTimer(this))
   connect(socket, SIGNAL(disconnected()), this, SLOT(slotDisconnected()), Qt::QueuedConnection);
   connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()), Qt::QueuedConnection);
 
-  connect(this, SIGNAL(simondSystemError(const QString&)), this, SLOT(disconnectFromServer()));
+  connect(this, SIGNAL(simondSystemError(QString)), this, SLOT(disconnectFromServer()));
 
   connect(ModelManagerUiProxy::getInstance(), SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
   
@@ -136,7 +136,7 @@ void RecognitionControl::startPrivateSimond()
 {
   if (!localSimond) {
     localSimond = new QProcess(this);
-    connect(localSimond, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
+    connect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
   }
   if (localSimond->state() != QProcess::NotRunning) {
     localSimond->close();

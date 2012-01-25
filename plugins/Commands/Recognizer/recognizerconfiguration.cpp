@@ -35,7 +35,7 @@ RecognizerConfiguration::RecognizerConfiguration(Scenario *parent, const QVarian
   Q_UNUSED(args);
   ui.setupUi(this);
 
-  QObject::connect(ui.leAppendText, SIGNAL(textChanged(const QString&)), this, SLOT(slotChanged()));
+  QObject::connect(ui.leAppendText, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
   
 }
 

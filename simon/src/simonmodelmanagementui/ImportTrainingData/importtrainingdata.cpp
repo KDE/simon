@@ -31,7 +31,7 @@ ImportTrainingData::ImportTrainingData(QObject* parent) : QThread(parent),
   pp(new PostProcessing()),
   stopRequest(false)
 {
-  connect(pp, SIGNAL(error(const QString&)), this, SIGNAL(error(QString)));
+  connect(pp, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
 }
 
 

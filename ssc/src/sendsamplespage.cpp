@@ -74,7 +74,7 @@ SendSamplePage::SendSamplePage(AbstractSampleDataProvider* dataProvider, bool is
   setLayout(layout);
 
   connect(worker, SIGNAL(error(QString)), this, SLOT(displayError(QString)), Qt::QueuedConnection);
-  connect(worker, SIGNAL(status(QString, int, int)), this, SLOT(displayStatus(QString, int, int)), Qt::QueuedConnection);
+  connect(worker, SIGNAL(status(QString,int,int)), this, SLOT(displayStatus(QString,int,int)), Qt::QueuedConnection);
   connect(worker, SIGNAL(sendSample(Sample*)), this, SLOT(sendSample(Sample*)), Qt::QueuedConnection);
 }
 
@@ -214,7 +214,7 @@ void SendSamplePage::prepareDataSending()
       connect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(prepareDataSending()));
       connect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(disassociateFromSSCDAccessSingleton()));
       connect(SSCDAccessSingleton::getInstance(), SIGNAL(disconnected()), this, SLOT(disassociateFromSSCDAccessSingleton()));
-      connect(SSCDAccessSingleton::getInstance(), SIGNAL(error(const QString&)), this, SLOT(disassociateFromSSCDAccessSingleton()));
+      connect(SSCDAccessSingleton::getInstance(), SIGNAL(error(QString)), this, SLOT(disassociateFromSSCDAccessSingleton()));
 
       SSCDAccessSingleton::getInstance()->connectTo(SSCConfig::host(), SSCConfig::port(), SSCConfig::useEncryption());
     }
@@ -229,7 +229,7 @@ void SendSamplePage::disassociateFromSSCDAccess()
   disconnect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(prepareDataSending()));
   disconnect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(disassociateFromSSCDAccessSingleton()));
   disconnect(SSCDAccessSingleton::getInstance(), SIGNAL(disconnected()), this, SLOT(disassociateFromSSCDAccessSingleton()));
-  disconnect(SSCDAccessSingleton::getInstance(), SIGNAL(error(const QString&)), this, SLOT(disassociateFromSSCDAccessSingleton()));
+  disconnect(SSCDAccessSingleton::getInstance(), SIGNAL(error(QString)), this, SLOT(disassociateFromSSCDAccessSingleton()));
 }
 
 

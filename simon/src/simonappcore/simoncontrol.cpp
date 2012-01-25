@@ -51,16 +51,16 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
   QObject::connect(RecognitionControl::getInstance(), SIGNAL(connected()), this, SLOT(connectedToServer()));
   QObject::connect(RecognitionControl::getInstance(), SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
 
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(connectionError(const QString&)), this, SLOT(slotConnectionError(const QString&)));
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(simondSystemError(const QString&)), this, SLOT(slotSimondSystemError(const QString&)));
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(synchronisationError(const QString&)), this, SLOT(slotSynchronisationError(const QString&)));
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionError(const QString&, const QString&)), this, SLOT(slotRecognitionError(const QString&, const QString&)));
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(compilationError(const QString&, const QString&)), this, SLOT(slotCompilationError(const QString&, const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(connectionError(QString)), this, SLOT(slotConnectionError(QString)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(simondSystemError(QString)), this, SLOT(slotSimondSystemError(QString)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(synchronisationError(QString)), this, SLOT(slotSynchronisationError(QString)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionError(QString,QString)), this, SLOT(slotRecognitionError(QString,QString)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(compilationError(QString,QString)), this, SLOT(slotCompilationError(QString,QString)));
 
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(simondSystemWarning(const QString&)), this, SLOT(slotSimondSystemWarning(const QString&)));
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(synchronisationWarning(const QString&)), this, SLOT(slotSynchronisationWarning(const QString&)));
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionWarning(const QString&)), this, SLOT(slotRecognitionWarning(const QString&)));
-  QObject::connect(RecognitionControl::getInstance(), SIGNAL(compilationWarning(const QString&)), this, SLOT(slotCompilationWarning(const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(simondSystemWarning(QString)), this, SLOT(slotSimondSystemWarning(QString)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(synchronisationWarning(QString)), this, SLOT(slotSynchronisationWarning(QString)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionWarning(QString)), this, SLOT(slotRecognitionWarning(QString)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(compilationWarning(QString)), this, SLOT(slotCompilationWarning(QString)));
 
   QObject::connect(RecognitionControl::getInstance(), SIGNAL(loggedIn()), this, SLOT(loggedIn()));
 
@@ -77,7 +77,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
   if (!ScenarioManager::getInstance()->init())
     KMessageBox::error(0, i18n("Could not initialize scenarios and shadow dictionary."));
 
-  connect(SoundServer::getInstance(), SIGNAL(error(const QString&)), this, SLOT(slotSoundError(const QString&)));
+  connect(SoundServer::getInstance(), SIGNAL(error(QString)), this, SLOT(slotSoundError(QString)));
 }
 
 

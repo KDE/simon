@@ -108,9 +108,9 @@ void WavFileWidget::setupSignalsSlots()
   connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
   connect(ui->pbDelete, SIGNAL(clicked()), this, SLOT(deleteSample()));
 
-  connect(rec, SIGNAL(currentProgress(int, float)), this, SIGNAL(progress(int)));
+  connect(rec, SIGNAL(currentProgress(int,float)), this, SIGNAL(progress(int)));
   connect(play, SIGNAL(currentProgress(int)), this, SIGNAL(progress(int)));
-  connect(rec, SIGNAL(currentProgress(int, float)), this, SLOT(displayRecordingProgress(int, float)));
+  connect(rec, SIGNAL(currentProgress(int,float)), this, SLOT(displayRecordingProgress(int,float)));
   connect(play, SIGNAL(currentProgress(int)), this, SLOT(displayPlaybackProgress(int)));
 
   connect(rec, SIGNAL(clippingOccured()), this, SLOT(clippingOccured()));
@@ -281,7 +281,7 @@ void WavFileWidget::stopRecording()
 
       if (!postProc) {
         postProc = new PostProcessing();
-        connect(postProc, SIGNAL(error(const QString&)), this, SIGNAL(error(const QString&)));
+        connect(postProc, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
       }
       if (!postProc->process(fName, m_filename, true))
         KMessageBox::error(this, i18n("Post-Processing failed"));

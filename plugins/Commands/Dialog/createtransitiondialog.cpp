@@ -34,7 +34,7 @@ CreateTransitionDialog::CreateTransitionDialog(CreateDialogCommandWidget *creato
   setMainWidget(mainWidget);
 
   static_cast<QVBoxLayout*>(mainWidget->layout())->insertWidget(1, creator);
-  connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), creator, SLOT(updatePresentation(const QString&)));
+  connect(ui.leTrigger, SIGNAL(textChanged(QString)), creator, SLOT(updatePresentation(QString)));
 }
 
 

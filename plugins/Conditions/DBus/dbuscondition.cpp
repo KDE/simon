@@ -116,7 +116,7 @@ bool DBusCondition::privateDeSerialize(QDomElement elem)
     connect(m_connection, m_notificationSignal.toAscii(), this, SLOT(check()));
     
 //     m_conn.connect(m_service, "", "org.a11y.atspi.Event.Object", "StateChanged", this, 
-//                               SLOT(slotStateChanged(QString, int, int, QDBusVariant, QSpiObjectReference)));
+//                               SLOT(slotStateChanged(QString,int,int,QDBusVariant,QSpiObjectReference)));
     
     return true;
 }

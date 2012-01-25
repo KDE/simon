@@ -28,8 +28,8 @@ CreateJsonCommandWidget::CreateJsonCommandWidget(CommandManager *manager, QWidge
   setWindowIcon(JsonCommand::staticCategoryIcon());
   setWindowTitle(JsonCommand::staticCategoryText());
 
-  connect(ui.leURL, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-  connect(ui.leRequest, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.leURL, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.leRequest, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
 }
 
 

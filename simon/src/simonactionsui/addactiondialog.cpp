@@ -44,11 +44,11 @@ actionModel(new ActionModel(this))
   ui.lvActions->setSpacing(2);
 
   proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-  connect(ui.leFilter, SIGNAL(textChanged(const QString&)), proxyModel, SLOT(setFilterRegExp(const QString&)));
+  connect(ui.leFilter, SIGNAL(textChanged(QString)), proxyModel, SLOT(setFilterRegExp(QString)));
   enableButtonOk(false);
 
-  connect(ui.lvActions, SIGNAL(clicked(const QModelIndex&)), this, SLOT(watchButtonOk()));
-  connect(ui.leFilter, SIGNAL(textChanged(const QString&)),  this, SLOT(watchButtonOk()));
+  connect(ui.lvActions, SIGNAL(clicked(QModelIndex)), this, SLOT(watchButtonOk()));
+  connect(ui.leFilter, SIGNAL(textChanged(QString)),  this, SLOT(watchButtonOk()));
 }
 
 

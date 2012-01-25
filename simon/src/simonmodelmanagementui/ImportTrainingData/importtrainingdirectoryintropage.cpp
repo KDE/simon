@@ -35,11 +35,11 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
 
   setTitle(i18n("Import Training Samples"));
 
-  connect(ui.urTrainingDataDirectory, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-  connect(ui.urPrompts, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.urTrainingDataDirectory, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.urPrompts, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.rbPrompts, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
-  connect(ui.urBaseDirectory, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-  connect(ui.urPrompts, SIGNAL(textChanged(const QString&)), this, SLOT(promptsPathChanged()));
+  connect(ui.urBaseDirectory, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.urPrompts, SIGNAL(textChanged(QString)), this, SLOT(promptsPathChanged()));
 
   registerField("importPrompts", ui.rbPrompts);
   registerField("directory", ui.urTrainingDataDirectory, "url", SIGNAL(textChanged(QString)));

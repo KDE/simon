@@ -26,7 +26,7 @@ m_refCounter(0),
 username(user_name),
 m_startRequests(0)
 {
-  connect(this, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(touchLastFailedStart()));
+  connect(this, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(touchLastFailedStart()));
 }
 
 bool RecognitionControl::isEmpty() const

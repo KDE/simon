@@ -56,7 +56,7 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   conditionsProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   ui.lvConditions->setModel(conditionsProxy);
 
-  connect(ui.leConditionsFilter, SIGNAL(textChanged(const QString&)), conditionsProxy, SLOT(setFilterRegExp(const QString&)));
+  connect(ui.leConditionsFilter, SIGNAL(textChanged(QString)), conditionsProxy, SLOT(setFilterRegExp(QString)));
 
   connect(ui.lvConditions->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(selectionChanged()));
 }

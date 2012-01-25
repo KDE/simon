@@ -55,8 +55,8 @@ userName(user_name)
   m_recognizerResultsModel = new FileResultModel(this);
   m_wordResultsModel = new TestResultModel(this);
   m_sentenceResultsModel = new TestResultModel(this);
-  connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
-  connect(this, SIGNAL(recognitionInfo(const QString&)), this, SLOT(addRecognitionInfoToLog(const QString&)));
+  connect(this, SIGNAL(status(QString,int,int)), this, SLOT(addStatusToLog(QString)));
+  connect(this, SIGNAL(recognitionInfo(QString)), this, SLOT(addRecognitionInfoToLog(QString)));
 }
 
 

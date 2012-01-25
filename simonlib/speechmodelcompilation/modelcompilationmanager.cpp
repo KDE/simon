@@ -70,7 +70,7 @@ QObject* parent) : QThread(parent),
 catchUndefiniedPhonemes(false),
 userName(user_name)
 {
-  connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
+  connect(this, SIGNAL(status(QString,int,int)), this, SLOT(addStatusToLog(QString)));
 }
 
 

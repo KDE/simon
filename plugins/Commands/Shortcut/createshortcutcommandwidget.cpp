@@ -32,7 +32,7 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(CommandManager *manager
   setWindowIcon(ShortcutCommand::staticCategoryIcon());
   setWindowTitle(ShortcutCommand::staticCategoryText());
 
-  connect(ui.ksShortcut, SIGNAL(keySequenceChanged (const QKeySequence &)), this, SIGNAL(completeChanged()));
+  connect(ui.ksShortcut, SIGNAL(keySequenceChanged(QKeySequence)), this, SIGNAL(completeChanged()));
   #ifndef Q_OS_WIN
   ui.cbSpecialShortcut->hide();
   ui.lbSpecialShortcut->hide();

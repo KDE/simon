@@ -10,8 +10,6 @@ X-KDE-FactoryName=generalsettingsfactory
 X-KDE-ParentComponents=libsimonappcore
 
 X-KDE-ParentApp=simon
-X-KDE-System-Settings-Parent-Category=simon
-Hidden=true
 
 Name=General
 Name[es]=General

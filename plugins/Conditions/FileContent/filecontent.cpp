@@ -36,7 +36,7 @@ FileContent::FileContent(QObject *parent, const QVariantList &args) :
     watcher(new QFileSystemWatcher(this))
 {
   m_pluginName = "simonfilecontentplugin.desktop";
-  connect(watcher,SIGNAL(fileChanged(const QString&)), this, SLOT(checkFile()));
+  connect(watcher,SIGNAL(fileChanged(QString)), this, SLOT(checkFile()));
 }
 
 CreateConditionWidget* FileContent::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)

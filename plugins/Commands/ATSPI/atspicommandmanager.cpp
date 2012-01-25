@@ -122,9 +122,9 @@ bool ATSPICommandManager::deSerializeConfig(const QDomElement& elem)
   c = new DBusConnection();
   
   bool connected = c->connection().connect("", "", "org.a11y.atspi.Event.Window", "Activate", this, 
-                                  SLOT(newClient(const QString&, int, int, QDBusVariant, QSpiObjectReference)));
+                                  SLOT(newClient(QString,int,int,QDBusVariant,QSpiObjectReference)));
   connected = c->connection().connect("", "", "org.a11y.atspi.Event.Window", "Create", this, 
-                                  SLOT(newClient(const QString&, int, int, QDBusVariant, QSpiObjectReference))) && connected;
+                                  SLOT(newClient(QString,int,int,QDBusVariant,QSpiObjectReference))) && connected;
   
   if (!connected) {
     kWarning() << "DBus connection failed";

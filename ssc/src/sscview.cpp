@@ -63,8 +63,8 @@ wantToDisconnect(true)
 
   connect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(connected()));
   connect(SSCDAccessSingleton::getInstance(), SIGNAL(disconnected()), this, SLOT(disconnected()));
-  connect(SSCDAccessSingleton::getInstance(), SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
-  connect(SSCDAccessSingleton::getInstance(), SIGNAL(warning(const QString&)), this, SLOT(displayWarning(const QString&)));
+  connect(SSCDAccessSingleton::getInstance(), SIGNAL(error(QString)), this, SLOT(displayError(QString)));
+  connect(SSCDAccessSingleton::getInstance(), SIGNAL(warning(QString)), this, SLOT(displayWarning(QString)));
 
   connect(ui.cbPatientId, SIGNAL(returnPressed()), this, SLOT(getUser()));
   connect(ui.cbPatientId, SIGNAL(currentIndexChanged(int)), this, SLOT(getUser()));

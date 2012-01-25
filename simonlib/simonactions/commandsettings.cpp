@@ -59,7 +59,7 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args)
 
   QObject::connect(ui->cbUseDYM, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   QObject::connect(ui->sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
-  QObject::connect(ui->fcFont, SIGNAL(fontSelected(const QFont&)), this, SLOT(slotChanged()));
+  QObject::connect(ui->fcFont, SIGNAL(fontSelected(QFont)), this, SLOT(slotChanged()));
 
   kDebug() << "List configuration: " << CommandSettingsInternal::getInstance()->minimumConfidence();
   ListConfiguration *listConfig = CommandSettingsInternal::getInstance()->getListConfiguration();

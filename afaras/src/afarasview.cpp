@@ -44,9 +44,9 @@ AfarasView::AfarasView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent
   connect(ui.pbNextSample, SIGNAL(clicked()), this, SLOT(nextSample()));
   connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(stop()));
 
-  connect(ui.urInputPrompts, SIGNAL(textChanged(const QString&)), this, SLOT(inputFilesChanged()));
-  connect(ui.urPathPrefix, SIGNAL(textChanged(const QString&)), this, SLOT(inputFilesChanged()));
-  connect(ui.urOutputBlacklist, SIGNAL(textChanged(const QString&)), this, SLOT(inputFilesChanged()));
+  connect(ui.urInputPrompts, SIGNAL(textChanged(QString)), this, SLOT(inputFilesChanged()));
+  connect(ui.urPathPrefix, SIGNAL(textChanged(QString)), this, SLOT(inputFilesChanged()));
+  connect(ui.urOutputBlacklist, SIGNAL(textChanged(QString)), this, SLOT(inputFilesChanged()));
 
   ui.wgRecording->setLayout(new QVBoxLayout());
 

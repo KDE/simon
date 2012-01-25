@@ -31,11 +31,11 @@ ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
 
   ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
 
-  connect(ui.urFile, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.urFile, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.rbAutomatic, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
   connect(ui.rbManual, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
   registerField("bompSource", ui.rbManual);
-  registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
+  registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged(QString)));
   registerField("bompEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
   setTitle(i18n("Import HADIFIX Dictionary"));
 }

@@ -43,8 +43,8 @@ g2p(new GraphemeToPhoneme)
   
   setButtonText(Ok, i18n("Create profile"));
   
-  connect(g2p, SIGNAL(state(const QString&,int,int)), this, SLOT(displayState(const QString&,int,int)));
-  connect(g2p, SIGNAL(success(const QString&)), this, SLOT(success(const QString&)));
+  connect(g2p, SIGNAL(state(QString,int,int)), this, SLOT(displayState(QString,int,int)));
+  connect(g2p, SIGNAL(success(QString)), this, SLOT(success(QString)));
   connect(g2p, SIGNAL(failed()), this, SLOT(failed()));
 }
 

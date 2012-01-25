@@ -135,22 +135,22 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(ui.rbDynamicModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
   connect(ui.rbStaticModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
 
-  connect(ui.urHmmDefs, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urTiedlist, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urDict, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urDFA, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urPromptsBasePath, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urLexicon, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urGrammar, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urVocabulary, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urPrompts, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urTreeHed, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urWavConfig, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urBaseHmmDefs, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urBaseTiedlist, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urBaseMacros, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.urBaseStats, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
-  connect(ui.leScriptPrefix, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urHmmDefs, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urTiedlist, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urDict, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urDFA, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urPromptsBasePath, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urLexicon, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urGrammar, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urVocabulary, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urPrompts, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urTreeHed, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urWavConfig, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urBaseHmmDefs, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urBaseTiedlist, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urBaseMacros, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urBaseStats, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.leScriptPrefix, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
   connect(ui.sbSampleRate, SIGNAL(valueChanged(int)), this, SLOT(setDirty()));
 
   ui.urHmmDefs->setMode(KFile::File|KFile::LocalOnly);
@@ -172,21 +172,21 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   modelCompilationAdapter = new ModelCompilationAdapterHTK("internalsamuser", this);
   connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
   connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
-  connect(modelCompilationAdapter, SIGNAL(status(QString, int)), this, SLOT(slotModelAdaptionStatus(QString, int)));
+  connect(modelCompilationAdapter, SIGNAL(status(QString,int)), this, SLOT(slotModelAdaptionStatus(QString,int)));
   connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 
   modelCompilationManager = new ModelCompilationManager("internalsamuser", this);
   connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
   connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
-  connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
-  connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
+  connect(modelCompilationManager, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
+  connect(modelCompilationManager, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
 
-  connect(modelCompilationManager, SIGNAL(classUndefined(const QString&)), this,
-    SLOT(slotModelCompilationClassUndefined(const QString&)));
-  connect(modelCompilationManager, SIGNAL(wordUndefined(const QString&)), this,
-    SLOT(slotModelCompilationWordUndefined(const QString&)));
-  connect(modelCompilationManager, SIGNAL(phonemeUndefined(const QString&)), this,
-    SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
+  connect(modelCompilationManager, SIGNAL(classUndefined(QString)), this,
+    SLOT(slotModelCompilationClassUndefined(QString)));
+  connect(modelCompilationManager, SIGNAL(wordUndefined(QString)), this,
+    SLOT(slotModelCompilationWordUndefined(QString)));
+  connect(modelCompilationManager, SIGNAL(phonemeUndefined(QString)), this,
+    SLOT(slotModelCompilationPhonemeUndefined(QString)));
 
   connect(ui.pbAddTestConfiguration, SIGNAL(clicked()), this, SLOT(addTestConfiguration()));
 

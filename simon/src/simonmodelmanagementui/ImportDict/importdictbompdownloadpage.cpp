@@ -39,12 +39,12 @@ ImportDictBOMPDownloadPage::ImportDictBOMPDownloadPage(QWidget* parent): QWizard
 {
   ui.setupUi(this);
 
-  connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-  connect(ui.leMail, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-  connect(ui.leMail, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.leName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.leMail, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.leMail, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.cbUnderstoodLicence, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
-  registerField("bompUserName*", ui.leName, "text", SIGNAL(textChanged (const QString &)));
-  registerField("bompEMail*", ui.leMail, "text", SIGNAL(textChanged(const QString &)));
+  registerField("bompUserName*", ui.leName, "text", SIGNAL(textChanged(QString)));
+  registerField("bompEMail*", ui.leMail, "text", SIGNAL(textChanged(QString)));
   registerField("bompLicenceAccepted*", ui.cbUnderstoodLicence);
 
   setTitle(i18n("Download HADIFIX BOMP"));
