@@ -1062,7 +1062,7 @@ The vocabulary defines what words the recognition process should recognize. Ever
 One entry in the vocabulary defines exactly one <quote>word</quote>. In contrast to the common use of the word <quote>word</quote>, in simon <quote>word</quote> means one unique combination of the following:
 <itemizedlist>
   <listitem><para>Wordname</para><para>(The written word itself)</para></listitem>
-  <listitem><para>Terminal</para><para>(Grammatical category; For example: <quote>Noun</quote>, <quote>Verb</quote>, &etc;)</para></listitem>
+  <listitem><para>Terminal</para><para>(Grammatical category; for example: <quote>Noun</quote>, <quote>Verb</quote>, &etc;)</para></listitem>
   <listitem><para>Pronunciation</para><para>(How the word is pronounced; simon accepts any kind of phonetic as long as it does not use special characters or numbers)</para></listitem>
 </itemizedlist>
 
@@ -1075,7 +1075,7 @@ In general, it is advisable to keep your vocabulary as sleek as possible. The mo
 </para>
 
 <para>
-Example vocabulary (please note that the terminals here are deliberately set to Noun / Verb to help the understanding; Please to refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
+Example vocabulary (please note that the terminals here are deliberately set to Noun / Verb to help the understanding; please to refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
 <table frame='all'><title>Sample Vocabulary</title>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
@@ -1832,7 +1832,7 @@ The interface lists all installed trainings-texts in a table consisting of three
 <itemizedlist>
 <listitem><para>Name</para><para>A descriptive name for the text.</para></listitem>
 <listitem><para>Pages</para><para>The number of <quote>pages</quote> the text consists of. Each page represents one recording.</para></listitem>
-<listitem><para>Recognition Rate</para><para>Analogue to the vocabulary; Represents how likely simon will recognize the words (higher is better). The recognition rate of the trainings-text is the average recognition rate of all the words in the text.</para></listitem>
+<listitem><para>Recognition Rate</para><para>Analogue to the vocabulary; represents how likely simon will recognize the words (higher is better). The recognition rate of the trainings-text is the average recognition rate of all the words in the text.</para></listitem>
 </itemizedlist>
 
 <screenshot>
@@ -1973,7 +1973,7 @@ The add texts wizard provides a simple way to add new trainings-texts to simon.
 </screenshot>
 </para>
 
-<para>Select the words to train from the vocabulary on the left and simply drag them to the selection list to the right (you could also select them in the table on the left and add them by clicking <guibutton>Add to Training</guibutton>.</para>
+<para>Select the words to train from the vocabulary on the left and simply drag them to the selection list to the right (you could also select them in the table on the left and add them by clicking <guibutton>Add to Training</guibutton>).</para>
 
 <para>Start the training by selecting <guibutton>Train selected words</guibutton>. The training itself is exactly the same as if it were a pre-composed trainings-text.</para>
 
@@ -2062,7 +2062,7 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 </screenshot>
 </para>
 
-<para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (e.g. <quote>Karl</quote> knows how to start a program and <quote>Joe</quote> knows how to open a folder, &etc;). Whenever simon recognizes something it is given to <quote>Karl</quote> who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to <quote>Joe</quote> and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guibutton>Commands</guibutton> > <guibutton>Manage plugins</guibutton>).</para>
+<para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (&eg; <quote>Karl</quote> knows how to start a program and <quote>Joe</quote> knows how to open a folder, &etc;). Whenever simon recognizes something it is given to <quote>Karl</quote> who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to <quote>Joe</quote> and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guibutton>Commands</guibutton> > <guibutton>Manage plugins</guibutton>).</para>
 
 
 <para>
@@ -2115,7 +2115,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 <para>To add a new interface command to a function, just select the action you want to associate with a command, click <guibutton>Create from template</guibutton> and adapt the resulting commando to your needs.</para>
 
 <para>
-  Some plugins (for example the <link linkend="desktopgrid">desktopgrid</link> or the <link linkend="calculator_command_plugin">calculator</link> might also provide a menu item in the <guimenu>Commands</guimenu> menu.
+  Some plugins (for example the <link linkend="desktopgrid">desktopgrid</link> or the <link linkend="calculator_command_plugin">calculator</link>) might also provide a menu item in the <guimenu>Commands</guimenu> menu.
 </para>
 
 <para>
@@ -2244,7 +2244,7 @@ Please note that for URLs with authentication information the password will be s
 
 <para>To select the shortcut you wish to simulate just toggle the shortcut button and press the key combination on your keyboard.</para>
 <para>simon will capture the shortcut and associate it with the command.</para>
-<para>Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes e.g. <keycombo>&Ctrl;&Alt;<keycap>Del</keycap></keycombo> and <keycombo>&Alt;<keycap>F4</keycap></keycombo>). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
+<para>Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes &eg; <keycombo>&Ctrl;&Alt;<keycap>Del</keycap></keycombo> and <keycombo>&Alt;<keycap>F4</keycap></keycombo>). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
 
 <note><para>This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon.</para></note>
 </sect2>
@@ -2382,7 +2382,7 @@ Using the composite command the user can compose complex <quote>macros</quote>. 
 <listitem><para>Type <quote>Mathias</quote> (Text-Macro Command) which will select Mathias in my contact list</para></listitem>
 <listitem><para>Press Enter (Shortcut Command)</para></listitem>
 <listitem><para>Wait 1000ms for the chat window to appear</para></listitem>
-<listitem><para>Write <quote>Hi!</quote> (Text-Macro Command); The text associated to this command contains a newline at the end so that the message will be send.</para></listitem>
+<listitem><para>Write <quote>Hi!</quote> (Text-Macro Command); the text associated to this command contains a newline at the end so that the message will be send.</para></listitem>
 <listitem><para>Press <keycombo>&Alt;<keycap>F4</keycap></keycombo> (Shortcut Command) to close the chat window</para></listitem>
 <listitem><para>Press <keycombo>&Alt;<keycap>F4</keycap></keycombo> (Shortcut Command) to close the kopete main window</para></listitem>
 </itemizedlist>
@@ -2625,7 +2625,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
 <para>As there can no command instances be created of this plugin it is not listed in the <guilabel>New Command</guilabel> dialog.</para>
 
-<para>It is recommended to not use any trigger for this plugin to provide a more natural <quote>feel</quote> for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even though it will react on any input given. This makes it possible to add a <quote>conversation</quote> to the command &amp; control use-case by developing custom AIMLs sets (e.g.: User: <quote>Computer, open Firefox</quote>; Computer: <quote>Certainly, Sir! Starting Firefox...</quote>; Firefox opens).</para>
+<para>It is recommended to not use any trigger for this plugin to provide a more natural <quote>feel</quote> for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even though it will react on any input given. This makes it possible to add a <quote>conversation</quote> to the command &amp; control use-case by developing custom AIMLs sets (&eg;: User: <quote>Computer, open Firefox</quote>; Computer: <quote>Certainly, Sir! Starting Firefox...</quote>; Firefox opens).</para>
 
 <para>Please keep in mind that the AI plugin will only work if festival is installed, set-up correctly and lies in your system path.</para>
 </sect2>
@@ -2989,7 +2989,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
 <para>The postprocessing commands can be seen as a chain of filters through which the recordings have to pass through. Using these <quote>filters</quote> one could define commands to suppress background noise in the training data or normalize the recordings.</para>
 
-<para>Given the program <application>process_audio</application> which takes the input- and output files as its arguments (e.g.: <command>process_audio in.wav out.wav</command>) the postprocessing command would be: <userinput>process_audio %1 %2</userinput>. The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
+<para>Given the program <application>process_audio</application> which takes the input- and output files as its arguments (&eg;: <command>process_audio in.wav out.wav</command>) the postprocessing command would be: <userinput>process_audio %1 %2</userinput>. The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
 
 <para>The switch to <quote>apply filters to recordings recorded with simon</quote> enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_trainings-data">import trainings-data wizard</link>).</para>
 
