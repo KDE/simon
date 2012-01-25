@@ -28,6 +28,9 @@
 
 #endif
 
+//WINAPI:
+//krazy:excludeall=captruefalse
+
 WindowsProcessInfoGatherer::WindowsProcessInfoGatherer(QObject *parent) :
     ProcessInfoGatherer(parent)
 {
@@ -57,7 +60,6 @@ void WindowsProcessInfoGatherer::checkCurrentProcesses()
         if(aProcesses[i] != 0)
         {
             // Get a handle to the process.
-            //krazy:exclude=captruefalse
             hProcess = OpenProcess( PROCESS_QUERY_INFORMATION |
                                    PROCESS_VM_READ,
                                    FALSE, aProcesses[i] );

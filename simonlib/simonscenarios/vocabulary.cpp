@@ -451,7 +451,7 @@ bool Vocabulary::exportToFile(const QString& path, Vocabulary::ExportFormat form
   foreach (Word *w, m_words) {
     switch (format) {
       case SPHINX:
-	f.write(w->getWord().toUtf8()+"\t"+w->getPronunciation().toUtf8()+'\n');
+	f.write(w->getWord().toUtf8()+'\t'+w->getPronunciation().toUtf8()+'\n');
 	break;
       default:
 	kWarning() << "Export format not implemented: " << format;
