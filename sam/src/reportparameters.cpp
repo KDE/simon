@@ -106,7 +106,7 @@ QDomElement ReportParameters::serialize(QDomDocument* doc)
   return elem;
 }
 
-bool ReportParameters::operator!=(const ReportParameters& other)
+bool ReportParameters::operator!=(const ReportParameters& other) const
 {
   return ((title() != other.title()) ||
     (tag() != other.tag()) ||

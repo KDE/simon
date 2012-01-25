@@ -101,7 +101,7 @@ class ReportParameters
     QDomElement serialize(QDomDocument* doc);
     static ReportParameters* deSerialize(const QDomElement& elem);
 
-    bool operator!=(const ReportParameters& other);
+    bool operator!=(const ReportParameters& other) const;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ReportParameters::OutputOptions);

@@ -49,7 +49,7 @@ bool DialogTextParser::parseTemplates(QString& data)
   int startPos=-1;
   int oldStartPos=0;
   int endPos=data.count();
-  QString condition=QString();
+  QString condition;
 
   QStringList activeLimitingConditions;
   QStringList activeMetConditions;
@@ -96,9 +96,9 @@ bool DialogTextParser::parseTemplates(QString& data)
     condition = data.mid(startPos+2, endPos-startPos-2);
     kDebug() << "Found condition: " << condition;
 
-    if (!condition.startsWith("end"))
+    if (!condition.startsWith(QLatin1String("end")))
     {
-      if (condition.startsWith("else"))
+      if (condition.startsWith(QLatin1String("else")))
       {
         QString baseCondition = condition.mid(4);
         kDebug() << "Parsing else for " << baseCondition;

@@ -1133,7 +1133,7 @@ void SamView::clearCurrentConfiguration()
   delete m_creationCorpus;
   m_reportParameters = 0;
   m_creationCorpus = 0;
-  m_filename = QString();
+  m_filename.clear();
   clearTest();
   updateWindowTitle();
 }

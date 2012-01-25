@@ -1036,6 +1036,7 @@ bool ModelCompilationManager::doesIncreaseMixtures(const QString& script)
   while (!f.atEnd())
   {
     QByteArray line = f.readLine().trimmed();
+    // krazy:exclude=strings
     if (!line.startsWith("MU ")) continue;
     line.remove(0, 2);
     line = line.trimmed();
@@ -1779,6 +1780,7 @@ int ModelCompilationManager::getBaseModelMixtureCount()
   while (!f.atEnd())
   {
     QByteArray l = f.readLine().trimmed();
+    // krazy:exclude=strings
     if (l.startsWith("<NUMMIXES> "))
       return l.mid(11).toInt();
   }

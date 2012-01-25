@@ -92,6 +92,7 @@ Jconf* JuliusControl::setupJconf()
     return 0;
   QByteArray hmmHead = hmm.read(16);
   kDebug() << "Head: " << hmmHead;
+  // krazy:exclude=strings
   if (hmmHead.startsWith("~o\n<STREAMINFO> "))
   {
     kDebug() << "Plain text hmm";
