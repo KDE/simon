@@ -10,9 +10,6 @@ X-KDE-FactoryName=commandsettingsfactory
 X-KDE-ParentComponents=libsimonactions
 
 X-KDE-ParentApp=simon
-X-KDE-System-Settings-Parent-Category=simon
-Hidden=true
-
 
 Name=Actions
 Name[es]=Acciones

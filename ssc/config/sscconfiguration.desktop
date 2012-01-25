@@ -10,10 +10,8 @@ X-KDE-FactoryName=sscsettingsfactory
 X-KDE-ParentComponents=libsscsettings
 
 X-KDE-ParentApp=ssc
-X-KDE-System-Settings-Parent-Category=ssc
 
 #X-KDE-PluginKeyword=SSCConfiguration
-Hidden=true
 
 Name=SSC
 Name[es]=SSC

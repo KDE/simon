@@ -10,8 +10,6 @@ X-KDE-FactoryName=speechmodelsettingsfactory
 X-KDE-ParentComponents=libsimonscenarios
 
 X-KDE-ParentApp=simon
-X-KDE-System-Settings-Parent-Category=simon
-Hidden=true
 
 Name=Speech Model
 Name[es]=Modelo de habla

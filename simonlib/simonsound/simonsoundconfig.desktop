@@ -10,8 +10,6 @@ X-KDE-FactoryName=soundsettingsfactory
 X-KDE-ParentComponents=libsimonsound
 
 X-KDE-ParentApp=simon
-X-KDE-System-Settings-Parent-Category=simon
-Hidden=true
 
 Name=Recordings
 Name[es]=Grabaciones
