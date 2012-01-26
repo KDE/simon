@@ -885,7 +885,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-  <para>To change the available options, click on the <guibutton>Manage scenarios</guibutton> button right next to it or use the menu entry <guimenu>Scenarios</guimenu> > <guimenuitem>Manage scenarios</guimenuitem>.</para>
+  <para>To change the available options, click on the <guibutton>Manage scenarios</guibutton> button right next to it or use the menu entry <menuchoice><guimenu>Scenarios</guimenu><guimenuitem>Manage scenarios</guimenuitem></menuchoice>.</para>
 </sect2>
 
 <sect2 id="administrating_scenarios">
@@ -1445,7 +1445,7 @@ When the user <link linkend="add_word">adds a new word</link> to the model, he h
 </itemizedlist>
 </para>
 <para>
-These characteristics are taken out of the shadow dictionary if it contains the word in question. A large, high quality shadow dictionary can thus help the user to easily add new words to the model without keeping track of the phoneme set or - in many cases - even let him forget a the phonetic transcription is needed at all.
+These characteristics are taken out of the shadow dictionary if it contains the word in question. A large, high quality shadow dictionary can thus help the user to easily add new words to the model without keeping track of the phoneme set or - in many cases - even let him forget that the phonetic transcription is needed at all.
 </para>
 
 <para>
