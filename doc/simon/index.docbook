@@ -37,6 +37,7 @@
 </personname>
 <email>grasch@simon-listens.org</email>
 </author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
 <abstract>
@@ -488,7 +489,7 @@ Current simon versions include a graphical notice on when to speak during record
 </para>
 
 <para>
-This method of visual feedback proved especially valuable when recording with people who can't read the prompted text for themselves and therefore need someone to tell them what they have to say. The colorful visual cue tells them when to start repeating what the facilitator said without the need of unreliable hand gestures.
+This method of visual feedback proved especially valuable when recording with people who cannot read the prompted text for themselves and therefore need someone to tell them what they have to say. The colorful visual cue tells them when to start repeating what the facilitator said without the need of unreliable hand gestures.
 </para>
 </sect2>
 
@@ -872,7 +873,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <para>Per default, simon ships with an empty scenario names <guilabel>Standard</guilabel>, so your configuration will be stored in this scenario.</para>
 
-<para>To select which of your currently active scenarios should be changed (for example before adding new words), just select it from the drop down list in the upper right corner of the simon main window.</para>
+<para>To select which of your currently active scenarios should be changed (for example before adding new words), just select it from the drop down box in the upper right corner of the simon main window.</para>
 
 <para>
   <screenshot>
@@ -1216,7 +1217,7 @@ If the word is listed in the shadow dictionary, simon automatically fills out al
   </mediaobject>
 </screenshot>
 </para>
-<para> All suggestions from the shadow dictionary are listed in the table <guilabel>Similar words</guilabel>. Per default only exact word matches are shown. However, this can be changed by checking the <guilabel>Also show non-perfect matches</guilabel> checkbox below the suggestion table. Using similar words you can quickly deduce the correct pronunciation of the word you are actually trying to add. See <link linkend="manual_transcription">below</link> for details.</para>
+<para> All suggestions from the shadow dictionary are listed in the table <guilabel>Similar words</guilabel>. Per default only exact word matches are shown. However, this can be changed by checking the <guilabel>Also show non-perfect matches</guilabel> check box below the suggestion table. Using similar words you can quickly deduce the correct pronunciation of the word you are actually trying to add. See <link linkend="manual_transcription">below</link> for details.</para>
 
 <para>
 Of course this really depends on your shadow dictionary. If the shadow dictionary does not contain the word you are trying to add, the required fields have to be filled out manually.</para>
@@ -1412,7 +1413,7 @@ The dialog offers four choices:
   <listitem>
     <para>Delete the word but keep the samples</para>
     <para>Removes the word completely but keeps the associated samples. Whenever you add another word with the same word name the samples will be re-associated.</para>
-    <para>Be careful with this option as the new word you add again might be transcribed differently and this difference can not be taken into account automatically (simon will then try to force the new transcription on the old recordings during the model compilation).</para>
+    <para>Be careful with this option as the new word you add again might be transcribed differently and this difference cannot be taken into account automatically (simon will then try to force the new transcription on the old recordings during the model compilation).</para>
     <para>Do not use this option if the samples you recorded for this word were erroneous.</para>
   </listitem>
   <listitem><para>Remove the word completely</para>
@@ -1778,7 +1779,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 <para>simon will then read the entered text or all the given text files (in this case the only given text file is <filename>simongrammar.txt</filename>) and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
 <para>In our example this would mean that he would find the sentence <quote>Computer Internet</quote>. simon would find out that <quote>Computer</quote> is of the terminal <guilabel>Trigger</guilabel> and <quote>Internet</quote> of the terminal <guilabel>Command</guilabel>. Because of this simon would <quote>learn</quote> that <quote>Trigger Command</quote> is a valid sentence and add it to its grammar.</para>
 <para>The import automatically segments the input text by punctuation marks (<quote>.</quote>, <quote> - </quote>, <quote>!</quote>, &etc;) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
-<para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the <guilabel>lso import unknown sentences</guilabel> checkbox in which case those words are replaced with <guilabel>Unknown</guilabel>.</para>
+<para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the <guilabel>lso import unknown sentences</guilabel> check box in which case those words are replaced with <guilabel>Unknown</guilabel>.</para>
 
 </sect2>
 
@@ -1894,7 +1895,7 @@ Trainings-texts are stored at two different locations:
           <para>The texts of the current user. Can be deleted and added with simon (see below).</para></listitem>
   <listitem><para>Linux: <filename>`kde4-config --prefix`/share/apps/simon/texts</filename></para>
             <para>Windows: <filename>(install directory)\share\apps\simon\texts</filename></para>
-          <para>System wide texts. They will appear on every user account using simon on this machine and can not be deleted from within simon because of the obvious permission restrictions on system wide files.</para>
+          <para>System wide texts. They will appear on every user account using simon on this machine and cannot be deleted from within simon because of the obvious permission restrictions on system wide files.</para>
           <para>This folder can be used by system administrators to provide a common set of trainings-texts for all the users on one system.</para>
           </listitem>
 </itemizedlist>
@@ -2112,7 +2113,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 </screenshot>
 </para>
 
-<para>To add a new interface command to a function, just select the action you want to associate with a command, click <guibutton>Create from template</guibutton> and adapt the resulting commando to your needs.</para>
+<para>To add a new interface command to a function, just select the action you want to associate with a command, click <guibutton>Create from template</guibutton> and adapt the resulting command to your needs.</para>
 
 <para>
   Some plugins (for example the <link linkend="desktopgrid">desktopgrid</link> or the <link linkend="calculator_command_plugin">calculator</link>) might also provide a menu item in the <guimenu>Commands</guimenu> menu.
@@ -2244,7 +2245,7 @@ Please note that for URLs with authentication information the password will be s
 
 <para>To select the shortcut you wish to simulate just toggle the shortcut button and press the key combination on your keyboard.</para>
 <para>simon will capture the shortcut and associate it with the command.</para>
-<para>Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes &eg; <keycombo>&Ctrl;&Alt;<keycap>Del</keycap></keycombo> and <keycombo>&Alt;<keycap>F4</keycap></keycombo>). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
+<para>Due to technical limitations there are several shortcuts on Microsoft Windows that cannot be captured by simon (this includes &eg; <keycombo>&Ctrl;&Alt;<keycap>Del</keycap></keycombo> and <keycombo>&Alt;<keycap>F4</keycap></keycombo>). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
 
 <note><para>This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon.</para></note>
 </sect2>
@@ -2893,7 +2894,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
 <para>You can use simon with more than one sound device at the same time. Use <guibutton>Add device</guibutton> to add a new device to the configuration and <guibutton>Remove device</guibutton> to remove it from your configuration.</para>
 
-<para>The first device in your sound setup can not be removed.</para>
+<para>The first device in your sound setup cannot be removed.</para>
 
 <para>For each device you can determine for what you want the device to be used: Training or recognition (last one only applicable for input devices).</para>
 
@@ -3183,7 +3184,7 @@ However, if you want more control you can instruct simon to ask you before start
   </screenshot>
   </para>
 
-  <para>This popup can be disabled using the <guibutton>Display selection popup for ambiguous results</guibutton> checkbox.</para>
+  <para>This popup can be disabled using the <guibutton>Display selection popup for ambiguous results</guibutton> check box.</para>
 </sect3>
 <sect3>
   <title>Plugin base font</title>
