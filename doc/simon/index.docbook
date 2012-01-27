@@ -2803,7 +2803,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
   <para>Keys are usually mapped to single characters but can also hold long texts and even shortcuts. Because of this, keyboard sets can contain special keys like a <quote>select all</quote> key or a <quote>Password</quote> key (typing your password).</para>
 
-  <para>Next to the tabs that hold the keys of your set, the keyboard my also show special keys like &Ctrl;, &Shift;, &etc; Those keys are provided as voice interface commands and are displayed regardless of what tab of the set is currently active.</para>
+  <para>Next to the tabs that hold the keys of your set, the keyboard may also show special keys like &Ctrl;, &Shift;, &etc; Those keys are provided as voice interface commands and are displayed regardless of what tab of the set is currently active.</para>
   <para>As with all voice triggers, removing the associated command, hides the buttons as well.</para>
 
   <para>Moreover, the keyboard provides a numpad that can be shown by selecting the appropriate option in the keyboard configuration.</para>
@@ -3027,7 +3027,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 </para>
 <para>The samplerate set here is the target samplerate of the acoustic model. It has nothing to do with the recording samplerate and it is the responsibility of the user to ensure that the samples are actually made available in that format (usually by recording in that exact samplerate or by defining postprocessing commands that resample the files; see the <link linkend="soundconfiguration">sound configuration section</link> for more details).</para>
 
-<para>Usually either 16kHz or 8kHz models are built / used. 16kHz models will have higher accuracy over 8kHz models. Going higher than 16kHz is not recommended as it is very cpu-intensive and in practice probably wont result in higher recognition rates.</para>
+<para>Usually either 16kHz or 8kHz models are built / used. 16kHz models will have higher accuracy over 8kHz models. Going higher than 16kHz is not recommended as it is very cpu-intensive and in practice probably won't result in higher recognition rates.</para>
 
 <para>Moreover, the path to the trainings-samples can be adjusted. However, be sure that the previously gathered trainings-samples are also moved to the new location. If you use automatic synchronization the simond would alternatively also provide simon with the missing sample but copying them manually is still recommended for performance reasons.</para>
 
