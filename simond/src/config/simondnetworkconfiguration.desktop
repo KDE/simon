@@ -15,6 +15,7 @@ X-KDE-System-Settings-Parent-Category=simond
 X-KDE-PluginKeyword=SimondNetworkConfiguration
 
 Name=Network
+Name[cs]=Síť
 Name[es]=Red
 Name[ga]=Líonra
 Name[nds]=Nettwark

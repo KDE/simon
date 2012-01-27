@@ -16,6 +16,7 @@ X-KDE-System-Settings-Parent-Category=simond
 X-KDE-PluginKeyword=SimondUserConfiguration
 
 Name=User
+Name[cs]=Uživatel
 Name[es]=Usuario
 Name[nds]=Bruker
 Name[nl]=Gebruiker

@@ -15,6 +15,7 @@ X-KDE-System-Settings-Parent-Category=accessibility
 #X-KDE-PluginKeyword=KSimondSettings
 
 Name=KSimond
+Name[cs]=KSimond
 Name[de]=KSimond
 Name[es]=KSimond
 Name[ga]=KSimond

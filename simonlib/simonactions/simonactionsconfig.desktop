@@ -12,6 +12,7 @@ X-KDE-ParentComponents=libsimonactions
 X-KDE-ParentApp=simon
 
 Name=Actions
+Name[cs]=Činnosti
 Name[es]=Acciones
 Name[ga]=Gníomhartha
 Name[nds]=Akschonen

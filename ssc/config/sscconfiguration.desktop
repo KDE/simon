@@ -14,6 +14,7 @@ X-KDE-ParentApp=ssc
 #X-KDE-PluginKeyword=SSCConfiguration
 
 Name=SSC
+Name[cs]=SSC
 Name[es]=SSC
 Name[pt]=SSC
 Name[pt_BR]=SSC
