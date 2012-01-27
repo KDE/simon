@@ -2215,7 +2215,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 </screenshot>
 </para>
 
-<para>To add a remote URL (HTTP, FTP, &etc;) choose <guibutton>Remote URL</guibutton>
+<para>To add a remote URL (HTTP, FTP, &etc;) choose <guibutton>Remote URL</guibutton>.</para>
 
 <screenshot>
 <screeninfo>Import Places: Remote</screeninfo>
@@ -2226,7 +2226,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
   </mediaobject>
 </screenshot>
 
-Please note that for URLs with authentication information the password will be stored in clear text.</para>
+<para>Please note that for URLs with authentication information the password will be stored in clear text.</para>
 
 </sect3>
 </sect2>
@@ -2295,7 +2295,7 @@ Please note that for URLs with authentication information the password will be s
 <title>List Command Display</title>
 
 <para>
-When invoked, the command will display the list centered on the screen. The list will automatically expand to accompany its items.
+When invoked, the command will display the list centered on the screen. The list will automatically expand to accompany its items.</para>
 <screenshot>
 <screeninfo>Defining List Commands</screeninfo>
   <mediaobject>
@@ -2304,7 +2304,7 @@ When invoked, the command will display the list centered on the screen. The list
     </imageobject>
   </mediaobject>
 </screenshot>
-The user can invoke the commands contained in the list by simply saying their associated number (In this example: <quote>One</quote> to launch Mozilla Firefox).
+<para>The user can invoke the commands contained in the list by simply saying their associated number (In this example: <quote>One</quote> to launch Mozilla Firefox).
 </para>
 
 <para>
@@ -2518,7 +2518,7 @@ The input number plugin - when triggered - presents a calculator-like interface 
 While the input number plugin is active (the user currently inputs a number), all input that is not directed at the input number plugin (other commands, &etc;) will be rejected. Say <quote>Cancel</quote> at any time to abort the process.
 </para>
 
-<para>As there can no command instances be created of this plugin it is not listed in the <guilabel>New Command</guilabel> dialog. However, the input number plugin registers a configuration screen right in the command configuration when it is loaded.
+<para>As there can no command instances be created of this plugin it is not listed in the <guilabel>New Command</guilabel> dialog. However, the input number plugin registers a configuration screen right in the command configuration when it is loaded.</para>
 
 <screenshot>
 <screeninfo>Input Number Plugin</screeninfo>
@@ -2529,6 +2529,7 @@ While the input number plugin is active (the user currently inputs a number), al
   </mediaobject>
 </screenshot>
 
+<para>
 The trigger defines what word or phrase that will trigger the display of the interface.
 </para>
 
@@ -2596,7 +2597,7 @@ By default the input number plugin uses numbers to select the individual digits 
 
 <para>Using the festival text to speech technology the computer can <quote>talk</quote> with the user and answer question or chat about the weather.</para>
 
-<para>The plugin uses AIMLs for the actual <quote>intelligence</quote>. Most AIML sets should be supported. The popular <ulink url="http://www.pandorabots.com/pandora/talk?botid=f5d922d97e345aa1">A. L. I. C. E. bot</ulink> and a German version work and are shipped with the plugin.
+<para>The plugin uses AIMLs for the actual <quote>intelligence</quote>. Most AIML sets should be supported. The popular <ulink url="http://www.pandorabots.com/pandora/talk?botid=f5d922d97e345aa1">A. L. I. C. E. bot</ulink> and a German version work and are shipped with the plugin.</para>
 
 <screenshot>
 <screeninfo>AI Plugin</screeninfo>
@@ -2607,6 +2608,7 @@ By default the input number plugin uses numbers to select the individual digits 
   </mediaobject>
 </screenshot>
 
+<para>
 The plugin registers a configuration screen in the command configuration menu where you can choose which AIML set to load.
 </para>
 
