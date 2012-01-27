@@ -1778,8 +1778,8 @@ simon provides an easy to use text based interface to change the grammar. You ca
 
 <para>simon will then read the entered text or all the given text files (in this case the only given text file is <filename>simongrammar.txt</filename>) and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
 <para>In our example this would mean that he would find the sentence <quote>Computer Internet</quote>. simon would find out that <quote>Computer</quote> is of the terminal <guilabel>Trigger</guilabel> and <quote>Internet</quote> of the terminal <guilabel>Command</guilabel>. Because of this simon would <quote>learn</quote> that <quote>Trigger Command</quote> is a valid sentence and add it to its grammar.</para>
-<para>The import automatically segments the input text by punctuation marks (<quote>.</quote>, <quote> - </quote>, <quote>!</quote>, &etc;) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
-<para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the <guilabel>lso import unknown sentences</guilabel> check box in which case those words are replaced with <guilabel>Unknown</guilabel>.</para>
+<para>The import automatically segments the input text by punctuation marks (<quote>.</quote>, <quote>-</quote>, <quote>!</quote>, &etc;) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
+<para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the <guilabel>Also import unknown sentences</guilabel> check box in which case those words are replaced with <guilabel>Unknown</guilabel>.</para>
 
 </sect2>
 
@@ -1848,13 +1848,16 @@ The interface lists all installed trainings-texts in a table consisting of three
 
 <para>
 To improve the acoustic model - and thus the recognition rate - you have to record trainings-texts. This means that simon gets essentially two needed parts:
+</para>
 
 <itemizedlist>
   <listitem><para>Samples of your speech</para></listitem>
   <listitem><para>Transcriptions of those samples</para></listitem>
 </itemizedlist>
 
+<para>
 The active dictionary is used to transcribe the words (mapping them from the actual word to its phonetic transcription) that make up the text so every word contained in the trainings-text you want to read (train) has to be contained in your active dictionary. simon will warn you if this is not the case and provide you with the possibility to add all the missing words in one go.
+</para>
 
 <screenshot>
 <screeninfo>Training: Warning about missing words</screeninfo>
@@ -1865,6 +1868,7 @@ The active dictionary is used to transcribe the words (mapping them from the act
   </mediaobject>
 </screenshot>
 
+<para>
 The procedure is the same as if you would <link linkend="add_word">add a single word</link> but the wizard will prompt you for details and recordings for all the missing words automatically. This procedure can be aborted at any time and simon will provide both a way to add the already completely defined words and to undo all changes done so far. When the user has added all the words he is prompted for (all the words missing) the changes to the active dictionary / vocabulary are saved and the training of the previously selected text starts automatically.
 </para>
 
