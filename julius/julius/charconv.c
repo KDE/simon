@@ -82,7 +82,7 @@ charconv(char *instr, char *outstr, int maxoutlen)
 {
   char *ret;
 
-  /* if diabled return instr itself */
+  /* if disabled return instr itself */
   if (convert_enabled == FALSE) return(instr); /* no conversion */
 
   /* call environment-specific conversion function */

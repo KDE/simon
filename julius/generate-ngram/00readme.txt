@@ -31,7 +31,7 @@ OPTIONS
           End-of-sentence word (default: "</s>")
 
         -ignore
-          Specify a word to be supressed from output (default: "<UNK")
+          Specify a word to be suppressed from output (default: "<UNK")
 
         -v
           Verbose output.

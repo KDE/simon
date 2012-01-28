@@ -44,7 +44,7 @@ word_info_new()
 }
 
 /** 
- * Free all informations in the WORD_INFO.
+ * Free all information in the WORD_INFO.
  * 
  * @param winfo [i/o] word dictionary data to be freed.
  */

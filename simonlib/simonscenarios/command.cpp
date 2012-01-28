@@ -36,7 +36,7 @@
  * 
  * \param input The recognized text
  * \param scheme The scheme of the commands (the general template)
- * \param arguments Output paramter: The found arguments
+ * \param arguments Output parameter: The found arguments
  * \return true if the input could be matched against the scheme; Returned arguments are invalid if this is false
  */
 bool Command::parseArguments(const QString& input, const QString& scheme, QStringList& arguments)

@@ -74,7 +74,7 @@ ngram_compact_context(NGRAM_INFO *ndata, int n)
   }
 
   if (c >= NNID_MAX_24) {
-    jlog("Stat: ngram_compact_context: %d-gram bo_wt exceeds 24bit, compaction diabled\n", n);
+    jlog("Stat: ngram_compact_context: %d-gram bo_wt exceeds 24bit, compaction disabled\n", n);
     ndata->d[n-1].ct_compaction = FALSE;
     return TRUE;		/* no op */
   }    
@@ -85,7 +85,7 @@ ngram_compact_context(NGRAM_INFO *ndata, int n)
   /* allocate index buffer */
   this->nnid2ctid_upper = (NNID_UPPER *)mymalloc(sizeof(NNID_UPPER) * this->totalnum);
   this->nnid2ctid_lower = (NNID_LOWER *)mymalloc(sizeof(NNID_LOWER) * this->totalnum);
-  /* make index and do compaction of context informations */
+  /* make index and do compaction of context information */
   dst = 0;
   for(i=0;i<up->bgnlistlen;i++) {
     if ((up->is24bit == TRUE && up->bgn_upper[i] != NNID_INVALID_UPPER)

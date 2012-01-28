@@ -47,7 +47,7 @@ dfa_info_new()
 }
 
 /** 
- * Free all informations in the DFA_INFO.
+ * Free all information in the DFA_INFO.
  * 
  * @param dfa [i/o] grammar information data to be freed.
  */

@@ -42,7 +42,7 @@ void makeTriplet( void )
 
     FAprocessed = 0;
     if( (fp_fa = fopen( FAfile, "w" )) == NULL ){
-	errMes( "Can't open dfa File for writting\"%s\"", FAfile );
+	errMes( "Can't open dfa File for writing\"%s\"", FAfile );
     }
     getNewStatNo( FAlist );
     if( !SW_Quiet ){

@@ -102,7 +102,7 @@
  * @param recog [in] engine instance
  * 
  * @return 0 on success, -1 on error, or 1 when an input segmentation
- * occured/requested inside this function.
+ * occurred/requested inside this function.
  *
  * @callgraph
  * @callergraph

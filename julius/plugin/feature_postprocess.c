@@ -72,7 +72,7 @@ initialize()
  * <EN>
  * @brief  Get information of this plugin (required)
  *
- * This function should return informations of this plugin file.
+ * This function should return information of this plugin file.
  * The required info will be specified by opcode:
  *  - 0: return description string of this file into buf
  *

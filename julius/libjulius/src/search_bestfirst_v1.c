@@ -1556,7 +1556,7 @@ next_word(NODE *now, NODE *new,	NEXTWORD *nword, HTK_Param *param, RecogProcess 
   /* 2. search backward */
   for(t = (nword->tre)->endtime + 1; t <= startt; t++) {
     tre = bt_binsearch_atom(backtrellis, t, (WORD_ID) word);
-    if (tre == NULL) break;	/* end if the trellis word disapper */
+    if (tre == NULL) break;	/* end if the trellis word disappear */
     totalscore = new->g[t] + tre->backscore;
     if (! hmminfo->multipath) {
       if (newphone->is_pseudo) {

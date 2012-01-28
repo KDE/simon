@@ -107,7 +107,7 @@ minimize(DFA_INFO *dfa, FILE *fpout)
   int gnum;			/* number of groups currently assigned */
   int *gmark;			/* mark states of different transition pattern in a group */
   int **l;			/* transition pattern for states */
-  int **pt;			/* uniq transition pattern within a group */
+  int **pt;			/* unique transition pattern within a group */
   int i, n, s, g;
   DFA_ARC *ac;
   boolean modified;

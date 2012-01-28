@@ -20,7 +20,7 @@
  * for recognition of 1st pass.  Words in the dictionary are gathered to
  * build a tree lexicon.  The lexicon is built per HMM state basis,
  * with their HMM output probabilities, transition arcs, and other
- * informations for search such as successor word lists and maximum
+ * information for search such as successor word lists and maximum
  * uni-gram scores for LM factoring, word head/tail marker, phoneme
  * start marker, and so on.
  * </EN>
@@ -239,7 +239,7 @@ typedef struct wchmm_info {
 #ifdef PASS1_IWCD
   unsigned char *outstyle;	///< ID to indicate type of output probability container (one of AS_Style)
 #endif
-  /* Successor lists on the tree are stored on sequencial list at @a sclist,
+  /* Successor lists on the tree are stored on sequential list at @a sclist,
      and each node has index to the list */
   /* sclist and sclen are used at 2-gram factoring only */
   /* scword is used at 1-gram factoring only */
@@ -270,7 +270,7 @@ typedef struct wchmm_info {
 
   /* user-defined functions, used when this->lmvar == LM_NGRAM_USER */
   /* they are local copy from parent Recog instance */
-  LOGPROB (*uni_prob_user)(WORD_INFO *, WORD_ID, LOGPROB); ///< Pointer to function returning word occurence probability
+  LOGPROB (*uni_prob_user)(WORD_INFO *, WORD_ID, LOGPROB); ///< Pointer to function returning word occurrence probability
 
   LOGPROB (*bi_prob_user)(WORD_INFO *, WORD_ID, WORD_ID, LOGPROB); ///< Pointer to function returning a word probability given a word context (corresponds to bi-gram)
 

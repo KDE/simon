@@ -6,7 +6,7 @@
  * </JA>
  * 
  * <EN>
- * @brief  Output text informations about the grammar
+ * @brief  Output text information about the grammar
  * </EN>
  * 
  * @author Akinobu LEE

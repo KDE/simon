@@ -405,7 +405,7 @@ merge_contexts(WordGraph *dst, WordGraph *src)
   for(s=0;s<src->leftwordnum;s++) {
     adding = src->leftword[s];
     if (adding->mark) continue;
-    /* direct link between dst and src will disapper to avoid unneccesary loop */
+    /* direct link between dst and src will disappear to avoid unneccesary loop */
     if (adding == dst) {
 #ifdef GDEBUG
       jlog("DEBUG: merge_contexts: skipping direct link (dst) -> (src)\n");
@@ -441,7 +441,7 @@ merge_contexts(WordGraph *dst, WordGraph *src)
   for(s=0;s<src->rightwordnum;s++) {
     adding = src->rightword[s];
     if (adding->mark) continue;
-    /* direct link between dst and src will disapper to avoid unneccesary loop */
+    /* direct link between dst and src will disappear to avoid unneccesary loop */
     if (adding == dst) {
 #ifdef GDEBUG
       jlog("DEBUG: merge_contexts: skipping direct link (src) -> (dst)\n");
@@ -806,7 +806,7 @@ compare_lefttime(WordGraph **x, WordGraph **y)
  * @param r [i/o] 認識処理インスタンス
  * </JA>
  * <EN>
- * Sort words by left time and annotate sequencial id for them in a word graph.
+ * Sort words by left time and annotate sequential id for them in a word graph.
  * 
  * @param rootp [i/o] address of pointer to root node of a word graph
  * @param r [i/o] recognition process instance
@@ -2051,7 +2051,7 @@ wordgraph_check_merge(WordGraph *now, WordGraph **root, WORD_ID next_wid, boolea
 #endif
     if (jconf->graph.graph_merge_neighbor_range < 0) {
       /* when no merging, words with different triphone context at word edge
-	 should be differenciated */
+	 should be differentiated */
       if (wg->headphone != now->headphone || wg->tailphone != now->tailphone) {
 	continue;
       }

@@ -59,7 +59,7 @@ adin_esd_standby(int sfreq, void *dummy)
 #else
   esd_format_t format = ESD_BITS16 | ESD_MONO | ESD_STREAM | ESD_RECORD;
 
-  /* generate uniq ID */
+  /* generate unique ID */
   snprintf(name_buf, ESD_NAME_MAX, "julius%d", getpid());
 
   /* open stream */

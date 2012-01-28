@@ -1329,7 +1329,7 @@ opt_parse(int argc, char *argv[], char *cwd, Jconf *jconf)
 	}
 	break;
       case 'd':			/* binary N-gram */
-	/* lmvar should be overriden by the content of the binary N-gram */
+	/* lmvar should be overridden by the content of the binary N-gram */
 	if (!check_section(jconf, argv[i], JCONF_OPT_LM)) return FALSE; 
 	FREE_MEMORY(jconf->lmnow->ngram_filename);
 	FREE_MEMORY(jconf->lmnow->ngram_filename_lr_arpa);

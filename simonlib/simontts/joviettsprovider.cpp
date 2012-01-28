@@ -30,7 +30,7 @@ JovieTTSProvider::JovieTTSProvider() : interface(0)
 
 
 /**
- * \brief Will force the sytem to performe the initialization
+ * \brief Will force the system to performe the initialization
  *
  * Normally the tts subsystem will be initialized during the first call
  * to \sa say() but this can be done earlier by calling this method
@@ -123,7 +123,7 @@ bool JovieTTSProvider::interrupt()
  * \brief Uninitializes the TTS system. 
  * \note It's safe to call this anytime because the system will be re-initialized automatically if needed 
  *
- * Call \sa interrupt() if you want to stop the TTS immediatly; Otherwise the current text will still be
+ * Call \sa interrupt() if you want to stop the TTS immediately; Otherwise the current text will still be
  * finished
  * \return Success
  */

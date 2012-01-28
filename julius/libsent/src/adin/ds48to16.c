@@ -185,7 +185,7 @@ firout(DS_FILTER *f, int os)
  * @param len [in] number of input samples
  * @param maxlen [in] maximum length of dst
  * 
- * @return the number of samples written to dst, or -1 on errror.
+ * @return the number of samples written to dst, or -1 on error.
  * </EN>
  */
 static int
@@ -325,7 +325,7 @@ ds48to16_free(DS_BUFFER *ds)
  * @param maxdstlen [in] maximum length of dst
  * @param ds [i/o] down sampling buffer
  * 
- * @return the number of samples written to dst, or -1 on errror.
+ * @return the number of samples written to dst, or -1 on error.
  * </EN>
  */
 int

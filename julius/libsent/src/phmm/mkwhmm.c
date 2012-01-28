@@ -123,7 +123,7 @@ new_make_word_hmm_with_lm(HTK_HMM_INFO *hmminfo, HMM_Logical **hdseq, int hdseql
     new->state[i].out.cdset = NULL;
   }
 
-  /* assign outprob informations into the states  */
+  /* assign outprob information into the states  */
   n = 0;
   if (hmminfo->multipath) n++;	/* skip first state */
   for (i = 0; i < hdseqlen; i++) {

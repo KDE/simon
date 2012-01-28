@@ -6,7 +6,7 @@
  * </JA>
  * 
  * <EN>
- * @brief  Initial memory allocation and free for N-gram stucture
+ * @brief  Initial memory allocation and free for N-gram structure
  * </EN>
  * 
  * @author Akinobu LEE

@@ -20,7 +20,7 @@
  * Functions to build a tree lexicon (or called word-conjunction HMM here)
  * from word dictionary, HMM and language models are defined here.  The
  * constructed tree lexicon will be used for the recognition of the 1st pass.
- * The lexicon is composed per HMM state unit, and various informations
+ * The lexicon is composed per HMM state unit, and various information
  * about output probabilities, arcs, language model constraints, and others
  * are assembled in the lexicon.
  *
@@ -710,11 +710,11 @@ wchmm_link_subword(WCHMM_INFO *wchmm, int from_word, int from_seq, int to_word, 
  * </JA>
  * <EN>
  * Homophones:
- * As all words need to have an uniq state as a final state in a lexicon tree,
+ * As all words need to have a unique state as a final state in a lexicon tree,
  * homophones should be handled carefully.  After primal tree has been made,
  * we look through the tree to find the fully shared or embedded words
  * (homophone or part of other word), and duplicate the last leaf node 
- * to have uniq end state.
+ * to have unique end state.
  * </EN>
  */
 

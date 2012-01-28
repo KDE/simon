@@ -336,7 +336,7 @@ lcdset_remove_with_category_all(WCHMM_INFO *wchmm)
  * <EN>
  * Calculate output probability on a tree lexion node.  This function
  * calculates log output probability of an input vector on time frame @a t
- * in input paramter @a param at a node on tree lexicon.
+ * in input parameter @a param at a node on tree lexicon.
  * 
  * @param wchmm [in] tree lexicon structure
  * @param node [in] node ID to compute the output probability

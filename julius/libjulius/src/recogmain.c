@@ -663,7 +663,7 @@ result_error(Recog *recog, int status)
  * the detected segment, output result, and go back to the first.
  *
  * This function will be stopped and exited if reached end of stream
- * (mostly in case of file input), some error has been occured, or
+ * (mostly in case of file input), some error has been occurred, or
  * termination requested from application by calling
  * j_request_pause() and j_request_terminate().
  * 
@@ -685,7 +685,7 @@ result_error(Recog *recog, int status)
  * @param recog [i/o] engine instance
  * 
  * @return 1 when stopped by application request, 0 when reached end of stream,
- * or -1 when an error occured.  Note that the input stream can still continues
+ * or -1 when an error occurred.  Note that the input stream can still continues
  * when 1 is returned.
  * 
  */
@@ -818,7 +818,7 @@ j_recognize_stream_core(Recog *recog)
     /*********************************************************/
     for(lm=recog->lmlist;lm;lm=lm->next) {
       if (lm->lmtype == LM_DFA) {
-	multigram_update(lm); /* some modification occured if return TRUE*/
+	multigram_update(lm); /* some modification occurred if return TRUE*/
       }
     }
     for(r=recog->process_list;r;r=r->next) {
@@ -903,7 +903,7 @@ j_recognize_stream_core(Recog *recog)
 	      }
 	      goto end_recog; /* cancel this recognition */
 	    }
-	    jlog("ERROR: an error occured at on-the-fly 1st pass decoding\n");          /* exit now! */
+	    jlog("ERROR: an error occurred at on-the-fly 1st pass decoding\n");          /* exit now! */
 	    return(-1);
 	  }
 	}
@@ -946,7 +946,7 @@ j_recognize_stream_core(Recog *recog)
 	    }
 	    goto end_recog;
 	  }
-	  jlog("ERROR: an error occured at on-the-fly 1st pass decoding\n");          /* exit now! */
+	  jlog("ERROR: an error occurred at on-the-fly 1st pass decoding\n");          /* exit now! */
 	  return(-1);
 	}
       }
@@ -972,7 +972,7 @@ j_recognize_stream_core(Recog *recog)
       }
       /* last procedure of 1st-pass */
       if (RealTimeParam(recog) == FALSE) {
-	jlog("ERROR: fatal error occured, program terminates now\n");
+	jlog("ERROR: fatal error occurred, program terminates now\n");
 	return -1;
       }
       
@@ -1069,7 +1069,7 @@ j_recognize_stream_core(Recog *recog)
 	      result_error(recog, J_RESULT_STATUS_TERMINATE);
 	      goto end_recog;
 	    }
-	    jlog("ERROR: an error occured while recording input\n");
+	    jlog("ERROR: an error occurred while recording input\n");
 	    return -1;
 	  }
 	  
@@ -1136,7 +1136,7 @@ j_recognize_stream_core(Recog *recog)
     
       /* execute computation of left-to-right backtrellis */
       if (get_back_trellis(recog) == FALSE) {
-	jlog("ERROR: fatal error occured, program terminates now\n");
+	jlog("ERROR: fatal error occurred, program terminates now\n");
 	return -1;
       }
 #ifdef BACKEND_VAD
@@ -1271,7 +1271,7 @@ j_recognize_stream_core(Recog *recog)
 	wchmm_fbs(r->am->mfcc->param, r, 0, 0);
       } else if (r->lmtype == LM_DFA) {
 	if (r->config->output.multigramout_flag) {
-	  /* execute 2nd pass multiple times for each grammar sequencially */
+	  /* execute 2nd pass multiple times for each grammar sequentially */
 	  /* to output result for each grammar */
 	  MULTIGRAM *m;
 	  boolean has_success = FALSE;
@@ -1494,7 +1494,7 @@ j_recognize_stream(Recog *recog)
       /* go on to the next input */
       break;
     case -1: 		/* error */
-      jlog("ERROR: an error occured while recognition, terminate stream\n");
+      jlog("ERROR: an error occurred while recognition, terminate stream\n");
       return -1;
     }
   } while (ret == 1);		/* loop when paused by callback */

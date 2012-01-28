@@ -380,7 +380,7 @@ detect_end_of_segment(RecogProcess *r, int time)
     }
     count++;
   }
-  if (tremax == NULL) { /* no word end: possible in the very beggining of input*/
+  if (tremax == NULL) { /* no word end: possible in the very beginning of input*/
     detected = TRUE;            /* assume it's in the short-pause duration */
   } else if (count > 0) {       /* many words found --- check if maximum is sp */
     if (is_sil(tremax->wid, r)) {
@@ -428,7 +428,7 @@ detect_end_of_segment(RecogProcess *r, int time)
       if (detected) {
         /* detected end of speech segment (begin of sp segment) */
         /* 一時的に開始フレームとしてマーク */
-        /* mark this frame as "temporal" begging of short-pause segment */
+        /* mark this frame as "temporal" beginning of short-pause segment */
         d->tmp_sparea_start = time;
 #ifdef SP_BREAK_RESUME_WORD_BEGIN
         if (r->lmtype == LM_PROB) {
@@ -448,7 +448,7 @@ detect_end_of_segment(RecogProcess *r, int time)
       if (detected) {
         /* short pause frame continues */
         d->sp_duration++;
-        /* keep word as the "beggining" of next sp segment */
+        /* keep word as the "beginning" of next sp segment */
         if (r->lmtype == LM_PROB) {
 #ifdef SP_BREAK_RESUME_WORD_BEGIN
           /* if this segment has triggered by (tremax == NULL) (in case the first
@@ -466,7 +466,7 @@ detect_end_of_segment(RecogProcess *r, int time)
 
         if (d->sp_duration >= r->config->successive.sp_frame_duration) {
           /* silence over, segment the recognition here */
-          /* store begging frame of the segment */
+          /* store beginning frame of the segment */
           //d->sparea_start = d->tmp_sparea_start;
           r->am->mfcc->sparea_start = time - r->config->successive.sp_frame_duration;
           if (r->lmtype == LM_PROB) {
@@ -511,7 +511,7 @@ detect_end_of_segment(RecogProcess *r, int time)
   if (d->in_sparea && detected) {       /* we are already in sp segment and sp continues */
     d->sp_duration++;           /* increment count */
 #ifdef SP_BREAK_RESUME_WORD_BEGIN
-    /* resume word at the "beggining" of sp segment */
+    /* resume word at the "beginning" of sp segment */
     /* if this segment has triggered by (tremax == NULL) (in case the first
        several frame of input), the sp word (to be used as resuming
        word in the next segment) is not yet set. it will be detected here */
@@ -529,7 +529,7 @@ detect_end_of_segment(RecogProcess *r, int time)
   /* check if sp segment begins at this frame */
   else if (!d->in_sparea && detected) {
     /* 一時的に開始フレームとしてマーク */
-    /* mark this frame as "temporal" begging of short-pause segment */
+    /* mark this frame as "temporal" beginning of short-pause segment */
     d->tmp_sparea_start = time;
 #ifdef SP_BREAK_RESUME_WORD_BEGIN
     /* sp 区間開始時点の最尤単語を保存 */
@@ -572,7 +572,7 @@ detect_end_of_segment(RecogProcess *r, int time)
 #ifdef SP_BREAK_DEBUG
       jlog("DEBUG: >> segment [%d..%d]\n", r->am->mfcc->sparea_start, time-1);
 #endif /* SP_BREAK_DEBUG */
-      /* store begging frame of the segment */
+      /* store begining frame of the segment */
       r->am->mfcc->sparea_start = d->tmp_sparea_start;
 #ifdef SP_BREAK_RESUME_WORD_BEGIN
       /* resume word = most likely sp word on beginning frame of the segment */

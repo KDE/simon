@@ -6,7 +6,7 @@
  * </JA>
  * 
  * <EN>
- * @brief  Output system informations.
+ * @brief  Output system information.
  * </EN>
  * 
  * @author Akinobu Lee
@@ -137,7 +137,7 @@ print_jconf_overview(Jconf *jconf)
  * エンジンインスタンスの全情報をログに出力する. 
  * </JA>
  * <EN>
- * Output all informations of an engine instance to log.
+ * Output all information of an engine instance to log.
  * </EN>
  *
  * @param recog [in] engine instance

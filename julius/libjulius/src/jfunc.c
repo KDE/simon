@@ -434,7 +434,7 @@ j_config_load_string(Jconf *jconf, char *string)
  * @param jconf [i/o] glbal configuration instance
  * @param filename [in] jconf filename
  * 
- * @return 0 on sucess, or -1 on failure.
+ * @return 0 on success, or -1 on failure.
  * 
  * @callgraph
  * @callergraph
@@ -696,7 +696,7 @@ j_get_current_filename(Recog *recog)
 
 /** 
  * <EN>
- * Output all configurations and system informations into log.
+ * Output all configurations and system information into log.
  * </EN>
  * <JA>
  * エンジンの全設定と全システム情報をログに出力する. 

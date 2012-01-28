@@ -436,7 +436,7 @@ CMN_realtime_update(CMNWork *c, HTK_Param *param)
 
   c->cmean_init_set = TRUE;
 
-  /* expand clist if neccessary */
+  /* expand clist if necessary */
   if (c->clist_num == c->clist_max && frames < CPMAX) {
     c->clist_max += CPSTEP;
     c->clist = (CMEAN *)myrealloc(c->clist, sizeof(CMEAN) * c->clist_max);

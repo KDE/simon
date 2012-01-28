@@ -286,7 +286,7 @@ adin_alsa_open(char *devstr)
     boolean force = FALSE;
     char *p;
     
-    /* set apropriate period size */
+    /* set appropriate period size */
     if ((p = getenv("LATENCY_MSEC")) != NULL) {
       latency = atoi(p);
       jlog("Stat: adin_alsa: trying to set latency to %d msec from LATENCY_MSEC)\n", latency);

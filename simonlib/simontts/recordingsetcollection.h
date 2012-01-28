@@ -181,7 +181,7 @@ class SIMONTTS_EXPORT RecordingSetCollection
 
     /**
      * \brief Destructor
-     * \note Calls @sa deleteAll() - beware of using sets retreived @sa getSet()!
+     * \note Calls @sa deleteAll() - beware of using sets retrieved @sa getSet()!
      */
     ~RecordingSetCollection();
 };

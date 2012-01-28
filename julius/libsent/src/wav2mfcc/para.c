@@ -109,7 +109,7 @@ make_default_para(Value *para)
 
 /** 
  * Set HTK default configuration parameters for MFCC computation.
- * This will be refered when parameters are given as HTK Config file.
+ * This will be referred when parameters are given as HTK Config file.
  * 
  * @param para [out] feature extraction parameters
  * 
@@ -366,7 +366,7 @@ put_para(FILE *fp, Value *para)
   fprintf(fp, " (%d dim. from %d cepstrum", para->veclen, para->mfcc_dim);
   if (para->c0) fprintf(fp, " + c0");
   if (para->energy) fprintf(fp, " + energy");
-  if (para->absesup) fprintf(fp, ", abs energy supressed");
+  if (para->absesup) fprintf(fp, ", abs energy suppressed");
   if (para->cmn) fprintf(fp, " with CMN");
   fprintf(fp, ")\n");
   fprintf(fp, "\tsample frequency = %5ld Hz\n", para->smp_freq);

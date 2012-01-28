@@ -327,7 +327,7 @@ void setGram( void )
 	strcpy( HeaderFile, "/dev/null" );
     }
     if( (FPheader = fopen( HeaderFile, "w" )) == NULL ){
-	errMes( "Can't open Header File for writting\"%s\"", HeaderFile );
+	errMes( "Can't open Header File for writing\"%s\"", HeaderFile );
     }
     fprintf( FPheader,
 	    "/* Header of class reduction flag for finite automaton parser\n"

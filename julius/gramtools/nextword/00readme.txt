@@ -30,7 +30,7 @@ OPTIONS
           Enter in reverse order
 
         -s  spname
-          the name string of short-pause word to be supressed (default: "sp")
+          the name string of short-pause word to be suppressed (default: "sp")
 
         -v
           Debug output.

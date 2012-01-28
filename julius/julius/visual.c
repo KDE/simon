@@ -197,7 +197,7 @@ get_max_frame_score(BACKTRELLIS *bt)
  * @return 対応する X 座標値を返す. 
  * </JA>
  * <EN>
- * Scale X axis by time to fullfill in the canvas width.
+ * Scale X axis by time to fulfill in the canvas width.
  * 
  * @param t [in] time frame
  * 
@@ -1103,7 +1103,7 @@ visual2_best(NODE *now, WORD_INFO *winfo)
 }
 
 /**********************************************************************/
-/* Draw atoms refered at the 2nd pass */
+/* Draw atoms referred at the 2nd pass */
 /**********************************************************************/
 
 /* draw 2nd pass results */
@@ -1147,7 +1147,7 @@ static LOGPROB minscore;	///< Minimum score of popped hypotheses while search
  * 
  * </JA>
  * <EN>
- * Get the maximum and minumum score of popped hypotheses appeared while search.
+ * Get the maximum and minimum score of popped hypotheses appeared while search.
  * 
  * </EN>
  */

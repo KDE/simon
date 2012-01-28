@@ -244,7 +244,7 @@ viterbi_segment(HMM *hmm, HTK_Param *param, HMMWork *wrk, boolean multipath, int
   result_score = nodescore[tn][hmm->len-1];
 
   /* parse back the last token to see the trail of best viterbi path */
-  /* and store the informations to returning buffer */
+  /* and store the information to returning buffer */
   slen = 0;
   if (!multipath) slen++;
   for(token = tokenp[tn][hmm->len-1]; token; token = token->next) {

@@ -47,7 +47,7 @@
  *
  * When file input mode, the file name will be read from standard input.
  * If a filelist file is specified, the file names are read from the file
- * sequencially instead.
+ * sequentially instead.
  *
  * libsndfile should be installed before compilation.  The library and header
  * will be automatically detected by configure script.  When failed to detect,

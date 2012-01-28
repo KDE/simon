@@ -75,7 +75,7 @@ myread(char *buf, size_t unitbyte, int unitnum, FILE *fp)
  * Read in a HTK parameter file from @a fp .
  * 
  * @param fp [in] file pointer
- * @param pinfo [in] parameter data to store the read informations
+ * @param pinfo [in] parameter data to store the read information
  * 
  * @return TRUE on success, FALSE on failure.
  */

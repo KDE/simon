@@ -270,7 +270,7 @@ adin_tcpip_send_resume()
     if (cnt > 0) count += cnt;
   } while (status != 0);
   if (count > 0) {
-    jlog("Stat: %d samples transfered while pause are flushed\n", count);
+    jlog("Stat: %d samples transferred while pause are flushed\n", count);
   }
     
   /* send resume command to adinnet client */

@@ -133,10 +133,10 @@ wt_header(FILE *fp, boolean emp, boolean inv, boolean mpdfmacro)
 
 
 /** 
- * Write acoustic analysis configration parameters into header of binary HMM.
+ * Write acoustic analysis configuration parameters into header of binary HMM.
  * 
  * @param fp [in] file pointer
- * @param para [in] acoustic analysis configration parameters
+ * @param para [in] acoustic analysis configuration parameters
  */
 static boolean
 wt_para(FILE *fp, Value *para)
@@ -832,7 +832,7 @@ qsort_st_index(HTK_HMM_State **s1, HTK_HMM_State **s2)
  * @brief  Write all state data.
  *
  * The pointers of all states are first gathered,
- * sorted by the address.  Then the state informations are written
+ * sorted by the address.  Then the state information is written
  * by the sorted order.  The pointers to the lower structure (mixture etc.)
  * in the data are written in a corresponding scholar id.
  * The pointer index of this data will be used later to convert any pointer

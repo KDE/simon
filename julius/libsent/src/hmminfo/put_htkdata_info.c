@@ -339,7 +339,7 @@ put_param_info(FILE *fp, HTK_Param *pinfo)
 }
 
 /** 
- * Output total statistic informations of the %HMM definition data.
+ * Output total statistic information of the %HMM definition data.
  * 
  * @param fp [in] file descriptor
  * @param hmminfo [in] %HMM definition data.

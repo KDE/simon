@@ -40,7 +40,7 @@
  *     - the bigram tuples for context word sequences of existing trigram
  *     tuples should exist in both.
  * 
- *  The first three requirements can be fullfilled easily if you train the
+ *  The first three requirements can be fulfilled easily if you train the
  *  forward bigram and reverse trigram on the same training text.
  *  The last condition can be qualified if you set a cut-off value of trigram
  *  which is larger or equal to that of bigram.  These conditions are checked

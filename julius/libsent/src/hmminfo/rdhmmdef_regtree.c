@@ -10,7 +10,7 @@
  * <EN>
  * @brief  Read HTK %HMM definition file: Regression tree
  *
- * The regression tree informations are not saved, just skipped.
+ * The regression tree information is not saved, just skipped.
  * </EN>
  * 
  * @author Akinobu LEE

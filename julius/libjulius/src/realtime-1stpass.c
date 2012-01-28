@@ -748,7 +748,7 @@ proceed_one_frame(Recog *recog)
  * <EN>
  * @brief  Main function of the on-the-fly 1st pass decoding
  *
- * This function performs sucessive MFCC calculation and 1st pass decoding.
+ * This function performs successive MFCC calculation and 1st pass decoding.
  * The given input data are windowed to a certain length, then converted
  * to MFCC, and decoding for the input frame will be performed in one
  * process cycle.  The loop cycle will continue with window shift, until
@@ -1235,12 +1235,12 @@ RealTimeParam(Recog *recog)
 	    memcpy(&(mfcc->tmpmfcc[para->veclen - para->baselen]), &(mfcc->ab->vec[para->veclen - para->baselen]), sizeof(VECT) * para->baselen);
 	  } else {
 	    /* actually no data exists in both delta and accel */
-	    mfcc->valid = FALSE; /* disactivate this instance */
+	    mfcc->valid = FALSE; /* deactivate this instance */
 	    continue;		/* end this loop */
 	  }
 	} else {
 	  /* only delta: input fully flushed */
-	  mfcc->valid = FALSE; /* disactivate this instance */
+	  mfcc->valid = FALSE; /* deactivate this instance */
 	  continue;		/* end this loop */
 	}
       }
@@ -1296,7 +1296,7 @@ RealTimeParam(Recog *recog)
     } else if (ret == 1) {	/* segmented */
       /* loop out */
       break;
-    } /* else no event occured */
+    } /* else no event occurred */
 
 #ifdef BACKEND_VAD
     /* check up trigger in case of VAD segmentation */

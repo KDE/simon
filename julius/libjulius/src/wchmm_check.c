@@ -45,7 +45,7 @@
  * @param ngram_exist [in] 同時に使用する言語制約が存在する場合TRUE
  * </JA>
  * <EN>
- * Display informations of a word in the dictionary.
+ * Display information of a word in the dictionary.
  * 
  * @param winfo [in] word dictionary
  * @param word [in] ID of a word to be displayed
@@ -122,7 +122,7 @@ print_wchmm_w(WCHMM_INFO *wchmm, WORD_ID word)
  * @param node [in] ノード番号
  * </JA>
  * <EN>
- * Display informations assigned to a node in the tree lexicon.
+ * Display information assigned to a node in the tree lexicon.
  * 
  * @param wchmm [in] tree lexicon
  * @param node [in] node id

@@ -347,7 +347,7 @@ initialize_dict(JCONF_LM *lmconf, HTK_HMM_INFO *hmminfo)
   }
   if (lmconf->additional_dict_entries) {
     if (voca_load_end(winfo) == FALSE) {
-      jlog("ERROR: m_fusion: failed to read additinoal word entry\n");
+      jlog("ERROR: m_fusion: failed to read additional word entry\n");
       word_info_free(winfo);
       return NULL;
     }
@@ -652,7 +652,7 @@ j_load_lm(Recog *recog, JCONF_LM *lmconf)
     }
     /* load all the specified grammars */
     if (multigram_load_all_gramlist(lm) == FALSE) {
-      jlog("ERROR: m_fusion: some error occured in reading grammars\n");
+      jlog("ERROR: m_fusion: some error occurred in reading grammars\n");
       return FALSE;
     }
     /* setup for later wchmm building */
@@ -1115,7 +1115,7 @@ j_launch_recognition_instance(Recog *recog, JCONF_SEARCH *sconf)
   /****************************/
   if (p->lmtype == LM_DFA) {
     /* execute generation of global grammar and build of wchmm */
-    multigram_build(p); /* some modification occured if return TRUE */
+    multigram_build(p); /* some modification occurred if return TRUE */
   }
 
   if (p->lmtype == LM_PROB) {
@@ -1241,7 +1241,7 @@ j_launch_recognition_instance(Recog *recog, JCONF_SEARCH *sconf)
  * @param recog [in] engine instance
  * 
  * @return TRUE when all initialization successfully done, or FALSE if any
- * error has been occured.
+ * error has been occurred.
  *
  * @callgraph
  * @callergraph

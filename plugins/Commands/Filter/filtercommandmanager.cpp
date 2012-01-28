@@ -128,7 +128,7 @@ bool FilterCommandManager::trigger(const QString& triggerName, bool silent)
   kDebug() << "Filter state: " << m_currentState;
   if ((m_currentState == SimonCommand::DefaultState+1) && (!configuration()->twoStage()))
   {
-    switchToState(SimonCommand::DefaultState+2); // if not in two stage mode, "upgrade" immediatly
+    switchToState(SimonCommand::DefaultState+2); // if not in two stage mode, "upgrade" immediately
   }
 
   kDebug() << "Triggering: " << triggerName;

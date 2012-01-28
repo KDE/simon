@@ -284,7 +284,7 @@ can_put_to_stack(NODE *new, NODE **bottom, int *stacknum, int stacksize)
  * @param stacknum [i/o] pointer to current stack size
  * @param stacksize [in] pointer to maximum stack size limit
  * 
- * @return 0 if succeded, or -1 if failed to push because of number
+ * @return 0 if succeeded, or -1 if failed to push because of number
  * limitation or too low score.
  * </EN>
  */

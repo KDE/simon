@@ -15,7 +15,7 @@ DESCRIPTION
        gram2sapixml.pl converts a recognition grammar file of Julius
        (.grammar, .voca) to Microsoft SAPI XML grammar format.  prefix should
        be a file name of target grammar, excluding suffixes. If multiple
-       argument is given, each will be process sequencialy in turn.
+       argument is given, each will be process sequentialy in turn.
 
        The internal character set should be in UTF-8 format. By default
        gram2sapixml.pl assume input in EUC-JP encoding and tries to convert it

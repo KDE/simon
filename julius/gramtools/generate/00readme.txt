@@ -27,7 +27,7 @@ OPTIONS
           Set number of sentences to be generated (default: 10)
 
         -s  spname
-          the name string of short-pause word to be supressed (default: "sp")
+          the name string of short-pause word to be suppressed (default: "sp")
 
         -v
           Debug output mode.

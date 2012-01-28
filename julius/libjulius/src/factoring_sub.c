@@ -769,7 +769,7 @@ make_iwcache_index(WCHMM_INFO *wchmm)
  * they will be freed.
  *
  * Actually, computed factoring scores will be stored in wchmm->fscore
- * sequencially, and the index value, starting from 1,
+ * sequentially, and the index value, starting from 1,
  * to the fscore list is stored in scid of each nodes as a negative value.
  * The free will be performed in compaction_successor() by checking if a
  * successor's corresponding scid on tree lexicon has negative value.

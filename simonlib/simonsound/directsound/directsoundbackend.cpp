@@ -102,7 +102,7 @@ public:
 				lockSize += m_parent->m_bufferSize; 
 
 			if (lockSize == 0){
-				kWarning()<<"lock size shouldnt be 0";
+				kWarning()<<"lock size should not be 0";
 				continue;
 			}
 
@@ -214,7 +214,7 @@ public:
 				lockSize += m_parent->m_bufferSize; 
 
 			if (lockSize == 0){
-				kWarning()<<"lock size shouldnt be 0";
+				kWarning()<<"lock size should not be 0";
 				continue;
 			}
 			//Lock DirectSoundBuffer Second Part
@@ -273,7 +273,7 @@ m_loop(0),
 
 int DirectSoundBackend::bufferSize()
 {
-	//dont return the size of the directsound ring buffer but the size when we probably will write data
+	//do not return the size of the directsound ring buffer but the size when we probably will write data
 	return m_notifySize;
 }
 

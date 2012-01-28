@@ -72,7 +72,7 @@ initialize()
  * <EN>
  * @brief  Get information of this plugin (required)
  *
- * This function should return informations of this plugin file.
+ * This function should return information of this plugin file.
  * The required info will be specified by opcode:
  *  - 0: return description string of this file into buf
  *
@@ -128,7 +128,7 @@ get_plugin_info(int opcode, char *buf, int buflen)
  *
  * You can monitor the incoming audio stream, and also can modify or
  * overwrite the content of @a buf to do some audio processing for the
- * incoming data like noise supression etc.
+ * incoming data like noise suppression etc.
  *
  * If multiple plugins have this functions, they are all executed in order
  * of loading.

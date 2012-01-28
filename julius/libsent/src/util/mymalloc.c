@@ -8,7 +8,7 @@
  * </JA>
  * 
  * <EN>
- * @brief  Dynamic memory allocation funtions
+ * @brief  Dynamic memory allocation functions
  *
  * When allocation error occured within these functions, the program will
  * exit immediately.

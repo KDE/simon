@@ -223,12 +223,12 @@ compute_g_max(HMMWork *wrk, HTK_HMM_State *stateinfo)
 
 /**********************************************************************/
 /* main function: compute all gshmm scores */
-/* *** assume to be called for sequencial frame (using last result) */
+/* *** assume to be called for sequential frame (using last result) */
 
 /** 
  * Main function to compute all the GMS %HMM states in a frame
  * with the input vectore specified by OP_vec.  This function assumes
- * that this will be called for sequencial frame, since it utilizes the
+ * that this will be called for sequential frame, since it utilizes the
  * result of previous frame for faster pruning.
  * 
  * @param wrk [i/o] HMM computation work area

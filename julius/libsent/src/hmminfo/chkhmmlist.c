@@ -98,7 +98,7 @@ print_callback_name(void *x)
   printf("%s, ", b->name);
 }
 /** 
- * Output all basephone informations to stdout.
+ * Output all basephone information to stdout.
  * 
  * @param base [in] pointer to the top basephone data holder.
  */

@@ -36,7 +36,7 @@ SimonTTSPrivate* SimonTTS::getInstance()
 }
 
 /**
- * \brief Will force the sytem to performe the initialization
+ * \brief Will force the system to performe the initialization
  *
  * Normally the tts subsystem will be initialized during the first call
  * to \sa say() but this can be done earlier by calling this method
@@ -88,7 +88,7 @@ bool SimonTTS::interrupt()
  * \brief Uninitializes the TTS system. 
  * \note It's safe to call this anytime because the system will be re-initialized automatically if needed 
  *
- * Call \sa interrupt() if you want to stop the TTS immediatly
+ * Call \sa interrupt() if you want to stop the TTS immediately
  */
 bool SimonTTS::uninitialize()
 {

@@ -64,7 +64,7 @@
  * detection for real-time recognition.  For this purpose, after the
  * beginning of input has been detected, the following triggered input
  * fragments (samples of a certain period in live input, or buffer size in
- * file input) are passed sequencially in turn to a callback function.
+ * file input) are passed sequentially in turn to a callback function.
  * The callback function should be specified by the caller, typicaly to
  * store the recoded data, or to process them into a frame-synchronous
  * recognition process.
@@ -588,7 +588,7 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
 	    /* if threaded mode, processing means storing them to speech[].
 	       if ignore_speech_while_recog is on (default), ignore the data
 	       if transfer is offline (=while processing second pass).
-	       Else, datas are stored even if transfer is offline */
+	       Else, data are stored even if transfer is offline */
 	    if ( ad_process != NULL
 #ifdef HAVE_PTHREAD
 		 && (!a->enable_thread || !a->ignore_speech_while_recog || transfer_online_local)
@@ -631,7 +631,7 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
 		  adin_purge(a, i);
 		  goto break_input;
 #endif
-		case -1:		/* error occured in callback */
+		case -1:		/* error occurred in callback */
 		  /* set end status and exit loop */
 		  end_status = -1;
 		  goto break_input;
@@ -709,7 +709,7 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
 		  adin_purge(a, i);
 		  goto break_input;
 #endif
-		case -1:		/* error occured in callback */
+		case -1:		/* error occurred in callback */
 		  /* set end status and exit loop */
 		  end_status = -1;
 		  goto break_input;
@@ -835,7 +835,7 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
 	      end_status = 2;
 	      goto break_input;
 #endif
-	    case -1:		/* error occured in callback */
+	    case -1:		/* error occurred in callback */
 	      /* set end status and exit loop */
 	      end_status = -1;
 	      goto break_input;

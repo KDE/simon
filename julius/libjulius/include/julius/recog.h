@@ -98,8 +98,8 @@
 
 /*
   How tokens are managed:
-   o  tlist[][] is a token stocker.  It holds all tokens in sequencial
-      buffer.  They are malloced first on startup, and refered by ID while
+   o  tlist[][] is a token stocker.  It holds all tokens in sequential
+      buffer.  They are malloced first on startup, and referred by ID while
       Viterbi procedure.  In word-pair mode, each token also has a link to
       another token to allow a node to have more than 1 token.
       
@@ -254,7 +254,7 @@ typedef struct __StackDecode__ {
  * 
  */
 typedef struct {
-  LOGPROB (*uniprob)(WORD_INFO *, WORD_ID, LOGPROB); ///< Pointer to function returning word occurence probability
+  LOGPROB (*uniprob)(WORD_INFO *, WORD_ID, LOGPROB); ///< Pointer to function returning word occurrence probability
   LOGPROB (*biprob)(WORD_INFO *, WORD_ID, WORD_ID, LOGPROB); ///< Pointer to function returning a word probability given a word context (corresponds to bi-gram)
   LOGPROB (*lmprob)(WORD_INFO *, WORD_ID *, int, WORD_ID, LOGPROB); ///< Pointer to function returning LM probability
 } LMFunc;
@@ -396,7 +396,7 @@ typedef struct __adin__ {
  */
   boolean transfer_online;
   /**
-   * TRUE if buffer overflow occured in adin thread.
+   * TRUE if buffer overflow occurred in adin thread.
    * 
    */
   boolean adinthread_buffer_overflowed;

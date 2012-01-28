@@ -611,7 +611,7 @@ New configure option: "--disable-lmfix", "--enable-visualize"
 - [multi-path version] Supports model-skip transition.  From
   this version, you can use "any" type of state transition in HTK
   format acoustic model.
-- New feature: "-record dir" records speech inputs sucessively
+- New feature: "-record dir" records speech inputs successively
   into the specified directory with time-stamp file names.
 - fix segfault on Solaris with "-input mfcfile".
 - fix blocking command input when using module mode and adinnet together.

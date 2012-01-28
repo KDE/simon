@@ -116,10 +116,10 @@ static char *binhmm_header = BINHMM_HEADER; ///< Header string
 static char *binhmm_header_v2 = BINHMM_HEADER_V2; ///< Header string for V2
 
 /** 
- * Read acoustic analysis configration parameters from header of binary HMM.
+ * Read acoustic analysis configuration parameters from header of binary HMM.
  * 
  * @param fp [in] file pointer
- * @param para [out] acoustic analysis configration parameters
+ * @param para [out] acoustic analysis configuration parameters
  */
 static boolean
 rd_para(FILE *fp, Value *para)
@@ -649,7 +649,7 @@ rd_state(FILE *fp, HTK_HMM_INFO *hmm, boolean mpdf_macro)
 	}
       }
     } else {
-      /* mpdf are stored sequencially, so read the content here */
+      /* mpdf are stored sequentially, so read the content here */
       for(m=0;m<s->nstream;m++) {
 	s->pdf[m] = (HTK_HMM_PDF *)mybmalloc2(sizeof(HTK_HMM_PDF), &(hmm->mroot));
 	s->pdf[m]->name = NULL;

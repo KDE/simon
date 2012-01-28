@@ -45,7 +45,7 @@
  *
  * When file input mode, the file name will be read from standard input.
  * If a filelist file is specified, the file names are read from the file
- * sequencially instead.
+ * sequentially instead.
  *
  * When compiled with libsndfile support, the functions in adin_sndfile.c
  * is used for file input instead of functions below.
@@ -89,7 +89,7 @@ static char speechfilename[MAXPATHLEN];	///< Buffer to hold input file name
 static char *stdin_buf = NULL;
 
 /* read .wav data with endian conversion */
-/* (all .wav datas are in little endian) */
+/* (all .wav data are in little endian) */
 
 /** 
  * Read a header value from WAVE file with endian conversion.

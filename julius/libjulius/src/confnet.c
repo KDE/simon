@@ -524,7 +524,7 @@ put_cluster(FILE *fp, CN_CLUSTER *c, WORD_INFO *winfo)
  * @param b [in] value 2
  * @param c [in] value 3
  * 
- * @return the minumum value.
+ * @return the minimum value.
  */
 static int
 minimum(int a, int b, int c)

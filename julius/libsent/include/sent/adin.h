@@ -72,7 +72,7 @@ enum {
 #endif
 
 /**
- * Number of samples from beggining of input to be used for computing
+ * Number of samples from beginning of input to be used for computing
  * the zero mean of source channel (for microphone/network input).
  * 
  */

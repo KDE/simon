@@ -20,7 +20,7 @@
  * All rights reserved
  */
 
-/* currenty cannot treat other sub macros (~u,~i,~x) */
+/* currently cannot treat other sub macros (~u,~i,~x) */
 
 #include <sent/stddefs.h>
 #include <sent/htk_hmm.h>

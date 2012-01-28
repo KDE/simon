@@ -15,7 +15,7 @@ DESCRIPTION
        adintool analyzes speech input, finds speech segments skipping silence,
        and records the detected segments in various ways. It performs speech
        detection based on zerocross number and power (level), and records the
-       detected parts to files or other output devices sucessively.
+       detected parts to files or other output devices successively.
 
 
        adintool is a upper version of adinrec with various functions.

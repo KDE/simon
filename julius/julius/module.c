@@ -420,7 +420,7 @@ msock_exec_command(char *command, Recog *recog)
   } else if (strmatch(command, "SYNCGRAM")) {
     /* update grammar if necessary */
     if (cur->lmtype == LM_DFA) {
-      multigram_update(cur->lm);  /* some modification occured if return TRUE */
+      multigram_update(cur->lm);  /* some modification occurred if return TRUE */
       for(r=recog->process_list;r;r=r->next) {
 	if (r->lmtype == LM_DFA && r->lm->global_modified) {
 	  multigram_build(r);

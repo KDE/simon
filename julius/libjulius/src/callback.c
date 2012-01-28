@@ -7,7 +7,7 @@
  * This file contains functions for handling callback functions.
  * User should use callback_add() (and callback_add_adin() for A/D-in
  * related callbacks) to regist user function to the callback repository.
- * Then, Julius will call the registered functions at apropriate timimg
+ * Then, Julius will call the registered functions at appropriate timimg
  * while search.
  *
  * More than one function can be assigned to a callback,

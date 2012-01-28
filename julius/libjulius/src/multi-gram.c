@@ -148,7 +148,7 @@ multigram_rebuild_wchmm(RecogProcess *r)
  * <EN>
  * @brief  Check for global grammar and (re-)build tree lexicon if needed.
  * 
- * If any modification of the global grammar has been occured, 
+ * If any modification of the global grammar has been occurred, 
  * the tree lexicons and some other data for recognition will be re-constructed
  * from the updated global grammar.
  * </EN>
@@ -706,7 +706,7 @@ multigram_update(PROCESS_LM *lm)
     }
     /* delete the error grammars if exist */
     if (multigram_exec_delete(lm)) {
-      jlog("ERROR: errorous grammar deleted\n");
+      jlog("ERROR: erroneous grammar deleted\n");
     }
     lm->global_modified = TRUE;
   } else {			/* global not need changed by the deletion */

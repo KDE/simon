@@ -14,7 +14,7 @@
  * @brief  Message text output and error exit functions
  *
  * These are generic functions for text message output.
- * Most of text messages such as recognition results, status, informations
+ * Most of text messages such as recognition results, status, information
  * in Julius/Julian will be output to TTY or via network using these functions.
  * The character set conversion will also be performed here.
  * </EN>
