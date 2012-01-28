@@ -103,7 +103,7 @@ User* ManageUsers::getCurrentlySelectedUser()
 {
   QModelIndex selectedIndex = proxyModel->mapToSource(ui.tvUsers->currentIndex());
   if (!selectedIndex.isValid()) {
-    KMessageBox::information(this, i18n("Please select an user"));
+    KMessageBox::information(this, i18n("Please select a user"));
     return 0;
   }
 

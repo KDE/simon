@@ -368,7 +368,7 @@ For information on how to use base models in simon, please refer to the <link li
 <para>If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way simon will suggest the <quote>correct</quote> phonemes when adding the words automatically.</para>
 
 <para>
-If you try to use scenarios designed for a different phoneme set (different base model) then you will get an error when starting the recognition listing the affected phonemes and words. To fix this, either transcribe the words according to the base models phoneme set, use a different base model or use an user-generated model.
+If you try to use scenarios designed for a different phoneme set (different base model) then you will get an error when starting the recognition listing the affected phonemes and words. To fix this, either transcribe the words according to the base models phoneme set, use a different base model or use a user-generated model.
 </para>
 </sect2>
 </sect1>
