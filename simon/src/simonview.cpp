@@ -683,7 +683,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
     {
       displayConnectionStatus(i18n("Connected: Deactivating..."));
       if (connectActivate) {
-        connectActivate->setText(i18n ( "Deactivating..." ));
+        connectActivate->setText(i18n("Deactivating..."));
         connectActivate->setChecked(false);
       }
       activateAction->setEnabled(true);
@@ -730,9 +730,9 @@ void SimonView::representState(SimonControl::SystemStatus status)
     case SimonControl::ConnectedResuming:
     case SimonControl::ConnectedActivating:
     {
-      displayConnectionStatus(i18n("Connected; Activating..."));
+      displayConnectionStatus(i18n("Connected: Activating..."));
       if (connectActivate) {
-        connectActivate->setText(i18n ( "Activating..." ));
+        connectActivate->setText(i18n("Activating..."));
         connectActivate->setChecked(false);
       }
       activateAction->setText(i18n("Activating..."));

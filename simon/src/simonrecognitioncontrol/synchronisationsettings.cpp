@@ -83,7 +83,7 @@ void SynchronisationSettings::loadList()
   else dlg->show();
 
   if (!RecognitionControl::getInstance()->getAvailableModels()) {
-    KMessageBox::sorry(this, i18n("Could not send Request to Server"));
+    KMessageBox::sorry(this, i18n("Could not send request to server"));
     dlg->reject();
     dlg->deleteLater();
     dlg=0;
@@ -138,7 +138,7 @@ void SynchronisationSettings::showEvent(QShowEvent*)
 void SynchronisationSettings::selectModel()
 {
   if (ui.lwModels->currentRow() == -1) {
-    KMessageBox::information(this, i18n("Please select a Model from the List"));
+    KMessageBox::information(this, i18n("Please select a Model from the list"));
     return;
   }
 
@@ -152,10 +152,10 @@ void SynchronisationSettings::selectModel()
   }
 
   if (RecognitionControl::getInstance()->switchToModel(modelDate))
-    KMessageBox::information(this, i18n("The Request has been send to the server.\n\nPlease track the process of the "
-      "synchronization in simons main window."));
+    KMessageBox::information(this, i18n("The request has been send to the server.\n\nPlease track the process of the "
+      "synchronization in simon's main window."));
   else
-    KMessageBox::sorry(this, i18n("Could not send Request to Server"));
+    KMessageBox::sorry(this, i18n("Could not send request to server"));
 }
 
 

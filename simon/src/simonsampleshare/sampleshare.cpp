@@ -105,7 +105,7 @@ void SampleShare::connected()
   bool ok = true;
   bool allOk = true;
   ui->stackedWidget->setCurrentIndex(1);
-  setButtonText(Ok, i18n("Upload"));
+  setButtonText(Ok, i18nc("Verb: to upload", "Upload"));
 
   QList<Microphone*> microphones = server->getMicrophones(&ok);
   if (ok) {
@@ -114,10 +114,10 @@ void SampleShare::connected()
       QString type = m->type();
       QString name;
       if (model.isEmpty() || model == "Unspecified") //do not translate
-	name = type;
+        name = type;
       else
-	name = QString("%1 (%2)").arg(type).arg(model);
-      
+        name = QString("%1 (%2)").arg(type).arg(model);
+
       ui->cbMicrophone->addItem(name, m->id());
     }
   } else {

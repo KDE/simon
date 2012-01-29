@@ -136,9 +136,9 @@ void TrainingViewPrivate::importDirectory()
 void TrainingViewPrivate::clearTrainingdata()
 {
   if (KMessageBox::questionYesNo(this, i18n("Do you really want to clear all the collected samples?")) == KMessageBox::Yes) {
-    if (KMessageBox::warningContinueCancel(this, i18n("This will remove every single recordings from the trainingscorpus.\n\nAre you absolutely sure you want to continue?")) == KMessageBox::Continue) {
+    if (KMessageBox::warningContinueCancel(this, i18n("This will remove every single recording from the training corpus.\n\nAre you absolutely sure you want to continue?")) == KMessageBox::Continue) {
       if (!TrainingManager::getInstance()->clear())
-        KMessageBox::information(this, i18n("Could not clear trainingdata"));
+        KMessageBox::information(this, i18n("Could not clear training data"));
     }
   }
 }

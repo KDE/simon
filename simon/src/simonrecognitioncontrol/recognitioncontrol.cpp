@@ -1790,8 +1790,8 @@ void RecognitionControl::displayCompilationProtocol(const QString& protocol)
 void RecognitionControl::sampleNotAvailable(const QString& sample)
 {
   if (KMessageBox::questionYesNo(0, i18nc("%1 is sample path",
-  "The sample \"%1\" could not be found neither on the local computer nor the "
-  "server.\n\nDo you want to remove it from the Trainings-Database?", sample)) == KMessageBox::Yes) {
+  "The sample \"%1\" could neither be found on the local computer nor on the "
+  "server.\n\nDo you want to remove it from the training database?", sample)) == KMessageBox::Yes) {
     //kick some poor samples ass
     ModelManagerUiProxy::getInstance()->startGroup();
     QString sampleBaseName = sample.left(sample.length()-4);
@@ -1805,14 +1805,14 @@ void RecognitionControl::sampleNotAvailable(const QString& sample)
     ModelManagerUiProxy::getInstance()->commitGroup(false /*silent*/);
 
     if (!succ)
-      KMessageBox::error(0, i18n("Could not remove Sample from the Trainingscorpus"));
+      KMessageBox::error(0, i18n("Could not remove sample from the training corpus"));
   }
 }
 
 void RecognitionControl::wordUndefined(const QString& word)
 {
   int ret = KMessageBox::questionYesNoCancel(0,
-    i18n("The word \"%1\" is used in your training-samples but is not contained "
+    i18n("The word \"%1\" is used in your training samples but it is not contained "
     "in your wordlist.\n\nWhat do you want to do?", word), QString(),
     KGuiItem(i18n("Remove samples containing the word"), KIcon("list-remove")),
     KGuiItem(i18n("Add the word"), KIcon("list-add")));
@@ -1824,7 +1824,7 @@ void RecognitionControl::wordUndefined(const QString& word)
       //removing the samples
       if (!TrainingManager::getInstance()->deleteWord(word))
         KMessageBox::information(0,
-          i18n("Failed to remove word \"%1\" from the trainingscorpus", word));
+          i18n("Failed to remove word \"%1\" from the training corpus", word));
       break;
     case KMessageBox::No:
       //adding the word
@@ -1844,7 +1844,7 @@ void RecognitionControl::classUndefined(const QString& undefClass)
 
 void RecognitionControl::phonemeUndefined(const QString& phoneme)
 {
-  KMessageBox::sorry(0, i18n("The Phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
+  KMessageBox::sorry(0, i18n("The phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
 }
 
 
