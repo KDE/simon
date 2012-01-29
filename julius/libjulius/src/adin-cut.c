@@ -1194,7 +1194,7 @@ adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Rec
 	switch(ad_process_ret) {
 	case 1:			/* segmented */
 	  /* segmented by callback function */
-	  /* purge processed samples and keep transfering */
+	  /* purge processed samples and keep transferring */
 	  pthread_mutex_lock(&(a->mutex));
 	  if(a->speechlen > nowlen) {
 	    memmove(a->speech, &(a->speech[nowlen]), (a->speechlen - nowlen) * sizeof(SP16));
@@ -1204,7 +1204,7 @@ adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Rec
 	  }
 	  a->transfer_online = transfer_online_local = FALSE;
 	  pthread_mutex_unlock(&(a->mutex));
-	  /* keep transfering */
+	  /* keep transferring */
 	  return(2);		/* return with segmented status */
 	case -1:		/* error */
 	  pthread_mutex_lock(&(a->mutex));

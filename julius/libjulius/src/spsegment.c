@@ -572,7 +572,7 @@ detect_end_of_segment(RecogProcess *r, int time)
 #ifdef SP_BREAK_DEBUG
       jlog("DEBUG: >> segment [%d..%d]\n", r->am->mfcc->sparea_start, time-1);
 #endif /* SP_BREAK_DEBUG */
-      /* store begining frame of the segment */
+      /* store beginning frame of the segment */
       r->am->mfcc->sparea_start = d->tmp_sparea_start;
 #ifdef SP_BREAK_RESUME_WORD_BEGIN
       /* resume word = most likely sp word on beginning frame of the segment */

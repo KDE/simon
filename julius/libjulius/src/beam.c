@@ -2409,7 +2409,7 @@ beam_inter_word(WCHMM_INFO *wchmm, FSBeam *d, TOKEN2 **tk_ret, TRELLIS_ATOM *tre
     /*********************************************************************/
 
     if (wchmm->hmminfo->multipath) {
-      /* since top node has no ouput, we should go one more step further */
+      /* since top node has no output, we should go one more step further */
       if (wchmm->self_a[next_node] != LOG_ZERO) {
 	propagate_token(d, next_node, tmpsum + wchmm->self_a[next_node], tre, last_word, ngram_score_cache);
 	if (d->expanded) {
@@ -2527,7 +2527,7 @@ beam_inter_word_factoring(WCHMM_INFO *wchmm, FSBeam *d)
     }
 #endif
     if (wchmm->hmminfo->multipath) {
-      /* since top node has no ouput, we should go one more step further */
+      /* since top node has no output, we should go one more step further */
       if (wchmm->self_a[next_node] != LOG_ZERO) {
 	propagate_token(d, next_node, tmpsum + wchmm->self_a[next_node], d->wordend_best_tre, last_word, ngram_score_cache);
 	if (d->expanded) {

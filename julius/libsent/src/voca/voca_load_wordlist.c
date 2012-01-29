@@ -188,7 +188,7 @@ voca_load_wordlist_fp(FILE *fp, WORD_INFO *winfo, HTK_HMM_INFO *hmminfo, char *h
  * @param winfo [out] pointer to word dictionary to append the data.
  * @param hmminfo [in] HTK %HMM definition data.  if NULL, phonemes are ignored.
  * @param do_conv [in] TRUE if performing triphone conversion
- * @param ok_flag [out] will be set to FALSE if an error occured for this input.
+ * @param ok_flag [out] will be set to FALSE if an error occurred for this input.
  * @param headphone [in] word head silence model name
  * @param tailphone [in] word tail silence model name
  * @param contextphone [in] silence context name to be used at head and tail

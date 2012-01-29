@@ -1155,7 +1155,7 @@ wchmm_add_word(WCHMM_INFO *wchmm, int word, int matchlen, int matchword, boolean
 	  }
 	  
 	  ntmp++;
-	  /* expand wchmm if neccesary */
+	  /* expand wchmm if necessary */
 	  if (ntmp >= wchmm->maxwcn) wchmm_extend(wchmm);
         } /* end of state loop */
       }	/* end of phone loop */

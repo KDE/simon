@@ -10,7 +10,7 @@
  * <EN>
  * @brief  Dynamic memory allocation functions
  *
- * When allocation error occured within these functions, the program will
+ * When allocation error occurred within these functions, the program will
  * exit immediately.
  * </EN>
  * 

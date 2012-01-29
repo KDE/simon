@@ -218,7 +218,7 @@ rd_header(FILE *fp, HTK_HMM_INFO *hmm, Value *para, boolean *mpdf_macro_ret)
     if (emp) {
       para->loaded = 1;
       if (rd_para(fp, para) == FALSE) {
-	jlog("Error: read_binhmm: failed to read embeded parameter\n");
+	jlog("Error: read_binhmm: failed to read embedded parameter\n");
 	return FALSE;
       }
       jlog("Stat: read_binhmm: has acoutic analysis configurations in its header\n");

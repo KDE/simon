@@ -126,7 +126,7 @@ get_plugin_info(int opcode, char *buf, int buflen)
  * or rejected, string will be NULL.
  *
  * On short-pause segmentation mode or GMM/Decoder-VAD mode, where
- * an input utterance may be segmented into pieces, this funtion will be
+ * an input utterance may be segmented into pieces, this function will be
  * called for each segment.  On multi decoding, the best hypothesis among
  * all the recognition instance will be given.
  * 

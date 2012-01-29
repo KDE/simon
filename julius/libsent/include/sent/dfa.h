@@ -10,7 +10,7 @@
  * constraint, using the category number of each dictionary word as an input.
  * It also holds lists of words belonging for each categories.
  *
- * Additionaly, the category-pair information will be generated from the given
+ * Additionally, the category-pair information will be generated from the given
  * DFA by extracting allowed connections between categories.  It will be used
  * as a degenerated constraint of word connection at the 1st pass.
  * </EN>

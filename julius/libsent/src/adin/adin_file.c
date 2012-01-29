@@ -128,7 +128,7 @@ myread(void *buf, size_t unitbyte, int unitnum, FILE *fp)
  * 
  * @param fp [in] File pointer
  * 
- * @return TRUE if check successfully passed, FALSE if an error occured.
+ * @return TRUE if check successfully passed, FALSE if an error occurred.
  */
 static boolean
 setup_wav(FILE *fp)
@@ -423,7 +423,7 @@ adin_file_read(SP16 *buf, int sampnum)
     if (cnt == 0) {
       if (feof(fp)) return -1; /* EOF */
       if (ferror(fp)) {
-	jlog("Error: adin_file: an error occured while reading file\n");
+	jlog("Error: adin_file: an error occurred while reading file\n");
 	adin_file_close();
 	return -2; /* error */
       }
@@ -440,7 +440,7 @@ adin_file_read(SP16 *buf, int sampnum)
       if (cnt == 0) {
 	if (feof(fp)) return -1; /* EOF */
 	if (ferror(fp)) {
-	  jlog("Error: adin_file: an error occured file reading file\n");
+	  jlog("Error: adin_file: an error occurred file reading file\n");
 	  adin_file_close();
 	  return -2; /* error */
 	}
@@ -451,7 +451,7 @@ adin_file_read(SP16 *buf, int sampnum)
       if (cnt == 0) {
 	if (feof(fp)) return -1; /* EOF */
 	if (ferror(fp)) {
-	  jlog("Error: adin_file: an error occured file reading file\n");
+	  jlog("Error: adin_file: an error occurred file reading file\n");
 	  adin_file_close();
 	  return -2; /* error */
 	}
@@ -539,7 +539,7 @@ adin_stdin_read(SP16 *buf, int sampnum)
     if (cnt == 0) {
       if (feof(stdin)) return -1; /* EOF */
       if (ferror(stdin)) {
-	jlog("Error: adin_stdin: an error occured while reading stdin\n");
+	jlog("Error: adin_stdin: an error occurred while reading stdin\n");
 	return -2; /* error */
       }
     }
@@ -551,7 +551,7 @@ adin_stdin_read(SP16 *buf, int sampnum)
       if (cnt == 0) {
 	if (feof(stdin)) return -1; /* EOF */
 	if (ferror(stdin)) {
-	  jlog("Error: adin_stdin: an error occured while reading stdin\n");
+	  jlog("Error: adin_stdin: an error occurred while reading stdin\n");
 	  return -2; /* error */
 	}
       }
@@ -561,7 +561,7 @@ adin_stdin_read(SP16 *buf, int sampnum)
       if (cnt == 0) {
 	if (feof(stdin)) return -1; /* EOF */
 	if (ferror(stdin)) {
-	  jlog("Error: adin_stdin: an error occured while reading stdin\n");
+	  jlog("Error: adin_stdin: an error occurred while reading stdin\n");
 	  return -2; /* error */
 	}
       }

@@ -203,7 +203,7 @@ init_param(MFCCCalc *mfcc)
  * @brief  Initializations for the on-the-fly 1st pass decoding.
  *
  * Work areas for all MFCC caculation instances are allocated.
- * Additionaly,
+ * Additionally,
  * some initialization will be done such as allocating work area
  * for spectral subtraction, loading noise spectrum from file,
  * loading initial ceptral mean data for CMN from file, etc.

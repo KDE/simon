@@ -272,12 +272,12 @@ voca_load_line(char *buf, WORD_INFO *winfo, HTK_HMM_INFO *hmminfo)
  * End loading dictionary entries.  It calculates some statistics for
  * the read entries, outputs errors if encountered
  * while the last loading, and returns with status whether an error
- * occured while loading.
+ * occurred while loading.
  * 
  * @param winfo [i/o] word dictionary just read by voca_load_line() calls
  * 
- * @return TRUE when no error has been occured during loading, or FALSE
- * if an error occured.
+ * @return TRUE when no error has been occurred during loading, or FALSE
+ * if an error occurred.
  * 
  */
 boolean
@@ -366,7 +366,7 @@ voca_append_htkdict(char *entry, WORD_INFO *winfo, HTK_HMM_INFO *hmminfo, boolea
  * @param winfo [out] pointer to word dictionary to append the data.
  * @param hmminfo [in] HTK %HMM definition data.  if NULL, phonemes are ignored.
  * @param do_conv [in] TRUE if performing triphone conversion
- * @param ok_flag [out] will be set to FALSE if an error occured for this input.
+ * @param ok_flag [out] will be set to FALSE if an error occurred for this input.
  * 
  * @return FALSE if buf == "DICEND", else TRUE will be returned.
  */

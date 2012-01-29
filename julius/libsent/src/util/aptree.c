@@ -431,7 +431,7 @@ aptree_write(FILE *fp, APATNODE *root, boolean (*save_data_func)(void *, FILE *f
     aptree_write_leaf(fp, root, save_data_func, &err);
   }
   if (err) {
-    jlog("Error: aptree_write: error occured when writing tree leaf data\n");
+    jlog("Error: aptree_write: error occurred when writing tree leaf data\n");
     return FALSE;
   }
 

@@ -122,7 +122,7 @@ adin_pulseaudio_end()
  * @param buf [out] samples obtained in this function
  * @param sampnum [in] wanted number of samples to be read
  * 
- * @return actural number of read samples, -2 if an error occured.
+ * @return actural number of read samples, -2 if an error occurred.
  */
 int
 adin_pulseaudio_read(SP16 *buf, int sampnum)

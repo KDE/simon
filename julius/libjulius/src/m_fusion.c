@@ -54,7 +54,7 @@
  * and find pause model in the definitions.
  *
  * The feature vector extraction parameters are also finally
- * determined in this function.  Informations used for the
+ * determined in this function.  Information used for the
  * determination is (1) the header values in hmmdefs, (2) embedded
  * parameters in binary HMM if you are reading a binary HMM made with
  * recent mkbinhmm, (3) user-specified parameters in jconf

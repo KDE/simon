@@ -112,7 +112,7 @@ typedef struct _HTK_HMM_trans {
   char *name;			///< Name (NULL if not defined as Macro)
   short statenum;		///< Number of state
   PROB **a;			///< Matrix of transition probabilities
-  int id; 			///< Uniq transition id starting from 0
+  int id; 			///< Unique transition id starting from 0
   struct _HTK_HMM_trans *next;  ///< Pointer to next data, NULL if last
 } HTK_HMM_Trans;
 
@@ -173,7 +173,7 @@ typedef struct _HTK_HMM_state {
   short nstream;		///< Num of stream
   HTK_HMM_StreamWeight *w;	///< Pointer to stream weight data, or NULL is not specified
   HTK_HMM_PDF **pdf;	        ///< Array of mixture PDFs for each stream
-  int id; 			///< Uniq state id starting from 0 for caching of output probability
+  int id; 			///< Unique state id starting from 0 for caching of output probability
   struct _HTK_HMM_state *next;  ///< Pointer to next data, NULL if last
 } HTK_HMM_State;
 
@@ -191,7 +191,7 @@ typedef struct {
   char *name;			///< Codebook name (NULL if not defined as Macro)
   int num;			///< Number of mixtures in this codebook
   HTK_HMM_Dens **d;		///< Array of links to mixture instances
-  unsigned short id;            ///< Uniq id for caching of output probability
+  unsigned short id;            ///< Unique id for caching of output probability
 } GCODEBOOK;
 //@}
 
