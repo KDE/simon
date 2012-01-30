@@ -54,7 +54,7 @@ This can take some time...</string>
       </font>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string comment="KDE::DoNotExtract">TextLabel</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
