@@ -27,7 +27,7 @@ class KFileDialog;
 class QWizardPage;
 
 /**
- * \brief Guides the user through the process of adding a new trainingtext
+ * \brief Guides the user through the process of adding a new training text
  *
  * This class shows a Wizard that walks the user through that process
  *

@@ -2001,7 +2001,7 @@ The add texts wizard provides a simple way to add new training texts to simon.
 <sect2 id="import_training-data">
 <title>Importing Training Samples</title>
 <para>
-Using the import training data field you can import previously gathered training samples from previous simon versions or manual trainings without copying the whole dictionary.</para>
+Using the import training data field you can import previously gathered training samples from previous simon versions or manual training without copying the whole dictionary.</para>
 
 <para>
 This feature is very specific. Please use it with caution and make sure that you know exactly what you are doing before you continue.

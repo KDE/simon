@@ -73,7 +73,7 @@
 
 <para>Like simon / simond, &kmyapplication; is a client to the sscd server.</para>
 
-<para>&kmyapplication; will collect samples through trainings procedures and send them to the sscd server.</para>
+<para>&kmyapplication; will collect samples through training procedures and send them to the sscd server.</para>
 
 <para>The system also collects useful metadata to the samples like names (or aliases) of the recorded people, their speaking niveau, possible impairments, etc. Information about the used recording equipment is also stored. This and other information is stored on the server side in a database. Please refer to the <ulink url="help:/sscd">sscd manual</ulink> for more information.</para>
 
@@ -237,11 +237,11 @@
   </para>
 
   <sect2 id="files">
-    <title>Setting up trainings material</title>
-    <para>Before you can use ssc you will likely want to adjust the trainings prompts for the recordings.</para>
+    <title>Setting up training material</title>
+    <para>Before you can use ssc you will likely want to adjust the training prompts for the recordings.</para>
     <para>They are three, one for each training type, simple text files containing one line per prompt. The encoding is UTF-8.</para>
     <para>Their location depends on your operation system:
-      <table frame='all'><title>Trainings data files</title>
+      <table frame='all'><title>Training data files</title>
       <tgroup cols='2' align='left' colsep='1' rowsep='1'>
       <colspec colname='c1'/>
       <colspec colname='c2'/>
@@ -273,7 +273,7 @@
       </itemizedlist>
     </para>
   </sect2>
-  <sect2 id="trainingsprocess">
+  <sect2 id="trainingprocess">
     <title>The training</title>
 
     <para>To launch a training session, simply press the appropriate button for your training type in the ssc main window.</para>
@@ -313,7 +313,7 @@
       </screenshot>
       </para>
       <para>In power training mode samples will start to be recording as soon as the associated prompt is displayed. You can then proceed to the next page simply by pressing <guibutton>Next</guibutton> in the wizard. When you do that the current recording will be stored, written and the next sample will start recording.</para>
-      <para>Using the power training option an averagely proficient speaker can complete the trainings process much quicker. However, because you don't have a break between individual prompts it might be more taxing for the speaker.</para>
+      <para>Using the power training option an averagely proficient speaker can complete the training process much quicker. However, because you don't have a break between individual prompts it might be more taxing for the speaker.</para>
       <para>Of course the power training is not an option when letting the speaker repeat what the facilitator says as the latter will invariably be heard on the created recordings.</para>
     </sect3>
     <sect3>
@@ -424,13 +424,13 @@
   </para>
 
   <para>
-    The list contains all locally stored trainings sessions. Each session is identified by the user id (first) and the exact date and time it was recorded (second).
+    The list contains all locally stored training sessions. Each session is identified by the user id (first) and the exact date and time it was recorded (second).
   </para>
   <para>When recording in <link linkend="offline_mode">offline mode</link> the system doesn't know what user ids do exist. As such you have to either know the correct user id or guess.</para>
 
   <para>Before uploading the sample, you can change the previously set user id by clicking <guibutton>Edit user</guibutton>.</para>
 
-  <para>If you press <guibutton>Upload</guibutton>, the training session will be restored and you get the possibility to hear / re-record all the trainings samples again before sending them to the server.</para>
+  <para>If you press <guibutton>Upload</guibutton>, the training session will be restored and you get the possibility to hear / re-record all the training samples again before sending them to the server.</para>
 
   <para>Once uploaded, the samples are removed from the local computer.</para>
 

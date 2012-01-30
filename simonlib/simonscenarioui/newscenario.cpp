@@ -199,8 +199,8 @@ Scenario* NewScenario::editScenario(Scenario *s)
   kDebug() << "Scenario initialized: " << success;
   if (!success)
     KMessageBox::sorry(this, i18n("Original scenario could not be read.\n\n"
-      "If you continue, all data (vocabulary, grammar, commands, trainings "
-      "text) of the scenario will be lost!"));
+      "If you continue, all data (vocabulary, grammar, commands, training "
+      "texts) of the scenario will be lost!"));
 
   displayScenario(s);
   if (exec()) {

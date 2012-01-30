@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="lbDesc">
      <property name="text">
-      <string>Here you can import text files to use them as trainingtexts.
+      <string>Here you can import text files to use them as training texts.
 
 Please ensure that the file you import is a plain text document (.txt).</string>
      </property>
@@ -44,7 +44,7 @@ Please ensure that the file you import is a plain text document (.txt).</string>
      <item row="0" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string comment="Name of the trainings text">Name:</string>
+        <string comment="Name of the training text">Name:</string>
        </property>
       </widget>
      </item>

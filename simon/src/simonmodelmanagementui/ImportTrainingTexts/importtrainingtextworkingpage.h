@@ -25,7 +25,7 @@
 
 /**
  * \class ImportTrainingTextWorkingPage
- * \brief Imports the given trainingstext
+ * \brief Imports the given training text
  * \author Peter Grasch
  * \version 0.1
  */
