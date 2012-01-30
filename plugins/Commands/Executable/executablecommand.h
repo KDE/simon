@@ -63,7 +63,7 @@ class ExecutableCommand : public Command
     const QString getExecutable() const { return this->exe; }
 
     /**
-     * @brief Returns the directory, the executable should be executed in (optional)
+     * @brief Returns the folder, the executable should be executed in (optional)
      *
      * @author Peter Grasch
      */

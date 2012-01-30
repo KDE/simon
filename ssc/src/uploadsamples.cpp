@@ -98,7 +98,7 @@ void UploadSamples::remove()
   succ = d.rmdir(path) && succ;
 
   if (!succ)
-    KMessageBox::sorry(this, i18nc("%1 is path", "The directory could not be removed:\n%1", path));
+    KMessageBox::sorry(this, i18nc("%1 is path", "The folder could not be removed:\n%1", path));
 
   initDisplay();
 }
@@ -126,7 +126,7 @@ void UploadSamples::edit()
   QDir storedDirectory(rootDirectory);
   if (!storedDirectory.cd(newDirectory)) {
     if (!storedDirectory.mkdir(newDirectory)) {
-      KMessageBox::sorry(this, i18nc("%1 is target directory destination", "Failed to create target directory at \"%1\"",
+      KMessageBox::sorry(this, i18nc("%1 is target folder destination", "Failed to create target folder at \"%1\"",
         newDirectory));
       return;
     }

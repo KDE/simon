@@ -222,7 +222,7 @@ The acoustic model uses the fact that spoken words are composed of sounds much l
 </para>
 
 <para>
-Because the acoustic model actually represents how you speak the phonemes of the words, trainings material is shared among all words that use the same phonemes.
+Because the acoustic model actually represents how you speak the phonemes of the words, training material is shared among all words that use the same phonemes.
 </para>
 <para>
 That means if you add the word <quote>clothes</quote> to the language model, your acoustic model already has an idea how the <quote>clo</quote> part is going to sound as they share the same phonemes (<quote>k</quote>, <quote>l</quote>, <quote>ow</quote>) at the beginning.
@@ -239,7 +239,7 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 <title>Scenarios</title>
 
 <para>
-One scenario makes up one complete use case of simon. To control firefox, for example, the user just installs the firefox scenario.
+One scenario makes up one complete use case of simon. To control Firefox, for example, the user just installs the Firefox scenario.
 </para>
 
 <para>
@@ -247,7 +247,7 @@ Each scenario consists of the following components:
 <itemizedlist>
 <listitem><para><link linkend="vocabulary">Vocabulary</link>&nbsp;</para></listitem>
 <listitem><para><link linkend="grammar">Grammar</link>&nbsp;</para></listitem>
-<listitem><para><link linkend="training">Trainingstexts</link>&nbsp;</para></listitem>
+<listitem><para><link linkend="training">Training texts</link>&nbsp;</para></listitem>
 <listitem><para><link linkend="commands">Commands</link>&nbsp;</para></listitem>
 </itemizedlist>
 </para>
@@ -696,10 +696,10 @@ To make the adding of words easier, you can import a <link linkend="shadow_dicti
 <sect2>
 <title>Acoustic Model</title>
 <para>
-To create your own acoustic model you can simple <link linkend="training">read the trainings texts</link> that come with your selected scenarios a couple of times.
+To create your own acoustic model you can simple <link linkend="training">read the training texts</link> that come with your selected scenarios a couple of times.
 </para>
 <para>
-If you are creating your own scenario you can easily <link linkend="training">create trainingstexts yourself</link>.
+If you are creating your own scenario you can easily <link linkend="training">create training texts yourself</link>.
 </para>
 <para>
 You can, however use <link linkend="base_model_use">static or adapted base models</link> to avoid using the HTK or to improve the recognition rate.
@@ -1419,7 +1419,7 @@ The dialog offers four choices:
   <listitem><para>Remove the word completely</para>
   <para>Just remove the word. All the recordings containing the word will be removed too.</para>
   <para>This option leaves no trace of neither the word itself nor the associated samples.</para>
-  <para>Because samples are global (not assigned to scenarios), even samples recorded from trainings session of other scenarios might be removed as well if they contain the word. Use this option carefully.</para>
+  <para>Because samples are global (not assigned to scenarios), even samples recorded from training sessions of other scenarios might be removed as well if they contain the word. Use this option carefully.</para>
   </listitem>
 </itemizedlist>
 </para>
@@ -1829,11 +1829,11 @@ simon provides an easy to use text based interface to change the grammar. You ca
 <para>Using the Training-module, you can improve your <link linkend="acoustic_model">acoustic model</link>. </para>
 
 <para>
-The interface lists all installed trainings-texts in a table consisting of three columns:
+The interface lists all installed training texts in a table with three columns:
 <itemizedlist>
 <listitem><para>Name</para><para>A descriptive name for the text.</para></listitem>
 <listitem><para>Pages</para><para>The number of <quote>pages</quote> the text consists of. Each page represents one recording.</para></listitem>
-<listitem><para>Recognition Rate</para><para>Analogue to the vocabulary; represents how likely simon will recognize the words (higher is better). The recognition rate of the trainings-text is the average recognition rate of all the words in the text.</para></listitem>
+<listitem><para>Recognition Rate</para><para>Analogue to the vocabulary; represents how likely simon will recognize the words (higher is better). The recognition rate of the training text is the average recognition rate of all the words in the text.</para></listitem>
 </itemizedlist>
 
 <screenshot>
@@ -1847,7 +1847,7 @@ The interface lists all installed trainings-texts in a table consisting of three
 </para>
 
 <para>
-To improve the acoustic model - and thus the recognition rate - you have to record trainings-texts. This means that simon gets essentially two needed parts:
+To improve the acoustic model - and thus the recognition rate - you have to record training texts. This means that simon gets essentially two needed parts:
 </para>
 
 <itemizedlist>
@@ -1856,7 +1856,7 @@ To improve the acoustic model - and thus the recognition rate - you have to reco
 </itemizedlist>
 
 <para>
-The active dictionary is used to transcribe the words (mapping them from the actual word to its phonetic transcription) that make up the text so every word contained in the trainings-text you want to read (train) has to be contained in your active dictionary. simon will warn you if this is not the case and provide you with the possibility to add all the missing words in one go.
+The active dictionary is used to transcribe the words (mapping them from the actual word to its phonetic transcription) that make up the text so every word contained in the training text you want to read (train) has to be contained in your active dictionary. simon will warn you if this is not the case and provide you with the possibility to add all the missing words in one go.
 </para>
 
 <screenshot>
@@ -1873,7 +1873,7 @@ The procedure is the same as if you would <link linkend="add_word">add a single 
 </para>
 
 <para>
-The training (reading) of the trainings-text works exactly the same as the initial training when adding a new word.</para>
+The training (reading) of the training text works exactly the same as the initial training when adding a new word.</para>
 
 <para>Make sure you follow the guidelines listed in the <link linkend="recording">recording section</link>.</para>
 <para>
@@ -1892,15 +1892,15 @@ The training (reading) of the trainings-text works exactly the same as the initi
 <sect2 id="training_storage">
 <title>Storage Directories</title>
 <para>
-Trainings-texts are stored at two different locations:
+Training texts are stored in two different locations:
 <itemizedlist>
   <listitem><para>Linux: <filename>~/.kde/share/apps/simon/texts</filename></para>
             <para>Windows: <filename>%appdata%\.kde\share\apps\simon\texts</filename></para>
           <para>The texts of the current user. Can be deleted and added with simon (see below).</para></listitem>
   <listitem><para>Linux: <filename>`kde4-config --prefix`/share/apps/simon/texts</filename></para>
-            <para>Windows: <filename>(install directory)\share\apps\simon\texts</filename></para>
-          <para>System wide texts. They will appear on every user account using simon on this machine and cannot be deleted from within simon because of the obvious permission restrictions on system wide files.</para>
-          <para>This folder can be used by system administrators to provide a common set of trainings-texts for all the users on one system.</para>
+            <para>Windows: <filename>(install folder)\share\apps\simon\texts</filename></para>
+          <para>System-wide texts. They will appear on every user account using simon on this machine and cannot be deleted from within simon because of the obvious permission restrictions on system-wide files.</para>
+          <para>This folder can be used by system administrators to provide a common set of training texts for all the users on one system.</para>
           </listitem>
 </itemizedlist>
 </para>
@@ -1912,7 +1912,7 @@ Trainings-texts are stored at two different locations:
 <title>Adding Texts</title>
 <para>
 <screenshot>
-<screeninfo>Import-trainings-texts-wizard</screeninfo>
+<screeninfo>Import-training-texts-wizard</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="import_text_1.png" format="PNG"/>
@@ -1920,20 +1920,20 @@ Trainings-texts are stored at two different locations:
   </mediaobject>
 </screenshot>
 
-The add texts wizard provides a simple way to add new trainings-texts to simon.
+The add texts wizard provides a simple way to add new training texts to simon.
 </para>
 
 <para>When importing text files, simon will automatically try to recognize individual sentences and split the text into appropriate <quote>pages</quote> (recordings). The algorithm treats text between <quote>normal</quote> punctuation (<quote>.</quote>, <quote>!</quote>, <quote>?</quote>, <quote>...</quote>, <quote>"</quote>,...) and line breaks as <quote>sentences</quote>. Each <quote>sentence</quote> will be on its own page.</para>
 
 <para>
-  simon supports two different sources for new trainings-texts.
+  simon supports two different sources for new training texts.
 </para>
 
 <sect3>
-  <title>Add trainings-texts</title>
+  <title>Add training texts</title>
             <para>
       <screenshot>
-      <screeninfo>Import-trainings-texts-wizard: Add trainings-texts</screeninfo>
+      <screeninfo>Import-training-texts-wizard: Add training texts</screeninfo>
         <mediaobject>
           <imageobject>
             <imagedata fileref="import_text_4.png" format="PNG"/>
@@ -1941,14 +1941,14 @@ The add texts wizard provides a simple way to add new trainings-texts to simon.
         </mediaobject>
       </screenshot>
 
-        Simply enter the trainingstext in an input field.</para>
+        Simply enter the training text in an input field.</para>
 </sect3>
 <sect3>
   <title>Local text files</title>
 
     <para>
       <screenshot>
-      <screeninfo>Import-trainings-texts-wizard: Local text files</screeninfo>
+      <screeninfo>Import-training-texts-wizard: Local text files</screeninfo>
         <mediaobject>
           <imageobject>
             <imagedata fileref="import_text_3.png" format="PNG"/>
@@ -1956,16 +1956,16 @@ The add texts wizard provides a simple way to add new trainings-texts to simon.
         </mediaobject>
       </screenshot>
 
-    simon can import normal text files to use them as trainings-texts.</para>
+    simon can import normal text files to use them as training texts.</para>
 </sect3>
 
 </sect2>
 
 <sect2 id="special_training">
-<title>On The Fly Training</title>
-<para>Additionally to trainings-texts, simon also allows to train individual words or word combinations from your dictionary on-the-fly.</para>
+<title>On-The-Fly Training</title>
+<para>In addition to training texts, simon also allows to train individual words or word combinations from your dictionary on-the-fly.</para>
 
-<para>This feature is located in the vocabulary-menu of simon.</para>
+<para>This feature is located in the vocabulary menu of simon.</para>
 
 <para>
 <screenshot>
@@ -1980,7 +1980,7 @@ The add texts wizard provides a simple way to add new trainings-texts to simon.
 
 <para>Select the words to train from the vocabulary on the left and simply drag them to the selection list to the right (you could also select them in the table on the left and add them by clicking <guibutton>Add to Training</guibutton>).</para>
 
-<para>Start the training by selecting <guibutton>Train selected words</guibutton>. The training itself is exactly the same as if it were a pre-composed trainings-text.</para>
+<para>Start the training by selecting <guibutton>Train selected words</guibutton>. The training itself is exactly the same as if it were a pre-composed training text.</para>
 
 <para>
 <screenshot>
@@ -1998,10 +1998,10 @@ The add texts wizard provides a simple way to add new trainings-texts to simon.
 <para>Of course you are free to add words from the shadow lexicon to the list of words to train but simon will prompt you to add the words before the training starts just like he would if you would train a text that contains unknown words (see above).</para>
 </sect2>
 
-<sect2 id="import_trainings-data">
-<title>Importing Trainings Samples</title>
+<sect2 id="import_training-data">
+<title>Importing Training Samples</title>
 <para>
-Using the import trainings-data field one can import previously gathered trainings-samples from previous simon versions or manual trainings without copying the whole dictionary.</para>
+Using the import training data field you can import previously gathered training samples from previous simon versions or manual trainings without copying the whole dictionary.</para>
 
 <para>
 This feature is very specific. Please use it with caution and make sure that you know exactly what you are doing before you continue.
@@ -2020,14 +2020,14 @@ When using file based transcriptions, a file called this_is_a_test.wav <emphasis
 <para>Files recorded by simon 0.2 <emphasis>will</emphasis> follow this naming scheme so you can safely import them using the file name extraction method. Files generated by previous simon versions should not be imported using this function but you can use the prompts based import for that.</para>
 
 <para>
-Imported files and their transcription are then added to the trainings corpus.
+Imported files and their transcription are then added to the training corpus.
 </para>
 
 <para>
-To import a directory containing trainings-samples just select the folder to import and depending on your import type also the prompts file.
+To import a folder containing training samples just select the folder to import and depending on your import type also the prompts file.
 
 <screenshot>
-<screeninfo>Import-trainings-data-wizard</screeninfo>
+<screeninfo>Import-training-data-wizard</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="import_training_data_1.png" format="PNG"/>
@@ -2152,9 +2152,9 @@ Some command plugins might provide a configuration of the plugin itself (not the
 
 <para>Given the executable file <filename>C:\Program Files\Mozilla Firefox\firefox.exe</filename> the local html file <filename>C:\test file.html</filename> the correct line for the <guilabel>Executable</guilabel> would be: <filename>"C:\Program Files\Mozilla Firefox\firefox.exe" "C:\test file.html"</filename>.</para>
 
-<para>The working directory defines where the process should be launched from. Given the working directory <filename>C:\folder</filename>, the command <filename>"C:\Program Files\Mozilla Firefox\firefox.exe" file.html</filename> would cause firefox to search for the file <filename>C:\folder\file.html</filename>.</para>
+<para>The working folder defines where the process should be launched from. Given the working folder <filename>C:\folder</filename>, the command <filename>"C:\Program Files\Mozilla Firefox\firefox.exe" file.html</filename> would cause Firefox to search for the file <filename>C:\folder\file.html</filename>.</para>
 
-<para>The working directory does not normally need to be set and can be left blank most of the time.</para>
+<para>The working folder usually does not need to be set and can be left blank most of the time.</para>
 
 <sect3 id="importing_executable_commands">
 <title>Importing Programs</title>
@@ -2175,7 +2175,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 
 <para>Sub-Categories are not supported and are thus listed on the same level as top-level categories.</para>
 
-<para>Just select the program you wish to start with simon and press <guibutton>Ok</guibutton>. The correct values for the executable and the working directory as well as an appropriate command name and description will automatically be filled out for you.</para>
+<para>Just select the program you wish to start with simon and press <guibutton>Ok</guibutton>. The correct values for the executable and the working folder as well as an appropriate command name and description will automatically be filled out for you.</para>
 
 </sect3>
 
@@ -2612,16 +2612,16 @@ By default the input number plugin uses numbers to select the individual digits 
 The plugin registers a configuration screen in the command configuration menu where you can choose which AIML set to load.
 </para>
 
-<para>simon will look for AIML sets in the following directory:
+<para>simon will look for AIML sets in the following folder:
 <itemizedlist>
 <listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/aimls/</filename></para></listitem>
 <listitem><para>Microsoft Windows: <filename>[installation folder (C:\Program Files\simon 0.2\ by default)]\share\apps\ai\aimls\</filename></para></listitem>
 </itemizedlist>
-To add a new set just create a new directory with a descriptive name and copy the .aiml files into it.
+To add a new set just create a new folder with a descriptive name and copy the .aiml files into it.
 </para>
 
 <para>
-To adjust your bots personality have a look at the bot.xml and vars.xml files in the following directory:
+To adjust your bots personality have a look at the bot.xml and vars.xml files in the following folder:
 <itemizedlist>
 <listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename></para></listitem>
 <listitem><para>Microsoft Windows: <filename>[installation folder (C:\Program Files\simon 0.2\ by default)]\share\apps\ai\util\</filename></para></listitem>
@@ -2906,7 +2906,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
 <para>If you use more than one device for training, you will create multiple sound files for each utterance. When using multiple devices for recognition each one feeds a separate sound input stream to the server resulting in recognition results for each stream.</para>
 
-<para>If you use multiple output devices the playback of the trainings samples will play on all configured audio devices.</para>
+<para>If you use multiple output devices the playback of the training samples will play on all configured audio devices.</para>
 
 <para>When using different sample rates for your input devices, the output will only play on matching output devices. If you for example have one input device configured to use 16kHz and the other to use 48kHz, the playback of samples generated by the first one will only play on 16kHz outputs, the other one only on 48kHz devices.</para>
 </sect3>
@@ -2974,7 +2974,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 <para>Here you can also define the required signal to noise ratio for simon to consider a training sample to be correct. See the <link linkend="sample_quality_assurance">Sample Quality Assurance</link> section for more details.</para>
 <para>On this configuration page you can also set the parameters for the <link linkend="volume_calibration">volume calibration</link>.</para>
 
-<para>It can be deactivated for both the add word dialog and the trainings wizard by unchecking the group box itself. As long as the volume is not louder than the minimum volume simon will prompt the user to raise the microphone volume. If the recording hits the maximum volume once, simon will tell the user to lower the volume.</para>
+<para>It can be deactivated for both the add word dialog and the training wizard by unchecking the group box itself. As long as the volume is not louder than the minimum volume simon will prompt the user to raise the microphone volume. If the recording hits the maximum volume once, simon will tell the user to lower the volume.</para>
 <para>Clipping (hitting the maximum amplitude) will always cause a <quote>too loud</quote> warning.</para>
 <para>The prompted text can be configured by entering text in the input field below. If the edit is empty a default text will be used.</para>
 </sect3>
@@ -2998,7 +2998,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
 <para>Given the program <application>process_audio</application> which takes the input- and output files as its arguments (&eg;: <command>process_audio in.wav out.wav</command>) the postprocessing command would be: <userinput>process_audio %1 %2</userinput>. The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
 
-<para>The switch to <quote>apply filters to recordings recorded with simon</quote> enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_trainings-data">import trainings-data wizard</link>).</para>
+<para>The switch to <quote>apply filters to recordings recorded with simon</quote> enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_training-data">import training data wizard</link>).</para>
 
 <para>One common use-case of postprocessing chains would be the resampling of audio because of hardware limitations. Given a soundcard that does not support mono 16kHz recordings but only supports 44100Hz stereo (<acronym>CD</acronym>) recordings, one could use the free command line sound processing utility <ulink url="http://sox.sourceforge.net">SoX</ulink> to resample the recorded files after the recording.</para>
 <para>This example would require the following postprocessing command:
@@ -3029,7 +3029,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
 <para>Usually either 16kHz or 8kHz models are built / used. 16kHz models will have higher accuracy over 8kHz models. Going higher than 16kHz is not recommended as it is very cpu-intensive and in practice probably won't result in higher recognition rates.</para>
 
-<para>Moreover, the path to the trainings-samples can be adjusted. However, be sure that the previously gathered trainings-samples are also moved to the new location. If you use automatic synchronization the simond would alternatively also provide simon with the missing sample but copying them manually is still recommended for performance reasons.</para>
+<para>Moreover, the path to the training samples can be adjusted. However, be sure that the previously gathered training samples are also moved to the new location. If you use automatic synchronization the simond would alternatively also provide simon with the missing sample but copying them manually is still recommended for performance reasons.</para>
 
 </sect2>
 
@@ -3037,7 +3037,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 <sect2 id="configuration_model_extensions">
 <title>Model Extensions</title>
 
-<para>Using the model (internet) extensions simon can fetch additional resources around your speech model from the internet. At the moment only the download of trainings-texts is supported but more features are planned for the future.</para>
+<para>Using the model (internet) extensions simon can fetch additional resources around your speech model from the internet. At the moment only the download of training texts is supported but more features are planned for the future.</para>
 <para>
 <screenshot>
 <screeninfo>Model Extensions</screeninfo>
@@ -3158,7 +3158,7 @@ However, if you want more control you can instruct simon to ask you before start
 
 <para>After you have connected to the server, you can select one of the available models and restore it by clicking on <guimenuitem>Restore Model</guimenuitem>.</para>
 
-<para>Please note that the synchronization will only accept complete source models (containing a vocabulary, a grammar and some trainingssamples) so incomplete models will not be stored on the server and thus not be backed up.</para>
+<para>Please note that the synchronization will only accept complete source models (containing a vocabulary, a grammar and some training samples) so incomplete models will not be stored on the server and thus not be backed up.</para>
 
 </sect3>
 </sect2>

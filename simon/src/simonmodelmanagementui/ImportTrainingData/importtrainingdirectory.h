@@ -29,7 +29,7 @@ class ImportTrainingDirectoryWorkingPage;
 /**
   \class ImportTrainingDirectory
   \author Peter Grasch
-  \brief The wizard to import a training-directory
+  \brief The wizard to import a training folder
 */
 class ImportTrainingDirectory : public SimonWizard
 {

@@ -62,7 +62,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Working Directory:</string>
+        <string>Working folder:</string>
        </property>
       </widget>
      </item>

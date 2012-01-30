@@ -803,7 +803,7 @@ void SamView::getBuildPathsFromSimon()
 
 QString SamView::getTargetDirectory()
 {
-  KMessageBox::information(this, i18n("You now have to provide a (preferably empty) directory where you want to serialize the scenarios to"), QString(), i18n("Do not ask again"));
+  KMessageBox::information(this, i18n("You now have to provide a (preferably empty) folder where you want to serialize the scenarios to"), QString(), i18n("Do not ask again"));
   QString path = KFileDialog::getExistingDirectory(KUrl(), this, i18n("Serialized scenario output"));
   if (!path.isEmpty())
     path += QDir::separator();

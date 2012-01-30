@@ -253,7 +253,7 @@
       </thead>
       <tbody>
       <row>
-        <entry><filename>%installation directory%\texts\</filename></entry>
+        <entry><filename>%installation folder%\texts\</filename></entry>
         <entry><filename>`kde4-config --install data`/ssc/texts/</filename></entry>
       </row>
       </tbody>
@@ -261,7 +261,7 @@
       </table>
     </para>
     <para>
-      The path for GNU/Linux uses an inline command to resolve the installation directory for you. You can also run <command>kde4-config --install data</command> in a shell to find out the exact path. On Microsoft Windows you have to fill in the installation directory for yourself. Usually this will be something like <filename>C:\Program files\simon 0.3\</filename> or similar.
+      The path for GNU/Linux uses an inline command to resolve the installation folder for you. You can also run <command>kde4-config --install data</command> in a shell to find out the exact path. On Microsoft Windows you have to fill in the installation folder for yourself. Usually this will be something like <filename>C:\Program files\simon 0.3\</filename> or similar.
     </para>
     <para>
 

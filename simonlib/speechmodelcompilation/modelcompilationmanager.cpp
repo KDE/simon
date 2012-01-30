@@ -418,7 +418,7 @@ bool ModelCompilationManager::startCompilation(ModelCompilationManager::Compilat
 void ModelCompilationManager::run()
 {
   if (!createDirs())
-    analyseError(i18nc("%1 is path to the temporary directory", "Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
+    analyseError(i18nc("%1 is path to the temporary folder", "Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
   fprintf(stderr, "Temp dir in run(): %s\n", tempDir.toUtf8().data());
 

@@ -8,7 +8,7 @@
 <kcfgfile />
   <group name="Extension">
     <entry name="BompDownloadBase" type="String">
-      <label>The url to the online text-list to get new trainingstexts.</label>
+      <label>The url to the online text list to get new training texts.</label>
       <default>http://simon-listens.org/bomp</default>
       <tooltip>The URL to the online directory where to get the BOMP dictionary.</tooltip>
     </entry>

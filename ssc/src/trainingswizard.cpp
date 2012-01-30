@@ -250,7 +250,7 @@ bool TrainingsWizard::cleanUp()
     }
   }
   if (!all)
-    KMessageBox::sorry(this, i18nc("%1 is path", "Could not clean sample directory %1.\n\nPlease remove all files manually", sampleDirectory));
+    KMessageBox::sorry(this, i18nc("%1 is path", "Could not clean up sample folder %1.\n\nPlease remove all files manually", sampleDirectory));
   return all;
 }
 

@@ -65,7 +65,7 @@
       <tooltip>Default to power training.</tooltip>
     </entry>
     <entry name="SampleDirectory" type="String">
-      <label>the temporary directory where the samples are stored.</label>
+      <label>the temporary folder where the samples are stored.</label>
       <default code="true">KStandardDirs::locateLocal("appdata", "samples/")</default>
       <tooltip>Directory to store the samples in.</tooltip>
     </entry>

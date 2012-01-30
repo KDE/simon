@@ -29,7 +29,7 @@ class ImportTrainingData;
  * \class ImportTrainingDirectoryWorkingPage
  * \author Peter Grasch
  * \version 0.1
- * \brief Imports the given directory
+ * \brief Imports the given folder
  *
  * Starts the import process per importDir():
  *   * Create Prompts

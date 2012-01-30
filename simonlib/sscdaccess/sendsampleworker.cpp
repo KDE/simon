@@ -112,7 +112,7 @@ bool SendSampleWorker::sendSamples()
         emit error(i18nc("%1 is a path", "Profile information could not be removed: %1.", m_storageDirectory+"/profile.ini"));
       QDir d(m_storageDirectory);
       if (d.exists(m_storageDirectory) && !d.rmdir(m_storageDirectory))
-        emit error(i18nc("%1 is a path", "Storage directory could not be removed: %1.", m_storageDirectory));
+        emit error(i18nc("%1 is a path", "Storage folder could not be removed: %1.", m_storageDirectory));
     }
     emit finished();
   } else
