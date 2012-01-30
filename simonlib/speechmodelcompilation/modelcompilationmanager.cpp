@@ -1874,7 +1874,7 @@ bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, cons
     command += additionalParameters+" ";
 
   //Pruning threshold (was: 3000.0 / 1000.0)
-  command += "-I \""+mlf+"\" -t 250.0 50.0 3000.0 ";
+  command += "-I \""+mlf+"\" -t 250.0 150.0 3000.0 ";
   if (useStats)
     command += "-s \""+htkIfyPath(tempDir)+"/stats\" ";
 
