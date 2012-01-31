@@ -8,19 +8,19 @@
 <kcfgfile name="ksimondrc" />
   <group name="KSimond">
     <entry name="AutoStart" type="Bool">
-      <label>should ksimond start on KDE start?</label>
+      <label>Whether we want to start ksimond when KDE is started.</label>
       <default>false</default>
-      <tooltip>Should ksimond start on KDE start?</tooltip>
+      <tooltip>Whether we want to start ksimond when KDE is started.</tooltip>
     </entry>
     <entry name="AutoStartSimond" type="Bool">
-      <label>whether we want to start simond automatically.</label>
+      <label>Whether we want to start simond automatically.</label>
       <default>true</default>
       <tooltip>Whether we want to start simond automatically.</tooltip>
     </entry>
     <entry name="AutoReStartSimond" type="Bool">
-      <label>whether we want to start simond automatically after it quit unexpectedly.</label>
+      <label>Whether we want to start simond automatically after it has quit unexpectedly.</label>
       <default>true</default>
-      <tooltip>Whether we want to start simond automatically after it quit unexpectedly.</tooltip>
+      <tooltip>Whether we want to start simond automatically after it has quit unexpectedly.</tooltip>
     </entry>
   </group>
 </kcfg>

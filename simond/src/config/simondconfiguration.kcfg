@@ -13,20 +13,20 @@
       <tooltip>The port to use for the server.</tooltip>
     </entry>
     <entry name="BindTo" type="Bool">
-      <label>Whether we want to restrict access to a certain ip.</label>
+      <label>Whether we want to restrict access to a certain IP address.</label>
       <default>true</default>
-      <tooltip>Whether we want to restrict access to a certain ip.</tooltip>
+      <tooltip>Whether we want to restrict access to a certain IP address.</tooltip>
     </entry>
     <entry name="Host" type="String">
       <label>The only host allowed to connect to the server.</label>
       <default>127.0.0.1</default>
       <tooltip>The only host allowed to connect to the server.</tooltip>
     </entry>
-    
+
     <entry name="LimitedWriteAccess" type="Bool">
-      <label>Whether we want to restrict write access to a certain ip.</label>
+      <label>Whether we want to restrict write access to a certain IP address.</label>
       <default>true</default>
-      <tooltip>Whether we want to restrict write access to a certain ip.</tooltip>
+      <tooltip>Whether we want to restrict write access to a certain IP address.</tooltip>
     </entry>
     <entry name="WriteAccessHost" type="String">
       <label>The only host allowed to write.</label>
@@ -47,7 +47,6 @@
       <label>The path to the SSL certificate.</label>
       <tooltip>The path to the SSL certificate.</tooltip>
     </entry>
-    
   </group>
   <group name="User">
     <entry name="KeepRecognitionSamples" type="Bool">
@@ -68,7 +67,6 @@
       <tooltip>The path to the database.</tooltip>
     </entry>
   </group>
-
   <group name="ModelManagement">
     <entry name="ModelBackups" type="Int">
       <label>How many model versions we should preserve.</label>
