@@ -240,7 +240,7 @@ void TTSSettings::addSet()
   if (!ok) return;
 
   if (!sets->addSet(setName))
-    KMessageBox::sorry(this, i18n("Could not add set: %1", setName));
+    KMessageBox::sorry(this, i18nc("%1 is the name of the set", "Could not add set: %1", setName));
 
   emit changed(true);
   displaySets();
