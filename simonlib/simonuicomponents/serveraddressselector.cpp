@@ -32,11 +32,11 @@ ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 {
   QHBoxLayout *lay = new QHBoxLayout(this);
   leServerAddress = new KLineEdit(this);
-  leServerAddress->setToolTip(i18n("IP address or hostname and port using &lt;host&gt;:&lt;port&gt;"));
+  leServerAddress->setToolTip(i18n("IP address or host name and port using &lt;host&gt;:&lt;port&gt;"));
   pbSelectServerAddress = new QToolButton(this);
 
   pbSelectServerAddress->setIcon(KIcon("go-previous"));
-  pbSelectServerAddress->setText(i18n("Add new Host"));
+  pbSelectServerAddress->setText(i18n("Add new host"));
   pbSelectServerAddress->setToolTip(i18n("Select a new host / port."));
 
   // 	leServerAddress->setReadOnly(true);
@@ -62,7 +62,7 @@ void ServerAddressSelector::displayAddDialog()
     int port = addDlg->getPort();
 
     if (host.isEmpty())
-      KMessageBox::information(this, i18n("You have entered an empty host-address. The input will be discarded."));
+      KMessageBox::information(this, i18n("You have entered an empty host address. The input will be discarded."));
     else leServerAddress->setText(host+':'+QString::number(port));
   }
   delete addDlg;

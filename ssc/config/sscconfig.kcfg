@@ -15,7 +15,7 @@
     <entry name="Host" type="String">
       <label>The server to connect to.</label>
       <default>127.0.0.1</default>
-      <tooltip>sscd hostname or ip address.</tooltip>
+      <tooltip>sscd host name or ip address.</tooltip>
     </entry>
     <entry name="Port" type="Int">
       <label>The port to connect to.</label>

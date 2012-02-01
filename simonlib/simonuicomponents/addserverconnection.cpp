@@ -31,14 +31,14 @@ AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
   QWidget *widget = new QWidget( this );
 
   leAddress = new KLineEdit("localhost", widget);
-  leAddress->setToolTip(i18n("IP address or hostname"));
+  leAddress->setToolTip(i18n("IP address or host name"));
   sbPort = new KIntNumInput(widget);
   sbPort->setMinimum(0);
   sbPort->setMaximum(65000);
   sbPort->setValue(4444);
 
   QFormLayout *lay = new QFormLayout(widget);
-  lay->addRow(i18nc("IP address or hostname", "Address:"), leAddress);
+  lay->addRow(i18nc("IP address or host name", "Address:"), leAddress);
   lay->addRow(i18nc("Network port", "Port:"), sbPort);
 
   setMainWidget( widget );

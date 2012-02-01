@@ -3127,7 +3127,7 @@ The timeout setting specifies, how long simon will wait for a first reply when c
 </para>
 <para>simon supports to be configured to use more than one simond. This is very useful if you for example are going to use simon on a laptop which connects to a different server depending where you are. You could for example add the server you use when you are home and the server used when you are at work. When connecting, simon will try to connect to each of the servers (in order) until it finds one server that accepts the connection.</para>
 
-<para>To add a server, just enter the hostname or IP and the port (separated by <quote>:</quote>) or use the dialog that appears when you select the blue arrow next to the input field.</para>
+<para>To add a server, just enter the host name or IP address and the port (separated by <quote>:</quote>) or use the dialog that appears when you select the blue arrow next to the input field.</para>
 
 </sect4>
 </sect3>
