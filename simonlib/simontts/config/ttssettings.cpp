@@ -88,7 +88,7 @@ void TTSSettings::exportSet()
   int currentSet = getCurrentlySelectedSet();
   if (currentSet == -1) return;
 
-  QString path = KFileDialog::getSaveFileName(KUrl(), i18n("TTS Files *.tts"), this, i18n("Set output file"));
+  QString path = KFileDialog::getSaveFileName(KUrl(), i18n("TTS Files *.tts"), this, i18nc("\"Set output file\" is a substantive stating the file type", "Set output file"));
   if (path.isEmpty()) return;
 
   kDebug() << "Exporting set to: " << path;
