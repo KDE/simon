@@ -111,6 +111,6 @@ void LanguageProfileView::done(int p)
 {
   disconnect(g2p);
   g2p->abort();
-  QDialog::done(p);
+  KDialog::done(p);
 }
 

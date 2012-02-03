@@ -30,8 +30,8 @@ class JsonNotificationReceiver
     QByteArray m_slot;
 
   public:
-    JsonNotificationReceiver(QObject *reciever, const QByteArray& slot) 
-      : m_reciever(reciever), m_slot(slot)
+    JsonNotificationReceiver(QObject *receiver_, const QByteArray& slot) 
+      : m_reciever(receiver_), m_slot(slot)
     {}
     ~JsonNotificationReceiver() {}
 

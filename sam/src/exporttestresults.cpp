@@ -319,13 +319,13 @@ QString ExportTestResults::getSelectedTemplate()
 
 QList<CorpusInformation*> ExportTestResults::getCorpusInformation(const QList<CorpusInformationWidget*>& widgets)
 {
-  QList<CorpusInformation*> infos;
+  QList<CorpusInformation*> info;
   foreach (CorpusInformationWidget *w, widgets)
   {
     w->submit();
-    infos << w->information();
+    info << w->information();
   }
-  return infos;
+  return info;
 }
 
 QList<CorpusInformation*> ExportTestResults::getTestCorpusInformation()
