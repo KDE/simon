@@ -62,8 +62,8 @@ bool TrainingsWizard::init(const QStringList& prompts)
 
 
 /**
- * \param smartSentences If this is true, the trainingswizard will try to ask the user for
- * 		meaningful sentences utilizing the individual words
+ * \param smartSentences If this is true, the training wizard will try to ask the user for
+ *                       meaningful sentences utilizing the individual words
  */
 bool TrainingsWizard::init(const QList<Word*>& wList, bool smartSentences)
 {
@@ -218,7 +218,7 @@ void TrainingsWizard::submit()
     page->submit();
   }
   if (!TrainingManager::getInstance()->savePrompts())
-    KMessageBox::error(this, i18n("Could not save changes to the trainings corpus.\n\nPlease restart simon."));
+    KMessageBox::error(this, i18n("Could not save changes to the training corpus.\n\nPlease restart simon."));
 }
 
 

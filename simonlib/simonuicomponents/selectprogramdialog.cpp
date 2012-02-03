@@ -180,11 +180,11 @@ QString SelectProgramDialog::getIcon()
 
 
 /**
- *   \brief returns the workingdirectory, which the user set
+ *   \brief returns the working folder set by the user
  *
  *   @author Susanne Tschernegg
  *   @return QString
- *       returns the workingdirectory
+ *       returns the working folder
  */
 QString SelectProgramDialog::getWorkingDirectory()
 {

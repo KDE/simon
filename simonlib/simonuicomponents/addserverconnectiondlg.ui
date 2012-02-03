@@ -15,7 +15,7 @@
      <item row="0" column="0" >
       <widget class="QLabel" name="label" >
        <property name="text" >
-        <string comment="Ip address or hostname">Address:</string>
+        <string comment="IP address or host name">Address:</string>
        </property>
       </widget>
      </item>

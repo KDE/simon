@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="lbDesc">
      <property name="text">
-      <string>You can add trainingstexts freely or import it from local text files.</string>
+      <string>You can add training texts freely or import it from local text files.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -43,7 +43,7 @@
    <item>
     <widget class="QRadioButton" name="rbAdd">
      <property name="text">
-      <string>Add trainingstext</string>
+      <string>Add training text</string>
      </property>
      <property name="checked">
       <bool>true</bool>

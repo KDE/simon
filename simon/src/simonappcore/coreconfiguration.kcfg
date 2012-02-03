@@ -6,14 +6,12 @@
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
 <include>KStandardDirs</include>
 <kcfgfile name="simonrc" />
-  
   <group name="General">
      <entry name="FirstRunWizardCompleted" type="Bool">
       <label>If the first run wizard has been completed successfully.</label>
       <default>false</default>
       <tooltip>If the first run wizard has been completed successfully.</tooltip>
     </entry>
- 
      <entry name="AutoStart" type="Bool">
       <label>If we should start simon when KDE is started.</label>
       <default>false</default>

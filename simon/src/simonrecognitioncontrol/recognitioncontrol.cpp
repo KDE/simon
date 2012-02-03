@@ -1306,7 +1306,7 @@ void RecognitionControl::messageReceived()
           checkIfSynchronisationIsAborting();
 
           kDebug() << "Server could not store training";
-          emit synchronisationError(i18n("The server could not store the trainings corpus."));
+          emit synchronisationError(i18n("The server could not store the training corpus."));
           sendLanguageDescriptionModifiedDate();
           break;
         }
@@ -1394,7 +1394,7 @@ void RecognitionControl::messageReceived()
           checkIfSynchronisationIsAborting();
 
           if (synchronisationOperation)
-            synchronisationOperation->update(i18n("Synchronizing Trainings-Corpus"), 68);
+            synchronisationOperation->update(i18n("Synchronizing Training Corpus"), 68);
 
           parseLengthHeader();
 
@@ -1412,7 +1412,7 @@ void RecognitionControl::messageReceived()
         {
           checkIfSynchronisationIsAborting();
           if (synchronisationOperation)
-            synchronisationOperation->update(i18n("Synchronizing Trainings-Corpus"), 68);
+            synchronisationOperation->update(i18n("Synchronizing Training Corpus"), 68);
 
           parseLengthHeader();
 
@@ -1420,7 +1420,7 @@ void RecognitionControl::messageReceived()
           msg >> sample;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server sent Trainings-Sample";
+          kDebug() << "Server sent Training Sample";
 
           if (!ModelManagerUiProxy::getInstance()->storeSample(sample)) {
             sendRequest(Simond::TrainingsSampleStorageFailed);
@@ -1435,8 +1435,8 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server could not store trainings-sample";
-          emit synchronisationError(i18n("The server could not store trainings sample."));
+          kDebug() << "Server could not store training sample";
+          emit synchronisationError(i18n("The server could not store training sample."));
           synchronisationDone();
           break;
         }

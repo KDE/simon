@@ -54,7 +54,7 @@ const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 {
   QMap<QString,QVariant> out;
   out.insert(i18nc("The executable file to launch", "Executable"), getExecutable());
-  out.insert(i18n("Working directory"), QVariant(getWorkingDirectory()));
+  out.insert(i18n("Working folder"), QVariant(getWorkingDirectory()));
   return out;
 }
 

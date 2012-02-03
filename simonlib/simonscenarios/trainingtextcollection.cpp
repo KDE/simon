@@ -114,11 +114,11 @@ int role) const
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     switch (column) {
       case 0:
-        return i18nc("Name of the trainings text", "Name");
+        return i18nc("Name of the training text", "Name");
       case 1:
-        return i18nc("Number of pages in the trainings text", "Pages");
+        return i18nc("Number of pages in the training text", "Pages");
       case 2:
-        return i18nc("Relevance of the trainings text", "Relevance");
+        return i18nc("Relevance of the training text", "Relevance");
     }
   }
 

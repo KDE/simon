@@ -71,13 +71,13 @@ class SIMONTTS_EXPORT RecordingSet : public QAbstractItemModel
     QString getSamplePath(int sampleId, bool absolute=true, bool temporary=true) const;
 
     /**
-     * \brief Returns the base directory for this set
+     * \brief Returns the base folder for this set
      * \return Absolute path
      */
     QString getBaseDirectory() const;
 
     /**
-     * \brief Returns the temporary directory for this set
+     * \brief Returns the temporary folder for this set
      * \return Absolute path
      */
     QString getTempDirectory() const;
@@ -98,7 +98,7 @@ class SIMONTTS_EXPORT RecordingSet : public QAbstractItemModel
     /**
      * \brief Clears all temporary files
      *
-     * Added recordings are stored in a temporary directory until calling serialize()
+     * Added recordings are stored in a temporary folder until calling serialize()
      * This removes these temporary files.
      *
      * \return success
@@ -150,7 +150,7 @@ class SIMONTTS_EXPORT RecordingSet : public QAbstractItemModel
      * \brief Applies temporary changes
      *
      * Any added / edited / removed samples will be moved to / removed from the
-     * persistent storage directory;
+     * persistent storage folder;
      *
      * \note Automatically called by \sa serialize()
      *

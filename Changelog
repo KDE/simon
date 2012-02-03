@@ -38,7 +38,7 @@ simon
 * Adding global keyboard shortcut to activate / deactivate
 * Bugfix in command configuration
 * Bugfix: Removing words scheduled for training
-* Importing trainingsdata (prompts) now also imports flac, mp3 and ogg files
+* Importing training data (prompts) now also imports flac, mp3 and ogg files
 * Improved the IPA import routine
 * When selecting the individual files of the base model: 
   Stay in the same folder even on windows
@@ -217,7 +217,7 @@ Training
 
 * Implementing "Clear training data"
 
-* Trainingstexts can now be entered instead of just imported from files
+* Training texts can now be entered instead of just imported from files
 
 
 Commands

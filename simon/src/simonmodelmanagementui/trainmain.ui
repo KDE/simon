@@ -85,10 +85,10 @@
      <item>
       <widget class="KPushButton" name="pbImportDir">
        <property name="toolTip">
-        <string>Import Trainings-Corpuses from other simon versions</string>
+        <string>Import training corpuses from other simon versions</string>
        </property>
        <property name="text">
-        <string>Import Trainingsdata</string>
+        <string>Import Training data</string>
        </property>
       </widget>
      </item>
@@ -108,7 +108,7 @@
      <item>
       <widget class="KPushButton" name="pbClearTrainingdata">
        <property name="toolTip">
-        <string>Removes all trainings samples from the corpus</string>
+        <string>Removes all training samples from the corpus</string>
        </property>
        <property name="text">
         <string>Clear Trainingdata</string>

@@ -868,7 +868,7 @@ QMap<QDateTime, QString> SynchronisationManager::getTrainingDatas()
 {
   QMap<QDateTime, QString> models = getModels();
 
-  //remove every model that does not contain valid trainingsdata
+  //remove every model that does not contain valid training data
   QMap<QDateTime, QString>::iterator i = models.begin();
   while (i != models.end()) {
     QString path = i.value()+QDir::separator();

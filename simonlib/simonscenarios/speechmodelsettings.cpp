@@ -57,7 +57,7 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
   KPageWidgetItem *baseModel = pageWidget->addPage(baseModelWidget, i18n("Base Model"));
   baseModel->setIcon(KIcon("view-statistics"));
   baseModel->setHeader("");
-  KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdata"));
+  KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Training data"));
   trainingsData->setIcon(KIcon("view-pim-news"));
   trainingsData->setHeader("");
   KPageWidgetItem *languageProfile = pageWidget->addPage(languageProfileWidget, i18n("Language Profile"));

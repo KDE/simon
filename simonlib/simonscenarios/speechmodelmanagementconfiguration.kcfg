@@ -34,21 +34,21 @@
     </entry>
 
     <entry name="ModelSampleRate" type="Int">
-      <label>What samplerate the trainings samples should be recorded in.</label>
+      <label>What sample rate the training samples should be recorded in.</label>
       <default>16000</default>
-      <tooltip>What samplerate the trainings samples should be recorded in.</tooltip>
+      <tooltip>What sample rate the training samples should be recorded in.</tooltip>
     </entry>
     <entry name="ModelTrainingsDataPath" type="Url">
-      <label>Where to save the trainings samples.</label>
+      <label>Where to save the training samples.</label>
       <default code="true">KStandardDirs::locateLocal("appdata", "model/training.data/")</default>
-      <tooltip>Where to save the trainings samples.</tooltip>
+      <tooltip>Where to save the training samples.</tooltip>
     </entry>
   </group>
   <group name="LanguageProfile">
     <entry name="LanguageProfileName" type="String">
-      <label>The (file) name of the last loaded language profile</label>
+      <label>The (file) name of the last loaded language profile.</label>
       <default>None</default>
-      <tooltip>The (file) name of the last loaded language profile</tooltip>
+      <tooltip>The (file) name of the last loaded language profile.</tooltip>
     </entry>
   </group>
 </kcfg>

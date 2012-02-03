@@ -40,7 +40,7 @@ TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent
     "recordings of your voice."));
 
   cbPowerTrain = new QCheckBox(i18n("Power Training"), this);
-  cbPowerTrain->setToolTip(i18n("If activated the recording of the samples will automatically be started and stopped when you enter / leave the individual pages of the trainings text."));
+  cbPowerTrain->setToolTip(i18n("If activated the recording of the samples will automatically be started and stopped when you enter / leave the individual pages of the training text."));
 
   lay->addWidget(lbIntro);
   lay->addWidget(cbPowerTrain);

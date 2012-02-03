@@ -216,6 +216,6 @@ void ImportTrainingTextWorkingPage::createTrainingsText(const QString& name, con
 {
   TrainingText *t = new TrainingText(name, sentences);
   if (!ScenarioManager::getInstance()->getCurrentScenario()->addTrainingText(t))
-    KMessageBox::error(this, i18n("Could not store Trainingstext"));
+    KMessageBox::error(this, i18n("Could not store training text"));
 
 }

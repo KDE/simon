@@ -80,7 +80,7 @@ const QByteArray& prompts)
 {
   bool succ = ModelManager::storeTraining(changedTime, sampleRate, wavConfig, prompts);
   if (!succ) {
-    KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the trainings corpus received from the server."
+    KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the training corpus received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
       KStandardDirs::locateLocal("appdata", "model")));
   }
@@ -105,7 +105,7 @@ bool ModelManagerUiProxy::storeSample(const QByteArray& sample)
 {
   bool succ = ModelManager::storeSample(sample);
   if (!succ) {
-    KMessageBox::sorry(0, i18nc("%1 is sample path, %2 is training data directory",
+    KMessageBox::sorry(0, i18nc("%1 is sample path, %2 is training data folder",
       "Could not store the sample %1 received from the server."
       "\n\nPlease check the permissions on the sample folder: %2",
       missingSample(), TrainingManager::getInstance()->getTrainingDir()));

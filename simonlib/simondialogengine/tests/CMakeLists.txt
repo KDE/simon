@@ -134,7 +134,7 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogcommand TESTNAME
 )
 
 target_link_libraries( simondialogcommandplugintest-dialogcommand
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} ${simondialogcommandplugintest_plasma_LIBS}
   simonscenarios simonactions
 )
 
@@ -184,6 +184,8 @@ set (simonavatarstest_SRCS
   ../avatarmodel.cpp
 )
 
+#enable exports for the test
+add_definitions(-DMAKE_SIMONDIALOGENGINE_LIB)
 
 kde4_add_unit_test(simondialogcommandplugintest-avatars TESTNAME
   simondialogcommandplugin-avatars

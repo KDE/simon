@@ -301,7 +301,7 @@ bool ModelCompilationManager::processError()
 
   int startIndex=0;
   if (err.contains("ERROR [+2019]")) {
-                                                  // no trainings samples
+                                                  // no training samples
 
     emit error(i18n("No training material available.\n\nPlease train your acoustic model by recording samples."));
     return true;
@@ -418,7 +418,7 @@ bool ModelCompilationManager::startCompilation(ModelCompilationManager::Compilat
 void ModelCompilationManager::run()
 {
   if (!createDirs())
-    analyseError(i18nc("%1 is path to the temporary directory", "Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
+    analyseError(i18nc("%1 is path to the temporary folder", "Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
   fprintf(stderr, "Temp dir in run(): %s\n", tempDir.toUtf8().data());
 
@@ -775,7 +775,7 @@ bool ModelCompilationManager::generateInputFiles()
   emit status(i18n("Creating monophones..."), 40);
 
   if (!makeMonophones()) {
-    analyseError(i18n("Failed to generate monophones. Please check that you have installed the Program HDMan correctly and that the lexicon contains all words referenced by your trainings corpus."));
+    analyseError(i18n("Failed to generate monophones. Please check that you have installed the program HDMan correctly and that the lexicon contains all words referenced by your training corpus."));
     return false;
   }
 

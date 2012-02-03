@@ -238,7 +238,7 @@ bool ReportTemplateEngine::parse(const QByteArray& templateData, QHash<QString, 
 {
   if (!cleanTempDir())
   {
-    m_lastError = i18n("Could not clean temporary directory.");
+    m_lastError = i18n("Could not clean up temporary folder.");
     return false;
   }
 

@@ -259,7 +259,7 @@ bool ScenarioManagementDialog::getNewScenarios()
 Scenario* ScenarioManagementDialog::getCurrentlySelectedScenario()
 {
   if (!m_lastSelectedIndex.isValid()) {
-    KMessageBox::information(this, i18n("Please select a scenario from the list(s)"));
+    KMessageBox::information(this, i18n("Please select a scenario from one of the lists"));
     return 0;
   }
 

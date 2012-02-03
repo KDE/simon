@@ -48,7 +48,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="lbName">
           <property name="text">
-           <string>TextLabel</string>
+           <string comment="KDE::DoNotExtract">TextLabel</string>
           </property>
          </widget>
         </item>
@@ -62,7 +62,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="lbPronunciation">
           <property name="text">
-           <string>TextLabel</string>
+           <string comment="KDE::DoNotExtract">TextLabel</string>
           </property>
          </widget>
         </item>
@@ -76,7 +76,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="lbTerminal">
           <property name="text">
-           <string>TextLabel</string>
+           <string comment="KDE::DoNotExtract">TextLabel</string>
           </property>
          </widget>
         </item>
@@ -90,7 +90,7 @@
         <item row="3" column="1">
          <widget class="QLabel" name="lbRecognitionRate">
           <property name="text">
-           <string>TextLabel</string>
+           <string comment="KDE::DoNotExtract">TextLabel</string>
           </property>
          </widget>
         </item>

@@ -252,7 +252,7 @@ QString ImportTrainingData::extractSaid(QString source)
  * \brief Process the sound files from given in the list to the destDir
  *
  * @param dataFiles The given datafiles
- * @param destDir The destination directory
+ * @param destDir The destination folder
  * @return the datafiles - if not successful it returns 0
  */
 QStringList* ImportTrainingData::processSounds(QStringList dataFiles,
