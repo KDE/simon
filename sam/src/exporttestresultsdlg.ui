@@ -66,7 +66,7 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QComboBox" name="cbOutputFormat"/>
+        <widget class="KComboBox" name="cbOutputFormat"/>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_6">
@@ -340,6 +340,11 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>

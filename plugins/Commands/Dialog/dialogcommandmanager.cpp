@@ -392,5 +392,7 @@ DialogCommandManager::~DialogCommandManager()
 {
   activateAction->deleteLater();
   qDeleteAll(dialogViews);
+  foreach (DialogState *s, dialogStates)
+    disconnect(s, SIGNAL(destroyed()), this, SLOT(stateDestroyed()));
   qDeleteAll(dialogStates);
 }

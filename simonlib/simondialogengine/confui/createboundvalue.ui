@@ -31,7 +31,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QComboBox" name="cbType">
+      <widget class="KComboBox" name="cbType">
        <item>
         <property name="text">
          <string>Static value</string>
@@ -66,7 +66,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="leStaticValue"/>
+        <widget class="KLineEdit" name="leStaticValue"/>
        </item>
       </layout>
      </widget>

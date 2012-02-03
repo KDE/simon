@@ -122,7 +122,7 @@
          <item row="0" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QTextEdit" name="teText"/>
+            <widget class="KTextEdit" name="teText"/>
            </item>
            <item>
             <widget class="QLabel" name="label_4">
@@ -154,7 +154,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leDismiss"/>
+            <widget class="KLineEdit" name="leDismiss"/>
            </item>
           </layout>
          </item>
@@ -168,7 +168,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leShowLater"/>
+            <widget class="KLineEdit" name="leShowLater"/>
            </item>
           </layout>
          </item>
@@ -219,7 +219,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="cbAvatar"/>
+            <widget class="KComboBox" name="cbAvatar"/>
            </item>
           </layout>
          </item>
@@ -232,6 +232,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>ktextedit.h</header>
+  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
