@@ -910,17 +910,17 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 
   QMap<QDateTime,QString> trainingModels = getTrainingDatas();
   for (QMap<QDateTime,QString>::const_iterator i=trainingModels.constBegin();
-    (i != trainingModels.constEnd()) && (i.key() <= modelDate); i++)
+    (i != trainingModels.constEnd()) && (i.key() <= modelDate); ++i)
   trainingPath = i.value();
 
   QMap<QDateTime,QString> languageDescriptionModels = getLanguageDescriptions();
   for (QMap<QDateTime,QString>::const_iterator i=languageDescriptionModels.constBegin();
-    (i != languageDescriptionModels.constEnd()) && (i.key()<=modelDate); i++)
+    (i != languageDescriptionModels.constEnd()) && (i.key()<=modelDate); ++i)
   languageDescriptionPath = i.value();
 
   QMap<QDateTime,QString> scenarioRcModels = getSelectedScenarioLists();
   for (QMap<QDateTime,QString>::const_iterator i=scenarioRcModels.constBegin();
-    (i != scenarioRcModels.constEnd()) && (i.key()<=modelDate); i++)
+    (i != scenarioRcModels.constEnd()) && (i.key()<=modelDate); ++i)
   scenarioRcPath = i.value();
 
   if (languageDescriptionPath.isEmpty() || scenarioRcPath.isEmpty()) {

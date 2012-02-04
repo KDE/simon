@@ -100,7 +100,7 @@ QHash<QString,QString> ScenarioManager::transcribe(QStringList words)
     }
     
     for (QHash<QString,TranscriptionResult>::const_iterator i = sequiturResults.constBegin();
-         i != sequiturResults.constEnd(); i++) {
+         i != sequiturResults.constEnd(); ++i) {
       if (i.value().getSuccess())
         out.insert(i.key(), i.value().getData());
       else

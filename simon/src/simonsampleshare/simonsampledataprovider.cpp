@@ -69,7 +69,7 @@ QList< TrainingSamplesDescriptor* > SimonSampleDataProvider::buildSampleDescript
   PromptsTable *prompts = TrainingManager::getInstance()->getPrompts();
   QString dir = TrainingManager::getInstance()->getTrainingDir();
   for (QHash<QString, QString>::const_iterator i = prompts->samples().constBegin();
-       i != prompts->samples().constEnd(); i++) {
+       i != prompts->samples().constEnd(); ++i) {
     sampleDescriptors << new TrainingSamplesDescriptor(i.value(),
 						       QStringList() << dir+i.key()+".wav",
 						       QStringList() << "simon");

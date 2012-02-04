@@ -55,7 +55,7 @@ void WindowsProcessInfoGatherer::checkCurrentProcesses()
     cProcesses = cbNeeded / sizeof(DWORD);
 
     //Go through all of the processes, getting their handles/names
-    for (i=0; i<cProcesses; i++)
+    for (i=0; i<cProcesses; ++i)
     {
         if(aProcesses[i] != 0)
         {

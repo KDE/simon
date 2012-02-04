@@ -229,7 +229,7 @@ void outputResult(Recog *recog, void *control)
 
     QList<RecognitionResult> recognitionResults;
 
-    for(n = 0; n < r->result.sentnum; n++) {      /* for all sentences */
+    for(n = 0; n < r->result.sentnum; ++n) {      /* for all sentences */
       QString result, sampa, sampaRaw;
       s = &(r->result.sent[n]);
       seq = s->word;
@@ -237,7 +237,7 @@ void outputResult(Recog *recog, void *control)
 
       /* output word sequence like Julius */
       //       printf("sentence%d:", n+1);
-      for(i=0;i<seqnum;i++) {
+      for(i=0;i<seqnum;++i) {
         result += ' ';
                                                   // printf(" %s", );
         result += QString::fromUtf8(winfo->woutput[seq[i]]);
@@ -260,7 +260,7 @@ void outputResult(Recog *recog, void *control)
       //       printf("cmscore%d:", n+1);
       QList<float> confidenceScores;
 
-      for (i=1;i<seqnum-1; i++) {
+      for (i=1;i<seqnum-1; ++i) {
         confidenceScores << s->confidence[i];
       }
       //       printf("\n");
