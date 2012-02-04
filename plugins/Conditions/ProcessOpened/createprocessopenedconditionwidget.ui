@@ -27,7 +27,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="leProgramName"/>
+      <widget class="KLineEdit" name="leProgramName"/>
      </item>
      <item>
       <widget class="QPushButton" name="pbLocateProgram">

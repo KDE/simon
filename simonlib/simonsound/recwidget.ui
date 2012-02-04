@@ -56,7 +56,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="cbSampleGroup">
+         <widget class="KComboBox" name="cbSampleGroup">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -258,6 +258,11 @@
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
