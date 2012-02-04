@@ -846,15 +846,13 @@ bool ModelCompilationManager::fixSilenceModel()
   if (!keepGoing) return false;
   emit status(i18n("Generating Pause-Model (hmm4)..."), 950);
   if (!buildHMM4()) {
-    analyseError(i18n("Could not generate HMM4.\n"
-      "\n"
-      "Please check the HMM3."));
+    analyseError(i18n("Could not generate HMM4.\n\nPlease check the HMM3."));
     return false;
   }
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm5..."), 1000);
   if (!buildHMM5()) {
-    analyseError(i18n("Could not generate HMM5. Please check the paths to HHEd (%1) and to the silence-model (%2).", hHEd, getScriptFile("sil.hed")));
+    analyseError(i18n("Could not generate the HMM5.\n\nPlease check the paths to HHEd (%1) and to the silence-model (%2).", hHEd, getScriptFile("sil.hed")));
     return false;
   }
   if (!keepGoing) return false;
@@ -911,7 +909,7 @@ bool ModelCompilationManager::realign()
 bool ModelCompilationManager::tieStates()
 {
   if (!keepGoing) return false;
-  emit status(i18n("Generating triphone..."),1700);
+  emit status(i18n("Generating triphone..."), 1700);
 
   //start watching triphones
   catchUndefiniedPhonemes = true;
@@ -936,7 +934,7 @@ bool ModelCompilationManager::tieStates()
       analyseError(i18n("Could not generate tree.hed."));
       return false;
     }
-  
+
     if (!keepGoing) return false;
     emit status(i18n("Generating hmm13..."),1830);
     if (!buildHMM13()) {
@@ -944,11 +942,11 @@ bool ModelCompilationManager::tieStates()
       if (!undefinedPhoneme.isEmpty())
       {
         if (!removePhoneme(undefinedPhoneme))
-	{
-	  catchUndefiniedPhonemes = false;
+        {
+          catchUndefiniedPhonemes = false;
           analyseError(i18n("Failed to remove undefined phoneme."));
-	  return false;
-	}
+          return false;
+        }
       }
       else
         return false;
@@ -961,7 +959,7 @@ bool ModelCompilationManager::tieStates()
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm14..."),1900);
   if (!buildHMM14()) {
-    analyseError(i18n("Could not generate HMM14. Please check the paths to HERest (%1), the config (%2) and to the stats-file (%3).", hERest, getScriptFile("config"), tempDir+"/stats"));
+    analyseError(i18n("Could not generate the HMM14.\n\nPlease check the paths to HERest (%1), the config (%2) and to the stats-file (%3).", hERest, getScriptFile("config"), tempDir+"/stats"));
     return false;
   }
 
@@ -1235,14 +1233,14 @@ bool ModelCompilationManager::makeTriphones()
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm10..."),1470);
   if (!buildHMM10()) {
-    analyseError(i18n("Could not generate HMM10. Please check the path to HHEd (%1).", hHEd));
+    analyseError(i18n("Could not generate the HMM10.\n\nPlease check the path to HHEd (%1).", hHEd));
     return false;
   }
 
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm11..."),1550);
   if (!buildHMM11()) {
-    analyseError(i18n("Could not generate HMM11. Please check your paths to HERest (%1) and to the config (%2).", hERest, getScriptFile("config")));
+    analyseError(i18n("Could not generate the HMM11.\n\nPlease check your paths to HERest (%1) and to the config (%2).", hERest, getScriptFile("config")));
     return false;
   }
 
