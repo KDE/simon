@@ -135,8 +135,8 @@
   </group>
   <group name="Prompt">
     <entry name="PromptFont" type="Font">
-      <label>The font to use for all the promtps in simon.</label>
-      <tooltip>The font to use for all the promtps in simon.</tooltip>
+      <label>The font to use for all the prompts in simon.</label>
+      <tooltip>The font to use for all the prompts in simon.</tooltip>
     </entry>
   </group>
 
