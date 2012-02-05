@@ -18,7 +18,7 @@ Name[sv]=Text-till-tal
 Name[uk]=Синтез мовлення з тексту
 Name[x-test]=xxText-to-speechxx
 
-Comment=Configuration of simons text-to-speech layer
+Comment=Configuration of the simon text-to-speech layer
 Comment[es]=Configuración de la capa de lectura de texto de simon
 Comment[pt]=Configuração da interface de texto-para-fala Simon
 Comment[pt_BR]=Configuração da interface do sintetizador de voz do simon

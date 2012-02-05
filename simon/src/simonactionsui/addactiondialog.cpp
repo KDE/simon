@@ -84,7 +84,7 @@ Action* AddActionDialog::getAction()
 
   Action *a = static_cast<Action*>(index.internalPointer());
 
-  //if we can not remove the action from the model, it will get deleted
+  //if we cannot remove the action from the model, it will get deleted
   //soon afterwards so better throw and error here
   if (!a || !actionModel->takeAction(a))
     return 0;

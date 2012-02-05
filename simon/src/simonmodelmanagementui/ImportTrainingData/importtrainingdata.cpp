@@ -74,7 +74,7 @@ void ImportTrainingData::run()
       }
       if (!fileFound)
       {
-        emit error(i18nc("%1 is path", "Can not find file referenced in prompts: %1", file));
+        emit error(i18nc("%1 is path", "Cannot find file referenced in prompts: %1", file));
         return;
       }
     }

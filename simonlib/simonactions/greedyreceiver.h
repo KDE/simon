@@ -47,7 +47,7 @@ class CommandManager;
  *
  * Normally, simon receives a list of recognition results from simond who contain confidence
  * scores. During normal operation, simon selects the best match from this list of results
- * (best guess) altough it can also ask the user if the correct result can not be determined
+ * (best guess) altough it can also ask the user if the correct result cannot be determined
  * and if it is configured to do so.
  *
  * Greedy receivers can process the whole list of recongition results bypassing this selection

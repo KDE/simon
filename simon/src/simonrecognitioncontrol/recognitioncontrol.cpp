@@ -1123,7 +1123,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server can not store scenario!";
+          kDebug() << "Server cannot store scenario!";
           emit synchronisationError(i18n("The server could not store the scenario."));
           break;
         }

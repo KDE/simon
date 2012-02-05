@@ -30,7 +30,7 @@
 
 const QString JsonCommand::staticCategoryText()
 {
-  return i18n("Json");
+  return i18n("JSON");
 }
 
 

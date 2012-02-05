@@ -32,7 +32,7 @@ class TrainSamplePage;
  \brief Records two samples of the new word
 
  The WizardPage of the AddWordView-Wizard that manages the recordings;
- Uses two Recwidgets and the QT-Mechanism to ensure that you can not
+ Uses two Recwidgets and the QT-Mechanism to ensure that you cannot
  continiue without both recordings done.
 */
 class AddWordRecordPage : public QWizardPage

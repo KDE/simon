@@ -213,7 +213,7 @@ revision history. (see installation appendix comment) -->
 
 <para>The default user name is "default" and the password is "nopassword".</para>
 
-<para>The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retrieve his original password from the simond database but you can reset it using the "Change Password" button.</para>
+<para>The password of the users will be hashed and cannot be shown in cleartext. When a user forgets his or her password there is no way to retrieve the original password from the simond database but you can reset it using the "Change Password" button.</para>
 
 <para>When removing a user from the database which already has a speech model associated with him, you will be prompted if you also want to remove the model. If you select no and add a user with the same name later on, he will start off with this speech model.</para>
 

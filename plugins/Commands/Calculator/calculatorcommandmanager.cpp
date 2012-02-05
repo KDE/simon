@@ -744,7 +744,7 @@ double CalculatorCommandManager::calculate(QList<Token *> postList)
           op2 = calc.pop()->getNumber();
           op1 = calc.pop()->getNumber();
           if (op2 == 0) {
-            SimonInfo::showMessage(i18n("Can not divide through 0"), 3000, new KIcon("accessories-calculator"));
+            SimonInfo::showMessage(i18n("Cannot divide through 0"), 3000, new KIcon("accessories-calculator"));
             calc.push(new Token(0));
           }
           else

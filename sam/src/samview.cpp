@@ -764,7 +764,7 @@ void SamView::getBuildPathsFromSimon()
 
   //target path is simon model folder
   //
-  //we can not really use a user selected folder here for two reasons:
+  //we cannot really use a user-selected folder here for two reasons:
   // 1.) We call this method when sam starts so it should require no user interaction
   // 2.) simon will store the simond generated model there so the output files
   //     of simon will be picked up by sam.
@@ -775,7 +775,7 @@ void SamView::getBuildPathsFromSimon()
   QStringList scenarioIds = scenarioRcGroup.readEntry("SelectedScenarios", QStringList());
   kDebug() << "Scenario ids: " << scenarioIds;
 
-  //can not use the methods serializeScenariosRun and serializePromptsRun,
+  //cannot use the methods serializeScenariosRun and serializePromptsRun,
   //because this would make two calls to the model adaption manager
   //who, instead of queuing would abort the first job in order to work on the second one
   //this makes a lot of sense when seen in the context of simon / simond

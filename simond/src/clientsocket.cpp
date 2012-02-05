@@ -780,7 +780,7 @@ void ClientSocket::processRequest()
 
         kDebug() << "Not all samples available; Aborting";
 
-        //we can not continue without all the samples
+        //we cannot continue without all the samples
         synchronisationManager->abort();
 
         synchronisationDone();
@@ -1162,7 +1162,7 @@ void ClientSocket::sendSample(QString sampleName)
   QByteArray sample = synchronisationManager->getSample(sampleName);
 
   if (sample.isNull()) {
-    kDebug() << "Can not find sample! Sending error message";
+    kDebug() << "Cannot find sample! Sending error message";
     sendCode(Simond::ErrorRetrievingTrainingsSample);
     synchronisationManager->abort();
     synchronisationDone();
@@ -1799,7 +1799,7 @@ void ClientSocket::processRecognitionResults(const QString& fileName, const Reco
 
       f.close();
     } else
-    kWarning() << "Can not open output log for sample";
+    kWarning() << "Cannot open output log for sample";
   }
 
   sendRecognitionResult(fileName, recognitionResults);

@@ -25,7 +25,7 @@
 K_PLUGIN_FACTORY_DECLARATION(JsonCommandPluginFactory)
 
 JsonConfiguration::JsonConfiguration(Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent,  "json", ki18n( "Json" ),
+: CommandConfiguration(parent,  "json", ki18n( "JSON" ),
 "0.1", ki18n("Send JSON messages"),
 "network-connect",
 JsonCommandPluginFactory::componentData())

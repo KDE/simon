@@ -115,7 +115,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      * \brief Templates of the available VoiceInterfaceCommands of the command manager
      *
      * This provides the base list of VoiceInterfaceCommandTemplates of the plugin. This member
-     * is private and can not be directly modified by the base classes. Use installInterfaceCommand()
+     * is private and cannot be modified directly by the base classes. Use installInterfaceCommand()
      * and installListInterfaceCommand() to modify its contents.
      *
      * You should set up these templates before deSerializeCommands() is called so install them

@@ -445,7 +445,7 @@
 
   <para>Sometimes, though, you might not have a (trusted) internet connection available and still need to record samples with &kmyapplication;. For this purpose &kmyapplication; contains an offline mode allowing you to gather speech data without a connection to the sscd server.</para>
 
-  <para>In offline mode you can not add / edit or view users or institutions. You can only gather new samples to send to the server later on through the <link linkend="stored_samples">stored samples</link> functionality.</para>
+  <para>In offline mode you cannot add, edit or view users or institutions. You can only gather new samples to send to the server later on through the <link linkend="stored_samples">stored samples</link> functionality.</para>
 
   <para>Recording works the same in offline mode as it does when connected to the server but certain features might be unavailable (like resolving the name or validity of the entered user id).</para>
 </sect1>
