@@ -127,7 +127,7 @@ bool WAV::parseHeader(QIODevice* device, qint16& channels, qint32& samplerate)
   dstream->readRawData( (char*) &channels, 2);  //2 byte samplerate, 16bit
   dstream->readRawData( (char*) &samplerate, 4);//4 byte samplerate, 32bit
 
-  dstream->unsetDevice();
+  dstream->setDevice(0);
   delete dstream;
 
   return true;

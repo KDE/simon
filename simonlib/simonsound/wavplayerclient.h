@@ -23,6 +23,7 @@
 #include "simonsound_export.h"
 #include <QObject>
 #include <QList>
+#include <QSharedPointer>
 
 class WavPlayerSubClient;
 class QIODevice;
@@ -57,7 +58,7 @@ class SIMONSOUND_EXPORT WavPlayerClient : public QObject
     ~WavPlayerClient();
 
     bool play(QString filename);
-    bool play(QIODevice *device, int channels, int samplerate);
+    bool play(QSharedPointer<QIODevice> device, int channels, int samplerate);
     void stop();
     bool isPlaying() { return m_isPlaying; }
 

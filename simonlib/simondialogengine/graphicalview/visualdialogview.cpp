@@ -81,7 +81,8 @@ bool VisualDialogView::stop()
 
 bool VisualDialogView::present(const DialogState& state)
 {
-  qDeleteAll(m_buttons);
+  while (!m_buttons.isEmpty())
+    delete m_buttons.takeFirst();
   m_buttons.clear();
   
   Avatar* a = m_dialog->getAvatar(state.getAvatarId());

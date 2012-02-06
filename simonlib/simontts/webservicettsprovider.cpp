@@ -39,8 +39,6 @@ WebserviceTTSProvider::WebserviceTTSProvider() : QObject(),
 {
   initializeOutput();
   connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initializeOutput()));
-  f.setFileName("/home/bedahr/foo.wav");
-  f.open(QIODevice::WriteOnly);
 }
 
 
@@ -59,7 +57,6 @@ bool WebserviceTTSProvider::initialize()
 
 void WebserviceTTSProvider::replyReceived()
 {
-f.close();
   QNetworkReply* reply = dynamic_cast<QNetworkReply*>(sender());
   if (!reply) return;
   
@@ -68,22 +65,6 @@ f.close();
     kWarning() << "Webservice reported error: " << reply->errorString();
     return;
   }
-  
-/*
-  QString path = KStandardDirs::locateLocal("tmp", "simontts/webservice/return.wav");
-  QFile f(path);
-  if (!f.open(QIODevice::WriteOnly|QIODevice::Truncate))
-    return;
-  f.write(filesToPlay.first()->buffer());
-  f.close();
-  //play wav file
-  kDebug() << "Playing: " << path;
-  if (!player->isPlaying())
-    player->play(path);
-  else {
-    kDebug() << "Adding to playback queue: " << path;
-    filesToPlay.enqueue(path);
-  }*/
   
   if (!filesToDownload.isEmpty())
     currentConnection = net->get(QNetworkRequest(KUrl(filesToDownload.dequeue())));
@@ -131,7 +112,7 @@ bool WebserviceTTSProvider::say(const QString& text)
   QString url = TTSConfiguration::webserviceURL().replace("%1", text);
   kDebug() << "Getting: " << url;
  
-  QBuffer *b = new QBuffer(this);
+  QSharedPointer<QBuffer> b(new QBuffer());
   b->open(QIODevice::ReadWrite);
   filesToPlay.enqueue(b);
 
@@ -151,7 +132,6 @@ void WebserviceTTSProvider::downloadProgress(qint64 now, qint64 max)
   kDebug() << "Download progress: " << now << max;
   QByteArray buf = currentConnection->readAll();
   filesToPlay.first()->buffer() += buf;
-  f.write(buf);
   enquePlayback();
 }
 
@@ -162,9 +142,9 @@ void WebserviceTTSProvider::enquePlayback()
     kDebug() << "Received header so starting playback";
     qint16 channels;
     qint32 samplerate;
-    WAV::parseHeader(filesToPlay.first(), channels, samplerate);
+    WAV::parseHeader(filesToPlay.first().data(), channels, samplerate);
     kDebug() << "header: " << channels << samplerate;
-    QBuffer *handle = filesToPlay.first();
+    QSharedPointer<QBuffer> handle = filesToPlay.first();
     handle->buffer().remove(0, 44);
     player->play(handle, channels, samplerate);
   }
@@ -199,7 +179,10 @@ bool WebserviceTTSProvider::interrupt()
     currentConnection = 0;
   }
   player->stop();
-  qDeleteAll(filesToPlay);
+  
+  qDebug() << filesToPlay.count() << " files to delete";
+  qDebug() << "Current connection " << currentConnection;
+  qDebug() << "net: " << net;
   filesToPlay.clear();
   return true;
 }

@@ -36,8 +36,6 @@ qint64 WavPlayerSubClient::readData(char *data, qint64 maxlen)
 {
   qint64 read = wav->read(data, maxlen);
 
-  //FIXME
-  //emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos(), m_deviceConfiguration));
   emit currentProgress(currentStreamTime());
 
   return read;
@@ -82,9 +80,8 @@ void WavPlayerSubClient::close()
 /**
  * \brief Plays directly from the given device to allow for streaming
  */
-bool WavPlayerSubClient::play(QIODevice* device)
+bool WavPlayerSubClient::play(QSharedPointer<QIODevice> device)
 {
-  if (wav) wav->deleteLater();
   wav = device;
 
   open(QIODevice::ReadOnly);
@@ -109,9 +106,7 @@ void WavPlayerSubClient::stop()
 void WavPlayerSubClient::finish()
 {
   close();
-  if (wav)
-    wav->deleteLater();
-  wav = 0;
+  wav.clear();
   emit finished();
 }
 
@@ -124,5 +119,4 @@ WavPlayerSubClient::~WavPlayerSubClient()
 {
   if (isOpen())
     stop();
-  if (wav) wav->deleteLater();
 }

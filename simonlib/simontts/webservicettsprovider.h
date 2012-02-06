@@ -24,6 +24,7 @@
 #include <QStringList>
 #include <QObject>
 #include <QBuffer>
+#include <QSharedPointer>
 #include <QQueue>
 #include <QFile>
 
@@ -44,10 +45,9 @@ class WebserviceTTSProvider : public QObject, public SimonTTSProvider
   Q_OBJECT
   private:
     QQueue<QString> filesToDownload;
-    QQueue<QBuffer*> filesToPlay;
+    QQueue< QSharedPointer<QBuffer> > filesToPlay;
     QNetworkReply *currentConnection;
     
-    QFile f;
     QNetworkAccessManager *net;
     WavPlayerClient *player;
     void enquePlayback();

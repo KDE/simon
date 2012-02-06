@@ -21,6 +21,7 @@
 #define SIMON_WAVPLAYERSUBCLIENT_H_272785B973C443B89098D25E583308C1
 
 #include <QObject>
+#include <QSharedPointer>
 #include <simonsound/simonsound.h>
 #include "soundoutputclient.h"
 
@@ -31,7 +32,7 @@ class WavPlayerSubClient : public QIODevice, public SoundOutputClient
   Q_OBJECT
 
     private:
-    QIODevice *wav;
+    QSharedPointer<QIODevice> wav;
     qint64 length;
 
     signals:
@@ -47,7 +48,7 @@ class WavPlayerSubClient : public QIODevice, public SoundOutputClient
     explicit WavPlayerSubClient(SimonSound::DeviceConfiguration device, QObject *parent=0);
     ~WavPlayerSubClient();
 
-    bool play(QIODevice *device);
+    bool play(QSharedPointer<QIODevice> device);
 
     bool open (OpenMode mode);
     void close();

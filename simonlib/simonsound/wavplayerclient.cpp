@@ -71,7 +71,7 @@ void WavPlayerClient::slotFinished()
  */
 bool WavPlayerClient::play( QString filename )
 {
-  WAV *w = new WAV(filename);
+  QSharedPointer<WAV> w(new WAV(filename));
   int channels = w->getChannels();
   int sampleRate = w->getSampleRate();
 
@@ -86,7 +86,7 @@ bool WavPlayerClient::play( QString filename )
   return play(w, channels, sampleRate);
 }
 
-bool WavPlayerClient::play(QIODevice* device, int channels, int samplerate)
+bool WavPlayerClient::play(QSharedPointer<QIODevice> device, int channels, int samplerate)
 {
   qDeleteAll(clients);
   clients.clear();
