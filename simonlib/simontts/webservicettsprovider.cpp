@@ -180,9 +180,6 @@ bool WebserviceTTSProvider::interrupt()
   }
   player->stop();
   
-  qDebug() << filesToPlay.count() << " files to delete";
-  qDebug() << "Current connection " << currentConnection;
-  qDebug() << "net: " << net;
   filesToPlay.clear();
   return true;
 }
