@@ -4,6 +4,7 @@ Icon=view-filter
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonfilterplugin
 Name=simon Filter Plugin
+Name[de]=Filtermodul für Simon
 Name[es]=Complemento de filtrado para simon
 Name[pt]='Plugin' de Filtragem do Simon
 Name[pt_BR]=Plugin de filtragem do simon

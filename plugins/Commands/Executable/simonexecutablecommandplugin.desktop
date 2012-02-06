@@ -10,6 +10,7 @@ Name[pt_BR]=Plugin de comandos executáveis do simon
 Name[uk]=Додаток виконуваних команд simon
 Name[x-test]=xxsimon ExecutableCommand Pluginxx
 Comment=Execute commands
+Comment[de]=Befehle ausführen
 Comment[es]=Ejecutar órdenes
 Comment[ga]=Rith orduithe
 Comment[pt]=Executar comandos

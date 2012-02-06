@@ -4,6 +4,7 @@ Icon=view-media-artist
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonaiplugin
 Name=simon AI Plugin
+Name[de]=KI-Modul für Simon
 Name[es]=Complemento de IA para simon
 Name[nl]=Plug-in van simon AI
 Name[pt]='Plugin' de IA do Simon

@@ -14,6 +14,7 @@ Exec=afaras %i -caption "%c"
 Icon=afaras
 Type=Application
 GenericName=Find and remove bad samples
+GenericName[de]=Schlechte Aufnahmen suchen und entfernen
 GenericName[nl]=Zoek en verwijder slechte samples
 GenericName[pt]=Procurar e remover amostras inválidas
 GenericName[pt_BR]=Procurar e remover amostras inválidas

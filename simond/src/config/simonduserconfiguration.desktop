@@ -17,6 +17,7 @@ X-KDE-PluginKeyword=SimondUserConfiguration
 
 Name=User
 Name[cs]=Uživatel
+Name[de]=Benutzer
 Name[es]=Usuario
 Name[nds]=Bruker
 Name[nl]=Gebruiker
@@ -27,6 +28,7 @@ Name[uk]=Користувач
 Name[x-test]=xxUserxx
 
 Comment=Userconfiguration
+Comment[de]=Benutzerkonfiguration
 Comment[es]=Configuración del usuario
 Comment[pt]=Configuração do utilizador
 Comment[pt_BR]=Configuração do usuário

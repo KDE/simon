@@ -4,6 +4,7 @@ Icon=input-keyboard
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonkeyboardcommandplugin
 Name=simon Keyboard Command Plugin
+Name[de]=Tastatur-Befehlsmodul für Simon
 Name[pt]='Plugin' de Comando do Teclado do Simon
 Name[pt_BR]=Plugin de comando do teclado do simon
 Name[uk]=Додаток команд клавіатури simon

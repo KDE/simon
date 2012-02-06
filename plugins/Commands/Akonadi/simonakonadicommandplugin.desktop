@@ -4,6 +4,7 @@ Icon=akonadi
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonakonadicommandplugin
 Name=simon Akonadi Command Plugin
+Name[de]=Akonadi-Befehlsmodul für Simon
 Name[nl]=Plugin van simon Akonadi-commando
 Name[pt]='Plugin' de Comandos do Akonadi para o Simon
 Name[pt_BR]=Plugin de comandos do Akonadi para o simon

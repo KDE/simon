@@ -4,6 +4,7 @@ Icon=applications-education
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonpronunciationtrainingplugin
 Name=simon pronunciation training Plugin
+Name[de]=Aussprachetrainingsmodul für Simon
 Name[pt]='Plugin' de treino de pronúncia do Simon
 Name[pt_BR]=Plugin de treino de pronúncia do simon
 Name[uk]=Додаток навчання вимові simon
