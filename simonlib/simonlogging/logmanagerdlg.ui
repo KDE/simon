@@ -109,7 +109,7 @@
         <item row="1" column="1" >
          <widget class="QCheckBox" name="cbLogUpdate" >
           <property name="text" >
-           <string comment="Display messages of the category \"Update\"">Update</string>
+           <string comment="Display messages of the category 'Update'">Update</string>
           </property>
          </widget>
         </item>
