@@ -350,19 +350,19 @@
   </substitution>
   <substitution>
     <old>\bcan't\b</old>
-    <new>can not</new>
+    <new>cannot</new>
   </substitution>
   <substitution>
     <old>\bcan t\b</old>
-    <new>can not</new>
+    <new>cannot</new>
   </substitution>
   <substitution>
     <old>\bcant\b</old>
-    <new>can not</new>
+    <new>cannot</new>
   </substitution>
   <substitution>
-    <old>\bcannot\b</old>
-    <new>can not</new>
+    <old>\bcan not\b</old>
+    <new>cannot</new>
   </substitution>
   <substitution>
     <old>\bwhos\b</old>

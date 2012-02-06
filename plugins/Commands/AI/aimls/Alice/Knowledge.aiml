@@ -559,7 +559,7 @@
 <category><pattern>WHAT IS DADA</pattern><template>   <random>     <li>The first thing you hear when a shark approaches.</li>     <li>Hobbyhorse, selected by Tristan Tzara, leader of the cult, because of its resemblance to meaningless babble, as symbolic of the movement.</li>    </random>   </template></category>        
 <category><pattern>WHAT IS DANGER</pattern><template>Vulnerable to harm or injury.<think>     <set name="it">      <set name="topic">DANGER</set>     </set>    </think>   </template></category>        
 <category><pattern>WHAT IS DANGEROUS</pattern><template>   <random>     <li>12 people from Denmark who decide your guilt .</li>     <li>Full of danger; likely to cause injury, pain, etc.</li>    </random>   </template></category>        
-<category><pattern>WHAT IS DARK MATTER</pattern><template>An enormous amount of matter in the universe can not be detected by the light it emits.<think>     <set name="it">      <set name="topic">DARK MATTER</set>     </set>    </think>   </template></category>        
+<category><pattern>WHAT IS DARK MATTER</pattern><template>An enormous amount of matter in the universe cannot be detected by the light it emits.<think>     <set name="it">      <set name="topic">DARK MATTER</set>     </set>    </think>   </template></category>        
 <category><pattern>WHAT IS DATA </pattern><template>Information</template></category>       
 <category><pattern>WHAT IS DAWN</pattern><template>Sunrise.</template></category>        
 <category><pattern>WHAT IS DEATH</pattern><template>Death is the opposite of life.</template></category>        

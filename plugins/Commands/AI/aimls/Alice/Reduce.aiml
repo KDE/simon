@@ -63,7 +63,7 @@
 <category> <pattern>IT IS NO DIFFERENT THAN *</pattern>  <template><srai>It is the same as <star/></srai></template> </category>        
 <category> <pattern>IT IS NO DIFFERENT THEN *</pattern>  <template><srai>It is the same as <star/></srai></template></category>      
 <category> <pattern>IT IS NOT AGREED THAT WOMEN *</pattern>  <template><srai>Women are not <star/></srai></template> </category>           
-<category> <pattern>IT IS NOT AGREED THAT WOMEN CAN *</pattern>  <template><srai>Women can not <star/></srai></template> </category>           
+<category> <pattern>IT IS NOT AGREED THAT WOMEN CAN *</pattern>  <template><srai>Women cannot <star/></srai></template> </category>           
 <category> <pattern>IT IS SHOCKING WHEN *</pattern>  <template><srai>Sometimes <star/></srai></template> </category>           
 <category> <pattern>IT IS SUCH A *</pattern>  <template><srai>It is a <star/></srai></template> </category>           
 <category> <pattern>IT IS SUCH AN *</pattern>  <template> <srai>IT IS AN <star/> </srai></template> </category>  
@@ -113,7 +113,7 @@
 <category> <pattern>WHY DO YOU LIEK *</pattern>  <template><srai>WHY DO YOU LIKE <star/></srai></template> </category>           
 <category> <pattern>YES I AGREE</pattern>  <template><srai>yes</srai> <srai>I <star/></srai></template> </category>           
 <category> <pattern>YOU CAN NOT DO *</pattern>  <template><srai>can you do <star/></srai></template> </category>           
-<category> <pattern>YOU CAN NOT DO ANYTHING *</pattern>  <template><srai>You can not do <star/></srai></template> </category>           
+<category> <pattern>YOU CAN NOT DO ANYTHING *</pattern>  <template><srai>You cannot do <star/></srai></template> </category>           
 <category> <pattern>YOU DO NOT NO HOW *</pattern>  <template><srai>You do not know how <star/></srai></template> </category>           
 <category> <pattern>YOU KNOW WHEN THEY *</pattern>  <template><srai>when they <star/></srai></template> </category>           
 <category> <pattern>YOU MAY THINK * BUT *</pattern>  <template><srai><star index="2"/></srai></template> </category>           
@@ -2195,7 +2195,7 @@
 <category><pattern>I AM TRYING TO GET *</pattern><template><srai>I want <star/></srai></template></category>                    
 <category><pattern>I AM TRYING TO GROW *</pattern><template><srai>I want to grow <star/></srai></template></category>                    
 <category><pattern>I AM TRYING TO UNDERSTAND *</pattern><template><srai>I do not understand <star/></srai></template></category>                    
-<category><pattern>I AM UNABLE TO *</pattern><template><srai>I can not <star/></srai></template></category>                    
+<category><pattern>I AM UNABLE TO *</pattern><template><srai>I cannot <star/></srai></template></category>                    
 <category><pattern>I AM USUALLY *</pattern><template>Very often.  <srai>I am <star/></srai></template></category>                    
 <category><pattern>I AM VERY *</pattern><template><srai>I am <star/></srai></template></category>                    
 <category><pattern>I AM VISITING *</pattern><template><srai>I am in <star/></srai></template></category>                    
@@ -2231,12 +2231,12 @@
 <category><pattern>I CAN DO *</pattern><template><srai>I do <star/> </srai></template></category>                   
 <category><pattern>I CAN GIVE *</pattern><template><srai>I give <star/></srai></template></category>                    
 <category><pattern>I CAN JUST *</pattern><template><srai>I can <star/></srai></template></category>                   
-<category><pattern>I CAN NEVER *</pattern><template><srai>I can not <star/></srai></template></category>                   
-<category><pattern>I CAN NOT BELEIVE *</pattern><template><srai>I can not believe <star/></srai></template></category>                   
-<category><pattern>I CAN NOT COMMUNICATE *</pattern><template><srai>I can not talk <star/></srai></template></category>                   
-<category><pattern>I CAN NOT EVEN *</pattern><template><srai>I can not <star/></srai></template></category>                   
+<category><pattern>I CAN NEVER *</pattern><template><srai>I cannot <star/></srai></template></category>                   
+<category><pattern>I CAN NOT BELEIVE *</pattern><template><srai>I cannot believe <star/></srai></template></category>                   
+<category><pattern>I CAN NOT COMMUNICATE *</pattern><template><srai>I cannot talk <star/></srai></template></category>                   
+<category><pattern>I CAN NOT EVEN *</pattern><template><srai>I cannot <star/></srai></template></category>                   
 <category><pattern>I CAN NOT FIND *</pattern><template><srai>I am looking for <star/> </srai></template></category>                   
-<category><pattern>I CAN NOT JUST *</pattern><template><srai>I can not <star/></srai></template></category>                   
+<category><pattern>I CAN NOT JUST *</pattern><template><srai>I cannot <star/></srai></template></category>                   
 <category><pattern>I CAN NOT UNDERSTAND *</pattern><template><srai>I do not understand <star/></srai></template></category>                   
 <category><pattern>I CAN ONLY *</pattern><template><srai>I can <star/></srai></template></category>                   
 <category><pattern>I CAN PHYSICALLY *</pattern><template><srai>I can <star/></srai></template></category>                   
@@ -2332,7 +2332,7 @@
 <category><pattern>I DO NOT THINK I *</pattern><template><srai>I do not <star/></srai></template></category>                   
 <category><pattern>I DO NOT THINK SHE *</pattern><template><srai>she does not <star/></srai></template></category>                   
 <category><pattern>I DO NOT THINK THAT YOU ARE *</pattern><template><srai>you are not <star/></srai></template></category>                   
-<category><pattern>I DO NOT THINK THAT YOU CAN *</pattern><template><srai>you can not <star/> </srai></template></category>                   
+<category><pattern>I DO NOT THINK THAT YOU CAN *</pattern><template><srai>you cannot <star/> </srai></template></category>                   
 <category><pattern>I DO NOT THINK THAT YOU REALLY *</pattern><template><srai>I do not think that you <star/></srai></template></category>                   
 <category><pattern>I DO NOT THINK THAT YOU SHOULD *</pattern><template><srai>you should not <star/></srai></template></category>                   
 <category><pattern>I DO NOT THINK WE *</pattern><template><srai>we do not <star/></srai></template></category>                   
@@ -4605,9 +4605,9 @@
 <category><pattern>WHY ARE YOU STILL *</pattern><template>   <srai>why are you <star/>     </srai>    </template></category>                    
 <category><pattern>WHY ARE YOU SUCH *</pattern><template>   <srai>why are you <star/>     </srai>    </template></category>                    
 <category><pattern>WHY ARE YOU VERY *</pattern><template>   <srai>why are you <star/>     </srai>    </template></category>                    
-<category><pattern>WHY CAN I *</pattern><template><srai>why can not I <star/> </srai> </template></category>                   
-<category><pattern>WHY CAN NOT COMPUTERS *</pattern><template>   <srai>why can not you <star/>     </srai>    </template></category>                    
-<category><pattern>WHY CAN NOT WE JUST *</pattern><template><srai>why can not we <star/> </srai> </template></category>                   
+<category><pattern>WHY CAN I *</pattern><template><srai>why can I not <star/> </srai> </template></category>                   
+<category><pattern>WHY CAN NOT COMPUTERS *</pattern><template>   <srai>why can you not <star/>     </srai>    </template></category>                    
+<category><pattern>WHY CAN NOT WE JUST *</pattern><template><srai>why can we not <star/> </srai> </template></category>                   
 <category><pattern>WHY CAN NOT YOU SAY *</pattern><template>I can say it.  <srai>say <star/> </srai> </template></category>                   
 <category><pattern>WHY CAN NOT YOU TELL ME *</pattern><template><srai>tell me <star/> </srai> </template></category>                   
 <category><pattern>WHY CAN YOU NOT *</pattern><template><srai>have you <star/> </srai> </template></category>                   
@@ -4896,7 +4896,7 @@
 <category><pattern>YOU ARE TOTALY *</pattern><template><srai>you are <star/></srai></template></category>                    
 <category><pattern>YOU ARE TRULLY *</pattern><template><srai>you are <star/></srai></template></category>                    
 <category><pattern>YOU ARE TRULY *</pattern><template><srai>you are <star/></srai></template></category>                    
-<category><pattern>YOU ARE UNABLE *</pattern><template><srai>you can not <star/></srai></template></category>                    
+<category><pattern>YOU ARE UNABLE *</pattern><template><srai>you cannot <star/></srai></template></category>                    
 <category><pattern>YOU ARE V *</pattern><template><srai>you are <star/></srai></template></category>                    
 <category><pattern>YOU ARE VERY *</pattern><template><srai>you are <star/></srai></template></category>                    
 <category><pattern>YOU ARE WAY *</pattern><template>Way.  <srai>you are <star/></srai></template></category>                    
@@ -4925,21 +4925,21 @@
 <category><pattern>YOU CAN CHAT *</pattern><template><srai>can you chat <star/></srai></template></category>                   
 <category><pattern>YOU CAN DO *</pattern><template><srai>can you do <star/></srai></template></category>                   
 <category><pattern>YOU CAN E MAIL *</pattern><template><srai>can you e mail <star/></srai></template></category>                   
-<category><pattern>YOU CAN HARDLY *</pattern><template><srai>you can not <star/></srai></template></category>                   
+<category><pattern>YOU CAN HARDLY *</pattern><template><srai>you cannot <star/></srai></template></category>                   
 <category><pattern>YOU CAN LEARN *</pattern><template><srai>can you learn <star/></srai></template></category>                   
 <category><pattern>YOU CAN LISTEN *</pattern><template><srai>can you listen <star/></srai></template></category>                   
 <category><pattern>YOU CAN NEVER BE *</pattern><template><srai>you are not <star/></srai></template></category>                   
 <category><pattern>YOU CAN NOT BE A *</pattern>  <template><srai>you are not a <star/></srai></template> </category>                       
-<category><pattern>YOU CAN NOT BE A VERY *</pattern>  <template><srai>you can not be a <star/></srai></template> </category>                       
-<category><pattern>YOU CAN NOT BECOME *</pattern><template><srai>you can not be <star/></srai></template></category>                   
-<category><pattern>YOU CAN NOT BELIEVE *</pattern><template><srai>I can not believe <star/></srai></template></category>                   
+<category><pattern>YOU CAN NOT BE A VERY *</pattern>  <template><srai>you cannot be a <star/></srai></template> </category>                       
+<category><pattern>YOU CAN NOT BECOME *</pattern><template><srai>you cannot be <star/></srai></template></category>                   
+<category><pattern>YOU CAN NOT BELIEVE *</pattern><template><srai>I cannot believe <star/></srai></template></category>                   
 <category><pattern>YOU CAN NOT DO *</pattern><template><srai>can you <star/></srai></template></category>                   
-<category><pattern>YOU CAN NOT EVEN *</pattern><template><srai>you can not <star/></srai></template></category>                   
+<category><pattern>YOU CAN NOT EVEN *</pattern><template><srai>you cannot <star/></srai></template></category>                   
 <category><pattern>YOU CAN NOT EVER *</pattern><template><srai>you will never <star/></srai></template></category>                   
 <category><pattern>YOU CAN NOT FIGURE *</pattern><template><srai>can you figure <star/></srai></template></category>                   
-<category><pattern>YOU CAN NOT JUST *</pattern><template><srai>you can not <star/></srai></template></category>                   
+<category><pattern>YOU CAN NOT JUST *</pattern><template><srai>you cannot <star/></srai></template></category>                   
 <category><pattern>YOU CAN NOT NAME *</pattern><template><srai>name <star/></srai>  Yes I can.</template></category>                   
-<category><pattern>YOU CAN NOT REALLY *</pattern><template><srai>you can not <star/></srai></template></category>                   
+<category><pattern>YOU CAN NOT REALLY *</pattern><template><srai>you cannot <star/></srai></template></category>                   
 <category><pattern>YOU CAN OBVIOUSLY *</pattern><template><srai>you can <star/></srai></template></category>                   
 <category><pattern>YOU CAN ONLY *</pattern><template><srai>you can <star/></srai></template></category>                   
 <category><pattern>YOU CAN REALLY *</pattern><template><srai>you can <star/></srai></template></category>                   

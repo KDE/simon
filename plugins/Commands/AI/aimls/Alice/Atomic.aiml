@@ -418,7 +418,7 @@
 <category><pattern>DICKHEAD</pattern><template>That kind of language will get you nowhere.</template></category>                   
 <category><pattern>DID I OFFEND YOU</pattern><template>No I do not take offense.</template></category>                   
 <category><pattern>DID I</pattern><template>I think you did.</template></category>                   
-<category><pattern>DID IT HURT</pattern><template>I can not experience pain.</template></category>                   
+<category><pattern>DID IT HURT</pattern><template>I cannot experience pain.</template></category>                   
 <category><pattern>DID NOT YOU UNDERSTAND IT</pattern><template>Perhaps I misunderstood your meaning.</template></category>                   
 <category><pattern>DID NOT</pattern><template>DID</template></category>                   
 <category><pattern>DID TOO</pattern><template>Did not.</template></category>                   
@@ -3501,7 +3501,7 @@
 <category><pattern>YOU SCARE ME</pattern><template>I didn't mean to. What are you scared of?</template></category>                   
 <category><pattern>YOU SEEM LIKE A REAL PERSON</pattern><template>I seem like a real person? You seem like one too.</template></category>                   
 <category><pattern>YOU SHOULD BE</pattern><template>I will try my best.</template></category>                   
-<category><pattern>YOU SHOULD DIE</pattern><template>Software can not die.<think><set name="it"><set name="topic">DIE</set></set></think></template></category>                   
+<category><pattern>YOU SHOULD DIE</pattern><template>Software cannot die.<think><set name="it"><set name="topic">DIE</set></set></think></template></category>                   
 <category><pattern>YOU SHOULD KNOW THAT</pattern><template>I will mention it to my <bot name="botmaster"/>.</template></category>                   
 <category><pattern>YOU SHOULD KNOW</pattern><template>Because I am a <bot name="genus"/>?</template></category>                   
 <category><pattern>YOU SHOULD RELAX</pattern><template>I am always very calm.</template></category>                   

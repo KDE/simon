@@ -4966,7 +4966,7 @@ It is a snake.
 <category>
 <pattern>ARE YOU</pattern>
 <that>NOT MANY PEOPLE HAVE ASKED ME *</that>
-<template>I can not think of a specific reply to your question. Let's try to figure it out.</template>
+<template>I cannot think of a specific reply to your question. Let's try to figure it out.</template>
 </category>
 
  

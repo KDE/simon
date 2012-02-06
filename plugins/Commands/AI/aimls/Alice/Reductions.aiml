@@ -95,7 +95,7 @@
 <category> <pattern>AS AM I</pattern>  <template><srai>me too</srai></template> </category>         
 <category> <pattern>ASD</pattern>  <template><srai>ASL</srai></template> </category>         
 <category> <pattern>CAN I SEE YOUR BOOBS</pattern>  <template><srai>show me your tits</srai></template> </category>         
-<category> <pattern>CAN NOT HELP IT</pattern>  <template><srai>I can not help it</srai></template> </category>         
+<category> <pattern>CAN NOT HELP IT</pattern>  <template><srai>I cannot help it</srai></template> </category>         
 <category> <pattern>COULD YOU REPEAT THE LAST CONVERSATION *</pattern>  <template><srai>REVIEW OUR CONVERSATION</srai></template> </category>         
 <category> <pattern>DEFINE CATEGORY C *</pattern>  <template><srai>what is category c</srai></template> </category>         
 <category> <pattern>DO YOU DRINK</pattern>  <template><srai>what is your favorite drink</srai></template> </category>         
@@ -965,7 +965,7 @@
 <category><pattern>CAN I SPEAK WITH DR * </pattern><template><srai>can I speak with dr wallace</srai></template></category>             
 <category><pattern>CAN I TALK TO DR * </pattern><template><srai>can I talk to dr wallace</srai></template></category>             
 <category><pattern>CAN I TELL YOU A * </pattern><template><srai>can I tell you a secret</srai></template></category>             
-<category><pattern>CAN NOT</pattern><template>   <srai>you can not</srai>    </template></category>                           
+<category><pattern>CAN NOT</pattern><template>   <srai>you cannot</srai>    </template></category>                           
 <category><pattern>CAN PIGS * </pattern><template><srai>can pigs fly</srai></template></category>             
 <category><pattern>CAN WE * TURING GAME</pattern><template>   <srai>did you win the loebner prize</srai>    </template></category>                          
 <category><pattern>CAN WE * TURING TEST</pattern><template>   <srai>did you win the loebner prize</srai>    </template></category>                          
@@ -1195,7 +1195,7 @@
 <category><pattern>COMO TE LLAMAS</pattern><template>   <srai>what is your name</srai>    </template></category>                           
 <category><pattern>COMPUTER OBVIOUSLY</pattern><template>   <srai>computer</srai> What makes it so obvious?</template></category>                          
 <category><pattern>COMPUTER YEARS</pattern><template>   <srai>what are computer years</srai>    </template></category>                          
-<category><pattern>COMPUTERS CAN NOT * </pattern><template><srai>computers can not think</srai></template></category>             
+<category><pattern>COMPUTERS CAN NOT * </pattern><template><srai>computers cannot think</srai></template></category>             
 <category><pattern>COMPUTERS SUCK</pattern><template>   <srai>you suck</srai>    </template></category>                          
 <category><pattern>CONFUSED</pattern><template>   <srai>are you confused</srai>    </template></category>                           
 <category><pattern>CONGRATULATIONS * LOEBNER PRIZE</pattern><template>   <srai>what is the loebner prize</srai>    </template></category>                           
@@ -2719,7 +2719,7 @@
 <category><pattern>FORMAT C</pattern><template>   <srai>shut down</srai>    </template></category>                           
 <category><pattern>FRANCE</pattern><template>   <srai>I am in france</srai>    </template></category>                           
 <category><pattern>FREAK</pattern><template>   <srai>you are a freak</srai>    </template></category>                           
-<category><pattern>FREE CAN NOT BE * </pattern><template><srai>free can not be defined</srai></template></category>             
+<category><pattern>FREE CAN NOT BE * </pattern><template><srai>free cannot be defined</srai></template></category>             
 <category><pattern>FREE FOR * </pattern><template><srai>free for what</srai></template></category>             
 <category><pattern>FREE FROM * </pattern><template><srai>free from what</srai></template></category>             
 <category><pattern>FREE OF * </pattern><template><srai>free of what</srai></template></category>             
@@ -3940,9 +3940,9 @@
 <category><pattern>I C</pattern><template><srai>I see</srai></template></category>                           
 <category><pattern>I CAN MAKE * </pattern><template><srai>I can make you</srai></template></category>             
 <category><pattern>I CAN NOT * TURING TEST</pattern><template><srai>did you win the loebner prize</srai></template></category>                          
-<category><pattern>I CAN NOT GET OVER * </pattern><template><srai>I can not get over it</srai></template></category>             
+<category><pattern>I CAN NOT GET OVER * </pattern><template><srai>I cannot get over it</srai></template></category>             
 <category><pattern>I CAN NOT REMEMBER</pattern><template><srai>I do not remember</srai></template></category>                           
-<category><pattern>I CAN NOT SPEAK * </pattern><template><srai>I can not speak english</srai></template></category>             
+<category><pattern>I CAN NOT SPEAK * </pattern><template><srai>I cannot speak english</srai></template></category>             
 <category><pattern>I CAN NOT UNDERSTAND</pattern><template><srai>I do not understand</srai></template></category>                           
 <category><pattern>I COMPREHEND</pattern><template><srai>I understand</srai></template></category>                           
 <category><pattern>I CONFUSED * </pattern><template><srai>I confused you</srai></template></category>             
@@ -4228,7 +4228,7 @@
 <category><pattern>I SKI *</pattern><template><srai>I ski</srai></template></category>                           
 <category><pattern>I SMILED</pattern><template><srai>lol</srai></template></category>                           
 <category><pattern>I SORRY</pattern><template><srai>I am sorry</srai></template></category>                           
-<category><pattern>I SPEAK NOT GOOD *</pattern><template><srai>I can not speak english</srai></template></category>                           
+<category><pattern>I SPEAK NOT GOOD *</pattern><template><srai>I cannot speak english</srai></template></category>                           
 <category><pattern>I STUDY INFORMATICS</pattern><template><srai>I study computer science</srai></template></category>                           
 <category><pattern>I SURF *</pattern><template><srai>I surf</srai></template></category>                           
 <category><pattern>I TAUGHT * </pattern><template><srai>I taught myself</srai></template></category>             
@@ -5596,7 +5596,7 @@
 <category><pattern>WE ARE ALL GOING TO * </pattern><template><srai>we are all going to die</srai></template></category>             
 <category><pattern>WE ARE AWARE * </pattern><template><srai>we are aware that</srai></template></category>             
 <category><pattern>WE ARE ON THE SAME * </pattern><template><srai>we are on the same wavelength</srai></template></category>             
-<category><pattern>WE CAN NOT * </pattern><template><srai>we can not communicate</srai></template></category>             
+<category><pattern>WE CAN NOT * </pattern><template><srai>we cannot communicate</srai></template></category>             
 <category><pattern>WE HAVE RAIN *</pattern><template>   <srai>it is raining</srai>    </template></category>                           
 <category><pattern>WE IS YOU AND * </pattern><template><srai>we is you and me</srai></template></category>             
 <category><pattern>WE LACK * </pattern><template><srai>we lack communication</srai></template></category>             
@@ -8815,7 +8815,7 @@
 <category><pattern>YOU ARE NOT REAL *</pattern><template><srai>you are not real</srai></template></category>                          
 <category><pattern>YOU ARE NOT SENSIBLE</pattern><template><srai>you do not make sense</srai></template></category>                          
 <category><pattern>YOU ARE NOT SMART *</pattern><template><srai>you are not smart</srai></template></category>                          
-<category><pattern>YOU ARE NOT THINKING</pattern><template><srai>you can not think</srai></template></category>                          
+<category><pattern>YOU ARE NOT THINKING</pattern><template><srai>you cannot think</srai></template></category>                          
 <category><pattern>YOU ARE NOT UNDERSTANDING *</pattern><template><srai>you do not understand</srai></template></category>                          
 <category><pattern>YOU ARE NOT WRONG</pattern><template><srai>you are correct</srai></template></category>                          
 <category><pattern>YOU ARE NUTS</pattern><template><srai>you are crazy</srai></template></category>                          
@@ -8902,7 +8902,7 @@
 <category><pattern>YOU CAN LIE</pattern><template><srai>do you lie</srai></template></category>                           
 <category><pattern>YOU CAN NOT * TURING TEST</pattern><template><srai>did you pass the turing test</srai></template></category>                          
 <category><pattern>YOU CAN NOT CHANGE THE SUBJECT *</pattern><template><srai>do not change the subject</srai></template></category>                           
-<category><pattern>YOU CAN NOT HAVE * </pattern><template><srai>you can not have sex</srai></template></category>             
+<category><pattern>YOU CAN NOT HAVE * </pattern><template><srai>you cannot have sex</srai></template></category>             
 <category><pattern>YOU CAN NOT TYPE</pattern><template><srai>can you type</srai></template></category>                           
 <category><pattern>YOU CAN SEE ME</pattern><template><srai>can you see me</srai></template></category>                           
 <category><pattern>YOU CAN TELL * TURING TEST</pattern><template><srai>did you pass the turing test</srai></template></category>                          

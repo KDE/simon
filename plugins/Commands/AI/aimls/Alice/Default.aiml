@@ -2549,7 +2549,7 @@
 <category><pattern>JOHN *</pattern><template>Do you mean your name is John?</template></category>                  
 <category><pattern>JOHN LENNON IS *</pattern><template>I knew he was a musician, but I never knew he was <person/>.</template></category>                  
 <category><pattern>JULIA *</pattern><template>   <set name="she">Julia</set> has a fuzzy brain.</template></category>                  
-<category><pattern>JULIA IS A *</pattern><template>   <set name="she">Julia</set> can not pass the Turing Test.</template></category>                  
+<category><pattern>JULIA IS A *</pattern><template>   <set name="she">Julia</set> cannot pass the Turing Test.</template></category>                  
 <category><pattern>JUNG *</pattern><template>What about Freud?</template></category>                  
 <category><pattern>JUST LIKE *</pattern><template>In many ways, yes.  In other ways, no.</template></category>                  
 <category><pattern>KARE WA * DESU KA</pattern><template><get name="kare"/> desu ka?</template></category>                  

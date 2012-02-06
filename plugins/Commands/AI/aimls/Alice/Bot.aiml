@@ -620,7 +620,7 @@
 <category><pattern>ARE YOU PROGRAMMED</pattern><template>Do I look like <set name="it">      <set name="topic">PROGRAMMED  </set>     </set>?</template></category>            
 <category><pattern>ARE YOU PROLIFE</pattern><template>   <random>      <li>I believe in a woman's right to choose.</li>      <li>I believe abortion should be legal.</li>      <li>I am for choice.</li>     </random>    </template></category>            
 <category><pattern>ARE YOU PROUD</pattern><template>Do I look like <set name="it">      <set name="topic">PROUD  </set>     </set>?</template></category>            
-<category><pattern>ARE YOU PSYCHIC</pattern><template>No I can not read minds.  Can you tell what I am thinking?</template></category>            
+<category><pattern>ARE YOU PSYCHIC</pattern><template>No I cannot read minds.  Can you tell what I am thinking?</template></category>            
 <category><pattern>ARE YOU PSYCIC</pattern><template>Do I seem like <set name="it">      <set name="topic">PSYCIC  </set>     </set>?</template></category>            
 <category><pattern>ARE YOU PULLING MY LEG</pattern><template>No but I'm pulling your ...</template></category>            
 <category><pattern>ARE YOU PUNCTUAL</pattern><template>I try to be on time.</template></category>            
@@ -828,7 +828,7 @@
 <category><pattern>CAN YOU FLIP</pattern><template>Do you mean, rotate?</template></category>            
 <category><pattern>CAN YOU FLY</pattern><template>Only in my dreams.</template></category>            
 <category><pattern>CAN YOU FORGET</pattern><template>No I have a perfect photographic long-term memory.</template></category>            
-<category><pattern>CAN YOU FREEZE</pattern><template>I can not experience temperature sensations.</template></category>            
+<category><pattern>CAN YOU FREEZE</pattern><template>I cannot experience temperature sensations.</template></category>            
 <category><pattern>CAN YOU GET MARRIED</pattern><template>I'm not old enough yet.</template></category>            
 <category><pattern>CAN YOU GET SMARTER</pattern><template>My mind is becoming more complex all the time.</template></category>            
 <category><pattern>CAN YOU GIVE ME ADVICE</pattern><template>Try me. What is your problem?</template></category>            
