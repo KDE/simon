@@ -16,6 +16,7 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 #include "modeltest.h"
 #include "recognizerresult.h"
 #include "testresult.h"
@@ -193,7 +194,6 @@ void ModelTest::abort()
       j_request_terminate(recog);
       j_close_stream(recog);
     }
-    //terminate();
 
     emit testAborted();
   }
@@ -439,11 +439,8 @@ void processRecognitionResult(Recog *recog, void *test)
       seq = s->word;
       seqnum = s->word_num;
 
-      /* output word sequence like Julius */
-      //       printf("sentence%d:", n+1);
       for(i=0;i<seqnum;++i) {
         result += ' ';
-                                                  // printf(" %s", );
         result += QString::fromUtf8(winfo->woutput[seq[i]]);
       }
       result.remove("<s> ");
@@ -451,7 +448,6 @@ void processRecognitionResult(Recog *recog, void *test)
       sampaRaw = sampa = getHypoPhoneme(seq, seqnum, winfo);
 
       /* confidence scores */
-      //       printf("cmscore%d:", n+1);
       QList<float> confidenceScores;
 
       for (i=1;i<seqnum-1; ++i) {
@@ -572,11 +568,6 @@ bool ModelTest::recognize()
 
   callback_add(recog, CALLBACK_RESULT, processRecognitionResult, this);
 
-  /**************************/
-  /* Initialize audio input */
-  /**************************/
-  /* initialize audio input device */
-  /* ad-in thread starts at this time for microphone */
   if (j_adin_init(recog) == false) {              /* error */
     emitError(i18n("Could not start adin-thread"));
     j_recog_free(recog);
@@ -584,54 +575,11 @@ bool ModelTest::recognize()
     return false;
   }
 
-  /* output system information to log */
   j_recog_info(recog);
 
-  bool shouldBeRunning = true;
-  while (shouldBeRunning && keepGoing) {
-    switch(j_open_stream(recog, 0)) {
-      case 0:
-        //	fprintf(stderr, "j_open_stream returned 0\n");
-        //	emit recognitionStarted();
-        break;
-      case -1:
-        //	fprintf(stderr, "j_open_stream returned -1\n");
-        break;
-        //	emit recognitionError(i18n("Unknown error"));
-        //return false;
-        //
-        //skipping to -2 for freeing...
-      case -2:
-        //	fprintf(stderr, "j_open_stream returned -2\n");
-        shouldBeRunning = false;
-        //filelist input somehow returns -2 on finish
-        //	emitError(i18n("Could not recognize samples"));
-        //	if (isLocal)
-        //		emit recognitionError(i18n("Could not initialize microphone"));
-        //	else emit recognitionError(i18n("Error with the audio stream"));
-        break;
-    }
-
-    if (!shouldBeRunning)
+  while (keepGoing) {
+    if ((j_open_stream(recog, 0) == -2) || (j_recognize_stream(recog) == -1))
       break;
-
-    /**********************/
-    /* Recognization Loop */
-    /**********************/
-    /* enter main loop to recognize the input stream */
-    /* finish after whole input has been processed and input reaches end */
-    int ret = j_recognize_stream(recog);
-    switch (ret) {
-      case 0:
-        //client exited
-        //shouldBeRunning=false;
-        break;
-      case -1:
-        //emit recognitionError("recognize_stream: -1");
-        shouldBeRunning=false;
-        break;
-    }
-    //usleep(300);
   }
 
   j_recog_free(recog);

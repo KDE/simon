@@ -45,77 +45,49 @@
 #include <QPointer>
 #include <KDebug>
 #include "recognitioncontrol.h"
+#include <simonrecognizer/juliusrecognizer.h>
+#include <QQueue>
 
-//krazy:excludeall=captruefalse
-
-#ifdef bzero
-#undef bzero
-#endif
-
-#ifdef FALSE
-#undef FALSE
-#endif
-#ifdef TRUE
-#undef TRUE
-#endif
-
-extern "C"
-{
-  #include <julius/julius.h>
-}
-
+class RecognitionConfiguration;
 
 class JuliusControl : public RecognitionControl
 {
-  Q_OBJECT
+Q_OBJECT
 
-  public:
-    enum Request
-    {
-      None=0,
-      Stop=2
-    };
+public:
+  explicit JuliusControl(const QString& username, QObject *parent=0);
 
-    explicit JuliusControl(const QString& username, QObject *parent=0);
+  bool initializeRecognition();
 
-    bool initializeRecognition();
+  bool startRecognition();
+  bool stop();
+  bool isInitialized() { return m_initialized; }
+  
+  void recognize(const QString& fileName);
 
-    bool startRecognition();
-    bool stop();
-    bool isInitialized();
+  ~JuliusControl();
 
-    bool isStopping() { return stopping; }
+protected:
+  void run();
+  void uninitialize();
 
-    void waitForResumed();
-    void recognized(const QString& fileName, const QList<RecognitionResult>& recognitionResults);
-    JuliusControl::Request popNextRequest();
+private:
+  QMutex queueLock;
+  QQueue<QString> toRecognize;
+  JuliusRecognizer *recog;
+  
+  bool stopping;
+  bool m_initialized;
+  bool shouldBeRunning;
 
-    Jconf* setupJconf();
-    void recognize(const QString& fileName);
+  QString currentFileName;
 
-    ~JuliusControl();
-
-  protected:
-    void run();
-    void pushRequest(JuliusControl::Request);
-    void uninitialize();
-
-  private:
-    Recog *recog;
-    Jconf *jconf;
-    bool stopping;
-    bool m_initialized;
-    bool shouldBeRunning;
-    FILE *logFile;
-
-    QString currentFileName;
-
-    QList<JuliusControl::Request> nextRequests;
-    QByteArray getBuildLog();
-    void emitError(const QString& error);
-    void closeLog();
-    bool stopPrivate();
-    bool startRecognitionPrivate();
+  QByteArray getBuildLog();
+  void emitError(const QString& error);
+  bool stopPrivate();
+  bool startRecognitionPrivate();
+  
+  RecognitionConfiguration* setupConfig();
 
 };
 #endif

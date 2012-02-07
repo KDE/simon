@@ -40,14 +40,11 @@
 
 #include <julius/julius.h>
 
-
-
 class RecognizerResult;
 class TestResult;
 class TestResultLeaf;
 class TestResultModel;
 class FileResultModel;
-
 
 class MODELTEST_EXPORT ModelTest : public QThread
 {
