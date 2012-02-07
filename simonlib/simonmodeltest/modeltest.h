@@ -26,25 +26,12 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodeltest_export.h"
 
-//krazy:excludeall=captruefalse
-#ifdef FALSE
-#undef FALSE
-#endif
-#ifdef TRUE
-#undef TRUE
-#endif
-
-#ifdef bzero
-#undef bzero
-#endif
-
-#include <julius/julius.h>
-
 class RecognizerResult;
 class TestResult;
 class TestResultLeaf;
 class TestResultModel;
 class FileResultModel;
+class Recognizer;
 
 class MODELTEST_EXPORT ModelTest : public QThread
 {
@@ -56,65 +43,6 @@ class MODELTEST_EXPORT ModelTest : public QThread
 
     void testComplete();
     void testAborted();
-
-  private:
-    bool keepGoing;
-
-    Recog *recog;
-    FILE *logFile;
-
-    QString buildLog;
-    QString lastOutput;
-
-    QString userName;
-    QString samplePath;
-    QString tempDir;
-    QString promptsPath;
-
-    int sampleRate;
-    QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
-    QString juliusJConf;
-
-    //config options
-    QString sox;
-
-    QHash<QString, QString> promptsTable;
-
-    QList<TestResultLeaf*> resultLeafes;
-    QHash<QString /*filename*/, RecognizerResult*> recognizerResults;
-    QList<TestResult*> wordResults;
-    QList<TestResult*> sentenceResults;
-
-    FileResultModel *m_recognizerResultsModel;
-    TestResultModel *m_wordResultsModel;
-    TestResultModel *m_sentenceResultsModel;
-
-    QHash<QString, QString> recodedSamples;
-
-    TestResult* getResult(QList<TestResult*>& list, const QString& prompt);
-    void closeLog();
-
-    bool createDirs();
-
-    bool execute(const QString& command, const QString& outputFilePath=QString(),
-      const QString& errorFilePath=QString());
-
-    bool parseConfiguration();
-
-    bool recodeAudio();
-    bool generateMLF();
-    bool recognize();
-    bool analyzeResults();
-    void emitError(const QString& message);
-
-    int aggregateLeafDetail(
-        bool (TestResultLeaf::*function)(void)const) const;
-
-    template<typename T>
-    T aggregateLeafDetail(
-        T (TestResultLeaf::*function)(void)const,
-        bool onlyCorrect, bool average) const;
-
 
   private slots:
     void addStatusToLog(const QString&);
@@ -135,8 +63,8 @@ class MODELTEST_EXPORT ModelTest : public QThread
     QString getGraphicLog();
     QString getLog();
 
-    void recognized(RecognitionResultList);
-    void searchFailed();
+    void recognized(const QString& file, RecognitionResultList);
+    void searchFailed(const QString& file);
 
     FileResultModel* recognizerResultsModel();
     TestResultModel* wordResultsModel();
@@ -165,6 +93,63 @@ class MODELTEST_EXPORT ModelTest : public QThread
     int getTotalSampleCount();
 
     ~ModelTest();
+
+  private:
+    bool keepGoing;
+    
+    QString buildLog;
+    QString lastOutput;
+
+    QString userName;
+    QString samplePath;
+    QString tempDir;
+    QString promptsPath;
+
+    int sampleRate;
+    QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
+    QString juliusJConf;
+
+    //config options
+    QString sox;
+    
+    Recognizer *recog;
+
+    QHash<QString, QString> promptsTable;
+
+    QList<TestResultLeaf*> resultLeafes;
+    QHash<QString /*filename*/, RecognizerResult*> recognizerResults;
+    QList<TestResult*> wordResults;
+    QList<TestResult*> sentenceResults;
+
+    FileResultModel *m_recognizerResultsModel;
+    TestResultModel *m_wordResultsModel;
+    TestResultModel *m_sentenceResultsModel;
+
+    QHash<QString, QString> recodedSamples;
+
+    TestResult* getResult(QList<TestResult*>& list, const QString& prompt);
+
+    bool createDirs();
+
+    bool execute(const QString& command, const QString& outputFilePath=QString(),
+      const QString& errorFilePath=QString());
+
+    bool parseConfiguration();
+
+    bool recodeAudio(QStringList& fileNames);
+    bool generateMLF();
+    bool recognize(const QStringList& fileNames);
+    bool analyzeResults();
+    void emitError(const QString& message);
+
+    int aggregateLeafDetail(
+        bool (TestResultLeaf::*function)(void)const) const;
+
+    template<typename T>
+    T aggregateLeafDetail(
+        T (TestResultLeaf::*function)(void)const,
+        bool onlyCorrect, bool average) const;
+
 
 };
 #endif

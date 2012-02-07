@@ -28,3 +28,14 @@ JuliusRecognitionConfiguration::JuliusRecognitionConfiguration(const QString& jc
   m_tiedlist(tiedlist)
 {
 }
+
+QStringList JuliusRecognitionConfiguration::toArgs()
+{
+  QStringList args;
+  args << "-C" << getJconf() 
+       << "-gram" << getGram()
+       << "-h" << getHmmDefs()
+       << "-hlist" << getTiedlist()
+       << "-input" << "file";
+  return args;
+}

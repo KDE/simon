@@ -18,29 +18,27 @@
  */
 
 
-#ifndef JULIUSRECOGNITIONCONFIGURATION_H
-#define JULIUSRECOGNITIONCONFIGURATION_H
+#include "juliusstaticrecognitionconfiguration.h"
 
-#include "recognitionconfiguration.h"
-#include <QString>
-#include "simonrecognizer_export.h"
-
-class SIMONRECOGNIZER_EXPORT JuliusRecognitionConfiguration : public RecognitionConfiguration
+JuliusStaticRecognitionConfiguration::JuliusStaticRecognitionConfiguration(const QString& jconf, const QString& dfa, const QString& dict, const QString& hmmDefs, const QString& tiedlist, const QString& sampleRate): 
+  m_jconf(jconf),
+  m_dfa(dfa),
+  m_dict(dict),
+  m_hmmDefs(hmmDefs),
+  m_tiedlist(tiedlist),
+  m_sampleRate(sampleRate)
 {
-public:
-  JuliusRecognitionConfiguration(const QString& jconf, const QString& gram, const QString& hmmDefs, const QString& tiedlist);
-  QString getJconf() { return m_jconf; }
-  QString getGram() { return m_gram; }
-  QString getHmmDefs() { return m_hmmDefs; }
-  QString getTiedlist() { return m_tiedlist; }
-  
-  QStringList toArgs();
-  
-private:
-  QString m_jconf;
-  QString m_gram;
-  QString m_hmmDefs;
-  QString m_tiedlist;
-};
+}
 
-#endif // JULIUSRECOGNITIONCONFIGURATION_H
+QStringList JuliusStaticRecognitionConfiguration::toArgs()
+{
+  QStringList args;
+  args << "-C" << getJconf() 
+       << "-dfa" << getDfa() 
+       << "-v" << getDict()
+       << "-h" << getHmmDefs()
+       << "-hlist" << getTiedlist()
+       << "-input" << "rawfile"
+       << "-smpFreq" << getSampleRate();
+  return args;
+}

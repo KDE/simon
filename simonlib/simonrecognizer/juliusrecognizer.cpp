@@ -53,9 +53,6 @@ QByteArray JuliusRecognizer::readData()
 
 bool JuliusRecognizer::init(RecognitionConfiguration* config)
 {
-  JuliusRecognitionConfiguration *juliusConfig = dynamic_cast<JuliusRecognitionConfiguration*>(config);
-  Q_ASSERT(juliusConfig);
-  
   if (!uninitialize())
     return false;
   
@@ -67,15 +64,9 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
     return false;
   }
   
-  QStringList args;
-  args << "-C" << juliusConfig->getJconf() 
-       << "-gram" << juliusConfig->getGram()
-       << "-h" << juliusConfig->getHmmDefs()
-       << "-hlist" << juliusConfig->getTiedlist()
-       << "-input" << "file";
-  m_juliusProcess->setProgram(exe, args);
+  m_juliusProcess->setProgram(exe, config->toArgs());
   m_juliusProcess->start();
-  kDebug() << "Started process " << exe << " with arguments " << args;
+  kDebug() << "Started process " << exe << " with arguments " << config->toArgs();
   if (!m_juliusProcess->waitForStarted()) {
     m_lastError = i18n("Failed to start Julius with given model");
     m_juliusProcess->kill();

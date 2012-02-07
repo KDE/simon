@@ -22,6 +22,7 @@
 #define RECOGNITIONCONFIGURATION_H
 
 #include "simonrecognizer_export.h"
+#include <QStringList>
 
 class SIMONRECOGNIZER_EXPORT RecognitionConfiguration
 {
@@ -29,6 +30,8 @@ class SIMONRECOGNIZER_EXPORT RecognitionConfiguration
 public:
     RecognitionConfiguration();
     virtual ~RecognitionConfiguration() {}
+    
+    virtual QStringList toArgs() = 0;
 };
 
 #endif // RECOGNITIONCONFIGURATION_H

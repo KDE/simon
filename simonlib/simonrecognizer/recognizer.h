@@ -37,6 +37,8 @@ public:
   
   QString getLastError() { return m_lastError; }
   
+  virtual QByteArray getLog() = 0;
+  
   virtual ~Recognizer() {}
 };
 

@@ -18,29 +18,32 @@
  */
 
 
-#ifndef JULIUSRECOGNITIONCONFIGURATION_H
-#define JULIUSRECOGNITIONCONFIGURATION_H
+#ifndef JULIUSSTATICRECOGNITIONCONFIGURATION_H
+#define JULIUSSTATICRECOGNITIONCONFIGURATION_H
 
 #include "recognitionconfiguration.h"
-#include <QString>
 #include "simonrecognizer_export.h"
 
-class SIMONRECOGNIZER_EXPORT JuliusRecognitionConfiguration : public RecognitionConfiguration
+class SIMONRECOGNIZER_EXPORT JuliusStaticRecognitionConfiguration : public RecognitionConfiguration
 {
 public:
-  JuliusRecognitionConfiguration(const QString& jconf, const QString& gram, const QString& hmmDefs, const QString& tiedlist);
+  JuliusStaticRecognitionConfiguration(const QString& jconf, const QString& dfa, const QString& dict, const QString& hmmDefs, const QString& tiedlist, const QString& sampleRate);
   QString getJconf() { return m_jconf; }
-  QString getGram() { return m_gram; }
+  QString getDfa() { return m_dfa; }
+  QString getDict() { return m_dict; }
   QString getHmmDefs() { return m_hmmDefs; }
   QString getTiedlist() { return m_tiedlist; }
+  QString getSampleRate() { return m_sampleRate; }
   
   QStringList toArgs();
   
 private:
   QString m_jconf;
-  QString m_gram;
+  QString m_dfa;
+  QString m_dict;
   QString m_hmmDefs;
   QString m_tiedlist;
+  QString m_sampleRate;
 };
 
-#endif // JULIUSRECOGNITIONCONFIGURATION_H
+#endif // JULIUSSTATICRECOGNITIONCONFIGURATION_H

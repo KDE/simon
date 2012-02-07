@@ -238,7 +238,7 @@ void TestResultWidget::retrieveCompleteTestLog()
 
 void TestResultWidget::displayRate(QProgressBar *pbRate, float rate)
 {
-  pbRate->setValue(round(rate*100.0f));
+  pbRate->setValue(qRound(rate*100.0f));
   pbRate->setFormat(QString::number(rate*100.0f, 'f', 2)+" %");
 }
 

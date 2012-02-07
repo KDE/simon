@@ -10,7 +10,8 @@ include(KDE4Defaults)
 set( simonrecognizer_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/juliusrecognizer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recognitionconfiguration.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/juliusrecognitionconfiguration.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/juliusrecognitionconfiguration.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/juliusstaticrecognitionconfiguration.cpp
 )
 
 set( simonrecognizer_LIB_HDRS
@@ -18,6 +19,7 @@ set( simonrecognizer_LIB_HDRS
         ${CMAKE_CURRENT_SOURCE_DIR}/juliusrecognizer.h
 	${CMAKE_CURRENT_SOURCE_DIR}/recognitionconfiguration.h
 	${CMAKE_CURRENT_SOURCE_DIR}/juliusrecognitionconfiguration.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/juliusstaticrecognitionconfiguration.h
 )
 
 kde4_add_library( simonrecognizer SHARED ${simonrecognizer_LIB_SRCS} )
