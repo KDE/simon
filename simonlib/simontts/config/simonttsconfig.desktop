@@ -8,6 +8,7 @@ X-KDE-FactoryName=ttssettingsfactory
 X-KDE-ParentComponents=simonttsconfiguration
 
 X-KDE-ParentApp=simon
+X-DocPath=simon/imdex.html#configuration
 
 Name=Text-to-speech
 Name[de]=Sprachausgabe
