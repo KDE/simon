@@ -13,11 +13,6 @@ Name[sv]=Simon AI-insticksprogram
 Name[uk]=Додаток штучного інтелекту simon
 Name[x-test]=xxsimon AI Pluginxx
 Comment=Voice-controlled Chatbot with Festival-based speech output
-Comment[pt]=Área de conversação com o resultado da fala baseado no Festival
-Comment[pt_BR]=Área de conversação com o resultado da fala baseado no Festival
-Comment[sv]=Röststyrt automatiskt chattprogram med Festival-baserad uppläsning
-Comment[uk]=Керований голосом бот з заснованим на Festival мовленням
-Comment[x-test]=xxVoicecontrolled Chatbot with Festival based speech outputxx
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org
