@@ -1363,7 +1363,7 @@ All that is left is to record the examples.
 <sect2 id="edit_word">
 <title>Editing a word</title>
 <para>
-  To edit a word, simply select it from the vocabulary, and click on <guibutton>Edit word</guibutton>.
+  To edit a word, simply select it from the vocabulary, and click on <guibutton>Edit</guibutton>.
 </para>
 
 <para>
@@ -1385,7 +1385,7 @@ All that is left is to record the examples.
 <sect2 id="remove_word">
 <title>Removing a word</title>
 
-<para>To remove a word from your language model, select it in the vocabulary view and click on <guibutton>Remove selected word</guibutton>.
+<para>To remove a word from your language model, select it in the vocabulary view and click on <guibutton>Remove</guibutton>.
 
 <screenshot>
 <screeninfo>Recording</screeninfo>
