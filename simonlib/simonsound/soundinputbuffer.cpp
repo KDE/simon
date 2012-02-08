@@ -105,7 +105,8 @@ void SoundInputBuffer::stop()
   QMutexLocker lock(&killLock);
   m_shouldBeRunning = false;
   kDebug() << "Set should be running to false";
-  //wait();
+  wait();
+  deleteLater();
 }
 
 SoundInputBuffer::~SoundInputBuffer()

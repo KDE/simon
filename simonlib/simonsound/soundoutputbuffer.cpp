@@ -91,6 +91,7 @@ void SoundOutputBuffer::stop()
 
   killLock.unlock();
   wait();
+  deleteLater();
 }
 
 SoundOutputBuffer::~SoundOutputBuffer()

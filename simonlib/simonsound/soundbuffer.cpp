@@ -20,6 +20,6 @@
 
 SoundBuffer::SoundBuffer(QObject* parent): QThread(parent), m_shouldBeRunning(true)
 {
-  connect(this, SIGNAL(finished()), this, SLOT(deleteLater()), Qt::QueuedConnection);
+//   connect(this, SIGNAL(finished()), this, SLOT(deleteLater()), Qt::QueuedConnection);
 }
 

@@ -258,13 +258,14 @@ SimonSoundOutput::~SimonSoundOutput()
 void SimonSoundOutput::killBuffer()
 {
   QMutexLocker m(&killBufferLock);
-  if (m_buffer) {
-	  kWarning() << "Stopping buffer...";
-    m_buffer->stop();
-	  kWarning() << "Stopping buffer: Done.";
-  }
+  SoundOutputBuffer *old = m_buffer;
   
   m_buffer = 0;
+  if (old) {
+    kWarning() << "Stopping buffer...";
+    old->stop();
+    kWarning() << "Stopping buffer: Done.";
+  }
 }
 
 
