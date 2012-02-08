@@ -119,7 +119,7 @@ void PronunciationTraining::quit()
 }
 
 
-bool PronunciationTraining::greedyTriggerRawList(RecognitionResultList results)
+bool PronunciationTraining::greedyTriggerRawList(const RecognitionResultList& results)
 {
   if (results.isEmpty()) return false;
 
