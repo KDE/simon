@@ -1217,7 +1217,7 @@ If the word is listed in the shadow dictionary, simon automatically fills out al
   </mediaobject>
 </screenshot>
 </para>
-<para> All suggestions from the shadow dictionary are listed in the table <guilabel>Similar words</guilabel>. Per default only exact word matches are shown. However, this can be changed by checking the <guilabel>Also show non-perfect matches</guilabel> check box below the suggestion table. Using similar words you can quickly deduce the correct pronunciation of the word you are actually trying to add. See <link linkend="manual_transcription">below</link> for details.</para>
+<para> All suggestions from the shadow dictionary are listed in the table <guilabel>Similar words</guilabel>. Per default only exact word matches are shown. However, this can be changed by checking the <guilabel>Include similar words</guilabel> check box below the suggestion table. Using similar words you can quickly deduce the correct pronunciation of the word you are actually trying to add. See <link linkend="manual_transcription">below</link> for details.</para>
 
 <para>
 Of course this really depends on your shadow dictionary. If the shadow dictionary does not contain the word you are trying to add, the required fields have to be filled out manually.</para>
@@ -2117,7 +2117,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 </screenshot>
 </para>
 
-<para>To add a new interface command to a function, just select the action you want to associate with a command, click <guibutton>Create from template</guibutton> and adapt the resulting command to your needs.</para>
+<para>To add a new interface command to a function, just select the action you want to associate with a command, click <guibutton>Create from Action template</guibutton> and adapt the resulting command to your needs.</para>
 
 <para>
   Some plugins (for example the <link linkend="desktopgrid">desktopgrid</link> or the <link linkend="calculator_command_plugin">calculator</link>) might also provide a menu item in the <guimenu>Commands</guimenu> menu.
@@ -3102,7 +3102,7 @@ To identify individual users of the system (one simond server can of course serv
 
 <para>The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - vocabulary, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available).</para>
 
-<para>Using the <guilabel>Connect automatically on simon start</guilabel> option, simon will automatically start the connection to the configured simond servers after it has finished loading the user interface.</para>
+<para>Using the <guilabel>Connect to server on startup</guilabel> option, simon will automatically start the connection to the configured simond servers after it has finished loading the user interface.</para>
 </sect4>
 
 <sect4 id="configure_server_network">
