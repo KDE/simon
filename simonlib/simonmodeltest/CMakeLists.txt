@@ -30,7 +30,7 @@ set( simonmodeltest_LIB_HDRS
 
 kde4_add_library( simonmodeltest  SHARED ${simonmodeltest_LIB_SRCS} )
 target_link_libraries( simonmodeltest ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} simonlogging 
-	julius sent simonrecognitionresult)
+	julius sent simonrecognitionresult simonrecognizer)
 
 
 set_target_properties( simonmodeltest

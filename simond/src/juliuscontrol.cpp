@@ -45,31 +45,18 @@
 #include <KConfigGroup>
 #include <KMimeType>
 #include <locale.h>
-
-//krazy:excludeall=captruefalse
-//
-#ifdef FALSE
-#undef FALSE
-#endif
-#ifdef TRUE
-#undef TRUE
-#endif
-
-#include <stdio.h>
-#include <KProcess>
+#include <simonrecognizer/recognitionconfiguration.h>
+#include <simonrecognizer/juliusrecognitionconfiguration.h>
 
 JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent),
-recog(0),
-jconf(0),
+recog(new JuliusRecognizer),
 stopping(false),
 m_initialized(false),
-shouldBeRunning(false),
-logFile(0)
+shouldBeRunning(false)
 {
 }
 
-
-Jconf* JuliusControl::setupJconf()
+RecognitionConfiguration* JuliusControl::setupConfig()
 {
   if (!QFile::exists(KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf"))) {
     if (!QFile::copy(KStandardDirs::locate("appdata", "default.jconf"),
@@ -81,264 +68,131 @@ Jconf* JuliusControl::setupJconf()
   QByteArray jConfPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf").toUtf8();
   QByteArray gram = dirPath.toUtf8()+"model";
   QByteArray tiedList = dirPath.toUtf8()+"tiedlist";
-  QByteArray hmmDefs;
+  QByteArray hmmDefs = dirPath.toUtf8()+"hmmdefs";
+
+  return new JuliusRecognitionConfiguration(jConfPath, gram, hmmDefs, tiedList);
+}
+
+bool JuliusControl::initializeRecognition()
+{
+  kDebug() << "Initializing";
+  if (isInitialized()) {
+    kDebug() << "Initializing recognition that was already initialized; uninitializing...";
+    uninitialize();
+    m_startRequests = 0;
+  }
+
+  kDebug() << "Emitting recognition ready";
+  emit recognitionReady();
+  return true;
+}
+
+
+bool JuliusControl::startRecognition()
+{
+  kDebug() << "Starting recognition" << ++m_startRequests;
+  if (isInitialized() && (m_startRequests > 1))  {
+    emit recognitionStarted();
+    return true;
+  }
+  kDebug() << "Starting recognition: Continuing";
+  return startRecognitionPrivate();
+}
+
+bool JuliusControl::startRecognitionPrivate()
+{
+  start();
   
-  //KMimeType::Ptr hmmMime = KMimeType::findByFileContent(dirPath+"hmmdefs");
-  //kDebug() << "HMMDefs mime types: " << hmmMime->parentMimeTypes();
-  //if (hmmMime->parentMimeTypes().contains("text/plain"))
+  emit recognitionStarted();
+  return true;
+}
 
-  QFile hmm(dirPath+"hmmdefs");
-  if (!hmm.open(QIODevice::ReadOnly))
-    return 0;
-  QByteArray hmmHead = hmm.read(16);
-  kDebug() << "Head: " << hmmHead;
-  // krazy:exclude=strings
-  if (hmmHead.startsWith("~o\n<STREAMINFO> "))
-  {
-    kDebug() << "Plain text hmm";
-    //////BEGIN: Workaround
-    //convert '.' in hmmdefs to its locale specific equivalent
-    lconv * localeConv = localeconv();
-    char *decimalPoint = localeConv->decimal_point;
 
-    QFile hmmLoc(dirPath+"hmmdefs_loc");
-    if (!hmmLoc.open(QIODevice::WriteOnly))
-      return 0;
-
-    hmm.reset();
-    while (!hmm.atEnd())
-      hmmLoc.write(hmm.readLine(3000).replace('.', decimalPoint));
-
-    hmmLoc.close();
-    //////END: Workaround
+void JuliusControl::recognize(const QString& fileName)
+{
+  kDebug() << "Recognizing " << fileName;
   
-    hmmDefs = dirPath.toUtf8()+"hmmdefs_loc";
-  } else {
-    kDebug() << "Binary hmm";
-    hmmDefs = dirPath.toUtf8()+"hmmdefs";
-  }
-
-  hmm.close();
-
-  int argc=11;
-  char* argv[] = {
-    "simond", "-C", jConfPath.data(),
-    "-gram", gram.data(),
-    "-h", hmmDefs.data(),
-    "-hlist", tiedList.data(),
-    "-input", "file"
-  };
-
-  return j_config_load_args_new(argc, argv);
+  queueLock.lock();
+  toRecognize.enqueue(fileName);
+  queueLock.unlock();
 }
 
-
-
-QString getHypoPhoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
+void JuliusControl::run()
 {
-  QString result;
-  WORD_ID w;
-  static char buf[MAX_HMMNAME_LEN];
+  Q_ASSERT(recog);
+  shouldBeRunning=true;
+  
+  RecognitionConfiguration *cfg = setupConfig();
+  bool success = recog->init(cfg);
+  delete cfg;
+  if (!success) {
+    emitError(i18n("Failed to setup recognition: %1", recog->getLastError()));
+    return;
+  }
+  
+  touchLastSuccessfulStart();
 
-  if (seq != 0) {
-    for (int i=0;i<n;i++) {
-      if (i > 0) result += " |";
-      w = seq[i];
-      for (int j=0;j<winfo->wlen[w];j++) {
-        center_name(winfo->wseq[w][j]->name, buf);
-        result += ' ';
-        result += QString::fromUtf8(buf);
-      }
+  m_initialized=true;
+  
+  while (shouldBeRunning) {
+    QString file;
+    queueLock.lock();
+    if (!toRecognize.isEmpty())
+      file = toRecognize.dequeue();
+    queueLock.unlock();
+    if (file.isNull()) {
+      QThread::msleep(100);
+    } else {
+      emit recognitionResult(file, recog->recognize(file));
+      emit recognitionDone(file);
     }
   }
-  return result;
 }
 
-
-void
-put_hypo_phoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
+bool JuliusControl::stop()
 {
-  WORD_ID w;
-  static char buf[MAX_HMMNAME_LEN];
+  kDebug() << "Stopping recognition" << m_startRequests;
+  if (--m_startRequests > 0) 
+    return true;
+  
+  if (m_startRequests < 0)
+    m_startRequests = 0;
+  
+  kDebug() << "Stopping recognition: Continuing";
+  return stopPrivate();
+}
 
-  if (seq != 0) {
-    for (int i=0;i<n;i++) {
-      if (i > 0) printf(" |");
-      w = seq[i];
-      for (int j=0;j<winfo->wlen[w];j++) {
-        center_name(winfo->wseq[w][j]->name, buf);
-        printf(" %s", buf);
-      }
+bool JuliusControl::stopPrivate()
+{
+  shouldBeRunning=false;
+  
+  if (!isRunning()) return true;
+  
+  if (!wait(1000)) {
+    while (isRunning()) {
+      kDebug() << "Forcefully terminating";
+      terminate();
+      wait(500);
     }
   }
-  printf("\n");
+  
+  return true;
 }
-
-
-void outputResult(Recog *recog, void *control)
-{
-  int i;
-  WORD_INFO *winfo;
-  WORD_ID *seq;
-  int seqnum;
-  int n;
-  Sentence *s;
-  RecogProcess *r;
-  JuliusControl *jControl = (JuliusControl*) control;
-  Q_ASSERT(jControl);
-
-  /* all recognition results are stored at each recognition process
-  instance */
-  for(r=recog->process_list;r;r=r->next) {
-    QString fileName = QString::fromUtf8(adin_file_get_current_filename());
-    /* skip the process if the process is not alive */
-    if (! r->live) continue;
-
-    /* result are in r->result.  See recog.h for details */
-
-    /* check result status */
-    if (r->result.status < 0) {                   /* no results obtained */
-      /* outout message according to the status code */
-      switch(r->result.status) {
-        case J_RESULT_STATUS_REJECT_POWER:
-          printf("<input rejected by power>\n");
-          break;
-        case J_RESULT_STATUS_TERMINATE:
-          printf("<input teminated by request>\n");
-          break;
-        case J_RESULT_STATUS_ONLY_SILENCE:
-          printf("<input rejected by decoder (silence input result)>\n");
-          break;
-        case J_RESULT_STATUS_REJECT_GMM:
-          printf("<input rejected by GMM>\n");
-          break;
-        case J_RESULT_STATUS_REJECT_SHORT:
-          printf("<input rejected by short input>\n");
-          break;
-        case J_RESULT_STATUS_FAIL:
-          printf("<search failed>\n");
-          jControl->recognized(fileName, QList<RecognitionResult>());
-          break;
-      }
-      /* continue to next process instance */
-      continue;
-    }
-
-    /* output results for all the obtained sentences */
-    winfo = r->lm->winfo;
-
-    QList<RecognitionResult> recognitionResults;
-
-    for(n = 0; n < r->result.sentnum; ++n) {      /* for all sentences */
-      QString result, sampa, sampaRaw;
-      s = &(r->result.sent[n]);
-      seq = s->word;
-      seqnum = s->word_num;
-
-      /* output word sequence like Julius */
-      //       printf("sentence%d:", n+1);
-      for(i=0;i<seqnum;++i) {
-        result += ' ';
-                                                  // printf(" %s", );
-        result += QString::fromUtf8(winfo->woutput[seq[i]]);
-      }
-      result.remove("<s> ");
-      result.remove(" </s>");
-      //       printf("\n");
-
-      /* LM entry sequence */
-      //       printf("wseq%d:", n+1);
-      //       for(i=0;i<seqnum;i++) printf(" %s", winfo->wname[seq[i]]);
-      //       printf("\n");
-
-      /* phoneme sequence */
-      //       printf("phseq%d:", n+1);
-      sampaRaw = sampa = getHypoPhoneme(seq, seqnum, winfo);
-      //       printf("\n");
-
-      /* confidence scores */
-      //       printf("cmscore%d:", n+1);
-      QList<float> confidenceScores;
-
-      for (i=1;i<seqnum-1; ++i) {
-        confidenceScores << s->confidence[i];
-      }
-      //       printf("\n");
-      //       /* AM and LM scores */
-      //       printf("score%d: %f", n+1, s->score);
-      //       if (r->lmtype == LM_PROB) { /* if this process uses N-gram */
-      // 	printf(" (AM: %f  LM: %f)", s->score_am, s->score_lm);
-      //       }
-      //       printf("\n");
-      //       if (r->lmtype == LM_DFA) { /* if this process uses DFA grammar */
-      // 	/* output which grammar the hypothesis belongs to
-      // 	   when using multiple grammars */
-      // 	if (multigram_get_all_num(r->lm) > 1) {
-      // 	  printf("grammar%d: %d\n", n+1, s->gram_id);
-      // 	}
-      //       }
-      kDebug() << "Recognized: " << result.trimmed();
-
-      recognitionResults.append(RecognitionResult(result.trimmed(),
-        sampa.trimmed(),
-        sampaRaw.trimmed(), confidenceScores));
-    }
-    jControl->recognized(fileName, recognitionResults);
-  }
-}
-
-
-JuliusControl::Request JuliusControl::popNextRequest()
-{
-  if (nextRequests.count() == 0)
-    return JuliusControl::None;
-
-  JuliusControl::Request req = nextRequests.takeAt(0);
-  kDebug() << nextRequests.count();
-  return req;
-}
-
-
-bool JuliusControl::isInitialized()
-{
-  return m_initialized;
-}
-
 
 void JuliusControl::uninitialize()
 {
   kDebug() << "Uninitializing julius control";
   if (!m_initialized) return;
-
-  if (isRunning()) {
-    stopPrivate();
-    wait(1000);
-  }
-
-  if (this->recog)
-    j_recog_free(recog);
-  else
-  if (this->jconf)
-    j_jconf_free(jconf);
-
-  this->recog=0;
-  this->jconf=0;
+  
+  recog->uninitialize();
+  stopPrivate();
 
   m_initialized=false;
-  closeLog();
 }
-
 
 QByteArray JuliusControl::getBuildLog()
 {
-  QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
-  QFile f(logPath);
-  if (!f.open(QIODevice::ReadOnly))
-    return QByteArray();
-
-  QByteArray out = "<html><head /><body><p>"+f.readAll().replace('\n', "<br />")+"</p></body></html>";
-  f.close();
-  return out;
+  return "<html><head /><body><p>"+recog->getLog().replace('\n', "<br />")+"</p></body></html>";
 }
 
 
@@ -346,8 +200,6 @@ void JuliusControl::emitError(const QString& error)
 {
   QString specificError = error;
   QByteArray buildLog = getBuildLog();
-
-  //touchLastFailedStart();
 
   int indexStartVocaError = buildLog.indexOf("Error: voca_load_htkdict");
   if (indexStartVocaError != -1) {
@@ -410,208 +262,7 @@ void JuliusControl::emitError(const QString& error)
   emit recognitionError(specificError, buildLog);
 }
 
-
-bool JuliusControl::initializeRecognition()
-{
-  kDebug() << "Initializing";
-  if (isInitialized()) {
-    kDebug() << "Initializing recognition that was already initialized; uninitializing...";
-    uninitialize();
-    m_startRequests = 0;
-  }
-
-  kDebug() << "Emitting recognition ready";
-  emit recognitionReady();
-  return true;
-}
-
-
-bool JuliusControl::startRecognition()
-{
-  kDebug() << "Starting recognition" << ++m_startRequests;
-  if (isInitialized() && (m_startRequests > 1))  {
-    emit recognitionStarted();
-    return true;
-  }
-  kDebug() << "Starting recognition: Continuing";
-  return startRecognitionPrivate();
-}
-
-bool JuliusControl::startRecognitionPrivate()
-{ 
-  uninitialize();
-
-  QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
-
-  logFile = fopen(logPath.data(), "w");
-  if (logFile == 0) {
-    emitError(i18n("Could not open log file. Please ignore detailed log output!"));
-    return false;
-  }
-  jlog_set_output(logFile);
-
-  Jconf *jconf = setupJconf();
-  if (!jconf) {
-    closeLog();
-    emitError(i18n("Internal Jconf error"));
-    return false;
-  }
-
-  this->jconf = jconf;
-
-  this->recog = j_create_instance_from_jconf(jconf);
-  if (!recog) {
-    j_jconf_free(jconf);
-    closeLog();
-    this->jconf=0;
-    this->recog=0;
-    emitError(i18n("Could not initialize recognition"));
-    return false;
-  }
-
-  callback_add(recog, CALLBACK_RESULT, outputResult, this);
-
-  touchLastSuccessfulStart();
-
-  m_initialized=true;
-
-  /**************************/
-  if (j_adin_init(recog) == false) {              /* error */
-    emitError(i18n("Could not start adin-thread"));
-    return false;
-  }
-
-  /* output system information to log */
-  j_recog_info(recog);
-
-  emit recognitionStarted();
-  return true;
-}
-
-
-void JuliusControl::run()
-{
-  Q_ASSERT(recog);
-  shouldBeRunning=true;
-  if (!recog) {
-    kDebug() << "no recog - aren't we initialized?";
-    emit recognitionDone(currentFileName);
-    return;
-  }
-
-  switch(j_open_stream(recog, currentFileName.toUtf8().data())) {
-    case 0:
-      kDebug() << "Recognizing...";
-      break;
-    case -1:
-      emitError(i18n("Unknown error"));
-      emit recognitionDone(currentFileName);
-      return;
-    case -2:
-      emitError(i18n("Error with the audio stream"));
-      emit recognitionDone(currentFileName);
-      return;
-  }
-
-  /* Recognization */
-  int ret = j_recognize_stream(recog);
-  switch (ret) {
-    case 0:
-      //client exited
-      //shouldBeRunning=false;
-      break;
-    case -1:
-      //emitError("recognize_stream: -1");
-      shouldBeRunning=false;
-      break;
-  }
-
-  emit recognitionDone(currentFileName);
-}
-
-
-bool JuliusControl::stop()
-{
-  kDebug() << "Stopping recognition" << m_startRequests;
-  if (--m_startRequests > 0) 
-    return true;
-  
-  if (m_startRequests < 0)
-    m_startRequests = 0;
-  
-  kDebug() << "Stopping recognition: Continuing";
-  return stopPrivate();
-}
-
-bool JuliusControl::stopPrivate()
-{
-  
-  if (!recog) return true;
-
-  shouldBeRunning=false;
-
-  if (!isRunning()) return true;
-
-  if (recog) {
-    j_request_terminate(recog);
-    j_close_stream(recog);
-  }
-
-  if (!wait(1000)) {
-    kDebug() << "ARGH STILL RUNNING!";
-
-    while (isRunning()) {
-      kDebug() << "Terminating";
-      terminate();
-      wait(500);
-    }
-  }
-  return true;
-}
-
-
-void JuliusControl::recognized(const QString& fileName, const QList<RecognitionResult>& recognitionResults)
-{
-  emit recognitionResult(fileName, recognitionResults);
-}
-
-
-void JuliusControl::pushRequest(JuliusControl::Request request)
-{
-  nextRequests << request;
-}
-
-
-void JuliusControl::closeLog()
-{
-  if (!logFile) return;
-
-  jlog_flush();
-  fclose(logFile);
-  logFile = 0;
-}
-
-
-void JuliusControl::recognize(const QString& fileName)
-{
-  kDebug() << "Recognizing " << fileName;
-  //adin_file_begin(fileName.toUtf8().data());
-
-  QByteArray fileByte = fileName.toUtf8();
-  if (isRunning()) {
-    kDebug() << "Waiting for previous request...";
-    wait(3000);
-    if (isRunning())
-      return;                                     // if this is taken so long ignore the current input...
-  }
-
-  currentFileName = fileName;
-  start();
-}
-
-
 JuliusControl::~JuliusControl()
 {
-  kDebug() << "Deleting julius control";
   uninitialize();
 }

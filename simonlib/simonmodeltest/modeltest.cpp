@@ -16,6 +16,7 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 #include "modeltest.h"
 #include "recognizerresult.h"
 #include "testresult.h"
@@ -25,6 +26,10 @@
 #include "testresultinstance.h"
 
 #include <simonlogging/logger.h>
+#include <simonrecognizer/recognizer.h>
+#include <simonrecognizer/juliusrecognitionconfiguration.h>
+#include <simonrecognizer/juliusrecognizer.h>
+#include <simonrecognizer/juliusstaticrecognitionconfiguration.h>
 
 #include <QCoreApplication>
 #include <QDir>
@@ -45,12 +50,9 @@
 #include <windows.h>
 #endif
 
-#include <locale.h>
-
 ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
-recog(0),
-logFile(0),
-userName(user_name)
+userName(user_name),
+recog(new JuliusRecognizer)
 {
   m_recognizerResultsModel = new FileResultModel(this);
   m_wordResultsModel = new TestResultModel(this);
@@ -65,8 +67,6 @@ bool ModelTest::createDirs()
   tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/test/");
 
   if (tempDir.isEmpty()) return false;
-
-  QFile::remove(tempDir+"julius.log");
 
   QDir tempDirHandle(tempDir);
   if (!tempDirHandle.exists())
@@ -189,11 +189,7 @@ void ModelTest::abort()
   if (isRunning()) {
     keepGoing=false;
 
-    if (recog) {
-      j_request_terminate(recog);
-      j_close_stream(recog);
-    }
-    //terminate();
+    recog->uninitialize();
 
     emit testAborted();
   }
@@ -258,10 +254,11 @@ void ModelTest::run()
   if (!keepGoing) return;
   Logger::log(i18n("Testing model..."));
   emit status(i18n("Preparation"), 0,100);
-
-  if (!recodeAudio()) return;
+  
+  QStringList audioFilesToRecognize;
+  if (!recodeAudio(audioFilesToRecognize)) return;
   if (!generateMLF()) return;
-  if (!recognize()) return;
+  if (!recognize(audioFilesToRecognize)) return;
   if (!analyzeResults()) return;
 
   //if (!keepGoing) return;
@@ -271,19 +268,13 @@ void ModelTest::run()
 }
 
 
-bool ModelTest::recodeAudio()
+bool ModelTest::recodeAudio(QStringList& fileNames)
 {
   emit status(i18n("Recoding audio..."), 5, 100);
 
   QFile promptsF(promptsPath);
   if (!promptsF.open(QIODevice::ReadOnly)) {
     emitError(i18nc("%1 is path to the prompts file", "Could not open prompts file for reading: %1", promptsPath));
-    return false;
-  }
-
-  QFile wavListF(tempDir+"wavlist");
-  if (!wavListF.open(QIODevice::WriteOnly)) {
-    emitError(i18nc("%1 is path to the wav list", "Could not open wavlist file for writing: %1", tempDir+"wavlist"));
     return false;
   }
 
@@ -304,7 +295,7 @@ bool ModelTest::recodeAudio()
     }
 
     execute(QString("%1 -2 -s -L %2 %3").arg(sox).arg(fullPath).arg(targetPath));
-    wavListF.write(targetPath.toUtf8()+'\n');
+    fileNames << targetPath;
 
     promptsTable.insert(targetPath, prompt);
 
@@ -312,7 +303,6 @@ bool ModelTest::recodeAudio()
   }
 
   promptsF.close();
-  wavListF.close();
   return keepGoing;
 }
 
@@ -322,8 +312,6 @@ bool ModelTest::generateMLF()
   if (!keepGoing) return false;
 
   emit status(i18n("Generating MLF..."), 10, 100);
-  //echo "Step 1 of 7: Generating MLF"
-  //perl `dirname $0`/prompts2mlf testref.mlf prompts
 
   QFile promptsFile(promptsPath);
   QFile mlf(tempDir+"/testref.mlf");
@@ -360,302 +348,54 @@ bool ModelTest::generateMLF()
   return true;
 }
 
-QString getHypoPhoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
-{
-  QString result;
-  WORD_ID w;
-  static char buf[MAX_HMMNAME_LEN];
-
-  if (seq != 0) {
-    for (int i=0;i<n;i++) {
-      if (i > 0) result += " |";
-      w = seq[i];
-      for (int j=0;j<winfo->wlen[w];j++) {
-        center_name(winfo->wseq[w][j]->name, buf);
-        result += ' ';
-        result += QString::fromUtf8(buf);
-      }
-    }
-  }
-  return result;
-}
-
-void processRecognitionResult(Recog *recog, void *test)
-{
-  int i;
-  WORD_INFO *winfo;
-  WORD_ID *seq;
-  int seqnum;
-  int n;
-  Sentence *s;
-  RecogProcess *r;
-  ModelTest *modelTest = (ModelTest*) test;
-  Q_ASSERT(modelTest);
-
-  /* all recognition results are stored at each recognition process
-  instance */
-  for(r=recog->process_list;r;r=r->next) {
-    /* skip the process if the process is not alive */
-    if (! r->live) continue;
-
-    /* result are in r->result.  See recog.h for details */
-
-    /* check result status */
-    if (r->result.status < 0) {                   /* no results obtained */
-      /* outout message according to the status code */
-      switch(r->result.status) {
-        case J_RESULT_STATUS_REJECT_POWER:
-          printf("<input rejected by power>\n");
-          break;
-        case J_RESULT_STATUS_TERMINATE:
-          printf("<input teminated by request>\n");
-          break;
-        case J_RESULT_STATUS_ONLY_SILENCE:
-          printf("<input rejected by decoder (silence input result)>\n");
-          break;
-        case J_RESULT_STATUS_REJECT_GMM:
-          printf("<input rejected by GMM>\n");
-          break;
-        case J_RESULT_STATUS_REJECT_SHORT:
-          printf("<input rejected by short input>\n");
-          break;
-        case J_RESULT_STATUS_FAIL:
-          printf("<search failed>\n");
-          break;
-      }
-      modelTest->searchFailed();
-      /* continue to next process instance */
-      continue;
-    }
-
-    /* output results for all the obtained sentences */
-    winfo = r->lm->winfo;
-
-    QList<RecognitionResult> recognitionResults;
-
-    for(n = 0; n < r->result.sentnum; ++n) {      /* for all sentences */
-      QString result, sampa, sampaRaw;
-      s = &(r->result.sent[n]);
-      seq = s->word;
-      seqnum = s->word_num;
-
-      /* output word sequence like Julius */
-      //       printf("sentence%d:", n+1);
-      for(i=0;i<seqnum;++i) {
-        result += ' ';
-                                                  // printf(" %s", );
-        result += QString::fromUtf8(winfo->woutput[seq[i]]);
-      }
-      result.remove("<s> ");
-      result.remove(" </s>");
-      sampaRaw = sampa = getHypoPhoneme(seq, seqnum, winfo);
-
-      /* confidence scores */
-      //       printf("cmscore%d:", n+1);
-      QList<float> confidenceScores;
-
-      for (i=1;i<seqnum-1; ++i) {
-        confidenceScores << s->confidence[i];
-      }
-
-      recognitionResults.append(RecognitionResult(result.trimmed(),
-        sampa.trimmed(),
-        sampaRaw.trimmed(), confidenceScores));
-    }
-    if (recognitionResults.isEmpty())
-      modelTest->searchFailed();
-    else
-      modelTest->recognized(recognitionResults);
-  }
-}
-
 
 void ModelTest::emitError(const QString& message)
 {
-  closeLog();
-
-  QFile f(tempDir+"julius.log");
-  if (!f.open(QIODevice::ReadOnly)) {
-    kDebug() << "Could not open file";
-    emit error(message, QByteArray());
-    return;
-  }
-
-  QByteArray out = "<html><head /><body><p>"+f.readAll().replace('\n', "<br />")+"</p></body></html>";
+  QByteArray log;
+  if (recog)
+    log = recog->getLog();
+  
+  QByteArray out = "<html><head /><body><p>"+log.replace('\n', "<br />")+"</p></body></html>";
   emit error(message, out);
-  f.close();
 }
 
 
-bool ModelTest::recognize()
+bool ModelTest::recognize(const QStringList& fileNames)
 {
   if (!keepGoing) return false;
   emit status(i18n("Recognizing..."), 35, 100);
-
-  QByteArray logPath = tempDir.toUtf8()+"julius.log";
-
-  closeLog();                                     //close if open
-  logFile = fopen(logPath.data(), "w");
-  if (logFile == 0)
-    return false;
-  jlog_set_output(logFile);
-
-  if (!QFile::exists(juliusJConf)) {
-    emitError(i18nc("%1 is path to the jconf file", "Could not open julius jconf file: \"%1\".", juliusJConf));
+  
+  JuliusStaticRecognitionConfiguration *cfg = new JuliusStaticRecognitionConfiguration(juliusJConf, dfaPath, dictPath, hmmDefsPath, 
+                                                                                 tiedListPath, QString::number(sampleRate));
+  if (!recog->init(cfg)) {
+    emitError(i18nc("%1 is the detailed error message from the Julius recognizer", "Could not initialize recognition: %1.", recog->getLastError()));
     return false;
   }
-  kDebug() << "Using hmm definitions: " << hmmDefsPath;
-
-  //////BEGIN: Workaround
-  //convert "." in hmmdefs to its locale specific equivalent
-  lconv * localeConv = localeconv();
-  char *decimalPoint = localeConv->decimal_point;
-
-  kDebug() << "Source: " << hmmDefsPath;
-  QFile hmm(hmmDefsPath);
-  QFile hmmLoc(tempDir+"hmmdefs");
-  if (!hmm.open(QIODevice::ReadOnly) || !hmmLoc.open(QIODevice::WriteOnly)) {
-    emitError(i18n("Could not open hmm definitions"));
-    return false;
-  }
-
-  while (!hmm.atEnd())
-    hmmLoc.write(hmm.readLine(3000).replace('.', decimalPoint));
-
-  hmm.close();
-  hmmLoc.close();
-  //////END: Workaround
 
   if (!keepGoing) {
-    closeLog();
     return false;
   }
 
-  QByteArray hmmDefs = tempDir.toUtf8()+"hmmdefs";
-  int argc=15;
-
-  QByteArray juliusJConfByte = juliusJConf.toLocal8Bit();
-  QByteArray dfaPathByte = dfaPath.toLocal8Bit();
-  QByteArray dictPathByte = dictPath.toLocal8Bit();
-  QByteArray tiedListPathByte = tiedListPath.toLocal8Bit();
-  QByteArray tempDirByte = tempDir.toLocal8Bit();
-  QByteArray hmmDefsByte = tempDirByte + "hmmdefs";
-  QByteArray fileListByte = tempDirByte + "wavlist";
-  QByteArray sampleRateByte = QByteArray::number(sampleRate);
-  char* argv[] = {
-    "sam", "-C", juliusJConfByte.data(),
-    "-dfa", dfaPathByte.data(),
-    "-v", dictPathByte.data(),
-    "-h", hmmDefsByte.data(),
-    "-hlist", tiedListPathByte.data(),
-    "-input", "rawfile",
-    "-filelist", fileListByte.data(),
-    "smpFreq", sampleRateByte.data()
-  };
-
-  for (int i=0; i < argc; i++)
-    kDebug() << argv[i];
-
-  Jconf *jconf = j_config_load_args_new(argc, argv);
-  if (!jconf) {
-    emitError(i18n("Internal Jconf error"));
-    return false;
-  }
-
-  recog = j_create_instance_from_jconf(jconf);
-  if (!recog) {
-    emitError(i18n("Could not initialize recognition"));
-    j_jconf_free(jconf);
-    this->recog=0;
-    return false;
-  }
-
-  callback_add(recog, CALLBACK_RESULT, processRecognitionResult, this);
-
-  /**************************/
-  /* Initialize audio input */
-  /**************************/
-  /* initialize audio input device */
-  /* ad-in thread starts at this time for microphone */
-  if (j_adin_init(recog) == false) {              /* error */
-    emitError(i18n("Could not start adin-thread"));
-    j_recog_free(recog);
-    this->recog=0;
-    return false;
-  }
-
-  /* output system information to log */
-  j_recog_info(recog);
-
-  bool shouldBeRunning = true;
-  while (shouldBeRunning && keepGoing) {
-    switch(j_open_stream(recog, 0)) {
-      case 0:
-        //	fprintf(stderr, "j_open_stream returned 0\n");
-        //	emit recognitionStarted();
-        break;
-      case -1:
-        //	fprintf(stderr, "j_open_stream returned -1\n");
-        break;
-        //	emit recognitionError(i18n("Unknown error"));
-        //return false;
-        //
-        //skipping to -2 for freeing...
-      case -2:
-        //	fprintf(stderr, "j_open_stream returned -2\n");
-        shouldBeRunning = false;
-        //filelist input somehow returns -2 on finish
-        //	emitError(i18n("Could not recognize samples"));
-        //	if (isLocal)
-        //		emit recognitionError(i18n("Could not initialize microphone"));
-        //	else emit recognitionError(i18n("Error with the audio stream"));
-        break;
-    }
-
-    if (!shouldBeRunning)
+  foreach (const QString& file, fileNames) {
+    if (!keepGoing)
       break;
-
-    /**********************/
-    /* Recognization Loop */
-    /**********************/
-    /* enter main loop to recognize the input stream */
-    /* finish after whole input has been processed and input reaches end */
-    int ret = j_recognize_stream(recog);
-    switch (ret) {
-      case 0:
-        //client exited
-        //shouldBeRunning=false;
-        break;
-      case -1:
-        //emit recognitionError("recognize_stream: -1");
-        shouldBeRunning=false;
-        break;
-    }
-    //usleep(300);
+    
+    QList<RecognitionResult> recognitionResults = recog->recognize(file);
+    
+    if (recognitionResults.isEmpty())
+      searchFailed(file);
+    else
+      recognized(file, recognitionResults);
   }
-
-  j_recog_free(recog);
-  recog = 0;
-  closeLog();
+  
+  recog->uninitialize();
 
   return keepGoing;
 }
 
 
-void ModelTest::closeLog()
+void ModelTest::searchFailed(const QString& fileName)
 {
-  if (!logFile) return;
-
-  jlog_flush();
-  fclose(logFile);
-  logFile = 0;
-}
-
-
-void ModelTest::searchFailed()
-{
-  QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
-
   emit recognitionInfo(i18nc("%1 is file name", "Search failed for: %1", fileName));
 
   QString prompt = promptsTable.value(fileName);
@@ -699,10 +439,8 @@ TestResult* ModelTest::getResult(QList<TestResult*>& list, const QString& prompt
   return result;
 }
 
-void ModelTest::recognized(RecognitionResultList results)
+void ModelTest::recognized(const QString& fileName, RecognitionResultList results)
 {
-  QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
-
   QString prompt = promptsTable.value(fileName);
   recognizerResults.insert(fileName, new RecognizerResult(prompt, results));
 
@@ -833,4 +571,5 @@ ModelTest::~ModelTest()
   delete m_wordResultsModel;
   delete m_sentenceResultsModel;
   delete m_recognizerResultsModel;
+  delete recog;
 }

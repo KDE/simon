@@ -56,7 +56,6 @@ class RecognitionControl : public QThread
     int m_startRequests;
 
   public:
-    //QDateTime lastSuccessfulStart() { return m_lastSuccessfulStart; }
     bool shouldTryToStart(const QDateTime& activeModelDate);
     explicit RecognitionControl(const QString& username, QObject *parent=0);
 

@@ -934,7 +934,7 @@ void ClientSocket::processRequest()
 
           w->deleteLater();
         } else
-        kDebug() << "Received invalid id: " << id;
+          kDebug() << "Received invalid id: " << id;
         currentSamples.remove(id);
         break;
       }
