@@ -163,6 +163,10 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
     QString confStr = r.mid(r.indexOf(cmScore));
     confStr = confStr.left(confStr.indexOf('\n'));
     confStr.remove(cmScore);
+    if (confidenceScores.size() > 1) { // otherwise we have no sentence marker
+      confidenceScores.takeFirst();
+      confidenceScores.takeLast(); // remove confidence scores for <s> and </s>
+    }
     bool ok = true;
     foreach (const QString& scoreStr, confStr.split(' ', QString::SkipEmptyParts)) {
       confidenceScores.append(scoreStr.toFloat(&ok) / 100.0f);
