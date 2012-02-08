@@ -38,6 +38,7 @@
 #include <qwt_legend_item.h>
 
 #include <QHash>
+#include <QThread>
 #include <QPointer>
 #include <KStandardAction>
 #include <KAction>
@@ -1164,8 +1165,14 @@ void SamView::testModel()
 
   clearTest();
 
-  foreach (TestResultWidget *test, testResults)
-    test->schedule();
+  int startedTests = 0;
+  foreach (TestResultWidget *test, testResults) {
+    if (startedTests < QThread::idealThreadCount()) {
+      test->startTest();
+      ++startedTests;
+    } else
+      test->schedule();
+  }
 
   if (testResults.isEmpty())
     KMessageBox::information(this, i18n("No tests configured yet. Please provide your test configuration in the input / output section."));

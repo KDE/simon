@@ -85,12 +85,15 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
 bool JuliusRecognizer::blockTillPrompt(QByteArray *data)
 {
   //wait until julius is ready
-  while (m_juliusProcess->bytesAvailable() || m_juliusProcess->waitForReadyRead(1000)) {
-    QByteArray currentData = readData();
+  QByteArray currentData;
+  while (m_juliusProcess->bytesAvailable() || m_juliusProcess->waitForReadyRead()) {
+    currentData = readData();
     if (data) *data += currentData;
     if (currentData.contains("enter filename->"))
       return true;
   }
+  kDebug() << "Failed to block for prompt: " << m_juliusProcess->exitCode() << m_juliusProcess->state() << m_juliusProcess->error();
+  kDebug() << "Last data: " << currentData;
   return false;
 }
 

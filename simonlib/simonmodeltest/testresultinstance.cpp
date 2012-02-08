@@ -190,7 +190,7 @@ QList<TestResultLeaf*> TestResultInstance::parseResult(const RecognitionResult& 
 
   QList<TestResultLeaf*> leafs;
   for (int i=0; i < words.count(); i++)
-    leafs << new TestResultLeaf(words[i], pronunciations[i].trimmed(), scores[i]*100.0f);
+    leafs << new TestResultLeaf(words[i], pronunciations[i].trimmed(), scores[i]);
 
   return leafs;
 }
