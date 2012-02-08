@@ -11,6 +11,10 @@ Name[pt_BR]=Plugin de comandos do Akonadi para o simon
 Name[uk]=Додаток команд Akonadi simon
 Name[x-test]=xxsimon Akonadi Command Pluginxx
 Comment=Provides a way to create schedule commands for later execution
+Comment[pt]=Oferece uma forma de criar comandos de calendarização para uma execução posterior
+Comment[pt_BR]=Oferece uma forma para criar comandos agendados para posterior execução
+Comment[uk]=Надає змогу створювати команди з відкладеним виконанням
+Comment[x-test]=xxProvides a way to create schedule commands for later executionxx
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=support@simon-listens.org
