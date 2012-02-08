@@ -1891,7 +1891,7 @@ void RecognitionControl::recognizeSamplePrivate(qint8 id)
   QByteArray toWrite;
   QDataStream out(&toWrite, QIODevice::WriteOnly);
   out << id;
-  send(Simond::RecognitionSampleFinished, toWrite);
+  send(Simond::RecognitionSampleFinished, toWrite, false);
 }
 
 void RecognitionControl::setBlockAutoStart(bool block)

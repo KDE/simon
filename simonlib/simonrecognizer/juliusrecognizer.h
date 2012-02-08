@@ -39,6 +39,7 @@ private:
   QByteArray log;
   bool blockTillPrompt(QByteArray *data=0);
   QByteArray readData();
+  bool startProcess();
   
 public:
   JuliusRecognizer();

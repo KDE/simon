@@ -65,8 +65,13 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
   }
   
   m_juliusProcess->setProgram(exe, config->toArgs());
+  kDebug() << "Starting process " << exe << " with arguments " << config->toArgs();
+  return startProcess();
+}
+
+bool JuliusRecognizer::startProcess()
+{
   m_juliusProcess->start();
-  kDebug() << "Started process " << exe << " with arguments " << config->toArgs();
   if (!m_juliusProcess->waitForStarted()) {
     m_lastError = i18n("Failed to start Julius with given model");
     m_juliusProcess->kill();
@@ -78,9 +83,10 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
     m_lastError = i18n("Julius did not initialize correctly");
     return false;
   }
-  
+
   return true;
 }
+
 
 bool JuliusRecognizer::blockTillPrompt(QByteArray *data)
 {
@@ -99,10 +105,16 @@ bool JuliusRecognizer::blockTillPrompt(QByteArray *data)
 
 QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
 {
+  QList<RecognitionResult> recognitionResults;
+  
   kDebug() << "Recognizing on file: " << file;
   QMutexLocker l(&recognitionLock);
   
-  QList<RecognitionResult> recognitionResults;
+  if (m_juliusProcess->state() == QProcess::NotRunning) {
+    kDebug() << "Recognition requested even though julius was not running. Restarting";
+    if (!startProcess())
+      return recognitionResults;
+  }
   
   m_juliusProcess->write(file.toUtf8()+'\n');
   
