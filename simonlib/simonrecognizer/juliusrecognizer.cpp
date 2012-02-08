@@ -45,7 +45,7 @@ QByteArray JuliusRecognizer::getLog()
 QByteArray JuliusRecognizer::readData()
 {
   QByteArray t = m_juliusProcess->readAll();
-  kDebug() << "Just read: " << t;
+//   kDebug() << "Just read: " << t;
   log += t+'\n';
   return t;
 }
@@ -84,16 +84,13 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
 
 bool JuliusRecognizer::blockTillPrompt(QByteArray *data)
 {
-  kDebug() << "Blocking till prompt..." << m_juliusProcess->thread() << QThread::currentThread();
   //wait until julius is ready
   while (m_juliusProcess->bytesAvailable() || m_juliusProcess->waitForReadyRead(1000)) {
-    kDebug() << "Wait for ready read returned true";
     QByteArray currentData = readData();
     if (data) *data += currentData;
     if (currentData.contains("enter filename->"))
       return true;
   }
-  kDebug() << "Returning false as wait for ready read did return false.";
   return false;
 }
 
@@ -104,7 +101,6 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
   
   QList<RecognitionResult> recognitionResults;
   
-  kDebug() << "Writing: " << file.toUtf8()+'\n';
   m_juliusProcess->write(file.toUtf8()+'\n');
   
   /*
@@ -169,7 +165,7 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
     confStr.remove(cmScore);
     bool ok = true;
     foreach (const QString& scoreStr, confStr.split(' ', QString::SkipEmptyParts)) {
-      confidenceScores.append(scoreStr.toFloat(&ok));
+      confidenceScores.append(scoreStr.toFloat(&ok) / 100.0f);
       if (!ok) {
         m_lastError = i18nc("%1 is the confidence score string that failed to parse",
                             "Failed to read confidence score: %1", scoreStr);
