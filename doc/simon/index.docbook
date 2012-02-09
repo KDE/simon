@@ -2870,7 +2870,7 @@ When the option to start simon minimized is selected, simon will minimize to the
 </sect2>
 
 <sect2 id="soundconfiguration">
-<title>Sound Configuration</title>
+<title>Recordings</title>
 <para>
 simon uses QtMultimedia to record and play sound. QtMultimedia is also used to gather data from the microphone which is then sent to the simond server for recognition.
 </para>
@@ -3033,7 +3033,6 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
 </sect2>
 
-<!--
 <sect2 id="configuration_model_extensions">
 <title>Model Extensions</title>
 
@@ -3048,26 +3047,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
   </mediaobject>
 </screenshot>
 </para>
-<para>
-simon provides the feature to <link linkend="import_texts_remote">download new texts directly off of the internet</link>. This is based on a central repository. The URL to this repository can be changed here. The default configuration points to a sample repository hosted by the simon team.
-</para>
-
-</sect2>
--->
-
-
-<sect2 id="configure_model">
-<title>Model Settings</title>
-
-<sect3 id="configure_model_general">
-  <title>General</title>
-<para>Please see the <link linkend="base_model_use">base model section</link>.</para>
-</sect3>
-
-<sect3 id="configure_model_extensions">
-<title>Extensions</title>
 <para>Here you can configure the base URL that is going to be used for the <link linkend="import_dict_hadifix">automatic bomp import</link>. The default points to the copy on the simon listens server.</para>
-</sect3>
 </sect2>
 
 <sect2 id="configure_recognition">
@@ -3156,7 +3136,7 @@ However, if you want more control you can instruct simon to ask you before start
 
 <para>The simon server will maintain a copy of the last five iterations of model files. However, this only includes the <quote>source files</quote> (the vocabulary, grammar, &etc;) - <emphasis>not the compiled model</emphasis>. However, the compiled model will be regenerated from the restored source files automatically.</para>
 
-<para>After you have connected to the server, you can select one of the available models and restore it by clicking on <guimenuitem>Restore Model</guimenuitem>.</para>
+<para>After you have connected to the server, you can select one of the available models and restore it by clicking on <guimenuitem>Choose  Model</guimenuitem>.</para>
 
 <para>Please note that the synchronization will only accept complete source models (containing a vocabulary, a grammar and some training samples) so incomplete models will not be stored on the server and thus not be backed up.</para>
 
@@ -3193,7 +3173,7 @@ However, if you want more control you can instruct simon to ask you before start
   <para>This popup can be disabled using the <guibutton>Display selection popup for ambiguous results</guibutton> check box.</para>
 </sect3>
 <sect3>
-  <title>Plugin base font</title>
+  <title>Dialog font</title>
   <para>Many plugins of simon have a graphical user interface.</para>
   <para>The fonts of these interfaces can be configured centrally and independent of the systems font settings here.</para>
 
@@ -3226,7 +3206,16 @@ However, if you want more control you can instruct simon to ask you before start
 <para>The registration is of course free of charge.</para>
 </sect2>
 
-
+<!--
+     TODO
+<sect2 id="text-to-speech_config">
+<title>Text-to-speech</title>
+Three tabs:
+Backends (Recordings, Webservice, Jovie available)
+Recordings
+Webservice
+</sect2>
+-->
 
 <sect2 id="jconfs">
 <title>Adjusting the recognition parameters manually</title>
