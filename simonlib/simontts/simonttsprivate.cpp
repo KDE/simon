@@ -33,7 +33,7 @@
  *
  * \todo Will set up the backends to the configured values
  */
-SimonTTSPrivate::SimonTTSPrivate() : forceReinitialization(false)
+SimonTTSPrivate::SimonTTSPrivate() : forceReinitialization(true)
 {
   new SimonTTSAdaptor(this);
   QDBusConnection dbus = QDBusConnection::sessionBus();
