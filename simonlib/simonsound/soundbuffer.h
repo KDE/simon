@@ -33,7 +33,6 @@ public:
     explicit SoundBuffer(QObject* parent = 0);
 
 protected:
-    QMutex killLock;
     bool m_shouldBeRunning;
     QSemaphore2 m_bufferLock;
 };

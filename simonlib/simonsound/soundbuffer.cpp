@@ -18,8 +18,8 @@
 
 #include "soundbuffer.h"
 
-SoundBuffer::SoundBuffer(QObject* parent): QThread(parent), m_shouldBeRunning(true)
+SoundBuffer::SoundBuffer(QObject* parent): QThread(0), m_shouldBeRunning(true)
 {
-//   connect(this, SIGNAL(finished()), this, SLOT(deleteLater()), Qt::QueuedConnection);
+  Q_UNUSED(parent);
 }
 

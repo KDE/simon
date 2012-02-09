@@ -39,18 +39,14 @@ void SoundInputBuffer::write(const char *toWrite, qint64 len)
   m_bufferLength += len;
   m_bufferLock.release(len);
   m_bufferAllocLock.unlock();
-
-  //m_buffer.append(toWrite, len);
 }
 
 void SoundInputBuffer::run()
 {
   while (m_shouldBeRunning)
   {
-    killLock.lock();
     //fill buffer to buffer length
     int bufferSize = m_input->bufferSize();
-    killLock.unlock();
 
     while (!m_bufferLock.tryAcquire(bufferSize, 50)) {
     //while (m_bufferLength < bufferSize) {
@@ -61,7 +57,6 @@ void SoundInputBuffer::run()
      // msleep(50);
     }
 
-    //killLock.lock();
     m_bufferAllocLock.lock();
 //     kDebug() << "new buffer length: " << bufferSize;
     QByteArray currentData(m_buffer, bufferSize);
@@ -95,18 +90,15 @@ void SoundInputBuffer::run()
     }
 
     //m_buffer = m_buffer.mid(bufferSize);
-    //killLock.unlock();
 //     kDebug()  << "Local buffer size: " << m_bufferLength;
   }
+  deleteLater();
 }
 
 void SoundInputBuffer::stop()
 {
-  QMutexLocker lock(&killLock);
-  m_shouldBeRunning = false;
   kDebug() << "Set should be running to false";
-  wait();
-  deleteLater();
+  m_shouldBeRunning = false;
 }
 
 SoundInputBuffer::~SoundInputBuffer()

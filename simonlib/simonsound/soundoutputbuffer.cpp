@@ -52,8 +52,6 @@ void SoundOutputBuffer::run()
   bufferLock.unlock();
   while (m_shouldBeRunning)
   {
-    killLock.lock();
-
     int bufferSize = m_output->bufferSize();
     int bufferLength = m_output->bufferTime();
     if (m_buffer.size() < BUFFER_MAX_LENGTH) {
@@ -69,7 +67,6 @@ void SoundOutputBuffer::run()
       m_buffer += currentData;
       bufferLock.unlock();
     }
-    killLock.unlock();
 
     //either half of the buffered time or 50 milliseconds, whichever is shorter
     int sleepDuration = qMin((bufferLength*100)/2, 50000);
@@ -77,21 +74,15 @@ void SoundOutputBuffer::run()
     usleep(sleepDuration);
   }
   kWarning() << "Left run loop";
+  
+  deleteLater();
 }
 
 void SoundOutputBuffer::stop()
 {
-  kWarning() << "Locking killlock.";
-  killLock.lock();
+  kWarning() << "Setting should be running to false...";
 
   m_shouldBeRunning = false;
-  kWarning() << "Set should be running, calling quit.";
-  quit();
-  kWarning() << "Unlocking killLock..";
-
-  killLock.unlock();
-  wait();
-  deleteLater();
 }
 
 SoundOutputBuffer::~SoundOutputBuffer()

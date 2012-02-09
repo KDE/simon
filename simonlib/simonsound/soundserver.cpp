@@ -238,8 +238,8 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
   kDebug() << "Register output client";
   SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
 
-  bool succ;
-  while (true) {
+  bool succ = true;
+  while (succ) {
     succ = true;
     if (!outputs.contains(clientRequestedSoundConfiguration)) {
       //create output for this configuration
