@@ -2,8 +2,7 @@ IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SIMOND -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
 
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../julius/libsent/include/ ../../julius/libjulius/include/
-	../../simonlib)
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../simonlib)
 
 add_subdirectory( config )
 
@@ -24,7 +23,7 @@ kde4_add_executable(simond ${simond_SRCS})
 
 target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${QT_QTNETWORK_LIBRARY} simonrecognizer
 ${QT_QTCORE_LIBRARY} ${QT_QTXML_LIBRARY} simonscenarios simonmodelcompilation simonddatabaseaccess
-simonrecognitionresult julius sent simonmodelcompilationadapter simonwav simoncontextadapter)
+simonrecognitionresult simonmodelcompilationadapter simonwav simoncontextadapter)
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} COMPONENT simond )
 

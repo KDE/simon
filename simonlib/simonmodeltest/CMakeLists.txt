@@ -3,9 +3,7 @@ include(SimonDirs)
 
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
-	${CMAKE_CURRENT_SOURCE_DIR}/../
-	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libjulius/include
-	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libsent/include)
+	${CMAKE_CURRENT_SOURCE_DIR}/../)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -D__INTERLOCKED_DECLARED -DKDEWIN_STRINGS_H)
 include(KDE4Defaults)
@@ -30,7 +28,7 @@ set( simonmodeltest_LIB_HDRS
 
 kde4_add_library( simonmodeltest  SHARED ${simonmodeltest_LIB_SRCS} )
 target_link_libraries( simonmodeltest ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} simonlogging 
-	julius sent simonrecognitionresult simonrecognizer)
+	simonrecognitionresult simonrecognizer)
 
 
 set_target_properties( simonmodeltest
