@@ -58,9 +58,8 @@ void WavPlayerClient::slotFinished()
   clientsWaitingToFinish.removeAll(c);
 
   if (clientsWaitingToFinish.isEmpty()) {
-    kDebug() << "Emitting finish";
-    emit finished();
     m_isPlaying = false;
+    emit finished();
   } else kDebug() << "More clients waiting to finish";
 }
 

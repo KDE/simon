@@ -32,12 +32,13 @@
 #include <QFile>
 
 SimonSoundOutput::SimonSoundOutput(QObject *parent) : QObject(parent),
+dying(false),
 killBufferLock(QMutex::Recursive),
 m_output(SoundBackend::createObject()),
 m_activeOutputClient(0),
 m_buffer(0)
 {
-  connect(m_output, SIGNAL(stateChanged(SimonSound::State)), this, SLOT(slotInputStateChanged(SimonSound::State)));
+  connect(m_output, SIGNAL(stateChanged(SimonSound::State)), this, SLOT(slotOutputStateChanged(SimonSound::State)));
   connect(m_output, SIGNAL(stateChanged(SimonSound::State)), this, SIGNAL(outputStateChanged(SimonSound::State)));
 }
 
@@ -49,28 +50,33 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 
   qint64 read = m_buffer->read(toRead, maxLen);
 
+  clientsLock.lock();
   if (m_activeOutputClient)
     m_activeOutputClient->advanceStreamTimeByBytes(read);
   else  {
     if (m_suspendedOutputClients.isEmpty()) {
       stopPlayback();
+      clientsLock.unlock();
       return -1;
     }
   }
+  clientsLock.unlock();
 
   return read;
 }
 
 QByteArray SimonSoundOutput::requestData(qint64 maxLen)
 {
+  clientsLock.lock();
   if (!m_activeOutputClient) {
     kDebug() << "No current output client\n";
-
+    clientsLock.unlock();
     return QByteArray();
   }
 
   char* toRead = (char*) malloc(maxLen+1);
   qint64 read = m_activeOutputClient->read(toRead, maxLen);
+  clientsLock.unlock();
   QByteArray output = QByteArray().append(toRead, read);
   free(toRead);
   return output;
@@ -101,25 +107,37 @@ qint64 SimonSoundOutput::writeData(const char *toWrite, qint64 len)
 }
 
 
-void SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
+bool SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
 {
   kDebug() << "Registering output client";
+  QMutexLocker l(&clientsLock);
+  if (dying) return false;
+  
+  bool newOut = false;
   if (m_activeOutputClient != 0)
     m_suspendedOutputClients.insert(0,m_activeOutputClient);
+  else
+    //can only happen if this is a new output
+    newOut = true;
 
   m_activeOutputClient = client;
+  
+  if (newOut) startPlayback();
+  return true;
 }
 
 
 bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 {
   kWarning() << "Deregister output client";
+  clientsLock.lock();
   if (client != m_activeOutputClient)
     //wasn't active anyways
     m_suspendedOutputClients.removeAll(client);
   else {
     m_activeOutputClient = 0;
   }
+  clientsLock.unlock();
 
   client->finish();
 
@@ -152,7 +170,6 @@ bool SimonSoundOutput::preparePlayback(SimonSound::DeviceConfiguration& device)
 bool SimonSoundOutput::startPlayback()
 {
   QMutexLocker m(&killBufferLock);
-  killBuffer();
   m_buffer = new SoundOutputBuffer(this);
   connect(m_buffer, SIGNAL(started()), this, SLOT(startSoundPlayback()));
 
@@ -167,15 +184,17 @@ void SimonSoundOutput::startSoundPlayback()
   m_output->startPlayback(this);
 }
 
-
 SoundClient::SoundClientPriority SimonSoundOutput::getHighestPriority()
 {
   SoundClient::SoundClientPriority priority = SoundClient::Background;
+  
+  clientsLock.lock();
   if (m_activeOutputClient)
     priority = m_activeOutputClient->priority();
 
   foreach (SoundOutputClient* client, m_suspendedOutputClients)
     priority = qMax(priority, client->priority());
+  clientsLock.unlock();
 
   return priority;
 }
@@ -184,6 +203,7 @@ bool SimonSoundOutput::activate(SoundClient::SoundClientPriority priority)
 {
   kDebug() << "Activating priority: " << priority;
 
+  QMutexLocker l(&clientsLock);
   if (m_activeOutputClient &&
     (m_activeOutputClient->priority() == priority))
     return true;
@@ -205,8 +225,10 @@ void SimonSoundOutput::slotOutputStateChanged(SimonSound::State state)
 {
   kDebug() << "Output state changed: " << state;
 
+  clientsLock.lock();
   if (m_activeOutputClient)
     m_activeOutputClient->outputStateChanged(state);
+  clientsLock.unlock();
 
   if (state == SimonSound::IdleState) {
     kDebug() << "Error: " << m_output->error();
@@ -232,10 +254,7 @@ void SimonSoundOutput::slotOutputStateChanged(SimonSound::State state)
 
       case SimonSound::FatalError:
         //this should never happen with the new implementation, if it does, look below
-        emit error(i18n("A fatal error occurred during playback.\n\nThe system will try to automatically recover."));
-
-        //not much the user can do about that and with the current QtMultimedia that happens fairly regularly..
-        //m_output->start(this);
+        emit error(i18n("A fatal error occurred during playback."));
         break;
       case SimonSound::BackendBusy:
         emit error(i18n("The backend is already playing."));
@@ -244,16 +263,10 @@ void SimonSoundOutput::slotOutputStateChanged(SimonSound::State state)
   }
 }
 
-
-SimonSoundOutput::~SimonSoundOutput()
+bool SimonSoundOutput::haveSomethingToPlay()
 {
-  kDebug() << "Deleting simon sound output";
-  m_output->deleteLater();
-
-  killBuffer();
-  kDebug() << "Deleted buffer";
+  return ((m_activeOutputClient != 0) || !m_suspendedOutputClients.isEmpty());
 }
-
 
 void SimonSoundOutput::killBuffer()
 {
@@ -268,15 +281,29 @@ void SimonSoundOutput::killBuffer()
   }
 }
 
-
+//clientsLock is locked when entering this function
 bool SimonSoundOutput::stopPlayback()
 {
-  kWarning() << "Stop playback...";
-
-  kWarning() << "Killing buffer...";
+  kWarning() << "Stop playback: Killing buffer...";
   killBuffer();
   kWarning() << "Done killing buffer...";
 
-  emit playbackFinished();
+  if (!haveSomethingToPlay()) {
+    dying = true;
+    emit playbackFinished();
+    
+    SoundServer::getInstance()->closeOutput(this);
+  }
+  kDebug() << "After playbackFinished";
   return true;
+}
+
+SimonSoundOutput::~SimonSoundOutput()
+{
+  kDebug() << "Deleting simon sound output";
+  m_output->stopPlayback();
+  m_output->deleteLater();
+
+  killBuffer();
+  kDebug() << "Deleted buffer";
 }

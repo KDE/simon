@@ -27,6 +27,7 @@
 #include <QSharedPointer>
 #include <QQueue>
 #include <QFile>
+#include <QMutex>
 
 class QString;
 class WavPlayerClient;
@@ -44,13 +45,16 @@ class WebserviceTTSProvider : public QObject, public SimonTTSProvider
 {
   Q_OBJECT
   private:
+    QMutex downloadMutex;
     QQueue<QString> filesToDownload;
     QQueue< QSharedPointer<QBuffer> > filesToPlay;
+    int downloadOffset; /// we are always playing the file at position 0 of filesToPlay; we are downloading file [0+downloadOffset]
     QNetworkReply *currentConnection;
     
     QNetworkAccessManager *net;
     WavPlayerClient *player;
     void enquePlayback();
+    void fetch(const QString& url);
 
   private slots:
     void downloadProgress(qint64,qint64);

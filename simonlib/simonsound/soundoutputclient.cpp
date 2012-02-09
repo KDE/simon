@@ -34,7 +34,7 @@ SoundClient(deviceConfiguration, SoundClient::Normal)
 
 qint64 SoundOutputClient::read(char *data, qint64 maxlen)
 {
-  qint64 currentStreamTime = 0; // TODO: no accurate time support yet
+  qint64 currentStreamTime = 0;
   //processors and relay
   while (localBuffer.bytesAvailable() < maxlen) {
     QByteArray processedData = getDataProvider()->read(maxlen);
@@ -67,7 +67,6 @@ void SoundOutputClient::initToSampleRate(int contentSampleRate)
                 m_deviceConfiguration.sampleRate()));
 #endif
 }
-
 
 /**
  * \brief Destructor

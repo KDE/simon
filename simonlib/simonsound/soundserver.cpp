@@ -148,11 +148,8 @@ void SoundServer::slotRecordingFinished()
 }
 
 
-void SoundServer::slotPlaybackFinished()
+void SoundServer::closeOutput(SimonSoundOutput* output)
 {
-  SimonSoundOutput *output = dynamic_cast<SimonSoundOutput*>(sender());
-  Q_ASSERT(output);
-
   QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
 
   while (i.hasNext()) {
@@ -161,6 +158,7 @@ void SoundServer::slotPlaybackFinished()
       outputs.remove(i.key());
   }
   output->deleteLater();
+  kDebug() << "Calling apply priorities from closeOutput";
   applyOutputPriorities();
 }
 
@@ -240,43 +238,45 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
   kDebug() << "Register output client";
   SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
 
-  bool succ = true;
-  bool isNew = false;
-  if (!outputs.contains(clientRequestedSoundConfiguration)) {
-    //create output for this configuration
-    kDebug() << "No output for this particular configuration... Creating one";
+  bool succ;
+  while (true) {
+    succ = true;
+    if (!outputs.contains(clientRequestedSoundConfiguration)) {
+      //create output for this configuration
+      kDebug() << "No output for this particular configuration... Creating one";
 
-    SimonSoundOutput *soundOutput = new SimonSoundOutput(0);
-    connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-    connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(slotPlaybackFinished()));
-    //then start playback
-    succ = soundOutput->preparePlayback(clientRequestedSoundConfiguration);
-    if (!succ) {
-      //failed
-      soundOutput->deleteLater();
-    }
-    else {
-      //we had to adjust the format slightly and _that_ is already loaded
-      if (outputs.contains(clientRequestedSoundConfiguration)) {
+      SimonSoundOutput *soundOutput = new SimonSoundOutput(0);
+      connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+      //then start playback
+      succ = soundOutput->preparePlayback(clientRequestedSoundConfiguration);
+      if (!succ) {
+        //failed
         soundOutput->deleteLater();
-      } else {
-        outputs.insert(clientRequestedSoundConfiguration, soundOutput);
-        isNew = true;
       }
+      else {
+        //we had to adjust the format slightly and _that_ is already loaded
+        if (outputs.contains(clientRequestedSoundConfiguration)) {
+          soundOutput->deleteLater();
+        } else {
+          outputs.insert(clientRequestedSoundConfiguration, soundOutput);
+        }
 
-      if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
-                                                  // found something supported that is very close
-        client->setDeviceConfiguration(clientRequestedSoundConfiguration);
+        if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
+                                                    // found something supported that is very close
+          client->setDeviceConfiguration(clientRequestedSoundConfiguration);
+      }
+    }
+
+    if (succ) {
+      SimonSoundOutput *output = outputs.value(clientRequestedSoundConfiguration);
+      if (!output->registerOutputClient(client)) {
+        closeOutput(output);
+      } else
+        break;
     }
   }
 
-  if (succ) {
-    SimonSoundOutput *output = outputs.value(clientRequestedSoundConfiguration);
-    output->registerOutputClient(client);
-    if (isNew)
-      output->startPlayback();
-  }
-
+  kDebug() << "Calling apply priorities from registerOutputClient";
   applyOutputPriorities();
   return succ;
 }
@@ -296,6 +296,7 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
     success = (i.value()->deRegisterOutputClient(client) && success);
   }
 
+  kDebug() << "Calling apply priorities from deRegisterOutputClient";
   applyOutputPriorities();
   
   return success;

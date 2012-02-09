@@ -42,7 +42,9 @@ class SimonSoundOutput : public QObject, public SoundBackendClient
     void outputStateChanged(SimonSound::State state);
 
   private:
+    bool dying;
     QMutex killBufferLock;
+    QMutex clientsLock;
     SoundBackend *m_output;
     SoundOutputClient* m_activeOutputClient;
     QList<SoundOutputClient*> m_suspendedOutputClients;
@@ -51,6 +53,7 @@ class SimonSoundOutput : public QObject, public SoundBackendClient
     SoundOutputBuffer *m_buffer;
 
     void killBuffer();
+    bool haveSomethingToPlay();
 
   protected:
     qint64 readData(char *toRead, qint64 maxLen);
@@ -64,7 +67,7 @@ class SimonSoundOutput : public QObject, public SoundBackendClient
     SimonSoundOutput(QObject *parent=0);
     ~SimonSoundOutput();
 
-    void registerOutputClient(SoundOutputClient* client);
+    bool registerOutputClient(SoundOutputClient* client);
     bool deRegisterOutputClient(SoundOutputClient* client);
 
     bool preparePlayback(SimonSound::DeviceConfiguration& device);

@@ -64,7 +64,6 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
 
   private slots:
     void slotRecordingFinished();
-    void slotPlaybackFinished();
 
   public:
     static SoundServer* getInstance();
@@ -105,6 +104,8 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
 
     static QStringList getDevices(SimonSound::SoundDeviceType type);
     static QStringList getInputDeviceDefaultSampleGroups();
+    
+    void closeOutput(SimonSoundOutput* client);
     
     void uninitializeSoundSystem();
 

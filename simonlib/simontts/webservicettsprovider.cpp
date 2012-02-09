@@ -26,6 +26,7 @@
 #include <QFile>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QMutexLocker>
 #include <QNetworkAccessManager>
 #include <KDebug>
 #include <KStandardDirs>
@@ -33,6 +34,8 @@
 #include <simonwav/wav.h>
 
 WebserviceTTSProvider::WebserviceTTSProvider() : QObject(),
+  downloadMutex(QMutex::Recursive),
+  downloadOffset(0),
   currentConnection(0),
   net(0),
   player(0)
@@ -66,10 +69,15 @@ void WebserviceTTSProvider::replyReceived()
     return;
   }
   
+  downloadMutex.lock();
+  ++downloadOffset;
+  kDebug() << "Done download, increasing offset to: " << downloadOffset;
+  kDebug() << "Files still left to download: " << filesToDownload.count();
   if (!filesToDownload.isEmpty())
-    currentConnection = net->get(QNetworkRequest(KUrl(filesToDownload.dequeue())));
+    fetch(filesToDownload.dequeue());
   else
     currentConnection = 0;
+  downloadMutex.unlock();
 }
 
 void WebserviceTTSProvider::initializeOutput()
@@ -82,8 +90,6 @@ void WebserviceTTSProvider::initializeOutput()
   player = new WavPlayerClient();
   connect(player, SIGNAL(finished()), this, SLOT(playNext()));
 }
-
-
 
 /**
  * \brief Returns true if the given text can be synthesized
@@ -110,31 +116,41 @@ bool WebserviceTTSProvider::say(const QString& text)
     return false;
 
   QString url = TTSConfiguration::webserviceURL().replace("%1", text);
-  kDebug() << "Getting: " << url;
  
+  downloadMutex.lock();
+  kDebug() << "Getting: " << url;
   QSharedPointer<QBuffer> b(new QBuffer());
   b->open(QIODevice::ReadWrite);
   filesToPlay.enqueue(b);
 
-  if (currentConnection)
+  if (currentConnection) {
+    kDebug() << "We already have a connection. Queueing url...";
     filesToDownload.enqueue(url);
-  else {
-    currentConnection = net->get(QNetworkRequest(KUrl(url)));
-    connect(currentConnection, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(downloadProgress(qint64,qint64)));
-    connect(currentConnection, SIGNAL(finished()), this, SLOT(replyReceived()));
+  } else {
+    fetch(url);
   }
+  downloadMutex.unlock();
   return true;
 }
 
+void WebserviceTTSProvider::fetch(const QString& url)
+{
+  currentConnection = net->get(QNetworkRequest(KUrl(url)));
+  connect(currentConnection, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(downloadProgress(qint64,qint64)));
+  connect(currentConnection, SIGNAL(finished()), this, SLOT(replyReceived()));
+}
 
 void WebserviceTTSProvider::downloadProgress(qint64 now, qint64 max)
 {
+  QMutexLocker l(&downloadMutex);
   kDebug() << "Download progress: " << now << max;
   QByteArray buf = currentConnection->readAll();
-  filesToPlay.first()->buffer() += buf;
+  kDebug() << "Writing to offset: " << downloadOffset << filesToPlay.count();
+  filesToPlay.at(downloadOffset)->buffer() += buf;
   enquePlayback();
 }
 
+/// downloadMutex is already locked as we enter this method
 void WebserviceTTSProvider::enquePlayback()
 {
   kDebug() << "Bytes available: " << filesToPlay.first()->bytesAvailable() << player->isPlaying();
@@ -156,10 +172,15 @@ void WebserviceTTSProvider::enquePlayback()
  */
 void WebserviceTTSProvider::playNext()
 {
+  QMutexLocker l(&downloadMutex);
+  downloadOffset = qMax(0, downloadOffset-1);
+  
   if (filesToPlay.isEmpty()) return;
   
   kDebug() << "Finished playback";
   filesToPlay.dequeue();
+  
+  kDebug() << "Done playing, decreasing offset to: " << downloadOffset;
   
   if (filesToPlay.isEmpty()) return;
   enquePlayback();
@@ -173,14 +194,17 @@ bool WebserviceTTSProvider::interrupt()
 {
   if (!initialize()) return true;
 
+  downloadMutex.lock();
   if (currentConnection) {
     currentConnection->abort();
     currentConnection->deleteLater();
     currentConnection = 0;
   }
-  player->stop();
-  
+  downloadOffset = 0;
   filesToPlay.clear();
+  player->stop();
+  downloadMutex.unlock();
+  
   return true;
 }
 
