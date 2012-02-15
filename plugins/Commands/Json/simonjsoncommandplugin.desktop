@@ -4,6 +4,7 @@ Icon=network-connect
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonjsoncommandplugin
 Name=simon JSON Command Plugin
+Name[nl]=Plugin van simon JSON-commando
 Name[pt]='Plugin' de Comando JSON do Simon
 Name[pt_BR]=Plugin de comando JSON do simon
 Name[uk]=Додаток команд JSON simon
