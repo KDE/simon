@@ -86,11 +86,6 @@ public:
      */
     QList<Condition*> getConditions();
 
-    /**
-     * \return A QDomElement specification of an empty condition plugin of the type specified by \var pluginName
-     */
-    QDomElement getEmptyCondition(const QString &pluginName);
-
     QString getSampleGroup(int index);
 
     QStringList getSampleGroups();
@@ -132,6 +127,12 @@ private:
 
     /// A string containing the most recently determined sample group
     QString m_currentSampleGroup;
+
+    /**
+     * \return An empty (not initialized) condition
+     */
+    Condition* getEmptyCondition(const QString &pluginName);
+
 
 signals:
     /// Emitted when changes in the acoustic model conditions change the sample group

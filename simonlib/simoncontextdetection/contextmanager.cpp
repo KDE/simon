@@ -64,7 +64,7 @@ QList<Condition*> ContextManager::getConditions()
     services = trader->query("simon/ConditionPlugin");
     foreach (KService::Ptr service, services)
     {
-        condition = getCondition(getEmptyCondition(service->storageId()));
+        condition = getEmptyCondition(service->storageId());
 
         if (condition)
             conditions.push_back(condition);
@@ -73,17 +73,15 @@ QList<Condition*> ContextManager::getConditions()
     return conditions;
 }
 
-QDomElement ContextManager::getEmptyCondition(const QString &pluginName)
+Condition* ContextManager::getEmptyCondition(const QString &pluginName)
 {
-    QDomDocument doc;
-    QDomElement emptyElem;
     Condition* condition;
 
     //get the service
     KService::Ptr service = KService::serviceByStorageId(pluginName);
     if (!service) {
       kDebug() << "Service not found! Source: " << pluginName;
-      return QDomElement();
+      return 0;
     }
 
     //create the factory for the service
@@ -94,19 +92,10 @@ QDomElement ContextManager::getEmptyCondition(const QString &pluginName)
     }
     else {
       kDebug() << "Factory not found! Source: " << pluginName;
-      return QDomElement();
+      return 0;
     }
 
-    if (condition)
-    {
-        //serialize the service data
-        emptyElem = condition->serialize(&doc);
-        delete condition;
-
-        return emptyElem;
-    }
-
-    return QDomElement();
+    return condition;
 }
 
 Condition* ContextManager::getCondition(const QDomElement &elem)
