@@ -1,5 +1,6 @@
-Please compile simon with executing the build.sh script.
+Please compile simon with the provided build.sh script.
 
-If you encounter the BISON error that the gram.y cannot be found, run the following command:
-touch ./julius/gramtools/mkdfa/mkfa-1.44-flex/* 
-in this directory.
+For full functionality both Julius (http://julius.sourceforge.jp/en_index.php)
+and the HTK (http://htk.eng.cam.ac.uk) may be required.
+
+Please refer to the manual for more information.
