@@ -36,7 +36,7 @@ SoundServer* SoundServer::instance;
 /**
  * \brief Constructor
  */
-SoundServer::SoundServer(QObject* parent) : QObject(parent)
+SoundServer::SoundServer(QObject* parent) : QObject(parent), inputRegistrationLock(QMutex::Recursive), outputRegistrationLock(QMutex::Recursive)
 {
   qRegisterMetaType<SimonSound::State>("SimonSound::State");
   qRegisterMetaType<SimonSound::Error>("SimonSound::Error");
@@ -78,10 +78,9 @@ QString SoundServer::defaultOutputDevicePrivate()
   return backend->getDefaultOutputDevice();
 }
 
-
-
 bool SoundServer::registerInputClient(SoundInputClient* client)
 {
+  QMutexLocker l(&inputRegistrationLock);
   kDebug() << "Register input client for device " << client->deviceConfiguration().name();
 
   bool succ = true;
@@ -150,6 +149,7 @@ void SoundServer::slotRecordingFinished()
 
 void SoundServer::closeOutput(SimonSoundOutput* output)
 {
+  QMutexLocker l(&outputRegistrationLock);
   QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
 
   while (i.hasNext()) {
@@ -157,7 +157,6 @@ void SoundServer::closeOutput(SimonSoundOutput* output)
     if (i.value() == output)
       outputs.remove(i.key());
   }
-  output->deleteLater();
   kDebug() << "Calling apply priorities from closeOutput";
   applyOutputPriorities();
 }
@@ -218,6 +217,7 @@ void SoundServer::applyOutputPriorities()
 
 bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 {
+  QMutexLocker l(&inputRegistrationLock);
   kDebug() << "Deregistering input client";
 
   bool success = true;
@@ -235,44 +235,42 @@ bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 
 bool SoundServer::registerOutputClient(SoundOutputClient* client)
 {
+  QMutexLocker l(&outputRegistrationLock);
   kDebug() << "Register output client";
   SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
 
   bool succ = true;
-  while (succ) {
-    succ = true;
-    if (!outputs.contains(clientRequestedSoundConfiguration)) {
-      //create output for this configuration
-      kDebug() << "No output for this particular configuration... Creating one";
+  if (!outputs.contains(clientRequestedSoundConfiguration)) {
+    //create output for this configuration
+    kDebug() << "No output for this particular configuration... Creating one";
 
-      SimonSoundOutput *soundOutput = new SimonSoundOutput(0);
-      connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-      //then start playback
-      succ = soundOutput->preparePlayback(clientRequestedSoundConfiguration);
-      if (!succ) {
-        //failed
-        soundOutput->deleteLater();
-      }
-      else {
-        //we had to adjust the format slightly and _that_ is already loaded
-        if (outputs.contains(clientRequestedSoundConfiguration)) {
-          soundOutput->deleteLater();
-        } else {
-          outputs.insert(clientRequestedSoundConfiguration, soundOutput);
-        }
-
-        if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
-                                                    // found something supported that is very close
-          client->setDeviceConfiguration(clientRequestedSoundConfiguration);
-      }
+    SimonSoundOutput *soundOutput = new SimonSoundOutput(0);
+    connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+    //then start playback
+    succ = soundOutput->preparePlayback(clientRequestedSoundConfiguration);
+    if (!succ) {
+      //failed
+      soundOutput->deleteLater();
     }
+    else {
+      //we had to adjust the format slightly and _that_ is already loaded
+      if (outputs.contains(clientRequestedSoundConfiguration)) {
+        soundOutput->deleteLater();
+      } else {
+        outputs.insert(clientRequestedSoundConfiguration, soundOutput);
+      }
 
-    if (succ) {
-      SimonSoundOutput *output = outputs.value(clientRequestedSoundConfiguration);
-      if (!output->registerOutputClient(client)) {
-        closeOutput(output);
-      } else
-        break;
+      if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
+                                                  // found something supported that is very close
+        client->setDeviceConfiguration(clientRequestedSoundConfiguration);
+    }
+  }
+
+  if (succ) {
+    SimonSoundOutput *output = outputs.value(clientRequestedSoundConfiguration);
+    if (!output->registerOutputClient(client)) {
+      kWarning() << "Failed to register output client";
+      succ = false;
     }
   }
 
@@ -284,7 +282,7 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
 
 bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 {
-  Q_UNUSED(client);
+  QMutexLocker l(&outputRegistrationLock);
 
   kDebug() << "Deregistering output client";
 
@@ -466,6 +464,8 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getTrainingOutputDevices()
 
 void SoundServer::uninitializeSoundSystem()
 {
+  QMutexLocker l(&inputRegistrationLock);
+  QMutexLocker l2(&outputRegistrationLock);
   QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
   while (i.hasNext()) {
     i.next();

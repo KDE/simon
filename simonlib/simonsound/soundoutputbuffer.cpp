@@ -30,10 +30,9 @@ qint64 SoundOutputBuffer::read(char* data, qint64 maxLen)
 {
   QMutexLocker l(&bufferLock);
   if (m_buffer.isEmpty()) {
+    m_output->popClient();
     //return zeros to keep stream going while we sort out the next client or
     //stop the stream
-    kDebug() << "Buffer is empty, popping client!";
-    m_output->popClient();
     memset(data, 0, maxLen);
     return maxLen;
   }

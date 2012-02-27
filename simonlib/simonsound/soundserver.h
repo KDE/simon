@@ -24,6 +24,7 @@
 #include <QIODevice>
 #include <QHash>
 #include <QList>
+#include <QMutex>
 #include "simonsound_export.h"
 
 class SoundInputClient;
@@ -44,6 +45,8 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
     static SoundServer* instance;
 
     SoundBackend *backend;
+    QMutex inputRegistrationLock;
+    QMutex outputRegistrationLock;
 
     QHash<SimonSound::DeviceConfiguration, SimonSoundInput*> inputs;
 
