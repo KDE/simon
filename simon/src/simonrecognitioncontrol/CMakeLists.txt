@@ -6,8 +6,7 @@ include(SimonDirs)
 
 
 set (QT_USE_QTNETWORK true)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../../simonlib/ ../  ../../../julius/libjulius/include 
- ../../../julius/libsent/include)
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../../simonlib/ ../)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} )
 

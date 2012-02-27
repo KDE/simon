@@ -22,7 +22,6 @@
 #include "reestimationconfig.h"
 
 #include <simonlogging/logger.h>
-#include <julius/config.h>
 
 #include <QtCore/qmath.h>
 #include <QCoreApplication>
@@ -1881,10 +1880,8 @@ QString ModelCompilationManager::htkInformation(bool condensed)
 
 QString ModelCompilationManager::juliusInformation(bool condensed)
 {
-  if (condensed)
-    return QString("%1").arg(JULIUS_VERSION);
-  else
-    return QString("%1 (%2 %3)").arg(JULIUS_VERSION).arg(JULIUS_SETUP).arg(JULIUS_HOSTINFO);
+  Q_UNUSED(condensed);
+  return i18nc("refers to using a system Julius instead of an integrated one", "External");
 }
 
 bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, const QString& scp, 
