@@ -640,7 +640,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
           this, SLOT(toggleConnection()));
       }
 
-      SimonInfo::showMessage ( i18n ( "Connection to server lost" ), 4000 );
+      SimonInfo::showMessage ( i18n ( "Connection to server lost" ), 4000 ); // krazy:exclude=qmethods
       //TODO: we should probably (configurably) try to reconnect at this point
       activateAction->setEnabled(false);
       activateAction->setText(i18n("Activate"));

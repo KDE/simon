@@ -105,7 +105,7 @@ void SimonControl::setFirstRunWizardCompleted(bool completed)
 
 void SimonControl::loggedIn()
 {
-  SimonInfo::showMessage(i18n("User authenticated"), 1500);
+  SimonInfo::showMessage(i18n("User authenticated"), 1500); // krazy:exclude=qmethods
 }
 
 

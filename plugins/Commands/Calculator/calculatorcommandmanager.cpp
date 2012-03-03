@@ -339,7 +339,7 @@ QString CalculatorCommandManager::formatInput(CalculatorCommandManager::NumberTy
   bool success;
   QList<Token*> parsedString = parseString(input, &success);
   if (!success) {
-    SimonInfo::showMessage(i18n("Error in output"), 3000);
+    SimonInfo::showMessage(i18n("Error in output"), 3000); // krazy:exclude=qmethods
     return QString();
   }
 

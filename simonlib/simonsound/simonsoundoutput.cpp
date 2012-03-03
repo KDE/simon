@@ -266,3 +266,4 @@ SimonSoundOutput::~SimonSoundOutput()
   m_buffer->wait();
   kDebug() << "Stopped buffer";
 }
+

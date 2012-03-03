@@ -114,10 +114,8 @@ QByteArray ReportTemplateEngine::parseIf(const QByteArray& templateData, const Q
 
   if (value)
   {
-    // krazy:exclude=doublequote_chars
-    output.replace("$IF_"+condition+'$', "");
-    // krazy:exclude=doublequote_chars
-    output.replace("$ENDIF_"+condition+'$', "");
+    output.replace("$IF_"+condition+'$', "");    // krazy:exclude=doublequote_chars
+    output.replace("$ENDIF_"+condition+'$', ""); // krazy:exclude=doublequote_chars
   } else {
     //remove block
     QByteArray pre;

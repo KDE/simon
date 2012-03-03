@@ -150,8 +150,7 @@ void CompoundCondition::evaluateConditions()
 
     if (m_satisfied == true)
     {
-        // krazy:exclude=foreach
-        foreach (condition, m_conditions)
+        foreach (condition, m_conditions) // krazy:exclude=foreach
         {
             if (!condition->isSatisfied())
             {
@@ -167,8 +166,7 @@ void CompoundCondition::evaluateConditions()
     }
     else
     {
-        // krazy:exclude=foreach
-        foreach (condition, m_conditions)
+        foreach (condition, m_conditions) // krazy:exclude=foreach
         {
             if (!condition->isSatisfied())
             {

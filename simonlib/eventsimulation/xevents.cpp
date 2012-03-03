@@ -19,7 +19,6 @@
 
 #include "xevents.h"
 #include "xeventsprivate.h"
-#include <Qt>
 
 /**
  * @brief Constructor

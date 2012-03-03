@@ -28,7 +28,7 @@ ThreadedSSLSocket::ThreadedSSLSocket(QObject* parent): QIODevice(parent),
     socketThread(new QThread(this)),
     socket(new SimonSSLSocket(this))
 {
-  open(QIODevice::ReadWrite);
+  open(QIODevice::ReadWrite); //krazy:exclude=syscalls
   
   qRegisterMetaType<QAbstractSocket::SocketError>("QAbstractSocket::SocketError");
   

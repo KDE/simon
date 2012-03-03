@@ -136,7 +136,7 @@ void KSimondView::matchDisplayToState()
   switch (process->state()) {
     case QProcess::NotRunning:
     {
-      SimonInfo::showMessage(i18n("simond stopped"), 2000, new KIcon("simond"));
+      SimonInfo::showMessage(i18n("simond stopped"), 2000, new KIcon("simond")); // krazy:exclude=qmethods
       startProcess->setEnabled(true);
       restartProcess->setEnabled(false);
       stopProcess->setEnabled(false);

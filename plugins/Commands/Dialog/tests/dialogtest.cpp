@@ -21,8 +21,8 @@
  * Integration test
 *********************/
 
-#include <QtTest>
-#include <QtCore>
+#include <QTest>
+#include <QSignalSpy>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QByteArray>

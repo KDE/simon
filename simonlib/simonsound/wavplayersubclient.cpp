@@ -84,7 +84,7 @@ bool WavPlayerSubClient::play(QSharedPointer<QIODevice> device)
 {
   wav = device;
 
-  open(QIODevice::ReadOnly);
+  open(QIODevice::ReadOnly); //krazy:exclude=syscalls
 
   if (!SoundServer::getInstance()->registerOutputClient(this)) {
     return false;

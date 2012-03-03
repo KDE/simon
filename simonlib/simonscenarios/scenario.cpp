@@ -314,8 +314,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
   m_license = docElem.firstChildElement("license").text();
   if (m_license.isNull())
 	  //load previous version
-          // krazy:exclude=spelling
-	 m_license = docElem.firstChildElement("licence").text();
+	 m_license = docElem.firstChildElement("licence").text(); // krazy:exclude=spelling
 
   if (deleteDoc) delete doc;
   return true;

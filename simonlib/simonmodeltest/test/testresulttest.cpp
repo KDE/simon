@@ -23,9 +23,8 @@
 
 #include <simonrecognitionresult/recognitionresult.h>
 
-#include <QtTest>
-#include <QtCore>
 #include <QList>
+#include <QTest>
 
 #include <QDebug>
 

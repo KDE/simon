@@ -225,7 +225,7 @@ bool WAV::writeFile(QString filename)
   writeFormat(dstream);
   writeDataChunk(dstream);
 
-  open(QIODevice::ReadOnly);
+  open(QIODevice::ReadOnly); //krazy:exclude=syscalls
   dstream->writeRawData(buffer().data(), this->length);
   close();
   //wavData.open(QIODevice::ReadOnly);
