@@ -4,15 +4,7 @@ Icon=format-text-bold
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simontextmacrocommandplugin
 Name=simon TextMacro Plugin
-Name[pt]='Plugin' de Macro de Texto para o Simon
-Name[pt_BR]=Plugin de macro de texto para o simon
-Name[uk]=Додаток текстових макросів simon
-Name[x-test]=xxsimon TextMacro Pluginxx
 Comment=Writes prerecorded sequences
-Comment[pt]=Escreve sequências pré-gravadas
-Comment[pt_BR]=Escreve sequências pré-gravadas
-Comment[uk]=Додавання попередньо записаних послідовностей
-Comment[x-test]=xxWrites prerecorded sequencesxx
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

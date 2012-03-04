@@ -4,17 +4,7 @@ Icon=applications-education
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonpronunciationtrainingplugin
 Name=simon pronunciation training Plugin
-Name[de]=Aussprachetrainingsmodul für Simon
-Name[pt]='Plugin' de treino de pronúncia do Simon
-Name[pt_BR]=Plugin de treino de pronúncia do simon
-Name[uk]=Додаток навчання вимові simon
-Name[x-test]=xxsimon pronunciation training Pluginxx
 Comment=Educational software to train the pronuncation of a foreign language
-Comment[es]=Software educativo para entrenar la pronunciación de un idioma extranjero
-Comment[pt]=Aplicação educativa para treinar a pronúncia de uma língua estrangeira
-Comment[pt_BR]=Software educacional para treinar a pronúncia de um idioma estrangeiro
-Comment[uk]=Програмне забезпечення для навчання вимові різними мовами
-Comment[x-test]=xxEducational software to train the pronuncation of a foreign languagexx
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org
