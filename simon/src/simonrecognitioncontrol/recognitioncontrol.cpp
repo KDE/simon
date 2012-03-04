@@ -877,19 +877,8 @@ void RecognitionControl::messageReceived()
         {
           advanceStream(sizeof(qint32));
           emit loggedIn();
-          RecognitionConfiguration::self()->readConfig();
-          switch (RecognitionConfiguration::synchronizationMode()) {
-            case 0:                               //automatic
-              sendDeactivatedScenarioList();
-              //startSynchronisation();
-              break;
-            case 1:                               //semi-automatic
-              if (KMessageBox::questionYesNo(0, i18n("Your speech model might have changed while you were disconnected.\n\n"
-                "Do you want to start a synchronization now?"))==KMessageBox::Yes)
-                sendDeactivatedScenarioList();
-                //startSynchronisation();
-              break;
-          }
+          sendDeactivatedScenarioList();
+          askStartSynchronisation();
           break;
         }
 
