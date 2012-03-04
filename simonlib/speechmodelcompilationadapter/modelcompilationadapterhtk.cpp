@@ -108,6 +108,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut,
     const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn)
 {
+  kDebug() << "Output prompts: " << promptsPathOut;
   ///// Prompts ///////////
   QStringList trainedVocabulary;                  // words where prompts exist
   QStringList definedVocabulary;                  // words that are in the dictionary
@@ -128,11 +129,8 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
   if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
     emit status(i18n("Adapting prompts..."), 1);
     QFile promptsFile(promptsPathIn);
-    QFile promptsFileOut(promptsPathOut);
 
-    if (!promptsFile.open(QIODevice::ReadOnly) ||
-      (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel) &&
-    !promptsFileOut.open(QIODevice::WriteOnly))) {
+    if (!promptsFile.open(QIODevice::ReadOnly)) {
       emit error(i18nc("%1 is source file path", "Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
       return false;
     }
@@ -142,18 +140,11 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
       int splitter = line.indexOf(" ");
       QStringList words;
 
-      //			bool allWordsDefined = true;
-
       //new format
       if (line.split('"').count() == 3)
-      {
-          words = line.split('"').back().trimmed().split(' ');
-      }
-      //old format
-      else
-      {
+          words = line.mid(line.lastIndexOf('"')+1).trimmed().split(' ');
+      else //old format
           words = line.mid(splitter+1).trimmed().split(' ');
-      }
 
       foreach (const QString& word, words) {
         if (!vocab->containsWord(word)) {
@@ -164,28 +155,9 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
         if (!trainedVocabulary.contains(word))
           trainedVocabulary.append(word);
       }
-
-      if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
-      {
-          //new format
-          if (line.split('"').count() == 3)
-          {
-              QStringList splitLine = line.split('"');
-              promptsFileOut.write(splitLine.at(0).toUtf8() /*filename*/
-                                   + '"' + splitLine.at(1).toUtf8() + '"' /*sample group*/
-                                   + htkify(splitLine.at(2).toUtf8()));
-          }
-          //old format
-          else
-          {
-              promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + htkify(line.mid(splitter).toUtf8()));
-          }
-      }
     }
 
     promptsFile.close();
-    if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
-      promptsFileOut.close();
   }
 
   if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
@@ -337,14 +309,9 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
       //new format
       if (line.split('"').count() == 3)
-      {
-          words = line.split('"').back().trimmed().split(' ');
-      }
-      //old format
-      else
-      {
+          words = line.mid(line.lastIndexOf('"')+1).trimmed().split(' ');
+      else //old format
           words = line.mid(splitter+1).trimmed().split(' ');
-      }
 
       foreach (const QString& word, words) {
         if (!definedVocabulary.contains(word)) {
@@ -352,21 +319,9 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
           break;
         }
       }
-      if (allWordsInLexicon)
-      {
+      if (allWordsInLexicon) {
           //new format
-          if (line.split('"').count() == 3)
-          {
-              QStringList splitLine = line.split('"');
-              promptsFileOut.write(splitLine.at(0).toUtf8() /*filename*/
-                                   + '"' + splitLine.at(1).toUtf8() + '"' /*sample group*/
-                                   + htkify(splitLine.at(2).toUtf8()));
-          }
-          //old format
-          else
-          {
-              promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + htkify(line.mid(splitter).toUtf8()));
-          }
+          promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + ' ' + htkify(words.join(" ").toUtf8()) + '\n');
           ++m_sampleCount;
       }
     }

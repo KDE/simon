@@ -1348,11 +1348,6 @@ bool ClientSocket::readHashesFromActiveModel()
 
     newLexiconHash = qHash(lexiconF.readAll());
 
-    ////////
-    lexiconF.seek(0);
-    kDebug() << "Lexicon hash: " << newLexiconHash  << "Lexicon: " << lexiconF.readAll();
-    ////////
-
     newVocaHash = qHash(vocaF.readAll());
     newGrammarHash = qHash(grammarF.readAll());
 

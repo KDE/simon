@@ -780,8 +780,11 @@ void RecognitionControl::sendSample(QString sampleName)
     sampleNotAvailable(sampleName);
     return;
   }
-
-  send(Simond::TrainingsSample, sample);
+  
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
+  bodyStream << sample;
+  send(Simond::TrainingsSample, body);
 }
 
 

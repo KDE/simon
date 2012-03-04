@@ -651,12 +651,6 @@ bool ModelCompilationManager::reestimate(const QString& command)
   return execute(command);
 }
 
-
-/**
- * \param allCached True if all wave files are already cached; HCopy must not
- * be run if this is true! This will not be true if there are no available
- * samples at all
- */
 bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
 {
   int samples = 0;
@@ -1592,20 +1586,9 @@ bool ModelCompilationManager::generateWlist()
   QString line;
   while (!promptsFile.atEnd()) {
     line = QString::fromUtf8(promptsFile.readLine(3000));
-    lineWords = line.split('"');
-
-    if (lineWords.count() == 3)
-    {
-        kDebug() << "READING NEW FORMAT PROMPTS: " << line;
-        line = lineWords.back();
-        lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-    }
-    else
-    {
-        kDebug() << "READING OLD FORMAT PROMPTS: " << line;
-        lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-        lineWords.removeAt(0);                        //ditch the file-id
-    }
+    
+    lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+    lineWords.removeAt(0);                        //ditch the file-id
 
     words << lineWords;
   }
@@ -1650,24 +1633,9 @@ bool ModelCompilationManager::generateMlf()
     line = QString::fromUtf8(promptsFile.readLine(3000));
     if (line.trimmed().isEmpty()) continue;
 
-    lineWords = line.split('"');
-
-    //the prompts file is the new format
-    if (lineWords.count() == 3)
-    {
-        kDebug() << "READING NEW FORMAT PROMPTS: " << line;
-        fileName = lineWords.front().trimmed();
-
-        lineWords = lineWords.back().split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-    }
-    //the prompts file is the old format
-    else
-    {
-        kDebug() << "READING OLD FORMAT PROMPTS: " << line;
-        lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-                                                      //ditch the file-id
-        fileName = lineWords.takeFirst();
-    }
+    lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+                                                  //ditch the file-id
+    fileName = lineWords.takeFirst();
 
     fileName = fileName.mid(fileName.lastIndexOf("/")+1);
     QString labFile = "\"*/"+fileName+".lab\"";
@@ -1817,7 +1785,7 @@ bool ModelCompilationManager::staticAdaption()
   //QFileInfo fiMacros(baseMacrosPath);
   //QString adaptFromMacros = htkIfyPath(tempDir)+"classes/"+fiMacros.fileName();
   
-  //TODO: Parelellize
+  //TODO: Parelellize if possible
   if (!execute('"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+baseMacrosPath+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+baseHmmDefsPath+"\" \""+baseTiedlistPath+"\""))
     return false;
 
