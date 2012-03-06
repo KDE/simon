@@ -22,6 +22,20 @@
 
 #include <QStyledItemDelegate>
 
+/**
+ *	@class SampleGroupItemDelegate
+ *	@brief The SampleGroupItemDelegate class provides an item delegate for editting sample groups
+ *
+ *      The SampleGroupItemDelegate allows the user to select a sample group from ones that exist in the training,
+ *      or enter a new one.
+ *
+ *      \sa ContextManager, TrainingManager
+ *
+ *	@version 0.1
+ *	@date 03.05.2012
+ *	@author Adam Nash
+ */
+
 class SampleGroupItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
