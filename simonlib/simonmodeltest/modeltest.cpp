@@ -237,7 +237,7 @@ void ModelTest::deleteAllResults()
   qDeleteAll(resultLeafes);
   qDeleteAll(sentenceResults);
   qDeleteAll(wordResults);
-  qDeleteAll(recognizerResults.values());
+  qDeleteAll(recognizerResults);
   recognizerResults.clear();
   wordResults.clear();
   sentenceResults.clear();

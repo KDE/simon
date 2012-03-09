@@ -620,5 +620,5 @@ ScenarioManager::~ScenarioManager()
     s->blockSignals(true);
   blockSignals(true);
 
-  qDeleteAll(listInterfaceCommands.values());
+  qDeleteAll(listInterfaceCommands);
 }

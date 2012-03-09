@@ -375,7 +375,7 @@ void AccessibleObject::resetChildren()
     }
   }
   
-  qDeleteAll(oldChildren.values());
+  qDeleteAll(oldChildren);
 }
 
 // Logic functions
