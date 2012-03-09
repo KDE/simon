@@ -22,6 +22,7 @@
 #include <limits.h>
 #include <simonsound/wavplayerclient.h>
 #include <simonsound/soundserver.h>
+#include <simonwav/wav.h>
 #include <QStringList>
 #include <QFile>
 #include <QNetworkRequest>
@@ -31,7 +32,7 @@
 #include <KDebug>
 #include <KStandardDirs>
 #include <QBuffer>
-#include <simonwav/wav.h>
+#include <QTextDocument>
 
 WebserviceTTSProvider::WebserviceTTSProvider() : QObject(),
   downloadMutex(QMutex::Recursive),
@@ -115,7 +116,12 @@ bool WebserviceTTSProvider::say(const QString& text)
   if (!initialize())
     return false;
 
-  QString url = TTSConfiguration::webserviceURL().replace("%1", text);
+  QTextDocument d;
+  d.setHtml(text);
+
+  QString encoded = d.toPlainText();
+  kDebug() << "Encoded: " << encoded;
+  QString url = TTSConfiguration::webserviceURL().replace("%1", QUrl::toPercentEncoding(encoded));
  
   downloadMutex.lock();
   kDebug() << "Getting: " << url;
