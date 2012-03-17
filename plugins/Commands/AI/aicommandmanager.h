@@ -54,6 +54,8 @@ class AICommandManager : public CommandManager
     bool addCommandPrivate(Command *) { return false; }
 
     CommandConfiguration* getConfigurationPage() const;
+    
+    void finalize();
 
     /**
      * @brief Constructor

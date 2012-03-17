@@ -332,9 +332,13 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
   return false;
 }
 
-ATSPICommandManager::~ATSPICommandManager()
+void ATSPICommandManager::cleanup()
 {
   clearDynamicLanguageModel();
+}
+
+ATSPICommandManager::~ATSPICommandManager()
+{
   qDeleteAll(rootAccessibles);
   delete c;
 }

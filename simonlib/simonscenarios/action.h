@@ -78,6 +78,7 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 
     void setPluginFont(const QFont& font);
 
+    void finalize();
     ~Action();
 
 };

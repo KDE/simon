@@ -159,5 +159,7 @@ QModelIndex ActionModel::index(int row, int column, const QModelIndex &parent) c
 
 ActionModel::~ActionModel()
 {
+  foreach (Action* a, m_actions)
+    a->finalize();
   qDeleteAll(m_actions);
 }

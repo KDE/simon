@@ -202,6 +202,11 @@ void Action::setPluginFont(const QFont& font)
   m_manager->setFont(font);
 }
 
+void Action::finalize()
+{
+  m_manager->finalize();
+}
+
 Action::~Action()
 {
   delete m_manager;

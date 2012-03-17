@@ -145,15 +145,16 @@ bool AICommandManager::deSerializeConfig(const QDomElement& elem)
   return true;
 }
 
-
-AICommandManager::~AICommandManager()
+void AICommandManager::finalize()
 {
   if (festivalProc && (festivalProc->state()==QProcess::Running))
     festivalProc->write("(quit)\n");
 
-  if (parser) {
+  if (parser)
     parser->saveVars(KStandardDirs::locate("data", "ai/util/vars.xml"));
-    delete parser;
-    parser=0;
-  }
+}
+
+AICommandManager::~AICommandManager()
+{
+  delete parser;
 }

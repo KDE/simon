@@ -419,6 +419,25 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
     }
 
     /**
+     * \brief Clean up the manager before deletion
+     * 
+     * Requesting to save the parent scenario during the destructor is 
+     * generally UNSAFE. Override this method instead to do any necessary 
+     * clean up. It will be called before the destructor is called when 
+     * the manager was fully initialized previously (i.e. used in a proper
+     * action collection).
+     * 
+     * \warning This method is not intended to replace the destructor; it might
+     *          not be called for temporarily / partially instantiated plugins
+     *          like the ones displayed in the plugin selection list. Make sure
+     *          that there are no unexpected memory leaks in this case.
+     * 
+     * The default implementation does nothing.
+     */
+    virtual void finalize() {
+    }
+
+    /**
      * \brief Constructor
      *
      * Empty constructor. Initializes #m_currentState to the DefaultState and sets both #commands and #config

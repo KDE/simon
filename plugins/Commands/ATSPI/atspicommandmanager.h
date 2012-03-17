@@ -73,6 +73,7 @@ public:
   ATSPICommandManager(QObject* parent, const QVariantList& args);
   
   virtual bool trigger(const QString& triggerName, bool silent);
+  virtual void cleanup();
 
   ~ATSPICommandManager();
 
