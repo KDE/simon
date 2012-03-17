@@ -1,9 +1,6 @@
 /* A Bison parser, made by GNU Bison 2.5.  */
-
 /* Bison interface for Yacc-like parsers in C
-   
-      Copyright (C) 1984, 1989-1990, 2000-2011 Free Software Foundation, Inc.
-   
+   Copyright (C) 1984, 1989-1990, 2000-2011 Free Software Foundation, Inc.
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or

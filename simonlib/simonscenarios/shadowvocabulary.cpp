@@ -19,6 +19,7 @@
 
 #include "shadowvocabulary.h"
 #include "trainingmanager.h"
+
 #include <QFile>
 #include <QDomDocument>
 #include <QDomElement>

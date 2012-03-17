@@ -37,6 +37,7 @@
 #include <QFile>
 #include <KDebug>
 #include <KDateTime>
+#include <KConfigGroup>
 
 Scenario::Scenario(const QString& scenarioId, const QString& prefix) :
 m_prefix(prefix),
@@ -48,7 +49,9 @@ m_simonMaxVersion(0),
 m_vocabulary(0),
 m_texts(0),
 m_grammar(0),
-m_actionCollection(0)
+m_actionCollection(0),
+m_compoundCondition(0),
+m_parentScenario(0)
 {
 }
 
@@ -84,6 +87,14 @@ bool Scenario::init(QString path)
   //************************************************/
   if (!readTrainingsTexts(path, doc)) return false;
 
+  //  CompoundCondition
+  //************************************************/
+  if (!readCompoundCondition(path, doc)) return false;
+
+  //  ChildScenarios
+  //************************************************/
+  if (!readChildScenarioIds(path, doc)) return false;
+
   delete doc;
   commitGroup();
   return true;
@@ -101,6 +112,7 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
   delete m_simonMaxVersion;
   m_simonMaxVersion = simonMaxVersion;
   m_license = license;
+  m_active = true;
 
   foreach (Author *a, m_authors)
     if (!authors.contains(a))
@@ -112,6 +124,55 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
   return true;
 }
 
+bool Scenario::setupChildScenarios()
+{
+    m_childScenarios.clear();
+
+    foreach (QString id, m_childScenarioIds)
+    {
+        Scenario* child = ScenarioManager::getInstance()->getScenario(id);
+
+        if (child)
+        {
+            m_childScenarios << child;
+            child->setParentScenario(this);
+
+            kDebug() << child->id() + " is set as child of " + this->id();
+        }
+        else
+        {
+            kDebug() << "Error: Child id '" + id + "'' is unavailable";
+        }
+    }
+
+    return true;
+}
+
+QList<Scenario*> Scenario::childScenarios() const
+{
+    return m_childScenarios;
+}
+
+QStringList Scenario::childScenarioIds() const
+{
+    return m_childScenarioIds;
+}
+
+Scenario* Scenario::parentScenario()
+{
+    return m_parentScenario;
+}
+
+void Scenario::setParentScenario(Scenario *parent)
+{
+    m_parentScenario = parent;
+    updateActivation();
+}
+
+void Scenario::setChildScenarioIds(QStringList ids)
+{
+    m_childScenarioIds = ids;
+}
 
 bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
 VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
@@ -330,6 +391,71 @@ bool Scenario::readTrainingsTexts(QString path, QDomDocument* doc, bool deleteDo
   return true;
 }
 
+bool Scenario::readCompoundCondition(QString path, QDomDocument* doc, bool deleteDoc)
+{
+    if (!setupToParse(path, doc, deleteDoc)) return false;
+
+    QDomElement docElem = doc->documentElement();
+
+    QDomElement textsElem = docElem.firstChildElement("compoundcondition");
+
+    if (textsElem.isNull())
+    {
+        textsElem = CompoundCondition::createEmpty(doc);
+    }
+
+    m_active = true;
+
+    m_compoundCondition = CompoundCondition::createInstance(textsElem);
+
+    if (deleteDoc) delete doc;
+
+    if (!m_compoundCondition) {
+        kDebug() << "CompoundCondition could not be deSerialized!";
+        return false;
+    }
+
+    m_active = m_compoundCondition->isSatisfied();
+
+    connect(m_compoundCondition, SIGNAL(conditionChanged(bool)),
+            this, SLOT(updateActivation()));
+    connect(m_compoundCondition, SIGNAL(modified()),
+            this, SLOT(save()));
+
+    kDebug() << "Compound condition has been deSerialized!";
+
+    return true;
+}
+
+bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool deleteDoc)
+{
+    if (!setupToParse(path, doc, deleteDoc)) return false;
+
+    QDomElement docElem = doc->documentElement();
+
+    QDomElement childrenElem = docElem.firstChildElement("childscenarioids");
+
+    if (childrenElem.isNull())
+    {
+        kDebug() << "No child scenario id list element!";
+        return true;
+    }
+
+    QDomElement idElem = childrenElem.firstChildElement("scenarioid");
+    while (!idElem.isNull())
+    {
+        m_childScenarioIds.push_back(idElem.text());
+
+         kDebug() << "Child scenario id added: " + idElem.text();
+
+        idElem = idElem.nextSiblingElement("scenarioid");
+    }
+
+    kDebug() << "Child scenario id list has been deSerialized!";
+
+    return true;
+}
+
 
 /**
  * Stores the scenario; The storage location will be determined automatically
@@ -445,6 +571,33 @@ QString Scenario::serialize()
     rootElem.appendChild(TrainingTextCollection::createEmpty(&doc));
   else
     rootElem.appendChild(m_texts->serialize(&doc));
+
+  //  CompoundCondition
+  //************************************************/
+  if (!m_compoundCondition)
+  {
+      kDebug() << "No compound condition to serialize!";
+      rootElem.appendChild(CompoundCondition::createEmpty(&doc));
+  }
+  else
+  {
+      kDebug() << "Serializing compound condition!";
+      rootElem.appendChild(m_compoundCondition->serialize(&doc));
+  }
+
+  //  Child Scenario Ids
+  //************************************************/
+  QDomElement childrenElem = doc.createElement("childscenarioids");
+  QDomElement idElem;
+  foreach(QString id, m_childScenarioIds)
+  {
+      idElem = doc.createElement("scenarioid");
+      idElem.appendChild(doc.createTextNode(id));
+
+      childrenElem.appendChild(idElem);
+  }
+  rootElem.appendChild(childrenElem);
+
 
   doc.appendChild(rootElem);
   return doc.toString();
@@ -783,6 +936,43 @@ void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, Voic
   m_actionCollection->setListInterfaceCommands(commands);
 }
 
+void Scenario::updateActivation()
+{
+    if (!m_parentScenario)
+    {
+        if (m_compoundCondition->isSatisfied())
+        {
+            kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+            m_active = true;
+        }
+        else
+        {
+            kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+            m_active = false;
+        }
+    }
+    else
+    {
+        if (m_compoundCondition->isSatisfied() && m_parentScenario->isActive())
+        {
+            kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+            m_active = true;
+        }
+        else
+        {
+            kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+            m_active = false;
+        }
+    }
+
+    foreach(Scenario *s, m_childScenarios)
+    {
+        s->updateActivation();
+    }
+
+    emit activationChanged();
+}
+
 
 Scenario::~Scenario()
 {
@@ -795,6 +985,8 @@ Scenario::~Scenario()
     m_texts->deleteLater();
   if (m_vocabulary)
     m_vocabulary->deleteLater();
+  if (m_compoundCondition)
+    m_compoundCondition->deleteLater();
   delete m_simonMinVersion;
   delete m_simonMaxVersion;
 }

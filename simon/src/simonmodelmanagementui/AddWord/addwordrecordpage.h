@@ -62,6 +62,7 @@ class AddWordRecordPage : public QWizardPage
 
   public:
     QStringList getFileNames();
+    QString getSampleGroup();
     QString getPrompt();
     void keepSample() { stickSample = true; }
     void cleanUp();

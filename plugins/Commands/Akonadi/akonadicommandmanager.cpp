@@ -81,9 +81,6 @@ void AkonadiCommandManager::setupSchedule()
   kDebug() << "Setting up schedule";
   schedule.clear();
   
-  if (!getAkonadiConfiguration()->executeAkonadiRequests())
-    return;
-  
   Akonadi::ItemFetchJob *itemFetcher = new Akonadi::ItemFetchJob(
     Akonadi::Collection(getAkonadiConfiguration()->getCollection()), this);
   itemFetcher->fetchScope().fetchFullPayload();

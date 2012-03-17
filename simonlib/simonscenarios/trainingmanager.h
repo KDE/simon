@@ -26,6 +26,7 @@
 #include <QMutex>
 #include <QList>
 #include "simonmodelmanagement_export.h"
+#include "promptstable.h"
 
 /**
  *	@class TrainingManager
@@ -36,7 +37,6 @@
  *	@author Peter Grasch
  */
 
-typedef QHash<QString, QString> PromptsTable;
 typedef  QList<TrainingText*> TrainingList;
 
 class TrainingManager;
@@ -45,15 +45,15 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
 {
   Q_OBJECT
     private:
-    bool dirty;
+    bool m_dirty;
 
-    static TrainingManager *instance;
-    TrainingList *trainingTexts;
+    static TrainingManager *m_instance;
+    TrainingList *m_trainingTexts;
 
-    QHash<QString,int> wordRelevance;             /// Stores the relevance of words (caching for getProbability)
+    QHash<QString,int> m_wordRelevance;             /// Stores the relevance of words (caching for getProbability)
 
-    QMutex promptsLock;
-    PromptsTable *promptsTable;
+    QMutex m_promptsLock;
+    PromptsTable *m_promptsTable;
 
     signals:
     void addMissingWords(QStringList words);
@@ -75,7 +75,7 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
     bool deletePrompt ( QString key );
 
     int getProbability ( QString name );
-    PromptsTable* readPrompts ( QString pathToPrompts );
+    PromptsTable* readPrompts (QString pathToPrompts);
 
     bool deleteWord(const QString& word);
     bool deleteWord ( Word *w );
@@ -83,7 +83,7 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
 
     bool refreshTraining(int sampleRate, const QByteArray& prompts);
 
-    bool addSample(const QString& fileBaseName, const QString& prompt);
+    bool addSample(const QString& fileBaseName, const QString& sampleGroup, const QString& prompt);
     //		bool removeSample(const QString& fileBaseName);
     bool clear();
 

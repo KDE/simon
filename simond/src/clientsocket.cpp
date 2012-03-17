@@ -36,6 +36,7 @@
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilationadapter/modelcompilationadapter.h>
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
+#include <simoncontextadapter/contextadapter.h>
 
 #include <QDir>
 #include <QTime>
@@ -58,8 +59,7 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
   recognitionControlFactory(factory),
   recognitionControl(0),
   synchronisationManager(0),
-  modelCompilationManager(0),
-  modelCompilationAdapter(0),
+  contextAdapter(0),
   newLexiconHash(0),
   newGrammarHash(0),
   newVocaHash(0)
@@ -165,30 +165,42 @@ void ClientSocket::processRequest()
         }
 
         if (databaseAccess->authenticateUser(user, pass)) {
-          //store authentication data
-          this->username = user;
+            //store authentication data
+            this->username = user;
 
-          if (modelCompilationManager) modelCompilationManager->deleteLater();
+            if (contextAdapter) contextAdapter->deleteLater();
 
-          modelCompilationManager = new ModelCompilationManager(user, this);
-          connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
-          connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
-          connect(modelCompilationManager, SIGNAL(status(QString, int, int)), this, SLOT(slotModelCompilationStatus(QString, int, int)));
-          connect(modelCompilationManager, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
-          connect(modelCompilationManager, SIGNAL(classUndefined(const QString&)), this,
-            SLOT(slotModelCompilationClassUndefined(const QString&)));
-          connect(modelCompilationManager, SIGNAL(wordUndefined(const QString&)), this,
-            SLOT(slotModelCompilationWordUndefined(const QString&)));
-          connect(modelCompilationManager, SIGNAL(phonemeUndefined(const QString&)), this,
-            SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
+            contextAdapter = new ContextAdapter(user, this);
 
-          if (modelCompilationAdapter) modelCompilationAdapter->deleteLater();
+            connect(contextAdapter, SIGNAL(modelCompiled()),
+                    this, SLOT(activeModelCompiled()));
+            connect(contextAdapter, SIGNAL(activeModelCompilationAborted()),
+                    this, SLOT(activeModelCompilationAborted()));
+            connect(contextAdapter, SIGNAL(manageStatus(QString, int, int)),
+                    this, SLOT(slotModelCompilationStatus(QString, int, int)));
+            connect(contextAdapter, SIGNAL(manageError(QString)),
+                    this, SLOT(slotModelCompilationError(QString)));
+            connect(contextAdapter, SIGNAL(classUndefined(const QString&)),
+                    this, SLOT(slotModelCompilationClassUndefined(const QString&)));
+            connect(contextAdapter, SIGNAL(wordUndefined(const QString&)),
+                    this, SLOT(slotModelCompilationWordUndefined(const QString&)));
+            connect(contextAdapter, SIGNAL(phonemeUndefined(const QString&)),
+                    this, SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
 
-          modelCompilationAdapter = new ModelCompilationAdapterHTK(user, this);
-          connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
-          connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
-          connect(modelCompilationAdapter, SIGNAL(status(QString, int)), this, SLOT(slotModelAdaptionStatus(QString, int)));
-          connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
+            connect(contextAdapter, SIGNAL(adaptionComplete()),
+                    this, SLOT(slotModelAdaptionComplete()));
+            connect(contextAdapter, SIGNAL(adaptionAborted()),
+                    this, SLOT(slotModelAdaptionAborted()));
+            connect(contextAdapter, SIGNAL(adaptStatus(QString, int)),
+                    this, SLOT(slotModelAdaptionStatus(QString, int)));
+            connect(contextAdapter, SIGNAL(adaptError(QString)),
+                    this, SLOT(slotModelAdaptionError(QString)));
+
+            connect(contextAdapter, SIGNAL(modelLoadedFromCache()),
+                    this, SLOT(activeModelLoadedFromCache()));
+            connect(contextAdapter, SIGNAL(forceModelRecompilation()),
+                    this, SLOT(startForcedRecompile()));
+
 
           if (recognitionControl)
             closeRecognitionControl();
@@ -202,10 +214,9 @@ void ClientSocket::processRequest()
           connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
           connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
           connect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
-          
 
           if (synchronisationManager )
-            synchronisationManager->deleteLater();
+              synchronisationManager->deleteLater();
 
           synchronisationManager = new SynchronisationManager(username, this);
 
@@ -219,7 +230,6 @@ void ClientSocket::processRequest()
           sendCode(Simond::AuthenticationFailed);
 
         kDebug() << "Done with login";
-
         break;
 
       }
@@ -341,9 +351,9 @@ void ClientSocket::processRequest()
 
         QDateTime localModelDate = synchronisationManager->getBaseModelDate();
         if (remoteModelDate != localModelDate) {
-          if (remoteModelDate > localModelDate)
-            sendCode(Simond::GetBaseModel);
-          else if (!sendBaseModel())
+//          if (remoteModelDate > localModelDate)
+//            sendCode(Simond::GetBaseModel);
+//          else if (!sendBaseModel())
             sendCode(Simond::GetBaseModel);
         }
         else {
@@ -377,6 +387,14 @@ void ClientSocket::processRequest()
         stream >> tiedlist;
         stream >> macros;
         stream >> stats;
+
+        //if the new base model type is different from the old one, a new acoustic model should be compiled
+        if (baseModelType != synchronisationManager->getBaseModelType())
+        {
+            contextAdapter->setShouldCompileAcousticModel(true);
+            contextAdapter->clearCache();
+            recompileOverride = true;
+        }
 
         if (!synchronisationManager->storeBaseModel(changedDate, baseModelType,
         hmmdefs, tiedlist, macros, stats)) {
@@ -425,6 +443,34 @@ void ClientSocket::processRequest()
         sendScenarioList();
         break;
       }
+
+    case Simond::DeactivatedScenarioList:
+    {
+      kDebug() << "Received DEACTIVATED scenario list";
+      waitForMessage(sizeof(qint64), stream, msg);
+      qint64 length;
+      stream >> length;
+      waitForMessage(length, stream, msg);
+      QStringList scenarioIds;
+      stream >> scenarioIds;
+
+      kDebug() << "DEACTIVATED Scenario list: " << scenarioIds;
+
+      contextAdapter->updateDeactivatedScenarios(scenarioIds);
+
+      break;
+    }
+
+    case Simond::SampleGroup:
+    {
+        QString sampleGroup;
+        waitForMessage(sizeof(QString), stream, msg);
+        stream >> sampleGroup;
+
+        kDebug() << "Received Sample Group: " << sampleGroup;
+
+        contextAdapter->updateAcousticModelSampleGroup(sampleGroup);
+    }
 
       case Simond::StartScenarioSynchronisation:
       {
@@ -584,7 +630,7 @@ void ClientSocket::processRequest()
 
         Q_ASSERT(synchronisationManager);
 
-        //				kDebug() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
+                                        kDebug() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
         if (remoteTrainingDate != localTrainingDate) {
           //Training changed
           if (localTrainingDate > remoteTrainingDate) {
@@ -768,7 +814,7 @@ void ClientSocket::processRequest()
 
       case Simond::AbortModelCompilation:
       {
-        modelCompilationManager->abort();
+        contextAdapter->abort();
         break;
       }
 
@@ -800,8 +846,8 @@ void ClientSocket::processRequest()
 
       case Simond::GetModelCompilationProtocol:
       {
-        Q_ASSERT(modelCompilationManager);
-        if (!modelCompilationManager->hasBuildLog())
+        Q_ASSERT(contextAdapter);
+        if (!contextAdapter->hasBuildLog())
           sendCode(Simond::ErrorRetrievingModelCompilationProtocol);
         else sendModelCompilationLog();
         break;
@@ -913,8 +959,11 @@ void ClientSocket::startSynchronisation()
     sendCode(Simond::SynchronisationAlreadyRunning);
   }
   else {
-    kDebug() << "Requesting ActiveModelDate";
-    sendCode(Simond::GetActiveModelDate);
+//    kDebug() << "Requesting ActiveModelDate";
+//    sendCode(Simond::GetActiveModelDate);
+
+      kDebug() << "Requesting BaseModelDate";
+      sendCode(Simond::GetBaseModelDate);
   }
 }
 
@@ -923,6 +972,7 @@ void ClientSocket::activeModelCompiled()
 {
   Q_ASSERT(synchronisationManager);
   synchronisationManager->modelCompiled();
+  readHashesFromActiveModel();
   writeHashesToConfig();
 
   sendCode(Simond::ModelCompilationCompleted);
@@ -931,9 +981,28 @@ void ClientSocket::activeModelCompiled()
 }
 
 
+void ClientSocket::activeModelLoadedFromCache()
+{
+    //save the loaded model's info to the config file
+    synchronisationManager->modelCompiled();
+    readHashesFromActiveModel();
+    writeHashesToConfig();
+
+    kDebug() << "Model is ready after being loaded from cache.";
+    sendCode(Simond::ModelCompilationCompleted);
+
+    if (synchronisationManager->hasActiveModel() && !contextAdapter->managerIsRunning() &&
+      recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())) {
+      kDebug() << "Initialize recognition after loading a model from cache";
+      recognitionControl->initializeRecognition();
+    }
+}
+
+
 void ClientSocket::activeModelCompilationAborted()
 {
   sendCode(Simond::ModelCompilationAborted);
+  contextAdapter->aborted();
 }
 
 
@@ -1110,7 +1179,7 @@ void ClientSocket::sendModelCompilationLog()
 {
   QByteArray toWrite;
   QDataStream stream(&toWrite, QIODevice::WriteOnly);
-  QByteArray log = modelCompilationManager->getGraphicBuildLog().toUtf8();
+  QByteArray log = contextAdapter->getGraphicBuildLog().toUtf8();
 
   stream << (qint32) Simond::ModelCompilationProtocol
     << (qint64) (log.count()+sizeof(qint32) /*separator*/)
@@ -1121,8 +1190,8 @@ void ClientSocket::sendModelCompilationLog()
 
 void ClientSocket::slotModelCompilationStatus(QString status, int progressNow, int progressMax)
 {
-  progressNow += modelCompilationAdapter->maxProgress();
-  progressMax += modelCompilationAdapter->maxProgress();
+  progressNow += contextAdapter->maxProgress();
+  progressMax += contextAdapter->maxProgress();
   QByteArray toWrite;
   QByteArray statusByte = status.toUtf8();
   QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -1149,7 +1218,7 @@ void ClientSocket::slotModelCompilationError(QString error)
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
   QByteArray errorByte = error.toUtf8();
-  QByteArray log = modelCompilationManager->getGraphicBuildLog().toUtf8();
+  QByteArray log = contextAdapter->getGraphicBuildLog().toUtf8();
   bodyStream << errorByte << log;
 
   stream << (qint32) Simond::ModelCompilationError
@@ -1194,15 +1263,29 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
     write(toWrite);
     */
   //try to fix it automatically
-  modelCompilationAdapter->poisonPhoneme(phoneme);
+  contextAdapter->poisonPhoneme(phoneme);
   recompileModel();
 }
 
 
 void ClientSocket::startModelCompilation()
 {
-  modelCompilationAdapter->clearPoisonedPhonemes();
+  contextAdapter->clearPoisonedPhonemes();
   recompileModel();
+}
+
+void ClientSocket::startForcedRecompile()
+{
+    //save the compiled model's information in config files
+    synchronisationManager->modelCompiled();
+    readHashesFromActiveModel();
+    writeHashesToConfig();
+
+    //notify the client of compilation completion
+    sendCode(Simond::ModelCompilationCompleted);
+
+    //start a new compilation
+    startModelCompilation();
 }
 
 
@@ -1222,7 +1305,7 @@ void ClientSocket::recompileModel()
   switch (baseModelType) {
     case 0:
       //static model
-      modelCompilationAdapter->startAdaption(
+      contextAdapter->startAdaption(
         (ModelCompilationAdapter::AdaptionType)
         (ModelCompilationAdapter::AdaptLanguageModel),
         activeDir+"lexicon", activeDir+"model.grammar",
@@ -1236,7 +1319,7 @@ void ClientSocket::recompileModel()
       //let it run into dynamic model - no difference at this stage
     case 2:
       //dynamic model
-      modelCompilationAdapter->startAdaption(
+      contextAdapter->startAdaption(
         (ModelCompilationAdapter::AdaptionType)
         (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel),
         activeDir+"lexicon", activeDir+"model.grammar",
@@ -1245,6 +1328,35 @@ void ClientSocket::recompileModel()
         synchronisationManager->getPromptsPath());
       break;
   }
+}
+
+bool ClientSocket::readHashesFromActiveModel()
+{
+    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+
+    QFile lexiconF(activeDir+"lexicon");
+    QFile vocaF(activeDir+"simple.voca");
+    QFile grammarF(activeDir+"model.grammar");
+    if (!lexiconF.open(QIODevice::ReadOnly) || !vocaF.open(QIODevice::ReadOnly) || !grammarF.open(QIODevice::ReadOnly))
+      return false;                                  //technically this will most likely cause the compile to fail but this
+    // will at least produce a proper error, AND it is not off the table
+    // that some weird model compilation manager can work around this... somehow :)
+
+    newLexiconHash = qHash(lexiconF.readAll());
+
+    ////////
+    lexiconF.seek(0);
+    kDebug() << "Lexicon hash: " << newLexiconHash  << "Lexicon: " << lexiconF.readAll();
+    ////////
+
+    newVocaHash = qHash(vocaF.readAll());
+    newGrammarHash = qHash(grammarF.readAll());
+
+    lexiconF.close();
+    vocaF.close();
+    grammarF.close();
+
+    return true;
 }
 
 
@@ -1261,24 +1373,15 @@ bool ClientSocket::shouldRecompileModel()
   uint vocaHash = cg.readEntry("VocaHash", 0);
   uint grammarHash = cg.readEntry("GrammarHash", 0);
 
+  if (recompileOverride)
+  {
+      recompileOverride = false;
+      return true;
+  }
+
   //check if simple.voca, lexicon or model.grammar changed
-  QFile lexiconF(activeDir+"lexicon");
-  QFile vocaF(activeDir+"simple.voca");
-  QFile grammarF(activeDir+"model.grammar");
-  if (!lexiconF.open(QIODevice::ReadOnly) || !vocaF.open(QIODevice::ReadOnly) || !grammarF.open(QIODevice::ReadOnly))
-    return true;                                  //technically this will most likely cause the compile to fail but this
-  // will at least produce a proper error, AND it is not off the table
-  // that some weird model compilation manager can work around this... somehow :)
-
-  newLexiconHash = qHash(lexiconF.readAll());
-
-  ////////
-  lexiconF.seek(0);
-  kDebug() << "Lexicon hash: " << newLexiconHash << lexiconHash << "Lexicon: " << lexiconF.readAll();
-  ////////
-  
-  newVocaHash = qHash(vocaF.readAll());
-  newGrammarHash = qHash(grammarF.readAll());
+  if (!readHashesFromActiveModel())
+      return true;
 
   if (!newVocaHash || !newGrammarHash || !newLexiconHash)
     return true;
@@ -1318,6 +1421,7 @@ void ClientSocket::slotModelAdaptionComplete()
 {
   if (!shouldRecompileModel())
   {
+      kDebug() << "Aborting recompilation after adaption.";
     slotModelAdaptionAborted();
     return;
   }
@@ -1329,6 +1433,7 @@ void ClientSocket::slotModelAdaptionComplete()
 
   if (!hasGrammar)
   {
+      kDebug() << "No Grammar!  Model recompilation aborting!";
     slotModelAdaptionAborted();
     return;
   }
@@ -1340,9 +1445,11 @@ void ClientSocket::slotModelAdaptionComplete()
   if (!hasPrompts) {
     switch (baseModelType) {
       case 1:
+        kDebug() << "No Prompts!  Switching to static model!";
         baseModelType = 0;
         break;
       case 2:                                     //do not bother creating the model without prompts
+        kDebug() << "No Prompts!  Model recompilation aborting!";
         slotModelAdaptionAborted();
         return;
     }
@@ -1351,7 +1458,7 @@ void ClientSocket::slotModelAdaptionComplete()
   switch (baseModelType) {
     case 0:
       //static model
-      modelCompilationManager->startCompilation(
+      contextAdapter->startCompilation(
         (ModelCompilationManager::CompileLanguageModel),
         activeDir+"hmmdefs", activeDir+"tiedlist",
         activeDir+"model.dict", activeDir+"model.dfa",
@@ -1371,7 +1478,7 @@ void ClientSocket::slotModelAdaptionComplete()
     case 1:
       //adapted base model
       kDebug() << "Starting modelcompilationmanager adapter";
-      modelCompilationManager->startCompilation(
+      contextAdapter->startCompilation(
         (ModelCompilationManager::CompilationType)
         (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::AdaptSpeechModel),
         activeDir+"hmmdefs", activeDir+"tiedlist",
@@ -1388,7 +1495,7 @@ void ClientSocket::slotModelAdaptionComplete()
 
     case 2:
       //dynamic model
-      modelCompilationManager->startCompilation(
+      contextAdapter->startCompilation(
         (ModelCompilationManager::CompilationType)
         (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel),
         activeDir+"hmmdefs", activeDir+"tiedlist",
@@ -1413,7 +1520,7 @@ void ClientSocket::slotModelAdaptionAborted()
 
 void ClientSocket::slotModelAdaptionStatus(QString status, int progressNow)
 {
-  slotModelCompilationStatus(status, progressNow-modelCompilationAdapter->maxProgress(), 0);
+  slotModelCompilationStatus(status, progressNow-contextAdapter->maxProgress(), 0);
 }
 
 
@@ -1516,11 +1623,11 @@ void ClientSocket::initializeRecognitionSmartly()
 {
   kDebug() << "Recognition is initialized: " << recognitionControl->isInitialized();
   kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
-  kDebug() << "Modelcompilationmanager is running: : " << modelCompilationManager->isRunning();
+  kDebug() << "Modelcompilationmanager is running: : " << contextAdapter->managerIsRunning();
 
-  if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
+  if (synchronisationManager->hasActiveModel() && !contextAdapter->managerIsRunning() &&
     recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())) {
-    kDebug() << "Initialize recognition";
+    kDebug() << "Initialize recognition after synchronization";
     recognitionControl->initializeRecognition();
   }
 }
@@ -1538,6 +1645,11 @@ void ClientSocket::synchronisationComplete()
     sendCode(Simond::SynchronisationComplete);
 
     bool shouldRecompileModel = synchronisationManager->shouldRecompileModel();
+    if (recompileOverride)
+    {
+        shouldRecompileModel = true;
+        recompileOverride = false;
+    }
     kDebug() << "Should recompile model: " << shouldRecompileModel;
 
     if (shouldRecompileModel)
@@ -1734,10 +1846,8 @@ ClientSocket::~ClientSocket()
 
   if (synchronisationManager)
     synchronisationManager->deleteLater();
-  if (modelCompilationManager)
-    modelCompilationManager->deleteLater();
-  if (modelCompilationAdapter)
-    modelCompilationAdapter->deleteLater();
+  if (contextAdapter)
+      contextAdapter->deleteLater();
 
   qDeleteAll(currentSamples);
 }

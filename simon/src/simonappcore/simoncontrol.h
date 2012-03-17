@@ -47,6 +47,8 @@ class ActionManager;
 
 class ShadowVocabulary;
 
+class ContextManager;
+
 class SIMONAPPCORE_EXPORT SimonControl : public QObject
 {
   Q_OBJECT
@@ -92,6 +94,8 @@ class SIMONAPPCORE_EXPORT SimonControl : public QObject
     void recognitionError(const QString &err, const QString& log);
     void compilationError(const QString &err);
 
+    void deactivatedScenarioListChanged();
+
   public slots:
     void startup();
 
@@ -103,6 +107,7 @@ class SIMONAPPCORE_EXPORT SimonControl : public QObject
     void abortConnecting();
 
     void compileModel();
+
 
   private slots:
     void slotConnectionError(const QString& err);

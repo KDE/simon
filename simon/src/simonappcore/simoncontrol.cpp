@@ -30,6 +30,10 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonsound/soundserver.h>
 #include <simontts/simontts.h>
+#include <simoncontextdetection/contextmanager.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simoncontextdetection/contextmanager.h>
+#include <simoncontextdetection/processinfo.h>
 
 #include <QFileInfo>
 #include <KDebug>
@@ -63,6 +67,9 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
   QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
   QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
+
+  QObject::connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SIGNAL(deactivatedScenarioListChanged()));
+  QObject::connect(this, SIGNAL(deactivatedScenarioListChanged()), RecognitionControl::getInstance(), SLOT(sendDeactivatedScenarioList()));
 
   ActionManager::getInstance();                   // initializing action manager
   SimonTTS::getInstance();                   // initializing TTS system for dbus interface
@@ -362,4 +369,5 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
+    ContextManager::instance()->deleteLater();
 }

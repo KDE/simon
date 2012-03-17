@@ -74,6 +74,12 @@ QStringList AddWordRecordPage::getFileNames()
 }
 
 
+QString AddWordRecordPage::getSampleGroup()
+{
+  return page->getSampleGroup();
+}
+
+
 QString AddWordRecordPage::getPrompt()
 {
   return page->getPrompt();

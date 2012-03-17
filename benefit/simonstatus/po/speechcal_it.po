@@ -1,0 +1,104 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: main.cpp:28
+msgid "A voice controlled calendar application"
+msgstr ""
+
+#: main.cpp:32
+msgid "speechcal"
+msgstr ""
+
+#: main.cpp:33
+msgid "(C) 2010 Peter Grasch"
+msgstr ""
+
+#: main.cpp:34
+msgid "Peter Grasch"
+msgstr ""
+
+#: speechcal.cpp:55
+msgid "Failed to contact akonadi."
+msgstr ""
+
+#: speechcal.cpp:101 speechcal.cpp:112
+msgid "Job returned error: %1"
+msgstr ""
+
+#. i18n: file: main.ui:21
+#. i18n: ectx: property (text), widget (QLabel, lbDate)
+#: speechcal.cpp:129 rc.cpp:6
+msgid "Loading..."
+msgstr ""
+
+#: speechcal.cpp:133
+msgid "Received collection: %1"
+msgstr ""
+
+#: speechcal.cpp:147
+msgid "Retrieved %1 items from collection"
+msgstr ""
+
+#: speechcal.cpp:162
+msgid ""
+"Fetched event has wrong type and could not be deserialized (Payload: %1)"
+msgstr ""
+
+#: speechcal.cpp:184
+msgid "Retrieved %1 relevant items"
+msgstr ""
+
+#: speechcalview.cpp:50 speechcalview.cpp:58
+msgid "Previous day"
+msgstr ""
+
+#. i18n: file: main.ui:14
+#. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
+#: rc.cpp:3
+msgid "SpeechCal"
+msgstr ""
+
+#. i18n: file: main.ui:46
+#. i18n: ectx: property (windowTitle), widget (QDockWidget, dockWidget)
+#: rc.cpp:9
+msgid "Control"
+msgstr ""
+
+#. i18n: file: main.ui:56
+#. i18n: ectx: property (text), widget (KPushButton, pbPreviousDay)
+#: rc.cpp:12
+msgid "Previous Day"
+msgstr ""
+
+#. i18n: file: main.ui:63
+#. i18n: ectx: property (text), widget (KPushButton, pbNextDay)
+#: rc.cpp:15
+msgid "Next day"
+msgstr ""
+
+#: rc.cpp:16
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: rc.cpp:17
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""

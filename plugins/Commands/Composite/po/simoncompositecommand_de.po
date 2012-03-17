@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simoncompositecommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"POT-Creation-Date: 2011-11-11 17:12+0100\n"
 "PO-Revision-Date: 2010-07-16 20:27+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -26,13 +26,13 @@ msgstr "Kombination"
 msgid "Commands"
 msgstr "Kommandos"
 
-#: compositecommand.cpp:97 compositecommand.cpp:98
-#: createcompositecommandwidget.cpp:121 delaycommand.cpp:36
+#: compositecommand.cpp:102 compositecommand.cpp:103
+#: createcompositecommandwidget.cpp:123 delaycommand.cpp:36
 #: delaycommand.cpp:61
 msgid "Delay"
 msgstr "Verzögerung"
 
-#: createcompositecommandwidget.cpp:149
+#: createcompositecommandwidget.cpp:151
 msgid ""
 "Could not find all of the commands that make up this composited command.\n"
 "\n"
@@ -90,12 +90,18 @@ msgstr "Nach Oben"
 msgid "Move Down"
 msgstr "Nach Unten"
 
-#: po/rc.cpp:25 rc.cpp:25
+#. i18n: file: createcompositecommandwidget.ui:135
+#. i18n: ectx: property (text), widget (QCheckBox, cbPassResult)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "Pass recognition result through to other commands"
+msgstr ""
+
+#: po/rc.cpp:28 rc.cpp:28
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: po/rc.cpp:26 rc.cpp:26
+#: po/rc.cpp:29 rc.cpp:29
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"

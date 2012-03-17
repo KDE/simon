@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.3.0, 2011-09-18T21:30:38. -->
+<!-- Written by Qt Creator 2.3.0, 2011-10-31T18:25:07. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -207,26 +207,10 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Deploy Debian package via SFTP upload</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">MaemoUploadAndInstallDpkgPackageStep</value>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles">
-       <value type="QString">/home/bedahr/Daten/simon/speech2text/simone/simone-build-harmattan-MeeGo_1_2_Harmattan_API__Qt_SDK__Debug/simone_0.0.1_armel.deb</value>
-       <value type="QString">/home/bedahr/Daten/simon/speech2text/simone-build-harmattan-MeeGo_1_2_Harmattan_API__Qt_SDK__Release/simone_0.0.1_armel.deb</value>
-       <value type="QString">/home/bedahr/Daten/simon/speech2text/simone/simone-build-harmattan-MeeGo_1_2_Harmattan_API__Qt_SDK__Release/simone_0.0.1_armel.deb</value>
-      </valuelist>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
-       <value type="QString">192.168.178.77</value>
-       <value type="QString">192.168.178.77</value>
-       <value type="QString">192.168.178.77</value>
-      </valuelist>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths">
-       <value type="QString"></value>
-       <value type="QString"></value>
-       <value type="QString"></value>
-      </valuelist>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
-       <value type="QDateTime">2011-09-17T20:55:52</value>
-       <value type="QDateTime">2011-09-18T21:26:43</value>
-       <value type="QDateTime">2011-09-18T21:10:50</value>
-      </valuelist>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles"/>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts"/>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths"/>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes"/>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">3</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Deploy</value>

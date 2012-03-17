@@ -53,6 +53,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public SimonWizard
 
     QList<Word*> *listToAdd;
     QHash<QString,QString> promptsToAdd;
+    QHash<QString,QString> sampleGroupsToAdd;
 
     void hideEvent(QHideEvent *event) {
       emit hidden(); return QWidget::hideEvent(event);

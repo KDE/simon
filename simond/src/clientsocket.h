@@ -37,6 +37,7 @@ class RecognitionControl;
 class SynchronisationManager;
 class ModelCompilationManager;
 class ModelCompilationAdapter;
+class ContextAdapter;
 class Model;
 class WAV;
 class QHostAddress;
@@ -51,6 +52,8 @@ class ClientSocket : public QSslSocket
 
     bool synchronisationRunning;
 
+    bool recompileOverride;
+
     QString username;
     QMutex messageLocker;
 
@@ -58,8 +61,7 @@ class ClientSocket : public QSslSocket
     RecognitionControlFactory *recognitionControlFactory;
     RecognitionControl *recognitionControl;
     SynchronisationManager *synchronisationManager;
-    ModelCompilationManager *modelCompilationManager;
-    ModelCompilationAdapter *modelCompilationAdapter;
+    ContextAdapter *contextAdapter;
 
     uint newLexiconHash;
     uint newGrammarHash;
@@ -69,6 +71,7 @@ class ClientSocket : public QSslSocket
 
     bool shouldRecompileModel();
     void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+    bool readHashesFromActiveModel();
     void writeHashesToConfig();
     
     void initializeRecognitionSmartly();
@@ -102,6 +105,7 @@ class ClientSocket : public QSslSocket
     void sendAvailableModels();
 
     void startModelCompilation();
+    void startForcedRecompile();
     void recompileModel();
 
     void sendModelCompilationLog();
@@ -131,6 +135,7 @@ class ClientSocket : public QSslSocket
     void sendSample(QString sampleName);
 
     void activeModelCompiled();
+    void activeModelLoadedFromCache();
     void activeModelCompilationAborted();
 
     void closeRecognitionControl();

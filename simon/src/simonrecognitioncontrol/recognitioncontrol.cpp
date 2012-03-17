@@ -616,6 +616,22 @@ void RecognitionControl::sendScenarioList()
   socket->write(body);
 }
 
+void RecognitionControl::sendDeactivatedScenarioList()
+{
+  QByteArray toWrite;
+  QDataStream out(&toWrite, QIODevice::WriteOnly);
+
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+  bodyStream << ScenarioManager::getInstance()->getAllDeactivatedScenarioIds();
+
+  out << (qint32) Simond::DeactivatedScenarioList
+    << (qint64) body.count();
+  socket->write(toWrite);
+  socket->write(body);
+}
+
 
 void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
 {
@@ -921,12 +937,14 @@ void RecognitionControl::messageReceived()
           RecognitionConfiguration::self()->readConfig();
           switch (RecognitionConfiguration::synchronizationMode()) {
             case 0:                               //automatic
-              startSynchronisation();
+              sendDeactivatedScenarioList();
+              //startSynchronisation();
               break;
             case 1:                               //semi-automatic
               if (KMessageBox::questionYesNo(0, i18n("Your speech model might have changed while you were disconnected.\n\n"
                 "Do you want to start a synchronization now?"))==KMessageBox::Yes)
-                startSynchronisation();
+                sendDeactivatedScenarioList();
+                //startSynchronisation();
               break;
           }
           break;
@@ -975,11 +993,11 @@ void RecognitionControl::messageReceived()
         case Simond::GetActiveModelDate:
         {
           if (!synchronisationOperation)
-            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing acitve model"), 1, 100, false);
+            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing active model"), 1, 100, false);
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          synchronisationOperation->update(i18n("Synchronizing acitve model"), 1);
+          synchronisationOperation->update(i18n("Synchronizing active model"), 1);
           kDebug() << "Server requested active model modified date";
           sendActiveModelModifiedDate();
           break;
@@ -1057,6 +1075,9 @@ void RecognitionControl::messageReceived()
 
         case Simond::GetBaseModelDate:
         {
+          if (!synchronisationOperation)
+            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing base model"), 1, 100, false);
+
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
           sendBaseModelDate();
@@ -1145,6 +1166,17 @@ void RecognitionControl::messageReceived()
           sendRequest(Simond::StartScenarioSynchronisation);
           break;
         }
+
+          //neither of these next two should ever happen
+      case Simond::GetDeactivatedScenarioList:
+      {
+        kDebug() << "Server requested DEACTIVATED scenario list";
+      }
+
+      case Simond::DeactivatedScenarioList:
+      {
+        kDebug() << "Server sent DEACTIVATED scenario list";
+      }
 
         case Simond::ScenarioStorageFailed:
         {
@@ -1613,8 +1645,15 @@ void RecognitionControl::messageReceived()
         case Simond::ModelCompilationCompleted:
         {
           advanceStream(sizeof(qint32));
-          modelCompilationOperation->finished();
-          modelCompilationOperation=0;
+          if (modelCompilationOperation)
+          {
+            modelCompilationOperation->finished();
+            modelCompilationOperation=0;
+          }
+          else
+          {
+              kDebug() << "modelCompilationOperation was NULL on compilation completion!!";
+          }
           break;
         }
 

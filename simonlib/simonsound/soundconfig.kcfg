@@ -38,6 +38,11 @@
       <default code="true">QList&lt;int&gt;() &lt;&lt; (int) (SimonSound::Training|SimonSound::Recognition)</default>
       <tooltip>What the input devices are going to be used for.</tooltip>
     </entry>
+    <entry name="SoundInputDefaultSampleGroups" type="StringList">
+       <label>The sample groups used for grouping recordings.</label>
+       <default code="true">QStringList() &lt;&lt; SoundServer::defaultSampleGroup()</default>
+       <tooltip>The sample groups used for grouping recordings.</tooltip>
+     </entry>
 
     <entry name="SoundOutputDevices" type="StringList">
       <label>The sounddevices used for playback.</label>

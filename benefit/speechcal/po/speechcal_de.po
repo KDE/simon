@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:14+0100\n"
+"POT-Creation-Date: 2011-11-11 17:10+0100\n"
 "PO-Revision-Date: 2011-02-03 16:15+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -33,36 +33,36 @@ msgstr "(C) 2010 Peter Grasch"
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
-#: speechcal.cpp:55
+#: speechcal.cpp:57
 msgid "Failed to contact akonadi."
 msgstr "Konnte Akonadi nicht kontaktieren"
 
-#: speechcal.cpp:101 speechcal.cpp:112
+#: speechcal.cpp:106 speechcal.cpp:117
 msgid "Job returned error: %1"
 msgstr "Job lieferte Fehler: %1"
 
-#. i18n: file: main.ui:21
+#. i18n: file: main.ui:87
 #. i18n: ectx: property (text), widget (QLabel, lbDate)
-#: speechcal.cpp:129 rc.cpp:6
+#: speechcal.cpp:134 rc.cpp:18
 msgid "Loading..."
 msgstr "Lade..."
 
-#: speechcal.cpp:133
+#: speechcal.cpp:138
 msgid "Received collection: %1"
 msgstr "Kollektionen erhalten: %1"
 
-#: speechcal.cpp:147
+#: speechcal.cpp:152
 msgid "Retrieved %1 items from collection"
 msgstr "Erhielt %1 Elemente der Kollektion"
 
-#: speechcal.cpp:162
+#: speechcal.cpp:169
 msgid ""
 "Fetched event has wrong type and could not be deserialized (Payload: %1)"
 msgstr ""
 "Geladener event hat falschen Typen und konnte nicht deserialisiert werden "
 "(Payload: %1)"
 
-#: speechcal.cpp:184
+#: speechcal.cpp:216
 msgid "Retrieved %1 relevant items"
 msgstr "Erhielt %1 relevante Elemente"
 
@@ -76,37 +76,36 @@ msgstr "Vorheriger Tag"
 msgid "SpeechCal"
 msgstr "SpeechCal"
 
-#. i18n: file: main.ui:46
-#. i18n: ectx: property (windowTitle), widget (QDockWidget, dockWidget)
-#: rc.cpp:9
+#. i18n: file: main.ui:21
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: rc.cpp:6
 msgid "Control"
 msgstr "Sprachbefehle"
 
-#. i18n: file: main.ui:56
+#. i18n: file: main.ui:30
+#. i18n: ectx: property (text), widget (KPushButton, pbNextDay)
+#: rc.cpp:9
+msgid "Next day"
+msgstr "RAUF"
+
+#. i18n: file: main.ui:46
 #. i18n: ectx: property (text), widget (KPushButton, pbPreviousDay)
 #: rc.cpp:12
 msgid "Previous Day"
 msgstr "RUNTER"
 
-#. i18n: file: main.ui:63
-#. i18n: ectx: property (text), widget (KPushButton, pbNextDay)
-#: rc.cpp:15
-msgid "Next day"
-msgstr "RAUF"
-
-#. i18n: file: main.ui:63
-#. i18n: ectx: property (text), widget (KPushButton, pbClose)
+#. i18n: file: main.ui:62
+#. i18n: ectx: property (text), widget (QPushButton, pbClose)
 #: rc.cpp:15
 msgid "Close"
 msgstr "ZURÜCK"
 
-#: rc.cpp:16
+#: rc.cpp:19
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: rc.cpp:17
+#: rc.cpp:20
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
-

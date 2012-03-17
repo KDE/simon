@@ -24,7 +24,7 @@ kde4_add_library( simonappcore  SHARED ${simonappcore_LIB_SRCS} )
 target_link_libraries( simonappcore ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
 simoninfo simonlogging simonrecognitioncontrol simonactions
 simonmodelmanagementui simonscenarios simonrecognitionresult
-simonsound simontts
+simonsound simontts simoncontextdetection
 )
 
 set_target_properties( simonappcore

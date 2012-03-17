@@ -166,7 +166,7 @@
         </item>
        </layout>
       </item>
-      <item row="6" column="1">
+      <item row="7" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_10">
         <item>
          <spacer name="horizontalSpacer_7">
@@ -196,6 +196,19 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLineEdit" name="leSampleGroup"/>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="lbSampleGroup">
+        <property name="text">
+         <string>Default Sample Group:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

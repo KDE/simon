@@ -350,6 +350,8 @@ bool ModelCompilationManager::processError()
 void ModelCompilationManager::abort()
 {
   if (isRunning()) {
+      kDebug() << "Compilation Manager Aborting.";
+
     keepGoing=false;
 
     foreach (QProcess *proc, activeProcesses)
@@ -461,9 +463,9 @@ bool ModelCompilationManager::compileGrammar()
   }
 
   if (!keepGoing) return false;
-  emit status(i18n("Generating termporary vocabulary..."), 2530);
+  emit status(i18n("Generating temporary vocabulary..."), 2530);
   if (!makeTempVocab()) {
-    analyseError(i18n("Could not create temporary vocabular."));
+    analyseError(i18n("Could not create temporary vocabulary."));
     return false;
   }
 
@@ -1556,9 +1558,17 @@ bool ModelCompilationManager::makeMonophones()
   QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";
   if (!execute(execStr)) return false;
 
+  //add sil phoneme if not in there
+  QFile monophones1(tempDir+"/monophones1");
+  if (!monophones1.open(QIODevice::ReadWrite))
+    return false;
+  if (!monophones1.readAll().contains(QRegExp("^sil$")))
+    monophones1.write("sil\n")
+
+  monophones1.seek(0);
+
   //make monophones0
   //ditch the "sp" phoneme
-  QFile monophones1(tempDir+"/monophones1");
   QFile monophones0(tempDir+"/monophones0");
   if (!monophones1.open(QIODevice::ReadOnly))
     return false;
@@ -1588,8 +1598,21 @@ bool ModelCompilationManager::generateWlist()
   QString line;
   while (!promptsFile.atEnd()) {
     line = QString::fromUtf8(promptsFile.readLine(3000));
-    lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-    lineWords.removeAt(0);                        //ditch the file-id
+    lineWords = line.split('"');
+
+    if (lineWords.count() == 3)
+    {
+        kDebug() << "READING NEW FORMAT PROMPTS: " << line;
+        line = lineWords.back();
+        lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+    }
+    else
+    {
+        kDebug() << "READING OLD FORMAT PROMPTS: " << line;
+        lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+        lineWords.removeAt(0);                        //ditch the file-id
+    }
+
     words << lineWords;
   }
   promptsFile.close();
@@ -1628,12 +1651,30 @@ bool ModelCompilationManager::generateMlf()
   mlf.write("#!MLF!#\n");
   QStringList lineWords;
   QString line;
+  QString fileName;
   while (!promptsFile.atEnd()) {
     line = QString::fromUtf8(promptsFile.readLine(3000));
     if (line.trimmed().isEmpty()) continue;
-    lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-                                                  //ditch the file-id
-    QString fileName = lineWords.takeFirst();
+
+    lineWords = line.split('"');
+
+    //the prompts file is the new format
+    if (lineWords.count() == 3)
+    {
+        kDebug() << "READING NEW FORMAT PROMPTS: " << line;
+        fileName = lineWords.front().trimmed();
+
+        lineWords = lineWords.back().split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+    }
+    //the prompts file is the old format
+    else
+    {
+        kDebug() << "READING OLD FORMAT PROMPTS: " << line;
+        lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+                                                      //ditch the file-id
+        fileName = lineWords.takeFirst();
+    }
+
     fileName = fileName.mid(fileName.lastIndexOf("/")+1);
     QString labFile = "\"*/"+fileName+".lab\"";
     #ifndef HTK_UNICODE

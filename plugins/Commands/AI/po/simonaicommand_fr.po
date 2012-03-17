@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: simonaicommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"POT-Creation-Date: 2011-11-11 17:12+0100\n"
 "PO-Revision-Date: 2010-07-22 23:13+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: aicommandmanager.cpp:53 aicommandmanager.cpp:113 aiconfiguration.cpp:32
+#: aicommandmanager.cpp:53 aicommandmanager.cpp:114 aiconfiguration.cpp:32
 msgid "Artificial Intelligence"
 msgstr "Intelligence artificielle"
 
-#: aicommandmanager.cpp:113
+#: aicommandmanager.cpp:114
 msgid "Loading artificial intelligence..."
 msgstr "Chargement de l'intelligence artificielle..."
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:14+0100\n"
+"POT-Creation-Date: 2011-11-11 17:10+0100\n"
 "PO-Revision-Date: 2010-12-17 17:55+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -20,6 +20,15 @@ msgstr ""
 #: accuracydisplay.cpp:36
 msgid "Recognized %1 of %2: Recognition rate:"
 msgstr "Erkannte %1 von %2: Erkennungsrate:"
+
+#: conservativetraining.cpp:36
+msgid "Conservative Training"
+msgstr ""
+
+#: conservativetraining.cpp:74
+#, fuzzy
+msgid "Couldn't open output prompts"
+msgstr "Konnte prompts-Datei nicht überschreiben"
 
 #: exporttestresults.cpp:48
 msgid "Export test results"
@@ -119,55 +128,55 @@ msgstr "Konnte temporären Ordner nicht bereinigen"
 msgid "Failed to store file."
 msgstr "Konnte Datei nicht speichern."
 
-#: samview.cpp:79
+#: samview.cpp:81
 msgid "Modify simons model"
 msgstr "Verändere simons Modell"
 
-#: samview.cpp:80
+#: samview.cpp:82
 msgid "Manage simons current model with ssc"
 msgstr "Verwalte simons aktuelles Modell mit ssc"
 
-#. i18n: file: main.ui:483
+#. i18n: file: main.ui:490
 #. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
-#: samview.cpp:87 rc.cpp:217
+#: samview.cpp:89 rc.cpp:241
 msgid "Build model"
 msgstr "Modell erstellen"
 
-#: samview.cpp:88
+#: samview.cpp:90
 msgid "Build the currently open model."
 msgstr "Erstelle das derzeit offene Modell."
 
-#. i18n: file: main.ui:538
+#. i18n: file: main.ui:545
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
-#. i18n: file: main.ui:546
+#. i18n: file: main.ui:553
 #. i18n: ectx: property (text), widget (KPushButton, pbTestModel)
-#: samview.cpp:96 rc.cpp:229 rc.cpp:232
+#: samview.cpp:98 rc.cpp:253 rc.cpp:256
 msgid "Test model"
 msgstr "Modell testen"
 
-#: samview.cpp:97
+#: samview.cpp:99
 msgid "Test the model."
 msgstr "Modell testen."
 
-#. i18n: file: main.ui:591
+#. i18n: file: main.ui:598
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_4)
-#: samview.cpp:104 rc.cpp:241
+#: samview.cpp:106 rc.cpp:265
 msgid "Test results"
 msgstr "Testergebnisse"
 
-#: samview.cpp:105
+#: samview.cpp:107
 msgid "Display the test results."
 msgstr "Anzeigen der Testergebnisse."
 
-#: samview.cpp:112
+#: samview.cpp:114
 msgid "Export test result"
 msgstr "Testergebnisse exportieren"
 
-#: samview.cpp:113
+#: samview.cpp:115
 msgid "Export the test results to a file."
 msgstr "Testergebnisse in Datei speichern."
 
-#: samview.cpp:240
+#: samview.cpp:243
 msgid ""
 "Your sam configuration has changed.\n"
 "\n"
@@ -177,59 +186,59 @@ msgstr ""
 "\n"
 "Wollen Sie speichern?"
 
-#: samview.cpp:275
+#: samview.cpp:278
 msgid "No current log."
 msgstr "Kein aktuelles Protokoll."
 
-#: samview.cpp:285
+#: samview.cpp:288
 msgid "HTML files *.html"
 msgstr "HTML Dateien *.html"
 
-#: samview.cpp:290
+#: samview.cpp:293
 msgid "Could not open output file %1."
 msgstr "Konnte Ausgabedatei nicht öffnen: %1"
 
-#: samview.cpp:376
+#: samview.cpp:379
 msgid "Test started: %1"
 msgstr "Test gestartet: %1"
 
-#: samview.cpp:385
+#: samview.cpp:388
 msgid "Test aborted: %1"
 msgstr "Test abgebrochen: %1"
 
-#: samview.cpp:393
+#: samview.cpp:396
 msgid "Test completed: %1"
 msgstr "Test abgeschlossen: %1"
 
-#: samview.cpp:415
+#: samview.cpp:418
 msgid "Ran 1 test."
 msgstr "1 Test abgeschlossen."
 
-#: samview.cpp:417
+#: samview.cpp:420
 msgid "Ran %1 tests."
 msgstr "%1 Tests abgeschlossen."
 
-#: samview.cpp:520 samview.cpp:551
+#: samview.cpp:523 samview.cpp:554
 msgid "sam projects *.sam"
 msgstr "sam Projekte *.sam"
 
-#: samview.cpp:564
+#: samview.cpp:567
 msgid "Untitled"
 msgstr "Unbenannt"
 
-#: samview.cpp:566
+#: samview.cpp:569
 msgid "sam - %1 [*]"
 msgstr "sam - %1 [*]"
 
-#: samview.cpp:576 samview.cpp:656
+#: samview.cpp:579 samview.cpp:659
 msgid "Cannot open file: %1"
 msgstr "Konnte Datei nicht öffnen: %1"
 
-#: samview.cpp:585
+#: samview.cpp:588
 msgid "Corrupt or outdated sam configuration file."
 msgstr "Korrupierte oder veraltete SAM Konfigurationsdatei."
 
-#: samview.cpp:806
+#: samview.cpp:809
 msgid ""
 "You now have to provide a (preferably empty) directory where you want to "
 "serialize the scenarios to"
@@ -237,38 +246,38 @@ msgstr ""
 "Hier können Sie einen (bevorzugt leeren) Ordner angeben in den die Szenarios "
 "serialisiert werden."
 
-#: samview.cpp:806
+#: samview.cpp:809
 msgid "Do not ask again"
 msgstr "Nicht mehr fragen"
 
-#: samview.cpp:807
+#: samview.cpp:810
 msgid "Serialized scenario output"
 msgstr "Ausgabe serialisierter Szenarios"
 
-#: samview.cpp:817
+#: samview.cpp:826
 msgid "Open simon prompts"
 msgstr "simon Prompts öffnen"
 
-#: samview.cpp:882
+#: samview.cpp:891
 msgid "Could not find scenario: %1"
 msgstr "Konnte Szenario nicht finden: %1"
 
-#: samview.cpp:921
+#: samview.cpp:930
 msgid "Unknown model type"
 msgstr "Unbekannter modelltyp"
 
-#: samview.cpp:1022
+#: samview.cpp:1031
 msgctxt ""
 "The tag name of an automatically added test set. The needed string really is "
 "please change this (for the user to change)."
 msgid "PLEASE_CHANGE_THIS"
 msgstr "BITTE_AENDERN_SIE_DAS"
 
-#: samview.cpp:1032
+#: samview.cpp:1041
 msgid "Adaption aborted"
 msgstr "Adaption abgebrochen"
 
-#: samview.cpp:1045
+#: samview.cpp:1054
 msgid ""
 "Failed to adapt model:\n"
 "\n"
@@ -278,19 +287,19 @@ msgstr ""
 "\n"
 "%1"
 
-#: samview.cpp:1077
+#: samview.cpp:1086
 msgid "Grammar class undefined: %1"
 msgstr "Grammatikklasse undefiniert: %1"
 
-#: samview.cpp:1084
+#: samview.cpp:1093
 msgid "Word undefined: %1"
 msgstr "Wort undefiniert: %1"
 
-#: samview.cpp:1091
+#: samview.cpp:1100
 msgid "Phoneme undefined: %1"
 msgstr "Phonem undefiniert: %1"
 
-#: samview.cpp:1107
+#: samview.cpp:1116
 msgid ""
 "Build log too big to display. Please use the button below to store it to a "
 "local file."
@@ -298,7 +307,7 @@ msgstr ""
 "Erstellungsprotokoll zu groß zum Anzeigen. Verwenden Sie den Knopf unten um "
 "es in eine lokale Datei zu speichern."
 
-#: samview.cpp:1165
+#: samview.cpp:1174
 msgid ""
 "No tests configured yet. Please provide your test configuration in the "
 "input / output section."
@@ -343,11 +352,60 @@ msgstr ""
 "Ergebnis %1 von %2\n"
 "=====================\n"
 
+#. i18n: file: conservativetraining.ui:25
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:3
+#, fuzzy
+msgid "Input folder:"
+msgstr "Eingabedateien"
+
+#. i18n: file: conservativetraining.ui:39
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: rc.cpp:6
+#, fuzzy
+msgid "Output prompts:"
+msgstr "Ausgabeformat:"
+
+#. i18n: file: conservativetraining.ui:53
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: rc.cpp:9
+#, fuzzy
+msgid "Minimum confidence:"
+msgstr "Sicherheit"
+
+#. i18n: file: conservativetraining.ui:60
+#. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, sbMinimumConfidence)
+#: rc.cpp:12
+msgid ""
+"You can limit the import to samples that were recognized with at least the "
+"following confidence rate (range: 0 - 1; Setting this to 0 means to import "
+"everything):"
+msgstr ""
+
+#. i18n: file: conservativetraining.ui:81
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: rc.cpp:15
+msgid "Handle global filter"
+msgstr ""
+
+#. i18n: file: conservativetraining.ui:93
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: rc.cpp:18
+#, fuzzy
+msgid "Activate filter:"
+msgstr "Filter"
+
+#. i18n: file: conservativetraining.ui:103
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: rc.cpp:21
+msgid "Deactivate filter:"
+msgstr ""
+
 #. i18n: file: corpusinformation.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CorpusInformationWidget)
 #. i18n: file: exporttestresultsdlg.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ExportTestDlg)
-#: rc.cpp:3 rc.cpp:21
+#: rc.cpp:24 rc.cpp:42
 msgid "Form"
 msgstr "Form"
 
@@ -365,7 +423,7 @@ msgstr "Form"
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #. i18n: file: testconfiguration.ui:28
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:6 rc.cpp:30 rc.cpp:61 rc.cpp:82 rc.cpp:88 rc.cpp:103 rc.cpp:256
+#: rc.cpp:27 rc.cpp:51 rc.cpp:82 rc.cpp:103 rc.cpp:109 rc.cpp:124 rc.cpp:280
 msgid "Tag:"
 msgstr "Tag:"
 
@@ -375,81 +433,81 @@ msgstr "Tag:"
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #. i18n: file: exporttestresultsdlg.ui:295
 #. i18n: ectx: property (text), widget (QLabel, label_9)
-#: rc.cpp:9 rc.cpp:91 rc.cpp:106
+#: rc.cpp:30 rc.cpp:112 rc.cpp:127
 msgid "Notes:"
 msgstr "Notizen:"
 
 #. i18n: file: corpusinformation.ui:44
 #. i18n: ectx: property (text), widget (QLabel, label_26)
-#: rc.cpp:12
+#: rc.cpp:33
 msgid "Speakers:"
 msgstr "Sprecher:"
 
 #. i18n: file: corpusinformation.ui:58
 #. i18n: ectx: property (text), widget (QLabel, label_24)
-#: rc.cpp:15
+#: rc.cpp:36
 msgid "Samples:"
 msgstr "Aufnahmen:"
 
 #. i18n: file: corpusinformation.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbAutomaticallyDetermine)
-#: rc.cpp:18
+#: rc.cpp:39
 msgid "Determine automatically"
 msgstr "Automatisch bestimmen"
 
 #. i18n: file: exporttestresultsdlg.ui:24
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#. i18n: file: main.ui:598
+#. i18n: file: main.ui:605
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: rc.cpp:24 rc.cpp:244
+#: rc.cpp:45 rc.cpp:268
 msgid "General"
 msgstr "Allgemein"
 
 #. i18n: file: exporttestresultsdlg.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:27
+#: rc.cpp:48
 msgid "Title:"
 msgstr "Titel:"
 
 #. i18n: file: exporttestresultsdlg.ui:53
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: rc.cpp:33
+#: rc.cpp:54
 msgid "Task definition:"
 msgstr "Aufgabenbeschreibung:"
 
 #. i18n: file: exporttestresultsdlg.ui:67
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: rc.cpp:36
+#: rc.cpp:57
 msgid "Output format:"
 msgstr "Ausgabeformat:"
 
 #. i18n: file: exporttestresultsdlg.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: rc.cpp:39
+#: rc.cpp:60
 msgid "Options:"
 msgstr "Optionen:"
 
 #. i18n: file: exporttestresultsdlg.ui:87
 #. i18n: ectx: property (text), widget (QCheckBox, cbTables)
-#: rc.cpp:42
+#: rc.cpp:63
 msgid "Tables"
 msgstr "Tabellen"
 
 #. i18n: file: exporttestresultsdlg.ui:97
 #. i18n: ectx: property (text), widget (QCheckBox, cbGraphs)
-#: rc.cpp:45
+#: rc.cpp:66
 msgid "Graphs"
 msgstr "Graphen"
 
 #. i18n: file: exporttestresultsdlg.ui:104
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: rc.cpp:48
+#: rc.cpp:69
 msgid "Conclusion:"
 msgstr "Fazit:"
 
 #. i18n: file: exporttestresultsdlg.ui:115
 #. i18n: ectx: property (html), widget (KTextEdit, teConclusion)
-#: rc.cpp:51
+#: rc.cpp:72
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -475,121 +533,121 @@ msgstr ""
 
 #. i18n: file: exporttestresultsdlg.ui:126
 #. i18n: ectx: attribute (title), widget (QWidget, tab_9)
-#: rc.cpp:58
+#: rc.cpp:79
 msgid "Experiment"
 msgstr "Experiment"
 
 #. i18n: file: exporttestresultsdlg.ui:142
 #. i18n: ectx: property (text), widget (QLabel, label_29)
-#: rc.cpp:64
+#: rc.cpp:85
 msgid "Short description:"
 msgstr "Kurze Beschreibung:"
 
 #. i18n: file: exporttestresultsdlg.ui:156
 #. i18n: ectx: property (text), widget (QLabel, label_30)
-#: rc.cpp:67
+#: rc.cpp:88
 msgid "Conducted on:"
 msgstr "Abgehalten am:"
 
 #. i18n: file: exporttestresultsdlg.ui:171
 #. i18n: ectx: attribute (title), widget (QWidget, tab_8)
-#: rc.cpp:70
+#: rc.cpp:91
 msgid "System"
 msgstr "System"
 
 #. i18n: file: exporttestresultsdlg.ui:177
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: rc.cpp:73
+#: rc.cpp:94
 msgid "System definition:"
 msgstr "Systemdefinition:"
 
 #. i18n: file: exporttestresultsdlg.ui:193
 #. i18n: ectx: property (text), widget (QCheckBox, cbDetailedSystemInformation)
-#: rc.cpp:76
+#: rc.cpp:97
 msgid "Detailed"
 msgstr "Detailiert"
 
 #. i18n: file: exporttestresultsdlg.ui:200
 #. i18n: ectx: property (text), widget (KPushButton, pbRetrieveSystemInformation)
-#: rc.cpp:79
+#: rc.cpp:100
 msgid "Retrieve system information"
 msgstr "Hole Systeminformationen"
 
 #. i18n: file: exporttestresultsdlg.ui:220
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: rc.cpp:85
+#: rc.cpp:106
 msgid "Vocabulary"
 msgstr "Vokabular"
 
 #. i18n: file: exporttestresultsdlg.ui:250
 #. i18n: ectx: property (text), widget (QLabel, label_11)
-#: rc.cpp:94
+#: rc.cpp:115
 msgid "Number of words:"
 msgstr "Anzahl von Wörtern:"
 
 #. i18n: file: exporttestresultsdlg.ui:271
 #. i18n: ectx: property (text), widget (QLabel, label_12)
-#: rc.cpp:97
+#: rc.cpp:118
 msgid "Number of pronunciations:"
 msgstr "Anzahl von Aussprachen:"
 
 #. i18n: file: exporttestresultsdlg.ui:279
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: rc.cpp:100
+#: rc.cpp:121
 msgid "Grammar"
 msgstr "Grammatik"
 
 #. i18n: file: exporttestresultsdlg.ui:310
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
-#: rc.cpp:109
+#: rc.cpp:130
 msgid "Trainingssamples"
 msgstr "Trainingsaufnahmen"
 
 #. i18n: file: exporttestresultsdlg.ui:324
 #. i18n: ectx: attribute (title), widget (QWidget, tab_5)
-#: rc.cpp:112
+#: rc.cpp:133
 msgid "Testset"
 msgstr "Testset"
 
 #. i18n: file: main.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
-#: rc.cpp:115
+#: rc.cpp:136
 msgid "sam - Untitled"
 msgstr "sam - Unbenannt"
 
 #. i18n: file: main.ui:25
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_3)
-#: rc.cpp:118
+#: rc.cpp:139
 msgid "Input && output files"
 msgstr "Eingabe && Ausgabe Dateien"
 
 #. i18n: file: main.ui:35
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: rc.cpp:121
+#: rc.cpp:142
 msgid "Creating"
 msgstr "Erstelle"
 
 #. i18n: file: main.ui:43
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
-#: rc.cpp:124
+#: rc.cpp:145
 msgid "Model type"
 msgstr "Modelltyp"
 
 #. i18n: file: main.ui:49
 #. i18n: ectx: property (text), widget (QRadioButton, rbStaticModel)
-#: rc.cpp:127
+#: rc.cpp:148
 msgid "Static model"
 msgstr "Statisches Modell"
 
 #. i18n: file: main.ui:56
 #. i18n: ectx: property (text), widget (QRadioButton, rbAdaptedBaseModel)
-#: rc.cpp:130
+#: rc.cpp:151
 msgid "Adapted base model"
 msgstr "Adaptiertes Basismodell"
 
 #. i18n: file: main.ui:63
 #. i18n: ectx: property (text), widget (QRadioButton, rbDynamicModel)
-#: rc.cpp:133
+#: rc.cpp:154
 msgid "Entirely user generated model"
 msgstr "Komplett Benutzergeneriertes Modell"
 
@@ -597,219 +655,226 @@ msgstr "Komplett Benutzergeneriertes Modell"
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #. i18n: file: testconfiguration.ui:45
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_6)
-#: rc.cpp:136 rc.cpp:259
+#: rc.cpp:157 rc.cpp:283
 msgid "Input files"
 msgstr "Eingabedateien"
 
 #. i18n: file: main.ui:82
 #. i18n: ectx: property (text), widget (KPushButton, pbSerializeScenarios)
-#: rc.cpp:139
+#: rc.cpp:160
 msgid "Serialize scenarios"
 msgstr "Serialisierte Szenarios"
 
 #. i18n: file: main.ui:89
 #. i18n: ectx: property (text), widget (KPushButton, pbSerializePrompts)
-#: rc.cpp:142
+#: rc.cpp:163
 msgid "Serialize prompts"
 msgstr "Serialisierte Prompts"
 
-#. i18n: file: main.ui:101
+#. i18n: file: main.ui:96
+#. i18n: ectx: property (text), widget (KPushButton, pbImportRecognitionSamples)
+#: rc.cpp:166
+#, fuzzy
+msgid "Import recognition samples"
+msgstr "Trainingsaufnahmen"
+
+#. i18n: file: main.ui:108
 #. i18n: ectx: property (text), widget (QLabel, lbLexicon)
-#: rc.cpp:145
+#: rc.cpp:169
 msgid "Lexicon:"
 msgstr "Lexicon:"
 
-#. i18n: file: main.ui:114
+#. i18n: file: main.ui:121
 #. i18n: ectx: property (text), widget (QLabel, lbGrammar)
-#: rc.cpp:148
+#: rc.cpp:172
 msgid "Grammar:"
 msgstr "Grammatik:"
 
-#. i18n: file: main.ui:127
+#. i18n: file: main.ui:134
 #. i18n: ectx: property (text), widget (QLabel, lbVocabulary)
-#: rc.cpp:151
+#: rc.cpp:175
 msgid "Vocabulary:"
 msgstr "Vokabular:"
 
-#. i18n: file: main.ui:140
+#. i18n: file: main.ui:147
 #. i18n: ectx: property (text), widget (QLabel, lbPrompts)
-#: rc.cpp:154
+#: rc.cpp:178
 msgid "Prompts:"
 msgstr "Prompts:"
 
-#. i18n: file: main.ui:153
+#. i18n: file: main.ui:160
 #. i18n: ectx: property (text), widget (QLabel, lbPromptsBasePath)
-#: rc.cpp:157
+#: rc.cpp:181
 msgid "Prompts base path:"
 msgstr "Prompts Basispfad:"
 
-#. i18n: file: main.ui:166
+#. i18n: file: main.ui:173
 #. i18n: ectx: property (text), widget (QLabel, lbTreeHed)
-#: rc.cpp:160
+#: rc.cpp:184
 msgid "Tree.hed:"
 msgstr "Tree.hed:"
 
-#. i18n: file: main.ui:179
+#. i18n: file: main.ui:186
 #. i18n: ectx: property (text), widget (QLabel, lbWavConfig)
-#: rc.cpp:163
+#: rc.cpp:187
 msgid "Wav-Config:"
 msgstr "Wav-Config:"
 
-#. i18n: file: main.ui:192
+#. i18n: file: main.ui:199
 #. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
 #. i18n: file: testconfiguration.ui:189
 #. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
-#: rc.cpp:166 rc.cpp:286
+#: rc.cpp:190 rc.cpp:310
 msgid "Samplerate:"
 msgstr "Samplerate:"
 
-#. i18n: file: main.ui:215
+#. i18n: file: main.ui:222
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: rc.cpp:169
+#: rc.cpp:193
 msgid "Script base prefix:"
 msgstr "Skript Basisprefix:"
 
-#. i18n: file: main.ui:250
+#. i18n: file: main.ui:257
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
-#: rc.cpp:172
+#: rc.cpp:196
 msgid "Base model"
 msgstr "Basismodell"
 
-#. i18n: file: main.ui:259
+#. i18n: file: main.ui:266
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:175
+#: rc.cpp:199
 msgid "Base HMM-definitions:"
 msgstr "Basis HMM Definitionen:"
 
-#. i18n: file: main.ui:269
+#. i18n: file: main.ui:276
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: rc.cpp:178
+#: rc.cpp:202
 msgid "Base tiedlist:"
 msgstr "Basis tiedlist:"
 
-#. i18n: file: main.ui:279
+#. i18n: file: main.ui:286
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: rc.cpp:181
+#: rc.cpp:205
 msgid "Base macros:"
 msgstr "Basis Makros:"
 
-#. i18n: file: main.ui:289
+#. i18n: file: main.ui:296
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: rc.cpp:184
+#: rc.cpp:208
 msgid "Base stats:"
 msgstr "Basis stats:"
 
-#. i18n: file: main.ui:302
+#. i18n: file: main.ui:309
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: rc.cpp:187
+#: rc.cpp:211
 msgid "Output files"
 msgstr "Ausgabedateien"
 
-#. i18n: file: main.ui:308
+#. i18n: file: main.ui:315
 #. i18n: ectx: property (text), widget (QLabel, lbHmmdefs)
 #. i18n: file: testconfiguration.ui:57
 #. i18n: ectx: property (text), widget (QLabel, lbHmmdefs_2)
-#: rc.cpp:190 rc.cpp:262
+#: rc.cpp:214 rc.cpp:286
 msgid "HMM-definitions:"
 msgstr "HMM Definitionen:"
 
-#. i18n: file: main.ui:321
+#. i18n: file: main.ui:328
 #. i18n: ectx: property (text), widget (QLabel, lbTiedlist)
 #. i18n: file: testconfiguration.ui:70
 #. i18n: ectx: property (text), widget (QLabel, lbTiedlist_2)
-#: rc.cpp:193 rc.cpp:265
+#: rc.cpp:217 rc.cpp:289
 msgid "Tiedlist:"
 msgstr "Tiedlist:"
 
-#. i18n: file: main.ui:334
+#. i18n: file: main.ui:341
 #. i18n: ectx: property (text), widget (QLabel, lbDict)
 #. i18n: file: testconfiguration.ui:83
 #. i18n: ectx: property (text), widget (QLabel, lbDict_2)
-#: rc.cpp:196 rc.cpp:268
+#: rc.cpp:220 rc.cpp:292
 msgid "Dict:"
 msgstr "Dict:"
 
-#. i18n: file: main.ui:344
+#. i18n: file: main.ui:351
 #. i18n: ectx: property (text), widget (QLabel, lbDFA)
 #. i18n: file: testconfiguration.ui:96
 #. i18n: ectx: property (text), widget (QLabel, lbDFA_2)
-#: rc.cpp:199 rc.cpp:271
+#: rc.cpp:223 rc.cpp:295
 msgid "DFA:"
 msgstr "DFA:"
 
-#. i18n: file: main.ui:379
+#. i18n: file: main.ui:386
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
-#: rc.cpp:202
+#: rc.cpp:226
 msgid "Testing"
 msgstr "Teste"
 
-#. i18n: file: main.ui:422
+#. i18n: file: main.ui:429
 #. i18n: ectx: property (text), widget (KPushButton, pbAddTestConfiguration)
-#: rc.cpp:205
+#: rc.cpp:229
 msgid "Add"
 msgstr "Hinzufügen"
 
-#. i18n: file: main.ui:436
+#. i18n: file: main.ui:443
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: rc.cpp:208
+#: rc.cpp:232
 msgid "Adapt scenarios"
 msgstr "Adaptiere Szenarios"
 
-#. i18n: file: main.ui:458
+#. i18n: file: main.ui:465
 #. i18n: ectx: property (text), widget (QLabel, lbAdaptLog)
-#: rc.cpp:211
+#: rc.cpp:235
 msgid "Adapt log:"
 msgstr "Adaptionsprotokoll:"
 
-#. i18n: file: main.ui:475
+#. i18n: file: main.ui:482
 #. i18n: ectx: attribute (title), widget (QWidget, Seite)
-#: rc.cpp:214
+#: rc.cpp:238
 msgid "Create model"
 msgstr "Modell erstellen"
 
-#. i18n: file: main.ui:500
+#. i18n: file: main.ui:507
 #. i18n: ectx: property (text), widget (KPushButton, pbCancelBuildModel)
-#. i18n: file: main.ui:563
+#. i18n: file: main.ui:570
 #. i18n: ectx: property (text), widget (KPushButton, pbCancelTestModel)
-#: rc.cpp:220 rc.cpp:235
+#: rc.cpp:244 rc.cpp:259
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#. i18n: file: main.ui:511
+#. i18n: file: main.ui:518
 #. i18n: ectx: property (text), widget (QLabel, lbBuildLog)
-#: rc.cpp:223
+#: rc.cpp:247
 msgid "Build log:"
 msgstr "Erstellungsprotokoll:"
 
-#. i18n: file: main.ui:528
+#. i18n: file: main.ui:535
 #. i18n: ectx: property (text), widget (KPushButton, pbSaveCompleteBuildlog)
-#: rc.cpp:226
+#: rc.cpp:250
 msgid "Save complete buildlog (HTML)"
 msgstr "Hole Komplettes Protokoll (HTML)"
 
-#. i18n: file: main.ui:574
+#. i18n: file: main.ui:581
 #. i18n: ectx: property (text), widget (QLabel, lbTestLog)
-#: rc.cpp:238
+#: rc.cpp:262
 msgid "Test log:"
 msgstr "Testprotokoll:"
 
 #. i18n: file: samui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:247
+#: rc.cpp:271
 #, fuzzy
 msgid "Main Actions"
 msgstr "Hauptaktionen"
 
 #. i18n: file: samui.rc:17
 #. i18n: ectx: Menu (build)
-#: rc.cpp:250
+#: rc.cpp:274
 #, fuzzy
 msgid "Build"
 msgstr "Erstellungsprotokoll:"
 
 #. i18n: file: samui.rc:23
 #. i18n: ectx: Menu (test)
-#: rc.cpp:253
+#: rc.cpp:277
 #, fuzzy
 msgctxt "Test the model"
 msgid "Test"
@@ -817,7 +882,7 @@ msgstr "Test"
 
 #. i18n: file: testconfiguration.ui:125
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_5)
-#: rc.cpp:274
+#: rc.cpp:298
 #, fuzzy
 msgctxt "Test the model"
 msgid "Test configuration"
@@ -825,94 +890,94 @@ msgstr "Testkonfiguration"
 
 #. i18n: file: testconfiguration.ui:137
 #. i18n: ectx: property (text), widget (QLabel, lbTestPrompts)
-#: rc.cpp:277
+#: rc.cpp:301
 msgid "Test-prompts:"
 msgstr "Test-prompts:"
 
 #. i18n: file: testconfiguration.ui:150
 #. i18n: ectx: property (text), widget (QLabel, lbTestPromptsBasePath)
-#: rc.cpp:280
+#: rc.cpp:304
 msgid "Test-prompts base path:"
 msgstr "Test-prompts Basispfad:"
 
 #. i18n: file: testconfiguration.ui:163
 #. i18n: ectx: property (text), widget (QLabel, lbJConf)
-#: rc.cpp:283
+#: rc.cpp:307
 msgid "JConf:"
 msgstr "JConf:"
 
 #. i18n: file: testconfiguration.ui:219
 #. i18n: ectx: property (text), widget (KPushButton, pbRemove)
-#: rc.cpp:289
+#: rc.cpp:313
 msgid "Remove"
 msgstr "Entfernen"
 
 #. i18n: file: testresult.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbRecognitionRate)
-#: rc.cpp:292
+#: rc.cpp:316
 msgid "Overall recognition rate (confidence):"
 msgstr "Gesamte Erkennungsrate (Sicherheit):"
 
 #. i18n: file: testresult.ui:48
 #. i18n: ectx: attribute (title), widget (QWidget, pgSentenceResults)
-#: rc.cpp:295
+#: rc.cpp:319
 msgid "Sentences"
 msgstr "Sätze"
 
 #. i18n: file: testresult.ui:65
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: rc.cpp:298
+#: rc.cpp:322
 msgid "Recognized words"
 msgstr "Erkannte Wörter"
 
 #. i18n: file: testresult.ui:82
 #. i18n: ectx: attribute (title), widget (QWidget, pgFileResults)
-#: rc.cpp:301
+#: rc.cpp:325
 msgid "Files"
 msgstr "Dateien"
 
 #. i18n: file: testresult.ui:90
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: rc.cpp:304
+#: rc.cpp:328
 msgid "Find file:"
 msgstr "Finde Datei:"
 
 #. i18n: file: testresult.ui:100
 #. i18n: ectx: property (clickMessage), widget (KLineEdit, leResultFilesFilter)
-#: rc.cpp:307
+#: rc.cpp:331
 msgid "Filter"
 msgstr "Filter"
 
 #. i18n: file: testresult.ui:130
 #. i18n: ectx: property (text), widget (KPushButton, pbEditSample)
-#: rc.cpp:310
+#: rc.cpp:334
 msgid "Edit sample"
 msgstr "Sprachaufnahme bearbeiten"
 
 #. i18n: file: testresult.ui:140
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: rc.cpp:313
+#: rc.cpp:337
 msgid "Log"
 msgstr "Protokoll"
 
 #. i18n: file: testresult.ui:169
 #. i18n: ectx: property (text), widget (QLabel, label_7)
-#: rc.cpp:316
+#: rc.cpp:340
 msgid "Accuracy:"
 msgstr "Genauigkeit:"
 
 #. i18n: file: testresult.ui:183
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: rc.cpp:319
+#: rc.cpp:343
 msgid "Word error rate:"
 msgstr "Word error rate:"
 
-#: rc.cpp:320
+#: rc.cpp:344
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: rc.cpp:321
+#: rc.cpp:345
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
@@ -1571,10 +1636,6 @@ msgstr "grasch@simon-listens.org"
 #~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
 
 #, fuzzy
-#~ msgid "Minimum Confidence:"
-#~ msgstr "Sicherheit"
-
-#, fuzzy
 #~ msgid "Recognition"
 #~ msgstr "Testkonfiguration"
 
@@ -1820,19 +1881,11 @@ msgstr "grasch@simon-listens.org"
 #~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
 
 #, fuzzy
-#~ msgid "Could not parse input prompts: %1"
-#~ msgstr "Konnte prompts-Datei nicht überschreiben"
-
-#, fuzzy
 #~ msgid "Could not process soundfiles"
 #~ msgstr "Konnte prompts-Datei nicht bearbeiten"
 
 #, fuzzy
 #~ msgid "Importing Training Samples"
-#~ msgstr "Trainingsaufnahmen"
-
-#, fuzzy
-#~ msgid "Import Training Samples"
 #~ msgstr "Trainingsaufnahmen"
 
 #, fuzzy
@@ -2271,10 +2324,6 @@ msgstr "grasch@simon-listens.org"
 #, fuzzy
 #~ msgid "Spea&k File"
 #~ msgstr "Sprecher:"
-
-#, fuzzy
-#~ msgid "testfilter"
-#~ msgstr "Filter"
 
 #, fuzzy
 #~ msgid "Unable to open file."
