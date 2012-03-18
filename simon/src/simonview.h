@@ -68,7 +68,6 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void representState(SimonControl::SystemStatus status);
     
     void showSystemDialog();
-    void showTrainDialog();
     void showSampleShare();
     
    private slots:
@@ -87,11 +86,6 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void displayScenarioPrivate(Scenario *scenario);
     
     QMutex guiUpdateMutex;
-
-    bool settingsShown;
-    int shownDialogs;
-    QPoint currentPos;
-    QPoint addWordDlgPos;
 
     KAction *disconnectAction;
     KAction *activateAction;

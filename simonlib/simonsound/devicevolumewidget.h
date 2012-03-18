@@ -22,6 +22,7 @@
 
 #include "simonsound_export.h"
 #include <QWidget>
+#include <QTimer>
 
 namespace Ui
 {
@@ -45,27 +46,38 @@ class NullRecorderClient;
 class SIMONSOUND_EXPORT DeviceVolumeWidget : public QWidget
 {
   Q_OBJECT
-
-    private:
-    Ui::DeviceVolumeWidgetUi *ui;
-    NullRecorderClient *rec;
-    QString m_deviceName;
-    bool m_isTooLoud;
-
-  private slots:
-    void deviceReportedLevel(qint64 time, float level);
-
-    void clipping();
-    void tooLoud();
-    void volumeOk();
-    void tooLow();
-    void reset();
-
+  
   public:
     explicit DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent=0);
     ~DeviceVolumeWidget();
 
     void start();
     void stop();
+
+  private:
+    Ui::DeviceVolumeWidgetUi *ui;
+    NullRecorderClient *rec;
+    
+    QString m_deviceName;
+    
+    qint32 lastClip;
+    qint32 lastStartedSample;
+    qint32 lastCompletedSample;
+    
+    QTimer labelUpdater;
+
+  private slots:
+    void deviceReportedLevel(qint64 time, float level);
+
+    void clipping();
+    void started();
+    void completed();
+    
+    void tooLoud();
+    void volumeOk();
+    void tooLow();
+    
+    void updateLabel();
+
 };
 #endif

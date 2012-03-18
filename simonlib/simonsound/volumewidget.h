@@ -29,12 +29,10 @@ namespace Ui
   class VolumeWidgetUi;
 }
 
-
 namespace SimonSound
 {
   class DeviceConfiguration;
 }
-
 
 class DeviceVolumeWidget;
 
@@ -47,7 +45,7 @@ class SIMONSOUND_EXPORT VolumeWidget : public QWidget
 {
   Q_OBJECT
 
-    private:
+  private:
     Ui::VolumeWidgetUi *ui;
     QList<DeviceVolumeWidget*> devices;
 
@@ -59,7 +57,8 @@ class SIMONSOUND_EXPORT VolumeWidget : public QWidget
     void start();
     void stop();
   public:
-    VolumeWidget(QWidget *parent=0);
+    VolumeWidget(QWidget *parent = 0);
+    void enablePrompt(bool enabled);
     ~VolumeWidget();
 
     void init();

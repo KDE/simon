@@ -34,6 +34,8 @@ SoundInputClient(deviceConfiguration),
 vad(new VADSoundProcessor(deviceConfiguration, true /*pass all through*/))
 {
   registerSoundProcessor(vad);
+  connect(vad, SIGNAL(listening()), this, SIGNAL(sampleStarted()));
+  connect(vad, SIGNAL(complete()), this, SIGNAL(sampleCompleted()));
 }
 
 

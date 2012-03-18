@@ -117,16 +117,6 @@
       <default>true</default>
       <tooltip>If the volume calibration should be shown.</tooltip>
     </entry>
-    <entry name="CalibrateMinVolume" type="Int">
-      <label>Minimum volume for the volume calibration to show "correct volume".</label>
-      <default>20</default>
-      <tooltip>Minimum volume for the volume calibration to show "correct volume".</tooltip>
-    </entry>
-    <entry name="CalibrateMaxVolume" type="Int">
-      <label>Maximum volume for the volume calibration to show "correct volume".</label>
-      <default>100</default>
-      <tooltip>Maximum volume for the volume calibration to show "correct volume".</tooltip>
-    </entry>
 
     <entry name="VolumePrompt" type="String">
       <label>The prompt for the user to speak to set up an appropriate volume.</label>

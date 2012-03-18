@@ -316,12 +316,12 @@ bool ALSABackend::stop()
   Q_ASSERT(m_handle); 
 
   m_loop->stop();
-  kDebug() << "Done stopping1";
   m_loop->wait();
   m_loop->deleteLater();
   m_loop = 0;
-  kDebug() << "Done stopping";
-
+  
+  emit stateChanged(SimonSound::IdleState);
+  
   return true;
 }
 

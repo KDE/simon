@@ -19,6 +19,7 @@
 
 #include "simonview.h"
 #include "firstrunwizard.h"
+#include "welcomepage.h"
 #include "version.h"
 
 #include <simonuicomponents/inlinewidgetview.h>
@@ -97,7 +98,7 @@
  */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 : KXmlGuiWindow(parent, flags), ScenarioDisplay(),
-  shownDialogs(0), configDialog(0)
+  configDialog(0)
 {
   Logger::log ( i18n ( "Starting simon..." ) );
 
@@ -146,7 +147,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
     info->writeToSplash ( i18n ( "Loading training..." ) );
   TrainingView *trainDialog = new TrainingView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
-  connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading vocabulary..." ) );
@@ -174,8 +174,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading interface..." ) );
 
-  setupWelcomePage();
-  settingsShown = false;
+//   setupWelcomePage();
 
   displayScenarios();
   updateScenarioDisplays();
@@ -184,6 +183,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   setupGUI();
   displayScenarioPrivate(ScenarioManager::getInstance()->getCurrentScenario());
   
+  ui.inlineView->registerPage(new WelcomePage);
   ui.inlineView->registerPage(vocabularyView);
   ui.inlineView->registerPage(grammarView);
   ui.inlineView->registerPage(runDialog);
@@ -554,11 +554,6 @@ void SimonView::showSystemDialog ()
   configDialog->exec();
   configDialog->deleteLater();
   configDialog = 0;
-}
-
-void SimonView::showTrainDialog()
-{
-  ui.inlineView->setCurrentIndex(5);
 }
 
 /**

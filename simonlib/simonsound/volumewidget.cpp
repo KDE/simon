@@ -30,9 +30,14 @@ ui(new Ui::VolumeWidgetUi())
 {
   ui->setupUi(this);
   ui->wgStart->show();
+  
   connect(ui->pbStartCalibration, SIGNAL(clicked()), this, SLOT(start()));
 }
 
+void VolumeWidget::enablePrompt(bool enabled)
+{
+  ui->tePrompt->setVisible(enabled);
+}
 
 void VolumeWidget::init()
 {
@@ -48,7 +53,6 @@ void VolumeWidget::init()
   }
 }
 
-
 void VolumeWidget::registerClient(const SimonSound::DeviceConfiguration& device)
 {
   DeviceVolumeWidget *dw = new DeviceVolumeWidget(device, this);
@@ -60,7 +64,6 @@ void VolumeWidget::registerClient(const SimonSound::DeviceConfiguration& device)
   devices << dw;
 }
 
-
 void VolumeWidget::setPrompt(const QString& prompt)
 {
   ui->tePrompt->setFont(SoundConfiguration::promptFont());
@@ -69,7 +72,6 @@ void VolumeWidget::setPrompt(const QString& prompt)
   if (ui->tePrompt->toPlainText().isEmpty())
     ui->tePrompt->setPlainText(i18n("Please say a few sentences. Try to pronounce them clearly but naturally and speak in a normal volume."));
 }
-
 
 void VolumeWidget::start()
 {
@@ -80,7 +82,6 @@ void VolumeWidget::start()
   ui->wgStart->hide();
 }
 
-
 void VolumeWidget::stop()
 {
   foreach (DeviceVolumeWidget *dw, devices) {
@@ -89,7 +90,6 @@ void VolumeWidget::stop()
   }
   ui->wgStart->show();
 }
-
 
 VolumeWidget::~VolumeWidget()
 {

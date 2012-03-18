@@ -36,23 +36,12 @@ icon(icon_)
 {
 }
 
-
 bool InlineWidget::isShown()
 {
   if (this->isVisible())
     return true;
   return false;
 }
-
-
-/**
- * \brief Destructor
- * \author Peter Grasch
- */
-InlineWidget::~InlineWidget()
-{
-}
-
 
 /**
  * \brief Accept the InlineWidget
@@ -70,9 +59,8 @@ void InlineWidget::accept()
  */
 void InlineWidget::reject()
 {
-  emit reject();
+  emit rejected();
 }
-
 
 /**
  * \brief Wrapper for the close method - emits closed()
@@ -83,7 +71,6 @@ bool InlineWidget::close()
   emit closed();
   return QWidget::close();
 }
-
 
 /**
  * \brief Sets the visibility to the given bool emits shown() / hidden()
@@ -96,17 +83,4 @@ void InlineWidget::setVisible(bool visible)
   if (visible)
     emit shown();
   else emit hidden();
-}
-
-
-/**
- * \brief "Executes" the "dialog"
- * \author Peter Grasch
- * @return accepted or rejected?
- */
-bool InlineWidget::exec()
-{
-  emit execd();
-  QWidget::show();
-  return true;
 }

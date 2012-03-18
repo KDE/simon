@@ -31,10 +31,12 @@ class NullRecorderClient :public QObject, public SoundInputClient
 {
   Q_OBJECT
 
-    private:
+  private:
     VADSoundProcessor *vad;
 
-    signals:
+  signals:
+    void sampleStarted();
+    void sampleCompleted();
     void level(qint64 time, float now);
     void clippingOccured();
 
