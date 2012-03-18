@@ -201,25 +201,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
   if (!control->startMinimized())
     show();
-
-  #ifdef DEBUG_TEST_SYNCHRONIZATION
-  connect(&t, SIGNAL(timeout()), this, SLOT(testSlot()));
-  wordI=0;
-  t.start(1500);
-  #endif
 }
-
-
-#ifdef DEBUG_TEST_SYNCHRONIZATION
-#include <simonscenarios/activevocabulary.h>
-void SimonView::testSlot()
-{
-  ////////////TEST
-  ScenarioManager::getInstance()->getCurrentScenario()->removeWord(
-    ScenarioManager::getInstance()->getCurrentScenario()->vocabulary()->getWords().at(0));
-  ////////////TEST
-}
-#endif
 
 void SimonView::setupWelcomePage()
 {

@@ -39,10 +39,6 @@
 
 #include <QMutex>
 
-#ifdef DEBUG_TEST_SYNCHRONIZATION
-#include <QTimer>
-#endif
-
 #include <KDE/KHTMLPart>
 
 class TrayIconManager;
@@ -82,10 +78,6 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void displayScenarios();
     void showVolumeCalibration();
     void welcomeUrlClicked(const QUrl& url ); 
-
-  #ifdef DEBUG_TEST_SYNCHRONIZATION
-    void testSlot();
-  #endif
    
   private:
     void setupSignalSlots();
@@ -94,10 +86,6 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void setupWelcomePage();
     void displayScenarioPrivate(Scenario *scenario);
     
-  #ifdef DEBUG_TEST_SYNCHRONIZATION
-    QTimer t;
-    int wordI;
-  #endif
     QMutex guiUpdateMutex;
 
     bool settingsShown;
