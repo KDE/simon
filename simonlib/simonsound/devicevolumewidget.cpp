@@ -36,7 +36,7 @@ DeviceVolumeWidget::DeviceVolumeWidget(const SimonSound::DeviceConfiguration& de
     lastCompletedSample(0)
 {
   ui->setupUi(this);
-  ui->lbDeviceName->setText(i18nc("%1 is the devices name", "Device \"%1\":", m_deviceName));
+  ui->lbDeviceName->setText(i18nc("%1 is the devices name", "Device: %1", m_deviceName));
   connect(rec, SIGNAL(level(qint64,float)), this, SLOT(deviceReportedLevel(qint64,float)));
   connect(rec, SIGNAL(clippingOccured()), this, SLOT(clipping()));
   connect(rec, SIGNAL(sampleStarted()), this, SLOT(started()));
@@ -74,9 +74,6 @@ void DeviceVolumeWidget::updateLabel()
   } else {
     //let's check if we haven't detected a sample for at least 5 seconds - then the volume is
     //apparently too low. Otherwise it's perfect.
-    kDebug() << lastCompletedSample;
-    kDebug() << lastStartedSample;
-    kDebug() << "---";
     if (lastCompletedSample < lastStartedSample)
       //we currently have a sample
       volumeOk();
