@@ -45,6 +45,12 @@ class TrayIconManager;
 class KCMultiDialog;
 class KAction;
 class KComboBox;
+class WelcomePage;
+class TrainingView;
+class VocabularyView;
+class GrammarView;
+class RunCommandView;
+class ContextView;
 
 class SimonView : public KXmlGuiWindow, public ScenarioDisplay
 {
@@ -73,13 +79,13 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
    private slots:
     void manageScenarios();
     void updateActionList();
-    void welcomeUrlClicked(const QUrl& url ); 
+    void editScenario();
+    void backToOverview();
    
   private:
     void setupSignalSlots();
     void setupActions();
 
-    void setupWelcomePage();
     void displayScenarioPrivate(Scenario *scenario);
     
     QMutex guiUpdateMutex;
@@ -91,6 +97,13 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     Ui::MainWindow ui;                            //!< Mainwindow UI definition - made by uic from the QTDesigner .ui
     SimonControl *control;                        //!< Pointer to the main concept class
     TrayIconManager *trayManager;                 //!< Handles the TrayIcon
+    
+    WelcomePage *welcomePage;
+    TrainingView *trainDialog;
+    VocabularyView *vocabularyView;
+    GrammarView *grammarView;
+    ContextView *contextDialog;
+    RunCommandView *runDialog;
 };
 
 

@@ -31,6 +31,9 @@ class QHideEvent;
 class WelcomePage : public InlineWidget, public ScenarioDisplay
 {
 Q_OBJECT
+
+signals:
+    void editScenario();
   
 public:
     WelcomePage(QWidget *parent=0);

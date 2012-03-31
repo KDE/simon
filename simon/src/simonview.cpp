@@ -137,28 +137,28 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   //Preloads all Dialogs
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading training..." ) );
-  TrainingView *trainDialog = new TrainingView(this);
+  trainDialog = new TrainingView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading vocabulary..." ) );
-  VocabularyView *vocabularyView = new VocabularyView(this);
+  vocabularyView = new VocabularyView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading grammar..." ) );
-  GrammarView *grammarView = new GrammarView(this);
+  grammarView = new GrammarView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading context..." ) );
-  ContextView *contextDialog = new ContextView(this);
+  contextDialog = new ContextView(this);
   connect(contextDialog, SIGNAL(manageScenariosTriggered()), this, SLOT(manageScenarios()));
   ScenarioManager::getInstance()->registerScenarioDisplay(contextDialog);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading run..." ) );
-  RunCommandView *runDialog = new RunCommandView(this);
+  runDialog = new RunCommandView(this);
   connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
   ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
   kDebug() << "SoundServer: " << SoundServer::getInstance();
@@ -171,15 +171,14 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   setupGUI();
   displayScenarioPrivate(ScenarioManager::getInstance()->getCurrentScenario());
   
-  WelcomePage *welcomePage = new WelcomePage;
+  welcomePage = new WelcomePage;
   ScenarioManager::getInstance()->registerScenarioDisplay(welcomePage);
+  connect(welcomePage, SIGNAL(editScenario()), this, SLOT(editScenario()));
   
   ui.inlineView->registerPage(welcomePage);
-  ui.inlineView->registerPage(vocabularyView);
-  ui.inlineView->registerPage(grammarView);
-  ui.inlineView->registerPage(runDialog);
-  ui.inlineView->registerPage(contextDialog);
-  ui.inlineView->registerPage(trainDialog);
+  ui.pbBackToOverview->hide();
+  
+  connect(ui.pbBackToOverview, SIGNAL(clicked()), this, SLOT(backToOverview()));
   
   setupSignalSlots();
   control->startup();
@@ -192,71 +191,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
   if (!control->startMinimized())
     show();
-}
-
-void SimonView::setupWelcomePage()
-{
-  QString location = KStandardDirs::locate("data", "simon/about/main.html");
-
-  //    m_part->begin(KUrl::fromPath( location ));
-  QString info =
-    i18nc("%1: simon version"
-    "--- end of comment ---",
-    "<h2 style='margin-top: 0px;'>Welcome to simon %1</h2>"
-
-    "<p>simon is an open-source speech recognition program and replaces the mouse and keyboard. "
-    "It is designed to be as flexible as possible and allows customization for any application where speech recognition is needed.</p>"
-    ,
-    simon_version);                                // simon version
-
-  QString fontSize = QString::number(15);         //QFont().pixelSize());//QString::number( pointsToPixel( Settings::mediumFontSize() ));
-  QString appTitle = i18n("simon");
-  QString catchPhrase = i18n("simon listens.");
-                                                  // looks ugly i18n("Open Source Speech Recognition Suite");
-  QString quickDescription = i18n("Open Source Speech Recognition Suite");
-
-  QFile f(location);
-  if (!f.open(QIODevice::ReadOnly)) return;
-  QString content = f.readAll();
-
-  QString infocss = KStandardDirs::locate( "data", "kdeui/about/kde_infopage.css" );
-  QString simoncss = KStandardDirs::locate( "appdata", "about/simon.css" );
-  QString rtl = kapp->isRightToLeft() ? QString("@import \"%1\";" ).arg( KStandardDirs::locate( "data", "kdeui/about/kde_infopage_rtl.css" )) : QString();
-
-  QWebView *welcomePart = new QWebView(this);
-  welcomePart->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
-  welcomePart->setContextMenuPolicy(Qt::NoContextMenu);
-  connect(welcomePart,SIGNAL(linkClicked(QUrl)),this,SLOT(welcomeUrlClicked(QUrl)));
-
-  KIconLoader *iconLoader = KIconLoader::global();
-  QString internetIconPath = iconLoader->iconPath("applications-internet", KIconLoader::Desktop);
-  QString mailIconPath = iconLoader->iconPath("mail-message-new", KIconLoader::Desktop);
-  QString helpIconPath = iconLoader->iconPath("system-help", KIconLoader::Desktop);
-  QString iconSize = "48px";
-  content = content.arg( infocss, rtl, simoncss, fontSize, appTitle, catchPhrase, quickDescription, info)
-    .arg("http://sourceforge.net/projects/speech2text/forums/forum/672427")
-    .arg(internetIconPath)                        //icon
-    .arg(iconSize).arg(iconSize)
-    .arg(i18n("Community forums")).arg(i18n("Get in touch with the simon community"))
-
-    .arg("mailto:support@simon-listens.org")
-    .arg(mailIconPath)                            //icon
-    .arg(iconSize).arg(iconSize)
-    .arg(i18n("Mail support")).arg(i18n("Get direct support from the developers"))
-
-    .arg("http://simon-listens.org/wiki")
-    .arg(helpIconPath)                            //icon
-    .arg(iconSize).arg(iconSize)
-    .arg(i18n("simon WIKI")).arg(i18n("The simon knowledge base"))
-
-    .arg("http://simon-listens.org/")
-    .arg(internetIconPath)                        //icon
-    .arg(iconSize).arg(iconSize)
-    .arg(i18n("simon Homepage")).arg(i18n("Official simon homepage"))
-    ;
-
-  welcomePart->setHtml(content, QUrl("file:///"));
-  ui.inlineView->addTab(welcomePart, KIcon("simon"), i18n("Welcome"));
 }
 
 void SimonView::updateActionList()
@@ -325,9 +259,26 @@ void SimonView::setupActions()
     actionCollection());
 }
 
-void SimonView::welcomeUrlClicked(const QUrl& url)
+void SimonView::editScenario()
 {
-  QDesktopServices::openUrl(url);
+  ui.pbBackToOverview->show();
+  ui.inlineView->removePage(welcomePage);
+  ui.inlineView->registerPage(vocabularyView);
+  ui.inlineView->registerPage(grammarView);
+  ui.inlineView->registerPage(runDialog);
+  ui.inlineView->registerPage(contextDialog);
+  ui.inlineView->registerPage(trainDialog);
+}
+
+void SimonView::backToOverview()
+{
+  ui.pbBackToOverview->hide();
+  ui.inlineView->registerPage(welcomePage);
+  ui.inlineView->removePage(vocabularyView);
+  ui.inlineView->removePage(grammarView);
+  ui.inlineView->removePage(runDialog);
+  ui.inlineView->removePage(contextDialog);
+  ui.inlineView->removePage(trainDialog);
 }
 
 void SimonView::displayScenarioPrivate(Scenario *scenario)

@@ -55,6 +55,14 @@ void InlineWidgetView::registerPage(InlineWidget *page)
   setTabIcon(newpage, page->getIcon());
   setTabToolTip(newpage, page->getDesc());
 
-  emit registeredPage(page);
+  emit registeredPage(page);  
+  tabBar()->setVisible(count() > 1);
 }
+
+void InlineWidgetView::removePage ( QWidget* page )
+{
+  KTabWidget::removePage ( page );
+  tabBar()->setVisible(count() > 1);
+}
+
 

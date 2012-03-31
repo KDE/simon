@@ -44,6 +44,7 @@ signals:
 public:
       InlineWidgetView(QWidget* parent=0);
       void registerPage(InlineWidget *page);
+      void removePage(QWidget *page);
       void focusPage(InlineWidget *page);
 };
 #endif

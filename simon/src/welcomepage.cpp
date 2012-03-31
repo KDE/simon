@@ -48,6 +48,8 @@ WelcomePage::WelcomePage(QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon(
   
   connect(ui.lwScenarios, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(updateScenarioDisplays()));
   
+  connect(ui.pbEditScenario, SIGNAL(clicked(bool)), this, SIGNAL(editScenario()));
+  
   displayScenarios();
   displayAcousticModelInfo();
 }
@@ -166,8 +168,6 @@ void WelcomePage::scenarioConfig()
       KMessageBox::sorry(this, i18n("Could not re-initialize scenarios. Please restart simon!"));
 
     displayScenarios();
-    //FIXME:
-//     updateScenarioDisplays();
   }
   dlg->deleteLater();
 }
