@@ -62,6 +62,9 @@
      <property name="text">
       <string/>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
    </item>
    <item row="1" column="0">
@@ -71,7 +74,20 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
+       <widget class="QLabel" name="lbScenarioDescription">
+        <property name="text">
+         <string>You are currently using the following scenarios:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="lwScenarios"/>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="KPushButton" name="pbEditScenario"/>
+        </item>
         <item>
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
@@ -88,7 +104,7 @@
         <item>
          <widget class="KPushButton" name="pbScenarioConfiguration">
           <property name="text">
-           <string>Scenario configuration</string>
+           <string>Manage scenarios</string>
           </property>
          </widget>
         </item>
@@ -103,6 +119,13 @@
       <string>Acoustic model</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="lbBaseModelDescription">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>

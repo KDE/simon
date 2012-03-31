@@ -72,10 +72,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     
    private slots:
     void manageScenarios();
-    void updateScenarioDisplays();
     void updateActionList();
-    void displayScenarios();
-    void showVolumeCalibration();
     void welcomeUrlClicked(const QUrl& url ); 
    
   private:
@@ -94,9 +91,6 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     Ui::MainWindow ui;                            //!< Mainwindow UI definition - made by uic from the QTDesigner .ui
     SimonControl *control;                        //!< Pointer to the main concept class
     TrayIconManager *trayManager;                 //!< Handles the TrayIcon
-    KCMultiDialog *configDialog;
-    
-    KComboBox *cbCurrentScenario;
 };
 
 

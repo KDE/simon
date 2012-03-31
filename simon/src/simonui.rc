@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="simon" version="6">
+<gui name="simon" version="7">
 	<ToolBar name="mainToolBar" >
 		<text>Main actions</text>
 		<Action name="connectActivate" />
 		<Separator/>
 		<Action name="compileModel" />
-	</ToolBar>
-	<ToolBar name="scenario" >
-		<text>Scenario selection</text>
-		<Action name="selectScenario" />
-		<Action name="manageScenarios" />
 	</ToolBar>
 	
 	<MenuBar>
@@ -27,7 +22,6 @@
 		</Menu>
 		<Menu name="settings">		  
 			<text>Preferences</text>
-			<Action name="volumeCalibration" />
 			<Action name="configuration" />
 		</Menu>
 	</MenuBar>

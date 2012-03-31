@@ -22,22 +22,37 @@
 #define SIMON_WELCOMEPAGE_H_47AEB5F97F5246E8BAC891DD0B65687A
 
 #include <simonuicomponents/inlinewidget.h>
+#include <simonscenarios/scenariodisplay.h>
 #include "ui_welcomepage.h"
 
 class QShowEvent;
 class QHideEvent;
 
-class WelcomePage : public InlineWidget
+class WelcomePage : public InlineWidget, public ScenarioDisplay
 {
+Q_OBJECT
+  
 public:
     WelcomePage(QWidget *parent=0);
     
 protected:
     void showEvent(QShowEvent* event);
     void hideEvent(QHideEvent* event);
+    virtual void displayScenarioPrivate(Scenario *scenario);
+    
+private slots:
+    void baseModelConfig();
+    void audioConfig();
+    void scenarioConfig();
+      
+    void displayScenarios();
+    void displayAcousticModelInfo();
+    
+    void updateScenarioDisplays();
     
 private:
     Ui::WelcomePage ui;
+    QString getCurrentlySelectedScenarioId();
 };
 
 #endif // WELCOMEPAGE_H

@@ -23,12 +23,9 @@
 #include "version.h"
 
 #include <simonuicomponents/inlinewidgetview.h>
-#include <simonscenarioui/scenariomanagementdialog.h>
 
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
-
-#include <simonsound/volumewidget.h>
 
 #include <simonactions/commandsettings.h>
 #include <simonactionsui/runcommandview.h>
@@ -46,9 +43,10 @@
 
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/grammarview.h>
-#include <simonmodelmanagementui/AddWord/addwordview.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/actioncollection.h>
+
+#include <simonsound/soundserver.h>
 
 #include <QTimer>
 #include <QFile>
@@ -79,9 +77,6 @@
 #include <KPageWidgetItem>
 #include <KIconLoader>
 #include <KCmdLineArgs>
-#include <KColorScheme>
-
-#include <simonsound/soundserver.h>
 
 /**
  * @brief Constructor
@@ -97,8 +92,7 @@
  *
  */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
-: KXmlGuiWindow(parent, flags), ScenarioDisplay(),
-  configDialog(0)
+: KXmlGuiWindow(parent, flags), ScenarioDisplay()
 {
   Logger::log ( i18n ( "Starting simon..." ) );
 
@@ -133,16 +127,14 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   QMainWindow ( parent,flags );
   qApp->setQuitOnLastWindowClosed(false);
   ui.setupUi ( this );
-  cbCurrentScenario = new KComboBox(this);
-  cbCurrentScenario->setToolTip(i18n("The currently displayed scenario. Select \"Manage scenarios\" to edit the available options."));
-
+  
   statusBar()->insertItem(i18n("Not connected"),0);
   statusBar()->insertItem("",1,10);
   statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
 
-  //Preloads all Dialogs
   ScenarioManager::getInstance()->registerScenarioDisplay(this);
-
+  
+  //Preloads all Dialogs
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading training..." ) );
   TrainingView *trainDialog = new TrainingView(this);
@@ -174,16 +166,15 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading interface..." ) );
 
-//   setupWelcomePage();
-
-  displayScenarios();
-  updateScenarioDisplays();
   setupActions();
 
   setupGUI();
   displayScenarioPrivate(ScenarioManager::getInstance()->getCurrentScenario());
   
-  ui.inlineView->registerPage(new WelcomePage);
+  WelcomePage *welcomePage = new WelcomePage;
+  ScenarioManager::getInstance()->registerScenarioDisplay(welcomePage);
+  
+  ui.inlineView->registerPage(welcomePage);
   ui.inlineView->registerPage(vocabularyView);
   ui.inlineView->registerPage(grammarView);
   ui.inlineView->registerPage(runDialog);
@@ -268,79 +259,11 @@ void SimonView::setupWelcomePage()
   ui.inlineView->addTab(welcomePart, KIcon("simon"), i18n("Welcome"));
 }
 
-
-void SimonView::displayScenarios()
-{
-  QString currentData = cbCurrentScenario->itemData(cbCurrentScenario->currentIndex()).toString();
-  kDebug() << "Displaying scenarios";
-  setUpdatesEnabled(false);
-  cbCurrentScenario->clear();
-
-  QFont activatedFont = QFont();
-  QFont deactivatedFont = QFont();
-  deactivatedFont.setItalic(true);
-  //QBrush activatedColor = KColorScheme(QPalette::Active).foreground(KColorScheme::ActiveText);
-  QBrush deactivatedColor = KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText);
-
-  //cbCurrentScenario->setForegroundRole(QPalette::ButtonText);
-  cbCurrentScenario->setFont(activatedFont);
-
-  QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
-  foreach (Scenario* s, scenarioList) {
-    cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
-    if (!s->isActive())
-    {
-        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, QVariant(deactivatedFont), Qt::FontRole);
-        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, QVariant(deactivatedColor), Qt::ForegroundRole);
-
-        if (s->name() == currentData)
-        {
-            //cbCurrentScenario->setForegroundRole(QPalette::BrightText);
-            cbCurrentScenario->setFont(deactivatedFont);
-        }
-    }
-  }
-  cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(currentData));
-
-
-
-  setUpdatesEnabled(true);
-}
-
-
 void SimonView::updateActionList()
 {
   unplugActionList("command_actionlist");
   plugActionList("command_actionlist", ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->getGuiActions());
 }
-
-
-void SimonView::updateScenarioDisplays()
-{
-  //a scenario has been selected from the list of loaded scenarios
-  int currentIndex = cbCurrentScenario->currentIndex();
-  if (currentIndex == -1) return;
-
-  QString currentId = cbCurrentScenario->itemData(currentIndex).toString();
-  Scenario *scenario = ScenarioManager::getInstance()->getScenario(currentId);
-
-
-//  QFont selectedFont;
-//  QByteArray fontData;
-//  QDataStream fontStream(&fontData, QIODevice::ReadWrite);
-//  fontStream << cbCurrentScenario->itemData(currentIndex, Qt::FontRole);
-//  fontStream >> selectedFont;
-
-  //cbCurrentScenario->setForegroundRole((QBrush)cbCurrentScenario->itemData(currentIndex, Qt::ForegroundRole));
-
-  kDebug() << "Scenario " << scenario;
-  if (!scenario) {
-    KMessageBox::error(this, i18nc("%1 is scenario id", "Could not retrieve Scenario \"%1\"", currentId));
-    return;
-  }
-  ScenarioManager::getInstance()->updateDisplays(scenario, true);
-}
-
 
 void SimonView::setupActions()
 {
@@ -379,15 +302,7 @@ void SimonView::setupActions()
   connect(connectActivate, SIGNAL(triggered(bool)),
     this, SLOT(toggleConnection()));
 
-  KAction* volumeCalibration = new KAction(this);
-  volumeCalibration->setText(i18n("Volume calibration"));
-  volumeCalibration->setIcon(KIcon("player-volume"));
-  volumeCalibration->setShortcut(Qt::CTRL + Qt::Key_V);
-  actionCollection()->addAction("volumeCalibration", volumeCalibration);
-  connect(volumeCalibration, SIGNAL(triggered(bool)),
-    this, SLOT(showVolumeCalibration()));
-
-
+  
   KAction* recompile = new KAction(this);
   recompile->setEnabled(control->getStatus() != SimonControl::Disconnected);
   recompile->setText(i18n("Synchronize"));
@@ -396,22 +311,6 @@ void SimonView::setupActions()
   actionCollection()->addAction("compileModel", recompile);
   connect(recompile, SIGNAL(triggered(bool)),
     control, SLOT(compileModel()));
-
-  //KAction* scenarioLabel = new KAction(this);
-  //scenarioLabel->setText(i18n("Scenario:"));
-  //actionCollection()->addAction("scenarioLabel", scenarioLabel);
-
-  KAction* currentScenarioAction = new KAction(this);
-  currentScenarioAction->setText(i18n("Synchronize"));
-  currentScenarioAction->setDefaultWidget(cbCurrentScenario);
-  actionCollection()->addAction("selectScenario", currentScenarioAction);
-
-  KAction* manageScenariosAction = new KAction(this);
-  manageScenariosAction->setText(i18n("Manage scenarios"));
-  manageScenariosAction->setIcon(KIcon("view-choose"));
-  actionCollection()->addAction("manageScenarios", manageScenariosAction);
-  connect(manageScenariosAction, SIGNAL(triggered(bool)),
-    this, SLOT(manageScenarios()));
 
   KAction* sendSampleShareAction = new KAction(this);
   sendSampleShareAction->setText(i18n("Contribute samples"));
@@ -431,59 +330,25 @@ void SimonView::welcomeUrlClicked(const QUrl& url)
   QDesktopServices::openUrl(url);
 }
 
-void SimonView::showVolumeCalibration()
-{
-  VolumeWidget *widget = new VolumeWidget(0);
-  widget->init();
-  widget->setWindowTitle(i18n("Volume calibration"));
-  widget->start();
-  widget->setAttribute(Qt::WA_DeleteOnClose);
-  widget->show();
-}
-
 void SimonView::displayScenarioPrivate(Scenario *scenario)
 {
   kDebug() << "displayScenario: " << scenario->id();
-  kDebug() << "Data: " << cbCurrentScenario->findData(scenario->id());
-  for (int i=0; i < cbCurrentScenario->count(); i++)
-    kDebug() << "Available Data: " << cbCurrentScenario->itemData(i);
-  cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(scenario->id()));
-
+  
   updateActionList();
 }
 
 
 void SimonView::manageScenarios()
 {
-  ScenarioManagementDialog *dlg = new ScenarioManagementDialog("simon/", this);
-  if (dlg->updateScenarioConfiguration())
-  {
-    //reload scenario information
-    kDebug() << "Reloading Scenario Information";
-
-    if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
-      KMessageBox::sorry(this, i18n("Could not re-initialize scenarios. Please restart simon!"));
-
-    displayScenarios();
-    updateScenarioDisplays();
-  }
-  dlg->deleteLater();
+  //FIXME: exit scenario edit mode if we are currently in there, return to main screen and open scenario configuration dialog
 }
 
 
-/**
- * \brief Sets up the signal/slot connections
- * \author Peter Grasch
- */
 void SimonView::setupSignalSlots()
 {
   //Setting up Signal/Slots
   QObject::connect ( control,SIGNAL (guiAction(QString)), ui.inlineView,SIGNAL (guiAction(QString)) );
   connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
-
-  connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));
-  connect(ScenarioManager::getInstance(), SIGNAL(scenarioSelectionChanged()), this, SLOT(displayScenarios()));
-  connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SLOT(displayScenarios()));
 }
 
 /**
@@ -537,23 +402,20 @@ void SimonView::displayError ( const QString& error )
  */
 void SimonView::showSystemDialog ()
 {
-  if (!configDialog) {
-    configDialog = (new KCMultiDialog(this));
+  QPointer<KCMultiDialog> configDialog(new KCMultiDialog(this));
 
-    configDialog->addModule("simongeneralconfig", QStringList() << "");
-    configDialog->addModule("simonsoundconfig", QStringList() << "");
-    configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
-    //configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
-    configDialog->addModule("simonmodelextensionconfig", QStringList() << "");
-    configDialog->addModule("simonrecognitionconfig", QStringList() << "");
-    //		configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
-    configDialog->addModule("simonactionsconfig", QStringList() << "");
-    configDialog->addModule("simonttsconfig", QStringList() << "");
-    configDialog->addModule("kcm_attica");
-  }
+  configDialog->addModule("simongeneralconfig", QStringList() << "");
+  configDialog->addModule("simonsoundconfig", QStringList() << "");
+  configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
+  configDialog->addModule("simonmodelextensionconfig", QStringList() << "");
+  configDialog->addModule("simonrecognitionconfig", QStringList() << "");
+  configDialog->addModule("simonactionsconfig", QStringList() << "");
+  configDialog->addModule("simonttsconfig", QStringList() << "");
+  configDialog->addModule("kcm_attica");
+  
   configDialog->exec();
-  configDialog->deleteLater();
-  configDialog = 0;
+  
+  delete configDialog;
 }
 
 /**
@@ -618,7 +480,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
       }
 
       SimonInfo::showMessage ( i18n ( "Connection to server lost" ), 4000 ); // krazy:exclude=qmethods
-      //TODO: we should probably (configurably) try to reconnect at this point
+      
       activateAction->setEnabled(false);
       activateAction->setText(i18n("Activate"));
       activateAction->setIcon(KIcon("media-playback-start"));
