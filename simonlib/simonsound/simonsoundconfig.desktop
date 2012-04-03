@@ -12,20 +12,6 @@ X-KDE-ParentComponents=libsimonsound
 X-KDE-ParentApp=simon
 
 Name=Recordings
-Name[de]=Aufnahmen
-Name[es]=Grabaciones
-Name[nl]=Opnamen
-Name[pt]=Gravações
-Name[pt_BR]=Gravações
-Name[sv]=Inspelning
-Name[uk]=Записи
-Name[x-test]=xxRecordingsxx
 
 Comment=Configuration of the simon Soundsystem
-Comment[nl]=Configuratie van de simon geluidssysteem
-Comment[pt]=Configuração do sistema de som do Simon
-Comment[pt_BR]=Configuração do sistema de som do simon
-Comment[sv]=Inställning av Simons ljudsystem
-Comment[uk]=Налаштування звукової системи simon
-Comment[x-test]=xxConfiguration of the simon Soundsystemxx
 
