@@ -1,0 +1,33 @@
+/** @mainpage The Simon Source Code Documentation
+
+<p>
+This is the developer online reference for the Simon speech recognition system.
+
+To follow or get involved with the development of Simon,
+join the <a href="https://mail.kde.org/mailman/listinfo/kde-accessibility">kde-accessibility mailing list</a>.
+</p>
+
+@maintainers
+Peter Grasch \<grasch@simon-listens.org\>
+
+@authors
+Peter Grasch \<grasch@simon-listens.org\><br/>
+Adam Nash \<adam.t.nash@gmail.com\><br/>
+Frederik Gladhorn \<gladhorn@kde.org\><br/>
+Patrick von Reth \<patrick.vonreth@gmail.com\><br/>
+Manfred Scheucher \<deadalps@gmail.com\><br/>
+Alessadro Buggin \<alessandrobuggin@gmail.com\><br/>
+Dominik Neumeister \<domar@gmx.at\><br/>
+Mario Strametz \<strmam06@htl-kaindorf.ac.at\><br/>
+Phillip Goriup \<goriup@simon-listens.org\><br/>
+
+@licenses
+@gpl (if not stated otherwise in the source file)
+
+*/
+
+// DOXYGEN_NAME = Simon
+// DOXYGEN_ENABLE = YES
+
+// vim:ts=4:sw=4:expandtab:filetype=doxygen
+
