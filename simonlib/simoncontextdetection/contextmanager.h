@@ -28,6 +28,7 @@
 #include <QtXml/QDomElement>
 #include <QHash>
 #include "compoundcondition.h"
+#include "samplegroupcondition.h"
 #include "simoncontextdetection_export.h"
 
 /**
@@ -37,8 +38,7 @@
  *      The ContextManager is a factory for Condition objects.  If a Condition that has already been loaded
  *      is requested with getCondition, the ContextManager returns a pointer to the already instantiated Condition.
  *
- *      The ContextManager also keeps track of conditions that are affecting the acoustic model context, and will determine
- *      the appropriate sample group when those conditions change.
+ *      The ContextManager will also relay information about the current sample group from its SampleGroupCondition object.
  *
  *      The ContextManager also contains a function that returns intantiations of every available Condition plugin.
  *      This allows, for example, the ContextViewPrivate class to create a CreateConditionWidget for every available
@@ -73,7 +73,7 @@ public:
      * \brief The factory method for creating Condition objects
      *
      * Returns a condition based on the specifications in \var elem.  If the
-     * Condition with those specification already exists, the existing Condition
+     * Condition with those specifications already exists, the existing Condition
      * is returned, otherwise, the Condition is newly created.
      *
      * \return If \var elem is valid: The Condition specified by elem
@@ -86,26 +86,8 @@ public:
      */
     QList<Condition*> getConditions();
 
-    QString getSampleGroup(int index);
-
-    QStringList getSampleGroups();
-
-    Condition* getSampleGroupCondition(int index);
-
-    int getSampleGroupConditionCount();
-
-    void addSampleGroupCondition(Condition* condition, QString sampleGroup, int index = -1);
-
-    bool removeSampleGroupCondition(int index);
-
-    bool changeSampleGroup(int index, QString);
-
-    bool promoteCondition(int index);
-
-    bool demoteCondition(int index);
-
-    void saveSampleGroupContext();
-    void loadSampleGroupContext();
+    /// Return the active sample group condition object
+    SampleGroupCondition* getSampleGroupCondition() {return m_sampleGroupCondition;}
 
 private:
     explicit ContextManager(QObject *parent = 0);
@@ -119,14 +101,8 @@ private:
     /// A list of the currently existing Condition objects
     QList<Condition*> m_conditions;
 
-    /// A list of the currently active Acoustic Context condition objects in order of priority
-    QList<Condition*> m_sampleGroupConditions;
 
-    /// A hash table that contains the mapping of acoustic conditions to sample groups
-    QList<QString> m_sampleGroups;
-
-    /// A string containing the most recently determined sample group
-    QString m_currentSampleGroup;
+    SampleGroupCondition* m_sampleGroupCondition;
 
     /**
      * \return An empty (not initialized) condition
@@ -137,10 +113,6 @@ private:
 signals:
     /// Emitted when changes in the acoustic model conditions change the sample group
     void sampleGroupChanged(QString);
-
-public slots:
-    /// Checks for a change in sample group when the acoustic model conditions change
-    void checkAcousticContext();
 };
 
 #endif // CONTEXTMANAGER_H

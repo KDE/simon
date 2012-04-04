@@ -69,7 +69,10 @@ KCModule(KGlobal::mainComponent(), parent)
   QWidget *trainingConfig = new QWidget(this);
   trainingSettignsUi.setupUi(trainingConfig);
 
-  QWidget *sampleGroupConditions = new SampleGroupContext(this);
+  m_sampleGroupContext = new SampleGroupContext(this);
+  QWidget *sampleGroupConditions = m_sampleGroupContext;
+  connect(m_sampleGroupContext, SIGNAL(changed()),
+          this, SLOT(slotChanged()));
 
   //	QWidget *promptConfig = new QWidget(this);
   //	promptUi.setupUi(promptConfig);
@@ -126,6 +129,8 @@ void SoundSettings::save()
   //and this way we store the configuration regarding the prompt font
   //and the postprocessing commands
   KCModule::save();
+
+  m_sampleGroupContext->saveChanges();
 
   deviceSettings->save();
 }

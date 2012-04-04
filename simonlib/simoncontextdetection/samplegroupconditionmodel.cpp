@@ -21,9 +21,10 @@
 #include <KColorScheme>
 #include <QFont>
 
-SampleGroupConditionModel::SampleGroupConditionModel(QObject *parent) :
+SampleGroupConditionModel::SampleGroupConditionModel(SampleGroupCondition *sampleGroupCondition, QObject *parent) :
     QAbstractItemModel(parent)
 {
+    m_sampleGroupCondition = sampleGroupCondition;
     update();
 }
 
@@ -31,7 +32,7 @@ QVariant SampleGroupConditionModel::data(const QModelIndex &index, int role) con
 {
   if (!index.isValid()) return QVariant();
 
-  Condition *rowCondition = ContextManager::instance()->getSampleGroupCondition(index.row());
+  Condition *rowCondition = m_sampleGroupCondition->getSampleGroupCondition(index.row());
 
   if (!rowCondition)
   {
@@ -53,7 +54,7 @@ QVariant SampleGroupConditionModel::data(const QModelIndex &index, int role) con
   else if (index.column() == 1)
   {
       if (role == Qt::DisplayRole)
-        return ContextManager::instance()->getSampleGroup(index.row());
+        return m_sampleGroupCondition->getSampleGroup(index.row());
   }
 
   return QVariant();
@@ -63,7 +64,7 @@ bool SampleGroupConditionModel::setData(const QModelIndex &index, const QVariant
 {
     if (index.isValid() && role == Qt::EditRole && index.column() == 1)
     {
-        ContextManager::instance()->changeSampleGroup(index.row(), value.toString());
+        m_sampleGroupCondition->changeSampleGroup(index.row(), value.toString());
         emit dataChanged(index, index);
         return true;
     }
@@ -73,7 +74,7 @@ bool SampleGroupConditionModel::setData(const QModelIndex &index, const QVariant
 int SampleGroupConditionModel::rowCount(const QModelIndex &parent) const
 {
   if (!parent.isValid())
-    return ContextManager::instance()->getSampleGroupConditionCount();
+    return m_sampleGroupCondition->getSampleGroupConditionCount();
   else return 0;
 }
 
@@ -83,10 +84,10 @@ QModelIndex SampleGroupConditionModel::index(int row, int column, const QModelIn
         return QModelIndex();
 
 //    if (column == 0)
-        return createIndex(row, column, ContextManager::instance()->getSampleGroupCondition(row));
+        return createIndex(row, column, m_sampleGroupCondition->getSampleGroupCondition(row));
 
 //    else if (column == 1)
-//        return createIndex(row, column, ContextManager::instance()->getSampleGroup(row));
+//        return createIndex(row, column, m_sampleGroupCondition->getSampleGroup(row));
 
 //    else
 //        return QModelIndex();

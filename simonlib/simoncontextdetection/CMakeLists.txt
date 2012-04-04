@@ -23,6 +23,7 @@ set( simoncontextdetection_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/linuxprocessinfogatherer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/linuxprocessinfogathererhelper.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/windowsprocessinfogatherer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupcondition.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupconditionmodel.cpp
 )
 
@@ -39,6 +40,7 @@ set( simoncontextdetection_LIB_HDRS
   linuxprocessinfogatherer.h
   linuxprocessinfogathererhelper.h
   windowsprocessinfogatherer.h
+  samplegroupcondition.h
   samplegroupconditionmodel.h
 )
 

@@ -24,9 +24,10 @@
 #include <KComboBox>
 #include <KDebug>
 
-SampleGroupItemDelegate::SampleGroupItemDelegate(QObject *parent) :
+SampleGroupItemDelegate::SampleGroupItemDelegate(SampleGroupCondition *sampleGroupCondition, QObject *parent) :
     QStyledItemDelegate(parent)
 {
+    m_sampleGroupCondition = sampleGroupCondition;
 }
 
 QWidget* SampleGroupItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -43,7 +44,7 @@ QWidget* SampleGroupItemDelegate::createEditor(QWidget *parent, const QStyleOpti
     availableSampleGroups << SoundServer::defaultSampleGroup();
     availableSampleGroups << SoundServer::getInputDeviceDefaultSampleGroups();
     availableSampleGroups << TrainingManager::getInstance()->getPrompts()->sampleGroups();
-    availableSampleGroups << ContextManager::instance()->getSampleGroups();
+    availableSampleGroups << m_sampleGroupCondition->getSampleGroups();
     //TODO: make sample groups without enough training data shaded gray and italicized
 
     availableSampleGroups.removeDuplicates();

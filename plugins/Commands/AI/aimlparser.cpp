@@ -712,7 +712,7 @@ QString AIMLParser::executeCommand(const QString &commandStr)
   }
 
   /* Associates a file descriptor with the stdout pipe */
-  fd = _open_osfhandle(/*(intptr_t)*/(long int)read_pipe, _O_BINARY);
+  fd = _open_osfhandle((quintptr)read_pipe, _O_BINARY);
 
   /* Close the handle that we're not going to use */
   CloseHandle(write_pipe);

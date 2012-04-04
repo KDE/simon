@@ -22,13 +22,13 @@
 
 #include <QAbstractItemModel>
 #include "simoncontextdetection_export.h"
-#include "contextmanager.h"
+#include "samplegroupcondition.h"
 
 class SIMONCONTEXTDETECTION_EXPORT SampleGroupConditionModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    explicit SampleGroupConditionModel(QObject *parent = 0);
+    explicit SampleGroupConditionModel(SampleGroupCondition *sampleGroupCondition, QObject *parent = 0);
 
     /**
    *
@@ -82,6 +82,9 @@ public:
    * \return The number of columns under the given \var parent.
    */
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
+
+private:
+    SampleGroupCondition* m_sampleGroupCondition;
 
 public slots:
     /**

@@ -70,6 +70,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
   QObject::connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SIGNAL(deactivatedScenarioListChanged()));
   QObject::connect(this, SIGNAL(deactivatedScenarioListChanged()), RecognitionControl::getInstance(), SLOT(sendDeactivatedScenarioList()));
   QObject::connect(ContextManager::instance(), SIGNAL(sampleGroupChanged(QString)), RecognitionControl::getInstance(), SLOT(sendSampleGroup(QString)));
+  ContextManager::instance()->getSampleGroupCondition()->loadSampleGroupContext();
 
   ActionManager::getInstance();                   // initializing action manager
   SimonTTS::getInstance();                   // initializing TTS system for dbus interface
@@ -368,6 +369,5 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
-    ContextManager::instance()->saveSampleGroupContext();
     delete ContextManager::instance();
 }

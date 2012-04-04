@@ -21,6 +21,7 @@
 #define SAMPLEGROUPITEMDELEGATE_H
 
 #include <QStyledItemDelegate>
+#include "simoncontextdetection/samplegroupcondition.h"
 
 /**
  *	@class SampleGroupItemDelegate
@@ -40,11 +41,14 @@ class SampleGroupItemDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    explicit SampleGroupItemDelegate(QObject *parent = 0);
+    explicit SampleGroupItemDelegate(SampleGroupCondition* sampleGroupCondition, QObject *parent = 0);
 
     QWidget* createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     void setEditorData(QWidget *editor, const QModelIndex &index) const;
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
+
+private:
+    SampleGroupCondition* m_sampleGroupCondition;
 
 signals:
 
