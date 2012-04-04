@@ -1,8 +1,26 @@
 [Desktop Entry]
 Name=afaras
+Name[de]=afaras
+Name[es]=afaras
+Name[ga]=afaras
+Name[nds]=afaras
+Name[nl]=afaras
+Name[pt]=afaras
+Name[pt_BR]=afaras
+Name[sk]=afaras
+Name[sv]=afaras
+Name[uk]=afaras
+Name[x-test]=xxafarasxx
 Exec=afaras %i -caption "%c"
 Icon=afaras
 Type=Application
 GenericName=Find and remove bad samples
+GenericName[de]=Schlechte Aufnahmen suchen und entfernen
+GenericName[nl]=Zoek en verwijder slechte samples
+GenericName[pt]=Procurar e remover amostras inválidas
+GenericName[pt_BR]=Procurar e remover amostras inválidas
+GenericName[sv]=Sök och ta bort felaktiga samplingar
+GenericName[uk]=Знайти і вилучити помилкові зразки
+GenericName[x-test]=xxFind and remove bad samplesxx
 Terminal=false
 Categories=Qt;KDE;Utility;

@@ -1,9 +1,25 @@
 [Desktop Entry]
 Name=sam
+Name[de]=sam
+Name[es]=sam
+Name[ga]=sam
+Name[nl]=sam
+Name[pt]=sam
+Name[pt_BR]=sam
+Name[sk]=sam
+Name[sv]=Sam
+Name[uk]=sam
+Name[x-test]=xxsamxx
 Exec=sam %i -caption "%c"
 Icon=sam
 Type=Application
 X-DocPath=sam/index.html
 GenericName=Acoustic Modeller
+GenericName[es]=Modelador acústico
+GenericName[pt]=Modelador Acústico
+GenericName[pt_BR]=Modelador acústico
+GenericName[sv]=Akustisk modellering
+GenericName[uk]=Акустичне моделювання
+GenericName[x-test]=xxAcoustic Modellerxx
 Terminal=false
 Categories=Qt;KDE;Utility;Accessibility;

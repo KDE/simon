@@ -1,9 +1,23 @@
 [Desktop Entry]
 Name=sscd
+Name[de]=sscd
+Name[es]=sscd
+Name[ga]=sscd
+Name[pt]=sscd
+Name[pt_BR]=sscd
+Name[sk]=sscd
+Name[sv]=SSCD
+Name[uk]=sscd
+Name[x-test]=xxsscdxx
 Exec=sscd %i -caption "%c"
 Icon=sscd
 Type=Application
 X-DocPath=sscd/index.html
 GenericName=Sample Collection Server
+GenericName[pt]=Servidor de Recolha de Amostras
+GenericName[pt_BR]=Servidor da coleção de amostras
+GenericName[sv]=Samplingsinsamlingsserver
+GenericName[uk]=Сервер збирання зразків
+GenericName[x-test]=xxSample Collection Serverxx
 Terminal=true
 Categories=Qt;KDE;Utility;Accessibility;

@@ -4,12 +4,34 @@ Type=Application
 X-DocPath=simon/index.html
 
 Name=simon
+Name[de]=simon
+Name[es]=simon
+Name[ga]=simon
+Name[nl]=simon
+Name[pt]=Simon
+Name[pt_BR]=simon
+Name[sk]=simon
+Name[sv]=Simon
+Name[uk]=simon
+Name[x-test]=xxsimonxx
 
 GenericName=Speech Recognition
+GenericName[de]=Spracherkennung
+GenericName[es]=Reconocimiento de voz
+GenericName[pt]=Reconhecimento de Fala
+GenericName[pt_BR]=Reconhecimento de fala
+GenericName[sv]=Taligenkänning
+GenericName[uk]=Розпізнавання мовлення
+GenericName[x-test]=xxSpeech Recognitionxx
 
 Exec=simon
 
 Comment=Speech Recognition and Model Management
+Comment[pt]=Gestão do Modelo e do Reconhecimento de Fala
+Comment[pt_BR]=Gerenciamento do modelo e do reconhecimento de fala
+Comment[sv]=Taligenkänning och modellhantering
+Comment[uk]=Керування розпізнаванням мовлення та моделями
+Comment[x-test]=xxSpeech Recognition and Model Managementxx
 
 Terminal=false
 
