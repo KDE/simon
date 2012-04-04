@@ -38,6 +38,7 @@ class QCheckBox;
 class QTabWidget;
 class KFontChooser;
 class DeviceSettings;
+class SampleGroupContext;
 
 /**
  * \class SoundSettings
@@ -58,6 +59,8 @@ class SIMONSOUND_EXPORT SoundSettings : public KCModule
     Ui::PostProcessing postProcUi;
     Ui::TrainingSettings trainingSettignsUi;
     //	Ui::Prompt promptUi;
+
+    SampleGroupContext* m_sampleGroupContext;
 
   public slots:
     void load();

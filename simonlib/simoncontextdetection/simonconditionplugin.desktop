@@ -2,9 +2,3 @@
 Type=ServiceType
 X-KDE-ServiceType=simon/ConditionPlugin
 Name=simon condition plugin
-Name[nl]=Plugin van simon voorwaarde
-Name[pt]='Plugin' de condições do Simon
-Name[pt_BR]=Plugin de condições do simon
-Name[sv]=Simon villkorsinsticksprogram
-Name[uk]=Додаток умов simon
-Name[x-test]=xxsimon condition pluginxx

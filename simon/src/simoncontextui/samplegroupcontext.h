@@ -26,6 +26,8 @@
 #include "simoncontextdetection/samplegroupconditionmodel.h"
 #include "samplegroupitemdelegate.h"
 
+class SampleGroupCondition;
+
 namespace Ui {
     class SampleGroupContext;
 }
@@ -43,8 +45,12 @@ public:
 private:
     Ui::SampleGroupContext *ui;
 
+    SampleGroupCondition* m_editCopyOfSampleGroupCondition;
     SampleGroupConditionModel* m_model;
     SampleGroupItemDelegate* m_sampleGroupDelegate;
+
+signals:
+    void changed();
 
 public slots:
     void addCondition();
@@ -52,6 +58,8 @@ public slots:
     void removeCondition();
     void promoteCondition();
     void demoteCondition();
+
+    void saveChanges();
 };
 
 #endif // SAMPLEGROUPCONTEXT_H
