@@ -19,12 +19,18 @@
 
 #include "speechmodelsettings.h"
 #include <simonscenarios/scenariomanager.h>
+#include "basemodelsettings.h"
 #include "speechmodelmanagementconfiguration.h"
+
+#include <QDomDocument>
+#include <QDomElement>
+
 #include <KMessageBox>
 #include <KGlobal>
 #include <KFileDialog>
 #include <KDateTime>
 #include <KPageWidget>
+#include <KTar>
 #include <kgenericfactory.h>
 
 K_PLUGIN_FACTORY( SpeechModelSettingsFactory,
@@ -72,17 +78,37 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
 
   uiLanguageProfile.pbLoadLanguageProfile->setIcon(KIcon("document-open"));
   
-  ui.pbLoadBaseHMM->setIcon(KIcon("document-open"));
-  ui.pbLoadBaseTiedlist->setIcon(KIcon("document-open"));
-  ui.pbLoadBaseMacros->setIcon(KIcon("document-open"));
-  ui.pbLoadBaseStats->setIcon(KIcon("document-open"));
-  
   connect(uiLanguageProfile.pbLoadLanguageProfile, SIGNAL(clicked()), this, SLOT(loadLanguageProfile()));
 
-  connect(ui.pbLoadBaseHMM, SIGNAL(clicked()), this, SLOT(loadBaseHMM()));
-  connect(ui.pbLoadBaseTiedlist, SIGNAL(clicked()), this, SLOT(loadBaseTiedlist()));
-  connect(ui.pbLoadBaseMacros, SIGNAL(clicked()), this, SLOT(loadBaseMacros()));
-  connect(ui.pbLoadBaseStats, SIGNAL(clicked()), this, SLOT(loadBaseStats()));
+  connect(ui.pbCreate, SIGNAL(clicked()), this, SLOT(createBaseModel()));
+  connect(ui.pbOpen, SIGNAL(clicked()), this, SLOT(openBaseModel()));
+  connect(ui.pbExport, SIGNAL(clicked()), this, SLOT(exportBaseModel()));
+}
+
+void SpeechModelSettings::exportBaseModel()
+{
+  KMessageBox::sorry(this, i18n("Not yet implemented."));
+}
+
+void SpeechModelSettings::createBaseModel()
+{
+  QPointer<BaseModelSettings> baseModelSettings(new BaseModelSettings(this));
+  importBaseModel(baseModelSettings->buildModel());
+  delete baseModelSettings;
+}
+
+void SpeechModelSettings::openBaseModel()
+{
+  importBaseModel(KFileDialog::getOpenFileName(KUrl(), "*.sbm", this, i18n("Open Simon base model")));
+}
+
+void SpeechModelSettings::importBaseModel ( const QString& path )
+{
+  if (!path.isEmpty()) {
+    m_baseModelToImport = path;
+    updateBaseModelDescription(path);
+    emit changed(true);
+  }
 }
 
 void SpeechModelSettings::slotChanged()
@@ -90,6 +116,44 @@ void SpeechModelSettings::slotChanged()
   emit changed(true);
 }
 
+void SpeechModelSettings::updateBaseModelDescription ( const QString& path )
+{
+  KTar tar(path, "application/x-gzip");
+  QString description = i18n("No description of model available");
+  if (tar.open(QIODevice::ReadOnly)) {
+    const KArchiveDirectory *d = tar.directory();
+    if (d) {
+      const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry("metadata.xml"));
+      if (entry) {
+        QDomDocument doc;
+        doc.setContent(entry->data());
+        QDomElement rootElem = doc.documentElement();
+        QDomElement nameElem = rootElem.firstChildElement("name");
+        QDomElement dateElem = rootElem.firstChildElement("creationDate");
+        if (!nameElem.isNull() && !dateElem.isNull()) {
+          m_baseModelDate = QDate::fromString(dateElem.text(), Qt::ISODate);
+          m_baseModelName = nameElem.text();
+          description = baseModelDescription();
+        }
+         else kDebug() << "Elements 0";
+      }
+        else kDebug() << "Entry invalid";
+    }
+        else kDebug() << "Directory invalid";
+  }
+        else kDebug() << "Couldn't open tar";
+  
+  ui.lbModelName->setText(description);
+}
+
+QString SpeechModelSettings::baseModelDescription()
+{
+  if (m_baseModelName == "None")
+    return i18n("No base model loaded");
+
+  return i18nc("%1 is model name, %2 is creation date", "%1 (Created: %2)", 
+                      m_baseModelName, m_baseModelDate.toString(Qt::LocalDate));
+}
 
 void SpeechModelSettings::load()
 {
@@ -105,27 +169,13 @@ void SpeechModelSettings::load()
   }
 
   m_storedModelType = ScenarioManager::getInstance()->baseModelType();
-
-  ui.lbLastLoadedBaseHMM->setText(
-      translateDefault(ScenarioManager::getInstance()->baseModelHMMName()));
-  ui.lbLastLoadedBaseTiedlist->setText(
-      translateDefault(ScenarioManager::getInstance()->baseModelTiedlistName()));
-  ui.lbLastLoadedBaseMacros->setText(
-      translateDefault(ScenarioManager::getInstance()->baseModelMacros()));
-  ui.lbLastLoadedBaseStats->setText(
-      translateDefault(ScenarioManager::getInstance()->baseModelStats()));
-  uiLanguageProfile.lbProfileName->setText(
-      translateDefault(ScenarioManager::getInstance()->languageProfileName()));
+  m_baseModelName = ScenarioManager::getInstance()->baseModelName();
+  m_baseModelDate = ScenarioManager::getInstance()->baseModelCreationDate();
+  
+  ui.lbModelName->setText(baseModelDescription());
+  
   KCModule::load();
   emit changed(false);
-}
-
-QString SpeechModelSettings::translateDefault(const QString& in)
-{
-  if (in == "None")
-    return i18nc("Filename of a not yet selected file", "None");
-
-  return in;
 }
 
 void SpeechModelSettings::save()
@@ -136,16 +186,27 @@ void SpeechModelSettings::save()
   else if (ui.rbDynamic->isChecked())
     modelType = 2;
 
-  if (!m_hmmDefsToImport.isEmpty()) {
-    QString targetPathHMM = KStandardDirs::locateLocal("appdata", "model/basehmmdefs");
-    if (QFile::exists(targetPathHMM) && !QFile::remove(targetPathHMM)) {
+  if (!m_baseModelToImport.isEmpty()) {
+    QString targetPath = KStandardDirs::locateLocal("appdata", "model/basemodel.sbm");
+    
+    bool succ = true;
+    if (QFile::exists(targetPath) && !QFile::remove(targetPath)) {
       KMessageBox::sorry(this, i18n("Could not remove current base model"));
+      succ = false;
       return;
     }
-    if (!QFile::copy(m_hmmDefsToImport, targetPathHMM))
+    if (!QFile::copy(m_baseModelToImport, targetPath)) {
       KMessageBox::sorry(this, i18n("Could not import hmm definitions."));
+      succ = false;
+    }
 
-    m_hmmDefsToImport.clear();
+    m_baseModelToImport.clear();
+    if (!succ) {
+      m_baseModelName = ScenarioManager::getInstance()->baseModelName();
+      m_baseModelDate = ScenarioManager::getInstance()->baseModelCreationDate();
+    } else {
+      ScenarioManager::getInstance()->setBaseModel(modelType, m_baseModelName, m_baseModelDate);
+    }
   }
   
   if (!m_languageProfileToImport.isEmpty()) {
@@ -161,42 +222,6 @@ void SpeechModelSettings::save()
 
     m_languageProfileToImport.clear();
   }
-
-  if (!m_tiedlistToImport.isEmpty()) {
-    QString targetPathTiedlist = KStandardDirs::locateLocal("appdata", "model/basetiedlist");
-    if (QFile::exists(targetPathTiedlist) && !QFile::remove(targetPathTiedlist)) {
-      KMessageBox::sorry(this, i18n("Could not remove current base model"));
-      return;
-    }
-    if (!QFile::copy(m_tiedlistToImport, targetPathTiedlist))
-      KMessageBox::sorry(this, i18n("Could not import tiedlist."));
-    m_tiedlistToImport.clear();
-  }
-
-  if (!m_macrosToImport.isEmpty()) {
-    QString targetPathMacros = KStandardDirs::locateLocal("appdata", "model/basemacros");
-    if (QFile::exists(targetPathMacros) && !QFile::remove(targetPathMacros)) {
-      KMessageBox::sorry(this, i18n("Could not remove current base model"));
-      return;
-    }
-    if (!QFile::copy(m_macrosToImport, targetPathMacros))
-      KMessageBox::sorry(this, i18n("Could not import macros."));
-    m_macrosToImport.clear();
-  }
-
-  if (!m_statsToImport.isEmpty()) {
-    QString targetPathStats = KStandardDirs::locateLocal("appdata", "model/basestats");
-    if (QFile::exists(targetPathStats) && !QFile::remove(targetPathStats)) {
-      KMessageBox::sorry(this, i18n("Could not remove current base model"));
-      return;
-    }
-    if (!QFile::copy(m_statsToImport, targetPathStats))
-      KMessageBox::sorry(this, i18n("Could not import stats."));
-    m_statsToImport.clear();
-  }
-
-  ScenarioManager::getInstance()->setBaseModel(modelType, ui.lbLastLoadedBaseHMM->text(), ui.lbLastLoadedBaseTiedlist->text(),
-    ui.lbLastLoadedBaseMacros->text(), ui.lbLastLoadedBaseStats->text());
   
   ScenarioManager::getInstance()->setLanguageProfileName(uiLanguageProfile.lbProfileName->text());
   
@@ -211,27 +236,21 @@ void SpeechModelSettings::save()
 
 void SpeechModelSettings::defaults()
 {
-  QString noName = i18nc("Filename of a not yet selected file", "None");
-  ScenarioManager::getInstance()->setBaseModel(2, noName, noName, noName, noName);
+  QString noName = i18nc("Filename of a not yet selected base model", "None");
+  ScenarioManager::getInstance()->setBaseModel(2, noName, QDate());
   
   ScenarioManager::getInstance()->setLanguageProfileName(noName);
 
-  QFile::remove(KStandardDirs::locateLocal("appdata", "model/basehmmdefs"));
-  QFile::remove(KStandardDirs::locateLocal("appdata", "model/basetiedlist"));
-  QFile::remove(KStandardDirs::locateLocal("appdata", "model/basemacros"));
-  QFile::remove(KStandardDirs::locateLocal("appdata", "model/basestats"));
+  QFile::remove(KStandardDirs::locateLocal("appdata", "model/basemodel.sbm"));
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
 
-  m_hmmDefsToImport.clear();
-  m_tiedlistToImport.clear();
-  m_macrosToImport.clear();
-  m_statsToImport.clear();
+  m_baseModelToImport.clear();
+  m_languageProfileToImport.clear();
   
   KCModule::defaults();
 
   load();
 }
-
 
 void SpeechModelSettings::touchLanguageProfileDate()
 {
@@ -241,86 +260,9 @@ void SpeechModelSettings::touchLanguageProfileDate()
   config.sync();
 }
 
-void SpeechModelSettings::importBaseModelFromDirectory(QDir dir)
-{
-  m_lastDirectory = dir.path();
-  dir.setFilter(QDir::Files);
-
-  Q_FOREACH(const QString& file, dir.entryList()) {
-    if (m_hmmDefsToImport.isEmpty() && file.toLower().contains("hmm")) {
-      m_tiedlistToImport = dir.path() + '/' + file;
-      QFileInfo f(file);
-      ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
-    }
-
-    if (m_tiedlistToImport.isEmpty() && file.toLower().contains("tiedlist")) {
-      m_tiedlistToImport = dir.path() + '/' + file;
-      QFileInfo f(file);
-      ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
-    }
-
-    if (m_macrosToImport.isEmpty() && file.toLower().contains("macros")) {
-      m_macrosToImport = dir.path() + '/' + file;
-      QFileInfo f(file);
-      ui.lbLastLoadedBaseMacros->setText(QFileInfo(file).fileName());
-    }
-
-    if (m_statsToImport.isEmpty() && file.toLower().contains("stats")) {
-      m_statsToImport = dir.path() + '/' + file;
-      QFileInfo f(file);
-      ui.lbLastLoadedBaseStats->setText(f.fileName());
-    }
-  }
-  emit changed(true);
-}
-
-void SpeechModelSettings::loadBaseHMM()
-{
-  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select base hmmdefs"));
-  if (path.isEmpty()) return;
-
-  m_hmmDefsToImport = path;
-  ui.lbLastLoadedBaseHMM->setText(QFileInfo(path).fileName());
-  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
-}
-
-
-void SpeechModelSettings::loadBaseTiedlist()
-{
-  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select base tiedlist"));
-  if (path.isEmpty()) return;
-
-  m_tiedlistToImport = path;
-  ui.lbLastLoadedBaseTiedlist->setText(QFileInfo(path).fileName());
-  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
-}
-
-
-void SpeechModelSettings::loadBaseMacros()
-{
-  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select base macros"));
-  if (path.isEmpty()) return;
-
-  m_macrosToImport = path;
-  ui.lbLastLoadedBaseMacros->setText(QFileInfo(path).fileName());
-  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
-}
-
-
-void SpeechModelSettings::loadBaseStats()
-{
-  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select base stats"));
-  if (path.isEmpty()) return;
-
-  m_statsToImport = path;
-  ui.lbLastLoadedBaseStats->setText(QFileInfo(path).fileName());
-  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
-}
-
-
 void SpeechModelSettings::loadLanguageProfile()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(m_lastDirectory), QString(), this, i18n("Select language profile"));
+  QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select language profile"));
   if (path.isEmpty()) return;
 
   m_languageProfileToImport = path;

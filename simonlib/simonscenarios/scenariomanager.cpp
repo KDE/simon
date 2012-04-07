@@ -547,29 +547,15 @@ int ScenarioManager::baseModelType()
 }
 
 
-QString ScenarioManager::baseModelHMMName()
+QString ScenarioManager::baseModelName()
 {
-  return SpeechModelManagementConfiguration::baseModelHMMName();
+  return SpeechModelManagementConfiguration::baseModelName();
 }
 
-
-QString ScenarioManager::baseModelTiedlistName()
+QDate ScenarioManager::baseModelCreationDate()
 {
-  return SpeechModelManagementConfiguration::baseModelTiedlistName();
+  return SpeechModelManagementConfiguration::baseModelDate().date();
 }
-
-
-QString ScenarioManager::baseModelMacros()
-{
-  return SpeechModelManagementConfiguration::baseModelMacrosName();
-}
-
-
-QString ScenarioManager::baseModelStats()
-{
-  return SpeechModelManagementConfiguration::baseModelStatsName();
-}
-
 
 void ScenarioManager::setBaseModelType(int type)
 {
@@ -579,14 +565,11 @@ void ScenarioManager::setBaseModelType(int type)
 }
 
 
-void ScenarioManager::setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName,
-const QString& macrosName, const QString& statsName)
+void ScenarioManager::setBaseModel(int modelType, const QString& name, const QDate& creationDate)
 {
   SpeechModelManagementConfiguration::setModelType(modelType);
-  SpeechModelManagementConfiguration::setBaseModelHMMName(hmmName);
-  SpeechModelManagementConfiguration::setBaseModelTiedlistName(tiedlistName);
-  SpeechModelManagementConfiguration::setBaseModelMacrosName(macrosName);
-  SpeechModelManagementConfiguration::setBaseModelStatsName(statsName);
+  SpeechModelManagementConfiguration::setBaseModelName(name);
+  SpeechModelManagementConfiguration::setBaseModelDate(QDateTime(creationDate));
   SpeechModelManagementConfiguration::self()->writeConfig();
   touchBaseModelAccessTime();
 }

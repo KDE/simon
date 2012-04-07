@@ -87,7 +87,8 @@ set( simonscenarios_LIB_HDRS
 
 
 kde4_add_ui_files( simonscenarios_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.ui
+        ${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.ui
+        ${CMAKE_CURRENT_SOURCE_DIR}/basemodelconfig.ui
 )
 
 kde4_add_kcfg_files(simonscenarios_LIB_SRCS
@@ -120,7 +121,8 @@ ${SERVICETYPES_INSTALL_DIR} COMPONENT simoncore)
  
 ##########
 set( kcm_simonscenarios_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/basemodelsettings.cpp
 )
 kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui
 			languageprofilesettings.ui modelsettingsdlg.ui)
