@@ -268,7 +268,6 @@ SimonSoundInput::~SimonSoundInput()
   if (m_input->state() != SimonSound::IdleState)
     stopRecording();
 
-  kDebug() << "Deleting during deletion";
   killBuffer();
-  m_input->deleteLater();
+  delete m_input;
 }

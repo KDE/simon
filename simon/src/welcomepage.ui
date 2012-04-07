@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>527</width>
+    <width>549</width>
     <height>314</height>
    </rect>
   </property>
@@ -17,11 +17,39 @@
    <item row="3" column="0" colspan="2">
     <widget class="QGroupBox" name="gbMicrophone">
      <property name="title">
-      <string>Microphone</string>
+      <string>Recognition</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="VolumeWidget" name="wgVolumeWidget" native="true"/>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="lbRecognitionDesc">
+          <property name="text">
+           <string>Last recognition result:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbRecognition">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -160,12 +188,6 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>VolumeWidget</class>
-   <extends>QWidget</extends>
-   <header location="global">simonsound/volumewidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -21,6 +21,7 @@
 #define SIMON_DEVICEVOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
 
 #include "simonsound_export.h"
+#include "soundclient.h"
 #include <QWidget>
 #include <QTimer>
 
@@ -48,7 +49,7 @@ class SIMONSOUND_EXPORT DeviceVolumeWidget : public QWidget
   Q_OBJECT
   
   public:
-    explicit DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent=0);
+    explicit DeviceVolumeWidget( const SimonSound::DeviceConfiguration& device, SoundClient::SoundClientPriority inputPriority, QWidget* parent = 0 );
     ~DeviceVolumeWidget();
 
     void start();

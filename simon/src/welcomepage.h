@@ -23,10 +23,12 @@
 
 #include <simonuicomponents/inlinewidget.h>
 #include <simonscenarios/scenariodisplay.h>
+#include <simonrecognitionresult/recognitionresult.h>
 #include "ui_welcomepage.h"
 
 class QShowEvent;
 class QHideEvent;
+class VolumeWidget;
 
 class WelcomePage : public InlineWidget, public ScenarioDisplay
 {
@@ -44,6 +46,8 @@ protected:
     virtual void displayScenarioPrivate(Scenario *scenario);
     
 private slots:
+    void processedRecognitionResult(const RecognitionResult& recognitionResult, bool accepted);
+    
     void baseModelConfig();
     void audioConfig();
     void scenarioConfig();
@@ -55,6 +59,7 @@ private slots:
     
 private:
     Ui::WelcomePage ui;
+    VolumeWidget *volumeWidget;
     QString getCurrentlySelectedScenarioId();
 };
 

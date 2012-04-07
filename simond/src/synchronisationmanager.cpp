@@ -678,7 +678,6 @@ QDateTime SynchronisationManager::getCompileModelSrcDate()
   QDateTime trainingDate = getTrainingDate();
   QDateTime scenarioRcDate = selectedScenariosDate();
   QDateTime baseModelDate = getBaseModelDate();
-  kDebug() << trainingDate << scenarioRcDate << baseModelDate;
 
   int baseModelType = getBaseModelType();
   if (((baseModelType == 2) && trainingDate.isNull()) || scenarioRcDate.isNull() ||

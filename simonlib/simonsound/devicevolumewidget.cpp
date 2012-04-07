@@ -27,9 +27,9 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-DeviceVolumeWidget::DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent) : QWidget(parent),
+DeviceVolumeWidget::DeviceVolumeWidget( const SimonSound::DeviceConfiguration& device, SoundClient::SoundClientPriority inputPriority, QWidget* parent ) : QWidget(parent),
     ui(new Ui::DeviceVolumeWidgetUi()),
-    rec(new NullRecorderClient(device, this)),
+    rec(new NullRecorderClient(device, inputPriority, this)),
     m_deviceName(device.name()),
     lastClip(0),
     lastStartedSample(0),
@@ -68,7 +68,6 @@ void DeviceVolumeWidget::updateLabel()
 {
   int window = 5;
   qint32 cur = QDateTime::currentDateTime().toTime_t();
-  kDebug() << lastClip << window << cur;
   if (lastClip + window > cur) {
     tooLoud();
   } else {

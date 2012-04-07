@@ -24,20 +24,27 @@
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
+#include <simonactions/actionmanager.h>
+#include <simonsound/volumewidget.h>
 
+#include <QMetaObject>
+#include <QVBoxLayout>
 #include <KDebug>
 #include <KLocalizedString>
 #include <KCMultiDialog>
 #include <KColorScheme>
 #include <KMessageBox>
 
-WelcomePage::WelcomePage(QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon("simon"), i18n("Welcome to Simon"), parent)
+WelcomePage::WelcomePage(QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon("simon"), i18n("Welcome to Simon"), parent),
+  volumeWidget(new VolumeWidget(this, SoundClient::Background))
 {
   ui.setupUi(this);
+  static_cast<QVBoxLayout*>(ui.gbMicrophone->layout())->insertWidget(1, volumeWidget);
+  
   ui.lbWelcome->setText(i18nc("%1: simon version", "Welcome to simon %1", simon_version));
   
-  ui.wgVolumeWidget->enablePrompt(false);
-  ui.wgVolumeWidget->init();
+  volumeWidget->enablePrompt(false);
+  volumeWidget->init();
 
   connect(ScenarioManager::getInstance(), SIGNAL(scenarioSelectionChanged()), this, SLOT(displayScenarios()));
   connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SLOT(displayScenarios()));
@@ -49,10 +56,21 @@ WelcomePage::WelcomePage(QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon(
   connect(ui.lwScenarios, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(updateScenarioDisplays()));
   
   connect(ui.pbEditScenario, SIGNAL(clicked(bool)), this, SIGNAL(editScenario()));
+  connect(ActionManager::getInstance(), SIGNAL(processedRecognitionResult(RecognitionResult,bool)), this, SLOT(processedRecognitionResult(RecognitionResult, bool)));
   
   displayScenarios();
   displayAcousticModelInfo();
 }
+
+void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitionResult, bool accepted )
+{
+  QString result = recognitionResult.sentence();
+  if (!accepted)
+    result = i18nc("%1 is the result string", "%1 (no applicable command)", result);
+    
+  ui.lbRecognition->setText(result);
+}
+
 
 void WelcomePage::displayAcousticModelInfo()
 {
@@ -72,8 +90,11 @@ void WelcomePage::displayScenarios()
 {
   kDebug() << "Displaying scenarios";
   setUpdatesEnabled(false);
+  ui.lwScenarios->blockSignals(true);
   
   QString currentData = getCurrentlySelectedScenarioId();
+  
+  ui.lwScenarios->clear();
 
   QFont deactivatedFont = QFont();
   deactivatedFont.setItalic(true);
@@ -98,6 +119,7 @@ void WelcomePage::displayScenarios()
   if (toSelect)
     ui.lwScenarios->setCurrentItem(toSelect);
   
+  ui.lwScenarios->blockSignals(false);
   setUpdatesEnabled(true);
 }
 
@@ -125,21 +147,23 @@ void WelcomePage::displayScenarioPrivate ( Scenario* scenario )
     }
   }
   
-  ui.pbEditScenario->setText(i18nc("%1 is the item to change", "Edit \"%1\"", scenario->name()));
+  ui.pbEditScenario->setText(i18nc("%1 is the scenario to change", "Open \"%1\"", scenario->name()));
 }
 
 void WelcomePage::showEvent(QShowEvent* event)
 {
   QWidget::showEvent(event);
   kDebug() << "Shown";
-  ui.wgVolumeWidget->start();
+  //start recording after the event handling
+  QMetaObject::invokeMethod(volumeWidget, "start", Qt::QueuedConnection);
 }
 
 void WelcomePage::hideEvent(QHideEvent* event)
 {
   QWidget::hideEvent(event);
   kDebug() << "Hidden";
-  ui.wgVolumeWidget->stop();
+  //stop recording after the event handling
+  QMetaObject::invokeMethod(volumeWidget, "stop", Qt::QueuedConnection);
 }
 
 void WelcomePage::audioConfig()

@@ -25,8 +25,8 @@
 #include <KLocalizedString>
 #include <QVBoxLayout>
 
-VolumeWidget::VolumeWidget(QWidget *parent) : QWidget(parent),
-ui(new Ui::VolumeWidgetUi())
+VolumeWidget::VolumeWidget(QWidget* parent, SoundClient::SoundClientPriority inputPriority) : QWidget(parent),
+ui(new Ui::VolumeWidgetUi()), priority(inputPriority)
 {
   ui->setupUi(this);
   ui->wgStart->show();
@@ -55,7 +55,7 @@ void VolumeWidget::init()
 
 void VolumeWidget::registerClient(const SimonSound::DeviceConfiguration& device)
 {
-  DeviceVolumeWidget *dw = new DeviceVolumeWidget(device, this);
+  DeviceVolumeWidget *dw = new DeviceVolumeWidget(device, priority, this);
 
   QVBoxLayout *lay = dynamic_cast<QVBoxLayout*>(layout());
   Q_ASSERT(lay);

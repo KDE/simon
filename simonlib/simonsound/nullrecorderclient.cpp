@@ -28,9 +28,9 @@
 /**
  * \brief Constructor
  */
-NullRecorderClient::NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject* parent) :
+NullRecorderClient::NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority options, QObject* parent) :
 QObject(parent),
-SoundInputClient(deviceConfiguration),
+SoundInputClient(deviceConfiguration, options),
 vad(new VADSoundProcessor(deviceConfiguration, true /*pass all through*/))
 {
   registerSoundProcessor(vad);

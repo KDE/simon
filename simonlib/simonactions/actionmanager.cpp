@@ -118,17 +118,15 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger, 
 
 bool ActionManager::processResult(RecognitionResult recognitionResult)
 {
+  bool accepted = false;
   if (!greedyReceivers.isEmpty()) {
-    bool accepted = false;
-    //		for (int i=0; i < greedyReceivers->count(); i++) {
     if (greedyReceivers.at(0)->greedyTriggerRaw(recognitionResult))
       accepted = true;
-    //			break;
-    //		}
-    return accepted;
-  }
-
-  return ScenarioManager::getInstance()->processResult(recognitionResult);
+  } else
+    accepted = ScenarioManager::getInstance()->processResult(recognitionResult);
+  
+  emit processedRecognitionResult(recognitionResult, accepted);
+  return accepted;
 }
 
 
@@ -174,10 +172,7 @@ void ActionManager::processRawResults(const RecognitionResultList &recognitionRe
   kDebug() << "Greedy Recievers: " << greedyReceivers.count();
 
   if (!greedyReceivers.isEmpty()) {
-    //		for (int i=0; i < greedyReceivers->count(); i++) {
-    /*if (*/ greedyReceivers.at(0)->greedyTriggerRawList(selectedRecognitionResults); //)
-    //				break;
-    //		}
+    greedyReceivers.at(0)->greedyTriggerRawList(selectedRecognitionResults);
     selectedRecognitionResults.clear();
     return;
   }

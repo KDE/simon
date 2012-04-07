@@ -41,7 +41,7 @@ class NullRecorderClient :public QObject, public SoundInputClient
     void clippingOccured();
 
   public:
-    explicit NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
+    explicit NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority options, QObject *parent=0);
     bool start();
     bool finish();
 
