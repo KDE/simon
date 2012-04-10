@@ -19,15 +19,7 @@
 
 #include "model.h"
 
-Model::Model(qint32 data, const QByteArray&  hmmDefs,
-const QByteArray&  tiedList, const QByteArray&  data1, const QByteArray&  data2) :
-m_data(data), m_hmmDefs(hmmDefs),
-m_tiedList(tiedList), m_data1(data1), m_data2(data2)
-{
-
-}
-
-
-Model::~Model()
+Model::Model(qint32 data, const QByteArray& container) :
+m_data(data), m_container(container)
 {
 }

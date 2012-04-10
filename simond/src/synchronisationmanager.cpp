@@ -192,18 +192,6 @@ QDateTime SynchronisationManager::localScenarioDate(const QString& scenarioId)
 QDateTime SynchronisationManager::scenarioDate(const QString& path)
 {
   return Scenario::skimDate(path);
-  /*
-  Scenario *s = new Scenario("");
-  if (!s->skim(path)) {
-    kDebug() << "Failed to skim scenario at: " << path;
-    delete s;
-    return QDateTime();
-  }
-  QDateTime t = s->modifiedDate();
-  kDebug() << "Returning modified date of: " << path << t;
-  delete s;
-  return t;
-  */
 }
 
 
@@ -221,20 +209,14 @@ Model* SynchronisationManager::getActiveModel()
   sampleRate = cGroup.readEntry("SampleRate").toInt(&ok);
   if (!ok) return 0;
 
-  QFile hmmDefs(dirPath+"hmmdefs");
-  QFile tiedlist(dirPath+"tiedlist");
-  QFile dict(dirPath+"model.dict");
-  QFile dfa(dirPath+"model.dfa");
+  QFile containerFile(dirPath+"active.sbm");
 
-  if ((!hmmDefs.open(QIODevice::ReadOnly)) ||
-    (!tiedlist.open(QIODevice::ReadOnly)) ||
-    (!dict.open(QIODevice::ReadOnly)) ||
-  (!dfa.open(QIODevice::ReadOnly))) {
+  if (!containerFile.open(QIODevice::ReadOnly)) {
     kDebug() << "Failed to gather active model";
     return 0;
   }
 
-  return new Model(sampleRate, hmmDefs.readAll(), tiedlist.readAll(), dict.readAll(), dfa.readAll());
+  return new Model(sampleRate, containerFile.readAll());
 }
 
 
@@ -248,31 +230,18 @@ QDateTime SynchronisationManager::getActiveModelDate()
 }
 
 
-bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& hmmDefs,
-const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
+bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& container)
 {
   if (username.isEmpty()) return false;
 
   QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-  QFile hmmDefsFile(dirPath+"hmmdefs");
-  QFile tiedListFile(dirPath+"tiedlist");
-  QFile dictFile(dirPath+"model.dict");
-  QFile dfaFile(dirPath+"model.dfa");
+  QFile containerFile(dirPath+"active.sbm");
 
-  if ((!hmmDefsFile.open(QIODevice::WriteOnly))
-    || (!tiedListFile.open(QIODevice::WriteOnly))
-    || (!dictFile.open(QIODevice::WriteOnly))
-    || (!dfaFile.open(QIODevice::WriteOnly)))
+  if (!containerFile.open(QIODevice::WriteOnly))
     return false;
 
-  hmmDefsFile.write(hmmDefs);
-  tiedListFile.write(tiedList);
-  dictFile.write(dict);
-  dfaFile.write(dfa);
-  hmmDefsFile.close();
-  tiedListFile.close();
-  dictFile.close();
-  dfaFile.close();
+  containerFile.write(container);
+  containerFile.close();
 
   KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
@@ -296,8 +265,7 @@ void SynchronisationManager::setActiveModelSampleRate(qint32 activeModelSampleRa
 bool SynchronisationManager::hasActiveModel()
 {
   QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-  return (QFile::exists(dirPath+"hmmdefs")&&QFile::exists(dirPath+"tiedlist")
-    &&QFile::exists(dirPath+"model.dict")&&QFile::exists(dirPath+"model.dfa"));
+  return QFile::exists(dirPath+"active.sbm");
 }
 
 
@@ -324,21 +292,14 @@ Model* SynchronisationManager::getBaseModel()
   qint32 baseModelType = cGroup.readEntry("BaseModelType").toInt(&ok);
   if (!ok) return 0;
 
-  QFile hmmDefs(dirPath+"basehmmdefs");
-  QFile tiedlist(dirPath+"basetiedlist");
-  QFile macrosFile(dirPath+"basemacros");
-  QFile statsFile(dirPath+"basestats");
+  QFile containerFile(dirPath+"base.sbm");
 
-  if ((!hmmDefs.open(QIODevice::ReadOnly)) ||
-    (!tiedlist.open(QIODevice::ReadOnly)) ||
-    (!macrosFile.open(QIODevice::ReadOnly)) ||
-  (!statsFile.open(QIODevice::ReadOnly))) {
-    kDebug() << "Failed to gather active model";
+  if (!containerFile.open(QIODevice::ReadOnly)) {
+    kDebug() << "Failed to gather base model";
     return 0;
   }
 
-  return new Model(baseModelType, hmmDefs.readAll(), tiedlist.readAll(),
-    macrosFile.readAll(), statsFile.readAll());
+  return new Model(baseModelType, containerFile.readAll());
 }
 
 
@@ -371,38 +332,24 @@ int SynchronisationManager::getBaseModelType()
 
 
 bool SynchronisationManager::storeBaseModel(const QDateTime& changedDate, int modelType,
-const QByteArray& hmmDefs, const QByteArray& tiedList,
-const QByteArray& macros, const QByteArray& stats)
+                                            const QByteArray& container)
 {
   if (username.isEmpty()) return false;
 
   QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-  QFile hmmDefsFile(dirPath+"basehmmdefs");
-  QFile tiedListFile(dirPath+"basetiedlist");
-  QFile macrosFile(dirPath+"basemacros");
-  QFile statsFile(dirPath+"basestats");
+  QFile containerFile(dirPath+"base.sbm");
 
-  if ((!hmmDefsFile.open(QIODevice::WriteOnly))
-    || (!tiedListFile.open(QIODevice::WriteOnly))
-    || (!macrosFile.open(QIODevice::WriteOnly))
-    || (!statsFile.open(QIODevice::WriteOnly)))
+  if (!containerFile.open(QIODevice::WriteOnly))
     return false;
 
-  hmmDefsFile.write(hmmDefs);
-  tiedListFile.write(tiedList);
-  macrosFile.write(macros);
-  statsFile.write(stats);
-
-  hmmDefsFile.close();
-  tiedListFile.close();
-  macrosFile.close();
-  statsFile.close();
+  containerFile.write(container);
+  containerFile.close();
 
   KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("BaseModelDate", changedDate);
   cGroup.writeEntry("BaseModelType", modelType);
-  kDebug() << "Base model type has been written!!! It is: " << modelType;
+  kDebug() << "Base model type has been written! It is: " << modelType;
   config.sync();
   return true;
 }

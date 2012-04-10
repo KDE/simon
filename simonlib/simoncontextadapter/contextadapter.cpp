@@ -738,82 +738,82 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
 }
 
 bool ContextAdapter::startCompilation(ModelCompilationManager::CompilationType compilationType,
-  const QString& hmmDefsPath, const QString& tiedListPath,
-  const QString& dictPath, const QString& dfaPath,
-  const QString& baseHmmDefsPath, const QString& baseTiedlistPath,
-  const QString& baseStatsPath, const QString& baseMacrosPath,
+  const QString& modelOutputContainerPath,
+  const QString& baseModelPath,
   const QString& samplePath,
   const QString& lexiconPath, const QString& grammarPath,
   const QString& vocabPath, const QString& promptsPath,
   const QString& treeHedPath, const QString& wavConfigPath,
   const QString& scriptBasePrefix)
 {
-    if (m_currentAdaptionType & ModelCompilationAdapter::AdaptAcousticModel && m_currentAdaptionType & ModelCompilationAdapter::AdaptLanguageModel)
-    {
-        return m_modelCompilationManager->startCompilation(compilationType,
-                                                           hmmDefsPath,
-                                                           tiedListPath,
-                                                           dictPath,
-                                                           dfaPath,
-                                                           baseHmmDefsPath,
-                                                           baseTiedlistPath,
-                                                           baseStatsPath,
-                                                           baseMacrosPath,
-                                                           samplePath,
-                                                           lexiconPath,
-                                                           grammarPath,
-                                                           vocabPath,
-                                                           promptsPath,
-                                                           treeHedPath,
-                                                           wavConfigPath,
-                                                           scriptBasePrefix);
-    }
-    else if (m_currentAdaptionType & ModelCompilationAdapter::AdaptLanguageModel)
-    {
-        return m_modelCompilationManager->startCompilation(ModelCompilationManager::CompileLanguageModel,
-                                                           hmmDefsPath,
-                                                           tiedListPath,
-                                                           dictPath,
-                                                           dfaPath,
-                                                           baseHmmDefsPath,
-                                                           baseTiedlistPath,
-                                                           baseStatsPath,
-                                                           baseMacrosPath,
-                                                           samplePath,
-                                                           lexiconPath,
-                                                           grammarPath,
-                                                           vocabPath,
-                                                           promptsPath,
-                                                           treeHedPath,
-                                                           wavConfigPath,
-                                                           scriptBasePrefix);
-    }
-    else if (m_currentAdaptionType & ModelCompilationAdapter::AdaptAcousticModel)
-    {
-        ModelCompilationManager::CompilationType acousticType = ModelCompilationManager::CompilationType(compilationType & ModelCompilationManager::CompilationType(6));
-        return m_modelCompilationManager->startCompilation(acousticType,
-                                                           hmmDefsPath,
-                                                           tiedListPath,
-                                                           dictPath,
-                                                           dfaPath,
-                                                           baseHmmDefsPath,
-                                                           baseTiedlistPath,
-                                                           baseStatsPath,
-                                                           baseMacrosPath,
-                                                           samplePath,
-                                                           lexiconPath,
-                                                           grammarPath,
-                                                           vocabPath,
-                                                           promptsPath,
-                                                           treeHedPath,
-                                                           wavConfigPath,
-                                                           scriptBasePrefix);
-    }
-    else
-    {
-        kDebug() << "No valid current adaption type!";
-        return false;
-    }
+  //FIXME
+  return false;
+//     if (m_currentAdaptionType & ModelCompilationAdapter::AdaptAcousticModel && m_currentAdaptionType & ModelCompilationAdapter::AdaptLanguageModel)
+//     {
+//         return m_modelCompilationManager->startCompilation(compilationType,
+//                                                            hmmDefsPath,
+//                                                            tiedListPath,
+//                                                            dictPath,
+//                                                            dfaPath,
+//                                                            baseHmmDefsPath,
+//                                                            baseTiedlistPath,
+//                                                            baseStatsPath,
+//                                                            baseMacrosPath,
+//                                                            samplePath,
+//                                                            lexiconPath,
+//                                                            grammarPath,
+//                                                            vocabPath,
+//                                                            promptsPath,
+//                                                            treeHedPath,
+//                                                            wavConfigPath,
+//                                                            scriptBasePrefix);
+//     }
+//     else if (m_currentAdaptionType & ModelCompilationAdapter::AdaptLanguageModel)
+//     {
+//         return m_modelCompilationManager->startCompilation(ModelCompilationManager::CompileLanguageModel,
+//                                                            hmmDefsPath,
+//                                                            tiedListPath,
+//                                                            dictPath,
+//                                                            dfaPath,
+//                                                            baseHmmDefsPath,
+//                                                            baseTiedlistPath,
+//                                                            baseStatsPath,
+//                                                            baseMacrosPath,
+//                                                            samplePath,
+//                                                            lexiconPath,
+//                                                            grammarPath,
+//                                                            vocabPath,
+//                                                            promptsPath,
+//                                                            treeHedPath,
+//                                                            wavConfigPath,
+//                                                            scriptBasePrefix);
+//     }
+//     else if (m_currentAdaptionType & ModelCompilationAdapter::AdaptAcousticModel)
+//     {
+//         ModelCompilationManager::CompilationType acousticType = ModelCompilationManager::CompilationType(compilationType & ModelCompilationManager::CompilationType(6));
+//         return m_modelCompilationManager->startCompilation(acousticType,
+//                                                            hmmDefsPath,
+//                                                            tiedListPath,
+//                                                            dictPath,
+//                                                            dfaPath,
+//                                                            baseHmmDefsPath,
+//                                                            baseTiedlistPath,
+//                                                            baseStatsPath,
+//                                                            baseMacrosPath,
+//                                                            samplePath,
+//                                                            lexiconPath,
+//                                                            grammarPath,
+//                                                            vocabPath,
+//                                                            promptsPath,
+//                                                            treeHedPath,
+//                                                            wavConfigPath,
+//                                                            scriptBasePrefix);
+//     }
+//     else
+//     {
+//         kDebug() << "No valid current adaption type!";
+//         return false;
+//     }
 }
 
 void ContextAdapter::setupAcousticModelCache(const QString &promptsIn)

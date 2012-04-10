@@ -58,8 +58,7 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
     Model* createBaseModelContainer();
     QDateTime getBaseModelDate();
     virtual bool storeBaseModel(const QDateTime& changedTime, int baseModelType,
-      const QByteArray& hmmDefs, const QByteArray& tiedList,
-      const QByteArray& macros, const QByteArray& stats);
+      const QByteArray& container);
 
     LanguageDescriptionContainer* getLanguageDescriptionContainer();
     QDateTime getLanguageDescriptionModifiedTime();
@@ -75,8 +74,7 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
     Model* createActiveContainer();
     qint32 getActiveModelSampleRate();
     QDateTime getActiveContainerModifiedTime();
-    virtual bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
-      const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
+    virtual bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container);
 
     void buildMissingSamplesList();
     QByteArray getSample(const QString& sampleName);

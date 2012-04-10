@@ -1923,8 +1923,3 @@ bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, cons
   return execute(command);
 #endif
 }
-
-
-ModelCompilationManager::~ModelCompilationManager()
-{
-}

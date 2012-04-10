@@ -43,18 +43,16 @@ class ReestimationConfig;
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 {
   Q_OBJECT
-    signals:
-  void status(QString, int progressNow, int progressTotal=2600);
-  void error(QString);
+  signals:
+    void status(QString, int progressNow, int progressTotal=2600);
+    void error(QString);
 
-  //	void userReadableError(const QString&);
+    void wordUndefined(const QString&);
+    void classUndefined(const QString&);
+    void phonemeUndefined(const QString&);
 
-  void wordUndefined(const QString&);
-  void classUndefined(const QString&);
-  void phonemeUndefined(const QString&);
-
-  void modelCompiled();
-  void activeModelCompilationAborted();
+    void modelCompiled();
+    void activeModelCompilationAborted();
 
   public:
     enum CompilationType
@@ -83,11 +81,9 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 
     void abort();
 
-    ~ModelCompilationManager();
-
     static QString information(bool condensed=false);
 
-    //helper functions from outside
+    //helper functions from "outside" for multithreaded processes
     bool codeAudioDataFromScp(const QString& path);
     bool reestimate(const QString& command);
 

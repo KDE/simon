@@ -48,11 +48,9 @@ void ModelManagerUiProxy::slotModelChanged()
 }
 
 
-bool ModelManagerUiProxy::storeBaseModel(const QDateTime& changedTime, int baseModelType,
-const QByteArray& hmmDefs, const QByteArray& tiedList,
-const QByteArray& macros, const QByteArray& stats)
+bool ModelManagerUiProxy::storeBaseModel(const QDateTime& changedTime, int baseModelType, const QByteArray& container)
 {
-  bool succ = ModelManager::storeBaseModel(changedTime, baseModelType, hmmDefs, tiedList, macros, stats);
+  bool succ = ModelManager::storeBaseModel(changedTime, baseModelType, container);
   if (!succ) {
     KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the base model received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
@@ -88,10 +86,9 @@ const QByteArray& prompts)
 }
 
 
-bool ModelManagerUiProxy::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
-const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
+bool ModelManagerUiProxy::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container)
 {
-  bool succ = ModelManager::storeActiveModel(changedTime, sampleRate, hmmDefs, tiedList, dict, dfa);
+  bool succ = ModelManager::storeActiveModel(changedTime, sampleRate, container);
   if (!succ) {
     KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the active model received from the server."
       "\n\nPlease check the permissions on the model folder: %1",

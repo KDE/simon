@@ -76,8 +76,6 @@ public:
     void storeAcousticModelInCache(QString sampleGroup);
 
     void clearCache();
-    void clearAcousticModelCache();
-    void clearLanguageModelCache();
     void currentCompilationAborted();
     bool shouldRecompileModel();
     bool shouldCompileAfterAdaption();
@@ -86,44 +84,46 @@ public:
     void setShouldCompileAcousticModel(bool newAcousticModel) {m_newAcousticModel = newAcousticModel;}
 
     //wrapper functions for ModelCompilationAdapter
-    bool startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,
-      const QString& grammarPathOut, const QString& simpleVocabPathOut,
-      const QString& promptsPathOut, const QStringList& scenarioPathsIn,
-      const QString& promptsIn);
+    bool startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, 
+                       const QString& lexiconPathOut, const QString& grammarPathOut, 
+                       const QString& simpleVocabPathOut, const QString& promptsPathOut, 
+                       const QStringList& scenarioPathsIn, const QString& promptsIn);
+    
+    //wrapper functions for ModelCompilationManager
+    bool startCompilation(ModelCompilationManager::CompilationType compilationType,
+      const QString& modelOutputContainerPath,
+      const QString& baseModelContainerPath,
+      
+      const QString& samplePath,
+      const QString& lexiconPath, const QString& grammarPath,
+      const QString& vocabPath, const QString& promptsPath,
+      
+      const QString& treeHedPath, const QString& wavConfigPath,
+      const QString& scriptBasePrefix);
+    
     QString getStatus() { return m_modelCompilationAdapter->getStatus(); }
-    QString lexiconPath() { return m_modelCompilationAdapter->lexiconPath(); }
-    QString grammarPath() { return m_modelCompilationAdapter->grammarPath(); }
-    QString simpleVocabPath() { return m_modelCompilationAdapter->simpleVocabPath(); }
-    QString promptsPath() { return m_modelCompilationAdapter->promptsPath(); }
+
     int wordCount() { return m_modelCompilationAdapter->wordCount(); }
     int pronunciationCount() { return m_modelCompilationAdapter->pronunciationCount(); }
     int sampleCount() { return m_modelCompilationAdapter->sampleCount(); }
     void clearPoisonedPhonemes() { m_modelCompilationAdapter->clearPoisonedPhonemes(); }
     void poisonPhoneme( const QString& phoneme ) { m_modelCompilationAdapter->poisonPhoneme(phoneme); }
     int maxProgress() { return m_modelCompilationAdapter->maxProgress(); }
-
-    //wrapper functions for ModelCompilationManager
-    bool startCompilation(ModelCompilationManager::CompilationType compilationType,
-      const QString& hmmDefsPath, const QString& tiedListPath,
-      const QString& dictPath, const QString& dfaPath,
-      const QString& baseHmmDefsPath, const QString& baseTiedlistPath,
-      const QString& baseStatsPath, const QString& baseMacrosPath,
-      const QString& samplePath,
-      const QString& lexiconPath, const QString& grammarPath,
-      const QString& vocabPath, const QString& promptsPath,
-      const QString& treeHedPath, const QString& wavConfigPath,
-      const QString& scriptBasePrefix);
+    
     bool hasBuildLog() { return m_modelCompilationManager->hasBuildLog(); }
     QString getGraphicBuildLog() { return m_modelCompilationManager->getGraphicBuildLog(); }
     QString getBuildLog() { return m_modelCompilationManager->getBuildLog(); }
+    
     static QString information(bool condensed=false) { return ModelCompilationManager::information(condensed); }
-    bool codeAudioDataFromScp(const QString& path) { return m_modelCompilationManager->codeAudioDataFromScp(path); }
-    bool reestimate(const QString& command) { return m_modelCompilationManager->reestimate(command); }
+    
     bool managerIsRunning() { return m_modelCompilationManager->isRunning(); }
 
     //wrapper function for both
-    void abort() { m_modelCompilationManager->abort();
-                   m_modelCompilationAdapter->abort();}
+    void abort()
+    {
+      m_modelCompilationManager->abort();
+      m_modelCompilationAdapter->abort();  
+    }
 
 private:
     ModelCompilationAdapter *m_modelCompilationAdapter;
@@ -154,6 +154,8 @@ private:
     QHash<QString, QString> m_acousticModelCache;
 
     void finishedModelRequest(bool viaCache);
+    void clearAcousticModelCache();
+    void clearLanguageModelCache();
 
 private slots:
     void hasNewlyGeneratedModel();

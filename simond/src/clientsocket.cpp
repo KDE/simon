@@ -33,9 +33,6 @@
 
 #include <simonwav/wav.h>
 
-#include <speechmodelcompilation/modelcompilationmanager.h>
-#include <speechmodelcompilationadapter/modelcompilationadapter.h>
-#include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <simoncontextadapter/contextadapter.h>
 
 #include <QDir>
@@ -296,17 +293,13 @@ void ClientSocket::processRequest()
         waitForMessage(length, stream, msg);
 
         qint32 sampleRate;
-        QByteArray hmmdefs, tiedlist, dict, dfa;
+        QByteArray container;
         QDateTime changedDate;
         stream >> changedDate;
         stream >> sampleRate;
-        stream >> hmmdefs;
-        stream >> tiedlist;
-        stream >> dict;
-        stream >> dfa;
+        stream >> container;
 
-        if (!synchronisationManager->storeActiveModel( changedDate, sampleRate, hmmdefs,
-        tiedlist, dict, dfa)) {
+        if (!synchronisationManager->storeActiveModel( changedDate, sampleRate, container)) {
           sendCode(Simond::ActiveModelStorageFailed);
         }
         sendCode(Simond::GetBaseModelDate);
@@ -379,14 +372,11 @@ void ClientSocket::processRequest()
         waitForMessage(length, stream, msg);
 
         qint32 baseModelType;
-        QByteArray hmmdefs, tiedlist, macros, stats;
+        QByteArray container;
         QDateTime changedDate;
         stream >> changedDate;
         stream >> baseModelType;
-        stream >> hmmdefs;
-        stream >> tiedlist;
-        stream >> macros;
-        stream >> stats;
+        stream >> container;
 
         //if the new base model type is different from the old one, a new acoustic model should be compiled
         if (baseModelType != synchronisationManager->getBaseModelType())
@@ -396,8 +386,7 @@ void ClientSocket::processRequest()
             recompileOverride = true;
         }
 
-        if (!synchronisationManager->storeBaseModel(changedDate, baseModelType,
-        hmmdefs, tiedlist, macros, stats)) {
+        if (!synchronisationManager->storeBaseModel(changedDate, baseModelType, container)) {
           sendCode(Simond::BaseModelStorageFailed);
         }
         sendCode(Simond::GetScenariosToDelete);
@@ -1258,14 +1247,6 @@ void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
 
 void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 {
-  /*	QByteArray toWrite;
-    QDataStream stream(&toWrite, QIODevice::WriteOnly);
-    QByteArray phonemeByte = phoneme.toUtf8();
-    stream << (qint32) Simond::ModelCompilationPhonemeUndefined
-      << (qint64) (phonemeByte.count()+sizeof(qint32)) //separator
-      << phonemeByte;
-    write(toWrite);
-    */
   //try to fix it automatically
   contextAdapter->poisonPhoneme(phoneme);
   recompileModel();
@@ -1306,32 +1287,15 @@ void ClientSocket::recompileModel()
   }
   kDebug() << "STARTING Adaption";
 
-  switch (baseModelType) {
-    case 0:
-      //static model
-      contextAdapter->startAdaption(
-        (ModelCompilationAdapter::AdaptionType)
-        (ModelCompilationAdapter::AdaptLanguageModel),
+  ModelCompilationAdapter::AdaptionType adaptionType = (baseModelType == 0) ? 
+                                                          (ModelCompilationAdapter::AdaptLanguageModel) : 
+                                                          (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel);
+  contextAdapter->startAdaption(
+        adaptionType,
         activeDir+"lexicon", activeDir+"model.grammar",
         activeDir+"simple.voca", activeDir+"prompts",
         synchronisationManager->getScenarioPaths(),
         synchronisationManager->getPromptsPath());
-      break;
-    case 1:
-      kDebug() << "adapting base model...";
-      //adapted base model
-      //let it run into dynamic model - no difference at this stage
-    case 2:
-      //dynamic model
-      contextAdapter->startAdaption(
-        (ModelCompilationAdapter::AdaptionType)
-        (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel),
-        activeDir+"lexicon", activeDir+"model.grammar",
-        activeDir+"simple.voca", activeDir+"prompts",
-        synchronisationManager->getScenarioPaths(),
-        synchronisationManager->getPromptsPath());
-      break;
-  }
 }
 
 bool ClientSocket::readHashesFromActiveModel()
@@ -1457,7 +1421,9 @@ void ClientSocket::slotModelAdaptionComplete()
         return;
     }
   }
-
+  
+  //FIXME
+/*
   switch (baseModelType) {
     case 0:
       //static model
@@ -1473,10 +1439,8 @@ void ClientSocket::slotModelAdaptionComplete()
         synchronisationManager->getWavConfigPath(),
 	"simon/scripts");
 
-      QFile::remove(activeDir+"hmmdefs");
-      QFile::remove(activeDir+"tiedlist");
-      QFile::copy(activeDir+"basehmmdefs", activeDir+"hmmdefs");
-      QFile::copy(activeDir+"basetiedlist", activeDir+"tiedlist");
+      QFile::remove(activeDir+"active.sbm");
+      QFile::copy(activeDir+"base.sbm", activeDir+"active.sbm");
       break;
     case 1:
       //adapted base model
@@ -1511,7 +1475,7 @@ void ClientSocket::slotModelAdaptionComplete()
         synchronisationManager->getWavConfigPath(),
 	"simon/scripts");
       break;
-  }
+  }*/
 }
 
 
@@ -1595,10 +1559,7 @@ bool ClientSocket::sendModel(Simond::Request request, const QDateTime& changedTi
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
   bodyStream << changedTime
     << model->sampleRate()
-    << model->hmmDefs()
-    << model->tiedList()
-    << model->data1()
-    << model->data2();
+    << model->container();
 
   QByteArray toWrite;
   QDataStream stream(&toWrite, QIODevice::WriteOnly);

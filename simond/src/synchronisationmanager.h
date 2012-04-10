@@ -68,14 +68,12 @@ class SynchronisationManager : public QObject
     bool hasActiveModel();
     QDateTime getActiveModelDate();
     void setActiveModelSampleRate(int activeModelSampleRate);
-    bool storeActiveModel(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& hmmDefs,
-      const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
+    bool storeActiveModel(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& container);
 
     QDateTime getBaseModelDate();
     Model* getBaseModel();
     int getBaseModelType();
-    bool storeBaseModel(const QDateTime& changedDate, int baseModelType, const QByteArray& hmmDefs,
-      const QByteArray& tiedList, const QByteArray& macros, const QByteArray& stats);
+    bool storeBaseModel(const QDateTime& changedDate, int baseModelType, const QByteArray& container);
 
     QDateTime getModelSrcDate();
     QDateTime getCompileModelSrcDate();

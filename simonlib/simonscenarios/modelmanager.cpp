@@ -88,18 +88,12 @@ Model* ModelManager::createActiveContainer()
 {
   qint32 modelSampleRate=SpeechModelManagementConfiguration::modelSampleRate();
 
-  QFile hmmDefs(KStandardDirs::locate("appdata", "model/hmmdefs"));
-  QFile tiedList(KStandardDirs::locate("appdata", "model/tiedlist"));
+  QFile activeContainer(KStandardDirs::locate("appdata", "model/active.sbm"));
 
-  QFile dict(KStandardDirs::locate("appdata", "model/model.dict"));
-  QFile dfa(KStandardDirs::locate("appdata", "model/model.dfa"));
-
-  if ((!hmmDefs.open(QIODevice::ReadOnly)) || (!tiedList.open(QIODevice::ReadOnly))
-    || (!dict.open(QIODevice::ReadOnly))
-    || (!dfa.open(QIODevice::ReadOnly)))
+  if (!activeContainer.open(QIODevice::ReadOnly))
     return 0;
 
-  return new Model(modelSampleRate, hmmDefs.readAll(), tiedList.readAll(), dict.readAll(), dfa.readAll());
+  return new Model(modelSampleRate, activeContainer.readAll());
 }
 
 
@@ -108,18 +102,14 @@ Model* ModelManager::createBaseModelContainer()
   qint32 modelType = ScenarioManager::getInstance()->baseModelType();
 
   if (modelType == 2)
-    return new Model(modelType, QByteArray(), QByteArray(), QByteArray(), QByteArray());
+    return new Model(modelType, QByteArray());
 
-  QFile hmmDefs(KStandardDirs::locate("appdata", "model/basehmmdefs"));
-  QFile tiedList(KStandardDirs::locate("appdata", "model/basetiedlist"));
-  QFile macros(KStandardDirs::locate("appdata", "model/basemacros"));
-  QFile stats(KStandardDirs::locate("appdata", "model/basestats"));
+  QFile baseContainer(KStandardDirs::locate("appdata", "model/base.sbm"));
 
-  if ((!hmmDefs.open(QIODevice::ReadOnly)) || (!tiedList.open(QIODevice::ReadOnly))
-    || (!macros.open(QIODevice::ReadOnly)) || (!stats.open(QIODevice::ReadOnly)))
+  if (!baseContainer.open(QIODevice::ReadOnly))
     return 0;
 
-  return new Model(modelType, hmmDefs.readAll(), tiedList.readAll(), macros.readAll(), stats.readAll());
+  return new Model(modelType, baseContainer.readAll());
 }
 
 
@@ -147,9 +137,7 @@ QDateTime ModelManager::getBaseModelDate()
 }
 
 
-bool ModelManager::storeBaseModel(const QDateTime& changedTime, int baseModelType,
-const QByteArray& hmmDefs, const QByteArray& tiedList,
-const QByteArray& macros, const QByteArray& stats)
+bool ModelManager::storeBaseModel(const QDateTime& changedTime, int baseModelType, const QByteArray& container)
 {
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
@@ -159,32 +147,19 @@ const QByteArray& macros, const QByteArray& stats)
 
   ScenarioManager::getInstance()->setBaseModelType(baseModelType);
 
-  QFile hmmDefsFile(KStandardDirs::locateLocal("appdata", "model/basehmmdefs"));
-  QFile tiedlistFile(KStandardDirs::locateLocal("appdata", "model/basetiedlist"));
-  QFile macrosFile(KStandardDirs::locateLocal("appdata", "model/basemacros"));
-  QFile statsFile(KStandardDirs::locateLocal("appdata", "model/basestats"));
+  QFile containerFile(KStandardDirs::locateLocal("appdata", "model/basemodel.sbm"));
 
-  if (!hmmDefsFile.open(QIODevice::WriteOnly)
-    || !tiedlistFile.open(QIODevice::WriteOnly)
-    || !macrosFile.open(QIODevice::WriteOnly)
-    || !statsFile.open(QIODevice::WriteOnly))
+  if (!containerFile.open(QIODevice::WriteOnly))
     return false;
 
-  hmmDefsFile.write(hmmDefs);
-  tiedlistFile.write(tiedList);
-  macrosFile.write(macros);
-  statsFile.write(stats);
+  containerFile.write(container);
 
-  hmmDefsFile.close();
-  tiedlistFile.close();
-  macrosFile.close();
-  statsFile.close();
+  containerFile.close();
   return true;
 }
 
 
-bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
-const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
+bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container)
 {
   KConfig config( KStandardDirs::locateLocal("appdata", "model/activemodelrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
@@ -193,26 +168,13 @@ const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
 
   SpeechModelManagementConfiguration::setModelSampleRate(sampleRate);
 
-  QFile hmmDefsFile(KStandardDirs::locateLocal("appdata", "model/hmmdefs"));
-  QFile tiedlistFile(KStandardDirs::locateLocal("appdata", "model/tiedlist"));
-  QFile dictFile(KStandardDirs::locateLocal("appdata", "model/model.dict"));
-  QFile dfaFile(KStandardDirs::locateLocal("appdata", "model/model.dfa"));
+  QFile containerFile(KStandardDirs::locateLocal("appdata", "model/basemodel.sbm"));
 
-  if (!hmmDefsFile.open(QIODevice::WriteOnly)
-    || !tiedlistFile.open(QIODevice::WriteOnly)
-    || !dictFile.open(QIODevice::WriteOnly)
-    || !dfaFile.open(QIODevice::WriteOnly))
+  if (!containerFile.open(QIODevice::WriteOnly))
     return false;
 
-  hmmDefsFile.write(hmmDefs);
-  tiedlistFile.write(tiedList);
-  dictFile.write(dict);
-  dfaFile.write(dfa);
-
-  hmmDefsFile.close();
-  tiedlistFile.close();
-  dictFile.close();
-  dfaFile.close();
+  containerFile.write(container);
+  containerFile.close();
 
   return true;
 }
@@ -426,8 +388,5 @@ bool ModelManager::hasLanguageDescription()
 bool ModelManager::hasActiveContainer()
 {
   if (getActiveContainerModifiedTime().isNull()) return false;
-  return (QFile::exists(KStandardDirs::locate("appdata", "model/hmmdefs")) &&
-    QFile::exists(KStandardDirs::locate("appdata", "model/tiedlist")) &&
-    QFile::exists(KStandardDirs::locate("appdata", "model/model.dict")) &&
-    QFile::exists(KStandardDirs::locate("appdata", "model/model.dfa")));
+  return QFile::exists(KStandardDirs::locate("appdata", "model/active.sbm"));
 }

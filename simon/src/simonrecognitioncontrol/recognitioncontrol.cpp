@@ -485,10 +485,7 @@ bool RecognitionControl::sendActiveModel()
 
   bodyStream << ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime()
     << model->sampleRate()
-    << model->hmmDefs()
-    << model->tiedList()
-    << model->data1()
-    << model->data2();
+    << model->container();
 
   send(Simond::ActiveModel, body);
   
@@ -556,10 +553,7 @@ bool RecognitionControl::sendBaseModel()
 
   bodyStream << ModelManagerUiProxy::getInstance()->getBaseModelDate()
     << model->baseModelType()
-    << model->hmmDefs()
-    << model->tiedList()
-    << model->data1()
-    << model->data2();
+    << model->container();
 
   send(Simond::BaseModel, body);
 
@@ -954,18 +948,14 @@ void RecognitionControl::messageReceived()
           parseLengthHeader();
 
           qint32 sampleRate;
-          QByteArray hmmDefs, tiedList, data1, data2;
+          QByteArray container;
 
           QDateTime changedTime;
           msg >> changedTime;
           msg >> sampleRate;
-          msg >> hmmDefs;
-          msg >> tiedList;
-          msg >> data1;
-          msg >> data2;
+          msg >> container;
 
-          ModelManagerUiProxy::getInstance()->storeActiveModel(changedTime, sampleRate,
-            hmmDefs, tiedList, data1, data2);
+          ModelManagerUiProxy::getInstance()->storeActiveModel(changedTime, sampleRate, container);
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
           sendBaseModelDate();
@@ -1017,7 +1007,6 @@ void RecognitionControl::messageReceived()
         }
         case Simond::GetBaseModel:
         {
-          kDebug() << "Retreiving base model";
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
           sendBaseModel();
@@ -1031,29 +1020,24 @@ void RecognitionControl::messageReceived()
 
           int baseModelType;
           QDateTime changedTime;
-          QByteArray hmmDefs, tiedList, macros, stats;
+          QByteArray container;
 
           msg >> changedTime;
           msg >> baseModelType;
-          msg >> hmmDefs;
-          msg >> tiedList;
-          msg >> macros;
-          msg >> stats;
+          msg >> container;
 
-          ModelManagerUiProxy::getInstance()->storeBaseModel(changedTime, baseModelType,
-            hmmDefs, tiedList, macros, stats);
+          ModelManagerUiProxy::getInstance()->storeBaseModel(changedTime, baseModelType, container);
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
           checkIfSynchronisationIsAborting();
-          kDebug() << "Got base model now sending scenarios to delete";
           sendScenariosToDelete();
           break;
         }
         case Simond::BaseModelStorageFailed:
         {
           advanceStream(sizeof(qint32));
-          kDebug() << "Base model storage failed";
+          kWarning() << "Base model storage failed";
           sendScenariosToDelete();
           break;
         }
