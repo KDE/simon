@@ -57,7 +57,7 @@ Q_OBJECT
 public:
   explicit JuliusControl(const QString& username, QObject *parent=0);
 
-  bool initializeRecognition();
+  bool initializeRecognition(const QString& modelPath);
 
   bool startRecognition();
   bool stop();

@@ -23,7 +23,7 @@ kde4_add_executable(simond ${simond_SRCS})
 
 target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${QT_QTNETWORK_LIBRARY} simonrecognizer
 ${QT_QTCORE_LIBRARY} ${QT_QTXML_LIBRARY} simonscenarios simonmodelcompilation simonddatabaseaccess
-simonrecognitionresult simonmodelcompilationadapter simonwav simoncontextadapter)
+simonrecognitionresult simonwav simoncontextadapter)
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} COMPONENT simond )
 

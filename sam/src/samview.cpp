@@ -31,7 +31,6 @@
 #include "corpusinformation.h"
 
 #include <speechmodelcompilation/modelcompilationmanager.h>
-#include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
 
 #include <qwt_legend.h>

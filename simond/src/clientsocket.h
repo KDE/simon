@@ -26,7 +26,6 @@
 #include <QSslSocket>
 #include <QList>
 #include <QHash>
-#include <QMutex>
 #include <QString>
 
 class RecognitionControlFactory;
@@ -52,10 +51,7 @@ class ClientSocket : public QSslSocket
 
     bool synchronisationRunning;
 
-    bool recompileOverride;
-
     QString username;
-    QMutex messageLocker;
 
     DatabaseAccess *databaseAccess;
     RecognitionControlFactory *recognitionControlFactory;
@@ -63,16 +59,9 @@ class ClientSocket : public QSslSocket
     SynchronisationManager *synchronisationManager;
     ContextAdapter *contextAdapter;
 
-    uint newLexiconHash;
-    uint newGrammarHash;
-    uint newVocaHash;
-
     QHash<qint8, WAV *> currentSamples;
 
-    bool shouldRecompileModel();
     void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
-    bool readHashesFromActiveModel();
-    void writeHashesToConfig();
     
     void initializeRecognitionSmartly();
 
@@ -104,9 +93,7 @@ class ClientSocket : public QSslSocket
 
     void sendAvailableModels();
 
-    void startModelCompilation();
-    void startForcedRecompile();
-    void recompileModel();
+    void updateModelCompilationParameters();
 
     void sendModelCompilationLog();
     void slotModelCompilationStatus(QString status, int progressNow, int progressMax);
@@ -114,11 +101,6 @@ class ClientSocket : public QSslSocket
     void slotModelCompilationWordUndefined(const QString& word);
     void slotModelCompilationPhonemeUndefined(const QString& phoneme);
     void slotModelCompilationClassUndefined(const QString& undefClass);
-
-    void slotModelAdaptionComplete();
-    void slotModelAdaptionAborted();
-    void slotModelAdaptionStatus(QString status, int progressNow);
-    void slotModelAdaptionError(QString error);
 
     void synchronisationComplete();
     void synchronisationDone();
@@ -134,8 +116,7 @@ class ClientSocket : public QSslSocket
     void fetchTrainingSample();
     void sendSample(QString sampleName);
 
-    void activeModelCompiled();
-    void activeModelLoadedFromCache();
+    void activeModelCompiled(const QString& path);
     void activeModelCompilationAborted();
 
     void closeRecognitionControl();

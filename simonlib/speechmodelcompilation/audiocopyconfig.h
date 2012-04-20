@@ -22,19 +22,19 @@
 
 #include <QString>
 
-class ModelCompilationManager;
+class ModelCompilerHTK;
 
 class AudioCopyConfig
 {
   private:
     QString m_path;
-    ModelCompilationManager *m_manager;
+    ModelCompilerHTK *m_manager;
   public:
-    AudioCopyConfig(const QString& path, ModelCompilationManager *manager) : m_path(path), m_manager(manager)
+    AudioCopyConfig(const QString& path, ModelCompilerHTK *manager) : m_path(path), m_manager(manager)
     {}
 
     QString path() { return m_path; }
-    ModelCompilationManager* manager() { return m_manager; }
+    ModelCompilerHTK* manager() { return m_manager; }
 };
 
 #endif

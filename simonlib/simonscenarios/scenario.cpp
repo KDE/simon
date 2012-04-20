@@ -232,7 +232,6 @@ QDateTime Scenario::skimDate(QString path)
   int startIndex = line.indexOf('"', index+13);
   int endIndex = line.indexOf('"', startIndex+1);
 
-  kDebug() << "Line: " << line.mid(startIndex, endIndex - startIndex);
   return QDateTime::fromString(line.mid(startIndex+1, endIndex - startIndex), Qt::ISODate);
 }
 

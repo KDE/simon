@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,30 +18,33 @@
  */
 
 
-#ifndef SIMONSSLSOCKET_H
-#define SIMONSSLSOCKET_H
+#ifndef CACHEDMODEL_H
+#define CACHEDMODEL_H
+#include <QDateTime>
 
-#include <QSslSocket>
-
-class ThreadedSSLSocket;
-
-class SimonSSLSocket : public QSslSocket
+class CachedModel
 {
-Q_OBJECT
-
 public:
-  explicit SimonSSLSocket(ThreadedSSLSocket *socket, QObject* parent = 0);
-    
-private slots:
-  void processBuffer();
-  void readFromSocket();
+  enum ModelState {
+    Current=1,
+    ToBeEvaluated=2,
+    Building=3
+  };
   
-private slots:
-  void connectToHostWrapper(const QString& hostName, quint16 port);
-  void connectToHostEncryptedWrapper(const QString& hostName, quint16 port);
-    
+  CachedModel(const QDateTime& compiledDate, ModelState state, uint fingerPrint);
+  
+  QDateTime compiledDate() const { return m_compiledDate; }
+  ModelState state() const { return m_state; }
+  uint srcFingerPrint() const { return m_srcFingerPrint; }
+  
+  void setState(ModelState state) { m_state = state; }
+  void setSrcFingerPrint ( uint fingerprint );
+  void setCompiledDate(const QDateTime& compiled);
+  
 private:
-  ThreadedSSLSocket *socket;
+  QDateTime m_compiledDate;
+  ModelState m_state;
+  uint m_srcFingerPrint;
 };
 
-#endif // SIMONSSLSOCKET_H
+#endif // CACHEDMODEL_H

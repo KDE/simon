@@ -55,8 +55,8 @@ class SIMONMODELMANAGEMENTUI_EXPORT ModelManagerUiProxy : public ModelManager
     bool storeBaseModel(const QDateTime& changedTime, int baseModelType,
       const QByteArray& container);
     bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
-      const QByteArray& treeHed, const QByteArray& languageProfile=QByteArray());
-    bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
+      const QByteArray& languageProfile=QByteArray());
+    bool storeTraining(const QDateTime& changedTime, qint32 sampleRate,
       const QByteArray& prompts);
     bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container);
     bool storeSample(const QByteArray& sample);

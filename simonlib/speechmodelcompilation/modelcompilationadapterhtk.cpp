@@ -33,6 +33,35 @@ ModelCompilationAdapterHTK::ModelCompilationAdapterHTK(const QString& userName, 
 {
 }
 
+bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const QStringList& scenarioPathsIn,
+                                               const QString& promptsIn, const QHash<QString, QString>& args)
+{
+  kDebug() << 0;
+  abort();
+
+  kDebug() << 1;
+  m_adaptionType = adaptionType;
+  m_scenarioPathsIn = scenarioPathsIn;
+  m_promptsPathIn = promptsIn;
+  QString lexiconPath = args.value("lexicon");
+  QString grammarPath = args.value("grammar");
+  QString simpleVocab = args.value("simpleVocab");
+  QString promptsPath = args.value("prompts");
+
+  keepGoing=true;
+
+  kDebug() << 2;
+  emit  status(i18n("Adapting model..."), 0, 100);
+  if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, lexiconPath,
+                  grammarPath, simpleVocab, promptsPath)) {
+    return false;
+  }
+  emit  status(i18n("Model adaption complete"), 100, 100);
+  emit adaptionComplete();
+  
+  kDebug() << 3;
+  return true;
+}
 
 bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
     const QStringList& scenarioPaths, const QString& promptsPathIn,
@@ -40,8 +69,8 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
     const QString& simpleVocabPathOut, const QString& promptsPathOut)
 {
   kDebug() << "ADAPTING model";
-  Vocabulary *mergedVocabulary = new Vocabulary();
-  Grammar *mergedGrammar = new Grammar();
+  QSharedPointer<Vocabulary> mergedVocabulary(new Vocabulary());
+  QSharedPointer<Grammar> mergedGrammar(new Grammar());
 
   //merging scenarios
   foreach (const QString& src, scenarioPaths) {
@@ -67,6 +96,8 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
     mergedVocabulary->addWords(wordsTmp);
     delete s;
   }
+  
+  ADAPT_CHECKPOINT;
 
   kDebug() << "ADAPTING model for real";
   if (!storeModel(adaptionType, lexiconPathOut, simpleVocabPathOut, grammarPathOut,
@@ -75,8 +106,6 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
     return false;
   }
 
-  delete mergedVocabulary;
-  delete mergedGrammar;
   return true;
 }
 
@@ -106,7 +135,7 @@ QByteArray ModelCompilationAdapterHTK::htkify(const QByteArray& in)
 
 bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionType adaptionType,
     const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut,
-    const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn)
+    const QString& promptsPathOut, QSharedPointer<Vocabulary> vocab, QSharedPointer<Grammar> grammar, const QString& promptsPathIn)
 {
   kDebug() << "Output prompts: " << promptsPathOut;
   ///// Prompts ///////////
@@ -125,9 +154,10 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
       }
     }
   }
+  ADAPT_CHECKPOINT;
 
   if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
-    emit status(i18n("Adapting prompts..."), 1);
+    emit status(i18n("Adapting prompts..."), 1, 100);
     QFile promptsFile(promptsPathIn);
 
     if (!promptsFile.open(QIODevice::ReadOnly)) {
@@ -159,12 +189,13 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
     promptsFile.close();
   }
+  ADAPT_CHECKPOINT;
 
   if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
     return true;
 
   /////  Lexicon  ////////////////
-  emit status(i18n("Adapting lexicon..."), 15);
+  emit status(i18n("Adapting lexicon..."), 15, 100);
   QFile lexiconFile(lexiconPathOut);
   QFile simpleVocabFile(simpleVocabPathOut);
   if (!lexiconFile.open(QIODevice::WriteOnly) ||
@@ -172,6 +203,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     emit error(i18n("Failed to adapt lexicon to \"%1\", \"%2\"", lexiconPathOut, simpleVocabPathOut));
     return false;
   }
+  ADAPT_CHECKPOINT;
 
   QTextStream lexicon(&lexiconFile);
   lexicon.setCodec("UTF-8");
@@ -208,11 +240,12 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     lexicon << "SENT-END\t\t[]\t\tsil\n";
     lexicon << "SENT-START\t\t[]\t\tsil\n";
   }
-
   lexiconFile.close();
 
+  ADAPT_CHECKPOINT;
+
   /////  Vocabulary  /////////////
-  emit status(i18n("Adapting vocabulary..."), 35);
+  emit status(i18n("Adapting vocabulary..."), 35, 100);
 
   // find out which words are referenced by training data
   // find out which terminals are referenced by grammar
@@ -267,6 +300,8 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     }
   }
 
+  ADAPT_CHECKPOINT;
+
   foreach (const QString& terminal, grammarTerminals) {
     //only store vocabulary that is referenced by the grammar
     QList<Word*> wordsForTerminal = vocab->findWordsByTerminal(terminal);
@@ -277,8 +312,10 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
   }
   simpleVocabFile.close();
 
+  ADAPT_CHECKPOINT;
+
   ///// Grammar ///////////
-  emit status(i18n("Adapting grammar..."), 75);
+  emit status(i18n("Adapting grammar..."), 75, 100);
   QFile grammarFile(grammarPathOut);
   if (!grammarFile.open(QIODevice::WriteOnly)) {
     emit error(i18n("Failed to adapt grammar to \"%1\"", grammarPathOut));
@@ -289,8 +326,10 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     grammarFile.write("S:NS_B "+structure.toUtf8()+" NS_E\n");
   grammarFile.close();
 
+  ADAPT_CHECKPOINT;
+  
   ///// Prompts (2) //////
-  emit status(i18n("Adapting prompts..."), 90);
+  emit status(i18n("Adapting prompts..."), 90, 100);
   if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
     QFile promptsFile(promptsPathIn);
     QFile promptsFileOut(promptsPathOut);

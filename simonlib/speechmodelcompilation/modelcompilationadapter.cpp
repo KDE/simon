@@ -17,26 +17,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_LANGUAGEDESCRIPTIONCONTAINER_H_E52B05FBE8084EF58429BDC3E05DAD63
-#define SIMON_LANGUAGEDESCRIPTIONCONTAINER_H_E52B05FBE8084EF58429BDC3E05DAD63
+#include "modelcompilationadapter.h"
 
-#include "simonmodelmanagement_export.h"
-#include <QByteArray>
+#include <QTimer>
+#include <KLocale>
+#include <KDebug>
+#include <KGlobal>
+#include <QString>
 
-class MODELMANAGEMENT_EXPORT LanguageDescriptionContainer
+ModelCompilationAdapter::ModelCompilationAdapter(const QString& userName, QObject *parent) : QObject(parent), m_userName(userName)
 {
-  private:
-    QByteArray m_shadowVocab;
-    QByteArray m_treeHed;
-    QByteArray m_languageProfile;
+}
 
-  public:
-    LanguageDescriptionContainer(const QByteArray& shadowVocab, const QByteArray& languageProfile=QByteArray());
-
-    ~LanguageDescriptionContainer();
-
-    QByteArray shadowVocab() { return m_shadowVocab; }
-    QByteArray languageProfile() { return m_languageProfile; }
-
-};
-#endif
+void ModelCompilationAdapter::abort()
+{
+  kDebug() << "Aborting current adaption";
+  keepGoing = false;
+}

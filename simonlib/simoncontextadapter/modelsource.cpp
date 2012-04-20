@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,22 +17,10 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_MODELCOMPILATIONADAPTER_EXPORT_H_D56DDD9BBE944C24A6E2560A75AA881A
-#define SIMON_MODELCOMPILATIONADAPTER_EXPORT_H_D56DDD9BBE944C24A6E2560A75AA881A
 
-// needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include "modelsource.h"
 
-#ifndef MODELCOMPILATIONADAPTER_EXPORT
-# if defined(MAKE_SIMONMODELCOMPILATIONADAPTER_LIB)
-// We are building this library
-#  define MODELCOMPILATIONADAPTER_EXPORT KDE_EXPORT
-# else
-#  define MODELCOMPILATIONADAPTER_EXPORT KDE_IMPORT
-# endif
-#endif
-
-# ifndef MODELCOMPILATIONADAPTER_EXPORT_DEPRECATED
-#  define MODELCOMPILATIONADAPTER_EXPORT_DEPRECATED KDE_DEPRECATED MODELCOMPILATIONADAPTER_EXPORT
-# endif
-#endif
+ModelSource::ModelSource ( const QDateTime& date, int baseModelType, const QString& baseModelPath, const QStringList& scenarioPaths, const QString& promptsPath ) :
+                          m_date(date), m_baseModelType(baseModelType), m_baseModelPath(baseModelPath), m_scenarioPaths(scenarioPaths), m_promptsPath(promptsPath)
+{
+}

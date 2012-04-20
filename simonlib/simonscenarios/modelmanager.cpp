@@ -104,7 +104,7 @@ Model* ModelManager::createBaseModelContainer()
   if (modelType == 2)
     return new Model(modelType, QByteArray());
 
-  QFile baseContainer(KStandardDirs::locate("appdata", "model/base.sbm"));
+  QFile baseContainer(KStandardDirs::locate("appdata", "model/basemodel.sbm"));
 
   if (!baseContainer.open(QIODevice::ReadOnly))
     return 0;
@@ -168,7 +168,7 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleR
 
   SpeechModelManagementConfiguration::setModelSampleRate(sampleRate);
 
-  QFile containerFile(KStandardDirs::locateLocal("appdata", "model/basemodel.sbm"));
+  QFile containerFile(KStandardDirs::locateLocal("appdata", "model/active.sbm"));
 
   if (!containerFile.open(QIODevice::WriteOnly))
     return false;
@@ -208,16 +208,15 @@ QByteArray ModelManager::getSample(const QString& sampleName)
 
 LanguageDescriptionContainer* ModelManager::getLanguageDescriptionContainer()
 {
-  QFile treeHed(KStandardDirs::locate("appdata", "model/tree1.hed"));
   QFile shadowVocab(KStandardDirs::locate("appdata", "shadowvocabulary.xml"));
   QFile languageProfile(KStandardDirs::locate("appdata", "model/languageProfile"));
   
   languageProfile.open(QIODevice::ReadOnly); //optional, so we don't care if that doesn't exist - readAll works fine
 
-  if (!(shadowVocab.open(QIODevice::ReadOnly)) || (!treeHed.open(QIODevice::ReadOnly)))
+  if (!shadowVocab.open(QIODevice::ReadOnly))
     return 0;
 
-  return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll(), languageProfile.readAll());
+  return new LanguageDescriptionContainer(shadowVocab.readAll(), languageProfile.readAll());
 }
 
 
@@ -233,7 +232,7 @@ QDateTime ModelManager::getLanguageDescriptionModifiedTime()
 
 
 bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
-    const QByteArray& treeHed, const QByteArray& languageProfile)
+    const QByteArray& languageProfile)
 {
   ShadowVocabulary *vocab = ScenarioManager::getInstance()->getShadowVocabulary();
 
@@ -250,13 +249,6 @@ bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, QByteA
 
   if (!vocab->reset(vocabDev) || !vocab->save()) return false;
   delete vocabDev;
-
-  QFile treeHedF(KStandardDirs::locateLocal("appdata", "model/tree1.hed"));
-  if (!treeHedF.open(QIODevice::WriteOnly))
-    return false;
-
-  treeHedF.write(treeHed);
-  treeHedF.close();
 
   QFile languageProfileF(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
   if (!languageProfileF.open(QIODevice::WriteOnly))
@@ -277,14 +269,12 @@ TrainingContainer* ModelManager::getTrainingContainer()
 {
   qint32 modelSampleRate=SpeechModelManagementConfiguration::modelSampleRate();
 
-  QFile wavConfig(KStandardDirs::locate("appdata", "model/wav_config"));
   QFile prompts(KStandardDirs::locate("appdata", "model/prompts"));
 
-  if ((!wavConfig.open(QIODevice::ReadOnly)) || (!prompts.open(QIODevice::ReadOnly)))
+  if (!prompts.open(QIODevice::ReadOnly))
     return 0;
 
-  return new TrainingContainer(modelSampleRate, wavConfig.readAll(),
-    prompts.readAll());
+  return new TrainingContainer(modelSampleRate, prompts.readAll());
 }
 
 
@@ -299,20 +289,10 @@ QDateTime ModelManager::getTrainingModifiedTime()
 }
 
 
-bool ModelManager::storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
-const QByteArray& prompts)
+bool ModelManager::storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& prompts)
 {
   if (!TrainingManager::getInstance()->refreshTraining(sampleRate, prompts))
     return false;
-
-  if (!wavConfig.isEmpty()) {
-    QFile wavConfigF(KStandardDirs::locateLocal("appdata", "model/wav_config"));
-    if (!wavConfigF.open(QIODevice::WriteOnly))
-      return false;
-
-    wavConfigF.write(wavConfig);
-    wavConfigF.close();
-  }
 
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
@@ -372,16 +352,14 @@ void ModelManager::touchLanguageDescription()
 bool ModelManager::hasTraining()
 {
   if (getTrainingModifiedTime().isNull()) return false;
-  return (QFile::exists(KStandardDirs::locate("appdata", "model/wav_config")) &&
-    QFile::exists(KStandardDirs::locate("appdata", "model/prompts")));
+  return (QFile::exists(KStandardDirs::locate("appdata", "model/prompts")));
 }
 
 
 bool ModelManager::hasLanguageDescription()
 {
   if (getLanguageDescriptionModifiedTime().isNull()) return false;
-  return (QFile::exists(KStandardDirs::locate("appdata", "model/tree1.hed")) &&
-    QFile::exists(KStandardDirs::locate("appdata", "model/shadow.voca")));
+  return (QFile::exists(KStandardDirs::locate("appdata", "model/shadow.voca")));
 }
 
 

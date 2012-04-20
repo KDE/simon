@@ -59,7 +59,7 @@ class RecognitionControl : public QThread
     bool shouldTryToStart(const QDateTime& activeModelDate);
     explicit RecognitionControl(const QString& username, QObject *parent=0);
 
-    virtual bool initializeRecognition()=0;
+    virtual bool initializeRecognition(const QString& modelPath)=0;
     virtual bool isInitialized()=0;
     
     virtual bool startRecognition()=0;

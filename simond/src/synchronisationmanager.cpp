@@ -45,7 +45,6 @@ srcContainerTempPath(KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().
 {
 }
 
-
 void SynchronisationManager::buildMissingScenarios(const QStringList& remoteScenarioList)
 {
   missingScenarios.clear();
@@ -277,14 +276,16 @@ QDateTime SynchronisationManager::getBaseModelDate()
   return cGroup.readEntry("BaseModelDate", QDateTime());
 }
 
+QString SynchronisationManager::getBaseModelPath()
+{
+  return KStandardDirs::locateLocal("appdata", "models/"+username+"/active/base.sbm");
+}
 
 Model* SynchronisationManager::getBaseModel()
 {
   if (username.isEmpty()) return 0;
 
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-
-  QString configPath = dirPath+"activerc";
+  QString configPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/activerc");
   KConfig config( configPath, KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
 
@@ -292,7 +293,7 @@ Model* SynchronisationManager::getBaseModel()
   qint32 baseModelType = cGroup.readEntry("BaseModelType").toInt(&ok);
   if (!ok) return 0;
 
-  QFile containerFile(dirPath+"base.sbm");
+  QFile containerFile(getBaseModelPath());
 
   if (!containerFile.open(QIODevice::ReadOnly)) {
     kDebug() << "Failed to gather base model";
@@ -355,9 +356,15 @@ bool SynchronisationManager::storeBaseModel(const QDateTime& changedDate, int mo
 }
 
 
-void SynchronisationManager::modelCompiled()
+void SynchronisationManager::modelCompiled(const QString& path)
 {
   QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  
+  QString activePath = dirPath+"active.sbm";
+  if (QFile::exists(activePath))
+    QFile::remove(activePath);
+  QFile::copy(path, activePath);
+  
   KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("Date", KDateTime::currentUtcDateTime().dateTime());
@@ -394,8 +401,7 @@ bool SynchronisationManager::hasLanguageDescription(const QString& modelPath)
 
   QDir dir(modelPath);
   QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
-  if (entries.contains("shadowlexicon.xml") &&
-    entries.contains("tree1.hed"))
+  if (entries.contains("shadowlexicon.xml"))
     return true;
   else return false;
 }
@@ -406,37 +412,29 @@ LanguageDescriptionContainer* SynchronisationManager::getLanguageDescription()
   QString path = getLatestLanguageDescriptionPath();
   if (path.isNull()) return 0;
 
-  QFile treeHed(path+"tree1.hed");
   QFile shadowVocab(path+"shadowlexicon.xml");
   QFile languageProfile(path+"languageProfile"); //optional
 
-  if ((!treeHed.open(QIODevice::ReadOnly))
-    || (!shadowVocab.open(QIODevice::ReadOnly)))
+  if (!shadowVocab.open(QIODevice::ReadOnly))
     return 0;
 
-  return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll(), languageProfile.readAll());
+  return new LanguageDescriptionContainer(shadowVocab.readAll(), languageProfile.readAll());
 }
 
 
-bool SynchronisationManager::storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab,
-const QByteArray& treeHed, const QByteArray& languageProfile)
+bool SynchronisationManager::storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab, const QByteArray& languageProfile)
 {
   if (username.isEmpty()) return false;
-
-  QFile treeHedFile(srcContainerTempPath+"tree1.hed");
   QFile shadowVocabFile(srcContainerTempPath+"shadowlexicon.xml");
   QFile languageProfileFile(srcContainerTempPath+"languageProfile");
 
-  if ((!treeHedFile.open(QIODevice::WriteOnly))
-    || (!shadowVocabFile.open(QIODevice::WriteOnly))
-    || (!languageProfileFile.open(QIODevice::WriteOnly)))
+  if ((!shadowVocabFile.open(QIODevice::WriteOnly))
+      || (!languageProfileFile.open(QIODevice::WriteOnly)))
     return 0;
 
-  treeHedFile.write(treeHed);
   shadowVocabFile.write(shadowVocab);
   languageProfileFile.write(languageProfile);
 
-  treeHedFile.close();
   shadowVocabFile.close();
   languageProfileFile.close();
 
@@ -493,22 +491,15 @@ TrainingContainer* SynchronisationManager::getTraining()
   KConfigGroup cGroup(&config, "");
   qint32 sampleRate = cGroup.readEntry("SampleRate", 16000);
 
-  QFile wavConfig(path+"wav_config");
-
-  if (!wavConfig.open(QIODevice::ReadOnly))
-    return 0;
-
   QFile prompts(path+"prompts");
   if (!prompts.open(QIODevice::ReadOnly))
     return 0;
 
-  return new TrainingContainer(sampleRate, wavConfig.readAll(),
-    prompts.readAll());
+  return new TrainingContainer(sampleRate, prompts.readAll());
 }
 
 
-bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& wavConfig,
-const QByteArray& prompts)
+bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& prompts)
 {
   if (username.isEmpty()) return false;
 
@@ -520,15 +511,11 @@ const QByteArray& prompts)
 
   QFile promptsFile(srcContainerTempPath+"prompts");
 
-  QFile wavConfigFile(srcContainerTempPath+"wav_config");
-
-  if ((!wavConfigFile.open(QIODevice::WriteOnly)) || (!promptsFile.open(QIODevice::WriteOnly)))
+  if (!promptsFile.open(QIODevice::WriteOnly))
     return false;
 
-  wavConfigFile.write(wavConfig);
   promptsFile.write(prompts);
 
-  wavConfigFile.close();
   promptsFile.close();
 
   KConfig configg( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
@@ -655,22 +642,10 @@ QDateTime SynchronisationManager::getModelSrcDate()
 
 bool SynchronisationManager::hasModelSrc()
 {
-  //language description needed for tree.hed
   int baseModelType = getBaseModelType();
   return ((getLatestSelectedScenarioList().count() > 0) &&
-    ((baseModelType != 2) || (hasTraining() && hasLanguageDescription())));
+    ((baseModelType != 2) || hasTraining()));
 }
-
-
-bool SynchronisationManager::shouldRecompileModel()
-{
-  kDebug() << getActiveModelDate();
-  kDebug() << getCompileModelSrcDate();
-  kDebug() << hasModelSrc();
-  return ((getActiveModelDate() < getCompileModelSrcDate())
-    && (hasModelSrc()));
-}
-
 
 bool SynchronisationManager::startSynchronisation()
 {
@@ -712,13 +687,6 @@ bool SynchronisationManager::cleanTemp()
 {
   return removeDirectory(srcContainerTempPath) && QDir().mkpath(srcContainerTempPath)
     && removeExcessModelBackups();
-  /*	bool allRemoved = removeAllFiles(srcContainerTempPath+QDir::separator()+"scenarios");
-    kDebug() << allRemoved;
-
-    allRemoved = removeAllFiles(srcContainerTempPath) && allRemoved;
-    kDebug() << allRemoved;
-
-    return (allRemoved && removeExcessModelBackups());*/
 }
 
 
@@ -726,7 +694,6 @@ bool SynchronisationManager::abort()
 {
   return cleanTemp();
 }
-
 
 QDateTime SynchronisationManager::getSelectedScenarioListModifiedDateFromPath(const QString& path)
 {
@@ -746,10 +713,6 @@ bool SynchronisationManager::commit()
 
   QDateTime newSrcContainerTime = qMax(cGroup.readEntry("LanguageDescriptionDate", QDateTime()),
     cGroup.readEntry("TrainingDate", QDateTime()));
-  //kDebug() << "LanguageDescriptionDate:" << cGroup.readEntry("LanguageDescriptionDate", QDateTime());
-  //kDebug() << "TrainingDate:" << cGroup.readEntry("TrainingDate", QDateTime());
-  //kDebug() << newSrcContainerTime;
-  //kDebug() << "SelectedScenarioListModifiedDate:" << getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath+QDir::separator()+"simonscenariosrc");
 
   //***************
   newSrcContainerTime = qMax(newSrcContainerTime, getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath+QDir::separator()+"simonscenariosrc"));
@@ -837,8 +800,7 @@ QMap<QDateTime, QString> SynchronisationManager::getLanguageDescriptions()
   QMap<QDateTime, QString>::iterator i = models.begin();
   while (i != models.end()) {
     QString path = i.value()+QDir::separator();
-    if (!QFile::exists(path+"tree1.hed")||
-    !QFile::exists(path+"shadowlexicon.xml")) {
+    if (!QFile::exists(path+"shadowlexicon.xml")) {
       //does not contain a valid language description
       i = models.erase(i);
     } else
@@ -981,9 +943,8 @@ bool SynchronisationManager::copyTrainingData(const QString& sourcePath, const Q
 bool SynchronisationManager::copyLanguageDescription(const QString& sourcePath, const QString& targetPath)
 {
   bool allFine=true;
-  if (!QFile::exists(targetPath+"shadowlexicon.xml") || !QFile::exists(targetPath+"tree1.hed")) {
+  if (!QFile::exists(targetPath+"shadowlexicon.xml")) {
     if (!QFile::copy(sourcePath+"shadowlexicon.xml", targetPath+"shadowlexicon.xml")) allFine=false;
-    if (!QFile::copy(sourcePath+"tree1.hed", targetPath+"tree1.hed")) allFine=false;
     if (QFile::exists(sourcePath+"languageProfile") && 
 	    !QFile::copy(sourcePath+"languageProfile", targetPath+"languageProfile")) allFine=false;
 
@@ -999,7 +960,6 @@ bool SynchronisationManager::copyLanguageDescription(const QString& sourcePath, 
 
 bool SynchronisationManager::copyScenarios(const QString& source, const QString& dest, bool touchAccessTime)
 {
-  kDebug() << "Copying scenarios from " << source << " to " << dest;
   QDir scenarioDir(source+QDir::separator()+"scenarios");
 
   //problems with source or dest?
@@ -1166,7 +1126,6 @@ bool SynchronisationManager::removeDirectory(const QString& dir)
   }
 
   bool rmdir = directory.rmdir(dir);
-  kDebug() << "RmDir: " << rmdir;
   return rmdir;
 }
 
@@ -1202,14 +1161,12 @@ QString SynchronisationManager::getLatestSelectedScenarioListPath()
   return dir+QDir::separator()+"simonscenariosrc";
 }
 
-
 QStringList SynchronisationManager::getLatestSelectedScenarioList()
 {
   KConfig config( getLatestSelectedScenarioListPath(), KConfig::SimpleConfig );
   KConfigGroup cg(&config, "");
   return cg.readEntry("SelectedScenarios", QStringList());
 }
-
 
 bool SynchronisationManager::storeSelectedScenarioList(const QDateTime& modifiedDate, const QStringList& scenarioIds)
 {
@@ -1223,7 +1180,6 @@ bool SynchronisationManager::storeSelectedScenarioList(const QDateTime& modified
   return true;
 }
 
-
 QString SynchronisationManager::getLatestPath(const QMap<QDateTime, QString>& models)
 {
   QList<QDateTime> dates = models.keys();
@@ -1231,7 +1187,6 @@ QString SynchronisationManager::getLatestPath(const QMap<QDateTime, QString>& mo
 
   return models.value(dates.at(dates.count()-1));
 }
-
 
 QStringList SynchronisationManager::getScenarioPaths()
 {
@@ -1243,7 +1198,6 @@ QStringList SynchronisationManager::getScenarioPaths()
   return out;
 }
 
-
 QString SynchronisationManager::getPromptsPath()
 {
   QString dir = getLatestPath(getTrainingDatas());
@@ -1251,25 +1205,6 @@ QString SynchronisationManager::getPromptsPath()
 
   return dir+"prompts";
 }
-
-
-QString SynchronisationManager::getTreeHedPath()
-{
-  QString dir = getLatestPath(getLanguageDescriptions());
-  if (dir.isNull()) return QString();
-
-  return dir+"tree1.hed";
-}
-
-
-QString SynchronisationManager::getWavConfigPath()
-{
-  QString dir = getLatestPath(getTrainingDatas());
-  if (dir.isNull()) return QString();
-
-  return dir+"wav_config";
-}
-
 
 SynchronisationManager::~SynchronisationManager()
 {

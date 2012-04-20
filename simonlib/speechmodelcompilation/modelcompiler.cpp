@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,25 +17,4 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_REESTIMATIONCONFIG_H_18BCB183592A48D3962815FFDEA7C214
-#define SIMON_REESTIMATIONCONFIG_H_18BCB183592A48D3962815FFDEA7C214
-
-#include <QString>
-
-class ModelCompilerHTK;
-
-class ReestimationConfig
-{
-  private:
-    QString m_command;
-    ModelCompilerHTK *m_manager;
-  public:
-    ReestimationConfig(const QString& command, ModelCompilerHTK *manager) : m_command(command), m_manager(manager)
-    {}
-
-    QString command() { return m_command; }
-    ModelCompilerHTK* manager() { return m_manager; }
-};
-
-#endif
-
+#include "modelcompiler.h"

@@ -63,13 +63,11 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
     LanguageDescriptionContainer* getLanguageDescriptionContainer();
     QDateTime getLanguageDescriptionModifiedTime();
     void touchLanguageDescription();
-    virtual bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
-      const QByteArray& treeHed, const QByteArray& languageProfile=QByteArray());
+    virtual bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, const QByteArray& languageProfile);
 
     TrainingContainer* getTrainingContainer();
     QDateTime getTrainingModifiedTime();
-    virtual bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
-      const QByteArray& prompts);
+    virtual bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& prompts);
 
     Model* createActiveContainer();
     qint32 getActiveModelSampleRate();

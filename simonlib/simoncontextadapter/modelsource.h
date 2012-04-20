@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,30 +18,30 @@
  */
 
 
-#ifndef SIMONSSLSOCKET_H
-#define SIMONSSLSOCKET_H
+#ifndef MODELSOURCE_H
+#define MODELSOURCE_H
 
-#include <QSslSocket>
+#include <QString>
+#include <QStringList>
+#include <QDateTime>
 
-class ThreadedSSLSocket;
-
-class SimonSSLSocket : public QSslSocket
+class ModelSource
 {
-Q_OBJECT
-
 public:
-  explicit SimonSSLSocket(ThreadedSSLSocket *socket, QObject* parent = 0);
-    
-private slots:
-  void processBuffer();
-  void readFromSocket();
+  ModelSource(const QDateTime& date, int baseModelType, const QString& baseModelPath, const QStringList& scenarioPaths, const QString& promptsPath);
   
-private slots:
-  void connectToHostWrapper(const QString& hostName, quint16 port);
-  void connectToHostEncryptedWrapper(const QString& hostName, quint16 port);
-    
+  int baseModelType() { return m_baseModelType; }
+  QString baseModelPath() { return m_baseModelPath; }
+  QStringList scenarioPaths() { return m_scenarioPaths; }
+  QString promptsPath() { return m_promptsPath; }
+  QDateTime date() { return m_date; }
+  
 private:
-  ThreadedSSLSocket *socket;
+  QDateTime m_date;
+  int m_baseModelType;
+  QString m_baseModelPath;
+  QStringList m_scenarioPaths;
+  QString m_promptsPath;
 };
 
-#endif // SIMONSSLSOCKET_H
+#endif // MODELSOURCE_H

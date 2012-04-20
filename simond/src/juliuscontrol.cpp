@@ -37,6 +37,9 @@
  */
 
 #include "juliuscontrol.h"
+#include <simonrecognizer/recognitionconfiguration.h>
+#include <simonrecognizer/juliusrecognitionconfiguration.h>
+
 #include <QFile>
 #include <KLocalizedString>
 #include <KStandardDirs>
@@ -44,9 +47,8 @@
 #include <KDebug>
 #include <KConfigGroup>
 #include <KMimeType>
+#include <KTar>
 #include <locale.h>
-#include <simonrecognizer/recognitionconfiguration.h>
-#include <simonrecognizer/juliusrecognitionconfiguration.h>
 
 JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent),
 recog(new JuliusRecognizer),
@@ -54,6 +56,43 @@ stopping(false),
 m_initialized(false),
 shouldBeRunning(false)
 {
+}
+
+bool JuliusControl::initializeRecognition(const QString& modelPath)
+{
+  kDebug() << "Initializing";
+  if (isInitialized()) {
+    kDebug() << "Initializing recognition that was already initialized; uninitializing...";
+    uninitialize();
+    m_startRequests = 0;
+  }
+  
+  QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/julius/");
+  if (QFile::exists(path+"hmmdefs") && !QFile::remove(path+"hmmdefs")) return false;
+  if (QFile::exists(path+"tiedlist") && !QFile::remove(path+"tiedlist")) return false;
+  if (QFile::exists(path+"model.dfa") && !QFile::remove(path+"model.dfa")) return false;
+  if (QFile::exists(path+"model.dict") && !QFile::remove(path+"model.dict")) return false;
+  
+  
+  KTar tar(modelPath, "application/x-gzip");
+  if (!tar.open(QIODevice::ReadOnly)) return false;
+  
+  const KArchiveDirectory *d = tar.directory();
+  if (!d) return false;
+  
+  foreach (const QString& file, (QStringList() << "hmmdefs" << "tiedlist" << "model.dfa" << "model.dict")) {
+    const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry(file));
+    if (!entry) return false;
+                        
+    QFile f(path+file);
+    if (!f.open(QIODevice::WriteOnly)) return false;
+    f.write(entry->data());
+    f.close();
+  }
+
+  kDebug() << "Emitting recognition ready";
+  emit recognitionReady();
+  return true;
 }
 
 RecognitionConfiguration* JuliusControl::setupConfig()
@@ -72,21 +111,6 @@ RecognitionConfiguration* JuliusControl::setupConfig()
 
   return new JuliusRecognitionConfiguration(jConfPath, gram, hmmDefs, tiedList);
 }
-
-bool JuliusControl::initializeRecognition()
-{
-  kDebug() << "Initializing";
-  if (isInitialized()) {
-    kDebug() << "Initializing recognition that was already initialized; uninitializing...";
-    uninitialize();
-    m_startRequests = 0;
-  }
-
-  kDebug() << "Emitting recognition ready";
-  emit recognitionReady();
-  return true;
-}
-
 
 bool JuliusControl::startRecognition()
 {

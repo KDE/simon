@@ -20,10 +20,13 @@
 #ifndef SIMON_MODELCOMPILATIONADAPTER_H_166F0999AD87463EA4DE9A335364D7A6
 #define SIMON_MODELCOMPILATIONADAPTER_H_166F0999AD87463EA4DE9A335364D7A6
 
-#include <QThread>
+#include <QObject>
 #include <QProcess>
 #include <QString>
-#include "simonmodelcompilationadapter_export.h"
+#include <QHash>
+#include "simonmodelcompilationmanagement_export.h"
+
+#define ADAPT_CHECKPOINT if (!keepGoing) { emit adaptionAborted(); return false; }
 
 /**
  *	@class ModelAdapter
@@ -33,18 +36,17 @@
  *	@date 20.12.2009
  *	@author Peter Grasch
  */
-class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
+class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
 {
   Q_OBJECT
-    signals:
-  /**
-   * Max progress: 100
-   */
-  void status(QString, int progressNow);
-  void error(QString);
+  
+  signals:
+    void status(QString, int progressNow, int progressMax);
+    void error(QString);
 
-  void adaptionComplete();
-  void adaptionAborted();
+    void adaptionComplete();
+    void adaptionAborted();
+    
   public:
     enum AdaptionType
     {
@@ -53,35 +55,21 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
       AdaptAcousticModel=2,
       AdaptIndependently=4
     };
-
-    virtual int maxProgress();
+    
     explicit ModelCompilationAdapter(const QString& userName, QObject *parent=0);
 
-    virtual bool startAdaption(AdaptionType adaptionType, const QString& lexiconPathOut,
-      const QString& grammarPathOut, const QString& simpleVocabPathOut,
-      const QString& promptsPathOut, const QStringList& scenarioPathsIn,
-      const QString& promptsIn);
+    QString getStatus() const { return currentStatus; }
 
-    virtual bool adaptModel(AdaptionType adaptionType, const QStringList& scenarioPaths,
-      const QString& promptsPathIn, const QString& lexiconPathOut,
-      const QString& grammarPathOut, const QString& simpleVocabPathOut,
-      const QString& promptsPathOut)=0;
-
-    QString getStatus() { return currentStatus; }
-
-    virtual ~ModelCompilationAdapter();
-
-    QString lexiconPath() { return m_lexiconPathOut; }
-    QString grammarPath() { return m_grammarPathOut; }
-    QString simpleVocabPath() { return m_simpleVocabPathOut; }
-    QString promptsPath() { return m_promptsPathOut; }
-
-    int wordCount() { return m_wordCount; }
-    int pronunciationCount() { return m_pronunciationCount; }
-    int sampleCount() { return m_sampleCount; }
+    int wordCount() const { return m_wordCount; }
+    int pronunciationCount() const { return m_pronunciationCount; }
+    int sampleCount() const { return m_sampleCount; }
 
     void clearPoisonedPhonemes() { poisonedPhonemes.clear(); }
     void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
+    
+    
+    virtual bool startAdaption(AdaptionType adaptionType, const QStringList& scenarioPathsIn,
+                               const QString& promptsIn, const QHash<QString, QString>& args)=0;
 
     void abort();
 
@@ -98,11 +86,5 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
     int m_sampleCount;
 
     QStringList poisonedPhonemes;
-
-    //output
-    QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
-
-    void run();
-
 };
 #endif

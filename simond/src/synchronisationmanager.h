@@ -45,8 +45,7 @@ class SynchronisationManager : public QObject
 
     QString getLatestPath(const QMap<QDateTime, QString>& models);
 
-    QMap<QDateTime, QString> getTrainingDatas();  //prompts, wavconfig
-                                                  //treehed
+    QMap<QDateTime, QString> getTrainingDatas();
     QMap<QDateTime, QString> getLanguageDescriptions();
     QMap<QDateTime, QString> getSelectedScenarioLists();
 
@@ -72,6 +71,7 @@ class SynchronisationManager : public QObject
 
     QDateTime getBaseModelDate();
     Model* getBaseModel();
+    QString getBaseModelPath();
     int getBaseModelType();
     bool storeBaseModel(const QDateTime& changedDate, int baseModelType, const QByteArray& container);
 
@@ -79,19 +79,16 @@ class SynchronisationManager : public QObject
     QDateTime getCompileModelSrcDate();
     bool hasModelSrc();
 
-    void setCurrentSrcContainerTime(const QDateTime& time);
-
     QDateTime getLanguageDescriptionDate(QString path=QString());
     bool hasLanguageDescription(const QString& modelPath=QString());
     LanguageDescriptionContainer* getLanguageDescription();
     bool storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab,
-      const QByteArray& treeHed, const QByteArray& languageProfile=QByteArray());
+      const QByteArray& languageProfile=QByteArray());
 
     QDateTime getTrainingDate(QString path=QString());
     bool hasTraining(const QString& modelPath=QString());
     TrainingContainer* getTraining();
-    bool storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& wavConfig,
-      const QByteArray& prompts);
+    bool storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& prompts);
 
     void buildMissingScenarios(const QStringList& remoteScenarioList);
     QByteArray getScenario(const QString& scenarioId);
@@ -103,14 +100,11 @@ class SynchronisationManager : public QObject
     void couldntRetreiveScenario();
     void scenarioUpToDate();
 
-    bool shouldRecompileModel();
-
     void deletedScenarios(const QStringList& ids, const QList<QDateTime>& scenarioTimes);
 
     bool hasScenarioRc(const QString& modelPath=QString());
     QDateTime selectedScenariosDate();
     QDateTime getSelectedScenarioListModifiedDateFromPath(const QString& path);
-    QStringList getSelectedScenarioList();
     bool storeSelectedScenarioList(const QDateTime& modifiedDate, const QStringList& scenarioIds);
 
     void buildMissingSamples();
@@ -120,15 +114,13 @@ class SynchronisationManager : public QObject
 
     QStringList getScenarioPaths();
     QString getPromptsPath();
-    QString getTreeHedPath();
-    QString getWavConfigPath();
 
     bool startSynchronisation();
     bool abort();
     bool commit();
     bool removeExcessModelBackups();
 
-    void modelCompiled();
+    void modelCompiled(const QString& path);
     bool createTrainingData(const QString& dest);
     bool copyTrainingData(const QString& source, const QString& dest);
     bool copyLanguageDescription(const QString& source, const QString& dest);

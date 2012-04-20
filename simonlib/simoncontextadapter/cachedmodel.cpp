@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,26 +17,18 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_LANGUAGEDESCRIPTIONCONTAINER_H_E52B05FBE8084EF58429BDC3E05DAD63
-#define SIMON_LANGUAGEDESCRIPTIONCONTAINER_H_E52B05FBE8084EF58429BDC3E05DAD63
 
-#include "simonmodelmanagement_export.h"
-#include <QByteArray>
+#include "cachedmodel.h"
 
-class MODELMANAGEMENT_EXPORT LanguageDescriptionContainer
+CachedModel::CachedModel ( const QDateTime& compiledDate, CachedModel::ModelState state, uint fingerPrint ) : m_compiledDate(compiledDate), m_state(state), m_srcFingerPrint(fingerPrint)
 {
-  private:
-    QByteArray m_shadowVocab;
-    QByteArray m_treeHed;
-    QByteArray m_languageProfile;
+}
 
-  public:
-    LanguageDescriptionContainer(const QByteArray& shadowVocab, const QByteArray& languageProfile=QByteArray());
-
-    ~LanguageDescriptionContainer();
-
-    QByteArray shadowVocab() { return m_shadowVocab; }
-    QByteArray languageProfile() { return m_languageProfile; }
-
-};
-#endif
+void CachedModel::setSrcFingerPrint ( uint fingerprint )
+{
+  m_srcFingerPrint = fingerprint;
+}
+void CachedModel::setCompiledDate ( const QDateTime& compiled )
+{
+  m_compiledDate = compiled;
+}
