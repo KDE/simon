@@ -35,9 +35,7 @@
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     QObject(parent),
-    m_currentSource(0),
-    m_requestedSituation(0),
-    m_currentSituation(0)
+    m_currentSource(0)
 {
   m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
   
@@ -101,9 +99,9 @@ void ContextAdapter::storeCachedModels()
 void ContextAdapter::safelyAddContextFreeModelToCache()
 {
   kDebug() << "Checking for context-free model";
-  if (!m_modelCache.contains(Situation(QStringList(), QStringList()))) {
+  if (!m_modelCache.contains(Situation())) {
     kDebug() << "Adding context-free model";
-    introduceNewModel(QStringList(), QStringList());
+    introduceNewModel(Situation());
   } else
     kDebug() << "Context free model already there";
 }
@@ -129,28 +127,20 @@ bool ContextAdapter::isCompiling() const
 
 void ContextAdapter::updateDeactivatedScenarios(const QStringList& deactivatedScenarios)
 {
-  Situation *oldSit = m_requestedSituation;
-  m_requestedSituation = new Situation(deactivatedScenarios, m_deactivatedSampleGroups);
-  m_deactivatedScenarios = deactivatedScenarios;
-  delete oldSit;
-  
-   buildCurrentSituation();
+  m_requestedSituation.setDeactivatedScenarios(deactivatedScenarios);
+  buildCurrentSituation();
 }
 
 void ContextAdapter::updateAcousticModelSampleGroups(const QStringList& deactivatedSampleGroups)
 {
-  Situation *oldSit = m_requestedSituation;
-  m_requestedSituation = new Situation(m_deactivatedScenarios, deactivatedSampleGroups);
-  m_deactivatedSampleGroups = deactivatedSampleGroups;
-  delete oldSit;
-  
+  m_requestedSituation.setDeactivatedSampleGroups(deactivatedSampleGroups);
   buildCurrentSituation();
 }
 
 void ContextAdapter::buildCurrentSituation()
 {
   m_compileLock.lock();
-  CachedModel *model = m_modelCache.value(Situation(m_deactivatedScenarios, m_deactivatedSampleGroups), 0);
+  CachedModel *model = m_modelCache.value(m_requestedSituation, 0);
   if (model) {
     if ((model->state() == CachedModel::Current) || (model->state() == CachedModel::Building)) {
       //we are golden
@@ -159,16 +149,16 @@ void ContextAdapter::buildCurrentSituation()
     }
     model->setState(CachedModel::ToBeEvaluated); //mark it to be build
   } else
-    introduceNewModel(m_deactivatedScenarios, m_deactivatedSampleGroups);
+    introduceNewModel(m_requestedSituation);
   m_compileLock.unlock();
   
   buildNext();
 }
-void ContextAdapter::introduceNewModel ( const QStringList& deactivatedScenarios, const QStringList& deactivatedSampleGroups )
-{
-  m_modelCache.insert(Situation(deactivatedScenarios, deactivatedSampleGroups), new CachedModel(QDateTime(), CachedModel::ToBeEvaluated, -1));
-}
 
+void ContextAdapter::introduceNewModel ( const Situation& situation )
+{
+  m_modelCache.insert(situation, new CachedModel(QDateTime(), CachedModel::ToBeEvaluated, -1));
+}
 
 void ContextAdapter::buildNext()
 {
@@ -270,6 +260,7 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
   
   if (announce)
     emit modelCompiled(path);
+  emit newModelReady();
 }
 
 void ContextAdapter::slotModelCompilationAborted()
@@ -287,4 +278,17 @@ void ContextAdapter::slotModelCompilationAborted()
   storeCachedModels();  
   m_compileLock.unlock();
   emit modelCompilationAborted();
+}
+
+QString ContextAdapter::currentModelPath() const
+{
+  //try to find models for:
+  // 1. the currently requested situation
+  // 2. if that's not availble let's see if we have a general model
+  foreach (const Situation& s, QList<Situation>() << m_requestedSituation << Situation()) 
+    if (m_modelCache.contains(s) && (m_modelCache.value(s)->state() == CachedModel::Current))
+      return m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
+    
+  // 3. if both of those faile, we have no useful model
+  return QString();
 }

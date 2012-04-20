@@ -91,6 +91,8 @@ public:
     void abort();
     
     bool isCompiling() const;
+    
+    QString currentModelPath() const;
 
 private:
     QMutex m_compileLock;
@@ -100,11 +102,7 @@ private:
     
     ModelSource *m_currentSource;
     
-    QStringList m_deactivatedScenarios;
-    QStringList m_deactivatedSampleGroups;
-    
-    Situation *m_requestedSituation;
-    Situation *m_currentSituation;
+    Situation m_requestedSituation;
     QHash<Situation, CachedModel*> m_modelCache;
     
     void readCachedModels();
@@ -113,7 +111,7 @@ private:
     void buildCurrentSituation();
     
     void buildNext();
-    void introduceNewModel(const QStringList& deactivatedScenarios, const QStringList& deactivatedSampleGroups);
+    void introduceNewModel(const Situation& situation);
     
     void safelyAddContextFreeModelToCache();
       
@@ -124,7 +122,8 @@ private slots:
 
 signals:
     //relaying signals
-    void modelCompiled(const QString& path);
+    void newModelReady();                    /// Always emitted when a model generation / evaluation process is completed
+    void modelCompiled(const QString& path); /// only emitted, when the context-free model has changed
     void modelCompilationAborted();
     void status(QString mesg, int now, int max);
     void error(QString);

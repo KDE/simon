@@ -50,29 +50,6 @@ bool RecognitionControl::recognitionRunning()
   return (m_startRequests > 0);
 }
 
-void RecognitionControl::touchLastSuccessfulStart()
-{
-  m_lastSuccessfulStart = KDateTime::currentUtcDateTime().dateTime();
-}
-
-void RecognitionControl::touchLastFailedStart()
-{
-  m_lastFailedStart = KDateTime::currentUtcDateTime().dateTime();
-}
-
-bool RecognitionControl::shouldTryToStart(const QDateTime& activeModelDate)
-{
-  QDateTime utcActiveModelDate(activeModelDate);
-  utcActiveModelDate.setTimeSpec(Qt::UTC);
-  kWarning() << "Last successful start: " << m_lastSuccessfulStart;
-  kWarning() << "Last failed start: " << m_lastFailedStart << m_lastFailedStart.isNull();
-  kWarning() << "Active model: " << utcActiveModelDate << (utcActiveModelDate > m_lastSuccessfulStart);
-  bool start = ((m_lastFailedStart.isNull() || (utcActiveModelDate > m_lastFailedStart)) && 
-                (m_lastSuccessfulStart.isNull() || (utcActiveModelDate > m_lastSuccessfulStart)));
-  kWarning() << "Start: " << start;
-  return start;
-}
-
 
 RecognitionControl::~RecognitionControl()
 {

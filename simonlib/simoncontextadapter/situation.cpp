@@ -21,6 +21,10 @@
 #include "situation.h"
 #include <QHash>
 
+Situation::Situation()
+{
+}
+
 Situation::Situation ( const QStringList& deactivatedScenarios, const QStringList& deactivatedSampleGroups ) : 
       m_deactivatedScenarios(deactivatedScenarios), m_deactivatedSampleGroups(deactivatedSampleGroups)
 {

@@ -60,6 +60,9 @@ shouldBeRunning(false)
 
 bool JuliusControl::initializeRecognition(const QString& modelPath)
 {
+  if (modelPath == m_lastModel) return true; //already initialized / tried to initialize with this exact model
+  
+  m_lastModel = modelPath;
   kDebug() << "Initializing";
   if (isInitialized()) {
     kDebug() << "Initializing recognition that was already initialized; uninitializing...";
@@ -72,6 +75,7 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
   if (QFile::exists(path+"tiedlist") && !QFile::remove(path+"tiedlist")) return false;
   if (QFile::exists(path+"model.dfa") && !QFile::remove(path+"model.dfa")) return false;
   if (QFile::exists(path+"model.dict") && !QFile::remove(path+"model.dict")) return false;
+  if (QFile::exists(path+"julius.jconf") && !QFile::remove(path+"julius.jconf")) return false;
   
   
   KTar tar(modelPath, "application/x-gzip");
@@ -80,7 +84,7 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
   const KArchiveDirectory *d = tar.directory();
   if (!d) return false;
   
-  foreach (const QString& file, (QStringList() << "hmmdefs" << "tiedlist" << "model.dfa" << "model.dict")) {
+  foreach (const QString& file, (QStringList() << "hmmdefs" << "tiedlist" << "model.dfa" << "model.dict" << "julius.jconf")) {
     const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry(file));
     if (!entry) return false;
                         
@@ -97,17 +101,11 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
 
 RecognitionConfiguration* JuliusControl::setupConfig()
 {
-  if (!QFile::exists(KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf"))) {
-    if (!QFile::copy(KStandardDirs::locate("appdata", "default.jconf"),
-      KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf")))
-      return 0;
-  }
-
-  QString dirPath =  KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-  QByteArray jConfPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf").toUtf8();
-  QByteArray gram = dirPath.toUtf8()+"model";
-  QByteArray tiedList = dirPath.toUtf8()+"tiedlist";
-  QByteArray hmmDefs = dirPath.toUtf8()+"hmmdefs";
+  QByteArray dirPath = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/julius/").toUtf8();
+  QByteArray jConfPath = dirPath+"julius.jconf";
+  QByteArray gram = dirPath+"model";
+  QByteArray tiedList = dirPath+"tiedlist";
+  QByteArray hmmDefs = dirPath+"hmmdefs";
 
   return new JuliusRecognitionConfiguration(jConfPath, gram, hmmDefs, tiedList);
 }
@@ -153,8 +151,6 @@ void JuliusControl::run()
     emitError(i18n("Failed to setup recognition: %1", recog->getLastError()));
     return;
   }
-  
-  touchLastSuccessfulStart();
 
   m_initialized=true;
   

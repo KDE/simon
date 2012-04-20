@@ -395,12 +395,17 @@ bool ModelCompilerHTK::pack ( const QString& targetArchive )
   QByteArray metadata = doc.toByteArray();
   archive.writeFile("metadata.xml", "nobody", "nobody", metadata.constData(), metadata.length());
   
+  QString jconfFile = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/julius.jconf"); 
+  if (!QFile::exists(jconfFile))
+    jconfFile = KStandardDirs::locate("appdata", "default.jconf");
+  
   archive.addLocalFile(tempDir+"hmmout/hmmdefs", "hmmdefs");
   archive.addLocalFile(tempDir+"tiedlist", "tiedlist");
   archive.addLocalFile(tempDir+"hmmout/macros", "macros");
   archive.addLocalFile(tempDir+"stats", "stats");
   archive.addLocalFile(tempDir+"model.dict", "model.dict");
   archive.addLocalFile(tempDir+"model.dfa", "model.dfa");
+  archive.addLocalFile(jconfFile, "julius.jconf");
   
   return archive.close();
 }

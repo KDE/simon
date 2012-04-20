@@ -168,6 +168,8 @@ void ClientSocket::processRequest()
           
           connect(contextAdapter, SIGNAL(modelCompiled(QString)),
                   this, SLOT(activeModelCompiled(QString)));
+          connect(contextAdapter, SIGNAL(newModelReady()),
+                  this, SLOT(initializeRecognitionSmartly()));
           connect(contextAdapter, SIGNAL(modelCompilationAborted()),
                   this, SLOT(activeModelCompilationAborted()));
           connect(contextAdapter, SIGNAL(status(QString,int,int)),
@@ -1181,7 +1183,7 @@ void ClientSocket::synchronisationDone()
   Q_ASSERT(recognitionControl);
 
   updateModelCompilationParameters();
-//   initializeRecognitionSmartly();
+  initializeRecognitionSmartly();
 }
 
 void ClientSocket::updateModelCompilationParameters()
@@ -1485,14 +1487,9 @@ void ClientSocket::initializeRecognitionSmartly()
 {
   kDebug() << "Recognition is initialized: " << recognitionControl->isInitialized();
   kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
-//   kDebug() << "Modelcompilationmanager is running: : " << contextAdapter->managerIsRunning();
 
-  bool hasActiveModelForCurrentContext = false; //TODO: check if we have the required model for the currrent context
-  QDateTime activeModelDate; //TODO: find date of the model for this context
-  QString modelPath; //FIXME
-  
-  if (hasActiveModelForCurrentContext && recognitionControl->shouldTryToStart(activeModelDate)) {
-    kDebug() << "Initialize recognition after synchronization";
-    recognitionControl->initializeRecognition(modelPath);
-  }
+  QString modelPath = contextAdapter->currentModelPath();
+  if (modelPath.isNull())
+    return;
+  recognitionControl->initializeRecognition(modelPath);
 }

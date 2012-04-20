@@ -28,10 +28,13 @@ class SIMONCONTEXTADAPTER_EXPORT Situation
 {
 public:
   Situation(const QStringList& deactivatedScenarios, const QStringList& deactivatedSampleGroups);
+  Situation();
   
   QString id() const;
   QStringList deactivatedScenarios() const { return m_deactivatedScenarios; }
   QStringList deactivatedSampleGroups() const { return m_deactivatedSampleGroups; }
+  void setDeactivatedScenarios(const QStringList& deactivatedScenarios) { m_deactivatedScenarios = deactivatedScenarios; }
+  void setDeactivatedSampleGroups(const QStringList& deactivatedSampleGroups) { m_deactivatedSampleGroups = deactivatedSampleGroups; }
   
   static QString id(const QStringList& deactivatedScenarios, const QStringList& deactivatedSampleGroups);
   
