@@ -301,7 +301,6 @@ bool ALSABackend::stop()
     return true;
 
   Q_ASSERT(m_loop); //should be here if we are active
-  Q_ASSERT(m_handle); 
 
   m_loop->stop();
   m_loop->wait();

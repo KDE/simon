@@ -476,8 +476,7 @@ bool SynchronisationManager::hasTraining(const QString& modelPath)
   QDir dir(modelPath);
 
   QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
-  if (entries.contains("wav_config") &&
-    entries.contains("trainingrc") &&
+  if (entries.contains("trainingrc") &&
     entries.contains("prompts"))
     return true;
   else return false;
@@ -501,6 +500,7 @@ TrainingContainer* SynchronisationManager::getTraining()
 
 bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& prompts)
 {
+  kDebug() << "Storing training from " << changedDate;
   if (username.isEmpty()) return false;
 
   QString configPath = srcContainerTempPath+"trainingrc";
@@ -510,6 +510,7 @@ bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 
   config.sync();
 
   QFile promptsFile(srcContainerTempPath+"prompts");
+  kDebug() << "Temp path: " << srcContainerTempPath;
 
   if (!promptsFile.open(QIODevice::WriteOnly))
     return false;
@@ -782,8 +783,7 @@ QMap<QDateTime, QString> SynchronisationManager::getTrainingDatas()
   while (i != models.end()) {
     QString path = i.value()+QDir::separator();
     if (!QFile::exists(path+"trainingrc") ||
-      !QFile::exists(path+"prompts") ||
-    !QFile::exists(path+"wav_config")) {
+      !QFile::exists(path+"prompts")) {
       i = models.erase(i);
     } else
         ++i;
@@ -909,9 +909,6 @@ bool SynchronisationManager::createTrainingData(const QString& dest)
   QFile trainingrcF(dest+"trainingrc");
   allFine &= trainingrcF.open(QIODevice::WriteOnly);
   trainingrcF.close();
-  QFile wavConfigF(dest+"wav_config");
-  allFine &= wavConfigF.open(QIODevice::WriteOnly);
-  wavConfigF.close();
 
   KConfig config( dest+"modelsrcrc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
@@ -925,10 +922,9 @@ bool SynchronisationManager::createTrainingData(const QString& dest)
 bool SynchronisationManager::copyTrainingData(const QString& sourcePath, const QString& targetPath)
 {
   bool allFine=true;
-  if (!QFile::exists(targetPath+"prompts") || !QFile::exists(targetPath+"trainingrc") || !QFile::exists(targetPath+"wav_config")) {
+  if (!QFile::exists(targetPath+"prompts") || !QFile::exists(targetPath+"trainingrc")) {
     if (!QFile::copy(sourcePath+"prompts", targetPath+"prompts")) allFine=false;
     if (!QFile::copy(sourcePath+"trainingrc", targetPath+"trainingrc")) allFine=false;
-    if (!QFile::copy(sourcePath+"wav_config", targetPath+"wav_config")) allFine=false;
 
     KConfig config( targetPath+"modelsrcrc", KConfig::SimpleConfig );
     KConfigGroup cGroup(&config, "");

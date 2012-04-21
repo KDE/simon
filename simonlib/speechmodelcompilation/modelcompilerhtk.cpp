@@ -471,9 +471,13 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
   }
   
   kDebug() << "Unpacking";
-  if (!unpack(baseModelPath, tempDir+"base/")) {
-    analyseError(i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
-    return false;
+  if ((compilationType &  ModelCompilerHTK::AdaptSpeechModel) ||
+      !(compilationType &  ModelCompilerHTK::CompileSpeechModel)) {
+    //base model needed - unpack it and fail if its not here
+    if ( !unpack(baseModelPath, tempDir+"base/")) {
+      analyseError(i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
+      return false;
+    }
   }
   
   baseHmmDefsPath = KStandardDirs::locateLocal("tmp", tempDir+ "base/hmmdefs");

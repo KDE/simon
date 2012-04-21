@@ -39,6 +39,7 @@
 #include <simonrecognitionresult/recognitionresult.h>
 
 #include <stdio.h>
+#include <unistd.h>
 
 #include <QByteArray>
 #include <QTimer>
@@ -142,19 +143,24 @@ void RecognitionControl::startPrivateSimond()
     localSimond->waitForFinished();
   }
 
-  if (RecognitionConfiguration::stopLocalSimond())
+  if (RecognitionConfiguration::stopLocalSimond()) {
     localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
-  else
+    localSimond->waitForStarted();
+  } else {
     localSimond->startDetached('"'+KStandardDirs::findExe("simond")+'"');
-
+    sleep(1); //"wait for started"
+  }
 }
 
 void RecognitionControl::startup()
 {
+  kDebug() << "Starting up";
+  RecognitionConfiguration::self()->readConfig();
+  
   if (RecognitionConfiguration::startLocalSimond()) {
     if (RecognitionConfiguration::stopLocalSimond())
       startPrivateSimond();
-    QTimer::singleShot(1000, this, SLOT(actOnAutoConnect()));
+    QTimer::singleShot(300, this, SLOT(actOnAutoConnect()));
   }
   else
     actOnAutoConnect();
@@ -163,6 +169,7 @@ void RecognitionControl::startup()
 
 void RecognitionControl::actOnAutoConnect()
 {
+  kDebug() << "Acting on auto connect: " << RecognitionConfiguration::juliusdAutoConnect();
   if ( RecognitionConfiguration::juliusdAutoConnect() )
   {
     if ((RecognitionConfiguration::startLocalSimond()) &&

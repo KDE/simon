@@ -22,16 +22,15 @@
 #include "situation.h"
 #include "cachedmodel.h"
 #include "modelsource.h"
+#include <speechmodelcompilation/modelcompilationmanager.h>
+#include <speechmodelcompilation/modelcompilationmanagerhtk.h>
 #include <QDir>
 #include <QSettings>
 #include <KStandardDirs>
 #include <KDebug>
-#include <QTextStream>
-#include <qvarlengtharray.h>
+#include <KAboutData>
 #include <KDateTime>
 #include <KConfigGroup>
-#include <speechmodelcompilation/modelcompilationmanager.h>
-#include <speechmodelcompilation/modelcompilationmanagerhtk.h>
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     QObject(parent),
@@ -170,33 +169,71 @@ void ContextAdapter::buildNext()
   kDebug() << "Locking compile lock. Models to check: " << m_modelCache.count();
   m_compileLock.lock();
   
-  //TODO: prioritize "active" model (the one without context)
-  for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
-    if (j.value()->state() == CachedModel::ToBeEvaluated) {
-      kDebug() << "Building model " << j.key().id();
-      
-      //build this
-      //apply situation information on input before calling startModelCompilation
-      QStringList scenarioPaths;
-      QStringList deactivatedScenarios = j.key().deactivatedScenarios();
-      foreach (const QString& path, m_currentSource->scenarioPaths())
-        if (!deactivatedScenarios.contains(QFileInfo(path).fileName()))
-          scenarioPaths.append(path);
-        
-      //TODO: sample groups
-      
-      kDebug() << "Starting model compilation";
-      m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, m_currentSource->promptsPath());
-      j.value()->setState(CachedModel::Building);
-      break;
-    } else
-      kDebug() << "Model is fine: " << j.key().id();
+  Q_ASSERT(m_modelCache.value(Situation())); //should be here at any time
+  
+  if (m_modelCache.value(Situation())->state() == CachedModel::ToBeEvaluated) {
+    //prioritize context free model
+    adaptAndBuild(Situation(), m_modelCache.value(Situation()));
+  } else {
+    for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
+      if (j.value()->state() == CachedModel::ToBeEvaluated) {
+        kDebug() << "Building model " << j.key().id();
+        adaptAndBuild(j.key(), j.value());
+        break;
+      } else
+        kDebug() << "Model is fine: " << j.key().id();
+    }
   }
   
-  kDebug() << "Storing cached models";
   storeCachedModels();
   
   m_compileLock.unlock();
+}
+void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* model )
+{
+  //apply situation information on input before calling startModelCompilation
+  QStringList scenarioPaths = adaptScenarios(m_currentSource->scenarioPaths(), situation.deactivatedScenarios());
+  QString adaptedPromptsPath = adaptPrompts(m_currentSource->promptsPath(), situation.deactivatedSampleGroups());
+  
+  kDebug() << "Starting model compilation";
+  model->setState(CachedModel::Building);
+  m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, adaptedPromptsPath);
+}
+
+
+QStringList ContextAdapter::adaptScenarios ( const QStringList& scenarioPaths, const QStringList& deactivatedScenarios )
+{
+  QStringList scenarioPathsOut;
+  foreach (const QString& path, scenarioPaths)
+    if (!deactivatedScenarios.contains(QFileInfo(path).fileName()))
+      scenarioPathsOut.append(path);
+  return scenarioPathsOut;
+}
+
+
+QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QStringList& deactivatedSampleGroups )
+{
+  QString outPath = KStandardDirs::locateLocal("tmp", 
+                                            KGlobal::mainComponent().aboutData()->appName()+'/'+m_username+"/context/prompts_"+
+                                            QString::number(qHash(deactivatedSampleGroups.join(";"))));
+  QFile outFile(outPath);
+  QFile promptsFile(promptsPath);
+  if (!outFile.open(QIODevice::WriteOnly) || !promptsFile.open(QIODevice::ReadOnly))
+    return QString();
+  while (!promptsFile.atEnd()) {
+    QByteArray line = promptsFile.readLine();
+    QList<QByteArray> tokens = line.split('"');
+    if (tokens.count() == 1) {
+      outFile.write(line);
+    } else {
+      if (tokens.count() != 3) continue; //malformed line
+
+      if (!deactivatedSampleGroups.contains(QString::fromUtf8(tokens[1])))
+        outFile.write(tokens[0]+' '+tokens[2]);
+    }
+  }
+  kDebug() << "Serialized prompts to: " << outPath;
+  return outPath;
 }
 
 void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDate, int baseModelType, const QString& baseModelPath, const QStringList& scenarioPaths, const QString& promptsPathIn )

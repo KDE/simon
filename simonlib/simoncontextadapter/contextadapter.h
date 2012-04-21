@@ -110,6 +110,10 @@ private:
     void introduceNewModel(const Situation& situation);
     
     void safelyAddContextFreeModelToCache();
+    QStringList adaptScenarios(const QStringList& scenarioPaths, const QStringList& deactivatedScenarios);
+    QString adaptPrompts(const QString& promptsPath, const QStringList& deactivatedSampleGroups);
+    
+    void adaptAndBuild(const Situation& situation, CachedModel* model);
       
 
 private slots:
