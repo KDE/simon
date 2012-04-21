@@ -371,7 +371,7 @@ bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compila
                  scriptBasePrefix);
 }
 
-bool ModelCompilerHTK::pack ( const QString& targetArchive )
+bool ModelCompilerHTK::pack ( const QString& targetArchive, const QString& name )
 {
   KTar archive(targetArchive, "application/x-gzip");
   if (!archive.open(QIODevice::WriteOnly)) return false;
@@ -380,10 +380,10 @@ bool ModelCompilerHTK::pack ( const QString& targetArchive )
   QDomElement rootElem = doc.createElement("baseModel");
   
   QDomElement nameElem = doc.createElement("name");
-  nameElem.appendChild(doc.createTextNode(QString("Unnamed model from user %1").arg(userName)));
+  nameElem.appendChild(doc.createTextNode(name));
   
   QDomElement creationDateElem = doc.createElement("creationDate");
-  creationDateElem.appendChild(doc.createTextNode(QDate::currentDate().toString(Qt::ISODate)));
+  creationDateElem.appendChild(doc.createTextNode(QDateTime::currentDateTime().toString(Qt::ISODate)));
   
   QDomElement typeElem = doc.createElement("type");
   typeElem.appendChild(doc.createTextNode("HTK"));
@@ -470,6 +470,7 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
     return false;
   }
   
+  QString modelName = i18nc("%1 is username", "Simond: %1", userName);
   kDebug() << "Unpacking";
   if ((compilationType &  ModelCompilerHTK::AdaptSpeechModel) ||
       !(compilationType &  ModelCompilerHTK::CompileSpeechModel)) {
@@ -526,7 +527,7 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
   
   if (!keepGoing) return false;
                        
-  pack(destinationPath);
+  pack(destinationPath, QString("Unnamed model from user %1").arg(userName));
 
   emit status(i18nc("Finished the model compilation", "Finished"), 2600, 2600);
   emit modelCompiled();

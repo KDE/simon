@@ -19,11 +19,13 @@
 
 
 #include "welcomepage.h"
+#include <simonmodelmanagementui/modelmanageruiproxy.h>
 #include "version.h"
 
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
+#include <simonscenarios/model.h>
 #include <simonactions/actionmanager.h>
 #include <simonsound/volumewidget.h>
 
@@ -60,6 +62,11 @@ WelcomePage::WelcomePage(QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon(
   
   displayScenarios();
   displayAcousticModelInfo();
+  
+  ui.pbAcousticConfiguration->setIcon(KIcon("view-pim-news"));
+  ui.pbAudioConfiguration->setIcon(KIcon("preferences-desktop-sound"));
+  ui.pbScenarioConfiguration->setIcon(KIcon("view-list-tree"));
+  ui.pbEditScenario->setIcon(KIcon("document-edit"));
 }
 
 void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitionResult, bool accepted )
@@ -75,7 +82,36 @@ void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitio
 void WelcomePage::displayAcousticModelInfo()
 {
   //TODO
-  ui.lbBaseModelDescription->setText(/*i18n(*/"I have no idea what kind of model you are using but if I did, I'd display it here.")/*)*/;
+  QString description;
+  Model* baseModel = ModelManagerUiProxy::getInstance()->createBaseModelContainer();
+  switch (baseModel->baseModelType()) {
+    case 2:
+      description = i18n("You are using a user generated acoustic model.\nRecognition rate can be improved with training.");
+      break;
+    case 1:
+      description = i18n("You are using an adapted base model.\nRecognition rate depends on the base model but can be improved with training.");
+      break;
+    case 0:
+      description = i18n("You are using a static base model.\nRecognition rate depends solely on the base model.");
+      break;
+  }
+  if (!baseModel->container().isNull()) {
+    //we have a base model
+    description += "\n\n";
+    description += i18nc("%1 is model name, %2 is creation date", "Base model: %1 (Created: %2)", 
+                        baseModel->modelName(), baseModel->modelCreationDate().toString(Qt::LocalDate));
+  }
+  delete baseModel;
+  Model *activeModel = ModelManagerUiProxy::getInstance()->createActiveContainer();
+  if (!activeModel->container().isNull()) {
+    //we have an active model
+    description += "\n\n";
+    description += i18nc("%1 is model name, %2 is creation date", "Active model: %1 (Created: %2)", 
+                        activeModel->modelName(), activeModel->modelCreationDate().toString(Qt::LocalDate));
+  }
+  delete activeModel;
+  
+  ui.lbBaseModelDescription->setText(description);
 }
 
 QString WelcomePage::getCurrentlySelectedScenarioId()

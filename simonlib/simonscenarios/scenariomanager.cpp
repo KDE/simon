@@ -552,9 +552,9 @@ QString ScenarioManager::baseModelName()
   return SpeechModelManagementConfiguration::baseModelName();
 }
 
-QDate ScenarioManager::baseModelCreationDate()
+QDateTime ScenarioManager::baseModelCreationDate()
 {
-  return SpeechModelManagementConfiguration::baseModelDate().date();
+  return SpeechModelManagementConfiguration::baseModelDate();
 }
 
 void ScenarioManager::setBaseModelType(int type)
@@ -565,11 +565,11 @@ void ScenarioManager::setBaseModelType(int type)
 }
 
 
-void ScenarioManager::setBaseModel(int modelType, const QString& name, const QDate& creationDate)
+void ScenarioManager::setBaseModel(int modelType, const QString& name, const QDateTime& creationDate)
 {
   SpeechModelManagementConfiguration::setModelType(modelType);
   SpeechModelManagementConfiguration::setBaseModelName(name);
-  SpeechModelManagementConfiguration::setBaseModelDate(QDateTime(creationDate));
+  SpeechModelManagementConfiguration::setBaseModelDate(creationDate);
   SpeechModelManagementConfiguration::self()->writeConfig();
   touchBaseModelAccessTime();
 }

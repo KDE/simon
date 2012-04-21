@@ -25,9 +25,6 @@
   <property name="accessibleDescription">
    <string>simon Main Window</string>
   </property>
-  <property name="toolButtonStyle">
-   <enum>Qt::ToolButtonTextUnderIcon</enum>
-  </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs</set>
   </property>

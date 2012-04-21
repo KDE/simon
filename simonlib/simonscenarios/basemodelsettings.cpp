@@ -60,7 +60,7 @@ QString BaseModelSettings::buildModel()
   nameElem.appendChild(doc.createTextNode(ui.leName->text()));
   
   QDomElement creationDateElem = doc.createElement("creationDate");
-  creationDateElem.appendChild(doc.createTextNode(ui.dcbCreationDate->date().toString(Qt::ISODate)));
+  creationDateElem.appendChild(doc.createTextNode(ui.dcbCreationDate->dateTime().toString(Qt::ISODate)));
   
   QDomElement typeElem = doc.createElement("type");
   typeElem.appendChild(doc.createTextNode("HTK")); //htk specific... duh

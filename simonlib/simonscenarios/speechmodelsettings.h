@@ -25,7 +25,7 @@
 #include "ui_modelsettingsdlg.h"
 
 #include <QVariantList>
-#include <QDate>
+#include <QDateTime>
 
 #include <KCModule>
 
@@ -65,7 +65,7 @@ class SpeechModelSettings : public KCModule
     Ui::ModelDlg ui;
     QString m_baseModelToImport;
     QString m_baseModelName;
-    QDate m_baseModelDate;
+    QDateTime m_baseModelDate;
     QString m_languageProfileToImport;
 
     int m_storedModelType;

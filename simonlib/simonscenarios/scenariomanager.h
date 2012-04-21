@@ -118,11 +118,11 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     int baseModelType();
     void setBaseModelType(int);
     QString baseModelName();
-    QDate baseModelCreationDate();
+    QDateTime baseModelCreationDate();
     
     QString languageProfileName();
     void setLanguageProfileName(const QString& name);
-    void setBaseModel(int modelType, const QString& name, const QDate& creationDate);
+    void setBaseModel(int modelType, const QString& name, const QDateTime& creationDate);
 
     void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands);
 

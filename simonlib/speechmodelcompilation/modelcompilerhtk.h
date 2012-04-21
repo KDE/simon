@@ -59,7 +59,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
       const QString& scriptBasePrefix);
     
     bool unpack(const QString& archive, const QString& targetDir);
-    bool pack(const QString& targetArchive);
+    bool pack( const QString& targetArchive, const QString& name );
 
   private:
     bool keepGoing;

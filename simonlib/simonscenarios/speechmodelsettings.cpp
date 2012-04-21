@@ -20,6 +20,7 @@
 #include "speechmodelsettings.h"
 #include <simonscenarios/scenariomanager.h>
 #include "basemodelsettings.h"
+#include "model.h"
 #include "speechmodelmanagementconfiguration.h"
 
 #include <QDomDocument>
@@ -120,28 +121,8 @@ void SpeechModelSettings::updateBaseModelDescription ( const QString& path )
 {
   KTar tar(path, "application/x-gzip");
   QString description = i18n("No description of model available");
-  if (tar.open(QIODevice::ReadOnly)) {
-    const KArchiveDirectory *d = tar.directory();
-    if (d) {
-      const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry("metadata.xml"));
-      if (entry) {
-        QDomDocument doc;
-        doc.setContent(entry->data());
-        QDomElement rootElem = doc.documentElement();
-        QDomElement nameElem = rootElem.firstChildElement("name");
-        QDomElement dateElem = rootElem.firstChildElement("creationDate");
-        if (!nameElem.isNull() && !dateElem.isNull()) {
-          m_baseModelDate = QDate::fromString(dateElem.text(), Qt::ISODate);
-          m_baseModelName = nameElem.text();
-          description = baseModelDescription();
-        }
-         else kDebug() << "Elements 0";
-      }
-        else kDebug() << "Entry invalid";
-    }
-        else kDebug() << "Directory invalid";
-  }
-        else kDebug() << "Couldn't open tar";
+  Model::parseContainer(tar, m_baseModelDate, m_baseModelName);
+  description = baseModelDescription();
   
   ui.lbModelName->setText(description);
 }
@@ -237,7 +218,7 @@ void SpeechModelSettings::save()
 void SpeechModelSettings::defaults()
 {
   QString noName = i18nc("Filename of a not yet selected base model", "None");
-  ScenarioManager::getInstance()->setBaseModel(2, noName, QDate());
+  ScenarioManager::getInstance()->setBaseModel(2, noName, QDateTime());
   
   ScenarioManager::getInstance()->setLanguageProfileName(noName);
 

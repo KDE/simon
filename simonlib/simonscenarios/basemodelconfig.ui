@@ -76,9 +76,6 @@
    <item row="5" column="1">
     <widget class="KUrlRequester" name="urStats"/>
    </item>
-   <item row="1" column="1">
-    <widget class="KDateComboBox" name="dcbCreationDate"/>
-   </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
@@ -86,23 +83,21 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="1">
+    <widget class="KDateTimeWidget" name="dcbCreationDate"/>
+   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KDateComboBox</class>
-   <extends>KComboBox</extends>
-   <header>kdatecombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KDateTimeWidget</class>
+   <extends>QWidget</extends>
+   <header>kdatetimewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="simon" version="7">
-	<ToolBar name="mainToolBar" >
-		<text>Main actions</text>
-		<Action name="connectActivate" />
-		<Separator/>
-		<Action name="compileModel" />
-	</ToolBar>
-	
+<gui name="simon" version="8">
 	<MenuBar>
 		<Menu name="file">
 			<Action name="connect" />
@@ -15,7 +8,7 @@
 			<Action name="sampleShare" />
 		</Menu>
 		<Menu name="commands">
-			<text>Commands</text>
+			<text>Actions</text>
 			<Action name="compileModel" />
 			<Action name="activate" />
 			<ActionList name="command_actionlist" />
