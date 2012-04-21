@@ -30,14 +30,12 @@ class RecognitionControlFactory
 private:
   QMultiHash<QString, RecognitionControl*> m_recognitionControls;
   bool m_isolatedMode;
-
-public: // TODO: friend for SimondControl
-  void setIsolatedMode(bool isolatedMode);
   
 public:
   RecognitionControlFactory();
   RecognitionControl* recognitionControl(const QString& user);
   void closeRecognitionControl(const QString& user, RecognitionControl* r);
+  void setIsolatedMode(bool isolatedMode);
   
 };
 

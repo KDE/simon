@@ -34,8 +34,6 @@ void RecognitionControlFactory::setIsolatedMode(bool isolatedMode)
 
 RecognitionControl* RecognitionControlFactory::recognitionControl(const QString& user)
 {
-//   return new JuliusControl(user);
-//   //TODO
   RecognitionControl *r = NULL;
   if (m_isolatedMode || m_recognitionControls.count(user) == 0) {
     kDebug() << "RecognitionControls: generate new RC...";
@@ -53,9 +51,6 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
 
 void RecognitionControlFactory::closeRecognitionControl(const QString& user, RecognitionControl* r)
 {
-//   delete r;
-//   return;
-//   //TODO
   r->pop();
   if (r->isEmpty()) {
     m_recognitionControls.remove(user, r);

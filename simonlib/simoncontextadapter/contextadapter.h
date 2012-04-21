@@ -79,10 +79,6 @@ public:
                                           const QStringList& scenarioPaths, const QString& promptsPathIn);
 
     //wrapper functions
-    //TODO: deprecate
-    int wordCount() { return m_modelCompilationManager->wordCount(); }
-    int pronunciationCount() { return m_modelCompilationManager->pronunciationCount(); }
-    int sampleCount() { return m_modelCompilationManager->sampleCount(); }
     
     bool hasBuildLog() { return m_modelCompilationManager->hasBuildLog(); }
     QString getGraphicBuildLog() { return m_modelCompilationManager->getGraphicBuildLog(); }

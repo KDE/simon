@@ -413,7 +413,6 @@ void ClientSocket::processRequest()
 
     case Simond::DeactivatedScenarioList:
     {
-      kDebug() << "Received DEACTIVATED scenario list";
       waitForMessage(sizeof(qint64), stream, msg);
       qint64 length;
       stream >> length;
@@ -421,7 +420,7 @@ void ClientSocket::processRequest()
       QStringList scenarioIds;
       stream >> scenarioIds;
 
-      kDebug() << "DEACTIVATED Scenario list: " << scenarioIds;
+      kDebug() << "Received list of scenarios to deactivate: " << scenarioIds;
 
       contextAdapter->updateDeactivatedScenarios(scenarioIds);
 

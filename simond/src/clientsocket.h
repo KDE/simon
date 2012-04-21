@@ -63,7 +63,6 @@ class ClientSocket : public QSslSocket
 
     void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
     
-    void initializeRecognitionSmartly();
 
   public slots:
     void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
@@ -120,6 +119,7 @@ class ClientSocket : public QSslSocket
     void activeModelCompilationAborted();
 
     void closeRecognitionControl();
+    void initializeRecognitionSmartly();
 
   public:
     ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, RecognitionControlFactory *factory, bool keepSamples, const QHostAddress& writeAccessHost, QObject *parent=0);

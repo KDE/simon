@@ -1849,7 +1849,7 @@ bool ModelCompilerHTK::staticAdaption()
   if (!prepareGlobalConfig()) 
     return false;
   
-  //TODO: Parelellize if possible
+  //This could possibly be paralellized
   if (!execute('"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+baseMacrosPath+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+baseHmmDefsPath+"\" \""+baseTiedlistPath+"\""))
     return false;
 

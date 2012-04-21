@@ -139,12 +139,15 @@ void ContextAdapter::updateAcousticModelSampleGroups(const QStringList& deactiva
 
 void ContextAdapter::buildCurrentSituation()
 {
+  kDebug() << "Building current situation: " << m_requestedSituation.deactivatedSampleGroups() << m_requestedSituation.deactivatedScenarios();
   m_compileLock.lock();
   CachedModel *model = m_modelCache.value(m_requestedSituation, 0);
   if (model) {
+    kDebug() << "Model already exists and has state: " << model->state();
     if ((model->state() == CachedModel::Current) || (model->state() == CachedModel::Building)) {
       //we are golden
       m_compileLock.unlock();
+      if (model->state() == CachedModel::Current) emit newModelReady();
       return;
     }
     model->setState(CachedModel::ToBeEvaluated); //mark it to be build
@@ -173,10 +176,17 @@ void ContextAdapter::buildNext()
       kDebug() << "Building model " << j.key().id();
       
       //build this
-      //TODO: apply situation information on input before calling startModelCompilation
+      //apply situation information on input before calling startModelCompilation
+      QStringList scenarioPaths;
+      QStringList deactivatedScenarios = j.key().deactivatedScenarios();
+      foreach (const QString& path, m_currentSource->scenarioPaths())
+        if (!deactivatedScenarios.contains(QFileInfo(path).fileName()))
+          scenarioPaths.append(path);
+        
+      //TODO: sample groups
       
       kDebug() << "Starting model compilation";
-      m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), m_currentSource->scenarioPaths(), m_currentSource->promptsPath());
+      m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, m_currentSource->promptsPath());
       j.value()->setState(CachedModel::Building);
       break;
     } else
@@ -186,7 +196,6 @@ void ContextAdapter::buildNext()
   kDebug() << "Storing cached models";
   storeCachedModels();
   
-  kDebug() << "Unlocking compile lock";
   m_compileLock.unlock();
 }
 
@@ -194,27 +203,22 @@ void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDa
 {
   kDebug() << "Updating model parameters";
   m_compileLock.lock();
-  kDebug() << "Aborting";
   m_modelCompilationManager->abort();
   
-  kDebug() << "After aborting";
   ModelSource *src = m_currentSource;
   m_currentSource = new ModelSource(modelDate, baseModelType, baseModelPath, scenarioPaths, promptsPathIn);
   delete src;
   
-  kDebug() << "Set source";
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
     if (j.value()->compiledDate() < modelDate) {
       j.value()->setState(CachedModel::ToBeEvaluated);
       break;
     }
   }
-  kDebug() << "After loop";
+  safelyAddContextFreeModelToCache(); //it might have been removed when canceling the compilation e.g. because of missing prompts / grammar
   storeCachedModels();
-  kDebug() << "After store";
   m_compileLock.unlock();
   
-  kDebug() << "Building next";
   buildNext();
 }
 
@@ -266,9 +270,6 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
 void ContextAdapter::slotModelCompilationAborted()
 {
   m_compileLock.lock();
-  //TODO: account for all of the possible reasons for compilation aborting.  There is probably no model or a partially complete model in the active folder...
-  //the most common reason for this seems to be when there is no grammar (all scenarios disabled due to context), so this should probably trigger a silent deactivation of recognition.
-
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
     if (j.value()->state() == CachedModel::Building) {
       m_modelCache.erase(j);
