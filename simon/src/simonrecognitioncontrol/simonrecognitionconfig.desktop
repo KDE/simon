@@ -23,6 +23,7 @@ Name[pt_BR]=Reconhecimento
 Name[sv]=Igenkänning
 Name[uk]=Розпізнавання
 Name[x-test]=xxRecognitionxx
+Name[zh_CN]=识别
 
 Comment=Recognition settings
 Comment[de]=Erkennungseinstellungen
@@ -32,6 +33,7 @@ Comment[pt_BR]=Configurações do reconhecimento
 Comment[sv]=Igenkänningsinställningar
 Comment[uk]=Параметри розпізнавання
 Comment[x-test]=xxRecognition settingsxx
+Comment[zh_CN]=识别设置
 #Name=Server
 #Name[de]=Server
 #Name[fr]=Serveur

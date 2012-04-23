@@ -24,6 +24,7 @@ Name[pt_BR]=Sincronização
 Name[sv]=Synkronisering
 Name[uk]=Синхронізація
 Name[x-test]=xxSynchronizationxx
+Name[zh_CN]=同步
 
 Comment=Configuration of the model synchronization
 Comment[de]=Konfiguration des Modellabgleichs

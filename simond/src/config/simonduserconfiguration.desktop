@@ -27,6 +27,7 @@ Name[sk]=Užívateľ
 Name[sv]=Användare
 Name[uk]=Користувач
 Name[x-test]=xxUserxx
+Name[zh_CN]=用户
 
 Comment=Userconfiguration
 Comment[de]=Benutzerkonfiguration
@@ -36,4 +37,5 @@ Comment[pt_BR]=Configuração do usuário
 Comment[sv]=Användarinställning
 Comment[uk]=Налаштування користувача
 Comment[x-test]=xxUserconfigurationxx
+Comment[zh_CN]=用户配置
 

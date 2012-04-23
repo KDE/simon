@@ -25,6 +25,7 @@ Name[sk]=simond
 Name[sv]=simond
 Name[uk]=simond
 Name[x-test]=xxsimondxx
+Name[zh_CN]=simond
 
 Comment=simond Configuration
 Comment[de]=Simond-Konfiguration
@@ -34,3 +35,4 @@ Comment[pt_BR]=Configuração do simond
 Comment[sv]=Anpassning av Simond
 Comment[uk]=Налаштування simond
 Comment[x-test]=xxsimond Configurationxx
+Comment[zh_CN]=simond 配置

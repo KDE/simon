@@ -9,6 +9,7 @@ Name[pt_BR]=Plugin de reconhecimento do simon
 Name[sv]=Simon insticksprogram för igenkänning
 Name[uk]=Додаток розпізнавання simon
 Name[x-test]=xxsimon Recognizer Pluginxx
+Name[zh_CN]=simon 识别插件
 Comment=Recognize
 Comment[es]=Reconocer
 Comment[pt]=Reconhecer
@@ -16,6 +17,7 @@ Comment[pt_BR]=Reconhecer
 Comment[sv]=Igenkänning
 Comment[uk]=Розпізнати
 Comment[x-test]=xxRecognizexx
+Comment[zh_CN]=识别
 
 X-KDE-PluginInfo-Author=Adam Nash
 X-KDE-PluginInfo-Email=adam.t.nash@gmail.com

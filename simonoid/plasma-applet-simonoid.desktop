@@ -9,12 +9,14 @@ Name[sk]=simonoid
 Name[sv]=Simonoid
 Name[uk]=Саймоноїд
 Name[x-test]=xxsimonoidxx
+Name[zh_CN]=simonoid
 Comment=Plasma simonoid
 Comment[pt]=Plasmóide do Simon
 Comment[pt_BR]=Plasmoide do simon
 Comment[sv]=Plasma simonoid
 Comment[uk]=Саймоноїд Плазми
 Comment[x-test]=xxPlasma simonoidxx
+Comment[zh_CN]=Plasma simonoid
 Type=Service
 Icon=simon
 

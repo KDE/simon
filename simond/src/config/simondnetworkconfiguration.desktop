@@ -27,6 +27,7 @@ Name[sk]=Sieť
 Name[sv]=Nätverk
 Name[uk]=Мережа
 Name[x-test]=xxNetworkxx
+Name[zh_CN]=网络
 
 Comment=Configuration of the Network Settings
 Comment[de]=Einrichtung der Netzwerkeinstellungen
@@ -35,3 +36,4 @@ Comment[pt_BR]=Configuração das definições da rede
 Comment[sv]=Anpassning av nätverksinställningar
 Comment[uk]=Налаштування параметрів мережі
 Comment[x-test]=xxConfiguration of the Network Settingsxx
+Comment[zh_CN]=配置网络设置

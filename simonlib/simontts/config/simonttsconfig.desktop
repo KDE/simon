@@ -18,6 +18,7 @@ Name[pt_BR]=Sintetizador de voz
 Name[sv]=Text-till-tal
 Name[uk]=Синтез мовлення з тексту
 Name[x-test]=xxText-to-speechxx
+Name[zh_CN]=文本到语音
 
 Comment=Configuration of the simon text-to-speech layer
 Comment[nl]=Configuratie van de simon-laag tekst-naar-spraak

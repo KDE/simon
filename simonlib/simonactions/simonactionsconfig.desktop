@@ -24,6 +24,7 @@ Name[sk]=Akcie
 Name[sv]=Åtgärder
 Name[uk]=Дії
 Name[x-test]=xxActionsxx
+Name[zh_CN]=动作
 
 Comment=Configuration of simons Actions
 Comment[de]=Konfiguration der Simon-Aktionen
@@ -32,4 +33,5 @@ Comment[pt_BR]=Configuração das ações do simon
 Comment[sv]=Inställning av Simons åtgärder
 Comment[uk]=Налаштування дій simon
 Comment[x-test]=xxConfiguration of simons Actionsxx
+Comment[zh_CN]=配置 simon 动作
 
