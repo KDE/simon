@@ -143,13 +143,8 @@ void RecognitionControl::startPrivateSimond()
     localSimond->waitForFinished();
   }
 
-  if (RecognitionConfiguration::stopLocalSimond()) {
-    localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
-    localSimond->waitForStarted();
-  } else {
-    localSimond->startDetached('"'+KStandardDirs::findExe("simond")+'"');
-    sleep(1); //"wait for started"
-  }
+  localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
+  localSimond->waitForStarted();
 }
 
 void RecognitionControl::startup()
@@ -158,8 +153,7 @@ void RecognitionControl::startup()
   RecognitionConfiguration::self()->readConfig();
   
   if (RecognitionConfiguration::startLocalSimond()) {
-    if (RecognitionConfiguration::stopLocalSimond())
-      startPrivateSimond();
+    startPrivateSimond();
     QTimer::singleShot(300, this, SLOT(actOnAutoConnect()));
   }
   else
@@ -172,10 +166,6 @@ void RecognitionControl::actOnAutoConnect()
   kDebug() << "Acting on auto connect: " << RecognitionConfiguration::juliusdAutoConnect();
   if ( RecognitionConfiguration::juliusdAutoConnect() )
   {
-    if ((RecognitionConfiguration::startLocalSimond()) &&
-        (RecognitionConfiguration::stopLocalSimond()))
-      localSimond->waitForStarted(3000);
-
     startConnecting();
   }
 }
