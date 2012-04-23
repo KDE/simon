@@ -31,6 +31,7 @@ class TestResultWidget;
 class CorpusInformationWidget;
 class KTabWidget;
 class TemplateValueList;
+class ModelCompiler;
 
 class ExportTestResults : public KDialog, public SamUi
 {
@@ -41,6 +42,7 @@ class ExportTestResults : public KDialog, public SamUi
     QList<TestResultWidget*> testResults;
     QList<CorpusInformationWidget*> m_creationCorporaWidgets;
     QList<CorpusInformationWidget*> m_testCorporaWidgets;
+    ModelCompiler *m_compiler;
 
     QHash<QString, QString> createTemplateValues();
     QList<TemplateValueList*> createTemplateValueLists();
@@ -72,7 +74,7 @@ class ExportTestResults : public KDialog, public SamUi
     ExportTestResults(QWidget *parent);
     ~ExportTestResults();
     bool exportTestResults(ReportParameters *reportParameters, QList<CorpusInformation*> creationCorpora,
-                            QList<TestResultWidget*> testResults);
+                            QList<TestResultWidget*> testResults, ModelCompiler *compiler);
     void saveCorporaInformation();
     ReportParameters *getReportParameters();
 

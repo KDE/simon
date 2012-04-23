@@ -367,6 +367,7 @@ bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compila
   QString vocabPath = args.value("vocab");
   QString promptsPath = args.value("prompts");
   QString scriptBasePrefix = args.value("scriptBase");
+  kDebug() << modelDestination << baseModelPath << args;
   return compile(compilationType, modelDestination, baseModelPath, samplePath, lexiconPath, grammarPath, vocabPath, promptsPath, 
                  scriptBasePrefix);
 }
@@ -395,9 +396,9 @@ bool ModelCompilerHTK::pack ( const QString& targetArchive, const QString& name 
   QByteArray metadata = doc.toByteArray();
   archive.writeFile("metadata.xml", "nobody", "nobody", metadata.constData(), metadata.length());
   
-  QString jconfFile = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/julius.jconf"); 
+  QString jconfFile = KStandardDirs::locate("data", "models/"+userName+"/active/julius.jconf"); 
   if (!QFile::exists(jconfFile))
-    jconfFile = KStandardDirs::locate("appdata", "default.jconf");
+    jconfFile = KStandardDirs::locate("data", "simond/default.jconf");
   
   archive.addLocalFile(tempDir+"hmmout/hmmdefs", "hmmdefs");
   archive.addLocalFile(tempDir+"tiedlist", "tiedlist");
@@ -412,7 +413,9 @@ bool ModelCompilerHTK::pack ( const QString& targetArchive, const QString& name 
 
 bool ModelCompilerHTK::unpack ( const QString& archive, const QString& targetDir )
 {
-  kDebug() << "Target dir: " << targetDir;
+  kDebug() << "Archive: " << archive << "Target dir: " << targetDir;
+  
+  if (!QFile::exists(archive)) return false;
   
   KTar tar(archive, "application/x-gzip");
   if (!tar.open(QIODevice::ReadOnly)) return false;
@@ -481,10 +484,10 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
     }
   }
   
-  baseHmmDefsPath = KStandardDirs::locateLocal("tmp", tempDir+ "base/hmmdefs");
-  baseTiedlistPath = KStandardDirs::locateLocal("tmp", tempDir+ "base/tiedlist");
-  baseMacrosPath = KStandardDirs::locateLocal("tmp", tempDir+ "base/macros");
-  baseStatsPath = KStandardDirs::locateLocal("tmp", tempDir+ "base/stats");
+  baseHmmDefsPath = tempDir+ "base/hmmdefs";
+  baseTiedlistPath =tempDir+ "base/tiedlist";
+  baseMacrosPath = tempDir+ "base/macros";
+  baseStatsPath = tempDir+ "base/stats";
 
   if (!keepGoing) return false;
                        

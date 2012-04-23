@@ -44,7 +44,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
 
   private:
     //output
-//     QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
+    QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
     
     inline QByteArray htkify(const QByteArray& in);
     inline QString htkify(const QString& in);
@@ -69,16 +69,11 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
     virtual bool startAdaption(AdaptionType adaptionType, const QStringList& scenarioPathsIn,
                                const QString& promptsIn, const QHash<QString, QString>& args);
     
-//       const QString& grammarPathOut, 
-//       const QString& lexiconPathOut);
-//       const QString& simpleVocabPathOut,
-//       const QString& promptsPathOut
-    
 
-//     QString lexiconPath() { return m_lexiconPathOut; }
-//     QString grammarPath() { return m_grammarPathOut; }
-//     QString simpleVocabPath() { return m_simpleVocabPathOut; }
-//     QString promptsPath() { return m_promptsPathOut; }
+    QString lexiconPath() { return m_lexiconPathOut; }
+    QString grammarPath() { return m_grammarPathOut; }
+    QString simpleVocabPath() { return m_simpleVocabPathOut; }
+    QString promptsPath() { return m_promptsPathOut; }
 
     ~ModelCompilationAdapterHTK();
 

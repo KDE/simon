@@ -30,13 +30,13 @@
 
 #include "ui_main.h"
 
+class ModelCompilerHTK;
+class ModelCompilationAdapterHTK;
 class KProcess;
 class KAction;
 class ReportParameters;
 class QCloseEvent;
-class KCMultiDialog;
-class ModelCompilationManager;
-class ModelCompilationAdapter ;
+class KCMultiDialog;;
 class ModelTest;
 class QSortFilterProxyModel;
 class TestConfigurationWidget;
@@ -112,7 +112,7 @@ class SamView :  public KXmlGuiWindow, public SamUi
 
     void slotModelAdaptionComplete();
     void slotModelAdaptionAborted();
-    void slotModelAdaptionStatus(QString status, int progress);
+    void slotModelAdaptionStatus(QString status, int progress, int max);
     void slotModelAdaptionError(QString errorMessage);
 
     void abortModelCompilation();
@@ -149,8 +149,8 @@ class SamView :  public KXmlGuiWindow, public SamUi
     CorpusInformation *m_creationCorpus;
     ReportParameters *m_reportParameters;
     Ui::MainWindow ui;
-    ModelCompilationManager *modelCompilationManager;
-    ModelCompilationAdapter *modelCompilationAdapter;
+    ModelCompilerHTK *modelCompilationManager;
+    ModelCompilationAdapterHTK *modelCompilationAdapter;
     QList<TestConfigurationWidget*> testConfigurations;
     QList<TestResultWidget*> testResults;
 

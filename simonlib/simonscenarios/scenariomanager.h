@@ -122,7 +122,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     
     QString languageProfileName();
     void setLanguageProfileName(const QString& name);
-    void setBaseModel(int modelType, const QString& name, const QDateTime& creationDate);
+    void setBaseModel(const QString& name, const QDateTime& creationDate);
 
     void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands);
 

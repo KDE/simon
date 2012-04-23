@@ -565,13 +565,10 @@ void ScenarioManager::setBaseModelType(int type)
 }
 
 
-void ScenarioManager::setBaseModel(int modelType, const QString& name, const QDateTime& creationDate)
+void ScenarioManager::setBaseModel(const QString& name, const QDateTime& creationDate)
 {
-  SpeechModelManagementConfiguration::setModelType(modelType);
   SpeechModelManagementConfiguration::setBaseModelName(name);
   SpeechModelManagementConfiguration::setBaseModelDate(creationDate);
-  SpeechModelManagementConfiguration::self()->writeConfig();
-  touchBaseModelAccessTime();
 }
 
 QString ScenarioManager::languageProfileName()

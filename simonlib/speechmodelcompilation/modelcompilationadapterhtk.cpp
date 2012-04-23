@@ -26,8 +26,10 @@
 #include <simonscenarios/activevocabulary.h>
 #include <simonscenarios/grammar.h>
 
-#include <KDebug>
 #include <QFile>
+#include <KDebug>
+#include <KStandardDirs>
+#include <KAboutData>
 
 ModelCompilationAdapterHTK::ModelCompilationAdapterHTK(const QString& userName, QObject *parent) : ModelCompilationAdapter(userName, parent)
 {
@@ -41,16 +43,35 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   m_adaptionType = adaptionType;
   m_scenarioPathsIn = scenarioPathsIn;
   m_promptsPathIn = promptsIn;
-  QString lexiconPath = args.value("lexicon");
-  QString grammarPath = args.value("grammar");
-  QString simpleVocab = args.value("simpleVocab");
-  QString promptsPath = args.value("prompts");
+  
+  m_lexiconPathOut = args.value("lexicon");
+  m_grammarPathOut = args.value("grammar");
+  m_simpleVocabPathOut = args.value("simpleVocab");
+  m_promptsPathOut = args.value("prompts");
+  
+  if (args.value("stripContext") == "true") {
+    //remove context additions for prompts file
+    QString realInPrompts = m_promptsPathIn;
+    m_promptsPathIn = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_userName+"/compile/tmpprompts");
+    QFile newPrompts(m_promptsPathIn);
+    QFile oldPrompts(realInPrompts);
+    if (!newPrompts.open(QIODevice::WriteOnly) || !oldPrompts.open(QIODevice::ReadOnly)) {
+      emit error(i18n("Couldn't strip context of prompts"));
+      return false;
+    }
+    while (!oldPrompts.atEnd()) {
+      QByteArray line = oldPrompts.readLine();
+      int firstIndex = line.indexOf('"');
+      line.remove(firstIndex, line.indexOf('"', firstIndex+1) - firstIndex + 1);
+      newPrompts.write(line);
+    }
+  }
 
   keepGoing=true;
 
   emit  status(i18n("Adapting model..."), 0, 100);
-  if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, lexiconPath,
-                  grammarPath, simpleVocab, promptsPath)) {
+  if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, m_lexiconPathOut,
+                  m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut)) {
     return false;
   }
   emit  status(i18n("Model adaption complete"), 100, 100);
@@ -134,6 +155,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     const QString& promptsPathOut, QSharedPointer<Vocabulary> vocab, QSharedPointer<Grammar> grammar, const QString& promptsPathIn)
 {
   kDebug() << "Output prompts: " << promptsPathOut;
+  kDebug() << "Input prompts: " << promptsPathIn;
   ///// Prompts ///////////
   QStringList trainedVocabulary;                  // words where prompts exist
   QStringList definedVocabulary;                  // words that are in the dictionary
@@ -159,8 +181,10 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     if (!promptsFile.open(QIODevice::ReadOnly)) {
       if (QFile::exists(promptsPathIn))
         emit error(i18nc("%1 is source file path", "Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
-      else
+      else {
+        kDebug() << "Aborting because we have no input prompts";
         emit adaptionAborted(); //no input prompts
+      }
       return false;
     }
 

@@ -186,9 +186,10 @@ void SpeechModelSettings::save()
       m_baseModelName = ScenarioManager::getInstance()->baseModelName();
       m_baseModelDate = ScenarioManager::getInstance()->baseModelCreationDate();
     } else {
-      ScenarioManager::getInstance()->setBaseModel(modelType, m_baseModelName, m_baseModelDate);
+      ScenarioManager::getInstance()->setBaseModel(m_baseModelName, m_baseModelDate);
     }
   }
+  ScenarioManager::getInstance()->setBaseModelType(modelType);
   
   if (!m_languageProfileToImport.isEmpty()) {
     QString targetPathLanguageProfile = KStandardDirs::locateLocal("appdata", "model/languageProfile");
@@ -218,7 +219,8 @@ void SpeechModelSettings::save()
 void SpeechModelSettings::defaults()
 {
   QString noName = i18nc("Filename of a not yet selected base model", "None");
-  ScenarioManager::getInstance()->setBaseModel(2, noName, QDateTime());
+  ScenarioManager::getInstance()->setBaseModel(noName, QDateTime());
+  ScenarioManager::getInstance()->setBaseModelType(2);
   
   ScenarioManager::getInstance()->setLanguageProfileName(noName);
 

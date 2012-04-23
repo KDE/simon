@@ -26,7 +26,7 @@
 #include "testconfigurationwidget.h"
 #include "version.h"
 #include "latexreporttemplateengine.h"
-#include <speechmodelcompilation/modelcompilationmanager.h>
+#include <speechmodelcompilation/modelcompiler.h>
 #include <QWidget>
 #include <QDir>
 #include <QFile>
@@ -92,7 +92,7 @@ void ExportTestResults::initSystemDefinition()
   QString systemInfo;
   systemInfo += i18nc("%1 is simon version", "sam: part of simon %1\n", QString::fromAscii(simon_version));
   
-  systemInfo += ModelCompilationManager::information(
+  systemInfo += m_compiler->information(
       !ui.cbDetailedSystemInformation->isChecked() /*short version*/);
 
   ui.teSystemDefinition->setPlainText(systemInfo);
@@ -265,8 +265,9 @@ void ExportTestResults::displayCorpora(KTabWidget* tableWidget, QList<CorpusInfo
 }
 
 bool ExportTestResults::exportTestResults(ReportParameters *reportParameters, QList<CorpusInformation*> creationCorpora,
-                            QList<TestResultWidget*> testResults)
+                            QList<TestResultWidget*> testResults, ModelCompiler *compiler)
 {
+  m_compiler = compiler;
   clearCorpora();
   initTemplates();
   this->testResults = testResults;
