@@ -60,6 +60,7 @@
 #include <QHBoxLayout>
 #include <KDE/KComboBox>
 #include <QDesktopServices>
+#include <QTimeLine>
 #include <QWebView>
 
 #include <KMessageBox>
@@ -77,6 +78,7 @@
 #include <KPageWidgetItem>
 #include <KIconLoader>
 #include <KCmdLineArgs>
+#include <KColorScheme>
 
 /**
  * @brief Constructor
@@ -92,7 +94,8 @@
  *
  */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
-: KXmlGuiWindow(parent, flags), ScenarioDisplay()
+: KXmlGuiWindow(parent, flags), ScenarioDisplay(),
+  backButtonAnimation(new QTimeLine(1000, this))
 {
   Logger::log ( i18n ( "Starting simon..." ) );
 
@@ -176,7 +179,14 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   connect(welcomePage, SIGNAL(editScenario()), this, SLOT(editScenario()));
   
   ui.inlineView->registerPage(welcomePage);
-  ui.pbBackToOverview->hide();
+  
+  ui.frmBackToOverview->setMaximumHeight(0);
+  connect(backButtonAnimation, SIGNAL(frameChanged(int)), this, SLOT(backButtonAnimationStep(int)));
+  {
+    QPalette p = ui.frmBackToOverview->palette();
+    p.setBrush(QPalette::Window, p.alternateBase());
+    ui.frmBackToOverview->setPalette(p);
+  }
   
   connect(ui.pbBackToOverview, SIGNAL(clicked()), this, SLOT(backToOverview()));
   
@@ -191,6 +201,11 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
   if (!control->startMinimized())
     show();
+}
+
+void SimonView::backButtonAnimationStep ( int step )
+{
+  ui.frmBackToOverview->setMaximumHeight(step);
 }
 
 void SimonView::updateActionList()
@@ -261,7 +276,8 @@ void SimonView::setupActions()
 
 void SimonView::editScenario()
 {
-  ui.pbBackToOverview->show();
+  backButtonAnimation->setFrameRange(0, 35);
+  backButtonAnimation->start();
   ui.inlineView->removePage(welcomePage);
   ui.inlineView->registerPage(vocabularyView);
   ui.inlineView->registerPage(grammarView);
@@ -272,7 +288,8 @@ void SimonView::editScenario()
 
 void SimonView::backToOverview()
 {
-  ui.pbBackToOverview->hide();
+  backButtonAnimation->setFrameRange(35, 0);
+  backButtonAnimation->start();
   ui.inlineView->registerPage(welcomePage);
   ui.inlineView->removePage(vocabularyView);
   ui.inlineView->removePage(grammarView);

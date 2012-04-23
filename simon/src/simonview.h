@@ -51,6 +51,7 @@ class VocabularyView;
 class GrammarView;
 class RunCommandView;
 class ContextView;
+class QTimeLine;
 
 class SimonView : public KXmlGuiWindow, public ScenarioDisplay
 {
@@ -81,6 +82,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void updateActionList();
     void editScenario();
     void backToOverview();
+    void backButtonAnimationStep(int step);
    
   private:
     void setupSignalSlots();
@@ -104,6 +106,8 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     GrammarView *grammarView;
     ContextView *contextDialog;
     RunCommandView *runDialog;
+    
+    QTimeLine* backButtonAnimation;
 };
 
 
