@@ -26,9 +26,11 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include "ui_welcomepage.h"
 
+class TrainingTextAggregatorModel;
 class QShowEvent;
 class QHideEvent;
 class VolumeWidget;
+class QModelIndex;
 
 class WelcomePage : public InlineWidget, public ScenarioDisplay
 {
@@ -57,9 +59,15 @@ private slots:
     
     void updateScenarioDisplays();
     
+    void updateTrainingsTexts();
+    void startTraining();
+    
+    void trainingsTextSelected(const QModelIndex& index);
+    
 private:
     Ui::WelcomePage ui;
     VolumeWidget *volumeWidget;
+    TrainingTextAggregatorModel *trainingTextModel;
     QString getCurrentlySelectedScenarioId();
 };
 

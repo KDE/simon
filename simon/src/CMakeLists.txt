@@ -34,7 +34,8 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsoundconfig.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/firstrunbasemodelconfig.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/welcomepage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/trainingtextaggregatormodel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
 kde4_add_ui_files( simonGeneralSources

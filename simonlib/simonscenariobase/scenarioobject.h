@@ -39,8 +39,9 @@ class SCENARIOBASE_EXPORT ScenarioObject
     virtual void assignParent(Scenario *parent) { parentScenario = parent; }
 
     virtual bool deSerialize(const QDomElement&)=0;
-
     virtual QDomElement serialize(QDomDocument *doc)=0;
+    
+    QString parentScenarioId() const;
 
     virtual ~ScenarioObject() {}
 

@@ -20,13 +20,16 @@
 
 #include "welcomepage.h"
 #include <simonmodelmanagementui/modelmanageruiproxy.h>
+#include <simonmodelmanagementui/TrainSamples/trainingswizard.h>
 #include <simonrecognitioncontrol/recognitioncontrol.h>
+#include "trainingtextaggregatormodel.h"
 #include "version.h"
 
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/model.h>
+#include <simonscenarios/trainingtext.h>
 #include <simonactions/actionmanager.h>
 #include <simonsound/volumewidget.h>
 
@@ -39,10 +42,11 @@
 #include <KMessageBox>
 
 WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon("simon"), i18n("Welcome to Simon"), parent),
-  volumeWidget(new VolumeWidget(this, SoundClient::Background))
+  volumeWidget(new VolumeWidget(this, SoundClient::Background)),
+  trainingTextModel(new TrainingTextAggregatorModel(this))
 {
   ui.setupUi(this);
-  static_cast<QVBoxLayout*>(ui.gbMicrophone->layout())->insertWidget(1, volumeWidget);
+  static_cast<QVBoxLayout*>(ui.gbRecognition->layout())->insertWidget(1, volumeWidget);
   
   ui.lbWelcome->setText(i18nc("%1: Simon version", "Welcome to Simon %1", simon_version));
   
@@ -57,6 +61,7 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : InlineWid
   connect(ui.pbAudioConfiguration, SIGNAL(clicked()), this, SLOT(audioConfig()));
   
   connect(ui.lwScenarios, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(updateScenarioDisplays()));
+  connect(ui.pbStartTraining, SIGNAL(clicked(bool)), this, SLOT(startTraining()));
   
   connect(ui.pbEditScenario, SIGNAL(clicked(bool)), this, SIGNAL(editScenario()));
   connect(ActionManager::getInstance(), SIGNAL(processedRecognitionResult(RecognitionResult,bool)), this, SLOT(processedRecognitionResult(RecognitionResult, bool)));
@@ -68,11 +73,15 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : InlineWid
   ui.pbAudioConfiguration->setIcon(KIcon("preferences-desktop-sound"));
   ui.pbScenarioConfiguration->setIcon(KIcon("view-list-tree"));
   ui.pbEditScenario->setIcon(KIcon("document-edit"));
+  ui.pbStartTraining->setIcon(KIcon("view-pim-news"));
   
   connect(RecognitionControl::getInstance(), SIGNAL(synchroniationCompleted()), this, SLOT(displayAcousticModelInfo()));
+  connect(ui.tvTrainingTexts, SIGNAL(activated(QModelIndex)), this, SLOT(trainingsTextSelected(QModelIndex)));
   
-  //TODO: Activate / Deactivate actions in "Recognition" field
   ui.pbActivation->setAction(activationAction);
+  ui.tvTrainingTexts->setModel(trainingTextModel);
+  ui.tvTrainingTexts->verticalHeader()->hide();
+  ui.lwScenarios->setLineWidth(24);
 }
 
 void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitionResult, bool accepted )
@@ -84,6 +93,19 @@ void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitio
   ui.lbRecognition->setText(result);
 }
 
+void WelcomePage::trainingsTextSelected ( const QModelIndex& index )
+{
+  TrainingText *text = static_cast<TrainingText*>(index.internalPointer());
+  kDebug() << "Selected: " << text->getName();
+  QString scenarioId = text->parentScenarioId();
+  for (int i = 0; i < ui.lwScenarios->count(); i++) {
+    if (ui.lwScenarios->item(i)->data(Qt::UserRole) == scenarioId) {
+      kDebug() << "Selecting " << scenarioId;
+      ui.lwScenarios->setCurrentRow(i);
+      return;
+    }
+  }
+}
 
 void WelcomePage::displayAcousticModelInfo()
 {
@@ -166,6 +188,7 @@ void WelcomePage::displayScenarios()
   
   ui.lwScenarios->blockSignals(false);
   setUpdatesEnabled(true);
+  updateTrainingsTexts();
 }
 
 void WelcomePage::updateScenarioDisplays()
@@ -193,6 +216,38 @@ void WelcomePage::displayScenarioPrivate ( Scenario* scenario )
   }
   
   ui.pbEditScenario->setText(i18nc("%1 is the scenario to change", "Open \"%1\"", scenario->name()));
+}
+
+void WelcomePage::updateTrainingsTexts()
+{
+  QList<TrainingTextCollection*> collections;
+  foreach (Scenario *s, ScenarioManager::getInstance()->getScenarios())
+    collections << s->texts();
+  kDebug() << "Updating trainings texts with #collections: " << collections.count();
+  trainingTextModel->setCollections(collections);
+}
+
+void WelcomePage::startTraining()
+{
+  QModelIndex selectedIndex = ui.tvTrainingTexts->currentIndex();
+  if (!selectedIndex.isValid()) {
+    KMessageBox::information(this, i18n("Please select a text first.\n\nIf there are no texts available, "
+                                        "then none of your loaded Scenarios provide training texts.\n\nTo add a "
+                                        "new text, select the scenario to modify on the left, open it and add "
+                                        "the training text in the \"Training\" menu."));
+    return;
+  }
+  
+  TrainingText* text = static_cast<TrainingText*>(selectedIndex.internalPointer());
+  if (!text)
+    return;
+
+  QPointer<TrainingsWizard> wizard = new TrainingsWizard(this);
+
+  if (wizard->init(*text))
+    wizard->exec();
+
+  delete wizard;
 }
 
 void WelcomePage::showEvent(QShowEvent* event)

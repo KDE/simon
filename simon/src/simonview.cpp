@@ -95,7 +95,7 @@
  */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 : KXmlGuiWindow(parent, flags), ScenarioDisplay(),
-  backButtonAnimation(new QTimeLine(1000, this))
+  backButtonAnimation(new QTimeLine(700, this))
 {
   Logger::log ( i18n ( "Starting simon..." ) );
 

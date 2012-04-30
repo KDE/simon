@@ -36,7 +36,7 @@ DeviceVolumeWidget::DeviceVolumeWidget( const SimonSound::DeviceConfiguration& d
     lastCompletedSample(0)
 {
   ui->setupUi(this);
-  ui->lbDeviceName->setText(i18nc("%1 is the devices name", "Device: %1", m_deviceName));
+  ui->lbDeviceName->setText(i18nc("%1 is the devices name", "Device: %1", m_deviceName.remove(QRegExp("\\(.*\\)"))));
   connect(rec, SIGNAL(level(qint64,float)), this, SLOT(deviceReportedLevel(qint64,float)));
   connect(rec, SIGNAL(clippingOccured()), this, SLOT(clipping()));
   connect(rec, SIGNAL(sampleStarted()), this, SLOT(started()));
