@@ -38,7 +38,7 @@ signals:
     void editScenario();
   
 public:
-    WelcomePage(QWidget *parent=0);
+    WelcomePage( QAction* activationAction, QWidget* parent = 0 );
     
 protected:
     void showEvent(QShowEvent* event);

@@ -158,6 +158,13 @@
           </property>
          </spacer>
         </item>
+        <item>
+         <widget class="ActionButton" name="pbActivation">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -194,6 +201,11 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ActionButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">simonuicomponents/actionbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

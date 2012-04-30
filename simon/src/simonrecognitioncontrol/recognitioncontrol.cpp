@@ -832,6 +832,7 @@ void RecognitionControl::synchronisationDone()
   }
 
   ModelManagerUiProxy::getInstance()->commitGroup(true /*silent*/);
+  emit synchroniationCompleted();
 }
 
 

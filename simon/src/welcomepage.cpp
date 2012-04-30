@@ -20,6 +20,7 @@
 
 #include "welcomepage.h"
 #include <simonmodelmanagementui/modelmanageruiproxy.h>
+#include <simonrecognitioncontrol/recognitioncontrol.h>
 #include "version.h"
 
 #include <simonscenarioui/scenariomanagementdialog.h>
@@ -37,7 +38,7 @@
 #include <KColorScheme>
 #include <KMessageBox>
 
-WelcomePage::WelcomePage(QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon("simon"), i18n("Welcome to Simon"), parent),
+WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon("simon"), i18n("Welcome to Simon"), parent),
   volumeWidget(new VolumeWidget(this, SoundClient::Background))
 {
   ui.setupUi(this);
@@ -68,8 +69,10 @@ WelcomePage::WelcomePage(QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon(
   ui.pbScenarioConfiguration->setIcon(KIcon("view-list-tree"));
   ui.pbEditScenario->setIcon(KIcon("document-edit"));
   
-  //TODO: update model description on model change
+  connect(RecognitionControl::getInstance(), SIGNAL(synchroniationCompleted()), this, SLOT(displayAcousticModelInfo()));
+  
   //TODO: Activate / Deactivate actions in "Recognition" field
+  ui.pbActivation->setAction(activationAction);
 }
 
 void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitionResult, bool accepted )

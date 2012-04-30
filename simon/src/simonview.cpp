@@ -174,7 +174,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   setupGUI();
   displayScenarioPrivate(ScenarioManager::getInstance()->getCurrentScenario());
   
-  welcomePage = new WelcomePage;
+  welcomePage = new WelcomePage(actionCollection()->action("activate"));
   ScenarioManager::getInstance()->registerScenarioDisplay(welcomePage);
   connect(welcomePage, SIGNAL(editScenario()), this, SLOT(editScenario()));
   
@@ -244,6 +244,7 @@ void SimonView::setupActions()
     control, SLOT(disconnectFromServer()));
 
   KToolBarPopupAction* connectActivate = new KToolBarPopupAction(KIcon("network-disconnect"), i18n("Connect"), this);
+  kDebug() << "Real action: " << connectActivate;
   connectActivate->setCheckable(true);
   connectActivate->setShortcut(Qt::CTRL + Qt::Key_C);
 
