@@ -32,8 +32,10 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsimondconfig.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunscenariosconfig.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsoundconfig.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/firstrunbasemodelconfig.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/firstrunbasemodelconfig.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/welcomepage.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/trainingtextaggregatormodel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
 kde4_add_ui_files( simonGeneralSources
@@ -41,7 +43,8 @@ kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunbasemodelconfig.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsimondconfig.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsoundconfig.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/firstrunscenariosconfig.ui
+        ${CMAKE_CURRENT_SOURCE_DIR}/firstrunscenariosconfig.ui
+        ${CMAKE_CURRENT_SOURCE_DIR}/welcomepage.ui
 )
 
 kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simon.png")

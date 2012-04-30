@@ -13,6 +13,8 @@ set ( simon_model_scripts
 		${CMAKE_CURRENT_SOURCE_DIR}/proto
 		${CMAKE_CURRENT_SOURCE_DIR}/regtree.hed
 		${CMAKE_CURRENT_SOURCE_DIR}/sil.hed
+		${CMAKE_CURRENT_SOURCE_DIR}/tree1.hed
+		${CMAKE_CURRENT_SOURCE_DIR}/wav_config
 	)
 
 install( FILES ${simon_model_scripts}  DESTINATION ${DATA_INSTALL_DIR}/simon/scripts COMPONENT simond )

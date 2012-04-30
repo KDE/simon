@@ -31,15 +31,17 @@ class NullRecorderClient :public QObject, public SoundInputClient
 {
   Q_OBJECT
 
-    private:
+  private:
     VADSoundProcessor *vad;
 
-    signals:
+  signals:
+    void sampleStarted();
+    void sampleCompleted();
     void level(qint64 time, float now);
     void clippingOccured();
 
   public:
-    explicit NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
+    explicit NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority options, QObject *parent=0);
     bool start();
     bool finish();
 

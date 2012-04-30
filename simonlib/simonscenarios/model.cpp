@@ -18,16 +18,72 @@
  */
 
 #include "model.h"
+#include <QBuffer>
+#include <QFile>
+#include <QDomDocument>
+#include <QDomElement>
+#include <KFilterDev>
+#include <KTar>
 
-Model::Model(qint32 data, const QByteArray&  hmmDefs,
-const QByteArray&  tiedList, const QByteArray&  data1, const QByteArray&  data2) :
-m_data(data), m_hmmDefs(hmmDefs),
-m_tiedList(tiedList), m_data1(data1), m_data2(data2)
+Model::Model(qint32 data, const QByteArray& container) :
+m_data(data), m_container(container), m_containerParsed(false)
 {
-
 }
 
-
-Model::~Model()
+QDateTime Model::modelCreationDate()
 {
+  if (!m_containerParsed) parseContainer();
+  return m_modelCreationDate;
+}
+
+QString Model::modelName()
+{
+  if (!m_containerParsed) parseContainer();
+  return m_modelName;
+}
+
+bool Model::parseContainer ( KTar& archive, QDateTime& creationDate, QString& name )
+{
+  if (archive.open(QIODevice::ReadOnly)) {
+    const KArchiveDirectory *d = archive.directory();
+    if (d) {
+      const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry("metadata.xml"));
+      if (entry) {
+        QDomDocument doc;
+        doc.setContent(entry->data());
+        QDomElement rootElem = doc.documentElement();
+        QDomElement nameElem = rootElem.firstChildElement("name");
+        QDomElement dateElem = rootElem.firstChildElement("creationDate");
+        if (!nameElem.isNull() && !dateElem.isNull()) {
+          creationDate = QDateTime::fromString(dateElem.text(), Qt::ISODate);
+          name = nameElem.text();
+          return true;
+        }
+        else kDebug() << "Elements 0";
+      }
+        else kDebug() << "Entry invalid";
+    }
+        else kDebug() << "Directory invalid";
+  }
+        else kDebug() << "Couldn't open tar";
+        
+  return false;
+}
+
+void Model::parseContainer()
+{
+  if (!m_container.isNull()) {
+    QBuffer model(&m_container);
+    model.open(QIODevice::ReadOnly);
+    QIODevice *filter = KFilterDev::device(&model, "application/x-gzip", false /* will be deleted when unwinding stack */);
+    filter->open(QIODevice::ReadOnly);
+    QByteArray uncompressed = filter->readAll();
+    delete filter; //KTar doesn't work with KFilterDev for some reason...
+    
+    QBuffer uncompressedModel(&uncompressed);
+    uncompressedModel.open(QIODevice::ReadOnly);
+    KTar archive(&uncompressedModel);
+    parseContainer(archive, m_modelCreationDate, m_modelName);
+  }
+  m_containerParsed = true;
 }

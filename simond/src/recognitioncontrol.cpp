@@ -26,7 +26,6 @@ m_refCounter(0),
 username(user_name),
 m_startRequests(0)
 {
-  connect(this, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(touchLastFailedStart()));
 }
 
 bool RecognitionControl::isEmpty() const
@@ -48,29 +47,6 @@ bool RecognitionControl::recognitionRunning()
 {
   kDebug() << m_startRequests;
   return (m_startRequests > 0);
-}
-
-void RecognitionControl::touchLastSuccessfulStart()
-{
-  m_lastSuccessfulStart = KDateTime::currentUtcDateTime().dateTime();
-}
-
-void RecognitionControl::touchLastFailedStart()
-{
-  m_lastFailedStart = KDateTime::currentUtcDateTime().dateTime();
-}
-
-bool RecognitionControl::shouldTryToStart(const QDateTime& activeModelDate)
-{
-  QDateTime utcActiveModelDate(activeModelDate);
-  utcActiveModelDate.setTimeSpec(Qt::UTC);
-  kWarning() << "Last successful start: " << m_lastSuccessfulStart;
-  kWarning() << "Last failed start: " << m_lastFailedStart << m_lastFailedStart.isNull();
-  kWarning() << "Active model: " << utcActiveModelDate << (utcActiveModelDate > m_lastSuccessfulStart);
-  bool start = ((m_lastFailedStart.isNull() || (utcActiveModelDate > m_lastFailedStart)) && 
-                (m_lastSuccessfulStart.isNull() || (utcActiveModelDate > m_lastSuccessfulStart)));
-  kWarning() << "Start: " << start;
-  return start;
 }
 
 

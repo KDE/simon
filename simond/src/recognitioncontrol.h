@@ -32,9 +32,10 @@ class RecognitionControl : public QThread
   Q_OBJECT
 
   private:
-    QDateTime m_lastSuccessfulStart;
-    QDateTime m_lastFailedStart;
     int m_refCounter;
+    
+  protected:
+    QString m_lastModel;
 
   signals:
     void recognitionReady();
@@ -47,19 +48,14 @@ class RecognitionControl : public QThread
     void recognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
     void recognitionDone(const QString& fileName);
 
-  private slots:
-    void touchLastFailedStart();
-
   protected:
-    void touchLastSuccessfulStart();
     QString username;
     int m_startRequests;
 
   public:
-    bool shouldTryToStart(const QDateTime& activeModelDate);
     explicit RecognitionControl(const QString& username, QObject *parent=0);
 
-    virtual bool initializeRecognition()=0;
+    virtual bool initializeRecognition(const QString& modelPath)=0;
     virtual bool isInitialized()=0;
     
     virtual bool startRecognition()=0;

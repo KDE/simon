@@ -45,6 +45,13 @@ class TrayIconManager;
 class KCMultiDialog;
 class KAction;
 class KComboBox;
+class WelcomePage;
+class TrainingView;
+class VocabularyView;
+class GrammarView;
+class RunCommandView;
+class ContextView;
+class QTimeLine;
 
 class SimonView : public KXmlGuiWindow, public ScenarioDisplay
 {
@@ -68,30 +75,22 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void representState(SimonControl::SystemStatus status);
     
     void showSystemDialog();
-    void showTrainDialog();
     void showSampleShare();
     
    private slots:
     void manageScenarios();
-    void updateScenarioDisplays();
     void updateActionList();
-    void displayScenarios();
-    void showVolumeCalibration();
-    void welcomeUrlClicked(const QUrl& url ); 
+    void editScenario();
+    void backToOverview();
+    void backButtonAnimationStep(int step);
    
   private:
     void setupSignalSlots();
     void setupActions();
 
-    void setupWelcomePage();
     void displayScenarioPrivate(Scenario *scenario);
     
     QMutex guiUpdateMutex;
-
-    bool settingsShown;
-    int shownDialogs;
-    QPoint currentPos;
-    QPoint addWordDlgPos;
 
     KAction *disconnectAction;
     KAction *activateAction;
@@ -100,9 +99,15 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     Ui::MainWindow ui;                            //!< Mainwindow UI definition - made by uic from the QTDesigner .ui
     SimonControl *control;                        //!< Pointer to the main concept class
     TrayIconManager *trayManager;                 //!< Handles the TrayIcon
-    KCMultiDialog *configDialog;
     
-    KComboBox *cbCurrentScenario;
+    WelcomePage *welcomePage;
+    TrainingView *trainDialog;
+    VocabularyView *vocabularyView;
+    GrammarView *grammarView;
+    ContextView *contextDialog;
+    RunCommandView *runDialog;
+    
+    QTimeLine* backButtonAnimation;
 };
 
 

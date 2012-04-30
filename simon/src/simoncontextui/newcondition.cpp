@@ -94,7 +94,6 @@ void NewCondition::init(Condition *condition)
 void NewCondition::checkIfComplete()
 {
   CreateConditionWidget *creator = dynamic_cast<CreateConditionWidget*>(ui.swConditionCreators->currentWidget());
-  Q_ASSERT(creator);
 
   bool complete;
   if (!creator)

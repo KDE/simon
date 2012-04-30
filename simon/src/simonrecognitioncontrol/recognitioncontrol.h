@@ -79,7 +79,6 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
 
     SimondStreamer* simondStreamer;
 
-    QMutex messageLocker;
     QByteArray stillToProcess;
     QStringList missingScenarios;
     bool recognitionReady;
@@ -112,6 +111,7 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     void connectionError(const QString& errStr);
     void simondSystemError(const QString& errStr);
     void synchronisationError(const QString &err);
+    void synchroniationCompleted();
     void recognitionError(const QString &err, const QString& protocol);
     void compilationError(const QString &err, const QString& protocol);
 
@@ -177,7 +177,7 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     void sendScenario(QString scenarioId);
 
     void sendDeactivatedScenarioList();
-    void sendSampleGroup(QString sampleGroup);
+    void sendSampleGroups(const QStringList& sampleGroups);
 
     void sendLanguageDescriptionModifiedDate();
     void sendLanguageDescription();

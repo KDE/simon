@@ -25,14 +25,19 @@
 #include <KLocalizedString>
 #include <QVBoxLayout>
 
-VolumeWidget::VolumeWidget(QWidget *parent) : QWidget(parent),
-ui(new Ui::VolumeWidgetUi())
+VolumeWidget::VolumeWidget(QWidget* parent, SoundClient::SoundClientPriority inputPriority) : QWidget(parent),
+ui(new Ui::VolumeWidgetUi()), priority(inputPriority)
 {
   ui->setupUi(this);
   ui->wgStart->show();
+  
   connect(ui->pbStartCalibration, SIGNAL(clicked()), this, SLOT(start()));
 }
 
+void VolumeWidget::enablePrompt(bool enabled)
+{
+  ui->tePrompt->setVisible(enabled);
+}
 
 void VolumeWidget::init()
 {
@@ -48,10 +53,9 @@ void VolumeWidget::init()
   }
 }
 
-
 void VolumeWidget::registerClient(const SimonSound::DeviceConfiguration& device)
 {
-  DeviceVolumeWidget *dw = new DeviceVolumeWidget(device, this);
+  DeviceVolumeWidget *dw = new DeviceVolumeWidget(device, priority, this);
 
   QVBoxLayout *lay = dynamic_cast<QVBoxLayout*>(layout());
   Q_ASSERT(lay);
@@ -59,7 +63,6 @@ void VolumeWidget::registerClient(const SimonSound::DeviceConfiguration& device)
   lay->addWidget(dw);
   devices << dw;
 }
-
 
 void VolumeWidget::setPrompt(const QString& prompt)
 {
@@ -70,7 +73,6 @@ void VolumeWidget::setPrompt(const QString& prompt)
     ui->tePrompt->setPlainText(i18n("Please say a few sentences. Try to pronounce them clearly but naturally and speak in a normal volume."));
 }
 
-
 void VolumeWidget::start()
 {
   foreach (DeviceVolumeWidget *dw, devices) {
@@ -80,7 +82,6 @@ void VolumeWidget::start()
   ui->wgStart->hide();
 }
 
-
 void VolumeWidget::stop()
 {
   foreach (DeviceVolumeWidget *dw, devices) {
@@ -89,7 +90,6 @@ void VolumeWidget::stop()
   }
   ui->wgStart->show();
 }
-
 
 VolumeWidget::~VolumeWidget()
 {

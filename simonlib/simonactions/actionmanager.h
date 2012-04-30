@@ -59,7 +59,7 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
     CommandList getCommandList();
 
     QFont pluginBaseFont();
-
+  
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getGlobalListInterfaceCommands();
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 
@@ -76,5 +76,8 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
 
     float minimumConfidenceThreshold;
     bool useDYM;
+    
+  signals:
+    void processedRecognitionResult(const RecognitionResult& result, bool accepted);
 };
 #endif

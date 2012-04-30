@@ -23,10 +23,12 @@
 #include <simonuicomponents/simonwizard.h>
 #include <simonscenarios/word.h>
 
+#include "simonmodelmanagementui_export.h"
+
 class QStringList;
 class TrainingText;
 
-class TrainingsWizard : public SimonWizard
+class SIMONMODELMANAGEMENTUI_EXPORT TrainingsWizard : public SimonWizard
 {
   Q_OBJECT
 

@@ -49,12 +49,10 @@ void SoundInputBuffer::run()
     int bufferSize = m_input->bufferSize();
 
     while (!m_bufferLock.tryAcquire(bufferSize, 50)) {
-    //while (m_bufferLength < bufferSize) {
       if (!m_shouldBeRunning) {
         deleteLater();
         return;
       }
-     // msleep(50);
     }
 
     m_bufferAllocLock.lock();

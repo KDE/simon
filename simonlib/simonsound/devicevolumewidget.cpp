@@ -22,60 +22,71 @@
 #include "soundconfig.h"
 #include "nullrecorderclient.h"
 #include "ui_devicevolumewidget.h"
+#include <QDateTime>
 #include <KIcon>
 #include <KLocalizedString>
 #include <KMessageBox>
 
-DeviceVolumeWidget::DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent) : QWidget(parent),
-ui(new Ui::DeviceVolumeWidgetUi()),
-rec(new NullRecorderClient(device, this)),
-m_deviceName(device.name()),
-m_isTooLoud(false)
+DeviceVolumeWidget::DeviceVolumeWidget( const SimonSound::DeviceConfiguration& device, SoundClient::SoundClientPriority inputPriority, QWidget* parent ) : QWidget(parent),
+    ui(new Ui::DeviceVolumeWidgetUi()),
+    rec(new NullRecorderClient(device, inputPriority, this)),
+    m_deviceName(device.name()),
+    lastClip(0),
+    lastStartedSample(0),
+    lastCompletedSample(0)
 {
   ui->setupUi(this);
-  if (m_deviceName.contains("CARD="))
-    m_deviceName = m_deviceName.mid(m_deviceName.indexOf("CARD=")+5);
-  ui->lbDeviceName->setText(i18nc("%1 is the devices name", "Device \"%1\":", m_deviceName));
+  ui->lbDeviceName->setText(i18nc("%1 is the devices name", "Device: %1", m_deviceName.remove(QRegExp("\\(.*\\)"))));
   connect(rec, SIGNAL(level(qint64,float)), this, SLOT(deviceReportedLevel(qint64,float)));
   connect(rec, SIGNAL(clippingOccured()), this, SLOT(clipping()));
-
-  connect(ui->pbVolumeChanged, SIGNAL(clicked()), this, SLOT(reset()));
-
-  tooLow();
-
-  ui->pbVolumeChanged->setIcon(KIcon("view-refresh"));
-}
-
-
-void DeviceVolumeWidget::reset()
-{
-  m_isTooLoud = false;
+  connect(rec, SIGNAL(sampleStarted()), this, SLOT(started()));
+  connect(rec, SIGNAL(sampleCompleted()), this, SLOT(completed()));
+  
+  connect(&labelUpdater, SIGNAL(timeout()), this, SLOT(updateLabel()));
   tooLow();
 }
-
 
 void DeviceVolumeWidget::deviceReportedLevel(qint64 time, float level)
 {
   Q_UNUSED(time);
   ui->pbVolume->setValue(qRound(100*level));
+}
 
-  if ((level > (SoundConfiguration::calibrateMinVolume() / 100.0f)) &&
-  !m_isTooLoud) {
-    if (level < (SoundConfiguration::calibrateMaxVolume() / 100.0f)) {
+void DeviceVolumeWidget::completed()
+{
+  lastCompletedSample = QDateTime::currentDateTime().toTime_t();
+  updateLabel();
+}
+
+void DeviceVolumeWidget::started()
+{
+  lastStartedSample = QDateTime::currentDateTime().toTime_t();
+  updateLabel();
+}
+
+void DeviceVolumeWidget::updateLabel()
+{
+  int window = 5;
+  qint32 cur = QDateTime::currentDateTime().toTime_t();
+  if (lastClip + window > cur) {
+    tooLoud();
+  } else {
+    //let's check if we haven't detected a sample for at least 5 seconds - then the volume is
+    //apparently too low. Otherwise it's perfect.
+    if (lastCompletedSample < lastStartedSample)
+      //we currently have a sample
       volumeOk();
-    }
-    else {
-      tooLoud();
-      m_isTooLoud = true;
-    }
+    else
+      if (lastCompletedSample + window < cur)
+        tooLow();
   }
 }
 
 
 void DeviceVolumeWidget::clipping()
 {
-  m_isTooLoud = true;
-  tooLoud();
+  lastClip = QDateTime::currentDateTime().toTime_t();
+  updateLabel();
 }
 
 
@@ -95,7 +106,7 @@ void DeviceVolumeWidget::volumeOk()
 
 void DeviceVolumeWidget::tooLow()
 {
-  ui->lbStatus->setText(i18n("Raise the volume."));
+  ui->lbStatus->setText(i18n("Please speak (volume too low)."));
   ui->lbIcon->setPixmap(KIcon("go-up").pixmap(24,24));
 }
 
@@ -104,6 +115,8 @@ void DeviceVolumeWidget::start()
 {
   if (!rec->start())
     KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be started for device: %1.", m_deviceName));
+  else
+    labelUpdater.start(1000);
 }
 
 
@@ -111,6 +124,8 @@ void DeviceVolumeWidget::stop()
 {
   if (!rec->finish())
     KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be stopped for device: %1.", m_deviceName));
+  else
+    labelUpdater.stop();
 }
 
 

@@ -12,25 +12,14 @@
       <default>2</default>
       <tooltip>The type of model to use (0: static, 1: base model, 2: dynamic)</tooltip>
     </entry>
-    <entry name="BaseModelHMMName" type="String">
-      <label>The (file) name of the last loaded base hmm</label>
+    <entry name="BaseModelName" type="String">
+      <label>The name of the last loaded base model</label>
       <default>None</default>
-      <tooltip>The (file) name of the last loaded base hmm</tooltip>
+      <tooltip>The name of the last loaded base model</tooltip>
     </entry>
-    <entry name="BaseModelTiedlistName" type="String">
-      <label>The (file) name of the last loaded base tiedlist</label>
-      <default>None</default>
-      <tooltip>The (file) name of the last loaded base tiedlist</tooltip>
-    </entry>
-    <entry name="BaseModelMacrosName" type="String">
-      <label>The (file) name of the last loaded base macros</label>
-      <default>None</default>
-      <tooltip>The (file) name of the last loaded base macros</tooltip>
-    </entry>
-    <entry name="BaseModelStatsName" type="String">
-      <label>The (file) name of the last loaded base stats</label>
-      <default>None</default>
-      <tooltip>The (file) name of the last loaded base stats</tooltip>
+    <entry name="BaseModelDate" type="DateTime">
+      <label>The creation dateof the last loaded base model</label>
+      <tooltip>The creation dateof the last loaded base model</tooltip>
     </entry>
 
     <entry name="ModelSampleRate" type="Int">

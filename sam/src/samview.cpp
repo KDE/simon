@@ -30,8 +30,8 @@
 #include "qwt_series_data.h"
 #include "corpusinformation.h"
 
-#include <speechmodelcompilation/modelcompilationmanager.h>
-#include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
+#include <speechmodelcompilation/modelcompilerhtk.h>
+#include <speechmodelcompilation/modelcompilationadapterhtk.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
 
 #include <qwt_legend.h>
@@ -61,6 +61,7 @@
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
   m_startCompilationAfterAdaption(false),
   m_startTestAfterCompile(false),
+  m_startTestAfterAdaption(false),
   m_exportAfterTest(false),
   m_dirty(false),
   m_creationCorpus(0),
@@ -136,47 +137,31 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(ui.rbDynamicModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
   connect(ui.rbStaticModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
 
-  connect(ui.urHmmDefs, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
-  connect(ui.urTiedlist, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
-  connect(ui.urDict, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
-  connect(ui.urDFA, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urOutputModel, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
   connect(ui.urPromptsBasePath, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
   connect(ui.urLexicon, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
   connect(ui.urGrammar, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
   connect(ui.urVocabulary, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
   connect(ui.urPrompts, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
-  connect(ui.urTreeHed, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
-  connect(ui.urWavConfig, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
-  connect(ui.urBaseHmmDefs, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
-  connect(ui.urBaseTiedlist, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
-  connect(ui.urBaseMacros, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
-  connect(ui.urBaseStats, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
+  connect(ui.urBaseModel, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
   connect(ui.leScriptPrefix, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
   connect(ui.sbSampleRate, SIGNAL(valueChanged(int)), this, SLOT(setDirty()));
 
-  ui.urHmmDefs->setMode(KFile::File|KFile::LocalOnly);
-  ui.urTiedlist->setMode(KFile::File|KFile::LocalOnly);
-  ui.urDict->setMode(KFile::File|KFile::LocalOnly);
-  ui.urDFA->setMode(KFile::File|KFile::LocalOnly);
+  ui.urOutputModel->setMode(KFile::File|KFile::LocalOnly);
   ui.urPromptsBasePath->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urLexicon->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urGrammar->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urVocabulary->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urPrompts->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-  ui.urTreeHed->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-  ui.urWavConfig->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-  ui.urBaseHmmDefs->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-  ui.urBaseTiedlist->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-  ui.urBaseMacros->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-  ui.urBaseStats->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
+  ui.urBaseModel->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 
   modelCompilationAdapter = new ModelCompilationAdapterHTK("internalsamuser", this);
   connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
   connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
-  connect(modelCompilationAdapter, SIGNAL(status(QString,int)), this, SLOT(slotModelAdaptionStatus(QString,int)));
+  connect(modelCompilationAdapter, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
   connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 
-  modelCompilationManager = new ModelCompilationManager("internalsamuser", this);
+  modelCompilationManager = new ModelCompilerHTK("internalsamuser", this);
   connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
   connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
   connect(modelCompilationManager, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
@@ -215,11 +200,13 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
     if (KCmdLineArgs::parsedArgs()->isSet("c"))
     {
       m_startCompilationAfterAdaption = true;
-      if (autoTestModel)
+      if (autoTestModel) {
         m_startTestAfterCompile = true;
+      }
     } else
-      if (autoTestModel)
+      if (autoTestModel) {
         m_startTestAfterAdaption = true;
+      }
   } else {
     if (KCmdLineArgs::parsedArgs()->isSet("c"))
     {
@@ -446,7 +433,7 @@ void SamView::exportTestResults()
 {
   ExportTestResults *e = new ExportTestResults(this);
   
-  if (e->exportTestResults(m_reportParameters, creationCorpusInformation(), testResults))
+  if (e->exportTestResults(m_reportParameters, creationCorpusInformation(), testResults, modelCompilationManager))
   {
     ReportParameters *temp = m_reportParameters;
     m_reportParameters = e->getReportParameters();
@@ -490,24 +477,16 @@ void SamView::newProject()
     return;
   clearCurrentConfiguration();
 
-  ui.urHmmDefs->clear();
-  ui.urTiedlist->clear();
-  ui.urDict->clear();
-  ui.urDFA->clear();
+  ui.urOutputModel->clear();
   ui.urPromptsBasePath->clear();
   ui.urLexicon->clear();
   ui.urGrammar->clear();
   ui.urVocabulary->clear();
   ui.urPrompts->clear();
   qDeleteAll(testConfigurations); // will be removed automatically through signal magic
-  ui.urTreeHed->clear();
-  ui.urWavConfig->clear();
   ui.sbSampleRate->setValue(16000 /* default*/);
   ui.rbDynamicModel->click();
-  ui.urBaseHmmDefs->clear();
-  ui.urBaseTiedlist->clear();
-  ui.urBaseMacros->clear();
-  ui.urBaseStats->clear();
+  ui.urBaseModel->clear();
 
   ui.twMain->setCurrentIndex(0);
   clearBuildLog();
@@ -590,17 +569,12 @@ void SamView::parseFile()
   QDomElement creationElem = samProjectElem.firstChildElement("creation");
   m_creationCorpus = CorpusInformation::deSerialize(creationElem.firstChildElement("corpus"));
 
-  ui.urHmmDefs->setUrl(KUrl( SamXMLHelper::getText(creationElem, "hmm") ));
-  ui.urTiedlist->setUrl(KUrl( SamXMLHelper::getText(creationElem, "tiedlist") ));
-  ui.urDict->setUrl(KUrl( SamXMLHelper::getText(creationElem, "dict") ));
-  ui.urDFA->setUrl(KUrl( SamXMLHelper::getText(creationElem, "dfa") ));
+  ui.urOutputModel->setUrl(KUrl( SamXMLHelper::getText(creationElem, "outputModel") ));
   ui.urPrompts->setUrl(KUrl( SamXMLHelper::getText(creationElem, "prompts") ));
   ui.urPromptsBasePath->setUrl(KUrl( SamXMLHelper::getText(creationElem, "promptsBase") ));
   ui.urLexicon->setUrl(KUrl( SamXMLHelper::getText(creationElem, "lexicon") ));
   ui.urGrammar->setUrl(KUrl( SamXMLHelper::getText(creationElem, "grammar") ));
   ui.urVocabulary->setUrl(KUrl( SamXMLHelper::getText(creationElem, "vocabulary") ));
-  ui.urTreeHed->setUrl(KUrl( SamXMLHelper::getText(creationElem, "tree") ));
-  ui.urWavConfig->setUrl(KUrl( SamXMLHelper::getText(creationElem, "wavConfig") ));
   ui.sbSampleRate->setValue( SamXMLHelper::getInt(creationElem, "sampleRate") );
   
   ui.leScriptPrefix->setText(SamXMLHelper::getText(creationElem, "scriptPrefix"));
@@ -614,10 +588,7 @@ void SamView::parseFile()
     case 2: ui.rbDynamicModel->click();
     break;
   }
-  ui.urBaseHmmDefs->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseHmm")));
-  ui.urBaseTiedlist->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseTiedlist")));
-  ui.urBaseMacros->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseMacros")));
-  ui.urBaseStats->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseStats")));
+  ui.urBaseModel->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseModel")));
 
   QDomElement testConfigurations = samProjectElem.firstChildElement("testConfigurations");
   QDomElement testConfiguration = testConfigurations.firstChildElement("testConfiguration");
@@ -666,17 +637,12 @@ void SamView::storeFile()
   if (m_creationCorpus)
     creationElem.appendChild(m_creationCorpus->serialize(&doc));
 
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urHmmDefs, "hmm");
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urTiedlist, "tiedlist");
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urDict, "dict");
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urDFA, "dfa");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urOutputModel, "outputModel");
   SamXMLHelper::serializePath(&doc, creationElem, ui.urPrompts, "prompts");
   SamXMLHelper::serializePath(&doc, creationElem, ui.urPromptsBasePath, "promptsBase");
   SamXMLHelper::serializePath(&doc, creationElem, ui.urLexicon, "lexicon");
   SamXMLHelper::serializePath(&doc, creationElem, ui.urGrammar, "grammar");
   SamXMLHelper::serializePath(&doc, creationElem, ui.urVocabulary, "vocabulary");
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urTreeHed, "tree");
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urWavConfig, "wavConfig");
   
   
   SamXMLHelper::serializeText(&doc, creationElem, ui.leScriptPrefix->text(), "scriptPrefix");
@@ -684,10 +650,7 @@ void SamView::storeFile()
   SamXMLHelper::serializeInt(&doc, creationElem, ui.sbSampleRate->value(), "sampleRate");
   SamXMLHelper::serializeInt(&doc, creationElem, getModelType(), "modelType");
   
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urBaseHmmDefs, "baseHmm");
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urBaseTiedlist, "baseTiedlist");
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urBaseMacros, "baseMacros");
-  SamXMLHelper::serializePath(&doc, creationElem, ui.urBaseStats, "baseStats");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urBaseModel, "baseModel");
   
   samProjectElem.appendChild(creationElem);
   
@@ -723,15 +686,9 @@ void SamView::setClean()
 void SamView::getBuildPathsFromSimon()
 {
   clearBuildLog();
-  ui.urHmmDefs->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/hmmdefs")));
-  ui.urTiedlist->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/tiedlist")));
-  ui.urDict->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/model.dict")));
-  ui.urDFA->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/model.dfa")));
+  ui.urOutputModel->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/active.sbm")));
   ui.urPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
   qDeleteAll(testConfigurations); //cleared by signal
-
-  ui.urTreeHed->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/tree1.hed")));
-  ui.urWavConfig->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/wav_config")));
 
   KSharedConfig::Ptr config = KSharedConfig::openConfig("speechmodelmanagementrc");
   KConfigGroup group(config, "Model");
@@ -743,18 +700,12 @@ void SamView::getBuildPathsFromSimon()
       //static model
     case 1:
       //adapted model
-      ui.urBaseHmmDefs->setUrl(KStandardDirs::locate("data", "simon/model/basehmmdefs"));
-      ui.urBaseTiedlist->setUrl(KStandardDirs::locate("data", "simon/model/basetiedlist"));
-      ui.urBaseMacros->setUrl(KStandardDirs::locate("data", "simon/model/basemacros"));
-      ui.urBaseStats->setUrl(KStandardDirs::locate("data", "simon/model/basestats"));
+      ui.urBaseModel->setUrl(KStandardDirs::locate("data", "simon/model/basemodel.sbm"));
       ui.rbAdaptedBaseModel->click();
       break;
     case 2:
       //dynamic model
-      ui.urBaseHmmDefs->clear();
-      ui.urBaseTiedlist->clear();
-      ui.urBaseMacros->clear();
-      ui.urBaseStats->clear();
+      ui.urBaseModel->clear();
       ui.rbDynamicModel->click();
       break;
   }
@@ -784,21 +735,25 @@ void SamView::getBuildPathsFromSimon()
   //Moreover this way the model compilation adapter knows what we want to do and will
   //take several corner cases into account as well as streamline the model with the
   //information he can extract from the input files
-
-  ModelCompilationAdapter::AdaptionType adaptionType = ModelCompilationAdapter::None;
-  if (modelType == 0 /*static*/)
-    adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel | 
-        ModelCompilationAdapter::AdaptAcousticModel | ModelCompilationAdapter::AdaptIndependently);
-  else
-    adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel | 
-        ModelCompilationAdapter::AdaptAcousticModel);
     
   ui.leScriptPrefix->setText("simon/scripts");
 
+  ModelCompilationAdapter::AdaptionType adaptionType = ModelCompilationAdapter::None;
+  if (modelType == 0 /*static*/)
+    adaptionType = ModelCompilationAdapter::AdaptLanguageModel;
+  else
+    adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel | 
+        ModelCompilationAdapter::AdaptAcousticModel);
+  
+  QHash<QString,QString> adaptionArgs; 
+  adaptionArgs.insert("lexicon", path+"lexicon");
+  adaptionArgs.insert("grammar", path+"model.grammar");
+  adaptionArgs.insert("simpleVocab", path+"simple.voca");
+  adaptionArgs.insert("prompts", path+"samprompts");
+  adaptionArgs.insert("stripContext", "true");
+
   QStringList scenarioPaths = findScenarios(scenarioIds);
-  modelCompilationAdapter->startAdaption(
-    adaptionType, path+"lexicon", path+"model.grammar",
-    path+"simple.voca", path+"samprompts", scenarioPaths, path+"prompts");
+  modelCompilationAdapter->startAdaption(adaptionType, scenarioPaths, path+"prompts", adaptionArgs);
 }
 
 
@@ -859,24 +814,31 @@ void SamView::serializeScenariosRun(const QStringList& scenarioIds, const QStrin
   if (output.isEmpty()) return;
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
+  
+  QHash<QString,QString> adaptionArgs; 
+  
+  adaptionArgs.insert("lexicon", output+"lexicon");
+  adaptionArgs.insert("grammar", output+"model.grammar");
+  adaptionArgs.insert("simpleVocab", output+"simple.voca");
+  adaptionArgs.insert("prompts", output+"prompts");
 
   modelCompilationAdapter->startAdaption(
-    (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel),
-    output+"lexicon", output+"model.grammar",
-    output+"simple.voca", output+"prompts",
-    scenarioPaths, ui.urPrompts->url().toLocalFile());
+    ModelCompilationAdapter::AdaptLanguageModel,
+    scenarioPaths, ui.urPrompts->url().toLocalFile(),
+    adaptionArgs);
 }
 
 
 void SamView::serializePromptsRun(const QString promptsPath, const QString& output)
 {
   if (output.isEmpty()) return;
+  
+  QHash<QString,QString> adaptionArgs; 
+  adaptionArgs.insert("prompts", output+"prompts");
 
   modelCompilationAdapter->startAdaption(
-    (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel),
-    QString(), QString(),
-    QString(), output+"prompts",
-    QStringList(), promptsPath);
+    ModelCompilationAdapter::AdaptAcousticModel,
+    QStringList(), promptsPath, adaptionArgs);
 }
 
 
@@ -902,60 +864,44 @@ void SamView::compileModel()
   int modelType = getModelType();
   kDebug() << "Model type: " << modelType;
 
-  ModelCompilationManager::CompilationType type;
+  ModelCompiler::CompilationType type;
   switch (modelType) {
     case 0:
       //static model
-      type = (ModelCompilationManager::CompileLanguageModel);
-
-      QFile::remove(ui.urHmmDefs->url().toLocalFile());
-      QFile::remove(ui.urTiedlist->url().toLocalFile());
-      QFile::copy(ui.urBaseHmmDefs->url().toLocalFile(), ui.urHmmDefs->url().toLocalFile());
-      QFile::copy(ui.urBaseTiedlist->url().toLocalFile(), ui.urTiedlist->url().toLocalFile());
+      type = (ModelCompiler::CompileLanguageModel);
       break;
     case 1:
       //adapted base model
-      type = (ModelCompilationManager::CompilationType)
-        (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::AdaptSpeechModel);
+      type = (ModelCompiler::CompilationType)
+        (ModelCompiler::CompileLanguageModel|ModelCompiler::AdaptSpeechModel);
       break;
 
     case 2:
       //dynamic model
-      type = (ModelCompilationManager::CompilationType)
-        (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel);
+      type = (ModelCompiler::CompilationType)
+        (ModelCompiler::CompileLanguageModel|ModelCompiler::CompileSpeechModel);
       break;
     default:
       fatalError(i18n("Unknown model type"));
       return;
   }
-  modelCompilationManager->startCompilation(
-    type,
-    ui.urHmmDefs->url().toLocalFile(),
-    ui.urTiedlist->url().toLocalFile(),
-    ui.urDict->url().toLocalFile(),
-    ui.urDFA->url().toLocalFile(),
-
-    ui.urBaseHmmDefs->url().toLocalFile(),
-    ui.urBaseTiedlist->url().toLocalFile(),
-    ui.urBaseMacros->url().toLocalFile(),
-    ui.urBaseStats->url().toLocalFile(),
-
-    ui.urPromptsBasePath->url().toLocalFile(),
-    ui.urLexicon->url().toLocalFile(),
-    ui.urGrammar->url().toLocalFile(),
-    ui.urVocabulary->url().toLocalFile(),
-    ui.urPrompts->url().toLocalFile(),
-    ui.urTreeHed->url().toLocalFile(),
-    ui.urWavConfig->url().toLocalFile(),
-    ui.leScriptPrefix->text());
+  
+  QHash<QString,QString> compilerArgs;
+        
+  compilerArgs.insert("samples",ui.urPromptsBasePath->url().toLocalFile());
+  compilerArgs.insert("lexicon", ui.urLexicon->url().toLocalFile());
+  compilerArgs.insert("grammar", ui.urGrammar->url().toLocalFile());
+  compilerArgs.insert("vocab", ui.urVocabulary->url().toLocalFile());
+  compilerArgs.insert("prompts", ui.urPrompts->url().toLocalFile());
+  compilerArgs.insert("scriptBase", ui.leScriptPrefix->text());
+  modelCompilationManager->startCompilation(type, ui.urOutputModel->url().toLocalFile(),
+                                            ui.urBaseModel->url().toLocalFile(), compilerArgs);
 }
-
 
 void SamView::abortModelCompilation()
 {
   modelCompilationManager->abort();
 }
-
 
 void SamView::slotModelAdaptionComplete()
 {
@@ -999,9 +945,8 @@ void SamView::slotModelAdaptionComplete()
       else
         testPromptsPathUsed = prompts;
       addTestConfiguration(new TestConfigurationWidget(
-              createEmptyCorpusInformation(), ui.urHmmDefs->url(), 
-              ui.urTiedlist->url(), ui.urDict->url(),
-              ui.urDFA->url(), KUrl(testPromptsPathUsed), KUrl(trainingDataPath), 
+              createEmptyCorpusInformation(), QString(), 
+              QString(), QString(), QString(), KUrl(testPromptsPathUsed), KUrl(trainingDataPath), 
               KUrl(KStandardDirs::locate("data", "simond/default.jconf")), ui.sbSampleRate->value(), 
               this));
     }
@@ -1040,9 +985,11 @@ void SamView::slotModelAdaptionAborted()
 }
 
 
-void SamView::slotModelAdaptionStatus(QString status, int progress)
+void SamView::slotModelAdaptionStatus(QString status, int progress, int max)
 {
   ui.pbAdaptProgress->setValue(progress);
+  if (max != ui.pbAdaptProgress->maximum())
+    ui.pbAdaptProgress->setMaximum(max);
   ui.teAdaptLog->append(status);
 }
 

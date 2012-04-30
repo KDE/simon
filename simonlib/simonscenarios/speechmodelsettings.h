@@ -24,8 +24,10 @@
 #include "ui_languageprofilesettings.h"
 #include "ui_modelsettingsdlg.h"
 
-#include <KCModule>
 #include <QVariantList>
+#include <QDateTime>
+
+#include <KCModule>
 
 /**
   @author Peter Grasch <bedahr@gmx.net>
@@ -49,26 +51,27 @@ class SpeechModelSettings : public KCModule
   private slots:
     void slotChanged();
     void loadLanguageProfile();
-    void loadBaseHMM();
-    void loadBaseTiedlist();
-    void loadBaseMacros();
-    void loadBaseStats();
+    void createBaseModel();
+    void openBaseModel();
+    void exportBaseModel();
 
   private:
     void touchLanguageProfileDate();
-    QString translateDefault(const QString& in);
     void importBaseModelFromDirectory(QDir dir);
     
     Ui::TrainingSettingsWidget uiTrainingsData;
     Ui::LanguageProfileSettingsWidget uiLanguageProfile;
+    
     Ui::ModelDlg ui;
-    QString m_lastDirectory;
-    QString m_hmmDefsToImport;
-    QString m_tiedlistToImport;
-    QString m_macrosToImport;
-    QString m_statsToImport;
+    QString m_baseModelToImport;
+    QString m_baseModelName;
+    QDateTime m_baseModelDate;
     QString m_languageProfileToImport;
 
     int m_storedModelType;
+    
+    void importBaseModel(const QString& path);
+    void updateBaseModelDescription(const QString& path);
+    QString baseModelDescription();
 };
 #endif

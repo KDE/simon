@@ -32,17 +32,7 @@
        <item>
         <widget class="QCheckBox" name="kcfg_StartLocalSimond">
          <property name="text">
-          <string>Start server when simon starts</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="kcfg_StopLocalSimond">
-         <property name="text">
-          <string>Stop server when simon stops</string>
+          <string>Start / stop server with Simon</string>
          </property>
          <property name="checked">
           <bool>true</bool>

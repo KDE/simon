@@ -12,17 +12,21 @@ include(KDE4Defaults)
 set (QT_USE_QTMAIN true)
  
 set( simoncontextadapter_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/contextadapter.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/contextadapter.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/situation.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/cachedmodel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/modelsource.cpp
 )
 
 set( simoncontextadapter_LIB_HDRS
   simoncontextadapter_export.h
+  situation.h
   contextadapter.h
 )
 
 kde4_add_library( simoncontextadapter  SHARED ${simoncontextadapter_LIB_SRCS} )
 target_link_libraries( simoncontextadapter ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} 
-        ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS} simonmodelcompilationadapter
+        ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS}
         simonmodelcompilation )
 
 

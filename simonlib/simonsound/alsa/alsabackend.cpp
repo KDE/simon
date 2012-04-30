@@ -31,7 +31,6 @@ static int set_hwparams(snd_pcm_t *handle,
                              snd_pcm_access_t access,
                              int* bufferSize, int* periodSize, unsigned int* chunks,
                              int channels, unsigned int& samplerate);
-static int set_swparams(snd_pcm_t *handle, snd_pcm_sw_params_t *swparams, int period_size);
 static int xrun_recovery(snd_pcm_t *handle, int err);
 
 
@@ -232,10 +231,8 @@ snd_pcm_t* ALSABackend::openDevice(SimonSound::SoundDeviceType type, const QStri
 
   snd_pcm_t *handle;
   snd_pcm_hw_params_t *hwparams;
-  //snd_pcm_sw_params_t *swparams;
 
   snd_pcm_hw_params_alloca(&hwparams);
-  //snd_pcm_sw_params_alloca(&swparams);
 
   int err = 0;
 
@@ -245,25 +242,16 @@ snd_pcm_t* ALSABackend::openDevice(SimonSound::SoundDeviceType type, const QStri
     kWarning() << "Couldn't open audio device: " << internalDeviceName << " - " 
                << snd_strerror(err);
     handle = 0;
+  } else {
+    unsigned int srate = static_cast<unsigned int>(samplerate);
+    if (handle && (err = set_hwparams(handle, hwparams, SND_PCM_ACCESS_RW_INTERLEAVED,
+            &m_bufferSize, &m_periodSize, &m_chunks,
+            channels, srate)) < 0) {
+      kWarning() << "Setting of hwparams failed: " << snd_strerror(err);
+      snd_pcm_close(handle);
+      handle = 0;
+    }
   }
-
-  unsigned int srate = static_cast<unsigned int>(samplerate);
-  if (handle && (err = set_hwparams(handle, hwparams, SND_PCM_ACCESS_RW_INTERLEAVED,
-          &m_bufferSize, &m_periodSize, &m_chunks,
-          channels, srate)) < 0) {
-    kWarning() << "Setting of hwparams failed: " << snd_strerror(err);
-    snd_pcm_close(handle);
-    handle = 0;
-  }
-
-  //if ((err >= 0) && ((err = set_swparams(handle, swparams, m_periodSize)) < 0)) {
-    //kWarning() << "Setting of swparams failed: " << snd_strerror(err);
-    //snd_pcm_close(handle);
-    //handle = 0;
-  //}
-
-  //snd_pcm_hw_params_free(hwparams);
-  //snd_pcm_sw_params_free(swparams);
 
   if (!handle)
     emit errorOccured(SimonSound::OpenError);
@@ -309,19 +297,18 @@ void ALSABackend::errorRecoveryFailed()
 bool ALSABackend::stop()
 {
   kDebug() << "Called stop()";
-  if (state() != SimonSound::ActiveState)
+  if (state() == SimonSound::IdleState)
     return true;
 
   Q_ASSERT(m_loop); //should be here if we are active
-  Q_ASSERT(m_handle); 
 
   m_loop->stop();
-  kDebug() << "Done stopping1";
   m_loop->wait();
-  m_loop->deleteLater();
+  delete m_loop;
   m_loop = 0;
-  kDebug() << "Done stopping";
-
+  
+  emit stateChanged(SimonSound::IdleState);
+  
   return true;
 }
 
@@ -345,7 +332,7 @@ bool ALSABackend::prepareRecording(const QString& device, int& channels, int& sa
   }
 
   m_handle = openDevice(SimonSound::Input, device, channels, samplerate);
-  m_loop = new ALSACaptureLoop(this);
+  m_loop = (m_loop) ? m_loop : new ALSACaptureLoop(this);
   emit stateChanged(SimonSound::PreparedState);
   kDebug() << "Prepared recording: " << m_handle;
   
@@ -518,33 +505,6 @@ static int set_hwparams(snd_pcm_t *handle,
   err = snd_pcm_hw_params(handle, params);
   if (err < 0) {
     kWarning() << "Unable to set hw params for playback:" << snd_strerror(err);
-    return err;
-  }
-  return 0;
-}
-
-static int set_swparams(snd_pcm_t *handle, snd_pcm_sw_params_t *swparams, int period_size)
-{
-  int err;
-
-  /* get the current swparams */
-  err = snd_pcm_sw_params_current(handle, swparams);
-  if (err < 0) {
-    kDebug() << "Unable to determine current swparams for playback:" << snd_strerror(err);
-    return err;
-  }
-  if ((err = snd_pcm_sw_params_set_avail_min (handle, swparams, period_size)) < 0) {
-    kDebug() << "cannot set minimum available count " << snd_strerror(err);
-    return err;
-  }
-  if ((err = snd_pcm_sw_params_set_start_threshold (handle, swparams, 0U)) < 0) {
-    kDebug() << "cannot set start mode " << snd_strerror(err);
-    return err;
-  }
-  /* write the parameters to the playback device */
-  err = snd_pcm_sw_params(handle, swparams);
-  if (err < 0) {
-    kDebug() << "Unable to set sw params for playback:" << snd_strerror(err);
     return err;
   }
   return 0;

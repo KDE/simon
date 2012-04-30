@@ -39,6 +39,7 @@
 #include <simonrecognitionresult/recognitionresult.h>
 
 #include <stdio.h>
+#include <unistd.h>
 
 #include <QByteArray>
 #include <QTimer>
@@ -56,11 +57,10 @@
 #include <KPasswordDialog>
 #include <KStringHandler>
 
-#define advanceStream(x) messageLocker.lock();\
+#define advanceStream(x) \
   qint64 currentPos = ((qint64)msg.device()->pos())-((qint64)x);\
   msgByte.remove(0,(int)x);\
-  msg.device()->seek(currentPos);\
-  messageLocker.unlock();
+  msg.device()->seek(currentPos);
 
 #define checkIfSynchronisationIsAborting() if (synchronisationOperation && synchronisationOperation->isAborting()) \
   { \
@@ -143,19 +143,18 @@ void RecognitionControl::startPrivateSimond()
     localSimond->waitForFinished();
   }
 
-  if (RecognitionConfiguration::stopLocalSimond())
-    localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
-  else
-    localSimond->startDetached('"'+KStandardDirs::findExe("simond")+'"');
-
+  localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
+  localSimond->waitForStarted();
 }
 
 void RecognitionControl::startup()
 {
+  kDebug() << "Starting up";
+  RecognitionConfiguration::self()->readConfig();
+  
   if (RecognitionConfiguration::startLocalSimond()) {
-    if (RecognitionConfiguration::stopLocalSimond())
-      startPrivateSimond();
-    QTimer::singleShot(1000, this, SLOT(actOnAutoConnect()));
+    startPrivateSimond();
+    QTimer::singleShot(300, this, SLOT(actOnAutoConnect()));
   }
   else
     actOnAutoConnect();
@@ -164,12 +163,9 @@ void RecognitionControl::startup()
 
 void RecognitionControl::actOnAutoConnect()
 {
+  kDebug() << "Acting on auto connect: " << RecognitionConfiguration::juliusdAutoConnect();
   if ( RecognitionConfiguration::juliusdAutoConnect() )
   {
-    if ((RecognitionConfiguration::startLocalSimond()) &&
-        (RecognitionConfiguration::stopLocalSimond()))
-      localSimond->waitForStarted(3000);
-
     startConnecting();
   }
 }
@@ -485,10 +481,7 @@ bool RecognitionControl::sendActiveModel()
 
   bodyStream << ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime()
     << model->sampleRate()
-    << model->hmmDefs()
-    << model->tiedList()
-    << model->data1()
-    << model->data2();
+    << model->container();
 
   send(Simond::ActiveModel, body);
   
@@ -556,10 +549,7 @@ bool RecognitionControl::sendBaseModel()
 
   bodyStream << ModelManagerUiProxy::getInstance()->getBaseModelDate()
     << model->baseModelType()
-    << model->hmmDefs()
-    << model->tiedList()
-    << model->data1()
-    << model->data2();
+    << model->container();
 
   send(Simond::BaseModel, body);
 
@@ -601,13 +591,12 @@ void RecognitionControl::sendDeactivatedScenarioList()
   send(Simond::DeactivatedScenarioList, body);
 }
 
-void RecognitionControl::sendSampleGroup(QString sampleGroup)
+void RecognitionControl::sendSampleGroups(const QStringList& sampleGroups)
 {
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-  QByteArray sampleGroupBytes = sampleGroup.toUtf8();
-  bodyStream << sampleGroupBytes;
+  bodyStream << sampleGroups;
 
   send(Simond::SampleGroup, body);
 }
@@ -700,7 +689,6 @@ void RecognitionControl::sendLanguageDescription()
   LanguageDescriptionContainer *languageDescription = ModelManagerUiProxy::getInstance()->getLanguageDescriptionContainer();
 
   bodyStream << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime()
-    << languageDescription->treeHed()
     << languageDescription->shadowVocab()
     << languageDescription->languageProfile();
 
@@ -728,7 +716,6 @@ void RecognitionControl::sendTraining()
 
   bodyStream << ModelManagerUiProxy::getInstance()->getTrainingModifiedTime()
     << training->sampleRate()
-    << training->wavConfig()
     << training->prompts();
   send(Simond::Training, body);
 
@@ -845,6 +832,7 @@ void RecognitionControl::synchronisationDone()
   }
 
   ModelManagerUiProxy::getInstance()->commitGroup(true /*silent*/);
+  emit synchroniationCompleted();
 }
 
 
@@ -859,15 +847,14 @@ void RecognitionControl::messageReceived()
 {
   qint32 type;
   Simond::Request request;
-  QByteArray msgByte=stillToProcess;
+  QByteArray msgByte = stillToProcess;
   QDataStream msg(&msgByte, QIODevice::ReadOnly);
-  bool messageNotYetFinished=false;
   while (socket->bytesAvailable()) {
-    messageLocker.lock();
+    bool messageNotYetFinished = false;
     msgByte += socket->readAll();
-    messageLocker.unlock();
+    msg.device()->seek(0);
+    
     while (((unsigned) msg.device()->bytesAvailable() >= sizeof(qint32)) && !messageNotYetFinished) {
-      messageNotYetFinished=false;
       msg >> type;
       request = (Simond::Request) type;
       switch (request) {
@@ -937,8 +924,8 @@ void RecognitionControl::messageReceived()
 
         case Simond::GetActiveModel:
         {
-          advanceStream(sizeof(qint32))
-            checkIfSynchronisationIsAborting();
+          advanceStream(sizeof(qint32));
+          checkIfSynchronisationIsAborting();
 
           kDebug() << "Server requested active model";
           sendActiveModel();
@@ -947,28 +934,23 @@ void RecognitionControl::messageReceived()
 
         case Simond::ActiveModel:
         {
-          checkIfSynchronisationIsAborting();
-
           kDebug() << "Server sent active model";
-
           parseLengthHeader();
 
           qint32 sampleRate;
-          QByteArray hmmDefs, tiedList, data1, data2;
+          QByteArray container;
 
           QDateTime changedTime;
           msg >> changedTime;
           msg >> sampleRate;
-          msg >> hmmDefs;
-          msg >> tiedList;
-          msg >> data1;
-          msg >> data2;
+          msg >> container;
 
-          ModelManagerUiProxy::getInstance()->storeActiveModel(changedTime, sampleRate,
-            hmmDefs, tiedList, data1, data2);
+          ModelManagerUiProxy::getInstance()->storeActiveModel(changedTime, sampleRate, container);
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+          checkIfSynchronisationIsAborting();
           sendBaseModelDate();
+          kDebug() << "Done";
           break;
         }
 
@@ -1017,7 +999,6 @@ void RecognitionControl::messageReceived()
         }
         case Simond::GetBaseModel:
         {
-          kDebug() << "Retreiving base model";
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
           sendBaseModel();
@@ -1031,29 +1012,24 @@ void RecognitionControl::messageReceived()
 
           int baseModelType;
           QDateTime changedTime;
-          QByteArray hmmDefs, tiedList, macros, stats;
+          QByteArray container;
 
           msg >> changedTime;
           msg >> baseModelType;
-          msg >> hmmDefs;
-          msg >> tiedList;
-          msg >> macros;
-          msg >> stats;
+          msg >> container;
 
-          ModelManagerUiProxy::getInstance()->storeBaseModel(changedTime, baseModelType,
-            hmmDefs, tiedList, macros, stats);
+          ModelManagerUiProxy::getInstance()->storeBaseModel(changedTime, baseModelType, container);
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
           checkIfSynchronisationIsAborting();
-          kDebug() << "Got base model now sending scenarios to delete";
           sendScenariosToDelete();
           break;
         }
         case Simond::BaseModelStorageFailed:
         {
           advanceStream(sizeof(qint32));
-          kDebug() << "Base model storage failed";
+          kWarning() << "Base model storage failed";
           sendScenariosToDelete();
           break;
         }
@@ -1266,16 +1242,15 @@ void RecognitionControl::messageReceived()
           kDebug() << "Server sent training";
           parseLengthHeader();
           qint32 sampleRate;
-          QByteArray wavConfig, prompts;
+          QByteArray prompts;
 
           QDateTime changedTime;
           msg >> changedTime;
           msg >> sampleRate;
-          msg >> wavConfig;
           msg >> prompts;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          ModelManagerUiProxy::getInstance()->storeTraining(changedTime, sampleRate,wavConfig,prompts);
+          ModelManagerUiProxy::getInstance()->storeTraining(changedTime, sampleRate,prompts);
 
           synchronisationOperation->update(i18n("Synchronizing Wordlist"), 3);
           sendLanguageDescriptionModifiedDate();
@@ -1332,14 +1307,13 @@ void RecognitionControl::messageReceived()
 
           kDebug() << "Server sent languagedescription";
 
-          QByteArray treeHed, shadowVocab, languageProfile;
+          QByteArray shadowVocab, languageProfile;
           QDateTime changedTime;
           msg >> changedTime;
-          msg >> treeHed;
           msg >> shadowVocab;
           msg >> languageProfile;
 	  
-          ModelManagerUiProxy::getInstance()->storeLanguageDescription(changedTime,shadowVocab, treeHed, languageProfile);
+          ModelManagerUiProxy::getInstance()->storeLanguageDescription(changedTime, shadowVocab, languageProfile);
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
           sendRequest(Simond::StartTrainingsSampleSynchronisation);

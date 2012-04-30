@@ -33,9 +33,6 @@
 
 #include <simonwav/wav.h>
 
-#include <speechmodelcompilation/modelcompilationmanager.h>
-#include <speechmodelcompilationadapter/modelcompilationadapter.h>
-#include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <simoncontextadapter/contextadapter.h>
 
 #include <QDir>
@@ -59,10 +56,7 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
   recognitionControlFactory(factory),
   recognitionControl(0),
   synchronisationManager(0),
-  contextAdapter(0),
-  newLexiconHash(0),
-  newGrammarHash(0),
-  newVocaHash(0)
+  contextAdapter(0)
 {
   qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -165,47 +159,34 @@ void ClientSocket::processRequest()
         }
 
         if (databaseAccess->authenticateUser(user, pass)) {
-            //store authentication data
-            this->username = user;
+          //store authentication data
+          this->username = user;
 
-            if (contextAdapter) contextAdapter->deleteLater();
+          if (contextAdapter) contextAdapter->deleteLater();
 
-            contextAdapter = new ContextAdapter(user, this);
-
-            connect(contextAdapter, SIGNAL(modelCompiled()),
-                    this, SLOT(activeModelCompiled()));
-            connect(contextAdapter, SIGNAL(activeModelCompilationAborted()),
-                    this, SLOT(activeModelCompilationAborted()));
-            connect(contextAdapter, SIGNAL(manageStatus(QString,int,int)),
-                    this, SLOT(slotModelCompilationStatus(QString,int,int)));
-            connect(contextAdapter, SIGNAL(manageError(QString)),
-                    this, SLOT(slotModelCompilationError(QString)));
-            connect(contextAdapter, SIGNAL(classUndefined(QString)),
-                    this, SLOT(slotModelCompilationClassUndefined(QString)));
-            connect(contextAdapter, SIGNAL(wordUndefined(QString)),
-                    this, SLOT(slotModelCompilationWordUndefined(QString)));
-            connect(contextAdapter, SIGNAL(phonemeUndefined(QString)),
-                    this, SLOT(slotModelCompilationPhonemeUndefined(QString)));
-
-            connect(contextAdapter, SIGNAL(adaptionComplete()),
-                    this, SLOT(slotModelAdaptionComplete()));
-            connect(contextAdapter, SIGNAL(adaptionAborted()),
-                    this, SLOT(slotModelAdaptionAborted()));
-            connect(contextAdapter, SIGNAL(adaptStatus(QString,int)),
-                    this, SLOT(slotModelAdaptionStatus(QString,int)));
-            connect(contextAdapter, SIGNAL(adaptError(QString)),
-                    this, SLOT(slotModelAdaptionError(QString)));
-
-            connect(contextAdapter, SIGNAL(modelLoadedFromCache()),
-                    this, SLOT(activeModelLoadedFromCache()));
-            connect(contextAdapter, SIGNAL(forceModelRecompilation()),
-                    this, SLOT(startForcedRecompile()));
-
+          contextAdapter = new ContextAdapter(user, this);
+          
+          connect(contextAdapter, SIGNAL(modelCompiled(QString)),
+                  this, SLOT(activeModelCompiled(QString)));
+          connect(contextAdapter, SIGNAL(newModelReady()),
+                  this, SLOT(initializeRecognitionSmartly()));
+          connect(contextAdapter, SIGNAL(modelCompilationAborted()),
+                  this, SLOT(activeModelCompilationAborted()));
+          connect(contextAdapter, SIGNAL(status(QString,int,int)),
+                  this, SLOT(slotModelCompilationStatus(QString,int,int)));
+          connect(contextAdapter, SIGNAL(error(QString)),
+                  this, SLOT(slotModelCompilationError(QString)));
+          
+          connect(contextAdapter, SIGNAL(classUndefined(QString)),
+                  this, SLOT(slotModelCompilationClassUndefined(QString)));
+          connect(contextAdapter, SIGNAL(wordUndefined(QString)),
+                  this, SLOT(slotModelCompilationWordUndefined(QString)));
+          connect(contextAdapter, SIGNAL(phonemeUndefined(QString)),
+                  this, SLOT(slotModelCompilationPhonemeUndefined(QString)));
 
           if (recognitionControl)
             closeRecognitionControl();
 
-          // MANI TODO
           recognitionControl = recognitionControlFactory->recognitionControl(username);
           connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
           connect(recognitionControl, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(recognitionError(QString,QByteArray)));
@@ -296,17 +277,13 @@ void ClientSocket::processRequest()
         waitForMessage(length, stream, msg);
 
         qint32 sampleRate;
-        QByteArray hmmdefs, tiedlist, dict, dfa;
+        QByteArray container;
         QDateTime changedDate;
         stream >> changedDate;
         stream >> sampleRate;
-        stream >> hmmdefs;
-        stream >> tiedlist;
-        stream >> dict;
-        stream >> dfa;
+        stream >> container;
 
-        if (!synchronisationManager->storeActiveModel( changedDate, sampleRate, hmmdefs,
-        tiedlist, dict, dfa)) {
+        if (!synchronisationManager->storeActiveModel( changedDate, sampleRate, container)) {
           sendCode(Simond::ActiveModelStorageFailed);
         }
         sendCode(Simond::GetBaseModelDate);
@@ -344,6 +321,7 @@ void ClientSocket::processRequest()
 
       case Simond::BaseModelDate:
       {
+        kDebug() << "Got base model date";
         Q_ASSERT(synchronisationManager);
         QDateTime remoteModelDate;
         waitForMessage(sizeof(QDateTime), stream, msg);
@@ -379,25 +357,14 @@ void ClientSocket::processRequest()
         waitForMessage(length, stream, msg);
 
         qint32 baseModelType;
-        QByteArray hmmdefs, tiedlist, macros, stats;
+        QByteArray container;
         QDateTime changedDate;
         stream >> changedDate;
         stream >> baseModelType;
-        stream >> hmmdefs;
-        stream >> tiedlist;
-        stream >> macros;
-        stream >> stats;
+        stream >> container;
 
         //if the new base model type is different from the old one, a new acoustic model should be compiled
-        if (baseModelType != synchronisationManager->getBaseModelType())
-        {
-            contextAdapter->setShouldCompileAcousticModel(true);
-            contextAdapter->clearCache();
-            recompileOverride = true;
-        }
-
-        if (!synchronisationManager->storeBaseModel(changedDate, baseModelType,
-        hmmdefs, tiedlist, macros, stats)) {
+        if (!synchronisationManager->storeBaseModel(changedDate, baseModelType, container)) {
           sendCode(Simond::BaseModelStorageFailed);
         }
         sendCode(Simond::GetScenariosToDelete);
@@ -446,7 +413,6 @@ void ClientSocket::processRequest()
 
     case Simond::DeactivatedScenarioList:
     {
-      kDebug() << "Received DEACTIVATED scenario list";
       waitForMessage(sizeof(qint64), stream, msg);
       qint64 length;
       stream >> length;
@@ -454,7 +420,7 @@ void ClientSocket::processRequest()
       QStringList scenarioIds;
       stream >> scenarioIds;
 
-      kDebug() << "DEACTIVATED Scenario list: " << scenarioIds;
+      kDebug() << "Received list of scenarios to deactivate: " << scenarioIds;
 
       contextAdapter->updateDeactivatedScenarios(scenarioIds);
 
@@ -468,12 +434,12 @@ void ClientSocket::processRequest()
         stream >> length;
         waitForMessage(length, stream, msg);
 
-        QByteArray sampleGroup;
-        stream >> sampleGroup;
+        QStringList sampleGroups;
+        stream >> sampleGroups;
 
-        kDebug() << "Received Sample Group: " << sampleGroup;
+        kDebug() << "Received Sample Groups: " << sampleGroups;
 
-        contextAdapter->updateAcousticModelSampleGroup(sampleGroup);
+        contextAdapter->updateAcousticModelSampleGroups(sampleGroups);
     }
 
       case Simond::StartScenarioSynchronisation:
@@ -634,7 +600,7 @@ void ClientSocket::processRequest()
 
         Q_ASSERT(synchronisationManager);
 
-                                        kDebug() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
+        kDebug() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
         if (remoteTrainingDate != localTrainingDate) {
           //Training changed
           if (localTrainingDate > remoteTrainingDate) {
@@ -675,14 +641,13 @@ void ClientSocket::processRequest()
         waitForMessage(length, stream, msg);
 
         qint32 sampleRate;
-        QByteArray wavConfig, prompts;
+        QByteArray prompts;
         QDateTime changedTime;
         stream >> changedTime;
         stream >> sampleRate;
-        stream >> wavConfig;
         stream >> prompts;
 
-        if (!synchronisationManager->storeTraining(changedTime, sampleRate, wavConfig, prompts)) {
+        if (!synchronisationManager->storeTraining(changedTime, sampleRate, prompts)) {
           sendCode(Simond::TrainingStorageFailed);
         }
         sendCode(Simond::GetLanguageDescriptionDate);
@@ -736,15 +701,14 @@ void ClientSocket::processRequest()
 
         waitForMessage(length, stream, msg);
 
-        QByteArray treeHed, shadowVocab, languageProfile;
+        QByteArray shadowVocab, languageProfile;
         QDateTime changedTime;
 
         stream >> changedTime;
-        stream >> treeHed;
         stream >> shadowVocab;
         stream >> languageProfile;
 
-        if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, treeHed, languageProfile)) {
+        if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, languageProfile)) {
           sendCode(Simond::LanguageDescriptionStorageFailed);
         } else
         synchronizeSamples();
@@ -850,7 +814,6 @@ void ClientSocket::processRequest()
 
       case Simond::GetModelCompilationProtocol:
       {
-        Q_ASSERT(contextAdapter);
         if (!contextAdapter->hasBuildLog())
           sendCode(Simond::ErrorRetrievingModelCompilationProtocol);
         else sendModelCompilationLog();
@@ -963,52 +926,25 @@ void ClientSocket::startSynchronisation()
     sendCode(Simond::SynchronisationAlreadyRunning);
   }
   else {
-//    kDebug() << "Requesting ActiveModelDate";
-//    sendCode(Simond::GetActiveModelDate);
-
-      kDebug() << "Requesting BaseModelDate";
-      sendCode(Simond::GetBaseModelDate);
+      kDebug() << "Requesting active model date";
+      sendCode(Simond::GetActiveModelDate);
   }
 }
 
-
-void ClientSocket::activeModelCompiled()
+void ClientSocket::activeModelCompiled(const QString& path)
 {
   Q_ASSERT(synchronisationManager);
-  synchronisationManager->modelCompiled();
-  readHashesFromActiveModel();
-  writeHashesToConfig();
-
+  
+  synchronisationManager->modelCompiled(path);
   sendCode(Simond::ModelCompilationCompleted);
 
   startSynchronisation();
 }
 
-
-void ClientSocket::activeModelLoadedFromCache()
-{
-    //save the loaded model's info to the config file
-    synchronisationManager->modelCompiled();
-    readHashesFromActiveModel();
-    writeHashesToConfig();
-
-    kDebug() << "Model is ready after being loaded from cache.";
-    sendCode(Simond::ModelCompilationCompleted);
-
-    if (synchronisationManager->hasActiveModel() && !contextAdapter->managerIsRunning() &&
-      recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())) {
-      kDebug() << "Initialize recognition after loading a model from cache";
-      recognitionControl->initializeRecognition();
-    }
-}
-
-
 void ClientSocket::activeModelCompilationAborted()
 {
   sendCode(Simond::ModelCompilationAborted);
-  contextAdapter->aborted();
 }
-
 
 void ClientSocket::synchronizeSamples()
 {
@@ -1135,10 +1071,6 @@ void ClientSocket::sendSelectedScenarioList()
 {
   kDebug() << "Sending selected scenario list";
   QStringList list = synchronisationManager->getLatestSelectedScenarioList();
-  /*	if (list.isNull()) {
-      sendCode(Simond::ErrorRetrievingSelectedScenarioList);
-      return;
-    }*/
   QByteArray body;
 
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
@@ -1178,372 +1110,6 @@ void ClientSocket::sendSample(QString sampleName)
   write(toWrite);
 }
 
-
-void ClientSocket::sendModelCompilationLog()
-{
-  QByteArray toWrite;
-  QDataStream stream(&toWrite, QIODevice::WriteOnly);
-  QByteArray log = contextAdapter->getGraphicBuildLog().toUtf8();
-
-  stream << (qint32) Simond::ModelCompilationProtocol
-    << (qint64) (log.count()+sizeof(qint32) /*separator*/)
-    << log;
-  write(toWrite);
-}
-
-
-void ClientSocket::slotModelCompilationStatus(QString status, int progressNow, int progressMax)
-{
-  progressNow += contextAdapter->maxProgress();
-  progressMax += contextAdapter->maxProgress();
-  QByteArray toWrite;
-  QByteArray statusByte = status.toUtf8();
-  QDataStream stream(&toWrite, QIODevice::WriteOnly);
-  QByteArray body;
-  QDataStream bodyStream(&body, QIODevice::WriteOnly);
-
-  bodyStream <<  (qint32) progressNow
-    << (qint32) progressMax
-    << statusByte;
-
-  stream << (qint32) Simond::ModelCompilationStatus
-    << (qint64) body.count();
-
-  write(toWrite);
-  write(body);
-}
-
-
-void ClientSocket::slotModelCompilationError(QString error)
-{
-  QByteArray toWrite;
-  QDataStream stream(&toWrite, QIODevice::WriteOnly);
-  QByteArray body;
-  QDataStream bodyStream(&body, QIODevice::WriteOnly);
-
-  QByteArray errorByte = error.toUtf8();
-  QByteArray log = contextAdapter->getGraphicBuildLog().toUtf8();
-  bodyStream << errorByte << log;
-
-  stream << (qint32) Simond::ModelCompilationError
-    << (qint64) body.count();
-  write(toWrite);
-  write(body);
-}
-
-
-void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
-{
-  QByteArray toWrite;
-  QDataStream stream(&toWrite, QIODevice::WriteOnly);
-  QByteArray errorByte = word.toUtf8();
-  stream << (qint32) Simond::ModelCompilationWordUndefined
-    << (qint64) (errorByte.count()+sizeof(qint32) /*separator*/)
-    << errorByte;
-  write(toWrite);
-}
-
-
-void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
-{
-  QByteArray toWrite;
-  QDataStream stream(&toWrite, QIODevice::WriteOnly);
-  QByteArray classByte = undefClass.toUtf8();
-  stream << (qint32) Simond::ModelCompilationClassUndefined
-    << (qint64) (classByte.count()+sizeof(qint32) /*separator*/)
-    << classByte;
-  write(toWrite);
-}
-
-
-void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
-{
-  /*	QByteArray toWrite;
-    QDataStream stream(&toWrite, QIODevice::WriteOnly);
-    QByteArray phonemeByte = phoneme.toUtf8();
-    stream << (qint32) Simond::ModelCompilationPhonemeUndefined
-      << (qint64) (phonemeByte.count()+sizeof(qint32)) //separator
-      << phonemeByte;
-    write(toWrite);
-    */
-  //try to fix it automatically
-  contextAdapter->poisonPhoneme(phoneme);
-  recompileModel();
-}
-
-
-void ClientSocket::startModelCompilation()
-{
-  contextAdapter->clearPoisonedPhonemes();
-  recompileModel();
-}
-
-void ClientSocket::startForcedRecompile()
-{
-    //save the compiled model's information in config files
-    synchronisationManager->modelCompiled();
-    readHashesFromActiveModel();
-    writeHashesToConfig();
-
-    //notify the client of compilation completion
-    sendCode(Simond::ModelCompilationCompleted);
-
-    //start a new compilation
-    startModelCompilation();
-}
-
-
-void ClientSocket::recompileModel()
-{
-  sendCode(Simond::ModelCompilationStarted);
-
-  QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-
-  int baseModelType = synchronisationManager->getBaseModelType();
-  if (baseModelType == -1) {
-    kDebug() << "Failed to retrieve base model type: " << baseModelType;
-    return;
-  }
-  kDebug() << "STARTING Adaption";
-
-  switch (baseModelType) {
-    case 0:
-      //static model
-      contextAdapter->startAdaption(
-        (ModelCompilationAdapter::AdaptionType)
-        (ModelCompilationAdapter::AdaptLanguageModel),
-        activeDir+"lexicon", activeDir+"model.grammar",
-        activeDir+"simple.voca", activeDir+"prompts",
-        synchronisationManager->getScenarioPaths(),
-        synchronisationManager->getPromptsPath());
-      break;
-    case 1:
-      kDebug() << "adapting base model...";
-      //adapted base model
-      //let it run into dynamic model - no difference at this stage
-    case 2:
-      //dynamic model
-      contextAdapter->startAdaption(
-        (ModelCompilationAdapter::AdaptionType)
-        (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel),
-        activeDir+"lexicon", activeDir+"model.grammar",
-        activeDir+"simple.voca", activeDir+"prompts",
-        synchronisationManager->getScenarioPaths(),
-        synchronisationManager->getPromptsPath());
-      break;
-  }
-}
-
-bool ClientSocket::readHashesFromActiveModel()
-{
-    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-
-    QFile lexiconF(activeDir+"lexicon");
-    QFile vocaF(activeDir+"simple.voca");
-    QFile grammarF(activeDir+"model.grammar");
-    if (!lexiconF.open(QIODevice::ReadOnly) || !vocaF.open(QIODevice::ReadOnly) || !grammarF.open(QIODevice::ReadOnly))
-      return false;                                  //technically this will most likely cause the compile to fail but this
-    // will at least produce a proper error, AND it is not off the table
-    // that some weird model compilation manager can work around this... somehow :)
-
-    newLexiconHash = qHash(lexiconF.readAll());
-
-    newVocaHash = qHash(vocaF.readAll());
-    newGrammarHash = qHash(grammarF.readAll());
-
-    lexiconF.close();
-    vocaF.close();
-    grammarF.close();
-
-    return true;
-}
-
-
-bool ClientSocket::shouldRecompileModel()
-{
-  QDateTime activeModelDate = synchronisationManager->getActiveModelDate();
-
-  int baseModelType = synchronisationManager->getBaseModelType();
-
-  QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-  KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
-  KConfigGroup cg(&config, "SerializedModel");
-  uint lexiconHash = cg.readEntry("LexiconHash", 0);
-  uint vocaHash = cg.readEntry("VocaHash", 0);
-  uint grammarHash = cg.readEntry("GrammarHash", 0);
-
-  if (recompileOverride)
-  {
-      recompileOverride = false;
-      return true;
-  }
-
-  //check if the context adapter requires a recompile
-  if (contextAdapter->shouldCompileAfterAdaption())
-      return true;
-
-  //check if simple.voca, lexicon or model.grammar changed
-  if (!readHashesFromActiveModel())
-      return true;
-
-  if (!newVocaHash || !newGrammarHash || !newLexiconHash)
-    return true;
-
-  if ((newLexiconHash != lexiconHash) || (newVocaHash != vocaHash) || (newGrammarHash != grammarHash)) {
-    kDebug() << "HASH IS DIFFERENT!";
-    return true;
-  } else
-
-  if (baseModelType != 0 && (synchronisationManager->getTrainingDate() > activeModelDate))
-    return true;
-
-  if (synchronisationManager->getBaseModelDate() > activeModelDate)
-    return true;
-
-  kDebug() << "Hashes are the same...";
-
-  return false;
-}
-
-
-void ClientSocket::writeHashesToConfig()
-{
-  kDebug() << "WRITING HASH: " << newLexiconHash;
-  QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-  KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
-  KConfigGroup cg(&config, "SerializedModel");
-
-  cg.writeEntry("LexiconHash", newLexiconHash);
-  cg.writeEntry("VocaHash", newVocaHash);
-  cg.writeEntry("GrammarHash", newGrammarHash);
-  cg.sync();
-}
-
-
-void ClientSocket::slotModelAdaptionComplete()
-{
-  if (!shouldRecompileModel())
-  {
-      kDebug() << "Aborting recompilation after adaption.";
-    slotModelAdaptionAborted();
-    return;
-  }
-
-  QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-
-  QFileInfo fiGrammar(activeDir+"model.grammar");
-  bool hasGrammar = (fiGrammar.size() > 0);
-
-  if (!hasGrammar)
-  {
-      kDebug() << "No Grammar!  Model recompilation aborting!";
-    slotModelAdaptionAborted();
-    return;
-  }
-
-  int baseModelType = synchronisationManager->getBaseModelType();
-
-  QFileInfo fiPrompts(activeDir+"prompts");
-  bool hasPrompts = (fiPrompts.size() > 0);
-  if (!hasPrompts) {
-    switch (baseModelType) {
-      case 1:
-        kDebug() << "No Prompts!  Switching to static model!";
-        baseModelType = 0;
-        break;
-      case 2:                                     //do not bother creating the model without prompts
-        kDebug() << "No Prompts!  Model recompilation aborting!";
-        slotModelAdaptionAborted();
-        return;
-    }
-  }
-
-  switch (baseModelType) {
-    case 0:
-      //static model
-      contextAdapter->startCompilation(
-        (ModelCompilationManager::CompileLanguageModel),
-        activeDir+"hmmdefs", activeDir+"tiedlist",
-        activeDir+"model.dict", activeDir+"model.dfa",
-        activeDir+"basehmmdefs", activeDir+"basetiedlist",
-        activeDir+"basemacros", activeDir+"basestats",
-        KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-        activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca",
-        activeDir+"prompts", synchronisationManager->getTreeHedPath(),
-        synchronisationManager->getWavConfigPath(),
-	"simon/scripts");
-
-      QFile::remove(activeDir+"hmmdefs");
-      QFile::remove(activeDir+"tiedlist");
-      QFile::copy(activeDir+"basehmmdefs", activeDir+"hmmdefs");
-      QFile::copy(activeDir+"basetiedlist", activeDir+"tiedlist");
-      break;
-    case 1:
-      //adapted base model
-      kDebug() << "Starting modelcompilationmanager adapter";
-      contextAdapter->startCompilation(
-        (ModelCompilationManager::CompilationType)
-        (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::AdaptSpeechModel),
-        activeDir+"hmmdefs", activeDir+"tiedlist",
-        activeDir+"model.dict", activeDir+"model.dfa",
-        activeDir+"basehmmdefs", activeDir+"basetiedlist",
-        activeDir+"basemacros", activeDir+"basestats",
-        KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-        activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca",
-        activeDir+"prompts", synchronisationManager->getTreeHedPath(),
-        synchronisationManager->getWavConfigPath(),
-	"simon/scripts");
-
-      break;
-
-    case 2:
-      //dynamic model
-      contextAdapter->startCompilation(
-        (ModelCompilationManager::CompilationType)
-        (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel),
-        activeDir+"hmmdefs", activeDir+"tiedlist",
-        activeDir+"model.dict", activeDir+"model.dfa",
-        activeDir+"basehmmdefs", activeDir+"basetiedlist",
-        activeDir+"basemacros", activeDir+"basestats",
-        KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-        activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca",
-        activeDir+"prompts", synchronisationManager->getTreeHedPath(),
-        synchronisationManager->getWavConfigPath(),
-	"simon/scripts");
-      break;
-  }
-}
-
-
-void ClientSocket::slotModelAdaptionAborted()
-{
-  activeModelCompilationAborted();
-}
-
-
-void ClientSocket::slotModelAdaptionStatus(QString status, int progressNow)
-{
-  slotModelCompilationStatus(status, progressNow-contextAdapter->maxProgress(), 0);
-}
-
-
-void ClientSocket::slotModelAdaptionError(QString error)
-{
-  QByteArray toWrite;
-  QDataStream stream(&toWrite, QIODevice::WriteOnly);
-  QByteArray body;
-  QDataStream bodyStream(&body, QIODevice::WriteOnly);
-
-  QByteArray errorByte = error.toUtf8();
-  bodyStream << errorByte << QByteArray();
-
-  stream << (qint32) Simond::ModelCompilationError
-    << (qint64) body.count();
-  write(toWrite);
-  write(body);
-}
-
-
 void ClientSocket::sendCode(Simond::Request code)
 {
   QByteArray toWrite;
@@ -1562,7 +1128,7 @@ void ClientSocket::slotSocketError()
     error+=sslErrors[i].errorString()+'\n';
   kDebug() << error;
 
-  // 	ignoreSslErrors();
+  //    ignoreSslErrors();
 }
 
 
@@ -1595,10 +1161,7 @@ bool ClientSocket::sendModel(Simond::Request request, const QDateTime& changedTi
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
   bodyStream << changedTime
     << model->sampleRate()
-    << model->hmmDefs()
-    << model->tiedList()
-    << model->data1()
-    << model->data2();
+    << model->container();
 
   QByteArray toWrite;
   QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -1611,7 +1174,6 @@ bool ClientSocket::sendModel(Simond::Request request, const QDateTime& changedTi
   return true;
 }
 
-
 void ClientSocket::synchronisationDone()
 {
   kDebug() << "Synchronization done";
@@ -1619,20 +1181,15 @@ void ClientSocket::synchronisationDone()
   //reset modelsource
   Q_ASSERT(recognitionControl);
 
+  updateModelCompilationParameters();
   initializeRecognitionSmartly();
 }
 
-void ClientSocket::initializeRecognitionSmartly()
+void ClientSocket::updateModelCompilationParameters()
 {
-  kDebug() << "Recognition is initialized: " << recognitionControl->isInitialized();
-  kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
-  kDebug() << "Modelcompilationmanager is running: : " << contextAdapter->managerIsRunning();
-
-  if (synchronisationManager->hasActiveModel() && !contextAdapter->managerIsRunning() &&
-    recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())) {
-    kDebug() << "Initialize recognition after synchronization";
-    recognitionControl->initializeRecognition();
-  }
+  contextAdapter->updateModelCompilationParameters(synchronisationManager->getModelSrcDate(), synchronisationManager->getBaseModelType(), 
+                                                   synchronisationManager->getBaseModelPath(), synchronisationManager->getScenarioPaths(), 
+                                                   synchronisationManager->getPromptsPath());
 }
 
 
@@ -1646,17 +1203,6 @@ void ClientSocket::synchronisationComplete()
   else {
     kDebug() << "Synchronization succeeded";
     sendCode(Simond::SynchronisationComplete);
-
-    bool shouldRecompileModel = synchronisationManager->shouldRecompileModel();
-    if (recompileOverride)
-    {
-        shouldRecompileModel = true;
-        recompileOverride = false;
-    }
-    kDebug() << "Should recompile model: " << shouldRecompileModel;
-
-    if (shouldRecompileModel)
-      startModelCompilation();
   }
 
   synchronisationDone();
@@ -1676,7 +1222,6 @@ bool ClientSocket::sendLanguageDescription()
   if (!languageDescription) return false;
 
   bodyStream << synchronisationManager->getLanguageDescriptionDate()
-    << languageDescription->treeHed()
     << languageDescription->shadowVocab()
     << languageDescription->languageProfile();
 
@@ -1703,7 +1248,6 @@ bool ClientSocket::sendTraining()
 
   bodyStream << synchronisationManager->getTrainingDate()
     << training->sampleRate()
-    << training->wavConfig()
     << training->prompts();
   out << (qint32) Simond::Training
     << (qint64) body.count();
@@ -1853,4 +1397,98 @@ ClientSocket::~ClientSocket()
       contextAdapter->deleteLater();
 
   qDeleteAll(currentSamples);
+}
+
+void ClientSocket::sendModelCompilationLog()
+{
+  QByteArray toWrite;
+  QDataStream stream(&toWrite, QIODevice::WriteOnly);
+  QByteArray log = contextAdapter->getGraphicBuildLog().toUtf8();
+
+  stream << (qint32) Simond::ModelCompilationProtocol
+    << (qint64) (log.count()+sizeof(qint32) /*separator*/)
+    << log;
+  write(toWrite);
+}
+
+
+void ClientSocket::slotModelCompilationStatus(QString status, int progressNow, int progressMax)
+{
+  QByteArray toWrite;
+  QByteArray statusByte = status.toUtf8();
+  QDataStream stream(&toWrite, QIODevice::WriteOnly);
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+  bodyStream <<  (qint32) progressNow
+    << (qint32) progressMax
+    << statusByte;
+
+  stream << (qint32) Simond::ModelCompilationStatus
+    << (qint64) body.count();
+
+  write(toWrite);
+  write(body);
+}
+
+void ClientSocket::slotModelCompilationError(QString error)
+{
+  QByteArray toWrite;
+  QDataStream stream(&toWrite, QIODevice::WriteOnly);
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+  QByteArray errorByte = error.toUtf8();
+  QByteArray log = contextAdapter->getGraphicBuildLog().toUtf8();
+  bodyStream << errorByte << log;
+
+  stream << (qint32) Simond::ModelCompilationError
+    << (qint64) body.count();
+  write(toWrite);
+  write(body);
+}
+
+void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
+{
+  QByteArray toWrite;
+  QDataStream stream(&toWrite, QIODevice::WriteOnly);
+  QByteArray errorByte = word.toUtf8();
+  stream << (qint32) Simond::ModelCompilationWordUndefined
+    << (qint64) (errorByte.count()+sizeof(qint32) /*separator*/)
+    << errorByte;
+  write(toWrite);
+}
+
+
+void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
+{
+  QByteArray toWrite;
+  QDataStream stream(&toWrite, QIODevice::WriteOnly);
+  QByteArray classByte = undefClass.toUtf8();
+  stream << (qint32) Simond::ModelCompilationClassUndefined
+    << (qint64) (classByte.count()+sizeof(qint32) /*separator*/)
+    << classByte;
+  write(toWrite);
+}
+
+void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
+{
+  QByteArray toWrite;
+  QDataStream stream(&toWrite, QIODevice::WriteOnly);
+  QByteArray classByte = phoneme.toUtf8();
+  stream << (qint32) Simond::ModelCompilationPhonemeUndefined
+    << (qint64) (classByte.count()+sizeof(qint32) /*separator*/)
+    << classByte;
+  write(toWrite);
+}
+
+void ClientSocket::initializeRecognitionSmartly()
+{
+  kDebug() << "Recognition is initialized: " << recognitionControl->isInitialized();
+  kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
+
+  QString modelPath = contextAdapter->currentModelPath();
+  if (modelPath.isNull())
+    return;
+  recognitionControl->initializeRecognition(modelPath);
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>722</width>
-    <height>589</height>
+    <height>599</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,27 @@
        <attribute name="title">
         <string>Input &amp;&amp; output files</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_15">
+       <layout class="QVBoxLayout" name="verticalLayout_14">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Type:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox">
+            <item>
+             <property name="text">
+              <string>HTK, Julius</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
         <item>
          <widget class="KTabWidget" name="ktabwidget">
           <property name="currentIndex">
@@ -168,32 +188,16 @@
                     <widget class="KUrlRequester" name="urPromptsBasePath"/>
                    </item>
                    <item row="5" column="0">
-                    <widget class="QLabel" name="lbTreeHed">
+                    <widget class="QLabel" name="label_5">
                      <property name="text">
-                      <string>Tree.hed:</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>urTreeHed</cstring>
+                      <string>Script base prefix:</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="1">
-                    <widget class="KUrlRequester" name="urTreeHed"/>
+                    <widget class="KLineEdit" name="leScriptPrefix"/>
                    </item>
                    <item row="6" column="0">
-                    <widget class="QLabel" name="lbWavConfig">
-                     <property name="text">
-                      <string>Wav-Config:</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>urWavConfig</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="6" column="1">
-                    <widget class="KUrlRequester" name="urWavConfig"/>
-                   </item>
-                   <item row="8" column="0">
                     <widget class="QLabel" name="lbSampleRate">
                      <property name="text">
                       <string>Samplerate:</string>
@@ -203,7 +207,7 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="8" column="1">
+                   <item row="6" column="1">
                     <widget class="QSpinBox" name="sbSampleRate">
                      <property name="minimum">
                       <number>8000</number>
@@ -215,16 +219,6 @@
                       <number>16000</number>
                      </property>
                     </widget>
-                   </item>
-                   <item row="7" column="0">
-                    <widget class="QLabel" name="label_5">
-                     <property name="text">
-                      <string>Script base prefix:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="7" column="1">
-                    <widget class="KLineEdit" name="leScriptPrefix"/>
                    </item>
                   </layout>
                  </item>
@@ -257,48 +251,26 @@
                  <string>Base model</string>
                 </property>
                 <layout class="QFormLayout" name="formLayout_3">
-                 <property name="fieldGrowthPolicy">
-                  <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                 </property>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label">
                    <property name="text">
-                    <string>Base HMM definitions:</string>
+                    <string>Base model:</string>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="KUrlRequester" name="urBaseHmmDefs"/>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_2">
-                   <property name="text">
-                    <string>Base tiedlist:</string>
+                  <widget class="KUrlRequester" name="urBaseModel">
+                   <property name="filter">
+                    <string>*.sbm</string>
                    </property>
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="KUrlRequester" name="urBaseTiedlist"/>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_3">
+                  <widget class="KPushButton" name="pbCreate">
                    <property name="text">
-                    <string>Base macros:</string>
+                    <string>Create from model files</string>
                    </property>
                   </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="KUrlRequester" name="urBaseMacros"/>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label_4">
-                   <property name="text">
-                    <string>Base stats:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="KUrlRequester" name="urBaseStats"/>
                  </item>
                 </layout>
                </widget>
@@ -309,59 +281,23 @@
                  <string>Output files</string>
                 </property>
                 <layout class="QFormLayout" name="formLayout_2">
+                 <property name="fieldGrowthPolicy">
+                  <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                 </property>
                  <item row="0" column="0">
                   <widget class="QLabel" name="lbHmmdefs">
                    <property name="text">
-                    <string>HMM definitions:</string>
+                    <string>Output model:</string>
                    </property>
                    <property name="buddy">
-                    <cstring>urHmmDefs</cstring>
+                    <cstring>urOutputModel</cstring>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="KUrlRequester" name="urHmmDefs"/>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="lbTiedlist">
-                   <property name="text">
-                    <string>Tiedlist:</string>
-                   </property>
-                   <property name="buddy">
-                    <cstring>urTiedlist</cstring>
-                   </property>
-                  </widget>
+                  <widget class="KUrlRequester" name="urOutputModel"/>
                  </item>
                  <item row="1" column="1">
-                  <widget class="KUrlRequester" name="urTiedlist"/>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="lbDict">
-                   <property name="text">
-                    <string>Dict:</string>
-                   </property>
-                   <property name="buddy">
-                    <cstring>urDict</cstring>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="lbDFA">
-                   <property name="text">
-                    <string>DFA:</string>
-                   </property>
-                   <property name="buddy">
-                    <cstring>urDFA</cstring>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="KUrlRequester" name="urDict"/>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="KUrlRequester" name="urDFA"/>
-                 </item>
-                 <item row="4" column="1">
                   <spacer name="verticalSpacer">
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
@@ -401,8 +337,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>94</width>
-                 <height>24</height>
+                 <width>676</width>
+                 <height>402</height>
                 </rect>
                </property>
               </widget>
@@ -667,7 +603,7 @@
      <x>0</x>
      <y>0</y>
      <width>722</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -675,10 +611,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
-   <container>1</container>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KPushButton</class>
@@ -686,20 +621,21 @@
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <class>KTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>ktextedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
   </customwidget>
   <customwidget>
    <class>QwtPlot</class>

@@ -20,6 +20,7 @@ set( simonuicomponents_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonwizard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/multikcmview.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/selectprogramdialog.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/actionbutton.cpp
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonmainwindow.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.cpp
@@ -49,6 +50,7 @@ set( simonuicomponents_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/multikcmview.h
 	${CMAKE_CURRENT_SOURCE_DIR}/textlistwidget.h
         ${CMAKE_CURRENT_SOURCE_DIR}/selectprogramdialog.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/actionbutton.cpp
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.h
 	#${CMAKE_CURRENT_SOURCE_DIR}/simontablewidget.h

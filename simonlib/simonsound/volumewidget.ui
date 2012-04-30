@@ -39,7 +39,7 @@
       <item>
        <widget class="KPushButton" name="pbStartCalibration">
         <property name="text">
-         <string>Start calibration</string>
+         <string>Analyze volume</string>
         </property>
        </widget>
       </item>
