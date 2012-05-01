@@ -23,6 +23,7 @@ Name[x-test]=xxSpeech Modelxx
 Name[zh_CN]=语音模式
 
 Comment=Configuration of the simon Speech Model
+Comment[de]=Einrichtung des Simon-Sprachmodells
 Comment[nl]=Configuratie van het simon spraakmodel
 Comment[pt]=Configuração do modelo de fala do Simon
 Comment[pt_BR]=Configuração do modelo de fala do simon

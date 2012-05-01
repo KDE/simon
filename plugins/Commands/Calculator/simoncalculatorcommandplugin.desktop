@@ -11,6 +11,7 @@ Name[sv]=Simon kommandoinsticksprogram för miniräknare
 Name[uk]=Додаток команд калькулятора simon
 Name[x-test]=xxsimon Calculator Command Pluginxx
 Comment=Provides a voice-controllable user interface
+Comment[de]=Bietet eine sprachgesteuerte Benutzeroberfläche
 Comment[pt]=Oferece uma interface de utilizador controlada pela voz
 Comment[pt_BR]=Oferece uma interface de usuário controlada pela voz
 Comment[sv]=Tillhandahåller ett röststyrt användargränssnitt

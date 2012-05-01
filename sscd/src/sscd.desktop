@@ -15,6 +15,7 @@ Icon=sscd
 Type=Application
 X-DocPath=sscd/index.html
 GenericName=Sample Collection Server
+GenericName[de]=Server für die Aufnahmensammlung
 GenericName[pt]=Servidor de Recolha de Amostras
 GenericName[pt_BR]=Servidor da coleção de amostras
 GenericName[sv]=Samplingsinsamlingsserver

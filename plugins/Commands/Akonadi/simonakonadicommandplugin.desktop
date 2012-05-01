@@ -12,6 +12,7 @@ Name[sv]=Simon Akonadi kommandoinsticksprogram
 Name[uk]=Додаток команд Akonadi simon
 Name[x-test]=xxsimon Akonadi Command Pluginxx
 Comment=Provides a way to create schedule commands for later execution
+Comment[de]=Bietet die Möglichkeit, zeitgesteuerte Befehle zur späteren Ausführung zu erstellen
 Comment[nl]=Biedt een manier om commando's te plannen voor latere uitvoering
 Comment[pt]=Oferece uma forma de criar comandos de calendarização para uma execução posterior
 Comment[pt_BR]=Oferece uma forma para criar comandos agendados para posterior execução

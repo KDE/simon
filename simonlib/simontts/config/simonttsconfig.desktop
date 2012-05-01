@@ -21,6 +21,7 @@ Name[x-test]=xxText-to-speechxx
 Name[zh_CN]=文本到语音
 
 Comment=Configuration of the simon text-to-speech layer
+Comment[de]=Einrichtung des Simon-Sprachausgabe-Layers
 Comment[nl]=Configuratie van de simon-laag tekst-naar-spraak
 Comment[pt]=Configuração da interface de texto-para-fala Simon
 Comment[pt_BR]=Configuração da interface do sintetizador de voz do simon

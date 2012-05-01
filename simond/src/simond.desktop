@@ -16,6 +16,7 @@ Icon=simond
 Type=Application
 X-DocPath=simond/index.html
 GenericName=Speech Recognition Server
+GenericName[de]=Spracherkennungsserver
 GenericName[es]=Servidor de reconocimiento de voz
 GenericName[pt]=Servidor de Reconhecimento de Fala
 GenericName[pt_BR]=Servidor de reconhecimento de fala

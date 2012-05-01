@@ -4,6 +4,7 @@ Icon=games-config-board
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simondesktopgridplugin
 Name=simon DesktopGrid Plugin
+Name[de]=Arbeitsflächenrastermodul für Simon
 Name[pt]='Plugin' da Grelha do Ecrã do Simon
 Name[pt_BR]=Plugin da grade da área de trabalho do simon
 Name[sv]=Simon insticksprogram för skrivbordsrutnät

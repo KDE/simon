@@ -10,6 +10,7 @@ Name[sv]=Simon insticksprogram för öppnad process
 Name[uk]=Додаток відкритих процесів simon
 Name[x-test]=xxsimon Process Opened Pluginxx
 Comment=Checks for opened process
+Comment[de]=Prüft nach geöffneten Prozessen
 Comment[pt]=Verifica qual o processo aberto
 Comment[pt_BR]=Verifica qual o processo aberto
 Comment[sv]=Söker efter öppnad process

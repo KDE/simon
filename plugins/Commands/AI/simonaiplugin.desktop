@@ -13,6 +13,7 @@ Name[uk]=Додаток штучного інтелекту simon
 Name[x-test]=xxsimon AI Pluginxx
 Name[zh_CN]=simon 人工智能插件
 Comment=Voice-controlled Chatbot with Festival-based speech output
+Comment[de]=Sprachgesteuerter Chatbot mit Sprachausgabe basierend auf Festival
 Comment[nl]=Spraakgestuurde chatbot met op Festival gebaseerde spraakuitvoer
 Comment[pt]=Área de conversação com o resultado da fala baseado no Festival
 Comment[pt_BR]=Área de conversação com o resultado da fala baseado no Festival

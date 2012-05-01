@@ -11,6 +11,7 @@ Name[sv]=Simon insticksprogram för filinnehåll
 Name[uk]=Додаток вмісту файлів simon
 Name[x-test]=xxsimon File Content Pluginxx
 Comment=Checks for the content of a file
+Comment[de]=Prüft Dateien anhand ihres Inhalts
 Comment[pt]=Procura pelo conteúdo de um ficheiro
 Comment[pt_BR]=Procura pelo conteúdo de um arquivo
 Comment[sv]=Kontrollerar innehållet i en fil

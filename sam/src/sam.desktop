@@ -15,6 +15,7 @@ Icon=sam
 Type=Application
 X-DocPath=sam/index.html
 GenericName=Acoustic Modeller
+GenericName[de]=Akustischer Modellierer
 GenericName[es]=Modelador acústico
 GenericName[pt]=Modelador Acústico
 GenericName[pt_BR]=Modelador acústico

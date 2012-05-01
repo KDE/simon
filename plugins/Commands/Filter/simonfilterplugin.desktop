@@ -11,6 +11,7 @@ Name[sv]=Simon filterinsticksprogram
 Name[uk]=Додаток фільтрування simon
 Name[x-test]=xxsimon Filter Pluginxx
 Comment=Filters recognition results
+Comment[de]=Erkennungsergebnis des Filters
 Comment[pt]=Filtra os resultados do reconhecimento
 Comment[pt_BR]=Filtra os resultados do reconhecimento
 Comment[sv]=Filtrerar igenkänningsresultat
