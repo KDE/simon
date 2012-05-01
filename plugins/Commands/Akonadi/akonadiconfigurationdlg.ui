@@ -37,7 +37,7 @@
    <item>
     <widget class="QCheckBox" name="cbExecuteAkonadiRequests">
      <property name="text">
-      <string>Execute Akonadi based command requests</string>
+      <string>Execute Akonadi-based command requests</string>
      </property>
     </widget>
    </item>
@@ -130,7 +130,7 @@
               <string>Replacements:
 %1: Summary
 %2: Date
- %3: Time
+%3: Time
 %4: Location</string>
              </property>
             </widget>
