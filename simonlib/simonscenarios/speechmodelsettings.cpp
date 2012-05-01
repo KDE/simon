@@ -88,7 +88,16 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
 
 void SpeechModelSettings::exportBaseModel()
 {
-  KMessageBox::sorry(this, i18n("Not yet implemented."));
+  QString activePath = KStandardDirs::locate("appdata", "model/active.sbm");
+  if (!QFile::exists(activePath)) {
+    KMessageBox::sorry(this, i18n("There is no active model currently available."));
+    return;
+  }
+  QString path = KFileDialog::getSaveFileName(KUrl(), "*.sbm", this, i18n("Select output file name"));
+  if (path.isEmpty())
+    return;
+  if (!QFile::copy(activePath, path))
+    KMessageBox::sorry(this, i18n("Could not copy active model to \"%1\".", path));
 }
 
 void SpeechModelSettings::createBaseModel()
