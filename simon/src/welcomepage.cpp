@@ -48,8 +48,6 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : InlineWid
   ui.setupUi(this);
   static_cast<QVBoxLayout*>(ui.gbRecognition->layout())->insertWidget(1, volumeWidget);
   
-  ui.lbWelcome->setText(i18nc("%1: Simon version", "Welcome to Simon %1", simon_version));
-  
   volumeWidget->enablePrompt(false);
   volumeWidget->init();
 

@@ -295,19 +295,20 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
       if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) 
           && !(adaptionType & ModelCompilationAdapter::AdaptIndependently)
           && !hasAssociatedWord) {
-        kDebug() << "Terminal has no associated words: " << terminal;
         grammarTerminals.removeAll(terminal);
-
+              
         for (int i=0; i < structures.count(); i++) {
-          if (structures[i].contains(terminal)) {
-            //delete all words of all terminals in this structure
-            QStringList structureElements = structures[i].split(' ');
-            foreach (const QString& structureTerminal, structureElements) {
-              QList<Word*> wordsToDelete = vocab->findWordsByTerminal(structureTerminal);
-              foreach (Word *w, wordsToDelete)
-                vocab->removeWord(w, true);
-            }
-
+          if (structures[i].contains(QRegExp("\\b"+terminal+"\\b"))) {
+//             This appears to be a bit arbitrary and shouldn't technically be necessary. Lets
+//             disable it for now, keep it around for a while and look for bugs.
+//
+//             //delete all words of all terminals in this structure
+//             QStringList structureElements = structures[i].split(' ');
+//             foreach (const QString& structureTerminal, structureElements) {
+//               QList<Word*> wordsToDelete = vocab->findWordsByTerminal(structureTerminal);
+//               foreach (Word *w, wordsToDelete)
+//                 vocab->removeWord(w, true);
+//             }
             grammar->deleteStructure(i--);
             structures = grammar->getStructures();
           }

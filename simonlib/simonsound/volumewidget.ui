@@ -14,6 +14,9 @@
    <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="KTextEdit" name="tePrompt">
      <property name="sizePolicy">
@@ -36,6 +39,9 @@
    <item>
     <widget class="QWidget" name="wgStart" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="margin">
+       <number>0</number>
+      </property>
       <item>
        <widget class="KPushButton" name="pbStartCalibration">
         <property name="text">
