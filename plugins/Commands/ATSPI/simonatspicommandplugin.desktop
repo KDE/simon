@@ -11,6 +11,7 @@ Name[sv]=Simon ATSPI kommandoinsticksprogram
 Name[uk]=Додаток команд ATSPI simon
 Name[x-test]=xxsimon ATSPI Command Pluginxx
 Comment=Allows controlling an ATSPI2-enabled desktop
+Comment[de]=Ermöglicht die Steuerung einer ATSPI2-fähigen Arbeitsfläche
 Comment[pt]=Permite controlar um ambiente com suporte para o AT-SPI2
 Comment[pt_BR]=Permite controlar um ambiente com suporte para o ATSPI2
 Comment[sv]=Tillåter styrning av ett ATSPI2-aktiverat skrivbord

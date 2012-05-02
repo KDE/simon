@@ -4,6 +4,7 @@ Icon=system-run
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simoninputnumbercommandplugin
 Name=simon Input Number Command Plugin
+Name[de]=Zahleneingabe-Befehlsmodul für Simon
 Name[pt]='Plugin' do Comando de Introdução Numérica do Simon
 Name[pt_BR]=Plugin do comando de introdução numérica do simon
 Name[sv]=Simon kommandoinsticksprogram för nummerinmatning

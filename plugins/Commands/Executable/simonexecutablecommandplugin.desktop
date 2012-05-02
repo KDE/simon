@@ -4,6 +4,7 @@ Icon=system-run
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonexecutablecommandplugin
 Name=simon ExecutableCommand Plugin
+Name[de]=Befehlsausfürungsmodul für Simon
 Name[pt]='Plugin' de Comandos Executáveis do Simon
 Name[pt_BR]=Plugin de comandos executáveis do simon
 Name[sv]=Simon insticksprogram för körkommandon

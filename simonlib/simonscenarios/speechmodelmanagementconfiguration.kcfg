@@ -18,8 +18,8 @@
       <tooltip>The name of the last loaded base model</tooltip>
     </entry>
     <entry name="BaseModelDate" type="DateTime">
-      <label>The creation dateof the last loaded base model</label>
-      <tooltip>The creation dateof the last loaded base model</tooltip>
+      <label>The creation date of the last loaded base model</label>
+      <tooltip>The creation date of the last loaded base model</tooltip>
     </entry>
 
     <entry name="ModelSampleRate" type="Int">
