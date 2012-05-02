@@ -3,18 +3,18 @@ Icon=simon
 Type=Application
 X-DocPath=simon/index.html
 
-Name=simon
-Name[de]=simon
-Name[es]=simon
-Name[ga]=simon
-Name[nl]=simon
+Name=Simon
+Name[de]=Simon
+Name[es]=Simon
+Name[ga]=Simon
+Name[nl]=Simon
 Name[pt]=Simon
-Name[pt_BR]=simon
-Name[sk]=simon
+Name[pt_BR]=Simon
+Name[sk]=Simon
 Name[sv]=Simon
-Name[uk]=simon
+Name[uk]=Simon
 Name[x-test]=xxsimonxx
-Name[zh_CN]=simon
+Name[zh_CN]=Simon
 
 GenericName=Speech Recognition
 GenericName[de]=Spracherkennung

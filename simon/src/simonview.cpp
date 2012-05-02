@@ -97,7 +97,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 : KXmlGuiWindow(parent, flags), ScenarioDisplay(),
   backButtonAnimation(new QTimeLine(700, this))
 {
-  Logger::log ( i18n ( "Starting simon..." ) );
+  Logger::log ( i18n ( "Starting Simon..." ) );
 
   //showing splash
   bool showSplash = KCmdLineArgs::parsedArgs()->isSet("splash");
@@ -119,13 +119,13 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
     bool firstRunWizardCompleted = firstRun->exec();
     delete firstRun;
 
-    if (firstRunWizardCompleted || KMessageBox::questionYesNo(this, i18n("You did not complete the initial configuration. simon will continue with default values.\n\nDo you want simon to display the wizard again on the next start?"))==KMessageBox::No)
+    if (firstRunWizardCompleted || KMessageBox::questionYesNo(this, i18n("You did not complete the initial configuration. Simon will continue with default values.\n\nDo you want Simon to display the wizard again on the next start?"))==KMessageBox::No)
       control->setFirstRunWizardCompleted(true);
   }
 
   trayManager = new TrayIconManager(this);
 
-  this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
+  this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deactivated" ) );
 
   QMainWindow ( parent,flags );
   qApp->setQuitOnLastWindowClosed(false);
@@ -393,70 +393,70 @@ void SimonView::showSystemDialog ()
  * Tells the Control-Layer to toggle the activation state - according to his
  * response the following (re)actions are taken:
  * 	desaturate the Tray Image as needed
- * 	desaturate the simon logo in the bg
- * 	replaces the text on the label to "Deaktivieren"/"Activate"
- *
- *	@author Peter Grasch
- *
- */
-void SimonView::toggleActivation()
-{
-  if (control->getStatus() == SimonControl::ConnectedDeactivatedNotReady) {
-    KMessageBox::error(this, i18n("Could not start recognition because the system reports that the recognition is not ready.\n\nPlease check if you have defined a vocabulary, an appropriate grammar and recorded a few training samples.\n\nThe system will then, upon synchronization, generate the model which will be used for the recognition."));
-    representState(control->getStatus());
-  } 
-  else {
-    this->control->toggleActivition();
-  }
-}
+	 * 	desaturate the simon logo in the bg
+	 * 	replaces the text on the label to "Deaktivieren"/"Activate"
+	 *
+	 *	@author Peter Grasch
+	 *
+	 */
+	void SimonView::toggleActivation()
+	{
+	  if (control->getStatus() == SimonControl::ConnectedDeactivatedNotReady) {
+	    KMessageBox::error(this, i18n("Could not start recognition because the system reports that the recognition is not ready.\n\nPlease check if you have defined a vocabulary, an appropriate grammar and recorded a few training samples.\n\nThe system will then, upon synchronization, generate the model which will be used for the recognition."));
+	    representState(control->getStatus());
+	  } 
+	  else {
+	    this->control->toggleActivition();
+	  }
+	}
 
-void SimonView::setActivation(bool active)
-{
-  if (active)
-    control->activateSimon();
-  else
-    control->deactivateSimon();
-}
+	void SimonView::setActivation(bool active)
+	{
+	  if (active)
+	    control->activateSimon();
+	  else
+	    control->deactivateSimon();
+	}
 
 
-/**
- * \brief Make the widgets represent the current state (connected / disconnected, active/inactive)
- *
- * \author Peter Grasch
- */
-void SimonView::representState(SimonControl::SystemStatus status)
-{
-  guiUpdateMutex.lock();
-  KToolBarPopupAction *connectActivate = dynamic_cast<KToolBarPopupAction*>(actionCollection()->action("connectActivate"));
-  QAction *compileAction = actionCollection()->action("compileModel");
-  if (compileAction)
-    compileAction->setEnabled(status != SimonControl::Disconnected);
-  switch (status) {
-    case SimonControl::Disconnected:
-    {
-      displayConnectionStatus(i18nc("Disconnected from the server", "Disconnected"));
+	/**
+	 * \brief Make the widgets represent the current state (connected / disconnected, active/inactive)
+	 *
+	 * \author Peter Grasch
+	 */
+	void SimonView::representState(SimonControl::SystemStatus status)
+	{
+	  guiUpdateMutex.lock();
+	  KToolBarPopupAction *connectActivate = dynamic_cast<KToolBarPopupAction*>(actionCollection()->action("connectActivate"));
+	  QAction *compileAction = actionCollection()->action("compileModel");
+	  if (compileAction)
+	    compileAction->setEnabled(status != SimonControl::Disconnected);
+	  switch (status) {
+	    case SimonControl::Disconnected:
+	    {
+	      displayConnectionStatus(i18nc("Disconnected from the server", "Disconnected"));
 
-      if (connectActivate) {
-        connectActivate->setText(i18n ( "Connect" ));
-        connectActivate->setChecked(false);
-        connectActivate->setIcon(KIcon("network-disconnect"));
-        if (connectActivate->menu()->actions().contains(disconnectAction))
-          connectActivate->menu()->removeAction(disconnectAction);
+	      if (connectActivate) {
+		connectActivate->setText(i18n ( "Connect" ));
+		connectActivate->setChecked(false);
+		connectActivate->setIcon(KIcon("network-disconnect"));
+		if (connectActivate->menu()->actions().contains(disconnectAction))
+		  connectActivate->menu()->removeAction(disconnectAction);
 
-        disconnect(connectActivate,0,0,0);
-        connect(connectActivate, SIGNAL(triggered(bool)),
-          this, SLOT(toggleConnection()));
-      }
+		disconnect(connectActivate,0,0,0);
+		connect(connectActivate, SIGNAL(triggered(bool)),
+		  this, SLOT(toggleConnection()));
+	      }
 
-      SimonInfo::showMessage ( i18n ( "Connection to server lost" ), 4000 ); // krazy:exclude=qmethods
-      
-      activateAction->setEnabled(false);
-      activateAction->setText(i18n("Activate"));
-      activateAction->setIcon(KIcon("media-playback-start"));
-      activateAction->setChecked(false);
+	      SimonInfo::showMessage ( i18n ( "Connection to server lost" ), 4000 ); // krazy:exclude=qmethods
+	      
+	      activateAction->setEnabled(false);
+	      activateAction->setText(i18n("Activate"));
+	      activateAction->setIcon(KIcon("media-playback-start"));
+	      activateAction->setChecked(false);
 
-      if (trayManager)
-        trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
+	      if (trayManager)
+		trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deactivated" ) );
       connectAction->setText(i18n("Connect"));
       connectAction->setChecked(false);
       connectAction->setIcon(KIcon("network-disconnect"));
@@ -528,7 +528,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
       connectAction->setIcon(KIcon("network-connect"));
       connectAction->setChecked(true);
 
-      SimonInfo::showMessage ( i18n ( "simon has been deactivated" ), 2000 );
+      SimonInfo::showMessage ( i18n ( "Simon has been deactivated" ), 2000 );
 
       this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
       //repaint();
@@ -570,7 +570,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 
       this->trayManager->createIcon ( KIcon ( "simon" ), "Simon" );
 
-      SimonInfo::showMessage ( i18n ( "simon has been activated" ), 2000 );
+      SimonInfo::showMessage ( i18n ( "Simon has been activated" ), 2000 );
 
       break;
     }
