@@ -4,6 +4,11 @@ Type=Application
 X-DocPath=simon/index.html
 
 Name=Simon
+Name[nl]=Simon
+Name[pt]=Simon
+Name[pt_BR]=Simon
+Name[uk]=Simon
+Name[x-test]=xxSimonxx
 
 GenericName=Speech Recognition
 GenericName[de]=Spracherkennung
