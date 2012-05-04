@@ -58,7 +58,7 @@
         <item>
          <widget class="KPushButton" name="pbStartTraining">
           <property name="text">
-           <string>Start Training</string>
+           <string>Start training</string>
           </property>
          </widget>
         </item>
@@ -132,7 +132,7 @@
         <item>
          <widget class="KPushButton" name="pbAudioConfiguration">
           <property name="text">
-           <string>Audio configuration</string>
+           <string>Configure audio</string>
           </property>
          </widget>
         </item>
@@ -181,7 +181,7 @@
         <item>
          <widget class="KPushButton" name="pbAcousticConfiguration">
           <property name="text">
-           <string>Acoustic model configuration</string>
+           <string>Configure acoustic model</string>
           </property>
          </widget>
         </item>
@@ -212,7 +212,11 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="KPushButton" name="pbEditScenario"/>
+         <widget class="KPushButton" name="pbScenarioConfiguration">
+          <property name="text">
+           <string>Manage scenarios</string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer_2">
@@ -228,11 +232,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="pbScenarioConfiguration">
-          <property name="text">
-           <string>Manage scenarios</string>
-          </property>
-         </widget>
+         <widget class="KPushButton" name="pbEditScenario"/>
         </item>
        </layout>
       </item>
