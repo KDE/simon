@@ -4,6 +4,7 @@ Type=Application
 X-DocPath=simon/index.html
 
 Name=Simon
+Name[cs]=Simon
 Name[nl]=Simon
 Name[pt]=Simon
 Name[pt_BR]=Simon
