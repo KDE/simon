@@ -40,6 +40,7 @@
 #include <KCMultiDialog>
 #include <KColorScheme>
 #include <KMessageBox>
+#include <KStandardDirs>
 
 WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon("simon"), i18n("Welcome to Simon"), parent),
   volumeWidget(new VolumeWidget(this, SoundClient::Background)),
@@ -72,6 +73,16 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : InlineWid
   ui.pbScenarioConfiguration->setIcon(KIcon("view-list-tree"));
   ui.pbEditScenario->setIcon(KIcon("document-edit"));
   ui.pbStartTraining->setIcon(KIcon("view-pim-news"));
+
+  const QString stylesheet("QGroupBox { background-image: url(\"%1\"); \
+                            background-repeat: no-repeat; \
+                            background-attachment: fixed; \
+                            background-position: left top; \
+                            font-weight: bold; }");
+  ui.gbScenarios->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-scenarios.png" ) ));
+  ui.gbTraining->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-training.png" ) ));
+  ui.gbAcousticModel->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-acoustic-model.png" ) ));
+  ui.gbRecognition->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-recognition.png" ) ));
   
   connect(RecognitionControl::getInstance(), SIGNAL(synchroniationCompleted()), this, SLOT(displayAcousticModelInfo()));
   connect(ui.tvTrainingTexts, SIGNAL(activated(QModelIndex)), this, SLOT(trainingsTextSelected(QModelIndex)));
