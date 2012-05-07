@@ -18,8 +18,9 @@
  */
 
 #include "dict.h"
-#include <KStandardDirs>
 #include <QFile>
+#include <KStandardDirs>
+#include <KDebug>
 
 /**
  * \brief Constructor
@@ -311,10 +312,14 @@ QString Dict::adaptToSimonPhonemeSet(QString sampa)
 {
   QString out = sampa.replace('6', "ah");
   out = out.replace('2', "oeh");
+  out = out.replace('3', "three");
+  out = out.replace('%', "perc");
   //out = out.remove('~');
   //out = out.remove('<');
   out = out.replace('~', "nas");
   out = out.replace('<', "nsb");
+  out = out.replace('{', "ocurly");
+  out = out.replace('/', "ccurly");
   out = out.remove('_');
   out = out.remove('^');
   //	out = out.remove('?');
@@ -344,7 +349,9 @@ QString Dict::segmentSampa(const QString& sampa)
 
   if (filteredXsp.isEmpty()) {                    //found everything
     return xspFertig.trimmed();
-  } else
+  }
+
+  kDebug() << "Couldn't segment: " << filteredXsp << sampa;
   return sampa;
 }
 

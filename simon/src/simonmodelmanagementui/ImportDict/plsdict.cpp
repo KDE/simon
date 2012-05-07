@@ -85,9 +85,14 @@ const QXmlAttributes &attributes)
     currentPhonemeDefinition.clear();
 
     int typeIndex = attributes.index("role");
-    if (typeIndex != -1)
+    if (typeIndex != -1) {
       currentTerminal = attributes.value(typeIndex);
-    else currentTerminal = i18nc("Terminal name for words that are imported from a dictionary "
+      if (currentTerminal.isEmpty())
+        typeIndex = -1;
+    }
+    
+    if (typeIndex == -1)
+      currentTerminal = i18nc("Terminal name for words that are imported from a dictionary "
 				  "which does not provide terminal information", "Unknown");
   }
   else
@@ -142,8 +147,6 @@ const QString &qName)
     currentPhonemeDefinition.clear();
   } else
   if (qName == "lexeme") {
-    kDebug() << currentWord;
-    kDebug() << currentWords;
     foreach (const QString& w, currentWords) {
       // add the found words to the word
       foreach (const QString& phonemeDefinition, phonemeDefinitions) {
@@ -160,7 +163,6 @@ const QString &qName)
   if (qName == "grapheme") {
     currentWords.append(currentWord);
     currentWord.clear();
-    kDebug() << currentWords;
   }
 
   if (maxpos == 0)
