@@ -14,6 +14,7 @@ Name[x-test]=xxSimonxx
 GenericName=Speech Recognition
 GenericName[de]=Spracherkennung
 GenericName[es]=Reconocimiento de voz
+GenericName[pl]=Rozpoznawanie mowy
 GenericName[pt]=Reconhecimento de Fala
 GenericName[pt_BR]=Reconhecimento de fala
 GenericName[sv]=Taligenkänning
@@ -25,6 +26,7 @@ Exec=simon
 
 Comment=Speech Recognition and Model Management
 Comment[de]=Spracherkennung und Modellverwaltung
+Comment[pl]=Rozpoznawanie mowy i zarządzanie modelami
 Comment[pt]=Gestão do Modelo e do Reconhecimento de Fala
 Comment[pt_BR]=Gerenciamento do modelo e do reconhecimento de fala
 Comment[sv]=Taligenkänning och modellhantering

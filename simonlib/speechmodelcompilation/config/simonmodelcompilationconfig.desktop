@@ -12,6 +12,7 @@ X-KDE-System-Settings-Parent-Category=accessibility
 
 Name=Speech Model Compilation
 Name[nl]=Spraakmodelcompilatie
+Name[pl]=Kompilacja modelu mowy
 Name[pt]=Compilação do Modelo de Fala
 Name[pt_BR]=Compilação do modelo de fala
 Name[sv]=Talmodellsamling
@@ -20,6 +21,7 @@ Name[x-test]=xxSpeech Model Compilationxx
 
 Comment=Configuration of the simon Speech Model Compilation
 Comment[nl]=Configuratie van de simon spraakmodelcompilatie
+Comment[pl]=Konfiguracja kompilacji modelu mowy dla simon
 Comment[pt]=Configuração da compilação do modelo de fala do Simon
 Comment[pt_BR]=Configuração da compilação do modelo de fala do simon
 Comment[sv]=Inställning av Simons talmodelsamling

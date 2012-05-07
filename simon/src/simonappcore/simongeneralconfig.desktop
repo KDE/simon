@@ -17,6 +17,7 @@ Name[de]=Allgemein
 Name[es]=General
 Name[ga]=Ginearálta
 Name[nl]=Algemeen
+Name[pl]=Ogólne
 Name[pt]=Geral
 Name[pt_BR]=Geral
 Name[sk]=Všeobecné
@@ -27,6 +28,7 @@ Name[zh_CN]=常规
 
 Comment=Configuration of the general Options of simon
 Comment[de]=Allgemeine Konfiguration von Simon
+Comment[pl]=Konfiguracja ogólnych opcji simona
 Comment[pt]=Configuração das opções gerais do Simon
 Comment[pt_BR]=Configuração das opções gerais do simon
 Comment[sv]=Inställning av Simons allmänna alternativ

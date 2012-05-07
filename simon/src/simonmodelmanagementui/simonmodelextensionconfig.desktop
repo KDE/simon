@@ -16,6 +16,7 @@ Name=Model Extensions
 Name[de]=Modell-Erweiterungen
 Name[es]=Extensiones del modelo
 Name[nl]=Modelextensies
+Name[pl]=Rozszerzenia modeli
 Name[pt]=Extensões do Modelo
 Name[pt_BR]=Extensões do modelo
 Name[sv]=Modellutökningar
@@ -26,6 +27,7 @@ Name[x-test]=xxModel Extensionsxx
 
 Comment=Configuration of the simon speech model extensions
 Comment[de]=Konfiguration der Simon-Sprachmodellerweiterungen
+Comment[pl]=Konfiguracja rozszerzeń modeli mowy simona
 Comment[pt]=Configuração das extensões do modelo de fala do Simon
 Comment[pt_BR]=Configuração das extensões do modelo de fala do simon
 Comment[sv]=Inställning av Simons talmodellutökningar
