@@ -603,9 +603,6 @@ void SimonView::closeSimon()
 
 
 /**
- * @brief sender request
- * it differs if the sender is pbClose, or the CloseButton in the title bar
- *
  * \param *event
  * just to comply with the original definition in QObject
  *
@@ -613,6 +610,10 @@ void SimonView::closeSimon()
  */
 void SimonView::closeEvent ( QCloseEvent * event )
 {
+  if (KApplication::kApplication()->sessionSaving()) {
+    event->accept();
+    return;
+  }
   hide();
   event->ignore();
 }
