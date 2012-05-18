@@ -28,18 +28,15 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-InlineWidgetView::InlineWidgetView(QWidget* parent): KTabWidget(parent)
+InlineWidgetView::InlineWidgetView(QWidget* parent): KPageWidget(parent)
 {
+  setFaceType(List);
 }
 
 void InlineWidgetView::focusPage(InlineWidget *page)
 {
-  if (!page) return;
-
-  int index = indexOf(page);
-  if (index == -1) return;
-
-  setCurrentIndex(index);
+  Q_ASSERT(page);
+  setCurrentPage(resolvePage(page));
 }
 
 /**
@@ -49,20 +46,32 @@ void InlineWidgetView::focusPage(InlineWidget *page)
  */
 void InlineWidgetView::registerPage(InlineWidget *page)
 {
-  if(!page) return;
+  Q_ASSERT(page);
 
-  int newpage = addTab(page, page->getTitle());
-  setTabIcon(newpage, page->getIcon());
-  setTabToolTip(newpage, page->getDesc());
-
+  KPageWidgetItem *item = addPage(page, page->getTitle());
+  item->setIcon(page->getIcon());
+  item->setHeader(page->getDesc());
+  
   emit registeredPage(page);  
-  tabBar()->setVisible(count() > 1);
 }
 
 void InlineWidgetView::removePage ( QWidget* page )
 {
-  KTabWidget::removePage ( page );
-  tabBar()->setVisible(count() > 1);
+  KPageWidgetItem *p = resolvePage(page);
+  
+  KPageWidget::removePage(p);
 }
 
-
+KPageWidgetItem* InlineWidgetView::resolvePage ( QWidget* content )
+{
+  KPageWidgetModel *m = static_cast<KPageWidgetModel*>(model());
+  int count = m->rowCount();
+  
+  for (int i=0; i < count; i++) {
+    KPageWidgetItem* it = m->item(m->index(i, 0));
+    Q_ASSERT(it);
+    if (it->widget() == content)
+      return it;
+  }
+  return 0;
+}

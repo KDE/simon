@@ -32,7 +32,7 @@ class QHideEvent;
 class VolumeWidget;
 class QModelIndex;
 
-class WelcomePage : public InlineWidget, public ScenarioDisplay
+class WelcomePage : public QWidget, public ScenarioDisplay
 {
 Q_OBJECT
 

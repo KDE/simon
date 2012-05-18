@@ -178,7 +178,14 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   ScenarioManager::getInstance()->registerScenarioDisplay(welcomePage);
   connect(welcomePage, SIGNAL(editScenario()), this, SLOT(editScenario()));
   
-  ui.inlineView->registerPage(welcomePage);
+  ui.swMain->insertWidget(0, welcomePage);
+  ui.swMain->setCurrentIndex(0);
+  
+  ui.inlineView->registerPage(vocabularyView);
+  ui.inlineView->registerPage(trainDialog);
+  ui.inlineView->registerPage(grammarView);
+  ui.inlineView->registerPage(contextDialog);
+  ui.inlineView->registerPage(runDialog);
   
   ui.frmBackToOverview->setMaximumHeight(0);
   connect(backButtonAnimation, SIGNAL(frameChanged(int)), this, SLOT(backButtonAnimationStep(int)));
@@ -279,24 +286,14 @@ void SimonView::editScenario()
 {
   backButtonAnimation->setFrameRange(0, 35);
   backButtonAnimation->start();
-  ui.inlineView->removePage(welcomePage);
-  ui.inlineView->registerPage(vocabularyView);
-  ui.inlineView->registerPage(grammarView);
-  ui.inlineView->registerPage(runDialog);
-  ui.inlineView->registerPage(contextDialog);
-  ui.inlineView->registerPage(trainDialog);
+  ui.swMain->setCurrentIndex(1);
 }
 
 void SimonView::backToOverview()
 {
   backButtonAnimation->setFrameRange(35, 0);
   backButtonAnimation->start();
-  ui.inlineView->registerPage(welcomePage);
-  ui.inlineView->removePage(vocabularyView);
-  ui.inlineView->removePage(grammarView);
-  ui.inlineView->removePage(runDialog);
-  ui.inlineView->removePage(contextDialog);
-  ui.inlineView->removePage(trainDialog);
+  ui.swMain->setCurrentIndex(0);
 }
 
 void SimonView::displayScenarioPrivate(Scenario *scenario)

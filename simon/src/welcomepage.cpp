@@ -42,7 +42,7 @@
 #include <KMessageBox>
 #include <KStandardDirs>
 
-WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : InlineWidget(i18n("Welcome"), KIcon("simon"), i18n("Welcome to Simon"), parent),
+WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(parent),
   volumeWidget(new VolumeWidget(this, SoundClient::Background)),
   trainingTextModel(new TrainingTextAggregatorModel(this))
 {
