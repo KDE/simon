@@ -49,7 +49,7 @@ private:
   SendSampleWorker *worker;
   QPointer<Operation> transmissionOperation;
   ProgressWidget *progressWidget;
-  KProgressDialog *connectionProgressDialog;
+  QPointer<KProgressDialog> connectionProgressDialog;
   QFutureWatcher<bool> *futureWatcher;
   
   void connectToServer();
