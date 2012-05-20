@@ -12,7 +12,9 @@ X-KDE-ParentComponents=libsimonscenarios
 X-KDE-ParentApp=simon
 
 Name=Speech Model
+Name[ca]=Model de pronunciació
 Name[de]=Sprachmodell
+Name[el]=Μοντέλο ομιλίας
 Name[es]=Modelo de habla
 Name[nl]=Spraakmodel
 Name[pl]=Model mowy
@@ -24,7 +26,9 @@ Name[x-test]=xxSpeech Modelxx
 Name[zh_CN]=语音模式
 
 Comment=Configuration of the simon Speech Model
+Comment[ca]=Configuració del model de pronunciació per a «simon»
 Comment[de]=Einrichtung des Simon-Sprachmodells
+Comment[el]=Διαμόρφωση του μοντέλου ομιλίας του simon
 Comment[nl]=Configuratie van het simon spraakmodel
 Comment[pl]=Konfiguracja modelu mowy dla simon
 Comment[pt]=Configuração do modelo de fala do Simon

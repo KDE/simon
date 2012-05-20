@@ -12,8 +12,10 @@ X-KDE-ParentComponents=libsimonactions
 X-KDE-ParentApp=simon
 
 Name=Actions
+Name[ca]=Accions
 Name[cs]=Činnosti
 Name[de]=Aktionen
+Name[el]=Ενέργειες
 Name[es]=Acciones
 Name[ga]=Gníomhartha
 Name[nds]=Akschonen
@@ -28,7 +30,9 @@ Name[x-test]=xxActionsxx
 Name[zh_CN]=动作
 
 Comment=Configuration of simons Actions
+Comment[ca]=Configuració de les accions per a «simon»
 Comment[de]=Konfiguration der Simon-Aktionen
+Comment[el]=Διαμόρφωση ενεργειών του simon
 Comment[pl]=Konfiguracja działań simon
 Comment[pt]=Configuração das Acções do Simon
 Comment[pt_BR]=Configuração das ações do simon

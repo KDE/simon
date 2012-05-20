@@ -12,8 +12,10 @@ X-KDE-ParentComponents=libsimonappcore
 X-KDE-ParentApp=simon
 
 Name=General
+Name[ca]=General
 Name[cs]=Obecné
 Name[de]=Allgemein
+Name[el]=Γενικά
 Name[es]=General
 Name[ga]=Ginearálta
 Name[nl]=Algemeen
@@ -27,7 +29,9 @@ Name[x-test]=xxGeneralxx
 Name[zh_CN]=常规
 
 Comment=Configuration of the general Options of simon
+Comment[ca]=Configuració de les opcions generals per a «simon»
 Comment[de]=Allgemeine Konfiguration von Simon
+Comment[el]=Διαμόρφωση των γενικών επιλογών του simon
 Comment[pl]=Konfiguracja ogólnych opcji simona
 Comment[pt]=Configuração das opções gerais do Simon
 Comment[pt_BR]=Configuração das opções gerais do simon
