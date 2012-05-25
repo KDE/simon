@@ -34,7 +34,7 @@ GenericName[zh_CN]=语音识别
 Exec=simon
 
 Comment=Speech Recognition and Model Management
-Comment[ca]=Gestió del model i reconeixement de la veu
+Comment[ca]=Gestió del reconeixement i model de pronunciació
 Comment[de]=Spracherkennung und Modellverwaltung
 Comment[el]=Αναγνώριση ομιλίας και διαχείριση μοντέλου
 Comment[pl]=Rozpoznawanie mowy i zarządzanie modelami
