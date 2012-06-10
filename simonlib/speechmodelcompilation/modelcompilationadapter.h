@@ -86,5 +86,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
     int m_sampleCount;
 
     QStringList poisonedPhonemes;
+
+    bool removeContextAdditions();
 };
 #endif
