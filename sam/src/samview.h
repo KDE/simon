@@ -36,7 +36,7 @@ class KProcess;
 class KAction;
 class ReportParameters;
 class QCloseEvent;
-class KCMultiDialog;;
+class KCMultiDialog;
 class ModelTest;
 class QSortFilterProxyModel;
 class TestConfigurationWidget;

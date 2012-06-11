@@ -24,6 +24,9 @@
 #include <QProcess>
 #include <QString>
 #include <QHash>
+#include <QSharedPointer>
+#include <simonscenarios/vocabulary.h>
+#include <simonscenarios/grammar.h>
 #include "simonmodelcompilationmanagement_export.h"
 
 #define ADAPT_CHECKPOINT if (!keepGoing) { emit adaptionAborted(); return false; }
@@ -73,7 +76,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
 
     void abort();
 
-  protected:
+protected:
     bool keepGoing;
     AdaptionType m_adaptionType;
     QString currentStatus;
@@ -88,5 +91,12 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
     QStringList poisonedPhonemes;
 
     bool removeContextAdditions();
+
+    void mergeInputData(const QStringList& scenarioPaths, QSharedPointer<Vocabulary> mergedVocabulary,
+                        QSharedPointer<Grammar> mergedGrammar);
+
+    void removeWordsWithPoisonedPhonems(QSharedPointer<Vocabulary> vocabulary);
+
+    bool containsPoisonedPhoneme(const QString &pronunciation);
 };
 #endif

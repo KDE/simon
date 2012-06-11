@@ -36,9 +36,17 @@
           </item>
           <item>
            <widget class="QComboBox" name="comboBox">
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
             <item>
              <property name="text">
               <string>HTK, Julius</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>CMU SPHINX</string>
              </property>
             </item>
            </widget>

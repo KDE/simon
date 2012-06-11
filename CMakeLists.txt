@@ -13,6 +13,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 find_package(KDE4 "4.4" REQUIRED)
 
+add_definitions(-DUSPHINX)
+
 if(WIN32)
 # old gcc because of MinGW
 #add_definitions(-std=c++98 -D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)

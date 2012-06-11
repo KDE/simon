@@ -48,8 +48,6 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
     
     inline QByteArray htkify(const QByteArray& in);
     inline QString htkify(const QString& in);
-
-    bool containsPoisonedPhoneme(const QString& pronunciation);
     
   protected:
     bool adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
@@ -62,6 +60,23 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
       const QString& promptsPathOut, QSharedPointer<Vocabulary> vocab, QSharedPointer<Grammar> grammar, const QString& promptsPathIn);
 
     void run();
+
+    bool storePrompts(AdaptionType adaptionType, QSharedPointer<Vocabulary> vocabulary,
+                      const QString &promptsPathIn, QStringList &trainedVocabulary);
+
+    bool storeLexicon(ModelCompilationAdapter::AdaptionType adaptionType,
+                      const QString &lexiconPathOut, const QString &simpleVocabPathOut,
+                      QSharedPointer<Vocabulary> vocabulary,
+                      QStringList &trainedVocabulary, QStringList &definedVocabulary);
+
+    bool storeVocabulary(ModelCompilationAdapter::AdaptionType adaptionType,
+                         const QString& simpleVocabPathOut, QSharedPointer<Vocabulary> vocabulary,
+                         QSharedPointer<Grammar> grammar, QStringList &trainedVocabulary, QStringList &structures);
+
+    bool storeGrammar(const QString &grammarPathOut, QStringList &structures);
+
+    bool storePrompts2(ModelCompilationAdapter::AdaptionType adaptionType, const QString &promptsPathOut,
+                       const QString &promptsPathIn, QStringList &definedVocabulary);
 
   public:
     explicit ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);

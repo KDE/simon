@@ -32,6 +32,7 @@
 
 #include <speechmodelcompilation/modelcompilerhtk.h>
 #include <speechmodelcompilation/modelcompilationadapterhtk.h>
+#include <speechmodelcompilation/ModelCompilationAdapterSPHINX.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
 
 #include <qwt_legend.h>
@@ -155,7 +156,12 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.urPrompts->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urBaseModel->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 
-  modelCompilationAdapter = new ModelCompilationAdapterHTK("internalsamuser", this);
+  //FIXME: something fun :D
+//  if(rand()%2)
+      modelCompilationAdapter = new ModelCompilationAdapterHTK("internalsamuser", this);
+//  else
+//      modelCompilationAdapter = new ModelCompilationAdapterSPHINX("internalsamuser", this);
+
   connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
   connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
   connect(modelCompilationAdapter, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));

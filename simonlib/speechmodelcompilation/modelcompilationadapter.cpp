@@ -28,6 +28,10 @@
 #include <KStandardDirs>
 #include <KAboutData>
 #include <KComponentData>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/vocabulary.h>
+#include <simonscenarios/activevocabulary.h>
+#include <simonscenarios/grammar.h>
 
 ModelCompilationAdapter::ModelCompilationAdapter(const QString& userName, QObject *parent) : QObject(parent), m_userName(userName)
 {
@@ -56,4 +60,58 @@ bool ModelCompilationAdapter::removeContextAdditions()
         newPrompts.write(line);
     }
     return true;
+}
+
+void ModelCompilationAdapter::mergeInputData(const QStringList &scenarioPaths, QSharedPointer<Vocabulary> mergedVocabulary, QSharedPointer<Grammar> mergedGrammar)
+{
+    //merging scenarios
+    for(const QString& src: scenarioPaths)
+    {
+        kDebug() << "Serializing Scenario: " << src;
+        QSharedPointer<Scenario> scenario (new Scenario(""));
+        if (!scenario->readLanguageModel(src))
+        {
+            kDebug() << "Could not parse language model at " << src;
+            continue;
+        }
+
+        Grammar *grammar = scenario->grammar();
+        mergedGrammar->addStructures(grammar->getStructures(), false /* do not save */);
+
+        Vocabulary *vocab = scenario->vocabulary();
+
+        QList<Word*> words = vocab->getWords();
+        vocab->clear();                               // make sure they are not removed from the scenario when we delete that
+        QList<Word*> wordsTmp;
+        for(Word* w: words)
+            wordsTmp.append(w);
+
+        //list will be deleted by addWords
+        mergedVocabulary->addWords(wordsTmp);
+    }
+}
+
+bool ModelCompilationAdapter::containsPoisonedPhoneme(const QString& pronunciation)
+{
+    if (poisonedPhonemes.isEmpty()) return false;
+
+    QStringList phonemes = pronunciation.split(' ');
+    for(const QString& phoneme: phonemes)
+        if (poisonedPhonemes.contains(phoneme))
+            return true;
+
+    return false;
+}
+
+void ModelCompilationAdapter::removeWordsWithPoisonedPhonems(QSharedPointer<Vocabulary> vocabulary)
+{
+    QList<Word*> words = vocabulary->getWords();
+    for(Word *word: words)
+    {
+        if (containsPoisonedPhoneme(word->getPronunciation()))
+        {
+            kDebug() << "Removing word containing poisoned phoneme: " << word->getWord();
+            vocabulary->removeWord(word);
+        }
+    }
 }
