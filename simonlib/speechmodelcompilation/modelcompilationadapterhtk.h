@@ -61,9 +61,6 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
 
     void run();
 
-    bool storePrompts(AdaptionType adaptionType, QSharedPointer<Vocabulary> vocabulary,
-                      const QString &promptsPathIn, QStringList &trainedVocabulary);
-
     bool storeLexicon(ModelCompilationAdapter::AdaptionType adaptionType,
                       const QString &lexiconPathOut, const QString &simpleVocabPathOut,
                       QSharedPointer<Vocabulary> vocabulary,
@@ -75,7 +72,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
 
     bool storeGrammar(const QString &grammarPathOut, QStringList &structures);
 
-    bool storePrompts2(ModelCompilationAdapter::AdaptionType adaptionType, const QString &promptsPathOut,
+    bool storePrompts(ModelCompilationAdapter::AdaptionType adaptionType, const QString &promptsPathOut,
                        const QString &promptsPathIn, QStringList &definedVocabulary);
 
   public:

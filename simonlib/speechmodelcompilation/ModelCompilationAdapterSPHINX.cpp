@@ -20,14 +20,15 @@
 
 #include "ModelCompilationAdapterSPHINX.h"
 #include<KLocalizedString>
+#include <QDir>
 
 ModelCompilationAdapterSPHINX::ModelCompilationAdapterSPHINX(const QString &userName, QObject *parent)
-                                                            : ModelCompilationAdapter(userName, parent)
+    : ModelCompilationAdapter(userName, parent)
 {
 }
 
 bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, const QStringList& scenarioPathsIn,
-                                               const QString& promptsIn, const QHash<QString, QString>& args)
+                                                  const QString& promptsIn, const QHash<QString, QString>& args)
 {
     abort();
 
@@ -35,8 +36,8 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
     m_scenarioPathsIn = scenarioPathsIn;
     m_promptsPathIn = promptsIn;
 
-    m_etcPathOut = args.value("etc");
-    m_audioPathOut = args.value("audio");
+    m_workingDir = args.value("workingDir");
+    m_modelName = args.value("modelName");
 
     if (args.value("stripContext") == "true")
     {
@@ -47,15 +48,94 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
 
     keepGoing=true;
 
-//    emit  status(i18n("Adapting model..."), 0, 100);
-//    if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, m_lexiconPathOut,
-//                    m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut))
-//    {
-//        return false;
-//    }
+    emit  status(i18n("Adapting model..."), 0, 100);
+
+    kDebug() << "Adapting model";
+
+    QSharedPointer<Vocabulary> mergedVocabulary(new Vocabulary());
+    QSharedPointer<Grammar> mergedGrammar(new Grammar());
+
+    //merging scenarios
+    mergeInputData(scenarioPathsIn, mergedVocabulary, mergedGrammar);
+
+    ADAPT_CHECKPOINT;
+
+    kDebug() << "ADAPTING model for real";
+
+    if(!storeModel(adaptionType, m_promptsPathIn, m_workingDir, m_modelName, mergedVocabulary, mergedGrammar))
+    {
+        kDebug()<< "Adaptation failed";
+        return false;
+    }
+
     emit  status(i18n("Model adaption complete"), 100, 100);
     emit adaptionComplete();
 
     return true;
 }
 
+bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const QString& promptsPathIn,
+                                               const QString &workingDirPath, const QString &mName,
+                                               QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar)
+{
+    //    ///// Prompts ///////////
+    QStringList trainedVocabulary;                  // words where prompts exist
+    QStringList definedVocabulary;                  // words that are in the dictionary
+
+    if(!readPrompts(adaptionType, vocabulary, promptsPathIn, trainedVocabulary))
+        return false;
+
+    if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel)) // I do not fully understand the meaning of this code snippet, so I just copied it:(
+        return true;
+
+    //Creating a directory hierarchy, where model compilation will be executed
+    QDir wDir(workingDirPath);
+    if(!wDir.mkdir(mName) || !wDir.cd(mName) || !wDir.mkdir("/etc") || !wDir.mkdir("/wav"))
+    {
+        emit error(i18n("Failed to create directory hierarchy at \"%1\"", workingDirPath));
+        return false;
+    }
+
+    return true;
+}
+
+bool ModelCompilationAdapterSPHINX::storeDictionary(const QString &dictionaryPathOut, QStringList &trainedVocabulary,
+                                                    QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary)
+{
+    QFile dictionaryFile(dictionaryPathOut);
+    if (!dictionaryFile.open(QIODevice::WriteOnly))
+    {
+        emit error(i18n("Failed to adapt dictionary to \"%1\"", dictionaryPathOut));
+        return false;
+    }
+
+    QTextStream dictionary(&dictionaryFile);
+    dictionary.setCodec("UTF-8");
+
+    m_pronunciationCount = 0;
+    QList<Word*> words = vocabulary->getWords();
+    m_wordCount = 0;
+    for(Word *word: words)
+    {
+        if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+            //    !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&    //???
+                !trainedVocabulary.contains(word->getLexiconWord()))
+        {
+            kDebug() << "Skipping word " << word->getWord();
+            continue;
+        }
+
+        ++m_pronunciationCount;
+        dictionary << word->getLexiconWord() << QLatin1String("\t\t") <<
+                   word->getPronunciation() << QLatin1String("\n");
+
+        ++m_wordCount;
+        if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+                (!definedVocabulary.contains(word->getLexiconWord())))
+            definedVocabulary << word->getLexiconWord();
+    }
+
+    dictionaryFile.close();
+
+    return true;
+}

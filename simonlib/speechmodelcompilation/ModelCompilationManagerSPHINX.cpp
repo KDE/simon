@@ -20,3 +20,8 @@
 
 #include "ModelCompilationManagerSPHINX.h"
 
+
+
+void ModelCompilationManagerSPHINX::run()
+{
+}

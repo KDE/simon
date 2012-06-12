@@ -59,10 +59,13 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
     keepGoing=true;
 
     emit  status(i18n("Adapting model..."), 0, 100);
+
     if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, m_lexiconPathOut,
-                    m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut)) {
+                    m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut))
+    {
         return false;
     }
+
     emit  status(i18n("Model adaption complete"), 100, 100);
     emit adaptionComplete();
 
@@ -85,8 +88,11 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
     ADAPT_CHECKPOINT;
 
     kDebug() << "ADAPTING model for real";
+
+
     if (!storeModel(adaptionType, lexiconPathOut, simpleVocabPathOut, grammarPathOut,
-                    promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn)) {
+                    promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn))
+    {
         kWarning() << "Adaption failed";
         return false;
     }
@@ -115,63 +121,6 @@ QByteArray ModelCompilationAdapterHTK::htkify(const QByteArray& in)
     out.replace('8', "8EIGHT");
     out.replace('9', "9NINE");
     return out;
-}
-
-bool ModelCompilationAdapterHTK::storePrompts(ModelCompilationAdapter::AdaptionType adaptionType,
-                                              QSharedPointer<Vocabulary> vocabulary, const QString &promptsPathIn,
-                                              QStringList &trainedVocabulary)
-{
-    ///// Prompts ///////////
-
-    if (!poisonedPhonemes.isEmpty() && (adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
-    {
-        removeWordsWithPoisonedPhonems(vocabulary);
-    }
-
-    ADAPT_CHECKPOINT;
-
-    if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel)
-    {
-        emit status(i18n("Adapting prompts..."), 1, 100);
-        QFile promptsFile(promptsPathIn);
-
-        if (!promptsFile.open(QIODevice::ReadOnly))
-        {
-            if (QFile::exists(promptsPathIn))
-                emit error(i18nc("%1 is source file path", "Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
-            else
-            {
-                kDebug() << "Aborting because we have no input prompts";
-                emit adaptionAborted(); //no input prompts
-            }
-            return false;
-        }
-
-        while (!promptsFile.atEnd())
-        {
-            QString line = QString::fromUtf8(promptsFile.readLine());
-            int splitter = line.indexOf(" ");
-            QStringList words;
-            words = line.mid(splitter+1).trimmed().split(' ');
-
-            foreach (const QString& word, words)
-            {
-                if (!vocabulary->containsWord(word))
-                {
-                    kDebug() << "Word not defined in vocabulary: " << word;
-                    //allWordsDefined = false;
-                    break;
-                }
-                if (!trainedVocabulary.contains(word))
-                    trainedVocabulary.append(word);
-            }
-        }
-
-        promptsFile.close();
-    }
-    ADAPT_CHECKPOINT;
-
-    return true;
 }
 
 bool ModelCompilationAdapterHTK::storeLexicon(ModelCompilationAdapter::AdaptionType adaptionType,
@@ -218,7 +167,7 @@ bool ModelCompilationAdapterHTK::storeLexicon(ModelCompilationAdapter::AdaptionT
         lexicon << htkIfiedWord << QLatin1String("\t\t[") << word->getWord() << QLatin1String("]\t\t") <<
                    word->getPronunciation() << QLatin1String("\n");
 
-        m_wordCount++;
+        ++m_wordCount;
         if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
                 (!definedVocabulary.contains(htkIfiedWord)))
             definedVocabulary << htkIfiedWord;
@@ -344,7 +293,7 @@ bool ModelCompilationAdapterHTK::storeGrammar(const QString& grammarPathOut, QSt
     return true;
 }
 
-bool ModelCompilationAdapterHTK::storePrompts2(ModelCompilationAdapter::AdaptionType adaptionType,
+bool ModelCompilationAdapterHTK::storePrompts(ModelCompilationAdapter::AdaptionType adaptionType,
                                                const QString& promptsPathOut, const QString& promptsPathIn,
                                                QStringList &definedVocabulary) //wtf?
 {
@@ -398,7 +347,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     QStringList trainedVocabulary;                  // words where prompts exist
     QStringList definedVocabulary;                  // words that are in the dictionary
 
-    if(!storePrompts(adaptionType, vocabulary, promptsPathIn, trainedVocabulary))
+    if(!readPrompts(adaptionType, vocabulary, promptsPathIn, trainedVocabulary))
         return false;
 
     if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
@@ -420,12 +369,11 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
         return false;
 
     ///// Prompts (2) //////
-    if(!storePrompts2(adaptionType, promptsPathOut, promptsPathIn, definedVocabulary))
+    if(!storePrompts(adaptionType, promptsPathOut, promptsPathIn, definedVocabulary))
         return false;
 
     return true;
 }
-
 
 ModelCompilationAdapterHTK::~ModelCompilationAdapterHTK()
 {

@@ -115,3 +115,62 @@ void ModelCompilationAdapter::removeWordsWithPoisonedPhonems(QSharedPointer<Voca
         }
     }
 }
+
+
+bool ModelCompilationAdapter::readPrompts(ModelCompilationAdapter::AdaptionType adaptionType,
+                                              QSharedPointer<Vocabulary> vocabulary, const QString &promptsPathIn,
+                                              QStringList &trainedVocabulary)
+{
+    ///// Prompts ///////////
+
+    if (!poisonedPhonemes.isEmpty() && (adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
+    {
+        removeWordsWithPoisonedPhonems(vocabulary);
+    }
+
+    ADAPT_CHECKPOINT;
+
+    if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel)
+    {
+        emit status(i18n("Adapting prompts..."), 1, 100);
+        QFile promptsFile(promptsPathIn);
+
+        if (!promptsFile.open(QIODevice::ReadOnly))
+        {
+            if (QFile::exists(promptsPathIn))
+                emit error(i18nc("%1 is source file path", "Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
+            else
+            {
+                kDebug() << "Aborting because we have no input prompts";
+                emit adaptionAborted(); //no input prompts
+            }
+            return false;
+        }
+
+        while (!promptsFile.atEnd())
+        {
+            QString line = QString::fromUtf8(promptsFile.readLine());
+            int splitter = line.indexOf(" ");
+            QStringList words;
+            words = line.mid(splitter+1).trimmed().split(' ');
+
+            foreach (const QString& word, words)
+            {
+                if (!vocabulary->containsWord(word))
+                {
+                    kDebug() << "Word not defined in vocabulary: " << word;
+                    //allWordsDefined = false;
+                    break;
+                }
+                if (!trainedVocabulary.contains(word))
+                    trainedVocabulary.append(word);
+            }
+        }
+
+        promptsFile.close();
+    }
+    ADAPT_CHECKPOINT;
+
+    return true;
+}
+

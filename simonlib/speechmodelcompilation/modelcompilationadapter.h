@@ -76,6 +76,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
 
     void abort();
 
+
 protected:
     bool keepGoing;
     AdaptionType m_adaptionType;
@@ -98,5 +99,9 @@ protected:
     void removeWordsWithPoisonedPhonems(QSharedPointer<Vocabulary> vocabulary);
 
     bool containsPoisonedPhoneme(const QString &pronunciation);
+
+    bool readPrompts(ModelCompilationAdapter::AdaptionType adaptionType, QSharedPointer<Vocabulary> vocabulary,
+                     const QString &promptsPathIn, QStringList &trainedVocabulary);
+
 };
 #endif

@@ -25,7 +25,9 @@
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerSPHINX: public ModelCompilationManager
 {
-public:
+protected:
+    //TODO: Implement
+    virtual void run()=0;
 
 };
 

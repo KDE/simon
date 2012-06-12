@@ -27,6 +27,17 @@
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerSPHINX: public ModelCompiler
 {
 public:
+    bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
+                                      const QString& baseModelPath, const QHash<QString, QString>& args);
+
+    //TODO: Implement
+    bool hasBuildLog() const;
+    QString getGraphicBuildLog() const;
+    QString getBuildLog() const;
+
+    void abort();
+
+    QString information(bool condensed=false) const;
 
 };
 

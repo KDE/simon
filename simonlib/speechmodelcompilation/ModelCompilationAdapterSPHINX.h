@@ -27,14 +27,21 @@
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterSPHINX : public ModelCompilationAdapter
 {
 protected:
-    QString m_etcPathOut;
-    QString m_audioPathOut;
+    QString m_workingDir;
+    QString m_modelName;
+
+    bool storeModel(AdaptionType adaptionType,
+                    const QString& promptsPathIn, const QString &workingDirPath, const QString &mName,
+                    QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar);
+
+    bool storeDictionary(const QString &dictionaryPathOut, QStringList &trainedVocabulary,
+                         QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary);
 
 public:
     ModelCompilationAdapterSPHINX(const QString& userName, QObject *parent=0);
 
-    QString etcPathOut() { return m_etcPathOut; }
-    QString audioPathOut() { return m_audioPathOut; }
+    QString workingDir() { return m_workingDir; }
+    QString modelName() { return m_modelName; }
 
     bool startAdaption(AdaptionType adaptionType, const QStringList &scenarioPathsIn,
                        const QString &promptsIn, const QHash<QString, QString> &args);

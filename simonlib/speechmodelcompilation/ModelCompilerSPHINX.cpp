@@ -19,3 +19,33 @@
 
 #include "ModelCompilerSPHINX.h"
 
+
+
+bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compilationType, const QString &modelDestination, const QString &baseModelPath, const QHash<QString, QString> &args)
+{
+    return true;
+}
+
+bool ModelCompilerSPHINX::hasBuildLog() const
+{
+    return true;
+}
+
+QString ModelCompilerSPHINX::getGraphicBuildLog() const
+{
+    return "";
+}
+
+QString ModelCompilerSPHINX::getBuildLog() const
+{
+    return "";
+}
+
+void ModelCompilerSPHINX::abort()
+{
+}
+
+QString ModelCompilerSPHINX::information(bool condensed) const
+{
+    return "";
+}
