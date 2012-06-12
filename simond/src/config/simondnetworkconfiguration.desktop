@@ -15,8 +15,10 @@ X-KDE-System-Settings-Parent-Category=simond
 X-KDE-PluginKeyword=SimondNetworkConfiguration
 
 Name=Network
+Name[ca]=Xarxa
 Name[cs]=Síť
 Name[de]=Netzwerk
+Name[el]=Δίκτυο
 Name[es]=Red local
 Name[ga]=Líonra
 Name[nds]=Nettwark
@@ -31,7 +33,9 @@ Name[x-test]=xxNetworkxx
 Name[zh_CN]=网络
 
 Comment=Configuration of the Network Settings
+Comment[ca]=Configuració dels paràmetres de xarxa
 Comment[de]=Einrichtung der Netzwerkeinstellungen
+Comment[el]=Διαμόρφωση των ρυθμίσεων δικτύου
 Comment[pl]=Konfiguracja ustawień sieciowych
 Comment[pt]=Configuração das Definições da Rede
 Comment[pt_BR]=Configuração das definições da rede

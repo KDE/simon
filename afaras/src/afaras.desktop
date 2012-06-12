@@ -1,7 +1,9 @@
 [Desktop Entry]
 Name=afaras
+Name[ca]=afaras
 Name[cs]=afaras
 Name[de]=afaras
+Name[el]=afaras
 Name[es]=afaras
 Name[ga]=afaras
 Name[nds]=afaras
@@ -18,7 +20,9 @@ Exec=afaras %i -caption "%c"
 Icon=afaras
 Type=Application
 GenericName=Find and remove bad samples
+GenericName[ca]=Cerca i elimina les mostres dolentes
 GenericName[de]=Schlechte Aufnahmen suchen und entfernen
+GenericName[el]=εύρεση και αφαίρεση ακατάλληλων δειγμάτων
 GenericName[nl]=Zoek en verwijder slechte samples
 GenericName[pl]=Znajdź i usuń złe próbki
 GenericName[pt]=Procurar e remover amostras inválidas

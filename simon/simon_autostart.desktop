@@ -3,7 +3,9 @@ Icon=simon
 Type=Application
 
 Name=simon
+Name[ca]=simon
 Name[de]=simon
+Name[el]=simon
 Name[es]=simon
 Name[ga]=simon
 Name[nl]=simon
@@ -17,7 +19,9 @@ Name[x-test]=xxsimonxx
 Name[zh_CN]=simon
 
 GenericName=Speech Recognition
+GenericName[ca]=Reconeixement de la veu
 GenericName[de]=Spracherkennung
+GenericName[el]=Αναγνώριση ομιλίας
 GenericName[es]=Reconocimiento de voz
 GenericName[pl]=Rozpoznawanie mowy
 GenericName[pt]=Reconhecimento de Fala
@@ -30,7 +34,9 @@ GenericName[zh_CN]=语音识别
 Exec=simon
 
 Comment=Speech Recognition and Model Management
+Comment[ca]=Gestió del reconeixement i model de pronunciació
 Comment[de]=Spracherkennung und Modellverwaltung
+Comment[el]=Αναγνώριση ομιλίας και διαχείριση μοντέλου
 Comment[pl]=Rozpoznawanie mowy i zarządzanie modelami
 Comment[pt]=Gestão do Modelo e do Reconhecimento de Fala
 Comment[pt_BR]=Gerenciamento do modelo e do reconhecimento de fala

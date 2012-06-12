@@ -2,7 +2,9 @@
 Type=ServiceType
 X-KDE-ServiceType=simon/CommandPlugin
 Name=simon command plugin
+Name[ca]=Connector d'ordres per a «simon»
 Name[de]=Befehlsmodul für Simon
+Name[el]=Πρόσθετο εντολών του simon
 Name[nl]=Plugin van simon commando
 Name[pl]=Wtyczka poleceń simon
 Name[pt]='Plugin' de comandos do Simon

@@ -15,7 +15,9 @@ X-KDE-ParentApp=simon
 #X-KDE-PluginKeyword=NetworkSettings
 
 Name=Recognition
+Name[ca]=Reconeixement
 Name[de]=Erkennung
+Name[el]=Αναγνώριση
 Name[es]=Reconocimiento
 Name[nl]=Herkenning
 Name[pl]=Rozpoznawanie
@@ -27,7 +29,9 @@ Name[x-test]=xxRecognitionxx
 Name[zh_CN]=识别
 
 Comment=Recognition settings
+Comment[ca]=Configuració del reconeixement
 Comment[de]=Erkennungseinstellungen
+Comment[el]=Ρυθμίσεις αναγνώρισης
 Comment[es]=Preferencias del reconocimiento
 Comment[pl]=Ustawienia rozpoznawania
 Comment[pt]=Configuração do reconhecimento

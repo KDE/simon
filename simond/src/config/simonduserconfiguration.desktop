@@ -16,8 +16,10 @@ X-KDE-System-Settings-Parent-Category=simond
 X-KDE-PluginKeyword=SimondUserConfiguration
 
 Name=User
+Name[ca]=Usuari
 Name[cs]=Uživatel
 Name[de]=Benutzer
+Name[el]=Χρήστης
 Name[es]=Usuario
 Name[nds]=Bruker
 Name[nl]=Gebruiker
@@ -31,7 +33,9 @@ Name[x-test]=xxUserxx
 Name[zh_CN]=用户
 
 Comment=Userconfiguration
+Comment[ca]=Configuració d'usuari
 Comment[de]=Benutzerkonfiguration
+Comment[el]=Userconfiguration
 Comment[es]=Configuración del usuario
 Comment[pl]=Konfiguracja użytkownika
 Comment[pt]=Configuração do utilizador

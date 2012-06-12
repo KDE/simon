@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=ssc
+Name[ca]=ssc
 Name[de]=ssc
+Name[el]=ssc
 Name[es]=ssc
 Name[ga]=ssc
 Name[nl]=ssc
@@ -17,7 +19,9 @@ Icon=ssc
 Type=Application
 X-DocPath=ssc/index.html
 GenericName=simon sample collector
+GenericName[ca]=Col·leccionista de mostres per a «simon»
 GenericName[de]=Simon-Aufnahmensammlung
+GenericName[el]=συλλέκτης δειγμάτων του simon
 GenericName[nl]=sample-verzamelaar van simon
 GenericName[pl]=kolektor próbek simon
 GenericName[pt]=recolha de amostras do Simon
