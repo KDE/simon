@@ -276,7 +276,7 @@
        <item row="9" column="0" colspan="2">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;I agree to assign the Copyright to your recorded speech to the Free Software Foundation and to license your submission under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0.html&quot;&gt;GNU General Public License (GPL)&lt;/a&gt;:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;I agree to assign the copyright to the recorded speech to the Free Software Foundation and to license all submission under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;GNU General Public License (GPL)&lt;/span&gt;&lt;/a&gt;:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
