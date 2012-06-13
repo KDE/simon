@@ -37,6 +37,13 @@ protected:
     bool storeDictionary(const QString &dictionaryPathOut, QStringList &trainedVocabulary,
                          QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary);
 
+    bool storeFiller(const QString &fillerPathOut);
+
+    bool storePhonesList(const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary);
+
+    bool storeTranscription(const QString& promptsPathIn, const QString& promptsPathOut,
+                            QSharedPointer<Vocabulary> vocabulary);
+
 public:
     ModelCompilationAdapterSPHINX(const QString& userName, QObject *parent=0);
 

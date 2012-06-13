@@ -173,4 +173,3 @@ bool ModelCompilationAdapter::readPrompts(ModelCompilationAdapter::AdaptionType 
 
     return true;
 }
-

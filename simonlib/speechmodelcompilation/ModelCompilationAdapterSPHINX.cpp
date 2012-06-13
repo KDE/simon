@@ -96,6 +96,8 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
         return false;
     }
 
+    //vocabulary->
+
     return true;
 }
 
@@ -136,6 +138,76 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(const QString &dictionaryPat
     }
 
     dictionaryFile.close();
+
+    return true;
+}
+
+bool ModelCompilationAdapterSPHINX::storeFiller(const QString &fillerPathOut)
+{
+    //WARNING: Hardcode or not hardcode? this is a question.
+
+    QFile fillerFile(fillerPathOut);
+    if (!fillerFile.open(QIODevice::WriteOnly))
+    {
+        emit error(i18n("Failed to write filler to \"%1\"", fillerPathOut));
+        return false;
+    }
+
+    QTextStream filler(&fillerFile);
+    filler.setCodec("UTF-8");
+
+    filler << "<s> \t\t SIL\n"
+           << "</s> \t\t SIL\n"
+           << "<sil> \t\t SIL";
+
+    fillerFile.close();
+
+    return true;
+}
+
+bool ModelCompilationAdapterSPHINX::storePhonesList(const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary)
+{
+    QFile phoneFile(phonesListPathOut);
+    if (!phoneFile.open(QIODevice::WriteOnly))
+    {
+        emit error(i18n("Failed to store phones list to \"%1\"", phonesListPathOut));
+        return false;
+    }
+
+    QTextStream phone(&phoneFile);
+    phone.setCodec("UTF-8");
+
+    QSet<QString> uniquePhonemes;
+    for(Word *word: vocabulary->getWords())
+    {
+        auto phoneList = word->getLexiconWord().split(" ");
+        for(const QString &tphone:phoneList)
+        {
+            uniquePhonemes.insert(tphone);
+        }
+    }
+
+    for(const QString &wphone:uniquePhonemes)
+    {
+        phone<<wphone<<"\n";
+    }
+
+    phoneFile.close();
+
+    return true;
+}
+
+bool ModelCompilationAdapterSPHINX::storeTranscription(const QString &promptsPathIn, const QString &promptsPathOut, QSharedPointer<Vocabulary> vocabulary)
+{
+    QFile promptsInFile(promptsPathIn);
+    QFile promptsOutFile(promptsPathOut);
+    if (!promptsInFile.open(QIODevice::ReadOnly) || !promptsOutFile.open(QIODevice::WriteOnly))
+    {
+        emit error(i18n("Failed to store transcription to \"%1\" from \"%2\"", promptsPathOut, promptsPathIn));
+        return false;
+    }
+
+
 
     return true;
 }

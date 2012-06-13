@@ -23,29 +23,35 @@
 
 bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compilationType, const QString &modelDestination, const QString &baseModelPath, const QHash<QString, QString> &args)
 {
+    //TODO:implement
     return true;
 }
 
 bool ModelCompilerSPHINX::hasBuildLog() const
 {
+    //TODO:implement
     return true;
 }
 
 QString ModelCompilerSPHINX::getGraphicBuildLog() const
 {
+    //TODO:implement
     return "";
 }
 
 QString ModelCompilerSPHINX::getBuildLog() const
 {
+    //TODO:implement
     return "";
 }
 
 void ModelCompilerSPHINX::abort()
 {
+    //TODO:implement
 }
 
 QString ModelCompilerSPHINX::information(bool condensed) const
 {
+    //TODO:implement
     return "";
 }
