@@ -18,7 +18,7 @@
  */
 
 
-#include "ModelCompilationManagerSPHINX.h"
+#include "modelcompilationmanagersphinx.h"
 
 
 

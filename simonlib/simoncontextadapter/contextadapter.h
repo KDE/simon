@@ -59,78 +59,78 @@ class ModelSource;
 
 class SIMONCONTEXTADAPTER_EXPORT ContextAdapter : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit ContextAdapter(QString username, QObject *parent=0);
+  explicit ContextAdapter(QString username, QObject *parent=0);
 
-    enum Activity
-    {
-        NoActivity,
-        CompilingModel
-    };
+  enum Activity
+  {
+    NoActivity,
+    CompilingModel
+  };
 
-    void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
-    void updateAcousticModelSampleGroups(const QStringList& deactivatedSampleGroups);
+  void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
+  void updateAcousticModelSampleGroups(const QStringList& deactivatedSampleGroups);
 
-    void clearCache();
+  void clearCache();
 
-    void updateModelCompilationParameters(const QDateTime& modelDate, int baseModelType, const QString& baseModelPath,
-                                          const QStringList& scenarioPaths, const QString& promptsPathIn);
+  void updateModelCompilationParameters(const QDateTime& modelDate, int baseModelType, const QString& baseModelPath,
+                                        const QStringList& scenarioPaths, const QString& promptsPathIn);
 
-    //wrapper functions
-    
-    bool hasBuildLog() { return m_modelCompilationManager->hasBuildLog(); }
-    QString getGraphicBuildLog() { return m_modelCompilationManager->getGraphicBuildLog(); }
-    QString getBuildLog() { return m_modelCompilationManager->getBuildLog(); }
+  //wrapper functions
 
-    void abort();
-    
-    bool isCompiling() const;
-    
-    QString currentModelPath() const;
+  bool hasBuildLog() { return m_modelCompilationManager->hasBuildLog(); }
+  QString getGraphicBuildLog() { return m_modelCompilationManager->getGraphicBuildLog(); }
+  QString getBuildLog() { return m_modelCompilationManager->getBuildLog(); }
+
+  void abort();
+
+  bool isCompiling() const;
+
+  QString currentModelPath() const;
 
 private:
-    QMutex m_compileLock;
-    QString m_username;
-    
-    ModelCompilationManager *m_modelCompilationManager;
-    
-    ModelSource *m_currentSource;
-    
-    Situation m_requestedSituation;
-    QHash<Situation, CachedModel*> m_modelCache;
-    
-    void readCachedModels();
-    void storeCachedModels();
-    
-    void buildCurrentSituation();
-    
-    void buildNext();
-    void introduceNewModel(const Situation& situation);
-    
-    void safelyAddContextFreeModelToCache();
-    QStringList adaptScenarios(const QStringList& scenarioPaths, const QStringList& deactivatedScenarios);
-    QString adaptPrompts(const QString& promptsPath, const QStringList& deactivatedSampleGroups);
-    
-    void adaptAndBuild(const Situation& situation, CachedModel* model);
-      
+  QMutex m_compileLock;
+  QString m_username;
+
+  ModelCompilationManager *m_modelCompilationManager;
+
+  ModelSource *m_currentSource;
+
+  Situation m_requestedSituation;
+  QHash<Situation, CachedModel*> m_modelCache;
+
+  void readCachedModels();
+  void storeCachedModels();
+
+  void buildCurrentSituation();
+
+  void buildNext();
+  void introduceNewModel(const Situation& situation);
+
+  void safelyAddContextFreeModelToCache();
+  QStringList adaptScenarios(const QStringList& scenarioPaths, const QStringList& deactivatedScenarios);
+  QString adaptPrompts(const QString& promptsPath, const QStringList& deactivatedSampleGroups);
+
+  void adaptAndBuild(const Situation& situation, CachedModel* model);
+
 
 private slots:
-    void slotModelReady(uint fingerprint, const QString& path);
-    void slotModelCompilationAborted();
+  void slotModelReady(uint fingerprint, const QString& path);
+  void slotModelCompilationAborted();
 
 signals:
-    //relaying signals
-    void newModelReady();                    /// Always emitted when a model generation / evaluation process is completed
-    void modelCompiled(const QString& path); /// only emitted, when the context-free model has changed
-    void modelCompilationAborted();
-    void status(QString mesg, int now, int max);
-    void error(QString);
-    
-    void wordUndefined(const QString&);
-    void classUndefined(const QString&);
-    void phonemeUndefined(const QString&);
+  //relaying signals
+  void newModelReady();                    /// Always emitted when a model generation / evaluation process is completed
+  void modelCompiled(const QString& path); /// only emitted, when the context-free model has changed
+  void modelCompilationAborted();
+  void status(QString mesg, int now, int max);
+  void error(QString);
+
+  void wordUndefined(const QString&);
+  void classUndefined(const QString&);
+  void phonemeUndefined(const QString&);
 };
 
 #endif // CONTEXTADAPTER_H

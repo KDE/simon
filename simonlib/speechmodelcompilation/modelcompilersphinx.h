@@ -17,18 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef MODELCOMPILATIONMANAGERSPHINX_H
-#define MODELCOMPILATIONMANAGERSPHINX_H
 
-#include "modelcompilationmanager.h"
+#ifndef MODELCOMPILERSPHINX_H
+#define MODELCOMPILERSPHINX_H
+
+#include "modelcompiler.h"
 #include "simonmodelcompilationmanagement_export.h"
 
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerSPHINX: public ModelCompilationManager
+class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerSPHINX: public ModelCompiler
 {
-protected:
-    //TODO: Implement
-    virtual void run();
+public:
+  bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
+                        const QString& baseModelPath, const QHash<QString, QString>& args);
+
+  //TODO: Implement
+  bool hasBuildLog() const;
+  QString getGraphicBuildLog() const;
+  QString getBuildLog() const;
+
+  void abort();
+
+  QString information(bool condensed=false) const;
 
 };
 
-#endif // MODELCOMPILATIONMANAGERSPHINX_H
+#endif // MODELCOMPILERSPHINX_H

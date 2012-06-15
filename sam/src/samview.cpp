@@ -32,7 +32,7 @@
 
 #include <speechmodelcompilation/modelcompilerhtk.h>
 #include <speechmodelcompilation/modelcompilationadapterhtk.h>
-#include <speechmodelcompilation/ModelCompilationAdapterSPHINX.h>
+#include <speechmodelcompilation/modelcompilationadaptersphinx.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
 
 #include <qwt_legend.h>

@@ -10,11 +10,11 @@ include(KDE4Defaults)
 set( simonmodelcompilation_LIB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/modelcompilationmanager.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/modelcompilationmanagerhtk.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ModelCompilationManagerSPHINX.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/modelcompilationmanagersphinx.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelcompilationadapter.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelcompilationadapterhtk.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ModelCompilationAdapterSPHINX.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ModelCompilerSPHINX.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/modelcompilationadaptersphinx.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/modelcompilersphinx.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/modelcompilerhtk.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/modelcompiler.cpp
 )

@@ -28,39 +28,39 @@
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
 {
   Q_OBJECT
-  signals:
-    void status(QString, int progressNow, int progressTotal=2600);
-    void error(QString);
+signals:
+  void status(QString, int progressNow, int progressTotal=2600);
+  void error(QString);
 
-    void wordUndefined(const QString&);
-    void classUndefined(const QString&);
-    void phonemeUndefined(const QString&);
+  void wordUndefined(const QString&);
+  void classUndefined(const QString&);
+  void phonemeUndefined(const QString&);
 
-    void modelCompiled();
-    void activeModelCompilationAborted();
+  void modelCompiled();
+  void activeModelCompilationAborted();
 
-  public:
-    enum CompilationType
-    {
-      CompileLanguageModel=1,
-      CompileSpeechModel=2,
-      AdaptSpeechModel=4
-    };
-    
-    virtual bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
-                                  const QString& baseModelPath, const QHash<QString, QString>& args)=0;
+public:
+  enum CompilationType
+  {
+    CompileLanguageModel=1,
+    CompileSpeechModel=2,
+    AdaptSpeechModel=4
+  };
 
-    explicit ModelCompiler(const QString& userName, QObject *parent=0) : QObject(parent), userName(userName) {}
+  virtual bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
+                                const QString& baseModelPath, const QHash<QString, QString>& args)=0;
 
-    virtual bool hasBuildLog() const=0;
-    virtual QString getGraphicBuildLog() const=0;
-    virtual QString getBuildLog() const=0;
+  explicit ModelCompiler(const QString& userName, QObject *parent=0) : QObject(parent), userName(userName) {}
 
-    virtual void abort()=0;
+  virtual bool hasBuildLog() const=0;
+  virtual QString getGraphicBuildLog() const=0;
+  virtual QString getBuildLog() const=0;
 
-    virtual QString information(bool condensed=false) const=0;
+  virtual void abort()=0;
 
-  protected:
-    QString userName;
+  virtual QString information(bool condensed=false) const=0;
+
+protected:
+  QString userName;
 };
 #endif

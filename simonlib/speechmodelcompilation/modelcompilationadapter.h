@@ -43,65 +43,65 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
 {
   Q_OBJECT
   
-  signals:
-    void status(QString, int progressNow, int progressMax);
-    void error(QString);
+signals:
+  void status(QString, int progressNow, int progressMax);
+  void error(QString);
 
-    void adaptionComplete();
-    void adaptionAborted();
-    
-  public:
-    enum AdaptionType
-    {
-      None=0,
-      AdaptLanguageModel=1,
-      AdaptAcousticModel=2,
-      AdaptIndependently=4
-    };
-    
-    explicit ModelCompilationAdapter(const QString& userName, QObject *parent=0);
+  void adaptionComplete();
+  void adaptionAborted();
 
-    QString getStatus() const { return currentStatus; }
+public:
+  enum AdaptionType
+  {
+    None=0,
+    AdaptLanguageModel=1,
+    AdaptAcousticModel=2,
+    AdaptIndependently=4
+  };
 
-    int wordCount() const { return m_wordCount; }
-    int pronunciationCount() const { return m_pronunciationCount; }
-    int sampleCount() const { return m_sampleCount; }
+  explicit ModelCompilationAdapter(const QString& userName, QObject *parent=0);
 
-    void clearPoisonedPhonemes() { poisonedPhonemes.clear(); }
-    void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
-    
-    
-    virtual bool startAdaption(AdaptionType adaptionType, const QStringList& scenarioPathsIn,
-                               const QString& promptsIn, const QHash<QString, QString>& args)=0;
+  QString getStatus() const { return currentStatus; }
 
-    void abort();
+  int wordCount() const { return m_wordCount; }
+  int pronunciationCount() const { return m_pronunciationCount; }
+  int sampleCount() const { return m_sampleCount; }
+
+  void clearPoisonedPhonemes() { poisonedPhonemes.clear(); }
+  void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
+
+
+  virtual bool startAdaption(AdaptionType adaptionType, const QStringList& scenarioPathsIn,
+                             const QString& promptsIn, const QHash<QString, QString>& args)=0;
+
+  void abort();
 
 
 protected:
-    bool keepGoing;
-    AdaptionType m_adaptionType;
-    QString currentStatus;
-    QStringList m_scenarioPathsIn;
-    QString m_promptsPathIn;
-    QString m_userName;
+  bool keepGoing;
+  AdaptionType m_adaptionType;
+  QString currentStatus;
+  QStringList m_scenarioPathsIn;
+  QString m_promptsPathIn;
+  QString m_userName;
 
-    int m_wordCount;
-    int m_pronunciationCount;
-    int m_sampleCount;
+  int m_wordCount;
+  int m_pronunciationCount;
+  int m_sampleCount;
 
-    QStringList poisonedPhonemes;
+  QStringList poisonedPhonemes;
 
-    bool removeContextAdditions();
+  bool removeContextAdditions();
 
-    void mergeInputData(const QStringList& scenarioPaths, QSharedPointer<Vocabulary> mergedVocabulary,
-                        QSharedPointer<Grammar> mergedGrammar);
+  void mergeInputData(const QStringList& scenarioPaths, QSharedPointer<Vocabulary> mergedVocabulary,
+                      QSharedPointer<Grammar> mergedGrammar);
 
-    void removeWordsWithPoisonedPhonems(QSharedPointer<Vocabulary> vocabulary);
+  void removeWordsWithPoisonedPhonems(QSharedPointer<Vocabulary> vocabulary);
 
-    bool containsPoisonedPhoneme(const QString &pronunciation);
+  bool containsPoisonedPhoneme(const QString &pronunciation);
 
-    bool readPrompts(ModelCompilationAdapter::AdaptionType adaptionType, QSharedPointer<Vocabulary> vocabulary,
-                     const QString &promptsPathIn, QStringList &trainedVocabulary);
+  bool readPrompts(ModelCompilationAdapter::AdaptionType adaptionType, QSharedPointer<Vocabulary> vocabulary,
+                   const QString &promptsPathIn, QStringList &trainedVocabulary);
 
 };
 #endif

@@ -45,131 +45,131 @@ void ModelCompilationAdapter::abort()
 
 bool ModelCompilationAdapter::removeContextAdditions()
 {
-    QString realInPrompts = m_promptsPathIn;
-    m_promptsPathIn = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_userName+"/compile/tmpprompts");
-    QFile newPrompts(m_promptsPathIn);
-    QFile oldPrompts(realInPrompts);
-    if (!newPrompts.open(QIODevice::WriteOnly) || !oldPrompts.open(QIODevice::ReadOnly)) {
-        emit error(i18n("Couldn't strip context of prompts"));
-        return false;
-    }
-    while (!oldPrompts.atEnd()) {
-        QByteArray line = oldPrompts.readLine();
-        int firstIndex = line.indexOf('"');
-        line.remove(firstIndex, line.indexOf('"', firstIndex+1) - firstIndex + 1);
-        newPrompts.write(line);
-    }
-    return true;
+  QString realInPrompts = m_promptsPathIn;
+  m_promptsPathIn = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_userName+"/compile/tmpprompts");
+  QFile newPrompts(m_promptsPathIn);
+  QFile oldPrompts(realInPrompts);
+  if (!newPrompts.open(QIODevice::WriteOnly) || !oldPrompts.open(QIODevice::ReadOnly)) {
+    emit error(i18n("Couldn't strip context of prompts"));
+    return false;
+  }
+  while (!oldPrompts.atEnd()) {
+    QByteArray line = oldPrompts.readLine();
+    int firstIndex = line.indexOf('"');
+    line.remove(firstIndex, line.indexOf('"', firstIndex+1) - firstIndex + 1);
+    newPrompts.write(line);
+  }
+  return true;
 }
 
 void ModelCompilationAdapter::mergeInputData(const QStringList &scenarioPaths, QSharedPointer<Vocabulary> mergedVocabulary, QSharedPointer<Grammar> mergedGrammar)
 {
-    //merging scenarios
-    for(const QString& src: scenarioPaths)
+  //merging scenarios
+  for(const QString& src: scenarioPaths)
+  {
+    kDebug() << "Serializing Scenario: " << src;
+    QSharedPointer<Scenario> scenario (new Scenario(""));
+    if (!scenario->readLanguageModel(src))
     {
-        kDebug() << "Serializing Scenario: " << src;
-        QSharedPointer<Scenario> scenario (new Scenario(""));
-        if (!scenario->readLanguageModel(src))
-        {
-            kDebug() << "Could not parse language model at " << src;
-            continue;
-        }
-
-        Grammar *grammar = scenario->grammar();
-        mergedGrammar->addStructures(grammar->getStructures(), false /* do not save */);
-
-        Vocabulary *vocab = scenario->vocabulary();
-
-        QList<Word*> words = vocab->getWords();
-        vocab->clear();                               // make sure they are not removed from the scenario when we delete that
-        QList<Word*> wordsTmp;
-        for(Word* w: words)
-            wordsTmp.append(w);
-
-        //list will be deleted by addWords
-        mergedVocabulary->addWords(wordsTmp);
+      kDebug() << "Could not parse language model at " << src;
+      continue;
     }
+
+    Grammar *grammar = scenario->grammar();
+    mergedGrammar->addStructures(grammar->getStructures(), false /* do not save */);
+
+    Vocabulary *vocab = scenario->vocabulary();
+
+    QList<Word*> words = vocab->getWords();
+    vocab->clear();                               // make sure they are not removed from the scenario when we delete that
+    QList<Word*> wordsTmp;
+    for(Word* w: words)
+      wordsTmp.append(w);
+
+    //list will be deleted by addWords
+    mergedVocabulary->addWords(wordsTmp);
+  }
 }
 
 bool ModelCompilationAdapter::containsPoisonedPhoneme(const QString& pronunciation)
 {
-    if (poisonedPhonemes.isEmpty()) return false;
+  if (poisonedPhonemes.isEmpty()) return false;
 
-    QStringList phonemes = pronunciation.split(' ');
-    for(const QString& phoneme: phonemes)
-        if (poisonedPhonemes.contains(phoneme))
-            return true;
+  QStringList phonemes = pronunciation.split(' ');
+  for(const QString& phoneme: phonemes)
+    if (poisonedPhonemes.contains(phoneme))
+      return true;
 
-    return false;
+  return false;
 }
 
 void ModelCompilationAdapter::removeWordsWithPoisonedPhonems(QSharedPointer<Vocabulary> vocabulary)
 {
-    QList<Word*> words = vocabulary->getWords();
-    for(Word *word: words)
+  QList<Word*> words = vocabulary->getWords();
+  for(Word *word: words)
+  {
+    if (containsPoisonedPhoneme(word->getPronunciation()))
     {
-        if (containsPoisonedPhoneme(word->getPronunciation()))
-        {
-            kDebug() << "Removing word containing poisoned phoneme: " << word->getWord();
-            vocabulary->removeWord(word);
-        }
+      kDebug() << "Removing word containing poisoned phoneme: " << word->getWord();
+      vocabulary->removeWord(word);
     }
+  }
 }
 
 
 bool ModelCompilationAdapter::readPrompts(ModelCompilationAdapter::AdaptionType adaptionType,
-                                              QSharedPointer<Vocabulary> vocabulary, const QString &promptsPathIn,
-                                              QStringList &trainedVocabulary)
+                                          QSharedPointer<Vocabulary> vocabulary, const QString &promptsPathIn,
+                                          QStringList &trainedVocabulary)
 {
-    ///// Prompts ///////////
+  ///// Prompts ///////////
 
-    if (!poisonedPhonemes.isEmpty() && (adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
+  if (!poisonedPhonemes.isEmpty() && (adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
+  {
+    removeWordsWithPoisonedPhonems(vocabulary);
+  }
+
+  ADAPT_CHECKPOINT;
+
+  if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel)
+  {
+    emit status(i18n("Adapting prompts..."), 1, 100);
+    QFile promptsFile(promptsPathIn);
+
+    if (!promptsFile.open(QIODevice::ReadOnly))
     {
-        removeWordsWithPoisonedPhonems(vocabulary);
+      if (QFile::exists(promptsPathIn))
+        emit error(i18nc("%1 is source file path", "Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
+      else
+      {
+        kDebug() << "Aborting because we have no input prompts";
+        emit adaptionAborted(); //no input prompts
+      }
+      return false;
     }
 
-    ADAPT_CHECKPOINT;
-
-    if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel)
+    while (!promptsFile.atEnd())
     {
-        emit status(i18n("Adapting prompts..."), 1, 100);
-        QFile promptsFile(promptsPathIn);
+      QString line = QString::fromUtf8(promptsFile.readLine());
+      int splitter = line.indexOf(" ");
+      QStringList words;
+      words = line.mid(splitter+1).trimmed().split(' ');
 
-        if (!promptsFile.open(QIODevice::ReadOnly))
+      foreach (const QString& word, words)
+      {
+        if (!vocabulary->containsWord(word))
         {
-            if (QFile::exists(promptsPathIn))
-                emit error(i18nc("%1 is source file path", "Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
-            else
-            {
-                kDebug() << "Aborting because we have no input prompts";
-                emit adaptionAborted(); //no input prompts
-            }
-            return false;
+          kDebug() << "Word not defined in vocabulary: " << word;
+          //allWordsDefined = false;
+          break;
         }
-
-        while (!promptsFile.atEnd())
-        {
-            QString line = QString::fromUtf8(promptsFile.readLine());
-            int splitter = line.indexOf(" ");
-            QStringList words;
-            words = line.mid(splitter+1).trimmed().split(' ');
-
-            foreach (const QString& word, words)
-            {
-                if (!vocabulary->containsWord(word))
-                {
-                    kDebug() << "Word not defined in vocabulary: " << word;
-                    //allWordsDefined = false;
-                    break;
-                }
-                if (!trainedVocabulary.contains(word))
-                    trainedVocabulary.append(word);
-            }
-        }
-
-        promptsFile.close();
+        if (!trainedVocabulary.contains(word))
+          trainedVocabulary.append(word);
+      }
     }
-    ADAPT_CHECKPOINT;
 
-    return true;
+    promptsFile.close();
+  }
+  ADAPT_CHECKPOINT;
+
+  return true;
 }

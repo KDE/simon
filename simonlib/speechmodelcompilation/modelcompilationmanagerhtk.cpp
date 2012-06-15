@@ -53,13 +53,13 @@ void ModelCompilationManagerHTK::slotPhonemeUndefined ( const QString& phoneme )
 void ModelCompilationManagerHTK::run()
 {
   //first, adapt the input to htk readable formats using the adapter
-  QHash<QString,QString> adaptionArgs; 
+  QHash<QString,QString> adaptionArgs;
   
   QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
 
-  ModelCompilationAdapter::AdaptionType adaptionType = (baseModelType == 0) ? 
-                                                          (ModelCompilationAdapter::AdaptLanguageModel) : 
-                                                          (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel);
+  ModelCompilationAdapter::AdaptionType adaptionType = (baseModelType == 0) ?
+                                                         (ModelCompilationAdapter::AdaptLanguageModel) :
+                                                         (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel);
   
   adaptionArgs.insert("lexicon", activeDir+"lexicon");
   adaptionArgs.insert("grammar", activeDir+"model.grammar");
@@ -68,7 +68,7 @@ void ModelCompilationManagerHTK::run()
   
   //then, compile the model using the model compilation manager
   QHash<QString,QString> compilerArgs;
-        
+
   compilerArgs.insert("samples",KStandardDirs::locateLocal("appdata", "models/"+userName+"/samples/"));
   compilerArgs.insert("lexicon", activeDir+"lexicon");
   compilerArgs.insert("grammar", activeDir+"model.grammar");
@@ -159,7 +159,7 @@ void ModelCompilationManagerHTK::run()
     if (exists || compiler->startCompilation(compilationType, outPath, baseModelPath, compilerArgs)) {
       emit modelReady(fingerprint, outPath);
       return;
-    } else 
+    } else
       kWarning() << "Model compilation failed for user " << userName;
   } while (tryAgain);
   emit modelCompilationAborted();

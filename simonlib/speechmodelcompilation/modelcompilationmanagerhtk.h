@@ -29,7 +29,7 @@ class ModelCompilerHTK;
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerHTK : public ModelCompilationManager
 {
-Q_OBJECT
+  Q_OBJECT
 public:
   ModelCompilationManagerHTK(const QString& userName, QObject *parent);
 
@@ -38,12 +38,12 @@ protected:
   
 private slots:
   void slotPhonemeUndefined(const QString& phoneme);
-    
+
 private:
   // this is set to true when we receive note that a problem during compilation was fixed by changing the adaption
   // parameters. On the next failed compilation, the adaption (and subsequently the compilation) will be triggered
   // again
-  bool tryAgain; 
+  bool tryAgain;
 };
 
 #endif // MODELCOMPILATIONMANAGERHTK_H
