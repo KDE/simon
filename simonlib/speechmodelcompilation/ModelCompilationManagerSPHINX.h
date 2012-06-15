@@ -27,7 +27,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerSPHINX: public Mo
 {
 protected:
     //TODO: Implement
-    virtual void run()=0;
+    virtual void run();
 
 };
 

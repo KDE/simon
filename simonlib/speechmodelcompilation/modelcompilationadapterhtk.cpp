@@ -310,7 +310,8 @@ bool ModelCompilationAdapterHTK::storePrompts(ModelCompilationAdapter::AdaptionT
             return false;
         }
 
-        while (!promptsFile.atEnd()) {
+        while (!promptsFile.atEnd())
+        {
             QString line = QString::fromUtf8(promptsFile.readLine());
             int splitter = line.indexOf(" ");
             bool allWordsInLexicon = true;
@@ -324,7 +325,8 @@ bool ModelCompilationAdapterHTK::storePrompts(ModelCompilationAdapter::AdaptionT
                     break;
                 }
             }
-            if (allWordsInLexicon) {
+            if (allWordsInLexicon)
+            {
                 promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + ' ' + htkify(words.join(" ").toUtf8()) + '\n');
                 ++m_sampleCount;
             }

@@ -96,12 +96,40 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
         return false;
     }
 
+    QString fetc = workingDirPath+"/"+mName+"/etc/"+mName;
+
+    if(!storeDictionary(adaptionType, fetc+".dic", trainedVocabulary, definedVocabulary,
+                        vocabulary))
+    {
+        emit error(i18n("Failed to store dictionary"));
+        return false;
+    }
+
+    if(!storeFiller(adaptionType, fetc+".filler"))
+    {
+        emit error(i18n("Failed to store filler"));
+        return false;
+    }
+
+    if(!storePhonesList(adaptionType, fetc+".phone", vocabulary))
+    {
+        emit error(i18n("Failed to store phones"));
+        return false;
+    }
+
+    if(!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+"_train.transcription", fetc+"_train.fileids",
+                                    definedVocabulary))
+    {
+        emit error(i18n("Failed to store transcription and fields"));
+        return false;
+    }
+
     //vocabulary->
 
     return true;
 }
 
-bool ModelCompilationAdapterSPHINX::storeDictionary(const QString &dictionaryPathOut, QStringList &trainedVocabulary,
+bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, const QString &dictionaryPathOut, QStringList &trainedVocabulary,
                                                     QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary)
 {
     QFile dictionaryFile(dictionaryPathOut);
@@ -120,7 +148,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(const QString &dictionaryPat
     for(Word *word: words)
     {
         if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
-            //    !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&    //???
+                //    !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&    //???
                 !trainedVocabulary.contains(word->getLexiconWord()))
         {
             kDebug() << "Skipping word " << word->getWord();
@@ -129,7 +157,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(const QString &dictionaryPat
 
         ++m_pronunciationCount;
         dictionary << word->getLexiconWord() << QLatin1String("\t\t") <<
-                   word->getPronunciation() << QLatin1String("\n");
+                      word->getPronunciation() << QLatin1String("\n");
 
         ++m_wordCount;
         if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
@@ -142,7 +170,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(const QString &dictionaryPat
     return true;
 }
 
-bool ModelCompilationAdapterSPHINX::storeFiller(const QString &fillerPathOut)
+bool ModelCompilationAdapterSPHINX::storeFiller(AdaptionType adaptionType, const QString &fillerPathOut)
 {
     //WARNING: Hardcode or not hardcode? this is a question.
 
@@ -165,7 +193,7 @@ bool ModelCompilationAdapterSPHINX::storeFiller(const QString &fillerPathOut)
     return true;
 }
 
-bool ModelCompilationAdapterSPHINX::storePhonesList(const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary)
+bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary)
 {
     QFile phoneFile(phonesListPathOut);
     if (!phoneFile.open(QIODevice::WriteOnly))
@@ -180,7 +208,7 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(const QString &phonesListPat
     QSet<QString> uniquePhonemes;
     for(Word *word: vocabulary->getWords())
     {
-        auto phoneList = word->getLexiconWord().split(" ");
+        auto phoneList = word->getPronunciation().split(" ");
         for(const QString &tphone:phoneList)
         {
             uniquePhonemes.insert(tphone);
@@ -197,17 +225,53 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(const QString &phonesListPat
     return true;
 }
 
-bool ModelCompilationAdapterSPHINX::storeTranscription(const QString &promptsPathIn, const QString &promptsPathOut, QSharedPointer<Vocabulary> vocabulary)
+bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType adaptionType, const QString &promptsPathIn, const QString &transcriptionPathOut,
+                                                                const QString &fieldsPathOut, QStringList &definedVocabulary)
 {
     QFile promptsInFile(promptsPathIn);
-    QFile promptsOutFile(promptsPathOut);
-    if (!promptsInFile.open(QIODevice::ReadOnly) || !promptsOutFile.open(QIODevice::WriteOnly))
+    QFile promptsOutFile(transcriptionPathOut);
+    QFile fieldsOutFile(fieldsPathOut);
+    if (!promptsInFile.open(QIODevice::ReadOnly) || !promptsOutFile.open(QIODevice::WriteOnly) ||
+            !fieldsOutFile.open(QIODevice::WriteOnly))
     {
-        emit error(i18n("Failed to store transcription to \"%1\" from \"%2\"", promptsPathOut, promptsPathIn));
+        emit error(i18n("Failed to store transcription to \"%1\" from \"%2\" or write fields to \"%3\"", transcriptionPathOut, promptsPathIn, fieldsPathOut));
         return false;
     }
 
+    m_sampleCount = 0;
 
+    while (!promptsInFile.atEnd())
+    {
+        QString line = QString::fromUtf8(promptsInFile.readLine());
+        int splitter = line.indexOf(" ");
+        bool allWordsInLexicon = true;
+        QStringList words = line.mid(splitter+1).trimmed().split(' ');
 
+        for(const QString& word: words)
+        {
+            if (!definedVocabulary.contains(word))
+            {
+                allWordsInLexicon = false;
+                break;
+            }
+        }
+
+        if (allWordsInLexicon)
+        {
+            promptsOutFile.write("<s> "+words.join(" ").toUtf8() + " </s> (" + line.left(splitter).toUtf8() /*filename*/+ ")\n");
+            fieldsOutFile.write(line.left(splitter).toUtf8() /*filename*/ + ".wav\n"); //WARNING: is wav hardcode ?
+            ++m_sampleCount;
+        }
+    }
+
+    promptsInFile.close();
+    promptsOutFile.close();
+    fieldsOutFile.close();
+
+    return true;
+}
+
+bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::AdaptionType adaptionType, const QString &grammarPathOut, QSharedPointer<Vocabulary> vocabulary, QStringList &definedVocabulary)
+{
     return true;
 }

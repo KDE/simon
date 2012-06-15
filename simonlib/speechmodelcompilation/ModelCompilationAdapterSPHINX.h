@@ -34,15 +34,20 @@ protected:
                     const QString& promptsPathIn, const QString &workingDirPath, const QString &mName,
                     QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar);
 
-    bool storeDictionary(const QString &dictionaryPathOut, QStringList &trainedVocabulary,
+    bool storeDictionary(AdaptionType adaptionType, const QString &dictionaryPathOut, QStringList &trainedVocabulary,
                          QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary);
 
-    bool storeFiller(const QString &fillerPathOut);
+    bool storeFiller(AdaptionType adaptionType, const QString &fillerPathOut);
 
-    bool storePhonesList(const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary);
+    bool storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary);
 
-    bool storeTranscription(const QString& promptsPathIn, const QString& promptsPathOut,
-                            QSharedPointer<Vocabulary> vocabulary);
+    bool storeTranscriptionAndFields(AdaptionType adaptionType, const QString& promptsPathIn, const QString& transcriptionPathOut, const QString &fieldsPathOut,
+                                     QStringList &definedVocabulary);
+
+    bool storeGrammar(AdaptionType adaptionType, const QString &grammarPathOut, QSharedPointer<Vocabulary> vocabulary,
+                      QStringList &definedVocabulary);
+
+    //TODO: Add separation by adaptation type
 
 public:
     ModelCompilationAdapterSPHINX(const QString& userName, QObject *parent=0);

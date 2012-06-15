@@ -24,6 +24,7 @@
 #include "modelsource.h"
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilation/modelcompilationmanagerhtk.h>
+#include <speechmodelcompilation/ModelCompilationManagerSPHINX.h>
 #include <QDir>
 #include <QSettings>
 #include <KStandardDirs>
@@ -36,7 +37,11 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     QObject(parent),
     m_currentSource(0)
 {
+#ifdef TSPHINX
+    m_modelCompilationManager = new ModelCompilationManagerSPHINX(username, this);
+#else
     m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
+#endif
     //FIXME: hardcode
 
     m_username = username;
