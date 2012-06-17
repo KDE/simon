@@ -27,6 +27,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simondialogengine)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoncontextdetection)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoncontextadapter)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sscdaccess)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonvision)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenariobase)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenarios)
