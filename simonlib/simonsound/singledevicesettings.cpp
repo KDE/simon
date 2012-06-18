@@ -81,6 +81,8 @@ m_defaultSampleGroup(defaultSampleGroup)
   connect(ui->leSampleGroup, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 
   load(deviceName, channels, sampleRate, resampleEnabled, resampleSampleRate, defaultSampleGroup);
+  
+  ui->wgAdvancedOptions->hide();
 }
 
 
