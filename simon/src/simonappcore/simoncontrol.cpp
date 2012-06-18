@@ -75,8 +75,13 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
   ActionManager::getInstance();                   // initializing action manager
   SimonTTS::getInstance();                   // initializing TTS system for dbus interface
 
-  if (!ScenarioManager::getInstance()->init())
+  if (!ScenarioManager::getInstance()->init()) {
     KMessageBox::error(0, i18n("Could not initialize scenarios and shadow dictionary."));
+    if (!ScenarioManager::getInstance()->getCurrentScenario()) {
+      kDebug() << "Abortint due to fatal error while loading scenarios";
+      exit(-1); // this is fatal
+    }
+  }
 
   connect(SoundServer::getInstance(), SIGNAL(error(QString)), this, SLOT(slotSoundError(QString)));
 }
