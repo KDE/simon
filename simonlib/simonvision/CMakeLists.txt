@@ -5,6 +5,7 @@ include(KDE4Defaults)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${OpenCV_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/../ ${OpenCV_INCLUDE_DIRS})
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 FIND_PACKAGE( OpenCV REQUIRED )
+ADD_DEFINITIONS(-fexceptions)
 link_directories(${OpenCV_LIB_DIR})
 set (QT_USE_QTMAIN true)
 set (simonvision_LIB_SRCS

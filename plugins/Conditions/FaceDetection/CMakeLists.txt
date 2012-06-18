@@ -7,6 +7,8 @@ include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
 ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib  )
 FIND_PACKAGE( ${SIMONCV_PACKAGE} REQUIRED )
 
+ADD_DEFINITIONS(-fexceptions)
+
 set (simonfacedetectionconditionplugin_SRCS 
 	facedetectioncondition.cpp 
         createfacedetectionconditionwidget.cpp
