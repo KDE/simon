@@ -50,7 +50,7 @@ class TestConfigurationWidget : public QFrame
   public:
     TestConfigurationWidget(QWidget *parent=0);
     TestConfigurationWidget(CorpusInformation* corpusInfo,
-        const KUrl& hmmDefsUrl,
+        const KUrl& outputUrl,
         const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
         const KUrl& jconfUrl, int sampleRate, QWidget *parent=0);

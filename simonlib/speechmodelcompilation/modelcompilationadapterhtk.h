@@ -22,9 +22,11 @@
 
 #include <QThread>
 #include <QProcess>
+#include <QHash>
+#include <QSharedPointer>
 #include <QByteArray>
 #include "modelcompilationadapter.h"
-#include "simonmodelcompilationadapter_export.h"
+#include "simonmodelcompilationmanagement_export.h"
 
 class Vocabulary;
 class Grammar;
@@ -36,19 +38,20 @@ class Grammar;
  *	@date 20.12.2009
  *	@author Peter Grasch
  */
-class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapterHTK : public ModelCompilationAdapter
+class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public ModelCompilationAdapter
 {
   Q_OBJECT
 
-    private:
+  private:
+    //output
+    QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
+    
     inline QByteArray htkify(const QByteArray& in);
     inline QString htkify(const QString& in);
 
     bool containsPoisonedPhoneme(const QString& pronunciation);
-
-  public:
-    explicit ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);
-
+    
+  protected:
     bool adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
       const QStringList& scenarioPaths, const QString& promptsPathIn,
       const QString& lexiconPathOut, const QString& grammarPathOut,
@@ -56,7 +59,21 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapterHTK : public ModelCo
 
     bool storeModel(ModelCompilationAdapter::AdaptionType adaptionType,
       const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut,
-      const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn);
+      const QString& promptsPathOut, QSharedPointer<Vocabulary> vocab, QSharedPointer<Grammar> grammar, const QString& promptsPathIn);
+
+    void run();
+
+  public:
+    explicit ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);
+    
+    virtual bool startAdaption(AdaptionType adaptionType, const QStringList& scenarioPathsIn,
+                               const QString& promptsIn, const QHash<QString, QString>& args);
+    
+
+    QString lexiconPath() { return m_lexiconPathOut; }
+    QString grammarPath() { return m_grammarPathOut; }
+    QString simpleVocabPath() { return m_simpleVocabPathOut; }
+    QString promptsPath() { return m_promptsPathOut; }
 
     ~ModelCompilationAdapterHTK();
 

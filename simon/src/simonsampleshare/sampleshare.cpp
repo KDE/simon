@@ -100,7 +100,8 @@ void SampleShare::checkCompletion()
 
 void SampleShare::connected()
 {
-  connectionProgressDialog->progressBar()->setValue(1);
+  if (connectionProgressDialog)
+    connectionProgressDialog->progressBar()->setValue(1);
   //fetch options
   bool ok = true;
   bool allOk = true;
@@ -137,8 +138,9 @@ void SampleShare::connected()
   userLanguage = userLanguage.left(userLanguage.indexOf("_")); //strip e.g. "_US"
   ui->cbLanguage->setCurrentIndex(ui->cbLanguage->findData(userLanguage));
   
-  if (allOk) {   
-    connectionProgressDialog->deleteLater();
+  if (allOk) {
+    if (connectionProgressDialog)
+      connectionProgressDialog->deleteLater();
     connectionProgressDialog = 0;
   }
 }
@@ -148,7 +150,8 @@ void SampleShare::disconnected()
   KMessageBox::sorry(this, i18n("Disconnected from remote server. Please try again."));
   ui->stackedWidget->setCurrentIndex(0);
   setButtonText(Ok, i18n("Connect to server"));
-  connectionProgressDialog->hide();
+  if (connectionProgressDialog)
+    connectionProgressDialog->hide();
   enableButtonOk(true);
 }
 

@@ -29,17 +29,14 @@ class MODELMANAGEMENT_EXPORT TrainingContainer
 {
   private:
     qint32 m_sampleRate;
-    QByteArray m_wavConfig;
     QByteArray m_prompts;
 
   public:
-    TrainingContainer(qint32 sampleRate, const QByteArray& wavConfig,
-      const QByteArray& prompts);
+    TrainingContainer(qint32 sampleRate, const QByteArray& prompts);
 
     ~TrainingContainer();
 
     int sampleRate() { return m_sampleRate; }
-    QByteArray wavConfig() { return m_wavConfig; }
     QByteArray prompts() { return m_prompts; }
 
 };

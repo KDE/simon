@@ -96,12 +96,12 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
     connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
     //then start recording
     succ = soundInput->prepareRecording(clientRequestedSoundConfiguration);
-    if (!succ)
-      //we had to adjust the format slightly and _that_ is already loaded
-      soundInput->deleteLater();
-    else {
+    if (!succ) {
+      kDebug() << "Failed to create sound input";
+      delete soundInput;
+    } else {
       if (inputs.contains(clientRequestedSoundConfiguration))
-        soundInput->deleteLater();
+        delete soundInput;
       else {
         inputs.insert(clientRequestedSoundConfiguration, soundInput);
         isNew = true;
@@ -118,8 +118,8 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
     input->registerInputClient(client);
     if (isNew)
       input->startRecording();
+    applyInputPriorities();
   }
-  applyInputPriorities();
 
   return succ;
 }
@@ -250,12 +250,12 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
     succ = soundOutput->preparePlayback(clientRequestedSoundConfiguration);
     if (!succ) {
       //failed
-      soundOutput->deleteLater();
+      delete soundOutput;
     }
     else {
       //we had to adjust the format slightly and _that_ is already loaded
       if (outputs.contains(clientRequestedSoundConfiguration)) {
-        soundOutput->deleteLater();
+        delete soundOutput;
       } else {
         outputs.insert(clientRequestedSoundConfiguration, soundOutput);
       }

@@ -11,16 +11,24 @@ X-KDE-ParentApp=simon
 X-DocPath=simon/imdex.html#configuration
 
 Name=Text-to-speech
+Name[ca]=Text a veu
 Name[de]=Sprachausgabe
+Name[el]=Κείμενο-σε-ομιλία
 Name[nl]=Tekst-naar-spraak
+Name[pl]=Tekst-na-mowę
 Name[pt]=Texto-para-fala
 Name[pt_BR]=Sintetizador de voz
 Name[sv]=Text-till-tal
 Name[uk]=Синтез мовлення з тексту
 Name[x-test]=xxText-to-speechxx
+Name[zh_CN]=文本到语音
 
 Comment=Configuration of the simon text-to-speech layer
+Comment[ca]=Configuració de la capa text a veu per a «simon»
+Comment[de]=Einrichtung des Simon-Sprachausgabe-Layers
+Comment[el]=Διαμόρφωση του στρώματος κείμενο-σε-ομιλία του simon
 Comment[nl]=Configuratie van de simon-laag tekst-naar-spraak
+Comment[pl]=Konfiguracja warstwy tekstu-na-mowę dla simon
 Comment[pt]=Configuração da interface de texto-para-fala Simon
 Comment[pt_BR]=Configuração da interface do sintetizador de voz do simon
 Comment[sv]=Inställning av Simons text-till-tal lager

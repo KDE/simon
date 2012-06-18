@@ -20,11 +20,12 @@
 #ifndef SIMON_INLINEWIDGETVIEW_H_279F7C1C95C94FFEA3A7CC7B1B1A2B9F
 #define SIMON_INLINEWIDGETVIEW_H_279F7C1C95C94FFEA3A7CC7B1B1A2B9F
 
-#include <KTabWidget>
+#include <KPageWidget>
 #include "simonuicomponents_export.h"
 
 class InlineWidget;
 class QKeyEvent;
+class KPageWidget;
 
 /**
  \class InlineWidgetView
@@ -33,7 +34,7 @@ class QKeyEvent;
  \version 0.1
  \date 10.8.2007
 */
-class SIMONUICOMPONENTS_EXPORT InlineWidgetView : public KTabWidget
+class SIMONUICOMPONENTS_EXPORT InlineWidgetView : public KPageWidget
 {
     Q_OBJECT
   
@@ -44,6 +45,10 @@ signals:
 public:
       InlineWidgetView(QWidget* parent=0);
       void registerPage(InlineWidget *page);
+      void removePage(QWidget *page);
       void focusPage(InlineWidget *page);
+      
+private:
+      KPageWidgetItem* resolvePage(QWidget *content);
 };
 #endif

@@ -1,9 +1,12 @@
 [Desktop Entry]
 Name=sam
+Name[ca]=sam
 Name[de]=sam
+Name[el]=sam
 Name[es]=sam
 Name[ga]=sam
 Name[nl]=sam
+Name[pl]=sam
 Name[pt]=sam
 Name[pt_BR]=sam
 Name[sk]=sam
@@ -15,7 +18,11 @@ Icon=sam
 Type=Application
 X-DocPath=sam/index.html
 GenericName=Acoustic Modeller
+GenericName[ca]=Modelador acústic
+GenericName[de]=Akustischer Modellierer
+GenericName[el]=Ακουστικός μοντελιστής
 GenericName[es]=Modelador acústico
+GenericName[pl]=Program modelujący akustykę
 GenericName[pt]=Modelador Acústico
 GenericName[pt_BR]=Modelador acústico
 GenericName[sv]=Akustisk modellering

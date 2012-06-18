@@ -31,6 +31,7 @@
 
 class SimonSSLSocket;
 class QThread;
+class SocketThread;
 
 class ThreadedSSLSocket : public QIODevice
 {
@@ -61,13 +62,14 @@ public:
   void flush();
   QAbstractSocket::SocketError error();
   void disconnectFromHost();
-  virtual qint64 bytesAvailable() const;
-
-  bool processBuffer();
-  void readFromSocket();
+  qint64 bytesAvailable() const;
   
   virtual void close();
   QString errorString() const;
+  virtual QByteArray readAll();
+  
+  bool processBuffer();
+  void readFromSocket();
 
 protected:
   virtual qint64 readData(char* data, qint64 maxlen);
@@ -75,10 +77,10 @@ protected:
   
 private:
   QMutex        readLock;
-  QBuffer     readBuffer;
+  QByteArray  readBuffer;
   QMutex       writeLock;
   QBuffer    writeBuffer;
-  QThread  *socketThread;
+  SocketThread  *socketThread;
   SimonSSLSocket *socket;
   
   QMutex              bytesToWriteLock;

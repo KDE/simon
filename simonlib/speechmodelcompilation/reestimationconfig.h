@@ -22,19 +22,19 @@
 
 #include <QString>
 
-class ModelCompilationManager;
+class ModelCompilerHTK;
 
 class ReestimationConfig
 {
   private:
     QString m_command;
-    ModelCompilationManager *m_manager;
+    ModelCompilerHTK *m_manager;
   public:
-    ReestimationConfig(const QString& command, ModelCompilationManager *manager) : m_command(command), m_manager(manager)
+    ReestimationConfig(const QString& command, ModelCompilerHTK *manager) : m_command(command), m_manager(manager)
     {}
 
     QString command() { return m_command; }
-    ModelCompilationManager* manager() { return m_manager; }
+    ModelCompilerHTK* manager() { return m_manager; }
 };
 
 #endif

@@ -24,28 +24,34 @@
 #include <QString>
 #include <QHash>
 #include <QStringList>
+#include <QDateTime>
+
+class KTar;
 
 class MODELMANAGEMENT_EXPORT Model
 {
   private:
     qint32 m_data;
-    QByteArray m_hmmDefs;
-    QByteArray m_tiedList;
-    QByteArray m_data1;
-    QByteArray m_data2;
+    QByteArray m_container;
+    
+    //parsed form container
+    bool m_containerParsed;
+    QDateTime m_modelCreationDate;
+    QString m_modelName;
+    
+    void parseContainer();
 
   public:
-    Model(qint32 data, const QByteArray& hmmDefs,
-      const QByteArray& tiedList, const QByteArray& data1, const QByteArray& data2);
-
-    ~Model();
+    Model(qint32 data, const QByteArray& container);
 
     qint32 sampleRate() { return m_data; }
     qint32 baseModelType() { return m_data; }
-    QByteArray hmmDefs() { return m_hmmDefs; }
-    QByteArray tiedList() { return m_tiedList; }
-    QByteArray data1() { return m_data1; }
-    QByteArray data2() { return m_data2; }
+    QByteArray container() { return m_container; }
+    
+    static bool parseContainer(KTar& archive, QDateTime& creationDate, QString& name);
+    
+    QDateTime modelCreationDate();
+    QString modelName();
 
 };
 #endif

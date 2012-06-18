@@ -9,17 +9,12 @@
   <group name="Recognition">
     <entry name="StartLocalSimond" type="Bool">
       <label>If we should automatically start a local simond server.</label>
-      <default>false</default>
+      <default>true</default>
       <tooltip>If a local simond server should be started when simon starts.</tooltip>
-    </entry>
-    <entry name="StopLocalSimond" type="Bool">
-      <label>If we should automatically stop the local simond server when simon exits.</label>
-      <default>false</default>
-      <tooltip>If the locally started simond server should be stopped when simon stops.</tooltip>
     </entry>
     <entry name="JuliusdAutoConnect" type="Bool">
       <label>If we should automatically connect to the simond.</label>
-      <default>false</default>
+      <default>true</default>
       <tooltip>Automatically connect to the simond server.</tooltip>
     </entry>
     <entry name="AutomaticallyEnableRecognition" type="Bool">

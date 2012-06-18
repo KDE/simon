@@ -21,6 +21,7 @@
 #define SIMON_VOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
 
 #include "simonsound_export.h"
+#include "soundclient.h"
 #include <QList>
 #include <QWidget>
 
@@ -29,12 +30,10 @@ namespace Ui
   class VolumeWidgetUi;
 }
 
-
 namespace SimonSound
 {
   class DeviceConfiguration;
 }
-
 
 class DeviceVolumeWidget;
 
@@ -47,8 +46,9 @@ class SIMONSOUND_EXPORT VolumeWidget : public QWidget
 {
   Q_OBJECT
 
-    private:
+  private:
     Ui::VolumeWidgetUi *ui;
+    SoundClient::SoundClientPriority priority;
     QList<DeviceVolumeWidget*> devices;
 
     void setPrompt(const QString& text);
@@ -59,7 +59,8 @@ class SIMONSOUND_EXPORT VolumeWidget : public QWidget
     void start();
     void stop();
   public:
-    VolumeWidget(QWidget *parent=0);
+    VolumeWidget(QWidget* parent = 0, SoundClient::SoundClientPriority inputPriority = SoundClient::Normal);
+    void enablePrompt(bool enabled);
     ~VolumeWidget();
 
     void init();

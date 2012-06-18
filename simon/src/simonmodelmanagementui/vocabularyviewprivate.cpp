@@ -55,6 +55,7 @@
 VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 {
   ui.setupUi(this);
+  ui.gbTrainWords->hide();
 
   connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
   connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
@@ -85,6 +86,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
   ui.pbDeleteTrainingWord->setIcon(KIcon("list-remove"));
   ui.pbTrainList->setIcon(KIcon("go-next"));
   ui.pbCreateLanguageProfile->setIcon(KIcon("fork"));
+  ui.pbTrainWords->setIcon(KIcon("view-pim-news"));
 
   ui.pbAddWord->setIcon(KIcon("list-add"));
   ui.pbAddWord->setShortcut(Qt::CTRL + Qt::Key_N);

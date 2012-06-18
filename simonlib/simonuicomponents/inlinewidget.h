@@ -49,14 +49,11 @@ class SIMONUICOMPONENTS_EXPORT InlineWidget : public QWidget
     void closed();
     void rejected();
     void hidden();
-    void execd();
     void shown();
     void accepted();
 
   public:
     InlineWidget(QString title, KIcon icon, QString desc, QWidget* parent=0);
-
-    ~InlineWidget();
 
     void setVisible(bool visible);
 
@@ -69,7 +66,6 @@ class SIMONUICOMPONENTS_EXPORT InlineWidget : public QWidget
     void accept();
     void reject();
     bool close();
-    bool exec();
 
 };
 #endif

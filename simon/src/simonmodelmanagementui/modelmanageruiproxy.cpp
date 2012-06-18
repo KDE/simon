@@ -48,11 +48,9 @@ void ModelManagerUiProxy::slotModelChanged()
 }
 
 
-bool ModelManagerUiProxy::storeBaseModel(const QDateTime& changedTime, int baseModelType,
-const QByteArray& hmmDefs, const QByteArray& tiedList,
-const QByteArray& macros, const QByteArray& stats)
+bool ModelManagerUiProxy::storeBaseModel(const QDateTime& changedTime, int baseModelType, const QByteArray& container)
 {
-  bool succ = ModelManager::storeBaseModel(changedTime, baseModelType, hmmDefs, tiedList, macros, stats);
+  bool succ = ModelManager::storeBaseModel(changedTime, baseModelType, container);
   if (!succ) {
     KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the base model received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
@@ -62,10 +60,9 @@ const QByteArray& macros, const QByteArray& stats)
 }
 
 
-bool ModelManagerUiProxy::storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
-const QByteArray& treeHed, const QByteArray& languageProfile)
+bool ModelManagerUiProxy::storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, const QByteArray& languageProfile)
 {
-  bool succ = ModelManager::storeLanguageDescription(changedTime, shadowVocab, treeHed, languageProfile);
+  bool succ = ModelManager::storeLanguageDescription(changedTime, shadowVocab, languageProfile);
   if (!succ) {
     KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the language description received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
@@ -75,10 +72,9 @@ const QByteArray& treeHed, const QByteArray& languageProfile)
 }
 
 
-bool ModelManagerUiProxy::storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
-const QByteArray& prompts)
+bool ModelManagerUiProxy::storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& prompts)
 {
-  bool succ = ModelManager::storeTraining(changedTime, sampleRate, wavConfig, prompts);
+  bool succ = ModelManager::storeTraining(changedTime, sampleRate, prompts);
   if (!succ) {
     KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the training corpus received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
@@ -88,10 +84,9 @@ const QByteArray& prompts)
 }
 
 
-bool ModelManagerUiProxy::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
-const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
+bool ModelManagerUiProxy::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container)
 {
-  bool succ = ModelManager::storeActiveModel(changedTime, sampleRate, hmmDefs, tiedList, dict, dfa);
+  bool succ = ModelManager::storeActiveModel(changedTime, sampleRate, container);
   if (!succ) {
     KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the active model received from the server."
       "\n\nPlease check the permissions on the model folder: %1",

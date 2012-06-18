@@ -47,14 +47,14 @@ bool PromptsTable::init(const QString& path)
 
         if (splitLine.count() == 3)
         {
-            kDebug() << "prompts line: '" << line << "' is using new format!";
+//             kDebug() << "prompts line: '" << line << "' is using new format!";
             label = splitLine.at(0).trimmed();
             group = splitLine.at(1);
             prompt = splitLine.at(2).mid(1).trimmed();
         }
         else
         {
-            kDebug() << "prompts line: '" << line << "' is using old format.  attempting old format parsing...";
+//             kDebug() << "prompts line: '" << line << "' is using old format.  attempting old format parsing...";
             group = "default";
             if (line.trimmed().isEmpty()) continue;
             index = line.indexOf ( ' ' );

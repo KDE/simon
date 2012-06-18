@@ -18,3 +18,9 @@
  */
 
 #include "scenarioobject.h"
+#include <simonscenarios/scenario.h>
+
+QString ScenarioObject::parentScenarioId() const
+{
+  return parentScenario->id();
+}

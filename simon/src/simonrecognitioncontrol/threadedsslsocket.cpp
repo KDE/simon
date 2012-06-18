@@ -23,28 +23,35 @@
 #include <QMutexLocker>
 #include <QSslSocket>
 #include <QThread>
+#include <KDebug>
+
+class SocketThread : public QThread {
+protected:
+  virtual void run() {
+    exec();
+  }
+public:
+    explicit SocketThread ( QObject* parent = 0 ) : QThread(parent) {}
+};
 
 ThreadedSSLSocket::ThreadedSSLSocket(QObject* parent): QIODevice(parent),
-    socketThread(new QThread(this)),
+    socketThread(new SocketThread(this)),
     socket(new SimonSSLSocket(this))
 {
   open(QIODevice::ReadWrite); //krazy:exclude=syscalls
   
   qRegisterMetaType<QAbstractSocket::SocketError>("QAbstractSocket::SocketError");
   
-  readBuffer.open(QIODevice::ReadWrite);
   writeBuffer.open(QIODevice::ReadWrite);
   
+  socketThread->start();
   socket->moveToThread(socketThread);
-  connect(socketThread, SIGNAL(started()), socket, SLOT(processBuffer()));
   
   connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(error(QAbstractSocket::SocketError)));
   connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SIGNAL(sslErrors(QList<QSslError>)));
   connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
   connect(socket, SIGNAL(connected()), this, SIGNAL(connected()));
   connect(socket, SIGNAL(encrypted()), this, SIGNAL(encrypted()));
-  
-  socketThread->start();
 }
 
 ThreadedSSLSocket::~ThreadedSSLSocket()
@@ -54,23 +61,21 @@ ThreadedSSLSocket::~ThreadedSSLSocket()
 
 void ThreadedSSLSocket::readFromSocket()
 {
-  do {
-    QMutexLocker l(&readLock);
-    readBuffer.buffer().append(socket->readAll());
-    emit readyRead();
-  } while (socket->bytesAvailable());
+  readLock.lock();
+  QByteArray newData = socket->readAll();
+  readBuffer.append(newData);
+  readLock.unlock();
+  emit readyRead();
 }
 
 bool ThreadedSSLSocket::processBuffer()
 {
   bytesToWriteLock.lock();
   
-  if (!writeBuffer.buffer().isEmpty()) {
-    QByteArray toWrite = writeBuffer.buffer();
-    socket->write(toWrite);
-    writeBuffer.buffer().clear();
-    writeBuffer.seek(0);
-  }
+  socket->write(writeBuffer.buffer());
+  writeBuffer.buffer().clear();
+  writeBuffer.seek(0);
+  
   bytesToWriteLock.unlock();
   return true;
 }
@@ -78,9 +83,20 @@ bool ThreadedSSLSocket::processBuffer()
 qint64 ThreadedSSLSocket::readData(char* data, qint64 maxlen)
 {
   QMutexLocker l(&readLock);
-  qint64 out =  readBuffer.read(data, maxlen);
+  maxlen = qMin(maxlen, (qint64) readBuffer.count());
+  memcpy(data, readBuffer.constData(), maxlen);
+  readBuffer.remove(0, maxlen);
+  return maxlen;
+}
+
+QByteArray ThreadedSSLSocket::readAll()
+{
+  QMutexLocker l(&readLock);
+  QByteArray out(readBuffer);
+  readBuffer.clear();
   return out;
 }
+
 
 qint64 ThreadedSSLSocket::writeData(const char* data, qint64 len)
 {
@@ -103,9 +119,8 @@ QString ThreadedSSLSocket::errorString() const
 
 qint64 ThreadedSSLSocket::bytesAvailable() const
 {
-  return readBuffer.bytesAvailable();
+  return readBuffer.count();
 }
-
 
 //ssl socket wrappers
 QAbstractSocket::SocketState ThreadedSSLSocket::state() const

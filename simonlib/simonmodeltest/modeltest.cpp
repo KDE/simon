@@ -261,8 +261,6 @@ void ModelTest::run()
   if (!recognize(audioFilesToRecognize)) return;
   if (!analyzeResults()) return;
 
-  //if (!keepGoing) return;
-
   emit status(i18nc("The model test has completed", "Finished"), 100, 100);
   emit testComplete();
 }
@@ -468,6 +466,19 @@ void ModelTest::recognized(const QString& fileName, RecognitionResultList result
   }
 }
 
+ModelTest::~ModelTest()
+{
+  deleteAllResults();
+  delete m_wordResultsModel;
+  delete m_sentenceResultsModel;
+  delete m_recognizerResultsModel;
+  delete recog;
+}
+
+//////////////////////////////
+// Result handling below
+//////////////////////////////
+
 FileResultModel* ModelTest::recognizerResultsModel()
 {
   return m_recognizerResultsModel;
@@ -562,14 +573,4 @@ bool ModelTest::analyzeResults()
   m_sentenceResultsModel->setResults(sentenceResults);
   m_wordResultsModel->setResults(wordResults);
   return true;
-}
-
-
-ModelTest::~ModelTest()
-{
-  deleteAllResults();
-  delete m_wordResultsModel;
-  delete m_sentenceResultsModel;
-  delete m_recognizerResultsModel;
-  delete recog;
 }

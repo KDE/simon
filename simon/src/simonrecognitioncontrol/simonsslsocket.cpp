@@ -25,20 +25,11 @@
 SimonSSLSocket::SimonSSLSocket(ThreadedSSLSocket *socket, QObject* parent): QSslSocket(parent),
     socket(socket)
 {
-  connect(socket, SIGNAL(requestConnect(QString,quint16)), this, SLOT(connectToHostWrapper(QString,quint16)));
-  connect(socket, SIGNAL(requestConnectEncrypted(QString,quint16)), this, SLOT(connectToHostEncryptedWrapper(QString,quint16)));
+  connect(socket, SIGNAL(requestConnect(QString,quint16)), this, SLOT(connectToHostWrapper(QString,quint16)), Qt::QueuedConnection);
+  connect(socket, SIGNAL(requestConnectEncrypted(QString,quint16)), this, SLOT(connectToHostEncryptedWrapper(QString,quint16)), Qt::QueuedConnection);
   
-  connect(socket, SIGNAL(readyWrite()), this, SLOT(processBuffer()));
-  connect(this, SIGNAL(readyRead()), this, SLOT(readFromSocket()));
-}
-
-qint64 SimonSSLSocket::writeData(const char* data, qint64 len)
-{
-  return QSslSocket::writeData(data, len);
-}
-qint64 SimonSSLSocket::readData(char* data, qint64 maxlen)
-{
-  return QSslSocket::readData(data, maxlen);
+  connect(socket, SIGNAL(readyWrite()), this, SLOT(processBuffer()), Qt::QueuedConnection);
+  connect(this, SIGNAL(readyRead()), this, SLOT(readFromSocket()), Qt::DirectConnection);
 }
 
 void SimonSSLSocket::connectToHostWrapper(const QString& hostName, quint16 port)

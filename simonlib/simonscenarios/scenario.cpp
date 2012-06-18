@@ -43,7 +43,7 @@ Scenario::Scenario(const QString& scenarioId, const QString& prefix, QObject *pa
 : QObject(parent),
 m_prefix(prefix),
 m_inGroup(0),
-m_dirty(true),
+m_dirty(false),
 m_scenarioId(scenarioId),
 m_simonMinVersion(0),
 m_simonMaxVersion(0),
@@ -232,7 +232,6 @@ QDateTime Scenario::skimDate(QString path)
   int startIndex = line.indexOf('"', index+13);
   int endIndex = line.indexOf('"', startIndex+1);
 
-  kDebug() << "Line: " << line.mid(startIndex, endIndex - startIndex);
   return QDateTime::fromString(line.mid(startIndex+1, endIndex - startIndex), Qt::ISODate);
 }
 

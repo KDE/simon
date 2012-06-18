@@ -31,13 +31,11 @@ class MODELMANAGEMENT_EXPORT LanguageDescriptionContainer
     QByteArray m_languageProfile;
 
   public:
-    LanguageDescriptionContainer(const QByteArray& shadowVocab,
-      const QByteArray&  treeHed, const QByteArray& languageProfile=QByteArray());
+    LanguageDescriptionContainer(const QByteArray& shadowVocab, const QByteArray& languageProfile=QByteArray());
 
     ~LanguageDescriptionContainer();
 
     QByteArray shadowVocab() { return m_shadowVocab; }
-    QByteArray treeHed() { return m_treeHed; }
     QByteArray languageProfile() { return m_languageProfile; }
 
 };

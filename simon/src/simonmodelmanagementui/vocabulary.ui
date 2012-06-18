@@ -7,248 +7,242 @@
     <x>0</x>
     <y>0</y>
     <width>929</width>
-    <height>407</height>
+    <height>592</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Vocabulary</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <property name="margin">
-    <number>0</number>
-   </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
-    <widget class="QSplitter" name="splitter">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <widget class="QWidget" name="layoutWidget">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="KTabWidget" name="twVocabularies">
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <widget class="QWidget" name="tpActive">
-          <attribute name="title">
-           <string>Active Vocabulary</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="KLineEdit" name="leActiveVocabSearch">
-             <property name="clickMessage">
-              <string>Search</string>
-             </property>
-             <property name="showClearButton" stdset="0">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="DragTableView" name="tvActiveVocab">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>255</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>500</width>
-               <height>0</height>
-              </size>
-             </property>
-             <attribute name="verticalHeaderVisible">
-              <bool>false</bool>
-             </attribute>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="pgShadow">
-          <attribute name="title">
-           <string>Shadow Vocabulary</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="KLineEdit" name="leShadowVocabSearch">
-             <property name="clickMessage">
-              <string>Search</string>
-             </property>
-             <property name="showClearButton" stdset="0">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="DragTableView" name="tvShadowVocab">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>255</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>500</width>
-               <height>0</height>
-              </size>
-             </property>
-             <attribute name="verticalHeaderVisible">
-              <bool>false</bool>
-             </attribute>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="KTabWidget" name="twVocabularies">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tpActive">
+        <attribute name="title">
+         <string>Active Vocabulary</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
-          <widget class="KPushButton" name="pbImport">
-           <property name="text">
-            <string>Import Dictionary</string>
+          <widget class="KLineEdit" name="leActiveVocabSearch">
+           <property name="clickMessage">
+            <string>Search</string>
+           </property>
+           <property name="showClearButton" stdset="0">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pbCreateLanguageProfile">
-           <property name="text">
-            <string>Create Language Profile</string>
+          <widget class="DragTableView" name="tvActiveVocab">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>255</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="KPushButton" name="pbClear">
-           <property name="text">
-            <string comment="Remove every entry">Clear</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
+           <property name="minimumSize">
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>500</width>
+             <height>0</height>
             </size>
            </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="KPushButton" name="pbAddWord">
-           <property name="text">
-            <string>Add Word</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="KPushButton" name="pbEditWord">
-           <property name="text">
-            <string>Edit</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="KPushButton" name="pbRemoveWord">
-           <property name="text">
-            <string>Remove</string>
-           </property>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
           </widget>
          </item>
         </layout>
+       </widget>
+       <widget class="QWidget" name="pgShadow">
+        <attribute name="title">
+         <string>Shadow Vocabulary</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="KLineEdit" name="leShadowVocabSearch">
+           <property name="clickMessage">
+            <string>Search</string>
+           </property>
+           <property name="showClearButton" stdset="0">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="DragTableView" name="tvShadowVocab">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>255</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>500</width>
+             <height>0</height>
+            </size>
+           </property>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="KPushButton" name="pbAddWord">
+         <property name="text">
+          <string>Add Word</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="pbEditWord">
+         <property name="text">
+          <string>Edit</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="pbRemoveWord">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>34</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="KPushButton" name="pbTrainWords">
+         <property name="text">
+          <string>Train Individual Words</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <layout class="QVBoxLayout">
-       <property name="spacing">
-        <number>4</number>
-       </property>
-       <property name="leftMargin">
-        <number>3</number>
-       </property>
-       <property name="bottomMargin">
-        <number>5</number>
-       </property>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QLabel" name="label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+        <widget class="QPushButton" name="pbCreateLanguageProfile">
+         <property name="text">
+          <string>Create Language Profile</string>
          </property>
-         <property name="minimumSize">
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
-           <width>0</width>
-           <height>22</height>
+           <width>40</width>
+           <height>20</height>
           </size>
          </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="KPushButton" name="pbClear">
          <property name="text">
-          <string>Train Words:</string>
+          <string comment="Remove every entry">Clear Vocabulary</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="DropListWidget" name="lwTrainingWords">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="cbBuildSentences">
+        <widget class="KPushButton" name="pbImport">
          <property name="text">
-          <string>Build sentences</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="KPushButton" name="pbAddToTraining">
-         <property name="text">
-          <string>Add to Training</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="KPushButton" name="pbDeleteTrainingWord">
-         <property name="text">
-          <string>Remove Word from Training</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="KPushButton" name="pbTrainList">
-         <property name="toolTip">
-          <string>Starts the Training of the selected Words</string>
-         </property>
-         <property name="text">
-          <string>Train selected Words</string>
+          <string>Import Dictionary</string>
          </property>
         </widget>
        </item>
       </layout>
-     </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbTrainWords">
+     <property name="title">
+      <string>Train Words</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="DropListWidget" name="lwTrainingWords">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="cbBuildSentences">
+        <property name="text">
+         <string>Build sentences</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="KPushButton" name="pbAddToTraining">
+        <property name="text">
+         <string>Add to Training</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="KPushButton" name="pbDeleteTrainingWord">
+        <property name="text">
+         <string>Remove Word from Training</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="KPushButton" name="pbTrainList">
+        <property name="toolTip">
+         <string>Starts the Training of the selected Words</string>
+        </property>
+        <property name="text">
+         <string>Train selected Words</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
@@ -287,5 +281,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pbTrainWords</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>gbTrainWords</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>192</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>668</x>
+     <y>11</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

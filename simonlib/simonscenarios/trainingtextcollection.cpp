@@ -172,7 +172,6 @@ bool TrainingTextCollection::removeText(TrainingText* text)
   return parentScenario->save();
 }
 
-
 bool TrainingTextCollection::addTrainingText(TrainingText* text)
 {
   int count = m_texts.count();
@@ -180,4 +179,9 @@ bool TrainingTextCollection::addTrainingText(TrainingText* text)
   m_texts << text;
   endInsertRows();
   return parentScenario->save();
+}
+
+TrainingTextCollection::~TrainingTextCollection()
+{
+  qDeleteAll(m_texts);
 }

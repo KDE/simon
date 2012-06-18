@@ -32,6 +32,7 @@ ContextManager::ContextManager(QObject *parent) :
 {
     kDebug() << "creating context manager";
     m_sampleGroupCondition = new SampleGroupCondition();
+    //FIXME
     connect(m_sampleGroupCondition, SIGNAL(sampleGroupChanged(QString)),
             this, SIGNAL(sampleGroupChanged(QString)));
 }

@@ -31,8 +31,6 @@ Q_OBJECT
 
 public:
   explicit SimonSSLSocket(ThreadedSSLSocket *socket, QObject* parent = 0);
-  virtual qint64 writeData(const char* data, qint64 len);
-  virtual qint64 readData(char* data, qint64 maxlen);
     
 private slots:
   void processBuffer();

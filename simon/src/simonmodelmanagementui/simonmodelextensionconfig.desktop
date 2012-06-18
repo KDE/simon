@@ -13,9 +13,12 @@ X-KDE-ParentApp=simon
 # X-KDE-System-Settings-Parent-Category=simon
 
 Name=Model Extensions
+Name[ca]=Extensions del model
 Name[de]=Modell-Erweiterungen
+Name[el]=Επεκτάσεις μοντέλου
 Name[es]=Extensiones del modelo
 Name[nl]=Modelextensies
+Name[pl]=Rozszerzenia modeli
 Name[pt]=Extensões do Modelo
 Name[pt_BR]=Extensões do modelo
 Name[sv]=Modellutökningar
@@ -25,7 +28,10 @@ Name[x-test]=xxModel Extensionsxx
 #X-KDE-PluginKeyword=ModelSettings
 
 Comment=Configuration of the simon speech model extensions
+Comment[ca]=Configuració de les extensions del model de pronunciació per a «simon»
 Comment[de]=Konfiguration der Simon-Sprachmodellerweiterungen
+Comment[el]=Διαμόρφωση των επεκτάσεων του μοντέλου ομιλίας του simon
+Comment[pl]=Konfiguracja rozszerzeń modeli mowy simona
 Comment[pt]=Configuração das extensões do modelo de fala do Simon
 Comment[pt_BR]=Configuração das extensões do modelo de fala do simon
 Comment[sv]=Inställning av Simons talmodellutökningar

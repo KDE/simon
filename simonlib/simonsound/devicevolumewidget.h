@@ -21,7 +21,9 @@
 #define SIMON_DEVICEVOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
 
 #include "simonsound_export.h"
+#include "soundclient.h"
 #include <QWidget>
+#include <QTimer>
 
 namespace Ui
 {
@@ -45,27 +47,38 @@ class NullRecorderClient;
 class SIMONSOUND_EXPORT DeviceVolumeWidget : public QWidget
 {
   Q_OBJECT
+  
+  public:
+    explicit DeviceVolumeWidget( const SimonSound::DeviceConfiguration& device, SoundClient::SoundClientPriority inputPriority, QWidget* parent = 0 );
+    ~DeviceVolumeWidget();
 
-    private:
+    void start();
+    void stop();
+
+  private:
     Ui::DeviceVolumeWidgetUi *ui;
     NullRecorderClient *rec;
+    
     QString m_deviceName;
-    bool m_isTooLoud;
+    
+    qint32 lastClip;
+    qint32 lastStartedSample;
+    qint32 lastCompletedSample;
+    
+    QTimer labelUpdater;
 
   private slots:
     void deviceReportedLevel(qint64 time, float level);
 
     void clipping();
+    void started();
+    void completed();
+    
     void tooLoud();
     void volumeOk();
     void tooLow();
-    void reset();
+    
+    void updateLabel();
 
-  public:
-    explicit DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent=0);
-    ~DeviceVolumeWidget();
-
-    void start();
-    void stop();
 };
 #endif
