@@ -2,20 +2,20 @@
 #include <KDE/KDebug>
 #include<QThread>
 #include<QTimer>
-#include<iostream>
 
 CvCapture* capture=0;
 IplImage* liveFrame=0;
-QList<ImageAnalyzer*> WebcamDispatcher::analyzers = QList<ImageAnalyzer*>();
+QList<ImageAnalyzer*> analyzers = QList<ImageAnalyzer*>();
 WebcamDispatcher* WebcamDispatcher::instance = new WebcamDispatcher;
-bool WebcamDispatcher::shouldBeRunning = true;
+bool shouldBeRunning = true;
 
+using namespace cv;
 
 void WebcamDispatcher::initWebcamDispatcher()
 {
 
     // Initialize video capture
-     capture = cvCaptureFromCAM( CV_CAP_ANY );
+    capture = cvCaptureFromCAM( CV_CAP_ANY );
 //    capture = cvCaptureFromCAM( 0 );
     if ( !capture )
     {
@@ -35,10 +35,10 @@ void WebcamDispatcher::closeWebcamDispatcher()
 void WebcamDispatcher::registerAnalyzer(ImageAnalyzer* analyzer)
 {
 
-    WebcamDispatcher::analyzers.append(analyzer);
-    if (WebcamDispatcher::analyzers.count()==1)
+    instance->analyzers.append(analyzer);
+    if (instance->analyzers.count()==1)
     {
-        WebcamDispatcher::shouldBeRunning = true;
+        instance->shouldBeRunning = true;
         instance->start();
     }
 
@@ -51,20 +51,19 @@ void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
 //     WebcamDispatcher::analyzers.at(analyzers.count()-1)->setAnalyzerId(analyzer->getAnalyzerId());
 
 //     WebcamDispatcher::analyzers.removeAt(analyzer->getAnalyzerId());
-    for (int i=0;i<WebcamDispatcher::analyzers.count();i++)
+    for (int i=0;i<instance->analyzers.count();i++)
     {
-        if (analyzer==analyzers.at(i))
+        if (analyzer==instance->analyzers.at(i))
         {
-            analyzers.removeAt(i);
-            std::cout<<"Count:"<<analyzers.count()<<"\n";
+            instance->analyzers.removeAt(i);
         }
 
     }
 
-    if (WebcamDispatcher::analyzers.count()==0)
+    if (instance->analyzers.count()==0)
     {
-        shouldBeRunning = false;
-        closeWebcamDispatcher();
+        instance->shouldBeRunning = false;
+        instance->closeWebcamDispatcher();
     }
 
 }
