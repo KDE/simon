@@ -21,20 +21,7 @@ set( simonuicomponents_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/multikcmview.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/selectprogramdialog.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/actionbutton.cpp
-
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonmainwindow.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simontablewidget.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonspinbox.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simongroupbox.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonslider.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonwidget.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simoncombobox.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simoncalendarwidget.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/guievents.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/returntablewidget.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonlistwidget.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simontabwidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/verticalscrollarea.cpp
 
 )
 
@@ -50,21 +37,8 @@ set( simonuicomponents_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/multikcmview.h
 	${CMAKE_CURRENT_SOURCE_DIR}/textlistwidget.h
         ${CMAKE_CURRENT_SOURCE_DIR}/selectprogramdialog.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/actionbutton.cpp
-
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simontablewidget.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonspinbox.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simongroupbox.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonslider.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonwidget.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simoncombobox.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simoncalendarwidget.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/guievents.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonmainwindow.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/returntablewidget.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonlistwidget.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/simontabwidget.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/actionbutton.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/verticalscrollarea.h
 )
 
 kde4_add_ui_files(simonuicomponents_LIB_SRCS
