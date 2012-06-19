@@ -11,14 +11,14 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
 
   setWindowTitle(i18n("Face Detection"));
   setWindowIcon(KIcon(""));
-
+  
+  connect(ui.cbInverted, SIGNAL(stateChanged(int)), this, SIGNAL(completeChanged()));
 }
 
 
 bool CreateFaceDetectionConditionWidget::isComplete()
 {
-  kDebug()<<"checking complete"<<ui.cbInverted->isChecked();
-  return (ui.cbInverted->isChecked());
+  return true;
 }
 
 bool CreateFaceDetectionConditionWidget::init(Condition *condition)
