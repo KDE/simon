@@ -970,7 +970,6 @@ void RecognitionControl::messageReceived()
 
           kDebug() << "No active model available";
           emit synchronisationWarning(i18n("No speech model available: Recognition deactivated"));
-          sendBaseModelDate();
 
           break;
         }

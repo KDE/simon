@@ -24,7 +24,7 @@
  * \brief The file containing the NewConditionAssociation baseclass header.
  */
 
-#include <KDE/KDialog>
+#include <KDialog>
 #include <QList>
 #include "ui_newassociationcondition.h"
 

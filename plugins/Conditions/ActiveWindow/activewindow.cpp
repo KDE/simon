@@ -18,9 +18,9 @@
  */
 
 #include "activewindow.h"
-#include <KDE/KDebug>
 #include "createactivewindowwidget.h"
 #include <QWidget>
+#include <KDE/KDebug>
 
 K_PLUGIN_FACTORY( ActiveWindowPluginFactory,
 registerPlugin< ActiveWindow >();

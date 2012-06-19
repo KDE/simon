@@ -18,8 +18,8 @@
  */
 
 #include "orconditionassociation.h"
-#include <KDebug>
 #include "createorconditionassociationwidget.h"
+#include <KDebug>
 
 K_PLUGIN_FACTORY( OrConditionAssociationPluginFactory,
 registerPlugin< OrConditionAssociation >();
