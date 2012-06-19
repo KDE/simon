@@ -32,9 +32,8 @@ ContextManager::ContextManager(QObject *parent) :
 {
     kDebug() << "creating context manager";
     m_sampleGroupCondition = new SampleGroupCondition();
-    //FIXME
-    connect(m_sampleGroupCondition, SIGNAL(sampleGroupChanged(QString)),
-            this, SIGNAL(sampleGroupChanged(QString)));
+    connect(m_sampleGroupCondition, SIGNAL(sampleGroupChanged(QStringList)),
+            this, SIGNAL(sampleGroupChanged(QStringList)));
 }
 
 ContextManager::~ContextManager()
@@ -49,6 +48,11 @@ ContextManager* ContextManager::instance()
         m_instance = new ContextManager();
 
     return m_instance;
+}
+
+QStringList ContextManager::getDeactivatedSampleGroups()
+{
+    return m_sampleGroupCondition->getDeactivatedSampleGroups();
 }
 
 QList<Condition*> ContextManager::getConditions()

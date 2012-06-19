@@ -130,7 +130,7 @@ void ContextAdapter::updateDeactivatedScenarios(const QStringList& deactivatedSc
   buildCurrentSituation();
 }
 
-void ContextAdapter::updateAcousticModelSampleGroups(const QStringList& deactivatedSampleGroups)
+void ContextAdapter::updateDeactivatedSampleGroups(const QStringList& deactivatedSampleGroups)
 {
   m_requestedSituation.setDeactivatedSampleGroups(deactivatedSampleGroups);
   buildCurrentSituation();
@@ -213,6 +213,7 @@ QStringList ContextAdapter::adaptScenarios ( const QStringList& scenarioPaths, c
 
 QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QStringList& deactivatedSampleGroups )
 {
+  kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups;
   QString outPath = KStandardDirs::locateLocal("tmp", 
                                             KGlobal::mainComponent().aboutData()->appName()+'/'+m_username+"/context/prompts_"+
                                             QString::number(qHash(deactivatedSampleGroups.join(";"))));

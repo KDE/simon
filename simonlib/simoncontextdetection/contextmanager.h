@@ -84,13 +84,14 @@ public:
     /**
      * \return The list of all available Condition plugins
      */
-    QList<Condition*> getConditions();
+    QList<Condition*> getConditions(); //FIXME
 
     /// Return the active sample group condition object
     SampleGroupCondition* getSampleGroupCondition() {return m_sampleGroupCondition;}
     
     /// Call this to let the context manager know that you don't longer hold a reference to the condition
     void releaseCondition(Condition *c);
+    QStringList getDeactivatedSampleGroups();
 
 private:
     explicit ContextManager(QObject *parent = 0);
@@ -125,7 +126,7 @@ private:
 
 signals:
     /// Emitted when changes in the acoustic model conditions change the sample group
-    void sampleGroupChanged(QString);
+    void sampleGroupChanged(QStringList);
 };
 
 #endif // CONTEXTMANAGER_H

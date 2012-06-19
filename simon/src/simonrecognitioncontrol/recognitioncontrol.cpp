@@ -37,6 +37,7 @@
 
 #include <simonprogresstracking/operation.h>
 #include <simonrecognitionresult/recognitionresult.h>
+#include <simoncontextdetection/contextmanager.h>
 
 #include <stdio.h>
 #include <unistd.h>
@@ -102,6 +103,8 @@ synchronisationOperation(0),
 modelCompilationOperation(0),
 timeoutWatcher(new QTimer(this))
 {
+  qRegisterMetaType<QList<QSslError> >();
+  
   connect(simondStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
   connect(simondStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
 
@@ -591,14 +594,19 @@ void RecognitionControl::sendDeactivatedScenarioList()
   send(Simond::DeactivatedScenarioList, body);
 }
 
-void RecognitionControl::sendSampleGroups(const QStringList& sampleGroups)
+void RecognitionControl::sendDeactivatedSampleGroups()
+{
+  sendDeactivatedSampleGroups(ContextManager::instance()->getDeactivatedSampleGroups());
+}
+
+void RecognitionControl::sendDeactivatedSampleGroups(const QStringList& sampleGroups)
 {
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
   bodyStream << sampleGroups;
 
-  send(Simond::SampleGroup, body);
+  send(Simond::DeactivatedSampleGroup, body);
 }
 
 void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
@@ -865,6 +873,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           emit loggedIn();
           sendDeactivatedScenarioList();
+          sendDeactivatedSampleGroups();
           askStartSynchronisation();
           break;
         }
@@ -1073,17 +1082,6 @@ void RecognitionControl::messageReceived()
           sendRequest(Simond::StartScenarioSynchronisation);
           break;
         }
-
-          //neither of these next two should ever happen
-      case Simond::GetDeactivatedScenarioList:
-      {
-        kDebug() << "Server requested DEACTIVATED scenario list";
-      }
-
-      case Simond::DeactivatedScenarioList:
-      {
-        kDebug() << "Server sent DEACTIVATED scenario list";
-      }
 
         case Simond::ScenarioStorageFailed:
         {

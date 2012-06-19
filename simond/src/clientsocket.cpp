@@ -415,24 +415,24 @@ void ClientSocket::processRequest()
         break;
       }
 
-    case Simond::DeactivatedScenarioList:
-    {
-      waitForMessage(sizeof(qint64), stream, msg);
-      qint64 length;
-      stream >> length;
-      waitForMessage(length, stream, msg);
-      QStringList scenarioIds;
-      stream >> scenarioIds;
+      case Simond::DeactivatedScenarioList:
+      {
+        waitForMessage(sizeof(qint64), stream, msg);
+        qint64 length;
+        stream >> length;
+        waitForMessage(length, stream, msg);
+        QStringList scenarioIds;
+        stream >> scenarioIds;
 
-      kDebug() << "Received list of scenarios to deactivate: " << scenarioIds;
+        kDebug() << "Received list of scenarios to deactivate: " << scenarioIds;
 
-      contextAdapter->updateDeactivatedScenarios(scenarioIds);
+        contextAdapter->updateDeactivatedScenarios(scenarioIds);
 
-      break;
-    }
+        break;
+      }
 
-    case Simond::SampleGroup:
-    {
+      case Simond::DeactivatedSampleGroup:
+      {
         waitForMessage(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
@@ -443,8 +443,9 @@ void ClientSocket::processRequest()
 
         kDebug() << "Received Sample Groups: " << sampleGroups;
 
-        contextAdapter->updateAcousticModelSampleGroups(sampleGroups);
-    }
+        contextAdapter->updateDeactivatedSampleGroups(sampleGroups);
+        break;
+      }
 
       case Simond::StartScenarioSynchronisation:
       {
