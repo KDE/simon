@@ -22,10 +22,10 @@
 #include <simoncontextdetection/condition.h>
 #include <simoncontextdetection/createconditionwidget.h>
 
-#include <KDE/KUrl>
-#include <KDE/KMessageBox>
-#include <KDE/KKeySequenceWidget>
-#include <KDE/KDialogButtonBox>
+#include <KUrl>
+#include <KMessageBox>
+#include <KKeySequenceWidget>
+#include <KDialogButtonBox>
 
 NewAssociationCondition::NewAssociationCondition(QWidget* parent) : KDialog(parent)
 {

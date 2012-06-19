@@ -19,11 +19,11 @@
  */
 
 #include "dbuscondition.h"
-#include <KDE/KDebug>
 #include "createdbusconditionwidget.h"
 #include <QWidget>
 #include <QDBusInterface>
 #include <QDBusConnection>
+#include <KDebug>
 
 //could be made into proper methods if conditions are refactored to use the 
 //qt property system to store configuration values (makes attributes 
