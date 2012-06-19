@@ -84,6 +84,7 @@ bool CompoundCondition::removeCondition(Condition *condition)
     disconnect(condition, SIGNAL(conditionChanged()),
                this, SLOT(evaluateConditions()));
 
+    ContextManager::instance()->releaseCondition(condition);
     this->evaluateConditions();
 
     m_proxy->update();

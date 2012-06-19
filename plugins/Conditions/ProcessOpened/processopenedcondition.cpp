@@ -18,9 +18,9 @@
  */
 
 #include "processopenedcondition.h"
-#include <KDE/KDebug>
 #include "createprocessopenedconditionwidget.h"
 #include <QWidget>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( ProcessOpenedPluginFactory,
 registerPlugin< ProcessOpenedCondition >();
