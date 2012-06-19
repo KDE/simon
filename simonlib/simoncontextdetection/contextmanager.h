@@ -91,6 +91,7 @@ public:
     
     /// Call this to let the context manager know that you don't longer hold a reference to the condition
     void releaseCondition(Condition *c);
+    QStringList getDeactivatedSampleGroups();
 
 private:
     explicit ContextManager(QObject *parent = 0);

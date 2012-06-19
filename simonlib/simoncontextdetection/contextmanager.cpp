@@ -50,6 +50,11 @@ ContextManager* ContextManager::instance()
     return m_instance;
 }
 
+QStringList ContextManager::getDeactivatedSampleGroups()
+{
+    return m_sampleGroupCondition->getDeactivatedSampleGroups();
+}
+
 QList<Condition*> ContextManager::getConditions()
 {
     QList<Condition*> conditions;

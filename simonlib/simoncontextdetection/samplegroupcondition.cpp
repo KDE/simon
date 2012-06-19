@@ -238,6 +238,11 @@ void SampleGroupCondition::checkAcousticContext()
     }
 }
 
+QStringList SampleGroupCondition::getDeactivatedSampleGroups()
+{
+    return m_lastDeactivatedList;
+}
+
 void SampleGroupCondition::saveSampleGroupContext()
 {
     QDomDocument doc;

@@ -66,6 +66,7 @@ public slots:
     void saveSampleGroupContext();
     void loadSampleGroupContext();
     void updateCondition ( int row, Condition* edit );
+    QStringList getDeactivatedSampleGroups();
 };
 
 #endif // SAMPLEGROUPCONDITION_H
