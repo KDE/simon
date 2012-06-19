@@ -24,10 +24,10 @@
  * \brief The file containing the ProcessOpenedCondition baseclass header.
  */
 
-#include "simoncontextdetection/condition.h"
-#include "simoncontextdetection/processinfo.h"
-#include "simoncontextdetection/simoncontextdetection_export.h"
-#include "simoncontextdetection/compoundcondition.h"
+#include <simoncontextdetection/condition.h>
+#include <simoncontextdetection/processinfo.h>
+#include <simoncontextdetection/simoncontextdetection_export.h>
+#include <simoncontextdetection/compoundcondition.h>
 
 /**
  *	@class ProcessOpenedCondition

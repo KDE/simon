@@ -88,6 +88,9 @@ public:
 
     /// Return the active sample group condition object
     SampleGroupCondition* getSampleGroupCondition() {return m_sampleGroupCondition;}
+    
+    /// Call this to let the context manager know that you don't longer hold a reference to the condition
+    void releaseCondition(Condition *c);
 
 private:
     explicit ContextManager(QObject *parent = 0);
@@ -97,9 +100,7 @@ private:
   
     /// A hash table where currently existing Condition objects can be looked up by their xml specifications in QString format
     QHash<QString, Condition*> m_conditionLookup;
-
-    /// A list of the currently existing Condition objects
-    QList<Condition*> m_conditions;
+    QHash<Condition*, int> m_conditionReferenceCounter;
 
 
     SampleGroupCondition* m_sampleGroupCondition;
@@ -108,6 +109,18 @@ private:
      * \return An empty (not initialized) condition
      */
     Condition* getEmptyCondition(const QString &pluginName);
+    
+    /**
+     * \brief Increments the ref count of the condition
+     */
+    void incrementRefCount(Condition *c);
+    
+    
+    /**
+     * \brief Decrement the ref count of the condition
+     * \warning If the ref count reaches zero, the condition will be deleted (and removed from the lookup repository
+     */
+    void decrementRefCount(Condition *c);
 
 
 signals:
