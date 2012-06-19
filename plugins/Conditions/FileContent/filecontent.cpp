@@ -19,11 +19,11 @@
  */
 
 #include "filecontent.h"
-#include <KDE/KDebug>
 #include "createfilecontentwidget.h"
 #include <QWidget>
 #include <QFileSystemWatcher>
 #include <QTimer>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( FileContentPluginFactory,
 registerPlugin< FileContent >();

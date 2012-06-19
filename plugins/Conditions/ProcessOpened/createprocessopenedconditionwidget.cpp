@@ -19,9 +19,9 @@
 
 #include "createprocessopenedconditionwidget.h"
 #include "processopenedcondition.h"
+#include <simoncontextdetection/contextmanager.h>
+#include <simonuicomponents/selectprogramdialog.h>
 #include <QLineEdit>
-#include "simoncontextdetection/contextmanager.h"
-#include "simonuicomponents/selectprogramdialog.h"
 #include <QFileDialog>
 #include <QStringList>
 

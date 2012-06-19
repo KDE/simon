@@ -19,9 +19,9 @@
 
 #include "createactivewindowwidget.h"
 #include "activewindow.h"
+#include <simoncontextdetection/contextmanager.h>
+#include <simonuicomponents/selectprogramdialog.h>
 #include <QLineEdit>
-#include "simoncontextdetection/contextmanager.h"
-#include "simonuicomponents/selectprogramdialog.h"
 #include <QFileDialog>
 #include <QStringList>
 

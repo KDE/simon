@@ -25,9 +25,8 @@
  * \brief The file containing the FileContent baseclass header.
  */
 
-#include "simoncontextdetection/condition.h"
-#include "simoncontextdetection/simoncontextdetection_export.h"
-#include "simoncontextdetection/compoundcondition.h"
+#include <simoncontextdetection/condition.h>
+#include <simoncontextdetection/compoundcondition.h>
 #include <QRegExp>
 
 class QFileSystemWatcher;

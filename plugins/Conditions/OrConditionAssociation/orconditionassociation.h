@@ -24,9 +24,8 @@
  * \brief The file containing the OrConditionAssociation baseclass header.
  */
 
-#include "simoncontextdetection/conditionassociation.h"
-#include "simoncontextdetection/processinfo.h"
-#include "simoncontextdetection/simoncontextdetection_export.h"
+#include <simoncontextdetection/conditionassociation.h>
+#include <simoncontextdetection/processinfo.h>
 
 /**
  *	@class OrConditionAssociation
