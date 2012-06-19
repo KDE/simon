@@ -25,9 +25,9 @@
 #include <KDebug>
 
 SampleGroupItemDelegate::SampleGroupItemDelegate(SampleGroupCondition *sampleGroupCondition, QObject *parent) :
-    QStyledItemDelegate(parent)
+    QStyledItemDelegate(parent),
+    m_sampleGroupCondition(sampleGroupCondition)
 {
-    m_sampleGroupCondition = sampleGroupCondition;
 }
 
 QWidget* SampleGroupItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -45,7 +45,6 @@ QWidget* SampleGroupItemDelegate::createEditor(QWidget *parent, const QStyleOpti
     availableSampleGroups << SoundServer::getInputDeviceDefaultSampleGroups();
     availableSampleGroups << TrainingManager::getInstance()->getPrompts()->sampleGroups();
     availableSampleGroups << m_sampleGroupCondition->getSampleGroups();
-    //TODO: make sample groups without enough training data shaded gray and italicized
 
     availableSampleGroups.removeDuplicates();
     sampleGroupBox->addItems(availableSampleGroups);
@@ -77,6 +76,7 @@ void SampleGroupItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *
     QString sampleGroup = sampleGroupBox->currentText();
 
     kDebug() << "setting current model data" << sampleGroup;
+    kDebug() << "setting current model data" << model;
 
     model->setData(index, QVariant(sampleGroup));
 

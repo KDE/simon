@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Adam Nash <adam.t.nash@gmail.com>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,47 +21,43 @@
 #ifndef SAMPLEGROUPCONDITION_H
 #define SAMPLEGROUPCONDITION_H
 
-#include <QObject>
 #include "simoncontextdetection_export.h"
 #include "condition.h"
+#include <QPair>
+#include <QAbstractItemModel>
 
-class SIMONCONTEXTDETECTION_EXPORT SampleGroupCondition : public QObject
+class SIMONCONTEXTDETECTION_EXPORT SampleGroupCondition : public QAbstractItemModel
 {
     Q_OBJECT
 public:
     explicit SampleGroupCondition(QObject *parent = 0);
+    virtual ~SampleGroupCondition();
 
-    QString getSampleGroup(int index);
-
-    QStringList getSampleGroups();
-
-    Condition* getSampleGroupCondition(int index);
-
-    int getSampleGroupConditionCount();
-
-    void addSampleGroupCondition(Condition* condition, QString sampleGroup, int index = -1);
-
-    bool removeSampleGroupCondition(int index);
-
+    void addSampleGroupCondition(Condition* condition, QString sampleGroup, bool holdChecks = false);
+    bool removeSampleGroupCondition( int index, bool holdChecks = false );
     bool changeSampleGroup(int index, QString);
+    QStringList getSampleGroups() const;
+    
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+    
+    Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    bool promoteCondition(int index);
-
-    bool demoteCondition(int index);
+    QVariant headerData(int, Qt::Orientation orientation,
+                        int role = Qt::DisplayRole) const;
+    QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 private:
-    /// A list of the currently active Acoustic Context condition objects in order of priority
-    QList<Condition*> m_sampleGroupConditions;
-
-    /// A hash table that contains the mapping of acoustic conditions to sample groups
-    QList<QString> m_sampleGroups;
-
-    /// A string containing the most recently determined sample group
-    QString m_currentSampleGroup;
+    QList<QPair<Condition*, QString> > m_sampleGroupConditions;
+    QStringList m_lastDeactivatedList;
 
 signals:
     /// Emitted when changes in the acoustic model conditions change the sample group
-    void sampleGroupChanged(QString);
+    void sampleGroupChanged(QStringList);
+    void changed();
 
 public slots:
     /// Checks for a change in sample group when the acoustic model conditions change
@@ -68,6 +65,7 @@ public slots:
 
     void saveSampleGroupContext();
     void loadSampleGroupContext();
+    void updateCondition ( int row, Condition* edit );
 };
 
 #endif // SAMPLEGROUPCONDITION_H

@@ -50,10 +50,6 @@ public:
 private:
     SampleGroupCondition* m_sampleGroupCondition;
 
-signals:
-
-public slots:
-
 };
 
 #endif // SAMPLEGROUPITEMDELEGATE_H

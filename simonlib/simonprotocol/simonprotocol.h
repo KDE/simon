@@ -99,8 +99,8 @@ namespace Simond
     GetDeactivatedScenarioList=2100,
     DeactivatedScenarioList=2101,
 
-    GetSampleGroup=2110,
-    SampleGroup=2111,
+    GetDeactivatedSampleGroup=2110,
+    DeactivatedSampleGroup=2111,
 
     StartScenarioSynchronisation=2191,
     GetScenarioDate=2192,

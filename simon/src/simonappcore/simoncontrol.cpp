@@ -69,7 +69,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
   QObject::connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SIGNAL(deactivatedScenarioListChanged()));
   QObject::connect(this, SIGNAL(deactivatedScenarioListChanged()), RecognitionControl::getInstance(), SLOT(sendDeactivatedScenarioList()));
-  QObject::connect(ContextManager::instance(), SIGNAL(sampleGroupChanged(QString)), RecognitionControl::getInstance(), SLOT(sendSampleGroup(QString)));
+  QObject::connect(ContextManager::instance(), SIGNAL(sampleGroupChanged(QStringList)), RecognitionControl::getInstance(), SLOT(sendDeactivatedSampleGroups(QStringList)));
   ContextManager::instance()->getSampleGroupCondition()->loadSampleGroupContext();
 
   ActionManager::getInstance();                   // initializing action manager
@@ -78,7 +78,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
   if (!ScenarioManager::getInstance()->init()) {
     KMessageBox::error(0, i18n("Could not initialize scenarios and shadow dictionary."));
     if (!ScenarioManager::getInstance()->getCurrentScenario()) {
-      kDebug() << "Abortint due to fatal error while loading scenarios";
+      kDebug() << "Aborting due to fatal error while loading scenarios";
       exit(-1); // this is fatal
     }
   }

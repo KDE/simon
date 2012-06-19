@@ -70,8 +70,8 @@ public:
     CompilingModel
   };
 
-  void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
-  void updateAcousticModelSampleGroups(const QStringList& deactivatedSampleGroups);
+    void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
+    void updateDeactivatedSampleGroups(const QStringList& deactivatedSampleGroups);
 
   void clearCache();
 

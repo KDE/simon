@@ -33,8 +33,6 @@ SampleGroupContext::SampleGroupContext(QWidget *parent) :
     ui->pbAdd->setIcon(KIcon("list-add"));
     ui->pbEdit->setIcon(KIcon("edit-rename"));
     ui->pbRemove->setIcon(KIcon("edit-delete"));
-    ui->pbPromote->setIcon(KIcon("arrow-up"));
-    ui->pbDemote->setIcon(KIcon("arrow-down"));
 
     connect(ui->pbAdd, SIGNAL(clicked()),
             this, SLOT(addCondition()));
@@ -42,16 +40,13 @@ SampleGroupContext::SampleGroupContext(QWidget *parent) :
             this, SLOT(editCondition()));
     connect(ui->pbRemove, SIGNAL(clicked()),
             this, SLOT(removeCondition()));
-    connect(ui->pbPromote, SIGNAL(clicked()),
-            this, SLOT(promoteCondition()));
-    connect(ui->pbDemote, SIGNAL(clicked()),
-            this, SLOT(demoteCondition()));
-
+    
     m_editCopyOfSampleGroupCondition = new SampleGroupCondition();
     m_editCopyOfSampleGroupCondition->loadSampleGroupContext();
+    
+    connect(m_editCopyOfSampleGroupCondition, SIGNAL(changed()), this, SIGNAL(changed()));
 
-    m_model = new SampleGroupConditionModel(m_editCopyOfSampleGroupCondition);
-    ui->tvSampleGroupConditions->setModel(m_model);
+    ui->tvSampleGroupConditions->setModel(m_editCopyOfSampleGroupCondition);
 
     m_sampleGroupDelegate = new SampleGroupItemDelegate(m_editCopyOfSampleGroupCondition);
     ui->tvSampleGroupConditions->setItemDelegateForColumn(1, m_sampleGroupDelegate);
@@ -60,7 +55,7 @@ SampleGroupContext::SampleGroupContext(QWidget *parent) :
 SampleGroupContext::~SampleGroupContext()
 {
     delete ui;
-    delete m_model;
+    delete m_editCopyOfSampleGroupCondition;
 }
 
 Condition* SampleGroupContext::getCurrentCondition()
@@ -73,12 +68,10 @@ Condition* SampleGroupContext::getCurrentCondition()
 
 void SampleGroupContext::addCondition()
 {
-    emit changed();
-
     //get the CreateConditionWidgets
     QList<CreateConditionWidget*> widgets;
     QList<Condition*> conditions;
-    ContextManager* manager = ContextManager::instance();
+    ContextManager* manager = ContextManager::instance(); //FIXME
     QDomDocument *doc = new QDomDocument();
     CompoundCondition* compoundCondition = CompoundCondition::createInstance(CompoundCondition::createEmpty(doc));
     delete doc;
@@ -86,9 +79,7 @@ void SampleGroupContext::addCondition()
     conditions = manager->getConditions();
 
     foreach (Condition* condition, conditions)
-    {
         widgets.push_back(condition->getCreateConditionWidget(compoundCondition, this));
-    }
 
     //prepare the create condition dialog
     NewCondition *newCondition = new NewCondition(this);
@@ -102,12 +93,9 @@ void SampleGroupContext::addCondition()
             Condition *condition = compoundCondition->getConditions().front();
 
             m_editCopyOfSampleGroupCondition->addSampleGroupCondition(condition, "default");
-            //m_model->insertRow(m_editCopyOfSampleGroupCondition->getSampleGroupConditionCount()-1);
         }
     }
 
-
-    m_model->update();
     ui->tvSampleGroupConditions->reset();
 
     delete newCondition;
@@ -116,8 +104,6 @@ void SampleGroupContext::addCondition()
 
 void SampleGroupContext::editCondition()
 {
-    emit changed();
-
     //get the condition to edit
     Condition* condition = getCurrentCondition();
     if (!condition)
@@ -152,13 +138,10 @@ void SampleGroupContext::editCondition()
             Condition *edit = compoundCondition->getConditions().front();
 
             int row = ui->tvSampleGroupConditions->currentIndex().row();
-            QString sampleGroup = m_editCopyOfSampleGroupCondition->getSampleGroup(row);
-            m_editCopyOfSampleGroupCondition->removeSampleGroupCondition(row);
-            m_editCopyOfSampleGroupCondition->addSampleGroupCondition(edit, sampleGroup, row);
+            m_editCopyOfSampleGroupCondition->updateCondition(row, edit);
         }
     }
 
-    m_model->update();
     ui->tvSampleGroupConditions->reset();
 
     delete editCondition;
@@ -167,8 +150,6 @@ void SampleGroupContext::editCondition()
 
 void SampleGroupContext::removeCondition()
 {
-    emit changed();
-
     Condition* condition = getCurrentCondition();
 
     if (!condition)
@@ -180,26 +161,7 @@ void SampleGroupContext::removeCondition()
         kDebug() << "Error removing sample group condition!";
     }
 
-    m_model->update();
     ui->tvSampleGroupConditions->reset();
-}
-
-void SampleGroupContext::promoteCondition()
-{
-    emit changed();
-
-    int row = ui->tvSampleGroupConditions->currentIndex().row();
-    m_editCopyOfSampleGroupCondition->promoteCondition(row);
-    m_model->update();
-}
-
-void SampleGroupContext::demoteCondition()
-{
-    emit changed();
-
-    int row = ui->tvSampleGroupConditions->currentIndex().row();
-    m_editCopyOfSampleGroupCondition->demoteCondition(row);
-    m_model->update();
 }
 
 void SampleGroupContext::saveChanges()

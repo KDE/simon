@@ -22,8 +22,7 @@
 
 #include <QWidget>
 #include "simoncontextui_export.h"
-#include "simoncontextdetection/contextmanager.h"
-#include "simoncontextdetection/samplegroupconditionmodel.h"
+#include <simoncontextdetection/contextmanager.h>
 #include "samplegroupitemdelegate.h"
 
 class SampleGroupCondition;
@@ -46,7 +45,6 @@ private:
     Ui::SampleGroupContext *ui;
 
     SampleGroupCondition* m_editCopyOfSampleGroupCondition;
-    SampleGroupConditionModel* m_model;
     SampleGroupItemDelegate* m_sampleGroupDelegate;
 
 signals:
@@ -56,8 +54,6 @@ public slots:
     void addCondition();
     void editCondition();
     void removeCondition();
-    void promoteCondition();
-    void demoteCondition();
 
     void saveChanges();
 };
