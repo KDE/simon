@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Adam Nash <adam.t.nash@gmail.com>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,163 +21,220 @@
 
 #include "samplegroupcondition.h"
 #include "contextmanager.h"
+#include <QTextStream>
+#include <QFont>
+#include <QFile>
 #include <KStandardDirs>
 #include <KDebug>
-#include <QTextStream>
-#include <QFile>
+#include <KColorScheme>
+
+typedef QPair<Condition*, QString> ConditionPair;
 
 SampleGroupCondition::SampleGroupCondition(QObject *parent) :
-    QObject(parent)
+    QAbstractItemModel(parent)
 {
-    m_currentSampleGroup = "default";
+}
+SampleGroupCondition::~SampleGroupCondition()
+{
+    while (!m_sampleGroupConditions.empty())
+        removeSampleGroupCondition(0, true);
 }
 
-QString SampleGroupCondition::getSampleGroup(int index)
+QStringList SampleGroupCondition::getSampleGroups() const
 {
-    if (index < getSampleGroupConditionCount() && index >= 0)
-        return m_sampleGroups.at(index);
-    else
-        return QString();
+    QStringList allGroups;
+    foreach (ConditionPair i, m_sampleGroupConditions)
+        if (!allGroups.contains(i.second))
+            allGroups << i.second;
+    return allGroups;
 }
 
-QStringList SampleGroupCondition::getSampleGroups()
+QVariant SampleGroupCondition::data(const QModelIndex &index, int role) const
 {
-    QStringList sampleGroups;
+  if (!index.isValid()) return QVariant();
 
-    sampleGroups << m_sampleGroups;
+  Condition *rowCondition = m_sampleGroupConditions[index.row()].first;
 
-    sampleGroups.removeDuplicates();
+  if (!rowCondition)
+  {
+    return QVariant();
+  }
+  else if (index.column() == 0)
+  {
+      if (role == Qt::DisplayRole)
+          return  rowCondition->name();
+      else if (role == Qt::FontRole && !rowCondition->isSatisfied())
+      {
+          QFont font;
+          font.setItalic(true);
+          return font;
+      }
+      else if (role == Qt::ForegroundRole && !rowCondition->isSatisfied())
+          return KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText);
+  }
+  else if (index.column() == 1)
+  {
+      if (role == Qt::DisplayRole)
+        return m_sampleGroupConditions.at(index.row()).second;
+  }
 
-    return sampleGroups;
+  return QVariant();
 }
 
-Condition* SampleGroupCondition::getSampleGroupCondition(int index)
+bool SampleGroupCondition::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (index < getSampleGroupConditionCount() && index >= 0)
-        return m_sampleGroupConditions.at(index);
-    else
+    if (!index.isValid() || role != Qt::EditRole || index.column() != 1) return false;
+      
+    changeSampleGroup(index.row(), value.toString());
+    return true;
+}
+
+int SampleGroupCondition::rowCount(const QModelIndex &parent) const
+{
+    if (!parent.isValid())
+        return m_sampleGroupConditions.count();
+    else return 0;
+}
+
+QModelIndex SampleGroupCondition::index(int row, int column, const QModelIndex &parent) const
+{
+    if (!hasIndex(row, column, parent) || parent.isValid())
+        return QModelIndex();
+
+    return createIndex(row, column, m_sampleGroupConditions[row].first);
+}
+
+
+Qt::ItemFlags SampleGroupCondition::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
         return 0;
+
+    else if (index.column() == 0)
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+
+    else if (index.column() == 1)
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
+
+    return 0;
 }
 
-int SampleGroupCondition::getSampleGroupConditionCount()
+
+QVariant SampleGroupCondition::headerData(int column, Qt::Orientation orientation,
+                                            int role) const
 {
-    if (m_sampleGroupConditions.count() != m_sampleGroups.count())
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
     {
-        kDebug() << "Sample group condition list is a different size from the sample group list!!";
-        return 0;
+        switch (column)
+        {
+        case 0:
+            return i18n("Condition");
+        case 1:
+            return i18n("Sample Group");
+        }
+    }
+    else if (orientation == Qt::Horizontal && role == Qt::SizeHintRole)
+    {
+        switch (column)
+        {
+        case 0:
+            return QSize(300, 30);
+        case 1:
+            return QSize(200, 30);
+        }
     }
 
-    return m_sampleGroupConditions.count();
+    return QVariant();
 }
 
-void SampleGroupCondition::addSampleGroupCondition(Condition* condition, QString sampleGroup, int index)
+QModelIndex SampleGroupCondition::parent(const QModelIndex &index) const
 {
-    if (!condition)
-        return;
+  Q_UNUSED(index);
+  return QModelIndex();
+}
 
-    if (index < 0 || index >= getSampleGroupConditionCount())
-    {
-        m_sampleGroupConditions.push_back(condition);
-        m_sampleGroups.push_back(sampleGroup);
-    }
-    else
-    {
-        m_sampleGroupConditions.insert(index, condition);
-        m_sampleGroups.insert(index, sampleGroup);
-    }
+int SampleGroupCondition::columnCount(const QModelIndex &parent) const
+{
+  Q_UNUSED(parent);
+  return 2;
+}
 
+void SampleGroupCondition::addSampleGroupCondition( Condition* condition, QString sampleGroup, bool holdChecks )
+{
+    Q_ASSERT(condition);
+    
+    beginInsertRows(QModelIndex(), m_sampleGroupConditions.count(), m_sampleGroupConditions.count());
+    m_sampleGroupConditions.push_back(qMakePair(condition, sampleGroup));
+    endInsertRows();
+    
     connect(condition, SIGNAL(conditionChanged()),
             this, SLOT(checkAcousticContext()));
-
-    checkAcousticContext();
+    if (!holdChecks)
+      checkAcousticContext();
+    emit changed();
 }
 
-bool SampleGroupCondition::removeSampleGroupCondition(int index)
+bool SampleGroupCondition::removeSampleGroupCondition(int index, bool holdChecks)
 {
-    if (index < getSampleGroupConditionCount() && index >= 0)
-    {
-        disconnect(m_sampleGroupConditions.at(index), SIGNAL(conditionChanged()),
-                this, SLOT(checkAcousticContext()));
+    if (index >= m_sampleGroupConditions.count() || index < 0) return false;
+    
+    disconnect(m_sampleGroupConditions.at(index).first, SIGNAL(conditionChanged()),
+            this, SLOT(checkAcousticContext()));
 
-        m_sampleGroupConditions.removeAt(index);
-        m_sampleGroups.removeAt(index);
-
-        return true;
-    }
-    else
-    {
-        kDebug() << "Error: can't remove specified condition!";
-        return false;
-    }
-
-    checkAcousticContext();
+    ContextManager::instance()->releaseCondition(m_sampleGroupConditions.at(index).first);
+    
+    beginRemoveRows(QModelIndex(), index, index);
+    m_sampleGroupConditions.removeAt(index);
+    endRemoveRows();
+    
+    if (!holdChecks) checkAcousticContext();
+    
+    emit changed();
+    return true;
 }
 
-bool SampleGroupCondition::changeSampleGroup(int index, QString sampleGroup)
+void SampleGroupCondition::updateCondition ( int row, Condition* edit )
 {
-    if (index < getSampleGroupConditionCount())
-    {
-        m_sampleGroups[index] = sampleGroup;
-        return true;
-    }
-    else
-        return false;
-
+    Q_ASSERT(condition);
+    Q_ASSERT(index < m_sampleGroupConditions.count() && index > 0);
+    m_sampleGroupConditions[row].first = edit;
+    
+    emit dataChanged(index(row, 0), index(row, 0));
     checkAcousticContext();
+    emit changed();
 }
 
-bool SampleGroupCondition::promoteCondition(int index)
+
+bool SampleGroupCondition::changeSampleGroup(int row, QString sampleGroup)
 {
-    if (index < 1 || index >= getSampleGroupConditionCount())
+    kDebug() << "Changing sample group to: " << sampleGroup;
+    if (row >= m_sampleGroupConditions.count())
         return false;
-    else
-    {
-        m_sampleGroupConditions.move(index, index-1);
-        m_sampleGroups.move(index, index-1);
-        return true;
-    }
-
+    
+    kDebug() << "Changing sample group to: " << sampleGroup;
+    m_sampleGroupConditions[row].second = sampleGroup;
+    
+    emit dataChanged(index(row, 1), index(row, 1));
     checkAcousticContext();
-}
-
-bool SampleGroupCondition::demoteCondition(int index)
-{
-    if (index < 0 || index >= getSampleGroupConditionCount()-1)
-        return false;
-    else
-    {
-        m_sampleGroupConditions.move(index, index+1);
-        m_sampleGroups.move(index, index+1);
-        return true;
-    }
-
-    checkAcousticContext();
+    emit changed();
+    return true;
 }
 
 void SampleGroupCondition::checkAcousticContext()
 {
-    QString sampleGroup = "default";
-
     kDebug() << "Evaluating Acoustic Model Context...";
 
-    for (int i=0; i<getSampleGroupConditionCount(); i++)
+    QStringList deactivatedList;
+    for (int i=0; i<m_sampleGroupConditions.count(); i++)
     {
-        if (m_sampleGroupConditions.at(i)->isSatisfied())
-        {
-            if (!m_sampleGroups.at(i).isEmpty())
-            {
-                sampleGroup = m_sampleGroups.at(i);
-                break;
-            }
-        }
+        if (!m_sampleGroupConditions.at(i).first->isSatisfied())
+          deactivatedList.push_back(m_sampleGroupConditions[i].second);
     }
-
-    if (sampleGroup != m_currentSampleGroup)
-    {
-        kDebug() << "New Sample Group:" << sampleGroup;
-
-        m_currentSampleGroup = sampleGroup;
-        emit sampleGroupChanged(sampleGroup);
+    deactivatedList.removeDuplicates();
+    
+    if (deactivatedList != m_lastDeactivatedList) {
+      m_lastDeactivatedList = deactivatedList;
+      emit sampleGroupChanged(deactivatedList);
     }
 }
 
@@ -187,13 +245,13 @@ void SampleGroupCondition::saveSampleGroupContext()
 
     kDebug() << "Saving sample group context";
 
-    for (int i=0 ; i<this->getSampleGroupConditionCount(); i++)
+    foreach (ConditionPair i, m_sampleGroupConditions)
     {
         QDomElement sampleGroupContext = doc.createElement("samplegroupcontext");
-        sampleGroupContext.appendChild(getSampleGroupCondition(i)->serialize(&doc));
+        sampleGroupContext.appendChild(i.first->serialize(&doc));
 
         QDomElement sampleGroup = doc.createElement("samplegroup");
-        sampleGroup.setAttribute("name", getSampleGroup(i));
+        sampleGroup.setAttribute("name", i.second);
         sampleGroupContext.appendChild(sampleGroup);
 
         root.appendChild(sampleGroupContext);
@@ -234,10 +292,11 @@ void SampleGroupCondition::loadSampleGroupContext()
         {
             QDomElement sampleGroup = sampleGroupContext.firstChildElement("samplegroup");
 
-            addSampleGroupCondition(condition, sampleGroup.attribute("name", "default"));
+            addSampleGroupCondition(condition, sampleGroup.attribute("name", "default"), true /* hold checks */);
         }
 
         sampleGroupContext = sampleGroupContext.nextSiblingElement("samplegroupcontext");
     }
     kDebug() << "finished loading sample group context";
+    checkAcousticContext();
 }

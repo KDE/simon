@@ -71,7 +71,7 @@ public:
     };
 
     void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
-    void updateAcousticModelSampleGroups(const QStringList& deactivatedSampleGroups);
+    void updateDeactivatedSampleGroups(const QStringList& deactivatedSampleGroups);
 
     void clearCache();
 

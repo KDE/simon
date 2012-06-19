@@ -102,6 +102,8 @@ synchronisationOperation(0),
 modelCompilationOperation(0),
 timeoutWatcher(new QTimer(this))
 {
+  qRegisterMetaType<QList<QSslError> >();
+  
   connect(simondStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
   connect(simondStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
 
@@ -591,14 +593,14 @@ void RecognitionControl::sendDeactivatedScenarioList()
   send(Simond::DeactivatedScenarioList, body);
 }
 
-void RecognitionControl::sendSampleGroups(const QStringList& sampleGroups)
+void RecognitionControl::sendDeactivatedSampleGroups(const QStringList& sampleGroups)
 {
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
   bodyStream << sampleGroups;
 
-  send(Simond::SampleGroup, body);
+  send(Simond::DeactivatedSampleGroup, body);
 }
 
 void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
@@ -1073,17 +1075,6 @@ void RecognitionControl::messageReceived()
           sendRequest(Simond::StartScenarioSynchronisation);
           break;
         }
-
-          //neither of these next two should ever happen
-      case Simond::GetDeactivatedScenarioList:
-      {
-        kDebug() << "Server requested DEACTIVATED scenario list";
-      }
-
-      case Simond::DeactivatedScenarioList:
-      {
-        kDebug() << "Server sent DEACTIVATED scenario list";
-      }
 
         case Simond::ScenarioStorageFailed:
         {

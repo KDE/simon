@@ -84,7 +84,7 @@ public:
     /**
      * \return The list of all available Condition plugins
      */
-    QList<Condition*> getConditions();
+    QList<Condition*> getConditions(); //FIXME
 
     /// Return the active sample group condition object
     SampleGroupCondition* getSampleGroupCondition() {return m_sampleGroupCondition;}
@@ -125,7 +125,7 @@ private:
 
 signals:
     /// Emitted when changes in the acoustic model conditions change the sample group
-    void sampleGroupChanged(QString);
+    void sampleGroupChanged(QStringList);
 };
 
 #endif // CONTEXTMANAGER_H
