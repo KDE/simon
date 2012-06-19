@@ -143,10 +143,10 @@ void ContextAdapter::buildCurrentSituation()
   CachedModel *model = m_modelCache.value(m_requestedSituation, 0);
   if (model) {
     kDebug() << "Model already exists and has state: " << model->state();
-    if ((model->state() == CachedModel::Current) || (model->state() == CachedModel::Building)) {
+    if ((model->state() & CachedModel::Current) || (model->state() == CachedModel::Building)) {
       //we are golden
       m_compileLock.unlock();
-      if (model->state() == CachedModel::Current) emit newModelReady();
+      if (model->state() & CachedModel::Current) emit newModelReady();
       return;
     }
     model->setState(CachedModel::ToBeEvaluated); //mark it to be build
@@ -196,6 +196,13 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
   QString adaptedPromptsPath = adaptPrompts(m_currentSource->promptsPath(), situation.deactivatedSampleGroups());
   
   kDebug() << "Starting model compilation";
+  if (scenarioPaths.empty() || adaptedPromptsPath.isEmpty()) {
+    // this  model is a null model; deactivate recognition
+    model->setState(CachedModel::Null);
+    storeCachedModels();
+    emit newModelReady();
+    return;
+  }
   model->setState(CachedModel::Building);
   m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, adaptedPromptsPath);
 }
@@ -219,21 +226,27 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
                                             QString::number(qHash(deactivatedSampleGroups.join(";"))));
   QFile outFile(outPath);
   QFile promptsFile(promptsPath);
+  bool allEmpty = true;
   if (!outFile.open(QIODevice::WriteOnly) || !promptsFile.open(QIODevice::ReadOnly))
     return QString();
   while (!promptsFile.atEnd()) {
     QByteArray line = promptsFile.readLine();
     QList<QByteArray> tokens = line.split('"');
     if (tokens.count() == 1) {
+      allEmpty = false;
       outFile.write(line);
     } else {
       if (tokens.count() != 3) continue; //malformed line
 
-      if (!deactivatedSampleGroups.contains(QString::fromUtf8(tokens[1])))
+      if (!deactivatedSampleGroups.contains(QString::fromUtf8(tokens[1]))) {
         outFile.write(tokens[0]+' '+tokens[2]);
+        allEmpty = false;
+      }
     }
   }
   kDebug() << "Serialized prompts to: " << outPath;
+  if (allEmpty) return QString(); // no prompts left after adaption
+  
   return outPath;
 }
 
@@ -324,9 +337,14 @@ QString ContextAdapter::currentModelPath() const
   //try to find models for:
   // 1. the currently requested situation
   // 2. if that's not availble let's see if we have a general model
-  foreach (const Situation& s, QList<Situation>() << m_requestedSituation << Situation()) 
-    if (m_modelCache.contains(s) && (m_modelCache.value(s)->state() == CachedModel::Current))
-      return m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
+  foreach (const Situation& s, QList<Situation>() << m_requestedSituation << Situation()) {
+    if (m_modelCache.contains(s)) { 
+      if (m_modelCache.value(s)->state() == CachedModel::Current)
+        return m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
+      else if (m_modelCache.value(s)->state() == CachedModel::Null)
+        return QString();
+    }
+  }
     
   // 3. if both of those faile, we have no useful model
   return QString();

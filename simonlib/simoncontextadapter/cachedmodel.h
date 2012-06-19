@@ -28,7 +28,8 @@ public:
   enum ModelState {
     Current=1,
     ToBeEvaluated=2,
-    Building=3
+    Building=4,
+    Null=9
   };
   
   CachedModel(const QDateTime& compiledDate, ModelState state, uint fingerPrint);
