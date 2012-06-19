@@ -87,10 +87,10 @@ endif(LIBSAMPLERATE_FOUND)
 
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.h
-	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.h
@@ -136,7 +136,7 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 if(LIBSAMPLERATE_FOUND)
   message(STATUS "Enabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
-  simonlogging
+  simonlogging simonuicomponents
   simonwav
   ${LIBSAMPLERATE_LIBRARY}
   ${KDE4_KDEUI_LIBS}
@@ -144,7 +144,7 @@ target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
 else(LIBSAMPLERATE_FOUND)
   message(STATUS "Disabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
-  simonlogging
+  simonlogging simonuicomponents
   simonwav
   ${KDE4_KDEUI_LIBS})
 endif(LIBSAMPLERATE_FOUND)
@@ -172,7 +172,7 @@ kde4_add_kcfg_files(kcm_simonsound_LIB_SRCS soundconfig.kcfgc)
 
 kde4_add_plugin(simonsoundkcm ${kcm_simonsound_LIB_SRCS})
 target_link_libraries( simonsoundkcm  ${KDE4_KDEUI_LIBS} 
-simonsound simoncontextui
+simonsound simoncontextui simonuicomponents
 )
 
 install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT

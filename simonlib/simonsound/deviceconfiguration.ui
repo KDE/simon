@@ -25,7 +25,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QScrollArea" name="saInputDevices">
+        <widget class="VerticalScrollArea" name="saInputDevices">
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
@@ -35,7 +35,7 @@
             <x>0</x>
             <y>0</y>
             <width>425</width>
-            <height>409</height>
+            <height>411</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -95,7 +95,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QScrollArea" name="saOutputDevices">
+        <widget class="VerticalScrollArea" name="saOutputDevices">
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
@@ -104,8 +104,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>86</width>
-            <height>16</height>
+            <width>425</width>
+            <height>411</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -173,6 +173,12 @@
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>VerticalScrollArea</class>
+   <extends>QScrollArea</extends>
+   <header location="global">simonuicomponents/verticalscrollarea.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

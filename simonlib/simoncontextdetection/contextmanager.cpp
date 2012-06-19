@@ -39,8 +39,8 @@ ContextManager::ContextManager(QObject *parent) :
 
 ContextManager::~ContextManager()
 {
-    qDeleteAll(m_conditions);
     ProcessInfo::instance()->deleteLater();
+    qDeleteAll(m_conditionLookup);
 }
 
 ContextManager* ContextManager::instance()
@@ -106,10 +106,12 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
     //if so, just return the existing condition
     elem.save(stream, 4);
     kDebug() << "Condition: " + str;
-    condition = m_conditionLookup.value(str, NULL);
-    if (condition != NULL)
+    condition = m_conditionLookup.value(str, 0);
+    if (condition != 0)
     {
 	kDebug() << "Condition is a duplicate!";
+        // increment reference counter
+        incrementRefCount(condition);
 	return condition;
     }
 
@@ -137,9 +139,37 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
     //deserialize the service data
     condition->deSerialize(elem);
     
+    incrementRefCount(condition);
     //add the condition to member containers for future lookup
-    m_conditions.push_back(condition);
     m_conditionLookup.insert(str, condition);
-
+    
     return condition;
+}
+
+void ContextManager::releaseCondition ( Condition* c )
+{
+  decrementRefCount(c);
+}
+
+void ContextManager::incrementRefCount ( Condition* c )
+{
+  int refCount = m_conditionReferenceCounter.value(c, 0);
+  ++refCount;
+  kDebug() << "New ref count: " << refCount;
+  m_conditionReferenceCounter.insert(c, refCount); // will replace old value
+}
+
+void ContextManager::decrementRefCount ( Condition* c )
+{
+  int refCount = m_conditionReferenceCounter.value(c, 0);
+  --refCount;
+  kDebug() << "New ref count: " << refCount;
+  if (refCount == -1) return; // not in there
+  if (refCount == 0) {
+    m_conditionLookup.remove(m_conditionLookup.key(c)); // keys are unique so this will delete the only entry
+    m_conditionReferenceCounter.remove(c);
+    delete c;
+    return;
+  }
+  m_conditionReferenceCounter.insert(c, refCount); // will replace old value
 }
