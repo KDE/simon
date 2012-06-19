@@ -1,9 +1,8 @@
 #include "facedetectioncondition.h"
-#include <KDE/KDebug>
+#include <KDebug>
 #include "createfacedetectionconditionwidget.h"
 #include <QWidget>
 #include "simonvision/faceanalyzer.h"
-#include "simonvision/webcamdispatcher.h"
 
 K_PLUGIN_FACTORY( FaceDetectionPluginFactory,
                   registerPlugin< FaceDetectionCondition >();

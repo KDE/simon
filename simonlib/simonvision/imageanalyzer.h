@@ -8,9 +8,9 @@ class SIMONVISION_EXPORT ImageAnalyzer : public QObject
 {
 
 public:
-    explicit ImageAnalyzer(QObject* parent = 0);
+    ImageAnalyzer(QObject* parent = 0);
     ~ImageAnalyzer();
-    virtual void analyze(IplImage* currentImage);
+    virtual void analyze(IplImage* currentImage)=0;
 
 };
 

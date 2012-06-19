@@ -1,7 +1,6 @@
 #include "webcamdispatcher.h"
 #include <KDE/KDebug>
 #include<QThread>
-#include<QTimer>
 
 CvCapture* capture=0;
 IplImage* liveFrame=0;

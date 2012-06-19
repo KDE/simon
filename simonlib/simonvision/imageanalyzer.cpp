@@ -3,14 +3,11 @@
 
 ImageAnalyzer::ImageAnalyzer(QObject* parent): QObject(parent)
 {
-  WebcamDispatcher::registerAnalyzer(this);
+    WebcamDispatcher::registerAnalyzer(this);
 }
 
-void ImageAnalyzer::analyze(IplImage* currentImage)
-{
 
-}
 ImageAnalyzer::~ImageAnalyzer()
 {
-  WebcamDispatcher::unregisterAnalyzer(this);
+    WebcamDispatcher::unregisterAnalyzer(this);
 }
