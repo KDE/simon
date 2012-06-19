@@ -244,8 +244,12 @@ void ClientSocket::processRequest()
         if (remoteModelDate != localModelDate) {
           if (remoteModelDate > localModelDate)
             sendCode(Simond::GetActiveModel);
-          else if (!sendActiveModel())
-            sendCode(Simond::GetActiveModel);
+          else if (!sendActiveModel()) {
+            if (!remoteModelDate.isNull())
+              sendCode(Simond::GetActiveModel);
+            else
+              sendCode(Simond::GetActiveModelSampleRate);
+          }
         }
         else {
           kDebug() << "Active model is up-to-date";
