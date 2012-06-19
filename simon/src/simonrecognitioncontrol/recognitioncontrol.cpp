@@ -37,6 +37,7 @@
 
 #include <simonprogresstracking/operation.h>
 #include <simonrecognitionresult/recognitionresult.h>
+#include <simoncontextdetection/contextmanager.h>
 
 #include <stdio.h>
 #include <unistd.h>
@@ -593,6 +594,11 @@ void RecognitionControl::sendDeactivatedScenarioList()
   send(Simond::DeactivatedScenarioList, body);
 }
 
+void RecognitionControl::sendDeactivatedSampleGroups()
+{
+  sendDeactivatedSampleGroups(ContextManager::instance()->getDeactivatedSampleGroups());
+}
+
 void RecognitionControl::sendDeactivatedSampleGroups(const QStringList& sampleGroups)
 {
   QByteArray body;
@@ -867,6 +873,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           emit loggedIn();
           sendDeactivatedScenarioList();
+          sendDeactivatedSampleGroups();
           askStartSynchronisation();
           break;
         }
