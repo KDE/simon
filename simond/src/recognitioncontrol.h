@@ -61,6 +61,7 @@ class RecognitionControl : public QThread
     virtual bool startRecognition()=0;
     
     virtual bool stop()=0;
+    virtual bool suspend()=0; //stop temporarily (still reflect the intention of being active, but don't do any recognition)
 
     virtual void recognize(const QString& fileName)=0;
     

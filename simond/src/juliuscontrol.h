@@ -61,6 +61,7 @@ public:
 
   bool startRecognition();
   bool stop();
+  bool suspend();
   bool isInitialized() { return m_initialized; }
   
   void recognize(const QString& fileName);
