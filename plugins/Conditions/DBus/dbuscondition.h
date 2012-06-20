@@ -31,7 +31,7 @@ class DBusCondition : public Condition
     Q_OBJECT
 public:
     explicit DBusCondition(QObject *parent, const QVariantList& args);
-    virtual CreateConditionWidget* getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent);
+    virtual CreateConditionWidget* getCreateConditionWidget(QWidget *parent);
 
     virtual QString name();
     

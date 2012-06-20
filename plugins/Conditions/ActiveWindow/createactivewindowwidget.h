@@ -29,7 +29,6 @@
 #include "ui_createactivewindowwidget.h"
 
 class Condition;
-class CompoundCondition;
 
 /**
  *	@class CreateActiveWindowWidget
@@ -61,7 +60,7 @@ class CreateActiveWindowWidget : public CreateConditionWidget
     bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
-    explicit CreateActiveWindowWidget(CompoundCondition *compoundCondition, QWidget *parent=0);
+    explicit CreateActiveWindowWidget(QWidget *parent=0);
 
     virtual ~CreateActiveWindowWidget();
 

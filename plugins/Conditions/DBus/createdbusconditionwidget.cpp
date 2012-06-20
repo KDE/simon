@@ -27,8 +27,7 @@
 #include <QFileDialog>
 #include <QStringList>
 
-CreateDBusConditionWidget::CreateDBusConditionWidget(CompoundCondition *compoundCondition,
-QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
+CreateDBusConditionWidget::CreateDBusConditionWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 

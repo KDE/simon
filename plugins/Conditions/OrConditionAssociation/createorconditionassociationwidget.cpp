@@ -28,8 +28,7 @@
 #include <KMessageBox>
 
 
-CreateOrConditionAssociationWidget::CreateOrConditionAssociationWidget(CompoundCondition *compoundCondition,
-QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
+CreateOrConditionAssociationWidget::CreateOrConditionAssociationWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 
@@ -142,12 +141,14 @@ void CreateOrConditionAssociationWidget::addAssociationCondition()
 
     foreach (Condition* condition, conditions)
     {
-        widgets.push_back(condition->getCreateConditionWidget(m_compoundAssociationCondition, this));
+        widgets.push_back(condition->getCreateConditionWidget(this));
     }
 
     associationConditionDlg->registerCreators(widgets);
-    associationConditionDlg->newAssociationCondition();
+    Condition *c = associationConditionDlg->newAssociationCondition();
     delete associationConditionDlg;
+    if (c)
+      m_compoundAssociationCondition->addCondition(c);
 
     ui.lvConditions->setCurrentIndex(m_conditionsProxy->index(0,0));
     emit completeChanged();
@@ -169,20 +170,21 @@ void CreateOrConditionAssociationWidget::editAssociationCondition()
 
     foreach (Condition* c, conditions)
     {
-        widgets.push_back(c->getCreateConditionWidget(m_compoundAssociationCondition, this));
+        widgets.push_back(c->getCreateConditionWidget(this));
     }
 
     //prepare the edit condition dialog and launch it
     NewAssociationCondition *editCondition = new NewAssociationCondition(this);
     editCondition->registerCreators(widgets);
     editCondition->init(condition);
-    bool succ = editCondition->newAssociationCondition();
+    Condition *c = editCondition->newAssociationCondition();
 
     //on confirmation of the edit, the old condition is deleted and the new one made by the NewCondition replaces it
-    if (succ)
+    if (c)
     {
       m_compoundAssociationCondition->removeCondition(condition);
       ui.lvConditions->setCurrentIndex(m_conditionsProxy->index(m_conditionsProxy->rowCount()-1, 0));
+      m_compoundAssociationCondition->addCondition(c);
     }
     delete editCondition;
 }

@@ -27,7 +27,6 @@
 #include <simoncontextdetection/condition.h>
 #include <simoncontextdetection/processinfo.h>
 #include <simoncontextdetection/simoncontextdetection_export.h>
-#include <simoncontextdetection/compoundcondition.h>
 #include <QRegExp>
 
 /**
@@ -62,7 +61,7 @@ public:
 
     virtual QString name();
 
-    virtual CreateConditionWidget* getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent);
+    virtual CreateConditionWidget* getCreateConditionWidget(QWidget *parent);
 
 private:
     bool privateDeSerialize(QDomElement elem);
