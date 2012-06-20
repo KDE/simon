@@ -109,7 +109,6 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
     //check to see if the condition has already been created
     //if so, just return the existing condition
     elem.save(stream, 4);
-    kDebug() << "Condition: " + str;
     condition = m_conditionLookup.value(str, 0);
     if (condition != 0)
     {
