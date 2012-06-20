@@ -16,7 +16,6 @@ set( simoncontextdetection_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/condition.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/conditionassociation.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/compoundcondition.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/compoundconditionmodel.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/createconditionwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/processinfo.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/processinfogatherer.cpp
@@ -32,7 +31,6 @@ set( simoncontextdetection_LIB_HDRS
   condition.h
   conditionassociation.h
   compoundcondition.h
-  compoundconditionmodel.h
   createconditionwidget.h
   processinfo.h
   processinfogatherer.h

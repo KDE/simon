@@ -52,6 +52,7 @@ public:
      *
      */
     explicit ConditionAssociation(QObject *parent, const QVariantList &args);
+    ~ConditionAssociation();
 
     /**
      *
