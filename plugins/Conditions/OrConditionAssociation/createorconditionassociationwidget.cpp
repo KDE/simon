@@ -49,7 +49,7 @@ CreateOrConditionAssociationWidget::CreateOrConditionAssociationWidget(QWidget *
   m_conditionsProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   ui.lvConditions->setModel(m_conditionsProxy);
 
-  m_conditionsProxy->setSourceModel((QAbstractItemModel*) m_compoundAssociationCondition->getProxy());
+  m_conditionsProxy->setSourceModel(m_compoundAssociationCondition);
 
   connect(ui.pbNewCondition, SIGNAL(clicked()), this, SLOT(addAssociationCondition()));
   connect(ui.pbEditCondition, SIGNAL(clicked()), this, SLOT(editAssociationCondition()));
@@ -90,7 +90,7 @@ bool CreateOrConditionAssociationWidget::init(Condition *condition)
       m_compoundAssociationCondition->addCondition(associationCondition);
   }
 
-  m_conditionsProxy->setSourceModel((QAbstractItemModel*) m_compoundAssociationCondition->getProxy());
+  m_conditionsProxy->setSourceModel(m_compoundAssociationCondition);
   ui.lvConditions->setCurrentIndex(m_conditionsProxy->index(0,0));
 
   ui.cbInverted->setChecked(orConditionAssociation->isInverted());

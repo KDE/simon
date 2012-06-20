@@ -154,7 +154,7 @@ void ContextViewPrivate::selectionChanged()
 void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
   CompoundCondition *compoundCondition = scenario->compoundCondition();
-  conditionsProxy->setSourceModel((QAbstractItemModel*) compoundCondition->getProxy());
+  conditionsProxy->setSourceModel(compoundCondition);
   ui.lvConditions->setCurrentIndex(conditionsProxy->index(0,0));
 
   //fill in inherited activation requirments list
