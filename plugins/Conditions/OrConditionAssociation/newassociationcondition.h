@@ -65,7 +65,7 @@ class NewAssociationCondition : protected KDialog
 
     bool registerCreators(QList<CreateConditionWidget*> conditionCreators);
 
-    bool newAssociationCondition();
+    Condition* newAssociationCondition();
 
   public slots:
     void deleteLater();

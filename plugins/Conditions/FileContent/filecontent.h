@@ -26,7 +26,6 @@
  */
 
 #include <simoncontextdetection/condition.h>
-#include <simoncontextdetection/compoundcondition.h>
 #include <QRegExp>
 
 class QFileSystemWatcher;
@@ -36,7 +35,7 @@ class FileContent : public Condition
     Q_OBJECT
 public:
     explicit FileContent(QObject *parent, const QVariantList& args);
-    virtual CreateConditionWidget* getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent);
+    virtual CreateConditionWidget* getCreateConditionWidget(QWidget *parent);
 
     QString getFilename() {return m_filename;}
     QString getFileContent() {return m_fileContent;}

@@ -25,8 +25,7 @@
 #include <QFileDialog>
 #include <QStringList>
 
-CreateProcessOpenedConditionWidget::CreateProcessOpenedConditionWidget(CompoundCondition *compoundCondition,
-QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
+CreateProcessOpenedConditionWidget::CreateProcessOpenedConditionWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 

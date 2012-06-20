@@ -66,7 +66,7 @@ class SIMONCONTEXTUI_EXPORT NewCondition : protected KDialog
 
     bool registerCreators(QList<CreateConditionWidget*> conditionCreators);
 
-    bool newCondition();
+    Condition* newCondition();
 
   public slots:
     void deleteLater();

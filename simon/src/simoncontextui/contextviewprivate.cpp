@@ -79,12 +79,10 @@ void ContextViewPrivate::addCondition()
     conditions = manager->getConditions();
 
     foreach (Condition* condition, conditions)
-    {
-        widgets.push_back(condition->getCreateConditionWidget(scenario->compoundCondition(), this));
-    }
+        widgets.push_back(condition->getCreateConditionWidget(this));
 
     newCondition->registerCreators(widgets);
-    newCondition->newCondition();
+    scenario->compoundCondition()->addCondition(newCondition->newCondition());
 
     delete newCondition;
 }
@@ -105,7 +103,7 @@ void ContextViewPrivate::editCondition()
 
     foreach (Condition* c, conditions)
     {
-        widgets.push_back(c->getCreateConditionWidget(scenario->compoundCondition(), this));
+        widgets.push_back(c->getCreateConditionWidget(this));
     }
 
     //prepare the edit condition dialog and launch it

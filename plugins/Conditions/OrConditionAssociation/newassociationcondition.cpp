@@ -105,11 +105,11 @@ void NewAssociationCondition::checkIfComplete()
   enableButtonOk(complete);
 }
 
-bool NewAssociationCondition::newAssociationCondition()
+Condition* NewAssociationCondition::newAssociationCondition()
 {
   if (ui.swConditionCreators->count() == 0) {
     KMessageBox::information(this, i18n("No condition plugins loaded that provide condition engines."));
-    return false;
+    return 0;
   }
 
   if (KDialog::exec()) {
@@ -118,11 +118,11 @@ bool NewAssociationCondition::newAssociationCondition()
     kDebug() << "Creating with creator: " << creator;
     Q_ASSERT(creator);
 
-    if (!creator) return false;
+    if (!creator) return 0;
 
-    return creator->addCondition();
+    return creator->createCondition();
   }
-  return false;
+  return 0;
 }
 
 

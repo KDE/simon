@@ -53,7 +53,7 @@ public:
 
     virtual QString name();
 
-    virtual CreateConditionWidget* getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent);
+    virtual CreateConditionWidget* getCreateConditionWidget(QWidget *parent);
 
 private:
 
