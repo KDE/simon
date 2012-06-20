@@ -22,16 +22,19 @@
 
 #include <QString>
 #include <QWizardPage>
+#include <simonscenarios/promptstable.h>
 class RecWidget;
 
 class TrainSamplePage : public QWizardPage
 {
   Q_OBJECT
 
-    private:
+  private:
     RecWidget *recorder;
     QString prompt;
     QString fileName;
+
+    QStringList getFileNames() const;
 
   public:
     TrainSamplePage(QString prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
@@ -42,9 +45,8 @@ class TrainSamplePage : public QWizardPage
     bool validatePage();
     void cleanupPage();
 
-    QString getPrompt() { return prompt; }
-    QStringList getFileNames();
-    QString getSampleGroup();
+    PromptsTable getPrompts() const;
+    QString getPrompt() const { return prompt; }
 
   public slots:
     bool submit();

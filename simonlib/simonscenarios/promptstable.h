@@ -25,9 +25,7 @@
  * \brief The file containing the PromptsTable baseclass header.
  */
 
-#include <QObject>
 #include <QHash>
-#include <QFile>
 #include "simonmodelmanagement_export.h"
 
 /**
@@ -44,12 +42,9 @@
 
 class Word;
 
-class MODELMANAGEMENT_EXPORT PromptsTable : public QObject
+class MODELMANAGEMENT_EXPORT PromptsTable
 {
-    Q_OBJECT
 public:
-    explicit PromptsTable(QObject *parent = 0);
-
     bool init(const QString& path);
     bool save(const QString& path);
     bool deletePrompt(QString key);
@@ -63,19 +58,16 @@ public:
     QString value(const QString& key);
     QString sampleGroup(const QString& key);
 
-    QHash<QString,QString> samples() { return m_wordBySample; }
-    QList<QString> keys() { return m_wordBySample.keys(); }
-    QList<QString> words() { return m_wordBySample.values(); }
-    QStringList sampleGroups() { return m_groupBySample.values(); }
+    bool merge(const PromptsTable& other);
+
+    QHash<QString,QString> samples() const { return m_wordBySample; }
+    QList<QString> keys() const { return m_wordBySample.keys(); }
+    QList<QString> words() const { return m_wordBySample.values(); }
+    QStringList sampleGroups() const { return m_groupBySample.values(); }
 
 private:
     QHash<QString,QString> m_wordBySample;
     QHash<QString,QString> m_groupBySample;
-
-signals:
-
-public slots:
-
 };
 
 #endif // PROMPTSTABLE_H
