@@ -22,6 +22,7 @@
 #include "soundconfig.h"
 #include "soundserver.h"
 #include "ui_volumewidget.h"
+#include <simonsound/soundserver.h>
 #include <KLocalizedString>
 #include <QVBoxLayout>
 
@@ -32,6 +33,7 @@ ui(new Ui::VolumeWidgetUi()), priority(inputPriority)
   ui->wgStart->show();
   
   connect(ui->pbStartCalibration, SIGNAL(clicked()), this, SLOT(start()));
+  connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(init()));
 }
 
 void VolumeWidget::enablePrompt(bool enabled)
@@ -41,6 +43,8 @@ void VolumeWidget::enablePrompt(bool enabled)
 
 void VolumeWidget::init()
 {
+  bool wasStarted = ui->wgStart->isHidden();
+  kDebug() << "Reinitializing devices for volume widget";
   setPrompt(SoundConfiguration::volumePrompt());
   stop();
 
@@ -51,6 +55,8 @@ void VolumeWidget::init()
   foreach (const SimonSound::DeviceConfiguration& device, devices) {
     registerClient(device);
   }
+  if (wasStarted)
+    start();
 }
 
 void VolumeWidget::registerClient(const SimonSound::DeviceConfiguration& device)
