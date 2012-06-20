@@ -1,8 +1,4 @@
-
 include(SimonDirs)
-
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../../simon/src/simoncontextui/)
-
 
 find_package(LibSampleRate)
 
@@ -166,13 +162,19 @@ install( TARGETS simonsound DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT
 
 set( kcm_simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/samplegroupcontextsettings.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupitemdelegate.cpp
 )
 
+kde4_add_ui_files( kcm_simonsound_LIB_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupcontextsettings.ui
+	)
 kde4_add_kcfg_files(kcm_simonsound_LIB_SRCS soundconfig.kcfgc)
 
 kde4_add_plugin(simonsoundkcm ${kcm_simonsound_LIB_SRCS})
 target_link_libraries( simonsoundkcm  ${KDE4_KDEUI_LIBS} 
-simonsound simoncontextui simonuicomponents
+simonsound simonuicomponents simoncontextcoreui simoncontextdetection
+simonscenarios ${QT_QTXML_LIBRARY}
 )
 
 install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT
