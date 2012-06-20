@@ -103,15 +103,15 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
 	              QWidget *parent=0, QList<SimonSound::DeviceConfiguration> forcedDevices = QList<SimonSound::DeviceConfiguration>(),
                 bool playbackOnly=false);
     ~RecWidget();
-    bool hasRecordingReady();
-    bool isRecording();
-    QStringList getFileNames();
-    QString getSampleGroup();
-    QStringList getDevices();
+    bool hasRecordingReady() const;
+    bool isRecording() const;
+    QStringList getFileNames() const;
+    QStringList getSampleGroups() const;
+    QStringList getDevices() const;
 
     void checkFile();
 
-    bool isPlaying();
+    bool isPlaying() const;
     void play();
 
     SimonSamples::SampleProblems sampleProblems();

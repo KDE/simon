@@ -52,7 +52,7 @@
 WavFileWidget::WavFileWidget(const SimonSound::DeviceConfiguration& recordingDevice,
 const QString& filename, QWidget *parent) : QWidget(parent),
 m_problems(SimonSamples::None), ui(new Ui::WavFileWidgetUi()), m_device(recordingDevice.name()),
-m_filename(filename), m_channels(recordingDevice.channels()), postProc(0)
+m_filename(filename), m_sampleGroup(recordingDevice.defaultSampleGroup()), m_channels(recordingDevice.channels()), postProc(0)
 {
   recordingProgress=0;
 
@@ -87,13 +87,13 @@ m_filename(filename), m_channels(recordingDevice.channels()), postProc(0)
  * \author Peter Grasch
  * @return File exists?
  */
-bool WavFileWidget::hasRecordingReady()
+bool WavFileWidget::hasRecordingReady() const
 {
   return QFile::exists(m_filename);
 }
 
 
-SimonSamples::SampleProblems WavFileWidget::sampleProblems()
+SimonSamples::SampleProblems WavFileWidget::sampleProblems() const
 {
   return m_problems;
 }

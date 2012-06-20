@@ -85,8 +85,19 @@ bool TrainSamplePage::validatePage()
   return cont;
 }
 
+PromptsTable TrainSamplePage::getPrompts() const
+{
+  PromptsTable t;
+  QStringList fileNames = getFileNames();
+  QStringList sampleGroups = recorder->getSampleGroups();
+  Q_ASSERT(fileNames.count() == sampleGroups.count());
 
-QStringList TrainSamplePage::getFileNames()
+  for (int i=0; i < fileNames.count(); i++)
+    t.insert(fileNames[i], sampleGroups[i], getPrompt().toUpper());
+  return t;
+}
+
+QStringList TrainSamplePage::getFileNames() const
 {
   QStringList fileNames = recorder->getFileNames();
   for (int i=0; i < fileNames.count(); i++) {
@@ -99,16 +110,10 @@ QStringList TrainSamplePage::getFileNames()
   return  fileNames;
 }
 
-QString TrainSamplePage::getSampleGroup()
-{
-    return recorder->getSampleGroup();
-}
-
 bool TrainSamplePage::submit()
 {
   bool succ = true;
-  foreach (const QString& fileName, getFileNames())
-    succ = TrainingManager::getInstance()->addSample(fileName, recorder->getSampleGroup(), prompt.toUpper()) && succ;
+  succ = TrainingManager::getInstance()->mergePrompts(getPrompts());
 
   if (!succ) {
     KMessageBox::error(this, i18n("Could not add samples to the corpus.\n\nThis indicates internal data corruption."));

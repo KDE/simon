@@ -360,25 +360,24 @@ bool TrainingManager::addSample (const QString &fileBaseName, const QString &sam
 
   QStringList words = prompt.split(' ');
   foreach (const QString& word, words)
-    m_promptsTable->deletePrompt(word);                   //removed cached recognition rates
+    m_wordRelevance.remove(word.toUpper());                   //removed cached recognition rates
 
   m_dirty=true;
   return true;
 }
 
-
-/*
-bool TrainingManager::removeSample(const QString& fileBaseName)
+bool TrainingManager::mergePrompts(const PromptsTable& table)
 {
   if (!m_promptsTable) init();
 
-  if (m_promptsTable->remove(fileBaseName) > 0)
-  {
-    m_dirty=true;
-    return true;
-  } else return false;
+  m_dirty = true;
+
+  bool succ = m_promptsTable->merge(table);
+
+  foreach (const QString& word, table.words())
+    m_wordRelevance.remove(word);                   //removed cached recognition rates
+  return succ;
 }
-*/
 
 bool TrainingManager::clear()
 {
