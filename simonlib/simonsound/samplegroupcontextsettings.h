@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,7 +22,6 @@
 #define SAMPLEGROUPCONTEXT_H
 
 #include <QWidget>
-#include "simoncontextui_export.h"
 #include <simoncontextdetection/contextmanager.h>
 #include "samplegroupitemdelegate.h"
 
@@ -31,13 +31,13 @@ namespace Ui {
     class SampleGroupContext;
 }
 
-class SIMONCONTEXTUI_EXPORT SampleGroupContext : public QWidget
+class SampleGroupContextSettings : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit SampleGroupContext(QWidget *parent = 0);
-    ~SampleGroupContext();
+    explicit SampleGroupContextSettings(QWidget *parent = 0);
+    ~SampleGroupContextSettings();
 
     Condition* getCurrentCondition();
 

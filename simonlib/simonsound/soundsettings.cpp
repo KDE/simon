@@ -21,7 +21,7 @@
 #include "soundconfig.h"
 #include "soundserver.h"
 #include "devicesettings.h"
-#include "samplegroupcontext.h"
+#include "samplegroupcontextsettings.h"
 
 #include <KMessageBox>
 #include <QVBoxLayout>
@@ -69,7 +69,7 @@ KCModule(KGlobal::mainComponent(), parent)
   QWidget *trainingConfig = new QWidget(this);
   trainingSettignsUi.setupUi(trainingConfig);
 
-  m_sampleGroupContext = new SampleGroupContext(this);
+  m_sampleGroupContext = new SampleGroupContextSettings(this);
   QWidget *sampleGroupConditions = m_sampleGroupContext;
   connect(m_sampleGroupContext, SIGNAL(changed()),
           this, SLOT(slotChanged()));

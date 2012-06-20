@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,14 +18,14 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "samplegroupcontext.h"
-#include "ui_samplegroupcontext.h"
-#include "newcondition.h"
+#include "samplegroupcontextsettings.h"
+#include "ui_samplegroupcontextsettings.h"
+#include <simoncontextcoreui/newcondition.h>
 #include <KMessageBox>
 #include <QtXml/QDomDocument>
-#include "simoncontextdetection/samplegroupcondition.h"
+#include <simoncontextdetection/samplegroupcondition.h>
 
-SampleGroupContext::SampleGroupContext(QWidget *parent) :
+SampleGroupContextSettings::SampleGroupContextSettings(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SampleGroupContext)
 {
@@ -52,13 +53,13 @@ SampleGroupContext::SampleGroupContext(QWidget *parent) :
     ui->tvSampleGroupConditions->setItemDelegateForColumn(1, m_sampleGroupDelegate);
 }
 
-SampleGroupContext::~SampleGroupContext()
+SampleGroupContextSettings::~SampleGroupContextSettings()
 {
     delete ui;
     delete m_editCopyOfSampleGroupCondition;
 }
 
-Condition* SampleGroupContext::getCurrentCondition()
+Condition* SampleGroupContextSettings::getCurrentCondition()
 {
     QModelIndex index = ui->tvSampleGroupConditions->currentIndex();
     if (!index.isValid()) return 0;
@@ -66,7 +67,7 @@ Condition* SampleGroupContext::getCurrentCondition()
     return static_cast<Condition*>(index.internalPointer());
 }
 
-void SampleGroupContext::addCondition()
+void SampleGroupContextSettings::addCondition()
 {
     //get the CreateConditionWidgets
     QList<CreateConditionWidget*> widgets;
@@ -102,7 +103,7 @@ void SampleGroupContext::addCondition()
     delete compoundCondition;
 }
 
-void SampleGroupContext::editCondition()
+void SampleGroupContextSettings::editCondition()
 {
     //get the condition to edit
     Condition* condition = getCurrentCondition();
@@ -148,7 +149,7 @@ void SampleGroupContext::editCondition()
     delete compoundCondition;
 }
 
-void SampleGroupContext::removeCondition()
+void SampleGroupContextSettings::removeCondition()
 {
     Condition* condition = getCurrentCondition();
 
@@ -164,7 +165,7 @@ void SampleGroupContext::removeCondition()
     ui->tvSampleGroupConditions->reset();
 }
 
-void SampleGroupContext::saveChanges()
+void SampleGroupContextSettings::saveChanges()
 {
     m_editCopyOfSampleGroupCondition->saveSampleGroupContext();
     ContextManager::instance()->getSampleGroupCondition()->loadSampleGroupContext();
