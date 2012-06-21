@@ -82,7 +82,9 @@ void ContextViewPrivate::addCondition()
         widgets.push_back(condition->getCreateConditionWidget(this));
 
     newCondition->registerCreators(widgets);
-    scenario->compoundCondition()->addCondition(newCondition->newCondition());
+    Condition *c = newCondition->newCondition();
+    if (c)
+      scenario->compoundCondition()->addCondition(c);
 
     delete newCondition;
 }
@@ -110,12 +112,13 @@ void ContextViewPrivate::editCondition()
     NewCondition *editCondition = new NewCondition(this);
     editCondition->registerCreators(widgets);
     editCondition->init(condition);
-    bool succ = editCondition->newCondition();
+    Condition *c = editCondition->newCondition();
 
     //on confirmation of the edit, the old condition is deleted and the new one made by the NewCondition replaces it
-    if (succ)
+    if (c)
     {
       scenario->compoundCondition()->removeCondition(condition);
+      scenario->compoundCondition()->addCondition(c);
       ui.lvConditions->setCurrentIndex(conditionsProxy->index(conditionsProxy->rowCount()-1, 0));
     }
     delete editCondition;
