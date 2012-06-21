@@ -29,7 +29,6 @@
 #include <QWidget>
 
 class Condition;
-class CompoundCondition;
 class KIcon;
 
 /**
@@ -58,10 +57,6 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
    */
   void completeChanged();
 
-  protected:
-    /// The parent CompoundCondition
-    CompoundCondition *m_compoundCondition;
-
   protected slots:
 
 
@@ -83,13 +78,6 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
     virtual Condition* createCondition()=0;
 
     /**
-     * \brief Creates the condition and adds it to the parent CompoundCondition
-     * Calls createCondition() and adds the result to the CompoundCondition by calling CompoundCondition::addCondition().
-     * \sa createCondition()
-     */
-    virtual bool addCondition();
-
-    /**
      * \brief When editing a condition this method will be called to initialize the display with the old values
      *
      * This method should adapt the current configuration to the values of the given condition.
@@ -98,8 +86,6 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
      * \return False, if for some reason the input fields could not be set to the values configured in the given condition
      */
     virtual bool init(Condition* condition)=0;
-
-    bool isInstanceOfSameCondition(Condition *condition);
 
     /**
      * \brief Have all needed attributes been specified?
@@ -110,8 +96,7 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
     /**
      * \brief Constructor
      */
-    explicit CreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent=0) : QWidget(parent),
-      m_compoundCondition(compoundCondition)
+    explicit CreateConditionWidget(QWidget *parent=0) : QWidget(parent)
       {}
 
     /**

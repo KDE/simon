@@ -3,6 +3,7 @@ set (USE_WITH_SIMON "1")
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/eventsimulation)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonactions)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoncontextcoreui)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonddatabaseaccess)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simongraphemetophoneme)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simondstreamer)

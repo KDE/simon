@@ -151,12 +151,10 @@ void RecWidget::registerDevice(const SimonSound::DeviceConfiguration& device, co
   connect(wg, SIGNAL(playing()), this, SLOT(slotEnableDeleteAll()));
   connect(wg, SIGNAL(playbackFinished()), this, SLOT(slotEnableDeleteAll()));
 
-  ui->cbSampleGroup->addItem(device.defaultSampleGroup());
-
   waves << wg;
 }
 
-bool RecWidget::isPlaying()
+bool RecWidget::isPlaying() const
 {
   foreach (WavFileWidget *wav, waves)
     if (wav->getIsPlaying())
@@ -164,7 +162,7 @@ bool RecWidget::isPlaying()
   return false;
 }
 
-bool RecWidget::isRecording()
+bool RecWidget::isRecording() const
 {
   foreach (WavFileWidget *wav, waves)
     if (wav->getIsRecording())
@@ -173,7 +171,7 @@ bool RecWidget::isRecording()
 }
 
 
-QStringList RecWidget::getFileNames()
+QStringList RecWidget::getFileNames() const
 {
   QStringList fileNames;
   foreach (WavFileWidget *wav, waves)
@@ -183,16 +181,17 @@ QStringList RecWidget::getFileNames()
   return fileNames;
 }
 
-QString RecWidget::getSampleGroup()
+QStringList RecWidget::getSampleGroups() const
 {
-    if (!ui->cbSampleGroup->currentText().isEmpty())
-        return ui->cbSampleGroup->currentText();
+  QStringList sampleGroups;
+  foreach (WavFileWidget *wav, waves)
+    if (wav->hasRecordingReady())
+    sampleGroups << wav->getSampleGroup();
 
-    else
-        return "default";
+  return sampleGroups;
 }
 
-QStringList RecWidget::getDevices()
+QStringList RecWidget::getDevices() const
 {
   QStringList devices;
   foreach (WavFileWidget *wav, waves)
@@ -220,8 +219,6 @@ void RecWidget::initialize(QList<SimonSound::DeviceConfiguration> forcedDevices)
     devices = forcedDevices;
   
   if (m_simpleMode) {
-      ui->cbSampleGroup->hide();
-      ui->lbSampleGroup->hide();
     //which device?
     QStringList deviceNames;
     foreach (const SimonSound::DeviceConfiguration& dev, devices)
@@ -268,7 +265,7 @@ void RecWidget::changePromptFont(const QFont& font)
  * \author Peter Grasch
  * @return File exists?
  */
-bool RecWidget::hasRecordingReady()
+bool RecWidget::hasRecordingReady() const
 {
   bool recordingReady = false;
   foreach (WavFileWidget *wav, waves)
@@ -316,9 +313,6 @@ void RecWidget::record()
   ui->pbRecord->setChecked(someoneIsRecording);
   disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
   connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
-
-  //this will limit the sample groups to one per RecWidget (the group cannot be changed after the first recording)
-  ui->cbSampleGroup->setEnabled(false);
 
   emit recording();
 

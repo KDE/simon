@@ -67,24 +67,10 @@ bool AddWordRecordPage::validatePage()
   return page->validatePage();
 }
 
-
-QStringList AddWordRecordPage::getFileNames()
+PromptsTable AddWordRecordPage::getPrompts() const
 {
-  return page->getFileNames();
+  return page->getPrompts();
 }
-
-
-QString AddWordRecordPage::getSampleGroup()
-{
-  return page->getSampleGroup();
-}
-
-
-QString AddWordRecordPage::getPrompt()
-{
-  return page->getPrompt();
-}
-
 
 /**
  * \brief Sets the recwidgets-titles to the examples of the previous page (pulled out of the fields wordExamples1,2)

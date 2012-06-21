@@ -19,7 +19,7 @@
 
 #include "contextviewprivate.h"
 #include <simonscenarios/scenario.h>
-#include "newcondition.h"
+#include <simoncontextcoreui/newcondition.h>
 #include "simoncontextdetection/contextmanager.h"
 
 #include <QWidget>
@@ -79,12 +79,12 @@ void ContextViewPrivate::addCondition()
     conditions = manager->getConditions();
 
     foreach (Condition* condition, conditions)
-    {
-        widgets.push_back(condition->getCreateConditionWidget(scenario->compoundCondition(), this));
-    }
+        widgets.push_back(condition->getCreateConditionWidget(this));
 
     newCondition->registerCreators(widgets);
-    newCondition->newCondition();
+    Condition *c = newCondition->newCondition();
+    if (c)
+      scenario->compoundCondition()->addCondition(c);
 
     delete newCondition;
 }
@@ -105,19 +105,20 @@ void ContextViewPrivate::editCondition()
 
     foreach (Condition* c, conditions)
     {
-        widgets.push_back(c->getCreateConditionWidget(scenario->compoundCondition(), this));
+        widgets.push_back(c->getCreateConditionWidget(this));
     }
 
     //prepare the edit condition dialog and launch it
     NewCondition *editCondition = new NewCondition(this);
     editCondition->registerCreators(widgets);
     editCondition->init(condition);
-    bool succ = editCondition->newCondition();
+    Condition *c = editCondition->newCondition();
 
     //on confirmation of the edit, the old condition is deleted and the new one made by the NewCondition replaces it
-    if (succ)
+    if (c)
     {
       scenario->compoundCondition()->removeCondition(condition);
+      scenario->compoundCondition()->addCondition(c);
       ui.lvConditions->setCurrentIndex(conditionsProxy->index(conditionsProxy->rowCount()-1, 0));
     }
     delete editCondition;
@@ -156,7 +157,7 @@ void ContextViewPrivate::selectionChanged()
 void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
   CompoundCondition *compoundCondition = scenario->compoundCondition();
-  conditionsProxy->setSourceModel((QAbstractItemModel*) compoundCondition->getProxy());
+  conditionsProxy->setSourceModel(compoundCondition);
   ui.lvConditions->setCurrentIndex(conditionsProxy->index(0,0));
 
   //fill in inherited activation requirments list

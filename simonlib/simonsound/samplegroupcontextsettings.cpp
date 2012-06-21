@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,14 +18,14 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "samplegroupcontext.h"
-#include "ui_samplegroupcontext.h"
-#include "newcondition.h"
+#include "samplegroupcontextsettings.h"
+#include "ui_samplegroupcontextsettings.h"
+#include <simoncontextcoreui/newcondition.h>
 #include <KMessageBox>
 #include <QtXml/QDomDocument>
-#include "simoncontextdetection/samplegroupcondition.h"
+#include <simoncontextdetection/samplegroupcondition.h>
 
-SampleGroupContext::SampleGroupContext(QWidget *parent) :
+SampleGroupContextSettings::SampleGroupContextSettings(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SampleGroupContext)
 {
@@ -52,13 +53,13 @@ SampleGroupContext::SampleGroupContext(QWidget *parent) :
     ui->tvSampleGroupConditions->setItemDelegateForColumn(1, m_sampleGroupDelegate);
 }
 
-SampleGroupContext::~SampleGroupContext()
+SampleGroupContextSettings::~SampleGroupContextSettings()
 {
     delete ui;
     delete m_editCopyOfSampleGroupCondition;
 }
 
-Condition* SampleGroupContext::getCurrentCondition()
+Condition* SampleGroupContextSettings::getCurrentCondition()
 {
     QModelIndex index = ui->tvSampleGroupConditions->currentIndex();
     if (!index.isValid()) return 0;
@@ -66,43 +67,34 @@ Condition* SampleGroupContext::getCurrentCondition()
     return static_cast<Condition*>(index.internalPointer());
 }
 
-void SampleGroupContext::addCondition()
+void SampleGroupContextSettings::addCondition()
 {
     //get the CreateConditionWidgets
     QList<CreateConditionWidget*> widgets;
     QList<Condition*> conditions;
-    ContextManager* manager = ContextManager::instance(); //FIXME
-    QDomDocument *doc = new QDomDocument();
-    CompoundCondition* compoundCondition = CompoundCondition::createInstance(CompoundCondition::createEmpty(doc));
-    delete doc;
 
+    ContextManager* manager = ContextManager::instance();
     conditions = manager->getConditions();
-
     foreach (Condition* condition, conditions)
-        widgets.push_back(condition->getCreateConditionWidget(compoundCondition, this));
+        widgets.push_back(condition->getCreateConditionWidget(this));
 
     //prepare the create condition dialog
     NewCondition *newCondition = new NewCondition(this);
     newCondition->registerCreators(widgets);
 
     //launch the dialog and add the condition if it is desired
-    if (newCondition->newCondition())
+    Condition *c = newCondition->newCondition();
+    if (c)
     {
-        if (compoundCondition->getConditions().count() > 0)
-        {
-            Condition *condition = compoundCondition->getConditions().front();
-
-            m_editCopyOfSampleGroupCondition->addSampleGroupCondition(condition, "default");
-        }
+        m_editCopyOfSampleGroupCondition->addSampleGroupCondition(c, "default");
     }
 
     ui->tvSampleGroupConditions->reset();
 
     delete newCondition;
-    delete compoundCondition;
 }
 
-void SampleGroupContext::editCondition()
+void SampleGroupContextSettings::editCondition()
 {
     //get the condition to edit
     Condition* condition = getCurrentCondition();
@@ -113,16 +105,10 @@ void SampleGroupContext::editCondition()
     QList<CreateConditionWidget*> widgets;
     QList<Condition*> conditions;
     ContextManager* manager = ContextManager::instance();
-
-    QDomDocument *doc = new QDomDocument();
-    CompoundCondition* compoundCondition = CompoundCondition::createInstance(CompoundCondition::createEmpty(doc));
-    delete doc;
-
     conditions = manager->getConditions();
-
     foreach (Condition* c, conditions)
     {
-        widgets.push_back(c->getCreateConditionWidget(compoundCondition, this));
+        widgets.push_back(c->getCreateConditionWidget(this));
     }
 
     //prepare the edit condition dialog
@@ -131,24 +117,19 @@ void SampleGroupContext::editCondition()
     editCondition->init(condition);
 
     //launch the dialog and edit the condition if it is desired
-    if (editCondition->newCondition())
+    Condition *c = editCondition->newCondition();
+    if (c)
     {
-        if (compoundCondition->getConditions().count() > 0)
-        {
-            Condition *edit = compoundCondition->getConditions().front();
-
-            int row = ui->tvSampleGroupConditions->currentIndex().row();
-            m_editCopyOfSampleGroupCondition->updateCondition(row, edit);
-        }
+        int row = ui->tvSampleGroupConditions->currentIndex().row();
+        m_editCopyOfSampleGroupCondition->updateCondition(row, c);
     }
 
     ui->tvSampleGroupConditions->reset();
 
     delete editCondition;
-    delete compoundCondition;
 }
 
-void SampleGroupContext::removeCondition()
+void SampleGroupContextSettings::removeCondition()
 {
     Condition* condition = getCurrentCondition();
 
@@ -164,7 +145,7 @@ void SampleGroupContext::removeCondition()
     ui->tvSampleGroupConditions->reset();
 }
 
-void SampleGroupContext::saveChanges()
+void SampleGroupContextSettings::saveChanges()
 {
     m_editCopyOfSampleGroupCondition->saveSampleGroupContext();
     ContextManager::instance()->getSampleGroupCondition()->loadSampleGroupContext();

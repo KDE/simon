@@ -1493,7 +1493,10 @@ void ClientSocket::initializeRecognitionSmartly()
   kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
 
   QString modelPath = contextAdapter->currentModelPath();
-  if (modelPath.isNull())
+  
+  if (modelPath.isNull()) {
+    recognitionControl->suspend();
     return;
+  }
   recognitionControl->initializeRecognition(modelPath);
 }

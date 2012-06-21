@@ -56,18 +56,19 @@ class SIMONSOUND_EXPORT WavFileWidget : public QWidget
 
     public:
     WavFileWidget(const SimonSound::DeviceConfiguration& recordingDevice, const QString& filename, QWidget *parent=0);
-    bool hasRecordingReady();
+    bool hasRecordingReady() const;
 
-    bool getIsRecording() { return isRecording; }
-    bool getIsPlaying() { return isPlaying; }
-    QString getFileName() { return m_filename; }
-    QString getDevice() { return m_device; }
+    bool getIsRecording() const { return isRecording; }
+    bool getIsPlaying() const { return isPlaying; }
+    QString getFileName() const { return m_filename; }
+    QString getSampleGroup() const { return m_sampleGroup; }
+    QString getDevice() const { return m_device; }
 
-    SimonSamples::SampleProblems sampleProblems();
+    SimonSamples::SampleProblems sampleProblems() const;
 
     ~WavFileWidget();
 
-    signals:
+  signals:
     void playing();
     void recording();
     void sampleDeleted();
@@ -86,6 +87,7 @@ class SIMONSOUND_EXPORT WavFileWidget : public QWidget
 
     QString m_device;
     QString m_filename;
+    QString m_sampleGroup;
     int m_channels;
     WavRecorderClient *rec;
     WavPlayerClient *play;

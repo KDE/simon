@@ -40,7 +40,6 @@ m_sender(s)
 
 void SimondStreamer::initializeDevices()
 {
-  kDebug() << "Initializing streaming devices...";
   bool wasRunning = isRunning();
 
   foreach (SimondStreamerClient *c, clients)
@@ -49,6 +48,7 @@ void SimondStreamer::initializeDevices()
   clients.clear();
 
   QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionInputDevices();
+  kDebug() << "Initializing " << devices.count() << " streaming devices...";
   qint8 i=0;
   foreach (const SimonSound::DeviceConfiguration& dev, devices) {
     SimondStreamerClient *streamer = new SimondStreamerClient(i++, m_sender, dev, this);

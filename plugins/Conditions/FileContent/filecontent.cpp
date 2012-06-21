@@ -39,9 +39,9 @@ FileContent::FileContent(QObject *parent, const QVariantList &args) :
   connect(watcher,SIGNAL(fileChanged(QString)), this, SLOT(checkFile()));
 }
 
-CreateConditionWidget* FileContent::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)
+CreateConditionWidget* FileContent::getCreateConditionWidget(QWidget* parent)
 {
-    return new CreateFileContentWidget(compoundCondition, parent);
+    return new CreateFileContentWidget(parent);
 }
 
 QDomElement FileContent::privateSerialize(QDomDocument *doc, QDomElement elem)

@@ -36,6 +36,7 @@
 #include <QStringList>
 #include <QHash>
 #include <simonscenarios/word.h>
+#include <simonscenarios/promptstable.h>
 #include "../simonmodelmanagementui_export.h"
 
 class QWizardPage;
@@ -52,8 +53,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public SimonWizard
     Vocabulary *targetVocabulary;
 
     QList<Word*> listToAdd;
-    QHash<QString,QString> promptsToAdd;
-    QHash<QString,QString> sampleGroupsToAdd;
+    QList<PromptsTable> promptsToAdd;
 
     void hideEvent(QHideEvent *event) {
       emit hidden(); return QWidget::hideEvent(event);

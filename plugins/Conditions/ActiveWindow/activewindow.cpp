@@ -41,9 +41,9 @@ ActiveWindow::ActiveWindow(QObject *parent, const QVariantList &args) :
     m_pluginName = "simonactivewindowplugin.desktop";
 }
 
-CreateConditionWidget* ActiveWindow::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)
+CreateConditionWidget* ActiveWindow::getCreateConditionWidget(QWidget* parent)
 {
-    return new CreateActiveWindowWidget(compoundCondition, parent);
+    return new CreateActiveWindowWidget(parent);
 }
 
 QDomElement ActiveWindow::privateSerialize(QDomDocument *doc, QDomElement elem)

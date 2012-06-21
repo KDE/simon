@@ -58,12 +58,11 @@ class SIMONSOUND_EXPORT VolumeWidget : public QWidget
   public slots:
     void start();
     void stop();
+    void init();
+
   public:
     VolumeWidget(QWidget* parent = 0, SoundClient::SoundClientPriority inputPriority = SoundClient::Normal);
     void enablePrompt(bool enabled);
     ~VolumeWidget();
-
-    void init();
-
 };
 #endif

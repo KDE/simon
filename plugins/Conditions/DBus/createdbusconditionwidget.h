@@ -42,7 +42,7 @@ class CreateDBusConditionWidget : public CreateConditionWidget
     bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
-    explicit CreateDBusConditionWidget(CompoundCondition *compoundCondition, QWidget *parent=0);
+    explicit CreateDBusConditionWidget( QWidget* parent = 0 );
 
     virtual ~CreateDBusConditionWidget();
 

@@ -20,13 +20,33 @@
 #include "compoundcondition.h"
 #include "contextmanager.h"
 
+#include <QFont>
+#include <KColorScheme>
 #include <KDebug>
 
 CompoundCondition::CompoundCondition(QObject *parent) :
-    QObject(parent)
+    QAbstractItemModel(parent)
 {
-    m_proxy = new CompoundConditionModel(this);
     m_satisfied = true;
+}
+
+CompoundCondition::CompoundCondition(const CompoundCondition& other) : QAbstractItemModel(((const QObject&) other).parent())
+{
+    foreach (Condition *condition, m_conditions)
+        ContextManager::instance()->refCondition(condition);
+}
+
+CompoundCondition& CompoundCondition::operator=(const CompoundCondition& other)
+{
+    foreach (Condition *condition, m_conditions)
+        ContextManager::instance()->refCondition(condition);
+  return *this;
+}
+
+CompoundCondition::~CompoundCondition()
+{
+    foreach (Condition *condition, m_conditions)
+        ContextManager::instance()->releaseCondition(condition);
 }
 
 CompoundCondition* CompoundCondition::createInstance(const QDomElement &elem)
@@ -57,13 +77,13 @@ bool CompoundCondition::addCondition(Condition *condition)
     if (!condition)
         return false;
 
+    beginInsertRows(QModelIndex(), m_conditions.count(), m_conditions.count());
     m_conditions.push_back(condition);
+    endInsertRows();
     connect(condition, SIGNAL(conditionChanged()),
             this, SLOT(evaluateConditions()));
 
     this->evaluateConditions();
-
-    m_proxy->update();
 
     emit modified();
 
@@ -75,9 +95,14 @@ bool CompoundCondition::removeCondition(Condition *condition)
     if (!condition)
         return false;
 
-    if (!m_conditions.removeOne(condition))
+    int row = m_conditions.indexOf(condition);
+    beginRemoveRows(QModelIndex(), row, row);
+    bool succ = m_conditions.removeOne(condition);
+    endRemoveRows();
+    if (!succ)
     {
         kDebug() << "Condition is not part of the compound condition!";
+        reset();
         return false;
     }
 
@@ -86,8 +111,6 @@ bool CompoundCondition::removeCondition(Condition *condition)
 
     ContextManager::instance()->releaseCondition(condition);
     this->evaluateConditions();
-
-    m_proxy->update();
 
     emit modified();
 
@@ -98,11 +121,14 @@ bool CompoundCondition::deSerialize(const QDomElement &elem)
 {
     QDomElement conditionElem;
     Condition* condition;
-    ContextManager* manager;
+    ContextManager* manager = ContextManager::instance();
 
-    manager = ContextManager::instance();
+    beginResetModel();
 
+    QList<Condition*> oldConditions = m_conditions;
+    m_conditions.clear();
     conditionElem = elem.firstChildElement("condition");
+    bool allOkay = true;
     while(!conditionElem.isNull())
     {
         //get condition from the condition dom element
@@ -112,23 +138,25 @@ bool CompoundCondition::deSerialize(const QDomElement &elem)
         if (condition == NULL)
         {
             kDebug() << "Error: Invalid Condition within CompoundCondition!";
-            return false;
+            allOkay = false;
+        } else {
+            //connect condition to the evaluateConditions slot
+            connect(condition, SIGNAL(conditionChanged()),
+                    this, SLOT(evaluateConditions()));
+
+            //add the condition to the conditions list
+            m_conditions.push_back(condition);
         }
-
-        //connect condition to the evaluateConditions slot
-        connect(condition, SIGNAL(conditionChanged()),
-                this, SLOT(evaluateConditions()));
-
-        //add the condition to the conditions list
-        m_conditions.push_back(condition);
 
         //get next condition element
         conditionElem = conditionElem.nextSiblingElement("condition");
     }
+    foreach (Condition *condition, oldConditions)
+        manager->releaseCondition(condition);
 
-    m_proxy->update();
+    endResetModel();
 
-    return true;
+    return allOkay;
 }
 
 QDomElement CompoundCondition::serialize(QDomDocument *doc)
@@ -139,8 +167,6 @@ QDomElement CompoundCondition::serialize(QDomDocument *doc)
     {
         elem.appendChild(condition->serialize(doc));
     }
-
-    m_proxy->update();
 
     return elem;
 }
@@ -156,7 +182,6 @@ void CompoundCondition::evaluateConditions()
             if (!condition->isSatisfied())
             {
                 m_satisfied = false;
-                //m_proxy->update();
                 kDebug() << "CompoundCondition is not satisfied!";
                 emit conditionChanged(m_satisfied);
 
@@ -177,10 +202,89 @@ void CompoundCondition::evaluateConditions()
         }
 
         m_satisfied = true;
-        //m_proxy->update();
         kDebug() << "CompoundCondition is satisfied!";
         emit conditionChanged(m_satisfied);
     }
-
-    m_proxy->update();
 }
+
+QVariant CompoundCondition::data(const QModelIndex &index, int role) const
+{
+  if (!index.isValid()) return QVariant();
+
+  if (!m_conditions.at(index.row()))
+    return QVariant();
+
+  if (index.column() == 0)
+  {
+      if (role == Qt::DisplayRole)
+          return  m_conditions.at(index.row())->name();
+      else if (role == Qt::FontRole && !m_conditions.at(index.row())->isSatisfied())
+      {
+          QFont font;
+          font.setItalic(true);
+          return font;
+      }
+      else if (role == Qt::ForegroundRole && !m_conditions.at(index.row())->isSatisfied())
+          return KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText);
+  }
+
+  return QVariant();
+}
+
+
+int CompoundCondition::rowCount(const QModelIndex &parent) const
+{
+  if (!parent.isValid())
+    return m_conditions.count();
+  else return 0;
+}
+
+
+QModelIndex CompoundCondition::index(int row, int column, const QModelIndex &parent) const
+{
+    if (!hasIndex(row, column, parent) || parent.isValid())
+        return QModelIndex();
+
+    return createIndex(row, column, m_conditions.at(row));
+}
+
+
+Qt::ItemFlags CompoundCondition::flags(const QModelIndex &index) const
+{
+  if (!index.isValid())
+    return 0;
+
+  return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+}
+
+
+QVariant CompoundCondition::headerData(int column, Qt::Orientation orientation,
+                                            int role) const
+{
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+    {
+        switch (column)
+        {
+        case 0:
+            return i18n("Condition");
+        }
+    }
+
+  //default
+  return QVariant();
+}
+
+
+QModelIndex CompoundCondition::parent(const QModelIndex &index) const
+{
+  Q_UNUSED(index);
+  return QModelIndex();
+}
+
+
+int CompoundCondition::columnCount(const QModelIndex &parent) const
+{
+  Q_UNUSED(parent);
+  return 1;
+}
+

@@ -33,9 +33,9 @@ OrConditionAssociation::OrConditionAssociation(QObject *parent, const QVariantLi
     m_pluginName = "simonorconditionassociationplugin.desktop";
 }
 
-CreateConditionWidget* OrConditionAssociation::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)
+CreateConditionWidget* OrConditionAssociation::getCreateConditionWidget(QWidget* parent)
 {
-    return new CreateOrConditionAssociationWidget(compoundCondition, parent);
+    return new CreateOrConditionAssociationWidget(parent);
 }
 
 QString OrConditionAssociation::name()

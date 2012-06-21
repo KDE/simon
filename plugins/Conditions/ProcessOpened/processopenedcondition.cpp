@@ -35,9 +35,9 @@ ProcessOpenedCondition::ProcessOpenedCondition(QObject *parent, const QVariantLi
     m_pluginName = "simonprocessopenedconditionplugin.desktop";
 }
 
-CreateConditionWidget* ProcessOpenedCondition::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)
+CreateConditionWidget* ProcessOpenedCondition::getCreateConditionWidget(QWidget* parent)
 {
-    return new CreateProcessOpenedConditionWidget(compoundCondition, parent);
+    return new CreateProcessOpenedConditionWidget(parent);
 }
 
 QDomElement ProcessOpenedCondition::privateSerialize(QDomDocument *doc, QDomElement elem)

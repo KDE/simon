@@ -22,6 +22,7 @@
 
 #include <QWizardPage>
 #include <QStringList>
+#include <simonscenarios/promptstable.h>
 
 class TrainSamplePage;
 
@@ -61,9 +62,7 @@ class AddWordRecordPage : public QWizardPage
     bool stickSample;
 
   public:
-    QStringList getFileNames();
-    QString getSampleGroup();
-    QString getPrompt();
+    PromptsTable getPrompts() const;
     void keepSample() { stickSample = true; }
     void cleanUp();
     void cleanupPage();

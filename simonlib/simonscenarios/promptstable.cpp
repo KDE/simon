@@ -21,12 +21,8 @@
 #include "promptstable.h"
 #include "word.h"
 #include "speechmodelmanagementconfiguration.h"
+#include <QFile>
 #include <KDebug>
-
-PromptsTable::PromptsTable(QObject *parent) :
-    QObject(parent)
-{
-}
 
 bool PromptsTable::init(const QString& path)
 {
@@ -137,6 +133,13 @@ void PromptsTable::insert(const QString &sample, const QString &sampleGroup, con
 {
     m_wordBySample.insert(sample, word);
     m_groupBySample.insert(sample, sampleGroup);
+}
+
+bool PromptsTable::merge(const PromptsTable& other)
+{
+  m_wordBySample.unite(other.m_wordBySample);
+  m_groupBySample.unite(other.m_groupBySample);
+  return true;
 }
 
 bool PromptsTable::clear()
