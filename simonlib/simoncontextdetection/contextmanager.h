@@ -89,6 +89,9 @@ public:
     /// Return the active sample group condition object
     SampleGroupCondition* getSampleGroupCondition() {return m_sampleGroupCondition;}
     
+    
+    /// Call this to let the context manager know that copied a reference to the condition
+    void refCondition(Condition *c);
     /// Call this to let the context manager know that you don't longer hold a reference to the condition
     void releaseCondition(Condition *c);
     QStringList getDeactivatedSampleGroups();

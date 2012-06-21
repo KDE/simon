@@ -72,8 +72,6 @@ bool CreateOrConditionAssociationWidget::init(Condition *condition)
 {
   Q_ASSERT(condition);
 
-    kDebug() << "Initializing the create or condition association widget";
-
   OrConditionAssociation *orConditionAssociation = dynamic_cast<OrConditionAssociation*>(condition);
   if (!orConditionAssociation) return false;
 
@@ -87,6 +85,7 @@ bool CreateOrConditionAssociationWidget::init(Condition *condition)
 
   foreach(Condition* associationCondition, associationConditions)
   {
+      ContextManager::instance()->refCondition(associationCondition);
       m_compoundAssociationCondition->addCondition(associationCondition);
   }
 

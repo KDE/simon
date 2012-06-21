@@ -149,6 +149,11 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
     return condition;
 }
 
+void ContextManager::refCondition ( Condition* c )
+{
+  incrementRefCount(c);
+}
+
 void ContextManager::releaseCondition ( Condition* c )
 {
   decrementRefCount(c);
@@ -164,6 +169,7 @@ void ContextManager::incrementRefCount ( Condition* c )
 
 void ContextManager::decrementRefCount ( Condition* c )
 {
+  kDebug() << "Decrementing ref counter for: " << c->name();
   int refCount = m_conditionReferenceCounter.value(c, 0);
   --refCount;
   kDebug() << "New ref count: " << refCount;

@@ -30,6 +30,19 @@ CompoundCondition::CompoundCondition(QObject *parent) :
     m_satisfied = true;
 }
 
+CompoundCondition::CompoundCondition(const CompoundCondition& other) : QAbstractItemModel(((const QObject&) other).parent())
+{
+    foreach (Condition *condition, m_conditions)
+        ContextManager::instance()->refCondition(condition);
+}
+
+CompoundCondition& CompoundCondition::operator=(const CompoundCondition& other)
+{
+    foreach (Condition *condition, m_conditions)
+        ContextManager::instance()->refCondition(condition);
+  return *this;
+}
+
 CompoundCondition::~CompoundCondition()
 {
     foreach (Condition *condition, m_conditions)

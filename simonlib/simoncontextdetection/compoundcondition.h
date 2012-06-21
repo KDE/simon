@@ -53,6 +53,9 @@ class SIMONCONTEXTDETECTION_EXPORT CompoundCondition : public QAbstractItemModel
 {
     Q_OBJECT
 public:
+    CompoundCondition (const CompoundCondition& other);
+    CompoundCondition& operator=(const CompoundCondition& other);
+    
     /**
      * \brief The current satisfaction of the CompoundCondition
      *

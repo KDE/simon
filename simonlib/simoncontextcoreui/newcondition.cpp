@@ -78,11 +78,10 @@ void NewCondition::init(Condition *condition)
   bool found=false;
   int i=0;
   foreach (CreateConditionWidget *widget, m_conditionCreators) {
-    if (widget->isInstanceOfSameCondition(condition)) {
-      widget->init(condition);
+    if (widget->init(condition)) {
       found=true;
       ui->cbType->setCurrentIndex(i);
-      break;
+//       break; Init to all conditions that match
     }
     i++;
   }
