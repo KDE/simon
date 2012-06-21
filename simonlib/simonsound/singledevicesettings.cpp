@@ -48,7 +48,7 @@ m_defaultSampleGroup(defaultSampleGroup)
   if (!(availableUses & SimonSound::Training))
     ui->cbTraining->hide();
   if (!(availableUses & SimonSound::Recognition))
-    ui->cbRecognition->hide();
+    ui->wgRecognition->hide();
 
 #ifndef HAVE_LIBSAMPLERATE_H
   ui->sbResampleSampleRate->hide();
@@ -62,6 +62,10 @@ m_defaultSampleGroup(defaultSampleGroup)
 
   ui->pbTest->setIcon(KIcon("help-hint"));
   ui->pbRemove->setIcon(KIcon("list-remove"));
+  ui->pbAdvancedConfiguration->setIcon(KIcon("configure"));
+  ui->pbAddCondition->setIcon(KIcon("list-add"));
+  ui->pbEditCondition->setIcon(KIcon("document-edit"));
+  ui->pbRemoveCondition->setIcon(KIcon("list-remove"));
 
   if (!(options & SimonSound::Removable))
     ui->pbRemove->hide();
@@ -84,7 +88,6 @@ m_defaultSampleGroup(defaultSampleGroup)
   
   ui->wgAdvancedOptions->hide();
 }
-
 
 void SingleDeviceSettings::sendRemoveRequest()
 {
@@ -129,6 +132,8 @@ QString defaultSampleGroup)
   ui->sbResampleSampleRate->setValue(resampleSampleRate);
 
   ui->cbRecognition->setChecked(m_uses & SimonSound::Recognition);
+  ui->wgRecognitionConditions->setEnabled(ui->cbRecognition->isChecked());
+  
   ui->cbTraining->setChecked(m_uses & SimonSound::Training);
 
   ui->leSampleGroup->setText(defaultSampleGroup);
