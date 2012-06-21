@@ -19,7 +19,7 @@
 
 #include "contextviewprivate.h"
 #include <simonscenarios/scenario.h>
-#include "newcondition.h"
+#include <simoncontextcoreui/newcondition.h>
 #include "simoncontextdetection/contextmanager.h"
 
 #include <QWidget>
