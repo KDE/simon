@@ -19,7 +19,7 @@
 
 #include "createorconditionassociationwidget.h"
 #include "orconditionassociation.h"
-#include "newassociationcondition.h"
+#include <simoncontextcoreui/newcondition.h>
 
 #include <simoncontextdetection/contextmanager.h>
 
@@ -132,7 +132,7 @@ Condition* CreateOrConditionAssociationWidget::getCurrentCondition()
 
 void CreateOrConditionAssociationWidget::addAssociationCondition()
 {
-    NewAssociationCondition *associationConditionDlg = new NewAssociationCondition(this);
+    NewCondition *associationConditionDlg = new NewCondition(this);
     QList<CreateConditionWidget*> widgets;
     QList<Condition*> conditions;
     ContextManager* manager = ContextManager::instance();
@@ -145,7 +145,7 @@ void CreateOrConditionAssociationWidget::addAssociationCondition()
     }
 
     associationConditionDlg->registerCreators(widgets);
-    Condition *c = associationConditionDlg->newAssociationCondition();
+    Condition *c = associationConditionDlg->newCondition();
     delete associationConditionDlg;
     if (c)
       m_compoundAssociationCondition->addCondition(c);
@@ -174,10 +174,10 @@ void CreateOrConditionAssociationWidget::editAssociationCondition()
     }
 
     //prepare the edit condition dialog and launch it
-    NewAssociationCondition *editCondition = new NewAssociationCondition(this);
+    NewCondition *editCondition = new NewCondition(this);
     editCondition->registerCreators(widgets);
     editCondition->init(condition);
-    Condition *c = editCondition->newAssociationCondition();
+    Condition *c = editCondition->newCondition();
 
     //on confirmation of the edit, the old condition is deleted and the new one made by the NewCondition replaces it
     if (c)
