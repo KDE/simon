@@ -28,22 +28,23 @@ class FaceAnalyzer;
 
 class FaceDetectionCondition : public Condition
 {
-    Q_OBJECT
-public:
-    explicit FaceDetectionCondition(QObject *parent, const QVariantList& args);
-    ~FaceDetectionCondition();
-    virtual QString name();
+  Q_OBJECT
 
-    virtual CreateConditionWidget* getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent);
+public:
+  explicit FaceDetectionCondition(QObject *parent, const QVariantList& args);
+  ~FaceDetectionCondition();
+  virtual QString name();
+
+  virtual CreateConditionWidget* getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent);
 
 private:
-    bool privateDeSerialize(QDomElement elem);
-    QDomElement privateSerialize(QDomDocument *doc, QDomElement elem);
-    FaceAnalyzer* analyzer;
+  bool privateDeSerialize(QDomElement elem);
+  QDomElement privateSerialize(QDomDocument *doc, QDomElement elem);
+  FaceAnalyzer* analyzer;
 
 public slots:
-    // Slot is connect to the signal in the Analyzer which will be emmitted when there will be any change the presense of user (hasFace)
-    void manageConditionState(bool hasFace);
+  // Slot is connect to the signal in the Analyzer which will be emmitted when there will be any change the presense of user (hasFace)
+  void manageConditionState(bool hasFace);
 
 };
 

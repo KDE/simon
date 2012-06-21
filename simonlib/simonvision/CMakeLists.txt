@@ -28,7 +28,7 @@ mark_as_advanced("${SIMONCV_PACKAGE}")
 
 kde4_add_library(simonvision  SHARED ${simonvision_LIB_SRCS} )
 
-target_link_libraries(simonvision ${KDE4_KPARTS_LIBS} ${KDE4_KDECORE_LIBS}  ${OpenCV_LIBS} ${QT_LIBRARIES})
+target_link_libraries(simonvision ${KDE4_KPARTS_LIBS} ${KDE4_KDECORE_LIBS} cv highgui cxcore ${OpenCV_LIBS} ${QT_LIBRARIES})
 
 
 set_target_properties( simonvision

@@ -33,36 +33,36 @@ class SIMONVISION_EXPORT WebcamDispatcher : public QThread
 
 
 public:
-    WebcamDispatcher() {};
+  WebcamDispatcher() {};
 
-    ~WebcamDispatcher();
+  ~WebcamDispatcher();
 
-    static void registerAnalyzer(ImageAnalyzer* analyzer);
+  static void registerAnalyzer(ImageAnalyzer* analyzer);
 
-    static void unregisterAnalyzer(ImageAnalyzer* analyzer);
+  static void unregisterAnalyzer(ImageAnalyzer* analyzer);
 
 
 private:
 
-    // Webcam disptacher will be initialized when there is atleast on Analyzer registered
-    void initWebcamDispatcher();
+  // Webcam disptacher will be initialized when there is atleast on Analyzer registered
+  void initWebcamDispatcher();
 
-    // Webcam disptacher will be closed when there is no Analyzer registered
-    void closeWebcamDispatcher();
+  // Webcam disptacher will be closed when there is no Analyzer registered
+  void closeWebcamDispatcher();
 
-    // This method will get the live frames from the webcam
-    IplImage* nextVideoFrame();
+  // This method will get the live frames from the webcam
+  IplImage* nextVideoFrame();
 
-    // This is the list of all the analyzers which are registered
-    QList<ImageAnalyzer*> analyzers;
+  // This is the list of all the analyzers which are registered
+  QList<ImageAnalyzer*> analyzers;
 
-    // This is method implemented from QThread, Here we will be sending live feed to the analyzers
-    void run();
+  // This is method implemented from QThread, Here we will be sending live feed to the analyzers
+  void run();
 
-    // Using Singleton pattern
-    static WebcamDispatcher* instance;
+  // Using Singleton pattern
+  static WebcamDispatcher* instance;
 
-    bool shouldBeRunning;
+  bool shouldBeRunning;
 };
 
 #endif // WEBCAMDISPATCHER_H

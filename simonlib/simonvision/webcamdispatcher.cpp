@@ -1,106 +1,144 @@
-#include "webcamdispatcher.h"
-#include <KDE/KDebug>
-#include<QThread>
+/*
+ *   Copyright (C) 2012 Yash Shah <blazonware@gmail.com>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
+#include "webcamdispatcher.h"
+#include <KDebug>
+#include<QThread>
+#include<highgui.h>
+#include<cv.h>
 CvCapture* capture=0;
-IplImage* liveFrame=0;
 QList<ImageAnalyzer*> analyzers = QList<ImageAnalyzer*>();
 WebcamDispatcher* WebcamDispatcher::instance = new WebcamDispatcher;
-bool shouldBeRunning = true;
+bool shouldBeRunning = false;
 
 using namespace cv;
 
 void WebcamDispatcher::initWebcamDispatcher()
 {
 
-    // Initialize video capture
-    capture = cvCaptureFromCAM( CV_CAP_ANY );
+  // Initialize video capture
+  capture = cvCaptureFromCAM(CV_CAP_ANY);
 //    capture = cvCaptureFromCAM( 0 );
-    if ( !capture )
-    {
-        kDebug() << "Failed to initialize video capture\n ";
-    }
 
+  if (!capture)
+  {
+    kDebug() << "Failed to initialize video capture\n ";
+  }
 
-    return;
+  instance->shouldBeRunning = true;
+
+  instance->start();
+  return;
 }
 
 void WebcamDispatcher::closeWebcamDispatcher()
 {
-    // Terminate video capture and free capture resources
-    cvReleaseCapture( &capture );
-    return;
+  // Terminate video capture and free capture resources
+  cvReleaseCapture(&capture);
+  kDebug() << "Webcam Dispatcher closed!\n ";
+  return;
 }
+
 void WebcamDispatcher::registerAnalyzer(ImageAnalyzer* analyzer)
 {
+  kDebug() << "Registering analyzer\n ";
 
-    instance->analyzers.append(analyzer);
-    if (instance->analyzers.count()==1)
-    {
-        instance->shouldBeRunning = true;
-        instance->start();
-    }
+  instance->analyzers.append(analyzer);
+
+  if (instance->analyzers.count() ==1)
+  {
+    instance->initWebcamDispatcher();
+  }
 
 }
 
 void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
 {
-    // Setting the AnalyzerId of the last analyzer in the QList with the Analyzer to be unregistered
-    // This will keep the index at QList and AnalyzerId same
-//     WebcamDispatcher::analyzers.at(analyzers.count()-1)->setAnalyzerId(analyzer->getAnalyzerId());
+  kDebug() << "Unregistering analyzer\n ";
 
-//     WebcamDispatcher::analyzers.removeAt(analyzer->getAnalyzerId());
-    for (int i=0;i<instance->analyzers.count();i++)
+  for (int i=0;i<instance->analyzers.count();i++)
+  {
+    if (analyzer==instance->analyzers.at(i))
     {
-        if (analyzer==instance->analyzers.at(i))
-        {
-            instance->analyzers.removeAt(i);
-        }
-
+      kDebug() << "Instanced removed\n ";
+      instance->analyzers.removeAt(i);
     }
 
-    if (instance->analyzers.count()==0)
-    {
-        instance->shouldBeRunning = false;
-        instance->closeWebcamDispatcher();
-    }
+  }
+
+  if (instance->analyzers.count() ==0)
+  {
+    instance->shouldBeRunning = false;
+    instance->closeWebcamDispatcher();
+  }
 
 }
 
 IplImage* WebcamDispatcher::nextVideoFrame()
 {
-    liveFrame = cvQueryFrame( capture );
+  IplImage* liveFrame = cvQueryFrame(capture);
 
-    // If we couldn't grab a frame... quit
-    if ( !liveFrame ) {
-        kDebug() << "Failed to get the live video frame\n";
-        return NULL;
-    }
+  // If we couldn't grab a frame... quit
+
+  if (!liveFrame)
+  {
+    kDebug() << "Failed to get the live video frame\n";
+//       return NULL;
+  }
+
 //    cvFlip( liveFrame, 0, 1 );
-
-
-
-    return liveFrame;
+  return liveFrame;
 }
 
 
 void WebcamDispatcher::run()
 {
-    initWebcamDispatcher();
 
-    while (shouldBeRunning)
+//    cvNamedWindow("Testing");
+
+  while (shouldBeRunning)
+  {
+    foreach(ImageAnalyzer* analyzer,analyzers)
     {
-        foreach(ImageAnalyzer* analyzer,analyzers)
-        {
-            analyzer->analyze(nextVideoFrame());
-        }
+//    cvShowImage("Testing", nextVideoFrame() );
+      analyzer->analyze(nextVideoFrame());
     }
+  }
+
+//     CvCapture* camera = 0;
+//     camera = cvCreateCameraCapture(0);
+//
+
+//
+//     while (true)
+//     {
+//         IplImage* image=cvQueryFrame(camera);
+//         cvShowImage("Testing", image );
+//         //If ESC key pressed, break
+//         if ( (cvWaitKey(10) & 255) == 27 ) break;
+//     }
+//     cvReleaseCapture( &camera );
+//     cvDestroyWindow( "Testing" );
+
 }
 
 WebcamDispatcher::~WebcamDispatcher()
 {
 
 }
-
-
-

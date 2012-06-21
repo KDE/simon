@@ -29,26 +29,27 @@
 #include "ui_createfacedetectionconditionwidget.h"
 
 class Condition;
+
 class CompoundCondition;
 
 
 class CreateFaceDetectionConditionWidget : public CreateConditionWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
 private:
-    Ui::CreateFaceDetectionConditionWidget ui;
+  Ui::CreateFaceDetectionConditionWidget ui;
 
 public:
-    Condition* createCondition();
+  Condition* createCondition();
 
-    bool init(Condition* condition);
-    bool isInstanceOfSameCondition(Condition *condition);
-    bool isComplete();
+  bool init(Condition* condition);
+  bool isInstanceOfSameCondition(Condition *condition);
+  bool isComplete();
 
-    explicit CreateFaceDetectionConditionWidget(CompoundCondition *compoundCondition, QWidget *parent=0);
+  explicit CreateFaceDetectionConditionWidget(CompoundCondition *compoundCondition, QWidget *parent=0);
 
-    virtual ~CreateFaceDetectionConditionWidget();
+  virtual ~CreateFaceDetectionConditionWidget();
 
 };
 #endif

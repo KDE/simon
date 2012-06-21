@@ -1,3 +1,22 @@
+/*
+ *   Copyright (C) 2012 Yash Shah <blazonware@gmail.com>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 #ifndef FACEANALYZER_H
 #define FACEANALYZER_H
 #include "simonvision_export.h"
@@ -5,29 +24,19 @@
 
 class SIMONVISION_EXPORT FaceAnalyzer : public ImageAnalyzer
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    FaceAnalyzer();
-    void analyze(IplImage* currentImage);
-    
+  FaceAnalyzer();
+  virtual ~FaceAnalyzer();
+  void analyze(IplImage* currentImage);
+
 signals:
-    void facePresenceChanged(bool hasFace);
+  void facePresenceChanged(bool hasFaceNew);
 
 private:
-    bool hasFace;
-    bool isChanged(bool hasFace);
-/*
-    // Parameter settings
-    void setVmin(int vmin);
-    void setSmin(int smin);
-
-    // Main Control functions
-    int     createTracker(const IplImage * pImg);
-    void    releaseTracker();
-    void    startTracking(IplImage * pImg, CvRect * pRect);
-    CvBox2D track(IplImage *);
-*/
+  bool hasFace;
+  void isChanged(bool hasFace);
 };
 
 #endif // FACEANALYZER_H
