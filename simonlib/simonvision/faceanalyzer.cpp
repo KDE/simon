@@ -22,11 +22,9 @@
 #include "webcamdispatcher.h"
 
 //// Constants
-const char * DISPLAY_WINDOW = "DisplayWindow";
 #define OPENCV_ROOT  ""
 
 using namespace std;
-IplImage* myimage; 
 //// Global variables
 IplImage  * pVideoFrameCopy = 0;
 
@@ -45,10 +43,6 @@ FaceAnalyzer::FaceAnalyzer()
   if (!initFaceDet(OPENCV_ROOT
                    "haarcascade_frontalface_default.xml"))
     kDebug() <<"Error finding haarcascade_frontalface_default.xml file";
-
-  cvNamedWindow("Smile", 1); 
-  // Create the display window
-  cvNamedWindow(DISPLAY_WINDOW, 1);
 }
 
 int initFaceDet(const char *haarCascadePath)
@@ -99,7 +93,6 @@ void FaceAnalyzer::analyze(IplImage* currentImage)
   //     cvFlip ( pVideoFrameCopy, 0, 0 );
   //     pVideoFrameCopy->origin = 0;
   //   }
-  cvShowImage(DISPLAY_WINDOW, pVideoFrameCopy);
 
   pFaceRect = detectFace(pVideoFrameCopy);
 
@@ -146,12 +139,7 @@ void FaceAnalyzer::isChanged(bool hasFaceNew)
 {
   if (!hasFace == hasFaceNew)
   {
-//     if(hasFaceNew)      
-//       myimage = cvLoadImage("happy.jpg",1);
-//     else
-//       myimage = cvLoadImage("sad.jpg",1); 
-//     cvShowImage("Smile", myimage); 
-    emit facePresenceChanged(hasFace);
+    emit facePresenceChanged(hasFaceNew);
   }
 
   hasFace = hasFaceNew;
@@ -163,10 +151,8 @@ FaceAnalyzer::~FaceAnalyzer()
   kDebug()<<"Destroying Face Analyzer";
   WebcamDispatcher::unregisterAnalyzer(this);
   // Release resources allocated in this file
-  cvDestroyWindow(DISPLAY_WINDOW);
   cvReleaseImage(&pVideoFrameCopy);
-//   cvDestroyWindow( "Smile" ); 
-//   cvReleaseImage( &myimage ); 
+  cvDestroyWindow( "Smile" ); 
   
   // Release resources allocated
   closeFaceDet();
