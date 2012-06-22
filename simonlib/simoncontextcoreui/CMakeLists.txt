@@ -6,15 +6,18 @@ include(KDE4Defaults)
 
 set( simoncontextcoreui_LIB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/newcondition.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/compoundconditionsettings.cpp
 )
 
 set( simoncontextcoreui_LIB_HDRS
         ${CMAKE_CURRENT_SOURCE_DIR}/newcondition.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/compoundconditionsettings.h
         ${CMAKE_CURRENT_SOURCE_DIR}/simoncontextcoreui_export.h
 )
 
 kde4_add_ui_files( simoncontextcoreui_LIB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/modifycondition.ui
+        ${CMAKE_CURRENT_SOURCE_DIR}/compoundconditionsettings.ui
 )
 
 kde4_add_library( simoncontextcoreui  SHARED ${simoncontextcoreui_LIB_SRCS} )
