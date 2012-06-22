@@ -30,6 +30,11 @@ CompoundCondition::CompoundCondition(QObject *parent) :
     m_satisfied = true;
 }
 
+QDomElement CompoundCondition::createEmpty(QDomDocument *doc)
+{
+    return doc->createElement("compoundcondition");
+}
+
 CompoundCondition::CompoundCondition(const CompoundCondition& other) : QAbstractItemModel(((const QObject&) other).parent())
 {
     foreach (Condition *condition, m_conditions)
@@ -38,9 +43,10 @@ CompoundCondition::CompoundCondition(const CompoundCondition& other) : QAbstract
 
 CompoundCondition& CompoundCondition::operator=(const CompoundCondition& other)
 {
+    Q_UNUSED(other);
     foreach (Condition *condition, m_conditions)
         ContextManager::instance()->refCondition(condition);
-  return *this;
+    return *this;
 }
 
 CompoundCondition::~CompoundCondition()
@@ -65,11 +71,6 @@ CompoundCondition* CompoundCondition::createInstance(const QDomElement &elem)
     instance->evaluateConditions();
 
     return instance;
-}
-
-QDomElement CompoundCondition::createEmpty(QDomDocument *doc)
-{
-    return doc->createElement("compoundcondition");
 }
 
 bool CompoundCondition::addCondition(Condition *condition)

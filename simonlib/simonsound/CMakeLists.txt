@@ -132,16 +132,16 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 if(LIBSAMPLERATE_FOUND)
   message(STATUS "Enabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
-  simonlogging simonuicomponents
-  simonwav
+  simonlogging simonuicomponents simoncontextcoreui simoncontextdetection
+  simonwav ${QT_QTXML_LIBRARY}
   ${LIBSAMPLERATE_LIBRARY}
   ${KDE4_KDEUI_LIBS}
 )
 else(LIBSAMPLERATE_FOUND)
   message(STATUS "Disabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
-  simonlogging simonuicomponents
-  simonwav
+  simonlogging simonuicomponents simoncontextcoreui simoncontextdetection
+  simonwav ${QT_QTXML_LIBRARY}
   ${KDE4_KDEUI_LIBS})
 endif(LIBSAMPLERATE_FOUND)
 
