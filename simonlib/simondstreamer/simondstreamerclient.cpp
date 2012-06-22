@@ -32,14 +32,15 @@
  * \brief Constructor
  */
 SimondStreamerClient::SimondStreamerClient(qint8 id, SimonSender *s, SimonSound::DeviceConfiguration device, QObject *parent) :
-QObject(parent),
-SoundInputClient(device, SoundClient::Background),
-m_isRunning(false),
-sender(s),
-vad(new VADSoundProcessor(device))
+  QObject(parent),
+  SoundInputClient(device, SoundClient::Background),
+  m_isRunning(false),
+  sender(s),
+  vad(new VADSoundProcessor(device))
 {
   this->id = id;
   registerSoundProcessor(vad);
+  kDebug() << "Got conditions: " << device.conditions();
 }
 
 
