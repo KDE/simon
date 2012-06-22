@@ -19,6 +19,8 @@
 #include "singledevicesettings.h"
 #include "soundserver.h"
 
+#include <simoncontextdetection/compoundcondition.h>
+
 #include <KMessageBox>
 #include <KIcon>
 
@@ -28,18 +30,19 @@
 #include "ui_singledeviceconfiguration.h"
 
 SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels,
-int sampleRate, bool resampleEnabled, int resampleSampleRate, SimonSound::SoundDeviceUses selectedUses, 
-SimonSound::SoundDeviceUses availableUses,
-QString defaultSampleGroup,
-SimonSound::SoundDeviceOptions options,
-QWidget* parent): QWidget(parent),
-enabled(true),
-hasChanged(true),
-m_type(type),
-m_deviceName(deviceName),
-m_uses(selectedUses),
-m_options(options),
-m_defaultSampleGroup(defaultSampleGroup)
+                                            int sampleRate, bool resampleEnabled, int resampleSampleRate, 
+                                            SimonSound::SoundDeviceUses selectedUses, SimonSound::SoundDeviceUses availableUses,
+                                            QString defaultSampleGroup, const QString& conditions,
+                                            SimonSound::SoundDeviceOptions options, QWidget* parent) : 
+  QWidget(parent),
+  enabled(true),
+  hasChanged(true),
+  m_type(type),
+  m_deviceName(deviceName),
+  m_uses(selectedUses),
+  m_options(options),
+  m_defaultSampleGroup(defaultSampleGroup),
+  m_conditions(0)
 {
   ui = new Ui::SingleDeviceConfiguration();
 
@@ -63,9 +66,6 @@ m_defaultSampleGroup(defaultSampleGroup)
   ui->pbTest->setIcon(KIcon("help-hint"));
   ui->pbRemove->setIcon(KIcon("list-remove"));
   ui->pbAdvancedConfiguration->setIcon(KIcon("configure"));
-  ui->pbAddCondition->setIcon(KIcon("list-add"));
-  ui->pbEditCondition->setIcon(KIcon("document-edit"));
-  ui->pbRemoveCondition->setIcon(KIcon("list-remove"));
 
   if (!(options & SimonSound::Removable))
     ui->pbRemove->hide();
@@ -84,7 +84,7 @@ m_defaultSampleGroup(defaultSampleGroup)
 
   connect(ui->leSampleGroup, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 
-  load(deviceName, channels, sampleRate, resampleEnabled, resampleSampleRate, defaultSampleGroup);
+  load(deviceName, channels, sampleRate, resampleEnabled, resampleSampleRate, defaultSampleGroup, conditions);
   
   ui->wgAdvancedOptions->hide();
 }
@@ -111,13 +111,13 @@ void SingleDeviceSettings::refreshDevices()
   if (!getDefaultSampleGroup().isEmpty())
       m_defaultSampleGroup = getDefaultSampleGroup();
 
-  load(m_deviceName, getChannels(), getSampleRate(), getResampleEnabled(), getResampleSampleRate(), m_defaultSampleGroup);
+  load(m_deviceName, getChannels(), getSampleRate(), getResampleEnabled(), getResampleSampleRate(), m_defaultSampleGroup, getConditions());
 }
 
 
-void SingleDeviceSettings::load(QString deviceName, int channels,
-int sampleRate, bool resampleEnabled, int resampleSampleRate,
-QString defaultSampleGroup)
+void SingleDeviceSettings::load(const QString& deviceName, int channels,
+                                int sampleRate, bool resampleEnabled, int resampleSampleRate,
+                                const QString& defaultSampleGroup, const QString& conditions)
 {
   ui->cbSoundDevice->clear();
   ui->cbSoundDevice->addItems(SoundServer::getDevices(m_type));
@@ -137,6 +137,21 @@ QString defaultSampleGroup)
   ui->cbTraining->setChecked(m_uses & SimonSound::Training);
 
   ui->leSampleGroup->setText(defaultSampleGroup);
+  
+  //instantiate conditions
+  ui->wgRecognitionConditions->setConditions(0);
+  if (!conditions.isEmpty()) {
+    QDomDocument doc;
+    doc.setContent(conditions.toUtf8());
+    CompoundCondition *temp = m_conditions;
+    m_conditions = CompoundCondition::createInstance(doc.documentElement());
+    temp->deleteLater();
+  } else m_conditions = new CompoundCondition;
+  
+  ui->wgRecognitionConditions->setConditions(m_conditions);
+  
+  if (m_conditions)
+    connect(m_conditions, SIGNAL(modified()), this, SLOT(slotChanged()), Qt::UniqueConnection);
 
   hasChanged=false;
   if ((!deviceName.isEmpty()) &&
@@ -214,13 +229,13 @@ bool SingleDeviceSettings::check()
 }
 
 
-bool SingleDeviceSettings::isEnabled()
+bool SingleDeviceSettings::isEnabled() const
 {
   return enabled;
 }
 
 
-QString SingleDeviceSettings::getSelectedDeviceId()
+QString SingleDeviceSettings::getSelectedDeviceId() const
 {
   if (!isEnabled())
     return m_deviceName;
@@ -229,25 +244,25 @@ QString SingleDeviceSettings::getSelectedDeviceId()
 }
 
 
-int SingleDeviceSettings::getSampleRate()
+int SingleDeviceSettings::getSampleRate() const
 {
   return ui->sbSampleRate->value();
 }
 
 
-int SingleDeviceSettings::getChannels()
+int SingleDeviceSettings::getChannels() const
 {
   return ui->sbChannels->value();
 }
 
 
-SimonSound::SoundDeviceType SingleDeviceSettings::getType()
+SimonSound::SoundDeviceType SingleDeviceSettings::getType() const
 {
   return m_type;
 }
 
 
-SimonSound::SoundDeviceUses SingleDeviceSettings::getUses()
+SimonSound::SoundDeviceUses SingleDeviceSettings::getUses() const
 {
   SimonSound::SoundDeviceUses uses = SimonSound::None;
   if (ui->cbRecognition->isChecked())
@@ -258,7 +273,7 @@ SimonSound::SoundDeviceUses SingleDeviceSettings::getUses()
   return uses;
 }
 
-QString SingleDeviceSettings::getDefaultSampleGroup()
+QString SingleDeviceSettings::getDefaultSampleGroup() const
 {
     if (!isEnabled())
       return m_defaultSampleGroup;
@@ -273,14 +288,24 @@ void SingleDeviceSettings::slotChanged()
   emit changed(true);
 }
 
-bool SingleDeviceSettings::getResampleEnabled()
+bool SingleDeviceSettings::getResampleEnabled() const
 {
   return ui->cbResample->isChecked();
 }
 
-int SingleDeviceSettings::getResampleSampleRate()
+int SingleDeviceSettings::getResampleSampleRate() const
 {
   return ui->sbResampleSampleRate->value();
+}
+
+QString SingleDeviceSettings::getConditions() const
+{
+  if (!m_conditions) return QString();
+  
+  QDomDocument doc;
+  QDomElement elem = m_conditions->serialize(&doc);
+  doc.appendChild(elem);
+  return doc.toString();
 }
 
 SingleDeviceSettings::~SingleDeviceSettings()

@@ -43,6 +43,9 @@
        <default code="true">QStringList() &lt;&lt; SoundServer::defaultSampleGroup()</default>
        <tooltip>The sample groups used for grouping recordings.</tooltip>
      </entry>
+    <entry name="SoundInputConditions" type="StringList">
+       <default code="true">QStringList() &lt;&lt; QString()</default>
+     </entry>
 
     <entry name="SoundOutputDevices" type="StringList">
       <label>The audio devices used for playback.</label>
@@ -69,6 +72,9 @@
       <default code="true">QList&lt;int&gt;() &lt;&lt; (int) (SimonSound::Training|SimonSound::Recognition)</default>
       <tooltip>What the devices are going to be used for.</tooltip>
     </entry>
+    <entry name="SoundOutputConditions" type="StringList">
+       <default code="true">QStringList() &lt;&lt; QString()</default>
+     </entry>
   </group>
 
   <group name="VAD">

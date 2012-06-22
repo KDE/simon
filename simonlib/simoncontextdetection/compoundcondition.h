@@ -52,9 +52,16 @@
 class SIMONCONTEXTDETECTION_EXPORT CompoundCondition : public QAbstractItemModel
 {
     Q_OBJECT
+    
 public:
+    /**
+     * \brief Constructor
+     */
+    explicit CompoundCondition(QObject *parent = 0);
     CompoundCondition (const CompoundCondition& other);
     CompoundCondition& operator=(const CompoundCondition& other);
+    
+    static QDomElement createEmpty(QDomDocument *doc);
     
     /**
      * \brief The current satisfaction of the CompoundCondition
@@ -88,16 +95,6 @@ public:
     static CompoundCondition* createInstance(const QDomElement &elem);
 
     /**
-     * \brief Creates an empty CompoundCondition specification
-     *
-     * This function creates an empty CompoundCondition specification in the
-     * form of a QDomElement using the QDomDocument \var doc.
-     *
-     * \return A QDomElement specifying an empty CompoundCondition
-     */
-    static QDomElement createEmpty(QDomDocument *doc);
-
-    /**
      * \brief Adds a Condition to the CompoundCondition
      *
      * Adds the Condition \var condition to the CompoundCondition
@@ -125,10 +122,6 @@ public:
     QList<Condition*> getConditions() {return m_conditions;}
 
 private:
-    /**
-     * \brief Constructor
-     */
-    explicit CompoundCondition(QObject *parent = 0);
     ~CompoundCondition();
 
     /**

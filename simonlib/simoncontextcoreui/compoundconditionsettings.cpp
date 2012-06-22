@@ -58,11 +58,15 @@ void CompoundConditionSettings::setConditions ( CompoundCondition* c )
 {
   m_conditions = c;
   conditionsProxy->setSourceModel(c);
+  ui->pbNewCondition->setEnabled(c);
   ui->lvConditions->setCurrentIndex(conditionsProxy->index(0,0));
+  selectionChanged();
 }
 
 Condition* CompoundConditionSettings::getCurrentCondition()
 {
+    if (!m_conditions) return 0;
+    
     QModelIndex index = conditionsProxy->mapToSource(ui->lvConditions->currentIndex());
     if (!index.isValid()) return 0;
 
