@@ -46,7 +46,6 @@ void SimonSender::relayLoudness()
 void SimonSender::clientLoudness(qint8 id, float currentPeak)
 {
   Q_UNUSED(id);
-  kDebug() << "Client: " << id << currentPeak;
   m_currentPeak = qMax(m_currentPeak, currentPeak);
 }
 
