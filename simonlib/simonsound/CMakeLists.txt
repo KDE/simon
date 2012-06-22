@@ -13,8 +13,7 @@ ELSE(UNIX)
   include_directories ( ${DIRECTSOUND_INCLUDE_DIRS} )
 ENDIF(UNIX)
 
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
-  ${QT_MOBILITY_MULTIMEDIAKIT_INCLUDE_DIR} ../)
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}  ../)
 
 if(LIBSAMPLERATE_FOUND)
 include_directories(${LIBSAMPLERATE_INCLUDE_DIR})
