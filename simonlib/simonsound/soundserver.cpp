@@ -410,13 +410,15 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getInputDevices(SimonSound::
   QList<int> soundInputResampleSampleRates = SoundConfiguration::soundInputResampleSampleRates();
   QList<int> soundInputUses = SoundConfiguration::soundInputUses();
   QStringList soundInputDefaultSampleGroups = SoundConfiguration::soundInputDefaultSampleGroups();
+  QStringList soundInputConditions = SoundConfiguration::soundInputConditions();
 
   for (int i=0; i < soundInputDevices.count(); i++) {
     if (!(soundInputUses[i] & uses))
       continue;
 
     devices << SimonSound::DeviceConfiguration(soundInputDevices[i], soundInputChannels[i], soundInputSampleRates[i],
-        soundInputResampleEnabled[i], soundInputResampleSampleRates[i], soundInputDefaultSampleGroups[i]);
+        soundInputResampleEnabled[i], soundInputResampleSampleRates[i], soundInputConditions[i],
+        soundInputDefaultSampleGroups[i]);
   }
 
   return devices;
@@ -432,13 +434,14 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getOutputDevices(SimonSound:
   QList<int> soundOutputSampleRates = SoundConfiguration::soundOutputSampleRates();
   QList<int> soundOutputUses = SoundConfiguration::soundOutputUses();
   QList<int> soundOutputResampleEnabled = SoundConfiguration::soundOutputResampleEnabled();
+  QStringList soundOutputConditions = SoundConfiguration::soundOutputConditions();
 
   for (int i=0; i < soundOutputDevices.count(); i++) {
     if (!(soundOutputUses[i] & uses))
       continue;
 
     devices << SimonSound::DeviceConfiguration(soundOutputDevices[i], soundOutputChannels[i], soundOutputSampleRates[i],
-        soundOutputResampleEnabled[i], 0);
+        soundOutputResampleEnabled[i], 0, soundOutputConditions[i]);
   }
 
   return devices;

@@ -71,12 +71,14 @@ namespace SimonSound
       bool m_resample;
       int m_resampleRate;
       QString m_defaultSampleGroup;
+      QString m_conditions;
 
     public:
       DeviceConfiguration(const QString& name, int channels, int sampleRate,
-          bool resample, int resampleRate, QString defaultSampleGroup=i18n("default")) :
+          bool resample, int resampleRate, const QString& conditions=QString(), const QString& defaultSampleGroup=i18n("default")) :
       m_name(name), m_channels(channels), m_sampleRate(sampleRate),
-      m_resample(resample), m_resampleRate(resampleRate), m_defaultSampleGroup(defaultSampleGroup)
+      m_resample(resample), m_resampleRate(resampleRate), m_defaultSampleGroup(defaultSampleGroup),
+      m_conditions(conditions)
         {}
 
       DeviceConfiguration() :
@@ -90,6 +92,7 @@ namespace SimonSound
       int sampleRate() const { return m_sampleRate; }
       bool resample() const { return m_resample; }
       int resampleSampleRate() const { return m_resampleRate; }
+      QString conditions() const { return m_conditions; }
 
       void setChannels(int channels) { m_channels = channels; }
       void setSampleRate(int sampleRate) { m_sampleRate = sampleRate; }
@@ -99,7 +102,8 @@ namespace SimonSound
       {
         return (m_name == b.name()) && (m_channels == b.channels()) && (m_sampleRate == b.sampleRate()) &&
                 (m_resampleRate == b.resampleSampleRate()) && (m_resample == b.resample()) && 
-                (m_defaultSampleGroup == b.defaultSampleGroup());
+                (m_defaultSampleGroup == b.defaultSampleGroup()) && 
+                (m_conditions == b.conditions());
       }
 
       DeviceConfiguration operator=(const DeviceConfiguration& b) {
@@ -109,6 +113,7 @@ namespace SimonSound
         m_resample = b.resample();
         m_resampleRate = b.resampleSampleRate();
         m_defaultSampleGroup = b.defaultSampleGroup();
+        m_conditions = b.conditions();
         return *this;
       }
   };
