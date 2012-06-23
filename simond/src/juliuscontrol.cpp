@@ -132,6 +132,8 @@ bool JuliusControl::startRecognitionPrivate()
 
 void JuliusControl::recognize(const QString& fileName)
 {
+  if (!shouldBeRunning) return;
+  
   kDebug() << "Recognizing " << fileName;
   
   queueLock.lock();
@@ -182,6 +184,13 @@ bool JuliusControl::stop()
   return stopPrivate();
 }
 
+bool JuliusControl::suspend()
+{
+  bool res = stopPrivate();
+  if (!res) return false;
+  return true;
+}
+
 bool JuliusControl::stopPrivate()
 {
   shouldBeRunning=false;
@@ -195,6 +204,7 @@ bool JuliusControl::stopPrivate()
       wait(500);
     }
   }
+  m_lastModel = QString();
   
   return true;
 }

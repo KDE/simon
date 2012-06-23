@@ -25,8 +25,7 @@
 #include <QFileDialog>
 #include <QStringList>
 
-CreateActiveWindowWidget::CreateActiveWindowWidget(CompoundCondition *compoundCondition,
-QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
+CreateActiveWindowWidget::CreateActiveWindowWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 

@@ -26,27 +26,44 @@
 #include <simonsound/simonsound.h>
 #include <QObject>
 
+class CompoundCondition;
 class VADSoundProcessor;
 
 class SIMONDSTREAMER_EXPORT SimondStreamerClient : public QObject, public SoundInputClient
 {
   Q_OBJECT
 
-    private:
+  private:
     qint8 id;
     QByteArray currentSample;
 
     bool m_isRunning;
     SimonSender *sender;
     VADSoundProcessor *vad;
+    
+    enum StreamingState_ {
+      Idle=1,
+      ContextReady=2,
+      VADReady=4,
+      Streaming=8
+    };
+    Q_DECLARE_FLAGS(StreamingState, StreamingState_)
+    StreamingState streamingState;
+    
+    CompoundCondition* m_condition;
 
     void inputStateChanged(SimonSound::State state);
+    
+    bool shouldStream(StreamingState state) const;
 
   signals:
     void clippingOccured();
     void started();
     void stopped();
 
+  private slots:
+    void conditionChanged();
+    
   public:
     SimondStreamerClient(qint8 id, SimonSender *sender, SimonSound::DeviceConfiguration device, QObject *parent=0);
     bool stop();
@@ -55,4 +72,5 @@ class SIMONDSTREAMER_EXPORT SimondStreamerClient : public QObject, public SoundI
 
     void processPrivate(const QByteArray& data, qint64 currentTime);
 };
+
 #endif

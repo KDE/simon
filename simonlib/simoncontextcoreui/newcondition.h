@@ -1,5 +1,6 @@
 /*
- *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com
+ *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,41 +18,44 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_NEWASSOCIATIONCONDITION_H_CD6234308AA54117A89845ADFE98BCA1
-#define SIMON_NEWASSOCIATIONCONDITION_H_CD6234308AA54117A89845ADFE98BCA1
+#ifndef SIMON_NEWCONDITION_H_CD6234308AA54117A89845ADFE98BCA1
+#define SIMON_NEWCONDITION_H_CD6234308AA54117A89845ADFE98BCA1
 
-/** \file newconditionassociation.h
- * \brief The file containing the NewConditionAssociation baseclass header.
+/** \file newcondition.h
+ * \brief The file containing the NewCondition baseclass header.
  */
 
 #include <KDialog>
 #include <QList>
-#include "ui_newassociationcondition.h"
+#include "simoncontextcoreui_export.h"
 
 class Condition;
 class CreateConditionWidget;
+namespace Ui {
+  class DlgModifyCondition;
+}
 
 /**
- *	@class NewAssociationCondition
- *	@brief The NewAssociationCondition class is a dialog for creating conditions that will be monitored by an AssociationCondition
+ *	@class NewCondition
+ *	@brief The NewCondition class is a dialog for creating Condition objects that will be monitored by the CompoundCondition of a Scenario
  *
- *      The NewAssociationCondition uses CreateConditionWidget objects that have been passed to it from \ref CreateOrConditionAssociationWidget::addCondition()
+ *      The NewCondition uses CreateConditionWidget objects that have been passed to it from \ref ContextViewPrivate::addCondition()
  *      and uses those CreateConditionWidget objects to allow the user to customize a new Condition that
- *      will be added to the CompoundCondition that temporarily stores the component Condition objects of the OrConditionAssociation.
+ *      will be added to the CompoundCondition that was specified for the CreateConditionWidget objects by ContextViewPrivate.
  *
- *      \sa ConditionAssociation, OrConditionAssociation, CompoundCondition
+ *      \sa ContextViewPrivate, Condition, CompoundCondition
  *
  *	@version 0.1
  *	@date 7.7.2011
  *	@author Adam Nash
  */
 
-class NewAssociationCondition : protected KDialog
+class SIMONCONTEXTCOREUI_EXPORT NewCondition : protected KDialog
 {
   Q_OBJECT
 
   private:
-    Ui::DlgAssociationCondition ui;
+    Ui::DlgModifyCondition *ui;
     QList<CreateConditionWidget*> m_conditionCreators;
     //void switchToTypeOfCondition(Condition* condition);
 
@@ -60,12 +64,12 @@ class NewAssociationCondition : protected KDialog
     void checkIfComplete();
 
   public:
-    NewAssociationCondition(QWidget *parent=0);
-    ~NewAssociationCondition();
+    NewCondition(QWidget *parent=0);
+    ~NewCondition();
 
     bool registerCreators(QList<CreateConditionWidget*> conditionCreators);
 
-    bool newAssociationCondition();
+    Condition* newCondition();
 
   public slots:
     void deleteLater();

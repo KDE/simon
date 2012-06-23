@@ -26,6 +26,12 @@ ConditionAssociation::ConditionAssociation(QObject *parent, const QVariantList &
 {
 }
 
+ConditionAssociation::~ConditionAssociation()
+{
+    foreach(Condition* condition, m_conditions)
+        ContextManager::instance()->releaseCondition(condition);
+}
+
 QDomElement ConditionAssociation::privateSerialize(QDomDocument *doc, QDomElement elem)
 {
     foreach(Condition* condition, m_conditions)

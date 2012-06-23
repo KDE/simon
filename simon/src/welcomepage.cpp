@@ -262,7 +262,6 @@ void WelcomePage::startTraining()
 void WelcomePage::showEvent(QShowEvent* event)
 {
   QWidget::showEvent(event);
-  kDebug() << "Shown";
   //start recording after the event handling
   QMetaObject::invokeMethod(volumeWidget, "start", Qt::QueuedConnection);
 }
@@ -270,7 +269,6 @@ void WelcomePage::showEvent(QShowEvent* event)
 void WelcomePage::hideEvent(QHideEvent* event)
 {
   QWidget::hideEvent(event);
-  kDebug() << "Hidden";
   //stop recording after the event handling
   QMetaObject::invokeMethod(volumeWidget, "stop", Qt::QueuedConnection);
 }

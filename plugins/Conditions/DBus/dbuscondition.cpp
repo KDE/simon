@@ -55,9 +55,9 @@ DBusCondition::DBusCondition(QObject *parent, const QVariantList &args) :
   m_pluginName = "simondbusconditionplugin.desktop";
 }
 
-CreateConditionWidget* DBusCondition::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)
+CreateConditionWidget* DBusCondition::getCreateConditionWidget( QWidget* parent )
 {
-    return new CreateDBusConditionWidget(compoundCondition, parent);
+    return new CreateDBusConditionWidget(parent);
 }
 
 QDomElement DBusCondition::privateSerialize(QDomDocument *doc, QDomElement elem)

@@ -1,8 +1,4 @@
-
 include(SimonDirs)
-
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../../simon/src/simoncontextui/)
-
 
 find_package(LibSampleRate)
 
@@ -17,8 +13,7 @@ ELSE(UNIX)
   include_directories ( ${DIRECTSOUND_INCLUDE_DIRS} )
 ENDIF(UNIX)
 
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
-  ${QT_MOBILITY_MULTIMEDIAKIT_INCLUDE_DIR} ../)
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}  ../)
 
 if(LIBSAMPLERATE_FOUND)
 include_directories(${LIBSAMPLERATE_INCLUDE_DIR})
@@ -136,16 +131,16 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 if(LIBSAMPLERATE_FOUND)
   message(STATUS "Enabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
-  simonlogging simonuicomponents
-  simonwav
+  simonlogging simonuicomponents simoncontextcoreui simoncontextdetection
+  simonwav ${QT_QTXML_LIBRARY}
   ${LIBSAMPLERATE_LIBRARY}
   ${KDE4_KDEUI_LIBS}
 )
 else(LIBSAMPLERATE_FOUND)
   message(STATUS "Disabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
-  simonlogging simonuicomponents
-  simonwav
+  simonlogging simonuicomponents simoncontextcoreui simoncontextdetection
+  simonwav ${QT_QTXML_LIBRARY}
   ${KDE4_KDEUI_LIBS})
 endif(LIBSAMPLERATE_FOUND)
 
@@ -166,13 +161,19 @@ install( TARGETS simonsound DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT
 
 set( kcm_simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/samplegroupcontextsettings.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupitemdelegate.cpp
 )
 
+kde4_add_ui_files( kcm_simonsound_LIB_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/samplegroupcontextsettings.ui
+	)
 kde4_add_kcfg_files(kcm_simonsound_LIB_SRCS soundconfig.kcfgc)
 
 kde4_add_plugin(simonsoundkcm ${kcm_simonsound_LIB_SRCS})
 target_link_libraries( simonsoundkcm  ${KDE4_KDEUI_LIBS} 
-simonsound simoncontextui simonuicomponents
+simonsound simonuicomponents simoncontextcoreui simoncontextdetection
+simonscenarios ${QT_QTXML_LIBRARY}
 )
 
 install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT

@@ -19,7 +19,7 @@
 
 #include "contextviewprivate.h"
 #include <simonscenarios/scenario.h>
-#include "newcondition.h"
+#include <simoncontextcoreui/newcondition.h>
 #include "simoncontextdetection/contextmanager.h"
 
 #include <QWidget>
@@ -37,127 +37,13 @@
 ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
 {
   ui.setupUi(this);
-
-  connect ( ui.pbNewCondition, SIGNAL(clicked()), this, SLOT(addCondition()));
-  connect ( ui.pbEditCondition, SIGNAL(clicked()), this, SLOT(editCondition()));
-  connect ( ui.pbDeleteCondition, SIGNAL(clicked()), this, SLOT(deleteCondition()));
-
   connect ( ui.pbEditHierarchy, SIGNAL(clicked()), this, SIGNAL(manageScenariosTriggered()));
-
-  ui.lvConditions->setIconSize(QSize(24,24));
-  ui.lvConditions->setSpacing(2);
-
-  ui.pbNewCondition->setIcon(KIcon("list-add"));
-  ui.pbEditCondition->setIcon(KIcon("edit-rename"));
-  ui.pbDeleteCondition->setIcon(KIcon("edit-delete"));
-
-  conditionsProxy = new QSortFilterProxyModel(this);
-  conditionsProxy->setFilterKeyColumn(0);
-  conditionsProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
-  ui.lvConditions->setModel(conditionsProxy);
-
-  connect(ui.leConditionsFilter, SIGNAL(textChanged(QString)), conditionsProxy, SLOT(setFilterRegExp(QString)));
-
-  connect(ui.lvConditions->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(selectionChanged()));
-}
-
-Condition* ContextViewPrivate::getCurrentCondition()
-{
-    QModelIndex index = conditionsProxy->mapToSource(ui.lvConditions->currentIndex());
-    if (!index.isValid()) return 0;
-
-    return static_cast<Condition*>(index.internalPointer());
-}
-
-void ContextViewPrivate::addCondition()
-{
-    NewCondition *newCondition = new NewCondition(this);
-    QList<CreateConditionWidget*> widgets;
-    QList<Condition*> conditions;
-    ContextManager* manager = ContextManager::instance();
-
-    conditions = manager->getConditions();
-
-    foreach (Condition* condition, conditions)
-    {
-        widgets.push_back(condition->getCreateConditionWidget(scenario->compoundCondition(), this));
-    }
-
-    newCondition->registerCreators(widgets);
-    newCondition->newCondition();
-
-    delete newCondition;
-}
-
-void ContextViewPrivate::editCondition()
-{
-    //get the condition to edit
-    Condition* condition = getCurrentCondition();
-    if (!condition)
-        return;
-
-    //get the CreateConditionWidgets
-    QList<CreateConditionWidget*> widgets;
-    QList<Condition*> conditions;
-    ContextManager* manager = ContextManager::instance();
-
-    conditions = manager->getConditions();
-
-    foreach (Condition* c, conditions)
-    {
-        widgets.push_back(c->getCreateConditionWidget(scenario->compoundCondition(), this));
-    }
-
-    //prepare the edit condition dialog and launch it
-    NewCondition *editCondition = new NewCondition(this);
-    editCondition->registerCreators(widgets);
-    editCondition->init(condition);
-    bool succ = editCondition->newCondition();
-
-    //on confirmation of the edit, the old condition is deleted and the new one made by the NewCondition replaces it
-    if (succ)
-    {
-      scenario->compoundCondition()->removeCondition(condition);
-      ui.lvConditions->setCurrentIndex(conditionsProxy->index(conditionsProxy->rowCount()-1, 0));
-    }
-    delete editCondition;
-}
-
-void ContextViewPrivate::deleteCondition()
-{
-    Condition* condition = getCurrentCondition();
-
-    if (!condition)
-        return;
-
-    if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is condition name", "Are you sure that you want to irreversibly remove the condition \"%1\"?", condition->name()), i18n("Remove Condition")) == KMessageBox::Yes)
-    {
-        if (!scenario->compoundCondition()->removeCondition(condition))
-        {
-            kDebug() << "Error removing condition!";
-        }
-    }
-}
-
-void ContextViewPrivate::selectionChanged()
-{
-    if (getCurrentCondition() == 0)
-    {
-        ui.pbDeleteCondition->setEnabled(false);
-        ui.pbEditCondition->setEnabled(false);
-    }
-    else
-    {
-        ui.pbDeleteCondition->setEnabled(true);
-        ui.pbEditCondition->setEnabled(true);
-    }
 }
 
 void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
   CompoundCondition *compoundCondition = scenario->compoundCondition();
-  conditionsProxy->setSourceModel((QAbstractItemModel*) compoundCondition->getProxy());
-  ui.lvConditions->setCurrentIndex(conditionsProxy->index(0,0));
+  ui.wgCompoundConditionSettings->setConditions(compoundCondition);
 
   //fill in inherited activation requirments list
   ui.lwParentActivationRequirements->clear();

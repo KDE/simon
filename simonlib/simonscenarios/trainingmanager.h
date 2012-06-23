@@ -22,6 +22,7 @@
 
 #include "word.h"
 #include "trainingtext.h"
+#include "promptstable.h"
 #include <QHash>
 #include <QMutex>
 #include <QList>
@@ -95,6 +96,8 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
     QString getTrainingDir();
 
     void trainingSettingsSaved();
+
+    bool mergePrompts(const PromptsTable& table);
 
     ~TrainingManager();
 

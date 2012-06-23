@@ -19,6 +19,7 @@
 
 #include "simondstreamerclient.h"
 
+#include <simoncontextdetection/compoundcondition.h>
 #include <simonsound/soundserver.h>
 #include <simonsound/vadsoundprocessor.h>
 #include <simonwav/wav.h>
@@ -32,14 +33,27 @@
  * \brief Constructor
  */
 SimondStreamerClient::SimondStreamerClient(qint8 id, SimonSender *s, SimonSound::DeviceConfiguration device, QObject *parent) :
-QObject(parent),
-SoundInputClient(device, SoundClient::Background),
-m_isRunning(false),
-sender(s),
-vad(new VADSoundProcessor(device))
+  QObject(parent),
+  SoundInputClient(device, SoundClient::Background),
+  m_isRunning(false),
+  sender(s),
+  vad(new VADSoundProcessor(device)),
+  streamingState(Idle),
+  m_condition(0)
 {
   this->id = id;
   registerSoundProcessor(vad);
+  QString conditions = device.conditions();
+  
+  if (!conditions.isEmpty()) {
+    QDomDocument doc;
+    doc.setContent(conditions.toUtf8());
+    m_condition = CompoundCondition::createInstance(doc.documentElement());
+    if (m_condition) 
+      connect(m_condition, SIGNAL(conditionChanged(bool)), this, SLOT(conditionChanged()));
+  }
+  if (!m_condition || m_condition->isSatisfied())
+    streamingState |= ContextReady;
 }
 
 
@@ -74,34 +88,65 @@ bool SimondStreamerClient::start()
   return succ;
 }
 
+bool SimondStreamerClient::shouldStream ( SimondStreamerClient::StreamingState state ) const
+{
+  return ((state & VADReady) && (state & ContextReady));
+}
+
+void SimondStreamerClient::conditionChanged()
+{
+  StreamingState oldState = streamingState;
+  
+  if (m_condition->isSatisfied())
+    streamingState |= ContextReady;
+  else
+    streamingState &= ~ContextReady;
+  
+  if (streamingState & Streaming && shouldStream(oldState) && !shouldStream(streamingState)) {
+    streamingState &= ~Streaming;
+    sender->recognizeSample(id);
+  }
+  kDebug() << "Changed state: " << streamingState;
+}
 
 void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 currentTime)
 {
   Q_UNUSED(currentTime);
 
-  if (vad->startListening()) {
-//     kDebug() << "Starting listening!";
+  StreamingState oldState = streamingState;
+  
+  if (vad->startListening())
+    streamingState |= VADReady;
+
+  sender->clientLoudness(id, ((float) vad->peak()) / ((float) vad->maxAmp()));
+  kDebug() << "Changed state: " << streamingState;
+  
+  if (!shouldStream(streamingState)) {
+    if (vad->doneListening())
+      streamingState &= ~VADReady;
+    return;
+  }
+  
+  streamingState |= Streaming;
+  
+  if (!shouldStream(oldState)) { // start sample 
+    kDebug() << "Starting sample";
     sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
       m_deviceConfiguration.resample() ? m_deviceConfiguration.resampleSampleRate() : 
       m_deviceConfiguration.sampleRate());
   }
-
-  sender->clientLoudness(id, ((float) vad->peak()) / ((float) vad->maxAmp()));
+  
   sender->sendSampleToRecognize(id, data);
 
   if (vad->doneListening()) {
-//     kDebug() << "Stopping listening!";
+    streamingState &= ~VADReady;
+    streamingState &= ~Streaming;
+    kDebug() << "Stopping sample";
     sender->recognizeSample(id);
   }
+  kDebug() << "Changed state: " << streamingState;
 }
 
-
-/**
- * \brief This will stop the current recording
- *
- * Tells the wavrecorder to simply stop the recording and save the result.
- * \author Peter Grasch
- */
 bool SimondStreamerClient::stop()
 {
   bool succ = true;
@@ -110,5 +155,10 @@ bool SimondStreamerClient::stop()
     m_isRunning = false;
     emit stopped();
   }
+  
+  if (streamingState & Streaming)
+    sender->recognizeSample(id); // finish up
+  
+  streamingState = Idle;
   return succ;
 }

@@ -51,25 +51,13 @@ class ContextViewPrivate : public QWidget, public ScenarioDisplay
   Q_OBJECT
 
   signals:
-    void actionsChanged();
     void manageScenariosTriggered();
 
   private:
     Ui::ContextDlg ui;
 
-    Condition* getCurrentCondition();
-    QSortFilterProxyModel *conditionsProxy;
-
     void updateInvalidChildList();
     void addChildScenarios(QTreeWidgetItem* parentItem, Scenario* parentScenario);
-
-  private slots:
-    void addCondition();
-    void deleteCondition();
-    void editCondition();
-    void selectionChanged();
-
-    //void managePlugIns();
 
   public:
     void displayScenarioPrivate(Scenario *scenario);

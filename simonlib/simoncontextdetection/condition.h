@@ -29,7 +29,6 @@
 #include "simoncontextdetection_export.h"
 
 class CreateConditionWidget;
-class CompoundCondition;
 
 /**
  *	@class Condition
@@ -98,12 +97,8 @@ public:
 
     /**
      * \brief Abstract function for retrieving the CreateConditionWidget of a Condition plugin
-     *
-     *
-     * \return A CreateConditionWidget that will create a Condition in \var compoundCondition
      */
-    virtual CreateConditionWidget* getCreateConditionWidget(
-        CompoundCondition* compoundCondition, QWidget *parent)=0;
+    virtual CreateConditionWidget* getCreateConditionWidget(QWidget *parent)=0;
 
     /**
      * \brief Abstract function for retrieving the name of a Condition plugin

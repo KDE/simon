@@ -402,7 +402,10 @@ void RecognitionControl::sendRequest(qint32 request)
   QByteArray toWrite;
   QDataStream out(&toWrite, QIODevice::WriteOnly);
   out << request;
+
+  sendMutex.lock();
   socket->write(toWrite);
+  sendMutex.unlock();
 }
 
 
@@ -415,8 +418,10 @@ void RecognitionControl::send(qint32 requestId, const QByteArray& data, bool inc
   if (includeLength)
     out << (qint64) data.count();
   
+  sendMutex.lock();
   socket->write(toWrite);
   socket->write(data);
+  sendMutex.unlock();
 }
 
 void RecognitionControl::login()

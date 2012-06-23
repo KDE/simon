@@ -28,7 +28,7 @@ namespace Ui
 {
   class SingleDeviceConfiguration;
 }
-
+class CompoundCondition;
 
 class SingleDeviceSettings : public QWidget
 {
@@ -48,10 +48,12 @@ class SingleDeviceSettings : public QWidget
     SimonSound::SoundDeviceUses m_uses;
     SimonSound::SoundDeviceOptions m_options;
     QString m_defaultSampleGroup;
+    
+    CompoundCondition *m_conditions;
 
-    void load(QString deviceName, int channels,
+    void load(const QString& deviceName, int channels,
       int sampleRate, bool resampleEnabled, int resampleSampleRate,
-      QString defaultSampleGroup);
+      const QString& defaultSampleGroup, const QString& conditions);
 
   private slots:
     void slotChanged();
@@ -69,6 +71,7 @@ class SingleDeviceSettings : public QWidget
       SimonSound::SoundDeviceUses selectedUses,
       SimonSound::SoundDeviceUses availableUses,
       QString defaultSampleGroup,
+      const QString& conditions,
       SimonSound::SoundDeviceOptions options=SimonSound::NoOptions,
       QWidget* parent=0);
     ~SingleDeviceSettings();
@@ -78,17 +81,19 @@ class SingleDeviceSettings : public QWidget
 
     void refreshDevices();
 
-    bool isEnabled();
-    QString getSelectedDeviceId();
-    int getSampleRate();
-    int getChannels();
-    bool getResampleEnabled();
-    int getResampleSampleRate();
-    QString getDefaultSampleGroup();
-    SimonSound::SoundDeviceType getType();
-    SimonSound::SoundDeviceUses getUses();
+    bool isEnabled() const;
+    QString getSelectedDeviceId() const;
+    int getSampleRate() const;
+    int getChannels() const;
+    bool getResampleEnabled() const;
+    int getResampleSampleRate() const;
+    QString getDefaultSampleGroup() const;
+    SimonSound::SoundDeviceType getType() const;
+    SimonSound::SoundDeviceUses getUses() const;
+    
+    QString getConditions() const;
 
-    bool getHasChanged() { return hasChanged; }
+    bool getHasChanged() const { return hasChanged; }
     void stored() { hasChanged = false; }
 };
 #endif                                            // SINGLEDEVICESETTINGS_H

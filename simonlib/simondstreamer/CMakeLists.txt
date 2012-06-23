@@ -37,8 +37,7 @@ qt4_add_dbus_adaptor( simondstreamer_LIB_SRCS org.simon-listens.SimonSender.xml
 kde4_add_library( simondstreamer  SHARED ${simondstreamer_LIB_SRCS} )
 
 target_link_libraries( simondstreamer ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
-	${QT_MOBILITY_MULTIMEDIAKIT_LIBRARY}
-	simonsound simonwav )
+	simonsound simonwav simoncontextdetection ${QT_QTXML_LIBRARY} )
 
 
 set_target_properties( simondstreamer

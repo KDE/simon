@@ -26,7 +26,6 @@
 #include "ui_createfilecontentwidget.h"
 
 class Condition;
-class CompoundCondition;
 
 class CreateFileContentWidget : public CreateConditionWidget
 {
@@ -42,7 +41,7 @@ class CreateFileContentWidget : public CreateConditionWidget
     bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
-    explicit CreateFileContentWidget(CompoundCondition *compoundCondition, QWidget *parent=0);
+    explicit CreateFileContentWidget(QWidget *parent=0);
 
     virtual ~CreateFileContentWidget();
 

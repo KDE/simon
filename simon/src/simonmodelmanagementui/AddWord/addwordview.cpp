@@ -94,12 +94,7 @@ void AddWordView::accept()
   recordPages << record2;
   foreach (AddWordRecordPage *rec, recordPages) {
     //if rec doesn't have sample this list will be empty
-    foreach (const QString& fileName, rec->getFileNames())
-    {
-      promptsToAdd.insert(fileName, rec->getPrompt());
-      sampleGroupsToAdd.insert(fileName, rec->getSampleGroup());
-    }
-
+    promptsToAdd << rec->getPrompts();
   }
 
   QStringList words = field("wordNameIntro").toString().split(' ', QString::SkipEmptyParts);
@@ -132,7 +127,6 @@ void AddWordView::cleanUp()
       qDeleteAll(listToAdd);
       listToAdd.clear();
       promptsToAdd.clear();
-      sampleGroupsToAdd.clear();
     }
   }
   record1->cleanUp();
@@ -200,16 +194,14 @@ QWizardPage* AddWordView::createFinishedPage()
 void AddWordView::commitList()
 {
   ModelManagerUiProxy::getInstance()->startGroup();
-  QStringList promptsKeys = promptsToAdd.keys();
-  foreach (const QString& key, promptsKeys) {
-    if (!TrainingManager::getInstance()->addSample(key, sampleGroupsToAdd.value(key), promptsToAdd.value(key)))
-      KMessageBox::error(this, i18nc("%1 is the sample key", "Could not add %1 to the Prompts-Table", key));
+  foreach (const PromptsTable& prompts, promptsToAdd) {
+    if (!TrainingManager::getInstance()->mergePrompts(prompts))
+      KMessageBox::error(this, i18n("Could not add samples to the corpus"));
   }
   if (!TrainingManager::getInstance()->savePrompts())
     KMessageBox::error(this, i18n("Could not save prompts"));
 
   promptsToAdd.clear();
-  sampleGroupsToAdd.clear();
 
   //sort the list
   qSort(listToAdd.begin(), listToAdd.end(), isWordLessThan);

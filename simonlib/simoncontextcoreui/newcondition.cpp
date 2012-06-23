@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,6 +19,7 @@
  */
 
 #include "newcondition.h"
+#include "ui_modifycondition.h"
 
 #include <simoncontextdetection/condition.h>
 #include <simoncontextdetection/createconditionwidget.h>
@@ -27,12 +29,12 @@
 #include <KDE/KKeySequenceWidget>
 #include <KDE/KDialogButtonBox>
 
-NewCondition::NewCondition(QWidget* parent) : KDialog(parent)
+NewCondition::NewCondition(QWidget* parent) : KDialog(parent), ui(new Ui::DlgModifyCondition)
 {
   QWidget *widget = new QWidget( this );
-  ui.setupUi(widget);
+  ui->setupUi(widget);
 
-  ui.swConditionCreators->removeWidget(ui.swConditionCreators->currentWidget());
+  ui->swConditionCreators->removeWidget(ui->swConditionCreators->currentWidget());
 
   setMainWidget( widget );
   setCaption( i18n("Condition") );
@@ -52,8 +54,8 @@ bool NewCondition::registerCreators(QList<CreateConditionWidget *> conditionCrea
   qDeleteAll(m_conditionCreators);
  
   foreach (CreateConditionWidget *widget, conditionCreators) {
-    ui.cbType->addItem(widget->windowIcon(), widget->windowTitle());
-    ui.swConditionCreators->addWidget(widget);
+    ui->cbType->addItem(widget->windowIcon(), widget->windowTitle());
+    ui->swConditionCreators->addWidget(widget);
     connect(widget, SIGNAL(completeChanged()), this, SLOT(checkIfComplete()));
   }
 
@@ -76,11 +78,10 @@ void NewCondition::init(Condition *condition)
   bool found=false;
   int i=0;
   foreach (CreateConditionWidget *widget, m_conditionCreators) {
-    if (widget->isInstanceOfSameCondition(condition)) {
-      widget->init(condition);
+    if (widget->init(condition)) {
       found=true;
-      ui.cbType->setCurrentIndex(i);
-      break;
+      ui->cbType->setCurrentIndex(i);
+//       break; Init to all conditions that match
     }
     i++;
   }
@@ -93,7 +94,7 @@ void NewCondition::init(Condition *condition)
 
 void NewCondition::checkIfComplete()
 {
-  CreateConditionWidget *creator = dynamic_cast<CreateConditionWidget*>(ui.swConditionCreators->currentWidget());
+  CreateConditionWidget *creator = dynamic_cast<CreateConditionWidget*>(ui->swConditionCreators->currentWidget());
 
   bool complete;
   if (!creator)
@@ -104,24 +105,24 @@ void NewCondition::checkIfComplete()
   enableButtonOk(complete);
 }
 
-bool NewCondition::newCondition()
+Condition* NewCondition::newCondition()
 {
-  if (ui.swConditionCreators->count() == 0) {
+  if (ui->swConditionCreators->count() == 0) {
     KMessageBox::information(this, i18n("No condition plugins loaded that provide condition engines."));
-    return false;
+    return 0;
   }
 
   if (KDialog::exec()) {
     //creating
-    CreateConditionWidget *creator = dynamic_cast<CreateConditionWidget*>(ui.swConditionCreators->currentWidget());
+    CreateConditionWidget *creator = dynamic_cast<CreateConditionWidget*>(ui->swConditionCreators->currentWidget());
     kDebug() << "Creating with creator: " << creator;
     Q_ASSERT(creator);
 
-    if (!creator) return false;
+    if (!creator) return 0;
 
-    return creator->addCondition();
+    return creator->createCondition();
   }
-  return false;
+  return 0;
 }
 
 

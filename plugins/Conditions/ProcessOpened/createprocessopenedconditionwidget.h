@@ -29,7 +29,6 @@
 #include "ui_createprocessopenedconditionwidget.h"
 
 class Condition;
-class CompoundCondition;
 
 /**
  *	@class CreateProcessOpenedConditionWidget
@@ -61,7 +60,7 @@ class CreateProcessOpenedConditionWidget : public CreateConditionWidget
     bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
-    explicit CreateProcessOpenedConditionWidget(CompoundCondition *compoundCondition, QWidget *parent=0);
+    explicit CreateProcessOpenedConditionWidget(QWidget *parent=0);
 
     virtual ~CreateProcessOpenedConditionWidget();
 

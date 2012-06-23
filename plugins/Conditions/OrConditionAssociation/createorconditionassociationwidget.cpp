@@ -19,7 +19,7 @@
 
 #include "createorconditionassociationwidget.h"
 #include "orconditionassociation.h"
-#include "newassociationcondition.h"
+#include <simoncontextcoreui/newcondition.h>
 
 #include <simoncontextdetection/contextmanager.h>
 
@@ -28,8 +28,7 @@
 #include <KMessageBox>
 
 
-CreateOrConditionAssociationWidget::CreateOrConditionAssociationWidget(CompoundCondition *compoundCondition,
-QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
+CreateOrConditionAssociationWidget::CreateOrConditionAssociationWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 
@@ -50,7 +49,7 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
   m_conditionsProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   ui.lvConditions->setModel(m_conditionsProxy);
 
-  m_conditionsProxy->setSourceModel((QAbstractItemModel*) m_compoundAssociationCondition->getProxy());
+  m_conditionsProxy->setSourceModel(m_compoundAssociationCondition);
 
   connect(ui.pbNewCondition, SIGNAL(clicked()), this, SLOT(addAssociationCondition()));
   connect(ui.pbEditCondition, SIGNAL(clicked()), this, SLOT(editAssociationCondition()));
@@ -73,8 +72,6 @@ bool CreateOrConditionAssociationWidget::init(Condition *condition)
 {
   Q_ASSERT(condition);
 
-    kDebug() << "Initializing the create or condition association widget";
-
   OrConditionAssociation *orConditionAssociation = dynamic_cast<OrConditionAssociation*>(condition);
   if (!orConditionAssociation) return false;
 
@@ -88,10 +85,11 @@ bool CreateOrConditionAssociationWidget::init(Condition *condition)
 
   foreach(Condition* associationCondition, associationConditions)
   {
+      ContextManager::instance()->refCondition(associationCondition);
       m_compoundAssociationCondition->addCondition(associationCondition);
   }
 
-  m_conditionsProxy->setSourceModel((QAbstractItemModel*) m_compoundAssociationCondition->getProxy());
+  m_conditionsProxy->setSourceModel(m_compoundAssociationCondition);
   ui.lvConditions->setCurrentIndex(m_conditionsProxy->index(0,0));
 
   ui.cbInverted->setChecked(orConditionAssociation->isInverted());
@@ -133,7 +131,7 @@ Condition* CreateOrConditionAssociationWidget::getCurrentCondition()
 
 void CreateOrConditionAssociationWidget::addAssociationCondition()
 {
-    NewAssociationCondition *associationConditionDlg = new NewAssociationCondition(this);
+    NewCondition *associationConditionDlg = new NewCondition(this);
     QList<CreateConditionWidget*> widgets;
     QList<Condition*> conditions;
     ContextManager* manager = ContextManager::instance();
@@ -142,12 +140,14 @@ void CreateOrConditionAssociationWidget::addAssociationCondition()
 
     foreach (Condition* condition, conditions)
     {
-        widgets.push_back(condition->getCreateConditionWidget(m_compoundAssociationCondition, this));
+        widgets.push_back(condition->getCreateConditionWidget(this));
     }
 
     associationConditionDlg->registerCreators(widgets);
-    associationConditionDlg->newAssociationCondition();
+    Condition *c = associationConditionDlg->newCondition();
     delete associationConditionDlg;
+    if (c)
+      m_compoundAssociationCondition->addCondition(c);
 
     ui.lvConditions->setCurrentIndex(m_conditionsProxy->index(0,0));
     emit completeChanged();
@@ -169,20 +169,21 @@ void CreateOrConditionAssociationWidget::editAssociationCondition()
 
     foreach (Condition* c, conditions)
     {
-        widgets.push_back(c->getCreateConditionWidget(m_compoundAssociationCondition, this));
+        widgets.push_back(c->getCreateConditionWidget(this));
     }
 
     //prepare the edit condition dialog and launch it
-    NewAssociationCondition *editCondition = new NewAssociationCondition(this);
+    NewCondition *editCondition = new NewCondition(this);
     editCondition->registerCreators(widgets);
     editCondition->init(condition);
-    bool succ = editCondition->newAssociationCondition();
+    Condition *c = editCondition->newCondition();
 
     //on confirmation of the edit, the old condition is deleted and the new one made by the NewCondition replaces it
-    if (succ)
+    if (c)
     {
       m_compoundAssociationCondition->removeCondition(condition);
       ui.lvConditions->setCurrentIndex(m_conditionsProxy->index(m_conditionsProxy->rowCount()-1, 0));
+      m_compoundAssociationCondition->addCondition(c);
     }
     delete editCondition;
 }

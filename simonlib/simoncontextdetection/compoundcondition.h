@@ -24,9 +24,8 @@
  * \brief The file containing the CompoundCondition baseclass header.
  */
 
-#include <QObject>
+#include <QAbstractItemModel>
 #include "condition.h"
-#include "compoundconditionmodel.h"
 
 /**
  *	@class CompoundCondition
@@ -50,10 +49,20 @@
  *	@author Adam Nash
  */
 
-class SIMONCONTEXTDETECTION_EXPORT CompoundCondition : public QObject
+class SIMONCONTEXTDETECTION_EXPORT CompoundCondition : public QAbstractItemModel
 {
     Q_OBJECT
+    
 public:
+    /**
+     * \brief Constructor
+     */
+    explicit CompoundCondition(QObject *parent = 0);
+    CompoundCondition (const CompoundCondition& other);
+    CompoundCondition& operator=(const CompoundCondition& other);
+    
+    static QDomElement createEmpty(QDomDocument *doc);
+    
     /**
      * \brief The current satisfaction of the CompoundCondition
      *
@@ -86,16 +95,6 @@ public:
     static CompoundCondition* createInstance(const QDomElement &elem);
 
     /**
-     * \brief Creates an empty CompoundCondition specification
-     *
-     * This function creates an empty CompoundCondition specification in the
-     * form of a QDomElement using the QDomDocument \var doc.
-     *
-     * \return A QDomElement specifying an empty CompoundCondition
-     */
-    static QDomElement createEmpty(QDomDocument *doc);
-
-    /**
      * \brief Adds a Condition to the CompoundCondition
      *
      * Adds the Condition \var condition to the CompoundCondition
@@ -122,20 +121,8 @@ public:
      */
     QList<Condition*> getConditions() {return m_conditions;}
 
-    /**
-     * \brief Returns a proxy model of the CompoundCondition
-     *
-     * \return A proxy model of the CompoundCondition
-     */
-    CompoundConditionModel* getProxy() {return m_proxy;}
-
 private:
-    /**
-     * \brief Constructor
-     *
-     * Initializes \ref m_proxy and \ref m_satisfied
-     */
-    explicit CompoundCondition(QObject *parent = 0);
+    ~CompoundCondition();
 
     /**
      * \brief DeSerializes the CompoundCondition from a QDomElement specification
@@ -159,13 +146,6 @@ private:
      */
     QList<Condition*> m_conditions;
 
-    /**
-     * \brief The proxy model for the CompoundCondition
-     *
-     * \sa CompoundConditionModel
-     */
-    CompoundConditionModel *m_proxy;
-
 signals:
     /**
      * \brief Emitted when the satisfaction of the CompoundCondition is being reevaluated
@@ -184,6 +164,50 @@ signals:
      *
      */
     void modified();
+
+protected:
+    /**
+     *
+     * \return The index of the item in the model with the given \var row, \var column, and \var parent.
+     */
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+
+    /**
+     *
+     * \return The item flags for the given \var index
+     */
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+
+    /**
+     *
+     * \return The data for the given \var role in the header with the specified \var orientation.
+     */
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
+
+    /**
+     *
+     * \return The index of the parent of the item with the given \var index
+     */
+    QModelIndex parent(const QModelIndex &index) const;
+
+    /**
+     *
+     * \return The number of rows under the given \var parent.
+     */
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+
+    /**
+     *
+     * \return The data stored under the given \var role for the item referred to by \var index.
+     */
+    virtual QVariant data(const QModelIndex &index, int role) const;
+
+    /**
+     *
+     * \return The number of columns under the given \var parent.
+     */
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public slots:
     /**

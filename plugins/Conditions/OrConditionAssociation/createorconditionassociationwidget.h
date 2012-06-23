@@ -71,7 +71,7 @@ class CreateOrConditionAssociationWidget : public CreateConditionWidget
     bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
-    explicit CreateOrConditionAssociationWidget(CompoundCondition *compoundCondition, QWidget *parent=0);
+    explicit CreateOrConditionAssociationWidget(QWidget *parent=0);
 
     virtual ~CreateOrConditionAssociationWidget();
 
