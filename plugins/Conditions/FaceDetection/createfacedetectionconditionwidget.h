@@ -30,7 +30,6 @@
 
 class Condition;
 
-class CompoundCondition;
 
 
 class CreateFaceDetectionConditionWidget : public CreateConditionWidget
@@ -47,7 +46,7 @@ public:
   bool isInstanceOfSameCondition(Condition *condition);
   bool isComplete();
 
-  explicit CreateFaceDetectionConditionWidget(CompoundCondition *compoundCondition, QWidget *parent=0);
+  explicit CreateFaceDetectionConditionWidget(QWidget *parent=0);
 
   virtual ~CreateFaceDetectionConditionWidget();
 

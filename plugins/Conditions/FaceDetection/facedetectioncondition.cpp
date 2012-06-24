@@ -36,9 +36,9 @@ FaceDetectionCondition::FaceDetectionCondition(QObject *parent, const QVariantLi
   m_pluginName = "simonfacedetectionconditionplugin.desktop";
 }
 
-CreateConditionWidget* FaceDetectionCondition::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)
+CreateConditionWidget* FaceDetectionCondition::getCreateConditionWidget(QWidget* parent)
 {
-  return new CreateFaceDetectionConditionWidget(compoundCondition, parent);
+  return new CreateFaceDetectionConditionWidget(parent);
 }
 
 QDomElement FaceDetectionCondition::privateSerialize(QDomDocument *doc, QDomElement elem)

@@ -23,14 +23,15 @@
 
 
 
-CreateFaceDetectionConditionWidget::CreateFaceDetectionConditionWidget(CompoundCondition *compoundCondition,
-    QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
+CreateFaceDetectionConditionWidget::CreateFaceDetectionConditionWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 
   setWindowTitle(i18n("Face Detection"));
   setWindowIcon(KIcon(""));
-
+  emit completeChanged();
+  this->completeChanged();
+  
   connect(ui.cbInverted, SIGNAL(stateChanged(int)), this, SIGNAL(completeChanged()));
 }
 
