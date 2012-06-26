@@ -57,6 +57,9 @@ void SynchronisationManager::buildMissingScenarios(const QStringList& remoteScen
       missingScenarios << rId;
     else commonScenarios << rId;
   }
+
+  kDebug() << "Missing: " << missingScenarios;
+  kDebug() << "Common: " << commonScenarios;
 }
 
 
@@ -126,10 +129,12 @@ QString SynchronisationManager::commonScenario()
 
 void SynchronisationManager::scenarioSynchronized()
 {
-  if (!commonScenarios.isEmpty()) {
+  kDebug() << "Scenario synchronized: " << commonScenarios << missingScenarios;
+  if (!missingScenarios.isEmpty()) {
+    missingScenarios.removeAt(0);
+  } else if (!commonScenarios.isEmpty())
     commonScenarios.removeAt(0);
-  } else if (!missingScenarios.isEmpty())
-  missingScenarios.removeAt(0);
+  kDebug() << "Scenario synchronized: " << commonScenarios << missingScenarios;
 }
 
 
@@ -549,7 +554,6 @@ void SynchronisationManager::buildMissingSamples()
     if ((!oldList.contains(fileName+".wav")) && (!this->missingFiles.contains(fileName)))
       missingFiles << fileName;
   }
-
 }
 
 

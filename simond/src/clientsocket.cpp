@@ -456,7 +456,7 @@ void ClientSocket::processRequest()
 
       case Simond::GetScenario:
       {
-        kDebug() << "Received scenario";
+        kDebug() << "Received scenario request";
         waitForMessage(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
