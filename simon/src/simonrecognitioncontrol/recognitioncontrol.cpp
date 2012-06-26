@@ -574,8 +574,12 @@ void RecognitionControl::requestMissingScenario()
     return;
   }
 
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
   QByteArray requestName = missingScenarios.takeAt(0).toUtf8();
-  send(Simond::GetScenario, requestName);
+  bodyStream << requestName;
+  kDebug() << "Requesting scenario: " << requestName;
+  send(Simond::GetScenario, body);
 }
 
 
@@ -585,6 +589,7 @@ void RecognitionControl::sendScenarioList()
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
   bodyStream << ScenarioManager::getInstance()->getAllAvailableScenarioIds();
+  kDebug() << "Sending: " << ScenarioManager::getInstance()->getAllAvailableScenarioIds();
 
   send(Simond::ScenarioList, body);
 }
@@ -1079,11 +1084,11 @@ void RecognitionControl::messageReceived()
 
           foreach (const QString& id, remoteScenarioList)
             if (!localScenarioList.contains(id))
-            missingScenarios << id;
+              missingScenarios << id;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
           synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
-          kDebug() << "Server sent scenario list";
+          kDebug() << "Server sent scenario list; Missing: " << missingScenarios;
           sendRequest(Simond::StartScenarioSynchronisation);
           break;
         }
@@ -1660,7 +1665,7 @@ void RecognitionControl::messageReceived()
           qint8 sentenceCount;
           msg >> sentenceCount;
 
-	  emit receivedResults();
+          emit receivedResults();
           RecognitionResultList recognitionResults;
 
           for (int i=0; i < sentenceCount; i++) {
@@ -1681,6 +1686,42 @@ void RecognitionControl::messageReceived()
           emit recognised(recognitionResults);
           break;
         }
+
+        case Simond::ErrorRetrievingBaseModel: {
+          advanceStream(sizeof(qint32));
+          emit synchronisationError(i18n("Failed to retrieve base model"));
+          break;
+          }
+        case Simond::ErrorRetrievingActiveModel: {
+          advanceStream(sizeof(qint32));
+          emit synchronisationError(i18n("Failed to retrieve active model"));
+          break;
+          }
+        case Simond::ErrorRetrievingLanguageDescription: {
+          advanceStream(sizeof(qint32));
+          emit synchronisationError(i18n("Failed to retrieve language description"));
+          break;
+          }
+        case Simond::ErrorRetrievingTraining: {
+          advanceStream(sizeof(qint32));
+          emit synchronisationError(i18n("Failed to retrieve training data"));
+          break;
+          }
+        case Simond::ErrorRetrievingScenarioList: {
+          advanceStream(sizeof(qint32));
+          emit synchronisationError(i18n("Failed to retrieve scenario list"));
+          break;
+          }
+        case Simond::ErrorRetrievingSelectedScenarioList: {
+          advanceStream(sizeof(qint32));
+          emit synchronisationError(i18n("Failed to retrieve selected scenario list"));
+          break;
+          }
+        case Simond::ErrorRetrievingScenario: {
+          advanceStream(sizeof(qint32));
+          emit synchronisationError(i18n("Failed to retrieve scenario"));
+          break;
+          }
 
         default:
           kDebug() << "Unknown request: " << request;
