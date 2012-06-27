@@ -19,7 +19,7 @@
 
 #include "imageanalyzer.h"
 #include "webcamdispatcher.h"
-
+#include<KDebug>
 ImageAnalyzer::ImageAnalyzer(QObject* parent): QObject(parent)
 {
   WebcamDispatcher::registerAnalyzer(this);
@@ -28,5 +28,5 @@ ImageAnalyzer::ImageAnalyzer(QObject* parent): QObject(parent)
 
 ImageAnalyzer::~ImageAnalyzer()
 {
-
+  WebcamDispatcher::unregisterAnalyzer(this);
 }

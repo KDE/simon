@@ -62,7 +62,6 @@ private:
   // Using Singleton pattern
   static WebcamDispatcher* instance;
 
-  bool shouldBeRunning;
 };
 
 #endif // WEBCAMDISPATCHER_H
