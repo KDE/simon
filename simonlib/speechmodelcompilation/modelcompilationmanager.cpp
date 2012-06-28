@@ -88,6 +88,54 @@ int ModelCompilationManager::sampleCount() const
 {
   return adapter->sampleCount();
 }
+
+uint ModelCompilationManager::getFingerPrint(QString dir, QStringList files, ModelCompiler::CompilationType compilationType)
+{
+  uint fingerprint(0);
+  for(const QString& component: files)
+  {
+    QString file = dir + component;
+    qDebug() << "Analyzing file: " << file;
+    QFile f(file);
+    if (!f.open(QIODevice::ReadOnly))
+    {
+      kDebug() << "Error building fingerprint";
+//      emit modelCompilationAborted();
+      //BUG:
+      //FIXME:
+//      throw std::runtime_error(qPrintable("Error building fingerprint. Can't open file " + file));
+      abort();
+    }
+    fingerprint ^= qHash(f.readAll());
+  }
+
+  return fingerprint ^= compilationType;
+}
+
+ModelCompiler::CompilationType ModelCompilationManager::getCompilationType(int baseModelType)
+{
+  ModelCompiler::CompilationType compilationType;
+
+  switch (baseModelType)
+  {
+    case 0:
+      //static model
+      compilationType = (ModelCompiler::CompileLanguageModel);
+      break;
+    case 1:
+      //adapted base model
+      compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::AdaptSpeechModel);
+      break;
+
+    default:
+      //dynamic model
+      compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::CompileSpeechModel);
+      break;
+  }
+
+  return compilationType;
+}
+
 int ModelCompilationManager::wordCount() const
 {
   return adapter->wordCount();

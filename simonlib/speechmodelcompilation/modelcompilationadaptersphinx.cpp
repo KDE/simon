@@ -124,7 +124,9 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
     return false;
   }
 
-  if(!storeGrammar(adaptionType, fetc+"", vocabulary, definedVocabulary, grammar))
+  ADAPT_CHECKPOINT;
+
+  if(!storeGrammar(adaptionType, fetc+".grammar", vocabulary, definedVocabulary, grammar))
   {
     emit error(i18n("Failed to store grammar"));
     return false;
