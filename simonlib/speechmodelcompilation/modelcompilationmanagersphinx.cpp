@@ -17,6 +17,17 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "modelcompilationadaptersphinx.h"
+#include "modelcompilersphinx.h"
+#include "modelcompilationmanagersphinx.h"
+#include <KStandardDirs>
+#include <QFileInfo>
+
+ModelCompilationManagerSPHINX::ModelCompilationManagerSPHINX(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
+//  tryAgain(false)
+{
+  compiler = new ModelCompilerSPHINX(userName, this);
+  adapter = new ModelCompilationAdapterSPHINX(userName, this);
 
 #include "modelcompilationmanagersphinx.h"
 
@@ -65,7 +76,8 @@ void ModelCompilationManagerSPHINX::run()
 
     QString fetc = activeDir+"/"+modelName+"/etc/"+modelName;
 
-    QFileInfo fiGrammar(fetc+".grammar");
+    kdDebug() << "Data\n" <<fetc<< "\n"<<activeDir;
+    QFileInfo fiGrammar(fetc+".jsjf");
     bool hasGrammar = (fiGrammar.size() > 0);
 
     if (!hasGrammar)

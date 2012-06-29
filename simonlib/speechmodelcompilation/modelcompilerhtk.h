@@ -37,11 +37,11 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
 
     bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination, 
                           const QString& baseModelPath,const QHash<QString, QString>& args);
-    bool hasBuildLog() const;
-    QString getGraphicBuildLog() const;
-    QString getBuildLog() const;
+//    bool hasBuildLog() const;
+//    QString getGraphicBuildLog() const;
+//    QString getBuildLog() const;
 
-    void abort();
+//    void abort();
 
     QString information(bool condensed=false) const;
 
@@ -66,8 +66,8 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
     bool catchUndefiniedPhonemes;
     QByteArray undefinedPhoneme;
 
-    QMutex buildLogMutex;
-    QByteArray buildLog;
+//    QMutex buildLogMutex;
+//    QByteArray buildLog;
 
     CompilationType compilationType;
 
@@ -80,7 +80,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
     //config options
     QString hDMan, hLEd, hCopy, hCompV, hERest, hHEd, hVite, mkfa, dfaMinimize;
 
-    QList<QProcess*> activeProcesses;
+//    QList<QProcess*> activeProcesses;
 
     QString htkIfyPath(const QString& in);
     QString createHMMPath(int number);
@@ -91,7 +91,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
 
     bool createDirs();
 
-    bool execute(const QString& command);
+//    bool execute(const QString& command);
 
     bool parseConfiguration();
 
@@ -174,6 +174,6 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
     bool removePhoneme(const QByteArray& phoneme);
 
   private slots:
-    void addStatusToLog(const QString&);
+//    void addStatusToLog(const QString&);
 };
 #endif

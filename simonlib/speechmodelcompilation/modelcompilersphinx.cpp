@@ -19,6 +19,14 @@
 
 #include "modelcompilersphinx.h"
 
+/* Plan:
+ * locate sphinxtrain
+ * change using lm to jsgf
+ * copy audop to proper wav directory or change in config?
+ * cd model directory and using sphinxtrain-snapshot pre-configure model
+ * modify proper config files and run training
+ * log
+ */
 
 
 bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compilationType, const QString &modelDestination, const QString &baseModelPath, const QHash<QString, QString> &args)

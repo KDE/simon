@@ -24,6 +24,8 @@
 #include <QString>
 #include <QHash>
 #include "simonmodelcompilationmanagement_export.h"
+#include <QMutex>
+#include <QProcess>
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
 {
@@ -52,15 +54,25 @@ public:
 
   explicit ModelCompiler(const QString& userName, QObject *parent=0) : QObject(parent), userName(userName) {}
 
-  virtual bool hasBuildLog() const=0;
-  virtual QString getGraphicBuildLog() const=0;
-  virtual QString getBuildLog() const=0;
+  virtual bool hasBuildLog() const;
+  virtual QString getGraphicBuildLog() const;
+  virtual QString getBuildLog() const;
 
-  virtual void abort()=0;
+  virtual void abort();
 
   virtual QString information(bool condensed=false) const=0;
 
 protected:
   QString userName;
+
+  QMutex buildLogMutex;
+  QByteArray buildLog;
+
+  QList<QProcess*> activeProcesses;
+
+  virtual bool processError();
+
+protected slots:
+   void addStatusToLog(const QString &status);
 };
 #endif

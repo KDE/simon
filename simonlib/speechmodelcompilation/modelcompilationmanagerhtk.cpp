@@ -135,22 +135,26 @@ void ModelCompilationManagerHTK::run()
     
     //build fingerprint and search cache for it
     uint fingerprint = 0;
-    QStringList componentsToParse(QStringList() << "lexicon" << "grammar" << "vocab");
+    QStringList componentsToParse(QStringList() << "lexicon" << "model.grammar" << "simple.voca");
     if (baseModelType > 0)
       componentsToParse << "prompts";
-    foreach (const QString& component, componentsToParse) {
-      QString file = compilerArgs.value(component);
-      qDebug() << "Analyzing file: " << file;
-      QFile f(file);
-      if (!f.open(QIODevice::ReadOnly)) {
-        kDebug() << "Error building fingerprint";
-        emit modelCompilationAborted();
-        return;
-      }
-      fingerprint ^= qHash(f.readAll());
-    }
-    fingerprint ^= compilationType;
-    
+
+    fingerprint = getFingerPrint(activeDir, componentsToParse, compilationType);
+//    foreach (const QString& component, componentsToParse)
+//    {
+//      QString file = compilerArgs.value(component);
+//      qDebug() << "Analyzing file: " << file;
+//      QFile f(file);
+//      if (!f.open(QIODevice::ReadOnly))
+//      {
+//        kDebug() << "Error building fingerprint";
+//        emit modelCompilationAborted();
+//        return;
+//      }
+//      fingerprint ^= qHash(f.readAll());
+//    }
+//    fingerprint ^= compilationType;
+
     bool exists;
     QString outPath = cachedModelPath(fingerprint, &exists);
     

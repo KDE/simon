@@ -37,11 +37,11 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   QObject(parent),
   m_currentSource(0)
 {
-#ifdef TSPHINX
+//#ifdef TSPHINX
   m_modelCompilationManager = new ModelCompilationManagerSPHINX(username, this);
-#else
-  m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
-#endif
+//#else
+//  m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
+//#endif
   //FIXME: hardcode
 
   m_username = username;

@@ -183,78 +183,78 @@ bool ModelCompilerHTK::parseConfiguration()
   return true;
 }
 
-bool ModelCompilerHTK::execute(const QString& command)
-{
-  kDebug() << command;
-  QProcess proc;
-  proc.setWorkingDirectory(tempDir);
-  proc.start(command);
+//bool ModelCompilerHTK::execute(const QString& command)
+//{
+//  kDebug() << command;
+//  QProcess proc;
+//  proc.setWorkingDirectory(tempDir);
+//  proc.start(command);
 
-  activeProcesses << &proc;
+//  activeProcesses << &proc;
 
-  buildLogMutex.lock();
-  buildLog.append("<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>");
-  buildLogMutex.unlock();
+//  buildLogMutex.lock();
+//  buildLog.append("<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>");
+//  buildLogMutex.unlock();
 
-  proc.waitForFinished(-1);
+//  proc.waitForFinished(-1);
 
-  activeProcesses.removeAll(&proc);
+//  activeProcesses.removeAll(&proc);
 
-  QByteArray err = proc.readAllStandardError();
-  QByteArray out = proc.readAllStandardOutput();
+//  QByteArray err = proc.readAllStandardError();
+//  QByteArray out = proc.readAllStandardOutput();
 
-  proc.close();
+//  proc.close();
 
-  buildLogMutex.lock();
-  if (!out.isEmpty())
-    buildLog.append("<p>"+out+"</p>");
+//  buildLogMutex.lock();
+//  if (!out.isEmpty())
+//    buildLog.append("<p>"+out+"</p>");
 
-  if (!err.isEmpty())
-  {
-    buildLog.append("<p><span style=\"color:#aa0000;\">"+err+"</span></p>");
-    kDebug() << "Appended error: " << err;
-  }
-  buildLogMutex.unlock();
+//  if (!err.isEmpty())
+//  {
+//    buildLog.append("<p><span style=\"color:#aa0000;\">"+err+"</span></p>");
+//    kDebug() << "Appended error: " << err;
+//  }
+//  buildLogMutex.unlock();
 
-  if (proc.exitCode() != 0)
-    return false;
-  else return true;
-}
-
-
-void ModelCompilerHTK::addStatusToLog(const QString& status)
-{
-  buildLogMutex.lock();
-  buildLog.append("<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>");
-  buildLogMutex.unlock();
-}
+//  if (proc.exitCode() != 0)
+//    return false;
+//  else return true;
+//}
 
 
-bool ModelCompilerHTK::hasBuildLog() const
-{
-  return (buildLog.count() > 0);
-}
+//void ModelCompilerHTK::addStatusToLog(const QString& status)
+//{
+//  buildLogMutex.lock();
+//  buildLog.append("<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>");
+//  buildLogMutex.unlock();
+//}
 
 
-QString ModelCompilerHTK::getGraphicBuildLog() const
-{
-  QString htmlLog = QString::fromLocal8Bit(buildLog);
-  htmlLog=htmlLog.replace('\n', "<br />");
-  return "<html><head /><body>"+htmlLog+"</body></html>";
-}
+//bool ModelCompilerHTK::hasBuildLog() const
+//{
+//  return (buildLog.count() > 0);
+//}
 
 
-QString ModelCompilerHTK::getBuildLog() const
-{
-  QString plainLog = QString::fromLocal8Bit(buildLog);
-  plainLog.remove("<p>");
-  plainLog.replace("</p>", "\n\n");
-  plainLog.remove("<span style=\"color:#aa0000;\">");
-  plainLog.remove("<span style=\"font-weight:bold; color:#00007f;\">");
-  plainLog.remove("<span style=\"font-weight:bold; color:#358914;\">");
-  plainLog.remove("</span>");
-  return plainLog;
-}
+//QString ModelCompilerHTK::getGraphicBuildLog() const
+//{
+//  QString htmlLog = QString::fromLocal8Bit(buildLog);
+//  htmlLog=htmlLog.replace('\n', "<br />");
+//  return "<html><head /><body>"+htmlLog+"</body></html>";
+//}
+
+
+//QString ModelCompilerHTK::getBuildLog() const
+//{
+//  QString plainLog = QString::fromLocal8Bit(buildLog);
+//  plainLog.remove("<p>");
+//  plainLog.replace("</p>", "\n\n");
+//  plainLog.remove("<span style=\"color:#aa0000;\">");
+//  plainLog.remove("<span style=\"font-weight:bold; color:#00007f;\">");
+//  plainLog.remove("<span style=\"font-weight:bold; color:#358914;\">");
+//  plainLog.remove("</span>");
+//  return plainLog;
+//}
 
 
 /**
@@ -352,16 +352,16 @@ bool ModelCompilerHTK::processError()
 }
 
 
-void ModelCompilerHTK::abort()
-{
-  kDebug() << "Compilation Manager Aborting.";
+//void ModelCompilerHTK::abort()
+//{
+//  kDebug() << "Compilation Manager Aborting.";
 
-  keepGoing=false;
+//  keepGoing=false;
 
-  foreach (QProcess *proc, activeProcesses)
-  //tell any running process to commit suicide
-    proc->kill();
-}
+//  foreach (QProcess *proc, activeProcesses)
+//  //tell any running process to commit suicide
+//    proc->kill();
+//}
 
 bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compilationType, const QString& modelDestination,
   const QString& baseModelPath, const QHash< QString, QString >& args )

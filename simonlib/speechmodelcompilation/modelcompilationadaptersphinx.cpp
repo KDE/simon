@@ -21,6 +21,7 @@
 #include "modelcompilationadaptersphinx.h"
 #include<KLocalizedString>
 #include <QDir>
+#include "simonutils/fileutils.h"
 
 ModelCompilationAdapterSPHINX::ModelCompilationAdapterSPHINX(const QString &userName, QObject *parent)
   : ModelCompilationAdapter(userName, parent)
@@ -71,6 +72,8 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
   emit  status(i18n("Model adaption complete"), 100, 100);
   emit adaptionComplete();
 
+  kDebug() <<"Adaptation complete";
+
   return true;
 }
 
@@ -88,9 +91,15 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel)) // I do not fully understand the meaning of this code snippet, so I just copied it:(
     return true;
 
+  ADAPT_CHECKPOINT;
+
+//  FileUtils::removeDirRecursive(workingDirPath+"/"+mName);
+//  FIXME: resolve linking problem and use function from simonutils module
+  removeDirRecursive(workingDirPath+"/"+mName);
+
   //Creating a directory hierarchy, where model compilation will be executed
   QDir wDir(workingDirPath);
-  if(!wDir.mkdir(mName) || !wDir.cd(mName) || !wDir.mkdir("/etc") || !wDir.mkdir("/wav"))
+  if(!wDir.mkdir(mName) || !wDir.cd(mName) || !wDir.mkdir("etc") || !wDir.mkdir("wav"))
   {
     emit error(i18n("Failed to create directory hierarchy at \"%1\"", workingDirPath));
     return false;
@@ -126,7 +135,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  if(!storeGrammar(adaptionType, fetc+".grammar", vocabulary, definedVocabulary, grammar))
+  if(!storeGrammar(adaptionType, fetc+".jsjf", vocabulary, definedVocabulary, grammar))
   {
     emit error(i18n("Failed to store grammar"));
     return false;
@@ -292,14 +301,14 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
   grammarStream.setCodec("UTF-8");
 
   grammarStream<<"#JSGF V1.0; \n\n"
-                 <<"grammar generalGrammar;";
+                 <<"grammar generalGrammar;\n";
 
   QStringList grammarStructures = grammar->getStructures();
-
+//WARNING: is all ok there?:D
   int index(0);
   for(const QString& structure: grammarStructures)
   {
-    grammarStream<< "public <structure"+ QString(index++) +"> = ";
+    grammarStream<< "public <structure"+ QString::number(index++) +"> = ";
     int splitter = structure.indexOf(" ");
     QStringList terminals = structure.mid(splitter+1).trimmed().split(' ');
 
@@ -330,4 +339,29 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
 
   }
   return true;
+}
+
+//WARNING: remove and use proper variant
+bool ModelCompilationAdapterSPHINX::removeDirRecursive(const QString &dirName)
+{
+    bool result = true;
+    QDir dir(dirName);
+
+    if (dir.exists(dirName)) {
+        Q_FOREACH(QFileInfo info, dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst)) {
+            if (info.isDir()) {
+                result = removeDirRecursive(info.absoluteFilePath());
+            }
+            else {
+                result = QFile::remove(info.absoluteFilePath());
+            }
+
+            if (!result) {
+                return result;
+            }
+        }
+        result = dir.rmdir(dirName);
+    }
+
+    return result;
 }
