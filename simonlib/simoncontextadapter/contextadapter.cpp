@@ -227,7 +227,11 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
   QFile outFile(outPath);
   QFile promptsFile(promptsPath);
   bool allEmpty = true;
-  if (!outFile.open(QIODevice::WriteOnly) || !promptsFile.open(QIODevice::ReadOnly))
+
+  if (!promptsFile.open(QIODevice::ReadOnly))
+    return promptsPath; // no input file - return missing path
+
+  if (!outFile.open(QIODevice::WriteOnly))
     return QString();
   while (!promptsFile.atEnd()) {
     QByteArray line = promptsFile.readLine();
