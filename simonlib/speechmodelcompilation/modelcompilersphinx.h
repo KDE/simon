@@ -30,15 +30,27 @@ public:
   bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
                         const QString& baseModelPath, const QHash<QString, QString>& args);
 
-  //TODO: Implement
-  bool hasBuildLog() const;
-  QString getGraphicBuildLog() const;
-  QString getBuildLog() const;
-
-  void abort();
-
+  
   QString information(bool condensed=false) const;
+  
+protected:
+  bool parseConfiguration();
+  bool processError();
+  
+private:
+  QString m_SphinxTrain;
+  QString m_ModelDir;
+  QString m_ModelName;
+  QString m_WavPath;
 
+  bool setupModel(const QString &modelDir, const QString &modelName);
+  bool compileModel(const QString &modelDir, const QString &modelName);
+
+  //TODO: move to utils module and rewrite more.. flexible
+  bool modifyConfig(const QString &filename, const QHash<QString, QString>& args);
+  bool copyDirsContent(const QString &source, const QString &destination);
+
+  bool copyModelToDestination(const QString &destination);
 };
 
 #endif // MODELCOMPILERSPHINX_H

@@ -62,17 +62,17 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
     bool pack( const QString& targetArchive, const QString& name );
 
   private:
-    bool keepGoing;
+//     bool keepGoing;
     bool catchUndefiniedPhonemes;
     QByteArray undefinedPhoneme;
 
 //    QMutex buildLogMutex;
 //    QByteArray buildLog;
-
-    CompilationType compilationType;
+    
+//    CompilationType compilationType;
 
     QString samplePath;
-    QString tempDir;
+//     QString tempDir;
     QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
     QString baseHmmDefsPath, baseTiedlistPath, baseMacrosPath, baseStatsPath;
     QString scriptBasePrefix;
@@ -86,7 +86,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
     QString createHMMPath(int number);
     bool pruneScp(const QString& inMlf, const QString& inScp, const QString& outScp);
 
-    void analyseError(QString readableError);
+//     void analyseError(QString readableError);
     bool processError();
 
     bool createDirs();

@@ -63,14 +63,25 @@ public:
   virtual QString information(bool condensed=false) const=0;
 
 protected:
+  bool keepGoing;
+  
   QString userName;
+  QString tempDir;
 
   QMutex buildLogMutex;
   QByteArray buildLog;
+  
+  CompilationType compilationType;
 
   QList<QProcess*> activeProcesses;
 
-  virtual bool processError();
+  virtual bool processError()=0;
+  virtual bool parseConfiguration()=0;
+  
+  bool execute(const QString& command, const QString &wDir);
+  
+  virtual void clearLog();
+  void analyseError(QString readableError);
 
 protected slots:
    void addStatusToLog(const QString &status);

@@ -256,26 +256,6 @@ bool ModelCompilerHTK::parseConfiguration()
 //  return plainLog;
 //}
 
-
-/**
- * \brief Gets a user-readable error and checks if we have not run into a common problem; Generates the final error and emits it using error()
- * \author Peter Grasch
- *
- * This method is kind of a proxy: It gets its error message from the compilation process itself. Such a message might be:
- * 	"Could not generate HMM13. Check paths to..."
- *
- * Before emitting that exakt error to the controlling process, we will check with processError which in turn will inspect the build protocol
- * to find common mistakes.
- * Only if processError does not know how to handle this error (i.e. not a common mistake) we will emit the given readableError.
- */
-void ModelCompilerHTK::analyseError(QString readableError)
-{
-  if (!keepGoing) return;
-
-  if (!processError())
-    emit error(readableError);
-}
-
 bool ModelCompilerHTK::removePhoneme(const QByteArray& phoneme)
 {
   //check 
@@ -466,9 +446,7 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
 
   keepGoing=true;
 
-  buildLogMutex.lock();
-  buildLog.clear();
-  buildLogMutex.unlock();
+  clearLog();
 
   if (!parseConfiguration())
     return false;
@@ -619,10 +597,10 @@ bool ModelCompilerHTK::makeTempVocab()
 bool ModelCompilerHTK::makeDfa()
 {
   QString execStr = '"'+mkfa+"\" -e1 -fg \""+tempDir+"/reverseGrammar"+"\" -fv \""+tempDir+"/tempvoca\" -fo \""+tempDir+"/dfaTemp.tmp"+"\" -fh \""+tempDir+"/dfaTemp.h\"";
-  if (!execute(execStr)) return false;
+  if (!execute(execStr, tempDir)) return false;
 
   execStr = '"'+dfaMinimize+'"'+" \""+tempDir+"/dfaTemp.tmp\" -o \""+tempDir+"model.dfa"+'"';
-  return execute(execStr);
+  return execute(execStr, tempDir);
 }
 
 
@@ -733,7 +711,7 @@ bool ModelCompilerHTK::codeAudioDataFromScp(const QString& path)
 {
   //QString codetrainPath = tempDir+"/codetrain.scp";
   QString execStr = '"'+hCopy+"\" -A -D -T 1 -C \""+htkIfyPath(wavConfigPath)+"\" -S \""+htkIfyPath(path)+'"';
-  if (!execute(execStr)) {
+  if (!execute(execStr, tempDir)) {
     analyseError(i18n("Error while coding the samples!\n\nPlease check the path to HCopy (%1) and the wav config (%2)", hCopy, wavConfigPath));
     return false;
   }
@@ -742,7 +720,7 @@ bool ModelCompilerHTK::codeAudioDataFromScp(const QString& path)
 
 bool ModelCompilerHTK::reestimate(const QString& command)
 {
-  return execute(command);
+  return execute(command, tempDir);
 }
 
 bool ModelCompilerHTK::generateCodetrainScp(QStringList &codeTrainScps)
@@ -890,7 +868,7 @@ bool ModelCompilerHTK::makeTranscriptions()
     return false;
   }
 
-  if (!execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+htkIfyPath(tempDir)+"/dict\" -i \""+htkIfyPath(tempDir)+"/phones0.mlf\" \""+htkIfyPath(getScriptFile("mkphones0.led"))+"\" \""+htkIfyPath(tempDir)+"/words.mlf"+"\"") || !execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+htkIfyPath(tempDir)+"/dict"+"\" -i \""+htkIfyPath(tempDir)+"/phones1.mlf\" \""+htkIfyPath(getScriptFile("mkphones1.led"))+"\" \""+htkIfyPath(tempDir)+"/words.mlf\"")) {
+  if (!execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+htkIfyPath(tempDir)+"/dict\" -i \""+htkIfyPath(tempDir)+"/phones0.mlf\" \""+htkIfyPath(getScriptFile("mkphones0.led"))+"\" \""+htkIfyPath(tempDir)+"/words.mlf"+"\"", tempDir) || !execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+htkIfyPath(tempDir)+"/dict"+"\" -i \""+htkIfyPath(tempDir)+"/phones1.mlf\" \""+htkIfyPath(getScriptFile("mkphones1.led"))+"\" \""+htkIfyPath(tempDir)+"/words.mlf\"", tempDir)) {
     analyseError(i18n("Generation of the transcription failed. Please check if you have correctly specified the paths to mkphones0.led and mkphons1.led. (%1, %2)", getScriptFile("mkphones0.led"), getScriptFile("mkphones1.led")));
     return false;
   }
@@ -1004,7 +982,7 @@ bool ModelCompilerHTK::tieStates()
   do
   {
     undefinedPhoneme = QByteArray();
-    if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\"")) {
+    if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\"", tempDir)) {
       analyseError(i18n("Could not bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, getScriptFile("global.ded"), lexiconPath));
       return false;
     }
@@ -1063,7 +1041,7 @@ bool ModelCompilerHTK::tieStates()
 
 bool ModelCompilerHTK::buildHMM13()
 {
-  return execute('"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm12/macros\" -H \""+htkIfyPath(tempDir)+"/hmm12/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm13/\" \""+htkIfyPath(tempDir)+"/tree.hed\" \""+htkIfyPath(tempDir)+"/triphones1\"");
+  return execute('"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm12/macros\" -H \""+htkIfyPath(tempDir)+"/hmm12/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm13/\" \""+htkIfyPath(tempDir)+"/tree.hed\" \""+htkIfyPath(tempDir)+"/triphones1\"", tempDir);
 }
 
 
@@ -1171,7 +1149,7 @@ bool ModelCompilerHTK::increaseMixtures()
     bool succ = true;
     emit status(i18n("Increasing mixtures..."),currentState);
     succ = execute('"'+hHEd+"\" -A -D -T 1 -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+createHMMPath(currentHMMNumber)+
-        "hmmdefs\" -M \""+createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(config)+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+        "hmmdefs\" -M \""+createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(config)+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"", tempDir);
     currentState += progressPerStep;
     currentHMMNumber += 1;
 
@@ -1294,7 +1272,7 @@ bool ModelCompilerHTK::makeTriphones()
 {
   if (!keepGoing) return false;
   emit status(i18n("Generating triphone..."),1380);
-  if (!execute('"'+hLEd+"\" -A -D -T 1 -n \""+htkIfyPath(tempDir)+"/triphones1\" -l * -i \""+htkIfyPath(tempDir)+"/wintri.mlf\" \""+htkIfyPath(getScriptFile("mktri.led"))+"\" \""+htkIfyPath(tempDir)+"/aligned.mlf\"")) {
+  if (!execute('"'+hLEd+"\" -A -D -T 1 -n \""+htkIfyPath(tempDir)+"/triphones1\" -l * -i \""+htkIfyPath(tempDir)+"/wintri.mlf\" \""+htkIfyPath(getScriptFile("mktri.led"))+"\" \""+htkIfyPath(tempDir)+"/aligned.mlf\"", tempDir)) {
     analyseError(i18n("Could not generate triphones.\n\nPlease check your path to the files mktri.led and HLEd (%1, %2)", getScriptFile("mktri.led"), hLEd));
     return false;
   }
@@ -1347,7 +1325,7 @@ bool ModelCompilerHTK::buildHMM11()
 
 bool ModelCompilerHTK::buildHMM10()
 {
-  return execute('"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm9/macros\" -H \""+htkIfyPath(tempDir)+"/hmm9/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm10/\" \""+htkIfyPath(tempDir)+"/mktri.hed\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+  return execute('"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm9/macros\" -H \""+htkIfyPath(tempDir)+"/hmm9/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm10/\" \""+htkIfyPath(tempDir)+"/mktri.hed\" \""+htkIfyPath(tempDir)+"/monophones1\"", tempDir);
 }
 
 
@@ -1431,7 +1409,7 @@ bool ModelCompilerHTK::pruneScp(const QString& inMlf, const QString& inScp, cons
 
 bool ModelCompilerHTK::realignHMM7()
 {
-  if (!execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b silence -C \""+htkIfyPath(getScriptFile("config"))+"\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -i \""+htkIfyPath(tempDir)+"/aligned.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict1\" \""+htkIfyPath(tempDir)+"/monophones1\""))
+  if (!execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b silence -C \""+htkIfyPath(getScriptFile("config"))+"\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -i \""+htkIfyPath(tempDir)+"/aligned.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict1\" \""+htkIfyPath(tempDir)+"/monophones1\"", tempDir))
     return false;
 
   return pruneScp(tempDir+QDir::separator()+"aligned.mlf", tempDir+QDir::separator()+"train.scp", tempDir+QDir::separator()+"aligned.scp");
@@ -1467,7 +1445,7 @@ bool ModelCompilerHTK::buildHMM6()
 
 bool ModelCompilerHTK::buildHMM5()
 {
-  return execute('"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm4/macros\" -H \""+htkIfyPath(tempDir)+"/hmm4/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm5/\" \""+htkIfyPath(getScriptFile("sil.hed"))+"\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+  return execute('"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm4/macros\" -H \""+htkIfyPath(tempDir)+"/hmm4/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm5/\" \""+htkIfyPath(getScriptFile("sil.hed"))+"\" \""+htkIfyPath(tempDir)+"/monophones1\"", tempDir);
 }
 
 
@@ -1543,7 +1521,7 @@ bool ModelCompilerHTK::buildHMM1()
 
 bool ModelCompilerHTK::buildHMM0()
 {
-  if (!execute('"'+hCompV+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -f 0.01 -m -S \""+htkIfyPath(tempDir)+"/train.scp\" -M \""+htkIfyPath(tempDir)+"/hmm0/\" \""+htkIfyPath(getScriptFile("proto"))+'"'))
+  if (!execute('"'+hCompV+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -f 0.01 -m -S \""+htkIfyPath(tempDir)+"/train.scp\" -M \""+htkIfyPath(tempDir)+"/hmm0/\" \""+htkIfyPath(getScriptFile("proto"))+'"', tempDir))
     return false;
 
   QString protoBody="";
@@ -1628,7 +1606,7 @@ bool ModelCompilerHTK::makeMonophones()
 
   //make monophones1
   QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";
-  if (!execute(execStr)) return false;
+  if (!execute(execStr, tempDir)) return false;
 
   //add sil phoneme if not in there
   QFile monophones1(tempDir+"/monophones1");
@@ -1784,7 +1762,7 @@ bool ModelCompilerHTK::adaptBaseModel()
 
 bool ModelCompilerHTK::realignToBaseModel()
 {
-  if (!execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b SENT-END -C \""+htkIfyPath(getScriptFile("config"))+"\" -H \""+htkIfyPath(baseMacrosPath)+"\" -H \""+htkIfyPath(baseHmmDefsPath)+"\" -i \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(baseTiedlistPath)+"\""))
+  if (!execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b SENT-END -C \""+htkIfyPath(getScriptFile("config"))+"\" -H \""+htkIfyPath(baseMacrosPath)+"\" -H \""+htkIfyPath(baseHmmDefsPath)+"\" -i \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(baseTiedlistPath)+"\"", tempDir))
     return false;
 
   return pruneScp(tempDir+QDir::separator()+"adaptPhones.mlf", tempDir+QDir::separator()+"train.scp", tempDir+QDir::separator()+"aligned.scp");
@@ -1793,7 +1771,7 @@ bool ModelCompilerHTK::realignToBaseModel()
 
 bool ModelCompilerHTK::createRegressionClassTree()
 {
-  return execute('"'+hHEd+"\" -H \""+htkIfyPath(baseMacrosPath)+"\" -H \""+htkIfyPath(baseHmmDefsPath)+"\" -M \""+htkIfyPath(tempDir)+"/classes/\" \""+htkIfyPath(tempDir)+"/regtree.hed\" \""+htkIfyPath(baseTiedlistPath)+"\"");
+  return execute('"'+hHEd+"\" -H \""+htkIfyPath(baseMacrosPath)+"\" -H \""+htkIfyPath(baseHmmDefsPath)+"\" -M \""+htkIfyPath(tempDir)+"/classes/\" \""+htkIfyPath(tempDir)+"/regtree.hed\" \""+htkIfyPath(baseTiedlistPath)+"\"", tempDir);
 }
 
 
@@ -1863,10 +1841,10 @@ bool ModelCompilerHTK::staticAdaption()
     return false;
   
   //This could possibly be paralellized
-  if (!execute('"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+baseMacrosPath+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+baseHmmDefsPath+"\" \""+baseTiedlistPath+"\""))
+  if (!execute('"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+baseMacrosPath+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+baseHmmDefsPath+"\" \""+baseTiedlistPath+"\"", tempDir))
     return false;
 
-  if (!execute('"'+hERest+"\" -a -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.rc"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+baseMacrosPath+"\" -u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2 -H \""+baseHmmDefsPath+"\" \""+baseTiedlistPath+"\""))
+  if (!execute('"'+hERest+"\" -a -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.rc"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+baseMacrosPath+"\" -u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2 -H \""+baseHmmDefsPath+"\" \""+baseTiedlistPath+"\"", tempDir))
     return false;
 
 
@@ -1979,11 +1957,11 @@ bool ModelCompilerHTK::reestimate(const QString& mlf, bool useStats, const QStri
     // no -S parameter; add -p 0; add /tmp/kde-bedahr/sam/internalsamuser/compile//hmm1//*.acc
     kDebug() << "Merge command: " << mergeCmd;
     
-    return execute(mergeCmd);
+    return execute(mergeCmd, tempDir);
   }
   return true;
   
 #else
-  return execute(command);
+  return execute(command, tempDir);
 #endif
 }
