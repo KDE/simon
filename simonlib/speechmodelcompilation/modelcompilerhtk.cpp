@@ -44,10 +44,15 @@
 #include <KAboutData>
 #include <KLocale>
 #include <KDebug>
-#include <X11/Xproto.h>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
+#endif
+#ifdef Q_WS_X11
+#include <X11/Xproto.h>
+#endif
+
+#ifdef Q_OS_WIN
 #undef HTK_UNICODE
 #endif
 #ifdef Q_OS_UNIX
