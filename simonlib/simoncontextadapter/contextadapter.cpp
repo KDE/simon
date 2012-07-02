@@ -193,10 +193,11 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
 {
   //apply situation information on input before calling startModelCompilation
   QStringList scenarioPaths = adaptScenarios(m_currentSource->scenarioPaths(), situation.deactivatedScenarios());
-  QString adaptedPromptsPath = adaptPrompts(m_currentSource->promptsPath(), situation.deactivatedSampleGroups());
+  QString inputPrompts = m_currentSource->promptsPath();
+  QString adaptedPromptsPath = adaptPrompts(inputPrompts, situation.deactivatedSampleGroups());
   
   kDebug() << "Starting model compilation";
-  if (scenarioPaths.empty() || adaptedPromptsPath.isEmpty()) {
+  if (scenarioPaths.empty() || (!inputPrompts.isEmpty() && adaptedPromptsPath.isEmpty())) {
     // this  model is a null model; deactivate recognition
     model->setState(CachedModel::Null);
     storeCachedModels();
@@ -220,7 +221,7 @@ QStringList ContextAdapter::adaptScenarios ( const QStringList& scenarioPaths, c
 
 QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QStringList& deactivatedSampleGroups )
 {
-  kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups;
+  kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups << promptsPath;
   QString outPath = KStandardDirs::locateLocal("tmp", 
                                             KGlobal::mainComponent().aboutData()->appName()+'/'+m_username+"/context/prompts_"+
                                             QString::number(qHash(deactivatedSampleGroups.join(";"))));
@@ -228,11 +229,9 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
   QFile promptsFile(promptsPath);
   bool allEmpty = true;
 
-  if (!promptsFile.open(QIODevice::ReadOnly))
-    return promptsPath; // no input file - return missing path
-
-  if (!outFile.open(QIODevice::WriteOnly))
+  if (!promptsFile.open(QIODevice::ReadOnly) || !outFile.open(QIODevice::WriteOnly))
     return QString();
+
   while (!promptsFile.atEnd()) {
     QByteArray line = promptsFile.readLine();
     QList<QByteArray> tokens = line.split('"');
@@ -345,8 +344,10 @@ QString ContextAdapter::currentModelPath() const
     if (m_modelCache.contains(s)) { 
       if (m_modelCache.value(s)->state() == CachedModel::Current)
         return m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
-      else if (m_modelCache.value(s)->state() == CachedModel::Null)
+      else if (m_modelCache.value(s)->state() == CachedModel::Null) {
+        kDebug() << "null model";
         return QString();
+      }
     }
   }
     
