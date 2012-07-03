@@ -26,6 +26,7 @@
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterSPHINX : public ModelCompilationAdapter
 {
+  Q_OBJECT
 protected:
   QString m_workingDir;
   QString m_modelName;

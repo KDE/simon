@@ -26,7 +26,10 @@
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerSPHINX: public ModelCompiler
 {
+  Q_OBJECT
 public:
+  explicit ModelCompilerSPHINX(const QString& userName, QObject *parent=0);
+
   bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
                         const QString& baseModelPath, const QHash<QString, QString>& args);
 

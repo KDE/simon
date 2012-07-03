@@ -67,8 +67,16 @@ protected:
   
   ModelCompiler *compiler;
   ModelCompilationAdapter *adapter;
+
+  // this is set to true when we receive note that a problem during compilation was fixed by changing the adaption
+  // parameters. On the next failed compilation, the adaption (and subsequently the compilation) will be triggered
+  // again
+  bool tryAgain;
   
   virtual void run()=0;
+
+  uint getFingerPrint(QString dir, QStringList files, ModelCompiler::CompilationType compilationType);
+  ModelCompiler::CompilationType getCompilationType(int baseModelType);
 };
 
 #endif

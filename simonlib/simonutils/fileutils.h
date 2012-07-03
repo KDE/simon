@@ -22,7 +22,7 @@
 
 #include <QString>
 
-#include "simonutils_export.h"
+//#include "simonutils_export.h"
 
 class FileUtils
 {

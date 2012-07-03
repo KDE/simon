@@ -88,6 +88,8 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   if(!readPrompts(adaptionType, vocabulary, promptsPathIn, trainedVocabulary))
     return false;
 
+  ADAPT_CHECKPOINT;
+
   if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel)) // I do not fully understand the meaning of this code snippet, so I just copied it:(
     return true;
 
@@ -114,17 +116,23 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
     return false;
   }
 
+  ADAPT_CHECKPOINT;
+
   if(!storeFiller(adaptionType, fetc+".filler"))
   {
     emit error(i18n("Failed to store filler"));
     return false;
   }
 
+  ADAPT_CHECKPOINT;
+
   if(!storePhonesList(adaptionType, fetc+".phone", vocabulary))
   {
     emit error(i18n("Failed to store phones"));
     return false;
   }
+
+  ADAPT_CHECKPOINT;
 
   if(!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+"_train.transcription", fetc+"_train.fileids",
                                   definedVocabulary))

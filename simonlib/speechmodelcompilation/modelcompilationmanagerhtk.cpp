@@ -25,11 +25,13 @@
 #include <KStandardDirs>
 #include <KDebug>
 
-ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent),
-  tryAgain(false)
+ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
+//  tryAgain(false)
 {
   compiler = new ModelCompilerHTK(userName, this);
   adapter = new ModelCompilationAdapterHTK(userName, this);
+
+  tryAgain = false;
   
   connect(adapter, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
   connect(adapter, SIGNAL(adaptionAborted()), this, SIGNAL(modelCompilationAborted()));
@@ -78,11 +80,13 @@ void ModelCompilationManagerHTK::run()
   
   adapter->clearPoisonedPhonemes();
   
-  do {
+  do
+  {
     if (!keepGoing) return;
     
     tryAgain = false;
-    if (!adapter->startAdaption(adaptionType, scenarioPaths, promptsPathIn, adaptionArgs)) {
+    if (!adapter->startAdaption(adaptionType, scenarioPaths, promptsPathIn, adaptionArgs))
+    {
       kWarning() << "Model adaption failed for user " << userName;
       return;
     }
@@ -102,8 +106,10 @@ void ModelCompilationManagerHTK::run()
 
     QFileInfo fiPrompts(activeDir+"prompts");
     bool hasPrompts = (fiPrompts.size() > 0);
-    if (!hasPrompts) {
-      switch (baseModelType) {
+    if (!hasPrompts)
+    {
+      switch (baseModelType)
+      {
         case 1:
           kDebug() << "No Prompts!  Switching to static model!";
           baseModelType = 0;
@@ -115,23 +121,24 @@ void ModelCompilationManagerHTK::run()
       }
     }
     
-    ModelCompiler::CompilationType compilationType;
+    ModelCompiler::CompilationType compilationType = getCompilationType(baseModelType);
     
-    switch (baseModelType) {
-      case 0:
-        //static model
-        compilationType = (ModelCompiler::CompileLanguageModel);
-        break;
-      case 1:
-        //adapted base model
-        compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::AdaptSpeechModel);
-        break;
+//    switch (baseModelType)
+//    {
+//      case 0:
+//        //static model
+//        compilationType = (ModelCompiler::CompileLanguageModel);
+//        break;
+//      case 1:
+//        //adapted base model
+//        compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::AdaptSpeechModel);
+//        break;
 
-      default:
-        //dynamic model
-        compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::CompileSpeechModel);
-        break;
-    }
+//      default:
+//        //dynamic model
+//        compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::CompileSpeechModel);
+//        break;
+//    }
     
     //build fingerprint and search cache for it
     uint fingerprint = 0;
@@ -160,7 +167,8 @@ void ModelCompilationManagerHTK::run()
     
     if (!keepGoing) return;
     
-    if (exists || compiler->startCompilation(compilationType, outPath, baseModelPath, compilerArgs)) {
+    if (exists || compiler->startCompilation(compilationType, outPath, baseModelPath, compilerArgs))
+    {
       emit modelReady(fingerprint, outPath);
       return;
     } else

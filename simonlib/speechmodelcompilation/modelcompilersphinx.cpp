@@ -263,3 +263,9 @@ QString ModelCompilerSPHINX::information(bool condensed) const
   //TODO:implement
   return "";
 }
+
+
+ModelCompilerSPHINX::ModelCompilerSPHINX(const QString &userName, QObject *parent):ModelCompiler(userName, parent)
+{
+
+}

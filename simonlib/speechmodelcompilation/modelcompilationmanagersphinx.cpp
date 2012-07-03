@@ -29,9 +29,18 @@ ModelCompilationManagerSPHINX::ModelCompilationManagerSPHINX(const QString& user
   compiler = new ModelCompilerSPHINX(userName, this);
   adapter = new ModelCompilationAdapterSPHINX(userName, this);
 
-#include "modelcompilationmanagersphinx.h"
+  connect(adapter, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+  connect(adapter, SIGNAL(adaptionAborted()), this, SIGNAL(modelCompilationAborted()));
+  connect(adapter, SIGNAL(status(QString,int,int)), this, SIGNAL(status(QString,int,int)));
 
+  connect(compiler, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+  connect(compiler, SIGNAL(status(QString,int,int)), this, SIGNAL(status(QString,int,int)));
+  connect(compiler, SIGNAL(activeModelCompilationAborted()), this, SIGNAL(modelCompilationAborted()));
 
+  connect(compiler, SIGNAL(wordUndefined(QString)), this, SIGNAL(wordUndefined(QString)));
+  connect(compiler, SIGNAL(classUndefined(QString)), this, SIGNAL(classUndefined(QString)));
+  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SIGNAL(phonemeUndefined(QString)));
+}
 
 void ModelCompilationManagerSPHINX::run()
 {

@@ -1,8 +1,0 @@
-# ignore all kinds of temporary files
-*~
-*.kdev4
-*.orig
-*.kate-swp
-#exclude doc module
-CMakeLists.txt
-

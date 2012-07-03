@@ -18,13 +18,16 @@
  */
 
 #include "modelcompilationmanager.h"
+#include <stdexcept>
 #include <KStandardDirs>
 #include <KDebug>
 #include <QFile>
+#include <QString>
 
 ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObject* parent ) : 
     QThread ( parent ), userName(userName), compiler(0), adapter(0)
 {
+//  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SIGNAL(phonemeUndefined(QString)));
 }
 
 QString ModelCompilationManager::cachedModelPath ( uint fingerprint, bool* exists )

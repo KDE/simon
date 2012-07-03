@@ -25,9 +25,12 @@
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerSPHINX: public ModelCompilationManager
 {
+  Q_OBJECT
+public:
+  ModelCompilationManagerSPHINX(const QString& userName, QObject *parent);
 protected:
   //TODO: Implement
-  virtual void run();
+  void run();
 
 };
 
