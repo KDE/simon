@@ -52,6 +52,11 @@
       <default code="true">KStandardDirs::findExe("dfa_minimize")</default>
       <tooltip>The path to the dfa_minimize executable.</tooltip>
     </entry>
+    <entry name="sphinxtrain" type="Url">
+      <label>The path to the sphinxtrain executable.</label>
+      <default code="true">KStandardDirs::findExe("sphinxtrain")</default>
+      <tooltip>The path to the sphinxtrain executable.</tooltip>
+    </entry>
   </group>
 </kcfg>
 

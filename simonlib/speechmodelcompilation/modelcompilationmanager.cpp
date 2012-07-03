@@ -103,6 +103,7 @@ uint ModelCompilationManager::getFingerPrint(QString dir, QStringList files, Mod
     if (!f.open(QIODevice::ReadOnly))
     {
       kDebug() << "Error building fingerprint";
+      kDebug() << dir <<"\n"<<component;
 //      emit modelCompilationAborted();
       //BUG:
       //FIXME:

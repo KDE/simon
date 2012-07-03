@@ -22,6 +22,7 @@
 #include "modelcompilationmanagersphinx.h"
 #include <KStandardDirs>
 #include <QFileInfo>
+#include <QUuid>
 
 ModelCompilationManagerSPHINX::ModelCompilationManagerSPHINX(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
 //  tryAgain(false)
@@ -48,20 +49,21 @@ void ModelCompilationManagerSPHINX::run()
   QHash<QString,QString> adaptionArgs;
 
   QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
+  QUuid modelUuid = QUuid::createUuid();
 
   ModelCompilationAdapter::AdaptionType adaptionType = (baseModelType == 0) ?
                                                          (ModelCompilationAdapter::AdaptLanguageModel) :
                                                          (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel);
 
-  QString modelName = "userDefinedModel"; //TODO: move name to config
+  QString modelName = userName+modelUuid.toString();"userDefinedModel"; //TODO: move name to config
   adaptionArgs.insert("workingDir", activeDir);
   adaptionArgs.insert("modelName", modelName);
 
   //then, compile the model using the model compilation manager
   QHash<QString,QString> compilerArgs;
 
-//  compilerArgs.insert("samples",KStandardDirs::locateLocal("appdata", "models/"+userName+"/samples/"));
-//  compilerArgs.insert("lexicon", activeDir+"lexicon");
+  compilerArgs.insert("audioPath",KStandardDirs::locateLocal("appdata", "models/"+userName+"/samples/"));
+  compilerArgs.insert("modelName", modelName);
 //  compilerArgs.insert("grammar", activeDir+"model.grammar");
 //  compilerArgs.insert("vocab", activeDir+"simple.voca");
 //  compilerArgs.insert("prompts", activeDir+"prompts");
@@ -86,7 +88,7 @@ void ModelCompilationManagerSPHINX::run()
     QString fetc = activeDir+"/"+modelName+"/etc/"+modelName;
 
     kdDebug() << "Data\n" <<fetc<< "\n"<<activeDir;
-    QFileInfo fiGrammar(fetc+".jsjf");
+    QFileInfo fiGrammar(fetc+GRAMMAR_EXT);
     bool hasGrammar = (fiGrammar.size() > 0);
 
     if (!hasGrammar)
@@ -118,9 +120,9 @@ void ModelCompilationManagerSPHINX::run()
 
     //build fingerprint and search cache for it
     uint fingerprint = 0;
-    QStringList componentsToParse(QStringList() << ".grammar" << ".phone" << ".dic");
+    QStringList componentsToParse(QStringList() << GRAMMAR_EXT << PHONE_EXT << DICT_EXT);
     if (baseModelType > 0)
-      componentsToParse << "_train.transcription" << "_train.fileids" ;
+      componentsToParse << TRAIN_TRANSCRIPTION << TRAIN_FIELDS ;
 
     fingerprint = getFingerPrint(fetc, componentsToParse, compilationType);
 
@@ -129,7 +131,7 @@ void ModelCompilationManagerSPHINX::run()
 
     if (!keepGoing) return;
 
-    if (exists || compiler->startCompilation(compilationType, outPath, baseModelPath, compilerArgs))
+    if (exists || compiler->startCompilation(compilationType, outPath, activeDir, compilerArgs))
     {
       emit modelReady(fingerprint, outPath);
       return;

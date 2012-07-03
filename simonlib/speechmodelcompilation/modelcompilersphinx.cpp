@@ -47,10 +47,10 @@ bool ModelCompilerSPHINX::parseConfiguration()
 //   if ((compilationType & ModelCompilerHTK::CompileSpeechModel)||
 //   (compilationType & ModelCompilerHTK::AdaptSpeechModel)) {
     m_SphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
-    
+
 //   }
 
-  if (!QFile::exists(m_SphinxTrain)) 
+  if (!QFile::exists(m_SphinxTrain))
   {
     //SphinxTrain not found
     QString errorMsg = i18n("The SphinxTrain cannot be found. Please make sure it is installed correctly.");
@@ -63,9 +63,14 @@ bool ModelCompilerSPHINX::parseConfiguration()
 }
 
 bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compilationType, const QString &modelDestination, 
-					   const QString &baseModelPath, const QHash<QString, QString> &args)
+                       const QString &baseModelPath, const QHash<QString, QString> &args)
 {
-  //TODO:implement
+  if(args.isEmpty())
+  {
+    emit error(i18n("There no arguments to compile"));
+    return false;
+  }
+
   this->compilationType = compilationType;
   m_ModelDir = baseModelPath;
   m_ModelName = args.value("modelName");
@@ -148,20 +153,20 @@ bool ModelCompilerSPHINX::processError()
 
 bool ModelCompilerSPHINX::setupModel(const QString &modelDir, const QString &modelName)
 {
-  QString execString = m_SphinxTrain +" run";
-  if(execute(execString, modelDir))
+  QString execString = m_SphinxTrain +" -t " +modelName+" setup";
+  if(execute(execString, modelDir+"/"+modelName))
     return true;
   else
   {
     processError();
-    return false;    
+    return false;
   }
 }
 
 bool ModelCompilerSPHINX::compileModel(const QString &modelDir, const QString &modelName)
 {
-  QString execString = m_SphinxTrain +" -t " +m_ModelName+" setup";
-  if(execute(execString, modelDir))
+  QString execString = m_SphinxTrain +" run";
+  if(execute(execString, modelDir+"/"+modelName))
       return true;
   else
   {
@@ -180,7 +185,7 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   }
 
   QRegExp pLine;
-  pLine.setPattern("^( {0,}\$[0-9a-zA-Z_]+ =)");
+  pLine.setPattern("^( {0,}\\$[0-9a-zA-Z_]+ =)");
 
   QByteArray outArr;
   QTextStream out(&outArr);
@@ -190,24 +195,31 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   {
       QString line = in.readLine();
       if(pLine.indexIn(line) == -1)
+      {
         out << line <<"\n";
+        kDebug()<<line;
+      }
       else
       {
+//        kDebug()<< "wheee";
         QStringList capturedList = pLine.capturedTexts();
         QString key = capturedList.first().mid(1, capturedList.first().size() - 3); //3 chars: $, ,=
         if(!args.contains(key))
         {
           out << line <<"\n";
+          kDebug()<<line;
           continue;
         }
 
         out << capturedList.first() +" \""+args.value(key)+"\";" <<"\n";
+        kDebug()<<capturedList.first() +" \""+args.value(key)+"\";";
       }
 
   }
 
   configFile.close();
 
+  out.flush();
   if (!configFile.open(QIODevice::WriteOnly))
   {
     emit error(i18n("Failed to read config at  \"%1\"", filename));

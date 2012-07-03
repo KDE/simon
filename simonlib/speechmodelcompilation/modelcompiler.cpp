@@ -74,6 +74,7 @@ void ModelCompiler::addStatusToLog(const QString& status)
 bool ModelCompiler::execute(const QString& command, const QString &wDir)
 {
   kDebug() << command;
+  kDebug() << wDir;
   QProcess proc;
   proc.setWorkingDirectory(wDir);
   proc.start(command);
@@ -95,7 +96,10 @@ bool ModelCompiler::execute(const QString& command, const QString &wDir)
 
   buildLogMutex.lock();
   if (!out.isEmpty())
+  {
     buildLog.append("<p>"+out+"</p>");
+    kDebug() << "Process output: " << out;
+  }
 
   if (!err.isEmpty())
   {
