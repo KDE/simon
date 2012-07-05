@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -15,34 +15,35 @@
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+ */ 
 
+#ifndef SPHINXRECOGNITIONCONFIGURATION_H
+#define SPHINXRECOGNITIONCONFIGURATION_H
 
-#ifndef RECOGNIZER_H
-#define RECOGNIZER_H
-
-#include <simonrecognitionresult/recognitionresult.h>
+#include "recognitionconfiguration.h"
+#include <QString>
+#include <QSharedPointer>
 #include "simonrecognizer_export.h"
+#include <pocketsphinx.h>
 
-class RecognitionConfiguration;
 
-class SIMONRECOGNIZER_EXPORT Recognizer
+class SIMONRECOGNIZER_EXPORT SphinxRecognitionConfiguration : public RecognitionConfiguration
 {
-protected:
-  QString m_lastError;
-
-  QByteArray log;
-
 public:
-  virtual bool init(RecognitionConfiguration* config)=0;
-  virtual QList<RecognitionResult> recognize(const QString& file)=0;
-  virtual bool uninitialize()=0;
-  
-  QString getLastError() { return m_lastError; }
-  
-  virtual QByteArray getLog() { return log; }
-  
-  virtual ~Recognizer() {}
+  SphinxRecognitionConfiguration();
+
+  QString getModelDir() { return m_ModelDir; }
+  QString getGrammar() { return m_Grammar; }
+  QString getDictionary() { return m_Dictionary; }
+
+  QStringList toArgs();
+  QSharedPointer<cmd_ln_t> getSphinxConfig();
+
+
+private:
+  QString m_ModelDir; //-hmm
+  QString m_Grammar; //-jsgf
+  QString m_Dictionary; //-dict
 };
 
-#endif // RECOGNIZER_H
+#endif // SPHINXRECOGNITIONCONFIGURATION_H

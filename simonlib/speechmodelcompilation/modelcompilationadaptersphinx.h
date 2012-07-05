@@ -24,6 +24,14 @@
 #include "modelcompilationadapter.h"
 #include "simonmodelcompilationmanagement_export.h"
 
+#define GRAMMAR_EXT ".jsgf"
+#define PHONE_EXT ".phone"
+#define DICT_EXT ".dic"
+#define TRAIN_TRANSCRIPTION "_train.transcription"
+#define TRAIN_FIELDS "_train.fileids"
+#define TEST_TRANSCRIPTION "_test.transcription"
+#define TEST_FIELDS "_test.fileids"
+
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterSPHINX : public ModelCompilationAdapter
 {
   Q_OBJECT

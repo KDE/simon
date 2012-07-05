@@ -23,11 +23,11 @@
 #include "modelcompilationmanager.h"
 #include "simonmodelcompilationmanagement_export.h"
 
-#define GRAMMAR_EXT ".jsjf"
-#define PHONE_EXT ".phone"
-#define DICT_EXT ".dic"
-#define TRAIN_TRANSCRIPTION "_train.transcription"
-#define TRAIN_FIELDS "_train.fileids"
+//#define GRAMMAR_EXT ".jsjf"
+//#define PHONE_EXT ".phone"
+//#define DICT_EXT ".dic"
+//#define TRAIN_TRANSCRIPTION "_train.transcription"
+//#define TRAIN_FIELDS "_train.fileids"
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerSPHINX: public ModelCompilationManager
 {

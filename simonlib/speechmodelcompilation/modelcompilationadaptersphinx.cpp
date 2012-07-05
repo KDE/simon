@@ -109,7 +109,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   QString fetc = workingDirPath+"/"+mName+"/etc/"+mName;
 
-  if(!storeDictionary(adaptionType, fetc+".dic", trainedVocabulary, definedVocabulary,
+  if(!storeDictionary(adaptionType, fetc+DICT_EXT, trainedVocabulary, definedVocabulary,
                       vocabulary))
   {
     emit error(i18n("Failed to store dictionary"));
@@ -126,7 +126,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  if(!storePhonesList(adaptionType, fetc+".phone", vocabulary))
+  if(!storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary))
   {
     emit error(i18n("Failed to store phones"));
     return false;
@@ -134,8 +134,9 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  if(!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+"_train.transcription", fetc+"_train.fileids",
-                                  definedVocabulary))
+  if(!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+TRAIN_TRANSCRIPTION, fetc+TRAIN_FIELDS,
+                                  definedVocabulary) || !storeTranscriptionAndFields(adaptionType, promptsPathIn,
+                                  fetc+TEST_TRANSCRIPTION, fetc+TEST_FIELDS, definedVocabulary))
   {
     emit error(i18n("Failed to store transcription and fields"));
     return false;
@@ -143,7 +144,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  if(!storeGrammar(adaptionType, fetc+".jsjf", vocabulary, definedVocabulary, grammar))
+  if(!storeGrammar(adaptionType, fetc+GRAMMAR_EXT, vocabulary, definedVocabulary, grammar))
   {
     emit error(i18n("Failed to store grammar"));
     return false;
@@ -243,6 +244,8 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, c
     phone<<wphone<<"\n";
   }
 
+  phone<<"SIL\n";
+
   phoneFile.close();
 
   return true;
@@ -282,7 +285,7 @@ bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType ada
     if (allWordsInLexicon)
     {
       promptsOutFile.write("<s> "+words.join(" ").toUtf8() + " </s> (" + line.left(splitter).toUtf8() /*filename*/+ ")\n");
-      fieldsOutFile.write(line.left(splitter).toUtf8() /*filename*/ + ".wav\n"); //WARNING: is wav hardcode ?
+      fieldsOutFile.write(line.left(splitter).toUtf8() /*filename*/ + "\n");
       ++m_sampleCount;
     }
   }
@@ -343,7 +346,7 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
       grammarStream<<" ) ";
     }
 
-    grammarStream<<"\n";
+    grammarStream<<";\n";
 
   }
   return true;

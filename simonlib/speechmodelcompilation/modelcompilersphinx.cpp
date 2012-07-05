@@ -44,11 +44,11 @@ bool ModelCompilerSPHINX::parseConfiguration()
   KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
   KConfigGroup programGroup(&config, "Programs");
 
-//   if ((compilationType & ModelCompilerHTK::CompileSpeechModel)||
-//   (compilationType & ModelCompilerHTK::AdaptSpeechModel)) {
-    m_SphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
+  //   if ((compilationType & ModelCompilerHTK::CompileSpeechModel)||
+  //   (compilationType & ModelCompilerHTK::AdaptSpeechModel)) {
+  m_SphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
 
-//   }
+  //   }
 
   if (!QFile::exists(m_SphinxTrain))
   {
@@ -63,7 +63,7 @@ bool ModelCompilerSPHINX::parseConfiguration()
 }
 
 bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compilationType, const QString &modelDestination, 
-                       const QString &baseModelPath, const QHash<QString, QString> &args)
+                                           const QString &baseModelPath, const QHash<QString, QString> &args)
 {
   if(args.isEmpty())
   {
@@ -106,7 +106,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
 
   emit  status(i18n("Compiling model..."), 15, 100);
 
-//fix config..
+  //fix config..
   QHash<QString, QString> params;
   params.insert("CFG_WAVFILES_DIR", m_WavPath);
   params.insert("CFG_WAVFILE_EXTENSION", "wav");
@@ -133,7 +133,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
   emit  status(i18n("Compiling model..."), 95, 100);
   kDebug() << "Сopying model to destination";
 
-  if(copyModelToDestination(modelDestination))
+  if(!copyModelToDestination(modelDestination))
   {
     emit error(i18n("Cannot copy model to destination"));
     return false;
@@ -167,7 +167,7 @@ bool ModelCompilerSPHINX::compileModel(const QString &modelDir, const QString &m
 {
   QString execString = m_SphinxTrain +" run";
   if(execute(execString, modelDir+"/"+modelName))
-      return true;
+    return true;
   else
   {
     processError();
@@ -193,27 +193,27 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   QTextStream in(&configFile);
   while (!in.atEnd())
   {
-      QString line = in.readLine();
-      if(pLine.indexIn(line) == -1)
+    QString line = in.readLine();
+    if(pLine.indexIn(line) == -1)
+    {
+      out << line <<"\n";
+      //        kDebug()<<line;
+    }
+    else
+    {
+      //        kDebug()<< "wheee";
+      QStringList capturedList = pLine.capturedTexts();
+      QString key = capturedList.first().mid(1, capturedList.first().size() - 3); //3 chars: $, ,=
+      if(!args.contains(key))
       {
         out << line <<"\n";
-        kDebug()<<line;
+        //          kDebug()<<line;
+        continue;
       }
-      else
-      {
-//        kDebug()<< "wheee";
-        QStringList capturedList = pLine.capturedTexts();
-        QString key = capturedList.first().mid(1, capturedList.first().size() - 3); //3 chars: $, ,=
-        if(!args.contains(key))
-        {
-          out << line <<"\n";
-          kDebug()<<line;
-          continue;
-        }
 
-        out << capturedList.first() +" \""+args.value(key)+"\";" <<"\n";
-        kDebug()<<capturedList.first() +" \""+args.value(key)+"\";";
-      }
+      out << capturedList.first() +" \""+args.value(key)+"\";" <<"\n";
+      kDebug()<<capturedList.first() +" \""+args.value(key)+"\";";
+    }
 
   }
 
@@ -229,7 +229,7 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   configFile.write(outArr);
   configFile.close();
 
-//  QString content = QString(configFile.read);
+  //  QString content = QString(configFile.read);
 
   return true;
 }
@@ -247,11 +247,12 @@ bool ModelCompilerSPHINX::copyDirsContent(const QString &source, const QString &
 
   if (!destDir.exists())
   {
-      if (!destDir.mkdir(destDir.canonicalPath()))
-      {
-        emit error(i18n("Failed to copy files to destination. Can't create destination directory( \"%1\")", destination));
-        return false;
-      }
+    kdDebug()<<destDir.canonicalPath();
+    if (!destDir.mkpath(destination))
+    {
+      emit error(i18n("Failed to copy files to destination. Can't create destination directory( \"%1\")", destination));
+      return false;
+    }
   }
   for(QString tFileName: sourceDir.entryList())
   {

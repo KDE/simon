@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -15,34 +15,28 @@
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+ */ 
 
+#ifndef SPHINXRECOGNIZER_H
+#define SPHINXRECOGNIZER_H
 
-#ifndef RECOGNIZER_H
-#define RECOGNIZER_H
+#include "recognizer.h"
 
-#include <simonrecognitionresult/recognitionresult.h>
+#include <QMutex>
+#include <QString>
+#include <QSharedPointer>
 #include "simonrecognizer_export.h"
 
-class RecognitionConfiguration;
-
-class SIMONRECOGNIZER_EXPORT Recognizer
+class SphinxRecognizer : public Recognizer
 {
-protected:
-  QString m_lastError;
-
-  QByteArray log;
-
+private:
+  QSharedPointer<ps_decoder_t> decoder;
 public:
-  virtual bool init(RecognitionConfiguration* config)=0;
-  virtual QList<RecognitionResult> recognize(const QString& file)=0;
-  virtual bool uninitialize()=0;
-  
-  QString getLastError() { return m_lastError; }
-  
-  virtual QByteArray getLog() { return log; }
-  
-  virtual ~Recognizer() {}
+  SphinxRecognizer();
+
+  bool init(RecognitionConfiguration* config);
+  QList<RecognitionResult> recognize(const QString& file);
+  bool uninitialize();
 };
 
-#endif // RECOGNIZER_H
+#endif // SPHINXRECOGNIZER_H

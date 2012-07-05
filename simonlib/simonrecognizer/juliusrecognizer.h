@@ -36,7 +36,6 @@ private:
   QMutex recognitionLock;
   
 private:
-  QByteArray log;
   bool blockTillPrompt(QByteArray *data=0);
   QByteArray readData();
   bool startProcess();
@@ -47,7 +46,6 @@ public:
   QList<RecognitionResult> recognize(const QString& file);
   bool uninitialize();
   
-  QByteArray getLog();
   virtual ~JuliusRecognizer();
 };
 
