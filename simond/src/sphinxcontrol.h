@@ -17,33 +17,13 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */ 
 
-#ifndef SPHINXRECOGNITIONCONFIGURATION_H
-#define SPHINXRECOGNITIONCONFIGURATION_H
+#ifndef SPHINXCONTROL_H
+#define SPHINXCONTROL_H
 
-#include "recognitionconfiguration.h"
-#include <QString>
-#include <QSharedPointer>
-#include "simonrecognizer_export.h"
-#include <pocketsphinx/pocketsphinx.h>
-
-
-class SIMONRECOGNIZER_EXPORT SphinxRecognitionConfiguration : public RecognitionConfiguration
+class SphinxControl : public RecognitionControl
 {
 public:
-  SphinxRecognitionConfiguration();
-
-  QString getModelDir() { return m_ModelDir; }
-  QString getGrammar() { return m_Grammar; }
-  QString getDictionary() { return m_Dictionary; }
-
-  QStringList toArgs();
-  QSharedPointer<cmd_ln_t> getSphinxConfig();
-
-
-private:
-  QString m_ModelDir; //-hmm
-  QString m_Grammar; //-jsgf
-  QString m_Dictionary; //-dict
+  SphinxControl();
 };
 
-#endif // SPHINXRECOGNITIONCONFIGURATION_H
+#endif // SPHINXCONTROL_H

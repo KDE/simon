@@ -18,6 +18,7 @@
  */ 
 
 #include "sphinxrecognitionconfiguration.h"
+//#include <sphinxbase/cmd_ln.h>
 
 SphinxRecognitionConfiguration::SphinxRecognitionConfiguration()
 {
@@ -26,8 +27,8 @@ SphinxRecognitionConfiguration::SphinxRecognitionConfiguration()
 QStringList SphinxRecognitionConfiguration::toArgs()
 {
   QStringList args;
-  args << "-hmm " << m_ModelDir;
-       << "-jsgf " << m_Grammar;
+  args << "-hmm " << m_ModelDir
+       << "-jsgf " << m_Grammar
        << "-dict " << m_Dictionary;
 //       << "-input" << "file";
   return args;
@@ -39,11 +40,11 @@ QSharedPointer<cmd_ln_t> SphinxRecognitionConfiguration::getSphinxConfig() //WAR
   QByteArray grammar = m_Grammar.toUtf8();
   QByteArray dict = m_Dictionary.toUtf8();
 
-  QSharedPointer<cmd_ln_t> config = QSharedPointer<cmd_ln_t>(cmd_ln_init(NULL, ps_args(), TRUE,
+  QSharedPointer<cmd_ln_t> config ;/*= QSharedPointer<cmd_ln_t>(cmd_ln_init(NULL, ps_args(), TRUE,
                                "-hmm", model.data(),
                                "-jsgf", grammar.data(),
                                "-dict", dict.data(),
-                               NULL));
+                               NULL));*/
   return config;
 }
 

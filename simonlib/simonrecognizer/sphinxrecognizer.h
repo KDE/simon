@@ -26,6 +26,7 @@
 #include <QString>
 #include <QSharedPointer>
 #include "simonrecognizer_export.h"
+#include <pocketsphinx/pocketsphinx.h>
 
 class SphinxRecognizer : public Recognizer
 {

@@ -20,11 +20,16 @@
 #include "recognitioncontrol.h"
 #include <KDateTime>
 #include <KDebug>
+#include <KLocalizedString>
 
 RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
-m_refCounter(0),
-username(user_name),
-m_startRequests(0)
+  m_refCounter(0),
+  username(user_name),
+  m_startRequests(0),
+  recog(nullptr),
+  stopping(false),
+  m_initialized(false),
+  shouldBeRunning(false)
 {
 }
 
@@ -49,8 +54,121 @@ bool RecognitionControl::recognitionRunning()
   return (m_startRequests > 0);
 }
 
+QByteArray RecognitionControl::getBuildLog()
+{
+  return "<html><head /><body><p>"+recog->getLog().replace('\n', "<br />")+"</p></body></html>";
+}
+
+bool RecognitionControl::startRecognition()
+{
+  kDebug() << "Starting recognition" << ++m_startRequests;
+  if (isInitialized() && (m_startRequests > 1))  {
+    emit recognitionStarted();
+    return true;
+  }
+  kDebug() << "Starting recognition: Continuing";
+  return startRecognitionInternal();
+}
+
+void RecognitionControl::recognize(const QString& fileName)
+{
+  if (!shouldBeRunning) return;
+
+  kDebug() << "Recognizing " << fileName;
+
+  queueLock.lock();
+  toRecognize.enqueue(fileName);
+  queueLock.unlock();
+}
+
+void RecognitionControl::run()
+{
+  Q_ASSERT(recog);
+  shouldBeRunning=true;
+
+  RecognitionConfiguration *cfg = setupConfig();
+  bool success = recog->init(cfg);
+  delete cfg;
+  if (!success) {
+    emitError(i18n("Failed to setup recognition: %1", recog->getLastError()));
+    return;
+  }
+
+  m_initialized=true;
+
+  while (shouldBeRunning) {
+    QString file;
+    queueLock.lock();
+    if (!toRecognize.isEmpty())
+      file = toRecognize.dequeue();
+    queueLock.unlock();
+    if (file.isNull()) {
+      QThread::msleep(100);
+    } else {
+      emit recognitionResult(file, recog->recognize(file));
+      emit recognitionDone(file);
+    }
+  }
+}
+
+bool RecognitionControl::startRecognitionInternal()
+{
+  start();
+
+  emit recognitionStarted();
+  return true;
+}
+
+bool RecognitionControl::stopInternal()
+{
+  shouldBeRunning=false;
+
+  if (!isRunning()) return true;
+
+  if (!wait(1000)) {
+    while (isRunning()) {
+      kDebug() << "Forcefully terminating";
+      terminate();
+      wait(500);
+    }
+  }
+  m_lastModel = QString();
+
+  return true;
+}
+
+bool RecognitionControl::suspend()
+{
+  bool res = stopInternal();
+  if (!res) return false;
+  return true;
+}
+
+void RecognitionControl::uninitialize()
+{
+  kDebug() << "Uninitializing recognition control";
+  if (!m_initialized) return;
+
+  recog->uninitialize();
+  stopInternal();
+
+  m_initialized=false;
+}
+
+bool RecognitionControl::stop()
+{
+  kDebug() << "Stopping recognition" << m_startRequests;
+  if (--m_startRequests > 0)
+    return true;
+
+  if (m_startRequests < 0)
+    m_startRequests = 0;
+
+  kDebug() << "Stopping recognition: Continuing";
+  return stopInternal();
+}
 
 RecognitionControl::~RecognitionControl()
 {
-
+  uninitialize();
 }

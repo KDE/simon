@@ -22,6 +22,7 @@
 #include <stdexcept>
 #include <KDebug>
 #include <cstdlib>
+#include <KDE/KLocalizedString>
 
 SphinxRecognizer::SphinxRecognizer()
 {
@@ -36,20 +37,21 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
 
   if(!config)
     return false;
-  try
-  {
-    SphinxRecognitionConfiguration sconfig = dynamic_cast<SphinxRecognitionConfiguration> (config);
+//  try
+//  {
+  //BUG: turn on exception support
+    SphinxRecognitionConfiguration *sconfig = dynamic_cast<SphinxRecognitionConfiguration*> (config);
 
-    decoder = QScopedPointer<ps_decoder_t>(ps_init(sconfig.getSphinxConfig().data()));
+    decoder = QSharedPointer<ps_decoder_t>(ps_init(sconfig->getSphinxConfig().data()));
 
     if(decoder.isNull())
       return false;
 
-  } catch (std::runtime_error err)
-  {
+//  } catch (std::runtime_error err)
+//  {
     //TODO:
     return false;
-  }
+//  }
 
   return true;
 }
@@ -96,4 +98,6 @@ bool SphinxRecognizer::uninitialize()
   kDebug()<<"SPHINX uninitialization";
   log.clear();
   ps_free(decoder.data()); //WARNING: think about necessity of using QSharedPointers
+
+  return true;
 }

@@ -26,6 +26,9 @@
 #include <QDateTime>
 #include <QMetaType>
 #include <simonrecognitionresult/recognitionresult.h>
+#include "simonrecognizer/recognizer.h"
+#include <QMutex>
+#include <QQueue>
 
 class RecognitionControl : public QThread
 {
@@ -51,19 +54,42 @@ class RecognitionControl : public QThread
   protected:
     QString username;
     int m_startRequests;
+    bool m_initialized;
+
+    QMutex queueLock;
+    QQueue<QString> toRecognize;
+
+    bool stopping;
+
+    bool shouldBeRunning;
+
+    QString currentFileName;
+
+    virtual QByteArray getBuildLog();
+    virtual bool stopInternal();
+    virtual void uninitialize();
+    virtual bool startRecognitionInternal();
+
+    void run();
+
+    virtual RecognitionConfiguration* setupConfig()=0;
+    virtual void emitError(const QString& error)=0;
+
+    Recognizer *recog;
+
 
   public:
     explicit RecognitionControl(const QString& username, QObject *parent=0);
 
     virtual bool initializeRecognition(const QString& modelPath)=0;
-    virtual bool isInitialized()=0;
+    virtual bool isInitialized() { return m_initialized; }
     
-    virtual bool startRecognition()=0;
+    virtual bool startRecognition();
     
-    virtual bool stop()=0;
-    virtual bool suspend()=0; //stop temporarily (still reflect the intention of being active, but don't do any recognition)
+    virtual bool stop();
+    virtual bool suspend(); //stop temporarily (still reflect the intention of being active, but don't do any recognition)
 
-    virtual void recognize(const QString& fileName)=0;
+    virtual void recognize(const QString& fileName);
     
     bool recognitionRunning();
     
@@ -72,6 +98,5 @@ class RecognitionControl : public QThread
     bool isEmpty() const;
 
     ~RecognitionControl();
-
 };
 #endif

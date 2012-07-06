@@ -25,6 +25,8 @@ target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${QT_QTNETWORK_LIBRARY} simonr
 ${QT_QTCORE_LIBRARY} ${QT_QTXML_LIBRARY} simonscenarios simonmodelcompilation simonddatabaseaccess
 simonrecognitionresult simonwav simoncontextadapter)
 
+set_target_properties(simond PROPERTIES COMPILE_FLAGS "-std=c++0x -Wall -Wextra -pedantic -Weffc++ -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wconversion -Wsign-conversion -Winit-self -Wunreachable-code")
+
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} COMPONENT simond )
 
 

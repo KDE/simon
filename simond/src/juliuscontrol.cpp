@@ -50,11 +50,7 @@
 #include <KTar>
 #include <locale.h>
 
-JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent),
-recog(new JuliusRecognizer),
-stopping(false),
-m_initialized(false),
-shouldBeRunning(false)
+JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
 {
 }
 
@@ -109,122 +105,6 @@ RecognitionConfiguration* JuliusControl::setupConfig()
 
   return new JuliusRecognitionConfiguration(jConfPath, gram, hmmDefs, tiedList);
 }
-
-bool JuliusControl::startRecognition()
-{
-  kDebug() << "Starting recognition" << ++m_startRequests;
-  if (isInitialized() && (m_startRequests > 1))  {
-    emit recognitionStarted();
-    return true;
-  }
-  kDebug() << "Starting recognition: Continuing";
-  return startRecognitionPrivate();
-}
-
-bool JuliusControl::startRecognitionPrivate()
-{
-  start();
-  
-  emit recognitionStarted();
-  return true;
-}
-
-
-void JuliusControl::recognize(const QString& fileName)
-{
-  if (!shouldBeRunning) return;
-  
-  kDebug() << "Recognizing " << fileName;
-  
-  queueLock.lock();
-  toRecognize.enqueue(fileName);
-  queueLock.unlock();
-}
-
-void JuliusControl::run()
-{
-  Q_ASSERT(recog);
-  shouldBeRunning=true;
-  
-  RecognitionConfiguration *cfg = setupConfig();
-  bool success = recog->init(cfg);
-  delete cfg;
-  if (!success) {
-    emitError(i18n("Failed to setup recognition: %1", recog->getLastError()));
-    return;
-  }
-
-  m_initialized=true;
-  
-  while (shouldBeRunning) {
-    QString file;
-    queueLock.lock();
-    if (!toRecognize.isEmpty())
-      file = toRecognize.dequeue();
-    queueLock.unlock();
-    if (file.isNull()) {
-      QThread::msleep(100);
-    } else {
-      emit recognitionResult(file, recog->recognize(file));
-      emit recognitionDone(file);
-    }
-  }
-}
-
-bool JuliusControl::stop()
-{
-  kDebug() << "Stopping recognition" << m_startRequests;
-  if (--m_startRequests > 0) 
-    return true;
-  
-  if (m_startRequests < 0)
-    m_startRequests = 0;
-  
-  kDebug() << "Stopping recognition: Continuing";
-  return stopPrivate();
-}
-
-bool JuliusControl::suspend()
-{
-  bool res = stopPrivate();
-  if (!res) return false;
-  return true;
-}
-
-bool JuliusControl::stopPrivate()
-{
-  shouldBeRunning=false;
-  
-  if (!isRunning()) return true;
-  
-  if (!wait(1000)) {
-    while (isRunning()) {
-      kDebug() << "Forcefully terminating";
-      terminate();
-      wait(500);
-    }
-  }
-  m_lastModel = QString();
-  
-  return true;
-}
-
-void JuliusControl::uninitialize()
-{
-  kDebug() << "Uninitializing julius control";
-  if (!m_initialized) return;
-  
-  recog->uninitialize();
-  stopPrivate();
-
-  m_initialized=false;
-}
-
-QByteArray JuliusControl::getBuildLog()
-{
-  return "<html><head /><body><p>"+recog->getLog().replace('\n', "<br />")+"</p></body></html>";
-}
-
 
 void JuliusControl::emitError(const QString& error)
 {
