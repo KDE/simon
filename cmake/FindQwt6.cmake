@@ -14,8 +14,7 @@
 
 # Copyright (c) 2007, Pau Garcia i Quiles, <pgquiles@elpauer.org>
 #
-# Redistribution and use is allowed according to the terms of the BSD license.
-# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+# Redistribution and use is allowed according to the terms of the 3-clause BSD license.
 
 # Condition is "(A OR B) AND C", CMake does not support parentheses but it evaluates left to right
 IF(Qwt6_Qt4_LIBRARY OR Qwt6_Qt3_LIBRARY AND Qwt6_INCLUDE_DIR)

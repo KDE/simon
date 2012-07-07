@@ -8,7 +8,7 @@
 # Copyright (c) 2011, Patrick von Reth, <patrick.vonreth@gmail.com>
 # Copyright (c) 2008-2011, Peter Grasch, <grasch@simon-listens.org>
 #
-# Redistribution and use is allowed according to the terms of the BSD license.
+# Redistribution and use is allowed according to the terms of the 3-clause BSD license.
 
 if(MSVC)
     set(DIRECTSOUND_INCLUDE_DIRS $ENV{DXSDK_DIR}/include $ENV{DXSDK_DIR})
