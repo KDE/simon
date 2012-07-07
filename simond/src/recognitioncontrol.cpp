@@ -26,10 +26,10 @@ RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent
   m_refCounter(0),
   username(user_name),
   m_startRequests(0),
-  recog(nullptr),
-  stopping(false),
   m_initialized(false),
-  shouldBeRunning(false)
+  stopping(false),
+  shouldBeRunning(false),
+  recog(0)
 {
 }
 
