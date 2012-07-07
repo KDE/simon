@@ -227,23 +227,15 @@ QStringList ContextAdapter::adaptScenarios ( const QStringList& scenarioPaths, c
 
 QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QStringList& deactivatedSampleGroups )
 {
-<<<<<<< HEAD
-  kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups;
-=======
   kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups << promptsPath;
->>>>>>> origin/master
   QString outPath = KStandardDirs::locateLocal("tmp", 
                                             KGlobal::mainComponent().aboutData()->appName()+'/'+m_username+"/context/prompts_"+
                                             QString::number(qHash(deactivatedSampleGroups.join(";"))));
   QFile outFile(outPath);
   QFile promptsFile(promptsPath);
   bool allEmpty = true;
-<<<<<<< HEAD
-  if (!outFile.open(QIODevice::WriteOnly) || !promptsFile.open(QIODevice::ReadOnly))
-=======
 
   if (!promptsFile.open(QIODevice::ReadOnly) || !outFile.open(QIODevice::WriteOnly))
->>>>>>> origin/master
     return QString();
 
   while (!promptsFile.atEnd()) {
@@ -358,15 +350,8 @@ QString ContextAdapter::currentModelPath() const
     if (m_modelCache.contains(s)) { 
       if (m_modelCache.value(s)->state() == CachedModel::Current)
         return m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
-<<<<<<< HEAD
       else if (m_modelCache.value(s)->state() == CachedModel::Null)
         return QString();
-=======
-      else if (m_modelCache.value(s)->state() == CachedModel::Null) {
-        kDebug() << "null model";
-        return QString();
-      }
->>>>>>> origin/master
     }
   }
     
