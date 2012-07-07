@@ -126,7 +126,7 @@ void ModelCompiler::abort()
 
   keepGoing=false;
 
-  for(QProcess *proc: activeProcesses)
+  foreach(QProcess *proc, activeProcesses)
   //tell any running process to commit suicide
     proc->kill();
 }

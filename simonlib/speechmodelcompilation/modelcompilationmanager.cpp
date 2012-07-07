@@ -95,7 +95,7 @@ int ModelCompilationManager::sampleCount() const
 uint ModelCompilationManager::getFingerPrint(QString dir, QStringList files, ModelCompiler::CompilationType compilationType)
 {
   uint fingerprint(0);
-  for(const QString& component: files)
+  foreach (const QString& component, files)
   {
     QString file = dir + component;
     qDebug() << "Analyzing file: " << file;

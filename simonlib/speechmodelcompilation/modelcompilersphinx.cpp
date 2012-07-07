@@ -247,14 +247,14 @@ bool ModelCompilerSPHINX::copyDirsContent(const QString &source, const QString &
 
   if (!destDir.exists())
   {
-    kdDebug()<<destDir.canonicalPath();
+    kDebug()<<destDir.canonicalPath();
     if (!destDir.mkpath(destination))
     {
       emit error(i18n("Failed to copy files to destination. Can't create destination directory( \"%1\")", destination));
       return false;
     }
   }
-  for(QString tFileName: sourceDir.entryList())
+  foreach (QString tFileName, sourceDir.entryList())
   {
     if(QFile::copy(sourceDir.canonicalPath() + tFileName, destination+tFileName))
     {

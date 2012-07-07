@@ -146,7 +146,7 @@ bool ModelCompilationAdapterHTK::storeLexicon(ModelCompilationAdapter::AdaptionT
   QList<Word*> words = vocabulary->getWords();
   QString htkIfiedWord;
   m_wordCount = 0;
-  for(Word *word: words)
+  foreach (Word *word, words)
   {
     if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
         !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&
@@ -221,7 +221,7 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
       QList<Word*> wordsForTerminal = vocabulary->findWordsByTerminal(terminal);
 
       bool hasAssociatedWord = false;
-      for(Word *word: wordsForTerminal)
+      foreach (Word *word, wordsForTerminal)
       {
         if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) ||
             trainedVocabulary.contains(word->getLexiconWord()))

@@ -65,7 +65,7 @@ bool ModelCompilationAdapter::removeContextAdditions()
 void ModelCompilationAdapter::mergeInputData(const QStringList &scenarioPaths, QSharedPointer<Vocabulary> mergedVocabulary, QSharedPointer<Grammar> mergedGrammar)
 {
   //merging scenarios
-  for(const QString& src: scenarioPaths)
+  foreach (const QString& src, scenarioPaths)
   {
     kDebug() << "Serializing Scenario: " << src;
     QSharedPointer<Scenario> scenario (new Scenario(""));
@@ -83,7 +83,7 @@ void ModelCompilationAdapter::mergeInputData(const QStringList &scenarioPaths, Q
     QList<Word*> words = vocab->getWords();
     vocab->clear();                               // make sure they are not removed from the scenario when we delete that
     QList<Word*> wordsTmp;
-    for(Word* w: words)
+    foreach (Word* w, words)
       wordsTmp.append(w);
 
     //list will be deleted by addWords
@@ -96,7 +96,7 @@ bool ModelCompilationAdapter::containsPoisonedPhoneme(const QString& pronunciati
   if (poisonedPhonemes.isEmpty()) return false;
 
   QStringList phonemes = pronunciation.split(' ');
-  for(const QString& phoneme: phonemes)
+  foreach (const QString& phoneme, phonemes)
     if (poisonedPhonemes.contains(phoneme))
       return true;
 
@@ -106,7 +106,7 @@ bool ModelCompilationAdapter::containsPoisonedPhoneme(const QString& pronunciati
 void ModelCompilationAdapter::removeWordsWithPoisonedPhonems(QSharedPointer<Vocabulary> vocabulary)
 {
   QList<Word*> words = vocabulary->getWords();
-  for(Word *word: words)
+  foreach (Word *word, words)
   {
     if (containsPoisonedPhoneme(word->getPronunciation()))
     {

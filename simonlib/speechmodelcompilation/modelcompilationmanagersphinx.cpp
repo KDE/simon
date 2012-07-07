@@ -87,7 +87,7 @@ void ModelCompilationManagerSPHINX::run()
 
     QString fetc = activeDir+"/"+modelName+"/etc/"+modelName;
 
-    kdDebug() << "Data\n" <<fetc<< "\n"<<activeDir;
+    kDebug() << "Data\n" <<fetc<< "\n"<<activeDir;
     QFileInfo fiGrammar(fetc+GRAMMAR_EXT);
     bool hasGrammar = (fiGrammar.size() > 0);
 

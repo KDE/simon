@@ -169,7 +169,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
   m_pronunciationCount = 0;
   QList<Word*> words = vocabulary->getWords();
   m_wordCount = 0;
-  for(Word *word: words)
+  foreach (Word *word, words)
   {
     if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
         //    !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&    //???
@@ -230,16 +230,16 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, c
   phone.setCodec("UTF-8");
 
   QSet<QString> uniquePhonemes;
-  for(Word *word: vocabulary->getWords())
+  foreach (Word *word, vocabulary->getWords())
   {
-    auto phoneList = word->getPronunciation().split(" ");
-    for(const QString &tphone:phoneList)
+    QStringList phoneList = word->getPronunciation().split(" ");
+    foreach (const QString &tphone, phoneList)
     {
       uniquePhonemes.insert(tphone);
     }
   }
 
-  for(const QString &wphone:uniquePhonemes)
+  foreach (const QString &wphone, uniquePhonemes)
   {
     phone<<wphone<<"\n";
   }
@@ -273,7 +273,7 @@ bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType ada
     bool allWordsInLexicon = true;
     QStringList words = line.mid(splitter+1).trimmed().split(' ');
 
-    for(const QString& word: words)
+    foreach (const QString& word, words)
     {
       if (!definedVocabulary.contains(word))
       {
@@ -317,20 +317,20 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
   QStringList grammarStructures = grammar->getStructures();
 //WARNING: is all ok there?:D
   int index(0);
-  for(const QString& structure: grammarStructures)
+  foreach (const QString& structure, grammarStructures)
   {
     grammarStream<< "public <structure"+ QString::number(index++) +"> = ";
     int splitter = structure.indexOf(" ");
     QStringList terminals = structure.mid(splitter+1).trimmed().split(' ');
 
 
-    for(const QString &terminal: terminals)
+    foreach (const QString &terminal, terminals)
     {
       grammarStream<<"( ";
 
       bool fword = true;
       QList<Word*> wordsForTerminal = vocabulary->findWordsByTerminal(terminal);
-      for(Word* word: wordsForTerminal)
+      foreach (Word* word, wordsForTerminal)
       {
         if(!definedVocabulary.contains(word->getLexiconWord()))
           break; //WARNING: Depends on adaptation type?
