@@ -156,7 +156,9 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
 {
 
   QHash<QString, QByteArray> fm;
-  fm.insert("metadata.xml", getMetaData(name, "SPHINX").toUtf8());
+  QDomDocument DomDocument;
+  getMetaData(name, "SPHINX").SerializeXml(DomDocument);
+  fm.insert("metadata.xml", DomDocument.toByteArray());
 
   QHash<QString, QString> efm;
 
@@ -264,43 +266,6 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
 
   return true;
 }
-
-//bool ModelCompilerSPHINX::copyDirsContent(const QString &source, const QString &destination)
-//{
-//  QDir destDir(destination);
-//  QDir sourceDir(source);
-
-//  if(!sourceDir.exists())
-//  {
-//    emit error(i18n("Failed to copy. Source directory does not exist( \"%1\")", source));
-//    return false;
-//  }
-
-//  if (!destDir.exists())
-//  {
-//    kDebug()<<destDir.canonicalPath();
-//    if (!destDir.mkpath(destination))
-//    {
-//      emit error(i18n("Failed to copy files to destination. Can't create destination directory( \"%1\")", destination));
-//      return false;
-//    }
-//  }
-//  foreach (QString tFileName, sourceDir.entryList())
-//  {
-//    if(!QFile::copy(sourceDir.canonicalPath() + tFileName, destination+tFileName))
-//    {
-//      emit error(i18n("Failed to copy file ( \"%1\")", tFileName));
-//      return false;
-//    }
-//  }
-
-//  return true;
-//}
-
-//bool ModelCompilerSPHINX::copyModelToDestination(const QString &destination)
-//{
-//  return copyDirsContent(m_ModelDir+"/"+m_ModelName+"/model_parameters/"+m_ModelName+".ci_cont/", destination);
-//}
 
 QString ModelCompilerSPHINX::information(bool condensed) const
 {

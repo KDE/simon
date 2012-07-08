@@ -19,6 +19,12 @@
 
 #include "sphinxcontrol.h"
 #include <KDebug>
+#include <QDir>
+#include <simonutils/fileutils.h>
+#include <KStandardDirs>
+#include <KLocale>
+#include <speechmodelcompilation/modelmetadata.h>
+#include <simonrecognizer/sphinxrecognitionconfiguration.h>
 
 SphinxControl::SphinxControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
 {
@@ -37,7 +43,17 @@ bool SphinxControl::initializeRecognition(const QString &modelPath)
     m_startRequests = 0;
   }
 
-  //TODO: copy from model path| unpackfrom archive?
+  QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
+  if(!QDir(path).entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst).isEmpty())
+  {
+    FileUtils::removeDirRecursive(path);
+    path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
+  }
+
+  if (!FileUtils::unpackAll(modelPath, path)) //All becouse need to know model name to unpack jsgf&dict. Yes can get it from metadata but it would be a "crutch" on my mind
+  {
+    return false;
+  }
 
   kDebug() << "Emitting recognition ready";
   emit recognitionReady();
@@ -46,13 +62,29 @@ bool SphinxControl::initializeRecognition(const QString &modelPath)
 
 RecognitionConfiguration *SphinxControl::setupConfig()
 {
-//  QByteArray dirPath = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/").toUtf8();
+  QString dirPath = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
+
+  QFile metadataFile(dirPath+QLatin1String("metadata.xml"));
+  if(!metadataFile.open(QIODevice::WriteOnly))
+  {
+    emit recognitionError(i18n("Failed to write filler to \"%1\"", dirPath+QLatin1String("metadata.xml")),
+                          getBuildLog());
+    return false;
+  }
+  ModelMetadata metadata;
+  QDomDocument DomDocument;
+  DomDocument.setContent(&metadataFile);
+  metadata.DeserializeXml(DomDocument.documentElement());
+
+
 
   //TODO: set proper paramets & create sphinxrecognition
 
-  return NULL;
+  return new SphinxRecognitionConfiguration(dirPath, dirPath+metadata.Name()+QLatin1String(".jsgf"),
+                                            dirPath+metadata.Name()+QLatin1String(".dic"));
 }
 
 void SphinxControl::emitError(const QString &error)
 {
+  //TODO: Implement
 }

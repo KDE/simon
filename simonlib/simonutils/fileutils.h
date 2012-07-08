@@ -33,6 +33,7 @@ public:
                      const QHash<QString, QByteArray> &fromMemory /*target fileame, data to store*/,
                      const QHash<QString, QString> &existingFiles /*filename - target filename*/);
     static bool unpack(const QString &archive, const QString& targetDir, const QStringList &files);
+    static bool unpackAll(const QString &archive, const QString& targetDir);
 };
 
 #endif // FILEUTILS_H

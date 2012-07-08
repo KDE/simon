@@ -18,11 +18,6 @@
  */ 
 
 #include "sphinxrecognitionconfiguration.h"
-//#include <sphinxbase/cmd_ln.h>
-
-SphinxRecognitionConfiguration::SphinxRecognitionConfiguration()
-{
-}
 
 QStringList SphinxRecognitionConfiguration::toArgs()
 {

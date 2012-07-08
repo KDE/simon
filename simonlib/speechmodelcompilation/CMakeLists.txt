@@ -18,6 +18,7 @@ set( simonmodelcompilation_LIB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/modelcompilersphinx.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/modelcompilerhtk.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/modelcompiler.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/modelmetadata.cpp
 )
 
 
@@ -26,6 +27,7 @@ set( simonmodelcompilation_LIB_HDRS
   modelcompilationmanager.h
   modelcompilationmanagerhtk.h
   modelcompilationmanagersphinx.h
+  modelmetadata.h
   modelcompiler.h
   modelcompilerhtk.h
   modelcompilersphinx.h

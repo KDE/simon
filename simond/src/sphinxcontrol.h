@@ -32,6 +32,7 @@ public:
 protected:
   RecognitionConfiguration* setupConfig();
   void emitError(const QString& error);
+  QString modelName;
 };
 
 #endif // SPHINXCONTROL_H

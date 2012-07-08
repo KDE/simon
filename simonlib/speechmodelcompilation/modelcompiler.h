@@ -26,6 +26,7 @@
 #include "simonmodelcompilationmanagement_export.h"
 #include <QMutex>
 #include <QProcess>
+#include "modelmetadata.h"
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
 {
@@ -81,7 +82,7 @@ protected:
   virtual bool pack( const QString& targetArchive, const QString& name )=0;
 //  virtual bool unpack(const QString& archive, const QString& targetDir)=0;
 
-  virtual QString getMetaData(const QString &name, const QString &type);
+  virtual ModelMetadata getMetaData(const QString &name, const QString &type);
   
   bool execute(const QString& command, const QString &wDir);
   

@@ -52,9 +52,7 @@ private:
 
   //TODO: move to utils module and rewrite more.. flexible
   bool modifyConfig(const QString &filename, const QHash<QString, QString>& args);
-//  bool copyDirsContent(const QString &source, const QString &destination);
 
-//  bool copyModelToDestination(const QString &destination);
 };
 
 #endif // MODELCOMPILERSPHINX_H

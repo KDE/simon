@@ -30,7 +30,10 @@
 class SIMONRECOGNIZER_EXPORT SphinxRecognitionConfiguration : public RecognitionConfiguration
 {
 public:
-  SphinxRecognitionConfiguration();
+  SphinxRecognitionConfiguration(const QString &modelDir, const QString &grammar, const QString &dictionary):
+    m_ModelDir(modelDir),
+    m_Grammar(grammar),
+    m_Dictionary(dictionary){}
 
   QString getModelDir() { return m_ModelDir; }
   QString getGrammar() { return m_Grammar; }

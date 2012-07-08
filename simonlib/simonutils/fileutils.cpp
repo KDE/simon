@@ -124,3 +124,29 @@ bool FileUtils::unpack(const QString &archive, const QString &targetDir, const Q
   }
   return true;
 }
+
+bool FileUtils::unpackAll(const QString &archive, const QString &targetDir)
+{
+  kDebug() << "Archive: " << archive << "Target dir: " << targetDir;
+
+  if (!QFile::exists(archive)) return false;
+
+  KTar tar(archive, "application/x-gzip");
+  if (!tar.open(QIODevice::ReadOnly)) return false;
+
+  const KArchiveDirectory *d = tar.directory();
+  if (!d) return false;
+
+  foreach (const QString& file, d->entries())
+  {
+    const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry(file));
+    if (!entry) return false;
+
+    QFile f(targetDir+file);
+    if (!f.open(QIODevice::WriteOnly)) return false;
+    f.write(entry->data());
+    f.close();
+  }
+  return true;
+}
+

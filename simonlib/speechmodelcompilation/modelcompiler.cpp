@@ -22,6 +22,7 @@
 #include "modelcompiler.h"
 #include <QDomDocument>
 #include <QDateTime>
+#include "modelmetadata.h"
 
 bool ModelCompiler::hasBuildLog() const
 {
@@ -133,24 +134,7 @@ void ModelCompiler::abort()
     proc->kill();
 }
 
-QString ModelCompiler::getMetaData(const QString &name, const QString &type)
+ModelMetadata ModelCompiler::getMetaData(const QString &name, const QString &type)
 {
-  QDomDocument doc;
-  QDomElement rootElem = doc.createElement("baseModel");
-
-  QDomElement nameElem = doc.createElement("name");
-  nameElem.appendChild(doc.createTextNode(name));
-
-  QDomElement creationDateElem = doc.createElement("creationDate");
-  creationDateElem.appendChild(doc.createTextNode(QDateTime::currentDateTime().toString(Qt::ISODate)));
-
-  QDomElement typeElem = doc.createElement("type");
-  typeElem.appendChild(doc.createTextNode(type));
-
-  rootElem.appendChild(nameElem);
-  rootElem.appendChild(creationDateElem);
-  rootElem.appendChild(typeElem);
-  doc.appendChild(rootElem);
-
-  return doc.toString();
+  return ModelMetadata(name, QDateTime::currentDateTime(), type);
 }
