@@ -95,9 +95,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-//  FileUtils::removeDirRecursive(workingDirPath+"/"+mName);
-//  FIXME: resolve linking problem and use function from simonutils module
-  removeDirRecursive(workingDirPath+"/"+mName);
+  FileUtils::removeDirRecursive(workingDirPath+"/"+mName);
 
   //Creating a directory hierarchy, where model compilation will be executed
   QDir wDir(workingDirPath);
@@ -352,27 +350,3 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
   return true;
 }
 
-//WARNING: remove and use proper variant
-bool ModelCompilationAdapterSPHINX::removeDirRecursive(const QString &dirName)
-{
-    bool result = true;
-    QDir dir(dirName);
-
-    if (dir.exists(dirName)) {
-        Q_FOREACH(QFileInfo info, dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst)) {
-            if (info.isDir()) {
-                result = removeDirRecursive(info.absoluteFilePath());
-            }
-            else {
-                result = QFile::remove(info.absoluteFilePath());
-            }
-
-            if (!result) {
-                return result;
-            }
-        }
-        result = dir.rmdir(dirName);
-    }
-
-    return result;
-}

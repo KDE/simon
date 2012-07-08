@@ -14,7 +14,7 @@ set( simonutils_LIB_SRCS
 
 
 set( simonutils_LIB_HDRS
-#  simonutils_export.h
+  simonutils_export.h
   fileutils.h
 )
 

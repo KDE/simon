@@ -56,8 +56,6 @@ protected:
   bool storeGrammar(AdaptionType adaptionType, const QString &grammarPathOut, QSharedPointer<Vocabulary> vocabulary,
                     QStringList &definedVocabulary, QSharedPointer<Grammar> grammar);
 
-  static bool removeDirRecursive(const QString &dirName);
-
   //TODO: Add separation by adaptation type
 
 public:

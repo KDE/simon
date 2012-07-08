@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -15,19 +15,25 @@
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */ 
+ */
 
-#ifndef FILEUTILS_H
-#define FILEUTILS_H
+#ifndef SIMON_SIMONUTILS_EXPORT_H_F1032DFE61FA42E3B31933515AF33099
+#define SIMON_SIMONUTILS_EXPORT_H_F1032DFE61FA42E3B31933515AF33099
 
-#include <QString>
+// needed for KDE_EXPORT and KDE_IMPORT macros
+#include <kdemacros.h>
 
-#include "simonutils_export.h"
+#ifndef SIMONUTILS_EXPORT
+# if defined(MAKE_SIMONUTILS_LIB)
+// We are building this library
+#  define SIMONUTILS_EXPORT KDE_EXPORT
+# else
+// We are using this library
+#  define SIMONUTILS_EXPORT
+# endif
+#endif
 
-class SIMONUTILS_EXPORT FileUtils
-{
-public:
-    static bool removeDirRecursive(const QString &dirName);
-};
-
-#endif // FILEUTILS_H
+# ifndef SIMONUTILS_EXPORT_DEPRECATED
+#  define SIMONUTILS_EXPORT_DEPRECATED KDE_DEPRECATED SIMONUTILS_EXPORT
+# endif
+#endif
