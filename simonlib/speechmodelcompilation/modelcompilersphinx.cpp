@@ -24,6 +24,7 @@
 #include <KConfigGroup>
 #include <KStandardDirs>
 #include <KLocale>
+#include <simonutils/fileutils.h>
 
 
 #include "modelcompilersphinx.h"
@@ -133,7 +134,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
   emit  status(i18n("Compiling model..."), 95, 100);
   kDebug() << "Сopying model to destination";
 
-  if(!copyModelToDestination(modelDestination))
+  if(!pack(modelDestination, m_ModelName))
   {
     emit error(i18n("Cannot copy model to destination"));
     return false;
@@ -149,6 +150,36 @@ bool ModelCompilerSPHINX::processError()
 {
   //TODO: implement
   return true;
+}
+
+bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name)
+{
+
+  QHash<QString, QByteArray> fm;
+  fm.insert("metadata.xml", getMetaData(name, "SPHINX").toUtf8());
+
+  QHash<QString, QString> efm;
+
+  QString srcDirName = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/model_parameters/")+
+                       m_ModelName+QLatin1String(".ci_cont/");
+  QDir sourceDir(srcDirName);
+
+  if(!sourceDir.exists())
+  {
+    emit error(i18n("Failed to pack to archive. Source directory does not exist( \"%1\")", srcDirName));
+    return false;
+  }
+
+  foreach (QString tFileName, sourceDir.entryList())
+  {
+    efm.insert(srcDirName+tFileName, tFileName);
+  }
+
+  QString fetc = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/etc/");
+  efm.insert(fetc+QLatin1String(".jsgf"), m_ModelName+QLatin1String(".jsgf"));
+  efm.insert(fetc+QLatin1String(".dic"), m_ModelName+QLatin1String(".dic"));
+
+  return FileUtils::pack(targetArchive, fm, efm);
 }
 
 bool ModelCompilerSPHINX::setupModel(const QString &modelDir, const QString &modelName)
@@ -234,42 +265,42 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   return true;
 }
 
-bool ModelCompilerSPHINX::copyDirsContent(const QString &source, const QString &destination)
-{
-  QDir destDir(destination);
-  QDir sourceDir(source);
+//bool ModelCompilerSPHINX::copyDirsContent(const QString &source, const QString &destination)
+//{
+//  QDir destDir(destination);
+//  QDir sourceDir(source);
 
-  if(!sourceDir.exists())
-  {
-    emit error(i18n("Failed to copy. Source directory does not exist( \"%1\")", source));
-    return false;
-  }
+//  if(!sourceDir.exists())
+//  {
+//    emit error(i18n("Failed to copy. Source directory does not exist( \"%1\")", source));
+//    return false;
+//  }
 
-  if (!destDir.exists())
-  {
-    kDebug()<<destDir.canonicalPath();
-    if (!destDir.mkpath(destination))
-    {
-      emit error(i18n("Failed to copy files to destination. Can't create destination directory( \"%1\")", destination));
-      return false;
-    }
-  }
-  foreach (QString tFileName, sourceDir.entryList())
-  {
-    if(QFile::copy(sourceDir.canonicalPath() + tFileName, destination+tFileName))
-    {
-      emit error(i18n("Failed to copy file ( \"%1\")", tFileName));
-      return false;
-    }
-  }
+//  if (!destDir.exists())
+//  {
+//    kDebug()<<destDir.canonicalPath();
+//    if (!destDir.mkpath(destination))
+//    {
+//      emit error(i18n("Failed to copy files to destination. Can't create destination directory( \"%1\")", destination));
+//      return false;
+//    }
+//  }
+//  foreach (QString tFileName, sourceDir.entryList())
+//  {
+//    if(!QFile::copy(sourceDir.canonicalPath() + tFileName, destination+tFileName))
+//    {
+//      emit error(i18n("Failed to copy file ( \"%1\")", tFileName));
+//      return false;
+//    }
+//  }
 
-  return true;
-}
+//  return true;
+//}
 
-bool ModelCompilerSPHINX::copyModelToDestination(const QString &destination)
-{
-  return copyDirsContent(m_ModelDir+"/"+m_ModelName+"/model_parameters/"+m_ModelName+".ci_cont/", destination);
-}
+//bool ModelCompilerSPHINX::copyModelToDestination(const QString &destination)
+//{
+//  return copyDirsContent(m_ModelDir+"/"+m_ModelName+"/model_parameters/"+m_ModelName+".ci_cont/", destination);
+//}
 
 QString ModelCompilerSPHINX::information(bool condensed) const
 {

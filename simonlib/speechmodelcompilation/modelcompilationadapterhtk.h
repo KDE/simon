@@ -62,7 +62,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
     void run();
 
     bool storeLexicon(ModelCompilationAdapter::AdaptionType adaptionType,
-                      const QString &lexiconPathOut, const QString &simpleVocabPathOut,
+                      const QString &lexiconPathOut,
                       QSharedPointer<Vocabulary> vocabulary,
                       QStringList &trainedVocabulary, QStringList &definedVocabulary);
 

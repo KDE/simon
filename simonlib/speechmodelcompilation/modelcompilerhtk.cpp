@@ -20,6 +20,7 @@
 #include "modelcompilerhtk.h"
 #include "audiocopyconfig.h"
 #include "reestimationconfig.h"
+#include "simonutils/fileutils.h"
 
 #include <simonlogging/logger.h>
 
@@ -31,8 +32,6 @@
 #include <QString>
 #include <QVector>
 #include <QtConcurrentMap>
-#include <QDomDocument>
-#include <QDomElement>
 #include <QMutexLocker>
 
 #include <KUrl>
@@ -183,79 +182,6 @@ bool ModelCompilerHTK::parseConfiguration()
   return true;
 }
 
-//bool ModelCompilerHTK::execute(const QString& command)
-//{
-//  kDebug() << command;
-//  QProcess proc;
-//  proc.setWorkingDirectory(tempDir);
-//  proc.start(command);
-
-//  activeProcesses << &proc;
-
-//  buildLogMutex.lock();
-//  buildLog.append("<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>");
-//  buildLogMutex.unlock();
-
-//  proc.waitForFinished(-1);
-
-//  activeProcesses.removeAll(&proc);
-
-//  QByteArray err = proc.readAllStandardError();
-//  QByteArray out = proc.readAllStandardOutput();
-
-//  proc.close();
-
-//  buildLogMutex.lock();
-//  if (!out.isEmpty())
-//    buildLog.append("<p>"+out+"</p>");
-
-//  if (!err.isEmpty())
-//  {
-//    buildLog.append("<p><span style=\"color:#aa0000;\">"+err+"</span></p>");
-//    kDebug() << "Appended error: " << err;
-//  }
-//  buildLogMutex.unlock();
-
-//  if (proc.exitCode() != 0)
-//    return false;
-//  else return true;
-//}
-
-
-//void ModelCompilerHTK::addStatusToLog(const QString& status)
-//{
-//  buildLogMutex.lock();
-//  buildLog.append("<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>");
-//  buildLogMutex.unlock();
-//}
-
-
-//bool ModelCompilerHTK::hasBuildLog() const
-//{
-//  return (buildLog.count() > 0);
-//}
-
-
-//QString ModelCompilerHTK::getGraphicBuildLog() const
-//{
-//  QString htmlLog = QString::fromLocal8Bit(buildLog);
-//  htmlLog=htmlLog.replace('\n', "<br />");
-//  return "<html><head /><body>"+htmlLog+"</body></html>";
-//}
-
-
-//QString ModelCompilerHTK::getBuildLog() const
-//{
-//  QString plainLog = QString::fromLocal8Bit(buildLog);
-//  plainLog.remove("<p>");
-//  plainLog.replace("</p>", "\n\n");
-//  plainLog.remove("<span style=\"color:#aa0000;\">");
-//  plainLog.remove("<span style=\"font-weight:bold; color:#00007f;\">");
-//  plainLog.remove("<span style=\"font-weight:bold; color:#358914;\">");
-//  plainLog.remove("</span>");
-//  return plainLog;
-//}
-
 bool ModelCompilerHTK::removePhoneme(const QByteArray& phoneme)
 {
   //check 
@@ -359,65 +285,29 @@ bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compila
 
 bool ModelCompilerHTK::pack ( const QString& targetArchive, const QString& name )
 {
-  KTar archive(targetArchive, "application/x-gzip");
-  if (!archive.open(QIODevice::WriteOnly)) return false;
-  
-  QDomDocument doc;
-  QDomElement rootElem = doc.createElement("baseModel");
-  
-  QDomElement nameElem = doc.createElement("name");
-  nameElem.appendChild(doc.createTextNode(name));
-  
-  QDomElement creationDateElem = doc.createElement("creationDate");
-  creationDateElem.appendChild(doc.createTextNode(QDateTime::currentDateTime().toString(Qt::ISODate)));
-  
-  QDomElement typeElem = doc.createElement("type");
-  typeElem.appendChild(doc.createTextNode("HTK"));
-  
-  rootElem.appendChild(nameElem);
-  rootElem.appendChild(creationDateElem);
-  rootElem.appendChild(typeElem);
-  doc.appendChild(rootElem);
-  QByteArray metadata = doc.toByteArray();
-  archive.writeFile("metadata.xml", "nobody", "nobody", metadata.constData(), metadata.length());
-  
-  QString jconfFile = KStandardDirs::locate("data", "models/"+userName+"/active/julius.jconf"); 
+  QHash<QString, QByteArray> fm;
+  fm.insert("metadata.xml", getMetaData(name, "HTK").toUtf8());
+
+  QHash<QString, QString> efm;
+
+  QString jconfFile = KStandardDirs::locate("data", "models/"+userName+"/active/julius.jconf");
   if (!QFile::exists(jconfFile))
     jconfFile = KStandardDirs::locate("data", "simond/default.jconf");
-  
-  archive.addLocalFile(tempDir+"hmmout/hmmdefs", "hmmdefs");
-  archive.addLocalFile(tempDir+"tiedlist", "tiedlist");
-  archive.addLocalFile(tempDir+"hmmout/macros", "macros");
-  archive.addLocalFile(tempDir+"stats", "stats");
-  archive.addLocalFile(tempDir+"model.dict", "model.dict");
-  archive.addLocalFile(tempDir+"model.dfa", "model.dfa");
-  archive.addLocalFile(jconfFile, "julius.jconf");
-  
-  return archive.close();
+
+  efm.insert(tempDir+"hmmout/hmmdefs", "hmmdefs");
+  efm.insert(tempDir+"tiedlist", "tiedlist");
+  efm.insert(tempDir+"hmmout/macros", "macros");
+  efm.insert(tempDir+"stats", "stats");
+  efm.insert(tempDir+"model.dict", "model.dict");
+  efm.insert(tempDir+"model.dfa", "model.dfa");
+  efm.insert(jconfFile, "julius.jconf");
+
+  return FileUtils::pack(targetArchive, fm, efm);
 }
 
 bool ModelCompilerHTK::unpack ( const QString& archive, const QString& targetDir )
 {
-  kDebug() << "Archive: " << archive << "Target dir: " << targetDir;
-  
-  if (!QFile::exists(archive)) return false;
-  
-  KTar tar(archive, "application/x-gzip");
-  if (!tar.open(QIODevice::ReadOnly)) return false;
-  
-  const KArchiveDirectory *d = tar.directory();
-  if (!d) return false;
-  
-  foreach (const QString& file, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")) {
-    const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry(file));
-    if (!entry) return false;
-                        
-    QFile f(targetDir+file);
-    if (!f.open(QIODevice::WriteOnly)) return false;
-    f.write(entry->data());
-    f.close();
-  }
-  return true;
+  return FileUtils::unpack(archive, targetDir, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats"));
 }
 
 

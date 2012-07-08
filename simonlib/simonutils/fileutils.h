@@ -23,11 +23,16 @@
 #include <QString>
 
 #include "simonutils_export.h"
+#include <QHash>
 
 class SIMONUTILS_EXPORT FileUtils
 {
 public:
     static bool removeDirRecursive(const QString &dirName);
+    static bool pack(const QString &targetArchive,
+                     const QHash<QString, QByteArray> &fromMemory /*target fileame, data to store*/,
+                     const QHash<QString, QString> &existingFiles /*filename - target filename*/);
+    static bool unpack(const QString &archive, const QString& targetDir, const QStringList &files);
 };
 
 #endif // FILEUTILS_H

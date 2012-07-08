@@ -5,7 +5,7 @@ include(SimonDirs)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../)
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -D__INTERLOCKED_DECLARED -DTSPHINX)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -D__INTERLOCKED_DECLARED -DTSPHINX -fexceptions)
 include(KDE4Defaults)
 
 set( simonmodelcompilation_LIB_SRCS

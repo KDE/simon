@@ -124,7 +124,7 @@ QByteArray ModelCompilationAdapterHTK::htkify(const QByteArray& in)
 }
 
 bool ModelCompilationAdapterHTK::storeLexicon(ModelCompilationAdapter::AdaptionType adaptionType,
-                                              const QString &lexiconPathOut, const QString &simpleVocabPathOut,
+                                              const QString &lexiconPathOut,
                                               QSharedPointer<Vocabulary> vocabulary,
                                               QStringList &trainedVocabulary, QStringList &definedVocabulary)
 {
@@ -357,7 +357,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
   /////  Lexicon  ////////////////
 
-  if(!storeLexicon(adaptionType, lexiconPathOut, simpleVocabPathOut, vocabulary, trainedVocabulary, definedVocabulary))
+  if(!storeLexicon(adaptionType, lexiconPathOut, vocabulary, trainedVocabulary, definedVocabulary))
     return false;
 
   //    /////  Vocabulary  /////////////

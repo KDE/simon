@@ -15,10 +15,44 @@
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */ 
+ */
 
 #include "sphinxcontrol.h"
+#include <KDebug>
 
-SphinxControl::SphinxControl()
+SphinxControl::SphinxControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
+{
+}
+
+bool SphinxControl::initializeRecognition(const QString &modelPath)
+{
+  if (modelPath == m_lastModel) return true; //already initialized / tried to initialize with this exact model
+
+  m_lastModel = modelPath;
+  kDebug() << "Initializing";
+  if (isInitialized())
+  {
+    kDebug() << "Initializing recognition that was already initialized; uninitializing...";
+    uninitialize();
+    m_startRequests = 0;
+  }
+
+  //TODO: copy from model path| unpackfrom archive?
+
+  kDebug() << "Emitting recognition ready";
+  emit recognitionReady();
+  return true;
+}
+
+RecognitionConfiguration *SphinxControl::setupConfig()
+{
+//  QByteArray dirPath = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/").toUtf8();
+
+  //TODO: set proper paramets & create sphinxrecognition
+
+  return NULL;
+}
+
+void SphinxControl::emitError(const QString &error)
 {
 }

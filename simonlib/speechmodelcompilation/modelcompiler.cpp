@@ -20,6 +20,8 @@
 #include<KDebug>
 
 #include "modelcompiler.h"
+#include <QDomDocument>
+#include <QDateTime>
 
 bool ModelCompiler::hasBuildLog() const
 {
@@ -129,4 +131,26 @@ void ModelCompiler::abort()
   foreach(QProcess *proc, activeProcesses)
   //tell any running process to commit suicide
     proc->kill();
+}
+
+QString ModelCompiler::getMetaData(const QString &name, const QString &type)
+{
+  QDomDocument doc;
+  QDomElement rootElem = doc.createElement("baseModel");
+
+  QDomElement nameElem = doc.createElement("name");
+  nameElem.appendChild(doc.createTextNode(name));
+
+  QDomElement creationDateElem = doc.createElement("creationDate");
+  creationDateElem.appendChild(doc.createTextNode(QDateTime::currentDateTime().toString(Qt::ISODate)));
+
+  QDomElement typeElem = doc.createElement("type");
+  typeElem.appendChild(doc.createTextNode(type));
+
+  rootElem.appendChild(nameElem);
+  rootElem.appendChild(creationDateElem);
+  rootElem.appendChild(typeElem);
+  doc.appendChild(rootElem);
+
+  return doc.toString();
 }

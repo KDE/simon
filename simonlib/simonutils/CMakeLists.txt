@@ -2,9 +2,9 @@ include(UseQt4)
 include(SimonDirs)
 
 
-include_directories( ${QT_INCLUDES} ../ )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../ )
 
-add_definitions (${QT_DEFINITIONS})
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} )
 include(KDE4Defaults)
 
 set( simonutils_LIB_SRCS
@@ -20,7 +20,7 @@ set( simonutils_LIB_HDRS
 
 
 kde4_add_library( simonutils  SHARED ${simonutils_LIB_SRCS} )
-target_link_libraries( simonutils ${QT_LIBRARIES}  )
+target_link_libraries( simonutils ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} )
 
 
 set_target_properties( simonutils

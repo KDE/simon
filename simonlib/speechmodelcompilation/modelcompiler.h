@@ -77,6 +77,11 @@ protected:
 
   virtual bool processError()=0;
   virtual bool parseConfiguration()=0;
+
+  virtual bool pack( const QString& targetArchive, const QString& name )=0;
+//  virtual bool unpack(const QString& archive, const QString& targetDir)=0;
+
+  virtual QString getMetaData(const QString &name, const QString &type);
   
   bool execute(const QString& command, const QString &wDir);
   

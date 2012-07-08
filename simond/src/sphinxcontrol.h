@@ -15,15 +15,23 @@
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */ 
+ */
 
 #ifndef SPHINXCONTROL_H
 #define SPHINXCONTROL_H
 
+#include "recognitioncontrol.h"
+
 class SphinxControl : public RecognitionControl
 {
 public:
-  SphinxControl();
+  SphinxControl(const QString &username, QObject *parent);
+
+  bool initializeRecognition(const QString& modelPath);
+
+protected:
+  RecognitionConfiguration* setupConfig();
+  void emitError(const QString& error);
 };
 
 #endif // SPHINXCONTROL_H

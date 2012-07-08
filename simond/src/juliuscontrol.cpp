@@ -25,7 +25,7 @@
  *   file(s) with this exception, you may extend this exception to your
  *   version of the file(s), but you are not obligated to do so.  If you
  *   do not wish to do so, delete this exception statement from your
- *   version. 
+ *   version.
  *
  *   Powered By:
  *
@@ -49,6 +49,7 @@
 #include <KMimeType>
 #include <KTar>
 #include <locale.h>
+#include <simonutils/fileutils.h>
 
 JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
 {
@@ -57,7 +58,7 @@ JuliusControl::JuliusControl(const QString& username, QObject* parent) : Recogni
 bool JuliusControl::initializeRecognition(const QString& modelPath)
 {
   if (modelPath == m_lastModel) return true; //already initialized / tried to initialize with this exact model
-  
+
   m_lastModel = modelPath;
   kDebug() << "Initializing";
   if (isInitialized()) {
@@ -65,29 +66,18 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
     uninitialize();
     m_startRequests = 0;
   }
-  
+
   QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/julius/");
   if (QFile::exists(path+"hmmdefs") && !QFile::remove(path+"hmmdefs")) return false;
   if (QFile::exists(path+"tiedlist") && !QFile::remove(path+"tiedlist")) return false;
   if (QFile::exists(path+"model.dfa") && !QFile::remove(path+"model.dfa")) return false;
   if (QFile::exists(path+"model.dict") && !QFile::remove(path+"model.dict")) return false;
   if (QFile::exists(path+"julius.jconf") && !QFile::remove(path+"julius.jconf")) return false;
-  
-  
-  KTar tar(modelPath, "application/x-gzip");
-  if (!tar.open(QIODevice::ReadOnly)) return false;
-  
-  const KArchiveDirectory *d = tar.directory();
-  if (!d) return false;
-  
-  foreach (const QString& file, (QStringList() << "hmmdefs" << "tiedlist" << "model.dfa" << "model.dict" << "julius.jconf")) {
-    const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry(file));
-    if (!entry) return false;
-                        
-    QFile f(path+file);
-    if (!f.open(QIODevice::WriteOnly)) return false;
-    f.write(entry->data());
-    f.close();
+
+
+  if (!FileUtils::unpack(modelPath, path, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")))
+  {
+    return false;
   }
 
   kDebug() << "Emitting recognition ready";
