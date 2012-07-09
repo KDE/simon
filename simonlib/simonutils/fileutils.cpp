@@ -112,11 +112,7 @@ bool FileUtils::unpack(const QString &archive, const QString &targetDir, const Q
   const KArchiveDirectory *d = tar.directory();
   if (!d) return false;
 
-  QStringList &iFiles;
-
-  if(files.isEmpty())
-    iFiles = d->entries();
-
+  const QStringList &iFiles = files.isEmpty()?d->entries():files;
 
   foreach (const QString& file, iFiles)
   {

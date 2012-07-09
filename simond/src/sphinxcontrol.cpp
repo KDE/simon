@@ -50,7 +50,7 @@ bool SphinxControl::initializeRecognition(const QString &modelPath)
     path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
   }
 
-  if (!FileUtils::unpack(modelPath, path)) //All becouse need to know model name to unpack jsgf&dict. Yes can get it from metadata but it would be a "crutch" on my mind
+  if (!FileUtils::unpackAll(modelPath, path)) //All becouse need to know model name to unpack jsgf&dict. Yes can get it from metadata but it would be a "crutch" on my mind
   {
     return false;
   }

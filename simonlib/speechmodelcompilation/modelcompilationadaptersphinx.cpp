@@ -170,7 +170,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
   foreach (Word *word, words)
   {
     if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
-        //    !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&    //???
+            !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&    //???
         !trainedVocabulary.contains(word->getLexiconWord()))
     {
       kDebug() << "Skipping word " << word->getWord();

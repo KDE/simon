@@ -37,6 +37,7 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
   RecognitionControl *r = NULL;
   if (m_isolatedMode || m_recognitionControls.count(user) == 0) {
     kDebug() << "RecognitionControls: generate new RC...";
+    //configure usage of proper control
     r = new JuliusControl(user);
     m_recognitionControls.insert(user, r);
     kDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(user));
