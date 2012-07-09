@@ -27,6 +27,7 @@ ModelMetadata::ModelMetadata(const QDomElement &DomElement)
 QDomElement ModelMetadata::SerializeXml(QDomDocument &DomDocument) const
 {
   QDomElement rootElem = DomDocument.createElement("baseModel");
+  DomDocument.appendChild(rootElem);
 
   QDomElement nameElem = DomDocument.createElement("name");
   nameElem.appendChild(DomDocument.createTextNode(m_Name));

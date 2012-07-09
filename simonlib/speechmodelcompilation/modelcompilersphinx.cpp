@@ -158,6 +158,7 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
   QHash<QString, QByteArray> fm;
   QDomDocument DomDocument;
   getMetaData(name, "SPHINX").SerializeXml(DomDocument);
+//  kDebug() << DomDocument.toString();
   fm.insert("metadata.xml", DomDocument.toByteArray());
 
   QHash<QString, QString> efm;
@@ -177,7 +178,7 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
     efm.insert(srcDirName+tFileName, tFileName);
   }
 
-  QString fetc = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/etc/");
+  QString fetc = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/etc/")+m_ModelName;
   efm.insert(fetc+QLatin1String(".jsgf"), m_ModelName+QLatin1String(".jsgf"));
   efm.insert(fetc+QLatin1String(".dic"), m_ModelName+QLatin1String(".dic"));
 
