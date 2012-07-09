@@ -93,7 +93,7 @@ bool FileUtils::pack(const QString &targetArchive, const QHash<QString, QByteArr
 
 /*!
    Unpack selected files from gzip archive to target directory
-
+   if file list is empty: unpacks all
    \author Vladislav Sitalo
    \param archive Archive name
    \param targetDir Target dir
@@ -112,7 +112,13 @@ bool FileUtils::unpack(const QString &archive, const QString &targetDir, const Q
   const KArchiveDirectory *d = tar.directory();
   if (!d) return false;
 
-  foreach (const QString& file, files)
+  QStringList &iFiles;
+
+  if(files.isEmpty())
+    iFiles = d->entries();
+
+
+  foreach (const QString& file, iFiles)
   {
     const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry(file));
     if (!entry) return false;
@@ -127,26 +133,6 @@ bool FileUtils::unpack(const QString &archive, const QString &targetDir, const Q
 
 bool FileUtils::unpackAll(const QString &archive, const QString &targetDir)
 {
-  kDebug() << "Archive: " << archive << "Target dir: " << targetDir;
-
-  if (!QFile::exists(archive)) return false;
-
-  KTar tar(archive, "application/x-gzip");
-  if (!tar.open(QIODevice::ReadOnly)) return false;
-
-  const KArchiveDirectory *d = tar.directory();
-  if (!d) return false;
-
-  foreach (const QString& file, d->entries())
-  {
-    const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry(file));
-    if (!entry) return false;
-
-    QFile f(targetDir+file);
-    if (!f.open(QIODevice::WriteOnly)) return false;
-    f.write(entry->data());
-    f.close();
-  }
-  return true;
+  return unpack(archive, targetDir, QStringList());
 }
 
