@@ -20,6 +20,7 @@
 
 #include "recognitioncontrolfactory.h"
 #include "juliuscontrol.h"
+#include "sphinxcontrol.h"
 
 RecognitionControlFactory::RecognitionControlFactory()
   : m_isolatedMode(false)
@@ -38,7 +39,8 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
   if (m_isolatedMode || m_recognitionControls.count(user) == 0) {
     kDebug() << "RecognitionControls: generate new RC...";
     //configure usage of proper control
-    r = new JuliusControl(user);
+//    r = new JuliusControl(user);
+    r = new SphinxControl(user);
     m_recognitionControls.insert(user, r);
     kDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(user));
   } else /* isolatedMode = false and count > 0 (count = 1) */ {

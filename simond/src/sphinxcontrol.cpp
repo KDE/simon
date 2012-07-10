@@ -46,10 +46,12 @@ bool SphinxControl::initializeRecognition(const QString &modelPath)
   QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
   if(!QDir(path).entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst).isEmpty())
   {
+    kDebug() << "Removing old data from working dir";
     FileUtils::removeDirRecursive(path);
     path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
   }
 
+  kDebug() << "Unpacking model to working dir";
   if (!FileUtils::unpackAll(modelPath, path)) //All becouse need to know model name to unpack jsgf&dict. Yes can get it from metadata but it would be a "crutch" on my mind
   {
     return false;
@@ -62,12 +64,13 @@ bool SphinxControl::initializeRecognition(const QString &modelPath)
 
 RecognitionConfiguration *SphinxControl::setupConfig()
 {
+  kDebug() << "Setting config up";
   QString dirPath = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
 
   QFile metadataFile(dirPath+QLatin1String("metadata.xml"));
-  if(!metadataFile.open(QIODevice::WriteOnly))
+  if(!metadataFile.open(QIODevice::ReadOnly))
   {
-    emit recognitionError(i18n("Failed to write filler to \"%1\"", dirPath+QLatin1String("metadata.xml")),
+    emit recognitionError(i18n("Failed to read metadata from \"%1\"", dirPath+QLatin1String("metadata.xml")),
                           getBuildLog());
     return false;
   }
@@ -76,9 +79,7 @@ RecognitionConfiguration *SphinxControl::setupConfig()
   DomDocument.setContent(&metadataFile);
   metadata.DeserializeXml(DomDocument.documentElement());
 
-
-
-  //TODO: set proper paramets & create sphinxrecognition
+//  kDebug() << metadata.Name()<<QLatin1String("\t")<<metadata.DateTime();
 
   return new SphinxRecognitionConfiguration(dirPath, dirPath+metadata.Name()+QLatin1String(".jsgf"),
                                             dirPath+metadata.Name()+QLatin1String(".dic"));

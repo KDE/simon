@@ -31,9 +31,13 @@
 class SphinxRecognizer : public Recognizer
 {
 private:
-  QSharedPointer<ps_decoder_t> decoder;
+  ps_decoder_t *decoder;
+
+  SphinxRecognizer(const SphinxRecognizer&){}
+  //Do we need a copy constructor?
 public:
   SphinxRecognizer();
+  ~SphinxRecognizer(){ uninitialize(); }
 
   bool init(RecognitionConfiguration* config);
   QList<RecognitionResult> recognize(const QString& file);

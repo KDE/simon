@@ -40,7 +40,7 @@ public:
   QString getDictionary() { return m_Dictionary; }
 
   QStringList toArgs();
-  QSharedPointer<cmd_ln_t> getSphinxConfig();
+  cmd_ln_t *getSphinxConfig();
 
 
 private:

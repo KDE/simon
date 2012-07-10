@@ -42,9 +42,9 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
   //BUG: turn on exception support
     SphinxRecognitionConfiguration *sconfig = dynamic_cast<SphinxRecognitionConfiguration*> (config);
 
-    decoder = QSharedPointer<ps_decoder_t>(ps_init(sconfig->getSphinxConfig().data()));
+    decoder = ps_init(sconfig->getSphinxConfig());
 
-    if(decoder.isNull())
+    if(!decoder)
       return false;
 
 //  } catch (std::runtime_error err)
@@ -60,17 +60,17 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
 {
   QList<RecognitionResult> recognitionResults;
 
-  QSharedPointer<FILE> toRecognize;
+  FILE *toRecognize;
   QByteArray fName = file.toUtf8();
-  toRecognize = QSharedPointer<FILE>(fopen(fName.data(), "rb"));
+  toRecognize = fopen(fName.data(), "rb");
 
-  if (toRecognize.isNull())
+  if (!toRecognize)
   {
     m_lastError = i18n("Failed to open \"%1\"", file);
     return recognitionResults;
   }
 
-  int rv = ps_decode_raw(decoder.data(), toRecognize.data(), fName.data(), -1);
+  int rv = ps_decode_raw(decoder, toRecognize, fName.data(), -1);
   if(rv < 0)
   {
     m_lastError = i18n("Failed to decode \"%1\"", file);
@@ -79,14 +79,14 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
 
   int score;
   char const *hyp, *uttid;
-  hyp = ps_get_hyp(decoder.data(), &score, &uttid);
+  hyp = ps_get_hyp(decoder, &score, &uttid);
   if(!hyp)
   {
     m_lastError = i18n("Can't get hypothesis for \"%1\"", file);
     return recognitionResults;
   }
 
-  fclose(toRecognize.data());
+  fclose(toRecognize);
 
   recognitionResults.append(RecognitionResult(QString(hyp), "", "", QList<float>())); //TODO: Find how to get SAMPA, using sphinx..
 
@@ -97,7 +97,7 @@ bool SphinxRecognizer::uninitialize()
 {
   kDebug()<<"SPHINX uninitialization";
   log.clear();
-  ps_free(decoder.data()); //WARNING: think about necessity of using QSharedPointers
+  ps_free(decoder); //WARNING: think about necessity of using QSharedPointers
 
   return true;
 }

@@ -25,7 +25,7 @@
 class SphinxControl : public RecognitionControl
 {
 public:
-  SphinxControl(const QString &username, QObject *parent);
+  SphinxControl(const QString &username, QObject *parent = 0);
 
   bool initializeRecognition(const QString& modelPath);
 

@@ -18,6 +18,7 @@
  */ 
 
 #include "sphinxrecognitionconfiguration.h"
+#include <KDebug>
 
 QStringList SphinxRecognitionConfiguration::toArgs()
 {
@@ -29,17 +30,22 @@ QStringList SphinxRecognitionConfiguration::toArgs()
   return args;
 }
 
-QSharedPointer<cmd_ln_t> SphinxRecognitionConfiguration::getSphinxConfig() //WARNING: move to recognizer?
+cmd_ln_t* SphinxRecognitionConfiguration::getSphinxConfig() //WARNING: move to recognizer?
 {
+  kDebug()<<"Creating sphinx configuration";
+  kDebug()<<m_ModelDir;
+  kDebug()<<m_Grammar;
+  kDebug()<<m_Dictionary;
   QByteArray model = m_ModelDir.toUtf8();
   QByteArray grammar = m_Grammar.toUtf8();
   QByteArray dict = m_Dictionary.toUtf8();
 
-  QSharedPointer<cmd_ln_t> config = QSharedPointer<cmd_ln_t>(cmd_ln_init(NULL, ps_args(), TRUE,
+  cmd_ln_t *config = cmd_ln_init(NULL, ps_args(), TRUE,
                                "-hmm", model.data(),
                                "-jsgf", grammar.data(),
                                "-dict", dict.data(),
-                               NULL));
+                               NULL);
+  kDebug()<<"Done?";
   return config;
 }
 
