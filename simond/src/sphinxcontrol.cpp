@@ -25,9 +25,11 @@
 #include <KLocale>
 #include <speechmodelcompilation/modelmetadata.h>
 #include <simonrecognizer/sphinxrecognitionconfiguration.h>
+#include <simonrecognizer/sphinxrecognizer.h>
 
 SphinxControl::SphinxControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
 {
+  recog = new SphinxRecognizer();
 }
 
 bool SphinxControl::initializeRecognition(const QString &modelPath)
@@ -72,14 +74,19 @@ RecognitionConfiguration *SphinxControl::setupConfig()
   {
     emit recognitionError(i18n("Failed to read metadata from \"%1\"", dirPath+QLatin1String("metadata.xml")),
                           getBuildLog());
-    return false;
+    return NULL;
   }
   ModelMetadata metadata;
   QDomDocument DomDocument;
   DomDocument.setContent(&metadataFile);
   metadata.DeserializeXml(DomDocument.documentElement());
 
-//  kDebug() << metadata.Name()<<QLatin1String("\t")<<metadata.DateTime();
+  metadataFile.close();
+
+//  kDebug() <<dirPath;
+//  kDebug() <<dirPath+metadata.Name()+QLatin1String(".jsgf");
+//  kDebug() <<dirPath+metadata.Name()+QLatin1String(".dic");
+
 
   return new SphinxRecognitionConfiguration(dirPath, dirPath+metadata.Name()+QLatin1String(".jsgf"),
                                             dirPath+metadata.Name()+QLatin1String(".dic"));

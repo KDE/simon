@@ -164,7 +164,9 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
   QHash<QString, QString> efm;
 
   QString srcDirName = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/model_parameters/")+
-                       m_ModelName+QLatin1String(".ci_cont/");
+                       m_ModelName+QLatin1String(MODEL_POSTFIX)+QLatin1String(SENONES_COUNT) + QLatin1String("/");
+
+  kDebug() << QLatin1String("Model data from")+srcDirName;
   QDir sourceDir(srcDirName);
 
   if(!sourceDir.exists())
@@ -176,6 +178,7 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
   foreach (QString tFileName, sourceDir.entryList())
   {
     efm.insert(srcDirName+tFileName, tFileName);
+    kDebug()<<srcDirName+tFileName;
   }
 
   QString fetc = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/etc/")+m_ModelName;

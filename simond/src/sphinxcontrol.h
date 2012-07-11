@@ -24,6 +24,7 @@
 
 class SphinxControl : public RecognitionControl
 {
+Q_OBJECT
 public:
   SphinxControl(const QString &username, QObject *parent = 0);
 

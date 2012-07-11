@@ -338,7 +338,7 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
         else
           fword = false;
 
-        grammarStream<< word->getWord();
+        grammarStream<< word->getLexiconWord();
       }
 
       grammarStream<<" ) ";

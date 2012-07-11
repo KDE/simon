@@ -83,7 +83,10 @@ bool FileUtils::pack(const QString &targetArchive, const QHash<QString, QByteArr
   QHash<QString, QString>::const_iterator edata = existingFiles.begin(), bend = existingFiles.end();
   while(edata != bend)
   {
-    archive.addLocalFile(edata.key(), edata.value());
+    //if(!
+       archive.addLocalFile(edata.key(), edata.value());// && edata.key().left(1)!="." && edata.key().left(2)!=".."
+                                                                                                            //)
+      //return false;
     edata++;
   }
 

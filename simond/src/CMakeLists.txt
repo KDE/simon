@@ -24,7 +24,7 @@ kde4_add_executable(simond ${simond_SRCS})
 
 target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${QT_QTNETWORK_LIBRARY} simonrecognizer
 ${QT_QTCORE_LIBRARY} ${QT_QTXML_LIBRARY} simonscenarios simonmodelcompilation simonddatabaseaccess
-simonrecognitionresult simonwav simoncontextadapter simonutils)
+simonrecognitionresult simonwav simoncontextadapter simonutils simonrecognizer)
 
 #set_target_properties(simond PROPERTIES COMPILE_FLAGS "-std=c++0x -Wall -Wextra -pedantic -Weffc++ -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wconversion -Wsign-conversion -Winit-self -Wunreachable-code")
 

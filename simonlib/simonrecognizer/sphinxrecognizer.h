@@ -22,26 +22,25 @@
 
 #include "recognizer.h"
 
-#include <QMutex>
 #include <QString>
-#include <QSharedPointer>
 #include "simonrecognizer_export.h"
 #include <pocketsphinx/pocketsphinx.h>
 
-class SphinxRecognizer : public Recognizer
+class SIMONRECOGNIZER_EXPORT SphinxRecognizer : public Recognizer
 {
 private:
   ps_decoder_t *decoder;
 
-  SphinxRecognizer(const SphinxRecognizer&){}
+//  SphinxRecognizer(const SphinxRecognizer&);
   //Do we need a copy constructor?
 public:
   SphinxRecognizer();
-  ~SphinxRecognizer(){ uninitialize(); }
+  virtual ~SphinxRecognizer();
 
   bool init(RecognitionConfiguration* config);
   QList<RecognitionResult> recognize(const QString& file);
   bool uninitialize();
+
 };
 
 #endif // SPHINXRECOGNIZER_H

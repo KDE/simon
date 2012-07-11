@@ -31,6 +31,7 @@ RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent
   shouldBeRunning(false),
   recog(0)
 {
+
 }
 
 bool RecognitionControl::isEmpty() const
@@ -87,6 +88,7 @@ void RecognitionControl::run()
   shouldBeRunning=true;
 
   RecognitionConfiguration *cfg = setupConfig();
+  kDebug()<<"whee";
   bool success = recog->init(cfg);
   delete cfg;
   if (!success) {

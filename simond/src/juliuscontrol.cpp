@@ -53,6 +53,7 @@
 
 JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
 {
+  recog = new JuliusRecognizer();
 }
 
 bool JuliusControl::initializeRecognition(const QString& modelPath)

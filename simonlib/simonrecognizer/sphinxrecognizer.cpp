@@ -23,9 +23,19 @@
 #include <KDebug>
 #include <cstdlib>
 #include <KDE/KLocalizedString>
+#include <simonrecognitionresult/recognitionresult.h>
 
-SphinxRecognizer::SphinxRecognizer()
+//SphinxRecognizer::SphinxRecognizer(const SphinxRecognizer &)
+//{
+//}
+
+SphinxRecognizer::SphinxRecognizer():decoder(0)
 {
+}
+
+SphinxRecognizer::~SphinxRecognizer()
+{
+  uninitialize();
 }
 
 bool SphinxRecognizer::init(RecognitionConfiguration *config)
@@ -90,6 +100,7 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
 
   recognitionResults.append(RecognitionResult(QString(hyp), "", "", QList<float>())); //TODO: Find how to get SAMPA, using sphinx..
 
+  kDebug()<<"Got hypothesis: " <<QString(hyp);
   return recognitionResults;
 }
 
