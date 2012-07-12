@@ -259,7 +259,7 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   out.flush();
   if (!configFile.open(QIODevice::WriteOnly))
   {
-    emit error(i18n("Failed to read config at  \"%1\"", filename));
+    emit error(i18n("Failed to write config at  \"%1\"", filename));
     return false;
   }
 

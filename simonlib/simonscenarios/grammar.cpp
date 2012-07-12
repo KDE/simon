@@ -131,14 +131,19 @@ QStringList Grammar::getTerminals()
   QMutexLocker lock(&structuresLock);
   QStringList out;
   QStringList terminalsInStruct;
-  foreach (const QString& structure, m_structures) {
-    terminalsInStruct.clear();
-    terminalsInStruct = structure.split(' ');
+  foreach (const QString& structure, m_structures)
+  {
+    terminalsInStruct = getTerminalsForStructure(structure);
     for (int j=0; j < terminalsInStruct.count(); j++)
       if (!out.contains(terminalsInStruct[j]))
         out << terminalsInStruct[j];
   }
   return out;
+}
+
+QStringList Grammar::getTerminalsForStructure(const QString &structure)
+{
+  return structure.split(' ');
 }
 
 

@@ -35,7 +35,6 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerSPHINX: public Mo
 public:
   ModelCompilationManagerSPHINX(const QString& userName, QObject *parent);
 protected:
-  //TODO: Implement
   void run();
 
 };

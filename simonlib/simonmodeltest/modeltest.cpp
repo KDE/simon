@@ -52,7 +52,7 @@
 
 ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
 userName(user_name),
-recog(new JuliusRecognizer)
+recog(new JuliusRecognizer)//FIXME: hardcode
 {
   m_recognizerResultsModel = new FileResultModel(this);
   m_wordResultsModel = new TestResultModel(this);

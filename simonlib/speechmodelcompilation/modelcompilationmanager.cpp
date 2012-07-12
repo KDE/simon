@@ -105,8 +105,7 @@ uint ModelCompilationManager::getFingerPrint(QString dir, QStringList files, Mod
       kDebug() << "Error building fingerprint";
       kDebug() << dir <<"\n"<<component;
 //      emit modelCompilationAborted();
-      //BUG:
-      //FIXME:
+      //WARNING:&
 //      throw std::runtime_error(qPrintable("Error building fingerprint. Can't open file " + file));
       abort();
     }

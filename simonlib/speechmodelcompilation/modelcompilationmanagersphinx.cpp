@@ -55,7 +55,7 @@ void ModelCompilationManagerSPHINX::run()
                                                          (ModelCompilationAdapter::AdaptLanguageModel) :
                                                          (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel);
 
-  QString modelName = userName+modelUuid.toString();"userDefinedModel"; //TODO: move name to config
+  QString modelName = userName+modelUuid.toString();
   adaptionArgs.insert("workingDir", activeDir);
   adaptionArgs.insert("modelName", modelName);
 

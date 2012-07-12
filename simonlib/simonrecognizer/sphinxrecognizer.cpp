@@ -47,9 +47,8 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
 
   if(!config)
     return false;
-//  try
-//  {
-  //BUG: turn on exception support
+  try
+  {
     SphinxRecognitionConfiguration *sconfig = dynamic_cast<SphinxRecognitionConfiguration*> (config);
 
     decoder = ps_init(sconfig->getSphinxConfig());
@@ -57,11 +56,11 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
     if(!decoder)
       return false;
 
-//  } catch (std::runtime_error err)
-//  {
+  } catch (std::runtime_error err)
+  {
     //TODO:
     return false;
-//  }
+  }
 
   return true;
 }
@@ -86,6 +85,8 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
     m_lastError = i18n("Failed to decode \"%1\"", file);
     return recognitionResults;
   }
+
+  kDebug()<<"Recognition checkpoint";
 
   int score;
   char const *hyp, *uttid;

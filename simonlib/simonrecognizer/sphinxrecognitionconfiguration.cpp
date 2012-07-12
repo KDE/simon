@@ -30,7 +30,7 @@ QStringList SphinxRecognitionConfiguration::toArgs()
   return args;
 }
 
-cmd_ln_t* SphinxRecognitionConfiguration::getSphinxConfig() //WARNING: move to recognizer?
+cmd_ln_t* SphinxRecognitionConfiguration::getSphinxConfig()
 {
   kDebug()<<"Creating sphinx configuration";
   kDebug()<<m_ModelDir;

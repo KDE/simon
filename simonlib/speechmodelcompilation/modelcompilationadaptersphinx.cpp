@@ -194,8 +194,6 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
 
 bool ModelCompilationAdapterSPHINX::storeFiller(AdaptionType adaptionType, const QString &fillerPathOut)
 {
-  //WARNING: Hardcode or not hardcode? this is a question.
-
   QFile fillerFile(fillerPathOut);
   if (!fillerFile.open(QIODevice::WriteOnly))
   {
@@ -313,14 +311,11 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
                  <<"grammar generalGrammar;\n";
 
   QStringList grammarStructures = grammar->getStructures();
-//WARNING: is all ok there?:D
   int index(0);
   foreach (const QString& structure, grammarStructures)
   {
     grammarStream<< "public <structure"+ QString::number(index++) +"> = ";
-    int splitter = structure.indexOf(" ");
-    QStringList terminals = structure.mid(splitter+1).trimmed().split(' ');
-
+    QStringList terminals = Grammar::getTerminalsForStructure(structure);
 
     foreach (const QString &terminal, terminals)
     {
@@ -330,7 +325,7 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
       QList<Word*> wordsForTerminal = vocabulary->findWordsByTerminal(terminal);
       foreach (Word* word, wordsForTerminal)
       {
-        if(!definedVocabulary.contains(word->getLexiconWord()))
+        if(!definedVocabulary.contains(word->getLexiconWord()) && adaptionType != AdaptIndependently)
           break; //WARNING: Depends on adaptation type?
 
         if(!fword)
