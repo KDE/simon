@@ -62,6 +62,7 @@ void ModelCompilationManagerSPHINX::run()
   //then, compile the model using the model compilation manager
   QHash<QString,QString> compilerArgs;
 
+  compilerArgs.insert("modelDir", activeDir);
   compilerArgs.insert("audioPath",KStandardDirs::locateLocal("appdata", "models/"+userName+"/samples/"));
   compilerArgs.insert("modelName", modelName);
 //  compilerArgs.insert("grammar", activeDir+"model.grammar");
@@ -97,23 +98,6 @@ void ModelCompilationManagerSPHINX::run()
       emit modelCompilationAborted();
       return;
     }
-///////
-//    QFileInfo fiPrompts(activeDir+"prompts");
-//    bool hasPrompts = (fiPrompts.size() > 0);
-//    if (!hasPrompts)
-//    {
-//      switch (baseModelType)
-//      {
-//        case 1:
-//          kDebug() << "No Prompts!  Switching to static model!";
-//          baseModelType = 0;
-//          break;
-//        case 2:                                     //do not bother creating the model without prompts
-//          kDebug() << "No Prompts!  Model recompilation aborting!";
-//          emit modelCompilationAborted();
-//          return;
-//      }
-//    }
 
     ModelCompiler::CompilationType compilationType = getCompilationType(baseModelType);
 

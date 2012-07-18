@@ -58,5 +58,17 @@
       <tooltip>The path to the sphinxtrain executable.</tooltip>
     </entry>
   </group>
+  <group name="Backend">
+    <entry name="jhtk" type="Bool">
+      <label>Julius/Htk backend</label>
+<!--       <default code="true">KStandardDirs::findExe("sphinxtrain")</default> -->
+      <tooltip>Selected or not</tooltip>
+    </entry>
+    <entry name="sphinx" type="Bool">
+      <label>CMU Sphinx backend</label>
+<!--       <default code="true">KStandardDirs::findExe("sphinxtrain")</default> -->
+      <tooltip>Selected or not</tooltip>
+    </entry>
+  </group>
 </kcfg>
 

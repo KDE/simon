@@ -37,12 +37,18 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   QObject(parent),
   m_currentSource(0)
 {
-//#ifdef USE_SPHINX
-  m_modelCompilationManager = new ModelCompilationManagerSPHINX(username, this);
-//#else
-//  m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
-//#endif
-  //FIXME: hardcode
+  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+  KConfigGroup programGroup(&config, "Backend");
+  bool sphinx,jhtk;
+  sphinx = programGroup.readEntry("sphinx", true);
+  jhtk = programGroup.readEntry("jhtk", false);
+
+  if(sphinx)
+    m_modelCompilationManager = new ModelCompilationManagerSPHINX(username, this);
+  else if(jhtk)
+    m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
+  else
+    emit error("There something wrong with adapters");
 
   m_username = username;
 

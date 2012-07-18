@@ -30,6 +30,8 @@
 #include <simonrecognizer/juliusrecognitionconfiguration.h>
 #include <simonrecognizer/juliusrecognizer.h>
 #include <simonrecognizer/juliusstaticrecognitionconfiguration.h>
+#include <simonrecognizer/sphinxrecognizer.h>
+#include <simonrecognizer/sphinxrecognitionconfiguration.h>
 
 #include <QCoreApplication>
 #include <QDir>
@@ -51,9 +53,20 @@
 #endif
 
 ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
-userName(user_name),
-recog(new JuliusRecognizer)//FIXME: hardcode
+userName(user_name)
 {
+  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+  KConfigGroup programGroup(&config, "Backend");
+  bool sphinx,jhtk;
+  sphinx = programGroup.readEntry("sphinx", true);
+  jhtk = programGroup.readEntry("jhtk", false);
+  if(sphinx)
+    recog = new SphinxRecognizer();
+  else if(jhtk)
+    recog = new JuliusRecognizer();
+  else
+    emit error("There something wrong with recognizers", buildLog.toUtf8());
+
   m_recognizerResultsModel = new FileResultModel(this);
   m_wordResultsModel = new TestResultModel(this);
   m_sentenceResultsModel = new TestResultModel(this);
@@ -362,7 +375,7 @@ bool ModelTest::recognize(const QStringList& fileNames)
 {
   if (!keepGoing) return false;
   emit status(i18n("Recognizing..."), 35, 100);
-  
+  //SphinxRecognitionConfiguration *rcfg = new SphinxRecognitionConfiguration()
   JuliusStaticRecognitionConfiguration *cfg = new JuliusStaticRecognitionConfiguration(juliusJConf, dfaPath, dictPath, hmmDefsPath, 
                                                                                  tiedListPath, QString::number(sampleRate));
   if (!recog->init(cfg)) {

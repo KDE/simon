@@ -30,16 +30,6 @@
 #include "modelcompilersphinx.h"
 #include <QDir>
 
-/* Plan:
- * locate sphinxtrain
- * change using lm to jsgf
- * copy audio to proper wav directory or change in config?
- * cd model directory and using sphinxtrain-snapshot pre-configure model
- * modify proper config files and run training
- * log
- */
-
-
 bool ModelCompilerSPHINX::parseConfiguration()
 {
   KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
@@ -73,7 +63,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
   }
 
   this->compilationType = compilationType;
-  m_ModelDir = baseModelPath;
+  m_ModelDir = args.value("modelDir");//baseModelPath;
   m_ModelName = args.value("modelName");
   m_WavPath = args.value("audioPath");
   
@@ -102,8 +92,6 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
     emit error(i18n("Cannot setup model"));
     return false;
   }
-
-  //kDebug() << "";
 
   emit  status(i18n("Compiling model..."), 15, 100);
 

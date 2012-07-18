@@ -21,6 +21,9 @@
 #include "recognitioncontrolfactory.h"
 #include "juliuscontrol.h"
 #include "sphinxcontrol.h"
+#include <KConfig>
+#include <KStandardDirs>
+#include <KConfigGroup>
 
 RecognitionControlFactory::RecognitionControlFactory()
   : m_isolatedMode(false)
@@ -38,9 +41,20 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
   RecognitionControl *r = NULL;
   if (m_isolatedMode || m_recognitionControls.count(user) == 0) {
     kDebug() << "RecognitionControls: generate new RC...";
-    //configure usage of proper control
-//    r = new JuliusControl(user);
-    r = new SphinxControl(user);
+
+    KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+    KConfigGroup programGroup(&config, "Backend");
+    bool sphinx,jhtk;
+    sphinx = programGroup.readEntry("sphinx", true);
+    jhtk = programGroup.readEntry("jhtk", false);
+
+    if(sphinx)
+      r = new SphinxControl(user);
+    else if(jhtk)
+      r = new JuliusControl(user);
+    else
+    {};//;(
+
     m_recognitionControls.insert(user, r);
     kDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(user));
   } else /* isolatedMode = false and count > 0 (count = 1) */ {
