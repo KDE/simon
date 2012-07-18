@@ -351,7 +351,7 @@ QString ContextAdapter::currentModelPath() const
 {
   //try to find models for:
   // 1. the currently requested situation
-  // 2. if that's not availble let's see if we have a general model
+  // 2. if that's not available let's see if we have a general model
   foreach (const Situation& s, QList<Situation>() << m_requestedSituation << Situation()) {
     if (m_modelCache.contains(s)) { 
       if (m_modelCache.value(s)->state() == CachedModel::Current)

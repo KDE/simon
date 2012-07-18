@@ -34,7 +34,7 @@ void VerticalScrollArea::resizeEvent ( QResizeEvent* event )
   
   int padding = 5;
   if (verticalScrollBar()->isVisible()) padding += verticalScrollBar()->width();
-  int width = size().width() - padding; // accomodate the borders
+  int width = size().width() - padding; // accommodate the borders
   if ((width < 0) || !widget()) return;
   
   widget()->setMaximumWidth(width);
