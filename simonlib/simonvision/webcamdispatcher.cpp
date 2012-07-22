@@ -38,10 +38,10 @@ void WebcamDispatcher::initWebcamDispatcher()
     if (!capture)
     {
         kDebug() << "Failed to initialize video capture\n ";
+        return;
     }
 
     instance->start();
-    return;
 }
 
 void WebcamDispatcher::closeWebcamDispatcher()
@@ -79,6 +79,7 @@ void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
     }
 
 
+
 }
 
 IplImage* WebcamDispatcher::nextVideoFrame()
@@ -109,13 +110,13 @@ void WebcamDispatcher::run()
         {
 //    cvShowImage("Testing", nextVideoFrame() );
             analyzer->analyze(nextVideoFrame());
-        }  
+        }
     }
     if (instance->analyzers.count() ==0)
     {
       instance->closeWebcamDispatcher();
     }
-
+}
 
 //     CvCapture* camera = 0;
 //     camera = cvCreateCameraCapture(0);
@@ -132,7 +133,6 @@ void WebcamDispatcher::run()
 //     cvReleaseCapture( &camera );
 //     cvDestroyWindow( "Testing" );
 
-}
 
 WebcamDispatcher::~WebcamDispatcher()
 {

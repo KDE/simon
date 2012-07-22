@@ -12,7 +12,7 @@ set (simonvision_LIB_SRCS
 	webcamdispatcher.cpp
 	imageanalyzer.cpp
 	faceanalyzer.cpp
-#	cvhelper.cpp
+
 )
 
 set( simonvision_LIB_HDRS
@@ -20,7 +20,7 @@ set( simonvision_LIB_HDRS
     webcamdispatcher.h
     imageanalyzer.h
     faceanalyzer.h
-#    cvhelper.h
+    simoncv.h
 )
 
 set(SIMONCV_PACKAGE "OpenCV" CACHE STRING OpenCV)

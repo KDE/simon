@@ -20,7 +20,8 @@
 #include "faceanalyzer.h"
 #include<KDebug>
 #include "webcamdispatcher.h"
-
+#include "simoncv.h"
+using namespace SimonCV;
 //// Constants
 #define OPENCV_ROOT  ""
 
@@ -31,7 +32,6 @@ IplImage  * liveVideoFrameCopy = 0;
 // File-level variables
 CvHaarClassifierCascade * cascade = 0;  // the face detector
 CvMemStorage * memoryStorage = 0;             // memory for detector to use
-CvSeq * faceRectSeq;                    // memory-access interface
 
 int      initFaceDetection(const char * haarCascadePath);
 void     closeFaceDetection();
@@ -40,7 +40,7 @@ CvRect * detectFace(IplImage * liveImage);
 FaceAnalyzer::FaceAnalyzer()
 {
     if (!initFaceDetection(OPENCV_ROOT
-                     "haarcascade_frontalface_default.xml"))
+                           "haarcascade_frontalface_default.xml"))
         kDebug() <<"Error finding haarcascade_frontalface_default.xml file";
 }
 
@@ -93,7 +93,7 @@ void FaceAnalyzer::analyze(IplImage* currentImage)
     //     pVideoFrameCopy->origin = 0;
     //   }
 
-    faceRect = detectFace(liveVideoFrameCopy);
+    faceRect = detectObject(liveVideoFrameCopy,cascade,memoryStorage);
 
 
     if (faceRect)
@@ -111,32 +111,12 @@ void closeFaceDetection()
 
     if (memoryStorage)
         cvReleaseMemStorage(&memoryStorage);
-    
+
     if (liveVideoFrameCopy)
         cvReleaseImage(&liveVideoFrameCopy);
 }
 
-CvRect * detectFace(IplImage * liveImage)
-{
 
-    CvRect* faceRect = 0;
-    if (cascade&&memoryStorage)
-    {
-        // detect faces in image
-        int minFaceSize = liveImage->width / 5;
-        faceRectSeq = cvHaarDetectObjects
-                      (liveImage, cascade, memoryStorage,
-                       1.1,                       // increase search scale by 10% each pass
-                       6,                         // require six neighbors
-                       CV_HAAR_DO_CANNY_PRUNING,  // skip regions unlikely to contain a face
-                       cvSize(minFaceSize, minFaceSize));
-        // if one or more faces are detected, return the first one
-
-        if (faceRectSeq && faceRectSeq->total)
-            faceRect = (CvRect*) cvGetSeqElem(faceRectSeq, 0);
-    }
-    return faceRect;
-}
 
 void FaceAnalyzer::isChanged(bool hasFaceNew)
 {
@@ -152,7 +132,7 @@ void FaceAnalyzer::isChanged(bool hasFaceNew)
 FaceAnalyzer::~FaceAnalyzer()
 {
     kDebug()<<"Destroying Face Analyzer";
-    
+
     // Release resources allocated in the analyzer
     closeFaceDetection();
 }
