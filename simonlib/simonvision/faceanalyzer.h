@@ -27,16 +27,24 @@ class SIMONVISION_EXPORT FaceAnalyzer : public ImageAnalyzer
   Q_OBJECT
 
 public:
+
   FaceAnalyzer();
   virtual ~FaceAnalyzer();
   void analyze(IplImage* currentImage);
+
 
 signals:
   void facePresenceChanged(bool hasFaceNew);
 
 private:
-  bool hasFace;
+  int      initFaceDetection(const char * haarCascadePath);
+  void     closeFaceDetection();
   void isChanged(bool hasFace);
+  
+  bool hasFace;
+  IplImage  * liveVideoFrameCopy;
+  CvHaarClassifierCascade * cascade;  // the lip detector
+  CvMemStorage * memoryStorage;             // memory for detector to use
 };
 
 #endif // FACEANALYZER_H

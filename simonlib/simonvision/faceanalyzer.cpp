@@ -25,18 +25,6 @@ using namespace SimonCV;
 //// Constants
 #define OPENCV_ROOT  ""
 
-//// Global variables
-IplImage  * liveVideoFrameCopy = 0;
-
-
-// File-level variables
-CvHaarClassifierCascade * cascade = 0;  // the face detector
-CvMemStorage * memoryStorage = 0;             // memory for detector to use
-
-int      initFaceDetection(const char * haarCascadePath);
-void     closeFaceDetection();
-CvRect * detectFace(IplImage * liveImage);
-
 FaceAnalyzer::FaceAnalyzer()
 {
     if (!initFaceDetection(OPENCV_ROOT
@@ -44,25 +32,24 @@ FaceAnalyzer::FaceAnalyzer()
         kDebug() <<"Error finding haarcascade_frontalface_default.xml file";
 }
 
-int initFaceDetection(const char *haarCascadePath)
+int FaceAnalyzer::initFaceDetection(const char* haarCascadePath)
 {
-
-    if (!(memoryStorage = cvCreateMemStorage(0)))
-    {
-        kDebug() <<"Can\'t allocate memory for face detection\n";
-        return 0;
-    }
-
-    cascade = (CvHaarClassifierCascade*) cvLoad(haarCascadePath, 0, 0, 0);
-
-    if (!cascade)
-    {
-        kDebug() <<"Can\'t load Haar classifier cascade from "<<haarCascadePath<<
-        "\nPlease check that this is the correct path\n";
-        return 0;
-    }
-
-    return 1;
+  if (!(memoryStorage = cvCreateMemStorage(0)))
+  {
+    kDebug() <<"Can\'t allocate memory for face detection\n";
+    return 0;
+  }
+  
+  cascade = (CvHaarClassifierCascade*) cvLoad(haarCascadePath, 0, 0, 0);
+  
+  if (!cascade)
+  {
+    kDebug() <<"Can\'t load Haar classifier cascade from "<<haarCascadePath<<
+    "\nPlease check that this is the correct path\n";
+    return 0;
+  }
+  
+  return 1;
 }
 
 
@@ -103,17 +90,17 @@ void FaceAnalyzer::analyze(IplImage* currentImage)
 }
 
 
-void closeFaceDetection()
+void FaceAnalyzer::closeFaceDetection()
 {
-//    WebcamDispatcher::unregisterAnalyzer(this);
-    if (cascade)
-        cvReleaseHaarClassifierCascade(&cascade);
-
-    if (memoryStorage)
-        cvReleaseMemStorage(&memoryStorage);
-
-    if (liveVideoFrameCopy)
-        cvReleaseImage(&liveVideoFrameCopy);
+  //    WebcamDispatcher::unregisterAnalyzer(this);
+  if (cascade)
+    cvReleaseHaarClassifierCascade(&cascade);
+  
+  if (memoryStorage)
+    cvReleaseMemStorage(&memoryStorage);
+  
+  if (liveVideoFrameCopy)
+    cvReleaseImage(&liveVideoFrameCopy);
 }
 
 
