@@ -12,7 +12,8 @@ set (simonvision_LIB_SRCS
 	webcamdispatcher.cpp
 	imageanalyzer.cpp
 	faceanalyzer.cpp
-
+	lipanalyzer.cpp
+	simoncv.cpp
 )
 
 set( simonvision_LIB_HDRS
@@ -20,6 +21,7 @@ set( simonvision_LIB_HDRS
     webcamdispatcher.h
     imageanalyzer.h
     faceanalyzer.h
+    lipanalyzer.h
     simoncv.h
 )
 
