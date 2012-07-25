@@ -26,6 +26,7 @@ Comment[et]=Võimalus luua liideseid teistele rakendustele D-Busi vahendusel
 Comment[fi]=Tarjoaa tavan luoda rajapintoja muihin sovelluksiin D-Bus-väylän kautta
 Comment[fr]=Fournit un moyen pour créer des interfaces à d'autres applications via D-Bus
 Comment[gl]=Fornece unha maneira de crear interfaces para outros aplicativos mediante D-Bus
+Comment[it]=Fornisce un modo per interfacciarsi ad altre applicazioni tramite D-Bus
 Comment[nl]=Biedt een manier om interfaces te maken naar andere toepassingen via D-Bus
 Comment[pl]=Zapewnia sposób utworzenia interfejsu do innych programów przez D-Bus
 Comment[pt]=Oferece uma forma de criar interfaces para outras aplicações com o DBus
