@@ -59,16 +59,11 @@
     </entry>
   </group>
   <group name="Backend">
-    <entry name="jhtk" type="Bool">
-      <label>Julius/Htk backend</label>
+    <entry name="backend" type="Int">
+      <label>Type of beckend</label>
 <!--       <default code="true">KStandardDirs::findExe("sphinxtrain")</default> -->
-      <tooltip>Selected or not</tooltip>
-    </entry>
-    <entry name="sphinx" type="Bool">
-      <label>CMU Sphinx backend</label>
-<!--       <default code="true">KStandardDirs::findExe("sphinxtrain")</default> -->
-      <tooltip>Selected or not</tooltip>
-    </entry>
+      <tooltip>0: Sphinx; 1: Julius</tooltip>
+    </entry>    
   </group>
 </kcfg>
 

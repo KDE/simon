@@ -54,10 +54,26 @@ bool SphinxControl::initializeRecognition(const QString &modelPath)
   }
 
   kDebug() << "Unpacking model to working dir";
-  if (!FileUtils::unpackAll(modelPath, path)) //All becouse need to know model name to unpack jsgf&dict. Yes can get it from metadata but it would be a "crutch" on my mind
+  if (!FileUtils::unpackAll(modelPath, path))
   {
     return false;
   }
+
+  QFile metadataFile(path+QLatin1String("metadata.xml"));
+  if(!metadataFile.open(QIODevice::ReadOnly))
+  {
+    emit recognitionError(i18n("Failed to read metadata from \"%1\"", path+QLatin1String("metadata.xml")),
+                          getBuildLog());
+    return NULL;
+  }
+  ModelMetadata metadata;
+  QDomDocument DomDocument;
+  DomDocument.setContent(&metadataFile);
+  metadata.DeserializeXml(DomDocument.documentElement());
+
+  metadataFile.close();
+
+  modelName = metadata.Name();
 
   kDebug() << "Emitting recognition ready";
   emit recognitionReady();
@@ -69,27 +85,8 @@ RecognitionConfiguration *SphinxControl::setupConfig()
   kDebug() << "Setting config up";
   QString dirPath = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
 
-  QFile metadataFile(dirPath+QLatin1String("metadata.xml"));
-  if(!metadataFile.open(QIODevice::ReadOnly))
-  {
-    emit recognitionError(i18n("Failed to read metadata from \"%1\"", dirPath+QLatin1String("metadata.xml")),
-                          getBuildLog());
-    return NULL;
-  }
-  ModelMetadata metadata;
-  QDomDocument DomDocument;
-  DomDocument.setContent(&metadataFile);
-  metadata.DeserializeXml(DomDocument.documentElement());
-
-  metadataFile.close();
-
-//  kDebug() <<dirPath;
-//  kDebug() <<dirPath+metadata.Name()+QLatin1String(".jsgf");
-//  kDebug() <<dirPath+metadata.Name()+QLatin1String(".dic");
-
-
-  return new SphinxRecognitionConfiguration(dirPath, dirPath+metadata.Name()+QLatin1String(".jsgf"),
-                                            dirPath+metadata.Name()+QLatin1String(".dic"));
+  return new SphinxRecognitionConfiguration(dirPath, dirPath+modelName+QLatin1String(".jsgf"),
+                                            dirPath+modelName+QLatin1String(".dic"));
 }
 
 void SphinxControl::emitError(const QString &error)

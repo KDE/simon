@@ -133,8 +133,8 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   ADAPT_CHECKPOINT;
 
   if(!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+TRAIN_TRANSCRIPTION, fetc+TRAIN_FIELDS,
-                                  definedVocabulary) || !storeTranscriptionAndFields(adaptionType, promptsPathIn,
-                                  fetc+TEST_TRANSCRIPTION, fetc+TEST_FIELDS, definedVocabulary))
+                                  definedVocabulary, vocabulary) || !storeTranscriptionAndFields(adaptionType, promptsPathIn,
+                                  fetc+TEST_TRANSCRIPTION, fetc+TEST_FIELDS, definedVocabulary, vocabulary))
   {
     emit error(i18n("Failed to store transcription and fields"));
     return false;
@@ -178,7 +178,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
     }
 
     ++m_pronunciationCount;
-    dictionary << word->getLexiconWord() << QLatin1String("\t\t") <<
+    dictionary << word->getWord() << QLatin1String("\t\t") <<
                   word->getPronunciation() << QLatin1String("\n");
 
     ++m_wordCount;
@@ -248,7 +248,7 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, c
 }
 
 bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType adaptionType, const QString &promptsPathIn, const QString &transcriptionPathOut,
-                                                                const QString &fieldsPathOut, QStringList &definedVocabulary)
+                                                                const QString &fieldsPathOut, QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary)
 {
   QFile promptsInFile(promptsPathIn);
   QFile promptsOutFile(transcriptionPathOut);
@@ -269,18 +269,27 @@ bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType ada
     bool allWordsInLexicon = true;
     QStringList words = line.mid(splitter+1).trimmed().split(' ');
 
+    bool first(true);
+    QString wordsString;
     foreach (const QString& word, words)
     {
       if (!definedVocabulary.contains(word))
       {
         allWordsInLexicon = false;
-        break;
+//        break;
       }
+      if(!first)
+        wordsString.append(" ");
+      else
+        first = false;
+
+      wordsString.append(vocabulary->findWords(word, Vocabulary::ExactMatch).first()->getWord());
     }
 
-    if (allWordsInLexicon)
+    if (allWordsInLexicon || adaptionType == AdaptIndependently)
     {
-      promptsOutFile.write("<s> "+words.join(" ").toUtf8() + " </s> (" + line.left(splitter).toUtf8() /*filename*/+ ")\n");
+
+      promptsOutFile.write("<s> "+wordsString.toUtf8() + " </s> (" + line.left(splitter).toUtf8() /*filename*/+ ")\n");
       fieldsOutFile.write(line.left(splitter).toUtf8() /*filename*/ + "\n");
       ++m_sampleCount;
     }
@@ -309,12 +318,12 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
 
   grammarStream<<"#JSGF V1.0; \n\n"
                  <<"grammar generalGrammar;\n";
+  grammarStream<< "public <structure> = ";
 
   QStringList grammarStructures = grammar->getStructures();
-  int index(0);
   foreach (const QString& structure, grammarStructures)
   {
-    grammarStream<< "public <structure"+ QString::number(index++) +"> = ";
+    grammarStream<< "(";
     QStringList terminals = Grammar::getTerminalsForStructure(structure);
 
     foreach (const QString &terminal, terminals)
@@ -326,22 +335,27 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
       foreach (Word* word, wordsForTerminal)
       {
         if(!definedVocabulary.contains(word->getLexiconWord()) && adaptionType != AdaptIndependently)
-          break; //WARNING: Depends on adaptation type?
+          break;
 
         if(!fword)
           grammarStream<<" | ";
         else
           fword = false;
 
-        grammarStream<< word->getLexiconWord();
+        grammarStream<< word->getWord();
       }
 
       grammarStream<<" ) ";
     }
 
-    grammarStream<<";\n";
+    grammarStream<<") ";
+    if(structure != grammarStructures.last())
+    {
+      grammarStream<<"| ";
+    }
 
   }
+  grammarStream<<";\n";
   return true;
 }
 

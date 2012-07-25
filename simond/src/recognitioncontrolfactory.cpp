@@ -39,18 +39,22 @@ void RecognitionControlFactory::setIsolatedMode(bool isolatedMode)
 RecognitionControl* RecognitionControlFactory::recognitionControl(const QString& user)
 {
   RecognitionControl *r = NULL;
-  if (m_isolatedMode || m_recognitionControls.count(user) == 0) {
+  if (m_isolatedMode || m_recognitionControls.count(user) == 0)
+  {
     kDebug() << "RecognitionControls: generate new RC...";
 
     KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
-    KConfigGroup programGroup(&config, "Backend");
-    bool sphinx,jhtk;
-    sphinx = programGroup.readEntry("sphinx", true);
-    jhtk = programGroup.readEntry("jhtk", false);
+    KConfig *t = config.copyTo("/tmp/conf");
+    t->sync();
 
-    if(sphinx)
+    KConfigGroup backendGroup(&config, "Backend");
+    int type(-1);
+    type = backendGroup.readEntry("backend", 0);
+    //backendGroup.
+
+    if(type == 0)
       r = new SphinxControl(user);
-    else if(jhtk)
+    else if(type == 1)
       r = new JuliusControl(user);
     else
     {};//;(

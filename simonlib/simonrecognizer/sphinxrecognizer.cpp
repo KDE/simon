@@ -99,9 +99,15 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
 
   fclose(toRecognize);
 
-  recognitionResults.append(RecognitionResult(QString(hyp), "", "", QList<float>())); //TODO: Find how to get SAMPA, using sphinx..
+  QList<float> tlist;
+  tlist.append(1.0);
+//  tlist.append(1.0);
+  RecognitionResult res = RecognitionResult(QString::fromUtf8(hyp), "FIXME", "FIXME", tlist);
 
-  kDebug()<<"Got hypothesis: " <<QString(hyp);
+  recognitionResults.append(res); //TODO: Find how to get SAMPA, using sphinx..
+  recognitionResults.append(res); //WARNING: some magic
+
+  kDebug()<<"Got hypothesis: " <<QString::fromUtf8(hyp);
   return recognitionResults;
 }
 

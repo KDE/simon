@@ -21,20 +21,20 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QRadioButton" name="kcfg_sphinx">
-        <property name="text">
-         <string>CMU Sphinx</string>
+       <widget class="QComboBox" name="kcfg_backend">
+        <property name="currentIndex">
+         <number>1</number>
         </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="kcfg_jhtk">
-        <property name="text">
-         <string>HTK/Julius</string>
-        </property>
+        <item>
+         <property name="text">
+          <string>CMU Sphinx</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>HTK/Julius</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>

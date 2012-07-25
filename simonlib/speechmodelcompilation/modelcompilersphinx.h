@@ -24,7 +24,7 @@
 #include "modelcompiler.h"
 #include "simonmodelcompilationmanagement_export.h"
 
-#define MODEL_POSTFIX ".cd_cont_"
+#define MODEL_POSTFIX ".cd_semi_"
 #define SENONES_COUNT "200"
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerSPHINX: public ModelCompiler

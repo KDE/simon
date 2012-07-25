@@ -100,6 +100,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
   params.insert("CFG_WAVFILES_DIR", m_WavPath);
   params.insert("CFG_WAVFILE_EXTENSION", "wav");
   params.insert("CFG_WAVFILE_TYPE", "mswav");
+  params.insert("CFG_HMM_TYPE", ".semi.");
 
 
   QString configPath = m_ModelDir+"/"+m_ModelName+"/etc/sphinx_train.cfg";

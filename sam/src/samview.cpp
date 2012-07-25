@@ -989,7 +989,7 @@ void SamView::slotModelAdaptionComplete()
     }
 
     QString modelName = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->modelName();
-    if(!modelName.isEmpty()) ui.leMName->setText(modelPath);
+    if(!modelName.isEmpty()) ui.leMName->setText(modelName);
 
     QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_User+"/samples/");
     if(!audioLocation.isEmpty()) ui.urDir->setUrl(KUrl(audioLocation));
@@ -1005,6 +1005,7 @@ void SamView::slotModelAdaptionComplete()
       ui.urLexicon->setUrl(KUrl(lexicon));
       fok = true;
     }
+
     if (!grammar.isEmpty()) ui.urGrammar->setUrl(KUrl(grammar));
     if (!simpleVocab.isEmpty()) ui.urVocabulary->setUrl(KUrl(simpleVocab));
     if (!prompts.isEmpty())

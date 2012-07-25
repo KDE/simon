@@ -51,7 +51,7 @@ protected:
   bool storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary);
 
   bool storeTranscriptionAndFields(AdaptionType adaptionType, const QString& promptsPathIn, const QString& transcriptionPathOut, const QString &fieldsPathOut,
-                                   QStringList &definedVocabulary);
+                                   QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary);
 
   bool storeGrammar(AdaptionType adaptionType, const QString &grammarPathOut, QSharedPointer<Vocabulary> vocabulary,
                     QStringList &definedVocabulary, QSharedPointer<Grammar> grammar);

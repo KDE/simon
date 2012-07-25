@@ -200,6 +200,7 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
       continue;
     recognitionResults.append(RecognitionResult(result,
                               sampa, sampa, confidenceScores));
+    //kDebug() <<result <<"\t"<<
   }
   
   return recognitionResults;

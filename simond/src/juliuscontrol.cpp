@@ -76,7 +76,7 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
   if (QFile::exists(path+"julius.jconf") && !QFile::remove(path+"julius.jconf")) return false;
 
 
-  if (!FileUtils::unpack(modelPath, path, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")))
+  if (!FileUtils::unpackAll(modelPath, path))//, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")
   {
     return false;
   }
