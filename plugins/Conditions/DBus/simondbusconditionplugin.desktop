@@ -27,6 +27,7 @@ Comment[fi]=Tarkistaa sovelluksen tilan D-Bus-väylän kautta
 Comment[fr]=Vérifie l'état de l'application sur D-Bus
 Comment[gl]=Comproba o estado dos aplicativos a través do D-Bus
 Comment[it]=Verifica lo stato delle applicazioni su D-Bus
+Comment[nl]=Controleert de status van de toepassing via D-Bus
 Comment[pl]=Sprawdza stan programu przez D-Bus
 Comment[pt]=Verifica o estado da aplicação por DBus
 Comment[pt_BR]=Verifica o estado do aplicativo por D-Bus
