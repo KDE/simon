@@ -30,8 +30,12 @@
 
 #include "ui_main.h"
 
+class ModelCompiler;
+class ModelCompilationAdapter;
 class ModelCompilerHTK;
 class ModelCompilationAdapterHTK;
+class ModelCompilerSPHINX;
+class ModelCompilationAdapterSPHINX;
 class KProcess;
 class KAction;
 class ReportParameters;
@@ -65,6 +69,8 @@ class SamView :  public KXmlGuiWindow, public SamUi
      * Destructor
      */
     virtual ~SamView();
+
+    enum BackendType {SPHINX, JHTK};
 
   public slots:
     bool close();
@@ -133,6 +139,7 @@ class SamView :  public KXmlGuiWindow, public SamUi
     void testConfigTagChanged();
 
     void exportTestResults();
+    void backendChanged(int id);
 
   private:
     /**
@@ -145,12 +152,21 @@ class SamView :  public KXmlGuiWindow, public SamUi
 
     bool m_dirty;
 
+    BackendType backendType;
+
     QString m_filename;
     CorpusInformation *m_creationCorpus;
     ReportParameters *m_reportParameters;
     Ui::MainWindow ui;
-    ModelCompilerHTK *modelCompilationManager;
-    ModelCompilationAdapterHTK *modelCompilationAdapter;
+
+    ModelCompiler *modelCompiler;
+    ModelCompiler *modelCompilerHTK;
+    ModelCompiler *modelCompilerSPHINX;
+    ModelCompilationAdapter *modelCompilationAdapter;
+    ModelCompilationAdapter *modelCompilationAdapterHTK;
+    ModelCompilationAdapter *modelCompilationAdapterSPHINX;
+    //yah it isn't look good but we need to have saved state of the both versions of adapter & compiler
+
     QList<TestConfigurationWidget*> testConfigurations;
     QList<TestResultWidget*> testResults;
 
@@ -164,7 +180,9 @@ class SamView :  public KXmlGuiWindow, public SamUi
     void startNextScheduledTest();
 
     void initGraph();
-    
+
+    QString m_User;
+
     CorpusInformation* createEmptyCorpusInformation();
     ReportParameters* createEmptyReportParameters();
 

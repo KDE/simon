@@ -136,7 +136,7 @@
               <item>
                <widget class="KTabWidget" name="ktabwidget_2">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <property name="tabReorderingEnabled">
                  <bool>true</bool>
@@ -468,8 +468,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>71</width>
-                 <height>16</height>
+                 <width>894</width>
+                 <height>556</height>
                 </rect>
                </property>
               </widget>
