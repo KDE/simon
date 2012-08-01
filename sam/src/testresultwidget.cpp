@@ -20,7 +20,7 @@
 #include "testresultwidget.h"
 #include "testconfigurationwidget.h"
 #include "corpusinformation.h"
-#include <simonmodeltest/modeltest.h>
+#include <simonmodeltest/juliusmodeltest.h>
 #include <simonmodeltest/fileresultmodel.h>
 #include <simonmodeltest/testresultmodel.h>
 #include <simonmodeltest/recognizerresult.h>
@@ -39,7 +39,8 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
 
   connect(config, SIGNAL(destroyed()), this, SLOT(deleteLater()));
 
-  modelTest = new ModelTest("internalsamuser_"+config->tag(), this);
+  //TODO: make configurable
+  modelTest = new JuliusModelTest("internalsamuser_"+config->tag(), this);
   connect(modelTest, SIGNAL(testComplete()), this, SLOT(slotModelTestCompleted()));
   connect(modelTest, SIGNAL(testAborted()), this, SLOT(slotModelTestAborted()));
   connect(modelTest, SIGNAL(status(QString,int,int)), this, SLOT(slotModelTestStatus(QString,int,int)));
@@ -85,17 +86,20 @@ void TestResultWidget::slotModelTestCompleted()
 
 void TestResultWidget::startTest()
 {
+  //TODO: add configurable choise between backends
   currentState = TestResultWidget::Running;
-  modelTest->startTest(
-    config->hmmDefs().toLocalFile(),
-    config->tiedlist().toLocalFile(),
-    config->dict().toLocalFile(),
-    config->dfa().toLocalFile(),
-    config->testPromptsBasePath().toLocalFile(),
-    config->testPrompts().toLocalFile(),
-    config->sampleRate(),
-    config->jconf().toLocalFile()
-    );
+
+  QHash<QString, QString> testParams;
+  testParams.insert("hmmDefsPath", config->hmmDefs().toLocalFile());
+  testParams.insert("tiedListPath", config->tiedlist().toLocalFile());
+  testParams.insert("dictPath", config->dict().toLocalFile());
+  testParams.insert("dfaPath", config->dfa().toLocalFile());
+  testParams.insert("juliusJConf", config->jconf().toLocalFile());
+
+  modelTest->startTest(config->testPromptsBasePath().toLocalFile(),
+                       config->testPrompts().toLocalFile(),
+                       config->sampleRate(), testParams);
+
   emit testStarted();
 }
 

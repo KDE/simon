@@ -10,6 +10,8 @@ include(KDE4Defaults)
 
 set( simonmodeltest_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/modeltest.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/sphinxmodeltest.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/juliusmodeltest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recognizerresult.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fileresultmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/testresult.cpp
@@ -22,6 +24,8 @@ set( simonmodeltest_LIB_SRCS
 set( simonmodeltest_LIB_HDRS
   simonmodeltest_export.h
   modeltest.h
+  sphinxmodeltest.h
+  juliusmodeltest.h
   fileresultmodel.h
   recognizerresult.h
 )

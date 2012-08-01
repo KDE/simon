@@ -1,4 +1,4 @@
-/*
+/* 
  *  Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -31,7 +31,6 @@
 #include "corpusinformation.h"
 
 #include <speechmodelcompilation/modelcompilerhtk.h>
-#include <speechmodelcompilation/modelcompilersphinx.h>
 #include <speechmodelcompilation/modelcompilationadapterhtk.h>
 #include <speechmodelcompilation/modelcompilationadaptersphinx.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
@@ -59,7 +58,6 @@
 #include <KCmdLineArgs>
 #include <QDomDocument>
 #include "samxmlhelper.h"
-#include <QUuid>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
   m_startCompilationAfterAdaption(false),
@@ -88,7 +86,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   getPathsFromSimon->setIcon(KIcon("simon"));
   actionCollection()->addAction("getPathsFromSimon", getPathsFromSimon);
   connect(getPathsFromSimon, SIGNAL(triggered(bool)),
-          this, SLOT(getBuildPathsFromSimon()));
+    this, SLOT(getBuildPathsFromSimon()));
 
   KAction* recompile = new KAction(this);
   recompile->setText(i18n("Build model"));
@@ -97,7 +95,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
   actionCollection()->addAction("compileModel", recompile);
   connect(recompile, SIGNAL(triggered(bool)),
-          this, SLOT(compileModel()));
+    this, SLOT(compileModel()));
 
   KAction* test= new KAction(this);
   test->setText(i18n("Test model"));
@@ -105,7 +103,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   test->setIcon(KIcon("chronometer"));
   actionCollection()->addAction("testModel", test);
   connect(test, SIGNAL(triggered(bool)),
-          this, SLOT(testModel()));
+    this, SLOT(testModel()));
 
   KAction* testResults= new KAction(this);
   testResults->setText(i18n("Test results"));
@@ -113,7 +111,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   testResults->setIcon(KIcon("view-pim-tasks"));
   actionCollection()->addAction("testResults", testResults);
   connect(testResults, SIGNAL(triggered(bool)),
-          this, SLOT(switchToTestResults()));
+    this, SLOT(switchToTestResults()));
 
   KAction* exportTestResults = new KAction(this);
   exportTestResults->setText(i18n("Export test result"));
@@ -121,11 +119,11 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   exportTestResults->setIcon(KIcon("document-export"));
   actionCollection()->addAction("exportTestResults", exportTestResults);
   connect(exportTestResults, SIGNAL(triggered(bool)),
-          this, SLOT(exportTestResults()));
+    this, SLOT(exportTestResults()));
 
-  backendType = SPHINX;
-  m_User = "internalsamuser";
 
+  connect(ui.pbCompileModel, SIGNAL(clicked()), this, SLOT(compileModel()));
+  connect(ui.pbTestModel, SIGNAL(clicked()), this, SLOT(testModel()));
 
   KStandardAction::openNew(this, SLOT(newProject()), actionCollection());
   KStandardAction::save(this, SLOT(save()), actionCollection());
@@ -135,12 +133,6 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   KStandardAction::quit(this, SLOT(close()), actionCollection());
 
   setupGUI();
-
-  connect(ui.cbType, SIGNAL(currentIndexChanged()), this, SLOT(backendChanged()));
-
-  connect(ui.pbCompileModel, SIGNAL(clicked()), this, SLOT(compileModel()));
-  connect(ui.pbTestModel, SIGNAL(clicked()), this, SLOT(testModel()));
-
 
   connect(ui.pbImportRecognitionSamples, SIGNAL(clicked()), this, SLOT(importRecognitionSamples()));
   connect(ui.rbDynamicModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
@@ -164,39 +156,29 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.urPrompts->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urBaseModel->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 
-  modelCompilationAdapterSPHINX = new ModelCompilationAdapterSPHINX(m_User, this);
-  modelCompilationAdapterHTK = new ModelCompilationAdapterHTK(m_User, this);
-  if(ui.cbType->currentIndex() == 0)
-    modelCompilationAdapter = modelCompilationAdapterSPHINX;
-  else
-    if(ui.cbType->currentIndex() == 1)
-      modelCompilationAdapter = modelCompilationAdapterHTK;
+  //FIXME: something fun :D
+//  if(rand()%2)
+      modelCompilationAdapter = new ModelCompilationAdapterHTK("internalsamuser", this);
+//  else
+//      modelCompilationAdapter = new ModelCompilationAdapterSPHINX("internalsamuser", this);
 
   connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
   connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
   connect(modelCompilationAdapter, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
   connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 
-  modelCompilerHTK = new ModelCompilerHTK(m_User, this);
-  modelCompilerSPHINX = new ModelCompilerSPHINX(m_User, this);
+  modelCompilationManager = new ModelCompilerHTK("internalsamuser", this);
+  connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
+  connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
+  connect(modelCompilationManager, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
+  connect(modelCompilationManager, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
 
-  if(backendType == SPHINX)
-    modelCompiler = modelCompilerSPHINX;
-  else
-    if(backendType == JHTK)
-      modelCompiler = modelCompilerHTK;
-
-  connect(modelCompiler, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
-  connect(modelCompiler, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
-  connect(modelCompiler, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
-  connect(modelCompiler, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
-
-  connect(modelCompiler, SIGNAL(classUndefined(QString)), this,
-          SLOT(slotModelCompilationClassUndefined(QString)));
-  connect(modelCompiler, SIGNAL(wordUndefined(QString)), this,
-          SLOT(slotModelCompilationWordUndefined(QString)));
-  connect(modelCompiler, SIGNAL(phonemeUndefined(QString)), this,
-          SLOT(slotModelCompilationPhonemeUndefined(QString)));
+  connect(modelCompilationManager, SIGNAL(classUndefined(QString)), this,
+    SLOT(slotModelCompilationClassUndefined(QString)));
+  connect(modelCompilationManager, SIGNAL(wordUndefined(QString)), this,
+    SLOT(slotModelCompilationWordUndefined(QString)));
+  connect(modelCompilationManager, SIGNAL(phonemeUndefined(QString)), this,
+    SLOT(slotModelCompilationPhonemeUndefined(QString)));
 
   connect(ui.pbAddTestConfiguration, SIGNAL(clicked()), this, SLOT(addTestConfiguration()));
 
@@ -220,7 +202,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   if (KCmdLineArgs::parsedArgs()->isSet("s"))
   {
     getBuildPathsFromSimon();
-    //async
+    //async 
     if (KCmdLineArgs::parsedArgs()->isSet("c"))
     {
       m_startCompilationAfterAdaption = true;
@@ -285,13 +267,13 @@ bool SamView::close()
 
 void SamView::storeBuildLog()
 {
-  if (!modelCompiler->hasBuildLog())
+  if (!modelCompilationManager->hasBuildLog())
   {
     error(i18n("No current log."));
     return;
   }
 
-  QString buildLog = modelCompiler->getGraphicBuildLog();
+  QString buildLog = modelCompilationManager->getGraphicBuildLog();
 
   QString filename;
   if (KCmdLineArgs::parsedArgs()->isSet("l"))
@@ -388,8 +370,8 @@ void SamView::displayModelTestStatus()
 void SamView::subTestStarted()
 {
   kDebug() << "Subtest started...";
-  ui.teTestLog->append(i18nc("Tag of the test", "Test started: %1",
-                             static_cast<TestResultWidget*>(sender())->getTag()));
+  ui.teTestLog->append(i18nc("Tag of the test", "Test started: %1", 
+        static_cast<TestResultWidget*>(sender())->getTag()));
 
   displayModelTestStatus();
 }
@@ -397,16 +379,16 @@ void SamView::subTestStarted()
 void SamView::subTestAborted()
 {
   kDebug() << "Subtest aborted...";
-  ui.teTestLog->append(i18nc("Tag of the test", "Test aborted: %1",
-                             static_cast<TestResultWidget*>(sender())->getTag()));
+  ui.teTestLog->append(i18nc("Tag of the test", "Test aborted: %1", 
+        static_cast<TestResultWidget*>(sender())->getTag()));
   displayModelTestStatus();
 }
 
 void SamView::subTestComplete()
 {
   kDebug() << "Subtest completed...";
-  ui.teTestLog->append(i18nc("Tag of the test", "Test completed: %1",
-                             static_cast<TestResultWidget*>(sender())->getTag()));
+  ui.teTestLog->append(i18nc("Tag of the test", "Test completed: %1", 
+        static_cast<TestResultWidget*>(sender())->getTag()));
   displayModelTestStatus();
   startNextScheduledTest();
 }
@@ -457,7 +439,7 @@ void SamView::exportTestResults()
 {
   ExportTestResults *e = new ExportTestResults(this);
   
-  if (e->exportTestResults(m_reportParameters, creationCorpusInformation(), testResults, modelCompiler))
+  if (e->exportTestResults(m_reportParameters, creationCorpusInformation(), testResults, modelCompilationManager))
   {
     ReportParameters *temp = m_reportParameters;
     m_reportParameters = e->getReportParameters();
@@ -475,23 +457,6 @@ void SamView::exportTestResults()
 
   if (batchMode())
     exit(0);
-}
-
-void SamView::backendChanged()
-{
-  if(ui.cbType->currentIndex() == 0)
-  {
-    backendType = SPHINX;
-    modelCompilationAdapter = modelCompilationAdapterSPHINX;
-    modelCompiler = modelCompilerSPHINX;
-  }
-    else
-      if(ui.cbType->currentIndex() == 1)
-      {
-        backendType = JHTK;
-        modelCompilationAdapter = modelCompilationAdapterHTK;
-        modelCompiler = modelCompilerHTK;
-      }
 }
 
 QList<CorpusInformation*> SamView::creationCorpusInformation()
@@ -623,11 +588,11 @@ void SamView::parseFile()
   int modelType = SamXMLHelper::getInt(creationElem, "modelType");
   switch (modelType) {
     case 0: ui.rbStaticModel->click();
-      break;
+    break;
     case 1: ui.rbAdaptedBaseModel->click();
-      break;
+    break;
     case 2: ui.rbDynamicModel->click();
-      break;
+    break;
   }
   ui.urBaseModel->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseModel")));
 
@@ -776,31 +741,22 @@ void SamView::getBuildPathsFromSimon()
   //Moreover this way the model compilation adapter knows what we want to do and will
   //take several corner cases into account as well as streamline the model with the
   //information he can extract from the input files
-
+    
   ui.leScriptPrefix->setText("simon/scripts");
 
   ModelCompilationAdapter::AdaptionType adaptionType = ModelCompilationAdapter::None;
   if (modelType == 0 /*static*/)
     adaptionType = ModelCompilationAdapter::AdaptLanguageModel;
   else
-    adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel |
-                                                            ModelCompilationAdapter::AdaptAcousticModel);
+    adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel | 
+        ModelCompilationAdapter::AdaptAcousticModel);
   
-  QHash<QString,QString> adaptionArgs;
-  if(backendType == SPHINX)
-  {
-    QString modelName = m_User+QUuid::createUuid().toString();
-    adaptionArgs.insert("workingDir", path);
-    adaptionArgs.insert("modelName", modelName);
-  }
-  else if(backendType == JHTK)
-  {
-    adaptionArgs.insert("lexicon", path+"lexicon");
-    adaptionArgs.insert("grammar", path+"model.grammar");
-    adaptionArgs.insert("simpleVocab", path+"simple.voca");
-    adaptionArgs.insert("prompts", path+"samprompts");
-    adaptionArgs.insert("stripContext", "true");
-  }
+  QHash<QString,QString> adaptionArgs; 
+  adaptionArgs.insert("lexicon", path+"lexicon");
+  adaptionArgs.insert("grammar", path+"model.grammar");
+  adaptionArgs.insert("simpleVocab", path+"simple.voca");
+  adaptionArgs.insert("prompts", path+"samprompts");
+  adaptionArgs.insert("stripContext", "true");
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
   modelCompilationAdapter->startAdaption(adaptionType, scenarioPaths, path+"prompts", adaptionArgs);
@@ -826,7 +782,7 @@ void SamView::importRecognitionSamples()
 void SamView::serializePrompts()
 {
   QString promptsPath = KFileDialog::getOpenFileName(KUrl(KStandardDirs::locate("data", "simon/model/prompts")),
-                                                     "", this, i18n("Open simon prompts"));
+    "", this, i18n("Open simon prompts"));
   if (promptsPath.isEmpty()) return;
 
   QString path = getTargetDirectory();
@@ -865,26 +821,17 @@ void SamView::serializeScenariosRun(const QStringList& scenarioIds, const QStrin
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
   
-  QHash<QString,QString> adaptionArgs;
+  QHash<QString,QString> adaptionArgs; 
   
-  if(backendType == SPHINX)
-  {
-    QString modelName = m_User+QUuid::createUuid().toString();
-    adaptionArgs.insert("workingDir", output);
-    adaptionArgs.insert("modelName", modelName);
-  }
-  else if(backendType == JHTK)
-  {
-    adaptionArgs.insert("lexicon", output+"lexicon");
-    adaptionArgs.insert("grammar", output+"model.grammar");
-    adaptionArgs.insert("simpleVocab", output+"simple.voca");
-    adaptionArgs.insert("prompts", output+"prompts");
-  }
+  adaptionArgs.insert("lexicon", output+"lexicon");
+  adaptionArgs.insert("grammar", output+"model.grammar");
+  adaptionArgs.insert("simpleVocab", output+"simple.voca");
+  adaptionArgs.insert("prompts", output+"prompts");
 
   modelCompilationAdapter->startAdaption(
-        ModelCompilationAdapter::AdaptLanguageModel,
-        scenarioPaths, ui.urPrompts->url().toLocalFile(),
-        adaptionArgs);
+    ModelCompilationAdapter::AdaptLanguageModel,
+    scenarioPaths, ui.urPrompts->url().toLocalFile(),
+    adaptionArgs);
 }
 
 
@@ -892,12 +839,12 @@ void SamView::serializePromptsRun(const QString promptsPath, const QString& outp
 {
   if (output.isEmpty()) return;
   
-  QHash<QString,QString> adaptionArgs;
+  QHash<QString,QString> adaptionArgs; 
   adaptionArgs.insert("prompts", output+"prompts");
-//TODO: understand and customize
+
   modelCompilationAdapter->startAdaption(
-        ModelCompilationAdapter::AdaptAcousticModel,
-        QStringList(), promptsPath, adaptionArgs);
+    ModelCompilationAdapter::AdaptAcousticModel,
+    QStringList(), promptsPath, adaptionArgs);
 }
 
 
@@ -932,13 +879,13 @@ void SamView::compileModel()
     case 1:
       //adapted base model
       type = (ModelCompiler::CompilationType)
-             (ModelCompiler::CompileLanguageModel|ModelCompiler::AdaptSpeechModel);
+        (ModelCompiler::CompileLanguageModel|ModelCompiler::AdaptSpeechModel);
       break;
 
     case 2:
       //dynamic model
       type = (ModelCompiler::CompilationType)
-             (ModelCompiler::CompileLanguageModel|ModelCompiler::CompileSpeechModel);
+        (ModelCompiler::CompileLanguageModel|ModelCompiler::CompileSpeechModel);
       break;
     default:
       fatalError(i18n("Unknown model type"));
@@ -946,105 +893,69 @@ void SamView::compileModel()
   }
   
   QHash<QString,QString> compilerArgs;
-
-  if(backendType == SPHINX)
-  {
-    compilerArgs.insert("audioPath",ui.urPromptsBasePath->url().toLocalFile());
-    compilerArgs.insert("modelName", ui.leMName->text());
-    compilerArgs.insert("modelDir", ui.urDir->url().toLocalFile());
-  }
-    else
-      if(backendType == JHTK)
-      {
-        compilerArgs.insert("samples",ui.urPromptsBasePath->url().toLocalFile());
-        compilerArgs.insert("lexicon", ui.urLexicon->url().toLocalFile());
-        compilerArgs.insert("grammar", ui.urGrammar->url().toLocalFile());
-        compilerArgs.insert("vocab", ui.urVocabulary->url().toLocalFile());
-        compilerArgs.insert("prompts", ui.urPrompts->url().toLocalFile());
-        compilerArgs.insert("scriptBase", ui.leScriptPrefix->text());
-      }
-
-
-  modelCompiler->startCompilation(type, ui.urOutputModel->url().toLocalFile(),
+        
+  compilerArgs.insert("samples",ui.urPromptsBasePath->url().toLocalFile());
+  compilerArgs.insert("lexicon", ui.urLexicon->url().toLocalFile());
+  compilerArgs.insert("grammar", ui.urGrammar->url().toLocalFile());
+  compilerArgs.insert("vocab", ui.urVocabulary->url().toLocalFile());
+  compilerArgs.insert("prompts", ui.urPrompts->url().toLocalFile());
+  compilerArgs.insert("scriptBase", ui.leScriptPrefix->text());
+  modelCompilationManager->startCompilation(type, ui.urOutputModel->url().toLocalFile(),
                                             ui.urBaseModel->url().toLocalFile(), compilerArgs);
 }
 
 void SamView::abortModelCompilation()
 {
-  modelCompiler->abort();
+  modelCompilationManager->abort();
 }
 
 void SamView::slotModelAdaptionComplete()
 {
   ui.twMain->setCurrentIndex(0);
 
-  bool fok = false;
-  if(backendType == SPHINX)
+  QString lexicon = modelCompilationAdapter->lexiconPath();
+  QString grammar = modelCompilationAdapter->grammarPath();
+  QString simpleVocab = modelCompilationAdapter->simpleVocabPath();
+  QString prompts = modelCompilationAdapter->promptsPath();
+
+  if (!lexicon.isEmpty()) 
   {
-    QString modelPath = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->workingDir();
-    if(!modelPath.isEmpty())
-    {
-      ui.urDir->setUrl(KUrl(modelPath));
-      fok = true;
-    }
-
-    QString modelName = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->modelName();
-    if(!modelName.isEmpty()) ui.leMName->setText(modelName);
-
-    QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_User+"/samples/");
-    if(!audioLocation.isEmpty()) ui.urDir->setUrl(KUrl(audioLocation));
-  } else if(backendType == JHTK)
-  {
-    QString lexicon = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->lexiconPath();
-    QString grammar = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->grammarPath();
-    QString simpleVocab = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->simpleVocabPath();
-    QString prompts = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->promptsPath();
-
-    if (!lexicon.isEmpty())
-    {
-      ui.urLexicon->setUrl(KUrl(lexicon));
-      fok = true;
-    }
-
-    if (!grammar.isEmpty()) ui.urGrammar->setUrl(KUrl(grammar));
-    if (!simpleVocab.isEmpty()) ui.urVocabulary->setUrl(KUrl(simpleVocab));
-    if (!prompts.isEmpty())
-    {
-      ui.urPrompts->setUrl(KUrl(prompts));
-      if (!m_creationCorpus)
-        m_creationCorpus = createEmptyCorpusInformation();
-      m_creationCorpus->setTotalSampleCount(modelCompilationAdapter->sampleCount());
-      QFileInfo fi(prompts);
-      QString path = fi.absolutePath();
-      QString trainingDataPath = path+QDir::separator()+"training.data";
-      ui.urPromptsBasePath->setUrl(KUrl(trainingDataPath));
-
-      QString promptsTestPath = path+QDir::separator()+"samprompts_test";
-
-      if (testConfigurations.isEmpty())
-      {
-        //automatically add appropriate test configuration
-        QString testPromptsPathUsed;
-        if (QFile::exists(promptsTestPath))
-          testPromptsPathUsed = promptsTestPath;
-        else
-          testPromptsPathUsed = prompts;
-        addTestConfiguration(new TestConfigurationWidget(
-                               createEmptyCorpusInformation(), QString(),
-                               QString(), QString(), QString(), KUrl(testPromptsPathUsed), KUrl(trainingDataPath),
-                               KUrl(KStandardDirs::locate("data", "simond/default.jconf")), ui.sbSampleRate->value(),
-                               this));
-      }
-    }
-  }
-
-  if (fok)
-  {
+    ui.urLexicon->setUrl(KUrl(lexicon));
+    
     if (!m_reportParameters)
       m_reportParameters = createEmptyReportParameters();
-
+    
     m_reportParameters->setWordCount(modelCompilationAdapter->wordCount());
     m_reportParameters->setPronunciationCount(modelCompilationAdapter->pronunciationCount());
+  }
+  if (!grammar.isEmpty()) ui.urGrammar->setUrl(KUrl(grammar));
+  if (!simpleVocab.isEmpty()) ui.urVocabulary->setUrl(KUrl(simpleVocab));
+  if (!prompts.isEmpty()) {
+    ui.urPrompts->setUrl(KUrl(prompts));
+    if (!m_creationCorpus)
+      m_creationCorpus = createEmptyCorpusInformation();
+    m_creationCorpus->setTotalSampleCount(modelCompilationAdapter->sampleCount());
+    QFileInfo fi(prompts);
+    QString path = fi.absolutePath();
+    QString trainingDataPath = path+QDir::separator()+"training.data";
+    ui.urPromptsBasePath->setUrl(KUrl(trainingDataPath));
+
+    QString promptsTestPath = path+QDir::separator()+"samprompts_test";
+
+    if (testConfigurations.isEmpty())
+    {
+      //automatically add appropriate test configuration
+      QString testPromptsPathUsed;
+      if (QFile::exists(promptsTestPath))
+        testPromptsPathUsed = promptsTestPath;
+      else
+        testPromptsPathUsed = prompts;
+      addTestConfiguration(new TestConfigurationWidget(
+              createEmptyCorpusInformation(), QString(), 
+              QString(), QString(), QString(), KUrl(testPromptsPathUsed), KUrl(trainingDataPath), 
+              KUrl(KStandardDirs::locate("data", "simond/default.jconf")), ui.sbSampleRate->value(), 
+              this));
+    }
   }
   if (m_startCompilationAfterAdaption)
   {
@@ -1056,7 +967,7 @@ void SamView::slotModelAdaptionComplete()
     {
       m_startTestAfterAdaption = false;
       testModel();
-    } else
+    } else 
       if (batchMode())
         exit(0);
   }
@@ -1065,8 +976,8 @@ void SamView::slotModelAdaptionComplete()
 CorpusInformation* SamView::createEmptyCorpusInformation()
 {
   return new CorpusInformation(i18nc("The tag name of an automatically added"
-                                     " test set. The needed string really is please change this (for the user to change).",
-                                     "PLEASE_CHANGE_THIS"), QString(), 0, 0, 0);
+              " test set. The needed string really is please change this (for the user to change).",
+              "PLEASE_CHANGE_THIS"), QString(), 0, 0, 0);
 }
 
 ReportParameters* SamView::createEmptyReportParameters()
@@ -1148,7 +1059,7 @@ void SamView::clearBuildLog()
 
 void SamView::retrieveCompleteBuildLog()
 {
-  QString graphicBuildLog = modelCompiler->getGraphicBuildLog();
+  QString graphicBuildLog = modelCompilationManager->getGraphicBuildLog();
 
   if (graphicBuildLog.size() > 300000) // ~ 300kb
   {
@@ -1232,7 +1143,7 @@ void SamView::abortModelTest()
 
 SamView::~SamView()
 {
-  modelCompiler->deleteLater();
+  modelCompilationManager->deleteLater();
   modelCompilationAdapter->deleteLater();
   delete m_reportParameters;
   delete m_creationCorpus;

@@ -38,14 +38,17 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   m_currentSource(0)
 {
   KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
-  KConfigGroup programGroup(&config, "Backend");
-  bool sphinx,jhtk;
-  sphinx = programGroup.readEntry("sphinx", true);
-  jhtk = programGroup.readEntry("jhtk", false);
+//    KConfig *t = config.copyTo("/tmp/conf");
+//    t->sync();
 
-  if(sphinx)
+  KConfigGroup backendGroup(&config, "Backend");
+  int type(-1);
+  type = backendGroup.readEntry("backend", 0);
+  //backendGroup.
+
+  if(type == 0)
     m_modelCompilationManager = new ModelCompilationManagerSPHINX(username, this);
-  else if(jhtk)
+  else if(type == 1)
     m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
   else
     emit error("There something wrong with adapters");

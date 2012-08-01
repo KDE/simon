@@ -44,8 +44,8 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
     kDebug() << "RecognitionControls: generate new RC...";
 
     KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
-    KConfig *t = config.copyTo("/tmp/conf");
-    t->sync();
+//    KConfig *t = config.copyTo("/tmp/conf");
+//    t->sync();
 
     KConfigGroup backendGroup(&config, "Backend");
     int type(-1);

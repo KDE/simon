@@ -29,7 +29,7 @@
 #include <simonrecognizer/recognizer.h>
 #include <simonrecognizer/juliusrecognitionconfiguration.h>
 #include <simonrecognizer/juliusrecognizer.h>
-#include <simonrecognizer/juliusstaticrecognitionconfiguration.h>
+
 #include <simonrecognizer/sphinxrecognizer.h>
 #include <simonrecognizer/sphinxrecognitionconfiguration.h>
 
@@ -55,17 +55,17 @@
 ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
 userName(user_name)
 {
-  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
-  KConfigGroup programGroup(&config, "Backend");
-  bool sphinx,jhtk;
-  sphinx = programGroup.readEntry("sphinx", true);
-  jhtk = programGroup.readEntry("jhtk", false);
-  if(sphinx)
-    recog = new SphinxRecognizer();
-  else if(jhtk)
-    recog = new JuliusRecognizer();
-  else
-    emit error("There something wrong with recognizers", buildLog.toUtf8());
+//  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+//  KConfigGroup programGroup(&config, "Backend");
+//  bool sphinx,jhtk;
+//  sphinx = programGroup.readEntry("sphinx", true);
+//  jhtk = programGroup.readEntry("jhtk", false);
+//  if(sphinx)
+//    recog = new SphinxRecognizer();
+//  else if(jhtk)
+    //recog = new JuliusRecognizer();
+//  else
+//    emit error("There something wrong with recognizers", buildLog.toUtf8());
 
   m_recognizerResultsModel = new FileResultModel(this);
   m_wordResultsModel = new TestResultModel(this);
@@ -209,36 +209,36 @@ void ModelTest::abort()
 }
 
 
-bool ModelTest::startTest(const QString& hmmDefsPath, const QString& tiedListPath,
-const QString& dictPath, const QString& dfaPath,
-const QString& samplePath, const QString& promptsPath,
-int sampleRate, const QString& juliusJConf)
-{
-  abort();
-  wait();
+//bool ModelTest::startTest(const QString& hmmDefsPath, const QString& tiedListPath,
+//const QString& dictPath, const QString& dfaPath,
+//const QString& samplePath, const QString& promptsPath,
+//int sampleRate, const QString& juliusJConf)
+//{
+//  abort();
+//  wait();
 
-  this->hmmDefsPath = hmmDefsPath;
-  this->tiedListPath = tiedListPath;
-  this->dictPath = dictPath;
-  this->dfaPath = dfaPath;
+//  this->hmmDefsPath = hmmDefsPath;
+//  this->tiedListPath = tiedListPath;
+//  this->dictPath = dictPath;
+//  this->dfaPath = dfaPath;
 
-  this->samplePath = samplePath;
+//  this->samplePath = samplePath;
 
-  this->promptsPath = promptsPath;
+//  this->promptsPath = promptsPath;
 
-  this->sampleRate = sampleRate;
-  this->juliusJConf = juliusJConf;
+//  this->sampleRate = sampleRate;
+//  this->juliusJConf = juliusJConf;
 
-  keepGoing=true;
+//  keepGoing=true;
 
-  buildLog="";
+//  buildLog="";
 
-  if (!parseConfiguration())
-    return false;
+//  if (!parseConfiguration())
+//    return false;
 
-  start();
-  return true;
-}
+//  start();
+//  return true;
+//}
 
 void ModelTest::deleteAllResults()
 {
@@ -271,7 +271,7 @@ void ModelTest::run()
   QStringList audioFilesToRecognize;
   if (!recodeAudio(audioFilesToRecognize)) return;
   if (!generateMLF()) return;
-  if (!recognize(audioFilesToRecognize)) return;
+  if (!recognize(audioFilesToRecognize, config)) return;
   if (!analyzeResults()) return;
 
   emit status(i18nc("The model test has completed", "Finished"), 100, 100);
@@ -371,13 +371,13 @@ void ModelTest::emitError(const QString& message)
 }
 
 
-bool ModelTest::recognize(const QStringList& fileNames)
+bool ModelTest::recognize(const QStringList& fileNames, RecognitionConfiguration *cfg)
 {
   if (!keepGoing) return false;
   emit status(i18n("Recognizing..."), 35, 100);
   //SphinxRecognitionConfiguration *rcfg = new SphinxRecognitionConfiguration()
-  JuliusStaticRecognitionConfiguration *cfg = new JuliusStaticRecognitionConfiguration(juliusJConf, dfaPath, dictPath, hmmDefsPath, 
-                                                                                 tiedListPath, QString::number(sampleRate));
+//  JuliusStaticRecognitionConfiguration *cfg = new JuliusStaticRecognitionConfiguration(juliusJConf, dfaPath, dictPath, hmmDefsPath,
+//                                                                                 tiedListPath, QString::number(sampleRate));
   if (!recog->init(cfg)) {
     emitError(i18nc("%1 is the detailed error message from the Julius recognizer", "Could not initialize recognition: %1.", recog->getLastError()));
     return false;
@@ -486,6 +486,7 @@ ModelTest::~ModelTest()
   delete m_sentenceResultsModel;
   delete m_recognizerResultsModel;
   delete recog;
+  delete config;
 }
 
 //////////////////////////////
