@@ -25,7 +25,8 @@ QStringList SphinxRecognitionConfiguration::toArgs()
   QStringList args;
   args << "-hmm " << m_ModelDir
        << "-jsgf " << m_Grammar
-       << "-dict " << m_Dictionary;
+       << "-dict " << m_Dictionary
+       << "-samprate" << QString::number(m_Samprate);
 //       << "-input" << "file";
   return args;
 }
@@ -39,13 +40,14 @@ cmd_ln_t* SphinxRecognitionConfiguration::getSphinxConfig()
   QByteArray model = m_ModelDir.toUtf8();
   QByteArray grammar = m_Grammar.toUtf8();
   QByteArray dict = m_Dictionary.toUtf8();
+  QByteArray samprate = QString::number(m_Samprate).toUtf8();
 
   cmd_ln_t *config = cmd_ln_init(NULL, ps_args(), TRUE,
                                "-hmm", model.data(),
                                "-jsgf", grammar.data(),
                                "-dict", dict.data(),
+                               "-input", samprate.data(),
                                NULL);
-  kDebug()<<"Done?";
   return config;
 }
 

@@ -20,6 +20,7 @@
 #ifndef SPHINXCONTROL_H
 #define SPHINXCONTROL_H
 
+#define DEFAULT_SAMPRATE 16000
 #include "recognitioncontrol.h"
 
 class SphinxControl : public RecognitionControl

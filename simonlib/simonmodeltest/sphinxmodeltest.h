@@ -28,6 +28,8 @@ class MODELTEST_EXPORT SphinxModelTest : public ModelTest
 public:
   explicit SphinxModelTest(const QString& userName, QObject *parent = 0);
   
+  bool startTest(const QString &samplePath, const QString &promptsPath, int sampleRate,
+                 const QHash<QString, QString> params);
 signals:
   
 public slots:

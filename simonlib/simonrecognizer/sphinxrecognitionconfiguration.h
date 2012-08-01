@@ -30,14 +30,16 @@
 class SIMONRECOGNIZER_EXPORT SphinxRecognitionConfiguration : public RecognitionConfiguration
 {
 public:
-  SphinxRecognitionConfiguration(const QString &modelDir, const QString &grammar, const QString &dictionary):
+  SphinxRecognitionConfiguration(const QString &modelDir, const QString &grammar, const QString &dictionary, const int &samprate):
     m_ModelDir(modelDir),
     m_Grammar(grammar),
-    m_Dictionary(dictionary){}
+    m_Dictionary(dictionary),
+    m_Samprate(samprate){}
 
   QString getModelDir() { return m_ModelDir; }
   QString getGrammar() { return m_Grammar; }
   QString getDictionary() { return m_Dictionary; }
+  int getSamprate() { return m_Samprate; }
 
   QStringList toArgs();
   cmd_ln_t *getSphinxConfig();
@@ -47,6 +49,7 @@ private:
   QString m_ModelDir; //-hmm
   QString m_Grammar; //-jsgf
   QString m_Dictionary; //-dict
+  int m_Samprate; //-samprate
 };
 
 #endif // SPHINXRECOGNITIONCONFIGURATION_H
