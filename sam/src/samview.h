@@ -27,6 +27,7 @@
 #include <QDomElement>
 #include <QModelIndex>
 #include <kxmlguiwindow.h>
+#include "testconfigurationwidget.h"
 
 #include "ui_main.h"
 
@@ -70,7 +71,7 @@ class SamView :  public KXmlGuiWindow, public SamUi
      */
     virtual ~SamView();
 
-    enum BackendType {SPHINX, JHTK};
+//    enum BackendType {SPHINX, JHTK};
 
   public slots:
     bool close();
@@ -152,7 +153,7 @@ class SamView :  public KXmlGuiWindow, public SamUi
 
     bool m_dirty;
 
-    BackendType backendType;
+    TestConfigurationWidget::BackendType backendType;
 
     QString m_filename;
     CorpusInformation *m_creationCorpus;

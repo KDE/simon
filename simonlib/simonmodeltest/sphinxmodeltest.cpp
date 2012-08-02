@@ -33,7 +33,6 @@ bool SphinxModelTest::startTest(const QString& samplePath, const QString& prompt
   wait();
 
   m_modelDirPath = params.value("modelDir");
-  m_modelName = params.value("modelName");
   m_Grammar = params.value("grammar");
   m_Dictionary = params.value("dictionary");
 

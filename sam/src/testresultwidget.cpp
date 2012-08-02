@@ -21,6 +21,7 @@
 #include "testconfigurationwidget.h"
 #include "corpusinformation.h"
 #include <simonmodeltest/juliusmodeltest.h>
+#include <simonmodeltest/sphinxmodeltest.h>
 #include <simonmodeltest/fileresultmodel.h>
 #include <simonmodeltest/testresultmodel.h>
 #include <simonmodeltest/recognizerresult.h>
@@ -39,8 +40,11 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
 
   connect(config, SIGNAL(destroyed()), this, SLOT(deleteLater()));
 
-  //TODO: make configurable
-  modelTest = new JuliusModelTest("internalsamuser_"+config->tag(), this);
+  if(config->backendType() == TestConfigurationWidget::SPHINX)
+    modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
+  else if(config->backendType() == TestConfigurationWidget::JHTK)
+    modelTest = new JuliusModelTest("internalsamuser_"+config->tag(), this);
+
   connect(modelTest, SIGNAL(testComplete()), this, SLOT(slotModelTestCompleted()));
   connect(modelTest, SIGNAL(testAborted()), this, SLOT(slotModelTestAborted()));
   connect(modelTest, SIGNAL(status(QString,int,int)), this, SLOT(slotModelTestStatus(QString,int,int)));
@@ -90,11 +94,21 @@ void TestResultWidget::startTest()
   currentState = TestResultWidget::Running;
 
   QHash<QString, QString> testParams;
-  testParams.insert("hmmDefsPath", config->hmmDefs().toLocalFile());
-  testParams.insert("tiedListPath", config->tiedlist().toLocalFile());
-  testParams.insert("dictPath", config->dict().toLocalFile());
-  testParams.insert("dfaPath", config->dfa().toLocalFile());
-  testParams.insert("juliusJConf", config->jconf().toLocalFile());
+
+  if(config->backendType() == TestConfigurationWidget::SPHINX)
+  {
+    testParams.insert("modelDir", config->sphinxModelDir().toLocalFile());
+    testParams.insert("grammar", config->sphinxGrammar().toLocalFile());
+    testParams.insert("dictionary", config->sphinxDictionary().toLocalFile());
+  }
+  else if(config->backendType() == TestConfigurationWidget::JHTK)
+  {
+    testParams.insert("hmmDefsPath", config->hmmDefs().toLocalFile());
+    testParams.insert("tiedListPath", config->tiedlist().toLocalFile());
+    testParams.insert("dictPath", config->dict().toLocalFile());
+    testParams.insert("dfaPath", config->dfa().toLocalFile());
+    testParams.insert("juliusJConf", config->jconf().toLocalFile());
+  }
 
   modelTest->startTest(config->testPromptsBasePath().toLocalFile(),
                        config->testPrompts().toLocalFile(),

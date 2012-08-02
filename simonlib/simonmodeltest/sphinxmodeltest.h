@@ -36,7 +36,6 @@ public slots:
 
 protected:
   QString m_modelDirPath;
-  QString m_modelName;
   QString m_Grammar;
   QString m_Dictionary;
   

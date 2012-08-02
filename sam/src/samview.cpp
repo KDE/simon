@@ -123,7 +123,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(exportTestResults, SIGNAL(triggered(bool)),
           this, SLOT(exportTestResults()));
 
-  backendType = SPHINX;
+  backendType = TestConfigurationWidget::SPHINX;
   m_User = "internalsamuser";
 
 
@@ -172,17 +172,17 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   modelCompilationAdapterSPHINX = new ModelCompilationAdapterSPHINX(m_User, this);
   modelCompilationAdapterHTK = new ModelCompilationAdapterHTK(m_User, this);
 
-  if(backendType == SPHINX)
+  if(backendType == TestConfigurationWidget::SPHINX)
     modelCompilationAdapter = modelCompilationAdapterSPHINX;
   else
-    if(backendType == JHTK)
+    if(backendType == TestConfigurationWidget::JHTK)
       modelCompilationAdapter = modelCompilationAdapterHTK;
 
 
-  if(backendType == SPHINX)
+  if(backendType == TestConfigurationWidget::SPHINX)
     modelCompiler = modelCompilerSPHINX;
   else
-    if(backendType == JHTK)
+    if(backendType == TestConfigurationWidget::JHTK)
       modelCompiler = modelCompilerHTK;
 
   connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
@@ -485,12 +485,12 @@ void SamView::backendChanged(int id)
 {
   if(id == 0)
   {
-    backendType = SPHINX;
+    backendType = TestConfigurationWidget::SPHINX;
     modelCompilationAdapter = modelCompilationAdapterSPHINX;
     modelCompiler = modelCompilerSPHINX;
   } else if(id == 1)
   {
-    backendType = JHTK;
+    backendType = TestConfigurationWidget::JHTK;
     modelCompilationAdapter = modelCompilationAdapterHTK;
     modelCompiler = modelCompilerHTK;
   }
@@ -796,13 +796,13 @@ void SamView::getBuildPathsFromSimon()
                                                             ModelCompilationAdapter::AdaptAcousticModel);
 
   QHash<QString,QString> adaptionArgs;
-  if(backendType == SPHINX)
+  if(backendType == TestConfigurationWidget::SPHINX)
   {
     QString modelName = m_User+QUuid::createUuid().toString();
     adaptionArgs.insert("workingDir", path);
     adaptionArgs.insert("modelName", modelName);
   }
-  else if(backendType == JHTK)
+  else if(backendType == TestConfigurationWidget::JHTK)
   {
     adaptionArgs.insert("lexicon", path+"lexicon");
     adaptionArgs.insert("grammar", path+"model.grammar");
@@ -877,13 +877,13 @@ void SamView::serializeScenariosRun(const QStringList& scenarioIds, const QStrin
 
   QHash<QString,QString> adaptionArgs;
 
-  if(backendType == SPHINX)
+  if(backendType == TestConfigurationWidget::SPHINX)
   {
     QString modelName = m_User+QUuid::createUuid().toString();
     adaptionArgs.insert("workingDir", output);
     adaptionArgs.insert("modelName", modelName);
   }
-  else if(backendType == JHTK)
+  else if(backendType == TestConfigurationWidget::JHTK)
   {
     adaptionArgs.insert("lexicon", output+"lexicon");
     adaptionArgs.insert("grammar", output+"model.grammar");
@@ -957,14 +957,14 @@ void SamView::compileModel()
 
   QHash<QString,QString> compilerArgs;
 
-  if(backendType == SPHINX)
+  if(backendType == TestConfigurationWidget::SPHINX)
   {
     compilerArgs.insert("audioPath",ui.urPromptsBasePath->url().toLocalFile());
     compilerArgs.insert("modelName", ui.leMName->text());
     compilerArgs.insert("modelDir", ui.urDir->url().toLocalFile());
   }
   else
-    if(backendType == JHTK)
+    if(backendType == TestConfigurationWidget::JHTK)
     {
       compilerArgs.insert("samples",ui.urPromptsBasePath->url().toLocalFile());
       compilerArgs.insert("lexicon", ui.urLexicon->url().toLocalFile());
@@ -989,7 +989,7 @@ void SamView::slotModelAdaptionComplete()
   ui.twMain->setCurrentIndex(0);
 
   bool fok = false;
-  if(backendType == SPHINX)
+  if(backendType == TestConfigurationWidget::SPHINX)
   {
     kDebug()<<"Sphinx";
 
@@ -1005,7 +1005,7 @@ void SamView::slotModelAdaptionComplete()
 
     QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_User+"/samples/");
     if(!audioLocation.isEmpty()) ui.urDir->setUrl(KUrl(audioLocation));
-  } else if(backendType == JHTK)
+  } else if(backendType == TestConfigurationWidget::JHTK)
   {
     QString lexicon = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->lexiconPath();
     QString grammar = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->grammarPath();
@@ -1046,7 +1046,7 @@ void SamView::slotModelAdaptionComplete()
         addTestConfiguration(new TestConfigurationWidget(
                                createEmptyCorpusInformation(), QString(),
                                QString(), QString(), QString(), KUrl(testPromptsPathUsed), KUrl(trainingDataPath),
-                               KUrl(KStandardDirs::locate("data", "simond/default.jconf")), QString(), QString(), QString(),ui.sbSampleRate->value(),
+                               KUrl(KStandardDirs::locate("data", "simond/default.jconf")), TestConfigurationWidget::JHTK, QString(), QString(), QString(),ui.sbSampleRate->value(),
                                this));
       }
     }

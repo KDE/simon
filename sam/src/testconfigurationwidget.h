@@ -48,12 +48,17 @@ class TestConfigurationWidget : public QFrame
     void retrieveTag();
 
   public:
+
+    enum BackendType {SPHINX, JHTK};
+
     TestConfigurationWidget(QWidget *parent=0);
     TestConfigurationWidget(CorpusInformation* corpusInfo,
         const KUrl& outputUrl,
         const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
-        const KUrl& jconfUrl, const KUrl &sphinxModelDir, const KUrl &sphinxGrammar, const KUrl &sphinxDictionary, int sampleRate, QWidget *parent=0);
+        const KUrl& jconfUrl, BackendType type,
+        const KUrl &sphinxModelDir, const KUrl &sphinxGrammar, const KUrl &sphinxDictionary,
+        int sampleRate, QWidget *parent=0);
 
     ~TestConfigurationWidget();
 
@@ -70,8 +75,13 @@ class TestConfigurationWidget : public QFrame
     KUrl sphinxGrammar() const;
     KUrl sphinxDictionary() const;
     int sampleRate() const;
+    TestConfigurationWidget::BackendType backendType() const;
+
+    static int BackendTypeToInt(BackendType type);
+    static BackendType IntToBackendType(int type);
     
     static TestConfigurationWidget* deSerialize(const QDomElement& elem);
     QDomElement serialize(QDomDocument *doc);
+
 };
 #endif

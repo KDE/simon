@@ -32,11 +32,11 @@ void TestConfigurationWidget::remove()
   deleteLater();
 }
 
-TestConfigurationWidget::TestConfigurationWidget(CorpusInformation *info, //const QString& tag, 
+TestConfigurationWidget::TestConfigurationWidget(CorpusInformation *info, //const QString& tag,
         const KUrl& hmmDefsUrl,
         const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
-        const KUrl& jconfUrl,
+        const KUrl& jconfUrl, BackendType type,
         const KUrl &sphinxModelDir, const KUrl &sphinxGrammar, const KUrl &sphinxDictionary,
         int sampleRate, QWidget *parent) : QFrame(parent),
   m_corpusInfo(info)
@@ -54,6 +54,8 @@ TestConfigurationWidget::TestConfigurationWidget(CorpusInformation *info, //cons
   ui.urSphinxDict->setUrl(sphinxDictionary);
   ui.urSphinxGrammar->setUrl(sphinxGrammar);
   ui.sbSampleRate->setValue(sampleRate);
+
+  ui.cbType->setCurrentIndex(BackendTypeToInt(type));
 }
 
 void TestConfigurationWidget::setupUi()
@@ -79,6 +81,8 @@ void TestConfigurationWidget::setupUi()
   connect(ui.urDict, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
   connect(ui.urDFA, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
   connect(ui.sbSampleRate, SIGNAL(valueChanged(int)), this, SIGNAL(changed()));
+
+  connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
 
   connect(ui.urModelDir, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
   connect(ui.urSphinxDict, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
@@ -163,6 +167,33 @@ int TestConfigurationWidget::sampleRate() const
   return ui.sbSampleRate->value();
 }
 
+int TestConfigurationWidget::BackendTypeToInt(TestConfigurationWidget::BackendType type)
+{
+  int ind(-1);
+  if(type == SPHINX)
+    ind = 0;
+  else if(type == JHTK)
+    ind = 1;
+
+  return ind;
+}
+
+TestConfigurationWidget::BackendType TestConfigurationWidget::IntToBackendType(int type)
+{
+  BackendType btype = SPHINX;
+  if(type == 0)
+    btype = SPHINX;
+  else if(type == 1)
+    btype = JHTK;
+
+  return btype;
+}
+
+TestConfigurationWidget::BackendType TestConfigurationWidget::backendType() const
+{
+  return IntToBackendType(ui.cbType->currentIndex());
+}
+
 TestConfigurationWidget::~TestConfigurationWidget()
 {
   delete m_corpusInfo;
@@ -187,11 +218,12 @@ TestConfigurationWidget* TestConfigurationWidget::deSerialize(const QDomElement&
   KUrl sphinxDictionary = KUrl(SamXMLHelper::getText(elem, "sphinxDictionary"));
   
   int sampleRate = SamXMLHelper::getInt(elem, "sampleRate");
+  int bType = SamXMLHelper::getInt(elem, "backendType");
   
   return new TestConfigurationWidget(corpusInfo,
         hmmDefsUrl, tiedlistUrl, dictUrl, dfaUrl,
         testPromptsUrl, testPromptsBasePathUrl,                                    
-        jconfUrl,
+        jconfUrl, IntToBackendType(bType),
         sphinxModelDir, sphinxGrammar, sphinxDictionary,
         sampleRate);
 }
@@ -214,6 +246,7 @@ QDomElement TestConfigurationWidget::serialize(QDomDocument* doc)
   SamXMLHelper::serializePath(doc, elem, ui.urSphinxGrammar, "sphinxGrammar");
   
   SamXMLHelper::serializeInt(doc, elem, sampleRate(), "sampleRate");
+  SamXMLHelper::serializeInt(doc, elem, ui.cbType->currentIndex(), "backendType");
   
   return elem;
 }
