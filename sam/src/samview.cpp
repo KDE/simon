@@ -1046,7 +1046,7 @@ void SamView::slotModelAdaptionComplete()
         addTestConfiguration(new TestConfigurationWidget(
                                createEmptyCorpusInformation(), QString(),
                                QString(), QString(), QString(), KUrl(testPromptsPathUsed), KUrl(trainingDataPath),
-                               KUrl(KStandardDirs::locate("data", "simond/default.jconf")), ui.sbSampleRate->value(),
+                               KUrl(KStandardDirs::locate("data", "simond/default.jconf")), QString(), QString(), QString(),ui.sbSampleRate->value(),
                                this));
       }
     }

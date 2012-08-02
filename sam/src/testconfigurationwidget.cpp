@@ -36,7 +36,9 @@ TestConfigurationWidget::TestConfigurationWidget(CorpusInformation *info, //cons
         const KUrl& hmmDefsUrl,
         const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
-        const KUrl& jconfUrl, int sampleRate, QWidget *parent) : QFrame(parent),
+        const KUrl& jconfUrl,
+        const KUrl &sphinxModelDir, const KUrl &sphinxGrammar, const KUrl &sphinxDictionary,
+        int sampleRate, QWidget *parent) : QFrame(parent),
   m_corpusInfo(info)
 {
   setupUi();
@@ -48,6 +50,9 @@ TestConfigurationWidget::TestConfigurationWidget(CorpusInformation *info, //cons
   ui.urTestPrompts->setUrl(testPromptsUrl);
   ui.urTestPromptsBasePath->setUrl(testPromptsBasePathUrl);
   ui.urJConf->setUrl(jconfUrl);
+  ui.urModelDir->setUrl(sphinxModelDir);
+  ui.urSphinxDict->setUrl(sphinxDictionary);
+  ui.urSphinxGrammar->setUrl(sphinxGrammar);
   ui.sbSampleRate->setValue(sampleRate);
 }
 
@@ -62,6 +67,10 @@ void TestConfigurationWidget::setupUi()
   ui.urDict->setMode(KFile::File|KFile::LocalOnly);
   ui.urDFA->setMode(KFile::File|KFile::LocalOnly);
 
+  ui.urModelDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
+  ui.urSphinxDict->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
+  ui.urSphinxGrammar->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
+
   connect(ui.urJConf, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
   connect(ui.urTestPromptsBasePath, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
   connect(ui.urTestPrompts, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
@@ -70,6 +79,10 @@ void TestConfigurationWidget::setupUi()
   connect(ui.urDict, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
   connect(ui.urDFA, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
   connect(ui.sbSampleRate, SIGNAL(valueChanged(int)), this, SIGNAL(changed()));
+
+  connect(ui.urModelDir, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+  connect(ui.urSphinxDict, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+  connect(ui.urSphinxGrammar, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
 
   connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteLater()));
   connect(ui.leTag, SIGNAL(editingFinished()), this, SIGNAL(tagChanged()));
@@ -130,6 +143,21 @@ KUrl TestConfigurationWidget::jconf() const
   return ui.urJConf->url();
 }
 
+KUrl TestConfigurationWidget::sphinxModelDir() const
+{
+  return ui.urModelDir->url();
+}
+
+KUrl TestConfigurationWidget::sphinxGrammar() const
+{
+  return ui.urSphinxGrammar->url();
+}
+
+KUrl TestConfigurationWidget::sphinxDictionary() const
+{
+  return ui.urSphinxDict->url();
+}
+
 int TestConfigurationWidget::sampleRate() const
 {
   return ui.sbSampleRate->value();
@@ -153,13 +181,19 @@ TestConfigurationWidget* TestConfigurationWidget::deSerialize(const QDomElement&
   KUrl testPromptsUrl = KUrl(SamXMLHelper::getText(elem, "testPrompts"));
   KUrl testPromptsBasePathUrl = KUrl(SamXMLHelper::getText(elem, "testPromptsBasePath"));
   KUrl jconfUrl = KUrl(SamXMLHelper::getText(elem, "jconf"));
+
+  KUrl sphinxModelDir = KUrl(SamXMLHelper::getText(elem, "sphinxModelDir"));
+  KUrl sphinxGrammar = KUrl(SamXMLHelper::getText(elem, "sphinxGrammar"));
+  KUrl sphinxDictionary = KUrl(SamXMLHelper::getText(elem, "sphinxDictionary"));
   
   int sampleRate = SamXMLHelper::getInt(elem, "sampleRate");
   
   return new TestConfigurationWidget(corpusInfo,
         hmmDefsUrl, tiedlistUrl, dictUrl, dfaUrl,
-        testPromptsUrl, testPromptsBasePathUrl,
-        jconfUrl, sampleRate);
+        testPromptsUrl, testPromptsBasePathUrl,                                    
+        jconfUrl,
+        sphinxModelDir, sphinxGrammar, sphinxDictionary,
+        sampleRate);
 }
 
 QDomElement TestConfigurationWidget::serialize(QDomDocument* doc)
@@ -174,6 +208,10 @@ QDomElement TestConfigurationWidget::serialize(QDomDocument* doc)
   SamXMLHelper::serializePath(doc, elem, ui.urTestPrompts, "testPrompts");
   SamXMLHelper::serializePath(doc, elem, ui.urTestPromptsBasePath, "testPromptsBasePath");
   SamXMLHelper::serializePath(doc, elem, ui.urJConf, "jconf");
+
+  SamXMLHelper::serializePath(doc, elem, ui.urModelDir, "sphinxModelDir");
+  SamXMLHelper::serializePath(doc, elem, ui.urSphinxDict, "sphinxDictionary");
+  SamXMLHelper::serializePath(doc, elem, ui.urSphinxGrammar, "sphinxGrammar");
   
   SamXMLHelper::serializeInt(doc, elem, sampleRate(), "sampleRate");
   

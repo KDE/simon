@@ -53,7 +53,7 @@ class TestConfigurationWidget : public QFrame
         const KUrl& outputUrl,
         const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
-        const KUrl& jconfUrl, int sampleRate, QWidget *parent=0);
+        const KUrl& jconfUrl, const KUrl &sphinxModelDir, const KUrl &sphinxGrammar, const KUrl &sphinxDictionary, int sampleRate, QWidget *parent=0);
 
     ~TestConfigurationWidget();
 
@@ -66,6 +66,9 @@ class TestConfigurationWidget : public QFrame
     KUrl testPrompts() const;
     KUrl testPromptsBasePath() const;
     KUrl jconf() const;
+    KUrl sphinxModelDir () const;
+    KUrl sphinxGrammar() const;
+    KUrl sphinxDictionary() const;
     int sampleRate() const;
     
     static TestConfigurationWidget* deSerialize(const QDomElement& elem);
