@@ -1,0 +1,87 @@
+/*
+ *   Copyright (C) 2012 Yash Shah <blazonware@gmail.com>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+#include "lipdetectioncondition.h"
+#include <KDebug>
+#include "createlipdetectionconditionwidget.h"
+#include <QWidget>
+#include "simonvision/lipanalyzer.h"
+#include <highgui.h>
+#include <cv.h>
+K_PLUGIN_FACTORY(LipDetectionPluginFactory,
+                 registerPlugin< LipDetectionCondition >();
+                )
+
+K_EXPORT_PLUGIN(LipDetectionPluginFactory("simonlipdetectioncondition"))
+
+LipDetectionCondition::LipDetectionCondition(QObject *parent, const QVariantList &args) :
+    Condition(parent, args)
+{
+  m_pluginName = "simonlipdetectionconditionplugin.desktop";
+}
+
+CreateConditionWidget* LipDetectionCondition::getCreateConditionWidget(QWidget* parent)
+{
+  return new CreateLipDetectionConditionWidget(parent);
+}
+
+QDomElement LipDetectionCondition::privateSerialize(QDomDocument *doc, QDomElement elem)
+{
+
+  return elem;
+}
+
+QString LipDetectionCondition::name()
+{
+  if (!isInverted())
+    return i18nc("Detecting the presense of user from the webcam", "Presense of user");
+  else
+    return i18nc("Detecting the presense of user from the webcam", "Absense of user");
+}
+
+bool LipDetectionCondition::privateDeSerialize(QDomElement elem)
+{
+  analyzer = new LipAnalyzer();
+  connect(analyzer,SIGNAL(lipPresenceChanged(bool)),this,SLOT(manageConditionState(bool)));
+  return true;
+}
+
+void LipDetectionCondition::manageConditionState(bool isSpeaking)
+{
+  if (isSpeaking)
+  {
+    m_satisfied = true;
+    kDebug() << name() + " is true!";
+    emit conditionChanged();
+  }
+
+  else
+  {
+    m_satisfied = false;
+    kDebug() << name() + " is false!";
+    emit conditionChanged();
+  }
+
+}  
+
+LipDetectionCondition::~LipDetectionCondition()
+{
+  delete analyzer;
+
+}
