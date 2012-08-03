@@ -107,6 +107,8 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   QString fetc = workingDirPath+"/"+mName+"/etc/"+mName;
 
+  kDebug()<<"Store dictionary";
+
   if(!storeDictionary(adaptionType, fetc+DICT_EXT, trainedVocabulary, definedVocabulary,
                       vocabulary))
   {
@@ -116,6 +118,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
+  kDebug()<<"Store filler";
   if(!storeFiller(adaptionType, fetc+".filler"))
   {
     emit error(i18n("Failed to store filler"));
@@ -124,6 +127,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
+  kDebug()<<"Store phonelist";
   if(!storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary))
   {
     emit error(i18n("Failed to store phones"));
@@ -132,6 +136,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
+  kDebug()<<"Store transcription & fields";
   if(!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+TRAIN_TRANSCRIPTION, fetc+TRAIN_FIELDS,
                                   definedVocabulary, vocabulary) || !storeTranscriptionAndFields(adaptionType, promptsPathIn,
                                   fetc+TEST_TRANSCRIPTION, fetc+TEST_FIELDS, definedVocabulary, vocabulary))
@@ -142,6 +147,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
+  kDebug()<<"Store grammar";
   if(!storeGrammar(adaptionType, fetc+GRAMMAR_EXT, vocabulary, definedVocabulary, grammar))
   {
     emit error(i18n("Failed to store grammar"));
@@ -170,7 +176,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
   foreach (Word *word, words)
   {
     if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
-            !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&    //???
+            !(adaptionType == ModelCompilationAdapter::AdaptIndependently) &&    //???
         !trainedVocabulary.contains(word->getLexiconWord()))
     {
       kDebug() << "Skipping word " << word->getWord();
@@ -283,7 +289,11 @@ bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType ada
       else
         first = false;
 
-      wordsString.append(vocabulary->findWords(word, Vocabulary::ExactMatch).first()->getWord());
+      QList<Word*> findWords= vocabulary->findWords(word, Vocabulary::ExactMatch);
+      if(!findWords.isEmpty())
+        wordsString.append(findWords.first()->getWord());
+      else
+        ;//error or not?
     }
 
     if (allWordsInLexicon || adaptionType == AdaptIndependently)
