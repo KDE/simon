@@ -21,6 +21,7 @@
 #include "testresultleaf.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include <QDebug>
+#include <KDebug>
 
 TestResultInstance::TestResultInstance()
 {
@@ -187,6 +188,8 @@ QList<TestResultLeaf*> TestResultInstance::parseResult(const RecognitionResult& 
   pronunciations.removeAll("sil");
   Q_ASSERT(pronunciations.count() == words.count());
   Q_ASSERT(words.count() == scores.count());
+
+  kDebug()<<words.count() <<"\t" <<pronunciations.count()<<"\t"<<scores.count();
 
   QList<TestResultLeaf*> leafs;
   for (int i=0; i < words.count(); i++)

@@ -46,7 +46,7 @@ cmd_ln_t* SphinxRecognitionConfiguration::getSphinxConfig()
                                "-hmm", model.data(),
                                "-jsgf", grammar.data(),
                                "-dict", dict.data(),
-                               "-input", samprate.data(),
+                               "-samprate", samprate.data(),
                                NULL);
   return config;
 }

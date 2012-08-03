@@ -17,6 +17,7 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include <KDebug>
 #include "testconfigurationwidget.h"
 #include "corpusinformation.h"
 #include "samxmlhelper.h"
@@ -191,6 +192,7 @@ TestConfigurationWidget::BackendType TestConfigurationWidget::IntToBackendType(i
 
 TestConfigurationWidget::BackendType TestConfigurationWidget::backendType() const
 {
+  kDebug()<<ui.cbType->currentIndex();
   return IntToBackendType(ui.cbType->currentIndex());
 }
 

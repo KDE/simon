@@ -90,7 +90,6 @@ void TestResultWidget::slotModelTestCompleted()
 
 void TestResultWidget::startTest()
 {
-  //TODO: add configurable choise between backends
   currentState = TestResultWidget::Running;
 
   QHash<QString, QString> testParams;

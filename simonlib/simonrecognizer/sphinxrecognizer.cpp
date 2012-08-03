@@ -99,10 +99,19 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
 
   fclose(toRecognize);
 
+  QString sentence = QString::fromUtf8(hyp);
+  QString sampa;
+  int wordsCount = sentence.split(" ", QString::SkipEmptyParts).count();
+
   QList<float> tlist;
-  tlist.append(1.0);
-//  tlist.append(1.0);
-  RecognitionResult res = RecognitionResult(QString::fromUtf8(hyp), "FIXME", "FIXME", tlist);
+
+  for(int i(0); i < wordsCount; i++)
+  {
+    tlist.append(0.99);
+    sampa.append("FIXME |");
+  }
+
+  RecognitionResult res = RecognitionResult(sentence, sampa /*"FIXME"*/, sampa /*"FIXME"*/, tlist);
 
   recognitionResults.append(res); //TODO: Find how to get SAMPA, using sphinx..
   recognitionResults.append(res); //WARNING: some magic
