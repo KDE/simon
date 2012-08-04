@@ -4,11 +4,12 @@
 #include "cv.h"
 #include "highgui.h"
 #include "cxcore.h"
+
 using namespace cv;
 
 namespace SimonCV
 {
- extern CvRect * detectObject(IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage);
+extern CvRect * detectObject(IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage);
 }
 
 

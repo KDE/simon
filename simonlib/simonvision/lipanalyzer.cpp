@@ -21,6 +21,8 @@
 #include<KDebug>
 #include "webcamdispatcher.h"
 #include "simoncv.h"
+#include<iostream>
+
 using namespace SimonCV;
 //// Constants
 #define OPENCV_ROOT  ""
@@ -28,28 +30,42 @@ using namespace SimonCV;
 
 LipAnalyzer::LipAnalyzer()
 {
-    if (!initLipDetection(OPENCV_ROOT
-                           "haarcascade_mcs_mouth.xml"))
-        kDebug() <<"Error finding haarcascade_mcs_mouth.xml file";
+  if (!initLipDetection(OPENCV_ROOT
+                        "haarcascade_mcs_mouth.xml",
+                        OPENCV_ROOT
+                        "haarcascade_frontalface_default.xml"))
+    kDebug() <<"Error finding haarcascade file";
+
 }
 
-int LipAnalyzer::initLipDetection(const char* haarCascadePath)
+int LipAnalyzer::initLipDetection(const char* lipHaarCascadePath, const char* faceHaarCascadePath)
 {
-  if (!( memoryStorage = cvCreateMemStorage(0)))
+  prevVideoFrame=0;
+
+  if (!(memoryStorage = cvCreateMemStorage(0)))
   {
     kDebug() <<"Can\'t allocate memory for lip detection\n";
     return 0;
   }
-  
-  cascade = (CvHaarClassifierCascade*) cvLoad(haarCascadePath, 0, 0, 0);
-  
-  if (!cascade)
+
+  faceCascade = (CvHaarClassifierCascade*) cvLoad(faceHaarCascadePath, 0, 0, 0);
+
+  if (!faceCascade)
   {
-    kDebug() <<"Can\'t load Haar classifier cascade from "<<haarCascadePath<<
+    kDebug() <<"Can\'t load Haar classifier faceCascade from "<<faceHaarCascadePath<<
     "\nPlease check that this is the correct path\n";
     return 0;
   }
-  
+
+  lipCascade = (CvHaarClassifierCascade*) cvLoad(lipHaarCascadePath, 0, 0, 0);
+
+  if (!lipCascade)
+  {
+    kDebug() <<"Can\'t load Haar classifier lipCascade from "<<lipHaarCascadePath<<
+    "\nPlease check that this is the correct path\n";
+    return 0;
+  }
+
   return 1;
 }
 
@@ -58,70 +74,164 @@ int LipAnalyzer::initLipDetection(const char* haarCascadePath)
 
 void LipAnalyzer::analyze(IplImage* currentImage)
 {
-    if (!currentImage)
-        return;
+  cvNamedWindow("Face");
+  cvNamedWindow("mouth");
 
-    CvRect * lipRect = 0;
+  if (!currentImage)
+    return;
 
-    // Capture and display video frames until a lip
-    // is detected
+  CvRect * rect = 0;
 
-    // Look for a lip in the next video frame
+  // Capture and display video frames until a lip
+  // is detected
 
-    if (!liveVideoFrameCopy)
-        liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
+  // Look for a lip in the next video frame
 
-    cvCopy(currentImage, liveVideoFrameCopy, 0);
+//        if (!liveVideoFrameCopy)
+  liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
 
-    // Copy it to the display image, inverting it if needed
-    //   pVideoFrameCopy->origin = currentImage->origin;
-    //
-    //   if ( 1 == pVideoFrameCopy->origin ) // 1 means the image is inverted
-    //   {
-    //     cvFlip ( pVideoFrameCopy, 0, 0 );
-    //     pVideoFrameCopy->origin = 0;
-    //   }
+  kDebug()<<"Analyzing";
 
-    lipRect = detectObject(liveVideoFrameCopy,cascade,memoryStorage);
+  cvCopy(currentImage, liveVideoFrameCopy, 0);
+
+  // Copy it to the display image, inverting it if needed
+  //   pVideoFrameCopy->origin = currentImage->origin;
+  //
+  //   if ( 1 == pVideoFrameCopy->origin ) // 1 means the image is inverted
+  //   {
+  //     cvFlip ( pVideoFrameCopy, 0, 0 );
+  //     pVideoFrameCopy->origin = 0;
+  //   }
 
 
-    if (lipRect)
+  rect = detectObject(liveVideoFrameCopy,faceCascade,memoryStorage);
+
+
+  if (rect)
+  {
+    kDebug()<<"Face detected";
+    cvRectangle(liveVideoFrameCopy,cvPoint(rect->x, rect->y),
+                cvPoint(rect->x + rect->width, rect->y + rect->height),
+                CV_RGB(255, 0, 0), 1, 8, 0);
+
+
+
+    cvSetImageROI(liveVideoFrameCopy,/* the source image */
+                  cvRect(rect->x,            /* x = start from leftmost */
+                         rect->y+(rect->height *2/3), /* y = a few pixels from the top */
+                         rect->width,        /* width = same width with the face */
+                         rect->height/3)    /* height = 1/3 of face height */
+                 );
+    CvRect * mouthRect = 0;
+    mouthRect = detectObject(liveVideoFrameCopy,lipCascade,memoryStorage);
+
+    if (mouthRect)
+    {
+      kDebug()<<"mouth detected";
+      cvRectangle(liveVideoFrameCopy,cvPoint(rect->x, rect->y),
+                  cvPoint(rect->x + rect->width, rect->y + rect->height),
+                  CV_RGB(0, 255, 0), 1, 8, 0);
+      cvSetImageROI(liveVideoFrameCopy,
+                    cvRect(rect->x + mouthRect->x,            /* x = start from leftmost */
+                           rect->y+(rect->height *2/3) + mouthRect->y, /* y = a few pixels from the top */
+                           mouthRect->width,        /* width = same width with the face */
+                           mouthRect->height)    /* height = 1/3 of face height */
+                   );
+
+      if (!prevVideoFrame)
+      {
+        prevVideoFrame = cvCreateImage(cvGetSize(liveVideoFrameCopy),liveVideoFrameCopy->depth,liveVideoFrameCopy->nChannels);
+      }
+
+      IplImage *diff = cvCreateImage(cvGetSize(liveVideoFrameCopy),liveVideoFrameCopy->depth,liveVideoFrameCopy->nChannels);
+
+      cvResize(prevVideoFrame,liveVideoFrameCopy);
+
+      cvAbsDiff(liveVideoFrameCopy,prevVideoFrame,diff);
+//       cvShowImage("mouth",diff);
+
+
+
+      int height    = diff->height;
+
+      int width     = diff->width;
+      int step      = diff->widthStep;
+      int channels  = diff->nChannels;
+      uchar* data= (uchar *)diff->imageData;
+      int sum = 0;
+
+      for (int i=0;i<height;i++)
+      {
+        for (int j=0;j<width;j++)
+        {
+          int gray = 0;
+
+          for (int k=0;k<channels;k++)
+          {
+            gray += data[i*step+j*channels+k];
+          }
+
+          sum+=gray/3;
+        }
+      }
+
+      cvCopy(liveVideoFrameCopy,prevVideoFrame);
+
+      if (sum>200)
+      {
         isChanged(true);
-    else
+        kDebug()<<"Speaking: TRUE\n";
+      }
+
+      else
+      {
         isChanged(false);
+        kDebug()<<"Speaking: False\n";
+
+      }
+    }
+
+
+
+  }
+
 }
 
 
 void LipAnalyzer::closeLipDetection()
 {
   //    WebcamDispatcher::unregisterAnalyzer(this);
-  if (cascade)
-    cvReleaseHaarClassifierCascade(&cascade);
-  
+
+  cvReleaseHaarClassifierCascade(&faceCascade);
+
   if (memoryStorage)
     cvReleaseMemStorage(&memoryStorage);
-  
-  if (liveVideoFrameCopy)
-    cvReleaseImage(&liveVideoFrameCopy);
+
+  cvReleaseImage(&liveVideoFrameCopy);
 }
 
 
 
 void LipAnalyzer::isChanged(bool hasLipMovedNew)
 {
-    if (!hasLipMoved == hasLipMovedNew)
-    {
-        emit lipMovementChanged(hasLipMovedNew);
-    }
+  if (!hasLipMoved == hasLipMovedNew)
+  {
+    emit lipMovementChanged(hasLipMovedNew);
+  }
 
-    hasLipMoved = hasLipMovedNew;
-    //kDebug()<<hasLipMoved;
+  hasLipMoved = hasLipMovedNew;
+
+  //kDebug()<<hasLipMoved;
 }
 
 LipAnalyzer::~LipAnalyzer()
 {
-    kDebug()<<"Destroying Lip Analyzer";
+  kDebug()<<"Destroying Lip Analyzer";
 
-    // Release resources allocated in the analyzer
-    closeLipDetection();
+  // Release resources allocated in the analyzer
+//  closeLipDetection();
 }
+
+
+
+

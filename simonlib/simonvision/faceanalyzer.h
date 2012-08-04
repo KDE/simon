@@ -40,7 +40,7 @@ private:
   int      initFaceDetection(const char * haarCascadePath);
   void     closeFaceDetection();
   void isChanged(bool hasFace);
-  
+
   bool hasFace;
   IplImage  * liveVideoFrameCopy;
   CvHaarClassifierCascade * cascade;  // the lip detector

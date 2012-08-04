@@ -24,16 +24,24 @@ namespace SimonCV{
     CvRect* objectRect = 0;
     if (cascade&&memoryStorage)
     {
+//       // detect faces in image
+//       int minObjectSize = imageFeed->width / 5;
+//       objectRectSeq = cvHaarDetectObjects
+//       (imageFeed, cascade, memoryStorage,
+//        1.1,                       // increase search scale by 10% each pass
+//        6,                         // require six neighbors
+//        CV_HAAR_DO_CANNY_PRUNING,  // skip regions unlikely to contain a face
+//        cvSize(40, 40));
+//       // if one or more faces are detected, return the first one
       // detect faces in image
       int minObjectSize = imageFeed->width / 5;
       objectRectSeq = cvHaarDetectObjects
       (imageFeed, cascade, memoryStorage,
        1.1,                       // increase search scale by 10% each pass
-       6,                         // require six neighbors
+       30,                         // require six neighbors
        CV_HAAR_DO_CANNY_PRUNING,  // skip regions unlikely to contain a face
-       cvSize(minObjectSize, minObjectSize));
-      // if one or more faces are detected, return the first one
-      
+       cvSize(40, 40));
+      // if one or more faces are detected, return the first one      
       if (objectRectSeq && objectRectSeq->total)
         objectRect = (CvRect*) cvGetSeqElem(objectRectSeq, 0);
     }

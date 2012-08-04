@@ -31,52 +31,52 @@ using namespace cv;
 void WebcamDispatcher::initWebcamDispatcher()
 {
 
-    // Initialize video capture
-    capture = cvCaptureFromCAM(CV_CAP_ANY);
+  // Initialize video capture
+  capture = cvCaptureFromCAM(CV_CAP_ANY);
 //    capture = cvCaptureFromCAM( 0 );
 
-    if (!capture)
-    {
-        kDebug() << "Failed to initialize video capture\n ";
-        return;
-    }
+  if (!capture)
+  {
+    kDebug() << "Failed to initialize video capture\n ";
+    return;
+  }
 
-    instance->start();
+  instance->start();
 }
 
 void WebcamDispatcher::closeWebcamDispatcher()
 {
-    // Terminate video capture and free capture resources
-    cvReleaseCapture(&capture);
-    kDebug() << "Webcam Dispatcher closed!\n ";
+  // Terminate video capture and free capture resources
+  cvReleaseCapture(&capture);
+  kDebug() << "Webcam Dispatcher closed!\n ";
 }
 
 void WebcamDispatcher::registerAnalyzer(ImageAnalyzer* analyzer)
 {
-    kDebug() << "Registering analyzer\n ";
+  kDebug() << "Registering analyzer\n ";
 
-    instance->analyzers.append(analyzer);
+  instance->analyzers.append(analyzer);
 
-    if (instance->analyzers.count() ==1)
-    {
-        instance->initWebcamDispatcher();
-    }
+  if (instance->analyzers.count() ==1)
+  {
+    instance->initWebcamDispatcher();
+  }
 
 }
 
 void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
 {
-    kDebug() << "Unregistering analyzer\n ";
+  kDebug() << "Unregistering analyzer\n ";
 
-    for (int i=0;i<instance->analyzers.count();i++)
+  for (int i=0;i<instance->analyzers.count();i++)
+  {
+    if (analyzer==instance->analyzers.at(i))
     {
-        if (analyzer==instance->analyzers.at(i))
-        {
-            kDebug() << "Instanced removed\n ";
-            instance->analyzers.removeAt(i);
-        }
-
+      kDebug() << "Instanced removed\n ";
+      instance->analyzers.removeAt(i);
     }
+
+  }
 
 
 
@@ -84,18 +84,18 @@ void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
 
 IplImage* WebcamDispatcher::nextVideoFrame()
 {
-    IplImage* liveFrame = cvQueryFrame(capture);
+  IplImage* liveFrame = cvQueryFrame(capture);
 
-    // If we couldn't grab a frame... quit
+  // If we couldn't grab a frame... quit
 
-    if (!liveFrame)
-    {
-        kDebug() << "Failed to get the live video frame\n";
+  if (!liveFrame)
+  {
+    kDebug() << "Failed to get the live video frame\n";
 //       return NULL;
-    }
+  }
 
 //    cvFlip( liveFrame, 0, 1 );
-    return liveFrame;
+  return liveFrame;
 }
 
 
@@ -104,18 +104,23 @@ void WebcamDispatcher::run()
 
 //    cvNamedWindow("Testing");
 
-    while (instance->analyzers.count())
-    {
-        foreach(ImageAnalyzer* analyzer,analyzers)
-        {
-//    cvShowImage("Testing", nextVideoFrame() );
-            analyzer->analyze(nextVideoFrame());
-        }
-    }
+  while (1)
+  {
     if (instance->analyzers.count() ==0)
     {
       instance->closeWebcamDispatcher();
+      break;
     }
+
+    foreach(ImageAnalyzer* analyzer,analyzers)
+
+    {
+//    cvShowImage("Testing", nextVideoFrame() );
+      analyzer->analyze(nextVideoFrame());
+    }
+  }
+
+
 }
 
 //     CvCapture* camera = 0;

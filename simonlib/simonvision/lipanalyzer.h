@@ -27,7 +27,7 @@ class SIMONVISION_EXPORT LipAnalyzer : public ImageAnalyzer
   Q_OBJECT
 
 public:
-  
+
   LipAnalyzer();
   virtual ~LipAnalyzer();
   void analyze(IplImage* currentImage);
@@ -37,14 +37,15 @@ signals:
 
 private:
   void closeLipDetection();
-  int initLipDetection(const char *haarCascadePath);
+  int initLipDetection(const char *faceHaarCascadePath,const char *lipHaarCascadePath);
   void isChanged(bool hasLipMoved);
-  
   bool hasLipMoved;
   IplImage  * liveVideoFrameCopy;
-  CvHaarClassifierCascade * cascade;  // the lip detector
+  IplImage  * prevVideoFrame;
+  CvHaarClassifierCascade * faceCascade;
+  CvHaarClassifierCascade * lipCascade;
   CvMemStorage * memoryStorage;             // memory for detector to use
-  
+
 };
 
 #endif // LIPANALYZER_H

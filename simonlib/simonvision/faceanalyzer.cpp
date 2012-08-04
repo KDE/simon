@@ -21,15 +21,19 @@
 #include<KDebug>
 #include "webcamdispatcher.h"
 #include "simoncv.h"
+#include<iostream>
+
+using namespace std;
+
 using namespace SimonCV;
 //// Constants
 #define OPENCV_ROOT  ""
 
 FaceAnalyzer::FaceAnalyzer()
 {
-    if (!initFaceDetection(OPENCV_ROOT
-                           "haarcascade_frontalface_default.xml"))
-        kDebug() <<"Error finding haarcascade_frontalface_default.xml file";
+  if (!initFaceDetection(OPENCV_ROOT
+                         "haarcascade_frontalface_default.xml"))
+    kDebug() <<"Error finding haarcascade_frontalface_default.xml file";
 }
 
 int FaceAnalyzer::initFaceDetection(const char* haarCascadePath)
@@ -39,16 +43,16 @@ int FaceAnalyzer::initFaceDetection(const char* haarCascadePath)
     kDebug() <<"Can\'t allocate memory for face detection\n";
     return 0;
   }
-  
+
   cascade = (CvHaarClassifierCascade*) cvLoad(haarCascadePath, 0, 0, 0);
-  
+
   if (!cascade)
   {
     kDebug() <<"Can\'t load Haar classifier cascade from "<<haarCascadePath<<
     "\nPlease check that this is the correct path\n";
     return 0;
   }
-  
+
   return 1;
 }
 
@@ -56,49 +60,48 @@ int FaceAnalyzer::initFaceDetection(const char* haarCascadePath)
 
 void FaceAnalyzer::analyze(IplImage* currentImage)
 {
-    if (!currentImage)
-        return;
 
-    CvRect * faceRect = 0;
+  if (!currentImage)
+    return;
 
-    // Capture and display video frames until a face
-    // is detected
+  CvRect * faceRect = 0;
 
-    // Look for a face in the next video frame
+  // Capture and display video frames until a face
+  // is detected
 
-    if (!liveVideoFrameCopy)
-        liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
+  // Look for a face in the next video frame
 
-    cvCopy(currentImage, liveVideoFrameCopy, 0);
+//    if (!liveVideoFrameCopy)
+  liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
 
-    // Copy it to the display image, inverting it if needed
-    //   pVideoFrameCopy->origin = currentImage->origin;
-    //
-    //   if ( 1 == pVideoFrameCopy->origin ) // 1 means the image is inverted
-    //   {
-    //     cvFlip ( pVideoFrameCopy, 0, 0 );
-    //     pVideoFrameCopy->origin = 0;
-    //   }
+  cvCopy(currentImage, liveVideoFrameCopy, 0);
 
-    faceRect = detectObject(liveVideoFrameCopy,cascade,memoryStorage);
+  // Copy it to the display image, inverting it if needed
+  //   pVideoFrameCopy->origin = currentImage->origin;
+  //
+  //   if ( 1 == pVideoFrameCopy->origin ) // 1 means the image is inverted
+  //   {
+  //     cvFlip ( pVideoFrameCopy, 0, 0 );
+  //     pVideoFrameCopy->origin = 0;
+  //   }
+  faceRect = detectObject(liveVideoFrameCopy,cascade,memoryStorage);
 
 
-    if (faceRect)
-        isChanged(true);
-    else
-        isChanged(false);
+  if (faceRect)
+    isChanged(true);
+  else
+    isChanged(false);
 }
 
 
 void FaceAnalyzer::closeFaceDetection()
 {
-  //    WebcamDispatcher::unregisterAnalyzer(this);
   if (cascade)
     cvReleaseHaarClassifierCascade(&cascade);
-  
+
   if (memoryStorage)
     cvReleaseMemStorage(&memoryStorage);
-  
+
   if (liveVideoFrameCopy)
     cvReleaseImage(&liveVideoFrameCopy);
 }
@@ -107,19 +110,20 @@ void FaceAnalyzer::closeFaceDetection()
 
 void FaceAnalyzer::isChanged(bool hasFaceNew)
 {
-    if (!hasFace == hasFaceNew)
-    {
-        emit facePresenceChanged(hasFaceNew);
-    }
+  if (!hasFace == hasFaceNew)
+  {
+    emit facePresenceChanged(hasFaceNew);
+  }
 
-    hasFace = hasFaceNew;
-    //kDebug()<<hasFace;
+  hasFace = hasFaceNew;
+
+  //kDebug()<<hasFace;
 }
 
 FaceAnalyzer::~FaceAnalyzer()
 {
-    kDebug()<<"Destroying Face Analyzer";
+  kDebug()<<"Destroying Face Analyzer";
 
-    // Release resources allocated in the analyzer
-    closeFaceDetection();
+  // Release resources allocated in the analyzer
+  closeFaceDetection();
 }
