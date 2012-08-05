@@ -74,13 +74,12 @@ int LipAnalyzer::initLipDetection(const char* lipHaarCascadePath, const char* fa
 
 void LipAnalyzer::analyze(IplImage* currentImage)
 {
-  cvNamedWindow("Face");
-  cvNamedWindow("mouth");
+//   cvNamedWindow("mouth");
 
   if (!currentImage)
     return;
 
-  CvRect * rect = 0;
+  CvRect * faceRect = 0;
 
   // Capture and display video frames until a lip
   // is detected
@@ -90,7 +89,7 @@ void LipAnalyzer::analyze(IplImage* currentImage)
 //        if (!liveVideoFrameCopy)
   liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
 
-  kDebug()<<"Analyzing";
+//   kDebug()<<"Analyzing";
 
   cvCopy(currentImage, liveVideoFrameCopy, 0);
 
@@ -104,38 +103,38 @@ void LipAnalyzer::analyze(IplImage* currentImage)
   //   }
 
 
-  rect = detectObject(liveVideoFrameCopy,faceCascade,memoryStorage);
+  faceRect = detectObject(liveVideoFrameCopy,faceCascade,memoryStorage);
 
 
-  if (rect)
+  if (faceRect)
   {
-    kDebug()<<"Face detected";
-    cvRectangle(liveVideoFrameCopy,cvPoint(rect->x, rect->y),
-                cvPoint(rect->x + rect->width, rect->y + rect->height),
+//     kDebug()<<"Face detected";
+    cvRectangle(liveVideoFrameCopy,cvPoint(faceRect->x, faceRect->y),
+                cvPoint(faceRect->x + faceRect->width, faceRect->y + faceRect->height),
                 CV_RGB(255, 0, 0), 1, 8, 0);
 
 
 
     cvSetImageROI(liveVideoFrameCopy,/* the source image */
-                  cvRect(rect->x,            /* x = start from leftmost */
-                         rect->y+(rect->height *2/3), /* y = a few pixels from the top */
-                         rect->width,        /* width = same width with the face */
-                         rect->height/3)    /* height = 1/3 of face height */
+                  cvRect(faceRect->x,            /* x = start from leftmost */
+                         faceRect->y+(faceRect->height *2/3), /* y = a few pixels from the top */
+                         faceRect->width,        /* width = same width with the face */
+                         faceRect->height/3)    /* height = 1/3 of face height */
                  );
     CvRect * mouthRect = 0;
     mouthRect = detectObject(liveVideoFrameCopy,lipCascade,memoryStorage);
 
     if (mouthRect)
     {
-      kDebug()<<"mouth detected";
-      cvRectangle(liveVideoFrameCopy,cvPoint(rect->x, rect->y),
-                  cvPoint(rect->x + rect->width, rect->y + rect->height),
+//       kDebug()<<"mouth detected"<<mouthRect->width;
+      cvRectangle(liveVideoFrameCopy,cvPoint(faceRect->x, faceRect->y),
+                  cvPoint(faceRect->x + faceRect->width, faceRect->y + faceRect->height),
                   CV_RGB(0, 255, 0), 1, 8, 0);
       cvSetImageROI(liveVideoFrameCopy,
-                    cvRect(rect->x + mouthRect->x,            /* x = start from leftmost */
-                           rect->y+(rect->height *2/3) + mouthRect->y, /* y = a few pixels from the top */
-                           mouthRect->width,        /* width = same width with the face */
-                           mouthRect->height)    /* height = 1/3 of face height */
+                    cvRect(faceRect->x + mouthRect->x-15,            /* x = start from leftmost */
+                           faceRect->y+(faceRect->height *2/3) + mouthRect->y-5, /* y = a few pixels from the top */
+                           100,        /* width = same width with the face */
+                           55)    /* height = 1/3 of face height */
                    );
 
       if (!prevVideoFrame)
@@ -145,9 +144,7 @@ void LipAnalyzer::analyze(IplImage* currentImage)
 
       IplImage *diff = cvCreateImage(cvGetSize(liveVideoFrameCopy),liveVideoFrameCopy->depth,liveVideoFrameCopy->nChannels);
 
-      cvResize(prevVideoFrame,liveVideoFrameCopy);
-
-      cvAbsDiff(liveVideoFrameCopy,prevVideoFrame,diff);
+      cvAbsDiff(prevVideoFrame,liveVideoFrameCopy,diff);
 //       cvShowImage("mouth",diff);
 
 
@@ -177,7 +174,7 @@ void LipAnalyzer::analyze(IplImage* currentImage)
 
       cvCopy(liveVideoFrameCopy,prevVideoFrame);
 
-      if (sum>200)
+      if (sum>21000)
       {
         isChanged(true);
         kDebug()<<"Speaking: TRUE\n";
