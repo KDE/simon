@@ -28,6 +28,7 @@ endif(WIN32)
 
 include_directories( ${KDE4_INCLUDES} )
 
+
 add_subdirectory(simonlib)
 add_subdirectory(simon)
 add_subdirectory(simond)

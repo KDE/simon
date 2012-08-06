@@ -53,7 +53,8 @@
 #endif
 
 ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
-userName(user_name)
+  userName(user_name),
+  config(0)
 {
 //  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
 //  KConfigGroup programGroup(&config, "Backend");

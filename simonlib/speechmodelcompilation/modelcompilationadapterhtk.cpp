@@ -69,6 +69,8 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   emit  status(i18n("Model adaption complete"), 100, 100);
   emit adaptionComplete();
 
+  kDebug() <<"Adaptation complete";
+
   return true;
 }
 
@@ -129,6 +131,9 @@ bool ModelCompilationAdapterHTK::storeLexicon(ModelCompilationAdapter::AdaptionT
                                               QStringList &trainedVocabulary, QStringList &definedVocabulary)
 {
   /////  Lexicon  ////////////////
+
+  kDebug() << "Store lexicon";
+
   emit status(i18n("Adapting lexicon..."), 15, 100);
   QFile lexiconFile(lexiconPathOut);
   if (!lexiconFile.open(QIODevice::WriteOnly))
@@ -189,6 +194,7 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
                                                  QStringList &structures)
 {
   /////  Vocabulary  /////////////
+  kDebug() << "Store vocabulary";
   emit status(i18n("Adapting vocabulary..."), 35, 100);
 
   // find out which words are referenced by training data
@@ -277,6 +283,8 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
 bool ModelCompilationAdapterHTK::storeGrammar(const QString& grammarPathOut, QStringList &structures)
 {
   emit status(i18n("Adapting grammar..."), 75, 100);
+  kDebug() << "Store grammar";
+
   QFile grammarFile(grammarPathOut);
   if (!grammarFile.open(QIODevice::WriteOnly))
   {
@@ -298,6 +306,7 @@ bool ModelCompilationAdapterHTK::storePrompts(ModelCompilationAdapter::AdaptionT
                                               QStringList &definedVocabulary) //wtf?
 {
   emit status(i18n("Adapting prompts..."), 90, 100);
+  kDebug() << "Store prompts";
   if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel)
   {
     QFile promptsFile(promptsPathIn);

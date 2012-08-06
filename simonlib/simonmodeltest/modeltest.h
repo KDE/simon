@@ -94,7 +94,7 @@ public:
 
   int getTotalSampleCount();
 
-  ~ModelTest();
+  virtual ~ModelTest();
 
 protected:
   bool keepGoing;

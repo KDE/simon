@@ -43,7 +43,9 @@ install( FILES ${simonmodeltest_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonmodeltest
   COMPONENT simonddevel
 )
- 
+
+set_target_properties(simonmodeltest PROPERTIES COMPILE_FLAGS "-std=c++0x -Wall -Wextra -pedantic -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wconversion -Winit-self -Wunreachable-code")
+
 install( TARGETS simonmodeltest DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT sam  )
 
 add_subdirectory(test)

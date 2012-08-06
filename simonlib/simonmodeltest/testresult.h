@@ -59,7 +59,7 @@ class MODELTEST_EXPORT TestResult
     ~TestResult();
 };
 
-Q_DECLARE_METATYPE(TestResult*);
+Q_DECLARE_METATYPE(TestResult*)
 
 #endif
 

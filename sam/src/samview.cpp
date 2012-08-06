@@ -185,15 +185,23 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
     if(backendType == TestConfigurationWidget::JHTK)
       modelCompiler = modelCompilerHTK;
 
-  connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
-  connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
-  connect(modelCompilationAdapter, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
-  connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
+  connect(modelCompilationAdapterSPHINX, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
+  connect(modelCompilationAdapterSPHINX, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
+  connect(modelCompilationAdapterSPHINX, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
+  connect(modelCompilationAdapterSPHINX, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
+  connect(modelCompilationAdapterHTK, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
+  connect(modelCompilationAdapterHTK, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
+  connect(modelCompilationAdapterHTK, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
+  connect(modelCompilationAdapterHTK, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 
-  connect(modelCompiler, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
-  connect(modelCompiler, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
-  connect(modelCompiler, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
-  connect(modelCompiler, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
+  connect(modelCompilerSPHINX, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
+  connect(modelCompilerSPHINX, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
+  connect(modelCompilerSPHINX, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
+  connect(modelCompilerSPHINX, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
+  connect(modelCompilerHTK, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
+  connect(modelCompilerHTK, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
+  connect(modelCompilerHTK, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
+  connect(modelCompilerHTK, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
 
   connect(modelCompiler, SIGNAL(classUndefined(QString)), this,
           SLOT(slotModelCompilationClassUndefined(QString)));
