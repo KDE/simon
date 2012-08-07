@@ -43,6 +43,7 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   m_adaptionType = adaptionType;
   m_scenarioPathsIn = scenarioPathsIn;
   m_promptsPathIn = promptsIn;
+  kDebug()<<"Input prompts: " <<promptsIn;
 
   m_lexiconPathOut = args.value("lexicon");
   m_grammarPathOut = args.value("grammar");

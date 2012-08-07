@@ -809,6 +809,7 @@ void SamView::getBuildPathsFromSimon()
     QString modelName = m_User+QUuid::createUuid().toString();
     adaptionArgs.insert("workingDir", path);
     adaptionArgs.insert("modelName", modelName);
+    adaptionArgs.insert("stripContext", "true");
   }
   else if(backendType == TestConfigurationWidget::JHTK)
   {
@@ -1002,6 +1003,7 @@ void SamView::slotModelAdaptionComplete()
     kDebug()<<"Sphinx";
 
     QString modelPath = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->workingDir();
+//    kDebug()<<"Got modeldir: " <<KUrl(modelPath).toLocalFile();
     if(!modelPath.isEmpty())
     {
       ui.urDir->setUrl(KUrl(modelPath));
@@ -1011,8 +1013,8 @@ void SamView::slotModelAdaptionComplete()
     QString modelName = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->modelName();
     if(!modelName.isEmpty()) ui.leMName->setText(modelName);
 
-    QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_User+"/samples/");
-    if(!audioLocation.isEmpty()) ui.urDir->setUrl(KUrl(audioLocation));
+//    QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_User+"/samples/");
+//    if(!audioLocation.isEmpty()) ui.urPromptsBasePath->setUrl(KUrl(audioLocation));
   } else if(backendType == TestConfigurationWidget::JHTK)
   {
     QString lexicon = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->lexiconPath();

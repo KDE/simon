@@ -121,7 +121,7 @@ bool ModelCompilationAdapter::readPrompts(ModelCompilationAdapter::AdaptionType 
                                           QSharedPointer<Vocabulary> vocabulary, const QString &promptsPathIn,
                                           QStringList &trainedVocabulary)
 {
-  kDebug() << "Reading prompts";
+  kDebug() << "Reading prompts from " <<promptsPathIn;
   ///// Prompts ///////////
 
   if (!poisonedPhonemes.isEmpty() && (adaptionType & ModelCompilationAdapter::AdaptLanguageModel))

@@ -39,6 +39,10 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
 
   m_workingDir = args.value("workingDir");
   m_modelName = args.value("modelName");
+  kDebug()<<"Input prompts: " <<promptsIn;
+  kDebug()<<"Working directory: " <<m_workingDir;
+
+
 
   if (args.value("stripContext") == "true")
   {
@@ -56,8 +60,10 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
   QSharedPointer<Vocabulary> mergedVocabulary(new Vocabulary());
   QSharedPointer<Grammar> mergedGrammar(new Grammar());
 
+  kDebug()<<"Scenarios input path: "<<scenarioPathsIn;
   //merging scenarios
   mergeInputData(scenarioPathsIn, mergedVocabulary, mergedGrammar);
+
 
   ADAPT_CHECKPOINT;
 
@@ -293,7 +299,7 @@ bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType ada
       if(!findWords.isEmpty())
         wordsString.append(findWords.first()->getWord());
       else
-        ;//error or not?
+        wordsString.append(word.toLower());//WARNING: error or not?
     }
 
     if (allWordsInLexicon || adaptionType == AdaptIndependently)
