@@ -1,6 +1,6 @@
 /*
  *   Copyright (C) 2012 Yash Shah <blazonware@gmail.com>
- *
+*
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
  *   or (at your option) any later version, as published by the Free
@@ -18,27 +18,23 @@
  */
 
 #include "lipanalyzer.h"
-#include<KDebug>
 #include "webcamdispatcher.h"
 #include "simoncv.h"
-#include<iostream>
+#include <iostream>
+#include <KDebug>
+#include <KStandardDirs>
 
 using namespace SimonCV;
-//// Constants
-#define OPENCV_ROOT  ""
-
 
 LipAnalyzer::LipAnalyzer()
 {
-  if (!initLipDetection(OPENCV_ROOT
-                        "haarcascade_mcs_mouth.xml",
-                        OPENCV_ROOT
-                        "haarcascade_frontalface_default.xml"))
+  if (!initLipDetection(KStandardDirs::locate("data", "haarcascade_mcs_mouth.xml"),
+                        KStandardDirs::locate("data", "haarcascade_frontalface_default.xml")))
     kDebug() <<"Error finding haarcascade file";
 
 }
 
-int LipAnalyzer::initLipDetection(const char* lipHaarCascadePath, const char* faceHaarCascadePath)
+int LipAnalyzer::initLipDetection(const QString& lipHaarCascadePath, const QString& faceHaarCascadePath)
 {
   prevVideoFrame=0;
 
@@ -48,7 +44,7 @@ int LipAnalyzer::initLipDetection(const char* lipHaarCascadePath, const char* fa
     return 0;
   }
 
-  faceCascade = (CvHaarClassifierCascade*) cvLoad(faceHaarCascadePath, 0, 0, 0);
+  faceCascade = (CvHaarClassifierCascade*) cvLoad(faceHaarCascadePath.toUtf8(), 0, 0, 0);
 
   if (!faceCascade)
   {
@@ -57,7 +53,7 @@ int LipAnalyzer::initLipDetection(const char* lipHaarCascadePath, const char* fa
     return 0;
   }
 
-  lipCascade = (CvHaarClassifierCascade*) cvLoad(lipHaarCascadePath, 0, 0, 0);
+  lipCascade = (CvHaarClassifierCascade*) cvLoad(lipHaarCascadePath.toUtf8(), 0, 0, 0);
 
   if (!lipCascade)
   {

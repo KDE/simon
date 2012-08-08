@@ -18,25 +18,23 @@
  */
 
 #include "faceanalyzer.h"
-#include<KDebug>
 #include "webcamdispatcher.h"
 #include "simoncv.h"
-#include<iostream>
+#include <iostream>
+#include <KDebug>
+#include <KStandardDirs>
 
 using namespace std;
 
 using namespace SimonCV;
-//// Constants
-#define OPENCV_ROOT  ""
 
 FaceAnalyzer::FaceAnalyzer()
 {
-  if (!initFaceDetection(OPENCV_ROOT
-                         "haarcascade_frontalface_default.xml"))
+  if (!initFaceDetection(KStandardDirs::locate("data", "haarcascade_frontalface_default.xml")))
     kDebug() <<"Error finding haarcascade_frontalface_default.xml file";
 }
 
-int FaceAnalyzer::initFaceDetection(const char* haarCascadePath)
+int FaceAnalyzer::initFaceDetection(const QString& haarCascadePath)
 {
   if (!(memoryStorage = cvCreateMemStorage(0)))
   {
@@ -44,7 +42,7 @@ int FaceAnalyzer::initFaceDetection(const char* haarCascadePath)
     return 0;
   }
 
-  cascade = (CvHaarClassifierCascade*) cvLoad(haarCascadePath, 0, 0, 0);
+  cascade = (CvHaarClassifierCascade*) cvLoad(haarCascadePath.toUtf8(), 0, 0, 0);
 
   if (!cascade)
   {

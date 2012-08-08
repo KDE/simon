@@ -37,7 +37,7 @@ signals:
 
 private:
   void closeLipDetection();
-  int initLipDetection(const char *faceHaarCascadePath,const char *lipHaarCascadePath);
+  int initLipDetection(const QString& faceHaarCascadePath, const QString& lipHaarCascadePath);
   void isChanged(bool hasLipMoved);
   bool hasLipMoved;
   IplImage  * liveVideoFrameCopy;

@@ -43,7 +43,8 @@ install( FILES ${simonvision_LIB_HDRS}
 )
  
 install( TARGETS simonvision DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
-install( FILES haarcascade_frontalface_default.xml DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncore )
+install( FILES haarcascade_frontalface_default.xml haarcascade_mcs_mouth.xml 
+               DESTINATION ${DATA_INSTALL_DIR} COMPONENT simoncore )
 
 
 

@@ -37,7 +37,7 @@ signals:
   void facePresenceChanged(bool hasFaceNew);
 
 private:
-  int      initFaceDetection(const char * haarCascadePath);
+  int      initFaceDetection(const QString& haarCascadePath);
   void     closeFaceDetection();
   void isChanged(bool hasFace);
 
