@@ -21,7 +21,7 @@ kde4_add_plugin(simonfacedetectionconditionplugin ${simonfacedetectionconditionp
 
 
 target_link_libraries(simonfacedetectionconditionplugin ${KDE4_KDEUI_LIBS}
-  ${QT_QTXML_LIBRARY} ${KDE4_KDECORE_LIBS} simoncontextdetection simonuicomponents cv highgui ${OpenCV_LIBS} simonvision )
+  ${QT_QTXML_LIBRARY} ${KDE4_KDECORE_LIBS} simoncontextdetection simonuicomponents ${OpenCV_LIBS} simonvision )
 
 install(TARGETS simonfacedetectionconditionplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simonfacedetectionconditionplugin )
 install( FILES simonfacedetectionconditionplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simonfacedetectionconditionplugin )
