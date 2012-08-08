@@ -195,8 +195,8 @@ bool SampleGroupCondition::removeSampleGroupCondition(int index, bool holdChecks
 
 void SampleGroupCondition::updateCondition ( int row, Condition* edit )
 {
-    Q_ASSERT(condition);
-    Q_ASSERT(index < m_sampleGroupConditions.count() && index > 0);
+    Q_ASSERT(edit);
+    Q_ASSERT(row < m_sampleGroupConditions.count() && row > 0);
     m_sampleGroupConditions[row].first = edit;
     
     emit dataChanged(index(row, 0), index(row, 0));
