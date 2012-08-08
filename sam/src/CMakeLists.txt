@@ -50,7 +50,7 @@ target_link_libraries(sam ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
 	simonrecognitionresult simonscenarioui
 )
 
-set_target_properties(sam PROPERTIES COMPILE_FLAGS "-std=c++0x -Wall -Wextra -pedantic -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wconversion -Winit-self -Wunreachable-code")
+set_target_properties(sam PROPERTIES COMPILE_FLAGS "-Wall -Wextra -pedantic -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wconversion -Winit-self -Wunreachable-code")
 
 if(NOT WIN32)
     target_link_libraries(sam rt)
