@@ -2,6 +2,9 @@ IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SIMOND -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
 
+find_package(Sphinxbase REQUIRED)
+find_package(Pocketsphinx REQUIRED)
+include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SPHINXBASE_INCLUDE_DIR})
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../simonlib)
 
 add_subdirectory( config )
