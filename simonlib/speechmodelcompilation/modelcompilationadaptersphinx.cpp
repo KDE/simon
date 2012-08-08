@@ -341,36 +341,60 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
   QStringList grammarStructures = grammar->getStructures();
   foreach (const QString& structure, grammarStructures)
   {
-    grammarStream<< "(";
     QStringList terminals = Grammar::getTerminalsForStructure(structure);
+    if(terminals.isEmpty())
+      continue;
+
+//    if(structure != grammarStructures.first())
+//    {
+//     grammarStream<<"| ";
+//    }
+
+    QString buffer;
 
     foreach (const QString &terminal, terminals)
     {
-      grammarStream<<"( ";
-
       bool fword = true;
       QList<Word*> wordsForTerminal = vocabulary->findWordsByTerminal(terminal);
+
+      if(wordsForTerminal.isEmpty())
+        continue;
+
+
+
+      buffer.append("( ");
       foreach (Word* word, wordsForTerminal)
       {
         if(!definedVocabulary.contains(word->getLexiconWord()) && adaptionType != AdaptIndependently)
           break;
 
         if(!fword)
-          grammarStream<<" | ";
+          buffer.append(" | ");
         else
           fword = false;
 
-        grammarStream<< word->getWord();
+        buffer.append(word->getWord());
       }
 
-      grammarStream<<" ) ";
+      buffer.append(" ) ");
     }
 
-    grammarStream<<") ";
-    if(structure != grammarStructures.last())
+    if(!buffer.isEmpty())
     {
-      grammarStream<<"| ";
+      if(structure != grammarStructures.first())
+      {
+       grammarStream << "| ";
+      }
+
+      grammarStream<< "(" << buffer <<") ";
+
     }
+
+//    grammarStream<<") ";
+//    if(structure != grammarStructures.last())
+//    {
+//      grammarStream<<"| ";
+//    }
 
   }
   grammarStream<<";\n";

@@ -65,10 +65,6 @@ void ModelCompilationManagerSPHINX::run()
   compilerArgs.insert("modelDir", activeDir);
   compilerArgs.insert("audioPath",KStandardDirs::locateLocal("appdata", "models/"+userName+"/samples/"));
   compilerArgs.insert("modelName", modelName);
-//  compilerArgs.insert("grammar", activeDir+"model.grammar");
-//  compilerArgs.insert("vocab", activeDir+"simple.voca");
-//  compilerArgs.insert("prompts", activeDir+"prompts");
-//  compilerArgs.insert("scriptBase", "simon/scripts");
 
   adapter->clearPoisonedPhonemes();
 
