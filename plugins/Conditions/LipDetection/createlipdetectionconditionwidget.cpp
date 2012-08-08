@@ -29,8 +29,6 @@ CreateLipDetectionConditionWidget::CreateLipDetectionConditionWidget(QWidget *pa
 
   setWindowTitle(i18n("Lip Detection"));
   setWindowIcon(KIcon(""));
-  emit completeChanged();
-  this->completeChanged();
   
   connect(ui.cbInverted, SIGNAL(stateChanged(int)), this, SIGNAL(completeChanged()));
 }

@@ -60,6 +60,7 @@ bool NewCondition::registerCreators(QList<CreateConditionWidget *> conditionCrea
   }
 
   m_conditionCreators = conditionCreators;
+  checkIfComplete();
   return true;
 }
 
