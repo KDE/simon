@@ -1,6 +1,9 @@
 
 include(SimonDirs)
 
+find_package(Sphinxbase REQUIRED)
+find_package(Pocketsphinx REQUIRED)
+include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SPHINXBASE_INCLUDE_DIR})
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
 	${CMAKE_CURRENT_SOURCE_DIR}/../)
