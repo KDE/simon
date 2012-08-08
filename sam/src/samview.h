@@ -162,12 +162,7 @@ public slots:
     Ui::MainWindow ui;
 
     ModelCompiler *modelCompiler;
-    ModelCompiler *modelCompilerHTK;
-    ModelCompiler *modelCompilerSPHINX;
     ModelCompilationAdapter *modelCompilationAdapter;
-    ModelCompilationAdapter *modelCompilationAdapterHTK;
-    ModelCompilationAdapter *modelCompilationAdapterSPHINX;
-    //yah it isn't look good but we need to have saved state of the both versions of adapter & compiler
 
     QList<TestConfigurationWidget*> testConfigurations;
     QList<TestResultWidget*> testResults;

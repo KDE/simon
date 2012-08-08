@@ -69,6 +69,8 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   m_dirty(false),
   m_creationCorpus(0),
   m_reportParameters(0),
+  modelCompiler(0),
+  modelCompilationAdapter(0),
   barGraph(0)
 {
   KGlobal::locale()->insertCatalog("simonlib");
@@ -164,51 +166,11 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.urPrompts->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urBaseModel->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 
-
-
-  modelCompilerHTK = new ModelCompilerHTK(m_User, this);
-  modelCompilerSPHINX = new ModelCompilerSPHINX(m_User, this);
-
-  modelCompilationAdapterSPHINX = new ModelCompilationAdapterSPHINX(m_User, this);
-  modelCompilationAdapterHTK = new ModelCompilationAdapterHTK(m_User, this);
-
   if(backendType == TestConfigurationWidget::SPHINX)
-    modelCompilationAdapter = modelCompilationAdapterSPHINX;
+    backendChanged(0);
   else
     if(backendType == TestConfigurationWidget::JHTK)
-      modelCompilationAdapter = modelCompilationAdapterHTK;
-
-
-  if(backendType == TestConfigurationWidget::SPHINX)
-    modelCompiler = modelCompilerSPHINX;
-  else
-    if(backendType == TestConfigurationWidget::JHTK)
-      modelCompiler = modelCompilerHTK;
-
-  connect(modelCompilationAdapterSPHINX, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
-  connect(modelCompilationAdapterSPHINX, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
-  connect(modelCompilationAdapterSPHINX, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
-  connect(modelCompilationAdapterSPHINX, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
-  connect(modelCompilationAdapterHTK, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
-  connect(modelCompilationAdapterHTK, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
-  connect(modelCompilationAdapterHTK, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
-  connect(modelCompilationAdapterHTK, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
-
-  connect(modelCompilerSPHINX, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
-  connect(modelCompilerSPHINX, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
-  connect(modelCompilerSPHINX, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
-  connect(modelCompilerSPHINX, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
-  connect(modelCompilerHTK, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
-  connect(modelCompilerHTK, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
-  connect(modelCompilerHTK, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
-  connect(modelCompilerHTK, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
-
-  connect(modelCompiler, SIGNAL(classUndefined(QString)), this,
-          SLOT(slotModelCompilationClassUndefined(QString)));
-  connect(modelCompiler, SIGNAL(wordUndefined(QString)), this,
-          SLOT(slotModelCompilationWordUndefined(QString)));
-  connect(modelCompiler, SIGNAL(phonemeUndefined(QString)), this,
-          SLOT(slotModelCompilationPhonemeUndefined(QString)));
+      backendChanged(1);
 
   connect(ui.pbAddTestConfiguration, SIGNAL(clicked()), this, SLOT(addTestConfiguration()));
 
@@ -491,17 +453,39 @@ void SamView::exportTestResults()
 
 void SamView::backendChanged(int id)
 {
+  if(modelCompilationAdapter)
+    delete modelCompilationAdapter;
+  if(modelCompiler)
+    delete modelCompiler;
+
   if(id == 0)
   {
     backendType = TestConfigurationWidget::SPHINX;
-    modelCompilationAdapter = modelCompilationAdapterSPHINX;
-    modelCompiler = modelCompilerSPHINX;
+    modelCompilationAdapter = new ModelCompilationAdapterSPHINX(m_User, this);
+    modelCompiler = new ModelCompilerSPHINX(m_User, this);
   } else if(id == 1)
   {
     backendType = TestConfigurationWidget::JHTK;
-    modelCompilationAdapter = modelCompilationAdapterHTK;
-    modelCompiler = modelCompilerHTK;
+    modelCompilationAdapter = new ModelCompilationAdapterHTK(m_User, this);
+    modelCompiler = new ModelCompilerHTK(m_User, this);
   }
+
+  connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
+  connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
+  connect(modelCompilationAdapter, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
+  connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
+
+  connect(modelCompiler, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
+  connect(modelCompiler, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
+  connect(modelCompiler, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
+  connect(modelCompiler, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
+
+  connect(modelCompiler, SIGNAL(classUndefined(QString)), this,
+          SLOT(slotModelCompilationClassUndefined(QString)));
+  connect(modelCompiler, SIGNAL(wordUndefined(QString)), this,
+          SLOT(slotModelCompilationWordUndefined(QString)));
+  connect(modelCompiler, SIGNAL(phonemeUndefined(QString)), this,
+          SLOT(slotModelCompilationPhonemeUndefined(QString)));
 }
 
 QList<CorpusInformation*> SamView::creationCorpusInformation()
