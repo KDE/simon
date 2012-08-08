@@ -345,7 +345,8 @@ void ContextAdapter::slotModelCompilationAborted()
       break;
     }
   }
-  storeCachedModels();
+  safelyAddContextFreeModelToCache();
+  storeCachedModels();  
   m_compileLock.unlock();
   emit modelCompilationAborted();
 }
