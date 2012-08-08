@@ -330,6 +330,7 @@ void ContextAdapter::slotModelCompilationAborted()
       break;
     }
   }
+  safelyAddContextFreeModelToCache();
   storeCachedModels();  
   m_compileLock.unlock();
   emit modelCompilationAborted();
