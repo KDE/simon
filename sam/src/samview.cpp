@@ -18,6 +18,7 @@
  */
 
 #include "samview.h"
+#include "samxmlhelper.h"
 #include "accuracydisplay.h"
 #include "conservativetraining.h"
 #include "exporttestresults.h"
@@ -58,7 +59,6 @@
 #include <KDebug>
 #include <KCmdLineArgs>
 #include <QDomDocument>
-#include "samxmlhelper.h"
 #include <QUuid>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
@@ -740,6 +740,28 @@ void SamView::setClean()
   updateWindowTitle();
 }
 
+QHash<QString, QString> SamView::genAdaptionArgs(QString path)
+{
+  QHash<QString,QString> adaptionArgs;
+  if(backendType == TestConfigurationWidget::SPHINX)
+  {
+    QString modelName = m_User+QUuid::createUuid().toString();
+    adaptionArgs.insert("workingDir", path);
+    adaptionArgs.insert("modelName", modelName);
+    adaptionArgs.insert("stripContext", "true");
+  }
+  else if(backendType == TestConfigurationWidget::JHTK)
+  {
+    adaptionArgs.insert("lexicon", path+"lexicon");
+    adaptionArgs.insert("grammar", path+"model.grammar");
+    adaptionArgs.insert("simpleVocab", path+"simple.voca");
+    adaptionArgs.insert("prompts", path+"samprompts");
+    adaptionArgs.insert("stripContext", "true");
+  }
+
+  return adaptionArgs;
+}
+
 void SamView::getBuildPathsFromSimon()
 {
   kDebug()<<"sarting adaptation";
@@ -803,26 +825,9 @@ void SamView::getBuildPathsFromSimon()
     adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel |
                                                             ModelCompilationAdapter::AdaptAcousticModel);
 
-  QHash<QString,QString> adaptionArgs;
-  if(backendType == TestConfigurationWidget::SPHINX)
-  {
-    QString modelName = m_User+QUuid::createUuid().toString();
-    adaptionArgs.insert("workingDir", path);
-    adaptionArgs.insert("modelName", modelName);
-    adaptionArgs.insert("stripContext", "true");
-  }
-  else if(backendType == TestConfigurationWidget::JHTK)
-  {
-    adaptionArgs.insert("lexicon", path+"lexicon");
-    adaptionArgs.insert("grammar", path+"model.grammar");
-    adaptionArgs.insert("simpleVocab", path+"simple.voca");
-    adaptionArgs.insert("prompts", path+"samprompts");
-    adaptionArgs.insert("stripContext", "true");
-  }
-
   QStringList scenarioPaths = findScenarios(scenarioIds);
   kDebug()<<"sarting adaptation";
-  modelCompilationAdapter->startAdaption(adaptionType, scenarioPaths, path+"prompts", adaptionArgs);
+  modelCompilationAdapter->startAdaption(adaptionType, scenarioPaths, path+"prompts", genAdaptionArgs(path));
 }
 
 
@@ -884,26 +889,10 @@ void SamView::serializeScenariosRun(const QStringList& scenarioIds, const QStrin
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
 
-  QHash<QString,QString> adaptionArgs;
-
-  if(backendType == TestConfigurationWidget::SPHINX)
-  {
-    QString modelName = m_User+QUuid::createUuid().toString();
-    adaptionArgs.insert("workingDir", output);
-    adaptionArgs.insert("modelName", modelName);
-  }
-  else if(backendType == TestConfigurationWidget::JHTK)
-  {
-    adaptionArgs.insert("lexicon", output+"lexicon");
-    adaptionArgs.insert("grammar", output+"model.grammar");
-    adaptionArgs.insert("simpleVocab", output+"simple.voca");
-    adaptionArgs.insert("prompts", output+"prompts");
-  }
-
   modelCompilationAdapter->startAdaption(
         ModelCompilationAdapter::AdaptLanguageModel,
         scenarioPaths, ui.urPrompts->url().toLocalFile(),
-        adaptionArgs);
+        genAdaptionArgs(output));
 }
 
 

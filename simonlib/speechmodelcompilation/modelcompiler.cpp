@@ -17,12 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include<KDebug>
-
 #include "modelcompiler.h"
+#include "modelmetadata.h"
+
 #include <QDomDocument>
 #include <QDateTime>
-#include "modelmetadata.h"
+#include<KDebug>
 
 bool ModelCompiler::hasBuildLog() const
 {

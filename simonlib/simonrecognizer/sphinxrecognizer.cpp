@@ -19,15 +19,12 @@
 
 #include "sphinxrecognizer.h"
 #include "sphinxrecognitionconfiguration.h"
-#include <stdexcept>
-#include <KDebug>
-#include <cstdlib>
-#include <KDE/KLocalizedString>
 #include <simonrecognitionresult/recognitionresult.h>
 
-//SphinxRecognizer::SphinxRecognizer(const SphinxRecognizer &)
-//{
-//}
+#include <KDebug>
+#include <KDE/KLocalizedString>
+#include <cstdlib>
+#include <stdexcept>
 
 SphinxRecognizer::SphinxRecognizer():decoder(0)
 {

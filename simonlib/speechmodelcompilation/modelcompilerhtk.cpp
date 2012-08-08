@@ -287,7 +287,7 @@ bool ModelCompilerHTK::pack ( const QString& targetArchive, const QString& name 
 {
   QHash<QString, QByteArray> fm;
   QDomDocument DomDocument;
-  getMetaData(name, "HTK").SerializeXml(DomDocument);
+  getMetaData(name, "HTK").serializeXml(DomDocument);
   fm.insert("metadata.xml", DomDocument.toByteArray());
 
   QHash<QString, QString> efm;

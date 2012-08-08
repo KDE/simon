@@ -33,16 +33,16 @@ public:
   ModelMetadata(const QDomElement &DomElement);
   ModelMetadata(){}
 
-  QString Name() const { return m_Name; }
-  QDateTime DateTime() const { return m_Time; }
-  QString Type() const { return m_Type; }
+  QString name() const { return m_Name; }
+  QDateTime dateTime() const { return m_Time; }
+  QString type() const { return m_Type; }
 
   void setName(const QString &name) { m_Name = name; }
   void setTime(const QDateTime &time) {m_Time = time; }
   void setType(QString type) { m_Type = type; }
 
-  QDomElement SerializeXml(QDomDocument &DomDocument) const;
-  bool DeserializeXml(const QDomElement &DomElement);
+  QDomElement serializeXml(QDomDocument &DomDocument) const;
+  bool deserializeXml(const QDomElement &DomElement);
 
 protected:
   QString m_Name;

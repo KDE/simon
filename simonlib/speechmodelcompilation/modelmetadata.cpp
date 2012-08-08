@@ -21,10 +21,10 @@
 
 ModelMetadata::ModelMetadata(const QDomElement &DomElement)
 {
-  this->DeserializeXml(DomElement);
+  this->deserializeXml(DomElement);
 }
 
-QDomElement ModelMetadata::SerializeXml(QDomDocument &DomDocument) const
+QDomElement ModelMetadata::serializeXml(QDomDocument &DomDocument) const
 {
   QDomElement rootElem = DomDocument.createElement("baseModel");
   DomDocument.appendChild(rootElem);
@@ -45,7 +45,7 @@ QDomElement ModelMetadata::SerializeXml(QDomDocument &DomDocument) const
   return rootElem;
 }
 
-bool ModelMetadata::DeserializeXml(const QDomElement &DomElement)
+bool ModelMetadata::deserializeXml(const QDomElement &DomElement)
 {
   if(DomElement.tagName() != "baseModel") return false;
   QDomElement NameNode = DomElement.firstChildElement("name");

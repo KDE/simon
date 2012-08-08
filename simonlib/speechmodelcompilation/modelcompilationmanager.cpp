@@ -18,11 +18,12 @@
  */
 
 #include "modelcompilationmanager.h"
-#include <stdexcept>
+
 #include <KStandardDirs>
 #include <KDebug>
 #include <QFile>
 #include <QString>
+#include <stdexcept>
 
 ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObject* parent ) : 
     QThread ( parent ), userName(userName), compiler(0), adapter(0)

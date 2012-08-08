@@ -20,13 +20,14 @@
 #ifndef SIMON_RECOGNITIONCONTROL_H_F4CB407566D6459487054C2B03311E38
 #define SIMON_RECOGNITIONCONTROL_H_F4CB407566D6459487054C2B03311E38
 
+#include <simonrecognitionresult/recognitionresult.h>
+#include "simonrecognizer/recognizer.h"
+
 #include <QObject>
 #include <QThread>
 #include <QList>
 #include <QDateTime>
 #include <QMetaType>
-#include <simonrecognitionresult/recognitionresult.h>
-#include "simonrecognizer/recognizer.h"
 #include <QMutex>
 #include <QQueue>
 

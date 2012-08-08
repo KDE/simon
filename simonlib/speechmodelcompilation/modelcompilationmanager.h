@@ -20,10 +20,13 @@
 #ifndef SIMON_MODELCOMPILATIONMANAGER_H_18BCB183592A48D3962815FFDEA7C214
 #define SIMON_MODELCOMPILATIONMANAGER_H_18BCB183592A48D3962815FFDEA7C214
 
-#include <QThread>
+#include "simonmodelcompilationmanagement_export.h"
+
 #include <speechmodelcompilation/modelcompilationadapter.h>
 #include <speechmodelcompilation/modelcompiler.h>
-#include "simonmodelcompilationmanagement_export.h"
+
+#include <QThread>
+
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 {

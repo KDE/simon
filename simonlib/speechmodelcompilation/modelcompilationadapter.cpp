@@ -18,6 +18,10 @@
  */
 
 #include "modelcompilationadapter.h"
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/vocabulary.h>
+#include <simonscenarios/activevocabulary.h>
+#include <simonscenarios/grammar.h>
 
 #include <QTimer>
 #include <KLocale>
@@ -28,10 +32,7 @@
 #include <KStandardDirs>
 #include <KAboutData>
 #include <KComponentData>
-#include <simonscenarios/scenario.h>
-#include <simonscenarios/vocabulary.h>
-#include <simonscenarios/activevocabulary.h>
-#include <simonscenarios/grammar.h>
+
 
 ModelCompilationAdapter::ModelCompilationAdapter(const QString& userName, QObject *parent) : QObject(parent), m_userName(userName)
 {

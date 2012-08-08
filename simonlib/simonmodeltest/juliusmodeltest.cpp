@@ -17,9 +17,9 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "juliusmodeltest.h"
 #include <simonrecognizer/juliusstaticrecognitionconfiguration.h>
 #include <simonrecognizer/juliusrecognizer.h>
-#include "juliusmodeltest.h"
 
 JuliusModelTest::JuliusModelTest(const QString& userName, QObject *parent):  ModelTest(userName, parent)
 {

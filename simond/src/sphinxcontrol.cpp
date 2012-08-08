@@ -18,14 +18,16 @@
  */
 
 #include "sphinxcontrol.h"
-#include <KDebug>
-#include <QDir>
-#include <simonutils/fileutils.h>
-#include <KStandardDirs>
-#include <KLocale>
 #include <speechmodelcompilation/modelmetadata.h>
+#include <simonutils/fileutils.h>
 #include <simonrecognizer/sphinxrecognitionconfiguration.h>
 #include <simonrecognizer/sphinxrecognizer.h>
+
+#include <KDebug>
+#include <QDir>
+#include <KStandardDirs>
+#include <KLocale>
+
 
 SphinxControl::SphinxControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
 {
@@ -69,11 +71,11 @@ bool SphinxControl::initializeRecognition(const QString &modelPath)
   ModelMetadata metadata;
   QDomDocument DomDocument;
   DomDocument.setContent(&metadataFile);
-  metadata.DeserializeXml(DomDocument.documentElement());
+  metadata.deserializeXml(DomDocument.documentElement());
 
   metadataFile.close();
 
-  modelName = metadata.Name();
+  modelName = metadata.name();
 
   kDebug() << "Emitting recognition ready";
   emit recognitionReady();

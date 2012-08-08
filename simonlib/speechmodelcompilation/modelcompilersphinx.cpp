@@ -17,17 +17,16 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <QFile>
+#include "modelcompilersphinx.h"
 
+#include <simonutils/fileutils.h>
+
+#include <QFile>
 #include <KDebug>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KStandardDirs>
 #include <KLocale>
-#include <simonutils/fileutils.h>
-
-
-#include "modelcompilersphinx.h"
 #include <QDir>
 
 bool ModelCompilerSPHINX::parseConfiguration()
@@ -146,7 +145,7 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
 
   QHash<QString, QByteArray> fm;
   QDomDocument DomDocument;
-  getMetaData(name, "SPHINX").SerializeXml(DomDocument);
+  getMetaData(name, "SPHINX").serializeXml(DomDocument);
 //  kDebug() << DomDocument.toString();
   fm.insert("metadata.xml", DomDocument.toByteArray());
 

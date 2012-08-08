@@ -17,10 +17,11 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <KDebug>
 #include "testconfigurationwidget.h"
 #include "corpusinformation.h"
 #include "samxmlhelper.h"
+
+#include <KDebug>
 
 TestConfigurationWidget::TestConfigurationWidget(QWidget *parent) : QFrame(parent)
 {

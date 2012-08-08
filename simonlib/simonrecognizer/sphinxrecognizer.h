@@ -21,9 +21,9 @@
 #define SPHINXRECOGNIZER_H
 
 #include "recognizer.h"
+#include "simonrecognizer_export.h"
 
 #include <QString>
-#include "simonrecognizer_export.h"
 #include <pocketsphinx/pocketsphinx.h>
 
 class SIMONRECOGNIZER_EXPORT SphinxRecognizer : public Recognizer

@@ -41,11 +41,12 @@
 #ifndef SIMON_JULIUSCONTROL_H_1A3B1D09EFF241FDAFC53C895B0017DD
 #define SIMON_JULIUSCONTROL_H_1A3B1D09EFF241FDAFC53C895B0017DD
 
+#include "recognitioncontrol.h"
+#include <simonrecognizer/juliusrecognizer.h>
+
 #include <QList>
 #include <QPointer>
 #include <KDebug>
-#include "recognitioncontrol.h"
-#include <simonrecognizer/juliusrecognizer.h>
 
 class RecognitionConfiguration;
 

@@ -21,13 +21,14 @@
 #define SIMON_SAMVIEW_H_4002119636CC42C68FE07273F9000A73
 
 #include "samui.h"
+#include "testconfigurationwidget.h"
+
 #include <QWidget>
 #include <QProcess>
 #include <QList>
 #include <QDomElement>
 #include <QModelIndex>
 #include <kxmlguiwindow.h>
-#include "testconfigurationwidget.h"
 
 #include "ui_main.h"
 
@@ -73,7 +74,7 @@ class SamView :  public KXmlGuiWindow, public SamUi
 
 //    enum BackendType {SPHINX, JHTK};
 
-  public slots:
+public slots:
     bool close();
 
   private slots:
@@ -186,6 +187,8 @@ class SamView :  public KXmlGuiWindow, public SamUi
 
     CorpusInformation* createEmptyCorpusInformation();
     ReportParameters* createEmptyReportParameters();
+
+    QHash<QString, QString> genAdaptionArgs(QString path);
 
     QList<CorpusInformation*> creationCorpusInformation();
     bool askIfQuit();

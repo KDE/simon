@@ -39,6 +39,7 @@
 #include "juliuscontrol.h"
 #include <simonrecognizer/recognitionconfiguration.h>
 #include <simonrecognizer/juliusrecognitionconfiguration.h>
+#include <simonutils/fileutils.h>
 
 #include <QFile>
 #include <KLocalizedString>
@@ -49,7 +50,6 @@
 #include <KMimeType>
 #include <KTar>
 #include <locale.h>
-#include <simonutils/fileutils.h>
 
 JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
 {

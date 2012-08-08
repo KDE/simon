@@ -20,13 +20,15 @@
 #ifndef SIMON_MODELCOMPILER_H_18BCB183592A48D3962815FFDEA7C214
 #define SIMON_MODELCOMPILER_H_18BCB183592A48D3962815FFDEA7C214
 
+#include "simonmodelcompilationmanagement_export.h"
+#include "modelmetadata.h"
+
 #include <QObject>
 #include <QString>
 #include <QHash>
-#include "simonmodelcompilationmanagement_export.h"
 #include <QMutex>
 #include <QProcess>
-#include "modelmetadata.h"
+
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
 {

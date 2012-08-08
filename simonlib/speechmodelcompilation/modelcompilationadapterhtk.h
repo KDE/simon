@@ -20,13 +20,14 @@
 #ifndef SIMON_MODELCOMPILATIONADAPTERHTK_H_676A176EAB4B40B39F6F8E0F65064C75
 #define SIMON_MODELCOMPILATIONADAPTERHTK_H_676A176EAB4B40B39F6F8E0F65064C75
 
+#include "modelcompilationadapter.h"
+#include "simonmodelcompilationmanagement_export.h"
+
 #include <QThread>
 #include <QProcess>
 #include <QHash>
 #include <QSharedPointer>
 #include <QByteArray>
-#include "modelcompilationadapter.h"
-#include "simonmodelcompilationmanagement_export.h"
 
 class Vocabulary;
 class Grammar;

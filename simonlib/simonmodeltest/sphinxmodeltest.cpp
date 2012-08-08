@@ -17,9 +17,9 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "sphinxmodeltest.h"
 #include <simonrecognizer/sphinxrecognizer.h>
 #include <simonrecognizer/sphinxrecognitionconfiguration.h>
-#include "sphinxmodeltest.h"
 
 SphinxModelTest::SphinxModelTest(const QString& userName, QObject *parent):  ModelTest(userName, parent)
 {

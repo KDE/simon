@@ -20,12 +20,12 @@
 #ifndef SIMON_MODELTEST_H_D0E9CBE71B3343D39663FF655B61ED20
 #define SIMON_MODELTEST_H_D0E9CBE71B3343D39663FF655B61ED20
 
-#include <QThread>
-#include <QProcess>
-#include <QHash>
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonrecognizer/recognitionconfiguration.h>
 #include "simonmodeltest_export.h"
+#include <QThread>
+#include <QProcess>
+#include <QHash>
 
 class RecognizerResult;
 class TestResult;

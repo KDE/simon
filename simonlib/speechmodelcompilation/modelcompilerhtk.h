@@ -20,11 +20,12 @@
 #ifndef SIMON_MODELCOMPILERHTK_H_18BCB183592A48D3962815FFDEA7C214
 #define SIMON_MODELCOMPILERHTK_H_18BCB183592A48D3962815FFDEA7C214
 
+#include "modelcompiler.h"
+#include "simonmodelcompilationmanagement_export.h"
+
 #include <QProcess>
 #include <QMutex>
 #include <QString>
-#include "modelcompiler.h"
-#include "simonmodelcompilationmanagement_export.h"
 
 class AudioCopyConfig;
 class ReestimationConfig;
