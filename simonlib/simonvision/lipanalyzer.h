@@ -37,14 +37,18 @@ signals:
 
 private:
   void closeLipDetection();
-  int initLipDetection(const QString& faceHaarCascadePath, const QString& lipHaarCascadePath);
+  bool initLipDetection(const QString& faceHaarCascadePath, const QString& lipHaarCascadePath);
   void isChanged(bool hasLipMoved);
   bool hasLipMoved;
   IplImage  * liveVideoFrameCopy;
   IplImage  * prevVideoFrame;
+  
   CvHaarClassifierCascade * faceCascade;
+  
   CvHaarClassifierCascade * lipCascade;
-  CvMemStorage * memoryStorage;             // memory for detector to use
+  
+  // Memory that will needed to perform detection
+  CvMemStorage * memoryStorage;
 
 };
 

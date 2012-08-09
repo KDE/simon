@@ -20,7 +20,6 @@
 #include "lipanalyzer.h"
 #include "webcamdispatcher.h"
 #include "simoncv.h"
-#include <iostream>
 #include <KDebug>
 #include <KStandardDirs>
 
@@ -34,35 +33,35 @@ LipAnalyzer::LipAnalyzer()
 
 }
 
-int LipAnalyzer::initLipDetection(const QString& lipHaarCascadePath, const QString& faceHaarCascadePath)
+bool LipAnalyzer::initLipDetection(const QString& lipHaarCascadePath, const QString& faceHaarCascadePath)
 {
   prevVideoFrame=0;
 
   if (!(memoryStorage = cvCreateMemStorage(0)))
   {
     kDebug() <<"Can\'t allocate memory for lip detection\n";
-    return 0;
+    return false;
   }
 
   faceCascade = (CvHaarClassifierCascade*) cvLoad(faceHaarCascadePath.toUtf8(), 0, 0, 0);
 
   if (!faceCascade)
   {
-    kDebug() <<"Can\'t load Haar classifier faceCascade from "<<faceHaarCascadePath<<
+    kDebug() <<"Can\'t load Haar classifier face cascade from "<<faceHaarCascadePath<<
     "\nPlease check that this is the correct path\n";
-    return 0;
+    return false;
   }
 
   lipCascade = (CvHaarClassifierCascade*) cvLoad(lipHaarCascadePath.toUtf8(), 0, 0, 0);
 
   if (!lipCascade)
   {
-    kDebug() <<"Can\'t load Haar classifier lipCascade from "<<lipHaarCascadePath<<
+    kDebug() <<"Can\'t load Haar classifier lip cascade from "<<lipHaarCascadePath<<
     "\nPlease check that this is the correct path\n";
-    return 0;
+    return false;
   }
 
-  return 1;
+  return true;
 }
 
 
@@ -70,22 +69,14 @@ int LipAnalyzer::initLipDetection(const QString& lipHaarCascadePath, const QStri
 
 void LipAnalyzer::analyze(IplImage* currentImage)
 {
-//   cvNamedWindow("mouth");
 
   if (!currentImage)
     return;
 
   CvRect * faceRect = 0;
 
-  // Capture and display video frames until a lip
-  // is detected
 
-  // Look for a lip in the next video frame
-
-//        if (!liveVideoFrameCopy)
   liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
-
-//   kDebug()<<"Analyzing";
 
   cvCopy(currentImage, liveVideoFrameCopy, 0);
 
@@ -104,25 +95,22 @@ void LipAnalyzer::analyze(IplImage* currentImage)
 
   if (faceRect)
   {
-//     kDebug()<<"Face detected";
-    cvRectangle(liveVideoFrameCopy,cvPoint(faceRect->x, faceRect->y),
-                cvPoint(faceRect->x + faceRect->width, faceRect->y + faceRect->height),
-                CV_RGB(255, 0, 0), 1, 8, 0);
-
-
+    
+//     cvRectangle(liveVideoFrameCopy,cvPoint(faceRect->x, faceRect->y),
+//                 cvPoint(faceRect->x + faceRect->width, faceRect->y + faceRect->height),
+//                 CV_RGB(255, 0, 0), 1, 8, 0);
 
     cvSetImageROI(liveVideoFrameCopy,/* the source image */
                   cvRect(faceRect->x,            /* x = start from leftmost */
-                         faceRect->y+(faceRect->height *2/3), /* y = a few pixels from the top */
-                         faceRect->width,        /* width = same width with the face */
-                         faceRect->height/3)    /* height = 1/3 of face height */
+                         faceRect->y+(faceRect->height *2/3), /* We are just considering the lower part */
+                         faceRect->width,        /* width is same as of the face */
+                         faceRect->height/3)    /* height is the 1/3 of face height */
                  );
     CvRect * mouthRect = 0;
     mouthRect = detectObject(liveVideoFrameCopy,lipCascade,memoryStorage);
 
     if (mouthRect)
     {
-//       kDebug()<<"mouth detected"<<mouthRect->width;
       cvRectangle(liveVideoFrameCopy,cvPoint(faceRect->x, faceRect->y),
                   cvPoint(faceRect->x + faceRect->width, faceRect->y + faceRect->height),
                   CV_RGB(0, 255, 0), 1, 8, 0);
@@ -141,7 +129,6 @@ void LipAnalyzer::analyze(IplImage* currentImage)
       IplImage *diff = cvCreateImage(cvGetSize(liveVideoFrameCopy),liveVideoFrameCopy->depth,liveVideoFrameCopy->nChannels);
 
       cvAbsDiff(prevVideoFrame,liveVideoFrameCopy,diff);
-//       cvShowImage("mouth",diff);
 
 
 
@@ -190,7 +177,6 @@ void LipAnalyzer::analyze(IplImage* currentImage)
 
 }
 
-
 void LipAnalyzer::closeLipDetection()
 {
   //    WebcamDispatcher::unregisterAnalyzer(this);
@@ -213,8 +199,6 @@ void LipAnalyzer::isChanged(bool hasLipMovedNew)
   }
 
   hasLipMoved = hasLipMovedNew;
-
-  //kDebug()<<hasLipMoved;
 }
 
 LipAnalyzer::~LipAnalyzer()
@@ -224,7 +208,3 @@ LipAnalyzer::~LipAnalyzer()
   // Release resources allocated in the analyzer
 //  closeLipDetection();
 }
-
-
-
-

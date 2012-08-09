@@ -20,11 +20,9 @@
 #include "faceanalyzer.h"
 #include "webcamdispatcher.h"
 #include "simoncv.h"
-#include <iostream>
 #include <KDebug>
 #include <KStandardDirs>
 
-using namespace std;
 
 using namespace SimonCV;
 
@@ -63,11 +61,6 @@ void FaceAnalyzer::analyze(IplImage* currentImage)
     return;
 
   CvRect * faceRect = 0;
-
-  // Capture and display video frames until a face
-  // is detected
-
-  // Look for a face in the next video frame
 
 //    if (!liveVideoFrameCopy)
   liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
@@ -114,8 +107,6 @@ void FaceAnalyzer::isChanged(bool hasFaceNew)
   }
 
   hasFace = hasFaceNew;
-
-  //kDebug()<<hasFace;
 }
 
 FaceAnalyzer::~FaceAnalyzer()

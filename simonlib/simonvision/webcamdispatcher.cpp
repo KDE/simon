@@ -22,18 +22,19 @@
 #include<QThread>
 #include<highgui.h>
 #include<cv.h>
+using namespace cv;
+
 CvCapture* capture=0;
 QList<ImageAnalyzer*> analyzers = QList<ImageAnalyzer*>();
 WebcamDispatcher* WebcamDispatcher::instance = new WebcamDispatcher;
 
-using namespace cv;
+
 
 void WebcamDispatcher::initWebcamDispatcher()
 {
 
   // Initialize video capture
   capture = cvCaptureFromCAM(CV_CAP_ANY);
-//    capture = cvCaptureFromCAM( 0 );
 
   if (!capture)
   {
@@ -47,7 +48,9 @@ void WebcamDispatcher::initWebcamDispatcher()
 void WebcamDispatcher::closeWebcamDispatcher()
 {
   // Terminate video capture and free capture resources
-  cvReleaseCapture(&capture);
+  if (capture)
+    cvReleaseCapture(&capture);
+
   kDebug() << "Webcam Dispatcher closed!\n ";
 }
 
@@ -72,12 +75,11 @@ void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
   {
     if (analyzer==instance->analyzers.at(i))
     {
-      kDebug() << "Instanced removed\n ";
       instance->analyzers.removeAt(i);
+      kDebug() << "Instance removed\n  ";
     }
 
   }
-
 
 
 }
@@ -86,7 +88,6 @@ IplImage* WebcamDispatcher::nextVideoFrame()
 {
   IplImage* liveFrame = cvQueryFrame(capture);
 
-  // If we couldn't grab a frame... quit
 
   if (!liveFrame)
   {
@@ -101,8 +102,6 @@ IplImage* WebcamDispatcher::nextVideoFrame()
 
 void WebcamDispatcher::run()
 {
-
-//    cvNamedWindow("Testing");
 
   while (1)
   {
@@ -122,21 +121,6 @@ void WebcamDispatcher::run()
 
 
 }
-
-//     CvCapture* camera = 0;
-//     camera = cvCreateCameraCapture(0);
-//
-
-//
-//     while (true)
-//     {
-//         IplImage* image=cvQueryFrame(camera);
-//         cvShowImage("Testing", image );
-//         //If ESC key pressed, break
-//         if ( (cvWaitKey(10) & 255) == 27 ) break;
-//     }
-//     cvReleaseCapture( &camera );
-//     cvDestroyWindow( "Testing" );
 
 
 WebcamDispatcher::~WebcamDispatcher()

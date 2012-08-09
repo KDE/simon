@@ -42,9 +42,14 @@ private:
   void isChanged(bool hasFace);
 
   bool hasFace;
+  
   IplImage  * liveVideoFrameCopy;
-  CvHaarClassifierCascade * cascade;  // the lip detector
-  CvMemStorage * memoryStorage;             // memory for detector to use
+  
+  // Cascade for detecting face
+  CvHaarClassifierCascade * cascade;
+  
+  // Memory that will needed to perform detection
+  CvMemStorage * memoryStorage;
 };
 
 #endif // FACEANALYZER_H
