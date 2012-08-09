@@ -180,12 +180,14 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
 
   m_pronunciationCount = 0;
   QList<Word*> words = vocabulary->getWords();
+
+  QStringList added; //Think about better way to do it
   m_wordCount = 0;
   foreach (Word *word, words)
   {
     if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
-            !(adaptionType == ModelCompilationAdapter::AdaptIndependently) &&
-        !trainedVocabulary.contains(word->getLexiconWord()))
+            (!(adaptionType == ModelCompilationAdapter::AdaptIndependently) &&
+        !trainedVocabulary.contains(word->getLexiconWord())) || added.contains(word->getWord()))
     {
       kDebug() << "Skipping word " << word->getWord();
       continue;
@@ -194,6 +196,8 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
     ++m_pronunciationCount;
     dictionary << word->getWord() << QLatin1String("\t\t") <<
                   word->getPronunciation() << QLatin1String("\n");
+
+    added.append(word->getWord());
 
     ++m_wordCount;
     if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
