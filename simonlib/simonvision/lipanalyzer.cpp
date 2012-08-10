@@ -27,6 +27,12 @@ using namespace SimonCV;
 
 LipAnalyzer::LipAnalyzer()
 {
+  faceCascade=0;
+  lipCascade=0;
+  liveVideoFrameCopy=0;
+  prevVideoFrame=0;
+  memoryStorage=0;
+  
   if (!initLipDetection(KStandardDirs::locate("data", "haarcascade_mcs_mouth.xml"),
                         KStandardDirs::locate("data", "haarcascade_frontalface_default.xml")))
     kDebug() <<"Error finding haarcascade file";
@@ -182,6 +188,8 @@ void LipAnalyzer::closeLipDetection()
   //    WebcamDispatcher::unregisterAnalyzer(this);
 
   cvReleaseHaarClassifierCascade(&faceCascade);
+  cvReleaseHaarClassifierCascade(&lipCascade);
+  
 
   if (memoryStorage)
     cvReleaseMemStorage(&memoryStorage);

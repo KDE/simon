@@ -49,7 +49,9 @@ void WebcamDispatcher::closeWebcamDispatcher()
 {
   // Terminate video capture and free capture resources
   if (capture)
-    cvReleaseCapture(&capture);
+  {
+    cvReleaseCapture(&capture);    
+  }
 
   kDebug() << "Webcam Dispatcher closed!\n ";
 }
@@ -103,14 +105,8 @@ IplImage* WebcamDispatcher::nextVideoFrame()
 void WebcamDispatcher::run()
 {
 
-  while (1)
+  while (instance->analyzers.count()!=0)
   {
-    if (instance->analyzers.count() ==0)
-    {
-      instance->closeWebcamDispatcher();
-      break;
-    }
-
     foreach(ImageAnalyzer* analyzer,analyzers)
 
     {
@@ -119,6 +115,7 @@ void WebcamDispatcher::run()
     }
   }
 
+    instance->closeWebcamDispatcher();
 
 }
 

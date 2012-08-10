@@ -28,6 +28,9 @@ using namespace SimonCV;
 
 FaceAnalyzer::FaceAnalyzer()
 {
+  cascade=0;
+  liveVideoFrameCopy=0;
+  memoryStorage=0;
   if (!initFaceDetection(KStandardDirs::locate("data", "haarcascade_frontalface_default.xml")))
     kDebug() <<"Error finding haarcascade_frontalface_default.xml file";
 }
@@ -87,14 +90,12 @@ void FaceAnalyzer::analyze(IplImage* currentImage)
 
 void FaceAnalyzer::closeFaceDetection()
 {
-  if (cascade)
-    cvReleaseHaarClassifierCascade(&cascade);
+  
+//    cvReleaseHaarClassifierCascade(&cascade);
+//    if (memoryStorage)
+//    cvReleaseMemStorage(&memoryStorage);
 
-  if (memoryStorage)
-    cvReleaseMemStorage(&memoryStorage);
-
-  if (liveVideoFrameCopy)
-    cvReleaseImage(&liveVideoFrameCopy);
+  //  cvReleaseImage(&liveVideoFrameCopy);
 }
 
 
