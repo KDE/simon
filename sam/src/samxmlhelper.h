@@ -20,6 +20,8 @@
 #ifndef SIMON_SAMXMLHELPER_H_4002119636CC42C68FE07273F9000A73
 #define SIMON_SAMXMLHELPER_H_4002119636CC42C68FE07273F9000A73
 
+#include<KUrl>
+
 class QDomDocument;
 class QDomElement;
 class KUrlRequester;
@@ -29,6 +31,7 @@ class SamXMLHelper
 {
 public:
   static void serializePath(QDomDocument* doc, QDomElement& parent, KUrlRequester* requester, const QString& tagName);
+  static void serializePath(QDomDocument* doc, QDomElement& parent, const KUrl &url, const QString& tagName);
   static void serializeText(QDomDocument* doc, QDomElement& parent, const QString& text, const QString& tagName);
   static void serializeInt(QDomDocument* doc, QDomElement& parent, int value, const QString& tagName);
   

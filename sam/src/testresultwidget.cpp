@@ -18,7 +18,8 @@
  */
 
 #include "testresultwidget.h"
-#include "testconfigurationwidget.h"
+#include "sphinxtestconfigurationwidget.h"
+#include "juliustestconfigurationwidget.h"
 #include "corpusinformation.h"
 #include <simonmodeltest/juliusmodeltest.h>
 #include <simonmodeltest/sphinxmodeltest.h>
@@ -29,7 +30,9 @@
 #include <QSortFilterProxyModel>
 #include <KStandardDirs>
 #include <KMessageBox>
-
+#include <QFile>
+#include <QDir>
+#include <typeinfo>
 
 TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidget *parent) : QWidget(parent),
   currentState(TestResultWidget::Idle),
@@ -40,9 +43,9 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
 
   connect(config, SIGNAL(destroyed()), this, SLOT(deleteLater()));
 
-  if(config->backendType() == TestConfigurationWidget::SPHINX)
+  if(typeid(*config) == typeid(SphinxTestConfigurationWidget))
     modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
-  else if(config->backendType() == TestConfigurationWidget::JHTK)
+  else if(typeid(*config) == typeid(JuliusTestConfigurationWidget))
     modelTest = new JuliusModelTest("internalsamuser_"+config->tag(), this);
 
   connect(modelTest, SIGNAL(testComplete()), this, SLOT(slotModelTestCompleted()));
@@ -94,19 +97,21 @@ void TestResultWidget::startTest()
 
   QHash<QString, QString> testParams;
 
-  if(config->backendType() == TestConfigurationWidget::SPHINX)
+  if(typeid(*config) == typeid(SphinxTestConfigurationWidget))
   {
-    testParams.insert("modelDir", config->sphinxModelDir().toLocalFile());
-    testParams.insert("grammar", config->sphinxGrammar().toLocalFile());
-    testParams.insert("dictionary", config->sphinxDictionary().toLocalFile());
+    SphinxTestConfigurationWidget *sconfig = dynamic_cast<SphinxTestConfigurationWidget*>(config);
+    testParams.insert("modelDir", sconfig->sphinxModelDir().toLocalFile());
+    testParams.insert("grammar", sconfig->sphinxGrammar().toLocalFile());
+    testParams.insert("dictionary", sconfig->sphinxDictionary().toLocalFile());
   }
-  else if(config->backendType() == TestConfigurationWidget::JHTK)
+  else if(typeid(*config) == typeid(JuliusTestConfigurationWidget))
   {
-    testParams.insert("hmmDefsPath", config->hmmDefs().toLocalFile());
-    testParams.insert("tiedListPath", config->tiedlist().toLocalFile());
-    testParams.insert("dictPath", config->dict().toLocalFile());
-    testParams.insert("dfaPath", config->dfa().toLocalFile());
-    testParams.insert("juliusJConf", config->jconf().toLocalFile());
+    JuliusTestConfigurationWidget *jconfig = dynamic_cast<JuliusTestConfigurationWidget*>(config);
+    testParams.insert("hmmDefsPath", jconfig->hmmDefs().toLocalFile());
+    testParams.insert("tiedListPath", jconfig->tiedlist().toLocalFile());
+    testParams.insert("dictPath", jconfig->dict().toLocalFile());
+    testParams.insert("dfaPath", jconfig->dfa().toLocalFile());
+    testParams.insert("juliusJConf", jconfig->jconf().toLocalFile());
   }
 
   modelTest->startTest(config->testPromptsBasePath().toLocalFile(),

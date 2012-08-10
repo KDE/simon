@@ -22,7 +22,8 @@
 #include "accuracydisplay.h"
 #include "conservativetraining.h"
 #include "exporttestresults.h"
-#include "testconfigurationwidget.h"
+#include "juliustestconfigurationwidget.h"
+#include "sphinxtestconfigurationwidget.h"
 #include "testresultwidget.h"
 #include "testresultplotter.h"
 #include "reportparameters.h"
@@ -284,7 +285,12 @@ void SamView::storeBuildLog()
 
 void SamView::addTestConfiguration()
 {
-  TestConfigurationWidget *config = new TestConfigurationWidget(this);
+  TestConfigurationWidget *config(0) ;
+  if(TestConfigurationWidget::IntToBackendType(ui.cbType->currentIndex()) == TestConfigurationWidget::SPHINX)
+    config = new SphinxTestConfigurationWidget(this);
+  else if(TestConfigurationWidget::IntToBackendType(ui.cbType->currentIndex()) == TestConfigurationWidget::JHTK)
+    config = new JuliusTestConfigurationWidget(this);
+
   addTestConfiguration(config);
 }
 
@@ -442,8 +448,8 @@ void SamView::exportTestResults()
     delete temp;
 
     //sync displays to potentially changed test result tags
-    foreach (TestConfigurationWidget *t, testConfigurations)
-      t->retrieveTag();
+//    foreach (TestConfigurationWidget *t, testConfigurations)
+//      t->retrieveTag();//WARNING: why it can be changed?
   }
   delete e;
 
@@ -970,71 +976,84 @@ void SamView::slotModelAdaptionComplete()
 {
   ui.twMain->setCurrentIndex(0);
 
+  TestConfigurationWidget *tconfig(0);
+
   bool fok = false;
-  if(backendType == TestConfigurationWidget::SPHINX)
+  switch(backendType)
   {
-    kDebug()<<"Sphinx";
-
-    QString modelPath = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->workingDir();
-//    kDebug()<<"Got modeldir: " <<KUrl(modelPath).toLocalFile();
-    if(!modelPath.isEmpty())
+    case TestConfigurationWidget::SPHINX:
     {
-      ui.urDir->setUrl(KUrl(modelPath));
-      fok = true;
-    }
+      kDebug()<<"Sphinx";
 
-    QString modelName = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->modelName();
-    if(!modelName.isEmpty()) ui.leMName->setText(modelName);
-
-//    QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_User+"/samples/");
-//    if(!audioLocation.isEmpty()) ui.urPromptsBasePath->setUrl(KUrl(audioLocation));
-  } else if(backendType == TestConfigurationWidget::JHTK)
-  {
-    QString lexicon = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->lexiconPath();
-    QString grammar = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->grammarPath();
-    QString simpleVocab = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->simpleVocabPath();
-    QString prompts = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->promptsPath();
-
-    kDebug()<<lexicon<<"\n" << grammar <<"\n" << simpleVocab <<"\n" << prompts;
-
-    if (!lexicon.isEmpty())
-    {
-      ui.urLexicon->setUrl(KUrl(lexicon));
-      fok = true;
-    }
-
-    if (!grammar.isEmpty()) ui.urGrammar->setUrl(KUrl(grammar));
-    if (!simpleVocab.isEmpty()) ui.urVocabulary->setUrl(KUrl(simpleVocab));
-    if (!prompts.isEmpty())
-    {
-      ui.urPrompts->setUrl(KUrl(prompts));
-      if (!m_creationCorpus)
-        m_creationCorpus = createEmptyCorpusInformation();
-      m_creationCorpus->setTotalSampleCount(modelCompilationAdapter->sampleCount());
-      QFileInfo fi(prompts);
-      QString path = fi.absolutePath();
-      QString trainingDataPath = path+QDir::separator()+"training.data";
-      ui.urPromptsBasePath->setUrl(KUrl(trainingDataPath));
-
-      QString promptsTestPath = path+QDir::separator()+"samprompts_test";
-
-      if (testConfigurations.isEmpty())
+      QString modelPath = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->workingDir();
+      //    kDebug()<<"Got modeldir: " <<KUrl(modelPath).toLocalFile();
+      if(!modelPath.isEmpty())
       {
-        //automatically add appropriate test configuration
-        QString testPromptsPathUsed;
-        if (QFile::exists(promptsTestPath))
-          testPromptsPathUsed = promptsTestPath;
-        else
-          testPromptsPathUsed = prompts;
-        addTestConfiguration(new TestConfigurationWidget(
-                               createEmptyCorpusInformation(), QString(),
-                               QString(), QString(), QString(), KUrl(testPromptsPathUsed), KUrl(trainingDataPath),
-                               KUrl(KStandardDirs::locate("data", "simond/default.jconf")), TestConfigurationWidget::JHTK, QString(), QString(), QString(),ui.sbSampleRate->value(),
-                               this));
+        ui.urDir->setUrl(KUrl(modelPath));
+        fok = true;
       }
+
+      QString modelName = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->modelName();
+      if(!modelName.isEmpty()) ui.leMName->setText(modelName);
+
+      //    QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_User+"/samples/");
+      //    if(!audioLocation.isEmpty()) ui.urPromptsBasePath->setUrl(KUrl(audioLocation));
+
+      break;
     }
-  }else
-    kDebug()<<"o_0";
+    case TestConfigurationWidget::JHTK:
+    {
+      QString lexicon = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->lexiconPath();
+      QString grammar = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->grammarPath();
+      QString simpleVocab = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->simpleVocabPath();
+      QString prompts = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->promptsPath();
+
+      kDebug()<<lexicon<<"\n" << grammar <<"\n" << simpleVocab <<"\n" << prompts;
+
+      if (!lexicon.isEmpty())
+      {
+        ui.urLexicon->setUrl(KUrl(lexicon));
+        fok = true;
+      }
+
+      if (!grammar.isEmpty()) ui.urGrammar->setUrl(KUrl(grammar));
+      if (!simpleVocab.isEmpty()) ui.urVocabulary->setUrl(KUrl(simpleVocab));
+      if (!prompts.isEmpty())
+      {
+        ui.urPrompts->setUrl(KUrl(prompts));
+        if (!m_creationCorpus)
+          m_creationCorpus = createEmptyCorpusInformation();
+        m_creationCorpus->setTotalSampleCount(modelCompilationAdapter->sampleCount());
+        QFileInfo fi(prompts);
+        QString path = fi.absolutePath();
+        QString trainingDataPath = path+QDir::separator()+"training.data";
+        ui.urPromptsBasePath->setUrl(KUrl(trainingDataPath));
+
+        QString promptsTestPath = path+QDir::separator()+"samprompts_test";
+
+        if (testConfigurations.isEmpty())
+        {
+          //automatically add appropriate test configuration
+          QString testPromptsPathUsed;
+          if (QFile::exists(promptsTestPath))
+            testPromptsPathUsed = promptsTestPath;
+          else
+            testPromptsPathUsed = prompts;
+          tconfig = new JuliusTestConfigurationWidget(createEmptyCorpusInformation(), KUrl(testPromptsPathUsed),
+                                                      KUrl(trainingDataPath),ui.sbSampleRate->value(), this);
+          QHash<QString, QString> params;
+          params.insert("jconf", KStandardDirs::locate("data", "simond/default.jconf"));
+
+          tconfig->init(params);
+        }
+      }
+      break;
+    }
+    default:
+      kDebug()<<"o_0";
+  }
+
+  addTestConfiguration(tconfig);
 
   if (fok)
   {

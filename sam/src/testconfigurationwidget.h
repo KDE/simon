@@ -17,16 +17,16 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_TESTCONFIGURATIONwIDGET_H_4002119636CC42C68FE07273F9000A73
-#define SIMON_TESTCONFIGURATIONwIDGET_H_4002119636CC42C68FE07273F9000A73
+#ifndef SIMON_TESTCONFIGURATIONWIDGET_H_4002119636CC42C68FE07273F9000A73
+#define SIMON_TESTCONFIGURATIONWIDGET_H_4002119636CC42C68FE07273F9000A73
 
-#include "ui_testconfiguration.h"
+//#include "ui_testconfiguration.h"
+#include "corpusinformation.h"
 #include <QFrame>
 #include <QDomElement>
+#include <KUrl>
 
 class QDomDocument;
-
-class CorpusInformation;
 
 class TestConfigurationWidget : public QFrame
 {
@@ -37,15 +37,24 @@ class TestConfigurationWidget : public QFrame
     void changed();
 
   private:
-    CorpusInformation* m_corpusInfo;
-    Ui::TestConfigurationWdg ui;
-    void setupUi();
+//    Ui::TestConfigurationWdg ui;
+
   private slots:
     void remove();
     void updateTag(const QString&);
 
+  protected:
+    CorpusInformation* m_corpusInfo;
+    int m_SampRate;
+    KUrl m_TestPrompts;
+    KUrl m_TestPromptsBasePath;
+
+    virtual void setupUi() = 0;
+    void updateGeneralParams(const KUrl& testPromptsUrl,
+                             const KUrl& testPromptsBasePathUrl, int sampleRate);
+
   public slots:
-    void retrieveTag();
+//    void retrieveTag();
 
   public:
 
@@ -53,35 +62,30 @@ class TestConfigurationWidget : public QFrame
 
     TestConfigurationWidget(QWidget *parent=0);
     TestConfigurationWidget(CorpusInformation* corpusInfo,
-        const KUrl& outputUrl,
-        const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
-        const KUrl& jconfUrl, BackendType type,
-        const KUrl &sphinxModelDir, const KUrl &sphinxGrammar, const KUrl &sphinxDictionary,
         int sampleRate, QWidget *parent=0);
-
-    ~TestConfigurationWidget();
-
-    QString tag() const;
-    CorpusInformation* corpusInformation() { return m_corpusInfo; }
-    KUrl hmmDefs() const;
-    KUrl tiedlist() const;
-    KUrl dict() const;
-    KUrl dfa() const;
-    KUrl testPrompts() const;
-    KUrl testPromptsBasePath() const;
-    KUrl jconf() const;
-    KUrl sphinxModelDir () const;
-    KUrl sphinxGrammar() const;
-    KUrl sphinxDictionary() const;
-    int sampleRate() const;
-    TestConfigurationWidget::BackendType backendType() const;
 
     static int BackendTypeToInt(BackendType type);
     static BackendType IntToBackendType(int type);
+    static BackendType StringToBackendType(const QString &typr);
+
+    static TestConfigurationWidget *deSerialize(const QDomElement& elem);
+
+    virtual ~TestConfigurationWidget();
+
+    virtual void init(const QHash<QString, QString>&) = 0;
+
+    QString tag() const { return m_corpusInfo->tag(); }
+    CorpusInformation* corpusInformation() { return m_corpusInfo; }
+    KUrl testPrompts() const { return m_TestPrompts; }
+    KUrl testPromptsBasePath() const { return m_TestPromptsBasePath; }
+
+    int sampleRate() const { return m_SampRate; }
+//    TestConfigurationWidget::BackendType backendType() const;
     
-    static TestConfigurationWidget* deSerialize(const QDomElement& elem);
-    QDomElement serialize(QDomDocument *doc);
+
+    virtual QDomElement serialize(QDomDocument *doc);
+
 
 };
 #endif

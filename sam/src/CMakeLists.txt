@@ -22,6 +22,8 @@ set(sam_SRCS
    latexreporttemplateengine.cpp
    reportparameters.cpp
    testconfigurationwidget.cpp
+   sphinxtestconfigurationwidget.cpp
+   juliustestconfigurationwidget.cpp
    templatevaluelist.cpp
    testresultwidget.cpp
    testresultplotter.cpp
@@ -33,7 +35,9 @@ kde4_add_ui_files( sam_SRCS
   corpusinformation.ui
   testresult.ui
   conservativetraining.ui
-  testconfiguration.ui
+#  testconfiguration.ui
+  sphinxtestconfigurationwidget.ui
+  juliustestconfigurationwidget.ui
   exporttestresultsdlg.ui
 )
 

@@ -24,8 +24,13 @@
 
 void SamXMLHelper::serializePath(QDomDocument* doc, QDomElement& parent, KUrlRequester* requester, const QString& tagName)
 {
+  serializePath(doc, parent, requester->url(), tagName);
+}
+
+void SamXMLHelper::serializePath(QDomDocument* doc, QDomElement& parent, const KUrl &url, const QString& tagName)
+{
   QDomElement elem = doc->createElement(tagName);
-  elem.appendChild(doc->createTextNode(requester->url().toLocalFile()));
+  elem.appendChild(doc->createTextNode(url.toLocalFile()));
   parent.appendChild(elem);
 }
 
