@@ -42,21 +42,6 @@ TestConfigurationWidget::TestConfigurationWidget(CorpusInformation *info,
   m_TestPrompts(testPromptsUrl),
   m_TestPromptsBasePath(testPromptsBasePathUrl)
 {
-//  ui.leTag->setText(info->tag());
-//  ui.urHmmDefs->setUrl(hmmDefsUrl);
-//  ui.urTiedlist->setUrl(tiedlistUrl);
-//  ui.urDict->setUrl(dictUrl);
-//  ui.urDFA->setUrl(dfaUrl);
-//  ui.urTestPrompts->setUrl(testPromptsUrl);
-//  ui.urTestPromptsBasePath->setUrl(testPromptsBasePathUrl);
-//  ui.urJConf->setUrl(jconfUrl);
-//  ui.urModelDir->setUrl(sphinxModelDir);
-//  ui.urSphinxDict->setUrl(sphinxDictionary);
-//  ui.urSphinxGrammar->setUrl(sphinxGrammar);
-//  ui.sbSampleRate->setValue(sampleRate);
-
-//  ui.cbType->setCurrentIndex(BackendTypeToInt(type));
-
 }
 
 int TestConfigurationWidget::BackendTypeToInt(TestConfigurationWidget::BackendType type)
@@ -92,41 +77,6 @@ TestConfigurationWidget::BackendType TestConfigurationWidget::StringToBackendTyp
   return btype;
 }
 
-//void TestConfigurationWidget::setupUi()
-//{
-//  ui.setupUi(this);
-//  ui.urJConf->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-//  ui.urTestPromptsBasePath->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-//  ui.urTestPrompts->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-//  ui.urHmmDefs->setMode(KFile::File|KFile::LocalOnly);
-//  ui.urTiedlist->setMode(KFile::File|KFile::LocalOnly);
-//  ui.urDict->setMode(KFile::File|KFile::LocalOnly);
-//  ui.urDFA->setMode(KFile::File|KFile::LocalOnly);
-
-//  ui.urModelDir->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-//  ui.urSphinxDict->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-//  ui.urSphinxGrammar->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-
-//  connect(ui.urJConf, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-//  connect(ui.urTestPromptsBasePath, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-//  connect(ui.urTestPrompts, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-//  connect(ui.urHmmDefs, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-//  connect(ui.urTiedlist, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-//  connect(ui.urDict, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-//  connect(ui.urDFA, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-//  connect(ui.sbSampleRate, SIGNAL(valueChanged(int)), this, SIGNAL(changed()));
-
-//  connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-
-//  connect(ui.urModelDir, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-//  connect(ui.urSphinxDict, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-//  connect(ui.urSphinxGrammar, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-
-//  connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteLater()));
-//  connect(ui.leTag, SIGNAL(editingFinished()), this, SIGNAL(tagChanged()));
-//  connect(ui.leTag, SIGNAL(textChanged(QString)), this, SLOT(updateTag(QString)));
-//}
-
 void TestConfigurationWidget::updateTag(const QString& tag)
 {
   m_corpusInfo->setTag(tag);
@@ -141,13 +91,6 @@ void TestConfigurationWidget::updateTag(const QString& tag)
 //    emit tagChanged();
 //}
 
-
-
-//TestConfigurationWidget::BackendType TestConfigurationWidget::backendType() const
-//{
-//  kDebug()<<ui.cbType->currentIndex();
-//  return IntToBackendType(ui.cbType->currentIndex());
-//}
 
 TestConfigurationWidget::~TestConfigurationWidget()
 {
@@ -204,14 +147,12 @@ QDomElement TestConfigurationWidget::serialize(QDomDocument* doc)
   SamXMLHelper::serializePath(doc, elem, m_TestPromptsBasePath, "testPromptsBasePath");
 
   SamXMLHelper::serializeInt(doc, elem, m_SampRate, "sampleRate");
-//  SamXMLHelper::serializeInt(doc, elem, ui.cbType->currentIndex(), "backendType");
   
   return elem;
 }
 
 void TestConfigurationWidget::updateGeneralParams(const KUrl &testPromptsUrl, const KUrl &testPromptsBasePathUrl, int sampleRate)
 {
-//  m_Tag = tag;
   m_TestPrompts = testPromptsUrl;
   m_TestPromptsBasePath = testPromptsBasePathUrl;
   m_SampRate = sampleRate;

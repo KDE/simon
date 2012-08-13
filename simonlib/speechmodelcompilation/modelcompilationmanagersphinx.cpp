@@ -23,6 +23,8 @@
 #include <KStandardDirs>
 #include <QFileInfo>
 #include <QUuid>
+#include <KGlobal>
+#include <KAboutData>
 
 ModelCompilationManagerSPHINX::ModelCompilationManagerSPHINX(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
 //  tryAgain(false)
@@ -55,14 +57,16 @@ void ModelCompilationManagerSPHINX::run()
                                                          (ModelCompilationAdapter::AdaptLanguageModel) :
                                                          (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel);
 
+  QString compilationDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/sphinx/");
+
   QString modelName = userName+modelUuid.toString();
-  adaptionArgs.insert("workingDir", activeDir);
+  adaptionArgs.insert("workingDir", compilationDir);
   adaptionArgs.insert("modelName", modelName);
 
   //then, compile the model using the model compilation manager
   QHash<QString,QString> compilerArgs;
 
-  compilerArgs.insert("modelDir", activeDir);
+  compilerArgs.insert("modelDir", compilationDir);
   compilerArgs.insert("audioPath",KStandardDirs::locateLocal("appdata", "models/"+userName+"/samples/"));
   compilerArgs.insert("modelName", modelName);
 
@@ -82,9 +86,9 @@ void ModelCompilationManagerSPHINX::run()
 
 //    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
 
-    QString fetc = activeDir+"/"+modelName+"/etc/"+modelName;
+    QString fetc = compilationDir+"/"+modelName+"/etc/"+modelName;
 
-    kDebug() << "Data\n" <<fetc<< "\n"<<activeDir;
+//    kDebug() << "Data\n" <<fetc<< "\n"<<activeDir;
     QFileInfo fiGrammar(fetc+GRAMMAR_EXT);
     bool hasGrammar = (fiGrammar.size() > 0);
 

@@ -25,7 +25,6 @@ JuliusTestConfigurationWidget::JuliusTestConfigurationWidget(QWidget *parent) :
   TestConfigurationWidget(parent),
   ui(new Ui::JuliusTestConfigurationWidget)
 {
-//  ui->setupUi(this);
   setupUi();
 }
 

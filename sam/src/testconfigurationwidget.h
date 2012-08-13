@@ -20,7 +20,6 @@
 #ifndef SIMON_TESTCONFIGURATIONWIDGET_H_4002119636CC42C68FE07273F9000A73
 #define SIMON_TESTCONFIGURATIONWIDGET_H_4002119636CC42C68FE07273F9000A73
 
-//#include "ui_testconfiguration.h"
 #include "corpusinformation.h"
 #include <QFrame>
 #include <QDomElement>
@@ -37,7 +36,6 @@ class TestConfigurationWidget : public QFrame
     void changed();
 
   private:
-//    Ui::TestConfigurationWdg ui;
 
   private slots:
     void remove();
@@ -81,8 +79,6 @@ class TestConfigurationWidget : public QFrame
     KUrl testPromptsBasePath() const { return m_TestPromptsBasePath; }
 
     int sampleRate() const { return m_SampRate; }
-//    TestConfigurationWidget::BackendType backendType() const;
-    
 
     virtual QDomElement serialize(QDomDocument *doc);
 
