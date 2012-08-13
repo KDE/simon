@@ -21,12 +21,37 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+include(LibFindMacros)
 
-include(FindPackageHandleStandardArgs)
-if(SPHINXBASE_INCLUDE_DIR AND SPHINXBASE_LIBRARIES)
-set(Sphinxbase_FIND_QUIETLY TRUE)
-endif(SPHINXBASE_INCLUDE_DIR AND SPHINXBASE_LIBRARIES)
+# Dependencies
+#libfind_package(Magick++ Magick)
 
-FIND_PATH(SPHINXBASE_INCLUDE_DIR cmd_ln.h PATHS /usr/include/sphinxbase)
-find_library(SPHINXBASE_LIBRARIES sphinxad sphinxbase PATHS /usr/lib)
-find_package_handle_standard_args(Sphinxbase DEFAULT_MSG SPHINXBASE_LIBRARIES SPHINXBASE_INCLUDE_DIR)
+# Use pkg-config to get hints about paths
+libfind_pkg_check_modules(SphinxBase_PKGCONF SphinxBase)
+
+# Include dir
+find_path(SphinxBase_INCLUDE_DIR
+  NAMES cmd_ln.h
+  PATHS ${SphinxBase_PKGCONF_INCLUDE_DIRS}
+)
+
+# Finally the library itself
+find_library(SphinxBase_LIBRARY
+  NAMES sphinxbase sphinxad
+  PATHS ${SphinxBase_PKGCONF_LIBRARY_DIRS}
+)
+
+# Set the include dir variables and the libraries and let libfind_process do the rest.
+# NOTE: Singular variables for this library, plural for libraries this this lib depends on.
+set(SphinxBase_PROCESS_INCLUDES SphinxBase_INCLUDE_DIR SphinxBase_INCLUDE_DIRS)
+set(SphinxBase_PROCESS_LIBS SphinxBase_LIBRARY SphinxBase_LIBRARIES)
+libfind_process(SphinxBase)
+
+#include(FindPackageHandleStandardArgs)
+#if(SPHINXBASE_INCLUDE_DIR AND SPHINXBASE_LIBRARIES)
+#set(Sphinxbase_FIND_QUIETLY TRUE)
+#endif(SPHINXBASE_INCLUDE_DIR AND SPHINXBASE_LIBRARIES)
+
+#FIND_PATH(SPHINXBASE_INCLUDE_DIR cmd_ln.h PATHS /usr/include/sphinxbase)
+#find_library(SPHINXBASE_LIBRARIES sphinxad sphinxbase PATHS /usr/lib)
+#find_package_handle_standard_args(Sphinxbase DEFAULT_MSG SPHINXBASE_LIBRARIES SPHINXBASE_INCLUDE_DIR)

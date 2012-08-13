@@ -35,7 +35,7 @@ set( simonrecognizer_LIB_HDRS
 
 kde4_add_library( simonrecognizer SHARED ${simonrecognizer_LIB_SRCS} )
 
-target_link_libraries( simonrecognizer ${QT_QTCORE_LIBRARY} ${KDE4_KDECORE_LIBS} ${POCKETSPHINX_LIBRARIES} sphinxad sphinxbase simonrecognitionresult)
+target_link_libraries( simonrecognizer ${QT_QTCORE_LIBRARY} ${KDE4_KDECORE_LIBS} ${POCKETSPHINX_LIBRARIES} ${SphinxBase_LIBRARIES} simonrecognitionresult)
 set_target_properties(simonrecognizer PROPERTIES COMPILE_FLAGS "-Wall -Wextra -pedantic  -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wconversion -Winit-self -Wunreachable-code")
 
 
