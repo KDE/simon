@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -39,6 +40,11 @@
  *	@version 0.1
  *	@date 20.12.2009
  *	@author Peter Grasch
+ *
+ *  General logic & data moved from modelcompilationadapterhtk.
+ *  @version 0.2
+ *  @date 14.08.2012
+ *  @author Vladislav Sitalo
  */
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
 {
@@ -52,12 +58,17 @@ signals:
   void adaptionAborted();
 
 public:
+  /*!
+   * \brief The AdaptionType enum.
+   *  Model adapter have different behavior depends on this type.
+   *
+   */
   enum AdaptionType
   {
     None=0,
     AdaptLanguageModel=1,
     AdaptAcousticModel=2,
-    AdaptIndependently=4
+    AdaptIndependently=4 /**< Used to set that we must adapt model "as is" (without checking for compliance with the acoustic model) */
   };
 
   explicit ModelCompilationAdapter(const QString& userName, QObject *parent=0);
@@ -72,6 +83,15 @@ public:
   void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
 
 
+  /*!
+   * \brief startAdaption Function used to adapt model with given parameters.
+   * \param adaptionType Adaptation type.
+   * \param scenarioPathsIn List of scenarios, used to create model.
+   * \param promptsIn Path to prompts file.
+   * \param args List of parameters specific for different specialization of this class.
+   *
+   * \return Succes status.
+   */
   virtual bool startAdaption(AdaptionType adaptionType, const QStringList& scenarioPathsIn,
                              const QString& promptsIn, const QHash<QString, QString>& args)=0;
 
@@ -94,6 +114,12 @@ protected:
 
   bool removeContextAdditions();
 
+  /*!
+   * \brief mergeInputData Forms vocabulary and grammar from given list of scenarios.
+   * \param scenarioPaths Scenarios list.
+   * \param mergedVocabulary Vocabulary.
+   * \param mergedGrammar Grammar.
+   */
   void mergeInputData(const QStringList& scenarioPaths, QSharedPointer<Vocabulary> mergedVocabulary,
                       QSharedPointer<Grammar> mergedGrammar);
 

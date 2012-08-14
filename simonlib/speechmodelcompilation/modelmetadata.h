@@ -25,6 +25,11 @@
 #include <QDateTime>
 #include <QDomDocument>
 
+/*!
+ * \brief ModelMetadata store information about specific acoustic model.
+ *
+ *  Model name, compilation time and type are stored.
+ */
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelMetadata
 {
 public:

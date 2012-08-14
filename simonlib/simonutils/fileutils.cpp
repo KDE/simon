@@ -17,22 +17,15 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */ 
 
+#include "fileutils.h"
+
+#include <KTar>
+#include <KDebug>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QFileInfoList>
 
-#include "fileutils.h"
-#include <KTar>
-#include <KDebug>
-
-/*!
-   Delete a directory along with all of its contents.
-   \author Vladislav Sitalo
-
-   \param dirName Path of directory to remove.
-   \return true on success; false on error.
-*/
 bool FileUtils::removeDirRecursive(const QString &dirName)
 {
     bool result = true;
@@ -57,15 +50,6 @@ bool FileUtils::removeDirRecursive(const QString &dirName)
     return result;
 }
 
-/*!
-   Pack data from "fromMemory" and files from disk to tar.gzip archive with name targetArchive
-
-   \author Vladislav Sitalo
-   \param targetArchive Archive name
-   \param fromMemory specifies compliance file name - data to store
-   \param existingFiles specifies compliance target file name - real file name
-   \return true on success; false on error.
-*/
 bool FileUtils::pack(const QString &targetArchive, const QHash<QString, QByteArray> &fromMemory,
                      const QHash<QString, QString> &existingFiles)
 {
@@ -93,16 +77,6 @@ bool FileUtils::pack(const QString &targetArchive, const QHash<QString, QByteArr
   return archive.close();
 }
 
-
-/*!
-   Unpack selected files from gzip archive to target directory
-   if file list is empty: unpacks all
-   \author Vladislav Sitalo
-   \param archive Archive name
-   \param targetDir Target dir
-   \param files files to be unpacked
-   \return true on success; false on error.
-*/
 bool FileUtils::unpack(const QString &archive, const QString &targetDir, const QStringList &files)
 {
   kDebug() << "Archive: " << archive << "Target dir: " << targetDir;

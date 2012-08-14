@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -29,6 +30,14 @@
 #include <QMutex>
 #include <QProcess>
 
+/*!
+ * \class ModelCompiler
+ * \brief The ModelCompiler class compiles appropriate model (specifies in inherited classes) from given data.
+ *
+ *  \version 0.1
+ *  \date 14.08.2012
+ *  \author Vladislav Sitalo
+ */
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
 {
@@ -81,11 +90,28 @@ protected:
   virtual bool processError()=0;
   virtual bool parseConfiguration()=0;
 
+  /*!
+   * \brief Pack compiled model to the archive.
+   * \param targetArchive Archive name.
+   * \param name Model name.
+   * \return Succes status.
+   */
   virtual bool pack( const QString& targetArchive, const QString& name )=0;
-//  virtual bool unpack(const QString& archive, const QString& targetDir)=0;
 
+  /*!
+   * \brief Generates metadata to model from given data.
+   * \param name Model name.
+   * \param type Model type.
+   * \return Generated metadata.
+   */
   virtual ModelMetadata getMetaData(const QString &name, const QString &type);
   
+  /*!
+   * \brief Executes given command line in given directory.
+   * \param command Command line.
+   * \param wDir Working directory.
+   * \return Succes status.
+   */
   bool execute(const QString& command, const QString &wDir);
   
   virtual void clearLog();

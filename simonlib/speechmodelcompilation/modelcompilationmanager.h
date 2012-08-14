@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -27,6 +28,15 @@
 
 #include <QThread>
 
+/*!
+ * \class ModelCompilationManager
+ * \brief The ModelCompilationManager class manage model creation process.
+ *        It takes data from simon, transform them, using adapter and create model, using compiler.
+ *
+ *  \version 0.1
+ *  \date 14.08.2012
+ *  \author Vladislav Sitalo
+ */
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 {
@@ -47,6 +57,13 @@ public:
   
   QString cachedModelPath( uint fingerprint, bool* exists=0 );
   
+  /*!
+   * \brief startModelCompilation Function which starts model compilation process in separate thread.
+   * \param baseModelType
+   * \param baseModelPath
+   * \param scenarioPaths Scenarios list.
+   * \param promptsPathIn Path to prompts file.
+   */
   void startModelCompilation(int baseModelType, const QString& baseModelPath,
                              const QStringList& scenarioPaths, const QString& promptsPathIn);
   virtual void abort();

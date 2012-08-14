@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -26,6 +27,15 @@
 
 class RecognitionConfiguration;
 
+/*!
+ *  \class Recognizer
+ *  \brief The Recognizer class initialize recognition with given configuration
+ *         and recognize audio files using method which specifed in inherited classes.
+ *
+ *  \version 0.1
+ *  \date 14.08.2012
+ *  \author Vladislav Sitalo
+ */
 class SIMONRECOGNIZER_EXPORT Recognizer
 {
 protected:
