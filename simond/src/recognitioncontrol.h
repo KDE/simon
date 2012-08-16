@@ -32,6 +32,15 @@
 #include <QMutex>
 #include <QQueue>
 
+/*!
+ * \class RecognitionControl
+ * \brief The RecognitionControl class - entity which works in separate thread. Main case - managing recognition.
+ *  Initialize recognition. Accepts request for recognize some files. Indicates on the recognition results.\
+ *
+ *  \version 0.1
+ *  \date 15.08.2012
+ *  \author Vladislav Sitalo
+ */
 class RecognitionControl : public QThread
 {
   Q_OBJECT
@@ -91,6 +100,10 @@ class RecognitionControl : public QThread
     virtual bool stop();
     virtual bool suspend(); //stop temporarily (still reflect the intention of being active, but don't do any recognition)
 
+    /*!
+     * \brief Add file name to recognition queue.
+     * \param fileName File name.
+     */
     virtual void recognize(const QString& fileName);
     
     bool recognitionRunning();

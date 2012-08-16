@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.0 FATAL_ERROR)
+cmake_policy(SET CMP0017 NEW)
+cmake_policy(SET CMP0002 OLD)
 project(simon)
 
 ENABLE_TESTING()
@@ -13,7 +15,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 find_package(KDE4 "4.4" REQUIRED)
 
-add_definitions(-DUSPHINX)
+#add_definitions(-DUSPHINX)
 
 if(WIN32)
 # old gcc because of MinGW
@@ -28,6 +30,9 @@ endif(WIN32)
 
 include_directories( ${KDE4_INCLUDES} )
 
+set(ModelType "BOTH" CACHE STRING "Backend type used while building")
+set_property(CACHE ModelType PROPERTY STRINGS SPHINX JHTK BOTH)
+#message(STATUS "ModelType='${ModelType}'")
 
 add_subdirectory(simonlib)
 add_subdirectory(simon)

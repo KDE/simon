@@ -48,7 +48,7 @@ protected:
 
   bool storeFiller(AdaptionType adaptionType, const QString &fillerPathOut);
 
-  bool storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary);
+  bool storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary, const QStringList &trainedVocabulary);
 
   bool storeTranscriptionAndFields(AdaptionType adaptionType, const QString& promptsPathIn, const QString& transcriptionPathOut, const QString &fieldsPathOut,
                                    QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary);

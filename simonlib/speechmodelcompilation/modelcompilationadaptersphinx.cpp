@@ -66,6 +66,11 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
   //merging scenarios
   mergeInputData(scenarioPathsIn, mergedVocabulary, mergedGrammar);
 
+  if(mergedVocabulary->empty())
+  {
+    kDebug()<<"Empty vocabulary aborting adaptation";
+    abort();
+  }
 
   ADAPT_CHECKPOINT;
 
@@ -136,7 +141,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   ADAPT_CHECKPOINT;
 
   kDebug()<<"Store phonelist";
-  if(!storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary))
+  if(!storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary, trainedVocabulary))
   {
     emit error(i18n("Failed to store phones"));
     return false;
@@ -231,7 +236,8 @@ bool ModelCompilationAdapterSPHINX::storeFiller(AdaptionType adaptionType, const
   return true;
 }
 
-bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary)
+bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut,
+                                                    QSharedPointer<Vocabulary> vocabulary, const QStringList &trainedVocabulary)
 {
   QFile phoneFile(phonesListPathOut);
   if (!phoneFile.open(QIODevice::WriteOnly))
@@ -246,6 +252,12 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, c
   QSet<QString> uniquePhonemes;
   foreach (Word *word, vocabulary->getWords())
   {
+    if((adaptionType != AdaptIndependently) && !trainedVocabulary.contains(word->getLexiconWord()))
+    {
+      kDebug() << "Skipping phones for word " << word->getWord();
+      continue;
+    }
+
     QStringList phoneList = word->getPronunciation().split(" ");
     foreach (const QString &tphone, phoneList)
     {
@@ -354,7 +366,7 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
 //     grammarStream<<"| ";
 //    }
 
-    QString buffer;
+    QString gramBuffer;
 
     foreach (const QString &terminal, terminals)
     {
@@ -364,33 +376,38 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
       if(wordsForTerminal.isEmpty())
         continue;
 
+      QString termBuffer;
+//      uint addedCount(0);
 
-
-      buffer.append("( ");
       foreach (Word* word, wordsForTerminal)
       {
         if(!definedVocabulary.contains(word->getLexiconWord()) && adaptionType != AdaptIndependently)
-          break;
+          continue;
 
         if(!fword)
-          buffer.append(" | ");
+          termBuffer.append(" | ");
         else
           fword = false;
 
-        buffer.append(word->getWord());
+        termBuffer.append(word->getWord());
       }
 
-      buffer.append(" ) ");
+      if(!termBuffer.isEmpty())
+      {
+        gramBuffer.append("( ");
+        gramBuffer.append(termBuffer);
+        gramBuffer.append(" ) ");
+      }
     }
 
-    if(!buffer.isEmpty())
+    if(!gramBuffer.isEmpty() && !(gramBuffer == "(  ) "))
     {
       if(structure != grammarStructures.first())
       {
        grammarStream << "| ";
       }
 
-      grammarStream<< "(" << buffer <<") ";
+      grammarStream<< "(" << gramBuffer <<") ";
 
     }
 
