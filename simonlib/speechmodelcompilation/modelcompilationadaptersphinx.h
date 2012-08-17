@@ -31,6 +31,9 @@
 #define TRAIN_FIELDS "_train.fileids"
 #define TEST_TRANSCRIPTION "_test.transcription"
 #define TEST_FIELDS "_test.fileids"
+/*
+ *This extension just an simply an agreement that must be met in the rest of the code.
+ */
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterSPHINX : public ModelCompilationAdapter
 {

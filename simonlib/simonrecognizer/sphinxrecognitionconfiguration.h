@@ -21,10 +21,9 @@
 #define SPHINXRECOGNITIONCONFIGURATION_H
 
 #include "recognitionconfiguration.h"
-#include <QString>
-#include <QSharedPointer>
 #include "simonrecognizer_export.h"
 #include <pocketsphinx/pocketsphinx.h>
+#include <QString>
 
 
 class SIMONRECOGNIZER_EXPORT SphinxRecognitionConfiguration : public RecognitionConfiguration

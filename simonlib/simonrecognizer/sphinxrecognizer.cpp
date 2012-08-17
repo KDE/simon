@@ -114,9 +114,7 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
   recognitionResults.append(res); //WARNING: some magic
 
   kDebug()<<"Got hypothesis: " <<QString::fromUtf8(hyp);
-#ifdef ModelType
-  kDebug()<< ModelType;
-#endif
+
   return recognitionResults;
 }
 

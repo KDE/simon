@@ -24,8 +24,8 @@
 #include "modelcompiler.h"
 #include "simonmodelcompilationmanagement_export.h"
 
-#define MODEL_POSTFIX ".cd_semi_"
-#define SENONES_COUNT "200"
+#define MODEL_POSTFIX ".cd_semi_" //depends on sphinxtrain config
+#define SENONES_COUNT "200"       //TODO: think about reading this values from that config
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerSPHINX: public ModelCompiler
 {

@@ -1,9 +1,11 @@
 
 include(SimonDirs)
 
+if(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
 find_package(Sphinxbase REQUIRED)
 find_package(Pocketsphinx REQUIRED)
 include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SPHINXBASE_INCLUDE_DIR})
+endif(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
 	${CMAKE_CURRENT_SOURCE_DIR}/../)
@@ -13,7 +15,6 @@ include(KDE4Defaults)
 
 set( simonmodeltest_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/modeltest.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/sphinxmodeltest.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/juliusmodeltest.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recognizerresult.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fileresultmodel.cpp
@@ -23,15 +24,27 @@ set( simonmodeltest_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/testresultleaf.cpp
 )
 
+if(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
+set( simonmodeltest_LIB_SRCS
+     ${simonmodeltest_LIB_SRCS}
+     ${CMAKE_CURRENT_SOURCE_DIR}/sphinxmodeltest.cpp
+    )
+endif(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
 
 set( simonmodeltest_LIB_HDRS
   simonmodeltest_export.h
   modeltest.h
-  sphinxmodeltest.h
   juliusmodeltest.h
   fileresultmodel.h
   recognizerresult.h
 )
+
+if(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
+set( simonmodeltest_LIB_HDRS
+     ${simonmodeltest_LIB_HDRS}
+     sphinxmodeltest.h
+    )
+endif(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
 
 kde4_add_library( simonmodeltest  SHARED ${simonmodeltest_LIB_SRCS} )
 target_link_libraries( simonmodeltest ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} simonlogging 

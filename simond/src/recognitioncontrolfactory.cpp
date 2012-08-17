@@ -54,7 +54,20 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
     //backendGroup.
 
     if(type == 0)
-      r = new SphinxControl(user);
+    {
+      #ifdef MODEL_TYPE_BOTH
+        r = new SphinxControl(user);
+      #endif
+      #ifdef MODEL_TYPE_SPHINX
+            r = new SphinxControl(user);
+      #endif
+      #ifdef MODEL_TYPE_JHTK
+      {
+        kDebug()<<"Sphinx disabled at the compile time. Force using Julius control"; //TODO: think how to do it better
+        r = new JuliusControl(user);
+      }
+      #endif
+    }
     else if(type == 1)
       r = new JuliusControl(user);
     else

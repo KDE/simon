@@ -45,7 +45,20 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
   connect(config, SIGNAL(destroyed()), this, SLOT(deleteLater()));
 
   if(typeid(*config) == typeid(SphinxTestConfigurationWidget))
-    modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
+  {
+    #ifdef MODEL_TYPE_BOTH
+      modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
+    #endif
+    #ifdef MODEL_TYPE_SPHINX
+      modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
+    #endif
+    #ifdef MODEL_TYPE_JHTK
+    {
+      emit testAborted();
+      slotModelTestError("Sam compiled without SPHINX support", QByteArray());
+    }
+    #endif
+  }
   else if(typeid(*config) == typeid(JuliusTestConfigurationWidget))
     modelTest = new JuliusModelTest("internalsamuser_"+config->tag(), this);
 

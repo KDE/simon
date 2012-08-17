@@ -30,9 +30,21 @@ endif(WIN32)
 
 include_directories( ${KDE4_INCLUDES} )
 
-set(ModelType "BOTH" CACHE STRING "Backend type used while building")
-set_property(CACHE ModelType PROPERTY STRINGS SPHINX JHTK BOTH)
+set(ModelType "both" CACHE STRING "Backend type used while building")
+set_property(CACHE ModelType PROPERTY STRINGS sphinx jhtk both)
 #message(STATUS "ModelType='${ModelType}'")
+if(${ModelType} STREQUAL both)
+ADD_DEFINITIONS(-DMODEL_TYPE_BOTH)
+endif(${ModelType} STREQUAL both)
+
+if(${ModelType} STREQUAL sphinx)
+ADD_DEFINITIONS(-DMODEL_TYPE_SPHINX)
+endif(${ModelType} STREQUAL sphinx)
+
+if(${ModelType} STREQUAL jhtk)
+ADD_DEFINITIONS(-DMODEL_TYPE_JHTK)
+endif(${ModelType} STREQUAL jhtk)
+#ADD_DEFINITIONS(-DCModelType=${ModelType})
 
 add_subdirectory(simonlib)
 add_subdirectory(simon)
