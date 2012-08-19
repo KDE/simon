@@ -38,7 +38,7 @@ class CreateLipDetectionConditionWidget : public CreateConditionWidget
 
 private:
   Ui::CreateLipDetectionConditionWidget ui;
-
+  int thresholdValue;
 public:
   Condition* createCondition();
 
@@ -50,5 +50,9 @@ public:
 
   virtual ~CreateLipDetectionConditionWidget();
 
+private slots:
+  void select();
+  void modify();
+  void displaySliderValue(int value);
 };
 #endif

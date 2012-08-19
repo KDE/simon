@@ -26,17 +26,41 @@
 CreateLipDetectionConditionWidget::CreateLipDetectionConditionWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
-
+  ui.groupBox->setVisible(false);
   setWindowTitle(i18n("Lip Detection"));
   setWindowIcon(KIcon(""));
-  
-  connect(ui.cbInverted, SIGNAL(stateChanged(int)), this, SIGNAL(completeChanged()));
+  connect(ui.pbOk,SIGNAL(clicked(bool)),this,SLOT(modify()));
+  connect(ui.horizontalSlider,SIGNAL(valueChanged(int)),this,SLOT(displaySliderValue(int)));
+  connect(ui.pbSelect,SIGNAL(clicked(bool)),this,SLOT(select()));
+//  connect(ui.cbInverted, SIGNAL(stateChanged(int)), this, SIGNAL(completeChanged()));
+}
+
+void CreateLipDetectionConditionWidget::select()
+{
+  ui.groupBox->setVisible(true);
+
+}
+
+void CreateLipDetectionConditionWidget::displaySliderValue(int value)
+{
+  ui.lblSilderValue->setText(QString::number(value));
+}
+
+void CreateLipDetectionConditionWidget::modify()
+{
+  thresholdValue = ui.horizontalSlider->value();
+  ui.pbSelect->setText("Modify");
+  ui.groupBox->setVisible(false);
+  emit completeChanged();
 }
 
 
 bool CreateLipDetectionConditionWidget::isComplete()
 {
-  return true;
+  if (ui.pbSelect->text()=="Modify")
+    return true;
+  else
+    return false;
 }
 
 bool CreateLipDetectionConditionWidget::init(Condition *condition)
@@ -64,6 +88,9 @@ Condition* CreateLipDetectionConditionWidget::createCondition()
   invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
   conditionElem.appendChild(invertElem);
 
+  QDomElement thresholdElem = doc.createElement("thresholdvalue");
+  thresholdElem.appendChild(doc.createTextNode(QString::number(ui.horizontalSlider->value())));
+  conditionElem.appendChild(thresholdElem);
 
   ContextManager* manager = ContextManager::instance();
 

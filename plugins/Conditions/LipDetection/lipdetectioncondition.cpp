@@ -33,6 +33,7 @@ K_EXPORT_PLUGIN(LipDetectionPluginFactory("simonlipdetectioncondition"))
 LipDetectionCondition::LipDetectionCondition(QObject *parent, const QVariantList &args) :
     Condition(parent, args)
 {
+  thresholdValue=0;
   m_pluginName = "simonlipdetectionconditionplugin.desktop";
 }
 
@@ -43,22 +44,36 @@ CreateConditionWidget* LipDetectionCondition::getCreateConditionWidget(QWidget* 
 
 QDomElement LipDetectionCondition::privateSerialize(QDomDocument *doc, QDomElement elem)
 {
-
+ QDomElement thresholdValueElem = doc->createElement("thresholdvalue");
+ thresholdValueElem.appendChild(doc->createTextNode(QString::number(thresholdValue)));
+  
+ elem.appendChild(thresholdValueElem);
+  
   return elem;
 }
 
 QString LipDetectionCondition::name()
 {
   if (!isInverted())
-    return i18nc("Detecting the presense of user from the webcam", "Presense of user");
+    return i18nc("Detecting Whether the user is speaking or not by detecting lip movements", "User is speaking");
   else
-    return i18nc("Detecting the presense of user from the webcam", "Absense of user");
+    return i18nc("Detecting Whether the user is speaking or not by detecting lip movements", "User is not speaking");
 }
 
 bool LipDetectionCondition::privateDeSerialize(QDomElement elem)
 {
-  analyzer = new LipAnalyzer();
-  connect(analyzer,SIGNAL(lipPresenceChanged(bool)),this,SLOT(manageConditionState(bool)));
+  QDomElement thresholdValueElement;
+
+  thresholdValueElement = elem.firstChildElement("thresholdvalue");
+  if (thresholdValueElement.isNull())
+  {
+    kDebug() << "Threhold value not specified!  Deserialization failure!";
+    return false;
+  }
+  thresholdValue = thresholdValueElement.text().toInt()*250+30000;
+  
+  analyzer = new LipAnalyzer(thresholdValue);
+  connect(analyzer,SIGNAL(lipMovementChanged(bool)),this,SLOT(manageConditionState(bool)));
   return true;
 }
 
@@ -79,6 +94,7 @@ void LipDetectionCondition::manageConditionState(bool isSpeaking)
   }
 
 }  
+
 
 LipDetectionCondition::~LipDetectionCondition()
 {

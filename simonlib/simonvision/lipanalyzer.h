@@ -29,6 +29,7 @@ class SIMONVISION_EXPORT LipAnalyzer : public ImageAnalyzer
 public:
 
   LipAnalyzer();
+  LipAnalyzer(int thresholdValue);
   virtual ~LipAnalyzer();
   void analyze(IplImage* currentImage);
 
@@ -37,16 +38,21 @@ signals:
 
 private:
   void closeLipDetection();
-  bool initLipDetection(const QString& faceHaarCascadePath, const QString& lipHaarCascadePath);
+  bool initLipDetection(int thresholdValue=40000);
   void isChanged(bool hasLipMoved);
   bool hasLipMoved;
   IplImage  * liveVideoFrameCopy;
   IplImage  * prevVideoFrame;
-  
+
+  //totalCount will count the number of lip movements in last few frames
+  //so that If it is more than certain limit then that will mean the person is speaking
+  int totalCount;
+
+  int thresholdValue;
   CvHaarClassifierCascade * faceCascade;
-  
+
   CvHaarClassifierCascade * lipCascade;
-  
+
   // Memory that will needed to perform detection
   CvMemStorage * memoryStorage;
 
