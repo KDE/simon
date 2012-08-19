@@ -35,15 +35,16 @@ public:
   virtual QString name();
 
   virtual CreateConditionWidget* getCreateConditionWidget(QWidget *parent);
-
+  
+public slots:
+  // Slot is connect to the signal in the Analyzer which will be emmitted when there will be any change the presense of user (hasFace)
+  void manageConditionState(bool hasFace);
+  
 private:
   bool privateDeSerialize(QDomElement elem);
   QDomElement privateSerialize(QDomDocument *doc, QDomElement elem);
   FaceAnalyzer* analyzer;
 
-public slots:
-  // Slot is connect to the signal in the Analyzer which will be emmitted when there will be any change the presense of user (hasFace)
-  void manageConditionState(bool hasFace);
 
 };
 

@@ -36,19 +36,21 @@ class CreateLipDetectionConditionWidget : public CreateConditionWidget
 {
   Q_OBJECT
 
-private:
-  Ui::CreateLipDetectionConditionWidget ui;
-  int thresholdValue;
 public:
   Condition* createCondition();
-
+  
   bool init(Condition* condition);
   bool isInstanceOfSameCondition(Condition *condition);
   bool isComplete();
-
+  
   explicit CreateLipDetectionConditionWidget(QWidget *parent=0);
-
+  
   virtual ~CreateLipDetectionConditionWidget();
+  
+private:
+  Ui::CreateLipDetectionConditionWidget ui;
+  int thresholdValue;
+
 
 private slots:
   void select();

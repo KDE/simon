@@ -36,9 +36,6 @@ class CreateFaceDetectionConditionWidget : public CreateConditionWidget
 {
   Q_OBJECT
 
-private:
-  Ui::CreateFaceDetectionConditionWidget ui;
-
 public:
   Condition* createCondition();
 
@@ -50,5 +47,7 @@ public:
 
   virtual ~CreateFaceDetectionConditionWidget();
 
+private:
+  Ui::CreateFaceDetectionConditionWidget ui;
 };
 #endif
