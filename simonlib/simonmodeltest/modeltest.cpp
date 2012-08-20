@@ -31,8 +31,14 @@
 #include <simonrecognizer/juliusrecognitionconfiguration.h>
 #include <simonrecognizer/juliusrecognizer.h>
 
+#ifdef BACKEND_TYPE_BOTH
 #include <simonrecognizer/sphinxrecognizer.h>
 #include <simonrecognizer/sphinxrecognitionconfiguration.h>
+#endif
+#ifdef BACKEND_TYPE_SPHINX
+#include <simonrecognizer/sphinxrecognizer.h>
+#include <simonrecognizer/sphinxrecognitionconfiguration.h>
+#endif
 
 #include <QCoreApplication>
 #include <QDir>

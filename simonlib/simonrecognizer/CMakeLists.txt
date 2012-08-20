@@ -7,11 +7,11 @@ include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../)
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -fexceptions)
 include(KDE4Defaults)
 
-if(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
+if(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
 find_package(Sphinxbase REQUIRED)
 find_package(Pocketsphinx REQUIRED)
 include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SPHINXBASE_INCLUDE_DIR})
-endif(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
+endif(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
 
 
 set( simonrecognizer_LIB_SRCS
@@ -20,13 +20,14 @@ set( simonrecognizer_LIB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/juliusrecognitionconfiguration.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/juliusstaticrecognitionconfiguration.cpp
 )
-if(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
+if(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
 set( simonrecognizer_LIB_SRCS
         ${simonrecognizer_LIB_SRCS}
         ${CMAKE_CURRENT_SOURCE_DIR}/sphinxrecognizer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/sphinxrecognitionconfiguration.cpp
    )
-endif(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
+message(${BackendType})
+endif(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
 
 
 set( simonrecognizer_LIB_HDRS
@@ -37,13 +38,13 @@ set( simonrecognizer_LIB_HDRS
         ${CMAKE_CURRENT_SOURCE_DIR}/juliusstaticrecognitionconfiguration.h
 )
 
-if(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
+if(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
 set( simonrecognizer_LIB_HDRS
         ${simonrecognizer_LIB_HDRS}
         ${CMAKE_CURRENT_SOURCE_DIR}/sphinxrecognizer.h
         ${CMAKE_CURRENT_SOURCE_DIR}/sphinxrecognitionconfiguration.h
    )
-endif(${ModelType} STREQUAL both OR ${ModelType} STREQUAL sphinx)
+endif(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
 
 kde4_add_library( simonrecognizer SHARED ${simonrecognizer_LIB_SRCS} )
 

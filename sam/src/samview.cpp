@@ -168,24 +168,24 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.urPrompts->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urBaseModel->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 
-  #ifdef MODEL_TYPE_SPHINX
+  #ifdef BACKEND_TYPE_SPHINX
     ui.cbType->removeItem(1);
     ui.cbType->setDisabled(true);
   #endif
-  #ifdef MODEL_TYPE_JHTK
+  #ifdef BACKEND_TYPE_JHTK
     ui.cbType->removeItem(0);
     ui.cbType->setDisabled(true);
   #endif
 
   if(backendType == TestConfigurationWidget::SPHINX)
   {
-    #ifdef MODEL_TYPE_BOTH
+    #ifdef BACKEND_TYPE_BOTH
       backendChanged(0);
     #endif
-    #ifdef MODEL_TYPE_SPHINX
+    #ifdef BACKEND_TYPE_SPHINX
       backendChanged(0);
     #endif
-    #ifdef MODEL_TYPE_JHTK
+    #ifdef BACKEND_TYPE_JHTK
       backendChanged(1);
       kDebug()<<"Force switching to JHTK there no sphinx here";
 
@@ -193,14 +193,14 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   }
   else if(backendType == TestConfigurationWidget::JHTK)
   {
-    #ifdef MODEL_TYPE_BOTH
+    #ifdef BACKEND_TYPE_BOTH
       backendChanged(1);
     #endif
-    #ifdef MODEL_TYPE_SPHINX
+    #ifdef BACKEND_TYPE_SPHINX
       kDebug()<<"Force switching to JHTK there no sphinx here";
       backendChanged(0);
     #endif
-    #ifdef MODEL_TYPE_JHTK
+    #ifdef BACKEND_TYPE_JHTK
       backendChanged(1);
     #endif
   }

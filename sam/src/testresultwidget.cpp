@@ -46,13 +46,13 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
 
   if(typeid(*config) == typeid(SphinxTestConfigurationWidget))
   {
-    #ifdef MODEL_TYPE_BOTH
+    #ifdef BACKEND_TYPE_BOTH
       modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
     #endif
-    #ifdef MODEL_TYPE_SPHINX
+    #ifdef BACKEND_TYPE_SPHINX
       modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
     #endif
-    #ifdef MODEL_TYPE_JHTK
+    #ifdef BACKEND_TYPE_JHTK
     {
       emit testAborted();
       slotModelTestError("Sam compiled without SPHINX support", QByteArray());

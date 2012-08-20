@@ -21,7 +21,13 @@
 
 #include "recognitioncontrolfactory.h"
 #include "juliuscontrol.h"
-#include "sphinxcontrol.h"
+#ifdef BACKEND_TYPE_BOTH
+ #include "sphinxcontrol.h"
+#endif
+#ifdef BACKEND_TYPE_SPHINX
+  #include "sphinxcontrol.h"
+#endif
+
 #include <KConfig>
 #include <KStandardDirs>
 #include <KConfigGroup>
@@ -55,13 +61,13 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
 
     if(type == 0)
     {
-      #ifdef MODEL_TYPE_BOTH
+      #ifdef BACKEND_TYPE_BOTH
         r = new SphinxControl(user);
       #endif
-      #ifdef MODEL_TYPE_SPHINX
+      #ifdef BACKEND_TYPE_SPHINX
             r = new SphinxControl(user);
       #endif
-      #ifdef MODEL_TYPE_JHTK
+      #ifdef BACKEND_TYPE_JHTK
       {
         kDebug()<<"Sphinx disabled at the compile time. Force using Julius control"; //TODO: think how to do it better
         r = new JuliusControl(user);
