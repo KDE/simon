@@ -55,7 +55,6 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
 
   } catch (std::runtime_error err)
   {
-    //TODO:
     return false;
   }
 

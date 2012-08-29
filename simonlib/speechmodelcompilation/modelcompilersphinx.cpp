@@ -137,7 +137,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
 
 bool ModelCompilerSPHINX::processError()
 {
-  //TODO: implement
+  /*._.*/
   return true;
 }
 

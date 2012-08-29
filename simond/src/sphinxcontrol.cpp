@@ -93,5 +93,5 @@ RecognitionConfiguration *SphinxControl::setupConfig()
 
 void SphinxControl::emitError(const QString &error)
 {
-  //TODO: Implement
+  emit recognitionError(error, getBuildLog());
 }
