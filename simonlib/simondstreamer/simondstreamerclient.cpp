@@ -160,5 +160,7 @@ bool SimondStreamerClient::stop()
     sender->recognizeSample(id); // finish up
   
   streamingState = Idle;
+  if (!m_condition || m_condition->isSatisfied())
+    streamingState |= ContextReady;
   return succ;
 }
