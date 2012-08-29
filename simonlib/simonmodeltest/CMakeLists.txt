@@ -60,7 +60,7 @@ install( FILES ${simonmodeltest_LIB_HDRS}
   COMPONENT simonddevel
 )
 
-set_target_properties(simonmodeltest PROPERTIES COMPILE_FLAGS "-Wall -Wextra -pedantic -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wconversion -Winit-self -Wunreachable-code")
+#set_target_properties(simonmodeltest PROPERTIES COMPILE_FLAGS "-Wall -Wextra -pedantic -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wconversion -Winit-self -Wunreachable-code")
 
 install( TARGETS simonmodeltest DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT sam  )
 

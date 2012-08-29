@@ -23,7 +23,7 @@
 
 #include <QDomDocument>
 #include <QDateTime>
-#include<KDebug>
+#include <KDebug>
 
 bool ModelCompiler::hasBuildLog() const
 {
