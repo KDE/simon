@@ -188,6 +188,12 @@ void ClientSocket::processRequest()
             closeRecognitionControl();
 
           recognitionControl = recognitionControlFactory->recognitionControl(username);
+          if(!recognitionControl)
+          {
+            kWarning()<<"There no apropriate backend found";
+            recognitionError("There no apropriate backend found", QByteArray());
+            close(); //is it neccessury now?
+          }
           connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
           connect(recognitionControl, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(recognitionError(QString,QByteArray)));
           connect(recognitionControl, SIGNAL(recognitionWarning(QString)), this, SLOT(recognitionWarning(QString)));

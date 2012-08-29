@@ -63,21 +63,20 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
     {
       #ifdef BACKEND_TYPE_BOTH
         r = new SphinxControl(user);
-      #endif
-      #ifdef BACKEND_TYPE_SPHINX
-            r = new SphinxControl(user);
-      #endif
-      #ifdef BACKEND_TYPE_JHTK
+      #else
       {
-        kDebug()<<"Sphinx disabled at the compile time. Force using Julius control"; //TODO: think how to do it better
-        r = new JuliusControl(user);
+//        kDebug()<<"Sphinx disabled at the compile time. Force using Julius control";
+//        r = new JuliusControl(user);
+        return 0;
       }
       #endif
     }
     else if(type == 1)
       r = new JuliusControl(user);
     else
-    {};//;(
+    {
+      return 0;
+    };//;(
 
     m_recognitionControls.insert(user, r);
     kDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(user));
