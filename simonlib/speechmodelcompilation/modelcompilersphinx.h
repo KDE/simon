@@ -53,7 +53,6 @@ private:
   bool setupModel(const QString &modelDir, const QString &modelName);
   bool compileModel(const QString &modelDir, const QString &modelName);
 
-  //TODO: move to utils module and rewrite more.. flexible
   bool modifyConfig(const QString &filename, const QHash<QString, QString>& args);
 
 };

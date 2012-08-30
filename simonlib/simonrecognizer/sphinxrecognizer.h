@@ -31,8 +31,6 @@ class SIMONRECOGNIZER_EXPORT SphinxRecognizer : public Recognizer
 private:
   ps_decoder_t *decoder;
 
-//  SphinxRecognizer(const SphinxRecognizer&);
-  //Do we need a copy constructor?
 public:
   SphinxRecognizer();
   virtual ~SphinxRecognizer();

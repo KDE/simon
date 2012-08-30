@@ -2,11 +2,11 @@ IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SIMOND -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
 
-if(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
+if(${BackendType} STREQUAL both)
   find_package(Sphinxbase REQUIRED)
   find_package(Pocketsphinx REQUIRED)
   include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SPHINXBASE_INCLUDE_DIR} ../../simonlib)
-endif(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
+endif(${BackendType} STREQUAL both)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES})
 
@@ -22,12 +22,12 @@ set(simond_SRCS
    recognitioncontrol.cpp
    juliuscontrol.cpp
  )
-if(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
+if(${BackendType} STREQUAL both)
 set(simond_SRCS
     ${simond_SRCS}
     sphinxcontrol.cpp
 )
-endif(${BackendType} STREQUAL both OR ${BackendType} STREQUAL sphinx)
+endif(${BackendType} STREQUAL both)
 
 kde4_add_app_icon(simond_SRCS
 "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simond.png")

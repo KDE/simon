@@ -33,17 +33,24 @@ include_directories( ${KDE4_INCLUDES} )
 find_program( PSPHINX "pocketsphinx_batch" )
 find_program( PJULIUS "julius" )
 
-set(BackendType "jhtk" CACHE STRING "Backend type used while building")
-set_property(CACHE BackendType PROPERTY STRINGS jhtk sphinx both)
+find_package(Sphinxbase)
+find_package(Pocketsphinx)
 
-if(PSPHINX AND PJULIUS)
+#if(SphinxBase_LIBRARIES)
+#message(${SphinxBase_LIBRARIES})
+#endif(SphinxBase_LIBRARIES)
+
+#if(POCKETSPHINX_LIBRARIES)
+#message(${POCKETSPHINX_LIBRARIES})
+#endif(POCKETSPHINX_LIBRARIES)
+
+set(BackendType "both" CACHE STRING "Backend type used while building")
+set_property(CACHE BackendType PROPERTY STRINGS jhtk both)
+
+if(SphinxBase_LIBRARIES AND POCKETSPHINX_LIBRARIES)
     set(BackendType both)
-elseif(PSPHINX)
-    set(BackendType sphinx)
-elseif(PJULIUS)
-    set(BackendType jhtk)
 else()
-   message(FATAL_ERROR "No backends found")
+    set(BackendType jhtk)
 endif()
 
 
@@ -52,14 +59,9 @@ if(${BackendType} STREQUAL both)
 ADD_DEFINITIONS(-DBACKEND_TYPE_BOTH)
 endif(${BackendType} STREQUAL both)
 
-if(${BackendType} STREQUAL sphinx)
-ADD_DEFINITIONS(-DBACKEND_TYPE_SPHINX)
-endif(${BackendType} STREQUAL sphinx)
-
 if(${BackendType} STREQUAL jhtk)
 ADD_DEFINITIONS(-DBACKEND_TYPE_JHTK)
 endif(${BackendType} STREQUAL jhtk)
-#ADD_DEFINITIONS(-DCBackendType=${BackendType})
 
 add_subdirectory(simonlib)
 add_subdirectory(simon)

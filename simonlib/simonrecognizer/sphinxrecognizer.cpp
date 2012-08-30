@@ -48,7 +48,11 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
   {
     SphinxRecognitionConfiguration *sconfig = dynamic_cast<SphinxRecognitionConfiguration*> (config);
 
-    decoder = ps_init(sconfig->getSphinxConfig());
+    cmd_ln_t *spconf = sconfig->getSphinxConfig();
+    if(!spconf)
+      return false;
+
+    decoder = ps_init(spconf);
 
     if(!decoder)
       return false;
@@ -121,7 +125,9 @@ bool SphinxRecognizer::uninitialize()
 {
   kDebug()<<"SPHINX uninitialization";
   log.clear();
-  ps_free(decoder); //WARNING: think about necessity of using QSharedPointers
+
+  if(decoder)
+    ps_free(decoder);
 
   return true;
 }

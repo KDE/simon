@@ -262,8 +262,7 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
 
 QString ModelCompilerSPHINX::information(bool condensed) const
 {
-  //TODO:implement
-  return "";
+  return i18n("ShinxTrain: (unknown version)");
 }
 
 

@@ -24,7 +24,6 @@
 include(LibFindMacros)
 
 # Dependencies
-#libfind_package(Magick++ Magick)
 
 # Use pkg-config to get hints about paths
 libfind_pkg_check_modules(SphinxBase_PKGCONF SphinxBase)

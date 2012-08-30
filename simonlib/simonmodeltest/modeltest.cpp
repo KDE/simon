@@ -35,10 +35,6 @@
 #include <simonrecognizer/sphinxrecognizer.h>
 #include <simonrecognizer/sphinxrecognitionconfiguration.h>
 #endif
-#ifdef BACKEND_TYPE_SPHINX
-#include <simonrecognizer/sphinxrecognizer.h>
-#include <simonrecognizer/sphinxrecognitionconfiguration.h>
-#endif
 
 #include <QCoreApplication>
 #include <QDir>

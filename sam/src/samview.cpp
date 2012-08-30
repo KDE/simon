@@ -168,10 +168,6 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.urPrompts->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urBaseModel->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 
-  #ifdef BACKEND_TYPE_SPHINX
-    ui.cbType->removeItem(1);
-    ui.cbType->setDisabled(true);
-  #endif
   #ifdef BACKEND_TYPE_JHTK
     ui.cbType->removeItem(0);
     ui.cbType->setDisabled(true);
@@ -180,9 +176,6 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   if(backendType == TestConfigurationWidget::SPHINX)
   {
     #ifdef BACKEND_TYPE_BOTH
-      backendChanged(0);
-    #endif
-    #ifdef BACKEND_TYPE_SPHINX
       backendChanged(0);
     #endif
     #ifdef BACKEND_TYPE_JHTK
@@ -195,10 +188,6 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   {
     #ifdef BACKEND_TYPE_BOTH
       backendChanged(1);
-    #endif
-    #ifdef BACKEND_TYPE_SPHINX
-      kDebug()<<"Force switching to JHTK there no sphinx here";
-      backendChanged(0);
     #endif
     #ifdef BACKEND_TYPE_JHTK
       backendChanged(1);
@@ -924,7 +913,6 @@ void SamView::serializePromptsRun(const QString promptsPath, const QString& outp
 
   QHash<QString,QString> adaptionArgs;
   adaptionArgs.insert("prompts", output+"prompts");
-  //TODO: understand and customize
   modelCompilationAdapter->startAdaption(
         ModelCompilationAdapter::AdaptAcousticModel,
         QStringList(), promptsPath, adaptionArgs);

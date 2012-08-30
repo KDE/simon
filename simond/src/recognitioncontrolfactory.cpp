@@ -24,9 +24,6 @@
 #ifdef BACKEND_TYPE_BOTH
  #include "sphinxcontrol.h"
 #endif
-#ifdef BACKEND_TYPE_SPHINX
-  #include "sphinxcontrol.h"
-#endif
 
 #include <KConfig>
 #include <KStandardDirs>

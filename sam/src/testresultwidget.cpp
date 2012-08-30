@@ -49,9 +49,6 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
     #ifdef BACKEND_TYPE_BOTH
       modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
     #endif
-    #ifdef BACKEND_TYPE_SPHINX
-      modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
-    #endif
     #ifdef BACKEND_TYPE_JHTK
     {
       emit testAborted();
