@@ -17,6 +17,7 @@ X-KDE-PluginKeyword=SynchronisationSettings
 
 Name=Synchronization
 Name[ca]=Sincronització
+Name[cs]=Synchronizace
 Name[de]=Abgleich
 Name[el]=Συγχρονισμός
 Name[es]=Sincronización
@@ -29,6 +30,7 @@ Name[nl]=Synchronisatie
 Name[pl]=Synchronizacja
 Name[pt]=Sincronização
 Name[pt_BR]=Sincronização
+Name[sk]=Synchronizácia
 Name[sv]=Synkronisering
 Name[uk]=Синхронізація
 Name[x-test]=xxSynchronizationxx
