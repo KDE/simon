@@ -70,7 +70,7 @@ bool LipDetectionCondition::privateDeSerialize(QDomElement elem)
     kDebug() << "Threhold value not specified!  Deserialization failure!";
     return false;
   }
-  thresholdValue = thresholdValueElement.text().toInt()*250+30000;
+  thresholdValue = thresholdValueElement.text().toInt()*250+40000;
   
   analyzer = new LipAnalyzer(thresholdValue);
   connect(analyzer,SIGNAL(lipMovementChanged(bool)),this,SLOT(manageConditionState(bool)));

@@ -13,37 +13,21 @@
   <widget class="QPushButton" name="pbSelect">
    <property name="geometry">
     <rect>
-     <x>126</x>
-     <y>4</y>
+     <x>10</x>
+     <y>50</y>
      <width>124</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Select</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lblThresholdValue">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>112</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Threshold Value:</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    <string>Start training</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="cbInverted">
    <property name="geometry">
     <rect>
      <x>9</x>
-     <y>40</y>
+     <y>90</y>
      <width>139</width>
      <height>22</height>
     </rect>
@@ -89,119 +73,128 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>70</y>
-     <width>391</width>
+     <y>120</y>
+     <width>384</width>
      <height>161</height>
     </rect>
    </property>
    <property name="title">
     <string>Select the threshold value for lip detection:</string>
    </property>
-   <widget class="QLabel" name="lblNotification">
-    <property name="geometry">
-     <rect>
-      <x>4</x>
-      <y>101</y>
-      <width>91</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Notifications!</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lblThreshold">
-    <property name="geometry">
-     <rect>
-      <x>4</x>
-      <y>26</y>
-      <width>358</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="lineWidth">
-     <number>2</number>
-    </property>
-    <property name="text">
-     <string>Kindly adjust the threshold value to optimize whether
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" colspan="2">
+     <widget class="QLabel" name="lblThreshold">
+      <property name="lineWidth">
+       <number>2</number>
+      </property>
+      <property name="text">
+       <string>Kindly adjust the threshold value to optimize whether
 you are speaking or not by detecting lip movements. </string>
-    </property>
-   </widget>
-   <widget class="QSplitter" name="splitter_2">
-    <property name="geometry">
-     <rect>
-      <x>4</x>
-      <y>66</y>
-      <width>361</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-    <widget class="QSlider" name="horizontalSlider">
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="minimum">
-      <number>-50</number>
-     </property>
-     <property name="maximum">
-      <number>50</number>
-     </property>
-     <property name="value">
-      <number>0</number>
-     </property>
-     <property name="sliderPosition">
-      <number>0</number>
-     </property>
-     <property name="tracking">
-      <bool>true</bool>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="invertedAppearance">
-      <bool>false</bool>
-     </property>
-     <property name="invertedControls">
-      <bool>false</bool>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lblSilderValue">
-     <property name="text">
-      <string>0</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QSplitter" name="splitter">
-    <property name="geometry">
-     <rect>
-      <x>4</x>
-      <y>124</y>
-      <width>361</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-    <widget class="QPushButton" name="pbOk">
-     <property name="text">
-      <string>Ok</string>
-     </property>
-    </widget>
-   </widget>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QSplitter" name="splitter_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QSlider" name="horizontalSlider">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="minimum">
+        <number>-50</number>
+       </property>
+       <property name="maximum">
+        <number>50</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="tracking">
+        <bool>true</bool>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="invertedAppearance">
+        <bool>false</bool>
+       </property>
+       <property name="invertedControls">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblSilderValue">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="lblNotification">
+      <property name="text">
+       <string>Notifications!</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="pbOk">
+      <property name="text">
+       <string>Ok</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>258</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
   </widget>
+  <widget class="QLabel" name="lblThreshold_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>361</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>2</number>
+   </property>
+   <property name="text">
+    <string>Kindly select the appropriate threshold value by
+ training though your lip movements while speaking</string>
+   </property>
+  </widget>
+  <zorder>groupBox</zorder>
   <zorder>splitter_3</zorder>
-  <zorder>splitter_4</zorder>
   <zorder>pbSelect</zorder>
-  <zorder>lblThresholdValue</zorder>
   <zorder>cbInverted</zorder>
   <zorder>layoutWidget</zorder>
+  <zorder>lblThreshold_2</zorder>
  </widget>
  <tabstops>
   <tabstop>pbSelect</tabstop>

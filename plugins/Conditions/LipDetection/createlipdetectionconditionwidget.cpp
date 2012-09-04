@@ -49,7 +49,7 @@ void CreateLipDetectionConditionWidget::displaySliderValue(int value)
 void CreateLipDetectionConditionWidget::modify()
 {
   thresholdValue = ui.horizontalSlider->value();
-  ui.pbSelect->setText("Modify");
+  ui.pbSelect->setText("Train again");
   ui.groupBox->setVisible(false);
   emit completeChanged();
 }
@@ -57,7 +57,7 @@ void CreateLipDetectionConditionWidget::modify()
 
 bool CreateLipDetectionConditionWidget::isComplete()
 {
-  if (ui.pbSelect->text()=="Modify")
+  if (ui.pbSelect->text()=="Train again")
     return true;
   else
     return false;
