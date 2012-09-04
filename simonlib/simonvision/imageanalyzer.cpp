@@ -28,5 +28,5 @@ ImageAnalyzer::ImageAnalyzer(QObject* parent): QObject(parent)
 
 ImageAnalyzer::~ImageAnalyzer()
 {
-  WebcamDispatcher::unregisterAnalyzer(this);
+//   WebcamDispatcher::unregisterAnalyzer(this);
 }

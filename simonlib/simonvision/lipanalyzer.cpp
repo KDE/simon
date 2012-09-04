@@ -24,13 +24,13 @@
 #include <KStandardDirs>
 
 using namespace SimonCV;
-
 LipAnalyzer::LipAnalyzer()
 {
   if (!initLipDetection())
     kDebug() <<"Error Initializing lip detection";
 
 }
+
 LipAnalyzer::LipAnalyzer(int thresholdValue)
 {
   if (!initLipDetection(thresholdValue))
@@ -49,7 +49,7 @@ bool LipAnalyzer::initLipDetection(int thresholdVal)
   totalCount=5;
   const QString& lipHaarCascadePath=KStandardDirs::locate("data", "haarcascade_mcs_mouth.xml");
   const QString& faceHaarCascadePath=KStandardDirs::locate("data", "haarcascade_frontalface_default.xml");
-  
+
   if (!(memoryStorage = cvCreateMemStorage(0)))
   {
     kDebug() <<"Can\'t allocate memory for lip detection\n";
@@ -113,7 +113,6 @@ void LipAnalyzer::analyze(IplImage* currentImage)
 //     cvRectangle(liveVideoFrameCopy,cvPoint(faceRect->x, faceRect->y),
 //                 cvPoint(faceRect->x + faceRect->width, faceRect->y + faceRect->height),
 //                 CV_RGB(255, 0, 0), 1, 8, 0);
-
     cvSetImageROI(liveVideoFrameCopy,/* the source image */
                   cvRect(faceRect->x,            /* x = start from leftmost */
                          faceRect->y+(faceRect->height *2/3), /* We are just considering the lower part */
@@ -125,15 +124,16 @@ void LipAnalyzer::analyze(IplImage* currentImage)
 
     if (mouthRect)
     {
-      cvRectangle(liveVideoFrameCopy,cvPoint(faceRect->x, faceRect->y),
-                  cvPoint(faceRect->x + faceRect->width, faceRect->y + faceRect->height),
-                  CV_RGB(0, 255, 0), 1, 8, 0);
+//       cvRectangle(liveVideoFrameCopy,cvPoint(faceRect->x, faceRect->y),
+//                   cvPoint(faceRect->x + faceRect->width, faceRect->y + faceRect->height),
+//                   CV_RGB(0, 255, 0), 1, 8, 0);
       cvSetImageROI(liveVideoFrameCopy,
                     cvRect(faceRect->x + mouthRect->x-15,            /* x = start from leftmost */
                            faceRect->y+(faceRect->height *2/3) + mouthRect->y-5, /* y = a few pixels from the top */
-                           100,        /* width = same width with the face */
+                           90,        /* width = same width with the face */
                            55)    /* height = 1/3 of face height */
                    );
+
       if (!prevVideoFrame)
       {
         prevVideoFrame = cvCreateImage(cvGetSize(liveVideoFrameCopy),liveVideoFrameCopy->depth,liveVideoFrameCopy->nChannels);
@@ -173,16 +173,18 @@ void LipAnalyzer::analyze(IplImage* currentImage)
     }
   }
 
-  kDebug()<<"Sum: "<<sum<< " total count:  "<<totalCount<<" threshold value: "<<thresholdValue;
+//  kDebug()<<"Sum: "<<sum<< " total count:  "<<totalCount<<" threshold value: "<<thresholdValue;
 
   if (sum>thresholdValue&&totalCount>0&&totalCount<5)
   {
     totalCount++;
   }
+
   else if (sum<thresholdValue&&totalCount>0&&totalCount<=5)
   {
     totalCount--;
   }
+
   else if (sum>thresholdValue&&totalCount==0)
   {
     totalCount=5;
@@ -206,15 +208,17 @@ void LipAnalyzer::analyze(IplImage* currentImage)
 void LipAnalyzer::closeLipDetection()
 {
   //    WebcamDispatcher::unregisterAnalyzer(this);
+  if (faceCascade)
+    cvReleaseHaarClassifierCascade(&faceCascade);
 
-  cvReleaseHaarClassifierCascade(&faceCascade);
-  cvReleaseHaarClassifierCascade(&lipCascade);
-
-
+  if (lipCascade)
+    cvReleaseHaarClassifierCascade(&lipCascade);
+  
   if (memoryStorage)
     cvReleaseMemStorage(&memoryStorage);
 
-  cvReleaseImage(&liveVideoFrameCopy);
+  if (liveVideoFrameCopy)
+    cvReleaseImage(&liveVideoFrameCopy);
 }
 
 
@@ -232,7 +236,7 @@ void LipAnalyzer::isChanged(bool hasLipMovedNew)
 LipAnalyzer::~LipAnalyzer()
 {
   kDebug()<<"Destroying Lip Analyzer";
-
+  WebcamDispatcher::unregisterAnalyzer(this);
   // Release resources allocated in the analyzer
-//  closeLipDetection();
+  closeLipDetection();
 }

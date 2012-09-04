@@ -32,7 +32,7 @@ WebcamDispatcher* WebcamDispatcher::instance = new WebcamDispatcher;
 
 void WebcamDispatcher::initWebcamDispatcher()
 {
-
+//  cvNamedWindow("Live",1);
   // Initialize video capture
   capture = cvCaptureFromCAM(CV_CAP_ANY);
 
@@ -59,7 +59,6 @@ void WebcamDispatcher::closeWebcamDispatcher()
 void WebcamDispatcher::registerAnalyzer(ImageAnalyzer* analyzer)
 {
   kDebug() << "Registering analyzer\n ";
-
   instance->analyzers.append(analyzer);
 
   if (instance->analyzers.count() ==1)
@@ -71,18 +70,13 @@ void WebcamDispatcher::registerAnalyzer(ImageAnalyzer* analyzer)
 
 void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
 {
-  kDebug() << "Unregistering analyzer\n ";
+      instance->mutex.lock();
 
-  for (int i=0;i<instance->analyzers.count();i++)
-  {
-    if (analyzer==instance->analyzers.at(i))
-    {
-      instance->analyzers.removeAt(i);
-      kDebug() << "Instance removed\n  ";
-    }
+      instance->analyzers.removeAll(analyzer);
 
-  }
+      instance->mutex.unlock();
 
+      instance->closeWebcamDispatcher();
 
 }
 
@@ -90,14 +84,11 @@ IplImage* WebcamDispatcher::nextVideoFrame()
 {
   IplImage* liveFrame = cvQueryFrame(capture);
 
-
   if (!liveFrame)
   {
     kDebug() << "Failed to get the live video frame\n";
-//       return NULL;
   }
-
-//    cvFlip( liveFrame, 0, 1 );
+  
   return liveFrame;
 }
 
@@ -107,15 +98,21 @@ void WebcamDispatcher::run()
 
   while (instance->analyzers.count()!=0)
   {
+
+    instance->mutex.lock();
+    kDebug()<<"in run locked";
     foreach(ImageAnalyzer* analyzer,analyzers)
 
     {
+
 //    cvShowImage("Testing", nextVideoFrame() );
       analyzer->analyze(nextVideoFrame());
     }
+    
+    instance->mutex.unlock();
+    kDebug()<<"in run unlocked";
   }
 
-    instance->closeWebcamDispatcher();
 
 }
 
@@ -124,5 +121,3 @@ WebcamDispatcher::~WebcamDispatcher()
 {
 
 }
-
-

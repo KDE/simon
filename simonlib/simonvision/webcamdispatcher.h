@@ -26,8 +26,7 @@
 #include<QList>
 #include "simonvision_export.h"
 #include<QThread>
-
-
+#include <QMutex>
 class SIMONVISION_EXPORT WebcamDispatcher : public QThread
 {
 
@@ -58,7 +57,7 @@ private:
 
   // This is method implemented from QThread, Here we will be sending live feed to the analyzers
   void run();
-
+  QMutex mutex;
   // Using Singleton pattern
   static WebcamDispatcher* instance;
 

@@ -31,6 +31,7 @@ FaceAnalyzer::FaceAnalyzer()
   cascade=0;
   liveVideoFrameCopy=0;
   memoryStorage=0;
+
   if (!initFaceDetection(KStandardDirs::locate("data", "haarcascade_frontalface_default.xml")))
     kDebug() <<"Error finding haarcascade_frontalface_default.xml file";
 }
@@ -90,12 +91,14 @@ void FaceAnalyzer::analyze(IplImage* currentImage)
 
 void FaceAnalyzer::closeFaceDetection()
 {
-  
-//    cvReleaseHaarClassifierCascade(&cascade);
-//    if (memoryStorage)
-//    cvReleaseMemStorage(&memoryStorage);
+  if (cascade)
+    cvReleaseHaarClassifierCascade(&cascade);
 
-  //  cvReleaseImage(&liveVideoFrameCopy);
+  if (memoryStorage)
+    cvReleaseMemStorage(&memoryStorage);
+
+  if (liveVideoFrameCopy)
+    cvReleaseImage(&liveVideoFrameCopy);
 }
 
 
@@ -113,7 +116,7 @@ void FaceAnalyzer::isChanged(bool hasFaceNew)
 FaceAnalyzer::~FaceAnalyzer()
 {
   kDebug()<<"Destroying Face Analyzer";
-
+  WebcamDispatcher::unregisterAnalyzer(this);
   // Release resources allocated in the analyzer
   closeFaceDetection();
 }
