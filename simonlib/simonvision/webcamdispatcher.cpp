@@ -1,4 +1,6 @@
+
 /*
+
  *   Copyright (C) 2012 Yash Shah <blazonware@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -70,13 +72,11 @@ void WebcamDispatcher::registerAnalyzer(ImageAnalyzer* analyzer)
 
 void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
 {
-      instance->mutex.lock();
+  instance->mutex.lock();
+  instance->analyzers.removeAll(analyzer);
+  instance->mutex.unlock();
 
-      instance->analyzers.removeAll(analyzer);
-
-      instance->mutex.unlock();
-
-      instance->closeWebcamDispatcher();
+  instance->closeWebcamDispatcher();
 
 }
 
@@ -100,17 +100,14 @@ void WebcamDispatcher::run()
   {
 
     instance->mutex.lock();
-    kDebug()<<"in run locked";
+
     foreach(ImageAnalyzer* analyzer,analyzers)
-
     {
-
 //    cvShowImage("Testing", nextVideoFrame() );
       analyzer->analyze(nextVideoFrame());
     }
-    
+
     instance->mutex.unlock();
-    kDebug()<<"in run unlocked";
   }
 
 

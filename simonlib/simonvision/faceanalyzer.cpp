@@ -71,21 +71,12 @@ void FaceAnalyzer::analyze(IplImage* currentImage)
 
   cvCopy(currentImage, liveVideoFrameCopy, 0);
 
-  // Copy it to the display image, inverting it if needed
-  //   pVideoFrameCopy->origin = currentImage->origin;
-  //
-  //   if ( 1 == pVideoFrameCopy->origin ) // 1 means the image is inverted
-  //   {
-  //     cvFlip ( pVideoFrameCopy, 0, 0 );
-  //     pVideoFrameCopy->origin = 0;
-  //   }
   faceRect = detectObject(liveVideoFrameCopy,cascade,memoryStorage);
 
-
   if (faceRect)
-    isChanged(true);
+    emit facePresenceChanged(true);
   else
-    isChanged(false);
+    emit facePresenceChanged(false);
 }
 
 
@@ -99,18 +90,6 @@ void FaceAnalyzer::closeFaceDetection()
 
   if (liveVideoFrameCopy)
     cvReleaseImage(&liveVideoFrameCopy);
-}
-
-
-
-void FaceAnalyzer::isChanged(bool hasFaceNew)
-{
-  if (!hasFace == hasFaceNew)
-  {
-    emit facePresenceChanged(hasFaceNew);
-  }
-
-  hasFace = hasFaceNew;
 }
 
 FaceAnalyzer::~FaceAnalyzer()

@@ -40,8 +40,6 @@ private:
   int      initFaceDetection(const QString& haarCascadePath);
   void     closeFaceDetection();
   void isChanged(bool hasFace);
-
-  bool hasFace;
   
   IplImage  * liveVideoFrameCopy;
   

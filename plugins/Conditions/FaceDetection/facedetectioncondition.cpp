@@ -1,4 +1,4 @@
-/*
+=/*
  *   Copyright (C) 2012 Yash Shah <blazonware@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -66,16 +66,22 @@ void FaceDetectionCondition::manageConditionState(bool hasFace)
 {
   if (hasFace)
   {
-    m_satisfied = true;
-    kDebug() << name() + " is true!";
-    emit conditionChanged();
-  }
+    if(!m_satisfied)
+    {
+      m_satisfied = true;
+      kDebug() << name() + " is true!";
+      emit conditionChanged();
+    }
 
+  }
   else
   {
-    m_satisfied = false;
-    kDebug() << name() + " is false!";
-    emit conditionChanged();
+    if(m_satisfied)
+    {
+      m_satisfied = false;
+      kDebug() << name() + " is false!";
+      emit conditionChanged();
+    }
   }
 
 }  
@@ -83,5 +89,4 @@ void FaceDetectionCondition::manageConditionState(bool hasFace)
 FaceDetectionCondition::~FaceDetectionCondition()
 {
   delete analyzer;
-
 }
