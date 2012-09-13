@@ -81,18 +81,23 @@ void LipDetectionCondition::manageConditionState(bool isSpeaking)
 {
   if (isSpeaking)
   {
-    m_satisfied = true;
-    kDebug() << name() + " is true!";
-    emit conditionChanged();
-  }
+    if(!m_satisfied)
+    {
+      m_satisfied = true;
+      kDebug() << name() + " is true!";
+      emit conditionChanged();
+    }
 
+  }
   else
   {
-    m_satisfied = false;
-    kDebug() << name() + " is false!";
-    emit conditionChanged();
+    if(m_satisfied)
+    {
+      m_satisfied = false;
+      kDebug() << name() + " is false!";
+      emit conditionChanged();
+    }
   }
-
 }  
 
 

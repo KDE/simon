@@ -193,13 +193,13 @@ void LipAnalyzer::analyze(IplImage* currentImage)
 
   if (totalCount>0)
   {
-    isChanged(true);
+    emit lipMovementChanged(true);
     kDebug()<<"Speaking: TRUE\n";
   }
 
   else
   {
-    isChanged(false);
+    emit lipMovementChanged(false);
     kDebug()<<"Speaking: False\n";
 
   }
@@ -221,22 +221,11 @@ void LipAnalyzer::closeLipDetection()
     cvReleaseImage(&liveVideoFrameCopy);
 }
 
-
-
-void LipAnalyzer::isChanged(bool hasLipMovedNew)
-{
-  if (!hasLipMoved == hasLipMovedNew)
-  {
-    emit lipMovementChanged(hasLipMovedNew);
-  }
-
-  hasLipMoved = hasLipMovedNew;
-}
-
 LipAnalyzer::~LipAnalyzer()
 {
   kDebug()<<"Destroying Lip Analyzer";
   WebcamDispatcher::unregisterAnalyzer(this);
+
   // Release resources allocated in the analyzer
   closeLipDetection();
 }
