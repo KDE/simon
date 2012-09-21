@@ -29,6 +29,8 @@
 #include <QWidget>
 
 class Condition;
+class QDomDocument;
+class QDomElement;
 class KIcon;
 
 /**
@@ -75,7 +77,7 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
      * enter all the required fields), return a nullpointer.
      *
     */
-    virtual Condition* createCondition()=0;
+    virtual Condition* createCondition(QDomDocument *doc, QDomElement& element)=0;
 
     /**
      * \brief When editing a condition this method will be called to initialize the display with the old values
@@ -103,6 +105,7 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
      * \brief Destructor
      */
     virtual ~CreateConditionWidget() {}
+    
 };
 #endif
 

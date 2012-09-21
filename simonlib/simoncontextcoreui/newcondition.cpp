@@ -73,6 +73,7 @@ bool NewCondition::registerCreators(QList<CreateConditionWidget *> conditionCrea
 void NewCondition::conditionSuggested(Condition *condition)
 {
   if (!condition) return;
+  
   init(condition);
   delete condition;
 }
@@ -81,6 +82,8 @@ void NewCondition::init(Condition *condition)
 {
   if (!condition) return;
 
+  ui->cbInverted->setChecked(condition->isInverted());
+  
   bool found=false;
   int i=0;
   foreach (CreateConditionWidget *widget, m_conditionCreators) {
@@ -126,7 +129,15 @@ Condition* NewCondition::newCondition()
 
     if (!creator) return 0;
 
-    return creator->createCondition();
+    
+    QDomDocument doc;
+    QDomElement conditionElem = doc.createElement("condition");
+
+    QDomElement invertElem = doc.createElement("inverted");
+    invertElem.appendChild(doc.createTextNode(ui->cbInverted->isChecked() ? "1" : "0"));
+    conditionElem.appendChild(invertElem);
+    
+    return creator->createCondition(&doc, conditionElem);
   }
   return 0;
 }

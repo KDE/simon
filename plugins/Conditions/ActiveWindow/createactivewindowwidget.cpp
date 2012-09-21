@@ -80,32 +80,24 @@ bool CreateActiveWindowWidget::init(Condition *condition)
   ui.leProgramName->setText(activeWindow->getProcessName());
   ui.leWindowTitle->setText(activeWindow->getWindowName());
   ui.cbRegExp->setChecked(activeWindow->getWindowNameIsRegExp());
-  ui.cbInverted->setChecked(activeWindow->isInverted());
   return true;
 }
 
 
-Condition* CreateActiveWindowWidget::createCondition()
+Condition* CreateActiveWindowWidget::createCondition( QDomDocument* doc, QDomElement& conditionElem )
 {
-    kDebug() << "Creating Process Opened Condition";
-    QDomDocument doc;
-    QDomElement conditionElem = doc.createElement("condition");
     conditionElem.setAttribute("name", "simonactivewindowplugin.desktop");
 
-    QDomElement invertElem = doc.createElement("inverted");
-    invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
-    conditionElem.appendChild(invertElem);
-
-    QDomElement programElem = doc.createElement("processname");
-    programElem.appendChild(doc.createTextNode(ui.leProgramName->text()));
+    QDomElement programElem = doc->createElement("processname");
+    programElem.appendChild(doc->createTextNode(ui.leProgramName->text()));
     conditionElem.appendChild(programElem);
 
-    QDomElement windowElem = doc.createElement("windowname");
-    windowElem.appendChild(doc.createTextNode(ui.leWindowTitle->text()));
+    QDomElement windowElem = doc->createElement("windowname");
+    windowElem.appendChild(doc->createTextNode(ui.leWindowTitle->text()));
     conditionElem.appendChild(windowElem);
 
-    QDomElement regExpElem = doc.createElement("windownameregexp");
-    regExpElem.appendChild(doc.createTextNode(ui.cbRegExp->isChecked() ? "1" : "0"));
+    QDomElement regExpElem = doc->createElement("windownameregexp");
+    regExpElem.appendChild(doc->createTextNode(ui.cbRegExp->isChecked() ? "1" : "0"));
     conditionElem.appendChild(regExpElem);
 
 

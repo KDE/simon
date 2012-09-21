@@ -62,45 +62,36 @@ bool CreateDBusConditionWidget::init(Condition *condition)
   ui.leCheckMethod->setText(dbusCondition->checkMethod());
   ui.leNotificationSignal->setText(dbusCondition->notificationSignal());
   ui.leValue->setText(dbusCondition->value());
-  
-  ui.cbInverted->setChecked(dbusCondition->isInverted());
   return true;
 }
 
 
-Condition* CreateDBusConditionWidget::createCondition()
+Condition* CreateDBusConditionWidget::createCondition(QDomDocument* doc, QDomElement& conditionElem)
 {
-    QDomDocument doc;
-    
-    QDomElement conditionElem = doc.createElement("condition");
     conditionElem.setAttribute("name", "simondbusconditionplugin.desktop");
 
-    QDomElement invertElem = doc.createElement("inverted");
-    invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
-    conditionElem.appendChild(invertElem);
-
-    QDomElement serviceNameElem = doc.createElement("serviceName");
-    serviceNameElem.appendChild(doc.createTextNode(ui.leServiceName->text()));
+    QDomElement serviceNameElem = doc->createElement("serviceName");
+    serviceNameElem.appendChild(doc->createTextNode(ui.leServiceName->text()));
     conditionElem.appendChild(serviceNameElem);
 
-    QDomElement pathElem = doc.createElement("path");
-    pathElem.appendChild(doc.createTextNode(ui.lePath->text()));
+    QDomElement pathElem = doc->createElement("path");
+    pathElem.appendChild(doc->createTextNode(ui.lePath->text()));
     conditionElem.appendChild(pathElem);
 
-    QDomElement interfaceElem = doc.createElement("interface");
-    interfaceElem.appendChild(doc.createTextNode(ui.leInterface->text()));
+    QDomElement interfaceElem = doc->createElement("interface");
+    interfaceElem.appendChild(doc->createTextNode(ui.leInterface->text()));
     conditionElem.appendChild(interfaceElem);
 
-    QDomElement checkMethodElem = doc.createElement("checkMethod");
-    checkMethodElem.appendChild(doc.createTextNode(ui.leCheckMethod->text()));
+    QDomElement checkMethodElem = doc->createElement("checkMethod");
+    checkMethodElem.appendChild(doc->createTextNode(ui.leCheckMethod->text()));
     conditionElem.appendChild(checkMethodElem);
 
-    QDomElement notificationSignalElem = doc.createElement("notificationSignal");
-    notificationSignalElem.appendChild(doc.createTextNode(ui.leNotificationSignal->text()));
+    QDomElement notificationSignalElem = doc->createElement("notificationSignal");
+    notificationSignalElem.appendChild(doc->createTextNode(ui.leNotificationSignal->text()));
     conditionElem.appendChild(notificationSignalElem);
 
-    QDomElement valueElem = doc.createElement("value");
-    valueElem.appendChild(doc.createTextNode(ui.leValue->text()));
+    QDomElement valueElem = doc->createElement("value");
+    valueElem.appendChild(doc->createTextNode(ui.leValue->text()));
     conditionElem.appendChild(valueElem);
     
     return ContextManager::instance()->getCondition(conditionElem);

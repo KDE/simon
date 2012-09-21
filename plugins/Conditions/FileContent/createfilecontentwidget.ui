@@ -11,6 +11,16 @@
    </rect>
   </property>
   <layout class="QFormLayout" name="formLayout">
+   <property name="fieldGrowthPolicy">
+    <enum>QFormLayout::ExpandingFieldsGrow</enum>
+   </property>
+   <item row="1" column="0">
+    <widget class="QLabel" name="lbWindowTitle">
+     <property name="text">
+      <string>File content:</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -25,6 +35,19 @@
      </item>
     </layout>
    </item>
+   <item row="3" column="1">
+    <widget class="QLabel" name="lbRegExpValid">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
    <item row="4" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
@@ -38,23 +61,7 @@
    <item row="4" column="1">
     <widget class="KUrlRequester" name="urFilename"/>
    </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="QCheckBox" name="cbInverted">
-     <property name="toolTip">
-      <string>An inverted condition is satisfied when its specified details are NOT true</string>
-     </property>
-     <property name="whatsThis">
-      <string>An inverted condition is satisfied when its specified details are NOT true</string>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="text">
-      <string>Invert Condition</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0" colspan="2">
+   <item row="7" column="0" colspan="2">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -66,26 +73,6 @@
       </size>
      </property>
     </spacer>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="lbWindowTitle">
-     <property name="text">
-      <string>File content:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLabel" name="lbRegExpValid">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

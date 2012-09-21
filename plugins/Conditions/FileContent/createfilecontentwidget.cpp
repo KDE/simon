@@ -67,32 +67,24 @@ bool CreateFileContentWidget::init(Condition *condition)
   ui.leFileContent->setText(fileContent->getFileContent());
   ui.urFilename->setUrl(fileContent->getFilename());
   ui.cbRegExp->setChecked(fileContent->getFileContentIsRegExp());
-  ui.cbInverted->setChecked(fileContent->isInverted());
   return true;
 }
 
 
-Condition* CreateFileContentWidget::createCondition()
+Condition* CreateFileContentWidget::createCondition( QDomDocument* doc, QDomElement& conditionElem )
 {
-    QDomDocument doc;
-    
-    QDomElement conditionElem = doc.createElement("condition");
     conditionElem.setAttribute("name", "simonfilecontentplugin.desktop");
 
-    QDomElement invertElem = doc.createElement("inverted");
-    invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
-    conditionElem.appendChild(invertElem);
-
-    QDomElement filenameEleme = doc.createElement("filename");
-    filenameEleme.appendChild(doc.createTextNode(ui.urFilename->url().toLocalFile()));
+    QDomElement filenameEleme = doc->createElement("filename");
+    filenameEleme.appendChild(doc->createTextNode(ui.urFilename->url().toLocalFile()));
     conditionElem.appendChild(filenameEleme);
 
-    QDomElement fileContentElem = doc.createElement("filecontent");
-    fileContentElem.appendChild(doc.createTextNode(ui.leFileContent->text()));
+    QDomElement fileContentElem = doc->createElement("filecontent");
+    fileContentElem.appendChild(doc->createTextNode(ui.leFileContent->text()));
     conditionElem.appendChild(fileContentElem);
 
-    QDomElement regExpElem = doc.createElement("filecontentregexp");
-    regExpElem.appendChild(doc.createTextNode(ui.cbRegExp->isChecked() ? "1" : "0"));
+    QDomElement regExpElem = doc->createElement("filecontentregexp");
+    regExpElem.appendChild(doc->createTextNode(ui.cbRegExp->isChecked() ? "1" : "0"));
     conditionElem.appendChild(regExpElem);
 
     return ContextManager::instance()->getCondition(conditionElem);

@@ -92,32 +92,21 @@ bool CreateOrConditionAssociationWidget::init(Condition *condition)
   m_conditionsProxy->setSourceModel(m_compoundAssociationCondition);
   ui.lvConditions->setCurrentIndex(m_conditionsProxy->index(0,0));
 
-  ui.cbInverted->setChecked(orConditionAssociation->isInverted());
-
   return true;
 }
 
-Condition* CreateOrConditionAssociationWidget::createCondition()
+Condition* CreateOrConditionAssociationWidget::createCondition(QDomDocument* doc, QDomElement& conditionElem)
 {
-    kDebug() << "Creating Or Condition Association";
-    QDomDocument doc;
-    QDomElement conditionElem = doc.createElement("condition");
     conditionElem.setAttribute("name", "simonorconditionassociationplugin.desktop");
-
-    QDomElement invertElem = doc.createElement("inverted");
-    invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
-    conditionElem.appendChild(invertElem);
 
     //add each condition
     QList<Condition*> associationConditions = m_compoundAssociationCondition->getConditions();
     foreach(Condition* associationCondition, associationConditions)
     {
-        conditionElem.appendChild(associationCondition->serialize(&doc));
+        conditionElem.appendChild(associationCondition->serialize(doc));
     }
 
-    ContextManager* manager = ContextManager::instance();
-
-    return manager->getCondition(conditionElem);
+    return ContextManager::instance()->getCondition(conditionElem);
 }
 
 Condition* CreateOrConditionAssociationWidget::getCurrentCondition()
