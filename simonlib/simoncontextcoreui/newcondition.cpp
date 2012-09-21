@@ -48,11 +48,17 @@ void NewCondition::deleteLater()
   QObject::deleteLater();
 }
 
+bool sortCreateConditionHelper(const CreateConditionWidget* a, const CreateConditionWidget* b)
+{
+  return a->windowTitle() < b->windowTitle();
+}
 
 bool NewCondition::registerCreators(QList<CreateConditionWidget *> conditionCreators)
 {
   qDeleteAll(m_conditionCreators);
  
+  qSort(conditionCreators.begin(), conditionCreators.end(), sortCreateConditionHelper);
+  
   foreach (CreateConditionWidget *widget, conditionCreators) {
     ui->cbType->addItem(widget->windowIcon(), widget->windowTitle());
     ui->swConditionCreators->addWidget(widget);
