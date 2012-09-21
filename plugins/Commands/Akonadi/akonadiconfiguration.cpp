@@ -267,7 +267,7 @@ void AkonadiConfiguration::defaults()
   
   ui.cbDismiss->setChecked(true);
   ui.cbShowLater->setChecked(false);
-  ui.leDismiss->setText(i18n("Ok"));
+  ui.leDismiss->setText(i18n("OK"));
   ui.leShowLater->setText(i18n("Snooze"));
   ui.wgRestartTime->setTime(AkonadiCommand::Minutes, 5);
   ui.teText->setText(i18nc("%1 is summary, %2 is date, %3 is time and %4 is location", 

@@ -54,7 +54,7 @@ class CreateActiveWindowWidget : public CreateConditionWidget
     void processFileDialog();
 
   public:
-    Condition* createCondition();
+    Condition* createCondition(QDomDocument* doc, QDomElement& conditionElem);
 
     bool init(Condition* condition);
     bool isInstanceOfSameCondition(Condition *condition);

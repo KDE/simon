@@ -35,10 +35,9 @@ class CreateFileContentWidget : public CreateConditionWidget
     Ui::CreateFileContentWidget ui;
 
   public:
-    Condition* createCondition();
+    Condition* createCondition(QDomDocument* doc, QDomElement& conditionElem);
 
     bool init(Condition* condition);
-    bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
     explicit CreateFileContentWidget(QWidget *parent=0);

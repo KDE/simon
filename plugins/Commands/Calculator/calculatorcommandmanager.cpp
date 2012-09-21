@@ -98,7 +98,7 @@ bool CalculatorCommandManager::installInterfaceCommands()
     i18n("Clears the whole input"), false, true, SimonCommand::GreedyState,
     SimonCommand::GreedyState);
 
-  succ &= installInterfaceCommand(ui.pbOk, "click", i18n("Ok"), "dialog-ok",
+  succ &= installInterfaceCommand(ui.pbOk, "click", i18n("OK"), "dialog-ok",
     i18n("Closes the calculator dialog and sends the input"), false, true,
     SimonCommand::GreedyState, SimonCommand::GreedyState+1);
   succ &= installInterfaceCommand(ui.pbCancel, "click", i18n("Cancel"), "dialog-cancel",

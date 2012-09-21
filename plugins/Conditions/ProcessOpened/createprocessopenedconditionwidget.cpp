@@ -36,6 +36,7 @@ CreateProcessOpenedConditionWidget::CreateProcessOpenedConditionWidget(QWidget *
   connect(ui.pbLocateProgram, SIGNAL(clicked()), this, SLOT(processFileDialog()));
 }
 
+
 void CreateProcessOpenedConditionWidget::processFileDialog()
 {
     SelectProgramDialog *dlg = new SelectProgramDialog(this);
@@ -62,29 +63,19 @@ bool CreateProcessOpenedConditionWidget::init(Condition *condition)
   if (!procOpenCondition) return false;
 
   ui.leProgramName->setText(procOpenCondition->getName());
-  ui.cbInverted->setChecked(procOpenCondition->isInverted());
   return true;
 }
 
 
-Condition* CreateProcessOpenedConditionWidget::createCondition()
+Condition* CreateProcessOpenedConditionWidget::createCondition(QDomDocument* doc, QDomElement& conditionElem)
 {
-    kDebug() << "Creating Process Opened Condition";
-    QDomDocument doc;
-    QDomElement conditionElem = doc.createElement("condition");
     conditionElem.setAttribute("name", "simonprocessopenedconditionplugin.desktop");
-
-    QDomElement invertElem = doc.createElement("inverted");
-    invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
-    conditionElem.appendChild(invertElem);
-
-    QDomElement openElem = doc.createElement("processname");
-    openElem.appendChild(doc.createTextNode(ui.leProgramName->text()));
+    
+    QDomElement openElem = doc->createElement("processname");
+    openElem.appendChild(doc->createTextNode(ui.leProgramName->text()));
     conditionElem.appendChild(openElem);
 
-    ContextManager* manager = ContextManager::instance();
-
-    return manager->getCondition(conditionElem);
+    return ContextManager::instance()->getCondition(conditionElem);
 }
 
 
