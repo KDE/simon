@@ -37,7 +37,7 @@ class CreateLipDetectionConditionWidget : public CreateConditionWidget
   Q_OBJECT
 
 public:
-  Condition* createCondition();
+  Condition* createCondition(QDomDocument* doc, QDomElement& conditionElem);
   
   bool init(Condition* condition);
   bool isInstanceOfSameCondition(Condition *condition);

@@ -71,30 +71,19 @@ bool CreateLipDetectionConditionWidget::init(Condition *condition)
 
   if (!lipDetectionCondition) return false;
 
-  ui.cbInverted->setChecked(lipDetectionCondition->isInverted());
-
   return true;
 }
 
 
-Condition* CreateLipDetectionConditionWidget::createCondition()
+Condition* CreateLipDetectionConditionWidget::createCondition(QDomDocument* doc, QDomElement& conditionElem)
 {
-  kDebug() << "Creating Lip Detection Condition";
-  QDomDocument doc;
-  QDomElement conditionElem = doc.createElement("condition");
   conditionElem.setAttribute("name", "simonlipdetectionconditionplugin.desktop");
 
-  QDomElement invertElem = doc.createElement("inverted");
-  invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
-  conditionElem.appendChild(invertElem);
-
-  QDomElement thresholdElem = doc.createElement("thresholdvalue");
-  thresholdElem.appendChild(doc.createTextNode(QString::number(ui.horizontalSlider->value())));
+  QDomElement thresholdElem = doc->createElement("thresholdvalue");
+  thresholdElem.appendChild(doc->createTextNode(QString::number(ui.horizontalSlider->value())));
   conditionElem.appendChild(thresholdElem);
 
-  ContextManager* manager = ContextManager::instance();
-
-  return manager->getCondition(conditionElem);
+  return ContextManager::instance()->getCondition(conditionElem);
 }
 
 
