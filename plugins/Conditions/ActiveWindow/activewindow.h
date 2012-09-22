@@ -54,8 +54,7 @@ class ActiveWindow : public Condition
     Q_OBJECT
 public:
     explicit ActiveWindow(QObject *parent, const QVariantList& args);
-
-    QString getProcessName() {return m_processName;}
+    
     QString getWindowName() {return m_windowName;}
     bool getWindowNameIsRegExp() {return m_windowNameIsRegularExpression;}
 
@@ -68,20 +67,17 @@ private:
     QDomElement privateSerialize(QDomDocument *doc, QDomElement elem);
     void checkBothNames();
 
-    QString m_processName;
     QString m_windowName;
 
     bool m_windowNameIsRegularExpression;
     QRegExp m_windowNameRegExp;
 
-    QString m_currentProcessName;
     QString m_currentWindowName;
 
 signals:
 
 public slots:
     void checkActiveWindowTitle(QString title);
-    void checkActiveWindowProcess(QString processName);
 };
 
 #endif // ACTIVEWINDOW_H

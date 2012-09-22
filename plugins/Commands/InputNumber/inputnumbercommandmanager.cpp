@@ -134,7 +134,7 @@ bool InputNumberCommandManager::deSerializeConfig(const QDomElement& elem)
   succ &= installInterfaceCommand(ui.pbBack, "click", i18nc("Word to say to remove the last recognized digit", "Back"), iconSrc(),
     i18n("Deletes the last input character"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState);
-  succ &= installInterfaceCommand(ui.pbOk, "click", i18n("Ok"), "dialog-ok-apply",
+  succ &= installInterfaceCommand(ui.pbOk, "click", i18n("OK"), "dialog-ok-apply",
     i18n("Accepts the input dialog and writes the number"), false, true, SimonCommand::GreedyState,
     SimonCommand::GreedyState);
   succ &= installInterfaceCommand(ui.pbCancel, "click", i18n("Cancel"), "dialog-cancel",

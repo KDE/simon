@@ -22,7 +22,7 @@ kde4_add_ui_files( simoncontextcoreui_LIB_SRCS
 
 kde4_add_library( simoncontextcoreui  SHARED ${simoncontextcoreui_LIB_SRCS} )
 
-target_link_libraries( simoncontextcoreui ${QT_LIBRARIES}
+target_link_libraries( simoncontextcoreui ${QT_LIBRARIES} ${QT_QTXML_LIBRARY}
         ${KDE4_KDEUI_LIBS} simoncontextdetection)
 
 set_target_properties( simoncontextcoreui

@@ -387,7 +387,7 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
     QString() /* take default visible id from action name */,
     "startKeyboard" /* id */);
 
-  succ &= installInterfaceCommand(ui.pbOk, "click", i18nc("Close the dialog", "Ok"), "dialog-ok",
+  succ &= installInterfaceCommand(ui.pbOk, "click", i18nc("Close the dialog", "OK"), "dialog-ok",
     i18n("Hides the keyboard"), false, true, SimonCommand::GreedyState,
     SimonCommand::DefaultState);
   succ &= installInterfaceCommand(ui.pbShift, "click", i18nc("Keyboard key", "Shift"), iconSrc(),

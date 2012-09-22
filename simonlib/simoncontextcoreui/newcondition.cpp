@@ -38,8 +38,8 @@ NewCondition::NewCondition(QWidget* parent) : KDialog(parent), ui(new Ui::DlgMod
 
   setMainWidget( widget );
   setCaption( i18n("Condition") );
-
-  checkIfComplete();
+  
+  connect(ui->cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(checkIfComplete()));
 }
 
 
@@ -48,11 +48,17 @@ void NewCondition::deleteLater()
   QObject::deleteLater();
 }
 
+bool sortCreateConditionHelper(const CreateConditionWidget* a, const CreateConditionWidget* b)
+{
+  return a->windowTitle() < b->windowTitle();
+}
 
 bool NewCondition::registerCreators(QList<CreateConditionWidget *> conditionCreators)
 {
   qDeleteAll(m_conditionCreators);
  
+  qSort(conditionCreators.begin(), conditionCreators.end(), sortCreateConditionHelper);
+  
   foreach (CreateConditionWidget *widget, conditionCreators) {
     ui->cbType->addItem(widget->windowIcon(), widget->windowTitle());
     ui->swConditionCreators->addWidget(widget);
@@ -68,6 +74,7 @@ bool NewCondition::registerCreators(QList<CreateConditionWidget *> conditionCrea
 void NewCondition::conditionSuggested(Condition *condition)
 {
   if (!condition) return;
+  
   init(condition);
   delete condition;
 }
@@ -76,6 +83,8 @@ void NewCondition::init(Condition *condition)
 {
   if (!condition) return;
 
+  ui->cbInverted->setChecked(condition->isInverted());
+  
   bool found=false;
   int i=0;
   foreach (CreateConditionWidget *widget, m_conditionCreators) {
@@ -121,7 +130,15 @@ Condition* NewCondition::newCondition()
 
     if (!creator) return 0;
 
-    return creator->createCondition();
+    
+    QDomDocument doc;
+    QDomElement conditionElem = doc.createElement("condition");
+
+    QDomElement invertElem = doc.createElement("inverted");
+    invertElem.appendChild(doc.createTextNode(ui->cbInverted->isChecked() ? "1" : "0"));
+    conditionElem.appendChild(invertElem);
+    
+    return creator->createCondition(&doc, conditionElem);
   }
   return 0;
 }

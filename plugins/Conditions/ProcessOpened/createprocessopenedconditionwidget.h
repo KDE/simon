@@ -47,22 +47,21 @@ class CreateProcessOpenedConditionWidget : public CreateConditionWidget
 {
   Q_OBJECT
 
-    private:
-    Ui::CreateProcessOpenedConditionWidget ui;
-
-  private slots:
-    void processFileDialog();
-
   public:
-    Condition* createCondition();
+    Condition* createCondition(QDomDocument* doc, QDomElement& conditionElem);
 
     bool init(Condition* condition);
-    bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
     explicit CreateProcessOpenedConditionWidget(QWidget *parent=0);
 
     virtual ~CreateProcessOpenedConditionWidget();
+
+  private:
+    Ui::CreateProcessOpenedConditionWidget ui;
+
+  private slots:
+    void processFileDialog();
 
 };
 #endif

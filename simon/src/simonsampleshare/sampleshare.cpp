@@ -86,7 +86,7 @@ void SampleShare::transmissionFinished()
   progressWidget->update();
 
   enableButtonOk(true);
-  setButtonText(Ok, i18n("Ok"));
+  setButtonText(Ok, i18n("OK"));
   
   if (!futureWatcher->result())
     transmissionError(server->lastError());
