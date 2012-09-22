@@ -80,7 +80,7 @@ bool LipAnalyzer::initLipDetection(int thresholdVal)
 
 
 
-void LipAnalyzer::analyze(IplImage* currentImage)
+void LipAnalyzer::analyze(const IplImage* currentImage)
 {
 
   if (!currentImage)

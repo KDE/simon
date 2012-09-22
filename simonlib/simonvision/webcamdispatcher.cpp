@@ -63,6 +63,7 @@ void WebcamDispatcher::closeWebcamDispatcher()
   kDebug() << "Webcam Dispatcher closed!\n ";
 }
 
+
 void WebcamDispatcher::registerAnalyzer(ImageAnalyzer* analyzer)
 {
   instance->mutex.lock();
@@ -85,8 +86,6 @@ void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
     instance->closeWebcamDispatcher();
   
   instance->mutex.unlock();
-
-
 }
 
 IplImage* WebcamDispatcher::nextVideoFrame()
@@ -110,7 +109,7 @@ void WebcamDispatcher::run()
     qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
     
     instance->mutex.lock();
-    
+
     foreach(ImageAnalyzer* analyzer,analyzers)
     {
 //    cvShowImage("Testing", nextVideoFrame() );

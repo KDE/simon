@@ -30,7 +30,7 @@ class SIMONVISION_EXPORT ImageAnalyzer : public QObject
 public:
   ImageAnalyzer(QObject* parent = 0);
   ~ImageAnalyzer();
-  virtual void analyze(IplImage* currentImage)=0;
+  virtual void analyze(const IplImage* currentImage)=0;
 
 };
 

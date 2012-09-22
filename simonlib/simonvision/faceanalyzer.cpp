@@ -58,7 +58,7 @@ int FaceAnalyzer::initFaceDetection(const QString& haarCascadePath)
 
 
 
-void FaceAnalyzer::analyze(IplImage* currentImage)
+void FaceAnalyzer::analyze(const IplImage* currentImage)
 {
 
   if (!currentImage)
@@ -66,7 +66,6 @@ void FaceAnalyzer::analyze(IplImage* currentImage)
 
   CvRect * faceRect = 0;
 
-//    if (!liveVideoFrameCopy)
   liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
 
   cvCopy(currentImage, liveVideoFrameCopy, 0);

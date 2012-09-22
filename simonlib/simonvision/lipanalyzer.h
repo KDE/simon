@@ -31,7 +31,7 @@ public:
   LipAnalyzer();
   LipAnalyzer(int thresholdValue);
   virtual ~LipAnalyzer();
-  void analyze(IplImage* currentImage);
+  void analyze(const IplImage* currentImage);
 
 signals:
   void lipMovementChanged(bool hasLipMovedNew);

@@ -20,17 +20,11 @@
 #ifndef SIMON_CREATEFACEDETECTIONCONDITIONWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
 #define SIMON_CREATEFACEDETECTIONCONDITIONWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
 
-/** \file createfacedetectioncondition.h
- * \brief The file containing the CreateFaceDetectionCondition baseclass header.
- */
-
 #include <QWidget>
 #include <simoncontextdetection/createconditionwidget.h>
 #include "ui_createfacedetectionconditionwidget.h"
 
 class Condition;
-
-
 
 class CreateFaceDetectionConditionWidget : public CreateConditionWidget
 {

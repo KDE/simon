@@ -30,7 +30,7 @@ public:
 
   FaceAnalyzer();
   virtual ~FaceAnalyzer();
-  void analyze(IplImage* currentImage);
+  void analyze(const IplImage* currentImage);
 
 
 signals:
