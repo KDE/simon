@@ -22,8 +22,12 @@
 #include "webcamdispatcher.h"
 #include <KDebug>
 #include<QThread>
+#include <QDateTime>
 #include<highgui.h>
 #include<cv.h>
+
+#define FRAME_PER_SECONDS 10
+
 using namespace cv;
 
 CvCapture* capture=0;
@@ -34,6 +38,7 @@ WebcamDispatcher* WebcamDispatcher::instance = new WebcamDispatcher;
 
 void WebcamDispatcher::initWebcamDispatcher()
 {
+  kDebug() << "Initializing webcam dispatcher";
 //  cvNamedWindow("Live",1);
   // Initialize video capture
   capture = cvCaptureFromCAM(CV_CAP_ANY);
@@ -60,23 +65,27 @@ void WebcamDispatcher::closeWebcamDispatcher()
 
 void WebcamDispatcher::registerAnalyzer(ImageAnalyzer* analyzer)
 {
-  kDebug() << "Registering analyzer\n ";
+  instance->mutex.lock();
+  
   instance->analyzers.append(analyzer);
 
   if (instance->analyzers.count() ==1)
   {
     instance->initWebcamDispatcher();
   }
-
+  instance->mutex.unlock();
 }
 
 void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
 {
   instance->mutex.lock();
   instance->analyzers.removeAll(analyzer);
+  
+  if (instance->analyzers.isEmpty())
+    instance->closeWebcamDispatcher();
+  
   instance->mutex.unlock();
 
-  instance->closeWebcamDispatcher();
 
 }
 
@@ -98,9 +107,10 @@ void WebcamDispatcher::run()
 
   while (instance->analyzers.count()!=0)
   {
-
+    qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
+    
     instance->mutex.lock();
-
+    
     foreach(ImageAnalyzer* analyzer,analyzers)
     {
 //    cvShowImage("Testing", nextVideoFrame() );
@@ -108,6 +118,11 @@ void WebcamDispatcher::run()
     }
 
     instance->mutex.unlock();
+    
+    qint64 msecsSpentProcessing = QDateTime::currentMSecsSinceEpoch() - currentTime;
+    qint64 timeToWait = qMax(qint64(0), 1000 / FRAME_PER_SECONDS - msecsSpentProcessing);
+    
+    msleep(timeToWait);
   }
 
 
