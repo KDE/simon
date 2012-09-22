@@ -29,8 +29,6 @@ CreateFaceDetectionConditionWidget::CreateFaceDetectionConditionWidget(QWidget *
 
   setWindowTitle(i18n("Face Detection"));
   setWindowIcon(KIcon(""));
-  
-  connect(ui.cbInverted, SIGNAL(stateChanged(int)), this, SIGNAL(completeChanged()));
 }
 
 
@@ -47,27 +45,15 @@ bool CreateFaceDetectionConditionWidget::init(Condition *condition)
 
   if (!faceDetectionCondition) return false;
 
-  ui.cbInverted->setChecked(faceDetectionCondition->isInverted());
-
   return true;
 }
 
 
-Condition* CreateFaceDetectionConditionWidget::createCondition()
+Condition* CreateFaceDetectionConditionWidget::createCondition(QDomDocument* doc, QDomElement& conditionElem)
 {
-  kDebug() << "Creating Face Detection Condition";
-  QDomDocument doc;
-  QDomElement conditionElem = doc.createElement("condition");
   conditionElem.setAttribute("name", "simonfacedetectionconditionplugin.desktop");
 
-  QDomElement invertElem = doc.createElement("inverted");
-  invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
-  conditionElem.appendChild(invertElem);
-
-
-  ContextManager* manager = ContextManager::instance();
-
-  return manager->getCondition(conditionElem);
+  return ContextManager::instance()->getCondition(conditionElem);
 }
 
 
