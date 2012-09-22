@@ -215,6 +215,12 @@ public slots:
      *
      */
     void evaluateConditions();
+    
+private slots:
+    /**
+     * \brief Emits the appropriate signal to notify of changing data in the model
+     */
+    void updateConditionDisplay();
 };
 
 #endif // COMPOUNDCONDITION_H

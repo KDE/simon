@@ -82,6 +82,8 @@ bool CompoundCondition::addCondition(Condition *condition)
   endInsertRows();
   connect(condition, SIGNAL(conditionChanged()),
           this, SLOT(evaluateConditions()));
+  connect(condition, SIGNAL(conditionChanged()),
+          this, SLOT(updateConditionDisplay()));
 
   this->evaluateConditions();
 
@@ -108,6 +110,8 @@ bool CompoundCondition::removeCondition(Condition *condition)
 
   disconnect(condition, SIGNAL(conditionChanged()),
              this, SLOT(evaluateConditions()));
+  disconnect(condition, SIGNAL(conditionChanged()),
+          this, SLOT(updateConditionDisplay()));
 
   ContextManager::instance()->releaseCondition(condition);
   this->evaluateConditions();
@@ -142,6 +146,8 @@ bool CompoundCondition::deSerialize(const QDomElement &elem)
       //connect condition to the evaluateConditions slot
       connect(condition, SIGNAL(conditionChanged()),
               this, SLOT(evaluateConditions()));
+      connect(condition, SIGNAL(conditionChanged()),
+              this, SLOT(updateConditionDisplay()));
 
       //add the condition to the conditions list
       m_conditions.push_back(condition);
@@ -167,6 +173,18 @@ QDomElement CompoundCondition::serialize(QDomDocument *doc)
   elem.appendChild(condition->serialize(doc));
 
   return elem;
+}
+
+void CompoundCondition::updateConditionDisplay()
+{
+  Condition *c = qobject_cast<Condition*>(sender());
+  if (!c) return;
+  
+  int row = m_conditions.indexOf(c);
+  if (row == -1) return;
+  
+  QModelIndex thisIndex = index(row, 0);
+  emit dataChanged(thisIndex, thisIndex);
 }
 
 void CompoundCondition::evaluateConditions()
