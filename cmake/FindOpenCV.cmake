@@ -48,7 +48,8 @@
 #----------------------------------------------------------
 
 
-find_path(OpenCV_DIR "OpenCVConfig.cmake" DOC "Root directory of OpenCV")
+find_path(OpenCV_DIR "OpenCVConfig.cmake" DOC "Root directory of OpenCV" 
+           HINTS /usr/local/share /usr/share ${CMAKE_MODULE_PATH} PATH_SUFFIXES OpenCV)
 
 ##====================================================
 ## Find OpenCV libraries
@@ -57,16 +58,16 @@ if(EXISTS "${OpenCV_DIR}")
 
         #When its possible to use the Config script use it.
         if(EXISTS "${OpenCV_DIR}/OpenCVConfig.cmake")
-
+		
                 ## Include the standard CMake script
                 include("${OpenCV_DIR}/OpenCVConfig.cmake")
-
+                 
                 ## Search for a specific version
                 set(CVLIB_SUFFIX "${OpenCV_VERSION_MAJOR}${OpenCV_VERSION_MINOR}${OpenCV_VERSION_PATCH}")
 
         #Otherwise it try to guess it.
         else(EXISTS "${OpenCV_DIR}/OpenCVConfig.cmake")
-
+		
                 set(OPENCV_LIB_COMPONENTS cxcore cv ml highgui cvaux)
                 find_path(OpenCV_INCLUDE_DIR "cv.h" PATHS "${OpenCV_DIR}" PATH_SUFFIXES "include" "include/opencv" DOC "")
                 if(EXISTS  ${OpenCV_INCLUDE_DIR})
