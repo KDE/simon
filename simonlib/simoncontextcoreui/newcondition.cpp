@@ -38,8 +38,8 @@ NewCondition::NewCondition(QWidget* parent) : KDialog(parent), ui(new Ui::DlgMod
 
   setMainWidget( widget );
   setCaption( i18n("Condition") );
-
-  checkIfComplete();
+  
+  connect(ui->cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(checkIfComplete()));
 }
 
 
