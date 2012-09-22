@@ -49,9 +49,6 @@ private:
   // Webcam disptacher will be closed when there is no Analyzer registered
   void closeWebcamDispatcher();
 
-  // This method will get the live frames from the webcam
-  IplImage* nextVideoFrame();
-
   // This is the list of all the analyzers which are registered
   QList<ImageAnalyzer*> analyzers;
 

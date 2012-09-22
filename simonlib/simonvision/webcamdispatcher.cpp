@@ -88,24 +88,17 @@ void WebcamDispatcher::unregisterAnalyzer(ImageAnalyzer* analyzer)
   instance->mutex.unlock();
 }
 
-IplImage* WebcamDispatcher::nextVideoFrame()
-{
-  IplImage* liveFrame = cvQueryFrame(capture);
-
-  if (!liveFrame)
-  {
-    kDebug() << "Failed to get the live video frame\n";
-  }
-  
-  return liveFrame;
-}
-
-
 void WebcamDispatcher::run()
 {
 
   while (instance->analyzers.count()!=0)
   {
+    IplImage* liveFrame = cvQueryFrame(capture);
+
+    if (!liveFrame)
+    {
+      kDebug() << "Failed to get the live video frame\n";
+    }
     qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
     
     instance->mutex.lock();
@@ -113,7 +106,7 @@ void WebcamDispatcher::run()
     foreach(ImageAnalyzer* analyzer,analyzers)
     {
 //    cvShowImage("Testing", nextVideoFrame() );
-      analyzer->analyze(nextVideoFrame());
+      analyzer->analyze(liveFrame);
     }
 
     instance->mutex.unlock();
