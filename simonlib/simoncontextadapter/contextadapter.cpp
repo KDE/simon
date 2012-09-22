@@ -256,9 +256,9 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
 void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDate, int baseModelType, const QString& baseModelPath, const QStringList& scenarioPaths, const QString& promptsPathIn )
 {
   kDebug() << "Updating model parameters";
-  m_compileLock.lock();
   m_modelCompilationManager->abort();
   
+  m_compileLock.lock();
   ModelSource *src = m_currentSource;
   m_currentSource = new ModelSource(modelDate, baseModelType, baseModelPath, scenarioPaths, promptsPathIn);
   delete src;
