@@ -361,6 +361,8 @@ void ModelCompilerHTK::abort()
   foreach (QProcess *proc, activeProcesses)
   //tell any running process to commit suicide
     proc->kill();
+
+  emit activeModelCompilationAborted(ModelCompilation::Manual);
 }
 
 bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compilationType, const QString& modelDestination,

@@ -17,10 +17,15 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "modelcompiler.h"
-#include <QMetaType>
+#ifndef SIMON_MODELCOMPILATION_H_18BCB183592A48D3962815FFDEA7C214
+#define SIMON_MODELCOMPILATION_H_18BCB183592A48D3962815FFDEA7C214
 
-ModelCompiler::ModelCompiler ( const QString& userName, QObject* parent ) : QObject(parent), userName(userName)
-{
-  qRegisterMetaType<ModelCompilation::AbortionReason>("ModelCompilation::AbortionReason");
+namespace ModelCompilation {
+  enum AbortionReason {
+    Manual,
+    InsufficientInput
+  };
 }
+
+#endif
+

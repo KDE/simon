@@ -31,6 +31,7 @@
 #include "corpusinformation.h"
 
 #include <speechmodelcompilation/modelcompilerhtk.h>
+#include <speechmodelcompilation/modelcompilation.h>
 #include <speechmodelcompilation/modelcompilationadapterhtk.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
 
@@ -157,13 +158,13 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   modelCompilationAdapter = new ModelCompilationAdapterHTK("internalsamuser", this);
   connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
-  connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
+  connect(modelCompilationAdapter, SIGNAL(adaptionAborted(ModelCompilation::AbortionReason)), this, SLOT(slotModelAdaptionAborted()));
   connect(modelCompilationAdapter, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
   connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 
   modelCompilationManager = new ModelCompilerHTK("internalsamuser", this);
   connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
-  connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
+  connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted(ModelCompilation::AbortionReason)), this, SLOT(retrieveCompleteBuildLog()));
   connect(modelCompilationManager, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
   connect(modelCompilationManager, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
 

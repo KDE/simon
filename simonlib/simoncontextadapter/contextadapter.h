@@ -118,7 +118,7 @@ private:
 
 private slots:
     void slotModelReady(uint fingerprint, const QString& path);
-    void slotModelCompilationAborted();
+    void slotModelCompilationAborted( ModelCompilation::AbortionReason reason );
 
 signals:
     //relaying signals

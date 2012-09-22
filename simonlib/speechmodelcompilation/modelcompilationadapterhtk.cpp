@@ -183,7 +183,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
         emit error(i18nc("%1 is source file path", "Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
       else {
         kDebug() << "Aborting because we have no input prompts";
-        emit adaptionAborted(); //no input prompts
+        emit adaptionAborted(ModelCompilation::InsufficientInput); //no input prompts
       }
       return false;
     }
@@ -318,6 +318,10 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
       }
     }
   }
+  if (vocab->getWords().isEmpty()) {
+    emit adaptionAborted(ModelCompilation::InsufficientInput); //no vocabulary
+    return false;
+  }
 
   ADAPT_CHECKPOINT;
 
@@ -338,6 +342,11 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
   QFile grammarFile(grammarPathOut);
   if (!grammarFile.open(QIODevice::WriteOnly)) {
     emit error(i18n("Failed to adapt grammar to \"%1\"", grammarPathOut));
+    return false;
+  }
+  
+  if (structures.isEmpty()) {
+    emit adaptionAborted(ModelCompilation::InsufficientInput); //no grammar
     return false;
   }
 

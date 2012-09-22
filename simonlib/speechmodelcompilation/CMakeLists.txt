@@ -22,6 +22,7 @@ set( simonmodelcompilation_LIB_HDRS
   modelcompilationmanager.h
   modelcompiler.h
   modelcompilerhtk.h
+  modelcompilation.h
   modelcompilationadapter.h
   modelcompilationadapterhtk.h
 )

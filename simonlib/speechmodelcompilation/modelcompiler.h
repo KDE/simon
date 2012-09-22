@@ -24,6 +24,7 @@
 #include <QString>
 #include <QHash>
 #include "simonmodelcompilationmanagement_export.h"
+#include "modelcompilation.h"
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
 {
@@ -37,7 +38,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
     void phonemeUndefined(const QString&);
 
     void modelCompiled();
-    void activeModelCompilationAborted();
+    void activeModelCompilationAborted(ModelCompilation::AbortionReason);
 
   public:
     enum CompilationType
@@ -50,7 +51,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
     virtual bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
                                   const QString& baseModelPath, const QHash<QString, QString>& args)=0;
 
-    explicit ModelCompiler(const QString& userName, QObject *parent=0) : QObject(parent), userName(userName) {}
+    explicit ModelCompiler(const QString& userName, QObject *parent=0);
 
     virtual bool hasBuildLog() const=0;
     virtual QString getGraphicBuildLog() const=0;
