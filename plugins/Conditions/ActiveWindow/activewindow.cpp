@@ -31,11 +31,9 @@ K_EXPORT_PLUGIN( ActiveWindowPluginFactory("simonactivewindow") )
 ActiveWindow::ActiveWindow(QObject *parent, const QVariantList &args) :
     Condition(parent, args)
 {
-    m_processName = "";
     m_windowName = "";
     m_windowNameIsRegularExpression = false;
     m_windowNameRegExp = QRegExp();
-    m_currentProcessName = "";
     m_currentWindowName = "";
 
     m_pluginName = "simonactivewindowplugin.desktop";
@@ -48,16 +46,12 @@ CreateConditionWidget* ActiveWindow::getCreateConditionWidget(QWidget* parent)
 
 QDomElement ActiveWindow::privateSerialize(QDomDocument *doc, QDomElement elem)
 {
-    QDomElement processNameElem = doc->createElement("processname");
-    processNameElem.appendChild(doc->createTextNode(m_processName));
-
     QDomElement windowNameElem = doc->createElement("windowname");
     windowNameElem.appendChild(doc->createTextNode(m_windowName));
 
     QDomElement regExpElem = doc->createElement("windownameregexp");
     regExpElem.appendChild(doc->createTextNode(m_windowNameIsRegularExpression ? "1" : "0"));
 
-    elem.appendChild(processNameElem);
     elem.appendChild(windowNameElem);
     elem.appendChild(regExpElem);
 
@@ -67,23 +61,14 @@ QDomElement ActiveWindow::privateSerialize(QDomDocument *doc, QDomElement elem)
 QString ActiveWindow::name()
 {
     if (isInverted())
-        return i18nc("%1 is process name, %2 is window name", "'%1' does not have the active window with title '%2'", m_processName, m_windowName);
+        return i18nc("%1 is window name", "The active window title is not '%1'", m_windowName);
     else
-        return i18nc("%1 is process name, %2 is window name", "'%1' has the active window with title '%2'", m_processName, m_windowName);
+        return i18nc("%1 is window name", "The active window title is '%1'", m_windowName);
 }
 
 bool ActiveWindow::privateDeSerialize(QDomElement elem)
 {
     QDomElement nameElement;
-
-    //get the process name
-    nameElement = elem.firstChildElement("processname");
-    if (nameElement.isNull())
-    {
-        kDebug() << "No processes name specified!  Deserialization failure!";
-        return false;
-    }
-    m_processName = nameElement.text();
 
     //get the window name
     nameElement = elem.firstChildElement("windowname");
@@ -113,24 +98,10 @@ bool ActiveWindow::privateDeSerialize(QDomElement elem)
         m_windowNameRegExp = QRegExp(m_windowName, Qt::CaseSensitive, QRegExp::FixedString);
     }
 
-    //connect to the ProcessInfo instance
-    ProcessInfo* processInfo = ProcessInfo::instance();
-
-    connect(processInfo, SIGNAL(activeWindowProcessChanged(QString)),
-            this, SLOT(checkActiveWindowProcess(QString)));
-    connect(processInfo, SIGNAL(activeWindowTitleChanged(QString)),
+    connect(ProcessInfo::instance(), SIGNAL(activeWindowTitleChanged(QString)),
             this, SLOT(checkActiveWindowTitle(QString)));
 
     return true;
-}
-
-void ActiveWindow::checkActiveWindowProcess(QString processName)
-{
-    if (processName != m_currentProcessName)
-    {
-        m_currentProcessName = processName;
-        checkBothNames();
-    }
 }
 
 void ActiveWindow::checkActiveWindowTitle(QString title)
@@ -146,8 +117,7 @@ void ActiveWindow::checkBothNames()
 {
     if (m_satisfied)
     {
-        if ((m_currentProcessName != m_processName)
-                || (m_windowNameRegExp.indexIn(m_currentWindowName) < 0))
+        if (m_windowNameRegExp.indexIn(m_currentWindowName) < 0)
         {
             m_satisfied = false;
             kDebug() << name() << " is unsatisfied!";
@@ -156,8 +126,7 @@ void ActiveWindow::checkBothNames()
     }
     else
     {
-        if ((m_currentProcessName == m_processName)
-                && (m_windowNameRegExp.indexIn(m_currentWindowName) >= 0))
+        if (m_windowNameRegExp.indexIn(m_currentWindowName) >= 0)
         {
             m_satisfied = true;
             kDebug() << name() << " is satisfied!";

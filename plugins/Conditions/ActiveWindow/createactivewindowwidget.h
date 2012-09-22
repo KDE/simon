@@ -47,17 +47,13 @@ class CreateActiveWindowWidget : public CreateConditionWidget
 {
   Q_OBJECT
 
-    private:
+  private:
     Ui::CreateActiveWindowWidget ui;
-
-  private slots:
-    void processFileDialog();
 
   public:
     Condition* createCondition(QDomDocument* doc, QDomElement& conditionElem);
 
     bool init(Condition* condition);
-    bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
     explicit CreateActiveWindowWidget(QWidget *parent=0);
