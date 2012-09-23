@@ -25,8 +25,7 @@
 #include <QDateTime>
 #include<highgui.h>
 #include<cv.h>
-
-#define FRAME_PER_SECONDS 10
+#include "webcamconfiguration.h"
 
 using namespace cv;
 
@@ -34,12 +33,16 @@ CvCapture* capture=0;
 QList<ImageAnalyzer*> analyzers = QList<ImageAnalyzer*>();
 WebcamDispatcher* WebcamDispatcher::instance = new WebcamDispatcher;
 
-
+void WebcamDispatcher::reread()
+{
+  WebcamConfiguration::self()->readConfig();
+}
 
 void WebcamDispatcher::initWebcamDispatcher()
 {
+
   kDebug() << "Initializing webcam dispatcher";
-//  cvNamedWindow("Live",1);
+  // cvNamedWindow("Live",1);
   // Initialize video capture
   capture = cvCaptureFromCAM(CV_CAP_ANY);
 
@@ -48,7 +51,6 @@ void WebcamDispatcher::initWebcamDispatcher()
     kDebug() << "Failed to initialize video capture\n ";
     return;
   }
-
   instance->start();
 }
 
@@ -112,7 +114,7 @@ void WebcamDispatcher::run()
     instance->mutex.unlock();
     
     qint64 msecsSpentProcessing = QDateTime::currentMSecsSinceEpoch() - currentTime;
-    qint64 timeToWait = qMax(qint64(0), 1000 / FRAME_PER_SECONDS - msecsSpentProcessing);
+    qint64 timeToWait = qMax(qint64(0), 1000 / WebcamConfiguration::fps() - msecsSpentProcessing);
     
     msleep(timeToWait);
   }

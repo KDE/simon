@@ -1,7 +1,8 @@
 include(SimonDirs)
-
+add_subdirectory(config)
 include(KDE4Defaults)
 #include(KDE4Macros)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${OpenCV_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/../ ${OpenCV_INCLUDE_DIRS})
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 FIND_PACKAGE( OpenCV REQUIRED )
@@ -24,6 +25,7 @@ set( simonvision_LIB_HDRS
     lipanalyzer.h
     simoncv.h
 )
+kde4_add_kcfg_files(simonvision_LIB_SRCS config/webcamconfiguration.kcfgc)
 
 set(SIMONCV_PACKAGE "OpenCV" CACHE STRING OpenCV)
 mark_as_advanced("${SIMONCV_PACKAGE}")

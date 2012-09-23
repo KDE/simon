@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=camera-web
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=webcamsettings
+
+
+X-KDE-FactoryName=SimonWebcamConfigurationFactory
+X-KDE-ParentComponents=libwebcamsettings
+
+X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=simon
+
+X-KDE-PluginKeyword=SimonWebcamConfiguration
+
+Name=Webcam Configuration
+
+Comment=Configuration of the Webcam

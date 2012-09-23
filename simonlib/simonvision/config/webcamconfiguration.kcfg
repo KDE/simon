@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+<include>KStandardDirs</include>
+<kcfgfile name="simonvisionrc" />
+  <group name="Webcam">
+    <entry name="fps" type="Int">
+      <label>Frame per second for Webcam</label>
+      <default>10</default>
+      <tooltip>Number of images to grab from webcam per second</tooltip>
+    </entry>
+  </group>
+</kcfg>

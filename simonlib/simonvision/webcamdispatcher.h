@@ -37,7 +37,7 @@ public:
   ~WebcamDispatcher();
 
   static void registerAnalyzer(ImageAnalyzer* analyzer);
-
+  static void reread();
   static void unregisterAnalyzer(ImageAnalyzer* analyzer);
 
 

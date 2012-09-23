@@ -378,7 +378,7 @@ void SimonView::showSystemDialog ()
   configDialog->addModule("simonactionsconfig", QStringList() << "");
   configDialog->addModule("simonttsconfig", QStringList() << "");
   configDialog->addModule("kcm_attica");
-  
+  configDialog->addModule("simonwebcamconfiguration");
   configDialog->exec();
   
   delete configDialog;

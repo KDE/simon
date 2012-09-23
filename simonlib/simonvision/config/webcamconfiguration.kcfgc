@@ -1,0 +1,4 @@
+File=webcamconfiguration.kcfg
+ClassName=WebcamConfiguration
+Singleton=true
+Mutators=true
