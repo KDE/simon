@@ -181,8 +181,12 @@ QHash< QString, TranscriptionResult > GraphemeToPhoneme::transcribe(const QStrin
       outputIndex++;
       kDebug() << "Found!" << line;
     } else {
-      kDebug() << "Error!" << errors[errorIndex];
-      transcribed.insert(key, TranscriptionResult(false, errors[errorIndex++]));
+      QString error;
+      if (errors.count() > errorIndex) {
+        kDebug() << "Error!" << errors[errorIndex];
+        transcribed.insert(key, TranscriptionResult(false, errors[errorIndex++]));
+      } else
+        transcribed.insert(key, TranscriptionResult(false, i18n("Unknown error")));
     }
   }
   
