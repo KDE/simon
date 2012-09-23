@@ -1105,7 +1105,7 @@ void RecognitionControl::messageReceived()
 
         case Simond::ScenarioSynchronisationComplete:
         {
-          kDebug() << "Server sent scenario synchronizationcomplete";
+          kDebug() << "Server sent scenario synchronization complete";
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
           requestMissingScenario();

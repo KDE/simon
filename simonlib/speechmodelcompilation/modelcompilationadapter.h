@@ -25,8 +25,9 @@
 #include <QString>
 #include <QHash>
 #include "simonmodelcompilationmanagement_export.h"
+#include "modelcompilation.h"
 
-#define ADAPT_CHECKPOINT if (!keepGoing) { emit adaptionAborted(); return false; }
+#define ADAPT_CHECKPOINT if (!keepGoing) { emit adaptionAborted(ModelCompilation::Manual); return false; }
 
 /**
  *	@class ModelAdapter
@@ -45,7 +46,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
     void error(QString);
 
     void adaptionComplete();
-    void adaptionAborted();
+    void adaptionAborted(ModelCompilation::AbortionReason);
     
   public:
     enum AdaptionType

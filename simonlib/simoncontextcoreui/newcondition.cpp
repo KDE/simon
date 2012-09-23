@@ -96,7 +96,7 @@ void NewCondition::init(Condition *condition)
     i++;
   }
   if (!found)
-    KMessageBox::error(this, i18n("Could not determine Condition Type"));
+    KMessageBox::error(this, i18n("Could not determine condition Type"));
 
   checkIfComplete();
 }

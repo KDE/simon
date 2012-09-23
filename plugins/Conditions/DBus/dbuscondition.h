@@ -36,21 +36,29 @@ public:
     virtual QString name();
     
     QString serviceName() { return m_serviceName; }
-    QString path() { return m_path; }
-    QString interface() { return m_interface; }
-    QString checkMethod() { return m_checkMethod; }
-    QString notificationSignal() { return m_notificationSignal; }
+    QString statePath() { return m_statePath; }
+    QString stateInterface() { return m_stateInterface; }
+    QString stateCheckMethod() { return m_stateCheckMethod; }
+    QStringList stateArguments() { return m_stateArguments; }
     QString value() { return m_value; }
+    
+    QString notificationPath() { return m_notificationPath; }
+    QString notificationInterface() { return m_notificationInterface; }
+    QString notificationSignal() { return m_notificationSignal; }
 
 private:
     QString m_serviceName;
-    QString m_path;
-    QString m_interface;
-    QString m_checkMethod;
-    QString m_notificationSignal;
+    QString m_statePath;
+    QString m_stateInterface;
+    QString m_stateCheckMethod;
+    QStringList m_stateArguments;
     QString m_value;
     
-    QDBusInterface *m_connection;
+    QString m_notificationPath;
+    QString m_notificationInterface;
+    QString m_notificationSignal;
+    
+    QDBusInterface *m_stateConnection;
     
     bool privateDeSerialize(QDomElement elem);
     QDomElement privateSerialize(QDomDocument *doc, QDomElement elem);

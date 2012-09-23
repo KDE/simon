@@ -35,18 +35,21 @@ CreateDBusConditionWidget::CreateDBusConditionWidget(QWidget *parent) : CreateCo
   setWindowIcon(KIcon("network-connect"));
 
   connect(ui.leServiceName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
-  connect(ui.lePath, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
-  connect(ui.leInterface, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
-  connect(ui.leCheckMethod, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.leStatePath, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.leStateInterface, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.leStateCheckMethod, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.leNotificationPath, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.leNotificationInterface, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.leNotificationSignal, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.leValue, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
 }
 
 bool CreateDBusConditionWidget::isComplete()
 {
-    return !(ui.leServiceName->text().isEmpty() || ui.lePath->text().isEmpty() ||
-             ui.leInterface->text().isEmpty() || ui.leCheckMethod->text().isEmpty() ||
-             ui.leNotificationSignal->text().isEmpty() || ui.leValue->text().isEmpty());
+  return !(ui.leServiceName->text().isEmpty() || ui.leStatePath->text().isEmpty()
+           || ui.leStateInterface->text().isEmpty() || ui.leStateCheckMethod->text().isEmpty()
+           || ui.leNotificationPath->text().isEmpty() || ui.leNotificationInterface->text().isEmpty()
+           || ui.leNotificationSignal->text().isEmpty() || ui.leValue->text().isEmpty());
 }
 
 bool CreateDBusConditionWidget::init(Condition *condition)
@@ -54,47 +57,67 @@ bool CreateDBusConditionWidget::init(Condition *condition)
   Q_ASSERT(condition);
 
   DBusCondition *dbusCondition = dynamic_cast<DBusCondition*>(condition);
+
   if (!dbusCondition) return false;
 
   ui.leServiceName->setText(dbusCondition->serviceName());
-  ui.lePath->setText(dbusCondition->path());
-  ui.leInterface->setText(dbusCondition->interface());
-  ui.leCheckMethod->setText(dbusCondition->checkMethod());
-  ui.leNotificationSignal->setText(dbusCondition->notificationSignal());
+
+  ui.leStatePath->setText(dbusCondition->statePath());
+  ui.leStateInterface->setText(dbusCondition->stateInterface());
+  ui.leStateCheckMethod->setText(dbusCondition->stateCheckMethod());
+  ui.elwStateArguments->setItems(dbusCondition->stateArguments());
   ui.leValue->setText(dbusCondition->value());
+
+  ui.leNotificationPath->setText(dbusCondition->notificationPath());
+  ui.leNotificationInterface->setText(dbusCondition->notificationInterface());
+  ui.leNotificationSignal->setText(dbusCondition->notificationSignal());
   return true;
 }
 
-
 Condition* CreateDBusConditionWidget::createCondition(QDomDocument* doc, QDomElement& conditionElem)
 {
-    conditionElem.setAttribute("name", "simondbusconditionplugin.desktop");
+  conditionElem.setAttribute("name", "simondbusconditionplugin.desktop");
 
-    QDomElement serviceNameElem = doc->createElement("serviceName");
-    serviceNameElem.appendChild(doc->createTextNode(ui.leServiceName->text()));
-    conditionElem.appendChild(serviceNameElem);
+  QDomElement serviceNameElem = doc->createElement("serviceName");
+  serviceNameElem.appendChild(doc->createTextNode(ui.leServiceName->text()));
+  conditionElem.appendChild(serviceNameElem);
 
-    QDomElement pathElem = doc->createElement("path");
-    pathElem.appendChild(doc->createTextNode(ui.lePath->text()));
-    conditionElem.appendChild(pathElem);
+  QDomElement pathElem = doc->createElement("statePath");
+  pathElem.appendChild(doc->createTextNode(ui.leStatePath->text()));
+  conditionElem.appendChild(pathElem);
 
-    QDomElement interfaceElem = doc->createElement("interface");
-    interfaceElem.appendChild(doc->createTextNode(ui.leInterface->text()));
-    conditionElem.appendChild(interfaceElem);
+  QDomElement interfaceElem = doc->createElement("stateInterface");
+  interfaceElem.appendChild(doc->createTextNode(ui.leStateInterface->text()));
+  conditionElem.appendChild(interfaceElem);
 
-    QDomElement checkMethodElem = doc->createElement("checkMethod");
-    checkMethodElem.appendChild(doc->createTextNode(ui.leCheckMethod->text()));
-    conditionElem.appendChild(checkMethodElem);
+  QDomElement checkMethodElem = doc->createElement("stateCheckMethod");
+  checkMethodElem.appendChild(doc->createTextNode(ui.leStateCheckMethod->text()));
+  conditionElem.appendChild(checkMethodElem);
 
-    QDomElement notificationSignalElem = doc->createElement("notificationSignal");
-    notificationSignalElem.appendChild(doc->createTextNode(ui.leNotificationSignal->text()));
-    conditionElem.appendChild(notificationSignalElem);
 
-    QDomElement valueElem = doc->createElement("value");
-    valueElem.appendChild(doc->createTextNode(ui.leValue->text()));
-    conditionElem.appendChild(valueElem);
-    
-    return ContextManager::instance()->getCondition(conditionElem);
+  QDomElement stateArgumentsElem = doc->createElement("stateArguments");
+  foreach (const QString & attr, ui.elwStateArguments->items()) {
+    QDomElement attrElem = doc->createElement("argument");
+    attrElem.appendChild(doc->createTextNode(attr));
+    stateArgumentsElem.appendChild(attrElem);
+  }
+  conditionElem.appendChild(stateArgumentsElem);
+
+  QDomElement valueElem = doc->createElement("value");
+  valueElem.appendChild(doc->createTextNode(ui.leValue->text()));
+  conditionElem.appendChild(valueElem);
+
+  QDomElement notificationPathElem = doc->createElement("notificationPath");
+  notificationPathElem.appendChild(doc->createTextNode(ui.leNotificationPath->text()));
+  conditionElem.appendChild(notificationPathElem);
+  QDomElement notificationInterfaceElem = doc->createElement("notificationInterface");
+  notificationInterfaceElem.appendChild(doc->createTextNode(ui.leNotificationInterface->text()));
+  conditionElem.appendChild(notificationInterfaceElem);
+  QDomElement notificationSignalElem = doc->createElement("notificationSignal");
+  notificationSignalElem.appendChild(doc->createTextNode(ui.leNotificationSignal->text()));
+  conditionElem.appendChild(notificationSignalElem);
+
+  return ContextManager::instance()->getCondition(conditionElem);
 }
 
 

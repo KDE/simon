@@ -242,7 +242,8 @@ void SimonView::setupActions()
   activateAction->setEnabled(false);
   actionCollection()->addAction("activate", activateAction);
   //must be set after addAction() because of the unique name set in addAction(name,...)
-  activateAction->setGlobalShortcut(KShortcut(Qt::SHIFT + Qt::Key_Pause));
+  // deactivated because of KDE bug #307225
+  //activateAction->setGlobalShortcut(KShortcut(Qt::SHIFT + Qt::Key_Pause));
 
   disconnectAction = new KAction(this);
   disconnectAction->setText(i18n("Disconnect"));
