@@ -41,6 +41,7 @@ signals:
 
 public:
   explicit ModelCompilationManager ( const QString& userName, QObject* parent = 0 );
+  virtual ~ModelCompilationManager();
   
   QString cachedModelPath( uint fingerprint, bool* exists=0 );
   

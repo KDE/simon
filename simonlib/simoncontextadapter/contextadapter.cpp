@@ -53,6 +53,14 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   readCachedModels();
 }
 
+ContextAdapter::~ContextAdapter()
+{
+  delete m_modelCompilationManager;
+  delete m_currentSource;
+  qDeleteAll(m_modelCache);
+}
+
+
 void ContextAdapter::readCachedModels()
 {
   qDeleteAll(m_modelCache);

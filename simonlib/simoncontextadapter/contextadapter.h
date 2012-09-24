@@ -63,6 +63,7 @@ class SIMONCONTEXTADAPTER_EXPORT ContextAdapter : public QObject
 
 public:
     explicit ContextAdapter(QString username, QObject *parent=0);
+    virtual ~ContextAdapter();
 
     enum Activity
     {

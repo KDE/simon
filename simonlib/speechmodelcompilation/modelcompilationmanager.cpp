@@ -27,6 +27,17 @@ ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObj
 {
 }
 
+ModelCompilationManager::~ModelCompilationManager()
+{
+  if (adapter) adapter->abort();
+  if (compiler) compiler->abort();
+
+  wait();
+  delete adapter;
+  delete compiler;
+}
+
+
 QString ModelCompilationManager::cachedModelPath ( uint fingerprint, bool* exists )
 {
   QString path = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/"+QString::number(fingerprint)+".sbm");
