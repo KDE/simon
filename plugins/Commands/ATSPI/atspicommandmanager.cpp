@@ -27,6 +27,7 @@
 
 #include <KLocalizedString>
 #include <KDebug>
+#include <simonactions/listcommand.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>
 #include <simonscenarios/activevocabulary.h>
@@ -272,8 +273,24 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
         triggerAction(actions.first());
         return true;
       default:
-        //TODO present selection list
-        triggerAction(actions.first());
+        QStringList names;
+        QStringList triggers;
+        QStringList actionIconSrcs;
+
+        foreach (QAction *a, actions) {
+          names << a->text();
+          triggers << name();
+          actionIconSrcs << "help-hint";
+        }
+        ListCommand *list = new ListCommand(0 /* don't associate with manager*/,
+                                            i18n("Multiple actions available"), "help-hint",
+                                            i18n("The selected control provides more than one action."),
+                                            names, actionIconSrcs, triggers);
+        connect(list, SIGNAL(canceled()), list, SLOT(deleteLater()));
+        connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
+        connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
+        int state = SimonCommand::DefaultState;
+        list->trigger(&state, true /* silent */);
         return true;
     }
     
