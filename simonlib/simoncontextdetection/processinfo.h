@@ -128,15 +128,15 @@ public slots:
       *
       */
     void checkActiveWindowTitle(QString title) {
-        kDebug() << "Title: " << title;
-        emit activeWindowTitleChanged(title); }
+        emit activeWindowTitleChanged(title);
+    }
 
     /** \brief Relays the active-window-controlling process name from the ProcessInfoGatherer
       *
       */
     void checkActiveWindowProcess(QString process) {
-        kDebug() << "Process: " << process;
-        emit activeWindowProcessChanged(process); }
+        emit activeWindowProcessChanged(process);
+    }
 };
 
 #endif // PROCESSINFO_H

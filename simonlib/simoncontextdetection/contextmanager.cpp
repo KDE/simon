@@ -30,7 +30,6 @@ ContextManager* ContextManager::m_instance;
 ContextManager::ContextManager(QObject *parent) :
     QObject(parent)
 {
-    kDebug() << "creating context manager";
     m_sampleGroupCondition = new SampleGroupCondition();
     connect(m_sampleGroupCondition, SIGNAL(sampleGroupChanged(QStringList)),
             this, SIGNAL(sampleGroupChanged(QStringList)));
@@ -163,7 +162,6 @@ void ContextManager::incrementRefCount ( Condition* c )
 {
   int refCount = m_conditionReferenceCounter.value(c, 0);
   ++refCount;
-  kDebug() << "New ref count: " << refCount;
   m_conditionReferenceCounter.insert(c, refCount); // will replace old value
 }
 
@@ -172,7 +170,6 @@ void ContextManager::decrementRefCount ( Condition* c )
   kDebug() << "Decrementing ref counter for: " << c->name();
   int refCount = m_conditionReferenceCounter.value(c, 0);
   --refCount;
-  kDebug() << "New ref count: " << refCount;
   if (refCount == -1) return; // not in there
   if (refCount == 0) {
     m_conditionLookup.remove(m_conditionLookup.key(c)); // keys are unique so this will delete the only entry

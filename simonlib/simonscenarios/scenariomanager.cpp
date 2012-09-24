@@ -244,8 +244,6 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 {
     bool success = true;
 
-    kDebug() << "Setting up scenarios...";
-
     QStringList defaultScenarioIds;
     defaultScenarioIds << "general";
 
@@ -584,7 +582,6 @@ void ScenarioManager::setLanguageProfileName(const QString& name)
 
 void ScenarioManager::setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands)
 {
-  kDebug() << "Setting list interface commands";
   this->listInterfaceCommands = listInterfaceCommands;
 }
 

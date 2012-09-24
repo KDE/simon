@@ -142,7 +142,6 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
     kDebug() << "Stopping sample";
     sender->recognizeSample(id);
   }
-  kDebug() << "Changed state: " << streamingState;
 }
 
 bool SimondStreamerClient::stop()

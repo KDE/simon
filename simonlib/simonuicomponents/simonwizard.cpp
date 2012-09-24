@@ -33,7 +33,6 @@ SimonWizard::SimonWizard(QWidget* parent, Qt::WFlags flags)
 
 bool SimonWizard::setBanner(const QString& name)
 {
-  kDebug() << "Searching banner: " << name;
   QString fileName = KStandardDirs::locate("appdata", "themes/default/"+name.toAscii()+".png");
 
   if (KGlobal::locale()->language().startsWith(QLatin1String("en"))) {
@@ -42,7 +41,6 @@ bool SimonWizard::setBanner(const QString& name)
       fileName = enFileName;
   }
 
-  kDebug() << "Setting banner: " << fileName;
   setPixmap(QWizard::WatermarkPixmap, QPixmap(fileName));
   return true;
 }

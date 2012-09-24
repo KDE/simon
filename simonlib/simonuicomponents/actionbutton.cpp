@@ -36,7 +36,6 @@ void ActionButton::setAction ( QAction* action )
   }
   
   m_action = action;
-  kDebug() << "Setting action: " << action;
   connect(m_action, SIGNAL(changed()), this, SLOT(updateUi()));
   connect(this, SIGNAL(clicked(bool)), m_action, SLOT(trigger()));
   updateUi();
@@ -44,7 +43,6 @@ void ActionButton::setAction ( QAction* action )
 
 void ActionButton::updateUi()
 {
-  kDebug() << "Updating ui...";
   setText(m_action->text());
   setIcon((KIcon) m_action->icon());
   setEnabled(m_action->isEnabled());
