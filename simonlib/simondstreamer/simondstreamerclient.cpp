@@ -106,7 +106,6 @@ void SimondStreamerClient::conditionChanged()
     streamingState &= ~Streaming;
     sender->recognizeSample(id);
   }
-  kDebug() << "Changed state: " << streamingState;
 }
 
 void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 currentTime)
@@ -119,7 +118,6 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
     streamingState |= VADReady;
 
   sender->clientLoudness(id, ((float) vad->peak()) / ((float) vad->maxAmp()));
-  kDebug() << "Changed state: " << streamingState;
   
   if (!shouldStream(streamingState)) {
     if (vad->doneListening())
