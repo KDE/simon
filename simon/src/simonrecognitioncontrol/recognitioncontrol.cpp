@@ -1205,13 +1205,13 @@ void RecognitionControl::messageReceived()
           break;
         }
 
-	case Simond::SynchronisationEndPending:
-	{
+        case Simond::SynchronisationEndPending:
+        {
           advanceStream(sizeof(qint32));
-	  checkIfSynchronisationIsAborting();
-	  sendRequest(Simond::SynchronisationComplete);
-	  break;
-	}
+          checkIfSynchronisationIsAborting();
+          sendRequest(Simond::SynchronisationComplete);
+          break;
+        }
 
         ////////////////////    COMPILATION    ////////////////////////////////
 
@@ -1351,6 +1351,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
           displayCompilationProtocol(QString::fromUtf8(protocol));
+          break;
         }
 
         ////////////////////    RECOGNITION    ////////////////////////////////
