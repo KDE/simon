@@ -42,7 +42,6 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
     bool inGroup;
     bool modelChangedFlag;
 
-    QStringList missingFiles;
     bool hasTraining();
     bool hasLanguageDescription();
     bool hasActiveContainer();
@@ -74,10 +73,9 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
     QDateTime getActiveContainerModifiedTime();
     virtual bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container);
 
-    void buildMissingSamplesList();
+    void buildSampleList(QStringList& available, QStringList& missing);
     QByteArray getSample(const QString& sampleName);
-    QString missingSample();
-    virtual bool storeSample(const QByteArray& sample);
+    virtual bool storeSample(const QString& name, const QByteArray& sample);
 
     virtual ~ModelManager() {}
 

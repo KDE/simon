@@ -496,6 +496,7 @@ bool Scenario::save(QString path)
   }
 
   file.write(serialized.toUtf8());
+  file.close();
 
   m_dirty = false;
   emit changed(this);

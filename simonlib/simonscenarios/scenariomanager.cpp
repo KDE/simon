@@ -168,7 +168,7 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
   f.write(data);
   f.close();
 
-  Scenario *newScenario = new Scenario(id);
+  Scenario *newScenario = new Scenario(id, QString(), this);
   kDebug() << "Setting new scenario " << id;
   if (!setupScenario(newScenario))
     return false;
@@ -176,17 +176,17 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
   for (int i=0; i < scenarios.count(); i++) {
     if (scenarios.at(i)->id() == id) {
       kDebug() << "Found scenario in the old list; replacing it with new version";
-      Scenario *s = scenarios.takeAt(i);
-      s->deleteLater();
+      Scenario *s = scenarios.at(i);
       scenarios.insert(i, newScenario);
+      scenarios.removeAt(i+1);
+      if (s == currentScenario) {
+        updateDisplays(newScenario, true);
+	emit scenarioSelectionChanged();
+      }
+      kDebug() << "Deleted scenario: " << s;
+      s->deleteLater();
       break;
     }
-  }
-
-  //Forcing the display update if needed
-  if (currentId == id) {
-    kDebug() << "Updating scenario displays";
-    updateDisplays(newScenario, true);
   }
 
   if (m_inGroup)

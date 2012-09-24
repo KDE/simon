@@ -96,14 +96,14 @@ bool ModelManagerUiProxy::storeActiveModel(const QDateTime& changedTime, qint32 
 }
 
 
-bool ModelManagerUiProxy::storeSample(const QByteArray& sample)
+bool ModelManagerUiProxy::storeSample(const QString& name, const QByteArray& sample)
 {
-  bool succ = ModelManager::storeSample(sample);
+  bool succ = ModelManager::storeSample(name, sample);
   if (!succ) {
-    KMessageBox::sorry(0, i18nc("%1 is sample path, %2 is training data folder",
+    KMessageBox::sorry(0, i18nc("%1 is sample name, %2 is training data folder",
       "Could not store the sample %1 received from the server."
       "\n\nPlease check the permissions on the sample folder: %2",
-      missingSample(), TrainingManager::getInstance()->getTrainingDir()));
+      name, TrainingManager::getInstance()->getTrainingDir()));
   }
   return succ;
 }

@@ -160,32 +160,22 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     void timeoutReached();
     void messageReceived();
     bool sendActiveModel();
-    void sendActiveModelModifiedDate();
     void sendActiveModelSampleRate();
 
     void sendScenariosToDelete();
 
-    void sendBaseModelDate();
     bool sendBaseModel();
 
-    void sendScenarioList();
-
-    void sendSelectedScenarioListModifiedDate();
     void sendSelectedScenarioList();
 
-    void requestMissingScenario();
-
-    void sendScenarioModifiedDate(QString scenarioId);
     void sendScenario(QString scenarioId);
 
     void sendDeactivatedScenarioList();
     void sendDeactivatedSampleGroups();
     void sendDeactivatedSampleGroups(const QStringList& sampleGroups);
 
-    void sendLanguageDescriptionModifiedDate();
     void sendLanguageDescription();
 
-    void sendTrainingModifiedDate();
     void sendTraining();
 
     void sendSample(QString sampleName);
@@ -196,9 +186,6 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
 
     void synchronisationComplete();
     void synchronisationDone();
-
-    void synchronizeSamples();
-    void fetchMissingSamples();
 
     void abortModelCompilation();
 
