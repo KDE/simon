@@ -164,7 +164,6 @@ QString WelcomePage::getCurrentlySelectedScenarioId()
 
 void WelcomePage::displayScenarios()
 {
-  kDebug() << "Displaying scenarios";
   setUpdatesEnabled(false);
   ui.lwScenarios->blockSignals(true);
   
@@ -205,7 +204,6 @@ void WelcomePage::updateScenarioDisplays()
   QString currentId = getCurrentlySelectedScenarioId();
   Scenario *scenario = ScenarioManager::getInstance()->getScenario(currentId);
 
-  kDebug() << "Scenario " << scenario;
   if (!scenario) {
     KMessageBox::error(this, i18nc("%1 is scenario id", "Could not retrieve Scenario \"%1\"", currentId));
     return;
@@ -232,7 +230,6 @@ void WelcomePage::updateTrainingsTexts()
   QList<TrainingTextCollection*> collections;
   foreach (Scenario *s, ScenarioManager::getInstance()->getScenarios())
     collections << s->texts();
-  kDebug() << "Updating trainings texts with #collections: " << collections.count();
   trainingTextModel->setCollections(collections);
 }
 

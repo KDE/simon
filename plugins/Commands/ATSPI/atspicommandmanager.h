@@ -1,6 +1,6 @@
 /*
  *   Copyright (C) 2011 Frederik Gladhorn <gladhorn@kde.org>
- *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,48 +21,21 @@
 #ifndef SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
-#include "qt-atspi.h"
-#include <simonscenarios/commandmanager.h>
-#include <QVariantList>
-#include <QDBusVariant>
-#include <QDBusArgument>
-#include <QDBusMessage>
+#include <accessibleobject.h>
 
+#include <registry.h>
+#include <simonscenarios/commandmanager.h>
+
+#include <QHash>
+#include <QVariantList>
+#include <QList>
+
+class QAction;
 class ATSPIConfiguration;
-class AccessibleObject;
-class DBusConnection;
-class QDBusMessage;
-class QTimer;
 
 class ATSPICommandManager : public CommandManager
 {
   Q_OBJECT
-
-private slots:
-  ATSPIConfiguration* getATSPIConfiguration();
-  void registry(const QDBusMessage &message);
-  void objectChanged();
-  
-  void newClient(const QString& change, int, int, QDBusVariant data, QSpiObjectReference reference);
-  
-  void serviceRemoved(AccessibleObject *service);
-  
-  void setupObjects();
-  
-private:
-  unsigned int sentenceNr;
-  DBusConnection *c;
-  QTimer* setupObjectsTimeout;
-  
-  QStringList lastCommands;
-
-  QList<AccessibleObject*> rootAccessibles;
-  QVariant getProperty(const QString &service, const QString &path, const QString &interface, const QString &name);
-  
-  void setupLanguageModel(const QStringList& commands);
-  void clearDynamicLanguageModel();
-  
-  void setupService(const QString& service, const QString& path);
 
 public:
   const QString preferredTrigger() const { return QString(); }
@@ -76,6 +49,30 @@ public:
   virtual void cleanup();
 
   ~ATSPICommandManager();
-
+  
+private slots:
+  void windowActivated(const QAccessibleClient::AccessibleObject& object);
+  void triggerAction(QAction* action);
+  void nameChanged (const QAccessibleClient::AccessibleObject &object);
+  void descriptionChanged (const QAccessibleClient::AccessibleObject &object);
+  void visibleDataChanged (const QAccessibleClient::AccessibleObject &object);
+  void modelChanged (const QAccessibleClient::AccessibleObject &object);
+  
+private:
+  QAccessibleClient::Registry *m_registry;
+  QList<QAction*> m_pendingActions;
+  unsigned int sentenceNr; 
+  QStringList lastCommands;
+  
+  void setupLanguageModel(const QStringList& commands);
+  void adaptLanguageModel(const QStringList& toRemove, const QStringList& toAdd);
+  void clearDynamicLanguageModel();
+  void clearATModel();
+  
+  ATSPIConfiguration* getATSPIConfiguration();
+  
+  QHash<QString /* name (trigger) */, QAccessibleClient::AccessibleObject /* object id */> m_actions;
+  QHash<QAccessibleClient::AccessibleObject /* object */, QString /* name (trigger) */> m_reverseActions;
 };
+
 #endif

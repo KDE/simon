@@ -133,8 +133,6 @@ void VocabularyViewPrivate::refreshShadowView()
 
 void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
-  kDebug() << "Displaying scenario " << scenario->name();
-
   clearTrainingList();
   activeProxy->setSourceModel(scenario->vocabulary());
 }

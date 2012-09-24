@@ -456,6 +456,15 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
     return true;
 }
 
+QString Scenario::pathFromId(const QString& id, const QString& prefix)
+{
+  if (prefix.isNull()) {
+    return KStandardDirs::locateLocal("appdata", "scenarios/"+id);
+  }
+
+  return KStandardDirs::locateLocal("data", prefix+"scenarios/"+id);
+}
+
 
 /**
  * Stores the scenario; The storage location will be determined automatically
@@ -477,14 +486,8 @@ bool Scenario::save(QString path)
   if (serialized.isNull())
     return false;
 
-  if (path.isNull()) {
-    if (m_prefix.isNull()) {
-      path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
-    }
-    else {
-      path = KStandardDirs::locateLocal("data", m_prefix+"scenarios/"+m_scenarioId);
-    }
-  }
+  if (path.isNull())
+    path = pathFromId(m_scenarioId, m_prefix);
 
   QFile file(path);
   if (!file.open(QIODevice::WriteOnly)) {

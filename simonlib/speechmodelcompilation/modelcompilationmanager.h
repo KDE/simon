@@ -54,6 +54,7 @@ signals:
 
 public:
   explicit ModelCompilationManager ( const QString& userName, QObject* parent = 0 );
+  virtual ~ModelCompilationManager();
   
   QString cachedModelPath( uint fingerprint, bool* exists=0 );
   
@@ -77,8 +78,8 @@ public:
   int sampleCount() const;
   
 protected:
-  QString userName;
   bool keepGoing;
+  QString userName;
   int baseModelType;
   QString baseModelPath;
   QStringList scenarioPaths;

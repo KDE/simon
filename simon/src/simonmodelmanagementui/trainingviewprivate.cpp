@@ -158,8 +158,6 @@ void TrainingViewPrivate::importTexts()
 
 void TrainingViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
-  kDebug() << "Displaying scenario " << scenario->name();
-
   TrainingTextCollection *t = scenario->texts();
   textsProxy->setSourceModel(t);
 }

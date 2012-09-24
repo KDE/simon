@@ -35,13 +35,12 @@
 #include <KComponentData>
 
 
-ModelCompilationAdapter::ModelCompilationAdapter(const QString& userName, QObject *parent) : QObject(parent), m_userName(userName)
+ModelCompilationAdapter::ModelCompilationAdapter(const QString& userName, QObject *parent) : QObject(parent), keepGoing(false), m_userName(userName)
 {
 }
 
 void ModelCompilationAdapter::abort()
 {
-  kDebug() << "Aborting current adaption";
   keepGoing = false;
 }
 

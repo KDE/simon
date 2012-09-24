@@ -61,8 +61,9 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
 {
   if (modelPath == m_lastModel) return true; //already initialized / tried to initialize with this exact model
 
+  
+  kDebug() << "Initializing for model: " << modelPath << " old model path: " << m_lastModel;
   m_lastModel = modelPath;
-  kDebug() << "Initializing";
   if (isInitialized()) {
     kDebug() << "Initializing recognition that was already initialized; uninitializing...";
     uninitialize();

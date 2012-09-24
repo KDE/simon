@@ -89,8 +89,6 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
   SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
                                                   //recording not currently running
   if (!inputs.contains(client->deviceConfiguration())) {
-    kDebug() << "No input for this particular configuration... Creating one";
-
     SimonSoundInput *soundInput = new SimonSoundInput(0);
     connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
@@ -157,7 +155,6 @@ void SoundServer::closeOutput(SimonSoundOutput* output)
     if (i.value() == output)
       outputs.remove(i.key());
   }
-  kDebug() << "Calling apply priorities from closeOutput";
   applyOutputPriorities();
 }
 
@@ -172,8 +169,6 @@ void SoundServer::applyInputPriorities()
     i.next();
     priority = qMax(priority, i.value()->getHighestPriority());
   }
-
-  kDebug() << "Highest priority: " << priority;
 
   i.toFront();
 
@@ -199,8 +194,6 @@ void SoundServer::applyOutputPriorities()
     i.next();
     priority = qMax(priority, i.value()->getHighestPriority());
   }
-
-  kDebug() << "Highest priority: " << priority;
 
   i.toFront();
 
@@ -242,8 +235,6 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
   bool succ = true;
   if (!outputs.contains(clientRequestedSoundConfiguration)) {
     //create output for this configuration
-    kDebug() << "No output for this particular configuration... Creating one";
-
     SimonSoundOutput *soundOutput = new SimonSoundOutput(0);
     connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     //then start playback
@@ -274,7 +265,6 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
     }
   }
 
-  kDebug() << "Calling apply priorities from registerOutputClient";
   applyOutputPriorities();
   return succ;
 }
@@ -294,7 +284,6 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
     success = (i.value()->deRegisterOutputClient(client) && success);
   }
 
-  kDebug() << "Calling apply priorities from deRegisterOutputClient";
   applyOutputPriorities();
   
   return success;

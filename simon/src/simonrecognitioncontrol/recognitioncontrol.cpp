@@ -621,18 +621,16 @@ void RecognitionControl::sendDeactivatedSampleGroups(const QStringList& sampleGr
 
 void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
 {
-  Scenario *s = new Scenario(scenarioId);
-  if (!s->skim())
+  QDateTime modifiedDate = Scenario::skimDate(Scenario::pathFromId(scenarioId));
+  if (modifiedDate.isNull())
     sendRequest(Simond::ErrorRetrievingScenario);
   else {
-    kDebug() << "Sending scenario date of scenario " << scenarioId << ": " << s->modifiedDate();
+    kDebug() << "Sending scenario date of scenario " << scenarioId << ": " << modifiedDate;
     QByteArray toWrite;
     QDataStream out(&toWrite, QIODevice::WriteOnly);
-    out << s->modifiedDate();
+    out << modifiedDate;
     send(Simond::ScenarioDate, toWrite, false);
   }
-
-  s->deleteLater();
 }
 
 

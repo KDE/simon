@@ -1,6 +1,6 @@
 /*
  *   Copyright (C) 2011 Frederik Gladhorn <gladhorn@kde.org>
- *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,8 +19,6 @@
  */
 #include "atspicommandmanager.h"
 #include "atspiconfiguration.h"
-#include "dbusconnection.h"
-#include "accessibleobject.h"
 
 #include <QDBusMessage>
 #include <QDBusVariant>
@@ -29,6 +27,7 @@
 
 #include <KLocalizedString>
 #include <KDebug>
+#include <simonactions/listcommand.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>
 #include <simonscenarios/activevocabulary.h>
@@ -40,37 +39,86 @@ registerPlugin< ATSPICommandManager >();
 
 K_EXPORT_PLUGIN( ATSPICommandPluginFactory("simonatspicommand") )
 
+
 ATSPICommandManager::ATSPICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-  sentenceNr(0), c(0), setupObjectsTimeout(new QTimer(this))
+  m_registry(0), sentenceNr(0)
 {
-  setupObjectsTimeout->setInterval(150);
-  setupObjectsTimeout->setSingleShot(true);
-  connect(setupObjectsTimeout, SIGNAL(timeout()), this, SLOT(setupObjects()));
 }
 
-void ATSPICommandManager::objectChanged()
+void ATSPICommandManager::windowActivated(const QAccessibleClient::AccessibleObject& object)
 {
-  setupObjectsTimeout->stop();
-  setupObjectsTimeout->start();
-}
-
-void ATSPICommandManager::setupObjects()
-{
-  kDebug() << "Setting up objects";
+  parentScenario->startGroup();
+  kDebug() << "Window activated: " << object.name() << object.childCount();
+  clearDynamicLanguageModel();
   
-  QStringList commands;
-  foreach (AccessibleObject *object, rootAccessibles) {     
-    QStringList thisCommands = object->traverseObject();
-    foreach (const QString& c, thisCommands)
-      if (!commands.contains(c))
-        commands << c;
+  // parse all children of this object
+  QStringList alreadyParsed;
+  
+  QList<QAccessibleClient::AccessibleObject> objectsToParse;
+  objectsToParse.append(object.children());
+  
+  while (!objectsToParse.isEmpty()) {
+    const QAccessibleClient::AccessibleObject& o  = objectsToParse.takeFirst();
+    if (alreadyParsed.contains(o.id()) || !o.isVisible()) continue;
+    
+    if (!o.actions().isEmpty()) {
+      kDebug() << "========== Triggerable: " << o.name();
+      m_actions.insertMulti(o.name(), o);
+      m_reverseActions.insert(o, o.name());
+    }
+
+    alreadyParsed << o.id();
+    //add children to the list to parse
+    objectsToParse.append(o.children());
   }
   
-  kDebug() << "Got commands: " << commands;
-  if (dynamic_cast<ATSPIConfiguration*>(config)->createLanguageModel())
-    setupLanguageModel(commands);
+  setupLanguageModel(m_actions.keys());
+  parentScenario->commitGroup();
 }
 
+void ATSPICommandManager::modelChanged(const QAccessibleClient::AccessibleObject& object)
+{
+  kDebug() << "Model changed";
+}
+
+void ATSPICommandManager::visibleDataChanged(const QAccessibleClient::AccessibleObject& object)
+{
+  kDebug() << "Visible data changed";
+}
+
+void ATSPICommandManager::descriptionChanged(const QAccessibleClient::AccessibleObject& object)
+{
+  kDebug() << "description changed";
+}
+
+void ATSPICommandManager::nameChanged(const QAccessibleClient::AccessibleObject& object)
+{
+  if (!m_reverseActions.contains(object))
+    return;
+
+  kDebug() << "Name changed: " << object.name();
+
+  QStringList toAdd;
+  QStringList toRemove;
+
+  QString oldName = m_reverseActions.value(object);
+  m_reverseActions.insert(object, object.name());
+
+  if (!m_actions.contains(object.name()))
+    toAdd << object.name();
+
+  QHash<QString,QAccessibleClient::AccessibleObject>::iterator i = m_actions.find(oldName);
+  while (i != m_actions.end()) {
+    if (*i == object) {
+      m_actions.erase(i);
+      i = m_actions.find(oldName);
+    }
+  }
+  if (!m_actions.keys().contains(oldName))
+    toRemove << oldName;
+
+  adaptLanguageModel(toRemove, toAdd);
+}
 
 const QString ATSPICommandManager::iconSrc() const
 {
@@ -89,8 +137,16 @@ ATSPIConfiguration* ATSPICommandManager::getATSPIConfiguration()
   return static_cast<ATSPIConfiguration*>(getConfigurationPage());
 }
 
+void ATSPICommandManager::clearATModel()
+{
+  m_actions.clear();
+  m_reverseActions.clear();
+  m_pendingActions.clear();
+}
+
 void ATSPICommandManager::clearDynamicLanguageModel()
 {
+  clearATModel();
   if (!parentScenario) return;
 
   //delete leftover words and grammarfrom last time
@@ -110,98 +166,28 @@ void ATSPICommandManager::clearDynamicLanguageModel()
 
 bool ATSPICommandManager::deSerializeConfig(const QDomElement& elem)
 {
-  QtATSPI::registerTypes();
-  
   if (config) config->deleteLater();
   config = new ATSPIConfiguration(this, parentScenario);
   bool succ = config->deSerialize(elem);
   
   clearDynamicLanguageModel();
-  
-  if (c) delete c;
-  c = new DBusConnection();
-  
-  bool connected = c->connection().connect("", "", "org.a11y.atspi.Event.Window", "Activate", this, 
-                                  SLOT(newClient(QString,int,int,QDBusVariant,QSpiObjectReference)));
-  connected = c->connection().connect("", "", "org.a11y.atspi.Event.Window", "Create", this, 
-                                  SLOT(newClient(QString,int,int,QDBusVariant,QSpiObjectReference))) && connected;
-  
-  if (!connected) {
-    kWarning() << "DBus connection failed";
-    succ = false;
-  }
 
-  QDBusMessage message = QDBusMessage::createMethodCall("org.a11y.atspi.Registry", "/org/a11y/atspi/accessible/root", "org.a11y.atspi.Accessible", "GetChildren");
-  c->connection().callWithCallback(message, this, SLOT(registry(QDBusMessage)));
+  //start building model
+  if (!m_registry) {
+    m_registry = new QAccessibleClient::Registry(this);
+    m_registry->applications(); // FIXME: KDE bug: 307264
+
+    connect(m_registry, SIGNAL(windowActivated(QAccessibleClient::AccessibleObject)), this, SLOT(windowActivated(QAccessibleClient::AccessibleObject)));
+    connect(m_registry, SIGNAL(visibleDataChanged(QAccessibleClient::AccessibleObject)), this, SLOT(visibleDataChanged(QAccessibleClient::AccessibleObject)));
+    connect(m_registry, SIGNAL(modelChanged(QAccessibleClient::AccessibleObject)), this, SLOT(modelChanged(QAccessibleClient::AccessibleObject)));
+
+    connect(m_registry, SIGNAL(accessibleNameChanged(QAccessibleClient::AccessibleObject)), this, SLOT(nameChanged(QAccessibleClient::AccessibleObject)));
+    connect(m_registry, SIGNAL(accessibleDescriptionChanged(QAccessibleClient::AccessibleObject)), this, SLOT(descriptionChanged(QAccessibleClient::AccessibleObject)));
+
+    m_registry->subscribeEventListeners(QAccessibleClient::Registry::AllEventListeners);
+  }
   
   return succ;
-}
-
-QVariant ATSPICommandManager::getProperty(const QString &service, const QString &path, const QString &interface, const QString &name)
-{
-    QVariantList args;
-    args.append(interface);
-    args.append(name);
-
-    QDBusMessage message = QDBusMessage::createMethodCall(
-                service, path, "org.freedesktop.DBus.Properties", "Get");
-
-    message.setArguments(args);
-    QDBusMessage reply = c->connection().call(message);
-    QDBusVariant v = reply.arguments().at(0).value<QDBusVariant>();
-    return v.variant();
-}
-
-void ATSPICommandManager::registry(const QDBusMessage &message)
-{
-    QVariantList vl = message.arguments();
-    const QDBusArgument arg = vl.at(0).value<QDBusArgument>();
-
-    QString service;
-    QDBusObjectPath path;
-
-    arg.beginArray();
-    while(!arg.atEnd()) {
-        arg.beginStructure();
-        arg >> service;
-        arg >> path;
-        arg.endStructure();
-        setupService(service, path.path());
-    }
-    arg.endArray();
-    setupObjects();
-}
-
-void ATSPICommandManager::newClient(const QString& change, int, int, QDBusVariant data, QSpiObjectReference reference)
-{
-  kDebug() << "New client!";
-  Q_UNUSED(change);
-  QString windowTitle = data.variant().toString();
-  kDebug() << change << windowTitle << reference.path.path() << reference.service;
-  
-  foreach (AccessibleObject *o, rootAccessibles) {
-    if (o->service() == reference.service)
-      return;
-  }
-  setupService(reference.service, reference.path.path());
-  setupObjects();
-}
-
-void ATSPICommandManager::setupService(const QString& service, const QString& path)
-{
-  kDebug() << "Registered accessible application: " << service << path;
-  AccessibleObject *object = new AccessibleObject(c->connection(), service, path, 0 /*root element*/);
-  connect(object, SIGNAL(changed()), this, SLOT(objectChanged()));
-  connect(object, SIGNAL(serviceRemoved(AccessibleObject*)), this, SLOT(serviceRemoved(AccessibleObject*)));
-  rootAccessibles.append(object);
-}
-
-void ATSPICommandManager::serviceRemoved(AccessibleObject* service)
-{
-  service->blockSignals(true);
-  rootAccessibles.removeAll(service);
-  service->deleteLater();
-  setupObjects();
 }
 
 void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
@@ -212,7 +198,11 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
     if (newCommands.removeAll(c) != 0)
       commandsToRemove.removeAll(c);
   }
-  
+  adaptLanguageModel(commandsToRemove, newCommands);
+}
+
+void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove, const QStringList& newCommands)
+{
   kDebug() << "Commands to remove: " << commandsToRemove;
   kDebug() << "Commands to add: " << newCommands;
   
@@ -232,9 +222,12 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
         continue;
       }
       
-      int commandIndex = commandsToRemove.indexOf(exampleSentences.at(0));
+      QString thisSentence = exampleSentences.at(0);
+      int commandIndex = commandsToRemove.indexOf(thisSentence);
       if (commandIndex == -1) continue;
       
+      lastCommands.removeAll(thisSentence);
+
       QStringList terminals = sent.split(' ');
       
       foreach (const QString& t, terminals) {
@@ -264,6 +257,7 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
 //       for (int j=0; j < exampleSentences.size(); j++) {
 //         QString exampleSentence = exampleSentences[j];
 //         if (commandsToRemove.contains(exampleSentence)) {
+//           lastCommands.removeAll(exampleSentence);
 //           QStringList terminals = sent.split(" ");
 //           QStringList words = exampleSentence.split(" ");
 //           for (int k = 0; k < terminals.count(); k++) {
@@ -285,6 +279,7 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
     QStringList allWords;
     QList<QStringList> sentenceWords;
     foreach (const QString& command, newCommands) {
+      lastCommands << command;
       QStringList words = command.split(' ');
       allWords << words;
       sentenceWords << words;
@@ -317,18 +312,64 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
     }
   }
   
-  parentScenario->commitGroup();
-  lastCommands = commands;
+  if (!newCommands.isEmpty() || !commandsToRemove.isEmpty())
+    parentScenario->commitGroup();
+}
+
+void ATSPICommandManager::triggerAction(QAction* action)
+{
+  action->trigger();
 }
 
 bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
 {
   Q_UNUSED(silent);
   kDebug() << "Executing: " << triggerName;
-  foreach (AccessibleObject *o, rootAccessibles)
-    if (o->trigger(triggerName))
-      return true;
+  
+  if (!m_pendingActions.isEmpty()) {
+    foreach (QAction *a, m_pendingActions) {
+      if (a->text() == triggerName) {
+        a->trigger();
+        m_pendingActions.clear();
+        return true;
+      }
+    }
+    m_pendingActions.clear();
+    return false;
+  }
+  kDebug() << m_actions << triggerName;
+  if (m_actions.contains(triggerName)) {
+    QList<QAction*> actions = m_actions.value(triggerName).actions();
+
+    switch (actions.count()) {
+      case 0:
+        return false;
+      case 1:
+        triggerAction(actions.first());
+        return true;
+      default:
+        QStringList names;
+        QStringList triggers;
+        QStringList actionIconSrcs;
+
+        foreach (QAction *a, actions) {
+          names << a->text();
+          triggers << name();
+          actionIconSrcs << "help-hint";
+        }
+        ListCommand *list = new ListCommand(0 /* don't associate with manager*/,
+                                            i18n("Multiple actions available"), "help-hint",
+                                            i18n("The selected control provides more than one action."),
+                                            names, actionIconSrcs, triggers);
+        connect(list, SIGNAL(canceled()), list, SLOT(deleteLater()));
+        connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
+        connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
+        int state = SimonCommand::DefaultState;
+        list->trigger(&state, true /* silent */);
+        return true;
+    }
     
+  }
   return false;
 }
 
@@ -339,6 +380,6 @@ void ATSPICommandManager::cleanup()
 
 ATSPICommandManager::~ATSPICommandManager()
 {
-  qDeleteAll(rootAccessibles);
-  delete c;
+  clearATModel();
+  delete m_registry;
 }

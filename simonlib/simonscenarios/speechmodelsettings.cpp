@@ -164,6 +164,7 @@ void SpeechModelSettings::load()
   
   ui.lbModelName->setText(baseModelDescription());
   
+  uiLanguageProfile.lbProfileName->setText(ScenarioManager::getInstance()->languageProfileName());
   KCModule::load();
   emit changed(false);
 }

@@ -78,6 +78,7 @@ ModelCompilerHTK::ModelCompilerHTK(const QString& user_name, QObject* parent) :
     catchUndefiniedPhonemes(false)
 {
   connect(this, SIGNAL(status(QString,int,int)), this, SLOT(addStatusToLog(QString)));
+  keepGoing = false;
 }
 
 QString ModelCompilerHTK::htkIfyPath(const QString& in)
@@ -258,7 +259,6 @@ bool ModelCompilerHTK::processError()
   return false;
 }
 
-
 bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compilationType, const QString& modelDestination,
   const QString& baseModelPath, const QHash< QString, QString >& args )
 {
@@ -400,6 +400,7 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
   emit status(i18nc("Finished the model compilation", "Finished"), 2600, 2600);
   emit modelCompiled();
   QCoreApplication::sendPostedEvents(0, 0);
+  keepGoing = false;
   return true;
 }
 

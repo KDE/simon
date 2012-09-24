@@ -68,6 +68,14 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   readCachedModels();
 }
 
+ContextAdapter::~ContextAdapter()
+{
+  delete m_modelCompilationManager;
+  delete m_currentSource;
+  qDeleteAll(m_modelCache);
+}
+
+
 void ContextAdapter::readCachedModels()
 {
   qDeleteAll(m_modelCache);
@@ -209,7 +217,7 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
   QString inputPrompts = m_currentSource->promptsPath();
   QString adaptedPromptsPath = adaptPrompts(inputPrompts, situation.deactivatedSampleGroups());
   
-  kDebug() << "Starting model compilation";
+  kDebug() << "Starting model build";
   model->setState(CachedModel::Building);
   m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, adaptedPromptsPath);
 }
@@ -227,10 +235,10 @@ QStringList ContextAdapter::adaptScenarios ( const QStringList& scenarioPaths, c
 
 QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QStringList& deactivatedSampleGroups )
 {
-  kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups << promptsPath;
   QString outPath = KStandardDirs::locateLocal("tmp", 
                                             KGlobal::mainComponent().aboutData()->appName()+'/'+m_username+"/context/prompts_"+
                                             QString::number(qHash(deactivatedSampleGroups.join(";"))));
+  kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups << promptsPath << outPath;
   QFile outFile(outPath);
   QFile promptsFile(promptsPath);
   bool allEmpty = true;
@@ -253,7 +261,6 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
       }
     }
   }
-  kDebug() << "Serialized prompts to: " << outPath;
   if (allEmpty) return QString(); // no prompts left after adaption
   
   return outPath;
@@ -272,7 +279,6 @@ void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDa
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
     if (j.value()->compiledDate() < modelDate) {
       j.value()->setState(CachedModel::ToBeEvaluated);
-      break;
     }
   }
   safelyAddContextFreeModelToCache(); //it might have been removed when canceling the compilation e.g. because of missing prompts / grammar
@@ -302,6 +308,7 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
           }
         }
         if (isOnlyOne) {
+          //TODO: Maybe keep a couple of those?
           bool cachedModelExists;
           QString oldCachePath = m_modelCompilationManager->cachedModelPath(j.value()->srcFingerPrint(), &cachedModelExists);
           if (cachedModelExists)
@@ -353,11 +360,13 @@ void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReaso
 
 QString ContextAdapter::currentModelPath() const
 {
+  kDebug() << "Requested situation: " << m_requestedSituation.deactivatedSampleGroups() << m_requestedSituation.deactivatedScenarios();
   //try to find models for:
   // 1. the currently requested situation
   // 2. if that's not available let's see if we have a general model
   foreach (const Situation& s, QList<Situation>() << m_requestedSituation << Situation()) {
     if (m_modelCache.contains(s)) { 
+      kDebug() << "Situation found: " << s.id() << (int) m_modelCache.value(s)->state();
       if (m_modelCache.value(s)->state() == CachedModel::Current)
         return m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
       else if (m_modelCache.value(s)->state() == CachedModel::Null)

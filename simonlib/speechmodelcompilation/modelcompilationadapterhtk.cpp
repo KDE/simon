@@ -41,6 +41,8 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
 {
   abort();
 
+  keepGoing=true;
+
   m_adaptionType = adaptionType;
   m_scenarioPathsIn = scenarioPathsIn;
   m_promptsPathIn = promptsIn;
@@ -58,8 +60,6 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
       return false;
   }
 
-  keepGoing=true;
-
   emit  status(i18n("Adapting model..."), 0, 100);
 
   if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, m_lexiconPathOut,
@@ -73,6 +73,8 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
 
   kDebug() <<"Adaptation complete";
 
+  keepGoing=false;
+  
   return true;
 }
 

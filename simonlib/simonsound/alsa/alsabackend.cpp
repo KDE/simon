@@ -227,8 +227,6 @@ snd_pcm_t* ALSABackend::openDevice(SimonSound::SoundDeviceType type, const QStri
   // remove )
   internalDeviceName = internalDeviceName.left(internalDeviceName.length()-1);
 
-  kDebug() << "Opening device: " << internalDeviceName;
-
   snd_pcm_t *handle;
   snd_pcm_hw_params_t *hwparams;
 
@@ -334,7 +332,6 @@ bool ALSABackend::prepareRecording(const QString& device, int& channels, int& sa
   m_handle = openDevice(SimonSound::Input, device, channels, samplerate);
   m_loop = (m_loop) ? m_loop : new ALSACaptureLoop(this);
   emit stateChanged(SimonSound::PreparedState);
-  kDebug() << "Prepared recording: " << m_handle;
   
   return m_handle;
 }
@@ -348,13 +345,12 @@ bool ALSABackend::startRecording(SoundBackendClient *client)
   //starting recording
   m_loop->start();
   emit stateChanged(SimonSound::ActiveState);
-  kDebug() << "Started recording: " << m_handle;
   return true;
 }
 
 bool ALSABackend::stopRecording()
 {
-  kDebug() << "Stop recording";
+
   return stop();
 }
 
@@ -372,7 +368,6 @@ bool ALSABackend::preparePlayback(const QString& device, int& channels, int& sam
   m_handle = openDevice(SimonSound::Output, device, channels, samplerate);
   m_loop = new ALSAPlaybackLoop(this);
   emit stateChanged(SimonSound::PreparedState);
-  kDebug() << "Prepared playback: " << m_handle;
   
   return m_handle;
 }
@@ -386,7 +381,6 @@ bool ALSABackend::startPlayback(SoundBackendClient *client)
   //starting playback
   m_loop->start();
   emit stateChanged(SimonSound::ActiveState);
-  kDebug() << "Started playback: " << m_handle;
   return true;
 }
 
@@ -475,7 +469,6 @@ static int set_hwparams(snd_pcm_t *handle,
     kWarning() << "Unable to get buffer size for playback:" << snd_strerror(err);
     return err;
   }
-  kDebug() << "Selected buffer size: " << size;
   *bufferSize = size;
   
   unsigned int period_time = 20000;
@@ -495,7 +488,6 @@ static int set_hwparams(snd_pcm_t *handle,
   *chunks = chunks_;
 
   err = snd_pcm_hw_params_get_period_size(params, &size, &dir);
-  kDebug() << "Selected period size: " << size;
   if (err < 0) {
     kWarning() << "Unable to get period size for playback:" << snd_strerror(err);
     return err;

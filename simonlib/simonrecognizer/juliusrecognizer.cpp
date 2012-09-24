@@ -209,6 +209,8 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
 
 bool JuliusRecognizer::uninitialize()
 {
+  if (!m_juliusProcess) return true; // already uninitialized
+
   kDebug() << "Uninitializing";
   log.clear();
   if (m_juliusProcess && (m_juliusProcess->state() != QProcess::NotRunning))
