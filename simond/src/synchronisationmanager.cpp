@@ -129,12 +129,12 @@ QString SynchronisationManager::commonScenario()
 
 void SynchronisationManager::scenarioSynchronized()
 {
-  kDebug() << "Scenario synchronized: " << commonScenarios << missingScenarios;
+//   kDebug() << "Scenario synchronized: " << commonScenarios << missingScenarios;
   if (!missingScenarios.isEmpty()) {
     missingScenarios.removeAt(0);
   } else if (!commonScenarios.isEmpty())
     commonScenarios.removeAt(0);
-  kDebug() << "Scenario synchronized: " << commonScenarios << missingScenarios;
+//   kDebug() << "Scenario synchronized: " << commonScenarios << missingScenarios;
 }
 
 
@@ -144,7 +144,7 @@ bool SynchronisationManager::storeScenario(const QByteArray& scenario)
   if (scenarioId.isNull())
     scenarioId = commonScenario();
 
-  kDebug() << "Storing scenario at id: " << scenarioId;
+//   kDebug() << "Storing scenario at id: " << scenarioId;
   scenarioSynchronized();
 
   QString path = srcContainerTempPath+QDir::separator()+"scenarios"+QDir::separator()+scenarioId;
@@ -178,7 +178,7 @@ QString SynchronisationManager::getLatestScenarioPath(const QString& id)
       return path;
     }
   }
-  kDebug() << "Latest scenario path of scenario: " << id << " not found!";
+//   kDebug() << "Latest scenario path of scenario: " << id << " not found!";
   return QString();
 }
 
@@ -186,7 +186,7 @@ QString SynchronisationManager::getLatestScenarioPath(const QString& id)
 QDateTime SynchronisationManager::localScenarioDate(const QString& scenarioId)
 {
   QString path = getLatestScenarioPath(scenarioId);
-  kDebug() << "Latest scenario date: " << scenarioId << path;
+//   kDebug() << "Latest scenario date: " << scenarioId << path;
   if (path.isNull()) return QDateTime();
 
   return scenarioDate(path);
@@ -505,7 +505,7 @@ TrainingContainer* SynchronisationManager::getTraining()
 
 bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& prompts)
 {
-  kDebug() << "Storing training from " << changedDate;
+//   kDebug() << "Storing training from " << changedDate;
   if (username.isEmpty()) return false;
 
   QString configPath = srcContainerTempPath+"trainingrc";
@@ -515,7 +515,7 @@ bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 
   config.sync();
 
   QFile promptsFile(srcContainerTempPath+"prompts");
-  kDebug() << "Temp path: " << srcContainerTempPath;
+//   kDebug() << "Temp path: " << srcContainerTempPath;
 
   if (!promptsFile.open(QIODevice::WriteOnly))
     return false;
@@ -580,7 +580,7 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
   if (!fInfo.canonicalFilePath().contains(d.canonicalPath()))
     return QByteArray();
 
-  kDebug() << "Retrieving " << dirPath+'/'+sampleName.toUtf8();
+//   kDebug() << "Retrieving " << dirPath+'/'+sampleName.toUtf8();
   if (!f.open(QIODevice::ReadOnly)) return QByteArray();
   QByteArray content = f.readAll();
   return content;
@@ -726,13 +726,12 @@ bool SynchronisationManager::commit()
   QStringList scenarios = scenarioDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
   foreach (const QString& scenarioPath, scenarios) {
     QDateTime sDate = scenarioDate(srcContainerTempPath+"scenarios"+QDir::separator()+scenarioPath);
-    kDebug() << "Merging scenario: " << scenarioPath << sDate;
+//     kDebug() << "Merging scenario: " << scenarioPath << sDate;
     newSrcContainerTime = qMax(newSrcContainerTime, sDate);
   }
 
   kDebug() << "New container time: " << newSrcContainerTime;
   if (newSrcContainerTime.isNull()) {
-    kDebug() << "Calling cleanTemp";
     return cleanTemp();                           // nothing to process
   }
 
@@ -742,13 +741,9 @@ bool SynchronisationManager::commit()
 
   bool allCopied=true;
   if (hasTraining(srcContainerTempPath) && !copyTrainingData(srcContainerTempPath, newSrcContainerPath)) allCopied=false;
-  kDebug() << "Copied training successfully: " << allCopied;
   if (hasLanguageDescription(srcContainerTempPath) && !copyLanguageDescription(srcContainerTempPath, newSrcContainerPath)) allCopied=false;
-  kDebug() << "Copied lang desc successfully: " << allCopied;
   if (hasScenarioRc(srcContainerTempPath) && !copyScenarioRc(srcContainerTempPath, newSrcContainerPath)) allCopied = false;
-  kDebug() << "Copied scenariorc successfully: " << allCopied;
   if (!copyScenarios(srcContainerTempPath, newSrcContainerPath)) allCopied = false;
-  kDebug() << "Copied scenarios successfully: " << allCopied;
 
   if (!allCopied) {
     kDebug() << "Failed to copy all files. Aborting";
@@ -837,8 +832,6 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 
   if (languageDescriptionPath.isEmpty() || scenarioRcPath.isEmpty()) {
     abort();
-    kDebug() << "One of the paths is empty";
-    kDebug() << languageDescriptionPath << scenarioRcPath;
     return false;
   }
 
@@ -979,8 +972,6 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
     QString scenarioPath = source+QDir::separator()+"scenarios"+QDir::separator()+scenario;
     QString destPath = dest+QDir::separator()+"scenarios"+QDir::separator()+scenario;
 
-    kDebug() << "Copying scenario: " << scenarioPath << destPath;
-
     if (QFile::exists(destPath))
       continue;
 
@@ -989,9 +980,7 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
       kDebug() << "Error: Copy failed";
     }
     else {
-      kDebug() << "Copying successful";
       if (touchAccessTime) {
-        kDebug() << "Touching scenario! " << destPath;
         //touch it
         QDomDocument doc("scenario");
         QFile file(destPath);
@@ -1176,7 +1165,6 @@ bool SynchronisationManager::storeSelectedScenarioList(const QDateTime& modified
   cGroup.writeEntry("LastModified", modifiedDate);
   cGroup.writeEntry("SelectedScenarios", scenarioIds);
   config.sync();
-  kDebug() << "Stored simonscenariorc to " << srcContainerTempPath+QDir::separator()+"simonscenariosrc";
   return true;
 }
 
