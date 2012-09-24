@@ -45,7 +45,7 @@ ATSPICommandManager::ATSPICommandManager(QObject* parent, const QVariantList& ar
 {
 }
 
-void ATSPICommandManager::windowActivated(const AccessibleObject& object)
+void ATSPICommandManager::windowActivated(const QAccessibleClient::AccessibleObject& object)
 {
   parentScenario->startGroup();
   kDebug() << "Window activated: " << object.name() << object.childCount();
@@ -54,11 +54,11 @@ void ATSPICommandManager::windowActivated(const AccessibleObject& object)
   // parse all children of this object
   QStringList alreadyParsed;
   
-  QList<AccessibleObject> objectsToParse;
+  QList<QAccessibleClient::AccessibleObject> objectsToParse;
   objectsToParse.append(object.children());
   
   while (!objectsToParse.isEmpty()) {
-    const AccessibleObject& o  = objectsToParse.takeFirst();
+    const QAccessibleClient::AccessibleObject& o  = objectsToParse.takeFirst();
     if (alreadyParsed.contains(o.id()) || !o.isVisible()) continue;
     
     if (!o.actions().isEmpty()) {
@@ -76,22 +76,22 @@ void ATSPICommandManager::windowActivated(const AccessibleObject& object)
   parentScenario->commitGroup();
 }
 
-void ATSPICommandManager::modelChanged(const AccessibleObject& object)
+void ATSPICommandManager::modelChanged(const QAccessibleClient::AccessibleObject& object)
 {
   kDebug() << "Model changed";
 }
 
-void ATSPICommandManager::visibleDataChanged(const AccessibleObject& object)
+void ATSPICommandManager::visibleDataChanged(const QAccessibleClient::AccessibleObject& object)
 {
   kDebug() << "Visible data changed";
 }
 
-void ATSPICommandManager::descriptionChanged(const AccessibleObject& object)
+void ATSPICommandManager::descriptionChanged(const QAccessibleClient::AccessibleObject& object)
 {
   kDebug() << "description changed";
 }
 
-void ATSPICommandManager::nameChanged(const AccessibleObject& object)
+void ATSPICommandManager::nameChanged(const QAccessibleClient::AccessibleObject& object)
 {
   if (!m_reverseActions.contains(object))
     return;
@@ -107,7 +107,7 @@ void ATSPICommandManager::nameChanged(const AccessibleObject& object)
   if (!m_actions.contains(object.name()))
     toAdd << object.name();
 
-  QHash<QString,AccessibleObject>::iterator i = m_actions.find(oldName);
+  QHash<QString,QAccessibleClient::AccessibleObject>::iterator i = m_actions.find(oldName);
   while (i != m_actions.end()) {
     if (*i == object) {
       m_actions.erase(i);
@@ -174,17 +174,17 @@ bool ATSPICommandManager::deSerializeConfig(const QDomElement& elem)
 
   //start building model
   if (!m_registry) {
-    m_registry = new Registry(this);
+    m_registry = new QAccessibleClient::Registry(this);
     m_registry->applications(); // FIXME: KDE bug: 307264
 
-    connect(m_registry, SIGNAL(windowActivated(AccessibleObject)), this, SLOT(windowActivated(AccessibleObject)));
-    connect(m_registry, SIGNAL(visibleDataChanged(AccessibleObject)), this, SLOT(visibleDataChanged(AccessibleObject)));
-    connect(m_registry, SIGNAL(modelChanged(AccessibleObject)), this, SLOT(modelChanged(AccessibleObject)));
+    connect(m_registry, SIGNAL(windowActivated(QAccessibleClient::AccessibleObject)), this, SLOT(windowActivated(QAccessibleClient::AccessibleObject)));
+    connect(m_registry, SIGNAL(visibleDataChanged(QAccessibleClient::AccessibleObject)), this, SLOT(visibleDataChanged(QAccessibleClient::AccessibleObject)));
+    connect(m_registry, SIGNAL(modelChanged(QAccessibleClient::AccessibleObject)), this, SLOT(modelChanged(QAccessibleClient::AccessibleObject)));
 
-    connect(m_registry, SIGNAL(accessibleNameChanged(AccessibleObject)), this, SLOT(nameChanged(AccessibleObject)));
-    connect(m_registry, SIGNAL(accessibleDescriptionChanged(AccessibleObject)), this, SLOT(descriptionChanged(AccessibleObject)));
+    connect(m_registry, SIGNAL(accessibleNameChanged(QAccessibleClient::AccessibleObject)), this, SLOT(nameChanged(QAccessibleClient::AccessibleObject)));
+    connect(m_registry, SIGNAL(accessibleDescriptionChanged(QAccessibleClient::AccessibleObject)), this, SLOT(descriptionChanged(QAccessibleClient::AccessibleObject)));
 
-    m_registry->subscribeEventListeners(Registry::AllEventListeners);
+    m_registry->subscribeEventListeners(QAccessibleClient::Registry::AllEventListeners);
   }
   
   return succ;

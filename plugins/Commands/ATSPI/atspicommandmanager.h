@@ -33,8 +33,6 @@
 class QAction;
 class ATSPIConfiguration;
 
-using namespace QAccessibleClient;
-
 class ATSPICommandManager : public CommandManager
 {
   Q_OBJECT
@@ -53,15 +51,15 @@ public:
   ~ATSPICommandManager();
   
 private slots:
-  void windowActivated(const AccessibleObject& object);
+  void windowActivated(const QAccessibleClient::AccessibleObject& object);
   void triggerAction(QAction* action);
-  void nameChanged (const AccessibleObject &object);
-  void descriptionChanged (const AccessibleObject &object);
-  void visibleDataChanged (const AccessibleObject &object);
-  void modelChanged (const AccessibleObject &object);
+  void nameChanged (const QAccessibleClient::AccessibleObject &object);
+  void descriptionChanged (const QAccessibleClient::AccessibleObject &object);
+  void visibleDataChanged (const QAccessibleClient::AccessibleObject &object);
+  void modelChanged (const QAccessibleClient::AccessibleObject &object);
   
 private:
-  Registry *m_registry;
+  QAccessibleClient::Registry *m_registry;
   QList<QAction*> m_pendingActions;
   unsigned int sentenceNr; 
   QStringList lastCommands;
@@ -73,8 +71,8 @@ private:
   
   ATSPIConfiguration* getATSPIConfiguration();
   
-  QHash<QString /* name (trigger) */, AccessibleObject /* object id */> m_actions;
-  QHash<AccessibleObject /* object */, QString /* name (trigger) */> m_reverseActions;
+  QHash<QString /* name (trigger) */, QAccessibleClient::AccessibleObject /* object id */> m_actions;
+  QHash<QAccessibleClient::AccessibleObject /* object */, QString /* name (trigger) */> m_reverseActions;
 };
 
 #endif
