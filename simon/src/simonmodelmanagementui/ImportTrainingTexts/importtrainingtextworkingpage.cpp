@@ -214,8 +214,9 @@ QStringList ImportTrainingTextWorkingPage::parse(QIODevice *input, const QString
 
 void ImportTrainingTextWorkingPage::createTrainingsText(const QString& name, const QStringList& sentences)
 {
-  TrainingText *t = new TrainingText(name, sentences);
-  if (!ScenarioManager::getInstance()->getCurrentScenario()->addTrainingText(t))
+  Scenario *s = ScenarioManager::getInstance()->getCurrentScenario();
+  TrainingText *t = new TrainingText(name, sentences, s);
+  if (!s->addTrainingText(t))
     KMessageBox::error(this, i18n("Could not store training text"));
 
 }

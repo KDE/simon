@@ -42,7 +42,7 @@ class MODELMANAGEMENT_EXPORT TrainingText : public ScenarioObject
     QStringList pages;
     TrainingText( Scenario *parent );
   public:
-    TrainingText(const QString& name, const QStringList& pages);
+    TrainingText(const QString& name, const QStringList& pages, Scenario* parentScenario);
 
     static TrainingText* createTrainingText(Scenario *parent, const QDomElement& elem);
 
