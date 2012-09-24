@@ -157,8 +157,8 @@ void JuliusControl::run()
   m_initialized=true;
   
   while (shouldBeRunning) {
+    if (!queueLock.tryLock(500)) continue;
     QString file;
-    queueLock.lock();
     if (!toRecognize.isEmpty())
       file = toRecognize.dequeue();
     queueLock.unlock();
