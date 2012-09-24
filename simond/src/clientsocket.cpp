@@ -768,7 +768,7 @@ void ClientSocket::activeModelCompiled(const QString& path)
   synchronisationManager->modelCompiled(path);
   sendCode(Simond::ModelCompilationCompleted);
 
-  startSynchronisation();
+  sendActiveModel();
 }
 
 void ClientSocket::activeModelCompilationAborted()
