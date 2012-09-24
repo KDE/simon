@@ -264,7 +264,6 @@ void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDa
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
     if (j.value()->compiledDate() < modelDate) {
       j.value()->setState(CachedModel::ToBeEvaluated);
-      break;
     }
   }
   safelyAddContextFreeModelToCache(); //it might have been removed when canceling the compilation e.g. because of missing prompts / grammar
