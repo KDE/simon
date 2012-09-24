@@ -24,6 +24,7 @@
 #include <QDBusVariant>
 #include <QDBusArgument>
 #include <QTimer>
+#include <QVector>
 
 #include <KLocalizedString>
 #include <KDebug>
@@ -59,7 +60,10 @@ void ATSPICommandManager::windowActivated(const QAccessibleClient::AccessibleObj
   
   while (!objectsToParse.isEmpty()) {
     const QAccessibleClient::AccessibleObject& o  = objectsToParse.takeFirst();
+    kDebug() << "Object " << o.name() << " is visible: " << o.isVisible();
     if (alreadyParsed.contains(o.id()) || !o.isVisible()) continue;
+    //if (alreadyParsed.contains(o.id())) continue;
+    kDebug() << "Parsing: " << o.name();
     
     if (!o.actions().isEmpty()) {
       kDebug() << "========== Triggerable: " << o.name();
@@ -316,7 +320,7 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
     parentScenario->commitGroup();
 }
 
-void ATSPICommandManager::triggerAction(QAction* action)
+void ATSPICommandManager::triggerAction(const QSharedPointer<QAction> action)
 {
   action->trigger();
 }
@@ -327,7 +331,7 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
   kDebug() << "Executing: " << triggerName;
   
   if (!m_pendingActions.isEmpty()) {
-    foreach (QAction *a, m_pendingActions) {
+    foreach (QSharedPointer<QAction> a, m_pendingActions) {
       if (a->text() == triggerName) {
         a->trigger();
         m_pendingActions.clear();
@@ -339,7 +343,7 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
   }
   kDebug() << m_actions << triggerName;
   if (m_actions.contains(triggerName)) {
-    QList<QAction*> actions = m_actions.value(triggerName).actions();
+    QVector<QSharedPointer<QAction> > actions = m_actions.value(triggerName).actions();
 
     switch (actions.count()) {
       case 0:
@@ -352,7 +356,7 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
         QStringList triggers;
         QStringList actionIconSrcs;
 
-        foreach (QAction *a, actions) {
+        foreach (QSharedPointer<QAction> a, actions) {
           names << a->text();
           triggers << name();
           actionIconSrcs << "help-hint";
