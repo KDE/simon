@@ -21,15 +21,19 @@
 #ifndef SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
-#include <simonscenarios/commandmanager.h>
-
-#include <registry.h>
 #include <accessibleobject.h>
 
+#include <registry.h>
+#include <simonscenarios/commandmanager.h>
+
+#include <QHash>
 #include <QVariantList>
+#include <QList>
 
 class QAction;
 class ATSPIConfiguration;
+
+using namespace QAccessibleClient;
 
 class ATSPICommandManager : public CommandManager
 {
@@ -49,21 +53,28 @@ public:
   ~ATSPICommandManager();
   
 private slots:
-  void windowActivated(const KAccessibleClient::AccessibleObject& object);
+  void windowActivated(const AccessibleObject& object);
   void triggerAction(QAction* action);
+  void nameChanged (const AccessibleObject &object);
+  void descriptionChanged (const AccessibleObject &object);
+  void visibleDataChanged (const AccessibleObject &object);
+  void modelChanged (const AccessibleObject &object);
   
 private:
-  KAccessibleClient::Registry *m_registry;
-  
+  Registry *m_registry;
+  QList<QAction*> m_pendingActions;
   unsigned int sentenceNr; 
   QStringList lastCommands;
   
   void setupLanguageModel(const QStringList& commands);
+  void adaptLanguageModel(const QStringList& toRemove, const QStringList& toAdd);
   void clearDynamicLanguageModel();
+  void clearATModel();
   
   ATSPIConfiguration* getATSPIConfiguration();
   
-  QHash<QString, KAccessibleClient::AccessibleObject> m_availableActions;
-
+  QHash<QString /* name (trigger) */, AccessibleObject /* object id */> m_actions;
+  QHash<AccessibleObject /* object */, QString /* name (trigger) */> m_reverseActions;
 };
+
 #endif

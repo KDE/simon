@@ -22,7 +22,7 @@ kde4_add_plugin(simonatspicommandplugin ${simonatspicommandplugin_SRCS})
 
 
 target_link_libraries(simonatspicommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY} 
-				  ${LIBKDEACCESSIBILITYCLIENT_LIBRARY} simonscenarios )
+				  ${QACCESSIBILITYCLIENT_LIBRARY} simonscenarios simonactions )
 
 install(TARGETS simonatspicommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandatspiplugin )
 install( FILES simonatspicommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandatspiplugin )
