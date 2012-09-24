@@ -31,6 +31,7 @@ set( simonmodelcompilation_LIB_HDRS
   modelcompiler.h
   modelcompilerhtk.h
   modelcompilersphinx.h
+  modelcompilation.h
   modelcompilationadapter.h
   modelcompilationadapterhtk.h
   modelcompilationadaptersphinx.h

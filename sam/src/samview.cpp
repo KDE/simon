@@ -35,6 +35,7 @@
 
 #include <speechmodelcompilation/modelcompilerhtk.h>
 #include <speechmodelcompilation/modelcompilersphinx.h>
+#include <speechmodelcompilation/modelcompilation.h>
 #include <speechmodelcompilation/modelcompilationadapterhtk.h>
 #include <speechmodelcompilation/modelcompilationadaptersphinx.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
@@ -498,12 +499,12 @@ void SamView::backendChanged(int id)
   }
 
   connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
-  connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
+  connect(modelCompilationAdapter, SIGNAL(adaptionAborted(ModelCompilation::AbortionReason)), this, SLOT(slotModelAdaptionAborted()));
   connect(modelCompilationAdapter, SIGNAL(status(QString,int,int)), this, SLOT(slotModelAdaptionStatus(QString,int,int)));
   connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 
   connect(modelCompiler, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
-  connect(modelCompiler, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
+  connect(modelCompiler, SIGNAL(activeModelCompilationAborted(ModelCompilation::AbortionReason)), this, SLOT(retrieveCompleteBuildLog()));
   connect(modelCompiler, SIGNAL(status(QString,int,int)), this, SLOT(slotModelCompilationStatus(QString,int,int)));
   connect(modelCompiler, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
 
@@ -513,6 +514,7 @@ void SamView::backendChanged(int id)
           SLOT(slotModelCompilationWordUndefined(QString)));
   connect(modelCompiler, SIGNAL(phonemeUndefined(QString)), this,
           SLOT(slotModelCompilationPhonemeUndefined(QString)));
+
 }
 
 QList<CorpusInformation*> SamView::creationCorpusInformation()

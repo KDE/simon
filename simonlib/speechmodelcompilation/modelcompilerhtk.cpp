@@ -259,17 +259,6 @@ bool ModelCompilerHTK::processError()
 }
 
 
-//void ModelCompilerHTK::abort()
-//{
-//  kDebug() << "Compilation Manager Aborting.";
-
-//  keepGoing=false;
-
-//  foreach (QProcess *proc, activeProcesses)
-//  //tell any running process to commit suicide
-//    proc->kill();
-//}
-
 bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compilationType, const QString& modelDestination,
   const QString& baseModelPath, const QHash< QString, QString >& args )
 {

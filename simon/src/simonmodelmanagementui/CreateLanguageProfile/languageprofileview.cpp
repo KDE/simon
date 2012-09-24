@@ -65,7 +65,7 @@ void LanguageProfileView::success(const QString& path)
   } else {
     ModelManagerUiProxy::getInstance()->touchLanguageDescription();
     ScenarioManager::getInstance()->setLanguageProfileName(i18n("Generated from shadow dictionary"));
-    setButtonText(Ok, i18n("Ok"));
+    setButtonText(Ok, i18n("OK"));
     button(Ok)->setEnabled(true);
   }
 }

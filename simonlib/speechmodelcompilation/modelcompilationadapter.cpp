@@ -145,7 +145,7 @@ bool ModelCompilationAdapter::readPrompts(ModelCompilationAdapter::AdaptionType 
       else
       {
         kDebug() << "Aborting because we have no input prompts";
-        emit adaptionAborted(); //no input prompts
+        emit adaptionAborted(ModelCompilation::InsufficientInput); //no input prompts
       }
       return false;
     }

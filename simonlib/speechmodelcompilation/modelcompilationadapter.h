@@ -22,6 +22,7 @@
 #define SIMON_MODELCOMPILATIONADAPTER_H_166F0999AD87463EA4DE9A335364D7A6
 
 #include "simonmodelcompilationmanagement_export.h"
+#include "modelcompilation.h"
 #include <simonscenarios/vocabulary.h>
 #include <simonscenarios/grammar.h>
 
@@ -31,7 +32,8 @@
 #include <QHash>
 #include <QSharedPointer>
 
-#define ADAPT_CHECKPOINT if (!keepGoing) { emit adaptionAborted(); return false; }
+
+#define ADAPT_CHECKPOINT if (!keepGoing) { emit adaptionAborted(ModelCompilation::Manual); return false; }
 
 /**
  *	@class ModelAdapter
@@ -55,7 +57,7 @@ signals:
   void error(QString);
 
   void adaptionComplete();
-  void adaptionAborted();
+  void adaptionAborted(ModelCompilation::AbortionReason);
 
 public:
   /*!
@@ -129,6 +131,7 @@ protected:
 
   bool readPrompts(ModelCompilationAdapter::AdaptionType adaptionType, QSharedPointer<Vocabulary> vocabulary,
                    const QString &promptsPathIn, QStringList &trainedVocabulary);
+
 
 };
 #endif

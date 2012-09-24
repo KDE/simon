@@ -24,6 +24,7 @@
 #include "modelcompilationadapterhtk.h"
 #include <QFileInfo>
 #include <KStandardDirs>
+#include <KLocale>
 #include <KDebug>
 
 ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
@@ -35,12 +36,12 @@ ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, 
   tryAgain = false;
   
   connect(adapter, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-  connect(adapter, SIGNAL(adaptionAborted()), this, SIGNAL(modelCompilationAborted()));
+  connect(adapter, SIGNAL(adaptionAborted(ModelCompilation::AbortionReason)), this, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)));
   connect(adapter, SIGNAL(status(QString,int,int)), this, SIGNAL(status(QString,int,int)));
   
   connect(compiler, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
   connect(compiler, SIGNAL(status(QString,int,int)), this, SIGNAL(status(QString,int,int)));
-  connect(compiler, SIGNAL(activeModelCompilationAborted()), this, SIGNAL(modelCompilationAborted()));
+  connect(compiler, SIGNAL(activeModelCompilationAborted(ModelCompilation::AbortionReason)), this, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)));
   
   connect(compiler, SIGNAL(wordUndefined(QString)), this, SIGNAL(wordUndefined(QString)));
   connect(compiler, SIGNAL(classUndefined(QString)), this, SIGNAL(classUndefined(QString)));
@@ -101,7 +102,7 @@ void ModelCompilationManagerHTK::run()
     if (!hasGrammar)
     {
       kDebug() << "No Grammar!  Model recompilation aborting!";
-      emit modelCompilationAborted();
+      emit modelCompilationAborted(ModelCompilation::InsufficientInput);
       return;
     }
 
@@ -117,7 +118,7 @@ void ModelCompilationManagerHTK::run()
           break;
         case 2:                                     //do not bother creating the model without prompts
           kDebug() << "No Prompts!  Model recompilation aborting!";
-          emit modelCompilationAborted();
+          emit modelCompilationAborted(ModelCompilation::InsufficientInput);
           return;
       }
     }
@@ -148,20 +149,6 @@ void ModelCompilationManagerHTK::run()
       componentsToParse << "prompts";
 
     fingerprint = getFingerPrint(activeDir, componentsToParse, compilationType);
-//    foreach (const QString& component, componentsToParse)
-//    {
-//      QString file = compilerArgs.value(component);
-//      qDebug() << "Analyzing file: " << file;
-//      QFile f(file);
-//      if (!f.open(QIODevice::ReadOnly))
-//      {
-//        kDebug() << "Error building fingerprint";
-//        emit modelCompilationAborted();
-//        return;
-//      }
-//      fingerprint ^= qHash(f.readAll());
-//    }
-//    fingerprint ^= compilationType;
 
     bool exists;
     QString outPath = cachedModelPath(fingerprint, &exists);
@@ -175,6 +162,4 @@ void ModelCompilationManagerHTK::run()
     } else
       kWarning() << "Model compilation failed for user " << userName;
   } while (tryAgain);
-  emit modelCompilationAborted();
 }
-

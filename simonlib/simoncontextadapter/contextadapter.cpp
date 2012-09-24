@@ -22,6 +22,7 @@
 #include "situation.h"
 #include "cachedmodel.h"
 #include "modelsource.h"
+#include <speechmodelcompilation/modelcompilation.h>
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilation/modelcompilationmanagerhtk.h>
 #include <speechmodelcompilation/modelcompilationmanagersphinx.h>
@@ -56,7 +57,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   m_username = username;
 
   connect(m_modelCompilationManager, SIGNAL(modelReady(uint, QString)), this, SLOT(slotModelReady(uint,QString)));
-  connect(m_modelCompilationManager, SIGNAL(modelCompilationAborted()), this, SLOT(slotModelCompilationAborted()));
+  connect(m_modelCompilationManager, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)), this, SLOT(slotModelCompilationAborted(ModelCompilation::AbortionReason)));
 
   connect(m_modelCompilationManager, SIGNAL(classUndefined(QString)), this, SIGNAL(classUndefined(QString)));
   connect(m_modelCompilationManager, SIGNAL(wordUndefined(QString)), this, SIGNAL(wordUndefined(QString)));
@@ -112,12 +113,9 @@ void ContextAdapter::storeCachedModels()
 
 void ContextAdapter::safelyAddContextFreeModelToCache()
 {
-  kDebug() << "Checking for context-free model";
   if (!m_modelCache.contains(Situation())) {
-    kDebug() << "Adding context-free model";
     introduceNewModel(Situation());
-  } else
-    kDebug() << "Context free model already there";
+  }
 }
 
 void ContextAdapter::clearCache()
@@ -212,13 +210,6 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
   QString adaptedPromptsPath = adaptPrompts(inputPrompts, situation.deactivatedSampleGroups());
   
   kDebug() << "Starting model compilation";
-  if (scenarioPaths.empty() || (!inputPrompts.isEmpty() && adaptedPromptsPath.isEmpty())) {
-    // this  model is a null model; deactivate recognition
-    model->setState(CachedModel::Null);
-    storeCachedModels();
-    emit newModelReady();
-    return;
-  }
   model->setState(CachedModel::Building);
   m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, adaptedPromptsPath);
 }
@@ -271,9 +262,9 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
 void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDate, int baseModelType, const QString& baseModelPath, const QStringList& scenarioPaths, const QString& promptsPathIn )
 {
   kDebug() << "Updating model parameters";
-  m_compileLock.lock();
   m_modelCompilationManager->abort();
-
+  
+  m_compileLock.lock();
   ModelSource *src = m_currentSource;
   m_currentSource = new ModelSource(modelDate, baseModelType, baseModelPath, scenarioPaths, promptsPathIn);
   delete src;
@@ -336,19 +327,28 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
   emit newModelReady();
 }
 
-void ContextAdapter::slotModelCompilationAborted()
+void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReason reason)
 {
   m_compileLock.lock();
+  kDebug() << "Aborted model compilation with reason: " << reason;
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
     if (j.value()->state() == CachedModel::Building) {
-      m_modelCache.erase(j);
+      if (reason == ModelCompilation::InsufficientInput) {
+        // this  model is a null model; deactivate recognition
+        (*j)->setState(CachedModel::Null);
+      } else
+        m_modelCache.erase(j);
       break;
     }
   }
   safelyAddContextFreeModelToCache();
   storeCachedModels();  
   m_compileLock.unlock();
+  
   emit modelCompilationAborted();
+  
+  if (reason == ModelCompilation::InsufficientInput)
+    emit newModelReady();
 }
 
 QString ContextAdapter::currentModelPath() const

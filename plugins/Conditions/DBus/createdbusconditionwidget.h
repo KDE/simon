@@ -36,10 +36,9 @@ class CreateDBusConditionWidget : public CreateConditionWidget
     Ui::CreateDBusConditionWidget ui;
 
   public:
-    Condition* createCondition();
+    Condition* createCondition(QDomDocument* doc, QDomElement& conditionElem);
 
     bool init(Condition* condition);
-    bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
     explicit CreateDBusConditionWidget( QWidget* parent = 0 );

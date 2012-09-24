@@ -23,6 +23,7 @@
 
 #include "simonmodelcompilationmanagement_export.h"
 #include "modelmetadata.h"
+#include "modelcompilation.h"
 
 #include <QObject>
 #include <QString>
@@ -49,9 +50,8 @@ signals:
   void wordUndefined(const QString&);
   void classUndefined(const QString&);
   void phonemeUndefined(const QString&);
-
   void modelCompiled();
-  void activeModelCompilationAborted();
+  void activeModelCompilationAborted(ModelCompilation::AbortionReason);
 
 public:
   enum CompilationType
@@ -63,8 +63,6 @@ public:
 
   virtual bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
                                 const QString& baseModelPath, const QHash<QString, QString>& args)=0;
-
-  explicit ModelCompiler(const QString& userName, QObject *parent=0) : QObject(parent), userName(userName) {}
 
   virtual bool hasBuildLog() const;
   virtual QString getGraphicBuildLog() const;
@@ -80,12 +78,15 @@ protected:
   QString userName;
   QString tempDir;
 
+
   QMutex buildLogMutex;
   QByteArray buildLog;
   
   CompilationType compilationType;
 
   QList<QProcess*> activeProcesses;
+
+  explicit ModelCompiler(const QString& userName, QObject *parent=0);
 
   virtual bool processError()=0;
   virtual bool parseConfiguration()=0;

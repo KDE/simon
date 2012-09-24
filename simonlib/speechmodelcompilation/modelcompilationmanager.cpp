@@ -65,8 +65,8 @@ void ModelCompilationManager::abort()
   if (!wait(3000)) {
     terminate();
     wait();
-    emit modelCompilationAborted();
   }
+  emit modelCompilationAborted(ModelCompilation::Manual);
 }
 
 QString ModelCompilationManager::getBuildLog() const

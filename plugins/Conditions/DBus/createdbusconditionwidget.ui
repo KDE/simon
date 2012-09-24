@@ -6,108 +6,161 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>552</width>
+    <height>470</height>
    </rect>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Service name:</string>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Service name:</string>
+       </property>
+       <property name="buddy">
+        <cstring>leServiceName</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KLineEdit" name="leServiceName"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Notification</string>
      </property>
-     <property name="buddy">
-      <cstring>leServiceName</cstring>
-     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::ExpandingFieldsGrow</enum>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Path:</string>
+        </property>
+        <property name="buddy">
+         <cstring>leStatePath</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="KLineEdit" name="leNotificationPath"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>Interface:</string>
+        </property>
+        <property name="buddy">
+         <cstring>leStateInterface</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="KLineEdit" name="leNotificationInterface"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string extracomment="Method to call to check the current status">Notification signal:</string>
+        </property>
+        <property name="buddy">
+         <cstring>leStateCheckMethod</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="KLineEdit" name="leNotificationSignal"/>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="KLineEdit" name="leServiceName"/>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Path:</string>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Retrieve state</string>
      </property>
-     <property name="buddy">
-      <cstring>lePath</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="KLineEdit" name="lePath"/>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>Interface:</string>
-     </property>
-     <property name="buddy">
-      <cstring>leInterface</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="KLineEdit" name="leInterface"/>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string extracomment="Method to call to check the current status">Check method:</string>
-     </property>
-     <property name="buddy">
-      <cstring>leCheckMethod</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="KLineEdit" name="leCheckMethod"/>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Notification signal:</string>
-     </property>
-     <property name="buddy">
-      <cstring>leCheckMethod</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="KLineEdit" name="leNotificationSignal"/>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_6">
-     <property name="text">
-      <string>Value:</string>
-     </property>
-     <property name="buddy">
-      <cstring>leServiceName</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="KLineEdit" name="leValue"/>
-   </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="QCheckBox" name="cbInverted">
-     <property name="toolTip">
-      <string>An inverted condition is satisfied when its specified details are NOT true</string>
-     </property>
-     <property name="whatsThis">
-      <string>An inverted condition is satisfied when its specified details are NOT true</string>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="text">
-      <string>Invert Condition</string>
-     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::ExpandingFieldsGrow</enum>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Path:</string>
+        </property>
+        <property name="buddy">
+         <cstring>leStatePath</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="KLineEdit" name="leStatePath"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Interface:</string>
+        </property>
+        <property name="buddy">
+         <cstring>leStateInterface</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="KLineEdit" name="leStateInterface"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string extracomment="Method to call to check the current status">Check method:</string>
+        </property>
+        <property name="buddy">
+         <cstring>leStateCheckMethod</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="KLineEdit" name="leStateCheckMethod"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Arguments:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="KEditListWidget" name="elwStateArguments"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Value:</string>
+        </property>
+        <property name="buddy">
+         <cstring>leServiceName</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="KLineEdit" name="leValue"/>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
+  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>

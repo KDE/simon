@@ -22,6 +22,7 @@
 #include "modelmetadata.h"
 
 #include <QDomDocument>
+#include <QMetaType>
 #include <QDateTime>
 #include <KDebug>
 
@@ -133,9 +134,17 @@ void ModelCompiler::abort()
   foreach(QProcess *proc, activeProcesses)
   //tell any running process to commit suicide
     proc->kill();
+
+  emit activeModelCompilationAborted(ModelCompilation::Manual);
 }
 
 ModelMetadata ModelCompiler::getMetaData(const QString &name, const QString &type)
 {
   return ModelMetadata(name, QDateTime::currentDateTime(), type);
+}
+
+
+ModelCompiler::ModelCompiler ( const QString& userName, QObject* parent ) : QObject(parent), userName(userName)
+{
+  qRegisterMetaType<ModelCompilation::AbortionReason>("ModelCompilation::AbortionReason");
 }

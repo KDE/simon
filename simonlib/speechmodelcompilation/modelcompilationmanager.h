@@ -44,7 +44,7 @@ Q_OBJECT
 
 signals:
   void modelReady(uint fingerprint, const QString& path);
-  void modelCompilationAborted();
+  void modelCompilationAborted(ModelCompilation::AbortionReason);
   void status(QString mesg, int now, int max);
   void error(QString);
   

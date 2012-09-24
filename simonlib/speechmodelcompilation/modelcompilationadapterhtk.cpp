@@ -132,6 +132,7 @@ bool ModelCompilationAdapterHTK::storeLexicon(ModelCompilationAdapter::AdaptionT
                                               QSharedPointer<Vocabulary> vocabulary,
                                               QStringList &trainedVocabulary, QStringList &definedVocabulary)
 {
+//<<<<<<< HEAD
   /////  Lexicon  ////////////////
 
   kDebug() << "Store lexicon";
@@ -263,6 +264,10 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
       }
     }
   }
+  if (vocabulary->getWords().isEmpty()) {
+    emit adaptionAborted(ModelCompilation::InsufficientInput); //no vocabulary
+    return false;
+  }
 
   ADAPT_CHECKPOINT;
 
@@ -291,6 +296,11 @@ bool ModelCompilationAdapterHTK::storeGrammar(const QString& grammarPathOut, QSt
   if (!grammarFile.open(QIODevice::WriteOnly))
   {
     emit error(i18n("Failed to adapt grammar to \"%1\"", grammarPathOut));
+    return false;
+  }
+  
+  if (structures.isEmpty()) {
+    emit adaptionAborted(ModelCompilation::InsufficientInput); //no grammar
     return false;
   }
 
