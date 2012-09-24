@@ -23,16 +23,13 @@
 #include <QFile>
 
 ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObject* parent ) : 
-    QThread ( parent ), userName(userName), compiler(0), adapter(0)
+    QThread ( parent ), keepGoing(false), userName(userName), compiler(0), adapter(0)
 {
 }
 
 ModelCompilationManager::~ModelCompilationManager()
 {
-  if (adapter) adapter->abort();
-  if (compiler) compiler->abort();
-
-  wait();
+  abort();
   delete adapter;
   delete compiler;
 }
@@ -60,14 +57,12 @@ void ModelCompilationManager::startModelCompilation ( int baseModelType, const Q
 
 void ModelCompilationManager::abort()
 {  
+  if (!keepGoing) return;
   keepGoing = false;
   
-  kDebug() << "Aborting adapter";
   if (adapter) adapter->abort();
-  kDebug() << "Aborting compiler";
   if (compiler) compiler->abort();
-  
-  kDebug() << "Waiting to finish";
+
   if (!wait(3000)) {
     terminate();
     wait();

@@ -157,10 +157,14 @@ void ModelCompilationManagerHTK::run()
     
     if (!keepGoing) return;
     
+    if (exists) kDebug() << "Pulling compiled model from cache";
+
     if (exists || compiler->startCompilation(compilationType, outPath, baseModelPath, compilerArgs)) {
       emit modelReady(fingerprint, outPath);
+      keepGoing = false;
       return;
     } else 
       kWarning() << "Model compilation failed for user " << userName;
   } while (tryAgain);
+  keepGoing = false;
 }

@@ -58,8 +58,8 @@ public:
   int sampleCount() const;
   
 protected:
-  QString userName;
   bool keepGoing;
+  QString userName;
   int baseModelType;
   QString baseModelPath;
   QStringList scenarioPaths;

@@ -75,6 +75,7 @@ bool reestimateHelper(ReestimationConfig *config)
 
 ModelCompilerHTK::ModelCompilerHTK(const QString& user_name, QObject* parent) : 
     ModelCompiler(user_name, parent),
+    keepGoing(false),
     catchUndefiniedPhonemes(false)
 {
   connect(this, SIGNAL(status(QString,int,int)), this, SLOT(addStatusToLog(QString)));
@@ -354,7 +355,7 @@ bool ModelCompilerHTK::processError()
 
 void ModelCompilerHTK::abort()
 {
-  kDebug() << "Compilation Manager Aborting.";
+  if (!keepGoing) return;
 
   keepGoing=false;
 
@@ -542,6 +543,7 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
   emit status(i18nc("Finished the model compilation", "Finished"), 2600, 2600);
   emit modelCompiled();
   QCoreApplication::sendPostedEvents(0, 0);
+  keepGoing = false;
   return true;
 }
 
