@@ -1488,6 +1488,7 @@ void RecognitionControl::messageReceived()
 
         default:
           kDebug() << "Unknown request: " << request;
+	  Q_ASSERT(false);
       }
     }
 
