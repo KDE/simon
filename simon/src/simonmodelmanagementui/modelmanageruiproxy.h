@@ -59,7 +59,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT ModelManagerUiProxy : public ModelManager
     bool storeTraining(const QDateTime& changedTime, qint32 sampleRate,
       const QByteArray& prompts);
     bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container);
-    bool storeSample(const QByteArray& sample);
+    bool storeSample(const QString& name, const QByteArray& sample);
 
 };
 #endif

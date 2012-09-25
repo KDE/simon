@@ -302,43 +302,35 @@ bool ModelManager::storeTraining(const QDateTime& changedTime, qint32 sampleRate
 }
 
 
-void ModelManager::buildMissingSamplesList()
+void ModelManager::buildSampleList(QStringList& available, QStringList& missing)
 {
   QStringList newList = TrainingManager::getInstance()->getPrompts()->keys();
   QDir samplesDir(SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile());
   QStringList oldList = samplesDir.entryList(QStringList() << "*.wav");
 
-  foreach (const QString& fileName, newList) {
-    if ((!oldList.contains(fileName+".wav")) && (!this->missingFiles.contains(fileName)))
-      missingFiles << fileName;
+  foreach (QString fileName, newList) {
+    fileName += +".wav";
+    if (!oldList.contains(fileName)) {
+      if (!missing.contains(fileName))
+        missing << fileName;
+    } else if (!available.contains(fileName))
+      available << fileName;
   }
-  kDebug() << "Missing samples: " << missingFiles;
 }
 
 
-bool ModelManager::storeSample(const QByteArray& sample)
+bool ModelManager::storeSample(const QString& name, const QByteArray& sample)
 {
-  if (missingFiles.isEmpty()) return false;
-
   QString dirPath = TrainingManager::getInstance()->getTrainingDir()+'/';
 
-  QFile f(dirPath+missingFiles.at(0)+".wav");
+  QFile f(dirPath+name+".wav");
   if (!f.open(QIODevice::WriteOnly)) return false;
 
   f.write(sample);
   f.close();
-
-  missingFiles.removeAt(0);
   return true;
 }
 
-
-QString ModelManager::missingSample()
-{
-  if (missingFiles.isEmpty()) return QString();
-
-  return missingFiles.at(0);
-}
 
 void ModelManager::touchLanguageDescription()
 {

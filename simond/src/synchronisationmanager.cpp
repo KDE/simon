@@ -45,24 +45,6 @@ srcContainerTempPath(KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().
 {
 }
 
-void SynchronisationManager::buildMissingScenarios(const QStringList& remoteScenarioList)
-{
-  missingScenarios.clear();
-  commonScenarios.clear();
-
-  QStringList localScenarioList = getAllScenarioIds();
-
-  foreach (const QString& rId, remoteScenarioList) {
-    if (!localScenarioList.contains(rId))
-      missingScenarios << rId;
-    else commonScenarios << rId;
-  }
-
-  kDebug() << "Missing: " << missingScenarios;
-  kDebug() << "Common: " << commonScenarios;
-}
-
-
 QStringList SynchronisationManager::getAllScenarioIds()
 {
   QStringList paths = getAllScenarios();
@@ -95,59 +77,9 @@ QStringList SynchronisationManager::getAllScenarios()
   return scenarioIds;
 }
 
-
-void SynchronisationManager::couldntRetreiveScenario()
+bool SynchronisationManager::storeScenario(const QString& id, const QByteArray& scenario)
 {
-  if (!missingScenarios.isEmpty())
-    missingScenarios.removeAt(0);
-  else if (!commonScenarios.isEmpty())
-    commonScenarios.removeAt(0);
-}
-
-
-void SynchronisationManager::scenarioUpToDate()
-{
-  commonScenarios.removeAt(0);
-}
-
-
-QString SynchronisationManager::missingScenario()
-{
-  if (!missingScenarios.isEmpty())
-    return missingScenarios.at(0);
-  return QString();
-}
-
-
-QString SynchronisationManager::commonScenario()
-{
-  if (!commonScenarios.isEmpty())
-    return commonScenarios.at(0);
-  return QString();
-}
-
-
-void SynchronisationManager::scenarioSynchronized()
-{
-//   kDebug() << "Scenario synchronized: " << commonScenarios << missingScenarios;
-  if (!missingScenarios.isEmpty()) {
-    missingScenarios.removeAt(0);
-  } else if (!commonScenarios.isEmpty())
-    commonScenarios.removeAt(0);
-//   kDebug() << "Scenario synchronized: " << commonScenarios << missingScenarios;
-}
-
-
-bool SynchronisationManager::storeScenario(const QByteArray& scenario)
-{
-  QString scenarioId = missingScenario();
-  if (scenarioId.isNull())
-    scenarioId = commonScenario();
-
-//   kDebug() << "Storing scenario at id: " << scenarioId;
-  scenarioSynchronized();
-
-  QString path = srcContainerTempPath+QDir::separator()+"scenarios"+QDir::separator()+scenarioId;
+  QString path = srcContainerTempPath+QDir::separator()+"scenarios"+QDir::separator()+id;
   QFile f(path);
   if (!f.open(QIODevice::WriteOnly)) {
     kDebug() << "Cannot store scenario at: " << path;
@@ -186,7 +118,6 @@ QString SynchronisationManager::getLatestScenarioPath(const QString& id)
 QDateTime SynchronisationManager::localScenarioDate(const QString& scenarioId)
 {
   QString path = getLatestScenarioPath(scenarioId);
-//   kDebug() << "Latest scenario date: " << scenarioId << path;
   if (path.isNull()) return QDateTime();
 
   return scenarioDate(path);
@@ -533,27 +464,10 @@ bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 
 }
 
 
-void SynchronisationManager::buildMissingSamples()
+QStringList SynchronisationManager::getAvailableSamples()
 {
-  QFile promptsFile(srcContainerTempPath+"prompts");
-  QStringList oldList, newList;
   QDir samplesDir(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"));
-  oldList = samplesDir.entryList(QStringList() << "*.wav");
-
-  missingFiles.clear();                           //rebuilding this...
-
-  if (promptsFile.open(QIODevice::ReadOnly)) {
-    while (!promptsFile.atEnd()) {
-      QString promptsLine = QString::fromUtf8(promptsFile.readLine());
-      newList << promptsLine.left(promptsLine.indexOf(' '));
-    }
-    promptsFile.close();
-  }
-
-  foreach (const QString& fileName, newList) {
-    if ((!oldList.contains(fileName+".wav")) && (!this->missingFiles.contains(fileName)))
-      missingFiles << fileName;
-  }
+  return samplesDir.entryList(QStringList() << "*.wav");
 }
 
 
@@ -587,28 +501,17 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
 }
 
 
-bool SynchronisationManager::storeSample(const QByteArray& sample)
+bool SynchronisationManager::storeSample(const QString& name, const QByteArray& sample)
 {
-  if (missingFiles.isEmpty()) return false;
-
   QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/");
 
-  QFile f(dirPath+missingFiles.at(0)+".wav");
+  QFile f(dirPath+name+".wav");
   if (!f.open(QIODevice::WriteOnly)) return false;
 
   f.write(sample);
   f.close();
 
-  missingFiles.removeAt(0);
   return true;
-}
-
-
-QString SynchronisationManager::missingSample()
-{
-  if (missingFiles.isEmpty()) return QString();
-
-  return missingFiles.at(0);
 }
 
 

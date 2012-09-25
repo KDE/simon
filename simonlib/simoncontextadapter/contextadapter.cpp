@@ -95,6 +95,12 @@ void ContextAdapter::readCachedModels()
                                         ));
   }
   ini.endArray();
+  size = ini.beginReadArray("OrphanedCache");
+  for (int i=0; i < size; i++) {
+    ini.setArrayIndex(i);
+    m_orphanedCache << (unsigned) ini.value("FingerPrint").toInt();
+  }
+  ini.endArray();
   ini.endGroup();
 
   safelyAddContextFreeModelToCache();
@@ -114,6 +120,13 @@ void ContextAdapter::storeCachedModels()
     ini.setValue("CompiledDate", j.value()->compiledDate());
     ini.setValue("State", j.value()->state());
     ini.setValue("FingerPrint", j.value()->srcFingerPrint());
+  }
+  ini.endArray();
+  ini.beginWriteArray("OrphanedCache");
+  i=0;
+  for (QList<uint>::const_iterator j = m_orphanedCache.constBegin(); j != m_orphanedCache.constEnd(); j++) {
+    ini.setArrayIndex(i++);
+    ini.setValue("FingerPrint", *j);
   }
   ini.endArray();
   ini.endGroup();
@@ -309,10 +322,16 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
         }
         if (isOnlyOne) {
           //TODO: Maybe keep a couple of those?
-          bool cachedModelExists;
-          QString oldCachePath = m_modelCompilationManager->cachedModelPath(j.value()->srcFingerPrint(), &cachedModelExists);
-          if (cachedModelExists)
-            QFile::remove(oldCachePath);
+	  uint oldFingerPrint = j.value()->srcFingerPrint();
+	  m_orphanedCache.insert(0, oldFingerPrint);
+
+          //trim cache size
+	  while (m_orphanedCache.size() > m_orphanedCacheSize) {
+            bool cachedModelExists;
+            QString oldCachePath = m_modelCompilationManager->cachedModelPath(m_orphanedCache.takeLast(), &cachedModelExists);
+            if (cachedModelExists)
+              QFile::remove(oldCachePath);
+	  }
         }
 
         //announce a changed model if it's the context-free model

@@ -105,7 +105,6 @@ void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitio
 void WelcomePage::trainingsTextSelected ( const QModelIndex& index )
 {
   TrainingText *text = static_cast<TrainingText*>(index.internalPointer());
-  kDebug() << "Selected: " << text->getName();
   QString scenarioId = text->parentScenarioId();
   for (int i = 0; i < ui.lwScenarios->count(); i++) {
     if (ui.lwScenarios->item(i)->data(Qt::UserRole) == scenarioId) {
@@ -227,9 +226,12 @@ void WelcomePage::displayScenarioPrivate ( Scenario* scenario )
 
 void WelcomePage::updateTrainingsTexts()
 {
+  kDebug() << "=====================";
   QList<TrainingTextCollection*> collections;
-  foreach (Scenario *s, ScenarioManager::getInstance()->getScenarios())
+  foreach (Scenario *s, ScenarioManager::getInstance()->getScenarios()) {
+    kDebug() << "Trainings texts from: " << s;
     collections << s->texts();
+  }
   trainingTextModel->setCollections(collections);
 }
 

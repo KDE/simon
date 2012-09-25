@@ -61,6 +61,7 @@
 #define advanceStream(x) \
   qint64 currentPos = ((qint64)msg.device()->pos())-((qint64)x);\
   msgByte.remove(0,(int)x);\
+  Q_ASSERT(currentPos >= 0);\
   msg.device()->seek(currentPos);
 
 #define checkIfSynchronisationIsAborting() if (synchronisationOperation && synchronisationOperation->isAborting()) \
@@ -466,15 +467,6 @@ void RecognitionControl::login()
 }
 
 
-void RecognitionControl::sendActiveModelModifiedDate()
-{
-  QByteArray body;
-  QDataStream out(&body, QIODevice::WriteOnly);
-  out << ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime();
-  send(Simond::ActiveModelDate, body, false);
-}
-
-
 bool RecognitionControl::sendActiveModel()
 {
   Model *model = ModelManagerUiProxy::getInstance()->createActiveContainer();
@@ -533,15 +525,6 @@ void RecognitionControl::sendScenariosToDelete()
 }
 
 
-void RecognitionControl::sendBaseModelDate()
-{
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << ModelManagerUiProxy::getInstance()->getBaseModelDate();
-  send(Simond::BaseModelDate, toWrite, false);
-}
-
-
 bool RecognitionControl::sendBaseModel()
 {
   kDebug() << "Sending base model";
@@ -564,34 +547,6 @@ bool RecognitionControl::sendBaseModel()
   delete model;
   return true;
 
-}
-
-
-void RecognitionControl::requestMissingScenario()
-{
-  if (missingScenarios.isEmpty()) {
-    sendRequest(Simond::ScenarioSynchronisationComplete);
-    return;
-  }
-
-  QByteArray body;
-  QDataStream bodyStream(&body, QIODevice::WriteOnly);
-  QByteArray requestName = missingScenarios.takeAt(0).toUtf8();
-  bodyStream << requestName;
-  kDebug() << "Requesting scenario: " << requestName;
-  send(Simond::GetScenario, body);
-}
-
-
-void RecognitionControl::sendScenarioList()
-{
-  QByteArray body;
-  QDataStream bodyStream(&body, QIODevice::WriteOnly);
-
-  bodyStream << ScenarioManager::getInstance()->getAllAvailableScenarioIds();
-  kDebug() << "Sending: " << ScenarioManager::getInstance()->getAllAvailableScenarioIds();
-
-  send(Simond::ScenarioList, body);
 }
 
 void RecognitionControl::sendDeactivatedScenarioList()
@@ -619,21 +574,6 @@ void RecognitionControl::sendDeactivatedSampleGroups(const QStringList& sampleGr
   send(Simond::DeactivatedSampleGroup, body);
 }
 
-void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
-{
-  QDateTime modifiedDate = Scenario::skimDate(Scenario::pathFromId(scenarioId));
-  if (modifiedDate.isNull())
-    sendRequest(Simond::ErrorRetrievingScenario);
-  else {
-    kDebug() << "Sending scenario date of scenario " << scenarioId << ": " << modifiedDate;
-    QByteArray toWrite;
-    QDataStream out(&toWrite, QIODevice::WriteOnly);
-    out << modifiedDate;
-    send(Simond::ScenarioDate, toWrite, false);
-  }
-}
-
-
 void RecognitionControl::sendScenario(QString scenarioId)
 {
   checkIfSynchronisationIsAborting();
@@ -655,22 +595,6 @@ void RecognitionControl::sendScenario(QString scenarioId)
   }
 }
 
-
-void RecognitionControl::sendSelectedScenarioListModifiedDate()
-{
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-
-  KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
-  KConfigGroup cg(config, "");
-  QDateTime lastModifiedDate = cg.readEntry("LastModified", QDateTime());
-
-  out << lastModifiedDate;
-
-  send(Simond::SelectedScenarioDate, toWrite, false);
-}
-
-
 void RecognitionControl::sendSelectedScenarioList()
 {
   QByteArray body;
@@ -685,17 +609,6 @@ void RecognitionControl::sendSelectedScenarioList()
 
   send(Simond::SelectedScenarioList, body);
 }
-
-
-void RecognitionControl::sendLanguageDescriptionModifiedDate()
-{
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
-  kDebug() << "Language description modified time " << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
-  send(Simond::LanguageDescriptionDate, toWrite, false);
-}
-
 
 void RecognitionControl::sendLanguageDescription()
 {
@@ -713,16 +626,6 @@ void RecognitionControl::sendLanguageDescription()
   delete languageDescription;
 }
 
-
-void RecognitionControl::sendTrainingModifiedDate()
-{
-  QByteArray toWrite;
-  QDataStream out(&toWrite, QIODevice::WriteOnly);
-  out << ModelManagerUiProxy::getInstance()->getTrainingModifiedTime();
-  send(Simond::TrainingDate, toWrite, false);
-}
-
-
 void RecognitionControl::sendTraining()
 {
   QByteArray body;
@@ -739,31 +642,6 @@ void RecognitionControl::sendTraining()
 }
 
 
-void RecognitionControl::synchronizeSamples()
-{
-  Q_ASSERT(ModelManagerUiProxy::getInstance());
-
-  ModelManagerUiProxy::getInstance()->buildMissingSamplesList();
-  fetchMissingSamples();
-}
-
-
-void RecognitionControl::fetchMissingSamples()
-{
-  Q_ASSERT(ModelManagerUiProxy::getInstance());
-
-  QString sample = ModelManagerUiProxy::getInstance()->missingSample();
-  if (sample.isNull()) {
-    kDebug() << "Done fetching samples";
-    sendRequest(Simond::TrainingsSampleSynchronisationComplete);
-    return;
-  }
-
-  QByteArray sampleByte = sample.toUtf8();
-  send(Simond::GetTrainingsSample, sampleByte);
-}
-
-
 void RecognitionControl::sendSample(QString sampleName)
 {
   checkIfSynchronisationIsAborting();
@@ -775,18 +653,17 @@ void RecognitionControl::sendSample(QString sampleName)
   QByteArray sample = ModelManagerUiProxy::getInstance()->getSample(sampleName);
 
   if (sample.isNull()) {
-    sendRequest(Simond::ErrorRetrievingTrainingsSample);
-    if (synchronisationOperation)
-      synchronisationOperation->canceled();
-
-    synchronisationDone();
+    QByteArray body;
+    QDataStream bodyStream(&body, QIODevice::WriteOnly);
+    bodyStream << sampleName.toUtf8();
+    send(Simond::ErrorRetrievingTrainingsSample, body);
     sampleNotAvailable(sampleName);
     return;
   }
   
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
-  bodyStream << sample;
+  bodyStream << sampleName.toUtf8() << sample;
   send(Simond::TrainingsSample, body);
 }
 
@@ -822,8 +699,43 @@ void RecognitionControl::startSynchronisation()
 
   kDebug() << "Starting synchronization";
   ModelManagerUiProxy::getInstance()->startGroup();
-  sendRequest(Simond::StartSynchronisation);
-  kDebug() << stillToProcess.count();
+
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+  //base model
+  bodyStream << ModelManagerUiProxy::getInstance()->getBaseModelDate();
+  //active model
+  bodyStream << ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime();
+  //language description
+  bodyStream << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
+  //training
+  bodyStream << ModelManagerUiProxy::getInstance()->getTrainingModifiedTime();
+  //samples to fetch
+  QStringList missing, available;
+  ModelManagerUiProxy::getInstance()->buildSampleList(available, missing);
+  bodyStream << missing;
+  //other samples
+  bodyStream << available;
+
+  //scenarios to delete
+  KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+  KConfigGroup cg(config, "");
+  bodyStream << cg.readEntry("DeletedScenarios", QStringList())
+    << cg.readEntry("DeletedScenariosTimes", QStringList());
+  //selected scenarios
+  bodyStream << cg.readEntry("LastModified", QDateTime());
+
+  //all scenarios
+  QStringList ids = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
+  bodyStream << (qint32) ids.count();
+  foreach (const QString& id, ids) {
+    QDateTime scenarioDate = Scenario::skimDate(Scenario::pathFromId(id));
+    kDebug() << "Date for " << id << scenarioDate ;
+    bodyStream << id << scenarioDate;
+  }
+
+  send(Simond::SynchronisationInformation, body);
 }
 
 
@@ -911,6 +823,13 @@ void RecognitionControl::messageReceived()
 
         ////////////////////    SYNCHRONIZATION    ////////////////////////////
 
+        case Simond::StartSynchronisation:
+        {
+          advanceStream(sizeof(qint32));
+          startSynchronisation();
+          break;
+        }
+
         case Simond::SynchronisationAlreadyRunning:
         {
           advanceStream(sizeof(qint32));
@@ -923,19 +842,6 @@ void RecognitionControl::messageReceived()
         {
           advanceStream(sizeof(qint32));
           emit synchronisationError(i18n("Could not abort synchronization."));
-          break;
-        }
-
-        case Simond::GetActiveModelDate:
-        {
-          if (!synchronisationOperation)
-            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing active model"), 1, 100, false);
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-
-          synchronisationOperation->update(i18n("Synchronizing active model"), 1);
-          kDebug() << "Server requested active model modified date";
-          sendActiveModelModifiedDate();
           break;
         }
 
@@ -966,8 +872,6 @@ void RecognitionControl::messageReceived()
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
           checkIfSynchronisationIsAborting();
-          sendBaseModelDate();
-          kDebug() << "Done";
           break;
         }
 
@@ -980,17 +884,6 @@ void RecognitionControl::messageReceived()
           break;
         }
 
-        case Simond::NoActiveModelAvailable:
-        {
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-
-          kDebug() << "No active model available";
-          emit synchronisationWarning(i18n("No speech model available: Recognition deactivated"));
-
-          break;
-        }
-
         case Simond::ActiveModelStorageFailed:
         {
           advanceStream(sizeof(qint32));
@@ -998,21 +891,10 @@ void RecognitionControl::messageReceived()
 
           kDebug() << "Could not store active model on server";
           emit synchronisationError(i18n("The server could not store the active model."));
-          sendBaseModelDate();
 
           break;
         }
 
-        case Simond::GetBaseModelDate:
-        {
-          if (!synchronisationOperation)
-            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing base model"), 1, 100, false);
-
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-          sendBaseModelDate();
-          break;
-        }
         case Simond::GetBaseModel:
         {
           advanceStream(sizeof(qint32));
@@ -1039,14 +921,12 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
           checkIfSynchronisationIsAborting();
-          sendScenariosToDelete();
           break;
         }
         case Simond::BaseModelStorageFailed:
         {
           advanceStream(sizeof(qint32));
           kWarning() << "Base model storage failed";
-          sendScenariosToDelete();
           break;
         }
 
@@ -1054,40 +934,6 @@ void RecognitionControl::messageReceived()
         {
           advanceStream(sizeof(qint32));
           kDebug() << "Got deletion request now sending scenarios to delete";
-          sendScenariosToDelete();
-          break;
-        }
-
-        case Simond::GetScenarioList:
-        {
-          kDebug() << "Server requested scenario list";
-
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-
-          synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
-          sendScenarioList();
-          break;
-        }
-
-        case Simond::ScenarioList:
-        {
-          checkIfSynchronisationIsAborting();
-          parseLengthHeader();
-
-          QStringList remoteScenarioList;
-          msg >> remoteScenarioList;
-          missingScenarios.clear();
-          QStringList localScenarioList = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
-
-          foreach (const QString& id, remoteScenarioList)
-            if (!localScenarioList.contains(id))
-              missingScenarios << id;
-
-          advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
-          kDebug() << "Server sent scenario list; Missing: " << missingScenarios;
-          sendRequest(Simond::StartScenarioSynchronisation);
           break;
         }
 
@@ -1098,31 +944,6 @@ void RecognitionControl::messageReceived()
 
           kDebug() << "Server cannot store scenario!";
           emit synchronisationError(i18n("The server could not store the scenario."));
-          break;
-        }
-
-        case Simond::ScenarioSynchronisationComplete:
-        {
-          kDebug() << "Server sent scenario synchronization complete";
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-          requestMissingScenario();
-          break;
-        }
-
-        case Simond::GetScenarioDate:
-        {
-          checkIfSynchronisationIsAborting();
-          parseLengthHeader();
-
-          QByteArray scenarioNameByte;
-          msg >> scenarioNameByte;
-
-          advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server requested Scenario modified date for: " << scenarioNameByte;
-
-          sendScenarioModifiedDate(QString::fromUtf8(scenarioNameByte));
-
           break;
         }
 
@@ -1163,15 +984,6 @@ void RecognitionControl::messageReceived()
           break;
         }
 
-        case Simond::GetSelectedScenarioDate:
-        {
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-          kDebug() << "Server requested selected scenario date";
-          sendSelectedScenarioListModifiedDate();
-          break;
-        }
-
         case Simond::GetSelectedScenarioList:
         {
           advanceStream(sizeof(qint32));
@@ -1200,7 +1012,6 @@ void RecognitionControl::messageReceived()
           if (!ScenarioManager::getInstance()->setupScenarios())
             emit synchronisationError(i18n("Could not re-initialize scenarios. Please restart simon!"));
 
-          sendTrainingModifiedDate();
           break;
         }
         case Simond::SelectedScenarioListStorageFailed:
@@ -1210,21 +1021,6 @@ void RecognitionControl::messageReceived()
 
           kDebug() << "Server could not store selected scenario list";
           emit synchronisationError(i18n("The server could not store the list of selected scenarios."));
-          sendTrainingModifiedDate();
-          break;
-        }
-
-        case Simond::GetTrainingDate:
-        {
-          if (!synchronisationOperation)
-            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing Training"), 1, 100, false);
-
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-          synchronisationOperation->update(i18n("Synchronizing Training"), 10);
-
-          kDebug() << "Server Requested training modified date";
-          sendTrainingModifiedDate();
           break;
         }
 
@@ -1233,6 +1029,9 @@ void RecognitionControl::messageReceived()
           synchronisationOperation->update(i18n("Sending Training-Corpus"), 11);
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
+
+          if (!synchronisationOperation)
+            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing Training"), 1, 100, false);
 
           kDebug() << "Server requested training";
           sendTraining();
@@ -1256,19 +1055,6 @@ void RecognitionControl::messageReceived()
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
           ModelManagerUiProxy::getInstance()->storeTraining(changedTime, sampleRate,prompts);
-
-          synchronisationOperation->update(i18n("Synchronizing Wordlist"), 3);
-          sendLanguageDescriptionModifiedDate();
-          break;
-        }
-
-        case Simond::NoTrainingAvailable:
-        {
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-
-          kDebug() << "No training available";
-          sendLanguageDescriptionModifiedDate();
           break;
         }
 
@@ -1279,18 +1065,6 @@ void RecognitionControl::messageReceived()
 
           kDebug() << "Server could not store training";
           emit synchronisationError(i18n("The server could not store the training corpus."));
-          sendLanguageDescriptionModifiedDate();
-          break;
-        }
-
-        case Simond::GetLanguageDescriptionDate:
-        {
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-          synchronisationOperation->update(i18n("Synchronizing Language Description"), 38);
-
-          kDebug() << "Server Requested lang. desc. modified date";
-          sendLanguageDescriptionModifiedDate();
           break;
         }
 
@@ -1320,18 +1094,6 @@ void RecognitionControl::messageReceived()
 	  
           ModelManagerUiProxy::getInstance()->storeLanguageDescription(changedTime, shadowVocab, languageProfile);
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-
-          sendRequest(Simond::StartTrainingsSampleSynchronisation);
-          break;
-        }
-
-        case Simond::NoLanguageDescriptionAvailable:
-        {
-          advanceStream(sizeof(qint32));
-          checkIfSynchronisationIsAborting();
-
-          emit synchronisationError(i18n("There seems to be no language description available."));
-          synchronisationDone();
           break;
         }
 
@@ -1345,18 +1107,13 @@ void RecognitionControl::messageReceived()
           break;
         }
 
-        case Simond::TrainingsSampleSynchronisationComplete:
-        {
-          advanceStream(sizeof(qint32));
-          synchronizeSamples();
-          break;
-        }
-
         case Simond::ErrorRetrievingTrainingsSample:
         {
-          advanceStream(sizeof(qint32));
-          sampleNotAvailable(ModelManagerUiProxy::getInstance()->missingSample());
-          synchronisationDone();
+          parseLengthHeader();
+          advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+	  QByteArray sampleName;
+	  msg >> sampleName;
+          sampleNotAvailable(QString::fromUtf8(sampleName));
           break;
         }
 
@@ -1387,17 +1144,17 @@ void RecognitionControl::messageReceived()
 
           parseLengthHeader();
 
+          QByteArray name;
           QByteArray sample;
+          msg >> name;
           msg >> sample;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
           kDebug() << "Server sent Training Sample";
 
-          if (!ModelManagerUiProxy::getInstance()->storeSample(sample)) {
+          if (!ModelManagerUiProxy::getInstance()->storeSample(QString::fromUtf8(name), sample)) {
             sendRequest(Simond::TrainingsSampleStorageFailed);
-            synchronisationDone();
-          } else
-          fetchMissingSamples();
+          }
           break;
         }
 
@@ -1408,7 +1165,6 @@ void RecognitionControl::messageReceived()
 
           kDebug() << "Server could not store training sample";
           emit synchronisationError(i18n("The server could not store training sample."));
-          synchronisationDone();
           break;
         }
 
@@ -1446,6 +1202,14 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
 
           emit synchronisationError(i18n("Could not restore old model"));
+          break;
+        }
+
+        case Simond::SynchronisationEndPending:
+        {
+          advanceStream(sizeof(qint32));
+          checkIfSynchronisationIsAborting();
+          sendRequest(Simond::SynchronisationComplete);
           break;
         }
 
@@ -1587,6 +1351,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
           displayCompilationProtocol(QString::fromUtf8(protocol));
+          break;
         }
 
         ////////////////////    RECOGNITION    ////////////////////////////////

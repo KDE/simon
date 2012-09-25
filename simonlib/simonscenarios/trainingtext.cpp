@@ -25,7 +25,7 @@ TrainingText::TrainingText( Scenario *parent ) : ScenarioObject(parent)
 }
 
 
-TrainingText::TrainingText(const QString& _name, const QStringList& _pages) : ScenarioObject(0),
+TrainingText::TrainingText(const QString& _name, const QStringList& _pages, Scenario* parentScenario) : ScenarioObject(parentScenario),
 name(_name), pages(_pages)
 {
 }

@@ -99,6 +99,7 @@ RecognitionConfiguration* JuliusControl::setupConfig()
   return new JuliusRecognitionConfiguration(jConfPath, gram, hmmDefs, tiedList);
 }
 
+
 void JuliusControl::emitError(const QString& error)
 {
   QString specificError = error;

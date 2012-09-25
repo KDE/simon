@@ -38,49 +38,37 @@ namespace Simond
     LoginSuccessful=1005,
 
     StartSynchronisation=2001,
-    SynchronisationAlreadyRunning=2002,
-    AbortSynchronisation=2003,
-    AbortSynchronisationFailed=2004,
+    SynchronisationInformation=2002,
+    SynchronisationAlreadyRunning=2003,
+    AbortSynchronisation=2004,
+    AbortSynchronisationFailed=2005,
 
-    GetBaseModelDate=2011,
-    BaseModelDate=2012,
     GetBaseModel=2013,
     ErrorRetrievingBaseModel=2014,
     BaseModel=2015,
     BaseModelStorageFailed=2016,
 
-    GetActiveModelDate=2021,
-    ActiveModelDate=2022,                         /* QDateTime lastModified */
     GetActiveModel=2023,
     ErrorRetrievingActiveModel=2024,
     GetActiveModelSampleRate=2025,
     ActiveModelSampleRate=2026,                   /* QDateTime modifiedDat, qint32 samplerate, QByteArray hmmDefs, QByteArray tiedlist, QByteArray dict, QByteArray dfa */
     ActiveModel=2027,                             /* QDateTime modifiedDat, qint32 samplerate, QByteArray hmmDefs, QByteArray tiedlist, QByteArray dict, QByteArray dfa */
-    NoActiveModelAvailable=2028,
     ActiveModelStorageFailed=2029,
 
-    GetLanguageDescriptionDate=2051,
-    LanguageDescriptionDate=2052,
     GetLanguageDescription=2053,
     ErrorRetrievingLanguageDescription=2054,
     LanguageDescription=2055,
-    NoLanguageDescriptionAvailable=2056,
     LanguageDescriptionStorageFailed=2057,
 
-    GetTrainingDate=2061,
-    TrainingDate=2062,
     GetTraining=2063,
     ErrorRetrievingTraining=2064,
     Training=2065,
-    NoTrainingAvailable=2066,
     TrainingStorageFailed=2067,
 
-    StartTrainingsSampleSynchronisation=2071,
     GetTrainingsSample=2072,
     ErrorRetrievingTrainingsSample=2073,
     TrainingsSample=2074,
     TrainingsSampleStorageFailed=2075,
-    TrainingsSampleSynchronisationComplete=2076,
 
     GetScenariosToDelete=2082,
     ScenariosToDelete=2083,
@@ -89,8 +77,6 @@ namespace Simond
     ErrorRetrievingScenarioList=2092,
     ScenarioList=2093,
 
-    GetSelectedScenarioDate=2094,
-    SelectedScenarioDate=2095,
     GetSelectedScenarioList=2096,
     ErrorRetrievingSelectedScenarioList=2097,
     SelectedScenarioList=2098,
@@ -102,16 +88,13 @@ namespace Simond
     GetDeactivatedSampleGroup=2110,
     DeactivatedSampleGroup=2111,
 
-    StartScenarioSynchronisation=2191,
-    GetScenarioDate=2192,
-    ScenarioDate=2193,
     GetScenario=2194,
     ErrorRetrievingScenario=2195,
     Scenario=2196,
     ScenarioStorageFailed=2197,
     ScenarioStored=2198,
-    ScenarioSynchronisationComplete=2199,
 
+    SynchronisationEndPending=2300,
     SynchronisationComplete=2301,
     SynchronisationCommitFailed=2302,
 

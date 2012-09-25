@@ -28,7 +28,9 @@
 
 #include <QHash>
 #include <QVariantList>
+#include <QSharedPointer>
 #include <QList>
+#include <QVector>
 
 class QAction;
 class ATSPIConfiguration;
@@ -52,7 +54,7 @@ public:
   
 private slots:
   void windowActivated(const QAccessibleClient::AccessibleObject& object);
-  void triggerAction(QAction* action);
+  void triggerAction(const QSharedPointer<QAction> action);
   void nameChanged (const QAccessibleClient::AccessibleObject &object);
   void descriptionChanged (const QAccessibleClient::AccessibleObject &object);
   void visibleDataChanged (const QAccessibleClient::AccessibleObject &object);
@@ -60,8 +62,7 @@ private slots:
   
 private:
   QAccessibleClient::Registry *m_registry;
-  QList<QAction*> m_pendingActions;
-  unsigned int sentenceNr; 
+  QVector<QSharedPointer<QAction> > m_pendingActions;
   QStringList lastCommands;
   
   void setupLanguageModel(const QStringList& commands);
