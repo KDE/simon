@@ -270,7 +270,7 @@ void ClientSocket::processRequest()
         QDateTime localLanguageDescriptionDate=synchronisationManager->getLanguageDescriptionDate();
 	kDebug() << "Language description date: " << languageDescriptionDate << localLanguageDescriptionDate;
         if (languageDescriptionDate != localLanguageDescriptionDate) {
-          if (localLanguageDescriptionDate > languageDescriptionDate || !sendLanguageDescription())
+          if (languageDescriptionDate > localLanguageDescriptionDate || !sendLanguageDescription())
             sendCode(Simond::GetLanguageDescription);
         }
 
