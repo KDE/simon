@@ -20,8 +20,8 @@
 #ifndef SIMON_ATSPISCANNER_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_ATSPISCANNER_H_7A7B9100FF5245329569C1B540119C37
 
-#include <accessibleobject.h>
-#include <registry.h>
+#include <qaccessibilityclient/accessibleobject.h>
+#include <qaccessibilityclient/registry.h>
 
 #include <QList>
 #include <QMutex>

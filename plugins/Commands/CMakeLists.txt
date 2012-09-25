@@ -1,16 +1,17 @@
 add_subdirectory(AI)
 
 find_package (KdepimLibs 4.5.60)
-find_package(QAccessibilityClient)
-find_package(ATSPI)
+macro_optional_find_package(QAccessibilityClient)
+macro_log_feature(QAccessibilityClient_FOUND "qaccessibilityclient" "KDE client-side accessibility library" "https://projects.kde.org/projects/playground/accessibility/libkdeaccessibilityclient" FALSE "" "Required to enable ATSPI plugin.")
+
 
 if (KDEPIMLIBS_FOUND)
 add_subdirectory(Akonadi)
 endif (KDEPIMLIBS_FOUND)
 
-if(QACCESSIBILITYCLIENT_FOUND AND ATSPI_FOUND)
+if(QAccessibilityClient_FOUND)
   add_subdirectory(ATSPI)
-endif(QACCESSIBILITYCLIENT_FOUND AND ATSPI_FOUND)
+endif(QAccessibilityClient_FOUND)
 
 add_subdirectory(Calculator)
 add_subdirectory(Composite)

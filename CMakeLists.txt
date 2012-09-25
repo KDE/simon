@@ -92,3 +92,5 @@ if(NOT WIN32)
 include(simon_package_settings)
 endif(NOT WIN32)
 
+macro_display_feature_log()
+
