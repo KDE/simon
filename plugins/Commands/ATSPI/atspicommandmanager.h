@@ -63,7 +63,6 @@ private slots:
 private:
   QAccessibleClient::Registry *m_registry;
   QVector<QSharedPointer<QAction> > m_pendingActions;
-  unsigned int sentenceNr; 
   QStringList lastCommands;
   
   void setupLanguageModel(const QStringList& commands);

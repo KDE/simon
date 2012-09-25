@@ -42,7 +42,7 @@ K_EXPORT_PLUGIN( ATSPICommandPluginFactory("simonatspicommand") )
 
 
 ATSPICommandManager::ATSPICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-  m_registry(0), sentenceNr(0)
+  m_registry(0)
 {
 }
 
@@ -61,8 +61,8 @@ void ATSPICommandManager::windowActivated(const QAccessibleClient::AccessibleObj
   while (!objectsToParse.isEmpty()) {
     const QAccessibleClient::AccessibleObject& o  = objectsToParse.takeFirst();
     kDebug() << "Object " << o.name() << " is visible: " << o.isVisible();
-    if (alreadyParsed.contains(o.id()) || !o.isVisible()) continue;
-    //if (alreadyParsed.contains(o.id())) continue;
+    //if (alreadyParsed.contains(o.id()) || !o.isVisible()) continue;
+    if (alreadyParsed.contains(o.id())) continue;
     kDebug() << "Parsing: " << o.name();
     
     if (!o.actions().isEmpty()) {
@@ -209,7 +209,10 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
 {
   kDebug() << "Commands to remove: " << commandsToRemove;
   kDebug() << "Commands to add: " << newCommands;
-  
+  if (commandsToRemove.isEmpty() && newCommands.isEmpty())
+    return;
+
+  uint sentenceNr = 0;
   ActiveVocabulary *vocab = parentScenario->vocabulary();
   Grammar *grammar = parentScenario->grammar();
   
@@ -316,8 +319,7 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
     }
   }
   
-  if (!newCommands.isEmpty() || !commandsToRemove.isEmpty())
-    parentScenario->commitGroup();
+  parentScenario->commitGroup();
 }
 
 void ATSPICommandManager::triggerAction(const QSharedPointer<QAction> action)

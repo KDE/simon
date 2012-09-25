@@ -101,6 +101,20 @@ private:
     
     Situation m_requestedSituation;
     QHash<Situation, CachedModel*> m_modelCache;
+
+    /**
+     * Because disk space is not expensive, but model compilation takes a long time,
+     * we want to cache models as much as possible.
+     *
+     * So even if there is no situation that can, with the current scenario setup,
+     * reach a given, previously compiled model, we should still keep it around for
+     * a while longer in case we get back to that situation.
+     *
+     * This list contains abandoned models identified by their fingerprint; 
+     * the most recently orphaned one is at the top.
+     */
+    QList<uint> m_orphanedCache;
+    static const int m_orphanedCacheSize = 15;
     
     void readCachedModels();
     void storeCachedModels();
