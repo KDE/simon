@@ -12,6 +12,7 @@ include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
 set (simonatspicommandplugin_SRCS 
 	atspicommandmanager.cpp 
 	atspiconfiguration.cpp
+	atspiscanner.cpp
     )
 
 kde4_add_ui_files(simonatspicommandplugin_SRCS 
