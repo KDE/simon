@@ -21,9 +21,6 @@
 #ifndef SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
-#include <accessibleobject.h>
-
-#include <registry.h>
 #include <simonscenarios/commandmanager.h>
 
 #include <QHash>
@@ -33,6 +30,7 @@
 #include <QVector>
 
 class QAction;
+class ATSPIScanner;
 class ATSPIConfiguration;
 
 class ATSPICommandManager : public CommandManager
@@ -51,29 +49,22 @@ public:
   virtual void cleanup();
 
   ~ATSPICommandManager();
-  
+
 private slots:
-  void windowActivated(const QAccessibleClient::AccessibleObject& object);
+  void setupLanguageModel(const QStringList& commands);
+  void adaptLanguageModel(const QStringList& toRemove, const QStringList& toAdd);
   void triggerAction(const QSharedPointer<QAction> action);
-  void nameChanged (const QAccessibleClient::AccessibleObject &object);
-  void descriptionChanged (const QAccessibleClient::AccessibleObject &object);
-  void visibleDataChanged (const QAccessibleClient::AccessibleObject &object);
-  void modelChanged (const QAccessibleClient::AccessibleObject &object);
   
 private:
-  QAccessibleClient::Registry *m_registry;
+  uint m_sentenceNr;
+  ATSPIScanner *m_scanner;
   QVector<QSharedPointer<QAction> > m_pendingActions;
   QStringList lastCommands;
   
-  void setupLanguageModel(const QStringList& commands);
-  void adaptLanguageModel(const QStringList& toRemove, const QStringList& toAdd);
   void clearDynamicLanguageModel();
   void clearATModel();
   
   ATSPIConfiguration* getATSPIConfiguration();
-  
-  QHash<QString /* name (trigger) */, QAccessibleClient::AccessibleObject /* object id */> m_actions;
-  QHash<QAccessibleClient::AccessibleObject /* object */, QString /* name (trigger) */> m_reverseActions;
 };
 
 #endif
