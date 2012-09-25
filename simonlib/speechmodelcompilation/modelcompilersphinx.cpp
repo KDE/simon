@@ -268,5 +268,5 @@ QString ModelCompilerSPHINX::information(bool condensed) const
 
 ModelCompilerSPHINX::ModelCompilerSPHINX(const QString &userName, QObject *parent):ModelCompiler(userName, parent)
 {
-
+  keepGoing = false;
 }

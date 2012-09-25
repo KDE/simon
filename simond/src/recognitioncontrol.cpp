@@ -89,7 +89,6 @@ void RecognitionControl::run()
   shouldBeRunning=true;
 
   RecognitionConfiguration *cfg = setupConfig();
-  kDebug()<<"whee";
   bool success = recog->init(cfg);
   delete cfg;
   if (!success) {
@@ -99,9 +98,10 @@ void RecognitionControl::run()
 
   m_initialized=true;
 
-  while (shouldBeRunning) {
+  while (shouldBeRunning)
+  {
+    if (!queueLock.tryLock(500)) continue;
     QString file;
-    queueLock.lock();
     if (!toRecognize.isEmpty())
       file = toRecognize.dequeue();
     queueLock.unlock();

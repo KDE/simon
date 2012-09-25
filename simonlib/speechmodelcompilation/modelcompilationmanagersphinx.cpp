@@ -95,7 +95,7 @@ void ModelCompilationManagerSPHINX::run()
     if (!hasGrammar)
     {
       kDebug() << "No Grammar!  Model recompilation aborting!";
-      emit modelCompilationAborted();
+      emit modelCompilationAborted(ModelCompilation::InsufficientInput);
       return;
     }
 
@@ -122,5 +122,5 @@ void ModelCompilationManagerSPHINX::run()
     } else
       kWarning() << "Model compilation failed for user " << userName;
   } while (tryAgain);
-  emit modelCompilationAborted();
+  emit modelCompilationAborted(ModelCompilation::InsufficientInput);
 }
