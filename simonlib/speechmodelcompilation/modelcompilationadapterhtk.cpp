@@ -98,8 +98,13 @@ bool ModelCompilationAdapterHTK::checkTriphones(const QString& baseTiedListPathI
 
   while (!baseTiedList.atEnd()) {
     QByteArray triphone = baseTiedList.readLine().trimmed();
-    if (triphone.contains(' ')) continue;
-    allowedTriphones << triphone;
+    if (triphone.contains(' ')) {
+      // only one space
+      int separator = triphone.indexOf(' ');
+      allowedTriphones << triphone.mid(0, separator);
+      allowedTriphones << triphone.mid(separator+1);
+    } else
+      allowedTriphones << triphone;
   }
   QList<Word*> words = vocabulary->getWords();
   foreach (Word *w, words) {
@@ -172,8 +177,8 @@ inline bool ModelCompilationAdapterHTK::supportedTranscription(const QSet<QByteA
 {
   bool supported = allowedTriphones.contains(triphone);
 
-  //if (!supported) 
-    //kDebug() << "Not allowed: " << triphone;
+  if (!supported)
+    kDebug() << "Not allowed: " << triphone;
   //else
     //kDebug() << "Allowed: " << triphone;
   return supported;
