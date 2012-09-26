@@ -30,6 +30,7 @@
 #include <QVector>
 
 class QAction;
+class QTimer;
 class ATSPIScanner;
 class ATSPIConfiguration;
 
@@ -51,15 +52,25 @@ public:
   ~ATSPICommandManager();
 
 private slots:
-  void setupLanguageModel(const QStringList& commands);
+  void scheduleLanguageModel(const QStringList& commands, bool reset);
+  void schedulingTimeout();
+
+  void setupLanguageModel(const QStringList& commands, bool reset);
   void adaptLanguageModel(const QStringList& toRemove, const QStringList& toAdd);
   void triggerAction(const QSharedPointer<QAction> action);
+
+  void resultSelectionDone();
   
 private:
   uint m_sentenceNr;
   ATSPIScanner *m_scanner;
   QVector<QSharedPointer<QAction> > m_pendingActions;
-  QStringList lastCommands;
+  QStringList m_lastCommands;
+
+  QStringList m_proposedCommands;
+  bool m_shouldReset;
+
+  QTimer *m_updateGrouping;
   
   void clearDynamicLanguageModel();
   void clearATModel();

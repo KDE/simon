@@ -25,6 +25,7 @@
 
 #include <QList>
 #include <QMutex>
+#include <QRegExp>
 #include <QObject>
 
 class QThread;
@@ -34,9 +35,7 @@ class ATSPIScanner : public QObject
 Q_OBJECT
 
 signals:
-  void commandsShown(const QStringList& commands);
-  void commandsModified(const QStringList& toRemove, const QStringList& toAdd);
-  
+  void commandsShown(const QStringList& commands, bool reset);
 
 public:
   ATSPIScanner();
@@ -49,8 +48,7 @@ private slots:
   void windowActivated(const QAccessibleClient::AccessibleObject& object);
   void nameChanged (const QAccessibleClient::AccessibleObject &object);
   void descriptionChanged (const QAccessibleClient::AccessibleObject &object);
-  void visibleDataChanged (const QAccessibleClient::AccessibleObject &object);
-  void modelChanged (const QAccessibleClient::AccessibleObject &object);
+  void stateChanged (const QAccessibleClient::AccessibleObject &object, const QString& state, bool active);
 
   void initialize();
 
@@ -59,8 +57,14 @@ private:
   QMutex m_modelMutex;
   QThread *m_thread;
   QAccessibleClient::Registry *m_registry;
+  QRegExp m_cleanStringRegExp;
   QHash<QString /* name (trigger) */, QAccessibleClient::AccessibleObject /* object id */> m_actions;
   QHash<QAccessibleClient::AccessibleObject /* object */, QString /* name (trigger) */> m_reverseActions;
+
+  void processTree(const QAccessibleClient::AccessibleObject &object, bool added, bool reset);
+  void removeAction(const QString& name, const QAccessibleClient::AccessibleObject& o);
+
+  inline QString cleanString(const QString& input);
 };
 
 #endif

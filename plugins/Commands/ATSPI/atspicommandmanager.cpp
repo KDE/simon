@@ -43,7 +43,7 @@ K_EXPORT_PLUGIN( ATSPICommandPluginFactory("simonatspicommand") )
 
 
 ATSPICommandManager::ATSPICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-  m_sentenceNr(0), m_scanner(0)
+  m_sentenceNr(0), m_scanner(0), m_shouldReset(false), m_updateGrouping(0)
 {
 }
 
@@ -72,10 +72,9 @@ void ATSPICommandManager::clearATModel()
 
 void ATSPICommandManager::clearDynamicLanguageModel()
 {
-  clearATModel();
   if (!parentScenario) return;
 
-  lastCommands.clear();
+  m_lastCommands.clear();
 
   //delete leftover words and grammarfrom last time
   parentScenario->startGroup();
@@ -98,38 +97,62 @@ bool ATSPICommandManager::deSerializeConfig(const QDomElement& elem)
   config = new ATSPIConfiguration(this, parentScenario);
   bool succ = config->deSerialize(elem);
 
-  clearDynamicLanguageModel();
   if (!m_scanner) {
+    clearDynamicLanguageModel();
     m_scanner = new ATSPIScanner;
-    connect(m_scanner, SIGNAL(commandsShown(QStringList)), this, SLOT(setupLanguageModel(QStringList)));
-    connect(m_scanner, SIGNAL(commandsModified(QStringList, QStringList)), this, SLOT(adaptLanguageModel(QStringList, QStringList)));
+    connect(m_scanner, SIGNAL(commandsShown(QStringList, bool)), this, SLOT(scheduleLanguageModel(QStringList, bool)));
   }
-  
+  if (!m_updateGrouping) {
+    m_updateGrouping = new QTimer(this);
+    connect(m_updateGrouping, SIGNAL(timeout()), this, SLOT(schedulingTimeout()));
+  }
   return succ;
 }
 
-void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
+void ATSPICommandManager::scheduleLanguageModel(const QStringList& commands, bool reset)
 {
-  kDebug() << "Commands: " << commands;
-  kDebug() << "Last commands: " << lastCommands;
+  kDebug() << "Scheduling language model updates";
+  m_updateGrouping->stop();
+  m_proposedCommands = commands;
+  m_shouldReset |= reset;
+  m_updateGrouping->start(100);
+}
+
+void ATSPICommandManager::schedulingTimeout()
+{
+  m_updateGrouping->stop();
+  kDebug() << "Acting on proposal";
+  setupLanguageModel(m_proposedCommands, m_shouldReset);
+}
+
+void ATSPICommandManager::setupLanguageModel(const QStringList& commands, bool reset)
+{
+  m_shouldReset = false;
   QStringList newCommands = commands;
-  QStringList commandsToRemove = lastCommands;
-  foreach (const QString& c, lastCommands) {
+
+  QStringList commandsToRemove = m_lastCommands;
+  foreach (const QString& c, m_lastCommands) {
     if (newCommands.removeAll(c) != 0)
       commandsToRemove.removeAll(c);
   }
 
-  kDebug() << "Commands to remove: " << commandsToRemove;
   if (newCommands.isEmpty() && commandsToRemove.isEmpty())
     return;
 
-  // restart sentences
-  m_sentenceNr = 0;
-
   parentScenario->startGroup();
-  clearDynamicLanguageModel();
+  if (reset) {
+    m_sentenceNr = 0;
+    clearDynamicLanguageModel();
+  }
   adaptLanguageModel(commandsToRemove, newCommands);
+  kDebug() << "Requested commands: " << commands;
+  kDebug() << "New commands: " << m_lastCommands;
   parentScenario->commitGroup();
+
+  //QStringList c = commands;
+  //c.sort();
+  //m_lastCommands.sort();
+  //Q_ASSERT(m_lastCommands == c);
 }
 
 void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove, const QStringList& newCommands)
@@ -145,7 +168,6 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
   parentScenario->startGroup();
   //remove old stuff
   if (!commandsToRemove.isEmpty()) {
-    QStringList currentStructures = grammar->getStructures();
     for (int i=0; i < grammar->structureCount(); i++) {
       QString sent = grammar->getStructure(i);
       //find sentence
@@ -156,10 +178,10 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
       }
       
       QString thisSentence = exampleSentences.at(0);
-      int commandIndex = commandsToRemove.indexOf(thisSentence);
-      if (commandIndex == -1) continue;
+      if (!commandsToRemove.contains(thisSentence))
+        continue;
       
-      lastCommands.removeAll(thisSentence);
+      m_lastCommands.removeAll(thisSentence);
 
       QStringList terminals = sent.split(' ');
       
@@ -167,10 +189,10 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
         QList<Word*> w = vocab->findWordsByTerminal(t);
         Q_ASSERT(w.count() == 1);
         vocab->removeWord(w.at(0));
-	kDebug() << "Removed word";
       }
       grammar->deleteStructure(i--);
     }
+     //kDebug() << "Grammar structures: " << grammar->getStructures();
   }
 //   Slower version that could potentially handle merged grammar (untested draft)
 //   TODO: Determine which is faster: Speeding up dfa with combined sentence structures
@@ -191,7 +213,7 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
 //       for (int j=0; j < exampleSentences.size(); j++) {
 //         QString exampleSentence = exampleSentences[j];
 //         if (commandsToRemove.contains(exampleSentence)) {
-//           lastCommands.removeAll(exampleSentence);
+//           m_lastCommands.removeAll(exampleSentence);
 //           QStringList terminals = sent.split(" ");
 //           QStringList words = exampleSentence.split(" ");
 //           for (int k = 0; k < terminals.count(); k++) {
@@ -213,7 +235,7 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
     QStringList allWords;
     QList<QStringList> sentenceWords;
     foreach (const QString& command, newCommands) {
-      lastCommands << command;
+      m_lastCommands << command;
       QStringList words = command.split(' ');
       allWords << words;
       sentenceWords << words;
@@ -235,16 +257,15 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
           kWarning() << "Couldn't transcribe " << word;
           allTranscribed = false;
           break;
-        } else {
+        } else
           vocab->addWord(new Word(word, transcription, terminal));
-          kDebug() << "Adding word";
-        }
-        
       }
       if (allTranscribed)
         grammar->addStructure(structure.trimmed());
     }
   }
+  //foreach (Word *w, vocab->getWords())
+    //kDebug() << w->getWord() << w->getTerminal();
   
   parentScenario->commitGroup();
 }
@@ -260,8 +281,11 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
   kDebug() << "Executing: " << triggerName;
   
   if (!m_pendingActions.isEmpty()) {
+    kDebug() << "There are pending actions";
     foreach (QSharedPointer<QAction> a, m_pendingActions) {
+      kDebug() << a->text() << triggerName;
       if (a->text() == triggerName) {
+        kDebug() << "Triggering...";
         a->trigger();
         m_pendingActions.clear();
         return true;
@@ -283,7 +307,8 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
       QStringList triggers;
       QStringList actionIconSrcs;
 
-      foreach (QSharedPointer<QAction> a, actions) {
+      m_pendingActions = actions;
+      foreach (QSharedPointer<QAction> a, m_pendingActions) {
         names << a->text();
         triggers << name();
         actionIconSrcs << "help-hint";
@@ -304,7 +329,13 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
 
 void ATSPICommandManager::cleanup()
 {
+  clearATModel();
   clearDynamicLanguageModel();
+}
+
+void ATSPICommandManager::resultSelectionDone()
+{
+  m_pendingActions.clear();
 }
 
 ATSPICommandManager::~ATSPICommandManager()
