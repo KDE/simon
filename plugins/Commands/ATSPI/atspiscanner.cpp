@@ -82,24 +82,24 @@ void ATSPIScanner::windowActivated(const QAccessibleClient::AccessibleObject& ob
   while (!objectsToParse.isEmpty()) {
     const QAccessibleClient::AccessibleObject& o  = objectsToParse.takeFirst();
     kDebug() << "Object " << o.name() << " is visible: " << o.isVisible();
-    if (alreadyParsed.contains(o.id()) || !o.isVisible()) continue;
-    //if (alreadyParsed.contains(o.id())) continue;
-    //kDebug() << "Parsing: " << o.name();
+    if (alreadyParsed.contains(o.id()) || !o.isVisible())
+      continue;
     
-    if (!o.actions().isEmpty()) {
-      kDebug() << "========== Triggerable: " << o.name();
+    if (!o.id().isEmpty()) {
+      if (!o.actions().isEmpty()) {
+        kDebug() << "========== Triggerable: " << o.name();
 
-      m_modelMutex.lock();
-      if (m_abort) {
+        m_modelMutex.lock();
+        if (m_abort) {
+          m_modelMutex.unlock();
+          return;
+        }
+        m_actions.insertMulti(o.name(), o);
+        m_reverseActions.insert(o, o.name());
         m_modelMutex.unlock();
-	return;
       }
-      m_actions.insertMulti(o.name(), o);
-      m_reverseActions.insert(o, o.name());
-      m_modelMutex.unlock();
+      alreadyParsed << o.id();
     }
-
-    alreadyParsed << o.id();
     //add children to the list to parse
     objectsToParse.append(o.children());
   }
