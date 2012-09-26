@@ -23,6 +23,8 @@
 #include <KDebug>
 #include <KLocalizedString>
 
+#include <simonrecognizer/recognitionconfiguration.h>
+
 RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
   m_refCounter(0),
   username(user_name),
