@@ -236,8 +236,10 @@ void ClientSocket::processRequest()
 
         synchronisationRunning = true;
 
-        if (!synchronisationManager->startSynchronisation())
+        if (!synchronisationManager->startSynchronisation()) {
           sendCode(Simond::SynchronisationAlreadyRunning);
+          break;
+        }
 
         QDateTime baseModelDate;
         QDateTime activeModelDate;
