@@ -986,6 +986,7 @@ void SamView::compileModel()
 
 
   modelCompiler->startCompilation(type, ui.urOutputModel->url().toLocalFile(),
+                                  QStringList(),
                                   ui.urBaseModel->url().toLocalFile(), compilerArgs);
 }
 

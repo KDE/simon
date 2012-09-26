@@ -34,7 +34,8 @@ public:
   explicit ModelCompilerSPHINX(const QString& userName, QObject *parent=0);
 
   bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
-                        const QString& baseModelPath, const QHash<QString, QString>& args);
+                                const QStringList& droppedTranscriptions, const QString& baseModelPath, 
+				const QHash<QString, QString>& args);
 
   
   QString information(bool condensed=false) const;

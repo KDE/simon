@@ -19,7 +19,6 @@
  */
 
 #include "modelcompiler.h"
-#include "modelmetadata.h"
 
 #include <QDomDocument>
 #include <QMetaType>
@@ -140,7 +139,7 @@ void ModelCompiler::abort()
 
 ModelMetadata ModelCompiler::getMetaData(const QString &name, const QString &type)
 {
-  return ModelMetadata(name, QDateTime::currentDateTime(), type);
+  return ModelMetadata(name, QDateTime::currentDateTime(), type, m_droppedTranscriptions);
 }
 
 

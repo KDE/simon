@@ -52,6 +52,9 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   m_grammarPathOut = args.value("grammar");
   m_simpleVocabPathOut = args.value("simpleVocab");
   m_promptsPathOut = args.value("prompts");
+  m_baseTiedListPathIn = args.value("base/tiedlist");
+
+  m_droppedTranscriptions.clear();
 
   if (args.value("stripContext") == "true")
   {
@@ -62,8 +65,8 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
 
   emit  status(i18n("Adapting model..."), 0, 100);
 
-  if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, m_lexiconPathOut,
-                  m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut))
+  if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, m_baseTiedListPathIn,
+                  m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut))
   {
     return false;
   }
@@ -78,8 +81,106 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   return true;
 }
 
+
+bool ModelCompilationAdapterHTK::checkTriphones(const QString& baseTiedListPathIn, QSharedPointer<Vocabulary> vocabulary)
+{
+  QFile baseTiedList(baseTiedListPathIn);
+  if (!baseTiedList.open(QIODevice::ReadOnly))
+    return true;
+
+  QSet<QByteArray> allowedTriphones;
+
+  //parse tiedlist and find triphones
+  //int minusIndex;
+  //int plusIndex;
+  //minusIndex = plusIndex = -1;
+  int i;
+
+  while (!baseTiedList.atEnd()) {
+    QByteArray triphone = baseTiedList.readLine().trimmed();
+    if (triphone.contains(' ')) continue;
+    allowedTriphones << triphone;
+  }
+  QList<Word*> words = vocabulary->getWords();
+  foreach (Word *w, words) {
+    QByteArray pronunciation = w->getPronunciation().toAscii();
+    int start = 0;
+    int nextStart = -1;
+    int afterNextStart = -1;
+    bool broken = false;
+    for (i = 0; i < pronunciation.count(); i++) {
+      if (pronunciation[i] == ' ') {
+        if (afterNextStart != -1) {
+          // check X-Y+Z
+          QByteArray triphone = pronunciation.mid(start, i - start);
+          triphone[nextStart - start - 1] = '-';
+          triphone[afterNextStart - start - 1] = '+';
+          if (!supportedTranscription(allowedTriphones, triphone))
+            break;
+
+          start = nextStart;
+          nextStart = afterNextStart;
+          afterNextStart = i + 1;
+        } else if (nextStart == -1) {
+          nextStart = i + 1;
+        } else if (afterNextStart == -1) {
+          afterNextStart = i + 1;
+
+          // check *-X+Y
+          QByteArray triphone = pronunciation.mid(start, i - start);
+          triphone[nextStart - 1] = '+';
+          if (!supportedTranscription(allowedTriphones, triphone))
+            break;
+        } 
+      }
+    }
+    broken = (i != pronunciation.count());
+    if (!broken) {
+      if (nextStart == -1) {
+        // single phoneme pronunciation
+        broken = !supportedTranscription(allowedTriphones, pronunciation);
+      } else if (afterNextStart == -1) {
+        // biphone pronunciation
+        pronunciation[nextStart - 1] = '-';
+        broken = !supportedTranscription(allowedTriphones, pronunciation);
+        pronunciation[nextStart - 1] = '+';
+        broken |= !supportedTranscription(allowedTriphones, pronunciation);
+      } else {
+        // full triphone left over
+        QByteArray triphone = pronunciation.mid(start);
+        triphone[nextStart - start - 1] = '-';
+        triphone[afterNextStart - start - 1] = '+';
+        broken = !supportedTranscription(allowedTriphones, triphone);
+
+        triphone = pronunciation.mid(nextStart);
+        triphone[afterNextStart - nextStart - 1] = '-';
+        broken |= !supportedTranscription(allowedTriphones, triphone);
+      }
+    }
+
+    if (broken) {
+      // forbid word
+      kDebug() << "Forbidding word " << w->getWord();
+      m_droppedTranscriptions << w->getPronunciation();
+      vocabulary->removeWord(w);
+    }
+  }
+  return true;
+}
+
+inline bool ModelCompilationAdapterHTK::supportedTranscription(const QSet<QByteArray>& allowedTriphones, const QByteArray& triphone)
+{
+  bool supported = allowedTriphones.contains(triphone);
+
+  //if (!supported) 
+    //kDebug() << "Not allowed: " << triphone;
+  //else
+    //kDebug() << "Allowed: " << triphone;
+  return supported;
+}
 bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
                                             const QStringList& scenarioPaths, const QString& promptsPathIn,
+					    const QString& baseTiedListPathIn,
                                             const QString& lexiconPathOut, const QString& grammarPathOut,
                                             const QString& simpleVocabPathOut, const QString& promptsPathOut)
 {
@@ -88,13 +189,12 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
   QSharedPointer<Grammar> mergedGrammar(new Grammar());
 
   //merging scenarios
-
   mergeInputData(scenarioPaths, mergedVocabulary, mergedGrammar);
 
   ADAPT_CHECKPOINT;
-
-  kDebug() << "ADAPTING model for real";
-
+  if (!checkTriphones(baseTiedListPathIn, mergedVocabulary)) {
+    kWarning() << "Triphone optimization failed";
+  }
 
   if (!storeModel(adaptionType, lexiconPathOut, simpleVocabPathOut, grammarPathOut,
                   promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn))
@@ -134,7 +234,6 @@ bool ModelCompilationAdapterHTK::storeLexicon(ModelCompilationAdapter::AdaptionT
                                               QSharedPointer<Vocabulary> vocabulary,
                                               QStringList &trainedVocabulary, QStringList &definedVocabulary)
 {
-//<<<<<<< HEAD
   /////  Lexicon  ////////////////
 
   kDebug() << "Store lexicon";

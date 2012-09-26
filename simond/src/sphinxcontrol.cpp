@@ -18,7 +18,7 @@
  */
 
 #include "sphinxcontrol.h"
-#include <speechmodelcompilation/modelmetadata.h>
+#include <simonscenarios/modelmetadata.h>
 #include <simonutils/fileutils.h>
 #include <simonrecognizer/sphinxrecognitionconfiguration.h>
 #include <simonrecognizer/sphinxrecognizer.h>

@@ -19,6 +19,7 @@
 
 #include "word.h"
 #include "trainingmanager.h"
+#include "modelmanager.h"
 
 bool isWordLessThan(Word *w1, Word *w2)
 {
@@ -29,7 +30,12 @@ bool isWordLessThan(Word *w1, Word *w2)
 }
 
 
-int Word::getPropability()
+int Word::getPropability() const
 {
   return TrainingManager::getInstance()->getProbability (getWord());
+}
+
+bool Word::getBlacklisted() const
+{
+  return ModelManager::getInstance()->isTranscriptionBlackListed(getPronunciation());
 }

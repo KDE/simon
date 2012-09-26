@@ -53,7 +53,8 @@ bool ModelCompilerSPHINX::parseConfiguration()
 }
 
 bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compilationType, const QString &modelDestination, 
-                                           const QString &baseModelPath, const QHash<QString, QString> &args)
+                                           const QStringList& droppedTranscriptions, const QString &baseModelPath, 
+                                           const QHash<QString, QString> &args)
 {
   if(args.isEmpty())
   {
@@ -65,6 +66,8 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
   m_ModelDir = args.value("modelDir");//baseModelPath;
   m_ModelName = args.value("modelName");
   m_WavPath = args.value("audioPath");
+  
+  m_droppedTranscriptions = droppedTranscriptions;
   
   kDebug() << modelDestination << baseModelPath << args;
   kDebug() << "Compiling model";

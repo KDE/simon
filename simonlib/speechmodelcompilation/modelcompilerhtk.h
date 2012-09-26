@@ -38,12 +38,8 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
     explicit ModelCompilerHTK(const QString& userName, QObject *parent=0);
 
     bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination, 
-                          const QString& baseModelPath,const QHash<QString, QString>& args);
-//    bool hasBuildLog() const;
-//    QString getGraphicBuildLog() const;
-//    QString getBuildLog() const;
-
-//    void abort();
+                                const QStringList& droppedTranscriptions, const QString& baseModelPath, 
+				const QHash<QString, QString>& args);
 
     QString information(bool condensed=false) const;
 
@@ -54,27 +50,18 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
   protected:
     bool compile(ModelCompiler::CompilationType compilationType,
       const QString& destinationPath,
-      const QString& baseModelPath,
       const QString& samplePath,
       const QString& lexiconPath, const QString& grammarPath,
       const QString& vocabPath, const QString& promptsPath,
       const QString& scriptBasePrefix);
     
-    bool unpack(const QString& archive, const QString& targetDir);
     bool pack( const QString& targetArchive, const QString& name );
 
   private:
-//     bool keepGoing;
     bool catchUndefiniedPhonemes;
     QByteArray undefinedPhoneme;
 
-//    QMutex buildLogMutex;
-//    QByteArray buildLog;
-    
-//    CompilationType compilationType;
-
     QString samplePath;
-//     QString tempDir;
     QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
     QString baseHmmDefsPath, baseTiedlistPath, baseMacrosPath, baseStatsPath;
     QString scriptBasePrefix;
@@ -174,8 +161,5 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
     bool splitScp(const QString& scpIn, const QString& outputDirectory, const QString& fileNamePrefix, QStringList& scpFiles);
 
     bool removePhoneme(const QByteArray& phoneme);
-
-  private slots:
-//    void addStatusToLog(const QString&);
 };
 #endif

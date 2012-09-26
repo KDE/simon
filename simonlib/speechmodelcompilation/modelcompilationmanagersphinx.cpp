@@ -115,7 +115,8 @@ void ModelCompilationManagerSPHINX::run()
 
     if (!keepGoing) return;
 
-    if (exists || compiler->startCompilation(compilationType, outPath, activeDir, compilerArgs))
+    if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(), 
+                                             activeDir, compilerArgs))
     {
       emit modelReady(fingerprint, outPath);
       return;

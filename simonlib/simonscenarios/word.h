@@ -194,7 +194,12 @@ class MODELMANAGEMENT_EXPORT Word
      * Returns the probability (how well it has been trained) of the word
      *
      */
-    int getPropability();
+    int getPropability() const;
+
+    /**
+     * @brief Returns true if this word has been explicitly blocked by the used acoustic model
+     */
+    bool getBlacklisted() const;
 
     /**
      * @brief Destructor

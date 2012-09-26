@@ -45,15 +45,20 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
   Q_OBJECT
 
   private:
+    //input
+    QString m_baseTiedListPathIn;
     //output
     QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
     
     inline QByteArray htkify(const QByteArray& in);
     inline QString htkify(const QString& in);
+
+    inline bool supportedTranscription(const QSet<QByteArray>& tiedlist, const QByteArray& toTest);
     
   protected:
     bool adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
       const QStringList& scenarioPaths, const QString& promptsPathIn,
+      const QString& baseTiedListPathIn,
       const QString& lexiconPathOut, const QString& grammarPathOut,
       const QString& simpleVocabPathOut, const QString& promptsPathOut);
 
@@ -76,6 +81,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
 
     bool storePrompts(ModelCompilationAdapter::AdaptionType adaptionType, const QString &promptsPathOut,
                        const QString &promptsPathIn, QStringList &definedVocabulary);
+    bool checkTriphones(const QString& baseTiedListPathIn, QSharedPointer<Vocabulary> vocabulary);
 
   public:
     explicit ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);

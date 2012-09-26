@@ -22,13 +22,14 @@
 #include "modelcompilationmanagerhtk.h"
 #include "modelcompilerhtk.h"
 #include "modelcompilationadapterhtk.h"
+#include <simonutils/fileutils.h>
 #include <QFileInfo>
 #include <KStandardDirs>
 #include <KLocale>
 #include <KDebug>
+#include <KAboutData>
 
 ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
-//  tryAgain(false)
 {
   compiler = new ModelCompilerHTK(userName, this);
   adapter = new ModelCompilationAdapterHTK(userName, this);
@@ -78,6 +79,7 @@ void ModelCompilationManagerHTK::run()
   compilerArgs.insert("grammar", activeDir+"model.grammar");
   compilerArgs.insert("vocab", activeDir+"simple.voca");
   compilerArgs.insert("prompts", activeDir+"prompts");
+
   compilerArgs.insert("scriptBase", "simon/scripts");
   
   adapter->clearPoisonedPhonemes();
@@ -85,6 +87,24 @@ void ModelCompilationManagerHTK::run()
   do
   {
     if (!keepGoing) return;
+
+    kDebug() << "Unpacking";
+    if (baseModelType < 2) {
+      QString baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/base/");
+      //base model needed - unpack it and fail if its not here
+      if (!FileUtils::unpack(baseModelPath, baseModelFolder, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats"))) {
+	emit error(i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
+        return;
+      }
+      adaptionArgs.insert("base/hmmdefs", baseModelFolder+"hmmdefs");
+      adaptionArgs.insert("base/tiedlist", baseModelFolder+"tiedlist");
+      adaptionArgs.insert("base/macros", baseModelFolder+"macros");
+      adaptionArgs.insert("base/stats", baseModelFolder+"stats");
+      compilerArgs.insert("base/hmmdefs", baseModelFolder+"hmmdefs");
+      compilerArgs.insert("base/tiedlist", baseModelFolder+"tiedlist");
+      compilerArgs.insert("base/macros", baseModelFolder+"macros");
+      compilerArgs.insert("base/stats", baseModelFolder+"stats");
+    }
     
     tryAgain = false;
     if (!adapter->startAdaption(adaptionType, scenarioPaths, promptsPathIn, adaptionArgs))
@@ -93,7 +113,7 @@ void ModelCompilationManagerHTK::run()
       return;
     }
     if (!keepGoing) return;
-    
+
     QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
 
     QFileInfo fiGrammar(activeDir+"model.grammar");
@@ -125,23 +145,6 @@ void ModelCompilationManagerHTK::run()
     
     ModelCompiler::CompilationType compilationType = getCompilationType(baseModelType);
     
-//    switch (baseModelType)
-//    {
-//      case 0:
-//        //static model
-//        compilationType = (ModelCompiler::CompileLanguageModel);
-//        break;
-//      case 1:
-//        //adapted base model
-//        compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::AdaptSpeechModel);
-//        break;
-
-//      default:
-//        //dynamic model
-//        compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::CompileSpeechModel);
-//        break;
-//    }
-    
     //build fingerprint and search cache for it
     uint fingerprint = 0;
     QStringList componentsToParse(QStringList() << "lexicon" << "model.grammar" << "simple.voca");
@@ -157,7 +160,8 @@ void ModelCompilationManagerHTK::run()
     
     if (exists) kDebug() << "Pulling compiled model from cache";
 
-    if (exists || compiler->startCompilation(compilationType, outPath, baseModelPath, compilerArgs))
+    if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(), 
+                                             baseModelPath, compilerArgs))
     {
       emit modelReady(fingerprint, outPath);
       keepGoing = false;

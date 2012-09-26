@@ -505,7 +505,7 @@ bool SynchronisationManager::storeSample(const QString& name, const QByteArray& 
 {
   QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/");
 
-  QFile f(dirPath+name+".wav");
+  QFile f(dirPath+name);
   if (!f.open(QIODevice::WriteOnly)) return false;
 
   f.write(sample);

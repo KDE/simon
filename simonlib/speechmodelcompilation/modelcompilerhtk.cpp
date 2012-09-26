@@ -21,7 +21,7 @@
 #include "modelcompilerhtk.h"
 #include "audiocopyconfig.h"
 #include "reestimationconfig.h"
-#include "simonutils/fileutils.h"
+#include <simonutils/fileutils.h>
 
 #include <simonlogging/logger.h>
 
@@ -260,17 +260,27 @@ bool ModelCompilerHTK::processError()
 }
 
 bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compilationType, const QString& modelDestination,
-  const QString& baseModelPath, const QHash< QString, QString >& args )
+                                          const QStringList& droppedTranscriptions, const QString& baseModelPath, 
+					  const QHash< QString, QString >& args )
 {
+  Q_UNUSED(baseModelPath);
+
   QString samplePath = args.value("samples");
   QString lexiconPath = args.value("lexicon");
   QString grammarPath = args.value("grammar");
   QString vocabPath = args.value("vocab");
   QString promptsPath = args.value("prompts");
   QString scriptBasePrefix = args.value("scriptBase");
-  kDebug() << modelDestination << baseModelPath << args;
-  return compile(compilationType, modelDestination, baseModelPath, samplePath, lexiconPath, grammarPath, vocabPath, promptsPath, 
-                 scriptBasePrefix);
+  
+  QString baseHmmDefsPath = args.value("base/hmmdefs");
+  QString baseTiedlistPath = args.value("base/tiedlist");
+  QString baseMacrosPath = args.value("base/macros");
+  QString baseStatsPath = args.value("base/stats");
+
+  m_droppedTranscriptions = droppedTranscriptions;
+
+  return compile(compilationType, modelDestination, samplePath, lexiconPath, 
+		 grammarPath, vocabPath, promptsPath, scriptBasePrefix);
 }
 
 bool ModelCompilerHTK::pack ( const QString& targetArchive, const QString& name )
@@ -297,15 +307,9 @@ bool ModelCompilerHTK::pack ( const QString& targetArchive, const QString& name 
   return FileUtils::pack(targetArchive, fm, efm);
 }
 
-bool ModelCompilerHTK::unpack ( const QString& archive, const QString& targetDir )
-{
-  return FileUtils::unpack(archive, targetDir, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats"));
-}
-
 
 bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
   const QString& destinationPath,
-  const QString& baseModelPath,
   const QString& samplePath,
   const QString& lexiconPath, const QString& grammarPath,
   const QString& vocabPath, const QString& promptsPath,
@@ -339,22 +343,6 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
   }
   
   QString modelName = i18nc("%1 is username", "Simond: %1", userName);
-  kDebug() << "Unpacking";
-  if ((compilationType &  ModelCompilerHTK::AdaptSpeechModel) ||
-      !(compilationType &  ModelCompilerHTK::CompileSpeechModel)) {
-    //base model needed - unpack it and fail if its not here
-    if ( !unpack(baseModelPath, tempDir+"base/")) {
-      analyseError(i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
-      return false;
-    }
-  }
-  
-  baseHmmDefsPath = tempDir+ "base/hmmdefs";
-  baseTiedlistPath =tempDir+ "base/tiedlist";
-  baseMacrosPath = tempDir+ "base/macros";
-  baseStatsPath = tempDir+ "base/stats";
-
-  if (!keepGoing) return false;
                        
   Logger::log("Compiling model...");
   emit status(i18n("Preparation"), 0);

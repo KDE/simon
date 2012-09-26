@@ -94,11 +94,11 @@ void ModelCompilationAdapter::mergeInputData(const QStringList &scenarioPaths, Q
 
 bool ModelCompilationAdapter::containsPoisonedPhoneme(const QString& pronunciation)
 {
-  if (poisonedPhonemes.isEmpty()) return false;
+  if (m_poisonedPhonemes.isEmpty()) return false;
 
   QStringList phonemes = pronunciation.split(' ');
   foreach (const QString& phoneme, phonemes)
-    if (poisonedPhonemes.contains(phoneme))
+    if (m_poisonedPhonemes.contains(phoneme))
       return true;
 
   return false;
@@ -112,6 +112,7 @@ void ModelCompilationAdapter::removeWordsWithPoisonedPhonems(QSharedPointer<Voca
     if (containsPoisonedPhoneme(word->getPronunciation()))
     {
       kDebug() << "Removing word containing poisoned phoneme: " << word->getWord();
+      m_droppedTranscriptions << word->getPronunciation();
       vocabulary->removeWord(word);
     }
   }
@@ -125,7 +126,7 @@ bool ModelCompilationAdapter::readPrompts(ModelCompilationAdapter::AdaptionType 
   kDebug() << "Reading prompts from " <<promptsPathIn;
   ///// Prompts ///////////
 
-  if (!poisonedPhonemes.isEmpty() && (adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
+  if (!m_poisonedPhonemes.isEmpty() && (adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
   {
     removeWordsWithPoisonedPhonems(vocabulary);
   }

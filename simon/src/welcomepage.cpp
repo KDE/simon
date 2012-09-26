@@ -19,7 +19,6 @@
 
 
 #include "welcomepage.h"
-#include <simonmodelmanagementui/modelmanageruiproxy.h>
 #include <simonmodelmanagementui/TrainSamples/trainingswizard.h>
 #include <simonrecognitioncontrol/recognitioncontrol.h>
 #include "trainingtextaggregatormodel.h"
@@ -27,6 +26,7 @@
 
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/modelmanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/model.h>
 #include <simonscenarios/trainingtext.h>
@@ -118,7 +118,7 @@ void WelcomePage::trainingsTextSelected ( const QModelIndex& index )
 void WelcomePage::displayAcousticModelInfo()
 {
   QString description;
-  Model* baseModel = ModelManagerUiProxy::getInstance()->createBaseModelContainer();
+  Model* baseModel = ModelManager::getInstance()->createBaseModelContainer();
   if (baseModel) {
     switch (baseModel->baseModelType()) {
       case 2:
@@ -139,7 +139,7 @@ void WelcomePage::displayAcousticModelInfo()
     }
     delete baseModel;
   }
-  Model *activeModel = ModelManagerUiProxy::getInstance()->createActiveContainer();
+  Model *activeModel = ModelManager::getInstance()->createActiveContainer();
   if (activeModel) {
     if (!activeModel->container().isNull()) {
       //we have an active model

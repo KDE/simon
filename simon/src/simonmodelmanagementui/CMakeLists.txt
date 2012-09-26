@@ -10,8 +10,6 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 set( simonmodelmanagementui_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/modelmanageruiproxy.cpp
-
 	${CMAKE_CURRENT_SOURCE_DIR}/deleteworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/editworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/dragtableview.cpp

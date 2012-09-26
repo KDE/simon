@@ -81,8 +81,8 @@ public:
   int pronunciationCount() const { return m_pronunciationCount; }
   int sampleCount() const { return m_sampleCount; }
 
-  void clearPoisonedPhonemes() { poisonedPhonemes.clear(); }
-  void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
+  void clearPoisonedPhonemes() { m_poisonedPhonemes.clear(); }
+  void poisonPhoneme( const QString& phoneme ) { m_poisonedPhonemes << phoneme; }
 
 
   /*!
@@ -99,6 +99,8 @@ public:
 
   void abort();
 
+  QStringList getDroppedTranscriptions() const { return m_droppedTranscriptions; }
+
 
 protected:
   bool keepGoing;
@@ -112,7 +114,8 @@ protected:
   int m_pronunciationCount;
   int m_sampleCount;
 
-  QStringList poisonedPhonemes;
+  QStringList m_poisonedPhonemes;
+  QStringList m_droppedTranscriptions;
 
   bool removeContextAdditions();
 

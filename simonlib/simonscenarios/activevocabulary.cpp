@@ -51,9 +51,7 @@ void ActiveVocabulary::buildBrushes()
   KColorScheme colorScheme(QPalette::Active);
   QColor negative = colorScheme.background(KColorScheme::NegativeBackground).color();
 
-  recogNone = KColorScheme::shade(negative, KColorScheme::DarkShade);
-  recogWeak = KColorScheme::shade(negative, KColorScheme::MidShade);
-
+  recogNone = KColorScheme::shade(negative, KColorScheme::MidShade);
 }
 
 
@@ -64,13 +62,7 @@ QVariant ActiveVocabulary::data(const QModelIndex &index, int role) const
   Word *word = m_words.at(index.row());
 
   if (role == Qt::BackgroundRole) {
-    int propab = word->getPropability();
-    switch (propab) {
-      case 0:
-        return recogNone;
-      case 1:
-        return recogWeak;
-    }
+    if (word->getBlacklisted()) return recogNone;
   }
 
   return Vocabulary::data(index, role);

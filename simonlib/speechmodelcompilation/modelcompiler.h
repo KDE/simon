@@ -22,14 +22,16 @@
 #define SIMON_MODELCOMPILER_H_18BCB183592A48D3962815FFDEA7C214
 
 #include "simonmodelcompilationmanagement_export.h"
-#include "modelmetadata.h"
 #include "modelcompilation.h"
+#include <simonscenarios/modelmetadata.h>
 
 #include <QObject>
 #include <QString>
 #include <QHash>
 #include <QMutex>
 #include <QProcess>
+
+class QStringList;
 
 /*!
  * \class ModelCompiler
@@ -62,7 +64,8 @@ public:
   };
 
   virtual bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
-                                const QString& baseModelPath, const QHash<QString, QString>& args)=0;
+                                const QStringList& droppedTranscriptions, const QString& baseModelPath, 
+				const QHash<QString, QString>& args)=0;
 
   virtual bool hasBuildLog() const;
   virtual QString getGraphicBuildLog() const;
@@ -78,6 +81,7 @@ protected:
   QString userName;
   QString tempDir;
 
+  QStringList m_droppedTranscriptions;
 
   QMutex buildLogMutex;
   QByteArray buildLog;

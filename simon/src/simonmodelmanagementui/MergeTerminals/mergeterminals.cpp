@@ -19,7 +19,7 @@
 
 #include "mergeterminals.h"
 #include <simonscenarios/scenariomanager.h>
-#include "modelmanageruiproxy.h"
+#include <simonscenarios/modelmanager.h>
 #include <KLocalizedString>
 
 MergeTerminals::MergeTerminals(QObject* parent): QThread(parent),
@@ -30,7 +30,7 @@ newName(""), terminalA(""), terminalB(""), includeShadow(true), includeGrammar(t
 
 void MergeTerminals::run()
 {
-  ModelManagerUiProxy::getInstance()->startGroup();
+  ModelManager::getInstance()->startGroup();
 
   emit status(i18nc("%1 is terminal", "Processing Words of Category %1", this->terminalA));
   emit progress(0,100);
@@ -49,7 +49,7 @@ void MergeTerminals::run()
 
   ScenarioManager::getInstance()->renameTerminal(terminalB, newName, elements);
 
-  ModelManagerUiProxy::getInstance()->commitGroup();
+  ModelManager::getInstance()->commitGroup();
 
   emit status(i18nc("The wizard has completed", "Finished"));
   emit progress(100,100);
