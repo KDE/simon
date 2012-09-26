@@ -81,9 +81,9 @@ void ATSPIScanner::windowActivated(const QAccessibleClient::AccessibleObject& ob
   
   while (!objectsToParse.isEmpty()) {
     const QAccessibleClient::AccessibleObject& o  = objectsToParse.takeFirst();
-    //kDebug() << "Object " << o.name() << " is visible: " << o.isVisible();
-    //if (alreadyParsed.contains(o.id()) || !o.isVisible()) continue;
-    if (alreadyParsed.contains(o.id())) continue;
+    kDebug() << "Object " << o.name() << " is visible: " << o.isVisible();
+    if (alreadyParsed.contains(o.id()) || !o.isVisible()) continue;
+    //if (alreadyParsed.contains(o.id())) continue;
     //kDebug() << "Parsing: " << o.name();
     
     if (!o.actions().isEmpty()) {
