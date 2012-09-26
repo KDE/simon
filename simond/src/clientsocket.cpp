@@ -594,7 +594,15 @@ void ClientSocket::processRequest()
       {
         Q_ASSERT(synchronisationManager);
 
+        qint64 length;
+        waitForMessage(sizeof(qint64), stream, msg);
+        stream >> length;
+        waitForMessage(length, stream, msg);
+        QByteArray name;
+        stream >> name;
+
         kWarning() << "WARNING: Not all samples available!";
+        kWarning() << "Could not fetch: " << name;
         break;
       }
 
