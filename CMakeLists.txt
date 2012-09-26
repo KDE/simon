@@ -34,15 +34,9 @@ find_program( PSPHINX "pocketsphinx_batch" )
 find_program( PJULIUS "julius" )
 
 find_package(Sphinxbase)
+macro_log_feature(SphinxBase_LIBRARIES "Sphinxbase" "Open source toolkit for speech recognition" "http://cmusphinx.sourceforge.net/" FALSE "" "Required to build Sphinx backend")
 find_package(Pocketsphinx)
-
-#if(SphinxBase_LIBRARIES)
-#message(${SphinxBase_LIBRARIES})
-#endif(SphinxBase_LIBRARIES)
-
-#if(POCKETSPHINX_LIBRARIES)
-#message(${POCKETSPHINX_LIBRARIES})
-#endif(POCKETSPHINX_LIBRARIES)
+macro_log_feature(POCKETSPHINX_LIBRARIES "PocketSphinx" "PocketSphinx is a small-footprint continuous speech recognition system" "http://cmusphinx.sourceforge.net/" FALSE "" "Required to build Pocket Sphinx backend")
 
 set(BackendType "both" CACHE STRING "Backend type used while building")
 set_property(CACHE BackendType PROPERTY STRINGS jhtk both)
