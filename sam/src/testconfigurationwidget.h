@@ -56,8 +56,10 @@ class TestConfigurationWidget : public QFrame
 //    void retrieveTag();
 
   public:
-
-    enum BackendType {SPHINX, JHTK};
+    enum BackendType {
+      SPHINX=0,
+      JHTK=1
+    };
 
     TestConfigurationWidget(QWidget *parent=0);
     TestConfigurationWidget(CorpusInformation* corpusInfo,

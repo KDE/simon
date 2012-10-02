@@ -128,7 +128,6 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(exportTestResults, SIGNAL(triggered(bool)),
           this, SLOT(exportTestResults()));
 
-  backendType = TestConfigurationWidget::SPHINX;
   m_User = "internalsamuser";
 
 
@@ -141,7 +140,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   setupGUI();
 
-  connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(backendChanged(int)));
+  connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(backendChanged()));
 
   connect(ui.pbCompileModel, SIGNAL(clicked()), this, SLOT(compileModel()));
   connect(ui.pbTestModel, SIGNAL(clicked()), this, SLOT(testModel()));
@@ -171,29 +170,13 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   #ifdef BACKEND_TYPE_JHTK
     ui.cbType->removeItem(0);
-    ui.cbType->setDisabled(true);
+  #else
+    #ifdef BACKEND_TYPE_SPHINX
+      ui.cbType->removeItem(1);
+    #endif
   #endif
 
-  if(backendType == TestConfigurationWidget::SPHINX)
-  {
-    #ifdef BACKEND_TYPE_BOTH
-      backendChanged(0);
-    #endif
-    #ifdef BACKEND_TYPE_JHTK
-      backendChanged(1);
-      kDebug()<<"Force switching to JHTK there no sphinx here";
-
-    #endif
-  }
-  else if(backendType == TestConfigurationWidget::JHTK)
-  {
-    #ifdef BACKEND_TYPE_BOTH
-      backendChanged(1);
-    #endif
-    #ifdef BACKEND_TYPE_JHTK
-      backendChanged(1);
-    #endif
-  }
+  backendChanged();
 
   connect(ui.pbAddTestConfiguration, SIGNAL(clicked()), this, SLOT(addTestConfiguration()));
 
@@ -479,23 +462,20 @@ void SamView::exportTestResults()
     exit(0);
 }
 
-void SamView::backendChanged(int id)
+void SamView::backendChanged()
 {
-  if(modelCompilationAdapter)
-    delete modelCompilationAdapter;
-  if(modelCompiler)
-    delete modelCompiler;
+  delete modelCompilationAdapter;
+  delete modelCompiler;
 
-  if(id == 0)
-  {
-    backendType = TestConfigurationWidget::SPHINX;
+  switch (getBackendType()) {
+  case TestConfigurationWidget::SPHINX:
     modelCompilationAdapter = new ModelCompilationAdapterSPHINX(m_User, this);
     modelCompiler = new ModelCompilerSPHINX(m_User, this);
-  } else if(id == 1)
-  {
-    backendType = TestConfigurationWidget::JHTK;
+    break;
+  case TestConfigurationWidget::JHTK:
     modelCompilationAdapter = new ModelCompilationAdapterHTK(m_User, this);
     modelCompiler = new ModelCompilerHTK(m_User, this);
+    break;
   }
 
   connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
@@ -645,7 +625,8 @@ void SamView::parseFile()
   ui.leScriptPrefix->setText(SamXMLHelper::getText(creationElem, "scriptPrefix"));
   ui.leMName->setText(SamXMLHelper::getText(creationElem, "sphinxModelName"));
 
-  backendChanged(SamXMLHelper::getInt(creationElem, "backendType"));
+  ui.cbType->setCurrentIndex(SamXMLHelper::getInt(creationElem, "backendType"));
+  backendChanged();
 
   int modelType = SamXMLHelper::getInt(creationElem, "modelType");
   switch (modelType) {
@@ -756,20 +737,22 @@ void SamView::setClean()
 QHash<QString, QString> SamView::genAdaptionArgs(QString path)
 {
   QHash<QString,QString> adaptionArgs;
-  if(backendType == TestConfigurationWidget::SPHINX)
-  {
+  switch (getBackendType()) {
+  case TestConfigurationWidget::SPHINX: {
     QString modelName = m_User+QUuid::createUuid().toString();
     adaptionArgs.insert("workingDir", path);
     adaptionArgs.insert("modelName", modelName);
     adaptionArgs.insert("stripContext", "true");
+    break;
   }
-  else if(backendType == TestConfigurationWidget::JHTK)
-  {
+  case TestConfigurationWidget::JHTK: {
     adaptionArgs.insert("lexicon", path+"lexicon");
     adaptionArgs.insert("grammar", path+"model.grammar");
     adaptionArgs.insert("simpleVocab", path+"simple.voca");
     adaptionArgs.insert("prompts", path+"samprompts");
     adaptionArgs.insert("stripContext", "true");
+    break;
+  }
   }
 
   return adaptionArgs;
@@ -783,8 +766,8 @@ void SamView::getBuildPathsFromSimon()
   ui.urPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
   qDeleteAll(testConfigurations); //cleared by signal
 
-  KSharedConfig::Ptr config = KSharedConfig::openConfig("speechmodelmanagementrc");
-  KConfigGroup group(config, "Model");
+  KSharedConfig::Ptr speechModelManagementConfig = KSharedConfig::openConfig("speechmodelmanagementrc");
+  KConfigGroup group(speechModelManagementConfig, "Model");
   int sampleRate = group.readEntry("ModelSampleRate", "16000").toInt();
 
   int modelType = group.readEntry("ModelType", 2);
@@ -806,6 +789,11 @@ void SamView::getBuildPathsFromSimon()
     ui.rbStaticModel->click();
 
   ui.sbSampleRate->setValue(sampleRate);
+
+  KConfig modelCompilationConfig( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+  KConfigGroup backendGroup(&modelCompilationConfig, "Backend");
+  ui.cbType->setCurrentIndex(backendGroup.readEntry("backend", (int) TestConfigurationWidget::SPHINX));
+  backendChanged();
 
   //target path is simon model folder
   //
@@ -967,23 +955,22 @@ void SamView::compileModel()
 
   QHash<QString,QString> compilerArgs;
 
-  if(backendType == TestConfigurationWidget::SPHINX)
+  switch (getBackendType())
   {
+  case TestConfigurationWidget::SPHINX:
     compilerArgs.insert("audioPath",ui.urPromptsBasePath->url().toLocalFile());
     compilerArgs.insert("modelName", ui.leMName->text());
     compilerArgs.insert("modelDir", ui.urDir->url().toLocalFile());
+    break;
+  case TestConfigurationWidget::JHTK:
+    compilerArgs.insert("samples",ui.urPromptsBasePath->url().toLocalFile());
+    compilerArgs.insert("lexicon", ui.urLexicon->url().toLocalFile());
+    compilerArgs.insert("grammar", ui.urGrammar->url().toLocalFile());
+    compilerArgs.insert("vocab", ui.urVocabulary->url().toLocalFile());
+    compilerArgs.insert("prompts", ui.urPrompts->url().toLocalFile());
+    compilerArgs.insert("scriptBase", ui.leScriptPrefix->text());
+    break;
   }
-  else
-    if(backendType == TestConfigurationWidget::JHTK)
-    {
-      compilerArgs.insert("samples",ui.urPromptsBasePath->url().toLocalFile());
-      compilerArgs.insert("lexicon", ui.urLexicon->url().toLocalFile());
-      compilerArgs.insert("grammar", ui.urGrammar->url().toLocalFile());
-      compilerArgs.insert("vocab", ui.urVocabulary->url().toLocalFile());
-      compilerArgs.insert("prompts", ui.urPrompts->url().toLocalFile());
-      compilerArgs.insert("scriptBase", ui.leScriptPrefix->text());
-    }
-
 
   modelCompiler->startCompilation(type, ui.urOutputModel->url().toLocalFile(),
                                   QStringList(),
@@ -995,6 +982,11 @@ void SamView::abortModelCompilation()
   modelCompiler->abort();
 }
 
+TestConfigurationWidget::BackendType SamView::getBackendType() const
+{
+  return (TestConfigurationWidget::BackendType) ui.cbType->currentIndex();
+}
+
 void SamView::slotModelAdaptionComplete()
 {
   ui.twMain->setCurrentIndex(0);
@@ -1002,7 +994,7 @@ void SamView::slotModelAdaptionComplete()
   TestConfigurationWidget *tconfig(0);
 
   bool fok = false;
-  switch(backendType)
+  switch(getBackendType())
   {
     case TestConfigurationWidget::SPHINX:
     {

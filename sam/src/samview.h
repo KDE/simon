@@ -142,7 +142,7 @@ public slots:
     void testConfigTagChanged();
 
     void exportTestResults();
-    void backendChanged(int id);
+    void backendChanged();
 
   private:
     /**
@@ -154,8 +154,6 @@ public slots:
     bool m_exportAfterTest;
 
     bool m_dirty;
-
-    TestConfigurationWidget::BackendType backendType;
 
     QString m_filename;
     CorpusInformation *m_creationCorpus;
@@ -188,6 +186,8 @@ public slots:
 
     QList<CorpusInformation*> creationCorpusInformation();
     bool askIfQuit();
+
+    TestConfigurationWidget::BackendType getBackendType() const;
 };
 
 #endif
