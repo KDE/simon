@@ -49,6 +49,7 @@ void NetworkSettings::configureSimond()
 {
   QPointer<KCMultiDialog> configDialog = new KCMultiDialog(this);
   configDialog->addModule("simondconfiguration", QStringList() << "");
+  configDialog->addModule("simonmodelcompilationconfig", QStringList() << "");
   configDialog->exec();
   delete configDialog;
 }
