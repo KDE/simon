@@ -46,6 +46,7 @@ public:
   QDomElement serialize(QDomDocument *doc);
 
   void init(const QHash<QString, QString>&);
+  BackendType getBackendType() const { return TestConfigurationWidget::SPHINX; }
 
 protected:
   void setupUi();

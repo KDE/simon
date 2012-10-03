@@ -44,13 +44,13 @@ class CorpusInformation
       m_samplesTotal(samplesTotal)
     {}
 
-    QString tag() { return m_tag; }
-    QString notes() { return m_notes; }
-    int speakers() { return m_speakers; }
-    int samples() { return m_samples; }
+    QString tag() const { return m_tag; }
+    QString notes() const { return m_notes; }
+    int speakers() const { return m_speakers; }
+    int samples() const { return m_samples; }
 
-    int samplesTotal() { return m_samplesTotal; }
-    //float averagePronunciationsPerWord() { return ((float) m_pronunciationCount) / ((float) m_wordCount); }
+    int samplesTotal() const { return m_samplesTotal; }
+    //float averagePronunciationsPerWord() const { return ((float) m_pronunciationCount) / ((float) m_wordCount); }
 
     void setTag(const QString& tag) { m_tag = tag; }
     void setNotes(const QString& notes) { m_notes = notes; }

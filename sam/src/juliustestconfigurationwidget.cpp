@@ -63,9 +63,9 @@ void JuliusTestConfigurationWidget::setupUi()
   ui->urDict->setMode(KFile::File|KFile::LocalOnly);
   ui->urDFA->setMode(KFile::File|KFile::LocalOnly);
 
-  ui->urTestPrompts->setUrl(m_TestPrompts);
-  ui->urTestPromptsBasePath->setUrl(m_TestPromptsBasePath);
-  ui->sbSampleRate->setValue(m_SampRate);
+  ui->urTestPrompts->setUrl(m_testPrompts);
+  ui->urTestPromptsBasePath->setUrl(m_testPromptsBasePath);
+  ui->sbSampleRate->setValue(m_sampRate);
   ui->leTag->setText(m_corpusInfo->tag());
 
   connect(ui->urTestPromptsBasePath, SIGNAL(textChanged(QString)), this, SLOT(update()));

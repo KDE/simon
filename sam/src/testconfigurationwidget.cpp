@@ -39,24 +39,13 @@ TestConfigurationWidget::TestConfigurationWidget(CorpusInformation *info,
                                                  int sampleRate, QWidget *parent) :
   QFrame(parent),
   m_corpusInfo(info),
-  m_SampRate(sampleRate),
-  m_TestPrompts(testPromptsUrl),
-  m_TestPromptsBasePath(testPromptsBasePathUrl)
+  m_sampRate(sampleRate),
+  m_testPrompts(testPromptsUrl),
+  m_testPromptsBasePath(testPromptsBasePathUrl)
 {
 }
 
-int TestConfigurationWidget::BackendTypeToInt(TestConfigurationWidget::BackendType type)
-{
-  int ind(-1);
-  if(type == SPHINX)
-    ind = 0;
-  else if(type == JHTK)
-    ind = 1;
-
-  return ind;
-}
-
-TestConfigurationWidget::BackendType TestConfigurationWidget::IntToBackendType(int type)
+TestConfigurationWidget::BackendType TestConfigurationWidget::intToBackendType(int type)
 {
   BackendType btype = SPHINX;
   if(type == 0)
@@ -67,7 +56,7 @@ TestConfigurationWidget::BackendType TestConfigurationWidget::IntToBackendType(i
   return btype;
 }
 
-TestConfigurationWidget::BackendType TestConfigurationWidget::StringToBackendType(const QString& type)
+TestConfigurationWidget::BackendType TestConfigurationWidget::stringToBackendType(const QString& type)
 {
   BackendType btype = SPHINX;
   if(type == "Sphinx")
@@ -106,7 +95,7 @@ TestConfigurationWidget* TestConfigurationWidget::deSerialize(const QDomElement&
   CorpusInformation *corpusInfo = CorpusInformation::deSerialize(corpusElem);
   if (!corpusInfo) return 0;
 
-  BackendType type = StringToBackendType(elem.attribute("Type"));
+  BackendType type = stringToBackendType(elem.attribute("Type"));
 
   KUrl testPromptsUrl = KUrl(SamXMLHelper::getText(elem, "testPrompts"));
   KUrl testPromptsBasePathUrl = KUrl(SamXMLHelper::getText(elem, "testPromptsBasePath"));
@@ -144,17 +133,17 @@ QDomElement TestConfigurationWidget::serialize(QDomDocument* doc)
   QDomElement elem = doc->createElement("testConfiguration");
   elem.appendChild(corpusInformation()->serialize(doc));
   
-  SamXMLHelper::serializePath(doc, elem, m_TestPrompts, "testPrompts");
-  SamXMLHelper::serializePath(doc, elem, m_TestPromptsBasePath, "testPromptsBasePath");
+  SamXMLHelper::serializePath(doc, elem, m_testPrompts, "testPrompts");
+  SamXMLHelper::serializePath(doc, elem, m_testPromptsBasePath, "testPromptsBasePath");
 
-  SamXMLHelper::serializeInt(doc, elem, m_SampRate, "sampleRate");
+  SamXMLHelper::serializeInt(doc, elem, m_sampRate, "sampleRate");
   
   return elem;
 }
 
 void TestConfigurationWidget::updateGeneralParams(const KUrl &testPromptsUrl, const KUrl &testPromptsBasePathUrl, int sampleRate)
 {
-  m_TestPrompts = testPromptsUrl;
-  m_TestPromptsBasePath = testPromptsBasePathUrl;
-  m_SampRate = sampleRate;
+  m_testPrompts = testPromptsUrl;
+  m_testPromptsBasePath = testPromptsBasePathUrl;
+  m_sampRate = sampleRate;
 }

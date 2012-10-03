@@ -48,6 +48,8 @@ public:
   KUrl jconf() const;
 
   QDomElement serialize(QDomDocument *doc);
+
+  BackendType getBackendType() const { return TestConfigurationWidget::JHTK; }
   
 protected:
   void changeEvent(QEvent *e);

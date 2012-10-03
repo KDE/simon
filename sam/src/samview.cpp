@@ -295,9 +295,9 @@ void SamView::storeBuildLog()
 void SamView::addTestConfiguration()
 {
   TestConfigurationWidget *config(0) ;
-  if(TestConfigurationWidget::IntToBackendType(ui.cbType->currentIndex()) == TestConfigurationWidget::SPHINX)
+  if(getBackendType() == TestConfigurationWidget::SPHINX)
     config = new SphinxTestConfigurationWidget(this);
-  else if(TestConfigurationWidget::IntToBackendType(ui.cbType->currentIndex()) == TestConfigurationWidget::JHTK)
+  else if(getBackendType() == TestConfigurationWidget::JHTK)
     config = new JuliusTestConfigurationWidget(this);
 
   addTestConfiguration(config);
@@ -481,7 +481,9 @@ void SamView::backendChanged()
   delete modelCompilationAdapter;
   delete modelCompiler;
 
-  switch (getBackendType()) {
+  TestConfigurationWidget::BackendType newBackend = getBackendType();
+
+  switch (newBackend) {
   case TestConfigurationWidget::SPHINX:
     modelCompilationAdapter = new ModelCompilationAdapterSPHINX(m_user, this);
     modelCompiler = new ModelCompilerSPHINX(m_user, this);
@@ -510,6 +512,28 @@ void SamView::backendChanged()
           SLOT(slotModelCompilationPhonemeUndefined(QString)));
 
   ui.swModelInputFiles->setCurrentIndex((int) getBackendType());
+
+  //transfer old tests
+  foreach (TestConfigurationWidget *testConfiguration, testConfigurations) {
+    if (testConfiguration->getBackendType() != newBackend) {
+      switch (newBackend) {
+      case TestConfigurationWidget::SPHINX:
+        addTestConfiguration(new SphinxTestConfigurationWidget(new CorpusInformation(*testConfiguration->corpusInformation()),
+                                                               testConfiguration->testPrompts(),
+                                                               testConfiguration->testPromptsBasePath(),
+                                                               testConfiguration->sampleRate(), this));
+        break;
+      case TestConfigurationWidget::JHTK:
+        addTestConfiguration(new JuliusTestConfigurationWidget(new CorpusInformation(*testConfiguration->corpusInformation()),
+                                                               testConfiguration->testPrompts(),
+                                                               testConfiguration->testPromptsBasePath(),
+                                                               testConfiguration->sampleRate(), this));
+        break;
+      }
+      testConfigurations.removeAll(testConfiguration);
+      delete testConfiguration;
+    }
+  }
 }
 
 QList<CorpusInformation*> SamView::creationCorpusInformation()

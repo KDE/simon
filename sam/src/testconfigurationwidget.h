@@ -44,9 +44,9 @@ class TestConfigurationWidget : public QFrame
 
   protected:
     CorpusInformation* m_corpusInfo;
-    int m_SampRate;
-    KUrl m_TestPrompts;
-    KUrl m_TestPromptsBasePath;
+    int m_sampRate;
+    KUrl m_testPrompts;
+    KUrl m_testPromptsBasePath;
 
     virtual void setupUi() = 0;
     void updateGeneralParams(const KUrl& testPromptsUrl,
@@ -66,22 +66,22 @@ class TestConfigurationWidget : public QFrame
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
         int sampleRate, QWidget *parent=0);
 
-    static int BackendTypeToInt(BackendType type);
-    static BackendType IntToBackendType(int type);
-    static BackendType StringToBackendType(const QString &typr);
+    static BackendType intToBackendType(int type);
+    static BackendType stringToBackendType(const QString &typr);
 
     static TestConfigurationWidget *deSerialize(const QDomElement& elem);
 
     virtual ~TestConfigurationWidget();
 
+    virtual BackendType getBackendType() const = 0;
     virtual void init(const QHash<QString, QString>&) = 0;
 
     QString tag() const { return m_corpusInfo->tag(); }
     CorpusInformation* corpusInformation() { return m_corpusInfo; }
-    KUrl testPrompts() const { return m_TestPrompts; }
-    KUrl testPromptsBasePath() const { return m_TestPromptsBasePath; }
+    KUrl testPrompts() const { return m_testPrompts; }
+    KUrl testPromptsBasePath() const { return m_testPromptsBasePath; }
 
-    int sampleRate() const { return m_SampRate; }
+    int sampleRate() const { return m_sampRate; }
 
     virtual QDomElement serialize(QDomDocument *doc);
 
