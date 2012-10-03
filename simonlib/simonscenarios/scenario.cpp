@@ -92,10 +92,6 @@ bool Scenario::init(QString path)
   //************************************************/
   if (!readCompoundCondition(path, doc)) return false;
 
-  //  ChildScenarios
-  //************************************************/
-  if (!readChildScenarioIds(path, doc)) return false;
-
   delete doc;
   commitGroup();
   return true;
@@ -314,6 +310,10 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
   if (m_license.isNull())
 	  //load previous version
 	 m_license = docElem.firstChildElement("licence").text(); // krazy:exclude=spelling
+
+  //  ChildScenarios
+  //************************************************/
+  if (!readChildScenarioIds(path, doc)) return false;
 
   if (deleteDoc) delete doc;
   return true;
