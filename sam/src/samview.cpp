@@ -48,6 +48,7 @@
 #include <QPointer>
 #include <QDomDocument>
 #include <QUuid>
+#include <QCloseEvent>
 
 #include <KStandardAction>
 #include <KAction>
@@ -229,7 +230,20 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
     m_exportAfterTest = true;
 }
 
-bool SamView::askIfQuit()
+void SamView::closeEvent(QCloseEvent* event)
+{
+  if (batchMode() && KCmdLineArgs::parsedArgs()->isSet("w")) {
+    save();
+  } else {
+    if (!askForSave()) {
+      event->ignore();
+      return;
+    }
+  }
+  event->accept();
+}
+
+bool SamView::askForSave()
 {
   if (batchMode())
     return true;
@@ -240,8 +254,7 @@ bool SamView::askIfQuit()
     switch (ret)
     {
       case KMessageBox::Yes:
-        save();
-        return true;
+        return save();
       case KMessageBox::Cancel:
         return false;
       default:
@@ -249,22 +262,6 @@ bool SamView::askIfQuit()
     }
   }
   return true;
-}
-
-bool SamView::close()
-{
-  kDebug() << "Closing";
-  if (batchMode())
-  {
-    if (KCmdLineArgs::parsedArgs()->isSet("w"))
-      save();
-    return QWidget::close();
-  }
-
-  if (askIfQuit())
-    return QWidget::close();
-
-  return false;
 }
 
 void SamView::storeBuildLog()
@@ -556,7 +553,7 @@ void SamView::showConfig()
 
 void SamView::newProject()
 {
-  if (!askIfQuit())
+  if (!askForSave())
     return;
   clearCurrentConfiguration();
 
@@ -580,6 +577,8 @@ void SamView::newProject()
 
 void SamView::load()
 {
+  if (!askForSave()) return;
+
   QString filename = KFileDialog::getOpenFileName(KUrl(), i18n("sam projects *.sam"), this);
   if (filename.isEmpty()) return;
 
@@ -588,35 +587,33 @@ void SamView::load()
 
 void SamView::load(const QString& filename)
 {
-  if (!askIfQuit()) return;
-
   clearCurrentConfiguration();
   m_filename = filename;
   qDeleteAll(testConfigurations); //cleared by signal
   parseFile();
 }
 
-void SamView::save()
+bool SamView::save()
 {
-  if (m_filename.isEmpty()) {
-    saveAs();
-    return;
-  }
+  if (m_filename.isEmpty())
+    return saveAs();
 
   storeFile();
+  return true;
 }
 
 
-void SamView::saveAs()
+bool SamView::saveAs()
 {
-  if (batchMode()) return;
+  if (batchMode()) return false;
 
   QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("sam projects *.sam"), this);
   if (filename.isEmpty())
-    return;
+    return false;
 
   m_filename = filename;
   storeFile();
+  return true;
 }
 
 

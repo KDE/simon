@@ -52,6 +52,7 @@ class QwtBarsItem;
 class QwtLegend;
 class CorpusInformation;
 class QDomDocument;
+class QCloseEvent;
 
 /**
  * @short Main view
@@ -73,10 +74,8 @@ class SamView :  public KXmlGuiWindow, public SamUi
      */
     virtual ~SamView();
 
-//    enum BackendType {SPHINX, JHTK};
-
-public slots:
-    bool close();
+  protected:
+    void closeEvent(QCloseEvent*);
 
   private slots:
     void setDirty();
@@ -87,8 +86,8 @@ public slots:
     void newProject();
     void load();
     void load(const QString& filename);
-    void saveAs();
-    void save();
+    bool saveAs();
+    bool save();
 
     void updateWindowTitle();
 
@@ -185,7 +184,11 @@ public slots:
     QHash<QString, QString> genAdaptionArgs(QString path);
 
     QList<CorpusInformation*> creationCorpusInformation();
-    bool askIfQuit();
+
+    /**
+     * \return false, if the current action should be aborted (user selected "Cancel")
+     */
+    bool askForSave();
 
     TestConfigurationWidget::BackendType getBackendType() const;
 };
