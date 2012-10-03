@@ -170,9 +170,11 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   #ifdef BACKEND_TYPE_JHTK
     ui.cbType->removeItem(0);
+    ui.swModelType->removeItem(0);
   #else
     #ifdef BACKEND_TYPE_SPHINX
       ui.cbType->removeItem(1);
+      ui.swModelType->removeItem(1);
     #endif
   #endif
 
@@ -495,6 +497,7 @@ void SamView::backendChanged()
   connect(modelCompiler, SIGNAL(phonemeUndefined(QString)), this,
           SLOT(slotModelCompilationPhonemeUndefined(QString)));
 
+  ui.swModelInputFiles->setCurrentIndex((int) getBackendType());
 }
 
 QList<CorpusInformation*> SamView::creationCorpusInformation()
