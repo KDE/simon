@@ -59,18 +59,6 @@ ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent
   userName(user_name),
   config(0)
 {
-//  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
-//  KConfigGroup programGroup(&config, "Backend");
-//  bool sphinx,jhtk;
-//  sphinx = programGroup.readEntry("sphinx", true);
-//  jhtk = programGroup.readEntry("jhtk", false);
-//  if(sphinx)
-//    recog = new SphinxRecognizer();
-//  else if(jhtk)
-    //recog = new JuliusRecognizer();
-//  else
-//    emit error("There something wrong with recognizers", buildLog.toUtf8());
-
   m_recognizerResultsModel = new FileResultModel(this);
   m_wordResultsModel = new TestResultModel(this);
   m_sentenceResultsModel = new TestResultModel(this);
