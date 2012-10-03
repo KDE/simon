@@ -752,7 +752,10 @@ QHash<QString, QString> SamView::genAdaptionArgs(QString path)
     adaptionArgs.insert("lexicon", path+"lexicon");
     adaptionArgs.insert("grammar", path+"model.grammar");
     adaptionArgs.insert("simpleVocab", path+"simple.voca");
-    adaptionArgs.insert("prompts", path+"samprompts");
+    if (QFile::exists(path+"samprompts"))
+      adaptionArgs.insert("prompts", path+"samprompts");
+    else
+      adaptionArgs.insert("prompts", path+"prompts");
     adaptionArgs.insert("stripContext", "true");
     break;
   }
