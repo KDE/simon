@@ -46,18 +46,22 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
 
   if(typeid(*config) == typeid(SphinxTestConfigurationWidget))
   {
-    #ifdef BACKEND_TYPE_BOTH
-      modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
-    #endif
+    modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
     #ifdef BACKEND_TYPE_JHTK
-    {
-      emit testAborted();
-      slotModelTestError("Sam compiled without SPHINX support", QByteArray());
-    }
+    // this could happen when starting a test, loaded from a configuration set up on a computer that did support sphinx
+    emit testAborted();
+    slotModelTestError("Sam compiled without SPHINX support", QByteArray());
     #endif
   }
-  else if(typeid(*config) == typeid(JuliusTestConfigurationWidget))
+  else if(typeid(*config) == typeid(JuliusTestConfigurationWidget)) {
     modelTest = new JuliusModelTest("internalsamuser_"+config->tag(), this);
+
+    #ifdef BACKEND_TYPE_SPHINX
+    // see above
+    emit testAborted();
+    slotModelTestError("Sam compiled without Julius / HTK support", QByteArray());
+    #endif
+  }
 
   connect(modelTest, SIGNAL(testComplete()), this, SLOT(slotModelTestCompleted()));
   connect(modelTest, SIGNAL(testAborted()), this, SLOT(slotModelTestAborted()));
