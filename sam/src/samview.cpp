@@ -46,6 +46,9 @@
 #include <QHash>
 #include <QThread>
 #include <QPointer>
+#include <QDomDocument>
+#include <QUuid>
+
 #include <KStandardAction>
 #include <KAction>
 #include <KActionCollection>
@@ -61,8 +64,7 @@
 #include <KLocale>
 #include <KDebug>
 #include <KCmdLineArgs>
-#include <QDomDocument>
-#include <QUuid>
+#include <KAboutData>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
   m_startCompilationAfterAdaption(false),
@@ -128,7 +130,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(exportTestResults, SIGNAL(triggered(bool)),
           this, SLOT(exportTestResults()));
 
-  m_User = "internalsamuser";
+  m_user = "internalsamuser";
 
 
   KStandardAction::openNew(this, SLOT(newProject()), actionCollection());
@@ -481,12 +483,12 @@ void SamView::backendChanged()
 
   switch (getBackendType()) {
   case TestConfigurationWidget::SPHINX:
-    modelCompilationAdapter = new ModelCompilationAdapterSPHINX(m_User, this);
-    modelCompiler = new ModelCompilerSPHINX(m_User, this);
+    modelCompilationAdapter = new ModelCompilationAdapterSPHINX(m_user, this);
+    modelCompiler = new ModelCompilerSPHINX(m_user, this);
     break;
   case TestConfigurationWidget::JHTK:
-    modelCompilationAdapter = new ModelCompilationAdapterHTK(m_User, this);
-    modelCompiler = new ModelCompilerHTK(m_User, this);
+    modelCompilationAdapter = new ModelCompilationAdapterHTK(m_user, this);
+    modelCompiler = new ModelCompilerHTK(m_user, this);
     break;
   }
 
@@ -752,7 +754,7 @@ QHash<QString, QString> SamView::genAdaptionArgs(QString path)
   QHash<QString,QString> adaptionArgs;
   switch (getBackendType()) {
   case TestConfigurationWidget::SPHINX: {
-    QString modelName = m_User+QUuid::createUuid().toString();
+    QString modelName = m_user+QUuid::createUuid().toString();
     adaptionArgs.insert("workingDir", path);
     adaptionArgs.insert("modelName", modelName);
     adaptionArgs.insert("stripContext", "true");
@@ -1027,7 +1029,7 @@ void SamView::slotModelAdaptionComplete()
       QString modelName = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->modelName();
       if(!modelName.isEmpty()) ui.leMName->setText(modelName);
 
-      //    QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_User+"/samples/");
+      //    QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_user+"/samples/");
       //    if(!audioLocation.isEmpty()) ui.urPromptsBasePath->setUrl(KUrl(audioLocation));
 
       break;
@@ -1049,6 +1051,9 @@ void SamView::slotModelAdaptionComplete()
 
       if (!grammar.isEmpty()) ui.urGrammar->setUrl(KUrl(grammar));
       if (!simpleVocab.isEmpty()) ui.urVocabulary->setUrl(KUrl(simpleVocab));
+
+      QString promptsTestPath = prompts;
+      QString trainingDataPath;
       if (!prompts.isEmpty())
       {
         ui.urPrompts->setUrl(KUrl(prompts));
@@ -1057,34 +1062,39 @@ void SamView::slotModelAdaptionComplete()
         m_creationCorpus->setTotalSampleCount(modelCompilationAdapter->sampleCount());
         QFileInfo fi(prompts);
         QString path = fi.absolutePath();
-        QString trainingDataPath = path+QDir::separator()+"training.data";
+        trainingDataPath = path+QDir::separator()+"training.data";
         ui.urPromptsBasePath->setUrl(KUrl(trainingDataPath));
 
-        QString promptsTestPath = path+QDir::separator()+"samprompts_test";
+        QString promptsTestPathManual = path+QDir::separator()+"samprompts_test";
+        if (QFile::exists(promptsTestPathManual))
+          promptsTestPath = promptsTestPathManual;
+      }
 
-        if (testConfigurations.isEmpty())
-        {
-          //automatically add appropriate test configuration
-          QString testPromptsPathUsed;
-          if (QFile::exists(promptsTestPath))
-            testPromptsPathUsed = promptsTestPath;
-          else
-            testPromptsPathUsed = prompts;
-          tconfig = new JuliusTestConfigurationWidget(createEmptyCorpusInformation(), KUrl(testPromptsPathUsed),
-                                                      KUrl(trainingDataPath),ui.sbSampleRate->value(), this);
-          QHash<QString, QString> params;
-          params.insert("jconf", KStandardDirs::locate("data", "simond/default.jconf"));
+      if (testConfigurations.isEmpty())
+      {
+        //automatically add appropriate test configuration
+        tconfig = new JuliusTestConfigurationWidget(createEmptyCorpusInformation(), KUrl(promptsTestPath),
+                                                    KUrl(trainingDataPath),ui.sbSampleRate->value(), this);
+        QHash<QString, QString> params;
+        params.insert("jconf", KStandardDirs::locate("data", "simond/default.jconf"));
+        QString tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/");
+        params.insert("hmm", tempDir+"hmmdefs");
+        params.insert("tiedlist", tempDir+"tiedlist");
+        params.insert("dict", tempDir+"model.dict");
+        params.insert("dfa", tempDir+"model.dfa");
 
-          tconfig->init(params);
-        }
+        tconfig->init(params);
       }
       break;
     }
     default:
-      kDebug()<<"o_0";
+      kWarning() << "Unsupported model type: " << getBackendType();
+      return;
   }
 
-  addTestConfiguration(tconfig);
+  if (tconfig) {
+    addTestConfiguration(tconfig);
+  }
 
   if (fok)
   {

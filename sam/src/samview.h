@@ -177,7 +177,7 @@ public slots:
 
     void initGraph();
 
-    QString m_User;
+    QString m_user;
 
     CorpusInformation* createEmptyCorpusInformation();
     ReportParameters* createEmptyReportParameters();
