@@ -342,14 +342,15 @@ void SamView::displayModelTestStatus()
     switch (test->getState())
     {
       case TestResultWidget::Idle:
-        idle++;
+        ++idle;
         break;
       case TestResultWidget::Waiting:
       case TestResultWidget::Running:
-        running++;
+        ++running;
         break;
+      case TestResultWidget::Aborted:
       case TestResultWidget::Done:
-        done++;
+        ++done;
         break;
     }
   }
@@ -412,13 +413,22 @@ void SamView::startNextScheduledTest()
 
 void SamView::allTestsFinished()
 {
+  bool allAborted = true;
+  foreach (TestResultWidget* test, testResults) {
+    if (test->getState() == TestResultWidget::Done) {
+      allAborted = false;
+      break;
+    }
+  }
+  if (allAborted) {
+    ui.qpPlot->hide();
+    return;
+  }
   //fill general tab with information
   ui.lbTestResultInformation->setText(i18np("Ran 1 test.", "Ran %1 tests.", testResults.count()));
 
   ui.qpPlot->show();
-
   TestResultPlotter::plot(testResults, ui.qpPlot, barGraph, barGraphLegend);
-
   switchToTestResults();
 
   if (m_exportAfterTest)

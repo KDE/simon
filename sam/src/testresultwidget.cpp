@@ -92,7 +92,7 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
 
 void TestResultWidget::slotModelTestAborted()
 {
-  currentState = TestResultWidget::Done;
+  currentState = TestResultWidget::Aborted;
   retrieveCompleteTestLog();
   emit testAborted();
 }
@@ -263,7 +263,7 @@ void TestResultWidget::slotModelTestRecognitionInfo(const QString& status)
 
 void TestResultWidget::slotModelTestError(const QString& error, const QByteArray& protocol)
 {
-  retrieveCompleteTestLog();
+  slotModelTestAborted();
   KMessageBox::detailedSorry(0, error, protocol);
 }
 

@@ -68,6 +68,8 @@ void TestResultPlotter::plot(const QList<TestResultWidget*>& testResults, QwtPlo
   
   foreach (TestResultWidget *test, testResults)
   {
+    if (test->getState() != TestResultWidget::Done)
+      continue;
     confidence << test->getConfidence() * 100.0;
     accuracy << test->getAccuracy() * 100.0;
 
