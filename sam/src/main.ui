@@ -368,6 +368,13 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_8">
               <item>
+               <widget class="KPushButton" name="pbExtractSimonModel">
+                <property name="text">
+                 <string>Extract Simon Model</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <spacer name="horizontalSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>

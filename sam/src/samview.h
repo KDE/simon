@@ -143,6 +143,8 @@ class SamView :  public KXmlGuiWindow, public SamUi
     void exportTestResults();
     void backendChanged();
 
+    void extractSimonModel();
+
   private:
     /**
      * \brief Start the model test the next time the model finished compiling

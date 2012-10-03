@@ -39,6 +39,7 @@
 #include <speechmodelcompilation/modelcompilationadapterhtk.h>
 #include <speechmodelcompilation/modelcompilationadaptersphinx.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
+#include <simonutils/fileutils.h>
 
 #include <qwt_legend.h>
 #include <qwt_legend_item.h>
@@ -163,6 +164,8 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(ui.leScriptPrefix, SIGNAL(textChanged(QString)), this, SLOT(setDirty()));
   connect(ui.sbSampleRate, SIGNAL(valueChanged(int)), this, SLOT(setDirty()));
 
+  connect(ui.pbExtractSimonModel, SIGNAL(clicked()), this, SLOT(extractSimonModel()));
+
   ui.urOutputModel->setMode(KFile::File|KFile::LocalOnly);
   ui.urPromptsBasePath->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urLexicon->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
@@ -228,6 +231,20 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   }
   if (KCmdLineArgs::parsedArgs()->isSet("e"))
     m_exportAfterTest = true;
+}
+
+void SamView::extractSimonModel()
+{
+  QString sbmPath = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Open Simon Model"));
+  if (sbmPath.isEmpty()) return;
+  QString path = KFileDialog::getExistingDirectory(KUrl(), this, i18n("Output directory"));
+  if (!path.isEmpty())
+    path += QDir::separator();
+  else
+    return;
+
+  if (!FileUtils::unpackAll(sbmPath, path))
+    KMessageBox::error(this, i18n("Failed to unpack Simon base model."));
 }
 
 void SamView::closeEvent(QCloseEvent* event)

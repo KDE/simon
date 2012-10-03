@@ -51,7 +51,7 @@ kde4_add_executable(sam ${sam_SRCS})
 target_link_libraries(sam ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
 	${KDE4_KIO_LIBS} simonmodelcompilation
 	simonmodeltest simonsound ${Qwt6_Qt4_LIBRARY}
-	simonrecognitionresult simonscenarioui
+	simonrecognitionresult simonscenarioui simonutils
 )
 
 #set_target_properties(sam PROPERTIES COMPILE_FLAGS "-Wall -Wextra -pedantic -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor -Wold-style-cast -Wconversion -Winit-self -Wunreachable-code")
