@@ -26,12 +26,13 @@ include(LibFindMacros)
 # Dependencies
 
 # Use pkg-config to get hints about paths
-libfind_pkg_check_modules(SphinxBase_PKGCONF SphinxBase)
+libfind_pkg_check_modules(SphinxBase_PKGCONF sphinxbase)
 
 # Include dir
 find_path(SphinxBase_INCLUDE_DIR
   NAMES cmd_ln.h
   PATHS ${SphinxBase_PKGCONF_INCLUDE_DIRS}
+  PATH_SUFFIXES sphinxbase
 )
 
 # Finally the library itself
@@ -41,7 +42,7 @@ find_library(SphinxBase_LIBRARY
 )
 
 # Set the include dir variables and the libraries and let libfind_process do the rest.
-# NOTE: Singular variables for this library, plural for libraries this this lib depends on.
+# NOTE: Singular variables for this library, plural for libraries this lib depends on.
 set(SphinxBase_PROCESS_INCLUDES SphinxBase_INCLUDE_DIR SphinxBase_INCLUDE_DIRS)
 set(SphinxBase_PROCESS_LIBS SphinxBase_LIBRARY SphinxBase_LIBRARIES)
 libfind_process(SphinxBase)

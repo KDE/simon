@@ -5,7 +5,7 @@ ENDIF(WIN32)
 if(${BackendType} STREQUAL both)
   find_package(Sphinxbase REQUIRED)
   find_package(Pocketsphinx REQUIRED)
-  include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SPHINXBASE_INCLUDE_DIR} ../../simonlib)
+  include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SphinxBase_INCLUDE_DIR} ../../simonlib)
 endif(${BackendType} STREQUAL both)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES})

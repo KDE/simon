@@ -4,7 +4,7 @@ include(SimonDirs)
 if(${BackendType} STREQUAL both)
 find_package(Sphinxbase REQUIRED)
 find_package(Pocketsphinx REQUIRED)
-include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SPHINXBASE_INCLUDE_DIR})
+include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SphinxBase_INCLUDE_DIR})
 endif(${BackendType} STREQUAL both)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. )
 

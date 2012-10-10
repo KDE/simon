@@ -26,7 +26,8 @@ set( simonrecognizer_LIB_HDRS
 if(${BackendType} STREQUAL both)
     find_package(Sphinxbase REQUIRED)
     find_package(Pocketsphinx REQUIRED)
-    include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SPHINXBASE_INCLUDE_DIR})
+    include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SphinxBase_INCLUDE_DIR})
+    message("Here:" ${SphinxBase_INCLUDE_DIR})
 
     set( simonrecognizer_LIB_SRCS
         ${simonrecognizer_LIB_SRCS}
