@@ -22,7 +22,7 @@
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <KDE/KLocale>
-#include "../../version.h"
+#include "version.h"
 
 static const char description[] =
 I18N_NOOP("A KDE 4 frontend for simond");

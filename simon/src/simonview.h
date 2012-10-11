@@ -34,7 +34,7 @@
 
 #include "ui_simonview.h"
 #include <KDE/KXmlGuiWindow>
-#include <simoncontrol.h>
+#include <simonappcore/simoncontrol.h>
 #include <simonscenarios/scenariodisplay.h>
 
 #include <QMutex>

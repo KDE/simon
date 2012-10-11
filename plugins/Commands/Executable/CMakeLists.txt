@@ -1,28 +1,14 @@
-
-include(KDE4Defaults)
-include(KDE4Macros)
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-
-include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
-${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib)
-
 set (simonexecutablecommandplugin_SRCS 
-	createexecutablecommandwidget.cpp 
-	executablecommand.cpp 
-	executablecommandmanager.cpp 
-        #ImportProgram/importprogramwizard.cpp
-	#ImportProgram/selectprogrampage.cpp
-    )
+  createexecutablecommandwidget.cpp 
+  executablecommand.cpp 
+  executablecommandmanager.cpp 
+)
 
-kde4_add_ui_files(simonexecutablecommandplugin_SRCS 
-        #ImportProgram/selectprogramdlg.ui
-	createexecutablecommandwidget.ui
-    )
+kde4_add_ui_files(simonexecutablecommandplugin_SRCS createexecutablecommandwidget.ui)
 
 kde4_add_plugin(simonexecutablecommandplugin ${simonexecutablecommandplugin_SRCS})
 
-
 target_link_libraries(simonexecutablecommandplugin ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonscenarios simonscenariobase simonlogging simonuicomponents)
 
-install(TARGETS simonexecutablecommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandexecutableplugin )
-install( FILES simonexecutablecommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandexecutableplugin )
+install(TARGETS simonexecutablecommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandexecutableplugin)
+install(FILES simonexecutablecommandplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncommandexecutableplugin)

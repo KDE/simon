@@ -1,26 +1,4 @@
-find_package(Qt4 COMPONENTS QtGui REQUIRED)
-include (${QT_USE_FILE})
-
-
-include(KDE4Defaults)
-include(KDE4Macros)
-include(SimonDirs)
-
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-
-include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
-${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/..
-${CMAKE_CURRENT_SOURCE_DIR}/../..)
-
-
-set(USE_PLASMA true CACHE BOOL "Use the plasma data engines in the dialog plugin")
-
-if (USE_PLASMA)
-add_definitions(-DUSE_PLASMA)
-endif (USE_PLASMA)
-
-
-set (simondialogengineconfui_SRCS 
+set(simondialogengineconfui_SRCS 
   createtemplateoptiondialog.cpp
   createboundvaluedialog.cpp 
   createavatardialog.cpp
@@ -28,9 +6,9 @@ set (simondialogengineconfui_SRCS
   boundvaluesconfiguration.cpp
   templateoptionsconfiguration.cpp
   outputconfiguration.cpp
-    )
+)
 
-set( simondialogengineconfui_LIB_HDRS
+set(simondialogengineconfui_LIB_HDRS
   createtemplateoptiondialog.h
   createboundvaluedialog.h
   createavatardialog.h
@@ -57,16 +35,10 @@ set_target_properties( simondialogengineconfui
 )
 
 if (USE_PLASMA)
-target_link_libraries(simondialogengineconfui 
-  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simondialogengine)
-else (USE_PLASMA)
-target_link_libraries(simondialogengineconfui 
-  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simondialogengine)
-endif(USE_PLASMA)
+  target_link_libraries(simondialogengineconfui ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simondialogengine)
+else ()
+  target_link_libraries(simondialogengineconfui ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simondialogengine)
+endif()
 
-install(TARGETS simondialogengineconfui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
-
-install( FILES ${simondialogengineconfui_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simondialogengine/confui
-  COMPONENT simondevel
-)
+install(TARGETS simondialogengineconfui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore)
+install(FILES ${simondialogengineconfui_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simondialogengine/confui COMPONENT simondevel)

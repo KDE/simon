@@ -28,7 +28,7 @@
 
 #include <simonscenariobase/scenarioobject.h>
 
-#include "version.h"
+#include <version.h>
 
 #include <KStandardDirs>
 #include <QDomDocument>

@@ -1,12 +1,6 @@
 project(ssc)
 
-
-include (KDE4Defaults)
-
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
-
 add_subdirectory( config )
-#add_subdirectory( sscdaccess )
 add_subdirectory( src )
 add_subdirectory( themes )
 add_subdirectory( icons )

@@ -1,12 +1,5 @@
 add_subdirectory(AI)
 
-macro_optional_find_package (KdepimLibs 4.5.60)
-macro_log_feature(KdepimLibs_FOUND "KDE PIM Libs" "KDE Libraries for PIM" "http://pim.kde.org/" FALSE "4.5.60" "Required for PIM plugin.")
-
-macro_optional_find_package(QAccessibilityClient)
-macro_log_feature(QAccessibilityClient_FOUND "qaccessibilityclient" "KDE client-side accessibility library" "https://projects.kde.org/projects/playground/accessibility/libkdeaccessibilityclient" FALSE "" "Required to enable ATSPI plugin.")
-
-
 if (KDEPIMLIBS_FOUND)
     add_subdirectory(Akonadi)
 endif (KDEPIMLIBS_FOUND)
