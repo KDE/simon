@@ -1,25 +1,4 @@
-ENABLE_TESTING()
-
-find_package(Qt4 COMPONENTS QtGui QtCore QtXml QtScript REQUIRED)
-include (${QT_USE_FILE})
-
-
-include(KDE4Defaults)
-include(KDE4Macros)
-include(SimonDirs)
-
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-
-set(USE_PLASMA true CACHE BOOL "Use the plasma data engines in the dialog plugin")
-
-if (USE_PLASMA)
-add_definitions(-DUSE_PLASMA)
-endif (USE_PLASMA)
-
-include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
-${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/..)
-
-set (simondialogengine_SRCS 
+set(simondialogengine_SRCS 
   dialogcommand.cpp
   dialogstate.cpp
   dialogtext.cpp
@@ -34,9 +13,9 @@ set (simondialogengine_SRCS
   avatarmodel.cpp
   dialogmanager.cpp
   dialogview.cpp
-    )
+)
 
-set( simondialogengine_LIB_HDRS
+set(simondialogengine_LIB_HDRS
   dialogcommand.h
   dialogstate.h
   dialogtext.h
@@ -54,27 +33,24 @@ set( simondialogengine_LIB_HDRS
 )
 
 if (USE_PLASMA)
-set (simondialogengine_SRCS 
-  ${simondialogengine_SRCS}
-  plasmaboundvalue.cpp
-  )
-endif(USE_PLASMA)
+  set(simondialogengine_SRCS ${simondialogengine_SRCS} plasmaboundvalue.cpp)
+endif()
 
 kde4_add_library(simondialogengine SHARED ${simondialogengine_SRCS})
 
-set_target_properties( simondialogengine
+set_target_properties(simondialogengine
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 if (USE_PLASMA)
-target_link_libraries(simondialogengine 
-  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simonscenarios
-  simonscenariobase simonactions)
-else (USE_PLASMA)
-target_link_libraries(simondialogengine 
-  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simonscenarios simonscenariobase
-  simonactions)
-endif(USE_PLASMA)
+  target_link_libraries(simondialogengine 
+    ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simonscenarios
+    ${QT_QTSCRIPT_LIBRARY} simonscenariobase simonactions)
+else ()
+  target_link_libraries(simondialogengine 
+    ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simonscenarios simonscenariobase
+    simonactions)
+endif()
 
 install(TARGETS simondialogengine DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 
@@ -87,9 +63,5 @@ install( FILES ${simondialogengine_LIB_HDRS}
 add_subdirectory(graphicalview)
 add_subdirectory(ttsview)
 add_subdirectory(confui)
-
-########
-# Tests
-########
 
 add_subdirectory(tests)

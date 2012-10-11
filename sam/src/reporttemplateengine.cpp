@@ -57,8 +57,8 @@ QByteArray ReportTemplateEngine::replaceTemplateParameters(const QByteArray& tem
 
   while (i != end)
   {
-    output = output.replace(QByteArray("$").append(i.key()).append("$"), escape(i.value().toUtf8(), false));
-    output = output.replace(QByteArray("$SAVE_").append(i.key()).append("$"), escape(i.value().toUtf8(), true));
+    output = output.replace(QByteArray("$").append(i.key().toUtf8()).append('$'), escape(i.value().toUtf8(), false));
+    output = output.replace(QByteArray("$SAVE_").append(i.key().toUtf8()).append("$"), escape(i.value().toUtf8(), true));
     i++;
   }
   return output;
@@ -114,8 +114,8 @@ QByteArray ReportTemplateEngine::parseIf(const QByteArray& templateData, const Q
 
   if (value)
   {
-    output.replace("$IF_"+condition+'$', "");    // krazy:exclude=doublequote_chars
-    output.replace("$ENDIF_"+condition+'$', ""); // krazy:exclude=doublequote_chars
+    output.replace("$IF_"+condition.toUtf8()+'$', "");    // krazy:exclude=doublequote_chars
+    output.replace("$ENDIF_"+condition.toUtf8()+'$', ""); // krazy:exclude=doublequote_chars
   } else {
     //remove block
     QByteArray pre;

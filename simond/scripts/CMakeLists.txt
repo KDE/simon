@@ -1,20 +1,20 @@
-set ( simon_model_scripts
-		${CMAKE_CURRENT_SOURCE_DIR}/config
-		${CMAKE_CURRENT_SOURCE_DIR}/config.global
-		${CMAKE_CURRENT_SOURCE_DIR}/config.rc
-		${CMAKE_CURRENT_SOURCE_DIR}/global
-		${CMAKE_CURRENT_SOURCE_DIR}/gmm1.hed
-		${CMAKE_CURRENT_SOURCE_DIR}/gmm2.hed
-		${CMAKE_CURRENT_SOURCE_DIR}/gmm3.hed
-		${CMAKE_CURRENT_SOURCE_DIR}/global.ded
-		${CMAKE_CURRENT_SOURCE_DIR}/mkphones0.led
-		${CMAKE_CURRENT_SOURCE_DIR}/mkphones1.led
-		${CMAKE_CURRENT_SOURCE_DIR}/mktri.led
-		${CMAKE_CURRENT_SOURCE_DIR}/proto
-		${CMAKE_CURRENT_SOURCE_DIR}/regtree.hed
-		${CMAKE_CURRENT_SOURCE_DIR}/sil.hed
-		${CMAKE_CURRENT_SOURCE_DIR}/tree1.hed
-		${CMAKE_CURRENT_SOURCE_DIR}/wav_config
-	)
+set(simon_model_scripts
+  config
+  config.global
+  config.rc
+  global
+  gmm1.hed
+  gmm2.hed
+  gmm3.hed
+  global.ded
+  mkphones0.led
+  mkphones1.led
+  mktri.led
+  proto
+  regtree.hed
+  sil.hed
+  tree1.hed
+  wav_config
+)
 
-install( FILES ${simon_model_scripts}  DESTINATION ${DATA_INSTALL_DIR}/simon/scripts COMPONENT simond )
+install(FILES ${simon_model_scripts} DESTINATION ${DATA_INSTALL_DIR}/simon/scripts COMPONENT simond)
