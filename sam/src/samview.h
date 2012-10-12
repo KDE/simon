@@ -170,6 +170,8 @@ class SamView :  public KXmlGuiWindow, public SamUi
     QwtBarsItem *barGraph;
     QwtLegend *barGraphLegend;
 
+    QString m_user;
+
     QStringList findScenarios(const QStringList& ids);
     int getModelType();
 
@@ -177,8 +179,6 @@ class SamView :  public KXmlGuiWindow, public SamUi
     void startNextScheduledTest();
 
     void initGraph();
-
-    QString m_user;
 
     CorpusInformation* createEmptyCorpusInformation();
     ReportParameters* createEmptyReportParameters();

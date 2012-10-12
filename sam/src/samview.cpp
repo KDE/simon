@@ -816,7 +816,6 @@ QHash<QString, QString> SamView::genAdaptionArgs(QString path)
 
 void SamView::getBuildPathsFromSimon()
 {
-  kDebug()<<"sarting adaptation";
   clearBuildLog();
   ui.urOutputModel->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/active.sbm")));
   ui.urPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
@@ -883,7 +882,6 @@ void SamView::getBuildPathsFromSimon()
                                                             ModelCompilationAdapter::AdaptAcousticModel);
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
-  kDebug()<<"sarting adaptation";
   modelCompilationAdapter->startAdaption(adaptionType, scenarioPaths, path+"prompts", genAdaptionArgs(path));
 }
 
@@ -951,7 +949,6 @@ void SamView::serializeScenariosRun(const QStringList& scenarioIds, const QStrin
         scenarioPaths, ui.urPrompts->url().toLocalFile(),
         genAdaptionArgs(output));
 }
-
 
 void SamView::serializePromptsRun(const QString promptsPath, const QString& output)
 {
@@ -1044,8 +1041,7 @@ void SamView::compileModel()
   }
 
   modelCompiler->startCompilation(type, ui.urOutputModel->url().toLocalFile(),
-                                  QStringList(),
-                                  baseModelPath, compilerArgs);
+                                  QStringList(), baseModelPath, compilerArgs);
 }
 
 void SamView::abortModelCompilation()
