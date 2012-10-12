@@ -88,7 +88,6 @@ void ModelCompilationManagerHTK::run()
   {
     if (!keepGoing) return;
 
-    kDebug() << "Unpacking";
     if (baseModelType < 2) {
       QString baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/base/");
       //base model needed - unpack it and fail if its not here

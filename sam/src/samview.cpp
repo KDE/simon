@@ -1011,6 +1011,8 @@ void SamView::compileModel()
 
   QHash<QString,QString> compilerArgs;
 
+  QString baseModelPath = ui.urBaseModel->url().toLocalFile();
+
   switch (getBackendType())
   {
   case TestConfigurationWidget::SPHINX:
@@ -1025,12 +1027,25 @@ void SamView::compileModel()
     compilerArgs.insert("vocab", ui.urVocabulary->url().toLocalFile());
     compilerArgs.insert("prompts", ui.urPrompts->url().toLocalFile());
     compilerArgs.insert("scriptBase", ui.leScriptPrefix->text());
+    if (modelType < 2) {
+      QString baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/base/");
+      //base model needed - unpack it and fail if its not here
+      if (!FileUtils::unpack(baseModelPath, baseModelFolder, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats"))) {
+        KMessageBox::sorry(this, i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
+        return;
+      }
+      compilerArgs.insert("base/hmmdefs", baseModelFolder+"hmmdefs");
+      compilerArgs.insert("base/tiedlist", baseModelFolder+"tiedlist");
+      compilerArgs.insert("base/macros", baseModelFolder+"macros");
+      compilerArgs.insert("base/stats", baseModelFolder+"stats");
+      baseModelPath = baseModelFolder;
+    }
     break;
   }
 
   modelCompiler->startCompilation(type, ui.urOutputModel->url().toLocalFile(),
                                   QStringList(),
-                                  ui.urBaseModel->url().toLocalFile(), compilerArgs);
+                                  baseModelPath, compilerArgs);
 }
 
 void SamView::abortModelCompilation()
