@@ -13,9 +13,9 @@
 ]>
 
 
-<book lang="&language;">
+<book id="simon" lang="&language;">
 
-<bookinfo>
+<book id="simon"info>
 <title>The &kmyapplication; Handbook</title>
 
 <copyright>

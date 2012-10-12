@@ -46,12 +46,12 @@ thanks ;-).
 <!-- The language must NOT be changed here. -->
 <!-- If you are writing original documentation in a language other -->
 <!-- than English, change the language above ONLY, not here -->
-<book lang="&language;">
+<book id="sscd" lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
 
-<bookinfo>
+<book id="sscd"info>
 
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 

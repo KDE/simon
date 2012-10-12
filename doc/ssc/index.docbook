@@ -10,9 +10,9 @@
   <!ENTITY % English "INCLUDE">
 
 ]>
-<book lang="&language;">
+<book id="ssc" lang="&language;">
 
-<bookinfo>
+<book id="ssc"info>
 
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
