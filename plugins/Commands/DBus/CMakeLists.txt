@@ -16,4 +16,3 @@ target_link_libraries(simondbuscommandplugin ${KDE4_KDEUI_LIBS}
 
 install(TARGETS simondbuscommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddbusplugin)
 install(FILES simondbuscommandplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddbusplugin)
-

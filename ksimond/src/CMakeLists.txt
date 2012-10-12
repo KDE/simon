@@ -13,5 +13,5 @@ target_link_libraries(ksimond ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
 
 install(TARGETS ksimond DESTINATION ${BIN_INSTALL_DIR} COMPONENT ksimond)
 
-install( FILES ksimond.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT ksimond)
-install( FILES ksimond_autostart.desktop  DESTINATION ${AUTOSTART_INSTALL_DIR} COMPONENT ksimond)
+install(FILES ksimond.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT ksimond)
+install(FILES ksimond_autostart.desktop DESTINATION ${AUTOSTART_INSTALL_DIR} COMPONENT ksimond)
