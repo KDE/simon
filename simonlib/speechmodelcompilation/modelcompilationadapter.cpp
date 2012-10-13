@@ -57,7 +57,9 @@ bool ModelCompilationAdapter::removeContextAdditions()
   while (!oldPrompts.atEnd()) {
     QByteArray line = oldPrompts.readLine();
     int firstIndex = line.indexOf('"');
-    line.remove(firstIndex, line.indexOf('"', firstIndex+1) - firstIndex + 1);
+    int nextIndex = line.indexOf('"', firstIndex+1);
+    if ((firstIndex != -1) && (nextIndex != -1))
+      line.remove(firstIndex, nextIndex - firstIndex + 2);
     newPrompts.write(line);
   }
   return true;

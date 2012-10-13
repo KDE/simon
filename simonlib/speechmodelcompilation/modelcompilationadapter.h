@@ -101,6 +101,8 @@ public:
 
   QStringList getDroppedTranscriptions() const { return m_droppedTranscriptions; }
 
+  QString promptsPath() const { return m_promptsPathOut; }
+
 
 protected:
   bool keepGoing;
@@ -116,6 +118,8 @@ protected:
 
   QStringList m_poisonedPhonemes;
   QStringList m_droppedTranscriptions;
+
+  QString m_promptsPathOut;
 
   bool removeContextAdditions();
 

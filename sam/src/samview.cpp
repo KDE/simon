@@ -790,12 +790,12 @@ void SamView::setClean()
 QHash<QString, QString> SamView::genAdaptionArgs(QString path)
 {
   QHash<QString,QString> adaptionArgs;
+  adaptionArgs.insert("stripContext", "true");
   switch (getBackendType()) {
   case TestConfigurationWidget::SPHINX: {
     QString modelName = m_user+QUuid::createUuid().toString();
     adaptionArgs.insert("workingDir", path);
     adaptionArgs.insert("modelName", modelName);
-    adaptionArgs.insert("stripContext", "true");
     break;
   }
   case TestConfigurationWidget::JHTK: {
@@ -806,7 +806,6 @@ QHash<QString, QString> SamView::genAdaptionArgs(QString path)
       adaptionArgs.insert("prompts", path+"samprompts");
     else
       adaptionArgs.insert("prompts", path+"prompts");
-    adaptionArgs.insert("stripContext", "true");
     break;
   }
   }

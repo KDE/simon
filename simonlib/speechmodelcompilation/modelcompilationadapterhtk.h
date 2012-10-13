@@ -48,7 +48,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
     //input
     QString m_baseTiedListPathIn;
     //output
-    QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
+    QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut;
     
     inline QByteArray htkify(const QByteArray& in);
     inline QString htkify(const QString& in);
@@ -90,10 +90,9 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public Mode
                                const QString& promptsIn, const QHash<QString, QString>& args);
     
 
-    QString lexiconPath() { return m_lexiconPathOut; }
-    QString grammarPath() { return m_grammarPathOut; }
-    QString simpleVocabPath() { return m_simpleVocabPathOut; }
-    QString promptsPath() { return m_promptsPathOut; }
+    QString lexiconPath() const { return m_lexiconPathOut; }
+    QString grammarPath() const { return m_grammarPathOut; }
+    QString simpleVocabPath() const { return m_simpleVocabPathOut; }
 
     ~ModelCompilationAdapterHTK();
 
