@@ -479,10 +479,6 @@ void SamView::exportTestResults()
       setDirty();
 
     delete temp;
-
-    //sync displays to potentially changed test result tags
-//    foreach (TestConfigurationWidget *t, testConfigurations)
-//      t->retrieveTag();//WARNING: why it can be changed?
   }
   delete e;
 
