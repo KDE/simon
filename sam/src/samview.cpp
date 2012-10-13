@@ -46,6 +46,7 @@
 
 #include <QHash>
 #include <QThread>
+#include <QtConcurrentRun>
 #include <QPointer>
 #include <QDomDocument>
 #include <QUuid>
@@ -133,7 +134,6 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
           this, SLOT(exportTestResults()));
 
   m_user = "internalsamuser";
-
 
   KStandardAction::openNew(this, SLOT(newProject()), actionCollection());
   KStandardAction::save(this, SLOT(save()), actionCollection());
@@ -881,7 +881,8 @@ void SamView::getBuildPathsFromSimon()
                                                             ModelCompilationAdapter::AdaptAcousticModel);
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
-  modelCompilationAdapter->startAdaption(adaptionType, scenarioPaths, path+"prompts", genAdaptionArgs(path));
+  QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
+                    adaptionType, scenarioPaths, path+"prompts", genAdaptionArgs(path));
 }
 
 
@@ -943,7 +944,7 @@ void SamView::serializeScenariosRun(const QStringList& scenarioIds, const QStrin
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
 
-  modelCompilationAdapter->startAdaption(
+  QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
         ModelCompilationAdapter::AdaptLanguageModel,
         scenarioPaths, ui.urPrompts->url().toLocalFile(),
         genAdaptionArgs(output));
@@ -955,7 +956,7 @@ void SamView::serializePromptsRun(const QString promptsPath, const QString& outp
 
   QHash<QString,QString> adaptionArgs;
   adaptionArgs.insert("prompts", output+"prompts");
-  modelCompilationAdapter->startAdaption(
+  QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
         ModelCompilationAdapter::AdaptAcousticModel,
         QStringList(), promptsPath, adaptionArgs);
 }
@@ -1039,8 +1040,8 @@ void SamView::compileModel()
     break;
   }
 
-  modelCompiler->startCompilation(type, ui.urOutputModel->url().toLocalFile(),
-                                  QStringList(), baseModelPath, compilerArgs);
+  QtConcurrent::run(modelCompiler, &ModelCompiler::startCompilation, type, ui.urOutputModel->url().toLocalFile(),
+                    QStringList(), baseModelPath, compilerArgs);
 }
 
 void SamView::abortModelCompilation()
