@@ -408,7 +408,6 @@ void ModelTest::recognized(const QString& fileName, RecognitionResultList result
 
     foreach (TestResultLeaf* leaf, leaves)
     {
-      kDebug() << "Original label: " << leaf->originalLabel();
       TestResult *wordResult = getResult(wordResults, leaf->originalLabel());
       if (!wordResult->registerChild(leaf))
         kWarning() << "Could not process word result";

@@ -21,23 +21,23 @@
 #include "testresultinstance.h"
 #include "testresultleaf.h"
 #include <simonrecognitionresult/recognitionresult.h>
+#include <KDebug>
 
-TestResult::TestResult(const QString& label) : m_label(label)
+TestResult::TestResult(const QString& label) : m_label(label), m_wordCount(label.count(' ') + 1)
 {
 }
 
 void TestResult::parseChildren(const QString& label, QList<TestResultLeaf*>& children)
 {
   QStringList labels = label.split(' ', QString::SkipEmptyParts);
+  int lastGood = 0;
   for (int i=0; i < children.count(); i++)
   {
     TestResultLeaf *t = children[i];
-    //qDebug() <<"Labels: " << labels;
-    //qDebug() <<"Analyzing: " << children[i]->label();
     if (labels.isEmpty())
     {
       t->setInsertionError(true);
-      //qDebug() << "No labels left for: " << t->label();
+      //kDebug() << "No labels left for: " << t->label();
     } else {
       bool found = false;
       int j = 0;
@@ -58,46 +58,38 @@ void TestResult::parseChildren(const QString& label, QList<TestResultLeaf*>& chi
       else
       {
         //if j != 0 there were other labels that are missing in the result
-        labels.removeAt(0);
-        advanceToNextValidResultAfterSkipping(j, labels, children);
+        labels.removeAt(j);
+        advanceToNextValidResultAfterSkipping(lastGood, j, labels, children);
+        lastGood = i;
       }
     }
   }
 
   //processing leftover tokens
-  advanceToNextValidResultAfterSkipping(labels.count(), labels, children);
+  advanceToNextValidResultAfterSkipping(lastGood, labels.count(), labels, children);
 }
 
-void TestResult::advanceToNextValidResultAfterSkipping(int skippedCount, QStringList& labels, QList<TestResultLeaf*>& children)
+void TestResult::advanceToNextValidResultAfterSkipping(int lastGood, int skippedCount, QStringList& labels, QList<TestResultLeaf*>& children)
 {
   //before adding them as new deletion errors try to redeem any
   //incorrectly as insertion errors regarded tokens
-  while (skippedCount > 0)
+  //kDebug() << "Skipped" << skippedCount << " Last good: " << lastGood << " children count: " << children.count();
+  int l = children.count() - 1;
+  for (; ((l >= lastGood) && (skippedCount > 0)); l--)
   {
-    bool foundRedeemableChild = false;
-    int l;
-    for (l = children.count() -1; l >= 0; l--)
-    {
-      if (children[l]->insertionError())
-        foundRedeemableChild = true;
-      else
-        break;
-    }
-    if (foundRedeemableChild) 
-    {
-      children[++l]->setInsertionError(false);
+    if (children[l]->insertionError()) {
+      children[l]->setInsertionError(false);
       children[l]->setSubstitutionError(true, labels[0]);
-      //qDebug() << "Switching child to substitution: " << children[l]->label();
+      //kDebug() << "Switching child to substitution: " << children[l]->label() << " for " << labels[0];
       labels.removeAt(0);
       --skippedCount;
-    } else 
-     break;
+    }
   }
 
   for (int k=0; ((k < skippedCount) && labels.count()); k++)
   {
     TestResultLeaf *l = new TestResultLeaf();
-    //qDebug() << "Deletion error";
+    //kDebug() << "Deletion error " << labels[0];
     l->setDeletionError(true);
     l->setOriginalLabel(labels.takeAt(0));
     children << l;
@@ -139,7 +131,7 @@ float TestResult::accuracy() const
 
 float TestResult::wordErrorRate() const
 {
-  return ((float) (insertionErrors()+deletionErrors()+substitutionErrors())) / m_children.count();
+  return ((float) (insertionErrors()+deletionErrors()+substitutionErrors())) / (m_children.count() * m_wordCount);
 }
 
 int TestResult::insertionErrors() const

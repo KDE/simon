@@ -107,9 +107,6 @@ QList<TestResultLeaf*> TestResultInstance::parseResult(const RecognitionResult& 
   Q_ASSERT(pronunciations.count() == words.count());
   Q_ASSERT(words.count() == scores.count());
 
-  kDebug() << words;
-  kDebug()<<words.count() <<"\t" <<pronunciations.count()<<"\t"<<scores.count();
-
   QList<TestResultLeaf*> leaves;
   for (int i=0; i < words.count(); i++)
     leaves << new TestResultLeaf(words[i], pronunciations[i].trimmed(), scores[i]);
