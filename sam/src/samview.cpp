@@ -1126,7 +1126,7 @@ void SamView::slotModelAdaptionComplete()
         QHash<QString, QString> params;
         params.insert("jconf", KStandardDirs::locate("data", "simond/default.jconf"));
         QString tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/");
-        params.insert("hmm", tempDir+"hmmdefs");
+        params.insert("hmm", tempDir+"hmmout/hmmdefs");
         params.insert("tiedlist", tempDir+"tiedlist");
         params.insert("dict", tempDir+"model.dict");
         params.insert("dfa", tempDir+"model.dfa");
