@@ -26,15 +26,92 @@ TestResult::TestResult(const QString& label) : m_label(label)
 {
 }
 
+void TestResult::parseChildren(const QString& label, QList<TestResultLeaf*>& children)
+{
+  QStringList labels = label.split(' ', QString::SkipEmptyParts);
+  for (int i=0; i < children.count(); i++)
+  {
+    TestResultLeaf *t = children[i];
+    //qDebug() <<"Labels: " << labels;
+    //qDebug() <<"Analyzing: " << children[i]->label();
+    if (labels.isEmpty())
+    {
+      t->setInsertionError(true);
+      //qDebug() << "No labels left for: " << t->label();
+    } else {
+      bool found = false;
+      int j = 0;
+      for (; j < labels.count(); j++)
+      {
+        if (labels[j].compare(t->label(), Qt::CaseInsensitive) == 0)
+        {
+          found = true;
+          break;
+        }
+      }
+      //qDebug() << "Found: " << found << j;
+      if (!found)
+      {
+        //qDebug() << "Insertion error";
+        t->setInsertionError(true);
+      }
+      else
+      {
+        //if j != 0 there were other labels that are missing in the result
+        labels.removeAt(0);
+        advanceToNextValidResultAfterSkipping(j, labels, children);
+      }
+    }
+  }
+
+  //processing leftover tokens
+  advanceToNextValidResultAfterSkipping(labels.count(), labels, children);
+}
+
+void TestResult::advanceToNextValidResultAfterSkipping(int skippedCount, QStringList& labels, QList<TestResultLeaf*>& children)
+{
+  //before adding them as new deletion errors try to redeem any
+  //incorrectly as insertion errors regarded tokens
+  while (skippedCount > 0)
+  {
+    bool foundRedeemableChild = false;
+    int l;
+    for (l = children.count() -1; l >= 0; l--)
+    {
+      if (children[l]->insertionError())
+        foundRedeemableChild = true;
+      else
+        break;
+    }
+    if (foundRedeemableChild) 
+    {
+      children[++l]->setInsertionError(false);
+      children[l]->setSubstitutionError(true, labels[0]);
+      //qDebug() << "Switching child to substitution: " << children[l]->label();
+      labels.removeAt(0);
+      --skippedCount;
+    } else 
+     break;
+  }
+
+  for (int k=0; ((k < skippedCount) && labels.count()); k++)
+  {
+    TestResultLeaf *l = new TestResultLeaf();
+    //qDebug() << "Deletion error";
+    l->setDeletionError(true);
+    l->setOriginalLabel(labels.takeAt(0));
+    children << l;
+  }
+}
+
 bool TestResult::registerChild(TestResultLeaf* child)
 {
   return registerChildren(QList<TestResultLeaf*>() << child);
 }
 
-
 bool TestResult::registerChildren(const QList<TestResultLeaf*>& children)
 {
-  TestResultInstance *instance = TestResultInstance::createInstance(m_label, children);
+  TestResultInstance *instance = TestResultInstance::createInstance(children);
   if (instance) {
     m_children << instance;
     return true;

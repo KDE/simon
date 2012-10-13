@@ -42,6 +42,8 @@ class MODELTEST_EXPORT TestResultLeaf
     void setSubstitutionError(bool f, const QString&);
     void setDeletionError(bool f);
 
+    void setOriginalLabel(const QString& originalLabel);
+
     int wordErrorRate() const;
     float wordErrorRateF() const;
     bool correct() const;

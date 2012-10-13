@@ -398,14 +398,17 @@ void ModelTest::recognized(const QString& fileName, RecognitionResultList result
 
     TestResult *sentenceResult = getResult(sentenceResults, prompt);
 
-    QList<TestResultLeaf*> leafs = TestResultInstance::parseResult(highestRatedResult);
-    resultLeafes << leafs;
+    QList<TestResultLeaf*> leaves = TestResultInstance::parseResult(highestRatedResult);
+    resultLeafes << leaves;
 
-    if (!sentenceResult->registerChildren(leafs))
+    TestResult::parseChildren(prompt, leaves);
+
+    if (!sentenceResult->registerChildren(leaves))
       kWarning() << "Could not process sentence result";
 
-    foreach (TestResultLeaf* leaf, leafs)
+    foreach (TestResultLeaf* leaf, leaves)
     {
+      kDebug() << "Original label: " << leaf->originalLabel();
       TestResult *wordResult = getResult(wordResults, leaf->originalLabel());
       if (!wordResult->registerChild(leaf))
         kWarning() << "Could not process word result";

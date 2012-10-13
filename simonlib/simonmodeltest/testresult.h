@@ -35,10 +35,14 @@ class MODELTEST_EXPORT TestResult
     QList<TestResultInstance*> m_children;
     QString m_label; //expected result
 
+    static void advanceToNextValidResultAfterSkipping(int skippedCount, QStringList& labels, QList<TestResultLeaf*>& children);
+
   public:
     TestResult(const QString& label);
     bool registerChild(TestResultLeaf* child);
     bool registerChildren(const QList<TestResultLeaf*>& children);
+
+    static void parseChildren(const QString& label, QList<TestResultLeaf*>& children);
 
     float accuracy() const;
     float confidence() const;
