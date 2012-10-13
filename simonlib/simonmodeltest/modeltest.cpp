@@ -260,9 +260,8 @@ void ModelTest::run()
   Logger::log(i18n("Testing model..."));
   emit status(i18n("Preparation"), 0,100);
   
-  QStringList audioFilesToRecognize;
-  if (!recodeAudio(audioFilesToRecognize)) return;
-  if (!generateMLF()) return;
+  QStringList audioFilesToRecognize; //FIXME: fill
+  if (!prepareTestSet(audioFilesToRecognize)) return;
   if (!recognize(audioFilesToRecognize, config)) return;
   if (!analyzeResults()) return;
 
@@ -270,87 +269,32 @@ void ModelTest::run()
   emit testComplete();
 }
 
-
-bool ModelTest::recodeAudio(QStringList& fileNames)
-{
-  emit status(i18n("Recoding audio..."), 5, 100);
-
-  QFile promptsF(promptsPath);
-  if (!promptsF.open(QIODevice::ReadOnly)) {
-    emitError(i18nc("%1 is path to the prompts file", "Could not open prompts file for reading: %1", promptsPath));
-    return false;
-  }
-
-  QDir d;
-  while (!promptsF.atEnd() && keepGoing) {
-    QString line = QString::fromUtf8(promptsF.readLine (1024));
-    if (line.trimmed().isEmpty()) continue;
-    int splitter = line.indexOf(' ');
-    QString fileName = line.left(splitter)+".wav";
-    QString prompt = line.mid(splitter+1).trimmed();
-    QString fullPath = samplePath+QDir::separator()+fileName;
-    QString targetPath = tempDir+"samples"+QDir::separator()+fileName;
-    QString targetDirectory = targetPath.left(targetPath.lastIndexOf(QDir::separator()));
-
-    if (!d.mkpath(targetDirectory)) {
-      kDebug() << "Could not make path: " << targetDirectory;
-      continue;
-    }
-
-    execute(QString("%1 -2 -s -L %2 %3").arg(sox).arg(fullPath).arg(targetPath));
-    fileNames << targetPath;
-
-    promptsTable.insert(targetPath, prompt);
-
-    recodedSamples.insert(targetPath, fullPath);
-  }
-
-  promptsF.close();
-  return keepGoing;
-}
-
-
-bool ModelTest::generateMLF()
+bool ModelTest::prepareTestSet(QStringList& samples)
 {
   if (!keepGoing) return false;
 
-  emit status(i18n("Generating MLF..."), 10, 100);
+  emit status(i18n("Preparing test set..."), 10, 100);
 
   QFile promptsFile(promptsPath);
-  QFile mlf(tempDir+"/testref.mlf");
 
   if (!promptsFile.open(QIODevice::ReadOnly))
     return false;
-  if (!mlf.open(QIODevice::WriteOnly))
-    return false;
 
-  mlf.write("#!MLF!#\n");
   QStringList lineWords;
   QString line;
   while (!promptsFile.atEnd()) {
-    line = QString::fromUtf8(promptsFile.readLine(3000));
-    if (line.trimmed().isEmpty()) continue;
-    lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-                                                  //ditch the file-id
-    QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\"";
-    #ifdef Q_OS_WIN
-    mlf.write(labFile.toLatin1()+'\n');
-    #else
-    mlf.write(labFile.toUtf8()+'\n');
-    #endif
-    for (int i=0; i < lineWords.count(); i++)
-    #ifdef Q_OS_WIN
-      mlf.write(lineWords[i].toLatin1()+'\n');
-    #else
-    mlf.write(lineWords[i].toUtf8()+'\n');
-    #endif
-    mlf.write(".\n");
+    line = QString::fromUtf8(promptsFile.readLine(3000)).trimmed();
+    if (line.isEmpty()) continue;
+    lineWords = line.split(' ', QString::SkipEmptyParts);
+
+    QString fileName = lineWords.takeAt(0);
+
+    QString fullPath = samplePath+QDir::separator()+fileName+".wav";
+    samples << fullPath;
+    promptsTable.insert(fullPath, lineWords.join(" "));
   }
-  promptsFile.close();
-  mlf.close();
   return true;
 }
-
 
 void ModelTest::emitError(const QString& message)
 {
@@ -367,9 +311,7 @@ bool ModelTest::recognize(const QStringList& fileNames, RecognitionConfiguration
 {
   if (!keepGoing) return false;
   emit status(i18n("Recognizing..."), 35, 100);
-  //SphinxRecognitionConfiguration *rcfg = new SphinxRecognitionConfiguration()
-//  JuliusStaticRecognitionConfiguration *cfg = new JuliusStaticRecognitionConfiguration(juliusJConf, dfaPath, dictPath, hmmDefsPath,
-//                                                                                 tiedListPath, QString::number(sampleRate));
+
   if (!recog->init(cfg)) {
     emitError(i18nc("%1 is the detailed error message from the Julius recognizer", "Could not initialize recognition: %1.", recog->getLastError()));
     return false;

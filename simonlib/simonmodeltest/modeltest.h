@@ -77,10 +77,6 @@ public:
     return recognizerResults.value(fileName);
   }
 
-  QString getOriginalFilePath(const QString& fileName) {
-    return recodedSamples.value(fileName);
-  }
-
   float getOverallConfidence();
   float getOverallAccuracy();
   float getOverallWER();
@@ -128,8 +124,6 @@ protected:
   TestResultModel *m_wordResultsModel;
   TestResultModel *m_sentenceResultsModel;
 
-  QHash<QString, QString> recodedSamples;
-
   TestResult* getResult(QList<TestResult*>& list, const QString& prompt);
 
   bool createDirs();
@@ -140,7 +134,7 @@ protected:
   bool parseConfiguration();
 
   bool recodeAudio(QStringList& fileNames);
-  bool generateMLF();
+  bool prepareTestSet(QStringList& samples);
   bool recognize(const QStringList& fileNames, RecognitionConfiguration *cfg);
   bool analyzeResults();
   void emitError(const QString& message);

@@ -191,10 +191,11 @@ bool ModelCompilerHTK::removePhoneme(const QByteArray& phoneme)
   QFile f2(tempDir+"lexicon2");
   if (!f1.open(QIODevice::ReadOnly) || !f2.open(QIODevice::WriteOnly))
     return false;
+  QRegExp phonemeRegExp("\\s"+phoneme+"(\\s|$)");
   while (!f1.atEnd())
   {
     QByteArray line = f1.readLine();
-    if (line.contains(' '+phoneme) || line.contains(phoneme+' ') || line.contains('\t'+phoneme))
+    if (QString::fromAscii(line).contains(phonemeRegExp))
       continue;
     f2.write(line);
   }
