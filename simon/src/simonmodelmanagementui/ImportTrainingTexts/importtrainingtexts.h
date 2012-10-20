@@ -44,8 +44,6 @@ class ImportTrainingTexts : public SimonWizard
   public:
     ImportTrainingTexts(QWidget *parent=0);
 
-    void start();
-
     //creating the pages for the wizard
     QWizardPage* createIntroPage();
     QWizardPage* createSourcePage();

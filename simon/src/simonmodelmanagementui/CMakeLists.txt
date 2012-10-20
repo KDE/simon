@@ -7,6 +7,9 @@ set(simonmodelmanagementui_LIB_SRCS
   trainingviewprivate.cpp
   grammarview.cpp
   grammarviewprivate.cpp
+  promptsview.cpp
+  promptsviewprivate.cpp
+  editsampledialog.cpp
 
   ImportTrainingTexts/xmltrainingtextlist.cpp
   ImportTrainingTexts/importtrainingtextselectsourcepage.cpp
@@ -63,6 +66,8 @@ kde4_add_ui_files(simonmodelmanagementui_LIB_SRCS
   editword.ui
   grammarview.ui
   trainmain.ui
+  prompts.ui
+  editsample.ui
   ImportTrainingTexts/importtrainingtextlocalpage.ui
   ImportTrainingTexts/importtrainingtextworkingpage.ui
   ImportTrainingTexts/importtrainingtextaddpage.ui
@@ -91,6 +96,7 @@ set(simonmodelmanagementui_LIB_HDRS
   trainingview.h
   grammarview.h
   vocabularyview.h
+  promptsview.h
   simonmodelmanagementui_export.h
 )
 

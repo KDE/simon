@@ -32,6 +32,7 @@ set(simonscenarios_LIB_SRCS
   actioncommandmodel.cpp
   commandparameter.cpp
   promptstable.cpp
+  promptstablemodel.cpp
   modelmetadata.cpp
 )
 
@@ -69,6 +70,7 @@ set(simonscenarios_LIB_HDRS
   actioncommandmodel.h
   commandlistelements.h
   promptstable.h
+  promptstablemodel.h
 )
 
 

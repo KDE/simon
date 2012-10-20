@@ -55,16 +55,14 @@ class TrainingViewPrivate : public QWidget, public ScenarioDisplay
     void trainSelected();
 
     void importTexts();
-    void importDirectory();
 
-    void clearTrainingdata();
+    void manageSamples();
 
   protected:
     void displayScenarioPrivate(Scenario *scenario);
 
   private:
     Ui::TrainMain ui;                             //!< UI definition - made by uic from the QTDesigner .ui
-    ImportTrainingTexts *import;
     QSortFilterProxyModel *textsProxy;
 
     TrainingText* getCurrentlySelectedText();

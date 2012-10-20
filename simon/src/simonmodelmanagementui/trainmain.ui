@@ -73,22 +73,12 @@
    <item>
     <layout class="QHBoxLayout">
      <item>
-      <widget class="KPushButton" name="pbImportText">
+      <widget class="KPushButton" name="pbManageSamples">
        <property name="toolTip">
-        <string>Import new texts from local files or from an online repository</string>
+        <string>Removes all training samples from the corpus</string>
        </property>
        <property name="text">
-        <string>Add Text</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="pbImportDir">
-       <property name="toolTip">
-        <string>Import training corpuses from other simon versions</string>
-       </property>
-       <property name="text">
-        <string>Import Training data</string>
+        <string>Manage training data</string>
        </property>
       </widget>
      </item>
@@ -106,12 +96,12 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbClearTrainingdata">
+      <widget class="KPushButton" name="pbImportText">
        <property name="toolTip">
-        <string>Removes all training samples from the corpus</string>
+        <string>Import new texts from local files or from an online repository</string>
        </property>
        <property name="text">
-        <string>Clear Trainingdata</string>
+        <string>Add Text</string>
        </property>
       </widget>
      </item>

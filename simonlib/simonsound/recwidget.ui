@@ -19,6 +19,9 @@
      <property name="title">
       <string/>
      </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="KTextEdit" name="tePrompt">
