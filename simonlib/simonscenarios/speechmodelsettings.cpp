@@ -220,25 +220,25 @@ void SpeechModelSettings::save()
   int modelType = 2;
   if (!selectedBaseModel.isNull()) {
     modelType = ui.cbAdapt->isChecked() ? 1 : 0;
+    if (ScenarioManager::getInstance()->baseModel() != selectedBaseModel) {
+      QString targetPath = KStandardDirs::locateLocal("appdata", "model/basemodel.sbm");
+      
+      bool succ = true;
+      if (QFile::exists(targetPath) && !QFile::remove(targetPath)) {
+        KMessageBox::sorry(this, i18n("Could not remove current base model"));
+        succ = false;
+        return;
+      }
+      if (!QFile::copy(selectedBaseModel, targetPath)) {
+        KMessageBox::sorry(this, i18n("Could not import base model."));
+        succ = false;
+      }
+
+      if (succ)
+        ScenarioManager::getInstance()->setBaseModel(selectedBaseModel);
+    }
   }
 
-  if (ScenarioManager::getInstance()->baseModel() != selectedBaseModel) {
-    QString targetPath = KStandardDirs::locateLocal("appdata", "model/basemodel.sbm");
-    
-    bool succ = true;
-    if (QFile::exists(targetPath) && !QFile::remove(targetPath)) {
-      KMessageBox::sorry(this, i18n("Could not remove current base model"));
-      succ = false;
-      return;
-    }
-    if (!QFile::copy(selectedBaseModel, targetPath)) {
-      KMessageBox::sorry(this, i18n("Could not import hmm definitions."));
-      succ = false;
-    }
-
-    if (succ)
-      ScenarioManager::getInstance()->setBaseModel(selectedBaseModel);
-  }
   ScenarioManager::getInstance()->setBaseModelType(modelType);
   
   if (!m_languageProfileToImport.isEmpty()) {

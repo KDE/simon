@@ -845,14 +845,6 @@ void SamView::getBuildPathsFromSimon()
   ui.cbType->setCurrentIndex(backendGroup.readEntry("backend", (int) TestConfigurationWidget::SPHINX));
   backendChanged();
 
-  //target path is simon model folder
-  //
-  //we cannot really use a user-selected folder here for two reasons:
-  // 1.) We call this method when sam starts so it should require no user interaction
-  // 2.) simon will store the simond generated model there so the output files
-  //     of simon will be picked up by sam.
-  QString path = KStandardDirs::locate("data", "simon/model/");
-
   KSharedConfig::Ptr scenarioRc = KSharedConfig::openConfig("simonscenariosrc");
   KConfigGroup scenarioRcGroup(scenarioRc, "");
   QStringList scenarioIds = scenarioRcGroup.readEntry("SelectedScenarios", QStringList());
@@ -878,7 +870,8 @@ void SamView::getBuildPathsFromSimon()
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
   QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
-                    adaptionType, scenarioPaths, path+"prompts", genAdaptionArgs(path));
+                    adaptionType, scenarioPaths, KStandardDirs::locate("data", "simon/model/prompts"),
+                    genAdaptionArgs(KStandardDirs::locateLocal("tmp", "sam/model/")));
 }
 
 
