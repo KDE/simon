@@ -237,6 +237,7 @@ void ClientSocket::processRequest()
         synchronisationRunning = true;
 
         if (!synchronisationManager->startSynchronisation()) {
+          stream.skipRawData(length);
           sendCode(Simond::SynchronisationAlreadyRunning);
           break;
         }
@@ -883,17 +884,15 @@ void ClientSocket::sendSample(QString sampleName)
 {
   Q_ASSERT(synchronisationManager);
 
-  sampleName += ".wav";
-
   QByteArray sample = synchronisationManager->getSample(sampleName);
 
   if (sample.isNull()) {
-    kDebug() << "Cannot find sample! Sending error message";
+    kDebug() << "Cannot find sample! " << sampleName;
 
     QByteArray toWrite;
     QDataStream out(&toWrite, QIODevice::WriteOnly);
     QByteArray nameByte = sampleName.toUtf8();
-    out << (qint32) Simond::ErrorRetrievingScenario
+    out << (qint32) Simond::ErrorRetrievingTrainingsSample
       << ((qint64) nameByte.count()) + sizeof(qint32)
       << nameByte;
     write(toWrite);
