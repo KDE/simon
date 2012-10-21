@@ -118,7 +118,7 @@ bool PromptsTable::deletePrompt(QString key)
   updateModel();
 
   //removes the sample
-  found &= QFile::remove(path.toUtf8());
+  QFile::remove(path.toUtf8());
 
   return found;
 }
