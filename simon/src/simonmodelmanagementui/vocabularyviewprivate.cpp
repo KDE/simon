@@ -60,7 +60,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
   connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
   connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
 
-  connect(ui.lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
+  connect(ui.lwTrainingWords, SIGNAL(droppedText()), this, SLOT(copyWordToTrain()));
 
   connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
   connect(ui.pbEditWord, SIGNAL(clicked()), this, SLOT(editSelectedWord()));
