@@ -55,12 +55,6 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
   }
   else if(typeid(*config) == typeid(JuliusTestConfigurationWidget)) {
     modelTest = new JuliusModelTest("internalsamuser_"+config->tag(), this);
-
-    #ifdef BACKEND_TYPE_SPHINX
-    // see above
-    emit testAborted();
-    slotModelTestError("Sam compiled without Julius / HTK support", QByteArray());
-    #endif
   }
 
   connect(modelTest, SIGNAL(testComplete()), this, SLOT(slotModelTestCompleted()));

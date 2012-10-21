@@ -177,12 +177,15 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   #ifdef BACKEND_TYPE_JHTK
     ui.cbType->removeItem(0);
     ui.swModelType->removeItem(0);
-  #else
-    #ifdef BACKEND_TYPE_SPHINX
-      ui.cbType->removeItem(1);
-      ui.swModelType->removeItem(1);
-    #endif
+
+    if ((KCmdLineArgs::parsedArgs()->isSet("m")) && (KCmdLineArgs::parsedArgs()->getOption("m") == "sphinx")) {
+      KMessageBox::sorry(this, i18n("SAM was built without SPHINX support."));
+      exit(0);
+    }
   #endif
+
+  if (KCmdLineArgs::parsedArgs()->isSet("m"))
+    ui.cbType->setCurrentIndex(KCmdLineArgs::parsedArgs()->getOption("m") == "htk" ? 1 : 0);
 
   backendChanged();
 
@@ -836,11 +839,6 @@ void SamView::getBuildPathsFromSimon()
     ui.rbStaticModel->click();
 
   ui.sbSampleRate->setValue(sampleRate);
-
-  KConfig modelCompilationConfig( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
-  KConfigGroup backendGroup(&modelCompilationConfig, "Backend");
-  ui.cbType->setCurrentIndex(backendGroup.readEntry("backend", (int) TestConfigurationWidget::SPHINX));
-  backendChanged();
 
   KSharedConfig::Ptr scenarioRc = KSharedConfig::openConfig("simonscenariosrc");
   KConfigGroup scenarioRcGroup(scenarioRc, "");

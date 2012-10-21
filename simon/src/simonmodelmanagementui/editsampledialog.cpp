@@ -73,7 +73,7 @@ bool EditSampleDialog::editSample(const QString& key)
       
       // if the file still exists, store the (possibly new) sample group and replace the original file with the
       // new one from the temporary location
-      if (!prompts->deletePrompt(key)) {
+      if (!prompts->deletePrompt(key) || !TrainingManager::getInstance()->savePrompts()) {
         KMessageBox::sorry(this, i18n("Failed to remove old version of sample."));
         success = false;
       }
