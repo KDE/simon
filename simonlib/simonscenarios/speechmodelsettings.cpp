@@ -197,7 +197,10 @@ void SpeechModelSettings::setupBaseModelSelection()
   foreach (const QString& path, baseModelsDir.entryList(QDir::Files|QDir::NoDotAndDotDot))
     addBaseModelToSelection(baseModelsBasePath + path);
 
-  ui.cbBaseModels->setCurrentIndex(ui.cbBaseModels->findData(ScenarioManager::getInstance()->baseModel()));
+  if (ScenarioManager::getInstance()->baseModelType() == 2)
+    ui.cbBaseModels->setCurrentIndex(0); // no base model
+  else
+    ui.cbBaseModels->setCurrentIndex(ui.cbBaseModels->findData(ScenarioManager::getInstance()->baseModel()));
   baseModelSelectionChanged();
 }
 

@@ -783,7 +783,7 @@ void SamView::setClean()
   updateWindowTitle();
 }
 
-QHash<QString, QString> SamView::genAdaptionArgs(QString path)
+QHash<QString, QString> SamView::genAdaptionArgs(const QString& path)
 {
   QHash<QString,QString> adaptionArgs;
   adaptionArgs.insert("stripContext", "true");
@@ -798,10 +798,7 @@ QHash<QString, QString> SamView::genAdaptionArgs(QString path)
     adaptionArgs.insert("lexicon", path+"lexicon");
     adaptionArgs.insert("grammar", path+"model.grammar");
     adaptionArgs.insert("simpleVocab", path+"simple.voca");
-    if (QFile::exists(path+"samprompts"))
-      adaptionArgs.insert("prompts", path+"samprompts");
-    else
-      adaptionArgs.insert("prompts", path+"prompts");
+    adaptionArgs.insert("prompts", path+"prompts");
     break;
   }
   }
@@ -896,6 +893,8 @@ void SamView::serializePrompts()
   QString promptsPath = KFileDialog::getOpenFileName(KUrl(KStandardDirs::locate("data", "simon/model/prompts")),
                                                      "", this, i18n("Open simon prompts"));
   if (promptsPath.isEmpty()) return;
+
+  ui.urPromptsBasePath->setUrl(KUrl(QFileInfo(promptsPath).absolutePath() + QDir::separator() + "training.data"));
 
   QString path = getTargetDirectory();
   if (path.isEmpty()) return;
@@ -1098,21 +1097,13 @@ void SamView::slotModelAdaptionComplete()
         if (!m_creationCorpus)
           m_creationCorpus = createEmptyCorpusInformation();
         m_creationCorpus->setTotalSampleCount(modelCompilationAdapter->sampleCount());
-        QFileInfo fi(prompts);
-        QString path = fi.absolutePath();
-        trainingDataPath = path+QDir::separator()+"training.data";
-        ui.urPromptsBasePath->setUrl(KUrl(trainingDataPath));
-
-        QString promptsTestPathManual = path+QDir::separator()+"samprompts_test";
-        if (QFile::exists(promptsTestPathManual))
-          promptsTestPath = promptsTestPathManual;
       }
 
       if (testConfigurations.isEmpty())
       {
         //automatically add appropriate test configuration
         tconfig = new JuliusTestConfigurationWidget(createEmptyCorpusInformation(), KUrl(promptsTestPath),
-                                                    KUrl(trainingDataPath),ui.sbSampleRate->value(), this);
+                                                    ui.urPromptsBasePath->url(), ui.sbSampleRate->value(), this);
         QHash<QString, QString> params;
         params.insert("jconf", KStandardDirs::locate("data", "simond/default.jconf"));
         QString tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/");

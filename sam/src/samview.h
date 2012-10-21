@@ -183,7 +183,7 @@ class SamView :  public KXmlGuiWindow, public SamUi
     CorpusInformation* createEmptyCorpusInformation();
     ReportParameters* createEmptyReportParameters();
 
-    QHash<QString, QString> genAdaptionArgs(QString path);
+    QHash<QString, QString> genAdaptionArgs(const QString& outputPath);
 
     QList<CorpusInformation*> creationCorpusInformation();
 
