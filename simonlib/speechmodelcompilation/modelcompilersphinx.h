@@ -50,11 +50,18 @@ private:
   QString m_ModelDir;
   QString m_ModelName;
   QString m_WavPath;
+  QString m_ConfigPath;
+  QString m_BaseModelPath;
+  QString m_ModelDestination;
 
   bool setupModel(const QString &modelDir, const QString &modelName);
   bool compileModel(const QString &modelDir, const QString &modelName);
 
   bool modifyConfig(const QString &filename, const QHash<QString, QString>& args);
+
+  bool CompileLanguageModel();
+  bool AdaptBaseModel();
+  bool CompileWholeModel();
 
 };
 

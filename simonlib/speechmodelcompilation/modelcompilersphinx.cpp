@@ -63,11 +63,15 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
   }
 
   this->compilationType = compilationType;
-  m_ModelDir = args.value("modelDir");//baseModelPath;
+  m_ModelDir = args.value("modelDir");
+  m_BaseModelPath = baseModelPath;
   m_ModelName = args.value("modelName");
   m_WavPath = args.value("audioPath");
+  m_ModelDestination = modelDestination;
   
   m_droppedTranscriptions = droppedTranscriptions;
+
+  m_ConfigPath = m_ModelDir+"/"+m_ModelName+"/etc/sphinx_train.cfg";
   
   kDebug() << modelDestination << baseModelPath << args;
   kDebug() << "Compiling model";
@@ -76,6 +80,44 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
   
   clearLog();
   
+  switch (compilationType)
+  {
+    case ModelCompiler::CompileLanguageModel:
+    {
+      return CompileLanguageModel();
+    }
+    case ((ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::AdaptSpeechModel)): //WARNING: is it OK?
+    {
+      return AdaptBaseModel();
+    }
+    default:
+    {
+      return CompileWholeModel();
+    }
+  }
+
+  return true;
+}
+
+bool ModelCompilerSPHINX::CompileLanguageModel()
+{
+  emit  status(i18n("Packing new language model to existing static acoustic model..."), 0, 100);
+  if(!pack(m_ModelDestination, m_ModelName, m_BaseModelPath))
+  {
+    emit error(i18n("Cannot copy model to destination"));
+    return false;
+  }
+  emit  status(i18n("Packing new language model to existing static acoustic model..."), 100, 100);
+  return true;
+}
+
+bool ModelCompilerSPHINX::AdaptBaseModel()
+{
+  return true;
+}
+
+bool ModelCompilerSPHINX::CompileWholeModel()
+{
   emit  status(i18n("Compiling model..."), 0, 100);
 
   kDebug() << "Parsing configuration";
@@ -106,10 +148,9 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
   params.insert("CFG_QUEUE_TYPE", "Queue::POSIX");
 
 
-  QString configPath = m_ModelDir+"/"+m_ModelName+"/etc/sphinx_train.cfg";
-  if(!modifyConfig(configPath, params))
+  if(!modifyConfig(m_ConfigPath, params))
   {
-    emit error(i18n("Cannot modify config at \"%1\"",configPath));
+    emit error(i18n("Cannot modify config at \"%1\"",m_ConfigPath));
     return false;
   }
 
@@ -126,7 +167,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
   emit  status(i18n("Compiling model..."), 95, 100);
   kDebug() << "Сopying model to destination";
 
-  if(!pack(modelDestination, m_ModelName))
+  if(!pack(m_ModelDestination, m_ModelName))
   {
     emit error(i18n("Cannot copy model to destination"));
     return false;
@@ -144,7 +185,7 @@ bool ModelCompilerSPHINX::processError()
   return true;
 }
 
-bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name)
+bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name, const QString &source)
 {
 
   QHash<QString, QByteArray> fm;
@@ -155,7 +196,11 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
 
   QHash<QString, QString> efm;
 
-  QString srcDirName = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/model_parameters/")+
+  QString srcDirName;
+  if(source !=QLatin1String(""))
+    srcDirName = source;
+  else
+    srcDirName = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/model_parameters/")+
                        m_ModelName+QLatin1String(MODEL_POSTFIX)+QLatin1String(SENONES_COUNT) + QLatin1String("/");
 
   kDebug() << QLatin1String("Model data from")+srcDirName;
