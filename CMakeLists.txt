@@ -21,6 +21,7 @@ find_package(Qwt6 REQUIRED)
 macro_optional_find_package(LibSampleRate)
 macro_log_feature(LIBSAMPLERATE_FOUND "LibSampleRate" "Resampling library" "http://www.mega-nerd.com/SRC/" FALSE "" "Required to activate resampling.")
 
+include_directories(${CMAKE_BINARY_DIR} .)
 if(LIBSAMPLERATE_FOUND)
 include_directories(${LIBSAMPLERATE_INCLUDE_DIR})
 add_definitions(${LIBSAMPLERATE_DEFINITIONS})
@@ -89,7 +90,7 @@ endif()
 include(KDE4Defaults)
 include(SimonDirs)
 include_directories(${QT_INCLUDES} ${KDE4_INCLUDES} ${KDE_INCLUDES} ${KDEPIMLIBS_INCLUDE_DIRS}
-  ${Qwt6_INCLUDE_DIR} simonlib .)
+  ${Qwt6_INCLUDE_DIR} simonlib)
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
 if(WIN32)

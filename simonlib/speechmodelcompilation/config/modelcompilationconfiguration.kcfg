@@ -57,6 +57,31 @@
       <default code="true">KStandardDirs::findExe("sphinxtrain")</default>
       <tooltip>The path to the sphinxtrain executable.</tooltip>
     </entry>
+    <entry name="bw" type="Url">
+      <label>The path to the bw executable.</label>
+      <default code="true">KStandardDirs::findExe("bw")</default>
+      <tooltip>The path to the bw executable.</tooltip>
+    </entry>
+    <entry name="pocketsphinx_mdef_convert" type="Url">
+      <label>The path to the pocketsphinx_mdef_convert executable.</label>
+      <default code="true">KStandardDirs::findExe("pocketsphinx_mdef_convert")</default>
+      <tooltip>The path to the pocketsphinx_mdef_convert executable.</tooltip>
+    </entry>
+    <entry name="sphinx_fe" type="Url">
+      <label>The path to the sphinx_fe executable.</label>
+      <default code="true">KStandardDirs::findExe("sphinx_fe")</default>
+      <tooltip>The path to the sphinx_fe executable.</tooltip>
+    </entry>
+    <entry name="map_adapt" type="Url">
+      <label>The path to the map_adapt executable.</label>
+      <default code="true">KStandardDirs::findExe("map_adapt")</default>
+      <tooltip>The path to the map_adapt executable.</tooltip>
+    </entry>
+      <entry name="mllr_solve" type="Url">
+      <label>The path to the mllr_solve executable.</label>
+      <default code="true">KStandardDirs::findExe("mllr_solve")</default>
+      <tooltip>The path to the mllr_solve executable.</tooltip>
+    </entry>
   </group>
   <group name="Backend">
     <entry name="backend" type="Int">
