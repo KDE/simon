@@ -25,7 +25,9 @@
 #include "simonmodelcompilationmanagement_export.h"
 
 #define MODEL_POSTFIX ".cd_semi_" //depends on sphinxtrain config
+#define MODEL_TYPE ".semi."
 #define SENONES_COUNT "200"       //TODO: think about reading this values from that config
+#define DEFAULT_SAMPRATE "16000"
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerSPHINX: public ModelCompiler
 {
@@ -46,16 +48,31 @@ protected:
   bool pack(const QString& targetArchive, const QString& name);
   
 private:
+  //programms
   QString m_SphinxTrain;
+  QString m_Bw;
+  QString m_Sphinx_fe;
+  QString m_Map_adapt;
+  QString m_Pocketsphinx_mdef_convert;
+  QString m_Mllr_solve;
+
   QString m_ModelDir;
   QString m_ModelName;
   QString m_WavPath;
   QString m_ConfigPath;
   QString m_BaseModelPath;
   QString m_ModelDestination;
+  QString m_AdaptingModelName;
 
   bool setupModel(const QString &modelDir, const QString &modelName);
   bool compileModel(const QString &modelDir, const QString &modelName);
+
+  QHash<QString, QString> readFeatParams(const QString&);
+  bool copyModelForAdapting(const QString &source, const QString &destination);
+  bool generateAcousticFeatureFiles();
+  bool convertMdef();
+  bool getStatistics();
+  bool mapUpdate();
 
   bool modifyConfig(const QString &filename, const QHash<QString, QString>& args);
 

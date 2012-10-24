@@ -31,16 +31,21 @@ bool FileUtils::removeDirRecursive(const QString &dirName)
     bool result = true;
     QDir dir(dirName);
 
-    if (dir.exists(dirName)) {
-        Q_FOREACH(QFileInfo info, dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst)) {
-            if (info.isDir()) {
+    if (dir.exists(dirName))
+    {
+        Q_FOREACH(QFileInfo info, dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst))
+        {
+            if (info.isDir())
+            {
                 result = removeDirRecursive(info.absoluteFilePath());
             }
-            else {
+            else
+            {
                 result = QFile::remove(info.absoluteFilePath());
             }
 
-            if (!result) {
+            if (!result)
+            {
                 return result;
             }
         }
@@ -48,6 +53,39 @@ bool FileUtils::removeDirRecursive(const QString &dirName)
     }
 
     return result;
+}
+
+bool FileUtils::copyDirRecursive(const QString &sourceDirName, const QString &destinationDirName)
+{
+  bool result = true;
+
+  QDir srcDir(sourceDirName), destDir(destinationDirName);
+  if(!srcDir.exists() || !destDir.exists())
+    return false;
+
+  if(!destDir.mkdir(srcDir.dirName()))
+    return false;
+
+
+  Q_FOREACH(QFileInfo info, srcDir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst))
+  {
+      if (info.isDir())
+      {
+          result = copyDirRecursive(info.absoluteFilePath(), destinationDirName+srcDir.dirName());
+      }
+      else
+      {
+          result = QFile::copy(info.absoluteFilePath(), destinationDirName+srcDir.dirName()+info.fileName());
+      }
+
+      if (!result)
+      {
+          return result;
+      }
+  }
+
+  return result;
+
 }
 
 bool FileUtils::pack(const QString &targetArchive, const QHash<QString, QByteArray> &fromMemory,

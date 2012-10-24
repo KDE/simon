@@ -38,6 +38,8 @@ public:
    */
   static bool removeDirRecursive(const QString &dirName);
 
+  static bool copyDirRecursive(const QString &sourceDirName, const QString &destinationDirName);
+
   /*!
      * \brief   Pack data from "fromMemory" and files from disk to tar.gzip archive with name targetArchive
      *
