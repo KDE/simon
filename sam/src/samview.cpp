@@ -177,12 +177,15 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   #ifdef BACKEND_TYPE_JHTK
     ui.cbType->removeItem(0);
     ui.swModelType->removeItem(0);
-  #else
-    #ifdef BACKEND_TYPE_SPHINX
-      ui.cbType->removeItem(1);
-      ui.swModelType->removeItem(1);
-    #endif
+
+    if ((KCmdLineArgs::parsedArgs()->isSet("m")) && (KCmdLineArgs::parsedArgs()->getOption("m") == "sphinx")) {
+      KMessageBox::sorry(this, i18n("SAM was built without SPHINX support."));
+      exit(0);
+    }
   #endif
+
+  if (KCmdLineArgs::parsedArgs()->isSet("m"))
+    ui.cbType->setCurrentIndex(KCmdLineArgs::parsedArgs()->getOption("m") == "htk" ? 1 : 0);
 
   backendChanged();
 
@@ -479,10 +482,6 @@ void SamView::exportTestResults()
       setDirty();
 
     delete temp;
-
-    //sync displays to potentially changed test result tags
-//    foreach (TestConfigurationWidget *t, testConfigurations)
-//      t->retrieveTag();//WARNING: why it can be changed?
   }
   delete e;
 
@@ -787,7 +786,7 @@ void SamView::setClean()
   updateWindowTitle();
 }
 
-QHash<QString, QString> SamView::genAdaptionArgs(QString path)
+QHash<QString, QString> SamView::genAdaptionArgs(const QString& path)
 {
   QHash<QString,QString> adaptionArgs;
   adaptionArgs.insert("stripContext", "true");
@@ -802,10 +801,7 @@ QHash<QString, QString> SamView::genAdaptionArgs(QString path)
     adaptionArgs.insert("lexicon", path+"lexicon");
     adaptionArgs.insert("grammar", path+"model.grammar");
     adaptionArgs.insert("simpleVocab", path+"simple.voca");
-    if (QFile::exists(path+"samprompts"))
-      adaptionArgs.insert("prompts", path+"samprompts");
-    else
-      adaptionArgs.insert("prompts", path+"prompts");
+    adaptionArgs.insert("prompts", path+"prompts");
     break;
   }
   }
@@ -844,19 +840,6 @@ void SamView::getBuildPathsFromSimon()
 
   ui.sbSampleRate->setValue(sampleRate);
 
-  KConfig modelCompilationConfig( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
-  KConfigGroup backendGroup(&modelCompilationConfig, "Backend");
-  ui.cbType->setCurrentIndex(backendGroup.readEntry("backend", (int) TestConfigurationWidget::SPHINX));
-  backendChanged();
-
-  //target path is simon model folder
-  //
-  //we cannot really use a user-selected folder here for two reasons:
-  // 1.) We call this method when sam starts so it should require no user interaction
-  // 2.) simon will store the simond generated model there so the output files
-  //     of simon will be picked up by sam.
-  QString path = KStandardDirs::locate("data", "simon/model/");
-
   KSharedConfig::Ptr scenarioRc = KSharedConfig::openConfig("simonscenariosrc");
   KConfigGroup scenarioRcGroup(scenarioRc, "");
   QStringList scenarioIds = scenarioRcGroup.readEntry("SelectedScenarios", QStringList());
@@ -882,7 +865,8 @@ void SamView::getBuildPathsFromSimon()
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
   QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
-                    adaptionType, scenarioPaths, path+"prompts", genAdaptionArgs(path));
+                    adaptionType, scenarioPaths, KStandardDirs::locate("data", "simon/model/prompts"),
+                    genAdaptionArgs(KStandardDirs::locateLocal("tmp", "sam/model/")));
 }
 
 
@@ -907,6 +891,8 @@ void SamView::serializePrompts()
   QString promptsPath = KFileDialog::getOpenFileName(KUrl(KStandardDirs::locate("data", "simon/model/prompts")),
                                                      "", this, i18n("Open simon prompts"));
   if (promptsPath.isEmpty()) return;
+
+  ui.urPromptsBasePath->setUrl(KUrl(QFileInfo(promptsPath).absolutePath() + QDir::separator() + "training.data"));
 
   QString path = getTargetDirectory();
   if (path.isEmpty()) return;
@@ -1109,21 +1095,13 @@ void SamView::slotModelAdaptionComplete()
         if (!m_creationCorpus)
           m_creationCorpus = createEmptyCorpusInformation();
         m_creationCorpus->setTotalSampleCount(modelCompilationAdapter->sampleCount());
-        QFileInfo fi(prompts);
-        QString path = fi.absolutePath();
-        trainingDataPath = path+QDir::separator()+"training.data";
-        ui.urPromptsBasePath->setUrl(KUrl(trainingDataPath));
-
-        QString promptsTestPathManual = path+QDir::separator()+"samprompts_test";
-        if (QFile::exists(promptsTestPathManual))
-          promptsTestPath = promptsTestPathManual;
       }
 
       if (testConfigurations.isEmpty())
       {
         //automatically add appropriate test configuration
         tconfig = new JuliusTestConfigurationWidget(createEmptyCorpusInformation(), KUrl(promptsTestPath),
-                                                    KUrl(trainingDataPath),ui.sbSampleRate->value(), this);
+                                                    ui.urPromptsBasePath->url(), ui.sbSampleRate->value(), this);
         QHash<QString, QString> params;
         params.insert("jconf", KStandardDirs::locate("data", "simond/default.jconf"));
         QString tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/");

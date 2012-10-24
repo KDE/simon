@@ -276,7 +276,9 @@ bool ExportTestResults::exportTestResults(ReportParameters *reportParameters, QL
     ui.leTitle->setText(reportParameters->title());
     ui.leTag->setText(reportParameters->tag());
     ui.teTaskDefinition->setPlainText(reportParameters->taskDefinition());
-    ui.cbOutputFormat->setCurrentIndex(ui.cbOutputFormat->findData(reportParameters->outputTemplate()));
+    int outputFormatIdx = ui.cbOutputFormat->findData(reportParameters->outputTemplate());
+    if (outputFormatIdx != -1)
+      ui.cbOutputFormat->setCurrentIndex(outputFormatIdx);
     ui.teConclusion->setPlainText(reportParameters->conclusion());
     ui.leExperimentTag->setText(reportParameters->experimentTag());
     ui.dpExperimentDate->setDate(reportParameters->experimentDate());

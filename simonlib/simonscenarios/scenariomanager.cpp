@@ -544,17 +544,6 @@ int ScenarioManager::baseModelType()
   return SpeechModelManagementConfiguration::modelType();
 }
 
-
-QString ScenarioManager::baseModelName()
-{
-  return SpeechModelManagementConfiguration::baseModelName();
-}
-
-QDateTime ScenarioManager::baseModelCreationDate()
-{
-  return SpeechModelManagementConfiguration::baseModelDate();
-}
-
 void ScenarioManager::setBaseModelType(int type)
 {
   SpeechModelManagementConfiguration::setModelType(type);
@@ -562,11 +551,13 @@ void ScenarioManager::setBaseModelType(int type)
   touchBaseModelAccessTime();
 }
 
-
-void ScenarioManager::setBaseModel(const QString& name, const QDateTime& creationDate)
+QString ScenarioManager::baseModel()
 {
-  SpeechModelManagementConfiguration::setBaseModelName(name);
-  SpeechModelManagementConfiguration::setBaseModelDate(creationDate);
+  return SpeechModelManagementConfiguration::selectedBaseModel();
+}
+void ScenarioManager::setBaseModel(const QString& model)
+{
+  SpeechModelManagementConfiguration::setSelectedBaseModel(model);
 }
 
 QString ScenarioManager::languageProfileName()

@@ -59,17 +59,6 @@ prevId(0)
 
 }
 
-
-/**
- * \brief Shows the wizard
- * \author Peter Grasch
- */
-void ImportTrainingTexts::start()
-{
-  show();
-}
-
-
 /**
  * \brief Destructor
  * \author Peter Grasch

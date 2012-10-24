@@ -25,8 +25,10 @@
 
 #include <QDomDocument>
 #include <QDomElement>
+#include <QMenu>
 
 #include <KMessageBox>
+#include <KAction>
 #include <KGlobal>
 #include <KFileDialog>
 #include <KDateTime>
@@ -73,17 +75,28 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
 
   addConfig(SpeechModelManagementConfiguration::self(), this);
   
-  connect(ui.rbStatic, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui.rbBaseModel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui.rbDynamic, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui.cbBaseModels, SIGNAL(currentIndexChanged(int)), this, SLOT(baseModelSelectionChanged()));
+  connect(ui.cbAdapt, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   uiLanguageProfile.pbLoadLanguageProfile->setIcon(KIcon("document-open"));
   
   connect(uiLanguageProfile.pbLoadLanguageProfile, SIGNAL(clicked()), this, SLOT(loadLanguageProfile()));
 
-  connect(ui.pbCreate, SIGNAL(clicked()), this, SLOT(createBaseModel()));
-  connect(ui.pbOpen, SIGNAL(clicked()), this, SLOT(openBaseModel()));
   connect(ui.pbExport, SIGNAL(clicked()), this, SLOT(exportBaseModel()));
+
+  QMenu *importMenu = new QMenu(this);
+  QAction *ghnsImport = importMenu->addAction(KIcon("get-hot-new-stuff"), i18n("Download"));
+  QAction *fileImport = importMenu->addAction(KIcon("document-import"), i18n("Import"));
+  QAction *fileCreate = importMenu->addAction(KIcon("document-import"), i18n("Create from model files"));
+
+  connect(ghnsImport, SIGNAL(triggered()), this, SLOT(getNewBaseModels()));
+  connect(fileImport, SIGNAL(triggered()), this, SLOT(openBaseModel()));
+  connect(fileCreate, SIGNAL(triggered()), this, SLOT(createBaseModel()));
+
+  ui.pbImport->setMenu(importMenu);
+
+  ui.pbImport->setIcon(KIcon("document-import"));
+  ui.pbExport->setIcon(KIcon("document-export"));
 }
 
 void SpeechModelSettings::exportBaseModel()
@@ -115,10 +128,33 @@ void SpeechModelSettings::openBaseModel()
 void SpeechModelSettings::importBaseModel ( const QString& path )
 {
   if (!path.isEmpty()) {
-    m_baseModelToImport = path;
-    updateBaseModelDescription(path);
+    // build imported path
+    QString fileName = QFileInfo(path).fileName();
+    int i = 0;
+    QString targetPath;
+    while (QFile::exists(targetPath = KStandardDirs::locateLocal("appdata", "model/base/"+QString::number(i)+fileName)))
+      ++i;
+
+    if (!QFile::copy(path, targetPath)) {
+      KMessageBox::sorry(this, i18n("Failed to import base model to Simon."));
+      return;
+    }
+    addBaseModelToSelection(targetPath);
+    ui.cbBaseModels->setCurrentIndex(ui.cbBaseModels->count() - 1);
+
     emit changed(true);
   }
+}
+
+void SpeechModelSettings::addBaseModelToSelection(const QString& path)
+{
+  ui.cbBaseModels->addItem(baseModelDescription(path), path);
+}
+
+void SpeechModelSettings::baseModelSelectionChanged()
+{
+  ui.cbAdapt->setVisible(ui.cbBaseModels->currentIndex() > 0);
+  slotChanged();
 }
 
 void SpeechModelSettings::slotChanged()
@@ -126,43 +162,54 @@ void SpeechModelSettings::slotChanged()
   emit changed(true);
 }
 
-void SpeechModelSettings::updateBaseModelDescription ( const QString& path )
+QString SpeechModelSettings::baseModelDescription(const QString& path)
 {
-  KTar tar(path, "application/x-gzip");
-  QString description = i18n("No description of model available");
-  Model::parseContainer(tar, m_baseModelDate, m_baseModelName);
-  description = baseModelDescription();
+  if (path.isEmpty())
+    return baseModelDescription(QString(), QDateTime());
   
-  ui.lbModelName->setText(description);
+  QString name;
+  QDateTime dateTime;
+  KTar tar(path, "application/x-gzip");
+  Model::parseContainer(tar, dateTime, name);
+  return baseModelDescription(name, dateTime);
 }
 
-QString SpeechModelSettings::baseModelDescription()
+QString SpeechModelSettings::baseModelDescription(const QString& name, const QDateTime& dateTime)
 {
-  if (m_baseModelName == "None")
-    return i18n("No base model loaded");
+  if (name.isNull())
+    return i18n("Do not use a base model");
 
   return i18nc("%1 is model name, %2 is creation date", "%1 (Created: %2)", 
-                      m_baseModelName, m_baseModelDate.toString(Qt::LocalDate));
+                      name, dateTime.toString(Qt::LocalDate));
+}
+
+void SpeechModelSettings::getNewBaseModels()
+{
+  //TODO
+}
+
+void SpeechModelSettings::setupBaseModelSelection()
+{
+  ui.cbBaseModels->clear();
+  addBaseModelToSelection(QString());
+  QString baseModelsBasePath = KStandardDirs::locateLocal("appdata", "model/base/");
+  QDir baseModelsDir(baseModelsBasePath);
+  foreach (const QString& path, baseModelsDir.entryList(QDir::Files|QDir::NoDotAndDotDot))
+    addBaseModelToSelection(baseModelsBasePath + path);
+
+  if (ScenarioManager::getInstance()->baseModelType() == 2)
+    ui.cbBaseModels->setCurrentIndex(0); // no base model
+  else
+    ui.cbBaseModels->setCurrentIndex(ui.cbBaseModels->findData(ScenarioManager::getInstance()->baseModel()));
+  baseModelSelectionChanged();
 }
 
 void SpeechModelSettings::load()
 {
-  switch (ScenarioManager::getInstance()->baseModelType()) {
-    case 0: ui.rbStatic->animateClick();
-    break;
-    case 1: ui.rbBaseModel->animateClick();
-    break;
-    case 2: ui.rbDynamic->animateClick();
-    break;
-    default:
-      kDebug() << "Unknown model type" << ScenarioManager::getInstance()->baseModelType();
-  }
+   ui.cbAdapt->setChecked(ScenarioManager::getInstance()->baseModelType() == 1);
+  setupBaseModelSelection();
 
   m_storedModelType = ScenarioManager::getInstance()->baseModelType();
-  m_baseModelName = ScenarioManager::getInstance()->baseModelName();
-  m_baseModelDate = ScenarioManager::getInstance()->baseModelCreationDate();
-  
-  ui.lbModelName->setText(baseModelDescription());
   
   uiLanguageProfile.lbProfileName->setText(ScenarioManager::getInstance()->languageProfileName());
   KCModule::load();
@@ -171,34 +218,30 @@ void SpeechModelSettings::load()
 
 void SpeechModelSettings::save()
 {
-  int modelType = 0;
-  if (ui.rbBaseModel->isChecked())
-    modelType = 1;
-  else if (ui.rbDynamic->isChecked())
-    modelType = 2;
+  QString selectedBaseModel = ui.cbBaseModels->itemData(ui.cbBaseModels->currentIndex()).toString();
 
-  if (!m_baseModelToImport.isEmpty()) {
-    QString targetPath = KStandardDirs::locateLocal("appdata", "model/basemodel.sbm");
-    
-    bool succ = true;
-    if (QFile::exists(targetPath) && !QFile::remove(targetPath)) {
-      KMessageBox::sorry(this, i18n("Could not remove current base model"));
-      succ = false;
-      return;
-    }
-    if (!QFile::copy(m_baseModelToImport, targetPath)) {
-      KMessageBox::sorry(this, i18n("Could not import hmm definitions."));
-      succ = false;
-    }
+  int modelType = 2;
+  if (!selectedBaseModel.isNull()) {
+    modelType = ui.cbAdapt->isChecked() ? 1 : 0;
+    if (ScenarioManager::getInstance()->baseModel() != selectedBaseModel) {
+      QString targetPath = KStandardDirs::locateLocal("appdata", "model/basemodel.sbm");
+      
+      bool succ = true;
+      if (QFile::exists(targetPath) && !QFile::remove(targetPath)) {
+        KMessageBox::sorry(this, i18n("Could not remove current base model"));
+        succ = false;
+        return;
+      }
+      if (!QFile::copy(selectedBaseModel, targetPath)) {
+        KMessageBox::sorry(this, i18n("Could not import base model."));
+        succ = false;
+      }
 
-    m_baseModelToImport.clear();
-    if (!succ) {
-      m_baseModelName = ScenarioManager::getInstance()->baseModelName();
-      m_baseModelDate = ScenarioManager::getInstance()->baseModelCreationDate();
-    } else {
-      ScenarioManager::getInstance()->setBaseModel(m_baseModelName, m_baseModelDate);
+      if (succ)
+        ScenarioManager::getInstance()->setBaseModel(selectedBaseModel);
     }
   }
+
   ScenarioManager::getInstance()->setBaseModelType(modelType);
   
   if (!m_languageProfileToImport.isEmpty()) {
@@ -228,16 +271,14 @@ void SpeechModelSettings::save()
 
 void SpeechModelSettings::defaults()
 {
-  QString noName = i18nc("Filename of a not yet selected base model", "None");
-  ScenarioManager::getInstance()->setBaseModel(noName, QDateTime());
+  ScenarioManager::getInstance()->setBaseModel(QString());
   ScenarioManager::getInstance()->setBaseModelType(2);
   
-  ScenarioManager::getInstance()->setLanguageProfileName(noName);
+  ScenarioManager::getInstance()->setLanguageProfileName(i18nc("Filename of a not yet selected language profile", "None"));
 
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/basemodel.sbm"));
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
 
-  m_baseModelToImport.clear();
   m_languageProfileToImport.clear();
   
   KCModule::defaults();

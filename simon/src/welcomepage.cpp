@@ -19,6 +19,7 @@
 
 
 #include "welcomepage.h"
+#include <simonmodelmanagementui/promptsview.h>
 #include <simonmodelmanagementui/TrainSamples/trainingswizard.h>
 #include <simonrecognitioncontrol/recognitioncontrol.h>
 #include "trainingtextaggregatormodel.h"
@@ -65,6 +66,8 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
   connect(ui.pbEditScenario, SIGNAL(clicked(bool)), this, SIGNAL(editScenario()));
   connect(ActionManager::getInstance(), SIGNAL(processedRecognitionResult(RecognitionResult,bool)), this, SLOT(processedRecognitionResult(RecognitionResult, bool)));
   
+  connect(ui.pbManageSamples, SIGNAL(clicked()), this, SLOT(manageSamples()));
+
   displayScenarios();
   displayAcousticModelInfo();
   
@@ -73,6 +76,7 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
   ui.pbScenarioConfiguration->setIcon(KIcon("view-list-tree"));
   ui.pbEditScenario->setIcon(KIcon("document-edit"));
   ui.pbStartTraining->setIcon(KIcon("view-pim-news"));
+  ui.pbManageSamples->setIcon(KIcon("view-list-tree"));
 
   const QString stylesheet("QGroupBox { background-image: url(\"%1\"); \
                             background-repeat: no-repeat; \
@@ -226,7 +230,6 @@ void WelcomePage::displayScenarioPrivate ( Scenario* scenario )
 
 void WelcomePage::updateTrainingsTexts()
 {
-  kDebug() << "=====================";
   QList<TrainingTextCollection*> collections;
   foreach (Scenario *s, ScenarioManager::getInstance()->getScenarios()) {
     kDebug() << "Trainings texts from: " << s;
@@ -256,6 +259,13 @@ void WelcomePage::startTraining()
     wizard->exec();
 
   delete wizard;
+}
+
+void WelcomePage::manageSamples()
+{
+  QPointer<PromptsView> p(new PromptsView(this));
+  p->exec();
+  delete p;
 }
 
 void WelcomePage::showEvent(QShowEvent* event)

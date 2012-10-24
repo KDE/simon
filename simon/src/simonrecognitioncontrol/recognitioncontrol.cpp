@@ -1108,10 +1108,10 @@ void RecognitionControl::messageReceived()
         case Simond::ErrorRetrievingTrainingsSample:
         {
           parseLengthHeader();
-          advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 	  QByteArray sampleName;
 	  msg >> sampleName;
           sampleNotAvailable(QString::fromUtf8(sampleName));
+          advanceStream(sizeof(qint32)+sizeof(qint64)+length);
           break;
         }
 
@@ -1566,8 +1566,7 @@ void RecognitionControl::sampleNotAvailable(const QString& sample)
     //kick some poor samples ass
     ModelManager::getInstance()->startGroup();
     QString sampleBaseName = sample.left(sample.length()-4);
-    kDebug() << "Deleting: " << sampleBaseName;
-    KMessageBox::information(0, QString("Deleting: %1").arg(sampleBaseName));
+    kDebug() << "Deleting: " << sample << sampleBaseName;
     //Was: removeSample
     bool succ = TrainingManager::getInstance()->deletePrompt(sampleBaseName);
     if (succ)
