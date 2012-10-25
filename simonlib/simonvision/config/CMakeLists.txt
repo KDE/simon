@@ -9,6 +9,7 @@ include(KDE4Defaults)
 
 set( webcamsettings_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonwebcamconfiguration.cpp
+	webcamconfigurationanalyzer.cpp
 )
 
 kde4_add_ui_files( webcamsettings_LIB_SRCS

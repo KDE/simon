@@ -37,7 +37,7 @@ public:
   ~WebcamDispatcher();
 
   static void registerAnalyzer(ImageAnalyzer* analyzer);
-  static void reread();
+  static void reread(bool isWebcamIndexChanged);
   static void unregisterAnalyzer(ImageAnalyzer* analyzer);
 
 
@@ -55,6 +55,7 @@ private:
   // This is method implemented from QThread, Here we will be sending live feed to the analyzers
   void run();
   QMutex mutex;
+  QMutex mutexCapture;
   // Using Singleton pattern
   static WebcamDispatcher* instance;
 

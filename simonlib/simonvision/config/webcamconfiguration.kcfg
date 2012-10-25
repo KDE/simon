@@ -12,5 +12,10 @@
       <default>10</default>
       <tooltip>Number of images to grab from webcam per second</tooltip>
     </entry>
-  </group>
+    <entry name="WebcamIndex" type="Int">
+      <label>Index of the Webcam</label>
+      <default>0</default>
+      <tooltip>Index of the Webcam</tooltip>
+    </entry>
+ </group>
 </kcfg>

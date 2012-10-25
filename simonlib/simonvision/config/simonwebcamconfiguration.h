@@ -22,8 +22,12 @@
 
 #include <KCModule>
 #include <QVariantList>
-
+#include<QImage>
+#include<cv.h>
+#include<highgui.h>
+#include "webcamconfigurationanalyzer.h"
 #include "ui_simonwebcamconfiguration.h"
+#include<QTimer>
 
 class SimonWebcamConfiguration : public KCModule
 {
@@ -31,10 +35,18 @@ class SimonWebcamConfiguration : public KCModule
 
   private:
     Ui::WebcamConfiguration ui;
-  
+    int webcamIndex;
+    WebcamConfigurationAnalyzer* analyzer;
+    int startWebcam(int webcamIndex);
+    QTimer *timer;
+
   private slots:
     void slotChanged();
     void displaySliderValue(int value);
+    void prevWebcam();
+    void nextWebcam();
+    void updateImage();
+    void updateImage(const QImage& image);
 
   public:
     explicit SimonWebcamConfiguration(QWidget* parent, const QVariantList& args=QVariantList());

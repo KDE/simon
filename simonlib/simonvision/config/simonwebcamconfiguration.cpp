@@ -17,72 +17,180 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "simonwebcamconfiguration.h"
-#include "webcamconfiguration.h"
 #include <KPluginFactory>
 #include <simonvision/webcamdispatcher.h>
+#include <simonvision/simoncv.h>
+#include<QPixmap>
+#include "simonwebcamconfiguration.h"
+#include "webcamconfiguration.h"
 
 K_PLUGIN_FACTORY( SimonWebcamConfigurationFactory,
-registerPlugin< SimonWebcamConfiguration >() ; )
+                  registerPlugin< SimonWebcamConfiguration >() ; )
 
 K_EXPORT_PLUGIN( SimonWebcamConfigurationFactory("SimonWebcamConfiguration"); )
 
+CvCapture* capture=0;
+
 SimonWebcamConfiguration::SimonWebcamConfiguration(QWidget* parent, const QVariantList& args)
-: KCModule(KGlobal::mainComponent(), parent)
+  : KCModule(KGlobal::mainComponent(), parent)
 {
-  Q_UNUSED(args);
-
   ui.setupUi(this);
-
+  Q_UNUSED(args);
   addConfig(WebcamConfiguration::self(), this);
+  timer = new QTimer(this);
+  webcamIndex=WebcamConfiguration::webcamIndex();
+  analyzer=0;
+
+  connect(timer, SIGNAL(timeout()), this, SLOT(updateImage()));
   connect(ui.kcfg_fps, SIGNAL(valueChanged(int)), this, SLOT(displaySliderValue(int)));
+  connect(ui.pbNext, SIGNAL(clicked()), this, SLOT(nextWebcam()));
+  connect(ui.pbPrev, SIGNAL(clicked()), this, SLOT(prevWebcam()));
+
   displaySliderValue(WebcamConfiguration::fps());
+  startWebcam(webcamIndex);
 }
 
 void SimonWebcamConfiguration::displaySliderValue(int value)
 {
-    ui.lblSilderValue_2->setText(QString::number(value));
+  ui.lblSilderValue->setText(QString::number(value));
 }
 
 void SimonWebcamConfiguration::slotChanged()
 {
   emit changed(true);
 }
+void SimonWebcamConfiguration::updateImage()
+{
+  QImage *image=SimonCV::IplImage2QImage(cvQueryFrame(capture));
+  if(image)
+    ui.lblWebcamDisplay->setPixmap(QPixmap::fromImage(*image));
+  else
+    ui.lblWebcamDisplay->setText("Webcam found but may be another application is using it");
+}
 
+void SimonWebcamConfiguration::updateImage(const QImage &image)
+{
+  if(!image.isNull())
+    ui.lblWebcamDisplay->setPixmap(QPixmap::fromImage(image));
+  else
+    ui.lblWebcamDisplay->setText("Webcam found but may be another application is using it");
+}
+
+int SimonWebcamConfiguration::startWebcam(int webcamIndex)
+{
+  if(webcamIndex==WebcamConfiguration::webcamIndex())
+  {
+    emit changed(false);
+    t1imer->stop();
+    if(capture)
+      cvReleaseCapture(&capture);
+    analyzer = new WebcamConfigurationAnalyzer();
+    connect(analyzer, SIGNAL(sendImage(QImage)), this, SLOT(updateImage(QImage)));
+  }
+  else if (capture)
+  {
+    CvCapture* tempCapture=cvCaptureFromCAM(webcamIndex);
+    if(tempCapture)
+    {
+      CvCapture* tempCapture2=capture;
+      capture = tempCapture;
+      cvReleaseCapture(&tempCapture2);
+    }
+    else
+    {
+      return 0;
+      //      if(webcamIndex!=1)
+      //        this->webcamIndex--;
+      //      else
+      //      {
+      //        if(capture)
+      //          cvReleaseCapture(&capture);
+      //        timer->stop();
+      //        ui.lblWebcamDisplay->setText("Webcam  not found!\n Try the prev/next webcam");
+      //      }
+    }
+  }
+  else
+  {
+    capture=cvCaptureFromCAM(webcamIndex);
+    if(!capture)
+    {
+      return 0;
+    }
+    if(analyzer)
+      delete analyzer;
+    analyzer=0;
+    timer->start(200);
+  }
+  return 1;
+}
+
+
+
+void SimonWebcamConfiguration::prevWebcam()
+{
+  if(startWebcam(--webcamIndex))
+  {
+    emit changed(true);
+    ui.pbPrev->setEnabled(true);
+
+  }
+  else
+  {
+    webcamIndex++;
+    ui.pbPrev->setEnabled(false);
+  }
+}
+
+void SimonWebcamConfiguration::nextWebcam()
+{
+  if(startWebcam(++webcamIndex))
+  {
+    emit changed(true);
+    ui.pbNext->setEnabled(true);
+  }
+  else
+  {
+    webcamIndex--;
+    ui.pbNext->setEnabled(false);
+  }
+}
 
 void SimonWebcamConfiguration::load()
 {
-//  ui.cbCipher->clear();
-//  QString selectedCipher = SimondConfiguration::encryptionMethod();
-
-//  QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
-//  QStringList cipherStrs;
-//  QString cipherName;
-//  int selectedIndex=0;
-//  for (int i=0; i < ciphers.count(); i++) {
-//    cipherName = ciphers[i].name();
-//    if (cipherName == selectedCipher)
-//      selectedIndex =i;
-//    cipherStrs << cipherName;
-//  }
-
-//  ui.cbCipher->addItems(cipherStrs);
-//  ui.cbCipher->setCurrentIndex(selectedIndex);
-
+  WebcamConfiguration::self()->readConfig();
   KCModule::load();
 }
 
 
 void SimonWebcamConfiguration::save()
 {
-//  SimondConfiguration::setEncryptionMethod(ui.cbCipher->currentText());
+  bool isWebcamIndexChanged=bool((WebcamConfiguration::webcamIndex())!=webcamIndex);
+  WebcamConfiguration::setWebcamIndex(this->webcamIndex);
   KCModule::save();
   WebcamConfiguration::self()->writeConfig();
-  WebcamDispatcher::reread();
+  if (capture)
+  {
+    cvReleaseCapture(&capture);
+  }
+  if(isWebcamIndexChanged)
+  {
+    timer->stop();
+    WebcamDispatcher::reread(true);
+    startWebcam(WebcamConfiguration::webcamIndex());
+  }
+  else
+  {
+    WebcamDispatcher::reread(false);
+  }
+  capture=0;
 }
-
 
 SimonWebcamConfiguration::~SimonWebcamConfiguration()
 {
-
+  timer->stop();
+  if(capture)
+    cvReleaseCapture(&capture);
+  if(analyzer)
+    delete analyzer;
 }

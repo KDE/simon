@@ -33,9 +33,27 @@ CvCapture* capture=0;
 QList<ImageAnalyzer*> analyzers = QList<ImageAnalyzer*>();
 WebcamDispatcher* WebcamDispatcher::instance = new WebcamDispatcher;
 
-void WebcamDispatcher::reread()
+void WebcamDispatcher::reread(bool isWebcamIndexChanged)
 {
   WebcamConfiguration::self()->readConfig();
+  if(isWebcamIndexChanged)
+  {
+    if(!instance->analyzers.isEmpty())
+    {
+      kDebug()<<"Is not empty";
+      CvCapture* tempCapture=cvCaptureFromCAM(WebcamConfiguration::webcamIndex());
+      if(tempCapture)
+      {
+        instance->mutexCapture.lock();
+        CvCapture* tempCapture2=capture;
+        capture = tempCapture;
+        cvReleaseCapture(&tempCapture2);
+        instance->mutexCapture.unlock();
+        return;
+      }
+    }
+  }
+
 }
 
 void WebcamDispatcher::initWebcamDispatcher()
@@ -44,7 +62,7 @@ void WebcamDispatcher::initWebcamDispatcher()
   kDebug() << "Initializing webcam dispatcher";
   // cvNamedWindow("Live",1);
   // Initialize video capture
-  capture = cvCaptureFromCAM(CV_CAP_ANY);
+  capture = cvCaptureFromCAM(WebcamConfiguration::webcamIndex());
 
   if (!capture)
   {
@@ -95,7 +113,9 @@ void WebcamDispatcher::run()
 
   while (instance->analyzers.count()!=0)
   {
+    instance->mutexCapture.lock();
     IplImage* liveFrame = cvQueryFrame(capture);
+    instance->mutexCapture.unlock();
 
     if (!liveFrame)
     {

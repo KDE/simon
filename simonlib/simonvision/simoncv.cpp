@@ -18,32 +18,81 @@
  */
 #include "simoncv.h"
 namespace SimonCV{ 
+
   CvRect * detectObject(IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage)
   {
     CvSeq * objectRectSeq=0;                    // memory-access interface
     CvRect* objectRect = 0;
     if (cascade&&memoryStorage)
     {
-//       // detect faces in image
-//       int minObjectSize = imageFeed->width / 5;
-//       objectRectSeq = cvHaarDetectObjects
-//       (imageFeed, cascade, memoryStorage,
-//        1.1,                       // increase search scale by 10% each pass
-//        6,                         // require six neighbors
-//        CV_HAAR_DO_CANNY_PRUNING,  // skip regions unlikely to contain a face
-//        cvSize(40, 40));
-//       // if one or more faces are detected, return the first one
+      //       // detect faces in image
+      //       int minObjectSize = imageFeed->width / 5;
+      //       objectRectSeq = cvHaarDetectObjects
+      //       (imageFeed, cascade, memoryStorage,
+      //        1.1,                       // increase search scale by 10% each pass
+      //        6,                         // require six neighbors
+      //        CV_HAAR_DO_CANNY_PRUNING,  // skip regions unlikely to contain a face
+      //        cvSize(40, 40));
+      //       // if one or more faces are detected, return the first one
       // detect faces in image
       objectRectSeq = cvHaarDetectObjects
-      (imageFeed, cascade, memoryStorage,
-       1.1,                       // increase search scale by 10% each pass
-       30,                         // require six neighbors
-       CV_HAAR_DO_CANNY_PRUNING,  // skip regions unlikely to contain a face
-       cvSize(40, 40));
-      // if one or more faces are detected, return the first one      
+          (imageFeed, cascade, memoryStorage,
+           1.1,                       // increase search scale by 10% each pass
+           30,                         // require six neighbors
+           CV_HAAR_DO_CANNY_PRUNING,  // skip regions unlikely to contain a face
+           cvSize(40, 40));
+      // if one or more faces are detected, return the first one
       if (objectRectSeq && objectRectSeq->total)
         objectRect = (CvRect*) cvGetSeqElem(objectRectSeq, 0);
     }
     return objectRect;
   }
+
+
+  QImage* IplImage2QImage(IplImage *iplImg)
+  {
+    if(iplImg)
+    {
+      int h = iplImg->height;
+      int w = iplImg->width;
+      int channels = iplImg->nChannels;
+      QImage *qimg = new QImage(w, h, QImage::Format_ARGB32);
+      char *data = iplImg->imageData;
+
+      for (int y = 0; y < h; y++, data += iplImg->widthStep)
+      {
+        for (int x = 0; x < w; x++)
+        {
+          char r, g, b, a = 0;
+          if (channels == 1)
+          {
+            r = data[x * channels];
+            g = data[x * channels];
+            b = data[x * channels];
+          }
+          else if (channels == 3 || channels == 4)
+          {
+            r = data[x * channels + 2];
+            g = data[x * channels + 1];
+            b = data[x * channels];
+          }
+
+          if (channels == 4)
+          {
+            a = data[x * channels + 3];
+            qimg->setPixel(x, y, qRgba(r, g, b, a));
+          }
+          else
+          {
+            qimg->setPixel(x, y, qRgb(r, g, b));
+          }
+        }
+      }
+      return qimg;
+
+    }
+    return new QImage();
+  }
+
 }
+
