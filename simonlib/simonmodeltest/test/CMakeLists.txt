@@ -1,10 +1,4 @@
-ENABLE_TESTING()
-find_package(Qt4 COMPONENTS QtCore QtTest REQUIRED)
-
-
-include(KDE4Defaults)
-
-set (simonmodeltesttestresulttest_SRCS
+set(simonmodeltesttestresulttest_SRCS
   testresulttest.cpp
 
   #deps
@@ -13,14 +7,12 @@ set (simonmodeltesttestresulttest_SRCS
   ../testresultleaf.cpp
 )
 
-
 kde4_add_unit_test(simonmodeltesttest-testresult TESTNAME
   simonmodeltesttest-testresult
   ${simonmodeltesttestresulttest_SRCS}
 )
 
-target_link_libraries( simonmodeltesttest-testresult
+target_link_libraries(simonmodeltesttest-testresult
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
   simonrecognitionresult
 )
-

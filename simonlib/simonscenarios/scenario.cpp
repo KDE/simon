@@ -28,7 +28,7 @@
 
 #include <simonscenariobase/scenarioobject.h>
 
-#include "version.h"
+#include <version.h>
 
 #include <KStandardDirs>
 #include <QDomDocument>
@@ -91,10 +91,6 @@ bool Scenario::init(QString path)
   //  CompoundCondition
   //************************************************/
   if (!readCompoundCondition(path, doc)) return false;
-
-  //  ChildScenarios
-  //************************************************/
-  if (!readChildScenarioIds(path, doc)) return false;
 
   delete doc;
   commitGroup();
@@ -315,6 +311,10 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 	  //load previous version
 	 m_license = docElem.firstChildElement("licence").text(); // krazy:exclude=spelling
 
+  //  ChildScenarios
+  //************************************************/
+  if (!readChildScenarioIds(path, doc)) return false;
+
   if (deleteDoc) delete doc;
   return true;
 }
@@ -456,6 +456,15 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
     return true;
 }
 
+QString Scenario::pathFromId(const QString& id, const QString& prefix)
+{
+  if (prefix.isNull()) {
+    return KStandardDirs::locateLocal("appdata", "scenarios/"+id);
+  }
+
+  return KStandardDirs::locateLocal("data", prefix+"scenarios/"+id);
+}
+
 
 /**
  * Stores the scenario; The storage location will be determined automatically
@@ -477,14 +486,8 @@ bool Scenario::save(QString path)
   if (serialized.isNull())
     return false;
 
-  if (path.isNull()) {
-    if (m_prefix.isNull()) {
-      path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
-    }
-    else {
-      path = KStandardDirs::locateLocal("data", m_prefix+"scenarios/"+m_scenarioId);
-    }
-  }
+  if (path.isNull())
+    path = pathFromId(m_scenarioId, m_prefix);
 
   QFile file(path);
   if (!file.open(QIODevice::WriteOnly)) {
@@ -493,6 +496,7 @@ bool Scenario::save(QString path)
   }
 
   file.write(serialized.toUtf8());
+  file.close();
 
   m_dirty = false;
   emit changed(this);

@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -41,12 +42,12 @@
 #ifndef SIMON_JULIUSCONTROL_H_1A3B1D09EFF241FDAFC53C895B0017DD
 #define SIMON_JULIUSCONTROL_H_1A3B1D09EFF241FDAFC53C895B0017DD
 
+#include "recognitioncontrol.h"
+#include <simonrecognizer/juliusrecognizer.h>
+
 #include <QList>
 #include <QPointer>
 #include <KDebug>
-#include "recognitioncontrol.h"
-#include <simonrecognizer/juliusrecognizer.h>
-#include <QQueue>
 
 class RecognitionConfiguration;
 
@@ -59,36 +60,14 @@ public:
 
   bool initializeRecognition(const QString& modelPath);
 
-  bool startRecognition();
-  bool stop();
-  bool suspend();
-  bool isInitialized() { return m_initialized; }
-  
-  void recognize(const QString& fileName);
-
   ~JuliusControl();
 
 protected:
-  void run();
-  void uninitialize();
+
+  RecognitionConfiguration* setupConfig();
+  void emitError(const QString& error);
 
 private:
-  QMutex queueLock;
-  QQueue<QString> toRecognize;
-  JuliusRecognizer *recog;
-  
-  bool stopping;
-  bool m_initialized;
-  bool shouldBeRunning;
-
-  QString currentFileName;
-
-  QByteArray getBuildLog();
-  void emitError(const QString& error);
-  bool stopPrivate();
-  bool startRecognitionPrivate();
-  
-  RecognitionConfiguration* setupConfig();
 
 };
 #endif

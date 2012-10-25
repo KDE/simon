@@ -29,7 +29,6 @@
 class ThreadedSSLSocket;
 class QTimer;
 class QProcess;
-class ModelManagerUiProxy;
 class Operation;
 
 const qint8 protocolVersion=5;
@@ -106,6 +105,15 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     
     void send(qint32 requestId, const QByteArray& data, bool includeLength=true);
 
+    bool storeBaseModel(const QDateTime& changedTime, int baseModelType,
+      const QByteArray& container);
+    bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
+      const QByteArray& languageProfile=QByteArray());
+    bool storeTraining(const QDateTime& changedTime, qint32 sampleRate,
+      const QByteArray& prompts);
+    bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container);
+    bool storeSample(const QString& name, const QByteArray& sample);
+
   signals:
     void connected();
     void disconnected();
@@ -160,32 +168,22 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     void timeoutReached();
     void messageReceived();
     bool sendActiveModel();
-    void sendActiveModelModifiedDate();
     void sendActiveModelSampleRate();
 
     void sendScenariosToDelete();
 
-    void sendBaseModelDate();
     bool sendBaseModel();
 
-    void sendScenarioList();
-
-    void sendSelectedScenarioListModifiedDate();
     void sendSelectedScenarioList();
 
-    void requestMissingScenario();
-
-    void sendScenarioModifiedDate(QString scenarioId);
     void sendScenario(QString scenarioId);
 
     void sendDeactivatedScenarioList();
     void sendDeactivatedSampleGroups();
     void sendDeactivatedSampleGroups(const QStringList& sampleGroups);
 
-    void sendLanguageDescriptionModifiedDate();
     void sendLanguageDescription();
 
-    void sendTrainingModifiedDate();
     void sendTraining();
 
     void sendSample(QString sampleName);
@@ -196,9 +194,6 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
 
     void synchronisationComplete();
     void synchronisationDone();
-
-    void synchronizeSamples();
-    void fetchMissingSamples();
 
     void abortModelCompilation();
 

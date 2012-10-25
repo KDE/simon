@@ -1,14 +1,12 @@
 add_subdirectory(AI)
 
-find_package (KdepimLibs 4.5.60)
-find_package (ATSPI)
 if (KDEPIMLIBS_FOUND)
-add_subdirectory(Akonadi)
+    add_subdirectory(Akonadi)
 endif (KDEPIMLIBS_FOUND)
 
-if(ATSPI_FOUND)
+if(QAccessibilityClient_FOUND)
   add_subdirectory(ATSPI)
-endif(ATSPI_FOUND)
+endif(QAccessibilityClient_FOUND)
 
 add_subdirectory(Calculator)
 add_subdirectory(Composite)

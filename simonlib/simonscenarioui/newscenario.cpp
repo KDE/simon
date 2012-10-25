@@ -18,7 +18,7 @@
 
 #include "newscenario.h"
 #include "newauthor.h"
-#include "../../version.h"
+#include "version.h"
 
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/author.h>

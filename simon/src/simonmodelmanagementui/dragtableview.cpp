@@ -21,7 +21,6 @@
 #include <QApplication>
 #include <KLocalizedString>
 #include <simoninfo/simoninfo.h>
-#include <simonscenarios/word.h>
 
 /**
  * @brief Constructor
@@ -95,21 +94,17 @@ void DragTableView::mouseMoveEvent(QMouseEvent *event)
  *
  * @author Peter Grasch, Phillip Goriup
  */
-void DragTableView::startDrag(Qt::DropActions)
+void DragTableView::startDrag(Qt::DropActions actions)
 {
   QDrag *drag = new QDrag ( this );
   QMimeData *mimeData = new QMimeData();
 
-  Word *w = (Word*) currentIndex().internalPointer();
-
-  if (!w) return;
-
-  mimeData->setText( w->getWord() );
+  mimeData->setData( "application/x-simon-word", QByteArray() );
   drag->setMimeData(mimeData);
 
   SimonInfo::showMessage( i18n("Drag the Word to the List on the right to train it") , 2000 ); // krazy:exclude=qmethods
 
-  drag->start(Qt::MoveAction);
+  drag->exec(actions);
 }
 
 

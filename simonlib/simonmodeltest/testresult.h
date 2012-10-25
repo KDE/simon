@@ -34,11 +34,16 @@ class MODELTEST_EXPORT TestResult
   private:
     QList<TestResultInstance*> m_children;
     QString m_label; //expected result
+    int m_wordCount;
+
+    static void advanceToNextValidResultAfterSkipping(int lastGood, int skippedCount, QStringList& labels, QList<TestResultLeaf*>& children);
 
   public:
     TestResult(const QString& label);
     bool registerChild(TestResultLeaf* child);
     bool registerChildren(const QList<TestResultLeaf*>& children);
+
+    static void parseChildren(const QString& label, QList<TestResultLeaf*>& children);
 
     float accuracy() const;
     float confidence() const;
@@ -59,7 +64,7 @@ class MODELTEST_EXPORT TestResult
     ~TestResult();
 };
 
-Q_DECLARE_METATYPE(TestResult*);
+Q_DECLARE_METATYPE(TestResult*)
 
 #endif
 

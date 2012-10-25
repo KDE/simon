@@ -35,9 +35,6 @@ class SynchronisationManager : public QObject
 
     private:
     QString username;
-    QStringList missingFiles;
-    QStringList missingScenarios;
-    QStringList commonScenarios;
     QString srcContainerTempPath;
     bool removeAllFiles(const QString& dir);
     bool removeDirectory(const QString& dir);
@@ -90,15 +87,10 @@ class SynchronisationManager : public QObject
     TrainingContainer* getTraining();
     bool storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& prompts);
 
-    void buildMissingScenarios(const QStringList& remoteScenarioList);
     QByteArray getScenario(const QString& scenarioId);
-    bool storeScenario(const QByteArray& scenario);
+    bool storeScenario(const QString& id, const QByteArray& scenario);
     QDateTime localScenarioDate(const QString& scenarioId);
     QDateTime scenarioDate(const QString& path);
-    QString missingScenario();
-    QString commonScenario();
-    void couldntRetreiveScenario();
-    void scenarioUpToDate();
 
     void deletedScenarios(const QStringList& ids, const QList<QDateTime>& scenarioTimes);
 
@@ -107,10 +99,9 @@ class SynchronisationManager : public QObject
     QDateTime getSelectedScenarioListModifiedDateFromPath(const QString& path);
     bool storeSelectedScenarioList(const QDateTime& modifiedDate, const QStringList& scenarioIds);
 
-    void buildMissingSamples();
+    QStringList getAvailableSamples();
     QByteArray getSample(const QString& sampleName);
-    QString missingSample();
-    bool storeSample(const QByteArray& sample);
+    bool storeSample(const QString& name, const QByteArray& sample);
 
     QStringList getScenarioPaths();
     QString getPromptsPath();
@@ -128,7 +119,6 @@ class SynchronisationManager : public QObject
     bool copyScenarios(const QString& source, const QString& dest, bool touchAccessTime=false);
     bool switchToModel(const QDateTime& modelDate);
 
-    void scenarioSynchronized();
     QStringList getAllScenarioIds();
 
     QStringList getLatestSelectedScenarioList();

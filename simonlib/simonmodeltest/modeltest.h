@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,11 +21,12 @@
 #ifndef SIMON_MODELTEST_H_D0E9CBE71B3343D39663FF655B61ED20
 #define SIMON_MODELTEST_H_D0E9CBE71B3343D39663FF655B61ED20
 
+#include <simonrecognitionresult/recognitionresult.h>
+#include <simonrecognizer/recognitionconfiguration.h>
+#include "simonmodeltest_export.h"
 #include <QThread>
 #include <QProcess>
 #include <QHash>
-#include <simonrecognitionresult/recognitionresult.h>
-#include "simonmodeltest_export.h"
 
 class RecognizerResult;
 class TestResult;
@@ -36,119 +38,114 @@ class Recognizer;
 class MODELTEST_EXPORT ModelTest : public QThread
 {
   Q_OBJECT
-  signals:
-    void status(const QString&, int progressNow, int progressTotal=100);
-    void error(const QString&, const QByteArray& log);
-    void recognitionInfo(const QString&);
+signals:
+  void status(const QString&, int progressNow, int progressTotal=100);
+  void error(const QString&, const QByteArray& log);
+  void recognitionInfo(const QString&);
 
-    void testComplete();
-    void testAborted();
+  void testComplete();
+  void testAborted();
 
-  private slots:
-    void addStatusToLog(const QString&);
-    void addRecognitionInfoToLog(const QString&);
+protected slots:
+  void addStatusToLog(const QString&);
+  void addRecognitionInfoToLog(const QString&);
 
-  public:
-    explicit ModelTest(const QString& userName, QObject *parent=0);
+public:
+  explicit ModelTest(const QString& userName, QObject *parent=0);
 
-    void run();
-    void abort();
+  void run();
+  void abort();
 
-    bool startTest(const QString& hmmDefsPath, const QString& tiedListPath,
-      const QString& dictPath, const QString& dfaPath,
-      const QString& samplePath, const QString& promptsPath,
-      int sampleRate, const QString& juliusJConf);
+  //    bool startTest(const QString& hmmDefsPath, const QString& tiedListPath,
+  //      const QString& dictPath, const QString& dfaPath,const QString& juliusJConf
 
-    bool hasLog();
-    QString getGraphicLog();
-    QString getLog();
+  virtual bool startTest(const QString& samplePath, const QString& promptsPath,
+                      int sampleRate, const QHash<QString, QString> params) = 0;
 
-    void recognized(const QString& file, RecognitionResultList);
-    void searchFailed(const QString& file);
+  bool hasLog();
+  QString getGraphicLog();
+  QString getLog();
 
-    FileResultModel* recognizerResultsModel();
-    TestResultModel* wordResultsModel();
-    TestResultModel* sentenceResultsModel();
+  void recognized(const QString& file, RecognitionResultList);
+  void searchFailed(const QString& file);
 
-    RecognizerResult* getRecognizerResult(const QString& fileName) {
-      return recognizerResults.value(fileName);
-    }
+  FileResultModel* recognizerResultsModel();
+  TestResultModel* wordResultsModel();
+  TestResultModel* sentenceResultsModel();
 
-    QString getOriginalFilePath(const QString& fileName) {
-      return recodedSamples.value(fileName);
-    }
+  RecognizerResult* getRecognizerResult(const QString& fileName) {
+    return recognizerResults.value(fileName);
+  }
 
-    float getOverallConfidence();
-    float getOverallAccuracy();
-    float getOverallWER();
+  float getOverallConfidence();
+  float getOverallAccuracy();
+  float getOverallWER();
 
-    int getSubstitutionErrors();
-    int getCorrect();
-    int getInsertionErrors();
-    int getDeletionErrors();
-    int getSentenceCount();
+  int getSubstitutionErrors();
+  int getCorrect();
+  int getInsertionErrors();
+  int getDeletionErrors();
+  int getSentenceCount();
 
-    void deleteAllResults();
+  void deleteAllResults();
 
-    int getTotalSampleCount();
+  int getTotalSampleCount();
 
-    ~ModelTest();
+  virtual ~ModelTest();
 
-  private:
-    bool keepGoing;
-    
-    QString buildLog;
-    QString lastOutput;
+protected:
+  bool keepGoing;
 
-    QString userName;
-    QString samplePath;
-    QString tempDir;
-    QString promptsPath;
+  QString buildLog;
+  QString lastOutput;
 
-    int sampleRate;
-    QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
-    QString juliusJConf;
+  QString userName;
+  QString samplePath;
+  QString tempDir;
+  QString promptsPath;
 
-    //config options
-    QString sox;
-    
-    Recognizer *recog;
+  int sampleRate;
 
-    QHash<QString, QString> promptsTable;
 
-    QList<TestResultLeaf*> resultLeafes;
-    QHash<QString /*filename*/, RecognizerResult*> recognizerResults;
-    QList<TestResult*> wordResults;
-    QList<TestResult*> sentenceResults;
+  //config options
+  QString sox;
 
-    FileResultModel *m_recognizerResultsModel;
-    TestResultModel *m_wordResultsModel;
-    TestResultModel *m_sentenceResultsModel;
+  Recognizer *recog;
+  RecognitionConfiguration *config; //initialization in startTest
 
-    QHash<QString, QString> recodedSamples;
+  QHash<QString, QString> promptsTable;
 
-    TestResult* getResult(QList<TestResult*>& list, const QString& prompt);
+  QList<TestResultLeaf*> resultLeafes;
+  QHash<QString /*filename*/, RecognizerResult*> recognizerResults;
+  QList<TestResult*> wordResults;
+  QList<TestResult*> sentenceResults;
 
-    bool createDirs();
+  FileResultModel *m_recognizerResultsModel;
+  TestResultModel *m_wordResultsModel;
+  TestResultModel *m_sentenceResultsModel;
 
-    bool execute(const QString& command, const QString& outputFilePath=QString(),
-      const QString& errorFilePath=QString());
+  TestResult* getResult(QList<TestResult*>& list, const QString& prompt);
 
-    bool parseConfiguration();
+  bool createDirs();
 
-    bool recodeAudio(QStringList& fileNames);
-    bool generateMLF();
-    bool recognize(const QStringList& fileNames);
-    bool analyzeResults();
-    void emitError(const QString& message);
+  bool execute(const QString& command, const QString& outputFilePath=QString(),
+               const QString& errorFilePath=QString());
 
-    int aggregateLeafDetail(
-        bool (TestResultLeaf::*function)(void)const) const;
+  bool parseConfiguration();
 
-    template<typename T>
-    T aggregateLeafDetail(
-        T (TestResultLeaf::*function)(void)const,
-        bool onlyCorrect, bool average) const;
+  bool recodeAudio(QStringList& fileNames);
+  bool prepareTestSet(QStringList& samples);
+  bool recognize(const QStringList& fileNames, RecognitionConfiguration *cfg);
+  bool analyzeResults();
+  void emitError(const QString& message);
+
+  int aggregateLeafDetail(
+      bool (TestResultLeaf::*function)(void)const) const;
+
+  template<typename T>
+  T aggregateLeafDetail(
+      T (TestResultLeaf::*function)(void)const,
+      bool onlyCorrect, bool average) const;
 
 
 };

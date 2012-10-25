@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,14 +19,26 @@
  */
 
 #include "modelcompilationmanager.h"
+
 #include <KStandardDirs>
 #include <KDebug>
 #include <QFile>
+#include <QString>
+#include <stdexcept>
 
 ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObject* parent ) : 
-    QThread ( parent ), userName(userName), compiler(0), adapter(0)
+    QThread ( parent ), keepGoing(false), userName(userName), compiler(0), adapter(0)
 {
+//  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SIGNAL(phonemeUndefined(QString)));
 }
+
+ModelCompilationManager::~ModelCompilationManager()
+{
+  abort();
+  delete adapter;
+  delete compiler;
+}
+
 
 QString ModelCompilationManager::cachedModelPath ( uint fingerprint, bool* exists )
 {
@@ -49,14 +62,12 @@ void ModelCompilationManager::startModelCompilation ( int baseModelType, const Q
 
 void ModelCompilationManager::abort()
 {  
+  if (!keepGoing) return;
   keepGoing = false;
   
-  kDebug() << "Aborting adapter";
   if (adapter) adapter->abort();
-  kDebug() << "Aborting compiler";
   if (compiler) compiler->abort();
-  
-  kDebug() << "Waiting to finish";
+
   if (!wait(3000)) {
     terminate();
     wait();
@@ -88,6 +99,54 @@ int ModelCompilationManager::sampleCount() const
 {
   return adapter->sampleCount();
 }
+
+uint ModelCompilationManager::getFingerPrint(QString dir, QStringList files, ModelCompiler::CompilationType compilationType)
+{
+  uint fingerprint(0);
+  foreach (const QString& component, files)
+  {
+    QString file = dir + component;
+    qDebug() << "Analyzing file: " << file;
+    QFile f(file);
+    if (!f.open(QIODevice::ReadOnly))
+    {
+      kDebug() << "Error building fingerprint";
+      kDebug() << dir <<"\n"<<component;
+//      emit modelCompilationAborted();
+      //WARNING:&
+//      throw std::runtime_error(qPrintable("Error building fingerprint. Can't open file " + file));
+      abort();
+    }
+    fingerprint ^= qHash(f.readAll());
+  }
+
+  return fingerprint ^= compilationType;
+}
+
+ModelCompiler::CompilationType ModelCompilationManager::getCompilationType(int baseModelType)
+{
+  ModelCompiler::CompilationType compilationType;
+
+  switch (baseModelType)
+  {
+    case 0:
+      //static model
+      compilationType = (ModelCompiler::CompileLanguageModel);
+      break;
+    case 1:
+      //adapted base model
+      compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::AdaptSpeechModel);
+      break;
+
+    default:
+      //dynamic model
+      compilationType = (ModelCompiler::CompilationType) (ModelCompiler::CompileLanguageModel|ModelCompiler::CompileSpeechModel);
+      break;
+  }
+
+  return compilationType;
+}
+
 int ModelCompilationManager::wordCount() const
 {
   return adapter->wordCount();

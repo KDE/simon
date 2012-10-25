@@ -63,7 +63,7 @@ void DropListView::dragEnterEvent(QDragEnterEvent *event)
  */
 void DropListView::dragMoveEvent(QDragMoveEvent *event)
 {
-  if (event->mimeData()->hasFormat("text/plain"))
+  if (event->mimeData()->hasFormat("application/x-simon"))
     event->accept();
 }
 
@@ -78,9 +78,9 @@ void DropListView::dragMoveEvent(QDragMoveEvent *event)
  * @param QDropEvent *event
  * The event->mimeData contains the Dragged data
  */
-void DropListView::dropEvent(QDropEvent *event)
+void DropListView::dropEvent(QDropEvent *)
 {
-  emit droppedText( event->mimeData()->text() );
+  emit droppedText();
 }
 
 

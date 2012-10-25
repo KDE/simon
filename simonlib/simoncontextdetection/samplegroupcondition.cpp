@@ -207,11 +207,9 @@ void SampleGroupCondition::updateCondition ( int row, Condition* edit )
 
 bool SampleGroupCondition::changeSampleGroup(int row, QString sampleGroup)
 {
-    kDebug() << "Changing sample group to: " << sampleGroup;
     if (row >= m_sampleGroupConditions.count())
         return false;
     
-    kDebug() << "Changing sample group to: " << sampleGroup;
     m_sampleGroupConditions[row].second = sampleGroup;
     
     emit dataChanged(index(row, 1), index(row, 1));
@@ -222,8 +220,6 @@ bool SampleGroupCondition::changeSampleGroup(int row, QString sampleGroup)
 
 void SampleGroupCondition::checkAcousticContext()
 {
-    kDebug() << "Evaluating Acoustic Model Context...";
-
     QStringList deactivatedList;
     for (int i=0; i<m_sampleGroupConditions.count(); i++)
     {
@@ -248,8 +244,6 @@ void SampleGroupCondition::saveSampleGroupContext()
     QDomDocument doc;
     QDomElement root = doc.createElement("samplegroupcontextroot");
 
-    kDebug() << "Saving sample group context";
-
     foreach (ConditionPair i, m_sampleGroupConditions)
     {
         QDomElement sampleGroupContext = doc.createElement("samplegroupcontext");
@@ -273,7 +267,6 @@ void SampleGroupCondition::saveSampleGroupContext()
 
 void SampleGroupCondition::loadSampleGroupContext()
 {
-    kDebug() << "loading sample group context";
     QString contextDir = KStandardDirs::locateLocal("appdata", "context/");
     QFile sampleGroupContextFile(contextDir + "sampleGroupContext");
 
@@ -302,6 +295,5 @@ void SampleGroupCondition::loadSampleGroupContext()
 
         sampleGroupContext = sampleGroupContext.nextSiblingElement("samplegroupcontext");
     }
-    kDebug() << "finished loading sample group context";
     checkAcousticContext();
 }

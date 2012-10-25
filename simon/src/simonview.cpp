@@ -46,8 +46,6 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/actioncollection.h>
 
-#include <simonsound/soundserver.h>
-
 #include <QTimer>
 #include <QFile>
 #include <QPixmap>
@@ -164,7 +162,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   runDialog = new RunCommandView(this);
   connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
   ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
-  kDebug() << "SoundServer: " << SoundServer::getInstance();
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading interface..." ) );
@@ -252,7 +249,6 @@ void SimonView::setupActions()
     control, SLOT(disconnectFromServer()));
 
   KToolBarPopupAction* connectActivate = new KToolBarPopupAction(KIcon("network-disconnect"), i18n("Connect"), this);
-  kDebug() << "Real action: " << connectActivate;
   connectActivate->setCheckable(true);
   connectActivate->setShortcut(Qt::CTRL + Qt::Key_C);
 
@@ -299,8 +295,6 @@ void SimonView::backToOverview()
 
 void SimonView::displayScenarioPrivate(Scenario *scenario)
 {
-  kDebug() << "displayScenario: " << scenario->id();
-  
   updateActionList();
 }
 

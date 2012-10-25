@@ -25,6 +25,7 @@
 #include <QDateTime>
 #include <QStringList>
 
+class KTar;
 class Model;
 class WordListContainer;
 class GrammarContainer;
@@ -35,49 +36,57 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 {
   Q_OBJECT
 
-    signals:
-  void modelChanged();
+  signals:
+    void modelChanged();
 
   private:
+    static ModelManager *instance;
+
     bool inGroup;
     bool modelChangedFlag;
 
-    QStringList missingFiles;
+    QStringList blacklistedTranscriptions;
+
     bool hasTraining();
     bool hasLanguageDescription();
     bool hasActiveContainer();
+
+    bool updateBlacklistedTranscriptions(KTar& tar);
 
   public slots:
     void modelHasChanged();
 
   public:
+    static ModelManager* getInstance();
+
     ModelManager(QObject *parent=0);
     void startGroup();
     void commitGroup(bool silent=false);
 
     Model* createBaseModelContainer();
     QDateTime getBaseModelDate();
-    virtual bool storeBaseModel(const QDateTime& changedTime, int baseModelType,
+    bool storeBaseModel(const QDateTime& changedTime, int baseModelType,
       const QByteArray& container);
 
     LanguageDescriptionContainer* getLanguageDescriptionContainer();
     QDateTime getLanguageDescriptionModifiedTime();
     void touchLanguageDescription();
-    virtual bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, const QByteArray& languageProfile);
+    bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, const QByteArray& languageProfile);
 
     TrainingContainer* getTrainingContainer();
     QDateTime getTrainingModifiedTime();
-    virtual bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& prompts);
+    bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& prompts);
 
     Model* createActiveContainer();
     qint32 getActiveModelSampleRate();
     QDateTime getActiveContainerModifiedTime();
-    virtual bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container);
+    bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container);
 
-    void buildMissingSamplesList();
+    void buildSampleList(QStringList& available, QStringList& missing);
     QByteArray getSample(const QString& sampleName);
-    QString missingSample();
-    virtual bool storeSample(const QByteArray& sample);
+    bool storeSample(const QString& name, const QByteArray& sample);
+
+    bool isTranscriptionBlackListed(const QString& transcription);
 
     virtual ~ModelManager() {}
 

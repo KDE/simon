@@ -1,1 +1,1 @@
-add_subdirectory( templates )
+add_subdirectory(templates)

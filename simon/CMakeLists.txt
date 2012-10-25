@@ -1,10 +1,4 @@
 project (simon)
-include(FindKDE4)
-
-
-
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-include(KDE4Defaults)
 
 add_subdirectory(src)
 add_subdirectory(icons)

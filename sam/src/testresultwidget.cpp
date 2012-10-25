@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *  Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2,
@@ -18,9 +19,11 @@
  */
 
 #include "testresultwidget.h"
-#include "testconfigurationwidget.h"
+#include "sphinxtestconfigurationwidget.h"
+#include "juliustestconfigurationwidget.h"
 #include "corpusinformation.h"
-#include <simonmodeltest/modeltest.h>
+#include <simonmodeltest/juliusmodeltest.h>
+#include <simonmodeltest/sphinxmodeltest.h>
 #include <simonmodeltest/fileresultmodel.h>
 #include <simonmodeltest/testresultmodel.h>
 #include <simonmodeltest/recognizerresult.h>
@@ -28,7 +31,9 @@
 #include <QSortFilterProxyModel>
 #include <KStandardDirs>
 #include <KMessageBox>
-
+#include <QFile>
+#include <QDir>
+#include <typeinfo>
 
 TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidget *parent) : QWidget(parent),
   currentState(TestResultWidget::Idle),
@@ -39,7 +44,19 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
 
   connect(config, SIGNAL(destroyed()), this, SLOT(deleteLater()));
 
-  modelTest = new ModelTest("internalsamuser_"+config->tag(), this);
+  if(typeid(*config) == typeid(SphinxTestConfigurationWidget))
+  {
+    modelTest = new SphinxModelTest("internalsamuser_"+config->tag(), this);
+    #ifdef BACKEND_TYPE_JHTK
+    // this could happen when starting a test, loaded from a configuration set up on a computer that did support sphinx
+    emit testAborted();
+    slotModelTestError("Sam compiled without SPHINX support", QByteArray());
+    #endif
+  }
+  else if(typeid(*config) == typeid(JuliusTestConfigurationWidget)) {
+    modelTest = new JuliusModelTest("internalsamuser_"+config->tag(), this);
+  }
+
   connect(modelTest, SIGNAL(testComplete()), this, SLOT(slotModelTestCompleted()));
   connect(modelTest, SIGNAL(testAborted()), this, SLOT(slotModelTestAborted()));
   connect(modelTest, SIGNAL(status(QString,int,int)), this, SLOT(slotModelTestStatus(QString,int,int)));
@@ -69,7 +86,7 @@ TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidg
 
 void TestResultWidget::slotModelTestAborted()
 {
-  currentState = TestResultWidget::Done;
+  currentState = TestResultWidget::Aborted;
   retrieveCompleteTestLog();
   emit testAborted();
 }
@@ -86,16 +103,30 @@ void TestResultWidget::slotModelTestCompleted()
 void TestResultWidget::startTest()
 {
   currentState = TestResultWidget::Running;
-  modelTest->startTest(
-    config->hmmDefs().toLocalFile(),
-    config->tiedlist().toLocalFile(),
-    config->dict().toLocalFile(),
-    config->dfa().toLocalFile(),
-    config->testPromptsBasePath().toLocalFile(),
-    config->testPrompts().toLocalFile(),
-    config->sampleRate(),
-    config->jconf().toLocalFile()
-    );
+
+  QHash<QString, QString> testParams;
+
+  if(typeid(*config) == typeid(SphinxTestConfigurationWidget))
+  {
+    SphinxTestConfigurationWidget *sconfig = dynamic_cast<SphinxTestConfigurationWidget*>(config);
+    testParams.insert("modelDir", sconfig->sphinxModelDir().toLocalFile());
+    testParams.insert("grammar", sconfig->sphinxGrammar().toLocalFile());
+    testParams.insert("dictionary", sconfig->sphinxDictionary().toLocalFile());
+  }
+  else if(typeid(*config) == typeid(JuliusTestConfigurationWidget))
+  {
+    JuliusTestConfigurationWidget *jconfig = dynamic_cast<JuliusTestConfigurationWidget*>(config);
+    testParams.insert("hmmDefsPath", jconfig->hmmDefs().toLocalFile());
+    testParams.insert("tiedListPath", jconfig->tiedlist().toLocalFile());
+    testParams.insert("dictPath", jconfig->dict().toLocalFile());
+    testParams.insert("dfaPath", jconfig->dfa().toLocalFile());
+    testParams.insert("juliusJConf", jconfig->jconf().toLocalFile());
+  }
+
+  modelTest->startTest(config->testPromptsBasePath().toLocalFile(),
+                       config->testPrompts().toLocalFile(),
+                       config->sampleRate(), testParams);
+
   emit testStarted();
 }
 
@@ -110,15 +141,14 @@ void TestResultWidget::slotEditSelectedSample()
 
   if (!t) return;
 
-  QString originalFileName = modelTest->getOriginalFilePath(fileName);
   //copy to temp
-  QString justFileName = originalFileName.mid(originalFileName.lastIndexOf(QDir::separator())+1);
+  QString justFileName = fileName.mid(fileName.lastIndexOf(QDir::separator())+1);
   QString tempFileName = KStandardDirs::locateLocal("tmp",
     "sam/internalsamuser/edit/"+justFileName);
 
   //if file could not be copied this is not a reason to display an error or to abort
   //because we could have already deleted the file
-  QFile::copy(originalFileName, tempFileName);
+  QFile::copy(fileName, tempFileName);
 
   QPointer<KDialog> d = new KDialog(0);
   RecWidget *rec = new RecWidget(i18n("Modify sample"),
@@ -148,13 +178,13 @@ void TestResultWidget::slotEditSelectedSample()
           KMessageBox::error(this, i18n("Could not overwrite prompts file"));
         }
 
-        if (!QFile::remove(originalFileName)) {
-          KMessageBox::error(this, i18nc("%1 is file name", "Could not remove original sample:  %1.", originalFileName));
+        if (!QFile::remove(fileName)) {
+          KMessageBox::error(this, i18nc("%1 is file name", "Could not remove original sample:  %1.", fileName));
         }
       }
     }
     else {
-      if (!QFile::exists(originalFileName)) {
+      if (!QFile::exists(fileName)) {
         //we have to re-add this to the prompts
         QFile prompts(config->testPrompts().toLocalFile());
         if (!prompts.open(QIODevice::WriteOnly|QIODevice::Append)) {
@@ -164,14 +194,14 @@ void TestResultWidget::slotEditSelectedSample()
           prompts.write(QString("%1 %2").arg(justFileName).arg(t->getPrompt()).toUtf8());
         }
       }
-      else if (!QFile::remove(originalFileName)) {
-        KMessageBox::error(this, i18nc("%1 is file name", "Could not remove original sample:  %1.", originalFileName));
+      else if (!QFile::remove(fileName)) {
+        KMessageBox::error(this, i18nc("%1 is file name", "Could not remove original sample:  %1.", fileName));
       }
 
       //copy sample back
-      if (!QFile::copy(tempFileName, originalFileName)) {
+      if (!QFile::copy(tempFileName, fileName)) {
         KMessageBox::error(this, i18nc("%1 is source file name, %2 is destination file name", "Could not copy sample from temporary path %1 to %2.",
-          tempFileName, originalFileName));
+          tempFileName, fileName));
       }
     }
   }
@@ -226,7 +256,7 @@ void TestResultWidget::slotModelTestRecognitionInfo(const QString& status)
 
 void TestResultWidget::slotModelTestError(const QString& error, const QByteArray& protocol)
 {
-  retrieveCompleteTestLog();
+  slotModelTestAborted();
   KMessageBox::detailedSorry(0, error, protocol);
 }
 

@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *  Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2,
@@ -17,16 +18,15 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_TESTCONFIGURATIONwIDGET_H_4002119636CC42C68FE07273F9000A73
-#define SIMON_TESTCONFIGURATIONwIDGET_H_4002119636CC42C68FE07273F9000A73
+#ifndef SIMON_TESTCONFIGURATIONWIDGET_H_4002119636CC42C68FE07273F9000A73
+#define SIMON_TESTCONFIGURATIONWIDGET_H_4002119636CC42C68FE07273F9000A73
 
-#include "ui_testconfiguration.h"
+#include "corpusinformation.h"
 #include <QFrame>
 #include <QDomElement>
+#include <KUrl>
 
 class QDomDocument;
-
-class CorpusInformation;
 
 class TestConfigurationWidget : public QFrame
 {
@@ -37,38 +37,54 @@ class TestConfigurationWidget : public QFrame
     void changed();
 
   private:
-    CorpusInformation* m_corpusInfo;
-    Ui::TestConfigurationWdg ui;
-    void setupUi();
+
   private slots:
     void remove();
     void updateTag(const QString&);
 
+  protected:
+    CorpusInformation* m_corpusInfo;
+    int m_sampRate;
+    KUrl m_testPrompts;
+    KUrl m_testPromptsBasePath;
+
+    virtual void setupUi() = 0;
+    void updateGeneralParams(const KUrl& testPromptsUrl,
+                             const KUrl& testPromptsBasePathUrl, int sampleRate);
+
   public slots:
-    void retrieveTag();
+//    void retrieveTag();
 
   public:
+    enum BackendType {
+      SPHINX=0,
+      JHTK=1
+    };
+
     TestConfigurationWidget(QWidget *parent=0);
     TestConfigurationWidget(CorpusInformation* corpusInfo,
-        const KUrl& outputUrl,
-        const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
-        const KUrl& jconfUrl, int sampleRate, QWidget *parent=0);
+        int sampleRate, QWidget *parent=0);
 
-    ~TestConfigurationWidget();
+    static BackendType intToBackendType(int type);
+    static BackendType stringToBackendType(const QString &typr);
 
-    QString tag() const;
+    static TestConfigurationWidget *deSerialize(const QDomElement& elem);
+
+    virtual ~TestConfigurationWidget();
+
+    virtual BackendType getBackendType() const = 0;
+    virtual void init(const QHash<QString, QString>&) = 0;
+
+    QString tag() const { return m_corpusInfo->tag(); }
     CorpusInformation* corpusInformation() { return m_corpusInfo; }
-    KUrl hmmDefs() const;
-    KUrl tiedlist() const;
-    KUrl dict() const;
-    KUrl dfa() const;
-    KUrl testPrompts() const;
-    KUrl testPromptsBasePath() const;
-    KUrl jconf() const;
-    int sampleRate() const;
-    
-    static TestConfigurationWidget* deSerialize(const QDomElement& elem);
-    QDomElement serialize(QDomDocument *doc);
+    KUrl testPrompts() const { return m_testPrompts; }
+    KUrl testPromptsBasePath() const { return m_testPromptsBasePath; }
+
+    int sampleRate() const { return m_sampRate; }
+
+    virtual QDomElement serialize(QDomDocument *doc);
+
+
 };
 #endif

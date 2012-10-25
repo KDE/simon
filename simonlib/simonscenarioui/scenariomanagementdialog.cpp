@@ -462,7 +462,7 @@ void ScenarioManagementDialog::initDisplay()
   foreach (const QString& id, scenarioIds) {
 
     Scenario *s = new Scenario(id, m_dataPrefix);
-    if (!s->init())
+    if (!s->skim())
     {
       KMessageBox::information(this, i18nc("%1 is scenario id", "Could not init scenario \"%1\"", id));
     }

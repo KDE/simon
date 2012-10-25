@@ -61,6 +61,7 @@ private slots:
     
     void updateTrainingsTexts();
     void startTraining();
+    void manageSamples();
     
     void trainingsTextSelected(const QModelIndex& index);
     

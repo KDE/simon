@@ -60,6 +60,6 @@ class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
 
 typedef QList<RecognitionResult> RecognitionResultList;
 
-Q_DECLARE_METATYPE(RecognitionResult);
-Q_DECLARE_METATYPE(RecognitionResultList);
+Q_DECLARE_METATYPE(RecognitionResult)
+Q_DECLARE_METATYPE(RecognitionResultList)
 #endif

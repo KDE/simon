@@ -1,12 +1,7 @@
-set ( simon_model_files
-		${CMAKE_CURRENT_SOURCE_DIR}/lexicon
-		${CMAKE_CURRENT_SOURCE_DIR}/model.grammar
-		${CMAKE_CURRENT_SOURCE_DIR}/model.voca
-		${CMAKE_CURRENT_SOURCE_DIR}/phonemes
-		${CMAKE_CURRENT_SOURCE_DIR}/prompts
-		${CMAKE_CURRENT_SOURCE_DIR}/shadowlexicon
-		${CMAKE_CURRENT_SOURCE_DIR}/shadow.voca
-	)
+set(simon_model_files
+  ${CMAKE_CURRENT_SOURCE_DIR}/phonemes
+  ${CMAKE_CURRENT_SOURCE_DIR}/prompts
+)
 
-install( FILES ${simon_model_files}  DESTINATION ${DATA_INSTALL_DIR}/simon/model COMPONENT simon )
-install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.xml  DESTINATION ${DATA_INSTALL_DIR}/simon COMPONENT simon )
+install(FILES ${simon_model_files} DESTINATION ${DATA_INSTALL_DIR}/simon/model COMPONENT simon)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.xml DESTINATION ${DATA_INSTALL_DIR}/simon COMPONENT simon)

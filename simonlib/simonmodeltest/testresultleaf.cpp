@@ -26,6 +26,11 @@ TestResultLeaf::TestResultLeaf(const QString& label, const QString& pronunciatio
 {
 }
 
+void TestResultLeaf::setOriginalLabel(const QString& originalLabel)
+{
+  m_originalLabel = originalLabel;
+}
+
 void TestResultLeaf::setInsertionError(bool f)
 {
   m_insertionError = f;

@@ -34,7 +34,6 @@ m_sender(s)
 {
   initializeDevices();
   connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initializeDevices()));
-  kDebug() << "SoundServer: " << SoundServer::getInstance();
 }
 
 

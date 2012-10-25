@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
+ *  Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2,
@@ -21,6 +22,8 @@
 #define SIMON_SAMVIEW_H_4002119636CC42C68FE07273F9000A73
 
 #include "samui.h"
+#include "testconfigurationwidget.h"
+
 #include <QWidget>
 #include <QProcess>
 #include <QList>
@@ -30,13 +33,17 @@
 
 #include "ui_main.h"
 
+class ModelCompiler;
+class ModelCompilationAdapter;
 class ModelCompilerHTK;
 class ModelCompilationAdapterHTK;
+class ModelCompilerSPHINX;
+class ModelCompilationAdapterSPHINX;
 class KProcess;
 class KAction;
 class ReportParameters;
 class QCloseEvent;
-class KCMultiDialog;;
+class KCMultiDialog;
 class ModelTest;
 class QSortFilterProxyModel;
 class TestConfigurationWidget;
@@ -45,6 +52,7 @@ class QwtBarsItem;
 class QwtLegend;
 class CorpusInformation;
 class QDomDocument;
+class QCloseEvent;
 
 /**
  * @short Main view
@@ -66,8 +74,8 @@ class SamView :  public KXmlGuiWindow, public SamUi
      */
     virtual ~SamView();
 
-  public slots:
-    bool close();
+  protected:
+    void closeEvent(QCloseEvent*);
 
   private slots:
     void setDirty();
@@ -78,8 +86,8 @@ class SamView :  public KXmlGuiWindow, public SamUi
     void newProject();
     void load();
     void load(const QString& filename);
-    void saveAs();
-    void save();
+    bool saveAs();
+    bool save();
 
     void updateWindowTitle();
 
@@ -133,6 +141,9 @@ class SamView :  public KXmlGuiWindow, public SamUi
     void testConfigTagChanged();
 
     void exportTestResults();
+    void backendChanged();
+
+    void extractSimonModel();
 
   private:
     /**
@@ -149,13 +160,17 @@ class SamView :  public KXmlGuiWindow, public SamUi
     CorpusInformation *m_creationCorpus;
     ReportParameters *m_reportParameters;
     Ui::MainWindow ui;
-    ModelCompilerHTK *modelCompilationManager;
-    ModelCompilationAdapterHTK *modelCompilationAdapter;
+
+    ModelCompiler *modelCompiler;
+    ModelCompilationAdapter *modelCompilationAdapter;
+
     QList<TestConfigurationWidget*> testConfigurations;
     QList<TestResultWidget*> testResults;
 
     QwtBarsItem *barGraph;
     QwtLegend *barGraphLegend;
+
+    QString m_user;
 
     QStringList findScenarios(const QStringList& ids);
     int getModelType();
@@ -164,12 +179,20 @@ class SamView :  public KXmlGuiWindow, public SamUi
     void startNextScheduledTest();
 
     void initGraph();
-    
+
     CorpusInformation* createEmptyCorpusInformation();
     ReportParameters* createEmptyReportParameters();
 
+    QHash<QString, QString> genAdaptionArgs(const QString& outputPath);
+
     QList<CorpusInformation*> creationCorpusInformation();
-    bool askIfQuit();
+
+    /**
+     * \return false, if the current action should be aborted (user selected "Cancel")
+     */
+    bool askForSave();
+
+    TestConfigurationWidget::BackendType getBackendType() const;
 };
 
 #endif

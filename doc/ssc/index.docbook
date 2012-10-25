@@ -10,7 +10,7 @@
   <!ENTITY % English "INCLUDE">
 
 ]>
-<book lang="&language;">
+<book id="ssc" lang="&language;">
 
 <bookinfo>
 

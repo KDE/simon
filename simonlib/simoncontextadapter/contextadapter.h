@@ -59,38 +59,40 @@ class ModelSource;
 
 class SIMONCONTEXTADAPTER_EXPORT ContextAdapter : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
     explicit ContextAdapter(QString username, QObject *parent=0);
+    virtual ~ContextAdapter();
 
-    enum Activity
-    {
-        NoActivity,
-        CompilingModel
-    };
+  enum Activity
+  {
+    NoActivity,
+    CompilingModel
+  };
 
     void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
     void updateDeactivatedSampleGroups(const QStringList& deactivatedSampleGroups);
 
-    void clearCache();
+  void clearCache();
 
-    void updateModelCompilationParameters(const QDateTime& modelDate, int baseModelType, const QString& baseModelPath,
-                                          const QStringList& scenarioPaths, const QString& promptsPathIn);
+  void updateModelCompilationParameters(const QDateTime& modelDate, int baseModelType, const QString& baseModelPath,
+                                        const QStringList& scenarioPaths, const QString& promptsPathIn);
 
-    //wrapper functions
-    
-    bool hasBuildLog() { return m_modelCompilationManager->hasBuildLog(); }
-    QString getGraphicBuildLog() { return m_modelCompilationManager->getGraphicBuildLog(); }
-    QString getBuildLog() { return m_modelCompilationManager->getBuildLog(); }
+  //wrapper functions
 
-    void abort();
-    
-    bool isCompiling() const;
-    
-    QString currentModelPath() const;
+  bool hasBuildLog() { return m_modelCompilationManager->hasBuildLog(); }
+  QString getGraphicBuildLog() { return m_modelCompilationManager->getGraphicBuildLog(); }
+  QString getBuildLog() { return m_modelCompilationManager->getBuildLog(); }
+
+  void abort();
+
+  bool isCompiling() const;
+
+  QString currentModelPath() const;
 
 private:
+
     QMutex m_compileLock;
     QString m_username;
     
@@ -100,6 +102,20 @@ private:
     
     Situation m_requestedSituation;
     QHash<Situation, CachedModel*> m_modelCache;
+
+    /**
+     * Because disk space is not expensive, but model compilation takes a long time,
+     * we want to cache models as much as possible.
+     *
+     * So even if there is no situation that can, with the current scenario setup,
+     * reach a given, previously compiled model, we should still keep it around for
+     * a while longer in case we get back to that situation.
+     *
+     * This list contains abandoned models identified by their fingerprint; 
+     * the most recently orphaned one is at the top.
+     */
+    QList<uint> m_orphanedCache;
+    static const int m_orphanedCacheSize = 15;
     
     void readCachedModels();
     void storeCachedModels();
@@ -117,20 +133,20 @@ private:
       
 
 private slots:
-    void slotModelReady(uint fingerprint, const QString& path);
-    void slotModelCompilationAborted( ModelCompilation::AbortionReason reason );
+  void slotModelReady(uint fingerprint, const QString& path);
+  void slotModelCompilationAborted( ModelCompilation::AbortionReason reason );
 
 signals:
-    //relaying signals
-    void newModelReady();                    /// Always emitted when a model generation / evaluation process is completed
-    void modelCompiled(const QString& path); /// only emitted, when the context-free model has changed
-    void modelCompilationAborted();
-    void status(QString mesg, int now, int max);
-    void error(QString);
-    
-    void wordUndefined(const QString&);
-    void classUndefined(const QString&);
-    void phonemeUndefined(const QString&);
+  //relaying signals
+  void newModelReady();                    /// Always emitted when a model generation / evaluation process is completed
+  void modelCompiled(const QString& path); /// only emitted, when the context-free model has changed
+  void modelCompilationAborted();
+  void status(QString mesg, int now, int max);
+  void error(QString);
+
+  void wordUndefined(const QString&);
+  void classUndefined(const QString&);
+  void phonemeUndefined(const QString&);
 };
 
 #endif // CONTEXTADAPTER_H

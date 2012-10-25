@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *  Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2,
@@ -24,8 +25,13 @@
 
 void SamXMLHelper::serializePath(QDomDocument* doc, QDomElement& parent, KUrlRequester* requester, const QString& tagName)
 {
+  serializePath(doc, parent, requester->url(), tagName);
+}
+
+void SamXMLHelper::serializePath(QDomDocument* doc, QDomElement& parent, const KUrl &url, const QString& tagName)
+{
   QDomElement elem = doc->createElement(tagName);
-  elem.appendChild(doc->createTextNode(requester->url().toLocalFile()));
+  elem.appendChild(doc->createTextNode(url.toLocalFile()));
   parent.appendChild(elem);
 }
 

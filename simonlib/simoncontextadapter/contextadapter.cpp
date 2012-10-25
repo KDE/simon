@@ -25,6 +25,7 @@
 #include <speechmodelcompilation/modelcompilation.h>
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilation/modelcompilationmanagerhtk.h>
+#include <speechmodelcompilation/modelcompilationmanagersphinx.h>
 #include <QDir>
 #include <QSettings>
 #include <KStandardDirs>
@@ -34,13 +35,27 @@
 #include <KConfigGroup>
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
-    QObject(parent),
-    m_currentSource(0)
+  QObject(parent),
+  m_currentSource(0)
 {
-  m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
-  
+  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+//    KConfig *t = config.copyTo("/tmp/conf");
+//    t->sync();
+
+  KConfigGroup backendGroup(&config, "Backend");
+  int type(-1);
+  type = backendGroup.readEntry("backend", 0);
+  //backendGroup.
+
+  if(type == 0)
+    m_modelCompilationManager = new ModelCompilationManagerSPHINX(username, this);
+  else if(type == 1)
+    m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
+  else
+    emit error("There something wrong with adapters");
+
   m_username = username;
-  
+
   connect(m_modelCompilationManager, SIGNAL(modelReady(uint, QString)), this, SLOT(slotModelReady(uint,QString)));
   connect(m_modelCompilationManager, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)), this, SLOT(slotModelCompilationAborted(ModelCompilation::AbortionReason)));
 
@@ -49,31 +64,45 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   connect(m_modelCompilationManager, SIGNAL(phonemeUndefined(QString)), this, SIGNAL(phonemeUndefined(QString)));
   connect(m_modelCompilationManager, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
   connect(m_modelCompilationManager, SIGNAL(status(QString, int, int)), this, SIGNAL(status(QString, int, int)));
-  
+
   readCachedModels();
 }
+
+ContextAdapter::~ContextAdapter()
+{
+  delete m_modelCompilationManager;
+  delete m_currentSource;
+  qDeleteAll(m_modelCache);
+}
+
 
 void ContextAdapter::readCachedModels()
 {
   qDeleteAll(m_modelCache);
   m_modelCache.clear();
-  
+
   QSettings ini(KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/models.ini"), QSettings::IniFormat);
 
   ini.beginGroup("Models");
   int size = ini.beginReadArray("Model");
   for (int i=0; i < size; i++) {
     ini.setArrayIndex(i);
-    
-    m_modelCache.insert(Situation(ini.value("DeactivatedScenarios").toStringList(), ini.value("DeactivatedSampleGroups").toStringList()), 
+
+    m_modelCache.insert(Situation(ini.value("DeactivatedScenarios").toStringList(), ini.value("DeactivatedSampleGroups").toStringList()),
                         new CachedModel(ini.value("CompiledDate").toDateTime(),
                                         (CachedModel::ModelState) ini.value("State").toInt(),
                                         (unsigned) ini.value("FingerPrint").toInt()
-                        ));
+                                        ));
+  }
+  ini.endArray();
+  size = ini.beginReadArray("OrphanedCache");
+  for (int i=0; i < size; i++) {
+    ini.setArrayIndex(i);
+    m_orphanedCache << (unsigned) ini.value("FingerPrint").toInt();
   }
   ini.endArray();
   ini.endGroup();
-  
+
   safelyAddContextFreeModelToCache();
 }
 
@@ -91,6 +120,13 @@ void ContextAdapter::storeCachedModels()
     ini.setValue("CompiledDate", j.value()->compiledDate());
     ini.setValue("State", j.value()->state());
     ini.setValue("FingerPrint", j.value()->srcFingerPrint());
+  }
+  ini.endArray();
+  ini.beginWriteArray("OrphanedCache");
+  i=0;
+  for (QList<uint>::const_iterator j = m_orphanedCache.constBegin(); j != m_orphanedCache.constEnd(); j++) {
+    ini.setArrayIndex(i++);
+    ini.setValue("FingerPrint", *j);
   }
   ini.endArray();
   ini.endGroup();
@@ -151,7 +187,7 @@ void ContextAdapter::buildCurrentSituation()
   } else
     introduceNewModel(m_requestedSituation);
   m_compileLock.unlock();
-  
+
   buildNext();
 }
 
@@ -163,12 +199,12 @@ void ContextAdapter::introduceNewModel ( const Situation& situation )
 void ContextAdapter::buildNext()
 {
   if (!m_currentSource || m_modelCompilationManager->isRunning()) return;
-             
+
   kDebug() << "Locking compile lock. Models to check: " << m_modelCache.count();
   m_compileLock.lock();
-  
+
   Q_ASSERT(m_modelCache.value(Situation())); //should be here at any time
-  
+
   if (m_modelCache.value(Situation())->state() == CachedModel::ToBeEvaluated) {
     //prioritize context free model
     adaptAndBuild(Situation(), m_modelCache.value(Situation()));
@@ -182,9 +218,9 @@ void ContextAdapter::buildNext()
         kDebug() << "Model is fine: " << j.key().id();
     }
   }
-  
+
   storeCachedModels();
-  
+
   m_compileLock.unlock();
 }
 void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* model )
@@ -194,7 +230,7 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
   QString inputPrompts = m_currentSource->promptsPath();
   QString adaptedPromptsPath = adaptPrompts(inputPrompts, situation.deactivatedSampleGroups());
   
-  kDebug() << "Starting model compilation";
+  kDebug() << "Starting model build";
   model->setState(CachedModel::Building);
   m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, adaptedPromptsPath);
 }
@@ -212,10 +248,10 @@ QStringList ContextAdapter::adaptScenarios ( const QStringList& scenarioPaths, c
 
 QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QStringList& deactivatedSampleGroups )
 {
-  kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups << promptsPath;
   QString outPath = KStandardDirs::locateLocal("tmp", 
                                             KGlobal::mainComponent().aboutData()->appName()+'/'+m_username+"/context/prompts_"+
                                             QString::number(qHash(deactivatedSampleGroups.join(";"))));
+  kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups << promptsPath << outPath;
   QFile outFile(outPath);
   QFile promptsFile(promptsPath);
   bool allEmpty = true;
@@ -238,7 +274,6 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
       }
     }
   }
-  kDebug() << "Serialized prompts to: " << outPath;
   if (allEmpty) return QString(); // no prompts left after adaption
   
   return outPath;
@@ -253,17 +288,16 @@ void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDa
   ModelSource *src = m_currentSource;
   m_currentSource = new ModelSource(modelDate, baseModelType, baseModelPath, scenarioPaths, promptsPathIn);
   delete src;
-  
+
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
     if (j.value()->compiledDate() < modelDate) {
       j.value()->setState(CachedModel::ToBeEvaluated);
-      break;
     }
   }
   safelyAddContextFreeModelToCache(); //it might have been removed when canceling the compilation e.g. because of missing prompts / grammar
   storeCachedModels();
   m_compileLock.unlock();
-  
+
   buildNext();
 }
 
@@ -275,7 +309,7 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
     if (j.value()->state() == CachedModel::Building) {
       j.value()->setState(CachedModel::Current);
-      
+
       if (j.value()->srcFingerPrint() != fingerprint) {
         kDebug() << "Model has changed";
         //delete old cached model here iff no other cached model has the old fingerprint.
@@ -287,26 +321,33 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
           }
         }
         if (isOnlyOne) {
-          bool cachedModelExists;
-          QString oldCachePath = m_modelCompilationManager->cachedModelPath(j.value()->srcFingerPrint(), &cachedModelExists);
-          if (cachedModelExists)
-            QFile::remove(oldCachePath);
+          //TODO: Maybe keep a couple of those?
+	  uint oldFingerPrint = j.value()->srcFingerPrint();
+	  m_orphanedCache.insert(0, oldFingerPrint);
+
+          //trim cache size
+	  while (m_orphanedCache.size() > m_orphanedCacheSize) {
+            bool cachedModelExists;
+            QString oldCachePath = m_modelCompilationManager->cachedModelPath(m_orphanedCache.takeLast(), &cachedModelExists);
+            if (cachedModelExists)
+              QFile::remove(oldCachePath);
+	  }
         }
-        
+
         //announce a changed model if it's the context-free model
         if (j.key().id() == "active")
           announce = true;
       } else
         kDebug() << "Model hasn't changed";
-      
+
       j.value()->setSrcFingerPrint(fingerprint);
       j.value()->setCompiledDate(m_currentSource->date());
       break;
     }
   }
-  storeCachedModels();  
+  storeCachedModels();
   m_compileLock.unlock();
-  
+
   if (announce)
     emit modelCompiled(path);
   emit newModelReady();
@@ -338,17 +379,17 @@ void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReaso
 
 QString ContextAdapter::currentModelPath() const
 {
+  kDebug() << "Requested situation: " << m_requestedSituation.deactivatedSampleGroups() << m_requestedSituation.deactivatedScenarios();
   //try to find models for:
   // 1. the currently requested situation
   // 2. if that's not available let's see if we have a general model
   foreach (const Situation& s, QList<Situation>() << m_requestedSituation << Situation()) {
     if (m_modelCache.contains(s)) { 
+      kDebug() << "Situation found: " << s.id() << (int) m_modelCache.value(s)->state();
       if (m_modelCache.value(s)->state() == CachedModel::Current)
         return m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
-      else if (m_modelCache.value(s)->state() == CachedModel::Null) {
-        kDebug() << "null model";
+      else if (m_modelCache.value(s)->state() == CachedModel::Null)
         return QString();
-      }
     }
   }
     

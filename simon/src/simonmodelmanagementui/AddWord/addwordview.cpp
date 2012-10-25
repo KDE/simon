@@ -18,12 +18,13 @@
  */
 
 #include "addwordview.h"
-#include <simonlogging/logger.h>
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
-#include <simonsound/trainsamplevolumepage.h>
 #include "addwordresolvepage.h"
-#include "../modelmanageruiproxy.h"
+
+#include <simonlogging/logger.h>
+#include <simonsound/trainsamplevolumepage.h>
+#include <simonscenarios/modelmanager.h>
 
 #include <simonsound/soundserver.h>
 #include <simonscenarios/vocabulary.h>
@@ -193,7 +194,7 @@ QWizardPage* AddWordView::createFinishedPage()
  */
 void AddWordView::commitList()
 {
-  ModelManagerUiProxy::getInstance()->startGroup();
+  ModelManager::getInstance()->startGroup();
   foreach (const PromptsTable& prompts, promptsToAdd) {
     if (!TrainingManager::getInstance()->mergePrompts(prompts))
       KMessageBox::error(this, i18n("Could not add samples to the corpus"));
@@ -218,7 +219,7 @@ void AddWordView::commitList()
     KMessageBox::sorry(this, "Could not add word(s).");
 
   listToAdd.clear();
-  ModelManagerUiProxy::getInstance()->commitGroup();
+  ModelManager::getInstance()->commitGroup();
 }
 
 

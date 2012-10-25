@@ -42,7 +42,7 @@ class DropListView : public QListView
 {
   Q_OBJECT
     signals:
-  void droppedText(QString text);
+  void droppedText();
   protected:
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);

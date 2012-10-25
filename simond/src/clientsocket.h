@@ -105,14 +105,11 @@ class ClientSocket : public QSslSocket
     void synchronisationDone();
 
     void sendScenarioList();
-    void fetchScenario();
     void requestScenario(const QString& scenarioId);
-    void sendScenario(const QString& scenarioId);
-    void sendSelectedScenarioList();
-    void synchronizeAlreadyAvailableScenarios();
+    bool sendScenario(const QString& scenarioId);
+    bool sendSelectedScenarioList();
 
-    void synchronizeSamples();
-    void fetchTrainingSample();
+    void fetchTrainingSample(const QString& name);
     void sendSample(QString sampleName);
 
     void activeModelCompiled(const QString& path);

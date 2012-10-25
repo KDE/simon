@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,13 +21,26 @@
 #ifndef SIMON_RECOGNITIONCONTROL_H_F4CB407566D6459487054C2B03311E38
 #define SIMON_RECOGNITIONCONTROL_H_F4CB407566D6459487054C2B03311E38
 
+#include <simonrecognitionresult/recognitionresult.h>
+#include "simonrecognizer/recognizer.h"
+
 #include <QObject>
 #include <QThread>
 #include <QList>
 #include <QDateTime>
 #include <QMetaType>
-#include <simonrecognitionresult/recognitionresult.h>
+#include <QMutex>
+#include <QQueue>
 
+/*!
+ * \class RecognitionControl
+ * \brief The RecognitionControl class - entity which works in separate thread. Main case - managing recognition.
+ *  Initialize recognition. Accepts request for recognize some files. Indicates on the recognition results.\
+ *
+ *  \version 0.1
+ *  \date 15.08.2012
+ *  \author Vladislav Sitalo
+ */
 class RecognitionControl : public QThread
 {
   Q_OBJECT
@@ -51,19 +65,46 @@ class RecognitionControl : public QThread
   protected:
     QString username;
     int m_startRequests;
+    bool m_initialized;
+
+    QMutex queueLock;
+    QQueue<QString> toRecognize;
+
+    bool stopping;
+
+    bool shouldBeRunning;
+
+    QString currentFileName;
+
+    virtual QByteArray getBuildLog();
+    virtual bool stopInternal();
+    virtual void uninitialize();
+    virtual bool startRecognitionInternal();
+
+    void run();
+
+    virtual RecognitionConfiguration* setupConfig()=0;
+    virtual void emitError(const QString& error)=0;
+
+    Recognizer *recog;
+
 
   public:
     explicit RecognitionControl(const QString& username, QObject *parent=0);
 
     virtual bool initializeRecognition(const QString& modelPath)=0;
-    virtual bool isInitialized()=0;
+    virtual bool isInitialized() { return m_initialized; }
     
-    virtual bool startRecognition()=0;
+    virtual bool startRecognition();
     
-    virtual bool stop()=0;
-    virtual bool suspend()=0; //stop temporarily (still reflect the intention of being active, but don't do any recognition)
+    virtual bool stop();
+    virtual bool suspend(); //stop temporarily (still reflect the intention of being active, but don't do any recognition)
 
-    virtual void recognize(const QString& fileName)=0;
+    /*!
+     * \brief Add file name to recognition queue.
+     * \param fileName File name.
+     */
+    virtual void recognize(const QString& fileName);
     
     bool recognitionRunning();
     
@@ -72,6 +113,5 @@ class RecognitionControl : public QThread
     bool isEmpty() const;
 
     ~RecognitionControl();
-
 };
 #endif

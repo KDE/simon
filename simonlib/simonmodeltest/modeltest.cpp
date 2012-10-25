@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -29,7 +30,11 @@
 #include <simonrecognizer/recognizer.h>
 #include <simonrecognizer/juliusrecognitionconfiguration.h>
 #include <simonrecognizer/juliusrecognizer.h>
-#include <simonrecognizer/juliusstaticrecognitionconfiguration.h>
+
+#ifdef BACKEND_TYPE_BOTH
+#include <simonrecognizer/sphinxrecognizer.h>
+#include <simonrecognizer/sphinxrecognitionconfiguration.h>
+#endif
 
 #include <QCoreApplication>
 #include <QDir>
@@ -51,8 +56,8 @@
 #endif
 
 ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
-userName(user_name),
-recog(new JuliusRecognizer)
+  userName(user_name),
+  config(0)
 {
   m_recognizerResultsModel = new FileResultModel(this);
   m_wordResultsModel = new TestResultModel(this);
@@ -196,36 +201,36 @@ void ModelTest::abort()
 }
 
 
-bool ModelTest::startTest(const QString& hmmDefsPath, const QString& tiedListPath,
-const QString& dictPath, const QString& dfaPath,
-const QString& samplePath, const QString& promptsPath,
-int sampleRate, const QString& juliusJConf)
-{
-  abort();
-  wait();
+//bool ModelTest::startTest(const QString& hmmDefsPath, const QString& tiedListPath,
+//const QString& dictPath, const QString& dfaPath,
+//const QString& samplePath, const QString& promptsPath,
+//int sampleRate, const QString& juliusJConf)
+//{
+//  abort();
+//  wait();
 
-  this->hmmDefsPath = hmmDefsPath;
-  this->tiedListPath = tiedListPath;
-  this->dictPath = dictPath;
-  this->dfaPath = dfaPath;
+//  this->hmmDefsPath = hmmDefsPath;
+//  this->tiedListPath = tiedListPath;
+//  this->dictPath = dictPath;
+//  this->dfaPath = dfaPath;
 
-  this->samplePath = samplePath;
+//  this->samplePath = samplePath;
 
-  this->promptsPath = promptsPath;
+//  this->promptsPath = promptsPath;
 
-  this->sampleRate = sampleRate;
-  this->juliusJConf = juliusJConf;
+//  this->sampleRate = sampleRate;
+//  this->juliusJConf = juliusJConf;
 
-  keepGoing=true;
+//  keepGoing=true;
 
-  buildLog="";
+//  buildLog="";
 
-  if (!parseConfiguration())
-    return false;
+//  if (!parseConfiguration())
+//    return false;
 
-  start();
-  return true;
-}
+//  start();
+//  return true;
+//}
 
 void ModelTest::deleteAllResults()
 {
@@ -255,97 +260,41 @@ void ModelTest::run()
   Logger::log(i18n("Testing model..."));
   emit status(i18n("Preparation"), 0,100);
   
-  QStringList audioFilesToRecognize;
-  if (!recodeAudio(audioFilesToRecognize)) return;
-  if (!generateMLF()) return;
-  if (!recognize(audioFilesToRecognize)) return;
+  QStringList audioFilesToRecognize; //FIXME: fill
+  if (!prepareTestSet(audioFilesToRecognize)) return;
+  if (!recognize(audioFilesToRecognize, config)) return;
   if (!analyzeResults()) return;
 
   emit status(i18nc("The model test has completed", "Finished"), 100, 100);
   emit testComplete();
 }
 
-
-bool ModelTest::recodeAudio(QStringList& fileNames)
-{
-  emit status(i18n("Recoding audio..."), 5, 100);
-
-  QFile promptsF(promptsPath);
-  if (!promptsF.open(QIODevice::ReadOnly)) {
-    emitError(i18nc("%1 is path to the prompts file", "Could not open prompts file for reading: %1", promptsPath));
-    return false;
-  }
-
-  QDir d;
-  while (!promptsF.atEnd() && keepGoing) {
-    QString line = QString::fromUtf8(promptsF.readLine (1024));
-    if (line.trimmed().isEmpty()) continue;
-    int splitter = line.indexOf(' ');
-    QString fileName = line.left(splitter)+".wav";
-    QString prompt = line.mid(splitter+1).trimmed();
-    QString fullPath = samplePath+QDir::separator()+fileName;
-    QString targetPath = tempDir+"samples"+QDir::separator()+fileName;
-    QString targetDirectory = targetPath.left(targetPath.lastIndexOf(QDir::separator()));
-
-    if (!d.mkpath(targetDirectory)) {
-      kDebug() << "Could not make path: " << targetDirectory;
-      continue;
-    }
-
-    execute(QString("%1 -2 -s -L %2 %3").arg(sox).arg(fullPath).arg(targetPath));
-    fileNames << targetPath;
-
-    promptsTable.insert(targetPath, prompt);
-
-    recodedSamples.insert(targetPath, fullPath);
-  }
-
-  promptsF.close();
-  return keepGoing;
-}
-
-
-bool ModelTest::generateMLF()
+bool ModelTest::prepareTestSet(QStringList& samples)
 {
   if (!keepGoing) return false;
 
-  emit status(i18n("Generating MLF..."), 10, 100);
+  emit status(i18n("Preparing test set..."), 10, 100);
 
   QFile promptsFile(promptsPath);
-  QFile mlf(tempDir+"/testref.mlf");
 
   if (!promptsFile.open(QIODevice::ReadOnly))
     return false;
-  if (!mlf.open(QIODevice::WriteOnly))
-    return false;
 
-  mlf.write("#!MLF!#\n");
   QStringList lineWords;
   QString line;
   while (!promptsFile.atEnd()) {
-    line = QString::fromUtf8(promptsFile.readLine(3000));
-    if (line.trimmed().isEmpty()) continue;
-    lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-                                                  //ditch the file-id
-    QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\"";
-    #ifdef Q_OS_WIN
-    mlf.write(labFile.toLatin1()+'\n');
-    #else
-    mlf.write(labFile.toUtf8()+'\n');
-    #endif
-    for (int i=0; i < lineWords.count(); i++)
-    #ifdef Q_OS_WIN
-      mlf.write(lineWords[i].toLatin1()+'\n');
-    #else
-    mlf.write(lineWords[i].toUtf8()+'\n');
-    #endif
-    mlf.write(".\n");
+    line = QString::fromUtf8(promptsFile.readLine(3000)).trimmed();
+    if (line.isEmpty()) continue;
+    lineWords = line.split(' ', QString::SkipEmptyParts);
+
+    QString fileName = lineWords.takeAt(0);
+
+    QString fullPath = samplePath+QDir::separator()+fileName+".wav";
+    samples << fullPath;
+    promptsTable.insert(fullPath, lineWords.join(" "));
   }
-  promptsFile.close();
-  mlf.close();
   return true;
 }
-
 
 void ModelTest::emitError(const QString& message)
 {
@@ -358,13 +307,11 @@ void ModelTest::emitError(const QString& message)
 }
 
 
-bool ModelTest::recognize(const QStringList& fileNames)
+bool ModelTest::recognize(const QStringList& fileNames, RecognitionConfiguration *cfg)
 {
   if (!keepGoing) return false;
   emit status(i18n("Recognizing..."), 35, 100);
-  
-  JuliusStaticRecognitionConfiguration *cfg = new JuliusStaticRecognitionConfiguration(juliusJConf, dfaPath, dictPath, hmmDefsPath, 
-                                                                                 tiedListPath, QString::number(sampleRate));
+
   if (!recog->init(cfg)) {
     emitError(i18nc("%1 is the detailed error message from the Julius recognizer", "Could not initialize recognition: %1.", recog->getLastError()));
     return false;
@@ -451,13 +398,15 @@ void ModelTest::recognized(const QString& fileName, RecognitionResultList result
 
     TestResult *sentenceResult = getResult(sentenceResults, prompt);
 
-    QList<TestResultLeaf*> leafs = TestResultInstance::parseResult(highestRatedResult);
-    resultLeafes << leafs;
+    QList<TestResultLeaf*> leaves = TestResultInstance::parseResult(highestRatedResult);
+    resultLeafes << leaves;
 
-    if (!sentenceResult->registerChildren(leafs))
+    TestResult::parseChildren(prompt, leaves);
+
+    if (!sentenceResult->registerChildren(leaves))
       kWarning() << "Could not process sentence result";
 
-    foreach (TestResultLeaf* leaf, leafs)
+    foreach (TestResultLeaf* leaf, leaves)
     {
       TestResult *wordResult = getResult(wordResults, leaf->originalLabel());
       if (!wordResult->registerChild(leaf))
@@ -473,6 +422,7 @@ ModelTest::~ModelTest()
   delete m_sentenceResultsModel;
   delete m_recognizerResultsModel;
   delete recog;
+  delete config;
 }
 
 //////////////////////////////

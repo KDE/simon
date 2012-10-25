@@ -19,7 +19,7 @@
 
 
 #include "welcomepage.h"
-#include <simonmodelmanagementui/modelmanageruiproxy.h>
+#include <simonmodelmanagementui/promptsview.h>
 #include <simonmodelmanagementui/TrainSamples/trainingswizard.h>
 #include <simonrecognitioncontrol/recognitioncontrol.h>
 #include "trainingtextaggregatormodel.h"
@@ -27,6 +27,7 @@
 
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/modelmanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/model.h>
 #include <simonscenarios/trainingtext.h>
@@ -65,6 +66,8 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
   connect(ui.pbEditScenario, SIGNAL(clicked(bool)), this, SIGNAL(editScenario()));
   connect(ActionManager::getInstance(), SIGNAL(processedRecognitionResult(RecognitionResult,bool)), this, SLOT(processedRecognitionResult(RecognitionResult, bool)));
   
+  connect(ui.pbManageSamples, SIGNAL(clicked()), this, SLOT(manageSamples()));
+
   displayScenarios();
   displayAcousticModelInfo();
   
@@ -73,6 +76,7 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
   ui.pbScenarioConfiguration->setIcon(KIcon("view-list-tree"));
   ui.pbEditScenario->setIcon(KIcon("document-edit"));
   ui.pbStartTraining->setIcon(KIcon("view-pim-news"));
+  ui.pbManageSamples->setIcon(KIcon("view-list-tree"));
 
   const QString stylesheet("QGroupBox { background-image: url(\"%1\"); \
                             background-repeat: no-repeat; \
@@ -105,7 +109,6 @@ void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitio
 void WelcomePage::trainingsTextSelected ( const QModelIndex& index )
 {
   TrainingText *text = static_cast<TrainingText*>(index.internalPointer());
-  kDebug() << "Selected: " << text->getName();
   QString scenarioId = text->parentScenarioId();
   for (int i = 0; i < ui.lwScenarios->count(); i++) {
     if (ui.lwScenarios->item(i)->data(Qt::UserRole) == scenarioId) {
@@ -119,7 +122,7 @@ void WelcomePage::trainingsTextSelected ( const QModelIndex& index )
 void WelcomePage::displayAcousticModelInfo()
 {
   QString description;
-  Model* baseModel = ModelManagerUiProxy::getInstance()->createBaseModelContainer();
+  Model* baseModel = ModelManager::getInstance()->createBaseModelContainer();
   if (baseModel) {
     switch (baseModel->baseModelType()) {
       case 2:
@@ -140,7 +143,7 @@ void WelcomePage::displayAcousticModelInfo()
     }
     delete baseModel;
   }
-  Model *activeModel = ModelManagerUiProxy::getInstance()->createActiveContainer();
+  Model *activeModel = ModelManager::getInstance()->createActiveContainer();
   if (activeModel) {
     if (!activeModel->container().isNull()) {
       //we have an active model
@@ -164,7 +167,6 @@ QString WelcomePage::getCurrentlySelectedScenarioId()
 
 void WelcomePage::displayScenarios()
 {
-  kDebug() << "Displaying scenarios";
   setUpdatesEnabled(false);
   ui.lwScenarios->blockSignals(true);
   
@@ -205,7 +207,6 @@ void WelcomePage::updateScenarioDisplays()
   QString currentId = getCurrentlySelectedScenarioId();
   Scenario *scenario = ScenarioManager::getInstance()->getScenario(currentId);
 
-  kDebug() << "Scenario " << scenario;
   if (!scenario) {
     KMessageBox::error(this, i18nc("%1 is scenario id", "Could not retrieve Scenario \"%1\"", currentId));
     return;
@@ -230,9 +231,10 @@ void WelcomePage::displayScenarioPrivate ( Scenario* scenario )
 void WelcomePage::updateTrainingsTexts()
 {
   QList<TrainingTextCollection*> collections;
-  foreach (Scenario *s, ScenarioManager::getInstance()->getScenarios())
+  foreach (Scenario *s, ScenarioManager::getInstance()->getScenarios()) {
+    kDebug() << "Trainings texts from: " << s;
     collections << s->texts();
-  kDebug() << "Updating trainings texts with #collections: " << collections.count();
+  }
   trainingTextModel->setCollections(collections);
 }
 
@@ -257,6 +259,13 @@ void WelcomePage::startTraining()
     wizard->exec();
 
   delete wizard;
+}
+
+void WelcomePage::manageSamples()
+{
+  QPointer<PromptsView> p(new PromptsView(this));
+  p->exec();
+  delete p;
 }
 
 void WelcomePage::showEvent(QShowEvent* event)

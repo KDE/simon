@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,10 +21,22 @@
 #ifndef SIMON_MODELCOMPILATIONMANAGER_H_18BCB183592A48D3962815FFDEA7C214
 #define SIMON_MODELCOMPILATIONMANAGER_H_18BCB183592A48D3962815FFDEA7C214
 
-#include <QThread>
+#include "simonmodelcompilationmanagement_export.h"
+
 #include <speechmodelcompilation/modelcompilationadapter.h>
 #include <speechmodelcompilation/modelcompiler.h>
-#include "simonmodelcompilationmanagement_export.h"
+
+#include <QThread>
+
+/*!
+ * \class ModelCompilationManager
+ * \brief The ModelCompilationManager class manage model creation process.
+ *        It takes data from simon, transform them, using adapter and create model, using compiler.
+ *
+ *  \version 0.1
+ *  \date 14.08.2012
+ *  \author Vladislav Sitalo
+ */
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 {
@@ -41,9 +54,17 @@ signals:
 
 public:
   explicit ModelCompilationManager ( const QString& userName, QObject* parent = 0 );
+  virtual ~ModelCompilationManager();
   
   QString cachedModelPath( uint fingerprint, bool* exists=0 );
   
+  /*!
+   * \brief startModelCompilation Function which starts model compilation process in separate thread.
+   * \param baseModelType
+   * \param baseModelPath
+   * \param scenarioPaths Scenarios list.
+   * \param promptsPathIn Path to prompts file.
+   */
   void startModelCompilation(int baseModelType, const QString& baseModelPath,
                              const QStringList& scenarioPaths, const QString& promptsPathIn);
   virtual void abort();
@@ -57,8 +78,8 @@ public:
   int sampleCount() const;
   
 protected:
-  QString userName;
   bool keepGoing;
+  QString userName;
   int baseModelType;
   QString baseModelPath;
   QStringList scenarioPaths;
@@ -67,8 +88,16 @@ protected:
   
   ModelCompiler *compiler;
   ModelCompilationAdapter *adapter;
+
+  // this is set to true when we receive note that a problem during compilation was fixed by changing the adaption
+  // parameters. On the next failed compilation, the adaption (and subsequently the compilation) will be triggered
+  // again
+  bool tryAgain;
   
   virtual void run()=0;
+
+  uint getFingerPrint(QString dir, QStringList files, ModelCompiler::CompilationType compilationType);
+  ModelCompiler::CompilationType getCompilationType(int baseModelType);
 };
 
 #endif

@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -37,11 +38,6 @@ JuliusRecognizer::JuliusRecognizer() : m_juliusProcess(0)
 {
 }
 
-QByteArray JuliusRecognizer::getLog()
-{
-  return log;
-}
-
 QByteArray JuliusRecognizer::readData()
 {
   QByteArray t = m_juliusProcess->readAll();
@@ -59,7 +55,8 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
   m_juliusProcess = new KProcess;
   m_juliusProcess->setOutputChannelMode(KProcess::MergedChannels);
   QString exe = KStandardDirs::findExe("julius");
-  if (exe.isNull()) {
+  if (exe.isNull())
+  {
     m_lastError = i18n("Failed to find executable \"julius\". Please make sure that Julius is installed and that it can be found in your path.");
     return false;
   }
@@ -72,14 +69,16 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
 bool JuliusRecognizer::startProcess()
 {
   m_juliusProcess->start();
-  if (!m_juliusProcess->waitForStarted()) {
+  if (!m_juliusProcess->waitForStarted())
+  {
     m_lastError = i18n("Failed to start Julius with given model");
     m_juliusProcess->kill();
     return false;
   }
   kDebug() << "Julius started - let's block for the prompt now";
 
-  if (!blockTillPrompt()) {
+  if (!blockTillPrompt())
+  {
     m_lastError = i18n("Julius did not initialize correctly");
     return false;
   }
@@ -92,7 +91,8 @@ bool JuliusRecognizer::blockTillPrompt(QByteArray *data)
 {
   //wait until julius is ready
   QByteArray currentData;
-  while (m_juliusProcess->bytesAvailable() || m_juliusProcess->waitForReadyRead()) {
+  while (m_juliusProcess->bytesAvailable() || m_juliusProcess->waitForReadyRead())
+  {
     currentData = readData();
     if (data) *data += currentData;
     if (currentData.contains("enter filename->"))
@@ -110,7 +110,8 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
   kDebug() << "Recognizing on file: " << file;
   QMutexLocker l(&recognitionLock);
   
-  if (m_juliusProcess->state() == QProcess::NotRunning) {
+  if (m_juliusProcess->state() == QProcess::NotRunning)
+  {
     kDebug() << "Recognition requested even though julius was not running. Restarting";
     if (!startProcess())
       return recognitionResults;
@@ -158,7 +159,8 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
   QByteArray result;
   
   //block till next prompt - the results will be in the std out stream afterwards
-  if (!blockTillPrompt(&result)) {
+  if (!blockTillPrompt(&result))
+  {
     m_lastError = i18n("Julius did not process the sample correctly");
     return recognitionResults;
   }
@@ -166,7 +168,8 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
   QStringList results = QString::fromUtf8(result).split("\nsentence");
   results.takeFirst(); // remove preamble
   
-  foreach (const QString& r, results) {
+  foreach (const QString& r, results)
+  {
     QString result = r.mid(r.indexOf(" <s> ")+5);
     result = result.left(result.indexOf(" </s>"));
 
@@ -179,15 +182,18 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
     confStr = confStr.left(confStr.indexOf('\n'));
     confStr.remove(cmScore);
     bool ok = true;
-    foreach (const QString& scoreStr, confStr.split(' ', QString::SkipEmptyParts)) {
+    foreach (const QString& scoreStr, confStr.split(' ', QString::SkipEmptyParts))
+    {
       confidenceScores.append(scoreStr.toFloat(&ok));
-      if (!ok) {
+      if (!ok)
+      {
         m_lastError = i18nc("%1 is the confidence score string that failed to parse",
                             "Failed to read confidence score: %1", scoreStr);
         break;
       }
     }
-    if (confidenceScores.size() > 1) { // otherwise we have no sentence marker
+    if (confidenceScores.size() > 1)
+    { // otherwise we have no sentence marker
       confidenceScores.takeFirst();
       confidenceScores.takeLast(); // remove confidence scores for <s> and </s>
     }
@@ -195,6 +201,7 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
       continue;
     recognitionResults.append(RecognitionResult(result,
                               sampa, sampa, confidenceScores));
+    //kDebug() <<result <<"\t"<<
   }
   
   return recognitionResults;
@@ -202,13 +209,18 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
 
 bool JuliusRecognizer::uninitialize()
 {
+  if (!m_juliusProcess) return true; // already uninitialized
+
   kDebug() << "Uninitializing";
   log.clear();
-  if (m_juliusProcess && (m_juliusProcess->state() != QProcess::NotRunning)) {
+  if (m_juliusProcess && (m_juliusProcess->state() != QProcess::NotRunning))
+  {
     m_juliusProcess->terminate();
-    if (!m_juliusProcess->waitForFinished()) {
+    if (!m_juliusProcess->waitForFinished())
+    {
       m_juliusProcess->kill();
-      if (!m_juliusProcess->waitForFinished()) {
+      if (!m_juliusProcess->waitForFinished())
+      {
         m_lastError = i18n("Failed to stop running Julius process");
         return false;
       }

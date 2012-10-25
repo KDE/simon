@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -29,7 +30,7 @@ class ModelCompilerHTK;
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerHTK : public ModelCompilationManager
 {
-Q_OBJECT
+  Q_OBJECT
 public:
   ModelCompilationManagerHTK(const QString& userName, QObject *parent);
 
@@ -38,12 +39,6 @@ protected:
   
 private slots:
   void slotPhonemeUndefined(const QString& phoneme);
-    
-private:
-  // this is set to true when we receive note that a problem during compilation was fixed by changing the adaption
-  // parameters. On the next failed compilation, the adaption (and subsequently the compilation) will be triggered
-  // again
-  bool tryAgain; 
 };
 
 #endif // MODELCOMPILATIONMANAGERHTK_H

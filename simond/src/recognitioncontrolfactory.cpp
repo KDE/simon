@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,6 +21,13 @@
 
 #include "recognitioncontrolfactory.h"
 #include "juliuscontrol.h"
+#ifdef BACKEND_TYPE_BOTH
+ #include "sphinxcontrol.h"
+#endif
+
+#include <KConfig>
+#include <KStandardDirs>
+#include <KConfigGroup>
 
 RecognitionControlFactory::RecognitionControlFactory()
   : m_isolatedMode(false)
@@ -35,9 +43,38 @@ void RecognitionControlFactory::setIsolatedMode(bool isolatedMode)
 RecognitionControl* RecognitionControlFactory::recognitionControl(const QString& user)
 {
   RecognitionControl *r = NULL;
-  if (m_isolatedMode || m_recognitionControls.count(user) == 0) {
+  if (m_isolatedMode || m_recognitionControls.count(user) == 0)
+  {
     kDebug() << "RecognitionControls: generate new RC...";
-    r = new JuliusControl(user);
+
+    KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+//    KConfig *t = config.copyTo("/tmp/conf");
+//    t->sync();
+
+    KConfigGroup backendGroup(&config, "Backend");
+    int type(-1);
+    type = backendGroup.readEntry("backend", 0);
+    //backendGroup.
+
+    if(type == 0)
+    {
+      #ifdef BACKEND_TYPE_BOTH
+        r = new SphinxControl(user);
+      #else
+      {
+//        kDebug()<<"Sphinx disabled at the compile time. Force using Julius control";
+//        r = new JuliusControl(user);
+        return 0;
+      }
+      #endif
+    }
+    else if(type == 1)
+      r = new JuliusControl(user);
+    else
+    {
+      return 0;
+    };//;(
+
     m_recognitionControls.insert(user, r);
     kDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(user));
   } else /* isolatedMode = false and count > 0 (count = 1) */ {

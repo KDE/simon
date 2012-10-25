@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -25,7 +26,7 @@
  *   file(s) with this exception, you may extend this exception to your
  *   version of the file(s), but you are not obligated to do so.  If you
  *   do not wish to do so, delete this exception statement from your
- *   version. 
+ *   version.
  *
  *   Powered By:
  *
@@ -39,6 +40,7 @@
 #include "juliuscontrol.h"
 #include <simonrecognizer/recognitionconfiguration.h>
 #include <simonrecognizer/juliusrecognitionconfiguration.h>
+#include <simonutils/fileutils.h>
 
 #include <QFile>
 #include <KLocalizedString>
@@ -50,48 +52,35 @@
 #include <KTar>
 #include <locale.h>
 
-JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent),
-recog(new JuliusRecognizer),
-stopping(false),
-m_initialized(false),
-shouldBeRunning(false)
+JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
 {
+  recog = new JuliusRecognizer();
 }
 
 bool JuliusControl::initializeRecognition(const QString& modelPath)
 {
   if (modelPath == m_lastModel) return true; //already initialized / tried to initialize with this exact model
+
   
+  kDebug() << "Initializing for model: " << modelPath << " old model path: " << m_lastModel;
   m_lastModel = modelPath;
-  kDebug() << "Initializing";
   if (isInitialized()) {
     kDebug() << "Initializing recognition that was already initialized; uninitializing...";
     uninitialize();
     m_startRequests = 0;
   }
-  
+
   QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/julius/");
   if (QFile::exists(path+"hmmdefs") && !QFile::remove(path+"hmmdefs")) return false;
   if (QFile::exists(path+"tiedlist") && !QFile::remove(path+"tiedlist")) return false;
   if (QFile::exists(path+"model.dfa") && !QFile::remove(path+"model.dfa")) return false;
   if (QFile::exists(path+"model.dict") && !QFile::remove(path+"model.dict")) return false;
   if (QFile::exists(path+"julius.jconf") && !QFile::remove(path+"julius.jconf")) return false;
-  
-  
-  KTar tar(modelPath, "application/x-gzip");
-  if (!tar.open(QIODevice::ReadOnly)) return false;
-  
-  const KArchiveDirectory *d = tar.directory();
-  if (!d) return false;
-  
-  foreach (const QString& file, (QStringList() << "hmmdefs" << "tiedlist" << "model.dfa" << "model.dict" << "julius.jconf")) {
-    const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry(file));
-    if (!entry) return false;
-                        
-    QFile f(path+file);
-    if (!f.open(QIODevice::WriteOnly)) return false;
-    f.write(entry->data());
-    f.close();
+
+
+  if (!FileUtils::unpackAll(modelPath, path))//, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")
+  {
+    return false;
   }
 
   kDebug() << "Emitting recognition ready";
@@ -108,121 +97,6 @@ RecognitionConfiguration* JuliusControl::setupConfig()
   QByteArray hmmDefs = dirPath+"hmmdefs";
 
   return new JuliusRecognitionConfiguration(jConfPath, gram, hmmDefs, tiedList);
-}
-
-bool JuliusControl::startRecognition()
-{
-  kDebug() << "Starting recognition" << ++m_startRequests;
-  if (isInitialized() && (m_startRequests > 1))  {
-    emit recognitionStarted();
-    return true;
-  }
-  kDebug() << "Starting recognition: Continuing";
-  return startRecognitionPrivate();
-}
-
-bool JuliusControl::startRecognitionPrivate()
-{
-  start();
-  
-  emit recognitionStarted();
-  return true;
-}
-
-
-void JuliusControl::recognize(const QString& fileName)
-{
-  if (!shouldBeRunning) return;
-  
-  kDebug() << "Recognizing " << fileName;
-  
-  queueLock.lock();
-  toRecognize.enqueue(fileName);
-  queueLock.unlock();
-}
-
-void JuliusControl::run()
-{
-  Q_ASSERT(recog);
-  shouldBeRunning=true;
-  
-  RecognitionConfiguration *cfg = setupConfig();
-  bool success = recog->init(cfg);
-  delete cfg;
-  if (!success) {
-    emitError(i18n("Failed to setup recognition: %1", recog->getLastError()));
-    return;
-  }
-
-  m_initialized=true;
-  
-  while (shouldBeRunning) {
-    QString file;
-    queueLock.lock();
-    if (!toRecognize.isEmpty())
-      file = toRecognize.dequeue();
-    queueLock.unlock();
-    if (file.isNull()) {
-      QThread::msleep(100);
-    } else {
-      emit recognitionResult(file, recog->recognize(file));
-      emit recognitionDone(file);
-    }
-  }
-}
-
-bool JuliusControl::stop()
-{
-  kDebug() << "Stopping recognition" << m_startRequests;
-  if (--m_startRequests > 0) 
-    return true;
-  
-  if (m_startRequests < 0)
-    m_startRequests = 0;
-  
-  kDebug() << "Stopping recognition: Continuing";
-  return stopPrivate();
-}
-
-bool JuliusControl::suspend()
-{
-  bool res = stopPrivate();
-  if (!res) return false;
-  return true;
-}
-
-bool JuliusControl::stopPrivate()
-{
-  shouldBeRunning=false;
-  
-  if (!isRunning()) return true;
-  
-  if (!wait(1000)) {
-    while (isRunning()) {
-      kDebug() << "Forcefully terminating";
-      terminate();
-      wait(500);
-    }
-  }
-  m_lastModel = QString();
-  
-  return true;
-}
-
-void JuliusControl::uninitialize()
-{
-  kDebug() << "Uninitializing julius control";
-  if (!m_initialized) return;
-  
-  recog->uninitialize();
-  stopPrivate();
-
-  m_initialized=false;
-}
-
-QByteArray JuliusControl::getBuildLog()
-{
-  return "<html><head /><body><p>"+recog->getLog().replace('\n', "<br />")+"</p></body></html>";
 }
 
 

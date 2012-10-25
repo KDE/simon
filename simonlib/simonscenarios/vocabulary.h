@@ -95,7 +95,7 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
     QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
     QList<Word*> findWordsByTerminal(const QString& terminal);
 
-    virtual bool empty() { return false; }
+    virtual bool empty() { return (m_words.count() == 0) ; }
     void clear();
     void deleteAll();
 

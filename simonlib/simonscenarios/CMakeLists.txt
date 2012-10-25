@@ -1,140 +1,115 @@
-include(SimonDirs)
-include(KDE4Defaults)
+set(simonscenarios_LIB_SRCS
+  trainingmanager.cpp
+  modelmanager.cpp
+  wordlisttype.cpp
+  vocabulary.cpp
+  activevocabulary.cpp
+  shadowvocabulary.cpp
+  scenario.cpp
+  scenariomanager.cpp
+  grammar.cpp
+  trainingtextcollection.cpp
+  trainingtext.cpp
+  languagedescriptioncontainer.cpp
+  trainingcontainer.cpp
+  model.cpp
+  word.cpp
 
+  author.cpp
+  scenariodisplay.cpp
 
-include_directories(
-	${KDE4_INCLUDES}
-	${QT_INCLUDES}
-	${CMAKE_CURRENT_SOURCE_DIR}/..
-	${CMAKE_BINARY_DIR}
-)
-
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-
-set( simonscenarios_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/scenario.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/grammar.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingtextcollection.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/model.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/word.cpp
-
-	${CMAKE_CURRENT_SOURCE_DIR}/author.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.cpp
-
-	${CMAKE_CURRENT_SOURCE_DIR}/commandmanager.cpp
-	#	${CMAKE_CURRENT_SOURCE_DIR}/commandlauncher.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/command.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterfacecommand.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterfacecommandtemplate.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/commandconfiguration.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidgetprivate.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/action.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/promptstable.cpp
+  commandmanager.cpp
+  command.cpp
+  voiceinterfacecommand.cpp
+  voiceinterfacecommandtemplate.cpp
+  commandconfiguration.cpp
+  createcommandwidget.cpp
+  createvoiceinterfacecommandwidget.cpp
+  createvoiceinterfacecommandwidgetprivate.cpp
+  action.cpp
+  actioncollection.cpp
+  actionmodel.cpp
+  actioncommandmodel.cpp
+  commandparameter.cpp
+  promptstable.cpp
+  promptstablemodel.cpp
+  modelmetadata.cpp
 )
 
 
-set( simonscenarios_LIB_HDRS
-	${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagement_export.h
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
-	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
-	${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
-	${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.h
-	${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.h
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
-	${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.h
-	${CMAKE_CURRENT_SOURCE_DIR}/grammar.h
-	${CMAKE_CURRENT_SOURCE_DIR}/speechmodel.h
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.h
-	${CMAKE_CURRENT_SOURCE_DIR}/word.h
-	${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.h
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.h
-	${CMAKE_CURRENT_SOURCE_DIR}/model.h
-	${CMAKE_CURRENT_SOURCE_DIR}/author.h
-	${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
+set(simonscenarios_LIB_HDRS
+  simonmodelmanagement_export.h
+  trainingmanager.h
+  modelmanager.h
+  scenario.h
+  activevocabulary.h
+  shadowvocabulary.h
+  wordlisttype.h
+  scenariomanager.h
+  grammar.h
+  speechmodel.h
+  trainingtext.h
+  word.h
+  languagedescriptioncontainer.h
+  trainingcontainer.h
+  model.h
+  author.h
+  scenariodisplay.h
+  modelmetadata.h
 
-	${CMAKE_CURRENT_SOURCE_DIR}/commandmanager.h
-	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.h
-	${CMAKE_CURRENT_SOURCE_DIR}/command.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simoncommand.h
-	#	${CMAKE_CURRENT_SOURCE_DIR}/commandlauncher.h
-	${CMAKE_CURRENT_SOURCE_DIR}/commandconfiguration.h
-	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.h
-	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.h
-	${CMAKE_CURRENT_SOURCE_DIR}/action.h
-	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.h
-	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.h
-	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.h
-	${CMAKE_CURRENT_SOURCE_DIR}/commandlistelements.h
-	${CMAKE_CURRENT_SOURCE_DIR}/promptstable.h
+  commandmanager.h
+  commandparameter.h
+  command.h
+  simoncommand.h
+  commandconfiguration.h
+  createcommandwidget.h
+  createvoiceinterfacecommandwidget.h
+  action.h
+  actioncollection.h
+  actionmodel.h
+  actioncommandmodel.h
+  commandlistelements.h
+  promptstable.h
+  promptstablemodel.h
 )
 
 
 
-kde4_add_ui_files( simonscenarios_LIB_SRCS
-        ${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.ui
-        ${CMAKE_CURRENT_SOURCE_DIR}/basemodelconfig.ui
+kde4_add_ui_files(simonscenarios_LIB_SRCS createvoiceinterfacecommandwidget.ui basemodelconfig.ui)
+
+kde4_add_kcfg_files(simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
+
+kde4_add_library(simonscenarios SHARED ${simonscenarios_LIB_SRCS})
+target_link_libraries(simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS}
+  simonxml simonlogging simoninfo simonrecognitionresult
+  simonscenariobase simoncontextdetection simongraphemetophoneme)
+
+set_target_properties(simonscenarios
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
+  DEFINE_SYMBOL MAKE_MODELMANAGEMENT_LIB
 )
 
-kde4_add_kcfg_files(simonscenarios_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfgc
-)
-
-kde4_add_library( simonscenarios SHARED ${simonscenarios_LIB_SRCS} )
-target_link_libraries( simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} 
-	simonxml simonlogging simoninfo simonrecognitionresult
-	simonscenariobase simoncontextdetection simongraphemetophoneme )
-
-set_target_properties( simonscenarios
-  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR} DEFINE_SYMBOL MAKE_MODELMANAGEMENT_LIB
-)
-
-install( FILES ${simonscenarios_LIB_HDRS}
+install(FILES ${simonscenarios_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonscenarios
   COMPONENT simondevel
 )
  
-install( TARGETS simonscenarios DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT
-  simoncore)
-install( FILES
-  ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfg
-  DESTINATION  ${KCFG_INSTALL_DIR} COMPONENT simoncore )
+install(TARGETS simonscenarios DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore)
+install(FILES speechmodelmanagementconfiguration.kcfg DESTINATION ${KCFG_INSTALL_DIR} COMPONENT simoncore)
 
-install(FILES
-${CMAKE_CURRENT_SOURCE_DIR}/simoncommandplugin.desktop DESTINATION
-${SERVICETYPES_INSTALL_DIR} COMPONENT simoncore)
+install(FILES simoncommandplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR} COMPONENT simoncore)
  
 ##########
-set( kcm_simonscenarios_LIB_SRCS
-        ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/basemodelsettings.cpp
+set(kcm_simonscenarios_LIB_SRCS
+  speechmodelsettings.cpp
+  basemodelsettings.cpp
 )
-kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui
-			languageprofilesettings.ui modelsettingsdlg.ui)
+kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui languageprofilesettings.ui modelsettingsdlg.ui)
 kde4_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
 
 kde4_add_plugin(simonscenarioskcm ${kcm_simonscenarios_LIB_SRCS})
-target_link_libraries( simonscenarioskcm  ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-simonscenarios simonscenariobase
-)
+target_link_libraries(simonscenarioskcm ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonscenarios simonscenariobase)
 
-install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT
-  simoncore )
+install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncore)
 
-install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION
-  ${SERVICES_INSTALL_DIR} COMPONENT simoncore )
+install(FILES simonspeechmodelmanagementconfig.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncore)

@@ -29,7 +29,7 @@ class MODELMANAGEMENT_EXPORT ActiveVocabulary : public Vocabulary, public Scenar
 {
 
   private:
-    QBrush recogWeak, recogNone;
+    QBrush recogNone;
 
     void buildBrushes();
 

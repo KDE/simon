@@ -1,48 +1,37 @@
-include(SimonDirs)
-include(KDE4Defaults)
-find_package(Qt4 COMPONENTS QtCore REQUIRED)
-
-include_directories( ${QT_INCLUDES} ../ ../../)
-
-add_definitions (${QT_DEFINITIONS})
-
-set( sscobjects_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/user.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/microphone.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/soundcard.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/language.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/sscobject.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/institution.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/userininstitution.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/sample.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/sampletype.cpp
+set(sscobjects_LIB_SRCS
+  user.cpp
+  microphone.cpp
+  soundcard.cpp
+  language.cpp
+  sscobject.cpp
+  institution.cpp
+  userininstitution.cpp
+  sample.cpp
 )
 
 
-set( sscobjects_LIB_HDRS
-  ${CMAKE_CURRENT_SOURCE_DIR}/sscobjects_export.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/user.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/microphone.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/soundcard.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/language.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/sscobject.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/institution.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/userininstitution.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/sample.h
-  #${CMAKE_CURRENT_SOURCE_DIR}/sampletype.h
+set(sscobjects_LIB_HDRS
+  sscobjects_export.h
+  user.h
+  microphone.h
+  soundcard.h
+  language.cpp
+  sscobject.h
+  institution.h
+  userininstitution.h
+  sample.h
 )
 
-kde4_add_library( sscobjects  SHARED ${sscobjects_LIB_SRCS} )
-target_link_libraries( sscobjects ${QT_LIBRARIES} ${QT_QTCORE_LIBRARY} )
+kde4_add_library(sscobjects SHARED ${sscobjects_LIB_SRCS})
+target_link_libraries(sscobjects ${QT_LIBRARIES} ${QT_QTCORE_LIBRARY})
 
-
-set_target_properties( sscobjects
+set_target_properties(sscobjects
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
-install( FILES ${sscobjects_LIB_HDRS}
+install(FILES ${sscobjects_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/ssc/sscobjects
   COMPONENT sscdevel
 )
- 
-install( TARGETS sscobjects DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT ssc )
+
+install(TARGETS sscobjects DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT ssc)

@@ -22,21 +22,26 @@
 #include "speechmodelmanagementconfiguration.h"
 
 #include <simonscenarios/model.h>
+#include <simonscenarios/modelmetadata.h>
 #include <simonscenarios/languagedescriptioncontainer.h>
 #include <simonscenarios/trainingcontainer.h>
 #include <simonscenarios/shadowvocabulary.h>
 
 #include <simonscenarios/scenariomanager.h>
 
+#include <QFile>
+#include <QFileInfo>
+#include <QBuffer>
+#include <QDir>
+
 #include <KStandardDirs>
 #include <KMimeType>
 #include <KDateTime>
 #include <KFilterBase>
 #include <KFilterDev>
-#include <QFile>
-#include <QFileInfo>
-#include <QBuffer>
-#include <QDir>
+#include <KTar>
+
+ModelManager* ModelManager::instance = 0;
 
 ModelManager::ModelManager(QObject* parent) : QObject(parent),
 inGroup(false),
@@ -56,8 +61,22 @@ modelChangedFlag(false)
 
   connect (TrainingManager::getInstance(), SIGNAL(trainingSettingsChanged()),
     this, SLOT(modelHasChanged()));
+
+  // read active model and build blacklistedTranscriptions
+  QString activePath = KStandardDirs::locate("appdata", "model/active.sbm");
+  if (QFile::exists(activePath)) {
+    KTar tar(activePath, "application/x-gzip");
+    updateBlacklistedTranscriptions(tar);
+  }
 }
 
+ModelManager* ModelManager::getInstance()
+{
+  if (!instance) {
+    instance = new ModelManager();
+  }
+  return instance;
+}
 
 void ModelManager::modelHasChanged()
 {
@@ -158,6 +177,24 @@ bool ModelManager::storeBaseModel(const QDateTime& changedTime, int baseModelTyp
   return true;
 }
 
+bool ModelManager::updateBlacklistedTranscriptions(KTar& tar)
+{
+  if (!tar.open(QIODevice::ReadOnly)) return false;
+  const KArchiveDirectory *d = tar.directory();
+  if (!d) return false;
+
+  const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry("metadata.xml"));
+  if (!entry) return false;
+
+  QDomDocument doc;
+  doc.setContent(entry->data());
+
+  ModelMetadata metaData(doc.documentElement());
+  blacklistedTranscriptions = metaData.droppedPronunciations();
+
+  kDebug() << "Blacklisted transcriptions: " << blacklistedTranscriptions;
+  return true;
+}
 
 bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container)
 {
@@ -176,7 +213,26 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleR
   containerFile.write(container);
   containerFile.close();
 
-  return true;
+  //update blacklistedTranscriptions
+  // safely remove the const qualifier as the buffer is only opened read-only
+  QBuffer buffer(const_cast<QByteArray*>(&container));
+  if (!buffer.open(QIODevice::ReadOnly))
+    return false;
+  QIODevice *uncompressed = KFilterDev::device(&buffer, "application/x-gzip", false);
+  if (!uncompressed || !uncompressed->open(QIODevice::ReadOnly))
+    return false;
+
+  //seeking doesn't work properly in kfilterdevs, which trips up KTar. Instead, decompress
+  //completely before passing it on to KTar
+  QBuffer uncompressedBuffer;
+  if (!uncompressedBuffer.open(QIODevice::ReadWrite))
+    return false;
+  uncompressedBuffer.write(uncompressed->readAll());
+  uncompressedBuffer.seek(0);
+  delete uncompressed;
+
+  KTar tar(&uncompressedBuffer);
+  return updateBlacklistedTranscriptions(tar);
 }
 
 
@@ -302,43 +358,35 @@ bool ModelManager::storeTraining(const QDateTime& changedTime, qint32 sampleRate
 }
 
 
-void ModelManager::buildMissingSamplesList()
+void ModelManager::buildSampleList(QStringList& available, QStringList& missing)
 {
   QStringList newList = TrainingManager::getInstance()->getPrompts()->keys();
   QDir samplesDir(SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile());
   QStringList oldList = samplesDir.entryList(QStringList() << "*.wav");
 
-  foreach (const QString& fileName, newList) {
-    if ((!oldList.contains(fileName+".wav")) && (!this->missingFiles.contains(fileName)))
-      missingFiles << fileName;
+  foreach (QString fileName, newList) {
+    fileName += +".wav";
+    if (!oldList.contains(fileName)) {
+      if (!missing.contains(fileName))
+        missing << fileName;
+    } else if (!available.contains(fileName))
+      available << fileName;
   }
-  kDebug() << "Missing samples: " << missingFiles;
 }
 
 
-bool ModelManager::storeSample(const QByteArray& sample)
+bool ModelManager::storeSample(const QString& name, const QByteArray& sample)
 {
-  if (missingFiles.isEmpty()) return false;
-
   QString dirPath = TrainingManager::getInstance()->getTrainingDir()+'/';
 
-  QFile f(dirPath+missingFiles.at(0)+".wav");
+  QFile f(dirPath+name+".wav");
   if (!f.open(QIODevice::WriteOnly)) return false;
 
   f.write(sample);
   f.close();
-
-  missingFiles.removeAt(0);
   return true;
 }
 
-
-QString ModelManager::missingSample()
-{
-  if (missingFiles.isEmpty()) return QString();
-
-  return missingFiles.at(0);
-}
 
 void ModelManager::touchLanguageDescription()
 {
@@ -367,4 +415,9 @@ bool ModelManager::hasActiveContainer()
 {
   if (getActiveContainerModifiedTime().isNull()) return false;
   return QFile::exists(KStandardDirs::locate("appdata", "model/active.sbm"));
+}
+
+bool ModelManager::isTranscriptionBlackListed(const QString& transcription)
+{
+  return blacklistedTranscriptions.contains(transcription);
 }

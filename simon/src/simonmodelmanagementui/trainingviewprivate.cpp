@@ -19,12 +19,12 @@
 
 #include "trainingviewprivate.h"
 
-#include "ImportTrainingData/importtrainingdirectory.h"
 #include <simonscenarios/trainingmanager.h>
 #include <simonscenarios/trainingtextcollection.h>
 #include <simonscenarios/scenario.h>
 #include "ImportTrainingTexts/importtrainingtexts.h"
 #include "TrainSamples/trainingswizard.h"
+#include "promptsview.h"
 
 #include <simonsound/recwidget.h>
 #include <simoninfo/simoninfo.h>
@@ -46,18 +46,16 @@
  * @param parent The parent of the widget
  */
 TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
-: QWidget(parent),
-import(new ImportTrainingTexts())
+: QWidget(parent)
 {
   ui.setupUi ( this );
 
-  connect ( ui.pbTrainText, SIGNAL (clicked()), this, SLOT (trainSelected()) );
-  connect ( ui.tvTrainingTexts, SIGNAL (doubleClicked(QModelIndex)), this, SLOT (trainSelected()) );
+  connect(ui.pbTrainText, SIGNAL (clicked()), this, SLOT (trainSelected()));
+  connect(ui.tvTrainingTexts, SIGNAL (doubleClicked(QModelIndex)), this, SLOT (trainSelected()));
 
-  connect ( ui.pbImportText, SIGNAL (clicked()), this, SLOT (importTexts()) );
-  connect ( ui.pbDelText, SIGNAL (clicked()), this, SLOT (deleteSelected()) );
-  connect ( ui.pbImportDir, SIGNAL (clicked()), this, SLOT (importDirectory()) );
-  connect ( ui.pbClearTrainingdata, SIGNAL (clicked()), this, SLOT (clearTrainingdata()) );
+  connect(ui.pbImportText, SIGNAL (clicked()), this, SLOT (importTexts()));
+  connect(ui.pbDelText, SIGNAL (clicked()), this, SLOT (deleteSelected()));
+  connect(ui.pbManageSamples, SIGNAL (clicked()), this, SLOT (manageSamples()));
 
   textsProxy = new QSortFilterProxyModel();
   textsProxy->setFilterKeyColumn(0);
@@ -67,8 +65,7 @@ import(new ImportTrainingTexts())
   ui.pbTrainText->setIcon(KIcon("go-next"));
   ui.pbDelText->setIcon(KIcon("edit-delete"));
   ui.pbImportText->setIcon(KIcon("document-import"));
-  ui.pbImportDir->setIcon(KIcon("document-open-folder"));
-  ui.pbClearTrainingdata->setIcon(KIcon("edit-clear-list"));
+  ui.pbManageSamples->setIcon(KIcon("view-list-tree"));
 }
 
 
@@ -120,50 +117,26 @@ TrainingText* TrainingViewPrivate::getCurrentlySelectedText()
   return static_cast<TrainingText*>(selectedIndex.internalPointer());
 }
 
-
-/**
- * \brief Shows the ImportTrainingDirectory-Wizard
- * \author Peter Grasch
- */
-void TrainingViewPrivate::importDirectory()
-{
-  ImportTrainingDirectory *importDir = new ImportTrainingDirectory ( this );
-  importDir->show();
-
-}
-
-
-void TrainingViewPrivate::clearTrainingdata()
-{
-  if (KMessageBox::questionYesNo(this, i18n("Do you really want to clear all the collected samples?")) == KMessageBox::Yes) {
-    if (KMessageBox::warningContinueCancel(this, i18n("This will remove every single recording from the training corpus.\n\nAre you absolutely sure you want to continue?")) == KMessageBox::Continue) {
-      if (!TrainingManager::getInstance()->clear())
-        KMessageBox::information(this, i18n("Could not clear training data"));
-    }
-  }
-}
-
-
-/**
- * \brief Displays the ImportTrainingTexts Wizard
- * \author Peter Grasch
- */
 void TrainingViewPrivate::importTexts()
 {
-  if (import->isVisible()) return;
-  import->restart();
-  import->start();
+  QPointer<ImportTrainingTexts> import(new ImportTrainingTexts(this));
+  import->exec();
+  delete import;
 }
 
 
 void TrainingViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
-  kDebug() << "Displaying scenario " << scenario->name();
-
   TrainingTextCollection *t = scenario->texts();
   textsProxy->setSourceModel(t);
 }
 
+void TrainingViewPrivate::manageSamples()
+{
+  QPointer<PromptsView> p(new PromptsView(this));
+  p->exec();
+  delete p;
+}
 
 /**
  * @brief Destructor
@@ -172,5 +145,4 @@ void TrainingViewPrivate::displayScenarioPrivate(Scenario *scenario)
  */
 TrainingViewPrivate::~TrainingViewPrivate()
 {
-  import->deleteLater();
 }

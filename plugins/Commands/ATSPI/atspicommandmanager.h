@@ -1,6 +1,6 @@
 /*
  *   Copyright (C) 2011 Frederik Gladhorn <gladhorn@kde.org>
- *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,48 +21,22 @@
 #ifndef SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
-#include "qt-atspi.h"
 #include <simonscenarios/commandmanager.h>
-#include <QVariantList>
-#include <QDBusVariant>
-#include <QDBusArgument>
-#include <QDBusMessage>
 
-class ATSPIConfiguration;
-class AccessibleObject;
-class DBusConnection;
-class QDBusMessage;
+#include <QHash>
+#include <QVariantList>
+#include <QSharedPointer>
+#include <QList>
+#include <QVector>
+
+class QAction;
 class QTimer;
+class ATSPIScanner;
+class ATSPIConfiguration;
 
 class ATSPICommandManager : public CommandManager
 {
   Q_OBJECT
-
-private slots:
-  ATSPIConfiguration* getATSPIConfiguration();
-  void registry(const QDBusMessage &message);
-  void objectChanged();
-  
-  void newClient(const QString& change, int, int, QDBusVariant data, QSpiObjectReference reference);
-  
-  void serviceRemoved(AccessibleObject *service);
-  
-  void setupObjects();
-  
-private:
-  unsigned int sentenceNr;
-  DBusConnection *c;
-  QTimer* setupObjectsTimeout;
-  
-  QStringList lastCommands;
-
-  QList<AccessibleObject*> rootAccessibles;
-  QVariant getProperty(const QString &service, const QString &path, const QString &interface, const QString &name);
-  
-  void setupLanguageModel(const QStringList& commands);
-  void clearDynamicLanguageModel();
-  
-  void setupService(const QString& service, const QString& path);
 
 public:
   const QString preferredTrigger() const { return QString(); }
@@ -77,5 +51,31 @@ public:
 
   ~ATSPICommandManager();
 
+private slots:
+  void scheduleLanguageModel(const QStringList& commands, bool reset);
+  void schedulingTimeout();
+
+  void setupLanguageModel(const QStringList& commands, bool reset);
+  void adaptLanguageModel(const QStringList& toRemove, const QStringList& toAdd);
+  void triggerAction(const QSharedPointer<QAction> action);
+
+  void resultSelectionDone();
+  
+private:
+  uint m_sentenceNr;
+  ATSPIScanner *m_scanner;
+  QVector<QSharedPointer<QAction> > m_pendingActions;
+  QStringList m_lastCommands;
+
+  QStringList m_proposedCommands;
+  bool m_shouldReset;
+
+  QTimer *m_updateGrouping;
+  
+  void clearDynamicLanguageModel();
+  void clearATModel();
+  
+  ATSPIConfiguration* getATSPIConfiguration();
 };
+
 #endif

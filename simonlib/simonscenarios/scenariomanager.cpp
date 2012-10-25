@@ -168,7 +168,7 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
   f.write(data);
   f.close();
 
-  Scenario *newScenario = new Scenario(id);
+  Scenario *newScenario = new Scenario(id, QString(), this);
   kDebug() << "Setting new scenario " << id;
   if (!setupScenario(newScenario))
     return false;
@@ -176,17 +176,17 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
   for (int i=0; i < scenarios.count(); i++) {
     if (scenarios.at(i)->id() == id) {
       kDebug() << "Found scenario in the old list; replacing it with new version";
-      Scenario *s = scenarios.takeAt(i);
-      s->deleteLater();
+      Scenario *s = scenarios.at(i);
       scenarios.insert(i, newScenario);
+      scenarios.removeAt(i+1);
+      if (s == currentScenario) {
+        updateDisplays(newScenario, true);
+	emit scenarioSelectionChanged();
+      }
+      kDebug() << "Deleted scenario: " << s;
+      s->deleteLater();
       break;
     }
-  }
-
-  //Forcing the display update if needed
-  if (currentId == id) {
-    kDebug() << "Updating scenario displays";
-    updateDisplays(newScenario, true);
   }
 
   if (m_inGroup)
@@ -243,8 +243,6 @@ Scenario* ScenarioManager::getScenario(const QString& id)
 bool ScenarioManager::setupScenarios(bool forceChange)
 {
     bool success = true;
-
-    kDebug() << "Setting up scenarios...";
 
     QStringList defaultScenarioIds;
     defaultScenarioIds << "general";
@@ -546,17 +544,6 @@ int ScenarioManager::baseModelType()
   return SpeechModelManagementConfiguration::modelType();
 }
 
-
-QString ScenarioManager::baseModelName()
-{
-  return SpeechModelManagementConfiguration::baseModelName();
-}
-
-QDateTime ScenarioManager::baseModelCreationDate()
-{
-  return SpeechModelManagementConfiguration::baseModelDate();
-}
-
 void ScenarioManager::setBaseModelType(int type)
 {
   SpeechModelManagementConfiguration::setModelType(type);
@@ -564,11 +551,13 @@ void ScenarioManager::setBaseModelType(int type)
   touchBaseModelAccessTime();
 }
 
-
-void ScenarioManager::setBaseModel(const QString& name, const QDateTime& creationDate)
+QString ScenarioManager::baseModel()
 {
-  SpeechModelManagementConfiguration::setBaseModelName(name);
-  SpeechModelManagementConfiguration::setBaseModelDate(creationDate);
+  return SpeechModelManagementConfiguration::selectedBaseModel();
+}
+void ScenarioManager::setBaseModel(const QString& model)
+{
+  SpeechModelManagementConfiguration::setSelectedBaseModel(model);
 }
 
 QString ScenarioManager::languageProfileName()
@@ -584,7 +573,6 @@ void ScenarioManager::setLanguageProfileName(const QString& name)
 
 void ScenarioManager::setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands)
 {
-  kDebug() << "Setting list interface commands";
   this->listInterfaceCommands = listInterfaceCommands;
 }
 

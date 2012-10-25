@@ -1,25 +1,8 @@
-ENABLE_TESTING()
-find_package(Qt4 COMPONENTS QtCore QtGui QtTest QtXml QtScript REQUIRED)
-
-
-include(KDE4Defaults)
-
-if (USE_PLASMA)
-  set (simondialogcommandplugintest_plasma_SRCS
-      ../plasmaboundvalue.cpp
-      )
-  set (simondialogcommandplugintest_plasma_LIBS
-      ${KDE4_PLASMA_LIBS}
-      )
-endif (USE_PLASMA)
-
-
-
 #################################
 ##### BoundValue ################
 #################################
 
-set (simondialogcommandpluginboundvaluetest_SRCS
+set(simondialogcommandpluginboundvaluetest_SRCS
   boundvaluetest.cpp
 
   #deps
@@ -29,15 +12,13 @@ set (simondialogcommandpluginboundvaluetest_SRCS
   ../argumentboundvalue.cpp
 )
 
-
 kde4_add_unit_test(simondialogcommandplugintest-boundvalue TESTNAME
   simondialogcommandplugin-boundValue
   ${simondialogcommandpluginboundvaluetest_SRCS}
   ${simondialogcommandplugintest_plasma_SRCS}
 )
 
-
-target_link_libraries( simondialogcommandplugintest-boundvalue
+target_link_libraries(simondialogcommandplugintest-boundvalue
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
   ${simondialogcommandplugintest_plasma_LIBS}
 )
@@ -46,7 +27,7 @@ target_link_libraries( simondialogcommandplugintest-boundvalue
 ##### DialogBoundValues #########
 #################################
 
-set (simondialogcommandplugindialogboundvaluestest_SRCS
+set(simondialogcommandplugindialogboundvaluestest_SRCS
   dialogboundvaluestest.cpp
 
   #deps
@@ -63,7 +44,7 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogboundvalues TESTNAME
   ${simondialogcommandplugintest_plasma_SRCS}
 )
 
-target_link_libraries( simondialogcommandplugintest-dialogboundvalues
+target_link_libraries(simondialogcommandplugintest-dialogboundvalues
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
   ${simondialogcommandplugintest_plasma_LIBS}
 )
@@ -72,7 +53,7 @@ target_link_libraries( simondialogcommandplugintest-dialogboundvalues
 ##### DialogTemplateOptions #####
 #################################
 
-set (simondialogcommandplugindialogtemplateoptionstest_SRCS
+set(simondialogcommandplugindialogtemplateoptionstest_SRCS
   dialogtemplateoptionstest.cpp
 
   #deps
@@ -84,7 +65,7 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogtemplateoptions TESTNAME
   ${simondialogcommandplugindialogtemplateoptionstest_SRCS}
 )
 
-target_link_libraries( simondialogcommandplugintest-dialogtemplateoptions
+target_link_libraries(simondialogcommandplugintest-dialogtemplateoptions
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
 )
 
@@ -92,7 +73,7 @@ target_link_libraries( simondialogcommandplugintest-dialogtemplateoptions
 ##### DialogTextParser ##########
 #################################
 
-set (simondialogcommandplugindialogtextparsertest_SRCS
+set(simondialogcommandplugindialogtextparsertest_SRCS
   dialogtextparsertest.cpp
 
   #deps
@@ -112,7 +93,7 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogtextparser TESTNAME
   ${simondialogcommandplugintest_plasma_SRCS}
 )
 
-target_link_libraries( simondialogcommandplugintest-dialogtextparser
+target_link_libraries(simondialogcommandplugintest-dialogtextparser
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
   ${simondialogcommandplugintest_plasma_LIBS}
 )
@@ -121,7 +102,7 @@ target_link_libraries( simondialogcommandplugintest-dialogtextparser
 ##### DialogCommand #############
 #################################
 
-set (simondialogcommandplugindialogcommandtest_SRCS
+set(simondialogcommandplugindialogcommandtest_SRCS
   dialogcommandtest.cpp
 
   #deps
@@ -133,7 +114,7 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogcommand TESTNAME
   ${simondialogcommandplugindialogcommandtest_SRCS}
 )
 
-target_link_libraries( simondialogcommandplugintest-dialogcommand
+target_link_libraries(simondialogcommandplugintest-dialogcommand
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} ${simondialogcommandplugintest_plasma_LIBS}
   simonscenarios simonactions
 )
@@ -142,7 +123,7 @@ target_link_libraries( simondialogcommandplugintest-dialogcommand
 ##### DialogState ###############
 #################################
 
-set (simondialogcommandplugindialogstatetest_SRCS
+set(simondialogcommandplugindialogstatetest_SRCS
   dialogstatetest.cpp
 
   #deps
@@ -165,7 +146,7 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogstate TESTNAME
   ${simondialogcommandplugindialogstatetest_SRCS}
 )
 
-target_link_libraries( simondialogcommandplugintest-dialogstate
+target_link_libraries(simondialogcommandplugintest-dialogstate
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
   ${simondialogcommandplugintest_plasma_LIBS}
   simonscenarios simonactions
@@ -176,7 +157,7 @@ target_link_libraries( simondialogcommandplugintest-dialogstate
 ##### Avatars ###################
 #################################
 
-set (simonavatarstest_SRCS
+set(simonavatarstest_SRCS
   dialogavatartest.cpp
 
   #deps
@@ -193,6 +174,6 @@ kde4_add_unit_test(simondialogcommandplugintest-avatars TESTNAME
 )
 
 
-target_link_libraries( simondialogcommandplugintest-avatars
+target_link_libraries(simondialogcommandplugintest-avatars
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
 )

@@ -22,7 +22,7 @@
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <KDE/KLocale>
-#include "../../version.h"
+#include "version.h"
 
 static const char description[] =
 I18N_NOOP("An acoustic model modeller");
@@ -35,6 +35,7 @@ int main(int argc, char **argv)
 
   KCmdLineOptions options;
   options.add("paths-from-simon");
+  options.add("m <type>", ki18n("Select model type (\"sphinx\" or \"htk\")"), "");
   options.add("s", ki18n("Get configuration from simon"), "");
   options.add("c", ki18n("Automatically start compiling the model"), "");
   options.add("t", ki18n("Automatically start testing the model(s)"), "");

@@ -50,28 +50,29 @@ class SpeechModelSettings : public KCModule
     
   private slots:
     void slotChanged();
+    void baseModelSelectionChanged();
     void loadLanguageProfile();
     void createBaseModel();
     void openBaseModel();
+    void getNewBaseModels();
     void exportBaseModel();
 
   private:
     void touchLanguageProfileDate();
-    void importBaseModelFromDirectory(QDir dir);
     
     Ui::TrainingSettingsWidget uiTrainingsData;
     Ui::LanguageProfileSettingsWidget uiLanguageProfile;
     
     Ui::ModelDlg ui;
-    QString m_baseModelToImport;
-    QString m_baseModelName;
-    QDateTime m_baseModelDate;
     QString m_languageProfileToImport;
 
     int m_storedModelType;
     
     void importBaseModel(const QString& path);
-    void updateBaseModelDescription(const QString& path);
-    QString baseModelDescription();
+    QString baseModelDescription(const QString& path);
+    QString baseModelDescription(const QString& name, const QDateTime& dateTime);
+
+    void setupBaseModelSelection();
+    void addBaseModelToSelection(const QString& path);
 };
 #endif

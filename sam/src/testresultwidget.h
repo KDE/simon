@@ -43,7 +43,8 @@ class TestResultWidget : public QWidget
       Idle=0,
       Waiting=1,
       Running=2,
-      Done=3
+      Done=4,
+      Aborted=12
     };
 
   private:

@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,48 +21,108 @@
 #ifndef SIMON_MODELCOMPILER_H_18BCB183592A48D3962815FFDEA7C214
 #define SIMON_MODELCOMPILER_H_18BCB183592A48D3962815FFDEA7C214
 
+#include "simonmodelcompilationmanagement_export.h"
+#include "modelcompilation.h"
+#include <simonscenarios/modelmetadata.h>
+
 #include <QObject>
 #include <QString>
 #include <QHash>
-#include "simonmodelcompilationmanagement_export.h"
-#include "modelcompilation.h"
+#include <QMutex>
+#include <QProcess>
+
+class QStringList;
+
+/*!
+ * \class ModelCompiler
+ * \brief The ModelCompiler class compiles appropriate model (specifies in inherited classes) from given data.
+ *
+ *  \version 0.1
+ *  \date 14.08.2012
+ *  \author Vladislav Sitalo
+ */
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
 {
   Q_OBJECT
-  signals:
-    void status(QString, int progressNow, int progressTotal=2600);
-    void error(QString);
+signals:
+  void status(QString, int progressNow, int progressTotal=2600);
+  void error(QString);
 
-    void wordUndefined(const QString&);
-    void classUndefined(const QString&);
-    void phonemeUndefined(const QString&);
+  void wordUndefined(const QString&);
+  void classUndefined(const QString&);
+  void phonemeUndefined(const QString&);
+  void modelCompiled();
+  void activeModelCompilationAborted(ModelCompilation::AbortionReason);
 
-    void modelCompiled();
-    void activeModelCompilationAborted(ModelCompilation::AbortionReason);
+public:
+  enum CompilationType
+  {
+    CompileLanguageModel=1,
+    CompileSpeechModel=2,
+    AdaptSpeechModel=4
+  };
 
-  public:
-    enum CompilationType
-    {
-      CompileLanguageModel=1,
-      CompileSpeechModel=2,
-      AdaptSpeechModel=4
-    };
-    
-    virtual bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
-                                  const QString& baseModelPath, const QHash<QString, QString>& args)=0;
+  virtual bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
+                                const QStringList& droppedTranscriptions, const QString& baseModelPath, 
+				const QHash<QString, QString>& args)=0;
 
-    explicit ModelCompiler(const QString& userName, QObject *parent=0);
+  virtual bool hasBuildLog() const;
+  virtual QString getGraphicBuildLog() const;
+  virtual QString getBuildLog() const;
 
-    virtual bool hasBuildLog() const=0;
-    virtual QString getGraphicBuildLog() const=0;
-    virtual QString getBuildLog() const=0;
+  virtual void abort();
 
-    virtual void abort()=0;
+  virtual QString information(bool condensed=false) const=0;
 
-    virtual QString information(bool condensed=false) const=0;
+protected:
+  bool keepGoing;
+  
+  QString userName;
+  QString tempDir;
 
-  protected:
-    QString userName;
+  QStringList m_droppedTranscriptions;
+
+  QMutex buildLogMutex;
+  QByteArray buildLog;
+  
+  CompilationType compilationType;
+
+  QList<QProcess*> activeProcesses;
+
+  explicit ModelCompiler(const QString& userName, QObject *parent=0);
+
+  virtual bool processError()=0;
+  virtual bool parseConfiguration()=0;
+
+  /*!
+   * \brief Pack compiled model to the archive.
+   * \param targetArchive Archive name.
+   * \param name Model name.
+   * \return Succes status.
+   */
+  virtual bool pack( const QString& targetArchive, const QString& name )=0;
+
+  /*!
+   * \brief Generates metadata to model from given data.
+   * \param name Model name.
+   * \param type Model type.
+   * \return Generated metadata.
+   */
+  virtual ModelMetadata getMetaData(const QString &name, const QString &type);
+  
+  /*!
+   * \brief Executes given command line in given directory.
+   * \param command Command line.
+   * \param wDir Working directory.
+   * \return Succes status.
+   */
+  bool execute(const QString& command, const QString &wDir);
+  
+  virtual void clearLog();
+  void analyseError(QString readableError);
+
+protected slots:
+   void addStatusToLog(const QString &status);
 };
 #endif

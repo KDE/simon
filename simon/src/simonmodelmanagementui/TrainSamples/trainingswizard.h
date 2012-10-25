@@ -23,7 +23,7 @@
 #include <simonuicomponents/simonwizard.h>
 #include <simonscenarios/word.h>
 
-#include "simonmodelmanagementui_export.h"
+#include "../simonmodelmanagementui_export.h"
 
 class QStringList;
 class TrainingText;

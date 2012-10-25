@@ -18,8 +18,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef PROMPTSTABLE_H
-#define PROMPTSTABLE_H
+#ifndef SIMON_PROMPTSTABLE_H
+#define SIMON_PROMPTSTABLE_H
 
 /** \file promptstable.h
  * \brief The file containing the PromptsTable baseclass header.
@@ -27,6 +27,7 @@
 
 #include <QHash>
 #include "simonmodelmanagement_export.h"
+#include "promptstablemodel.h"
 
 /**
  *	@class PromptsTable
@@ -44,30 +45,40 @@ class Word;
 
 class MODELMANAGEMENT_EXPORT PromptsTable
 {
+friend class PromptsTableModel;
 public:
-    bool init(const QString& path);
-    bool save(const QString& path);
-    bool deletePrompt(QString key);
-    bool deleteWord(Word *w);
-    bool deleteWord(const QString & word);
-    void insert(const QString& sample, const QString& sampleGroup, const QString& word);
-    bool clear();
-    bool contains(const QString& key);
-    int remove(const QString& key);
-    int count();
-    QString value(const QString& key);
-    QString sampleGroup(const QString& key);
+  PromptsTable();
+  bool init(const QString& path);
+  bool save(const QString& path);
+  bool deletePrompt(QString key);
+  bool deleteWord(Word *w);
+  bool deleteWord(const QString & word);
+  void insert(const QString& sample, const QString& sampleGroup, const QString& word);
+  bool clear();
+  bool contains(const QString& key);
+  int remove(const QString& key);
+  int count();
+  QString value(const QString& key);
+  QString sampleGroup(const QString& key);
 
-    bool merge(const PromptsTable& other);
+  bool merge(const PromptsTable& other);
 
-    QHash<QString,QString> samples() const { return m_wordBySample; }
-    QList<QString> keys() const { return m_wordBySample.keys(); }
-    QList<QString> words() const { return m_wordBySample.values(); }
-    QStringList sampleGroups() const { return m_groupBySample.values(); }
+  QHash<QString,QString> samples() const { return m_wordBySample; }
+  QList<QString> keys() const { return m_samples; }
+  QList<QString> words() const { return m_wordBySample.values(); }
+  QStringList sampleGroups() const { return m_groupBySample.values(); }
+  QString sample(int idx) const { return m_samples[idx]; }
+
+  PromptsTableModel* getModel();
 
 private:
-    QHash<QString,QString> m_wordBySample;
-    QHash<QString,QString> m_groupBySample;
+  QStringList m_samples;
+  QHash<QString,QString> m_wordBySample;
+  QHash<QString,QString> m_groupBySample;
+
+  PromptsTableModel *m_model;
+
+  void updateModel();
 };
 
 #endif // PROMPTSTABLE_H

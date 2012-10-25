@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -36,7 +37,6 @@ private:
   QMutex recognitionLock;
   
 private:
-  QByteArray log;
   bool blockTillPrompt(QByteArray *data=0);
   QByteArray readData();
   bool startProcess();
@@ -47,7 +47,6 @@ public:
   QList<RecognitionResult> recognize(const QString& file);
   bool uninitialize();
   
-  QByteArray getLog();
   virtual ~JuliusRecognizer();
 };
 

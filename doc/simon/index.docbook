@@ -13,7 +13,7 @@
 ]>
 
 
-<book lang="&language;">
+<book id="simon" lang="&language;">
 
 <bookinfo>
 <title>The &kmyapplication; Handbook</title>

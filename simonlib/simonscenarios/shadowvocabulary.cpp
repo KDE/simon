@@ -35,7 +35,6 @@
 ShadowVocabulary::ShadowVocabulary(QObject *parent)
   : Vocabulary(parent), loadFailed(false)
 {
-  kDebug() << "Initializing shadow dictionary: " << this;
   QString vocabFilename = KStandardDirs::locate("appdata", "shadowvocabulary.xml");
 
   QIODevice *shadowVocabFile = KFilterDev::deviceForFile(vocabFilename,
@@ -61,8 +60,6 @@ bool ShadowVocabulary::reset(QIODevice* f)
   root = root.mid(26, 19);
 
   lastModifiedDate = QDateTime::fromString(root, Qt::ISODate);
-
-  kDebug() << root << lastModifiedDate;
 
   while (!f->atEnd()) {
     //<word>
