@@ -100,7 +100,7 @@
                  <property name="currentIndex">
                   <number>1</number>
                  </property>
-                 <widget class="QWidget" name="page">
+                 <widget class="QWidget" name="pgSphinxInputFiles">
                   <layout class="QFormLayout" name="formLayout_4">
                    <item row="0" column="0">
                     <widget class="QLabel" name="lbDict">
@@ -156,7 +156,7 @@
                    </item>
                   </layout>
                  </widget>
-                 <widget class="QWidget" name="page_2">
+                 <widget class="QWidget" name="pgHTKInputFiles">
                   <layout class="QFormLayout" name="formLayout">
                    <property name="fieldGrowthPolicy">
                     <enum>QFormLayout::ExpandingFieldsGrow</enum>
