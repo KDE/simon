@@ -176,7 +176,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   #ifdef BACKEND_TYPE_JHTK
     ui.cbType->removeItem(0);
-    ui.swModelType->removeItem(0);
+    ui.swModelInputFiles->removeWidget(ui.pgSphinxInputFiles);
 
     if ((KCmdLineArgs::parsedArgs()->isSet("m")) && (KCmdLineArgs::parsedArgs()->getOption("m") == "sphinx")) {
       KMessageBox::sorry(this, i18n("SAM was built without SPHINX support."));
