@@ -34,6 +34,7 @@
 #include <KDateTime>
 #include <KPageWidget>
 #include <KTar>
+#include <knewstuff3/downloaddialog.h>
 #include <kgenericfactory.h>
 
 K_PLUGIN_FACTORY( SpeechModelSettingsFactory,
@@ -185,7 +186,30 @@ QString SpeechModelSettings::baseModelDescription(const QString& name, const QDa
 
 void SpeechModelSettings::getNewBaseModels()
 {
-  //TODO
+  QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(KStandardDirs::locate("config", "simonbasemodels.knsrc"));
+  dialog->exec();
+
+  if (!dialog) return;
+
+/*
+  foreach (const KNS3::Entry& e, dialog->changedEntries()) {
+    if (e.status() == KNS3::Entry::Installed) {
+      QStringList installedFiles = e.installedFiles();
+      foreach (const QString& file, installedFiles) {
+        QFileInfo fi(file);
+      }
+    }
+    if (e.status() == KNS3::Entry::Deleted) {
+      QStringList uninstalledFiles = e.uninstalledFiles();
+      foreach (const QString& file, uninstalledFiles) {
+        QFileInfo fi(file);
+      }
+    }
+  }
+  */
+  delete dialog;
+
+  setupBaseModelSelection();
 }
 
 void SpeechModelSettings::setupBaseModelSelection()
