@@ -81,7 +81,7 @@ int SimonWebcamConfiguration::startWebcam(int webcamIndex)
   if(webcamIndex==WebcamConfiguration::webcamIndex())
   {
     emit changed(false);
-    t1imer->stop();
+    timer->stop();
     if(capture)
       cvReleaseCapture(&capture);
     analyzer = new WebcamConfigurationAnalyzer();
