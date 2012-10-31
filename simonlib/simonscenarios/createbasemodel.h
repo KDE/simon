@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,26 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "firstrunbasemodelconfig.h"
-#include <simonscenarios/basemodelsettings.h>
-#include <QPointer>
-#include <KLocalizedString>
-#include <KCMultiDialog>
 
-FirstRunBaseModelConfig::FirstRunBaseModelConfig(QWidget* parent)
-: QWizardPage(parent)
-{
-  ui.setupUi(this);
-  setTitle(i18n("Speech Model"));
-}
-void FirstRunBaseModelConfig::initializePage()
-{
-  ui.wgBaseModelConfig->load();
-  QWizardPage::initializePage();
-}
+#ifndef SIMON_CREATEBASEMODEL_H
+#define SIMON_CREATEBASEMODEL_H
 
-bool FirstRunBaseModelConfig::validatePage()
+#include <KDialog>
+#include "ui_basemodelconfig.h"
+
+class CreateBaseModel : public KDialog
 {
-  ui.wgBaseModelConfig->save();
-  return QWizardPage::validatePage();
-}
+Q_OBJECT
+public:
+  explicit CreateBaseModel ( QWidget* parent = 0, Qt::WFlags flags = 0 );
+  QString buildModel();
+    
+private slots:
+  void slotCompleteChanged();
+private:
+  Ui::BaseModelConfig ui;
+};
+
+#endif

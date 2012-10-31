@@ -23,6 +23,7 @@
 #include <QWizardPage>
 #include "ui_firstrunbasemodelconfig.h"
 
+class BaseModelSettings;
 class FirstRunBaseModelConfig : public QWizardPage
 {
     Q_OBJECT
@@ -31,9 +32,11 @@ class FirstRunBaseModelConfig : public QWizardPage
     explicit FirstRunBaseModelConfig(QWidget *parent = 0);
 
   private slots:
-    void configureBaseModel();
+    void initializePage();
+    bool validatePage();
 
   private:
     Ui::BaseModelConfigDlg ui;
+    BaseModelSettings *baseModelSettings;
 };
 #endif

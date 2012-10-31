@@ -33,6 +33,8 @@ set(simonscenarios_LIB_SRCS
   commandparameter.cpp
   promptstable.cpp
   promptstablemodel.cpp
+  basemodelsettings.cpp
+  createbasemodel.cpp
   modelmetadata.cpp
 )
 
@@ -71,6 +73,7 @@ set(simonscenarios_LIB_HDRS
   commandlistelements.h
   promptstable.h
   promptstablemodel.h
+  basemodelsettings.h
 )
 
 
@@ -81,7 +84,7 @@ kde4_add_kcfg_files(simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.k
 
 kde4_add_library(simonscenarios SHARED ${simonscenarios_LIB_SRCS})
 target_link_libraries(simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS}
-  simonxml simonlogging simoninfo simonrecognitionresult
+  simonxml simonlogging simoninfo simonrecognitionresult ${KDE4_KNEWSTUFF3_LIBS}
   simonscenariobase simoncontextdetection simongraphemetophoneme)
 
 set_target_properties(simonscenarios
@@ -102,7 +105,6 @@ install(FILES simoncommandplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR}
 ##########
 set(kcm_simonscenarios_LIB_SRCS
   speechmodelsettings.cpp
-  basemodelsettings.cpp
 )
 kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui languageprofilesettings.ui modelsettingsdlg.ui)
 kde4_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)

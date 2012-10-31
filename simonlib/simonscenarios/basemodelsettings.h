@@ -18,23 +18,51 @@
  */
 
 
-#ifndef BASEMODELSETTINGS_H
-#define BASEMODELSETTINGS_H
+#ifndef SIMON_BASEMODELSETTINGS_H
+#define SIMON_BASEMODELSETTINGS_H
 
+#include "simonmodelmanagement_export.h"
 #include <KDialog>
-#include "ui_basemodelconfig.h"
 
-class BaseModelSettings : public KDialog
+namespace Ui
+{
+  class ModelDlg;
+}
+
+class MODELMANAGEMENT_EXPORT BaseModelSettings : public QWidget
 {
 Q_OBJECT
 public:
   explicit BaseModelSettings ( QWidget* parent = 0, Qt::WFlags flags = 0 );
-  QString buildModel();
+  
+signals:
+  void changed(bool);
+  
+public slots:
+  void load();
+  void save();
+  void defaults();
     
 private slots:
-  void slotCompleteChanged();
+  void slotChanged();
+  void createBaseModel();
+  void baseModelSelectionChanged();
+  void openBaseModel();
+  void getNewBaseModels();
+  void exportBaseModel();
+  void removeBaseModel();
+  
 private:
-  Ui::BaseModelConfig ui;
+  Ui::ModelDlg *ui;
+
+  int m_storedModelType;
+  
+  void importBaseModel(const QString& path);
+  QString baseModelDescription(const QString& path);
+  QString baseModelDescription(const QString& name, const QDateTime& dateTime);
+
+  void setupBaseModelSelection();
+  void addBaseModelToSelection(const QString& path);
 };
 
 #endif // BASEMODELSETTINGS_H

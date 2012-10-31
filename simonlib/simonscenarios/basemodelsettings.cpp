@@ -19,77 +19,223 @@
 
 
 #include "basemodelsettings.h"
-#include <QDomDocument>
-#include <QDomElement>
-#include <QFile>
+#include "createbasemodel.h"
+#include "model.h"
+#include "speechmodelmanagementconfiguration.h"
+#include "ui_modelsettingsdlg.h"
+#include <simonscenarios/scenariomanager.h>
+#include <QMenu>
+#include <knewstuff3/downloaddialog.h>
 #include <KTar>
-#include <KStandardDirs>
 #include <KMessageBox>
-#include <KLocalizedString>
+#include <KFileDialog>
 
-BaseModelSettings::BaseModelSettings ( QWidget* parent, Qt::WFlags flags ) : KDialog ( parent, flags)
+BaseModelSettings::BaseModelSettings ( QWidget* parent, Qt::WFlags flags ) : QWidget ( parent, flags), ui(new Ui::ModelDlg())
 {
-  QWidget *w = new QWidget(this);
-  ui.setupUi(w);
-  setMainWidget(w);
-  slotCompleteChanged();
-  connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
-  connect(ui.urHMM, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
-  connect(ui.urTiedlist, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
-  connect(ui.urMacros, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
-  connect(ui.urStats, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
+  ui->setupUi(this);
+  
+  connect(ui->cbBaseModels, SIGNAL(currentIndexChanged(int)), this, SLOT(baseModelSelectionChanged()));
+  connect(ui->cbAdapt, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  
+  ui->pbRemove->setIcon(KIcon("list-remove"));
+  
+  connect(ui->pbExport, SIGNAL(clicked()), this, SLOT(exportBaseModel()));
+
+  QMenu *importMenu = new QMenu(this);
+  QAction *ghnsImport = importMenu->addAction(KIcon("get-hot-new-stuff"), i18n("Download"));
+  QAction *fileImport = importMenu->addAction(KIcon("document-import"), i18n("Import"));
+  QAction *fileCreate = importMenu->addAction(KIcon("document-import"), i18n("Create from model files"));
+
+  connect(ghnsImport, SIGNAL(triggered()), this, SLOT(getNewBaseModels()));
+  connect(fileImport, SIGNAL(triggered()), this, SLOT(openBaseModel()));
+  connect(fileCreate, SIGNAL(triggered()), this, SLOT(createBaseModel()));
+
+  connect(ui->pbRemove, SIGNAL(clicked()), this, SLOT(removeBaseModel()));
+
+  ui->pbImport->setMenu(importMenu);
+
+  ui->pbImport->setIcon(KIcon("document-import"));
+  ui->pbExport->setIcon(KIcon("document-export"));
 }
 
-void BaseModelSettings::slotCompleteChanged()
+void BaseModelSettings::slotChanged()
 {
-  button(Ok)->setEnabled(!ui.leName->text().isEmpty() &&
-                         QFile::exists(ui.urHMM->url().toLocalFile()) && 
-                         QFile::exists(ui.urTiedlist->url().toLocalFile()) && 
-                         QFile::exists(ui.urMacros->url().toLocalFile()) && 
-                         QFile::exists(ui.urStats->url().toLocalFile()));
+  emit changed(true);
 }
 
-QString BaseModelSettings::buildModel()
+QString BaseModelSettings::baseModelDescription(const QString& path)
 {
-  if (!exec()) return QString();
+  if (path.isEmpty())
+    return baseModelDescription(QString(), QDateTime());
   
-  QDomDocument doc;
-  QDomElement rootElem = doc.createElement("baseModel");
-  
-  QDomElement nameElem = doc.createElement("name");
-  nameElem.appendChild(doc.createTextNode(ui.leName->text()));
-  
-  QDomElement creationDateElem = doc.createElement("creationDate");
-  creationDateElem.appendChild(doc.createTextNode(ui.dcbCreationDate->dateTime().toString(Qt::ISODate)));
-  
-  QDomElement typeElem = doc.createElement("type");
-  typeElem.appendChild(doc.createTextNode("HTK")); //htk specific... duh
-  
-  rootElem.appendChild(nameElem);
-  rootElem.appendChild(creationDateElem);
-  rootElem.appendChild(typeElem);
-  doc.appendChild(rootElem);
-  
-  QString dest = KStandardDirs::locateLocal("tmp", "basemodel.sbm");
-  KTar archive(dest, "application/x-gzip");
-  if (!archive.open(QIODevice::WriteOnly)) {
-    KMessageBox::sorry(this, i18nc("%1 is path", "Failed to create temporary archive at %1", dest));
-    return QString();
+  QString name;
+  QDateTime dateTime;
+  KTar tar(path, "application/x-gzip");
+  Model::parseContainer(tar, dateTime, name);
+  return baseModelDescription(name, dateTime);
+}
+
+QString BaseModelSettings::baseModelDescription(const QString& name, const QDateTime& dateTime)
+{
+  if (name.isNull())
+    return i18n("Do not use a base model");
+
+  return i18nc("%1 is model name, %2 is creation date", "%1 (Created: %2)", 
+                      name, dateTime.toString(Qt::LocalDate));
+}
+
+void BaseModelSettings::getNewBaseModels()
+{
+  QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(KStandardDirs::locate("config", "simonbasemodels.knsrc"));
+  dialog->exec();
+
+  if (!dialog) return;
+
+  delete dialog;
+
+  setupBaseModelSelection();
+}
+
+void BaseModelSettings::load()
+{
+  kDebug() << "Load";
+  kDebug() << this;
+  ui->cbAdapt->setChecked(ScenarioManager::getInstance()->baseModelType() == 1);
+  setupBaseModelSelection();
+
+  m_storedModelType = ScenarioManager::getInstance()->baseModelType();
+}
+
+void BaseModelSettings::setupBaseModelSelection()
+{
+  ui->cbBaseModels->clear();
+  addBaseModelToSelection(QString());
+  QString baseModelsBasePath = KStandardDirs::locateLocal("appdata", "model/base/");
+  QDir baseModelsDir(baseModelsBasePath);
+  foreach (const QString& path, baseModelsDir.entryList(QDir::Files|QDir::NoDotAndDotDot))
+    addBaseModelToSelection(baseModelsBasePath + path);
+
+  if (ScenarioManager::getInstance()->baseModelType() == 2)
+    ui->cbBaseModels->setCurrentIndex(0); // no base model
+  else
+    ui->cbBaseModels->setCurrentIndex(qMax(0, ui->cbBaseModels->findData(ScenarioManager::getInstance()->baseModel())));
+  baseModelSelectionChanged();
+}
+
+void BaseModelSettings::exportBaseModel()
+{
+  QString activePath = KStandardDirs::locate("appdata", "model/active.sbm");
+  if (!QFile::exists(activePath)) {
+    KMessageBox::sorry(this, i18n("There is no active model currently available."));
+    return;
   }
-  
-  QByteArray metadata = doc.toByteArray();
-  archive.writeFile("metadata.xml", "nobody", "nobody", metadata.constData(), metadata.length());
-  
-  //htk specific
-  archive.addLocalFile(ui.urHMM->url().toLocalFile(), "hmmdefs");
-  archive.addLocalFile(ui.urTiedlist->url().toLocalFile(), "tiedlist");
-  archive.addLocalFile(ui.urMacros->url().toLocalFile(), "macros");
-  archive.addLocalFile(ui.urStats->url().toLocalFile(), "stats");
-  //end htk specific
-  
-  if (!archive.close()) {
-    KMessageBox::sorry(this, i18nc("%1 is path", "Failed to store temporary base model archive at %1", dest));
-    return QString();
-  }
-  return dest;
+  QString path = KFileDialog::getSaveFileName(KUrl(), "*.sbm", this, i18n("Select output file name"));
+  if (path.isEmpty())
+    return;
+  if (!QFile::copy(activePath, path))
+    KMessageBox::sorry(this, i18n("Could not copy active model to \"%1\".", path));
 }
+
+void BaseModelSettings::createBaseModel()
+{
+  QPointer<CreateBaseModel> baseModelSettings(new CreateBaseModel(this));
+  importBaseModel(baseModelSettings->buildModel());
+  delete baseModelSettings;
+}
+
+void BaseModelSettings::openBaseModel()
+{
+  importBaseModel(KFileDialog::getOpenFileName(KUrl(), "*.sbm", this, i18n("Open Simon base model")));
+}
+
+void BaseModelSettings::removeBaseModel()
+{
+  QString baseModel = ui->cbBaseModels->itemData(ui->cbBaseModels->currentIndex()).toString();
+  if (!QFile::exists(baseModel)) {
+    kDebug() << "Doesn't exist: " << baseModel;
+    return;
+  }
+
+  if (KMessageBox::questionYesNo(this, i18n("Do you really want to remove the selected base model?")) == KMessageBox::Yes) {
+    if (!QFile::remove(baseModel)) {
+      KMessageBox::sorry(this, i18n("Could not remove base model"));
+    } else {
+      setupBaseModelSelection();
+      save();
+    }
+  }
+}
+
+void BaseModelSettings::importBaseModel ( const QString& path )
+{
+  if (!path.isEmpty()) {
+    // build imported path
+    QString fileName = QFileInfo(path).fileName();
+    int i = 0;
+    QString targetPath;
+    while (QFile::exists(targetPath = KStandardDirs::locateLocal("appdata", "model/base/"+QString::number(i)+fileName)))
+      ++i;
+
+    if (!QFile::copy(path, targetPath)) {
+      KMessageBox::sorry(this, i18n("Failed to import base model to Simon."));
+      return;
+    }
+    addBaseModelToSelection(targetPath);
+    ui->cbBaseModels->setCurrentIndex(ui->cbBaseModels->count() - 1);
+
+    emit changed(true);
+  }
+}
+
+void BaseModelSettings::addBaseModelToSelection(const QString& path)
+{
+  ui->cbBaseModels->addItem(baseModelDescription(path), path);
+}
+
+void BaseModelSettings::baseModelSelectionChanged()
+{
+  ui->cbAdapt->setVisible(ui->cbBaseModels->currentIndex() > 0);
+  slotChanged();
+}
+
+void BaseModelSettings::save()
+{
+
+  QString selectedBaseModel = ui->cbBaseModels->itemData(ui->cbBaseModels->currentIndex()).toString();
+
+  int modelType = 2;
+  if (!selectedBaseModel.isNull()) {
+    modelType = ui->cbAdapt->isChecked() ? 1 : 0;
+    if (ScenarioManager::getInstance()->baseModel() != selectedBaseModel) {
+      QString targetPath = KStandardDirs::locateLocal("appdata", "model/basemodel.sbm");
+      
+      bool succ = true;
+      if (QFile::exists(targetPath) && !QFile::remove(targetPath)) {
+        KMessageBox::sorry(this, i18n("Could not remove current base model"));
+        succ = false;
+        return;
+      }
+      if (!QFile::copy(selectedBaseModel, targetPath)) {
+        KMessageBox::sorry(this, i18n("Could not import base model."));
+        succ = false;
+      }
+
+      if (succ)
+        ScenarioManager::getInstance()->setBaseModel(selectedBaseModel);
+    }
+  }
+
+  ScenarioManager::getInstance()->setBaseModelType(modelType);
+}
+
+void BaseModelSettings::defaults()
+{
+  ScenarioManager::getInstance()->setBaseModel(QString());
+  ScenarioManager::getInstance()->setBaseModelType(2);
+
+  QFile::remove(KStandardDirs::locateLocal("appdata", "model/basemodel.sbm"));
+  QFile::remove(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
+
+  load();
+}
+
