@@ -55,9 +55,6 @@ enabled(true)
 
   connect(ui->pbAddOutput, SIGNAL(clicked()), this, SLOT(addOutputDevice()));
   connect(ui->pbAddInput, SIGNAL(clicked()), this, SLOT(addInputDevice()));
-
-  ui->twMain->setTabIcon(0, KIcon("arrow-down"));
-  ui->twMain->setTabIcon(1, KIcon("arrow-up"));
 }
 
 
