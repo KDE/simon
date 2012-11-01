@@ -18,6 +18,7 @@
  */
 
 #include "firstrunbasemodelconfig.h"
+#include <simonscenarios/basemodelsettings.h>
 #include <QPointer>
 #include <KLocalizedString>
 #include <KCMultiDialog>
@@ -26,13 +27,17 @@ FirstRunBaseModelConfig::FirstRunBaseModelConfig(QWidget* parent)
 : QWizardPage(parent)
 {
   ui.setupUi(this);
+  ui.wgBaseModelConfig->setMinimal(true);
   setTitle(i18n("Speech Model"));
-  connect(ui.pbConfigureBaseModel, SIGNAL(clicked()), this, SLOT(configureBaseModel()));
+}
+void FirstRunBaseModelConfig::initializePage()
+{
+  ui.wgBaseModelConfig->load();
+  QWizardPage::initializePage();
 }
 
-void FirstRunBaseModelConfig::configureBaseModel()
+bool FirstRunBaseModelConfig::validatePage()
 {
-  KCMultiDialog configDialog(this);
-  configDialog.addModule("simonspeechmodelmanagementconfig");
-  configDialog.exec();
+  ui.wgBaseModelConfig->save();
+  return QWizardPage::validatePage();
 }

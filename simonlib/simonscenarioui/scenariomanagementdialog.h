@@ -26,6 +26,7 @@
 
 #include "simonscenarioui_export.h"
 
+class ScenarioManagementWidget;
 class Scenario;
 class QTreeWidget;
 class QTreeWidgetItem;
@@ -40,49 +41,15 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog
 {
   Q_OBJECT
 
-    private:
-    Ui::ScenarioManagementDialog *ui;
-
-    QModelIndex m_lastSelectedIndex;
-
-    QString m_dataPrefix;
-    bool m_dirty;
-
-    void initDisplay();
-    QTreeWidgetItem* displayScenario(Scenario *scenario, QTreeWidget* widget);
-    void setupItemToScenario(QTreeWidgetItem *item, Scenario *scenario);
-
-    Scenario* getCurrentlySelectedScenario();
-    QStringList getChildScenarioIds(QTreeWidgetItem* parentItem);
-    QStringList getAllLevelChildScenarioIds(QTreeWidgetItem* parentItem);
-
+  private:
+    ScenarioManagementWidget *managementWidget;
     bool save();
-    void saveChildConfiguration(QTreeWidgetItem *parentItem);
-
-  private slots:
-    void availableScenarioSelected();
-    void selectedScenarioSelected();
-
-    void newScenario();
-    void editScenario();
-    void importScenario();
-    void exportScenarioFile();
-    void exportScenarioGHNS();
-    void deleteScenario();
-
-    void updateLastSelectedIndex(const QModelIndex&);
-    void slotAdded();
-    void slotMovedDown();
-    void slotMovedUp();
-    void slotRemoved();
 
   public slots:
     int exec();
     bool updateScenarioConfiguration();
-    bool getNewScenarios();
 
   public:
-    void init();
     explicit ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent = 0);
     QStringList getSelectedScenarioIds();
 

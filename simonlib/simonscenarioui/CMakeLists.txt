@@ -1,10 +1,11 @@
 set(simonscenarioui_LIB_SRCS
   scenariomanagementdialog.cpp
+  scenariomanagementwidget.cpp
   newscenario.cpp
   newauthor.cpp
 )
 
-set(simonscenarioui_LIB_HDRS scenariomanagementdialog.h)
+set(simonscenarioui_LIB_HDRS scenariomanagementdialog.h scenariomanagementwidget.h)
 
 kde4_add_ui_files(simonscenarioui_LIB_SRCS
   modifyscenario.ui

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>358</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,58 +24,6 @@
    <item row="0" column="1">
     <widget class="QLineEdit" name="leName"/>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="lbBaseHMM">
-     <property name="text">
-      <string>HMM definition:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="KUrlRequester" name="urHMM"/>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="lbBaseTiedlist">
-     <property name="text">
-      <string>Tiedlist:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="KUrlRequester" name="urTiedlist"/>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="lbBaseMacros">
-     <property name="text">
-      <string>Macros:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="KUrlRequester" name="urMacros"/>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="lbBaseStats">
-     <property name="text">
-      <string>Stats:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="KUrlRequester" name="urStats"/>
-   </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
@@ -85,6 +33,170 @@
    </item>
    <item row="1" column="1">
     <widget class="KDateTimeWidget" name="dcbCreationDate"/>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QTabWidget" name="twModelType">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabSphinx">
+      <attribute name="title">
+       <string>Sphinx</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="0">
+        <widget class="QLabel" name="lbMdef">
+         <property name="text">
+          <string>Mdef:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="KUrlRequester" name="urMdef"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lbMeans">
+         <property name="text">
+          <string>Means:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="lbTmatrix">
+         <property name="text">
+          <string>Transition matrices:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="KUrlRequester" name="urTMatrix"/>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="lbVariances">
+         <property name="text">
+          <string>Variances:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="KUrlRequester" name="urVariances"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lbBaseFeatParams">
+         <property name="text">
+          <string>Feat params:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="KUrlRequester" name="urBFEAT"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="KUrlRequester" name="urMeans"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="lbMWeights">
+         <property name="text">
+          <string>Mixture weights:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="KUrlRequester" name="urMWeights"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="lbNoiseDict">
+         <property name="text">
+          <string>Noisedict:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="KUrlRequester" name="urNoiseDict"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabHTK">
+      <attribute name="title">
+       <string>HTK</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="lbBaseHMM">
+         <property name="text">
+          <string>HMM definition:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="KUrlRequester" name="urHMM"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="lbBaseTiedlist">
+         <property name="text">
+          <string>Tiedlist:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="KUrlRequester" name="urTiedlist"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lbBaseMacros">
+         <property name="text">
+          <string>Macros:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="KUrlRequester" name="urMacros"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="lbBaseStats">
+         <property name="text">
+          <string>Stats:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="KUrlRequester" name="urStats"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>

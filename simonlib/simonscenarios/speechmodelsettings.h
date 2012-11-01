@@ -20,14 +20,18 @@
 #ifndef SIMON_SPEECHMODELSETTINGS_H_AA56F9F6811E4A39949D79E491A2C84C
 #define SIMON_SPEECHMODELSETTINGS_H_AA56F9F6811E4A39949D79E491A2C84C
 
-#include "ui_trainingsettings.h"
-#include "ui_languageprofilesettings.h"
-#include "ui_modelsettingsdlg.h"
+namespace Ui {
+  class TrainingSettingsWidget;
+  class LanguageProfileSettingsWidget;
+}
+
+class BaseModelSettings;
 
 #include <QVariantList>
 #include <QDateTime>
 
 #include <KCModule>
+#include "simonmodelmanagement_export.h"
 
 /**
   @author Peter Grasch <bedahr@gmx.net>
@@ -50,30 +54,16 @@ class SpeechModelSettings : public KCModule
     
   private slots:
     void slotChanged();
-    void baseModelSelectionChanged();
+    void slotSubChanged(bool changed);
     void loadLanguageProfile();
-    void createBaseModel();
-    void openBaseModel();
-    void getNewBaseModels();
-    void exportBaseModel();
-    void removeBaseModel();
 
   private:
     void touchLanguageProfileDate();
     
-    Ui::TrainingSettingsWidget uiTrainingsData;
-    Ui::LanguageProfileSettingsWidget uiLanguageProfile;
+    BaseModelSettings *baseModelSettings;
+    Ui::TrainingSettingsWidget *uiTrainingsData;
+    Ui::LanguageProfileSettingsWidget *uiLanguageProfile;
     
-    Ui::ModelDlg ui;
     QString m_languageProfileToImport;
-
-    int m_storedModelType;
-    
-    void importBaseModel(const QString& path);
-    QString baseModelDescription(const QString& path);
-    QString baseModelDescription(const QString& name, const QDateTime& dateTime);
-
-    void setupBaseModelSelection();
-    void addBaseModelToSelection(const QString& path);
 };
 #endif

@@ -20,31 +20,30 @@
 #include "firstrunscenariosconfig.h"
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <QLayout>
 #include <simonscenarioui/scenariomanagementdialog.h>
+#include <simonscenarioui/scenariomanagementwidget.h>
 #include <simonscenarios/scenariomanager.h>
 
 FirstRunScenariosConfig::FirstRunScenariosConfig(QWidget* parent)
-: QWizardPage(parent)
+: QWizardPage(parent), scenarioManagement(new ScenarioManagementWidget("simon/", true, this))
 {
   ui.setupUi(this);
   setTitle(i18n("Scenarios"));
-  connect(ui.pbGetScenarios, SIGNAL(clicked()), this, SLOT(getScenarios()));
+//   connect(ui.pbGetScenarios, SIGNAL(clicked()), this, SLOT(getScenarios()));
+  layout()->addWidget(scenarioManagement);
 }
 
-
-void FirstRunScenariosConfig::getScenarios()
+void FirstRunScenariosConfig::initializePage()
 {
-  ScenarioManagementDialog *dlg = new ScenarioManagementDialog("simon/", this);
-  dlg->init();
-  if (dlg->getNewScenarios()) {
-    //reload scenario information
-    if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
-      KMessageBox::sorry(this, i18n("Could not re-initialize scenarios. Please restart simon!"));
-
-    //displayScenarios();
-    //updateScenarioDisplays();
-  }
+  scenarioManagement->init();
+  QWizardPage::initializePage();
 }
+bool FirstRunScenariosConfig::validatePage()
+{
+  return scenarioManagement->save() && QWizardPage::validatePage();
+}
+
 
 
 FirstRunScenariosConfig::~FirstRunScenariosConfig()

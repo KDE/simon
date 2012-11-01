@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,26 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
-#define SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
 
-#include <QWizardPage>
-#include "ui_firstrunbasemodelconfig.h"
+#ifndef SIMON_CREATEBASEMODEL_H
+#define SIMON_CREATEBASEMODEL_H
 
-class BaseModelSettings;
-class FirstRunBaseModelConfig : public QWizardPage
+#include <KDialog>
+#include "ui_basemodelconfig.h"
+
+class CreateBaseModel : public KDialog
 {
-    Q_OBJECT
-
-  public:
-    explicit FirstRunBaseModelConfig(QWidget *parent = 0);
-
-  private slots:
-    void initializePage();
-    bool validatePage();
-
-  private:
-    Ui::BaseModelConfigDlg ui;
-    BaseModelSettings *baseModelSettings;
+Q_OBJECT
+public:
+  explicit CreateBaseModel ( QWidget* parent = 0, Qt::WFlags flags = 0 );
+  QString buildModel();
+    
+private slots:
+  void slotCompleteChanged();
+private:
+  Ui::BaseModelConfig ui;
 };
+
 #endif

@@ -23,6 +23,8 @@
 #include <QWizardPage>
 #include "ui_firstrunscenariosconfig.h"
 
+class ScenarioManagementWidget;
+
 class FirstRunScenariosConfig : public QWizardPage
 {
   Q_OBJECT
@@ -33,10 +35,12 @@ class FirstRunScenariosConfig : public QWizardPage
     ~FirstRunScenariosConfig();
 
   private slots:
-    void getScenarios();
+    void initializePage();
+    bool validatePage();
 
   private:
     Ui::ScenariosConfigDlg ui;
+    ScenarioManagementWidget *scenarioManagement;
 
 };
 #endif
