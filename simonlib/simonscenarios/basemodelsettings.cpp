@@ -58,6 +58,12 @@ BaseModelSettings::BaseModelSettings ( QWidget* parent, Qt::WFlags flags ) : QWi
   ui->pbExport->setIcon(KIcon("document-export"));
 }
 
+void BaseModelSettings::setMinimal(bool minimal)
+{
+  ui->pbExport->setVisible(!minimal);
+  ui->pbRemove->setVisible(!minimal);
+}
+
 void BaseModelSettings::slotChanged()
 {
   emit changed(true);

@@ -34,6 +34,7 @@ class MODELMANAGEMENT_EXPORT BaseModelSettings : public QWidget
 Q_OBJECT
 public:
   explicit BaseModelSettings ( QWidget* parent = 0, Qt::WFlags flags = 0 );
+  void setMinimal(bool minimal);
   
 signals:
   void changed(bool);

@@ -27,6 +27,7 @@ FirstRunBaseModelConfig::FirstRunBaseModelConfig(QWidget* parent)
 : QWizardPage(parent)
 {
   ui.setupUi(this);
+  ui.wgBaseModelConfig->setMinimal(true);
   setTitle(i18n("Speech Model"));
 }
 void FirstRunBaseModelConfig::initializePage()
