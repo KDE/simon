@@ -26,35 +26,46 @@
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilation/modelcompilationmanagerhtk.h>
 #include <speechmodelcompilation/modelcompilationmanagersphinx.h>
+#include <simonutils/fileutils.h>
+#include <simonscenarios/model.h>
 #include <QDir>
 #include <QSettings>
 #include <KStandardDirs>
 #include <KDebug>
 #include <KAboutData>
 #include <KDateTime>
+#include <KTar>
 #include <KConfigGroup>
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   QObject(parent),
+  m_username(username),
+  m_modelCompilationManager(0),
   m_currentSource(0)
 {
+  readCachedModels();
+  setupBackend(ContextAdapter::FromConfiguration);
+}
+
+void ContextAdapter::setupBackend(BackendType backendType)
+{
+  kDebug() << "Setting up backend: " << backendType;
   KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
-//    KConfig *t = config.copyTo("/tmp/conf");
-//    t->sync();
 
-  KConfigGroup backendGroup(&config, "Backend");
-  int type(-1);
-  type = backendGroup.readEntry("backend", 0);
-  //backendGroup.
+  if (backendType == ContextAdapter::FromConfiguration) {
+    KConfigGroup backendGroup(&config, "Backend");
+    int type(-1);
+    type = backendGroup.readEntry("backend", 0);
+    if (type == 0)
+      backendType == ContextAdapter::SPHINX;
+    else
+      backendType == ContextAdapter::HTK;
+  }
 
-  if(type == 0)
-    m_modelCompilationManager = new ModelCompilationManagerSPHINX(username, this);
-  else if(type == 1)
-    m_modelCompilationManager = new ModelCompilationManagerHTK(username, this);
+  if(backendType == SPHINX)
+    m_modelCompilationManager = new ModelCompilationManagerSPHINX(m_username, this);
   else
-    emit error("There something wrong with adapters");
-
-  m_username = username;
+    m_modelCompilationManager = new ModelCompilationManagerHTK(m_username, this);
 
   connect(m_modelCompilationManager, SIGNAL(modelReady(uint, QString)), this, SLOT(slotModelReady(uint,QString)));
   connect(m_modelCompilationManager, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)), this, SLOT(slotModelCompilationAborted(ModelCompilation::AbortionReason)));
@@ -64,8 +75,6 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   connect(m_modelCompilationManager, SIGNAL(phonemeUndefined(QString)), this, SIGNAL(phonemeUndefined(QString)));
   connect(m_modelCompilationManager, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
   connect(m_modelCompilationManager, SIGNAL(status(QString, int, int)), this, SIGNAL(status(QString, int, int)));
-
-  readCachedModels();
 }
 
 ContextAdapter::~ContextAdapter()
@@ -150,11 +159,14 @@ void ContextAdapter::clearCache()
 
 void ContextAdapter::abort()
 {
-  m_modelCompilationManager->abort();
+  if (m_modelCompilationManager)
+    m_modelCompilationManager->abort();
 }
 
 bool ContextAdapter::isCompiling() const
 {
+  if (!m_modelCompilationManager)
+    return false;
   return m_modelCompilationManager->isRunning();
 }
 
@@ -198,7 +210,7 @@ void ContextAdapter::introduceNewModel ( const Situation& situation )
 
 void ContextAdapter::buildNext()
 {
-  if (!m_currentSource || m_modelCompilationManager->isRunning()) return;
+  if (!m_currentSource || (m_modelCompilationManager && m_modelCompilationManager->isRunning())) return;
 
   kDebug() << "Locking compile lock. Models to check: " << m_modelCache.count();
   m_compileLock.lock();
@@ -232,6 +244,20 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
   
   kDebug() << "Starting model build";
   model->setState(CachedModel::Building);
+
+  QString name;
+  QDateTime creationDate;
+  QString type;
+  KTar tar(m_currentSource->baseModelPath(), "application/x-gzip");
+  if (!Model::parseContainer(tar, creationDate, name, type)) {
+    emit error(i18n("Base model is corrupt."));
+    slotModelCompilationAborted(ModelCompilation::InsufficientInput);
+  } else {
+    if (type == "SPHINX")
+      setupBackend(ContextAdapter::SPHINX);
+    else if (type == "HTK")
+      setupBackend(ContextAdapter::HTK);
+  }
   m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, adaptedPromptsPath);
 }
 
@@ -282,7 +308,8 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
 void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDate, int baseModelType, const QString& baseModelPath, const QStringList& scenarioPaths, const QString& promptsPathIn )
 {
   kDebug() << "Updating model parameters";
-  m_modelCompilationManager->abort();
+  if (m_modelCompilationManager)
+    m_modelCompilationManager->abort();
   
   m_compileLock.lock();
   ModelSource *src = m_currentSource;

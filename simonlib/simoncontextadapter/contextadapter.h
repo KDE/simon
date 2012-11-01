@@ -62,17 +62,23 @@ class SIMONCONTEXTADAPTER_EXPORT ContextAdapter : public QObject
   Q_OBJECT
 
 public:
-    explicit ContextAdapter(QString username, QObject *parent=0);
-    virtual ~ContextAdapter();
+  explicit ContextAdapter(QString username, QObject *parent=0);
+  virtual ~ContextAdapter();
 
   enum Activity
   {
     NoActivity,
     CompilingModel
   };
+  enum BackendType
+  {
+    FromConfiguration,
+    HTK,
+    SPHINX
+  };
 
-    void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
-    void updateDeactivatedSampleGroups(const QStringList& deactivatedSampleGroups);
+  void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
+  void updateDeactivatedSampleGroups(const QStringList& deactivatedSampleGroups);
 
   void clearCache();
 
@@ -92,7 +98,6 @@ public:
   QString currentModelPath() const;
 
 private:
-
     QMutex m_compileLock;
     QString m_username;
     
@@ -130,7 +135,8 @@ private:
     QString adaptPrompts(const QString& promptsPath, const QStringList& deactivatedSampleGroups);
     
     void adaptAndBuild(const Situation& situation, CachedModel* model);
-      
+
+    void setupBackend(BackendType backendType);
 
 private slots:
   void slotModelReady(uint fingerprint, const QString& path);

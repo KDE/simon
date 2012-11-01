@@ -42,7 +42,7 @@ QString Model::modelName()
   return m_modelName;
 }
 
-bool Model::parseContainer ( KTar& archive, QDateTime& creationDate, QString& name )
+bool Model::parseContainer ( KTar& archive, QDateTime& creationDate, QString& name, QString& type )
 {
   if (archive.open(QIODevice::ReadOnly)) {
     const KArchiveDirectory *d = archive.directory();
@@ -53,10 +53,12 @@ bool Model::parseContainer ( KTar& archive, QDateTime& creationDate, QString& na
         doc.setContent(entry->data());
         QDomElement rootElem = doc.documentElement();
         QDomElement nameElem = rootElem.firstChildElement("name");
+        QDomElement typeElem = rootElem.firstChildElement("type");
         QDomElement dateElem = rootElem.firstChildElement("creationDate");
         if (!nameElem.isNull() && !dateElem.isNull()) {
           creationDate = QDateTime::fromString(dateElem.text(), Qt::ISODate);
           name = nameElem.text();
+          type = typeElem.text();
           return true;
         }
         else kDebug() << "Elements 0";
@@ -83,7 +85,7 @@ void Model::parseContainer()
     QBuffer uncompressedModel(&uncompressed);
     uncompressedModel.open(QIODevice::ReadOnly);
     KTar archive(&uncompressedModel);
-    parseContainer(archive, m_modelCreationDate, m_modelName);
+    parseContainer(archive, m_modelCreationDate, m_modelName, m_type);
   }
   m_containerParsed = true;
 }

@@ -75,8 +75,9 @@ QString BaseModelSettings::baseModelDescription(const QString& path)
   
   QString name;
   QDateTime dateTime;
+  QString type;
   KTar tar(path, "application/x-gzip");
-  Model::parseContainer(tar, dateTime, name);
+  Model::parseContainer(tar, dateTime, name, type);
   return baseModelDescription(name, dateTime);
 }
 

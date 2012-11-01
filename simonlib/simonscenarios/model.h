@@ -38,6 +38,7 @@ class MODELMANAGEMENT_EXPORT Model
     bool m_containerParsed;
     QDateTime m_modelCreationDate;
     QString m_modelName;
+    QString m_type;
     
     void parseContainer();
 
@@ -48,7 +49,7 @@ class MODELMANAGEMENT_EXPORT Model
     qint32 baseModelType() { return m_data; }
     QByteArray container() { return m_container; }
     
-    static bool parseContainer(KTar& archive, QDateTime& creationDate, QString& name);
+    static bool parseContainer(KTar& archive, QDateTime& creationDate, QString& name, QString& type);
     
     QDateTime modelCreationDate();
     QString modelName();
