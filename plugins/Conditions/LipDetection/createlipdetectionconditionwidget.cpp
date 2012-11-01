@@ -20,26 +20,21 @@
 #include "createlipdetectionconditionwidget.h"
 #include "lipdetectioncondition.h"
 #include "simoncontextdetection/contextmanager.h"
-
+#include "simonvision/lipanalyzer.h"
 
 
 CreateLipDetectionConditionWidget::CreateLipDetectionConditionWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
+  analyzer=0;
+  thresholdValue=5000;
   ui.setupUi(this);
-  ui.groupBox->setVisible(false);
   setWindowTitle(i18n("Lip Detection"));
   setWindowIcon(KIcon(""));
-  connect(ui.pbOk,SIGNAL(clicked(bool)),this,SLOT(modify()));
+  connect(ui.pbTraining,SIGNAL(clicked(bool)),this,SLOT(modify()));
   connect(ui.horizontalSlider,SIGNAL(valueChanged(int)),this,SLOT(displaySliderValue(int)));
-  connect(ui.pbSelect,SIGNAL(clicked(bool)),this,SLOT(select()));
-//  connect(ui.cbInverted, SIGNAL(stateChanged(int)), this, SIGNAL(completeChanged()));
-}
-
-void CreateLipDetectionConditionWidget::select()
-{
-  ui.groupBox->setVisible(true);
 
 }
+
 
 void CreateLipDetectionConditionWidget::displaySliderValue(int value)
 {
@@ -48,16 +43,44 @@ void CreateLipDetectionConditionWidget::displaySliderValue(int value)
 
 void CreateLipDetectionConditionWidget::modify()
 {
-  thresholdValue = ui.horizontalSlider->value();
-  ui.pbSelect->setText("Train again");
-  ui.groupBox->setVisible(false);
-  emit completeChanged();
+  if(ui.pbTraining->text()=="&Start Training"||ui.pbTraining->text()=="&Train Again")
+  {
+    ui.pbTraining->setText("Stop Training");
+    emit completeChanged();
+    count=0;
+    analyzer = new LipAnalyzer(thresholdValue);
+    connect(analyzer,SIGNAL(lipMovementChanged(bool,int)),this,SLOT(calculateThreshold(bool,int)));
+    ui.lblNotification->setText("Failed to initialize video capture!");
+  }
+  else
+  {
+    if(analyzer)
+    {
+      delete analyzer;
+      analyzer=0;
+    }
+    if(thresholdValue>5000)
+      ui.horizontalSlider->setValue((thresholdValue-35000)/250);
+    ui.pbTraining->setText("Train Again");
+    emit completeChanged();
+  }
 }
-
+void CreateLipDetectionConditionWidget::calculateThreshold(bool isSpeaking, int value)
+{
+  if(isSpeaking)
+  {
+    ui.lblNotification->setText("Lip detected!");
+    thresholdValue=(thresholdValue*count+value)/(++count);
+  }
+  else
+  {
+    ui.lblNotification->setText("Lip not detected! Try adjusting yourself to the webcam");
+  }
+}
 
 bool CreateLipDetectionConditionWidget::isComplete()
 {
-  if (ui.pbSelect->text()=="Train again")
+  if (ui.pbTraining->text()=="Train Again")
     return true;
   else
     return false;
@@ -89,4 +112,8 @@ Condition* CreateLipDetectionConditionWidget::createCondition(QDomDocument* doc,
 
 CreateLipDetectionConditionWidget::~CreateLipDetectionConditionWidget()
 {
+  if(analyzer)
+  {
+    delete analyzer;
+  }
 }

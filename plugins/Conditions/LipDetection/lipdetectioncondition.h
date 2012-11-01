@@ -38,7 +38,7 @@ public:
 
 public slots:
   // Slot is connect to the signal in the Analyzer which will be emmitted when there will be any change the presense of user (isSpeaking)
-  void manageConditionState(bool isSpeaking);
+  void manageConditionState(bool isSpeaking,int thresholdValue);
   
 private:
   bool privateDeSerialize(QDomElement elem);

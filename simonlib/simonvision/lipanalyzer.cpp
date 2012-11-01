@@ -193,13 +193,13 @@ void LipAnalyzer::analyze(const IplImage* currentImage)
 
   if (totalCount>0)
   {
-    emit lipMovementChanged(true);
+    emit lipMovementChanged(true,sum);
     kDebug()<<"Speaking: TRUE\n";
   }
 
   else
   {
-    emit lipMovementChanged(false);
+    emit lipMovementChanged(false,sum);
     kDebug()<<"Speaking: False\n";
 
   }

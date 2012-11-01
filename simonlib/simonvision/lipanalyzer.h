@@ -34,7 +34,7 @@ public:
   void analyze(const IplImage* currentImage);
 
 signals:
-  void lipMovementChanged(bool hasLipMovedNew);
+  void lipMovementChanged(bool hasLipMovedNew, int thresholdValue);
 
 private:
   void closeLipDetection();

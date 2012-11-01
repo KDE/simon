@@ -29,7 +29,7 @@
 #include "ui_createlipdetectionconditionwidget.h"
 
 class Condition;
-
+class LipAnalyzer;
 
 
 class CreateLipDetectionConditionWidget : public CreateConditionWidget
@@ -46,14 +46,17 @@ public:
   explicit CreateLipDetectionConditionWidget(QWidget *parent=0);
   
   virtual ~CreateLipDetectionConditionWidget();
-  
+
+public slots:
+  void calculateThreshold(bool isSpeaking,int value);
+
 private:
   Ui::CreateLipDetectionConditionWidget ui;
   int thresholdValue;
-
+  LipAnalyzer* analyzer;
+  int count;
 
 private slots:
-  void select();
   void modify();
   void displaySliderValue(int value);
 };
