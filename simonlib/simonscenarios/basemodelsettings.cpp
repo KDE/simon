@@ -61,7 +61,6 @@ BaseModelSettings::BaseModelSettings ( QWidget* parent, Qt::WFlags flags ) : QWi
 void BaseModelSettings::setMinimal(bool minimal)
 {
   ui->pbExport->setVisible(!minimal);
-  ui->pbRemove->setVisible(!minimal);
 }
 
 void BaseModelSettings::slotChanged()
