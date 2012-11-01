@@ -82,6 +82,8 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc);
     static QDateTime utcTime();
 
+    QDomElement serialize(QDomDocument doc, bool full);
+
   public:
     explicit Scenario(const QString& scenarioId, const QString& prefix=QString(), QObject *parent = 0);
 
@@ -97,7 +99,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     QDateTime modifiedDate() { return m_lastModifiedDate; }
     bool isActive() {return m_active;}
 
-    QString serialize();
+    QString serialize(bool full);
 
     bool addWords(QList<Word*> w);
     bool addWord(Word* w);
@@ -179,8 +181,10 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     static QString pathFromId(const QString& id, const QString& prefix=QString());
 
+    static QStringList explode(const QString& inFile);
+
   public slots:
-    bool save(QString path=QString());
+    bool save(QString path=QString(), bool full = false);
     void updateActivation();
 };
 #endif

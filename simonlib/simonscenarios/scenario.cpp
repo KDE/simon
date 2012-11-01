@@ -35,6 +35,7 @@
 #include <QDateTime>
 #include <QDomElement>
 #include <QFile>
+#include <QFileInfo>
 #include <KDebug>
 #include <KDateTime>
 #include <KConfigGroup>
@@ -393,68 +394,137 @@ bool Scenario::readTrainingsTexts(QString path, QDomDocument* doc, bool deleteDo
 
 bool Scenario::readCompoundCondition(QString path, QDomDocument* doc, bool deleteDoc)
 {
-    if (!setupToParse(path, doc, deleteDoc)) return false;
+  if (!setupToParse(path, doc, deleteDoc)) return false;
 
-    QDomElement docElem = doc->documentElement();
+  QDomElement docElem = doc->documentElement();
 
-    QDomElement textsElem = docElem.firstChildElement("compoundcondition");
+  QDomElement textsElem = docElem.firstChildElement("compoundcondition");
 
-    if (textsElem.isNull())
-    {
-        textsElem = CompoundCondition::createEmpty(doc);
-    }
+  if (textsElem.isNull())
+  {
+    textsElem = CompoundCondition::createEmpty(doc);
+  }
 
-    m_active = true;
+  m_active = true;
 
-    m_compoundCondition = CompoundCondition::createInstance(textsElem);
+  m_compoundCondition = CompoundCondition::createInstance(textsElem);
 
-    if (deleteDoc) delete doc;
+  if (deleteDoc) delete doc;
 
-    if (!m_compoundCondition) {
-        kDebug() << "CompoundCondition could not be deSerialized!";
-        return false;
-    }
+  if (!m_compoundCondition) {
+    kDebug() << "CompoundCondition could not be deSerialized!";
+    return false;
+  }
 
-    m_active = m_compoundCondition->isSatisfied();
+  m_active = m_compoundCondition->isSatisfied();
 
-    connect(m_compoundCondition, SIGNAL(conditionChanged(bool)),
-            this, SLOT(updateActivation()));
-    connect(m_compoundCondition, SIGNAL(modified()),
-            this, SLOT(save()));
+  connect(m_compoundCondition, SIGNAL(conditionChanged(bool)),
+          this, SLOT(updateActivation()));
+  connect(m_compoundCondition, SIGNAL(modified()),
+          this, SLOT(save()));
 
-    kDebug() << "Compound condition has been deSerialized!";
+  kDebug() << "Compound condition has been deSerialized!";
 
-    return true;
+  return true;
 }
 
 bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool deleteDoc)
 {
-    if (!setupToParse(path, doc, deleteDoc)) return false;
+  if (!setupToParse(path, doc, deleteDoc)) return false;
 
-    QDomElement docElem = doc->documentElement();
+  QDomElement docElem = doc->documentElement();
 
-    QDomElement childrenElem = docElem.firstChildElement("childscenarioids");
+  QDomElement childrenElem = docElem.firstChildElement("childscenarioids");
 
-    if (childrenElem.isNull())
-    {
-        kDebug() << "No child scenario id list element!";
-        return true;
-    }
-
-    QDomElement idElem = childrenElem.firstChildElement("scenarioid");
-    while (!idElem.isNull())
-    {
-        m_childScenarioIds.push_back(idElem.text());
-
-         kDebug() << "Child scenario id added: " + idElem.text();
-
-        idElem = idElem.nextSiblingElement("scenarioid");
-    }
-
-    kDebug() << "Child scenario id list has been deSerialized!";
-
+  if (childrenElem.isNull())
+  {
+    kDebug() << "No child scenario id list element!";
     return true;
+  }
+
+  m_childScenarioIds.clear();
+  QDomElement idElem = childrenElem.firstChildElement("scenarioid");
+  while (!idElem.isNull())
+  {
+    m_childScenarioIds.push_back(idElem.text());
+
+      kDebug() << "Child scenario id added: " + idElem.text();
+
+    idElem = idElem.nextSiblingElement("scenarioid");
+  }
+
+  kDebug() << "Child scenario id list has been deSerialized!";
+
+  return true;
 }
+
+QStringList Scenario::explode(const QString& inFile)
+{
+  QFile f(inFile);
+
+  if (!f.open(QIODevice::ReadOnly))
+    return QStringList();
+
+  QDomDocument d("scenario");
+  d.setContent(f.readAll());
+  f.close();
+
+  QDomElement scenarioElem = d.firstChildElement("scenario");
+  if (scenarioElem.isNull()) {
+    kDebug() << "This is not a scenario";
+    return QStringList();
+  }
+
+  QStringList allScenarios;
+
+  QDomElement childrenElem = scenarioElem.firstChildElement("childscenarioids");
+  QDomElement childElem = childrenElem.firstChildElement("scenario");
+  QStringList childrenSrc;
+  while (!childElem.isNull())
+  {
+    //expand children
+    QString id = childElem.attribute("name");
+    kDebug() << "this id: " << id;
+    QString path = pathFromId(id);
+    QString suffix;
+    while (QFile::exists(path + suffix))
+      suffix += "_";
+
+    QFile f(path + suffix);
+    if (!f.open(QIODevice::WriteOnly)) {
+      kWarning() << "Failed to write temporary scenario";
+      continue;
+    }
+    QDomDocument tempDoc;
+    tempDoc.appendChild(tempDoc.importNode(childElem, true));
+    kDebug() << "Writing: " << tempDoc.toString().toUtf8();
+    f.write(tempDoc.toString().toUtf8());
+
+    childrenSrc << id + suffix;
+    childElem = childElem.nextSiblingElement("scenario");
+  }
+  //strip children
+  while (!(childElem = childrenElem.firstChildElement("scenario")).isNull()) {
+    QDomElement idElem = d.createElement("scenarioid");
+    idElem.appendChild(d.createTextNode(childElem.attribute("name")));
+    childrenElem.appendChild(idElem); // add link
+    childrenElem.removeChild(childElem);
+  }
+  foreach (QString child, childrenSrc) //explode recursively
+    allScenarios << Scenario::explode(pathFromId(child));
+
+  QString outerId = scenarioElem.attribute("name");
+  QFile fInSrc(pathFromId(outerId));
+  if (!fInSrc.open(QIODevice::WriteOnly)) {
+    kWarning() << "couldn't write outer scenario";
+  } else {
+    fInSrc.write(d.toString().toUtf8());
+    fInSrc.close();
+    allScenarios << outerId;
+  }
+  return allScenarios;
+}
+
 
 QString Scenario::pathFromId(const QString& id, const QString& prefix)
 {
@@ -473,7 +543,7 @@ QString Scenario::pathFromId(const QString& id, const QString& prefix)
  * Only use the parameter to EXPORT the scenario
  * \author Peter Grasch <grasch@simon-listens.org>
  */
-bool Scenario::save(QString path)
+bool Scenario::save(QString path, bool full)
 {
   if (m_inGroup > 0) {
     m_dirty = true;
@@ -481,7 +551,7 @@ bool Scenario::save(QString path)
   }
 
   m_lastModifiedDate = utcTime();
-  QString serialized = serialize();
+  QString serialized = serialize(full);
 
   if (serialized.isNull())
     return false;
@@ -509,9 +579,8 @@ QDateTime Scenario::utcTime()
   return KDateTime::currentUtcDateTime().dateTime();
 }
 
-QString Scenario::serialize()
+QDomElement Scenario::serialize(QDomDocument doc, bool full)
 {
-  QDomDocument doc("scenario");
   QDomElement rootElem = doc.createElement("scenario");
   rootElem.setAttribute("name", m_name);
   rootElem.setAttribute("version", m_version);
@@ -580,30 +649,50 @@ QString Scenario::serialize()
   //************************************************/
   if (!m_compoundCondition)
   {
-      kDebug() << "No compound condition to serialize!";
-      rootElem.appendChild(CompoundCondition::createEmpty(&doc));
+    kDebug() << "No compound condition to serialize!";
+    rootElem.appendChild(CompoundCondition::createEmpty(&doc));
   }
   else
   {
-      kDebug() << "Serializing compound condition!";
-      rootElem.appendChild(m_compoundCondition->serialize(&doc));
+    kDebug() << "Serializing compound condition!";
+    rootElem.appendChild(m_compoundCondition->serialize(&doc));
   }
 
   //  Child Scenario Ids
   //************************************************/
   QDomElement childrenElem = doc.createElement("childscenarioids");
   QDomElement idElem;
+  QList<Scenario*> scenariosToDelete;
   foreach(const QString& id, m_childScenarioIds)
   {
+    if (!full) {
       idElem = doc.createElement("scenarioid");
       idElem.appendChild(doc.createTextNode(id));
 
       childrenElem.appendChild(idElem);
+    } else {
+      // serialize child scenarios and include them here
+      Scenario *s = ScenarioManager::getInstance()->getScenario(id);
+      if (!s) {
+        //not loaded, load it temporarily
+        s = new Scenario(id);
+        scenariosToDelete.push_back(s);
+        if (!s->init()) continue;
+      }
+      childrenElem.appendChild(s->serialize(doc, full));
+    }
   }
+  foreach (Scenario *s, scenariosToDelete)
+    delete s;
   rootElem.appendChild(childrenElem);
+  return rootElem;
+}
 
 
-  doc.appendChild(rootElem);
+QString Scenario::serialize(bool full)
+{
+  QDomDocument doc("scenario");
+  doc.appendChild(serialize(doc, full));
   return doc.toString();
 }
 

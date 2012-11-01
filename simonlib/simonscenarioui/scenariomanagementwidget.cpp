@@ -159,22 +159,25 @@ void ScenarioManagementWidget::importScenario()
 {
   QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select scenario file"));
   if (path.isEmpty()) return;
-  Scenario *s = new Scenario("");
   kDebug() << "Path: " << path;
-  if (!s->init(path)) {
-    KMessageBox::sorry(this, i18n("Could not load scenario."));
-    s->deleteLater();
+
+  QStringList exploded = Scenario::explode(path);
+  if (exploded.isEmpty()) {
+    KMessageBox::sorry(this, i18n("Failed to expand scenario."));
     return;
   }
 
-  if (!s->save()) {
-    kDebug() << "Hier bin ich!";
-    KMessageBox::sorry(this, i18n("Failed to store scenario"));
+  foreach (const QString& e, exploded) {
+    Scenario *s = new Scenario(e);
+
+    if (!s->init()) {
+      KMessageBox::sorry(this, i18n("Could not load scenario \"%1\".", e));
+      s->deleteLater();
+      continue;
+    }
+    displayScenario(s, ui->twAvailable);
     s->deleteLater();
-    return;
   }
-  displayScenario(s, ui->twAvailable);
-  s->deleteLater();
 }
 
 
@@ -183,7 +186,24 @@ void ScenarioManagementWidget::exportScenarioGHNS()
   Scenario *s = getCurrentlySelectedScenario();
   if (!s) return;
 
-  QString path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+s->id());
+  QString path;
+  if (askExportFull(s)) {
+    //we need to merge this
+    path = KStandardDirs::locate("tmp", m_dataPrefix+"mergedscenario");
+
+    if (!s->init()) {
+      KMessageBox::sorry(this, i18n("Could not load scenario."));
+      s->deleteLater();
+      return;
+    }
+
+    if (!s->save(path, true /*full*/)) {
+      KMessageBox::sorry(this, i18n("Could not write temporary scenario."));
+      return;
+    }
+  } else
+    path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+s->id());
+
   QPointer<KNS3::UploadDialog> dialog = new KNS3::UploadDialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
   dialog->setUploadFile(path);
   dialog->setUploadName(s->name());
@@ -191,6 +211,13 @@ void ScenarioManagementWidget::exportScenarioGHNS()
   delete dialog;
 }
 
+bool ScenarioManagementWidget::askExportFull(Scenario* s)
+{
+  kDebug() << "Child scenario ids: " << s->childScenarioIds();
+  if (s->childScenarioIds().isEmpty())
+    return false; // if we don't have children, we always export just the one scenario
+  return (KMessageBox::questionYesNo(this, i18n("The selected scenario has children.\n\nDo you want to include them in the exported scenario (the hierarchy will be preserved)?")) == KMessageBox::Yes);
+}
 
 void ScenarioManagementWidget::exportScenarioFile()
 {
@@ -206,7 +233,7 @@ void ScenarioManagementWidget::exportScenarioFile()
   QString path = KFileDialog::getSaveFileName(KUrl(), QString(), this, i18n("Select scenario output file"));
   if (path.isEmpty()) return;
 
-  if (!s->save(path)) {
+  if (!s->save(path, askExportFull(s))) {
     KMessageBox::sorry(this, i18n("Failed to store scenario"));
   }
   s->deleteLater();
@@ -235,8 +262,8 @@ bool ScenarioManagementWidget::getNewScenarios()
     if (e.status() == KNS3::Entry::Installed) {
       QStringList installedFiles = e.installedFiles();
       foreach (const QString& file, installedFiles) {
-        QFileInfo fi(file);
-        selectedIds.append(fi.fileName());
+        foreach (const QString& id, Scenario::explode(file))
+          selectedIds.append(id);
       }
     }
     if (e.status() == KNS3::Entry::Deleted) {

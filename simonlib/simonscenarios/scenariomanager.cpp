@@ -264,7 +264,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
         cg.sync();
     }
 
-    kDebug() << "Loading scenario: " << scenarioIds;
+    kDebug() << "Loading scenarios: " << scenarioIds;
 
     foreach (const QString& id, scenarioIds) {
         Scenario *s = new Scenario(id, QString(), this);

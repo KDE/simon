@@ -58,6 +58,8 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementWidget : public QWidget
 
     void saveChildConfiguration(QTreeWidgetItem *parentItem);
 
+    bool askExportFull(Scenario *s);
+
   private slots:
     void availableScenarioSelected();
     void selectedScenarioSelected();
