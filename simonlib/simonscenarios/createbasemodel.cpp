@@ -38,15 +38,39 @@ CreateBaseModel::CreateBaseModel ( QWidget* parent, Qt::WFlags flags ) : KDialog
   connect(ui.urTiedlist, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
   connect(ui.urMacros, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
   connect(ui.urStats, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
+
+  connect(ui.urBFEAT, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
+  connect(ui.urMdef, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
+  connect(ui.urMeans, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
+  connect(ui.urMWeights, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
+  connect(ui.urNoiseDict, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
+  connect(ui.urTMatrix, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
+  connect(ui.urVariances, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
 }
 
 void CreateBaseModel::slotCompleteChanged()
 {
-  button(Ok)->setEnabled(!ui.leName->text().isEmpty() &&
-                         QFile::exists(ui.urHMM->url().toLocalFile()) && 
-                         QFile::exists(ui.urTiedlist->url().toLocalFile()) && 
-                         QFile::exists(ui.urMacros->url().toLocalFile()) && 
-                         QFile::exists(ui.urStats->url().toLocalFile()));
+  bool status = false;
+  if(ui.twModelType->currentIndex() == 0)
+  {
+    status = !ui.leName->text().isEmpty() &&
+             QFile::exists(ui.urBFEAT->url().toLocalFile()) &&
+             QFile::exists(ui.urMdef->url().toLocalFile()) &&
+             QFile::exists(ui.urMeans->url().toLocalFile()) &&
+             QFile::exists(ui.urMWeights->url().toLocalFile()) &&
+             QFile::exists(ui.urNoiseDict->url().toLocalFile()) &&
+             QFile::exists(ui.urTMatrix->url().toLocalFile()) &&
+             QFile::exists(ui.urVariances->url().toLocalFile());
+  }
+  else
+  {
+    status = !ui.leName->text().isEmpty() &&
+             QFile::exists(ui.urHMM->url().toLocalFile()) &&
+             QFile::exists(ui.urTiedlist->url().toLocalFile()) &&
+             QFile::exists(ui.urMacros->url().toLocalFile()) &&
+             QFile::exists(ui.urStats->url().toLocalFile());
+  }
+  button(Ok)->setEnabled(status);
 }
 
 QString CreateBaseModel::buildModel()
@@ -63,7 +87,10 @@ QString CreateBaseModel::buildModel()
   creationDateElem.appendChild(doc.createTextNode(ui.dcbCreationDate->dateTime().toString(Qt::ISODate)));
   
   QDomElement typeElem = doc.createElement("type");
-  typeElem.appendChild(doc.createTextNode("HTK")); //htk specific... duh
+  if(ui.twModelType->currentIndex() == 0)
+    typeElem.appendChild(doc.createTextNode("SPHINX"));
+  else
+    typeElem.appendChild(doc.createTextNode("HTK")); //htk specific... duh
   
   rootElem.appendChild(nameElem);
   rootElem.appendChild(creationDateElem);
@@ -80,12 +107,24 @@ QString CreateBaseModel::buildModel()
   QByteArray metadata = doc.toByteArray();
   archive.writeFile("metadata.xml", "nobody", "nobody", metadata.constData(), metadata.length());
   
-  //htk specific
-  archive.addLocalFile(ui.urHMM->url().toLocalFile(), "hmmdefs");
-  archive.addLocalFile(ui.urTiedlist->url().toLocalFile(), "tiedlist");
-  archive.addLocalFile(ui.urMacros->url().toLocalFile(), "macros");
-  archive.addLocalFile(ui.urStats->url().toLocalFile(), "stats");
-  //end htk specific
+
+  if(ui.twModelType->currentIndex() == 0)
+  {
+    archive.addLocalFile(ui.urBFEAT->url().toLocalFile(), "feat.params");
+    archive.addLocalFile(ui.urMdef->url().toLocalFile(), "mdef");
+    archive.addLocalFile(ui.urMeans->url().toLocalFile(), "means");
+    archive.addLocalFile(ui.urMWeights->url().toLocalFile(), "mixture_weights");
+    archive.addLocalFile(ui.urNoiseDict->url().toLocalFile(), "noisedict");
+    archive.addLocalFile(ui.urTMatrix->url().toLocalFile(), "transition_matrices");
+    archive.addLocalFile(ui.urVariances->url().toLocalFile(), "variances");
+  }
+  else
+  {
+    archive.addLocalFile(ui.urHMM->url().toLocalFile(), "hmmdefs");
+    archive.addLocalFile(ui.urTiedlist->url().toLocalFile(), "tiedlist");
+    archive.addLocalFile(ui.urMacros->url().toLocalFile(), "macros");
+    archive.addLocalFile(ui.urStats->url().toLocalFile(), "stats");
+  }
   
   if (!archive.close()) {
     KMessageBox::sorry(this, i18nc("%1 is path", "Failed to store temporary base model archive at %1", dest));
