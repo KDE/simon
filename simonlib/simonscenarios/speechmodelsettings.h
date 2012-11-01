@@ -56,6 +56,7 @@ class SpeechModelSettings : public KCModule
     void openBaseModel();
     void getNewBaseModels();
     void exportBaseModel();
+    void removeBaseModel();
 
   private:
     void touchLanguageProfileDate();

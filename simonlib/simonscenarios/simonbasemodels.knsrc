@@ -1,0 +1,4 @@
+[KNewStuff3]
+ProvidersUrl=http://files.kde.org/accessibility/Simon/providers.xml
+Categories=Simon Base Model
+TargetDir=simon/model/base

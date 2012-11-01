@@ -34,6 +34,7 @@
 #include <KDateTime>
 #include <KPageWidget>
 #include <KTar>
+#include <knewstuff3/downloaddialog.h>
 #include <kgenericfactory.h>
 
 K_PLUGIN_FACTORY( SpeechModelSettingsFactory,
@@ -79,6 +80,7 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
   connect(ui.cbAdapt, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   uiLanguageProfile.pbLoadLanguageProfile->setIcon(KIcon("document-open"));
+  ui.pbRemove->setIcon(KIcon("list-remove"));
   
   connect(uiLanguageProfile.pbLoadLanguageProfile, SIGNAL(clicked()), this, SLOT(loadLanguageProfile()));
 
@@ -92,6 +94,8 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
   connect(ghnsImport, SIGNAL(triggered()), this, SLOT(getNewBaseModels()));
   connect(fileImport, SIGNAL(triggered()), this, SLOT(openBaseModel()));
   connect(fileCreate, SIGNAL(triggered()), this, SLOT(createBaseModel()));
+
+  connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeBaseModel()));
 
   ui.pbImport->setMenu(importMenu);
 
@@ -123,6 +127,24 @@ void SpeechModelSettings::createBaseModel()
 void SpeechModelSettings::openBaseModel()
 {
   importBaseModel(KFileDialog::getOpenFileName(KUrl(), "*.sbm", this, i18n("Open Simon base model")));
+}
+
+void SpeechModelSettings::removeBaseModel()
+{
+  QString baseModel = ui.cbBaseModels->itemData(ui.cbBaseModels->currentIndex()).toString();
+  if (!QFile::exists(baseModel)) {
+    kDebug() << "Doesn't exist: " << baseModel;
+    return;
+  }
+
+  if (KMessageBox::questionYesNo(this, i18n("Do you really want to remove the selected base model?")) == KMessageBox::Yes) {
+    if (!QFile::remove(baseModel)) {
+      KMessageBox::sorry(this, i18n("Could not remove base model"));
+    } else {
+      setupBaseModelSelection();
+      save();
+    }
+  }
 }
 
 void SpeechModelSettings::importBaseModel ( const QString& path )
@@ -185,7 +207,14 @@ QString SpeechModelSettings::baseModelDescription(const QString& name, const QDa
 
 void SpeechModelSettings::getNewBaseModels()
 {
-  //TODO
+  QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(KStandardDirs::locate("config", "simonbasemodels.knsrc"));
+  dialog->exec();
+
+  if (!dialog) return;
+
+  delete dialog;
+
+  setupBaseModelSelection();
 }
 
 void SpeechModelSettings::setupBaseModelSelection()
@@ -200,7 +229,7 @@ void SpeechModelSettings::setupBaseModelSelection()
   if (ScenarioManager::getInstance()->baseModelType() == 2)
     ui.cbBaseModels->setCurrentIndex(0); // no base model
   else
-    ui.cbBaseModels->setCurrentIndex(ui.cbBaseModels->findData(ScenarioManager::getInstance()->baseModel()));
+    ui.cbBaseModels->setCurrentIndex(qMax(0, ui.cbBaseModels->findData(ScenarioManager::getInstance()->baseModel())));
   baseModelSelectionChanged();
 }
 

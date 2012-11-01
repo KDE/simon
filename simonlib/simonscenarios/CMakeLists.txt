@@ -108,8 +108,10 @@ kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui languageprofil
 kde4_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
 
 kde4_add_plugin(simonscenarioskcm ${kcm_simonscenarios_LIB_SRCS})
-target_link_libraries(simonscenarioskcm ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonscenarios simonscenariobase)
+target_link_libraries(simonscenarioskcm ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
+  simonscenarios simonscenariobase ${KDE4_KNEWSTUFF3_LIBS})
 
 install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncore)
 
 install(FILES simonspeechmodelmanagementconfig.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncore)
+install(FILES simonbasemodels.knsrc DESTINATION ${CONFIG_INSTALL_DIR} COMPONENT simon)
