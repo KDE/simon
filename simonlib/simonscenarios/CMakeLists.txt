@@ -78,7 +78,7 @@ set(simonscenarios_LIB_HDRS
 
 
 
-kde4_add_ui_files(simonscenarios_LIB_SRCS createvoiceinterfacecommandwidget.ui basemodelconfig.ui)
+kde4_add_ui_files(simonscenarios_LIB_SRCS createvoiceinterfacecommandwidget.ui basemodelconfig.ui modelsettingsdlg.ui)
 
 kde4_add_kcfg_files(simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
 
@@ -106,7 +106,7 @@ install(FILES simoncommandplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR}
 set(kcm_simonscenarios_LIB_SRCS
   speechmodelsettings.cpp
 )
-kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui languageprofilesettings.ui modelsettingsdlg.ui)
+kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui languageprofilesettings.ui)
 kde4_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
 
 kde4_add_plugin(simonscenarioskcm ${kcm_simonscenarios_LIB_SRCS})
