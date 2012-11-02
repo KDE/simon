@@ -66,14 +66,14 @@ int main(int argc, char *argv[])
     ki18n("Simon"), simon_version,
     ki18n("<html><head /><body>"
           "<h2>Development and Distribution</h2>"
-          "<p>Developed and distributed by the non-profit organization"
+          "<p>Developed in part by the non-profit organization"
           " <a href=\"http://simon-listens.org\">simon listens e.V.</a>"
           " in cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>"
           "<h3>Special Thanks To</h3>"
           "<ul><li>Franz Stieger</li><li>Mathias Stieger</li><li>Phillip Theussl</li><li>Moacyr Prado</li><li>Michael Stieger</li><li>Ralf Herzog</li></ul>"
           "</body></html>"),
           KAboutData::License_GPL,
-          ki18n("Copyright (c) 2008-2012 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl, Adam Nash, Frederik Gladhorn") );
+          ki18n("Copyright (c) 2008-2012 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl, Adam Nash, Frederik Gladhorn, Patrick von Reth, Alessadro Buggin, Mario Strametz, Vladislav Sitalo, Yash Shah") );
 
   KCmdLineOptions options;
   options.add("nosplash", ki18n("Disable Simon's splash screen"));
