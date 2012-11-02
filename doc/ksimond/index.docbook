@@ -114,7 +114,7 @@ and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
 <othername>H.</othername>
 <surname>Grasch</surname>
 </personname>
-<email>grasch@simon-listens.org</email>
+<email>peter.grasch@bedahr.org</email>
 </author>
 </authorgroup>
 
@@ -226,7 +226,7 @@ Alongside the ksimond configuration the simond configuration modules are listed 
 &kappname;
 </para>
 <para>
-Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+Program copyright 2008-2010 Peter Grasch <email>peter.grasch@bedahr.org</email>
 </para>
 <!--<para>
 Contributors:
@@ -239,7 +239,7 @@ Contributors:
 </para>-->
 
 <para>
-Documentation Copyright &copy; 2010 Peter Grasch <email>grasch@simon-listens.org</email>
+Documentation Copyright &copy; 2010 Peter Grasch <email>peter.grasch@bedahr.org</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->

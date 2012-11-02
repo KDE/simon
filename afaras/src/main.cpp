@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *  Copyright (C) 2010 Peter Grasch <peter.grasch@bedahr.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2,
@@ -30,8 +30,8 @@ I18N_NOOP("An automatic sample review tool");
 int main(int argc, char **argv)
 {
   KAboutData about("afaras", 0, ki18n("afaras"), simon_version, ki18n(description),
-    KAboutData::License_GPL, ki18n("(C) 2011 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
-  about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
+    KAboutData::License_GPL, ki18n("(C) 2011 Peter Grasch"), KLocalizedString(), 0, "peter.grasch@bedahr.org");
+  about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "peter.grasch@bedahr.org" );
 
   KCmdLineArgs::init(argc, argv, &about);
 

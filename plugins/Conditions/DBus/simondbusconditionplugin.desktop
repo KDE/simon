@@ -36,7 +36,7 @@ Comment[uk]=Перевірка стану програм за допомогою
 Comment[x-test]=xxChecks application state over D-Busxx
 
 X-KDE-PluginInfo-Author=Peter Grasch
-X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Email=peter.grasch@bedahr.org
 X-KDE-PluginInfo-Name=simondbusconditionplugin
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-Website=http://simon-listens.org

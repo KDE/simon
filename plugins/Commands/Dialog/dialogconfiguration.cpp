@@ -1,4 +1,4 @@
-/*   Copyright (C) 2009-2010 Grasch Peter <grasch@simon-listens.org>
+/*   Copyright (C) 2009-2010 Grasch Peter <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,

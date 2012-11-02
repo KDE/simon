@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
+ *   Copyright (C) 2009 Grasch Peter <peter.grasch@bedahr.org>
  *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify

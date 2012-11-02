@@ -1,4 +1,4 @@
-# Copyright (c) 2011, Peter Grasch <grasch@simon-listens.org>
+# Copyright (c) 2011, Peter Grasch <peter.grasch@bedahr.org>
 # Copyright (c) 2011, Patrick von Reth, <patrick.vonreth@gmail.com>
 # All rights reserved.
 # 

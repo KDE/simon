@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
+ *  Copyright (C) 2009 Peter Grasch <peter.grasch@bedahr.org>
  *  Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -56,7 +56,7 @@ class QCloseEvent;
 
 /**
  * @short Main view
- * @author Peter Grasch <grasch@simon-listens.org>
+ * @author Peter Grasch <peter.grasch@bedahr.org>
  * @version 0.1
  */
 

@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2008 Peter Grasch <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -24,7 +24,7 @@
 class QWizardPage;
 
 /**
-  @author Peter Grasch <grasch@simon-listens.org>
+  @author Peter Grasch <peter.grasch@bedahr.org>
 */
 class ImportGrammarWizard : public SimonWizard
 {
