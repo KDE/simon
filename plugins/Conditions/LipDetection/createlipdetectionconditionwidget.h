@@ -38,13 +38,13 @@ class CreateLipDetectionConditionWidget : public CreateConditionWidget
 
 public:
   Condition* createCondition(QDomDocument* doc, QDomElement& conditionElem);
-  
+
   bool init(Condition* condition);
   bool isInstanceOfSameCondition(Condition *condition);
   bool isComplete();
-  
+
   explicit CreateLipDetectionConditionWidget(QWidget *parent=0);
-  
+
   virtual ~CreateLipDetectionConditionWidget();
 
 public slots:

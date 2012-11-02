@@ -37,6 +37,10 @@ LipAnalyzer::LipAnalyzer(int thresholdValue)
     kDebug() <<"Error Initializing lip detection";
 }
 
+void LipAnalyzer::setThreshold(int thresholdValue)
+{
+  this->thresholdValue = thresholdValue;
+}
 
 bool LipAnalyzer::initLipDetection(int thresholdVal)
 {
@@ -171,9 +175,10 @@ void LipAnalyzer::analyze(const IplImage* currentImage)
       cvCopy(liveVideoFrameCopy,prevVideoFrame);
 
     }
-  }
+  } else
+    kDebug() << "Face not found";
 
-//  kDebug()<<"Sum: "<<sum<< " total count:  "<<totalCount<<" threshold value: "<<thresholdValue;
+ kDebug()<<"Sum: "<<sum<< " total count:  "<<totalCount<<" threshold value: "<<thresholdValue;
 
   if (sum>thresholdValue&&totalCount>0&&totalCount<5)
   {
@@ -213,7 +218,7 @@ void LipAnalyzer::closeLipDetection()
 
   if (lipCascade)
     cvReleaseHaarClassifierCascade(&lipCascade);
-  
+
   if (memoryStorage)
     cvReleaseMemStorage(&memoryStorage);
 

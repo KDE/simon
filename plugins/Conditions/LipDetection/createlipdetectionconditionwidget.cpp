@@ -26,7 +26,6 @@
 CreateLipDetectionConditionWidget::CreateLipDetectionConditionWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   analyzer=0;
-  thresholdValue=5000;
   ui.setupUi(this);
   setWindowTitle(i18n("Lip Detection"));
   ui.pbTraining->setText(i18n("&Start Training"));
@@ -34,9 +33,16 @@ CreateLipDetectionConditionWidget::CreateLipDetectionConditionWidget(QWidget *pa
   connect(ui.horizontalSlider,SIGNAL(valueChanged(int)),this,SLOT(displaySliderValue(int)));
 }
 
+bool CreateLipDetectionConditionWidget::isInstanceOfSameCondition(Condition* condition)
+{
+  return dynamic_cast<LipDetectionCondition*>(condition);
+}
+
 void CreateLipDetectionConditionWidget::displaySliderValue(int value)
 {
   ui.lblSilderValue->setText(QString::number(value));
+  if (analyzer)
+    analyzer->setThreshold(value);
 }
 
 void CreateLipDetectionConditionWidget::modify()
@@ -45,31 +51,36 @@ void CreateLipDetectionConditionWidget::modify()
   {
     ui.pbTraining->setText("Stop Training");
     count=0;
-    analyzer = new LipAnalyzer(thresholdValue);
+    analyzer = new LipAnalyzer(ui.horizontalSlider->value());
     connect(analyzer,SIGNAL(lipMovementChanged(bool,int)),this,SLOT(calculateThreshold(bool,int)));
     ui.lblNotification->setText("Failed to initialize video capture!");
   }
   else
   {
-    delete analyzer;
-    analyzer=0;
-
-    if(thresholdValue>5000)
-      ui.horizontalSlider->setValue((thresholdValue-35000)/250);
     ui.pbTraining->setText(i18n("&Start Training"));
+    LipAnalyzer *t = analyzer;
+    analyzer=0;
+    delete t;
   }
 }
+
 void CreateLipDetectionConditionWidget::calculateThreshold(bool isSpeaking, int value)
 {
+  kDebug() << "Value before: " << ui.horizontalSlider->value();
   if(isSpeaking)
   {
-    ui.lblNotification->setText(i18n("Lip detected!"));
-    thresholdValue=(thresholdValue*count+value)/(++count);
+    ui.lblNotification->setText(i18n("Speaking."));
+//     thresholdValue=(thresholdValue * count + value)/(++count);
+    ui.horizontalSlider->setValue(ui.horizontalSlider->value() + 500);
   }
   else
   {
-    ui.lblNotification->setText(i18n("Lip not detected."));
+    ui.lblNotification->setText(i18n("Not speaking."));
+    // constant decay because we know that the user should still be speaking at this point
+    ui.horizontalSlider->setValue(ui.horizontalSlider->value() - 1000);
   }
+  kDebug() << "Value after: " << ui.horizontalSlider->value();
+//   displaySliderValue(thresholdValue);
 }
 
 bool CreateLipDetectionConditionWidget::isComplete()

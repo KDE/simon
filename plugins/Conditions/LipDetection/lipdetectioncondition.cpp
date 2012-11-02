@@ -46,9 +46,9 @@ QDomElement LipDetectionCondition::privateSerialize(QDomDocument *doc, QDomEleme
 {
  QDomElement thresholdValueElem = doc->createElement("thresholdvalue");
  thresholdValueElem.appendChild(doc->createTextNode(QString::number(thresholdValue)));
-  
+
  elem.appendChild(thresholdValueElem);
-  
+
   return elem;
 }
 
@@ -70,8 +70,8 @@ bool LipDetectionCondition::privateDeSerialize(QDomElement elem)
     kDebug() << "Threhold value not specified!  Deserialization failure!";
     return false;
   }
-  thresholdValue = thresholdValueElement.text().toInt()*250+35000;
-  
+  thresholdValue = thresholdValueElement.text().toInt();
+
   analyzer = new LipAnalyzer(thresholdValue);
   connect(analyzer,SIGNAL(lipMovementChanged(bool,int)),this,SLOT(manageConditionState(bool,int)));
   return true;
@@ -98,7 +98,7 @@ void LipDetectionCondition::manageConditionState(bool isSpeaking, int thresholdV
       emit conditionChanged();
     }
   }
-}  
+}
 
 
 LipDetectionCondition::~LipDetectionCondition()

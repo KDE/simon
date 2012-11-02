@@ -33,13 +33,14 @@ public:
   virtual ~LipAnalyzer();
   void analyze(const IplImage* currentImage);
 
+  void setThreshold(int thresholdValue);
+
 signals:
   void lipMovementChanged(bool hasLipMovedNew, int thresholdValue);
 
 private:
   void closeLipDetection();
   bool initLipDetection(int thresholdValue=40000);
-  void isChanged(bool hasLipMoved);
   bool hasLipMoved;
   IplImage  * liveVideoFrameCopy;
   IplImage  * prevVideoFrame;
