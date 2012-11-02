@@ -29,12 +29,10 @@ CreateLipDetectionConditionWidget::CreateLipDetectionConditionWidget(QWidget *pa
   thresholdValue=5000;
   ui.setupUi(this);
   setWindowTitle(i18n("Lip Detection"));
-  setWindowIcon(KIcon(""));
+  ui.pbTraining->setText(i18n("&Start Training"));
   connect(ui.pbTraining,SIGNAL(clicked(bool)),this,SLOT(modify()));
   connect(ui.horizontalSlider,SIGNAL(valueChanged(int)),this,SLOT(displaySliderValue(int)));
-
 }
-
 
 void CreateLipDetectionConditionWidget::displaySliderValue(int value)
 {
@@ -43,10 +41,9 @@ void CreateLipDetectionConditionWidget::displaySliderValue(int value)
 
 void CreateLipDetectionConditionWidget::modify()
 {
-  if(ui.pbTraining->text()=="&Start Training"||ui.pbTraining->text()=="&Train Again")
+  if(ui.pbTraining->text()==i18n("&Start Training"))
   {
     ui.pbTraining->setText("Stop Training");
-    emit completeChanged();
     count=0;
     analyzer = new LipAnalyzer(thresholdValue);
     connect(analyzer,SIGNAL(lipMovementChanged(bool,int)),this,SLOT(calculateThreshold(bool,int)));
@@ -54,36 +51,30 @@ void CreateLipDetectionConditionWidget::modify()
   }
   else
   {
-    if(analyzer)
-    {
-      delete analyzer;
-      analyzer=0;
-    }
+    delete analyzer;
+    analyzer=0;
+
     if(thresholdValue>5000)
       ui.horizontalSlider->setValue((thresholdValue-35000)/250);
-    ui.pbTraining->setText("Train Again");
-    emit completeChanged();
+    ui.pbTraining->setText(i18n("&Start Training"));
   }
 }
 void CreateLipDetectionConditionWidget::calculateThreshold(bool isSpeaking, int value)
 {
   if(isSpeaking)
   {
-    ui.lblNotification->setText("Lip detected!");
+    ui.lblNotification->setText(i18n("Lip detected!"));
     thresholdValue=(thresholdValue*count+value)/(++count);
   }
   else
   {
-    ui.lblNotification->setText("Lip not detected! Try adjusting yourself to the webcam");
+    ui.lblNotification->setText(i18n("Lip not detected."));
   }
 }
 
 bool CreateLipDetectionConditionWidget::isComplete()
 {
-  if (ui.pbTraining->text()=="Train Again")
-    return true;
-  else
-    return false;
+  return true; // training is not a requirement
 }
 
 bool CreateLipDetectionConditionWidget::init(Condition *condition)
@@ -112,8 +103,5 @@ Condition* CreateLipDetectionConditionWidget::createCondition(QDomDocument* doc,
 
 CreateLipDetectionConditionWidget::~CreateLipDetectionConditionWidget()
 {
-  if(analyzer)
-  {
-    delete analyzer;
-  }
+  delete analyzer;
 }

@@ -85,7 +85,7 @@ Try to speak clearly and naturally.</string>
        </sizepolicy>
       </property>
       <property name="text">
-       <string>Start Training</string>
+       <string/>
       </property>
      </widget>
     </item>
