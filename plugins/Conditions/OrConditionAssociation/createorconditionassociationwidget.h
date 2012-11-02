@@ -38,7 +38,7 @@ class QSortFilterProxyModel;
  *
  *      The CreateOrConditionWidget allows the component Condition objects of the OrConditionAssociation to be changed by
  *      providing a ListView containing all of the current Condition objects as well as add, delete, and edit Condition
- *      buttons.  The NewAssociationCondition dialog is used for adding new Condition objects the the OrConditionAssociation.
+ *      buttons.  The NewAssociationCondition dialog is used for adding new Condition objects to the OrConditionAssociation.
  *
  *      \sa OrConditionAssociation, CreateConditionWidget, NewAssociationCondition
  *
