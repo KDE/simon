@@ -73,7 +73,7 @@ bool reestimateHelper(ReestimationConfig *config)
   return config->manager()->reestimate(config->command());
 }
 
-ModelCompilerHTK::ModelCompilerHTK(const QString& user_name, QObject* parent) : 
+ModelCompilerHTK::ModelCompilerHTK(const QString& user_name, QObject* parent) :
     ModelCompiler(user_name, parent),
     catchUndefiniedPhonemes(false)
 {
@@ -166,9 +166,9 @@ bool ModelCompilerHTK::parseConfiguration()
   !QFile::exists(hVite))) {
     //HTK not found
     #ifdef Q_OS_WIN32
-    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
+    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://userbase.kde.org/Simon/Installation#HTK_installation");
     #else
-    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
+    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://userbase.kde.org/Simon/Installation#HTK_installation_2");
     #endif
     emit error(errorMsg);
     return false;
@@ -186,7 +186,7 @@ bool ModelCompilerHTK::parseConfiguration()
 
 bool ModelCompilerHTK::removePhoneme(const QByteArray& phoneme)
 {
-  //check 
+  //check
   QFile f1(tempDir+"lexicon");
   QFile f2(tempDir+"lexicon2");
   if (!f1.open(QIODevice::ReadOnly) || !f2.open(QIODevice::WriteOnly))
@@ -261,7 +261,7 @@ bool ModelCompilerHTK::processError()
 }
 
 bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compilationType, const QString& modelDestination,
-                                          const QStringList& droppedTranscriptions, const QString& baseModelPath, 
+                                          const QStringList& droppedTranscriptions, const QString& baseModelPath,
 					  const QHash< QString, QString >& args )
 {
   Q_UNUSED(baseModelPath);
@@ -272,7 +272,7 @@ bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compila
   QString vocabPath = args.value("vocab");
   QString promptsPath = args.value("prompts");
   QString scriptBasePrefix = args.value("scriptBase");
-  
+
   QString baseHmmDefsPath = args.value("base/hmmdefs");
   QString baseTiedlistPath = args.value("base/tiedlist");
   QString baseMacrosPath = args.value("base/macros");
@@ -280,7 +280,7 @@ bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compila
 
   m_droppedTranscriptions = droppedTranscriptions;
 
-  return compile(compilationType, modelDestination, samplePath, lexiconPath, 
+  return compile(compilationType, modelDestination, samplePath, lexiconPath,
 		 grammarPath, vocabPath, promptsPath, scriptBasePrefix);
 }
 
@@ -325,9 +325,9 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
   this->grammarPath = grammarPath;
   this->vocabPath = vocabPath;
   this->promptsPath = promptsPath;
-  
+
   this->scriptBasePrefix = scriptBasePrefix;
-  
+
   this->treeHedPath = getScriptFile("tree1.hed");
   this->wavConfigPath = getScriptFile("wav_config");
 
@@ -342,9 +342,9 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
     analyseError(i18nc("%1 is path to the temporary folder", "Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
     return false;
   }
-  
+
   QString modelName = i18nc("%1 is username", "Simond: %1", userName);
-                       
+
   Logger::log("Compiling model...");
   emit status(i18n("Preparation"), 0);
 
@@ -364,12 +364,12 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
   if (compilationType & ModelCompilerHTK::CompileLanguageModel) {
     if (!compileGrammar()) return false;
   }
-  
-  if (!(compilationType &  ModelCompilerHTK::AdaptSpeechModel) && 
+
+  if (!(compilationType &  ModelCompilerHTK::AdaptSpeechModel) &&
       !(compilationType &  ModelCompilerHTK::CompileSpeechModel)) {
-    if ((QFile::exists(tempDir+"hmmout/hmmdefs") && !QFile::remove(tempDir+"hmmout/hmmdefs")) || 
-        (QFile::exists(tempDir+"hmmout/macros") && !QFile::remove(tempDir+"hmmout/macros")) || 
-        (QFile::exists(tempDir+"tiedlist") && !QFile::remove(tempDir+"tiedlist")) || 
+    if ((QFile::exists(tempDir+"hmmout/hmmdefs") && !QFile::remove(tempDir+"hmmout/hmmdefs")) ||
+        (QFile::exists(tempDir+"hmmout/macros") && !QFile::remove(tempDir+"hmmout/macros")) ||
+        (QFile::exists(tempDir+"tiedlist") && !QFile::remove(tempDir+"tiedlist")) ||
         (QFile::exists(tempDir+"stats") && !QFile::remove(tempDir+"stats"))) {
       analyseError(i18n("Could not remove old model"));
       return false;
@@ -381,9 +381,9 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
       analyseError(i18n("Invalid base model"));
     }
   }
-  
+
   if (!keepGoing) return false;
-                       
+
   pack(destinationPath, QString("Unnamed model from user %1").arg(userName));
 
   emit status(i18nc("Finished the model compilation", "Finished"), 2600, 2600);
@@ -573,7 +573,7 @@ bool ModelCompilerHTK::codeAudioData()
     configs << new AudioCopyConfig(scp, this);
 
   QList<bool> results = QtConcurrent::blockingMapped(configs, codeAudioDataFromScpHelper);
-  
+
   qDeleteAll(configs);
 
   return !results.contains(false);
@@ -653,7 +653,7 @@ bool ModelCompilerHTK::generateCodetrainScp(QStringList &codeTrainScps)
   promptsFile.close();
   scpFile.close();
   trainScpFile.close();
-  
+
   return splitScp(codetrainPath, tempDir, "codetrain", codeTrainScps);
 }
 
@@ -677,7 +677,7 @@ bool ModelCompilerHTK::splitScp(const QString& scpIn, const QString& outputDirec
   QFile f(scpIn);
   if (!f.open(QIODevice::ReadOnly))
     return false;
-  
+
   int currentLine = 0;
   while (!f.atEnd())
   {
@@ -726,7 +726,7 @@ QString ModelCompilerHTK::getScriptFile(const QString& id)
 
 QStringList ModelCompilerHTK::getScriptFiles(const QString& id)
 {
-  return KGlobal::dirs()->findAllResources("data", 
+  return KGlobal::dirs()->findAllResources("data",
       scriptBasePrefix+'/'+id, KStandardDirs::NoDuplicates);
 }
 
@@ -858,7 +858,7 @@ bool ModelCompilerHTK::tieStates()
       analyseError(i18n("Could not bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, getScriptFile("global.ded"), lexiconPath));
       return false;
     }
-  
+
     if (!keepGoing) return false;
     emit status(i18n("Generating list of triphones..."),1705);
     if (!makeFulllist()) {
@@ -919,14 +919,14 @@ bool ModelCompilerHTK::buildHMM13()
 
 bool ModelCompilerHTK::buildHMM14()
 {
-  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(13)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(13)+"macros",
       createHMMPath(13)+"hmmdefs", createHMMPath(14), htkIfyPath(tempDir)+"/tiedlist");
 }
 
 
 bool ModelCompilerHTK::buildHMM15()
 {
-  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(14)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(14)+"macros",
       createHMMPath(14)+"hmmdefs", createHMMPath(15), htkIfyPath(tempDir)+"/tiedlist");
 }
 
@@ -1002,7 +1002,7 @@ bool ModelCompilerHTK::increaseMixtures()
   QFile::remove(tempDir+"/hmmout/hmmdefs");
   if (!shouldIncreaseMixtures())
     //copy hmm15 to hmmout
-    return QFile::copy(tempDir+"/hmm15/macros", tempDir+"/hmmout/macros") && 
+    return QFile::copy(tempDir+"/hmm15/macros", tempDir+"/hmmout/macros") &&
             QFile::copy(tempDir+"/hmm15/hmmdefs", tempDir+"/hmmout/hmmdefs");
 
   //emit status(i18n("Increasing mixtures..."),2000);
@@ -1027,7 +1027,7 @@ bool ModelCompilerHTK::increaseMixtures()
 
     emit status(i18n("Re-estimation (1/2)..."),currentState);
 
-    succ = succ && reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(currentHMMNumber)+"macros", 
+    succ = succ && reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(currentHMMNumber)+"macros",
       createHMMPath(currentHMMNumber)+"hmmdefs", createHMMPath(currentHMMNumber+1), htkIfyPath(tempDir)+"/tiedlist");
 
     currentState += progressPerStep;
@@ -1035,7 +1035,7 @@ bool ModelCompilerHTK::increaseMixtures()
 
     emit status(i18n("Re-estimation (2/2)..."),currentState);
     QString outputPath;
-    succ = succ && reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(currentHMMNumber)+"macros", 
+    succ = succ && reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(currentHMMNumber)+"macros",
       createHMMPath(currentHMMNumber)+"hmmdefs", createHMMPath(currentHMMNumber+1), htkIfyPath(tempDir)+"/tiedlist");
     currentState += progressPerStep;
     currentHMMNumber += 1;
@@ -1049,7 +1049,7 @@ bool ModelCompilerHTK::increaseMixtures()
   }
   emit status(i18n("Done increasing mixtures."),currentState);
 
-  return QFile::copy(createHMMPath(currentHMMNumber)+"macros", tempDir+"/hmmout/macros") && 
+  return QFile::copy(createHMMPath(currentHMMNumber)+"macros", tempDir+"/hmmout/macros") &&
             QFile::copy(createHMMPath(currentHMMNumber)+"hmmdefs", tempDir+"/hmmout/hmmdefs");
 }
 
@@ -1183,14 +1183,14 @@ bool ModelCompilerHTK::makeTriphones()
 
 bool ModelCompilerHTK::buildHMM12()
 {
-  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(11)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(11)+"macros",
       createHMMPath(11)+"hmmdefs", createHMMPath(12), htkIfyPath(tempDir)+"/triphones1");
 }
 
 
 bool ModelCompilerHTK::buildHMM11()
 {
-  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(10)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(10)+"macros",
       createHMMPath(10)+"hmmdefs", createHMMPath(11), htkIfyPath(tempDir)+"/triphones1");
 }
 
@@ -1225,14 +1225,14 @@ bool ModelCompilerHTK::makeMkTriHed()
 
 bool ModelCompilerHTK::buildHMM9()
 {
-  return reestimate(htkIfyPath(tempDir)+"/aligned.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(8)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/aligned.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(8)+"macros",
       createHMMPath(8)+"hmmdefs", createHMMPath(9), htkIfyPath(tempDir)+"/monophones1");
 }
 
 
 bool ModelCompilerHTK::buildHMM8()
 {
-  return reestimate(htkIfyPath(tempDir)+"/aligned.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(7)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/aligned.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(7)+"macros",
       createHMMPath(7)+"hmmdefs", createHMMPath(8), htkIfyPath(tempDir)+"/monophones1");
 }
 
@@ -1303,14 +1303,14 @@ bool ModelCompilerHTK::makeDict1()
 
 bool ModelCompilerHTK::buildHMM7()
 {
-  return reestimate(htkIfyPath(tempDir)+"/phones1.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(6)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/phones1.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(6)+"macros",
       createHMMPath(6)+"hmmdefs", createHMMPath(7), htkIfyPath(tempDir)+"/monophones1");
 }
 
 
 bool ModelCompilerHTK::buildHMM6()
 {
-  return reestimate(htkIfyPath(tempDir)+"/phones1.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(5)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/phones1.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(5)+"macros",
       createHMMPath(5)+"hmmdefs", createHMMPath(6), htkIfyPath(tempDir)+"/monophones1");
 }
 
@@ -1372,21 +1372,21 @@ bool ModelCompilerHTK::buildHMM4()
 
 bool ModelCompilerHTK::buildHMM3()
 {
-  return reestimate(htkIfyPath(tempDir)+"/phones0.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(2)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/phones0.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(2)+"macros",
       createHMMPath(2)+"hmmdefs", createHMMPath(3), htkIfyPath(tempDir)+"/monophones0");
 }
 
 
 bool ModelCompilerHTK::buildHMM2()
 {
-  return reestimate(htkIfyPath(tempDir)+"/phones0.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(1)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/phones0.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(1)+"macros",
       createHMMPath(1)+"hmmdefs", createHMMPath(2), htkIfyPath(tempDir)+"/monophones0");
 }
 
 
 bool ModelCompilerHTK::buildHMM1()
 {
-  return reestimate(htkIfyPath(tempDir)+"/phones0.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(0)+"macros", 
+  return reestimate(htkIfyPath(tempDir)+"/phones0.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(0)+"macros",
       createHMMPath(0)+"hmmdefs", createHMMPath(1), htkIfyPath(tempDir)+"/monophones0");
 }
 
@@ -1518,7 +1518,7 @@ bool ModelCompilerHTK::generateWlist()
   QString line;
   while (!promptsFile.atEnd()) {
     line = QString::fromUtf8(promptsFile.readLine(3000));
-    
+
     lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
     lineWords.removeAt(0);                        //ditch the file-id
 
@@ -1709,9 +1709,9 @@ bool ModelCompilerHTK::prepareGlobalConfig()
 
 bool ModelCompilerHTK::staticAdaption()
 {
-  if (!prepareGlobalConfig()) 
+  if (!prepareGlobalConfig())
     return false;
-  
+
   //This could possibly be paralellized
   if (!execute('"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+baseMacrosPath+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+baseHmmDefsPath+"\" \""+baseTiedlistPath+"\"", tempDir))
     return false;
@@ -1764,8 +1764,8 @@ QString ModelCompilerHTK::juliusInformation(bool condensed) const
   return i18nc("refers to using a system Julius instead of an integrated one", "External");
 }
 
-bool ModelCompilerHTK::reestimate(const QString& mlf, bool useStats, const QString& scp, 
-    const QString& inputMacros, const QString& inputHMMs, const QString& outputDirectory, 
+bool ModelCompilerHTK::reestimate(const QString& mlf, bool useStats, const QString& scp,
+    const QString& inputMacros, const QString& inputHMMs, const QString& outputDirectory,
     const QString& phoneList, const QStringList& additionalConfigs, const QString& additionalParameters)
 {
 #ifdef HEREST_MULTITHREADED
@@ -1779,7 +1779,7 @@ bool ModelCompilerHTK::reestimate(const QString& mlf, bool useStats, const QStri
 #else
   QString thisScp = scp;
 #endif
-  
+
   QString command = '"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" ";
 
   foreach (const QString& c, additionalConfigs)
@@ -1799,7 +1799,7 @@ bool ModelCompilerHTK::reestimate(const QString& mlf, bool useStats, const QStri
 
   if (!outputDirectory.isEmpty())
     command += "-M \""+outputDirectory+"\" ";
-  
+
 #ifdef HEREST_MULTITHREADED
     command += "-p "+QString::number(channel++)+' ';
 #endif
@@ -1813,26 +1813,26 @@ bool ModelCompilerHTK::reestimate(const QString& mlf, bool useStats, const QStri
   QString mergeCmd = commands.takeFirst();
   for (int i=1; i <= commands.count(); i++)
     mergeCmd += " \""+outputDirectory+"HER"+QString::number(i)+".acc\"";
-  
+
   //execute all commands in paralell and merge results
   QList<ReestimationConfig*> reestimationConfigs;
   foreach (const QString& c, commands)
     reestimationConfigs << new ReestimationConfig(c, this);
-    
+
   QList<bool> results = QtConcurrent::blockingMapped(reestimationConfigs, reestimateHelper);
   qDeleteAll(reestimationConfigs);
   if (results.contains(false)) return false;
-  
+
   if (!outputDirectory.isEmpty())
   {
     //merge
     // no -S parameter; add -p 0; add /tmp/kde-bedahr/sam/internalsamuser/compile//hmm1//*.acc
     kDebug() << "Merge command: " << mergeCmd;
-    
+
     return execute(mergeCmd, tempDir);
   }
   return true;
-  
+
 #else
   return execute(command, tempDir);
 #endif

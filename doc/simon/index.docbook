@@ -3290,7 +3290,7 @@ In special cases (severe speech impairments for example), special configuration 
 <title>Questions and Answers</title>
 
 <para>
-In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://userbase.kde.org/Simon/Troubleshooting_Guide">online wiki</ulink>.
 </para>
 
 </chapter>
@@ -3331,7 +3331,7 @@ Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org
 
 <appendix id="installation">
 <title>Installation</title>
-<para>Please see our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
+<para>Please see our <ulink url="http://userbase.kde.org/Simon/Installation">wiki</ulink> for install instructions.</para>
 
 </appendix>
 
