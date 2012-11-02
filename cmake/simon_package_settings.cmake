@@ -47,7 +47,7 @@ SET(CPACK_DEBIAN_PACKAGE_CONFLICTS  "julius julius-simon")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA 
 	"${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postinst;${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postrm")
 
-SET(CPACK_PACKAGE_CONTACT "SIMON listens <support@simon-listens.org>")
+SET(CPACK_PACKAGE_CONTACT "SIMON listens <kde-accessibility@kde.org>")
 SET(CPACK_DEBIAN_PACKAGE_SECTION "utils")
 SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 
@@ -334,7 +334,7 @@ IF(WIN32 AND NOT UNIX)
 	SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY}") 	 
 	SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\www.simon-listens.org/wiki") 	 
 	SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.simon-listens.org") 	 
-	SET(CPACK_NSIS_CONTACT "support@simon-listens.org") 	 
+	SET(CPACK_NSIS_CONTACT "kde-accessibility@kde.org")
 	SET(CPACK_NSIS_MODIFY_PATH ON) 	 
 	 
 	SET(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\simon.lnk\\\" \\\"$INSTDIR\\\\bin\\\\simon.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\simon.exe\\\" 0 	 
