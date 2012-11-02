@@ -298,7 +298,7 @@ The latter two files, macros and stats, are not required when using a static bas
 <title>Where to get base models</title>
 
 <para>
-To keep this list up to date, please refer to <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Base_models#Where_to_get_base_models">the list in our online wiki</ulink>.
+To keep this list up to date, please refer to <ulink url="http://userbase.kde.org/Simon/Base_models#Where_to_get_base_models">the list in our online wiki</ulink>.
 </para>
 </sect2>
 
@@ -1462,7 +1462,7 @@ These characteristics are taken out of the shadow dictionary if it contains the 
 
 <para>Since version 0.3 you can also import dictionaries directly to the active dictionary. This option is mostly there to make it easier to move to simon from custom solutions and to encourage importing of older models (for example one used with simon 0.2). You will <emphasis>almost never</emphasis> want to import a very large dictionary as active dictionary.</para>
 
-<para>You can find a list of available dictionaries that work with simon on the <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Shadow_dictionary">simon wiki</ulink>.</para>
+<para>You can find a list of available dictionaries that work with simon on the <ulink url="http://userbase.kde.org/Simon/Shadow_dictionary">simon wiki</ulink>.</para>
 
 <para>
 simon is able to import five different types of dictionaries:
