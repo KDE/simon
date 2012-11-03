@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2011 Peter Grasch <peter.grasch@bedahr.org>
  *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify

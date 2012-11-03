@@ -101,7 +101,7 @@ Do NOT change these in the translation. -->
 <othername>H.</othername>
 <surname>Grasch</surname>
 </personname>
-<email>grasch@simon-listens.org</email>
+<email>peter.grasch@bedahr.org</email>
 </author>
 </authorgroup>
 
@@ -179,7 +179,7 @@ Do NOT change these in the translation. -->
 ; Change this to use a different database; Because sscd uses db-specific
 ; commands in places, only QMYSQL is supported at the moment.
 ; Support for other DBMS can be added extremely easily, though so please
-; feel free to request support through support@simon-listens.org
+; feel free to request support through kde-accessibility@kde.org
 DatabaseType=QMYSQL
 
 ; The host of the DBMS
@@ -216,7 +216,7 @@ BindHost=127.0.0.1
 <sect1 id="database">
   <title>Database</title>
 
-  <para>&kmyapplication; stores the speaker and sample data (but not the samples themselves) in a database. At the moment, only MySQL databases are fully supported. Adding support for a new database is trivial, though. Contact the <ulink url="mailto:support@simon-listens.org">Simon team</ulink> if you want to help.</para>
+  <para>&kmyapplication; stores the speaker and sample data (but not the samples themselves) in a database. At the moment, only MySQL databases are fully supported. Adding support for a new database is trivial, though. Contact the <ulink url="mailto:kde-accessibility@kde.org">Simon team</ulink> if you want to help.</para>
 
   <para>To set up the required tables &kmyapplication; ships with an appropriate create script <filename>mysql_create_script.sql</filename> installed in the <link linkend="sscd_folder">base folder</link> of &kmyapplication;.</para>
 
@@ -286,7 +286,7 @@ select s.Path, s.Prompt
 <title>Questions and Answers</title>
 
 <para>
-In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Troubleshooting_Guide">online wiki</ulink>.
 </para>
 
 </chapter>
@@ -298,11 +298,11 @@ In an effort to keep this section always up-to-date it is available at our <ulin
 &kmyapplication;
 </para>
 <para>
-Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+Program copyright 2008-2010 Peter Grasch <email>peter.grasch@bedahr.org</email>
 </para>
 
 <para>
-Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+Documentation Copyright &copy; 2009-2010 Peter Grasch <email>peter.grasch@bedahr.org</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
@@ -315,7 +315,7 @@ Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listen
 
 <appendix id="installation">
 <title>Installation</title>
-<para>Please see our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
+<para>Please see our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Installation">wiki</ulink> for install instructions.</para>
 </appendix>
 
 &documentation.index;

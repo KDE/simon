@@ -36,10 +36,10 @@ Comment[uk]=Додавання попередньо записаних посл�
 Comment[x-test]=xxWrites prerecorded sequencesxx
 
 X-KDE-PluginInfo-Author=Peter Grasch
-X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Email=peter.grasch@bedahr.org
 X-KDE-PluginInfo-Name=simonshortcutcommandplugin
 X-KDE-PluginInfo-Version=0.1
-X-KDE-PluginInfo-Website=http://simon-listens.org
+http://userbase.kde.org/Simon
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-ParentApp=simon

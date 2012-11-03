@@ -1,4 +1,4 @@
-# Copyright (c) 2008, Peter Grasch <grasch@simon-listens.org>
+# Copyright (c) 2008, Peter Grasch <peter.grasch@bedahr.org>
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without modification, 
@@ -47,7 +47,7 @@ SET(CPACK_DEBIAN_PACKAGE_CONFLICTS  "julius julius-simon")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA 
 	"${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postinst;${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postrm")
 
-SET(CPACK_PACKAGE_CONTACT "SIMON listens <support@simon-listens.org>")
+SET(CPACK_PACKAGE_CONTACT "KDE Accessibility Team <kde-accessibility@kde.org>")
 SET(CPACK_DEBIAN_PACKAGE_SECTION "utils")
 SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 
@@ -58,15 +58,15 @@ kdebase4-runtime, libasound2, zlib, portaudio, libqt4-sql, qt4-qtscript, libqt4-
 
 SET(CPACK_PACKAGE_NAME "Simon")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open-Source Speech Recognition")
-SET(CPACK_PACKAGE_DESCRIPTION "Simon provides an easy to use interface to the open-source speech recognizer julius (this package ships its own modified version of julius) and the HTK (has to be installed separately).\n\nsimon does not include a speech model but provides the means to create its own.\n\nWith the recognition results simon can type, open programs and places and more.")
-SET(CPACK_PACKAGE_VENDOR "SIMON listens e.V.")
+SET(CPACK_PACKAGE_DESCRIPTION "Simon provides an easy to use interface to the open-source speech recognizer julius (this package ships its own modified version of julius) and the HTK (has to be installed separately).\n\nSimon does not include a speech model but provides the means to create its own.\n\nWith the recognition results Simon can type, open programs and places and more.")
+SET(CPACK_PACKAGE_VENDOR "KDE Accessibility")
 #SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ReadMe.txt")
 SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENCE.txt")
-set(CPACK_PACKAGE_VERSION "0.4")
-SET(CPACK_PACKAGE_VERSION_MAJOR "0")
-SET(CPACK_PACKAGE_VERSION_MINOR "3")
-SET(CPACK_PACKAGE_VERSION_PATCH "60")
-SET(CPACK_PACKAGE_INSTALL_DIRECTORY "simon ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION "${CMAKE_SIMON_VERSION_MAJOR}.${CMAKE_SIMON_VERSION_MINOR}")
+SET(CPACK_PACKAGE_VERSION_MAJOR ${CMAKE_SIMON_VERSION_MAJOR})
+SET(CPACK_PACKAGE_VERSION_MINOR ${CMAKE_SIMON_VERSION_MINOR})
+SET(CPACK_PACKAGE_VERSION_PATCH ${CMAKE_SIMON_VERSION_PATCH})
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "Simon ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}")
 SET(CPACK_STRIP_FILES TRUE)
 SET(CPACK_SOURCE_STRIP_FILES TRUE)
 
@@ -332,9 +332,9 @@ IF(WIN32 AND NOT UNIX)
 	SET(CPACK_NSIS_COMPRESSOR "/SOLID lzma") 	 
 	 
 	SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY}") 	 
-	SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\www.simon-listens.org/wiki") 	 
+	SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\userbase.kde.org/Simon")
 	SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.simon-listens.org") 	 
-	SET(CPACK_NSIS_CONTACT "support@simon-listens.org") 	 
+	SET(CPACK_NSIS_CONTACT "kde-accessibility@kde.org")
 	SET(CPACK_NSIS_MODIFY_PATH ON) 	 
 	 
 	SET(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\simon.lnk\\\" \\\"$INSTDIR\\\\bin\\\\simon.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\simon.exe\\\" 0 	 

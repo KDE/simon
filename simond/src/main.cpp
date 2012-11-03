@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2008 Peter Grasch <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -42,8 +42,8 @@ int main(int argc, char **argv)
  	    "Copyright (c) 1991-2009 Kawahara Lab., Kyoto University\n"
  	    "Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology\n"
  	    "Copyright (c) 2005-2009 Julius project team, Nagoya Institute of Technology\n"
-		), KLocalizedString(), 0, "grasch@simon-listens.org");
-  about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
+		), KLocalizedString(), 0, "peter.grasch@bedahr.org");
+  about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "peter.grasch@bedahr.org" );
 
   KCmdLineArgs::init(argc, argv, &about);
 

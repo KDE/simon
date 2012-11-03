@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2009 Peter Grasch <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -66,7 +66,7 @@ m_parentScenario(0)
  * Only use the parameter to IMPORT the scenario!
  *
  * \warning The scenario is NOT valid until this method executes successfully!
- * \author Peter Grasch <grasch@simon-listens.org>
+ * \author Peter Grasch <peter.grasch@bedahr.org>
  */
 bool Scenario::init(QString path)
 {
@@ -541,7 +541,7 @@ QString Scenario::pathFromId(const QString& id, const QString& prefix)
  * through the scenarioId of the scenario.
  *
  * Only use the parameter to EXPORT the scenario
- * \author Peter Grasch <grasch@simon-listens.org>
+ * \author Peter Grasch <peter.grasch@bedahr.org>
  */
 bool Scenario::save(QString path, bool full)
 {

@@ -55,7 +55,7 @@
 <othername>H.</othername>
 <surname>Grasch</surname>
 </personname>
-<email>grasch@simon-listens.org</email>
+<email>peter.grasch@bedahr.org</email>
 </author>
 </authorgroup>
 
@@ -480,7 +480,7 @@
 <title>Questions and Answers</title>
 
 <para>
-In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Troubleshooting_Guide">online wiki</ulink>.
 </para>
 
 </chapter>
@@ -492,11 +492,11 @@ In an effort to keep this section always up-to-date it is available at our <ulin
 &kmyapplication;
 </para>
 <para>
-Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+Program copyright 2008-2010 Peter Grasch <email>peter.grasch@bedahr.org</email>
 </para>
 
 <para>
-Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+Documentation Copyright &copy; 2009-2010 Peter Grasch <email>peter.grasch@bedahr.org</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
@@ -509,7 +509,7 @@ Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listen
 
 <appendix id="installation">
 <title>Installation</title>
-<para>Please see our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
+<para>Please see our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Installation">wiki</ulink> for install instructions.</para>
 </appendix>
 
 &documentation.index;

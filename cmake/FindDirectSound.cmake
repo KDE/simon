@@ -6,7 +6,7 @@
 #  DIRECTSOUND_LIBRARY - Link these to use direct sound
 
 # Copyright (c) 2011, Patrick von Reth, <patrick.vonreth@gmail.com>
-# Copyright (c) 2008-2011, Peter Grasch, <grasch@simon-listens.org>
+# Copyright (c) 2008-2011, Peter Grasch, <peter.grasch@bedahr.org>
 #
 # Redistribution and use is allowed according to the terms of the 3-clause BSD license.
 

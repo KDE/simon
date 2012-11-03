@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -57,7 +57,7 @@ QWizardPage* FirstRunWizard::createIntroPage()
     "<p>This assistant will help you to get Simon up and running.</p>"
     "<p>Go through the following steps carefully and read the instructions.</p>"
     "<p>You can still change these options later (see the manual for more information)."
-    "<p>Find more instructions on <a href=\"http://simon-listens.org/wiki\">our wiki</a>.</p>"
+    "<p>Find more instructions on <a href=\"http://userbase.kde.org/Simon\">our wiki</a>.</p>"
     "</body></html>"));
 
   return intro;
