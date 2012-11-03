@@ -286,7 +286,7 @@ select s.Path, s.Prompt
 <title>Questions and Answers</title>
 
 <para>
-In an effort to keep this section always up-to-date it is available at our <ulink url="http://userbase.kde.org/Simon/Troubleshooting_Guide">online wiki</ulink>.
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Troubleshooting_Guide">online wiki</ulink>.
 </para>
 
 </chapter>
@@ -315,7 +315,7 @@ Documentation Copyright &copy; 2009-2010 Peter Grasch <email>peter.grasch@bedahr
 
 <appendix id="installation">
 <title>Installation</title>
-<para>Please see our <ulink url="http://userbase.kde.org/Simon/Installation">wiki</ulink> for install instructions.</para>
+<para>Please see our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Installation">wiki</ulink> for install instructions.</para>
 </appendix>
 
 &documentation.index;

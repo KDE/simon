@@ -279,7 +279,7 @@ simon and simond itself can be found on <ulink url="http://sourceforge.net/proje
 <sect1 id="compilation">
 <title>Compilation and Installation</title>
 
-<para>Please see our <ulink url="http://userbase.kde.org/Simon/Installation">wiki</ulink> for install instructions.</para>
+<para>Please see our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Installation">wiki</ulink> for install instructions.</para>
 </sect1>
 
 </appendix>
