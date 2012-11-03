@@ -30,8 +30,8 @@ class QByteArray;
 class SIMONDSTREAMER_EXPORT SimonSender : public QObject
 {
   Q_OBJECT
-  Q_CLASSINFO("simons audio streaming system with voice activity detection",
-	      "org.simon-listens.SimonSender")
+  Q_CLASSINFO("Simons audio streaming system with voice activity detection",
+             "org.simon-listens.SimonSender")
 
   public:
     enum SimonSenderState {

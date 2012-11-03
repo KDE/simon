@@ -177,7 +177,7 @@ bool ModelCompilerHTK::parseConfiguration()
   if ((compilationType & ModelCompilerHTK::CompileLanguageModel) &&
   (!QFile::exists(mkfa) || !QFile::exists(dfaMinimize))) {
     //julius grammar tools not found
-    emit error(i18n("The julius related grammar tools mkfa and dfa_minimize cannot be found.\n\nA reinstallation of simon could solve this problem."));
+    emit error(i18n("The julius related grammar tools mkfa and dfa_minimize cannot be found.\n\nA reinstallation of Simon could solve this problem."));
     return false;
   }
 

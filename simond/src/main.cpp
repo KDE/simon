@@ -32,11 +32,11 @@
 #include "../../version.h"
 
 static const char description[] =
-I18N_NOOP("The simon recognition daemon (powered by the Large Vocabulary Continuous Speech Recognition Engine Julius)");
+I18N_NOOP("The Simon recognition daemon (powered by the Large Vocabulary Continuous Speech Recognition Engine Julius)");
 
 int main(int argc, char **argv)
 {
-  KAboutData about("simond", 0, ki18n("simond"), simon_version, ki18n(description),
+  KAboutData about("Simond", 0, ki18n("Simond"), simon_version, ki18n(description),
     KAboutData::License_GPL, ki18n("(C) 2008-2010 Peter Grasch\n\nJulius:\n"
 	    "Copyright (c) 1997-2000 Information-technology Promotion Agency, Japan\n"
  	    "Copyright (c) 1991-2009 Kawahara Lab., Kyoto University\n"

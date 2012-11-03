@@ -153,7 +153,7 @@ void SynchronisationSettings::selectModel()
 
   if (RecognitionControl::getInstance()->switchToModel(modelDate))
     KMessageBox::information(this, i18n("The request has been send to the server.\n\nPlease track the process of the "
-      "synchronization in simon's main window."));
+      "synchronization in Simon's main window."));
   else
     KMessageBox::sorry(this, i18n("Could not send request to server"));
 }

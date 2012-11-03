@@ -78,7 +78,7 @@ Do NOT change these in the translation. -->
 <keyword>KDE</keyword>
 <keyword>kdeutils</keyword>
 <keyword>Kapp</keyword>
-<keyword>simon</keyword>
+<keyword>Simon</keyword>
 <keyword>sample</keyword>
 <keyword>speech</keyword>
 <keyword>voice</keyword>
@@ -122,7 +122,7 @@ Do NOT change these in the translation. -->
   It receives input from the ssc client(s) which connect to the server using TCP/IP.
 </para>
 
-<para>For more information on the general architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>. For information about the ssc client, please refer to the <ulink url="help:/ssc">ssc manual</ulink>.</para>
+<para>For more information on the general architecture of the Simon suite please see the <ulink url="help:/simon/overview.html#architecture">Simon manual</ulink>. For information about the ssc client, please refer to the <ulink url="help:/ssc">SSC manual</ulink>.</para>
 </chapter>
 
 <chapter id="using-kapp">
@@ -216,7 +216,7 @@ BindHost=127.0.0.1
 <sect1 id="database">
   <title>Database</title>
 
-  <para>&kmyapplication; stores the speaker and sample data (but not the samples themselves) in a database. At the moment, only MySQL databases are fully supported. Adding support for a new database is trivial, though. Contact the <ulink url="mailto:support@simon-listens.org">simon team</ulink> if you want to help.</para>
+  <para>&kmyapplication; stores the speaker and sample data (but not the samples themselves) in a database. At the moment, only MySQL databases are fully supported. Adding support for a new database is trivial, though. Contact the <ulink url="mailto:support@simon-listens.org">Simon team</ulink> if you want to help.</para>
 
   <para>To set up the required tables &kmyapplication; ships with an appropriate create script <filename>mysql_create_script.sql</filename> installed in the <link linkend="sscd_folder">base folder</link> of &kmyapplication;.</para>
 
@@ -268,7 +268,7 @@ select s.Path, s.Prompt
   </para>
 
   <para>
-    This prompts file can then be <ulink url="help:/simon/training.html#import_training-data">imported in simon</ulink>.
+    This prompts file can then be <ulink url="help:/simon/training.html#import_training-data">imported in Simon</ulink>.
   </para>
 
   <para>

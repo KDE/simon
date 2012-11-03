@@ -175,7 +175,7 @@ QWizardPage* ImportDictView::createFinishedPage()
   QWizardPage *finished = new QWizardPage(this);
   finished->setTitle(i18n("Dictionary imported"));
   QLabel *lbFinished = new QLabel(finished);
-  lbFinished->setText(i18n("The dictionary has been imported successfully.\n\nThank you for improving simon."));
+  lbFinished->setText(i18n("The dictionary has been imported successfully.\n\nThank you for improving Simon."));
   lbFinished->setWordWrap(true);
   QVBoxLayout *lay = new QVBoxLayout(finished);
   lay->addWidget(lbFinished);

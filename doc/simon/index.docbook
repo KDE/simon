@@ -2,7 +2,7 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!-- Define an entity for your application if it is not part of KDE
        CVS -->
-  <!ENTITY kmyapplication "<application>simon</application>">
+  <!ENTITY kmyapplication "<application>Simon</application>">
   <!ENTITY kappname "&kmyapplication;">
   <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
                                      this unchanged if your
@@ -50,7 +50,7 @@
 <keyword>KDE</keyword>
 <keyword>kdeutils</keyword>
 <keyword>Kapp</keyword>
-<keyword>simon</keyword>
+<keyword>Simon</keyword>
 <keyword>recognition</keyword>
 <keyword>speech</keyword>
 <keyword>voice</keyword>
@@ -67,13 +67,13 @@
 <title>Introduction</title>
 
 <para>
-&kmyapplication; is the main front end for the simon open source speech recognition solution.
+&kmyapplication; is the main front end for the Simon open source speech recognition solution.
 
-It is a simond client and provides a graphical user interface for managing the speech model and the commands. Moreover, simon can execute all sorts of commands based on the input it receives from the server: simond.
+It is a Simond client and provides a graphical user interface for managing the speech model and the commands. Moreover, Simon can execute all sorts of commands based on the input it receives from the server: Simond.
 </para>
 
 <para>
-In contrast to existing commercial offerings, simon provides a unique do-it-yourself approach to speech recognition. Instead of predefined, pre-trained speech models, simon does not ship with any model whatsoever. Instead, it provides an easy to use end-user interface to create language and acoustic models from scratch.
+In contrast to existing commercial offerings, Simon provides a unique do-it-yourself approach to speech recognition. Instead of predefined, pre-trained speech models, Simon does not ship with any model whatsoever. Instead, it provides an easy to use end-user interface to create language and acoustic models from scratch.
 </para>
 
 <para>
@@ -81,11 +81,11 @@ Additionally the end-user can easily download created use cases from other users
 </para>
 
 <para>
-The current release can be used to set up command-and-control solutions especially suitable for disabled people. However, because of the amount of training necessary, continuous, free dictation is neither supported nor reasonable with current versions of simon.
+The current release can be used to set up command-and-control solutions especially suitable for disabled people. However, because of the amount of training necessary, continuous, free dictation is neither supported nor reasonable with current versions of Simon.
 </para>
 
 <para>
-Because of its architecture, the same version of simon can be used with all languages and dialects. One can even mix languages within one model if necessary.
+Because of its architecture, the same version of Simon can be used with all languages and dialects. One can even mix languages within one model if necessary.
 </para>
 </chapter>
 
@@ -96,23 +96,23 @@ Because of its architecture, the same version of simon can be used with all lang
 <sect1 id="architecture">
 <title>Architecture</title>
 <para>
-The main recognition architecture of simon consists of three applications.
+The main recognition architecture of Simon consists of three applications.
 <itemizedlist>
-  <listitem><para>&kmyapplication;</para><para>This is the main graphical interface.</para><para>It acts as a client to the simond server.</para></listitem>
-  <listitem><para>simond</para><para>The recognition server.</para></listitem>
-  <listitem><para>ksimond</para><para>A graphical front-end for simond.</para></listitem>
+  <listitem><para>&kmyapplication;</para><para>This is the main graphical interface.</para><para>It acts as a client to the Simond server.</para></listitem>
+  <listitem><para>Simond</para><para>The recognition server.</para></listitem>
+  <listitem><para>KSimond</para><para>A graphical front-end for Simond.</para></listitem>
 </itemizedlist>
 </para>
 
 <para>
-These three components form a real client / server solution for the recognition. That means that there is one server (simond) for one or more clients (&kmyapplication;; this application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with simond graphically.
+These three components form a real client / server solution for the recognition. That means that there is one server (Simond) for one or more clients (&kmyapplication;; this application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with Simond graphically.
 </para>
 
 <para>
-Additionally to the simon, simond and ksimond other, more specialized applications are also part of this integrated simon distribution.
+Additionally to the Simon, Simond and KSimond other, more specialized applications are also part of this integrated Simon distribution.
 <itemizedlist>
-  <listitem><para>sam</para><para>Provides more in-depth control to your speech model and allows to test the acoustic model.</para></listitem>
-  <listitem><para>ssc / sscd</para><para>These two applications can be used to collect large amount of speech samples from different persons more easily.</para></listitem>
+  <listitem><para>Sam</para><para>Provides more in-depth control to your speech model and allows to test the acoustic model.</para></listitem>
+  <listitem><para>SSC / SSCd</para><para>These two applications can be used to collect large amount of speech samples from different persons more easily.</para></listitem>
 </itemizedlist>
 </para>
 

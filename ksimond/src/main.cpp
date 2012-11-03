@@ -25,11 +25,11 @@
 #include "version.h"
 
 static const char description[] =
-I18N_NOOP("A KDE 4 frontend for simond");
+I18N_NOOP("A KDE 4 frontend for Simond");
 
 int main(int argc, char **argv)
 {
-  KAboutData about("ksimond", 0, ki18n("ksimond"), simon_version, ki18n(description),
+  KAboutData about("KSimond", 0, ki18n("KSimond"), simon_version, ki18n(description),
     KAboutData::License_GPL, ki18n("(C) 2008 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
   KCmdLineArgs::init(argc, argv, &about);

@@ -39,7 +39,7 @@ class VoiceInterfaceCommand;
 class SIMONACTIONS_EXPORT ActionManager : public QObject
 {
   Q_OBJECT
-  Q_CLASSINFO("simons action interface", "org.simon-listens.ActionManager")
+  Q_CLASSINFO("Simons action interface", "org.simon-listens.ActionManager")
 
   private slots:
     void resultSelectionDone();

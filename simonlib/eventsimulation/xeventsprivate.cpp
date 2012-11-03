@@ -53,7 +53,7 @@ Display* XEventsPrivate::openDisplay(char* displayName)
   Display * display = XOpenDisplay(displayName);
 
   if (!display) {
-    KMessageBox::error(0,i18nc("%1 is display name", "Could not open display. Please check your configuration and / or contact the simond developers. (Display: \"%1\")", QString(XDisplayName ( displayName ))));
+    KMessageBox::error(0,i18nc("%1 is display name", "Could not open display. Please check your configuration and / or contact the Simond developers. (Display: \"%1\")", QString(XDisplayName ( displayName ))));
     return 0;
   }
 

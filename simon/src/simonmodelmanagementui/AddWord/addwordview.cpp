@@ -180,7 +180,7 @@ QWizardPage* AddWordView::createFinishedPage()
   finished->setTitle(i18n("Word Added"));
   QLabel *label = new QLabel(finished);
   label->setWordWrap(true);
-  label->setText(i18n("The needed data has been collected.\n\nsimon can now \"learn\" the new word."));
+  label->setText(i18n("The needed data has been collected.\n\nSimon can now \"learn\" the new word."));
   QVBoxLayout *layout = new QVBoxLayout(finished);
   layout->addWidget(label);
   finished->setLayout(layout);

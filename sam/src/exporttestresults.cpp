@@ -90,7 +90,7 @@ void ExportTestResults::clearCorpora()
 void ExportTestResults::initSystemDefinition()
 {
   QString systemInfo;
-  systemInfo += i18nc("%1 is simon version", "sam: part of simon %1\n", QString::fromAscii(simon_version));
+  systemInfo += i18nc("%1 is Simon version", "Sam: part of Simon %1\n", QString::fromAscii(simon_version));
   
   systemInfo += m_compiler->information(
       !ui.cbDetailedSystemInformation->isChecked() /*short version*/);
@@ -140,7 +140,7 @@ TemplateValueList* ExportTestResults::extractCorpusTemplateInformation(const QSt
     thisList->add("corpusNotes", info->notes());
     thisList->add("corpusSpeakers", QString::number(info->speakers()));
     thisList->add("corpusSamples", QString::number(info->samples()));
-    thisList->add("corpusSamplesPerSpeaker", QString::number(((float) info->samples()) / 
+    thisList->add("corpusSamplesPerSpeaker", QString::number(((float) info->samples()) /
           ((float) info->speakers()), 'd', 2));
     l->addChild(thisList);
   }
@@ -219,7 +219,7 @@ void ExportTestResults::createReport()
   if (outputEngine != "LATEX")
   {
     fatalError(i18nc("%1 is output type", "Output type not supported: %1.\n\n"
-          "Please make sure that your output format is compatible with this version of sam.", QString::fromUtf8(outputEngine)));
+          "Please make sure that your output format is compatible with this version of Sam.", QString::fromUtf8(outputEngine)));
     return;
   }
 

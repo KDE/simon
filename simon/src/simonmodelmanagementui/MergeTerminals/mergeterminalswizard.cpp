@@ -59,7 +59,7 @@ QWizardPage* MergeTerminalsWizard::createFinishedPage()
 
   desc->setWordWrap(true);
   finished->setTitle(i18n("Import completed"));
-  desc->setText(i18n("The categories have been merged.\n\nThank you for improving simon."));
+  desc->setText(i18n("The categories have been merged.\n\nThank you for improving Simon."));
 
   return finished;
 }

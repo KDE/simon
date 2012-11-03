@@ -239,7 +239,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      *
      * Needed for a well behaved item model.
      *
-     * \return By default, simon will return the translated version of "Command" as
+     * \return By default, Simon will return the translated version of "Command" as
      * a (horizontal) header and not return any vertical headers.
      */
     QVariant headerData(int, Qt::Orientation orientation,

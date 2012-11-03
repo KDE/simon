@@ -29,7 +29,7 @@
 RunCommandView::RunCommandView(QWidget* parent)
 : InlineWidget(i18n("Commands"),
 KIcon("system-run"),
-i18n("Direct Execution of simon Commands"), parent),
+i18n("Direct Execution of Simon Commands"), parent),
 d(new RunCommandViewPrivate(this))
 {
   connect(d, SIGNAL(actionsChanged()), this, SIGNAL(actionsChanged()));

@@ -62,12 +62,12 @@ public KApplication
 
 int main(int argc, char *argv[])
 {
-  KAboutData aboutData( "simon", "simon",
+  KAboutData aboutData( "Simon", "Simon",
     ki18n("Simon"), simon_version,
     ki18n("<html><head /><body>"
           "<h2>Development and Distribution</h2>"
           "<p>Developed and distributed by the non-profit organization"
-          " <a href=\"http://simon-listens.org\">simon listens e.V.</a>"
+          " <a href=\"http://simon-listens.org\">Simon listens e.V.</a>"
           " in cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>"
           "<h3>Special Thanks To</h3>"
           "<ul><li>Franz Stieger</li><li>Mathias Stieger</li><li>Phillip Theussl</li><li>Moacyr Prado</li><li>Michael Stieger</li><li>Ralf Herzog</li></ul>"

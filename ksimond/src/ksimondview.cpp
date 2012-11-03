@@ -52,26 +52,26 @@ wantReload(false)
   //configDialog->addModule("simondnetworkconfiguration");
 
   trayIconMgr = new TrayIconManager(configDialog);
-  trayIconMgr->createIcon(KIcon("simond"), i18n("simond"));
+  trayIconMgr->createIcon(KIcon("simond"), i18n("Simond"));
   //add actions
 
-  startProcess->setText(i18n("Start simond"));
+  startProcess->setText(i18n("Start Simond"));
   startProcess->setIcon(KIcon("media-playback-start"));
   connect(startProcess, SIGNAL(triggered(bool)),
     this, SLOT(startSimond()));
 
-  startSimonAction->setText(i18n("Start simon"));
+  startSimonAction->setText(i18n("Start Simon"));
   startSimonAction->setIcon(KIcon("simon"));
   connect(startSimonAction, SIGNAL(triggered(bool)),
     this, SLOT(startSimon()));
 
-  restartProcess->setText(i18n("Restart simond"));
+  restartProcess->setText(i18n("Restart Simond"));
   restartProcess->setIcon(KIcon("view-refresh"));
   restartProcess->setEnabled(false);
   connect(restartProcess, SIGNAL(triggered(bool)),
     this, SLOT(restartSimond()));
 
-  stopProcess->setText(i18n("Stop simond"));
+  stopProcess->setText(i18n("Stop Simond"));
   stopProcess->setIcon(KIcon("process-stop"));
   stopProcess->setEnabled(false);
   connect(stopProcess, SIGNAL(triggered(bool)),

@@ -84,7 +84,7 @@ QWizardPage* ImportTrainingDirectory::createFinishedPage()
   intro->setTitle(i18n("Importing of the Folder completed"));
   QLabel *label = new QLabel(intro);
   label->setText(i18n("The files have been imported.\n\nThank you for "
-    "improving simon!"));
+    "improving Simon!"));
   QVBoxLayout *layout = new QVBoxLayout(intro);
   layout->addWidget(label);
   intro->setLayout(layout);

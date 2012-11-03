@@ -370,7 +370,7 @@ void SampleShare::startTransmission()
   worker = new SendSampleWorker(server, new SimonSampleDataProvider(userId, 
 							    new Microphone(microphoneId, QString(), QString()),
 							    new SoundCard(soundCardId, QString(), QString()),
-							    Sample::Training, i18n("simon training data")));
+                                                           Sample::Training, i18n("Simon training data")));
   
   transmissionOperation = new Operation(QThread::currentThread(), i18n("Uploading samples..."), i18n("Initializing"), 0, 0, false);
   progressWidget = new ProgressWidget(transmissionOperation, ProgressWidget::Large, this);

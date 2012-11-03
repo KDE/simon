@@ -88,7 +88,7 @@ void Simonoid::init() {
   Plasma::Applet::init();
 
   if ( m_icon.isNull() ) {
-    setFailedToLaunch ( true, i18n ( "Could not load simon icon!" ) );
+    setFailedToLaunch ( true, i18n ( "Could not load Simon icon!" ) );
     exit ( -1 );
   }
 
@@ -132,7 +132,7 @@ void Simonoid::init() {
 void Simonoid::checkConnection() {
   if ( !m_isconnected ) {
     if ( !connectSignalsAndSlots() ) {
-      kDebug() << "waiting for simon to start...";
+      kDebug() << "waiting for Simon to start...";
     } else {
       kDebug() << "connected successful!";
       m_status = i18n ( "Waiting" );

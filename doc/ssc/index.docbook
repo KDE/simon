@@ -30,7 +30,7 @@
 <keyword>KDE</keyword>
 <keyword>kdeutils</keyword>
 <keyword>Kapp</keyword>
-<keyword>simon</keyword>
+<keyword>Simon</keyword>
 <keyword>sample</keyword>
 <keyword>acquisition</keyword>
 <keyword>training</keyword>
@@ -71,13 +71,13 @@
 
 <para>Using &kmyapplication; multiple teams can gather training data from potential end users or professional speakers and collect them on the central sscd server.</para>
 
-<para>Like simon / simond, &kmyapplication; is a client to the sscd server.</para>
+<para>Like Simon / Simond, &kmyapplication; is a client to the SSCd server.</para>
 
 <para>&kmyapplication; will collect samples through training procedures and send them to the sscd server.</para>
 
 <para>The system also collects useful metadata to the samples like names (or aliases) of the recorded people, their speaking niveau, possible impairments, etc. Information about the used recording equipment is also stored. This and other information is stored on the server side in a database. Please refer to the <ulink url="help:/sscd">sscd manual</ulink> for more information.</para>
 
-<para>For more information on the architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
+<para>For more information on the architecture of the Simon suite please see the <ulink url="help:/Simon/overview.html#architecture">Simon manual</ulink>.</para>
 
 </chapter>
 
@@ -470,7 +470,7 @@
 
   <para>When you set up &kmyapplication; for a specific institution you might want to bind it directly to this institution. The user can then use the institution specific ids of the users (instead of the internal ssc ids) when referencing the users. To set up the bound institution, use the <guilabel>Use institution specific ids instead of ssc ids</guilabel> checkbox. For more information see the <link linkend="institution_association">section about institution associations</link>.</para>
 
-  <para>The sound configuration is shared with the whole of the simon application suite. Read more about it in <ulink url="help:/simon/configuration.html#soundconfiguration">simons manual</ulink>.</para>
+  <para>The sound configuration is shared with the whole of the Simon application suite. Read more about it in <ulink url="help:/simon/configuration.html#soundconfiguration">Simon manual</ulink>.</para>
 </sect1>
 
  </chapter>

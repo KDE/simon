@@ -80,7 +80,7 @@ QWizardPage* ImportTrainingTexts::createIntroPage()
   QLabel *label = new QLabel(intro);
   label->setWordWrap(true);
   label->setText(i18n("Using this assistant you can import new Trainingstexts from the Internet or "
-    "local files.\n\nThat way the training of simon will never get boring!"
+    "local files.\n\nThat way the training of Simon will never get boring!"
     ));
   QVBoxLayout *layout = new QVBoxLayout(intro);
   layout->addWidget(label);
@@ -148,7 +148,7 @@ QWizardPage* ImportTrainingTexts::createFinishedPage()
   finished->setTitle(i18n("Text added"));
   QLabel *label = new QLabel(finished);
   label->setWordWrap(true);
-  label->setText(i18n("You have now added a new text.\n\nThank you for improving simon!"));
+  label->setText(i18n("You have now added a new text.\n\nThank you for improving Simon!"));
   QVBoxLayout *layout = new QVBoxLayout(finished);
   layout->addWidget(label);
   finished->setLayout(layout);

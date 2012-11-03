@@ -218,7 +218,7 @@ void TrainingsWizard::submit()
     page->submit();
   }
   if (!TrainingManager::getInstance()->savePrompts())
-    KMessageBox::error(this, i18n("Could not save changes to the training corpus.\n\nPlease restart simon."));
+    KMessageBox::error(this, i18n("Could not save changes to the training corpus.\n\nPlease restart Simon."));
 }
 
 

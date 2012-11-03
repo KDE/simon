@@ -157,9 +157,9 @@ void SingleDeviceSettings::load(const QString& deviceName, int channels,
   if ((!deviceName.isEmpty()) &&
   (ui->cbSoundDevice->currentText() != deviceName)) {
     if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is the device name",
-            "<html><head/><body><p>simon noticed that the sound device "
+            "<html><head/><body><p>Simon noticed that the sound device "
             "\"%1\" is no longer available.</p><p>This is perfectly normal if you are "
-            "connected to simond or are otherwise using an application that blocks the "
+            "connected to Simond or are otherwise using an application that blocks the "
             "device.</p><p><b>Did you plug / unplug a device or otherwise change your systems "
             "audio setup?</b></p><p>Selecting \"Yes\" will allow you to change your sound "
             "configuration, essentially deleting your previous configuration. Selecting "

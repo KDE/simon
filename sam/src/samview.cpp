@@ -93,9 +93,9 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.saTestConfigurations->setWidget(ui.wgTestConfigurations);
 
   KAction* getPathsFromSimon = new KAction(this);
-  getPathsFromSimon->setText(i18n("Modify simon's model"));
-  getPathsFromSimon->setStatusTip(i18n("Manage simon's current model with ssc"));
-  getPathsFromSimon->setIcon(KIcon("simon"));
+  getPathsFromSimon->setText(i18n("Modify Simon's model"));
+  getPathsFromSimon->setStatusTip(i18n("Manage Simon's current model with SSC"));
+  getPathsFromSimon->setIcon(KIcon("Simon"));
   actionCollection()->addAction("getPathsFromSimon", getPathsFromSimon);
   connect(getPathsFromSimon, SIGNAL(triggered(bool)),
           this, SLOT(getBuildPathsFromSimon()));
@@ -133,7 +133,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(exportTestResults, SIGNAL(triggered(bool)),
           this, SLOT(exportTestResults()));
 
-  m_user = "internalsamuser";
+  m_user = "internalSamuser";
 
   KStandardAction::openNew(this, SLOT(newProject()), actionCollection());
   KStandardAction::save(this, SLOT(save()), actionCollection());
@@ -270,7 +270,7 @@ bool SamView::askForSave()
 
   if (m_dirty)
   {
-    int ret = KMessageBox::questionYesNoCancel(this, i18n("Your sam configuration has changed.\n\nDo you want to save?"));
+    int ret = KMessageBox::questionYesNoCancel(this, i18n("Your Sam configuration has changed.\n\nDo you want to save?"));
     switch (ret)
     {
       case KMessageBox::Yes:
@@ -595,7 +595,7 @@ void SamView::load()
 {
   if (!askForSave()) return;
 
-  QString filename = KFileDialog::getOpenFileName(KUrl(), i18n("sam projects *.sam"), this);
+  QString filename = KFileDialog::getOpenFileName(KUrl(), i18n("Sam projects *.sam"), this);
   if (filename.isEmpty()) return;
 
   load(filename);
@@ -623,7 +623,7 @@ bool SamView::saveAs()
 {
   if (batchMode()) return false;
 
-  QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("sam projects *.sam"), this);
+  QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("Sam projects *.sam"), this);
   if (filename.isEmpty())
     return false;
 
@@ -639,7 +639,7 @@ void SamView::updateWindowTitle()
   if (m_filename.isEmpty())
     decoFile = i18n("Untitled");
 
-  setWindowTitle(i18nc("%1 is file name", "sam - %1 [*]", decoFile));
+  setWindowTitle(i18nc("%1 is file name", "Sam - %1 [*]", decoFile));
   setWindowModified(m_dirty);
 }
 
@@ -658,7 +658,7 @@ void SamView::parseFile()
   QDomElement samProjectElem = doc.documentElement();
   if (samProjectElem.tagName() != "samProject")
   {
-    fatalError(i18n("Corrupt or outdated sam configuration file."));
+    fatalError(i18n("Corrupt or outdated Sam configuration file."));
     return;
   }
 
@@ -854,7 +854,7 @@ void SamView::getBuildPathsFromSimon()
   //take several corner cases into account as well as streamline the model with the
   //information he can extract from the input files
 
-  ui.leScriptPrefix->setText("simon/scripts");
+  ui.leScriptPrefix->setText("Simon/scripts");
 
   ModelCompilationAdapter::AdaptionType adaptionType = ModelCompilationAdapter::None;
   if (modelType == 0 /*static*/)

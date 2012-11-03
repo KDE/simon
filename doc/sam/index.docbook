@@ -30,7 +30,7 @@
 <keyword>KDE</keyword>
 <keyword>kdeutils</keyword>
 <keyword>Kapp</keyword>
-<keyword>simon</keyword>
+<keyword>Simon</keyword>
 <keyword>recognition</keyword>
 <keyword>speech</keyword>
 <keyword>voice</keyword>
@@ -68,9 +68,9 @@
 <title>Introduction</title>
 
 <para>
-  &kmyapplication; is a tool to create and test acoustic models. It can compile new speech models, use models created by simon and produce models that can be used by simon later on.</para>
+  &kmyapplication; is a tool to create and test acoustic models. It can compile new speech models, use models created by Simon and produce models that can be used by Simon later on.</para>
 <para>It is targeted towards people wanting more control over their acoustic model and provides much lower level access to the build process. &kmyapplication; is mainly geared towards speech professionals wanting to improve their acoustic model.</para>
-<para>For more information on the architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
+<para>For more information on the architecture of the Simon suite please see the <ulink url="help:/simon/overview.html#architecture">Simon manual</ulink>.</para>
 
 <sect1 id="background">
   <title>Background</title>
@@ -139,11 +139,11 @@
 </screenshot>
 </para>
 
-<para>If you want to compile and / or test the simon model, you can use the <guibutton>Modify simon's model</guibutton> option to load the appropriate files. Both scenarios and prompts will be serialized as appropriate.</para>
+<para>If you want to compile and / or test the Simon model, you can use the <guibutton>Modify Simon's model</guibutton> option to load the appropriate files. Both scenarios and prompts will be serialized as appropriate.</para>
 
-<para>When simon compiles the model, it will automatically remove untrained words during serialization as well as adapting the prompts appropriately. This will also happen when selecting <guibutton>Modify simon's model</guibutton>. If you do, however serialize them separately using <guibutton>Serialize scenarios</guibutton> and <guibutton>Serialize prompts</guibutton> this adaption will not be performed and you alone are responsible for the validity of the input files. If you provide file names directly this of course applies even more so.</para>
+<para>When Simon compiles the model, it will automatically remove untrained words during serialization as well as adapting the prompts appropriately. This will also happen when selecting <guibutton>Modify Simon's model</guibutton>. If you do, however serialize them separately using <guibutton>Serialize scenarios</guibutton> and <guibutton>Serialize prompts</guibutton> this adaption will not be performed and you alone are responsible for the validity of the input files. If you provide file names directly this of course applies even more so.</para>
 
-<para>Selecting a static model as the used model type will still compile the language model, just like simon would do as well. It also copies the given base model input files to the output paths.</para>
+<para>Selecting a static model as the used model type will still compile the language model, just like Simon would do as well. It also copies the given base model input files to the output paths.</para>
 
 <para>
   &kmyapplication; allows the user to provide two different types of prompts files. One prompts file to compile the model and test the model. For more information, please see the section on <link linkend="effective_testing">effective testing</link>.
@@ -154,7 +154,7 @@
 <sect1 id="adapt_scenarios">
   <title>Adapt scenarios</title>
 
-  <para>simon stores the language model in scenarios. When you want to use them to compile the model, you first need to serialize them to files readable by Julius and the HTK.</para>
+  <para>Simon stores the language model in scenarios. When you want to use them to compile the model, you first need to serialize them to files readable by Julius and the HTK.</para>
 
 <para>
 <screenshot>
@@ -170,7 +170,7 @@
 </screenshot>
 </para>
 
-  <para>To do this, select <guibutton>Serialize scenarios</guibutton> button in the <link linkend="input_output">Input output tab</link>. simon's scenarios will also be serialized when using the <guibutton>Modify simon's model</guibutton> options.</para>
+  <para>To do this, select <guibutton>Serialize scenarios</guibutton> button in the <link linkend="input_output">Input output tab</link>. Simon's scenarios will also be serialized when using the <guibutton>Modify Simon's model</guibutton> options.</para>
 
   <para>In this page you can find status information of the adaption and read detailed error messages if an error occurs.</para>
 </sect1>
@@ -180,7 +180,7 @@
 
   <para>Here you can build the model using the input and output files defined in the <link linkend="input_output">input &amp; output section</link>.</para>
 
-  <para>The compilation process is identical to the one used by simond. Unlike simond, however, the full log of all called external programs, their output as well as progress information is shown regardless of whether the compilation was successful or not.</para>
+  <para>The compilation process is identical to the one used by Simond. Unlike Simond, however, the full log of all called external programs, their output as well as progress information is shown regardless of whether the compilation was successful or not.</para>
 
 <para>
 <screenshot>

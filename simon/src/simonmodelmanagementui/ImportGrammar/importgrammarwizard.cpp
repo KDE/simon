@@ -46,7 +46,7 @@ QWizardPage* ImportGrammarWizard::createIntroPage()
 
   desc->setWordWrap(true);
   intro->setTitle(i18n("Welcome to the Import of your Grammar"));
-  desc->setText(i18n("This wizard will allow you to select textfiles or input text from which simon will "
+  desc->setText(i18n("This wizard will allow you to select textfiles or input text from which Simon will "
     "then create your "
     "personal grammar profile.\n\nTo do this each of the files / the input text will be read by a "
     "grammar parser which will look up every single word in your dictionary-"
@@ -85,7 +85,7 @@ QWizardPage* ImportGrammarWizard::createFinishedPage()
   desc->setWordWrap(true);
   finished->setTitle(i18n("Import completed"));
   desc->setText(i18n("The files have been imported.\n\nPlease check the structures for errors.\n\nThank "
-    "you for improving simon!"));
+    "you for improving Simon!"));
 
   return finished;
 }

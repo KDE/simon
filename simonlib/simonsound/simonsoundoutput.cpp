@@ -258,7 +258,7 @@ bool SimonSoundOutput::stopPlayback()
 
 SimonSoundOutput::~SimonSoundOutput()
 {
-  kDebug() << "Deleting simon sound output";
+  kDebug() << "Deleting Simon sound output";
   m_output->stopPlayback();
   m_output->deleteLater();
 

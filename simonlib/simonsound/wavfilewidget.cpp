@@ -141,14 +141,14 @@ void WavFileWidget::displayWarning()
   QString warningMsg;
 
   if (m_problems & SimonSamples::Clipping)
-    warningMsg += ("simon detected that your volume is set too high. "
+    warningMsg += ("Simon detected that your volume is set too high. "
       "Because of this, clipping has occurred.\n\n"
       "Please lower the volume and re-record this sample.");
 
   if (m_problems & SimonSamples::SNRTooLow) {
     if (!warningMsg.isEmpty()) warningMsg += "\n\n";
 
-    warningMsg += i18n("simon detected that the difference between recorded "
+    warningMsg += i18n("Simon detected that the difference between recorded "
       "speech and background noise is too low.\n\nPlease "
       "check that you are not using the \"mic boost\" "
       "option in your systems sound configuration and "

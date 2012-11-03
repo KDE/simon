@@ -433,7 +433,7 @@ void RecognitionControl::login()
   if (user.isEmpty()) {
     QPointer<KPasswordDialog> dlg  = new KPasswordDialog(dynamic_cast<QWidget*>(parent()),
                 KPasswordDialog::ShowUsernameLine|KPasswordDialog::ShowKeepPassword );
-    dlg->setPrompt( i18n( "Please enter your Authentication Details for the simond below" ));
+    dlg->setPrompt( i18n( "Please enter your Authentication Details for the Simond below" ));
     if( !dlg->exec() || !dlg || dlg->username().isEmpty() ) {
       disconnectFromServer();                     //the user canceled
       delete dlg;
@@ -831,7 +831,7 @@ void RecognitionControl::messageReceived()
         case Simond::SynchronisationAlreadyRunning:
         {
           advanceStream(sizeof(qint32));
-          emit synchronisationError(i18n("The synchronization is already running.\n\nIf you are sure that this is a mistake, please disconnect from simond and re-connect."));
+          emit synchronisationError(i18n("The synchronization is already running.\n\nIf you are sure that this is a mistake, please disconnect from Simond and re-connect."));
           synchronisationDone();
           break;
         }
@@ -1008,7 +1008,7 @@ void RecognitionControl::messageReceived()
           cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
 
           if (!ScenarioManager::getInstance()->setupScenarios())
-            emit synchronisationError(i18n("Could not re-initialize scenarios. Please restart simon!"));
+            emit synchronisationError(i18n("Could not re-initialize scenarios. Please restart Simon!"));
 
           break;
         }

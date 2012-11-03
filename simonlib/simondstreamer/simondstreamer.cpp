@@ -74,7 +74,7 @@ bool SimondStreamer::isRunning()
 
 bool SimondStreamer::start()
 {
-  kDebug() << "Staring simondstreamer" << SoundServer::getInstance();
+  kDebug() << "Staring Simondstreamer" << SoundServer::getInstance();
   if (clients.isEmpty())
   {
     kDebug() << "clients are empty";

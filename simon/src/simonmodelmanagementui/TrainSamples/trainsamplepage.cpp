@@ -78,7 +78,7 @@ bool TrainSamplePage::validatePage()
 
   bool cont = true;
   if (recorder->sampleProblems() != SimonSamples::None) {
-    if (KMessageBox::warningContinueCancel(this, i18n("simon detected that at least one of the just recorded sample might have some issues.\n\nSelect \"More information\" to find out how to fix this issue.\n\nDo you want to continue with your training without fixing this problem?"), QString(), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), "ShowSampleWarning") != KMessageBox::Continue)
+    if (KMessageBox::warningContinueCancel(this, i18n("Simon detected that at least one of the just recorded Sample might have some issues.\n\nSelect \"More information\" to find out how to fix this issue.\n\nDo you want to continue with your training without fixing this problem?"), QString(), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), "ShowSampleWarning") != KMessageBox::Continue)
       cont = false;
   }
 

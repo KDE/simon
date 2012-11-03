@@ -2,7 +2,7 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!-- Define an entity for your application if it is not part of KDE
        CVS -->
-  <!ENTITY kmyapplication "<application>ksimond</application>">
+  <!ENTITY kmyapplication "<application>KSimond</application>">
   <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
                                             do *not* replace kappname-->
   <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
@@ -70,7 +70,7 @@ Do NOT change these in the translation. -->
 
 <abstract>
 <para>
-&kmyapplication; is a frontend for the simond server component of the simon speech recognition suite.
+&kmyapplication; is a frontend for the Simond server component of the Simon speech recognition suite.
 </para>
 </abstract>
 
@@ -82,7 +82,7 @@ Please at least include KDE, the KDE package it is in, the name
 <keyword>KDE</keyword>
 <keyword>kdeutils</keyword>
 <keyword>Kapp</keyword>
-<keyword>simon</keyword>
+<keyword>Simon</keyword>
 <keyword>recognition</keyword>
 <keyword>speech</keyword>
 <keyword>voice</keyword>
@@ -126,8 +126,8 @@ and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
 <title>Introduction</title>
 
 <para>
-&kappname; is a simple graphical front-end to simond. It creates and displays a tray-icon from which you can start and stop the simond server.
-Moreover it provides a configuration dialog in which it embeds the simond configuration.
+&kappname; is a simple graphical front-end to Simond. It creates and displays a tray-icon from which you can start and stop the Simond server.
+Moreover it provides a configuration dialog in which it embeds the Simond configuration.
 </para>
 <para>
 KSimond can be configured to be started on KDE start.
@@ -141,7 +141,7 @@ Please report any problems or feature requests to <ulink url="http://sourceforge
 <title>Using &kappname;</title>
 
 <para>
-Due to its minimalistic nature ksimond itself does not even have an application window. However, the tray icon has a context menu from where you can start and stop simond and also open the configuration.
+Due to its minimalistic nature KSimond itself does not even have an application window. However, the tray icon has a context menu from where you can start and stop Simond and also open the configuration.
 
 <screenshot>
 <screeninfo>screenshot of &kappname;</screeninfo>
@@ -150,14 +150,14 @@ Due to its minimalistic nature ksimond itself does not even have an application 
 	    <imagedata fileref="ksimond.png" format="PNG"/>
 	  </imageobject>
 	  <textobject>
-	    <phrase>ksimond "screenshot"</phrase>
+           <phrase>KSimond "screenshot"</phrase>
 	  </textobject>
 	</mediaobject>
 </screenshot>
 </para>
 
 <para>
-ksimond has the ability to launch automatically when KDE starts and to handle unexpected simond crashes.
+KSimond has the ability to launch automatically when KDE starts and to handle unexpected Simond crashes.
 
 <screenshot>
 <screeninfo>screenshot of the &kappname;-configuration</screeninfo>
@@ -166,38 +166,38 @@ ksimond has the ability to launch automatically when KDE starts and to handle un
       <imagedata fileref="ksimond_config.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>ksimond configuration</phrase>
+      <phrase>KSimond configuration</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 <para>
-Please note that the option to start ksimond at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, etc. might require manually placing ksimond in the session autostart (please refer to the respective manuals of your desktop environment).
+Please note that the option to start KSimond at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, etc. might require manually placing KSimond in the session autostart (please refer to the respective manuals of your desktop environment).
 </para>
 
 <para>
-Alongside the ksimond configuration the simond configuration modules are listed (also available through systemsettings). See the <ulink url="help:/simond">simond manual</ulink> for details.
+Alongside the KSimond configuration the Simond configuration modules are listed (also available through systemsettings). See the <ulink url="help:/simond">Simond manual</ulink> for details.
 
 <screenshot>
-<screeninfo>screenshot of the simond user configuration</screeninfo>
+<screeninfo>screenshot of the Simond user configuration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="simond_user_config.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>simond user configuration</phrase>
+      <phrase>Simond user configuration</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 
 <screenshot>
-<screeninfo>screenshot of the simond network configuration</screeninfo>
+<screeninfo>screenshot of the Simond network configuration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="simond_network_config.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>simond network configuration</phrase>
+      <phrase>Simond network configuration</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
@@ -209,7 +209,7 @@ Alongside the ksimond configuration the simond configuration modules are listed 
       <imagedata fileref="simond_speech_model_config.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>simond speech model configuration</phrase>
+      <phrase>Simond speech model configuration</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
@@ -258,7 +258,7 @@ Documentation Copyright &copy; 2010 Peter Grasch <email>grasch@simon-listens.org
 <title>How to obtain &kappname;</title>
 
 <para>
-Download the latest version of ksimond using the simon-bundle available from <ulink url="http://sourceforge.net/projects/speech2text">sourceforge</ulink>.
+Download the latest version of KSimond using the Simon-bundle available from <ulink url="http://sourceforge.net/projects/speech2text">sourceforge</ulink>.
 </para>
 </sect1>
 
@@ -266,12 +266,12 @@ Download the latest version of ksimond using the simon-bundle available from <ul
 <title>Requirements</title>
 
 <para>
-In order to successfully use &kappname;, you need &kde; 4. simond is obviously also
+In order to successfully use &kappname;, you need &kde; 4. Simond is obviously also
 required.
 </para>
 
 <para>
-simon and simond itself can be found on <ulink url="http://sourceforge.net/projects/speech2text">the simon sourceforge page</ulink>.
+Simon and Simond itself can be found on <ulink url="http://sourceforge.net/projects/speech2text">the Simon sourceforge page</ulink>.
 </para>
 
 </sect1>

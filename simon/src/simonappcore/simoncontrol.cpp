@@ -157,7 +157,7 @@ void SimonControl::slotCompilationError(const QString &err, const QString& proto
 
 void SimonControl::slotSimondSystemWarning(const QString& warning)
 {
-  SimonInfo::showMessage(i18nc("%1 is warning message", "simond: %1", warning), 5000);
+  SimonInfo::showMessage(i18nc("%1 is warning message", "Simond: %1", warning), 5000);
 }
 
 
@@ -329,7 +329,7 @@ SimonControl::SystemStatus SimonControl::activateSimon()
 {
   RecognitionControl::getInstance()->setBlockAutoStart(false);
   if (status == SimonControl::ConnectedDeactivatedReady) {
-    Logger::log(i18n("simon activated"));
+    Logger::log(i18n("Simon activated"));
     setStatus(SimonControl::ConnectedActivating);
     if (!RecognitionControl::getInstance()->startRecognition())
             setStatus(SimonControl::ConnectedDeactivatedReady);
@@ -354,7 +354,7 @@ SimonControl::SystemStatus SimonControl::deactivateSimon()
   RecognitionControl::getInstance()->setBlockAutoStart(true);
   if (status == SimonControl::ConnectedActivated) {
     setStatus(SimonControl::ConnectedDeactivating);
-    Logger::log(i18n("simon deactivated"));
+    Logger::log(i18n("Simon deactivated"));
     RecognitionControl::getInstance()->pauseRecognition();
   }
   return status;

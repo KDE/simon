@@ -272,7 +272,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
   m_simonMaxVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem.nextSiblingElement());
 
   if (!m_simonMinVersion) {
-    kDebug() << "Could not parse simon requirements!";
+    kDebug() << "Could not parse Simon requirements!";
     if (deleteDoc) delete doc;
     return false;
   }
@@ -280,7 +280,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
   VersionNumber simonCurVersion(this, simon_version);
   if ((!m_simonMinVersion->isValid()) || (simonCurVersion < *m_simonMinVersion) ||
   (m_simonMaxVersion && m_simonMaxVersion->isValid() && (!(simonCurVersion <= *m_simonMaxVersion)))) {
-    kDebug() << "Scenario not compatible with this simon version";
+    kDebug() << "Scenario not compatible with this Simon version";
     if (deleteDoc) delete doc;
     return false;
   }

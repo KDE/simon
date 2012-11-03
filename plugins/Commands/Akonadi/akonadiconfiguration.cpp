@@ -194,7 +194,7 @@ void AkonadiConfiguration::uncheckAkonadiCommandRequests()
     return;
   
   KMessageBox::information(this, i18n("Without this option, you cannot use commands to schedule events.\n\n"
-                    "You can still configure them through simon but triggering them will not have any effect."),
+                    "You can still configure them through Simon but triggering them will not have any effect."),
                     QString(), i18n("Do not show this info again"));
 }
 

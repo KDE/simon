@@ -197,7 +197,7 @@ void SSCView::setupActions()
   KAction* connectAction = new KAction(this);
   connectAction->setText(i18n("Connect"));
   connectAction->setIcon(KIcon("network-connect"));
-  connectAction->setStatusTip(i18n("Connect to the sscd server"));
+  connectAction->setStatusTip(i18n("Connect to the SSCd server"));
   actionCollection()->addAction("connect", connectAction);
   connect(connectAction, SIGNAL(triggered(bool)),
     this, SLOT(connectToServer()));
@@ -205,7 +205,7 @@ void SSCView::setupActions()
   KAction* disconnectAction = new KAction(this);
   disconnectAction->setText(i18n("Disconnect"));
   disconnectAction->setIcon(KIcon("network-disconnect"));
-  disconnectAction->setStatusTip(i18n("Disconnect from the sscd server"));
+  disconnectAction->setStatusTip(i18n("Disconnect from the SSCd server"));
   actionCollection()->addAction("disconnect", disconnectAction);
   connect(disconnectAction, SIGNAL(triggered(bool)),
     this, SLOT(disconnectFromServer()));

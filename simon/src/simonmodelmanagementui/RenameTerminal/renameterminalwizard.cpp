@@ -76,7 +76,7 @@ QWizardPage* RenameTerminalWizard::createFinishedPage()
 
   desc->setWordWrap(true);
   finished->setTitle(i18n("Renaming complete"));
-  desc->setText(i18n("The terminal has been renamed.\n\nThank you for improving simon."));
+  desc->setText(i18n("The terminal has been renamed.\n\nThank you for improving Simon."));
 
   return finished;
 }

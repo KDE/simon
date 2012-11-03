@@ -2,7 +2,7 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!-- Define an entity for your application if it is not part of KDE
        CVS -->
-  <!ENTITY kmyapplication "<application>simond</application>">
+  <!ENTITY kmyapplication "<application>Simond</application>">
   <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
                                             do *not* replace kappname-->
   <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
@@ -70,7 +70,7 @@ Do NOT change these in the translation. -->
 
 <abstract>
 <para>
-&kmyapplication; is the server component of the simon speech recognition suite.
+&kmyapplication; is the server component of the Simon speech recognition suite.
 </para>
 </abstract>
 
@@ -82,7 +82,7 @@ Please at least include KDE, the KDE package it is in, the name
 <keyword>KDE</keyword>
 <keyword>kdeutils</keyword>
 <keyword>Kapp</keyword>
-<keyword>simon</keyword>
+<keyword>Simon</keyword>
 <keyword>recognition</keyword>
 <keyword>speech</keyword>
 <keyword>voice</keyword>
@@ -140,29 +140,29 @@ problems. Basically a long version of the abstract.  Don't include a
 revision history. (see installation appendix comment) -->
 
 <para>
-&kmyapplication; is the server component of the simon speech recognition suite. It handles the recognition and the model compilation and receives it input from the simon client(s) which connect to the server using TCP/IP.
+&kmyapplication; is the server component of the Simon speech recognition suite. It handles the recognition and the model compilation and receives it input from the Simon client(s) which connect to the server using TCP/IP.
 </para>
-<para>For more information please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
+<para>For more information please see the <ulink url="help:/simon/overview.html#architecture">Simon manual</ulink>.</para>
 </chapter>
 
 <chapter id="using-kapp">
 <title>Using &kmyapplication;</title>
 
-<para>simond is a command line application which does not have any user interface. There are no special launch parameters.</para>
+<para>Simond is a command line application which does not have any user interface. There are no special launch parameters.</para>
 
-<para>However, simond installs a KCM that is listed in KDEs systemsettings and can also be accessed directly using the <command>kcmshell4</command>:
+<para>However, Simond installs a KCM that is listed in KDEs systemsettings and can also be accessed directly using the <command>kcmshell4</command>:
 <itemizedlist>
 <listitem><para><command>kcmshell4 simondconfiguration</command></para></listitem>
 </itemizedlist>
 </para>
 
-<para>Because simond compiles the speech model (if instructed to do so by the simon client(s)), the configuration of the speech model compilation is of course also relevant when administrating simond. You can open it by using <command>kcmshell4</command>:
+<para>Because Simond compiles the speech model (if instructed to do so by the Simon client(s)), the configuration of the speech model compilation is of course also relevant when administrating Simond. You can open it by using <command>kcmshell4</command>:
 <itemizedlist>
 <listitem><para><command>kcmshell4 simonmodelcompilationconfig</command></para></listitem>
 </itemizedlist>
 </para>
 
-<para>When used from within a graphical environment (if you don't know what this is you are most likely using one), it is recommended to use the graphical frontend called <command>ksimond</command> which also provides access to the configuration modules through its configuration dialog. See the ksimond manual for details.</para>
+<para>When used from within a graphical environment (if you don't know what this is you are most likely using one), it is recommended to use the graphical frontend called <command>ksimond</command> which also provides access to the configuration modules through its configuration dialog. See the KSimond manual for details.</para>
 
 
 <sect1 id="user_configuration">
