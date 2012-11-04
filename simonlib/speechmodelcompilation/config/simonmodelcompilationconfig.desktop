@@ -4,6 +4,7 @@ Icon=applications-education-language
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=simonmodelcompilationconfiguration
 
+X-DocPath=help:/simond/speech_model_compilation_configuration.html
 X-KDE-FactoryName=modelcompilationsettingsfactory
 X-KDE-ParentComponents=simonmodelcompilationconfiguration
 
