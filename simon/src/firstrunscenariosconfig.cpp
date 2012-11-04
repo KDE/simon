@@ -41,7 +41,10 @@ void FirstRunScenariosConfig::initializePage()
 }
 bool FirstRunScenariosConfig::validatePage()
 {
-  return scenarioManagement->save() && QWizardPage::validatePage();
+  bool succ = scenarioManagement->save();
+  if (succ && !ScenarioManager::getInstance()->setupScenarios(true /* force change */))
+    KMessageBox::sorry(this, i18n("Could not re-initialize scenarios. Please restart Simon!"));
+  return succ && QWizardPage::validatePage();
 }
 
 
