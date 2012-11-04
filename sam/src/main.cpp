@@ -29,7 +29,7 @@ I18N_NOOP("An acoustic model modeller");
 
 int main(int argc, char **argv)
 {
-  KAboutData about("Sam", 0, ki18n("Sam"), simon_version, ki18n(description),
+  KAboutData about("sam", 0, ki18n("Sam"), simon_version, ki18n(description),
     KAboutData::License_GPL, ki18n("(C) 2009 Peter Grasch"), KLocalizedString(), 0, "peter.grasch@bedahr.org");
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "peter.grasch@bedahr.org" );
 

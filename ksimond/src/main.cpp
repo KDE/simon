@@ -29,7 +29,7 @@ I18N_NOOP("A KDE 4 frontend for Simond");
 
 int main(int argc, char **argv)
 {
-  KAboutData about("KSimond", 0, ki18n("KSimond"), simon_version, ki18n(description),
+  KAboutData about("ksimond", 0, ki18n("KSimond"), simon_version, ki18n(description),
     KAboutData::License_GPL, ki18n("(C) 2008 Peter Grasch"), KLocalizedString(), 0, "peter.grasch@bedahr.org");
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "peter.grasch@bedahr.org" );
   KCmdLineArgs::init(argc, argv, &about);

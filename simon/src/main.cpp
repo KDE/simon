@@ -62,7 +62,7 @@ public KApplication
 
 int main(int argc, char *argv[])
 {
-  KAboutData aboutData( "Simon", "Simon",
+  KAboutData aboutData( "simon", "Simon",
     ki18n("Simon"), simon_version,
     ki18n("<html><head /><body>"
           "<h2>Development and Distribution</h2>"
