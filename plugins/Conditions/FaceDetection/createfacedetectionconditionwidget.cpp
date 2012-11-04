@@ -51,6 +51,7 @@ bool CreateFaceDetectionConditionWidget::init(Condition *condition)
 
 Condition* CreateFaceDetectionConditionWidget::createCondition(QDomDocument* doc, QDomElement& conditionElem)
 {
+  Q_UNUSED(doc);
   conditionElem.setAttribute("name", "simonfacedetectionconditionplugin.desktop");
 
   return ContextManager::instance()->getCondition(conditionElem);

@@ -66,6 +66,7 @@ void CreateLipDetectionConditionWidget::modify()
 
 void CreateLipDetectionConditionWidget::calculateThreshold(bool isSpeaking, int value)
 {
+  Q_UNUSED(value);
   kDebug() << "Value before: " << ui.horizontalSlider->value();
   if(isSpeaking)
   {

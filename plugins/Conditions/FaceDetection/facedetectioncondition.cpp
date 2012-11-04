@@ -43,6 +43,7 @@ CreateConditionWidget* FaceDetectionCondition::getCreateConditionWidget(QWidget*
 
 QDomElement FaceDetectionCondition::privateSerialize(QDomDocument *doc, QDomElement elem)
 {
+  Q_UNUSED(doc);
 
   return elem;
 }
@@ -57,6 +58,7 @@ QString FaceDetectionCondition::name()
 
 bool FaceDetectionCondition::privateDeSerialize(QDomElement elem)
 {
+  Q_UNUSED(elem);
   analyzer = new FaceAnalyzer();
   connect(analyzer,SIGNAL(facePresenceChanged(bool)),this,SLOT(manageConditionState(bool)));
   return true;

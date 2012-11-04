@@ -79,6 +79,7 @@ bool LipDetectionCondition::privateDeSerialize(QDomElement elem)
 
 void LipDetectionCondition::manageConditionState(bool isSpeaking, int thresholdValue)
 {
+  Q_UNUSED(thresholdValue);
   if (isSpeaking)
   {
     if(!m_satisfied)
