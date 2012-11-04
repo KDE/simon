@@ -82,10 +82,10 @@ wantReload(false)
   connect(configure, SIGNAL(triggered(bool)),
     this, SLOT(showConfigurationDialog()));
 
-  trayIconMgr->addAction(i18n("Start simon"), startSimonAction);
-  trayIconMgr->addAction(i18n("Start simond"), startProcess);
-  trayIconMgr->addAction(i18n("Restart simond"), restartProcess);
-  trayIconMgr->addAction(i18n("Stop simond"), stopProcess);
+  trayIconMgr->addAction(i18n("Start Simon"), startSimonAction);
+  trayIconMgr->addAction(i18n("Start Simond"), startProcess);
+  trayIconMgr->addAction(i18n("Restart Simond"), restartProcess);
+  trayIconMgr->addAction(i18n("Stop Simond"), stopProcess);
   trayIconMgr->addAction(i18n("Configuration"), configure);
 
   connect(process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(matchDisplayToState()));
