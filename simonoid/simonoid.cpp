@@ -88,7 +88,7 @@ void Simonoid::init() {
   Plasma::Applet::init();
 
   if ( m_icon.isNull() ) {
-    setFailedToLaunch ( true, i18n ( "Could not load Simon icon!" ) );
+    setFailedToLaunch ( true, i18n ( "Could not load Simon icon." ) );
     exit ( -1 );
   }
 

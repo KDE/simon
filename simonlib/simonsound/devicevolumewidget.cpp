@@ -99,7 +99,7 @@ void DeviceVolumeWidget::tooLoud()
 
 void DeviceVolumeWidget::volumeOk()
 {
-  ui->lbStatus->setText(i18n("Volume correct!"));
+  ui->lbStatus->setText(i18n("Volume correct."));
   ui->lbIcon->setPixmap(KIcon("dialog-ok-apply").pixmap(24,24));
 }
 

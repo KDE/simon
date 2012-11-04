@@ -102,7 +102,7 @@ void DragTableView::startDrag(Qt::DropActions actions)
   mimeData->setData( "application/x-simon-word", QByteArray() );
   drag->setMimeData(mimeData);
 
-  SimonInfo::showMessage( i18n("Drag the Word to the List on the right to train it") , 2000 ); // krazy:exclude=qmethods
+  SimonInfo::showMessage( i18n("Drag the word to the list on the right to train it") , 2000 ); // krazy:exclude=qmethods
 
   drag->exec(actions);
 }

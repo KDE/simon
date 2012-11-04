@@ -79,7 +79,7 @@ UserInInstitution* ModifyUserInInstitution::add()
     bool ok;
     int institutionId = ui.cbInstitution->currentText().toInt(&ok);
     if (!ok) {
-      KMessageBox::sorry(this, i18n("Please enter a valid institution id"));
+      KMessageBox::sorry(this, i18n("Please enter a valid institution ID"));
       return 0;
     }
 

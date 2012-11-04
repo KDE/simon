@@ -27,7 +27,7 @@ CreateTransitionDialog::CreateTransitionDialog(CreateDialogCommandWidget *creato
   KDialog(parent),
   m_creator(creator)
 {
-  setCaption(i18n("Dialog option"));
+  setCaption(i18n("Dialog Option"));
 
   QWidget *mainWidget = new QWidget(this);
   ui.setupUi(mainWidget);

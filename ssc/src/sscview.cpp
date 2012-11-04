@@ -100,7 +100,7 @@ User* SSCView::retrieveUser()
       bool ok;
       qint32 id = ui.cbPatientId->currentText().toInt(&ok);
       if (!ok) {
-        KMessageBox::information(this, i18n("Please enter a valid user id."));
+        KMessageBox::information(this, i18n("Please enter a valid user ID."));
         return 0;
       }
       u = SSCDAccessSingleton::getInstance()->getUser(id);
@@ -180,7 +180,7 @@ void SSCView::findUser()
       }
 
       if (!found) {
-        KMessageBox::sorry(this, i18n("Could not resolve institution reference id of the given user.\n\nMaybe he is not on your institution? You might want to disable institution specific ids in the configuration."));
+        KMessageBox::sorry(this, i18n("Could not resolve institution reference ID of the given user.\n\nMaybe they are not on your institution? You might want to disable institution specific IDs in the configuration."));
       }
     } else
     ui.cbPatientId->setEditText(QString::number(u->userId()));
@@ -342,8 +342,8 @@ void SSCView::deleteUser()
   User *u = retrieveUser();
   if (!u) return;
 
-  if (KMessageBox::questionYesNo(this, i18nc("%1 is user id, %2 is use rname", 
-    "Do you really want to delete the user \"%1\" (\"%2\")?\n\nAll collected samples associated with this user will be irreversibly destroyed!",
+  if (KMessageBox::questionYesNo(this, i18nc("%1 is user id, %2 is user name", 
+    "Do you really want to delete the user \"%1\" (\"%2\")?\n\nAll collected samples associated with this user will be irreversibly destroyed.",
     u->userId(), QString("%1, %2").arg(u->surname()).arg(u->givenName()))) ==
   KMessageBox::Yes) {
     if (!SSCDAccessSingleton::getInstance()->deleteUser(u))

@@ -99,7 +99,7 @@ void SingleDeviceSettings::checkWithSuccessMessage()
 {
   if (!enabled) return;
   if (check())
-    KMessageBox::information(this, i18n("The soundconfiguration has been tested successfully."));
+    KMessageBox::information(this, i18n("The sound configuration has been tested successfully."));
 }
 
 

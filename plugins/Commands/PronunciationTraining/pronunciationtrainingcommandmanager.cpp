@@ -71,7 +71,7 @@ bool PronunciationTrainingCommandManager::trigger(const QString& triggerName, bo
   
   if (!triggerName.isEmpty()) return false;
 
-  Logger::log(i18n("Activating pronunciationtraining"));
+  Logger::log(i18n("Activating pronunciation training"));
   activateTraining();
   return true;
 }

@@ -561,7 +561,7 @@ bool ModelCompilerHTK::codeAudioData()
   //creating codetrain
   QStringList codeTrainScps;
   if (!generateCodetrainScp(codeTrainScps)) {
-    analyseError(i18n("Could not create codetrain-file."));
+    analyseError(i18n("Could not create codetrain file."));
     return false;
   }
 
@@ -584,7 +584,7 @@ bool ModelCompilerHTK::codeAudioDataFromScp(const QString& path)
   //QString codetrainPath = tempDir+"/codetrain.scp";
   QString execStr = '"'+hCopy+"\" -A -D -T 1 -C \""+htkIfyPath(wavConfigPath)+"\" -S \""+htkIfyPath(path)+'"';
   if (!execute(execStr, tempDir)) {
-    analyseError(i18n("Error while coding the samples!\n\nPlease check the path to HCopy (%1) and the wav config (%2)", hCopy, wavConfigPath));
+    analyseError(i18n("Error while coding the samples.\n\nPlease check the path to HCopy (%1) and the wav config (%2)", hCopy, wavConfigPath));
     return false;
   }
   return true;
@@ -699,11 +699,11 @@ bool ModelCompilerHTK::splitScp(const QString& scpIn, const QString& outputDirec
 bool ModelCompilerHTK::generateInputFiles()
 {
   if (!keepGoing) return false;
-  emit status(i18n("Generating wordlist..."), 35);
+  emit status(i18n("Generating word list..."), 35);
 
   //wlist
   if (!generateWlist()) {
-    analyseError(i18n("Failed to create wordlist. Please check the path to your prompts file."));
+    analyseError(i18n("Failed to create word list. Please check the path to your prompts file."));
     return false;
   }
 

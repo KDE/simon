@@ -305,7 +305,7 @@ void WelcomePage::scenarioConfig()
     kDebug() << "Reloading Scenario Information";
 
     if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
-      KMessageBox::sorry(this, i18n("Could not re-initialize scenarios. Please restart Simon!"));
+      KMessageBox::sorry(this, i18n("Could not re-initialize scenarios. Please restart Simon."));
 
     displayScenarios();
   }

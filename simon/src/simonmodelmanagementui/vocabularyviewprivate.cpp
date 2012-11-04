@@ -336,7 +336,7 @@ void VocabularyViewPrivate::trainList()
   if (trainingVocabulary.count()==0) {
     KMessageBox::error(this, i18n("Please select a few words for the special training by dragging them from the "
       "list on your left to the list above.\n\nIf you just want to train your model "
-      "using generic texts use the \"Training\" option in the Toolbar."));
+      "using generic texts use the \"Training\" option in the toolbar."));
     return;
   }
 

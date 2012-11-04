@@ -30,7 +30,7 @@
  * @author Peter Grasch
  */
 VocabularyView::VocabularyView(QWidget *parent)
-: InlineWidget(i18n("Wordlist"),
+: InlineWidget(i18n("Word list"),
   KIcon("format-justify-fill"),
   i18n("View and modify the vocabulary."), parent),
   d(new VocabularyViewPrivate(this))

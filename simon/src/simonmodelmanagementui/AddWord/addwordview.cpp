@@ -85,7 +85,7 @@ void AddWordView::accept()
   QString word = field("wordName").toString();
 
   Logger::log(i18n("Adding the new Word to the Model..."));
-  Logger::log(i18n("New word: ")+word);
+  Logger::log(i18n("New word: %1", word));
 
   listToAdd.append(new Word(word.trimmed(), field("wordPronunciation").toString(),
     field("wordTerminal").toString()));
@@ -113,7 +113,7 @@ void AddWordView::accept()
   }
 
   //cleaning up
-  Logger::log(i18n("Added Word: ")+word);
+  Logger::log(i18n("Added Word: %1", word));
   emit addedWord();
 }
 

@@ -83,7 +83,7 @@ void GrammarViewPrivate::currentSelectionChanged()
 
 void GrammarViewPrivate::addStructure()
 {
-  QString structure = KInputDialog::getText(i18n("Add Sentence"), i18n("Enter the new sentence structure.\n\nUse categories instead of distinct words (e.g \"Trigger Program\")."));
+  QString structure = KInputDialog::getText(i18n("Add Sentence"), i18n("Enter the new sentence structure.\n\nUse categories instead of distinct words (e.g. \"Trigger Program\")."));
   if (structure.isEmpty()) return;
 
   if (!ScenarioManager::getInstance()->getCurrentScenario()->grammar()->addStructure(structure))

@@ -57,7 +57,7 @@ const KIcon DBusCommand::getCategoryIcon() const
 const QMap<QString,QVariant> DBusCommand::getValueMapPrivate() const
 {
   QMap<QString,QVariant> out;
-  out.insert(i18nc("Name of the service", "Servicename"), m_serviceName);
+  out.insert(i18nc("Name of the service", "Service Name"), m_serviceName);
   out.insert(i18nc("Name of the path", "Path"), m_path);
   out.insert(i18nc("Name of the D-Bus interface", "Interface"), m_interface);
   out.insert(i18nc("Name of the method to call", "Method"), m_method);

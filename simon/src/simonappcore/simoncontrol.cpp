@@ -163,7 +163,7 @@ void SimonControl::slotSimondSystemWarning(const QString& warning)
 
 void SimonControl::slotSynchronisationWarning(const QString& warning)
 {
-  SimonInfo::showMessage(i18nc("%1 is warning message", "Model synchronization %1", warning), 5000);
+  SimonInfo::showMessage(i18nc("%1 is warning message", "Model synchronization: %1", warning), 5000);
 }
 
 
@@ -273,7 +273,7 @@ void SimonControl::setStatus(SimonControl::SystemStatus newStatus)
 void SimonControl::connectedToServer()
 {
   setStatus(SimonControl::ConnectedDeactivatedNotReady);
-  Logger::log(i18n("Connected to the Server"));
+  Logger::log(i18n("Connected to the server"));
 }
 
 

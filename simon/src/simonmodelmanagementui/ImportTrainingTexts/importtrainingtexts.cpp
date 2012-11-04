@@ -54,7 +54,7 @@ prevId(0)
   this->addPage(working);
 
   this->addPage(createFinishedPage());
-  setWindowTitle(i18n("Add Trainingstext"));
+  setWindowTitle(i18n("Add Trainings Text"));
   setBanner("importtexts");
 
 }
@@ -76,11 +76,11 @@ ImportTrainingTexts::~ImportTrainingTexts()
 QWizardPage* ImportTrainingTexts::createIntroPage()
 {
   QWizardPage *intro = new QWizardPage(this);
-  intro->setTitle(i18n("Import a new Trainingstext"));
+  intro->setTitle(i18n("Import a new Trainings Text"));
   QLabel *label = new QLabel(intro);
   label->setWordWrap(true);
-  label->setText(i18n("Using this assistant you can import new Trainingstexts from the Internet or "
-    "local files.\n\nThat way the training of Simon will never get boring!"
+  label->setText(i18n("Using this assistant you can import new trainings texts from the Internet or "
+    "local files.\n\nThat way the training of Simon will never get boring."
     ));
   QVBoxLayout *layout = new QVBoxLayout(intro);
   layout->addWidget(label);

@@ -115,7 +115,7 @@ void UploadSamples::edit()
 
   //int QInputDialog::getInt ( QWidget * parent, const QString & title, const QString & label, int value = 0, int min = -2147483647, int max = 2147483647, int step = 1, bool * ok = 0, Qt::WindowFlags flags = 0 )   [static]
   bool ok = true;
-  qint32 newId = KInputDialog::getInteger(i18n("Edit samples pack"), i18n("If you want to change the user id of this samples pack, please provide the new id below."), userId, 0, 2147483647, 1, &ok);
+  qint32 newId = KInputDialog::getInteger(i18n("Edit samples pack"), i18n("If you want to change the user ID of this samples pack, please provide the new ID below."), userId, 0, 2147483647, 1, &ok);
   if (!ok) return;
 
   kDebug() << "Editing: " << path << " to new id: " << newId;

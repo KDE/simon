@@ -60,7 +60,7 @@ QWizardPage* RenameTerminalWizard::createIntroPage()
 
   desc->setWordWrap(true);
   intro->setTitle(i18n("Welcome to the renaming of a terminal"));
-  desc->setText(i18n("This assistant will allow you to rename an existing terminal. "));
+  desc->setText(i18n("This assistant will allow you to rename an existing terminal."));
 
   return intro;
 }

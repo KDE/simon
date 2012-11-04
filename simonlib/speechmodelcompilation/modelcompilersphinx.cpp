@@ -306,7 +306,7 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
 
   if(!sourceDir.exists())
   {
-    emit error(i18n("Failed to pack to archive. Source directory does not exist( \"%1\")", srcDirName));
+    emit error(i18n("Failed to pack to archive. Source directory does not exist (\"%1\")", srcDirName));
     return false;
   }
 
@@ -353,7 +353,7 @@ QHash<QString, QString> ModelCompilerSPHINX::readFeatParams(const QString &filen
   QHash<QString, QString> args;
   if (!configFile.open(QIODevice::ReadOnly))
   {
-    emit error(i18n("Failed to read feat.params  \"%1\"", filename));
+    emit error(i18n("Failed to read feat.params \"%1\"", filename));
     return args;
   }
 
@@ -401,7 +401,7 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   QFile configFile(filename);
   if (!configFile.open(QIODevice::ReadOnly))
   {
-    emit error(i18n("Failed to read config at  \"%1\"", filename));
+    emit error(i18n("Failed to read config at \"%1\"", filename));
     return false;
   }
 
@@ -443,7 +443,7 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   out.flush();
   if (!configFile.open(QIODevice::WriteOnly))
   {
-    emit error(i18n("Failed to write config at  \"%1\"", filename));
+    emit error(i18n("Failed to write config at \"%1\"", filename));
     return false;
   }
 

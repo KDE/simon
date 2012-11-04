@@ -336,7 +336,7 @@ bool RecognitionControl::isConnected()
 
 void RecognitionControl::timeoutReached()
 {
-  serverConnectionErrors << i18nc("%1 is timeout length in ms", "Request timed out (%1 ms)", RecognitionConfiguration::juliusdConnectionTimeout());
+  serverConnectionErrors << i18ncp("%1 is timeout length in ms", "Request timed out (%1 ms)", "Request timed out (%1 ms)", RecognitionConfiguration::juliusdConnectionTimeout());
   socket->abort();
   connectToNext();
 }
@@ -1008,7 +1008,7 @@ void RecognitionControl::messageReceived()
           cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
 
           if (!ScenarioManager::getInstance()->setupScenarios())
-            emit synchronisationError(i18n("Could not re-initialize scenarios. Please restart Simon!"));
+            emit synchronisationError(i18n("Could not re-initialize scenarios. Please restart Simon."));
 
           break;
         }

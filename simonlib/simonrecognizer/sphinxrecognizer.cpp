@@ -93,7 +93,7 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
   hyp = ps_get_hyp(decoder, &score, &uttid);
   if(!hyp)
   {
-    m_lastError = i18n("Can't get hypothesis for \"%1\"", file);
+    m_lastError = i18n("Cannot get hypothesis for \"%1\"", file);
     return recognitionResults;
   }
 

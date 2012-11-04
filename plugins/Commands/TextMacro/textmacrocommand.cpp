@@ -28,7 +28,7 @@
 
 const QString TextMacroCommand::staticCategoryText()
 {
-  return i18n("Text-Macro");
+  return i18n("Text Macro");
 }
 
 

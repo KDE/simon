@@ -113,7 +113,7 @@ void SimondUserConfiguration::deleteUser()
   //delete user from db
   QString username = ui.tvUser->currentIndex().sibling(ui.tvUser->currentIndex().row(), 0).data().toString();
   if (!db->deleteUser(username)) {
-    KMessageBox::error(0, i18n("Could not remove User"));
+    KMessageBox::error(0, i18n("Could not remove user"));
     return;
   }
 
@@ -169,10 +169,10 @@ void SimondUserConfiguration::changePassword()
 
   QString username = ui.tvUser->currentIndex().sibling(ui.tvUser->currentIndex().row(), 0).data().toString();
   QPointer<KNewPasswordDialog> dlg = new KNewPasswordDialog(this);
-  dlg->setPrompt(i18nc("%1 is user name", "Change Password for User \"%1\"", username));
+  dlg->setPrompt(i18nc("%1 is user name", "Change Password for user \"%1\"", username));
   if (dlg->exec() && (!dlg->password().isEmpty())) {
     if (!db->setPassword(username, encryptPassword(dlg->password())))
-      KMessageBox::error(0, i18n("Could not change Password"));
+      KMessageBox::error(0, i18n("Could not change password"));
   }
 
   delete dlg;

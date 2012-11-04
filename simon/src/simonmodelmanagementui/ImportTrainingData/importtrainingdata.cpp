@@ -51,7 +51,7 @@ void ImportTrainingData::run()
     }
 
     emit progress(0, prompts->count());
-    emit status(i18nc("%1 is file count", "Importing %1 Files...", prompts->count()));
+    emit status(i18ncp("%1 is file count", "Importing %1 File...", "Importing %1 Files...", prompts->count()));
 
     QStringList files = prompts->keys();
     QStringList filesFullPath;
@@ -108,7 +108,7 @@ void ImportTrainingData::run()
     if (!dataFiles) return;
 
     emit progress(0, dataFiles->count());
-    emit status(i18nc("%1 is file count", "Importing %1 Files...", dataFiles->count()));
+    emit status(i18nc("%1 is file count", "Importing %1 File...", "Importing %1 Files...", dataFiles->count()));
 
     QStringList *newFiles = processSounds(*dataFiles, wavDestDir);
     delete dataFiles;
@@ -274,7 +274,7 @@ QStringList* ImportTrainingData::processSounds(QStringList dataFiles,
 
     if (!pp->process(dataFiles[i], newFileName, false /*do not delete input*/,
     true /*silent*/)) {
-      emit error(i18n("Could not process soundfiles"));
+      emit error(i18n("Could not process sound files"));
       return 0;
     }
     newFiles->append(newFileName);

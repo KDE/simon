@@ -106,7 +106,7 @@ void NewCommand::init(Command *command)
     i++;
   }
   if (!found)
-    KMessageBox::error(this, i18n("Could not determine Command Type"));
+    KMessageBox::error(this, i18n("Could not determine command type"));
 
   checkIfComplete();
 }

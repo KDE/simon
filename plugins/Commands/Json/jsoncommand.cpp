@@ -55,7 +55,7 @@ const KIcon JsonCommand::getCategoryIcon() const
 const QMap<QString,QVariant> JsonCommand::getValueMapPrivate() const
 {
   QMap<QString,QVariant> out;
-  out.insert(i18nc("Url of the call", "Url"), m_url);
+  out.insert(i18nc("URL of the call", "URL"), m_url);
   out.insert(i18nc("The request itself (\"function\")", "Request"), m_request);
   return out;
 }

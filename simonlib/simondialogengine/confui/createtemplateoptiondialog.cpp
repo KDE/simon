@@ -30,7 +30,7 @@ CreateTemplateOptionDialog::CreateTemplateOptionDialog(QWidget *parent) : KDialo
   QWidget *main = new QWidget(this);
   ui->setupUi(main);
   setMainWidget(main);
-  setCaption(i18n("Template option"));
+  setCaption(i18n("Template Option"));
 }
 
 QString CreateTemplateOptionDialog::getName()

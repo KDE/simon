@@ -32,7 +32,7 @@
 AddActionDialog::AddActionDialog(QWidget* parent) : KDialog(parent), proxyModel(new QSortFilterProxyModel(this)),
 actionModel(new ActionModel(this))
 {
-  setCaption( i18n("Add action") );
+  setCaption( i18n("Add Action") );
 
   QWidget *baseWidget = new QWidget( this );
   ui.setupUi(baseWidget);

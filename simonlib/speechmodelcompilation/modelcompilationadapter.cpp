@@ -51,7 +51,7 @@ bool ModelCompilationAdapter::removeContextAdditions()
   QFile newPrompts(m_promptsPathIn);
   QFile oldPrompts(realInPrompts);
   if (!newPrompts.open(QIODevice::WriteOnly) || !oldPrompts.open(QIODevice::ReadOnly)) {
-    emit error(i18n("Couldn't strip context of prompts"));
+    emit error(i18n("Could not strip context of prompts"));
     return false;
   }
   while (!oldPrompts.atEnd()) {

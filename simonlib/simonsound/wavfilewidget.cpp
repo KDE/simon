@@ -269,7 +269,7 @@ void WavFileWidget::stopRecording()
     fName += "_tmp";
 
   if (!rec->finish()) {
-    KMessageBox::error(this, i18n("Could not finalize the Sample. "
+    KMessageBox::error(this, i18n("Could not finalize the sample. "
       "The recording probably failed.\n\n"
       "Tip: Check if you have the needed permissions to write to \"%1\"!", fName));
   }

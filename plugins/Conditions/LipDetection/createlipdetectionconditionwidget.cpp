@@ -53,7 +53,7 @@ void CreateLipDetectionConditionWidget::modify()
     count=0;
     analyzer = new LipAnalyzer(ui.horizontalSlider->value());
     connect(analyzer,SIGNAL(lipMovementChanged(bool,int)),this,SLOT(calculateThreshold(bool,int)));
-    ui.lblNotification->setText("Failed to initialize video capture!");
+    ui.lblNotification->setText(i18n("Failed to initialize video capture."));
   }
   else
   {

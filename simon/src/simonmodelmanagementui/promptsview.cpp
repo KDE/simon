@@ -30,5 +30,5 @@ PromptsView::PromptsView(QWidget *parent)
   lay->addWidget(d);
   setMainWidget(w);
   setButtons(KDialog::Ok);
-  setWindowTitle(i18n("Training samples"));
+  setWindowTitle(i18n("Training Samples"));
 }

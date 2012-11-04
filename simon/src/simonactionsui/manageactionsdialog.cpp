@@ -38,7 +38,7 @@ pageWidget(new KPageWidget(this)),
 manageActionsAutorunWidget(new ManageActionsAutorunWidget(this)),
 listConfiguration(new ListConfiguration(this))
 {
-  setCaption( i18n("Manage actions") );
+  setCaption( i18n("Manage Actions") );
   setMainWidget( pageWidget );
 
   QWidget *baseWidget = new QWidget( this );

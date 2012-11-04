@@ -67,13 +67,13 @@ const QString DesktopGridCommandManager::preferredTrigger() const
 
 const QString DesktopGridCommandManager::name() const
 {
-  return i18n("Desktopgrid");
+  return i18n("Desktop Grid");
 }
 
 
 void DesktopGridCommandManager::activate()
 {
-  Logger::log(i18n("Activating desktopgrid"));
+  Logger::log(i18n("Activating desktop grid"));
   startGreedy();
   init();
 }
@@ -100,7 +100,7 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
   config->deSerialize(elem);
 
   KAction *activateAction = new KAction(this);
-  activateAction->setText(i18n("Activate Desktopgrid"));
+  activateAction->setText(i18n("Activate Desktop Grid"));
   activateAction->setStatusTip(i18n("Display the desktop grid"));
   activateAction->setIcon(KIcon("games-config-board"));
   connect(activateAction, SIGNAL(triggered(bool)),
@@ -162,7 +162,7 @@ bool DesktopGridCommandManager::installInterfaceCommands()
   bool succ = true;
 
   //launcher
-  succ &= installInterfaceCommand(this, "activate", i18n("Desktopgrid"), iconSrc(),
+  succ &= installInterfaceCommand(this, "activate", i18n("Desktop grid"), iconSrc(),
     i18n("Starts the desktop grid"), true /* announce */, true /* show icon */,
     SimonCommand::DefaultState /* consider this command when in this state */,
     SimonCommand::GreedyState,                    /* if executed switch to this state */

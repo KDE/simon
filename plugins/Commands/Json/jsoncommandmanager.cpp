@@ -86,7 +86,7 @@ const QString JsonCommandManager::iconSrc() const
 
 const QString JsonCommandManager::name() const
 {
-  return i18n("Json");
+  return i18n("JSON");
 }
 
 

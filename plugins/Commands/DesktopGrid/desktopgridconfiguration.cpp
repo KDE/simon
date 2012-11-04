@@ -27,7 +27,7 @@
 K_PLUGIN_FACTORY_DECLARATION(DesktopGridPluginFactory)
 
 DesktopGridConfiguration::DesktopGridConfiguration(Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent, "desktopgrid", ki18n( "Desktopgrid" ),
+: CommandConfiguration(parent, "desktopgrid", ki18n( "Desktop Grid" ),
 "0.1", ki18n("Voice controlled mouse clicks"),
 "games-config-board",
 DesktopGridPluginFactory::componentData())

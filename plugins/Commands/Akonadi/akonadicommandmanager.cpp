@@ -102,7 +102,7 @@ void AkonadiCommandManager::itemsReceived(KJob* job)
     kDebug() << "Ignoring empty fetch result";
     return;
   }
-  Logger::log(i18nc("%1 is count", "Retrieved %1 items from collection", items.count()));
+  Logger::log(i18ncp("%1 is count", "Retrieved %1 item from collection", "Retrieved %1 items from collection", items.count()));
   
   QList< QSharedPointer<KCalCore::Event> > consideredItems;
   QList< QSharedPointer<KCalCore::Event> > relevantItems;
@@ -163,7 +163,7 @@ void AkonadiCommandManager::itemsReceived(KJob* job)
      if ((getAkonadiConfiguration()->executeAkonadiRequests() && event->summary().startsWith(getAkonadiConfiguration()->akonadiRequestPrefix())))
       schedule.insert(startDate.dateTime(), new CommandScheduleItem(event, getAkonadiConfiguration()));
   }
-  Logger::log(i18nc("%1 is count", "Retrieved %1 relevant items", schedule.count()));
+  Logger::log(i18ncp("%1 is count", "Retrieved %1 relevant item", "Retrieved %1 relevant items", schedule.count()));
 }
 
 bool AkonadiCommandManager::shouldAcceptCommand(Command *command)

@@ -622,14 +622,14 @@ QList<Token *> CalculatorCommandManager::parseString(QString calc, bool *success
         if (i+1 == calc.size()) {
           status=-1;
           clear();
-          SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
+          SimonInfo::showMessage(i18n("Not a legal expression"), 3000, new KIcon("accessories-calculator"));
         }
       }
     }
     else {
       status=-1;
       clear();
-      SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
+      SimonInfo::showMessage(i18n("Not a legal expression"), 3000, new KIcon("accessories-calculator"));
     }
   }
 

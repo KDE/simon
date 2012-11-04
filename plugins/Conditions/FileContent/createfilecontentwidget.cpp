@@ -47,7 +47,7 @@ bool CreateFileContentWidget::isComplete()
     {
         ui.lbRegExpValid->setEnabled(true);
         regExpOK = QRegExp(ui.leFileContent->text()).isValid();
-        ui.lbRegExpValid->setText(regExpOK ? i18n("Regular Expression is Valid") : i18n("Regular Expression is Invalid!"));
+        ui.lbRegExpValid->setText(regExpOK ? i18n("Regular expression is valid") : i18n("Regular expression is invalid"));
     } else {
         ui.lbRegExpValid->setEnabled(false);
         ui.lbRegExpValid->setText("");

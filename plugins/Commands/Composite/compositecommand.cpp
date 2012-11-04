@@ -99,7 +99,7 @@ void CompositeCommand::triggerPrivateThread()
 {
   for (int i=0; i<commands.count();i++) {
     QString type = commandTypes[i];
-    kDebug() << type << i18n("Delay");
+    kDebug() << type << "Delay";
     if (type==i18n("Delay")) {
       bool ok=true;
       kDebug() << commands[i];

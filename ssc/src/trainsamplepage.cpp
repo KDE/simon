@@ -65,7 +65,7 @@ void TrainSamplePage::setupUi()
   QVBoxLayout *lay = new QVBoxLayout(this);
   QLabel *desc = new QLabel(i18n("Please record the Text below."
     "\n\nTip: Leave about one to two seconds \"silence\" before and after you read "
-    "the text for best results!\n"), this);
+    "the text for best results.\n"), this);
   desc->setWordWrap(true);
   lay->addWidget(desc);
 
