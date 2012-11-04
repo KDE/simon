@@ -57,9 +57,9 @@ void ContextAdapter::setupBackend(BackendType backendType)
     int type(-1);
     type = backendGroup.readEntry("backend", 0);
     if (type == 0)
-      backendType == ContextAdapter::SPHINX;
+      backendType = ContextAdapter::SPHINX;
     else
-      backendType == ContextAdapter::HTK;
+      backendType = ContextAdapter::HTK;
   }
 
   if(backendType == SPHINX)
