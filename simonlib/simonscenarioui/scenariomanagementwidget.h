@@ -22,6 +22,7 @@
 
 #include <QWidget>
 #include <QList>
+#include <QStringList>
 #include <QModelIndex>
 
 #include "simonscenarioui_export.h"
@@ -48,8 +49,11 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementWidget : public QWidget
     QString m_dataPrefix;
     bool m_dirty;
 
+    QStringList idsToDelete;
+
     void initDisplay();
     QTreeWidgetItem* displayScenario(Scenario *scenario, QTreeWidget* widget);
+    QTreeWidgetItem* displayScenario(const QString& id, QTreeWidget* widget);
     void setupItemToScenario(QTreeWidgetItem *item, Scenario *scenario);
 
     Scenario* getCurrentlySelectedScenario();
@@ -59,6 +63,9 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementWidget : public QWidget
     void saveChildConfiguration(QTreeWidgetItem *parentItem);
 
     bool askExportFull(Scenario *s);
+    void deleteScenario(const QString& id, bool removeFile);
+
+    QTreeWidgetItem* getItem(const QString& id, QTreeWidget *widget);
 
   private slots:
     void availableScenarioSelected();

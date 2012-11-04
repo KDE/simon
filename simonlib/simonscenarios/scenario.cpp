@@ -458,6 +458,11 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
   return true;
 }
 
+QString Scenario::idFromName(const QString& name)
+{
+  return QString(name).replace(QRegExp("[\\/:*?\"<>|]"), "_");
+}
+
 QStringList Scenario::explode(const QString& inFile)
 {
   QFile f(inFile);
@@ -483,9 +488,10 @@ QStringList Scenario::explode(const QString& inFile)
   while (!childElem.isNull())
   {
     //expand children
-    QString id = childElem.attribute("name");
-    kDebug() << "this id: " << id;
+    QString name = childElem.attribute("name");
+    QString id = idFromName(name);
     QString path = pathFromId(id);
+    kDebug() << "this id: " << id;
     QString suffix;
     while (QFile::exists(path + suffix))
       suffix += "_";
@@ -513,8 +519,13 @@ QStringList Scenario::explode(const QString& inFile)
   foreach (QString child, childrenSrc) //explode recursively
     allScenarios << Scenario::explode(pathFromId(child));
 
-  QString outerId = scenarioElem.attribute("name");
-  QFile fInSrc(pathFromId(outerId));
+  QString outerName = scenarioElem.attribute("name");
+  QString outerId = idFromName(outerName);
+  QString outerPath = pathFromId(outerId);
+
+  QFile::remove(inFile);
+  kDebug() << "Output path: " << outerPath;
+  QFile fInSrc(outerPath);
   if (!fInSrc.open(QIODevice::WriteOnly)) {
     kWarning() << "couldn't write outer scenario";
   } else {

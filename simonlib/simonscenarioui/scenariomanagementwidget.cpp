@@ -24,6 +24,7 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/scenariomanager.h>
 #include <QWidget>
+#include <QStack>
 #include <QTreeWidget>
 #include <QSize>
 #include <QVariant>
@@ -159,24 +160,19 @@ void ScenarioManagementWidget::importScenario()
 {
   QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select scenario file"));
   if (path.isEmpty()) return;
-  kDebug() << "Path: " << path;
 
-  QStringList exploded = Scenario::explode(path);
+  QString targetPath = KStandardDirs::locateLocal("tmp", "simon/import_scenario");
+  if (QFile::exists(targetPath)) QFile::remove(targetPath);
+  QFile::copy(path, targetPath);
+
+  QStringList exploded = Scenario::explode(targetPath);
   if (exploded.isEmpty()) {
     KMessageBox::sorry(this, i18n("Failed to expand scenario."));
     return;
   }
 
   foreach (const QString& e, exploded) {
-    Scenario *s = new Scenario(e);
-
-    if (!s->init()) {
-      KMessageBox::sorry(this, i18n("Could not load scenario \"%1\".", e));
-      s->deleteLater();
-      continue;
-    }
-    displayScenario(s, ui->twAvailable);
-    s->deleteLater();
+    displayScenario(e, ui->twAvailable);
   }
 }
 
@@ -242,44 +238,41 @@ void ScenarioManagementWidget::exportScenarioFile()
 
 bool ScenarioManagementWidget::getNewScenarios()
 {
-  if (m_dirty && (KMessageBox::questionYesNoCancel(this, i18n("Downloading new scenarios requires you to save your current "
-    "changes before continuing.\n\nSave your changes now?")) != KMessageBox::Yes))
-    return false;
-
-  if (!save()) return false;
-
   QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
   dialog->exec();
 
   if (!dialog) return false;
 
   KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
-  KConfigGroup cg(config, "");
-
-  QStringList selectedIds = cg.readEntry("SelectedScenarios", QStringList() << "general");
+  KConfigGroup cg(config, "ghns");
 
   foreach (const KNS3::Entry& e, dialog->changedEntries()) {
     if (e.status() == KNS3::Entry::Installed) {
       QStringList installedFiles = e.installedFiles();
       foreach (const QString& file, installedFiles) {
-        foreach (const QString& id, Scenario::explode(file))
-          selectedIds.append(id);
+        QString key = QFileInfo(file).fileName();
+
+        kDebug() << "Exploding: " << file;
+	QStringList explodedFiles = Scenario::explode(file);
+        foreach (const QString& id, explodedFiles)
+	  displayScenario(id, ui->twSelected);
+
+	cg.writeEntry(key, explodedFiles);
       }
     }
     if (e.status() == KNS3::Entry::Deleted) {
       QStringList uninstalledFiles = e.uninstalledFiles();
       foreach (const QString& file, uninstalledFiles) {
         QFileInfo fi(file);
-        selectedIds.removeAll(fi.fileName());
+	QStringList explodedFiles = cg.readEntry(fi.fileName(), QStringList());
+	foreach (const QString& id, explodedFiles)
+          deleteScenario(id, true);
       }
     }
   }
-  cg.writeEntry("SelectedScenarios", selectedIds);
-  cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
-  cg.sync();
-  initDisplay();
   delete dialog;
 
+  cg.sync();
   return true;
 }
 
@@ -302,6 +295,49 @@ Scenario* ScenarioManagementWidget::getCurrentlySelectedScenario()
   return s;
 }
 
+QTreeWidgetItem* ScenarioManagementWidget::getItem(const QString& id, QTreeWidget *widget)
+{
+  kDebug() << "Looking for: " << id;
+  QStack<QTreeWidgetItem*> items;
+  items.push(widget->invisibleRootItem());
+  while (!items.isEmpty()) {
+    QTreeWidgetItem *item = items.pop();
+
+    kDebug() << "This: " << item->data(0, Qt::UserRole);
+    if (item->data(0, Qt::UserRole) == id)
+      return item;
+
+    for (int i = 0; i < item->childCount(); i++)
+      items.push(item->child(i));
+  }
+  return 0;
+}
+
+void ScenarioManagementWidget::deleteScenario(const QString& id, bool removeFile)
+{
+  kDebug() << "Deleting: " << id;
+
+  QTreeWidgetItem *item = getItem(id, ui->twAvailable);
+  QTreeWidget *widget = ui->twAvailable;
+  if (!item) {
+    item = getItem(id, ui->twSelected);
+    widget = ui->twSelected;
+  }
+  kDebug() << "Item: " << item;
+  kDebug() << "Widget: " << widget;
+
+  //removing from list
+  if (item->parent() == 0) {
+    widget->invisibleRootItem()->removeChild(item);
+    kDebug() << "remove from widget";
+  } else {
+    kDebug() << "Remove from child";
+    item->parent()->removeChild(item);
+  }
+
+  if (removeFile)
+    idsToDelete << id;
+}
 
 void ScenarioManagementWidget::deleteScenario()
 {
@@ -309,49 +345,13 @@ void ScenarioManagementWidget::deleteScenario()
   if (!s) return;
 
   if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is scenario name, %2 is scenario id", "Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2\")?",
-  s->name(), s->id())) == KMessageBox::Yes) {
-    QString path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+s->id());
-    QTreeWidget *available = ui->twAvailable;
-    QTreeWidget *selected = ui->twSelected;
-    bool wasSelected = selected->currentIndex() == m_lastSelectedIndex;
-
-    if (!QFile::remove(path)) {
-      KMessageBox::information(this, i18nc("%1 is scenario path", "Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user cannot remove it. Please remove the file manually.\n\nIn the meantime, simon has automatically deactivated the scenario if it was not already.", path));
-      //remove it from selected if needed
-      if (wasSelected) {
-        //scenario was selected
-        //move to available
-        available->addTopLevelItem(selected->takeTopLevelItem(m_lastSelectedIndex.row()));
-      }
-    }
-    else {
-      //worked out ok
-      QTreeWidgetItem *scenarioItem = 0;
-      if (wasSelected)
-        scenarioItem = selected->takeTopLevelItem(m_lastSelectedIndex.row());
-      else scenarioItem = available->takeTopLevelItem(m_lastSelectedIndex.row());
-
-      KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
-      KConfigGroup cg(config, "");
-
-      QStringList deletedScenarios = cg.readEntry("DeletedScenarios", QStringList());
-      QStringList deletedScenariosTimes = cg.readEntry("DeletedScenariosTimes", QStringList());
-
-      deletedScenarios << s->id();
-      deletedScenariosTimes << KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd-hh-mm-ss");
-
-      cg.writeEntry("DeletedScenarios", deletedScenarios);
-      cg.writeEntry("DeletedScenariosTimes", deletedScenariosTimes);
-      cg.sync();
-
-      delete scenarioItem;
-    }
+      s->name(), s->id())) == KMessageBox::Yes) {
+    deleteScenario(s->id(), true);
     m_dirty = true;
   }
 
   s->deleteLater();
   m_lastSelectedIndex = QModelIndex();
-  //ui->asScenarios->setButtonsEnabled();
 }
 
 
@@ -428,6 +428,21 @@ void ScenarioManagementWidget::slotRemoved()
 }
 
 
+QTreeWidgetItem* ScenarioManagementWidget::displayScenario(const QString& scenario, QTreeWidget* widget)
+{
+    kDebug() << "Displaying scenario: " << scenario;
+    Scenario *s = new Scenario(scenario);
+
+    if (!s->init()) {
+      KMessageBox::sorry(this, i18n("Could not load scenario \"%1\".", scenario));
+      s->deleteLater();
+      return 0;
+    }
+    QTreeWidgetItem *ret = displayScenario(s, widget);
+    s->deleteLater();
+    return ret;
+}
+
 QTreeWidgetItem* ScenarioManagementWidget::displayScenario(Scenario *scenario, QTreeWidget* widget)
 {
     QTreeWidgetItem *item = new QTreeWidgetItem(widget);
@@ -476,6 +491,7 @@ void ScenarioManagementWidget::initDisplay()
   QTreeWidget *selected = ui->twSelected;
   available->clear();
   selected->clear();
+  idsToDelete.clear();
 
   KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
   KConfigGroup cg(config, "");
@@ -503,14 +519,10 @@ void ScenarioManagementWidget::initDisplay()
   //display the scenarios
   foreach (Scenario* s, scenarios)
   {
-      if (selectedIds.contains(s->id()))
-      {
-        itemsByScenarioIds.insert(s->id(), displayScenario(s, selected));
-      }
-      else
-      {
-        itemsByScenarioIds.insert(s->id(), displayScenario(s, available));
-      }
+      QTreeWidget *target = (selectedIds.contains(s->id())) ? selected : available;
+      QTreeWidgetItem *item = displayScenario(s, target);
+      if (item)
+        itemsByScenarioIds.insert(s->id(), item);
   }
 
   //setup the scenarios according to their parent/child hierarchy
@@ -572,8 +584,8 @@ void ScenarioManagementWidget::saveChildConfiguration(QTreeWidgetItem *parentIte
 
 bool ScenarioManagementWidget::save()
 {
-    saveChildConfiguration(ui->twSelected->invisibleRootItem());
-    saveChildConfiguration(ui->twAvailable->invisibleRootItem());
+  saveChildConfiguration(ui->twSelected->invisibleRootItem());
+  saveChildConfiguration(ui->twAvailable->invisibleRootItem());
 
   QStringList ids = getSelectedScenarioIds();
 
@@ -582,11 +594,34 @@ bool ScenarioManagementWidget::save()
     return false;
   }
 
-  KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
-  KConfigGroup cg(config, "");
-  cg.writeEntry("SelectedScenarios", ids);
-  cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
-  cg.sync();
+  KSharedConfigPtr scenariosConfig = KSharedConfig::openConfig("simonscenariosrc");
+  KConfigGroup scenariosConfigGroup(scenariosConfig, "");
+  bool scenariosDeleted = false;
+  QStringList deletedScenarios = scenariosConfigGroup.readEntry("DeletedScenarios", QStringList());
+  QStringList deletedScenariosTimes = scenariosConfigGroup.readEntry("DeletedScenariosTimes", QStringList());
+  foreach (const QString& id, idsToDelete) {
+    QString path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+id);
+    if (!QFile::remove(path)) {
+      KMessageBox::information(this, i18nc("%1 is scenario path", "Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user cannot remove it. Please remove the file manually.\n\nIn the meantime, simon has automatically deactivated the scenario if it was not already.", path));
+      //will have been removed from selected OR available by the snipped above; just "restore" it to available
+      displayScenario(id, ui->twAvailable);
+    } else {
+      //worked out ok
+      deletedScenarios << id;
+      deletedScenariosTimes << KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd-hh-mm-ss");
+      scenariosDeleted = true;
+    }
+  }
+  if (scenariosDeleted) {
+    scenariosConfigGroup.writeEntry("DeletedScenarios", deletedScenarios);
+    scenariosConfigGroup.writeEntry("DeletedScenariosTimes", deletedScenariosTimes);
+  }
+
+  scenariosConfigGroup.writeEntry("SelectedScenarios", ids);
+  scenariosConfigGroup.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
+  scenariosConfigGroup.sync();
+
+  idsToDelete.clear();
   m_dirty = false;
   return true;
 }

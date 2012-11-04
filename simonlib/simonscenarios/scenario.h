@@ -182,6 +182,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     static QString pathFromId(const QString& id, const QString& prefix=QString());
 
     static QStringList explode(const QString& inFile);
+    static QString idFromName(const QString& name);
 
   public slots:
     bool save(QString path=QString(), bool full = false);
