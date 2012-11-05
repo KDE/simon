@@ -543,7 +543,7 @@ QList<Token *> CalculatorCommandManager::parseString(QString calc, bool *success
     if(calc.at(i)>=48 && calc.at(i)<=57) {        // digit
       switch(status) {
         case -1: clear();
-        SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
+        SimonInfo::showMessage(i18n("Not a legal expression"), 3000, new KIcon("accessories-calculator"));
         break;
         case 2: number=number+(calc.at(i).digitValue()/decimalMultiplier);
         decimalMultiplier*=10;
