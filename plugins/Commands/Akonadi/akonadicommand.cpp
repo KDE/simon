@@ -81,32 +81,34 @@ const QMap<QString,QVariant> AkonadiCommand::getValueMapPrivate() const
   }
   out.insert(i18n("Associated command"), m_command);
   out.insert(i18n("Timer type"), strType);
-  
-  
+
   out.insert(i18n("Absolute time"), m_executeAt.toString());
-  
+
   AkonadiCommand::RelativeDurationDimension dimension;
   int value;
   getRelativeTime(dimension, value);
-  
-  QString strDimension;
+
+  KLocalizedString strDimension;
   switch (dimension)
   {
     case AkonadiCommand::Seconds:
-      strDimension = i18nc("Time dimension", "Second(s)");
+      strDimension = ki18ncp("Time dimension", "%1 Second", "%1 Seconds");
       break;
+
     case AkonadiCommand::Minutes:
-      strDimension = i18nc("Time dimension", "Minute(s)");
+      strDimension = ki18ncp("Time dimension", "%1 Minute", "%1 Minutes");
       break;
+
     case AkonadiCommand::Hours:
-      strDimension = i18nc("Time dimension", "Hour(s)");
+      strDimension = ki18ncp("Time dimension", "%1 Hour", "%1 Hours");
       break;
-    case AkonadiCommand::Days:
-      strDimension = i18nc("Time dimension", "Day(s)");
-      break;
-  }
-  
-  out.insert(i18n("Relative time"), QString("%1 %2").arg(value).arg(strDimension));
+
+     case AkonadiCommand::Days:
+       strDimension = ki18ncp("Time dimension", "%1 Day", "%1 Days");
+       break;
+   }
+
+  out.insert(i18n("Relative time"), strDimension.subs(value).toString());
   return out;
 }
 
