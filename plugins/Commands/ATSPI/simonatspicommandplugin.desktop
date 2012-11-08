@@ -40,7 +40,7 @@ X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=kde-accessibility@kde.org
 X-KDE-PluginInfo-Name=simonatspiplugin
 X-KDE-PluginInfo-Version=0.1
-http://userbase.kde.org/Simon
+X-KDE-PluginInfo-Website=http://userbase.kde.org/Simon
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=false
 X-KDE-ParentApp=simon

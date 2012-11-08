@@ -43,7 +43,7 @@ X-KDE-PluginInfo-Author=Adam Nash
 X-KDE-PluginInfo-Email=adam.t.nash@gmail.com
 X-KDE-PluginInfo-Name=simonrecognizercommandplugin
 X-KDE-PluginInfo-Version=0.1
-http://userbase.kde.org/Simon
+X-KDE-PluginInfo-Website=http://userbase.kde.org/Simon
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=false
 X-KDE-ParentApp=simon
