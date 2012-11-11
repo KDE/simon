@@ -14,6 +14,7 @@ X-KDE-System-Settings-Parent-Category=simon
 X-KDE-PluginKeyword=SimonWebcamConfiguration
 
 Name=Webcam Configuration
+Name[ca]=Configuració càmera web
 Name[de]=Webcam-Einrichtung
 Name[el]=Διαμόρφωση web κάμερας
 Name[et]=Veebikaamera seadistamine
@@ -24,6 +25,7 @@ Name[uk]=Налаштовування вебкамери
 Name[x-test]=xxWebcam Configurationxx
 
 Comment=Configuration of the Webcam
+Comment[ca]=Configuració de la càmera web
 Comment[de]=Einrichtung einer Webcam
 Comment[el]=Διαμόρφωση της web κάμερας
 Comment[et]=Veebikaamera seadistamine
