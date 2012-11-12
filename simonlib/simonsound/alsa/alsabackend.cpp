@@ -43,6 +43,10 @@ class ALSALoop : public QThread {
       shouldRun(true) 
     {}
 
+    void start() {
+      shouldRun = true;
+      QThread::start();
+    }
     void stop() {
       shouldRun = false;
     }
@@ -59,7 +63,6 @@ class ALSACaptureLoop : public ALSALoop
     {
       Logger::log(QString("Starting ALSA recording"));
       Logger::log(QString("EPIPE: %1; ESTRPIPE: %2; EBADFD: %3").arg(EPIPE).arg(ESTRPIPE).arg(EBADFD));
-      shouldRun = true;
 
       int err = 0;
       snd_pcm_state_t state;

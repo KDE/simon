@@ -122,11 +122,13 @@ void SimonSoundInput::resume(SoundInputClient* client)
 void SimonSoundInput::registerInputClient(SoundInputClient* client)
 {
   QMutexLocker l(&m_lock);
+  if (m_activeInputClients.contains(client) || m_suspendedInputClients.contains(client))
+    return;
   m_activeInputClients.insert(client, 0);
 }
 
 
-bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
+bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client, bool& done)
 {
   QMutexLocker l(&m_lock);
 
@@ -146,7 +148,7 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
     kDebug() << "No active clients available... Stopping recording";
     success = stopRecording();
     if (success)
-      emit recordingFinished();                     // destroy this sound input
+      done = true;                     // destroy this sound input
   }
 
   return success;
@@ -275,8 +277,10 @@ void SimonSoundInput::killBuffer()
 
 SimonSoundInput::~SimonSoundInput()
 {
-  if (m_input->state() != SimonSound::IdleState)
+  if (m_input->state() != SimonSound::IdleState) {
+    kDebug() << "Deleting for some reason";
     stopRecording();
+  }
 
   killBuffer();
   if (m_buffer)

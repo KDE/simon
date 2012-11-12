@@ -65,12 +65,8 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
     QString defaultInputDevicePrivate();
     QString defaultOutputDevicePrivate();
 
-  private slots:
-    void slotRecordingFinished();
-
   public:
     static SoundServer* getInstance();
-
 
     bool registerInputClient(SoundInputClient* client);
     bool deRegisterInputClient(SoundInputClient* client);

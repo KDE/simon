@@ -38,7 +38,6 @@ class SimonSoundInput : public QObject, public SoundBackendClient
   Q_OBJECT
 
   signals:
-    void recordingFinished();
     void error(const QString& str);
     void inputStateChanged(SimonSound::State state);
 
@@ -63,7 +62,7 @@ class SimonSoundInput : public QObject, public SoundBackendClient
 
     void registerInputClient(SoundInputClient* client);
 
-    bool deRegisterInputClient(SoundInputClient* client);
+    bool deRegisterInputClient(SoundInputClient* client, bool& done);
 
     bool prepareRecording(SimonSound::DeviceConfiguration& device);
     bool startRecording();
