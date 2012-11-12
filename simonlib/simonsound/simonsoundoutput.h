@@ -72,14 +72,14 @@ class SimonSoundOutput : public QObject, public SoundBackendClient
 
     SoundClient::SoundClientPriority getHighestPriority();
     bool activate(SoundClient::SoundClientPriority priority);
-    
+
     int bufferSize();
     qint64 bufferTime();
     QByteArray requestData(qint64 maxSize);
-    
+
     void startClientUpdate();
     void completeClientUpdate();
-    
+
     void popClient();
 
 };
