@@ -724,6 +724,10 @@ void RecognitionControl::startSynchronisation()
   //selected scenarios
   bodyStream << cg.readEntry("LastModified", QDateTime());
 
+  cg.writeEntry("DeletedScenarios", QStringList());
+  cg.writeEntry("DeletedScenariosTimes", QStringList());
+  cg.sync();
+
   //all scenarios
   QStringList ids = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
   bodyStream << (qint32) ids.count();
