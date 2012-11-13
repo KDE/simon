@@ -28,7 +28,10 @@ add_subdirectory(simondialogengine)
 add_subdirectory(simoncontextdetection)
 add_subdirectory(simoncontextadapter)
 add_subdirectory(sscdaccess)
-add_subdirectory(simonvision)
+
+if(WITH_SIMONCV)
+  add_subdirectory(simonvision)
+endif(WITH_SIMONCV)
 
 add_subdirectory(simonscenariobase)
 add_subdirectory(simonscenarios)

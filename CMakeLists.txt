@@ -65,9 +65,19 @@ macro_log_feature(POCKETSPHINX_LIBRARIES "PocketSphinx"
   "PocketSphinx is a small-footprint continuous speech recognition system"
   "http://cmusphinx.sourceforge.net/" FALSE "" 
   "Required to build Pocket Sphinx backend")
-
+find_package(OpenCV)
+macro_log_feature(OpenCV_LIBS "OpenCV"
+  "OpenCV (Open Source Computer Vision) is a library of programming functions for real time computer vision" "http://http://opencv.willowgarage.com/"
+  FALSE "" "Required for Simon Vision")
+  
 set(BackendType "both" CACHE STRING "Backend type used while building")
 set_property(CACHE BackendType PROPERTY STRINGS jhtk both)
+
+if(OpenCV_FOUND)
+  link_directories(${OpenCV_LIB_DIR})
+  add_definitions(-DWITH_SIMONCV)
+  set(WITH_SIMONCV true CACHE BOOL "If SimonCV libraries are present")
+endif()
 
 if(SphinxBase_LIBRARIES AND POCKETSPHINX_LIBRARIES)
   set(BackendType both)
