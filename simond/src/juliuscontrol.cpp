@@ -52,7 +52,7 @@
 #include <KTar>
 #include <locale.h>
 
-JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
+JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, RecognitionControl::HTK, parent)
 {
   recog = new JuliusRecognizer();
 }

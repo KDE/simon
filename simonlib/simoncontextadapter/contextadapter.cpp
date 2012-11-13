@@ -62,10 +62,16 @@ void ContextAdapter::setupBackend(BackendType backendType)
       backendType = ContextAdapter::HTK;
   }
 
+  if (((backendType == ContextAdapter::SPHINX) && dynamic_cast<ModelCompilationManagerSPHINX*>(m_modelCompilationManager)) ||
+      ((backendType == ContextAdapter::HTK) && dynamic_cast<ModelCompilationManagerHTK*>(m_modelCompilationManager)))
+    return; // already set up
+
+  ModelCompilationManager *old = m_modelCompilationManager;
   if(backendType == SPHINX)
     m_modelCompilationManager = new ModelCompilationManagerSPHINX(m_username, this);
   else
     m_modelCompilationManager = new ModelCompilationManagerHTK(m_username, this);
+  delete old;
 
   connect(m_modelCompilationManager, SIGNAL(modelReady(uint, QString)), this, SLOT(slotModelReady(uint,QString)));
   connect(m_modelCompilationManager, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)), this, SLOT(slotModelCompilationAborted(ModelCompilation::AbortionReason)));
@@ -100,7 +106,8 @@ void ContextAdapter::readCachedModels()
     m_modelCache.insert(Situation(ini.value("DeactivatedScenarios").toStringList(), ini.value("DeactivatedSampleGroups").toStringList()),
                         new CachedModel(ini.value("CompiledDate").toDateTime(),
                                         (CachedModel::ModelState) ini.value("State").toInt(),
-                                        (unsigned) ini.value("FingerPrint").toInt()
+                                        (unsigned) ini.value("FingerPrint").toInt(),
+					(ContextAdapter::BackendType) ini.value("Type", (int) ContextAdapter::SPHINX).toInt()
                                         ));
   }
   ini.endArray();
@@ -129,6 +136,7 @@ void ContextAdapter::storeCachedModels()
     ini.setValue("CompiledDate", j.value()->compiledDate());
     ini.setValue("State", j.value()->state());
     ini.setValue("FingerPrint", j.value()->srcFingerPrint());
+    ini.setValue("Type", j.value()->type());
   }
   ini.endArray();
   ini.beginWriteArray("OrphanedCache");
@@ -205,7 +213,7 @@ void ContextAdapter::buildCurrentSituation()
 
 void ContextAdapter::introduceNewModel ( const Situation& situation )
 {
-  m_modelCache.insert(situation, new CachedModel(QDateTime(), CachedModel::ToBeEvaluated, -1));
+  m_modelCache.insert(situation, new CachedModel(QDateTime(), CachedModel::ToBeEvaluated, -1, ContextAdapter::Null));
 }
 
 void ContextAdapter::buildNext()
@@ -253,10 +261,13 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
     emit error(i18n("Base model is corrupt."));
     slotModelCompilationAborted(ModelCompilation::InsufficientInput);
   } else {
+    ContextAdapter::BackendType bType = ContextAdapter::Null;
     if (type == "SPHINX")
-      setupBackend(ContextAdapter::SPHINX);
+      bType = ContextAdapter::SPHINX;
     else if (type == "HTK")
-      setupBackend(ContextAdapter::HTK);
+      bType = ContextAdapter::HTK;
+    setupBackend(bType);
+    model->setType(bType);
   }
   m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, adaptedPromptsPath);
 }
@@ -348,7 +359,6 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
           }
         }
         if (isOnlyOne) {
-          //TODO: Maybe keep a couple of those?
 	  uint oldFingerPrint = j.value()->srcFingerPrint();
 	  m_orphanedCache.insert(0, oldFingerPrint);
 
@@ -404,7 +414,7 @@ void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReaso
     emit newModelReady();
 }
 
-QString ContextAdapter::currentModelPath() const
+void ContextAdapter::currentModel(QString& path, ContextAdapter::BackendType& type) const
 {
   kDebug() << "Requested situation: " << m_requestedSituation.deactivatedSampleGroups() << m_requestedSituation.deactivatedScenarios();
   //try to find models for:
@@ -413,13 +423,16 @@ QString ContextAdapter::currentModelPath() const
   foreach (const Situation& s, QList<Situation>() << m_requestedSituation << Situation()) {
     if (m_modelCache.contains(s)) {
       kDebug() << "Situation found: " << s.id() << (int) m_modelCache.value(s)->state();
-      if (m_modelCache.value(s)->state() == CachedModel::Current)
-        return m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
-      else if (m_modelCache.value(s)->state() == CachedModel::Null)
-        return QString();
+      if (m_modelCache.value(s)->state() == CachedModel::Current) {
+        path = m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
+	type = m_modelCache.value(s)->type();
+	return;
+      } else if (m_modelCache.value(s)->state() == CachedModel::Null) {
+	break; // go to null model
+      }
     }
   }
-
-  // 3. if both of those faile, we have no useful model
-  return QString();
+  path = QString();
+  type = ContextAdapter::Null;
 }
+

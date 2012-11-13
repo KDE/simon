@@ -20,7 +20,8 @@
 
 #include "cachedmodel.h"
 
-CachedModel::CachedModel ( const QDateTime& compiledDate, CachedModel::ModelState state, uint fingerPrint ) : m_compiledDate(compiledDate), m_state(state), m_srcFingerPrint(fingerPrint)
+CachedModel::CachedModel ( const QDateTime& compiledDate, CachedModel::ModelState state, uint fingerPrint, ContextAdapter::BackendType type ) :
+    m_compiledDate(compiledDate), m_state(state), m_srcFingerPrint(fingerPrint), m_type(type)
 {
 }
 
@@ -31,4 +32,8 @@ void CachedModel::setSrcFingerPrint ( uint fingerprint )
 void CachedModel::setCompiledDate ( const QDateTime& compiled )
 {
   m_compiledDate = compiled;
+}
+void CachedModel::setType(ContextAdapter::BackendType type)
+{
+  m_type = type;
 }

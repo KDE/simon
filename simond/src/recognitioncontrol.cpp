@@ -25,8 +25,9 @@
 
 #include <simonrecognizer/recognitionconfiguration.h>
 
-RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
+RecognitionControl::RecognitionControl(const QString& user_name, RecognitionControl::BackendType type, QObject* parent) : QThread(parent),
   m_refCounter(0),
+  m_type(type),
   username(user_name),
   m_startRequests(0),
   m_initialized(false),
@@ -34,7 +35,6 @@ RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent
   shouldBeRunning(false),
   recog(0)
 {
-
 }
 
 bool RecognitionControl::isEmpty() const

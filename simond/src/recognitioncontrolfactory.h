@@ -18,25 +18,37 @@
  */
 
 
-#ifndef RECOGNITIONCONTROLFACTORY_H
-#define RECOGNITIONCONTROLFACTORY_H
+#ifndef SIMON_RECOGNITIONCONTROLFACTORY_H
+#define SIMON_RECOGNITIONCONTROLFACTORY_H
 
 #include <QMultiHash>
+#include <QHash>
 #include <QString>
-class RecognitionControl;
+#include "recognitioncontrol.h"
+
+class ModelIdentifier {
+public:
+  QString userName;
+  RecognitionControl::BackendType backend;
+  ModelIdentifier(const QString& u, RecognitionControl::BackendType b) : userName(u), backend(b) {}
+  bool operator==(const ModelIdentifier& other) const {
+    return (userName == other.userName) && (backend == other.backend);
+  }
+};
 
 class RecognitionControlFactory
 {
-private:
-  QMultiHash<QString, RecognitionControl*> m_recognitionControls;
-  bool m_isolatedMode;
-  
 public:
   RecognitionControlFactory();
-  RecognitionControl* recognitionControl(const QString& user);
-  void closeRecognitionControl(const QString& user, RecognitionControl* r);
+  RecognitionControl* recognitionControl(const QString& user, RecognitionControl::BackendType type);
+  void closeRecognitionControl(RecognitionControl* r);
   void setIsolatedMode(bool isolatedMode);
   
+private:
+  QMultiHash<ModelIdentifier, RecognitionControl*> m_recognitionControls;
+  bool m_isolatedMode;
 };
+
+uint qHash(const ModelIdentifier& identifier);
 
 #endif // RECOGNITIONCONTROLFACTORY_H

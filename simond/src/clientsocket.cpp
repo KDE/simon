@@ -187,33 +187,13 @@ void ClientSocket::processRequest()
           if (recognitionControl)
             closeRecognitionControl();
 
-          recognitionControl = recognitionControlFactory->recognitionControl(username);
-          if(!recognitionControl)
-          {
-            kWarning()<<"There are no backends";
-            recognitionError(i18n("There are no recognition backends available.\n\nPlease install either the latest version of CMU SPHINX or a current version of Julius."), QByteArray());
-            close();
-            return;
-          }
-          connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
-          connect(recognitionControl, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(recognitionError(QString,QByteArray)));
-          connect(recognitionControl, SIGNAL(recognitionWarning(QString)), this, SLOT(recognitionWarning(QString)));
-          connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
-          connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
-          connect(recognitionControl, SIGNAL(recognitionResult(QString,RecognitionResultList)), this, SLOT(processRecognitionResults(QString,RecognitionResultList)));
-          connect(recognitionControl, SIGNAL(recognitionDone(QString)), this, SLOT(recognitionDone(QString)));
-
-          if (synchronisationManager )
+          if (synchronisationManager)
               synchronisationManager->deleteLater();
 
           synchronisationManager = new SynchronisationManager(username, this);
 
           sendCode(Simond::LoginSuccessful);
-
-          if (recognitionControl->recognitionRunning())
-            sendCode(Simond::RecognitionStarted);
-          else
-            initializeRecognitionSmartly();
+          initializeRecognitionSmartly();
         } else
           sendCode(Simond::AuthenticationFailed);
 
@@ -674,13 +654,15 @@ void ClientSocket::processRequest()
       case Simond::StartRecognition:
       {
         kDebug() << "Got start recognition";
-        recognitionControl->startRecognition();
+	if (recognitionControl)
+          recognitionControl->startRecognition();
         break;
       }
 
       case Simond::StopRecognition:
       {
-        recognitionControl->stop();
+	if (recognitionControl)
+          recognitionControl->stop();
         break;
       }
 
@@ -743,8 +725,8 @@ void ClientSocket::processRequest()
           w->endAddSequence();
           w->writeFile();
 
-          recognitionControl->recognize(w->getFilename());
-          kDebug() << "Returned from recognize";
+          if (recognitionControl)
+            recognitionControl->recognize(w->getFilename());
 
           w->deleteLater();
         } else
@@ -979,7 +961,6 @@ void ClientSocket::synchronisationDone()
   kDebug() << "Synchronization done";
   synchronisationRunning=false;
   //reset modelsource
-  Q_ASSERT(recognitionControl);
 
   updateModelCompilationParameters();
   initializeRecognitionSmartly();
@@ -1174,6 +1155,8 @@ QString ClientSocket::getUsername()
 
 void ClientSocket::closeRecognitionControl()
 {
+  if (!recognitionControl)
+    return;
   disconnect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
   disconnect(recognitionControl, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(recognitionError(QString,QByteArray)));
   disconnect(recognitionControl, SIGNAL(recognitionWarning(QString)), this, SLOT(recognitionWarning(QString)));
@@ -1181,15 +1164,15 @@ void ClientSocket::closeRecognitionControl()
   disconnect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
   disconnect(recognitionControl, SIGNAL(recognitionResult(QString,RecognitionResultList)), this, SLOT(processRecognitionResults(QString,RecognitionResultList)));
   disconnect(recognitionControl, SIGNAL(recognitionDone(QString)), this, SLOT(recognitionDone(QString)));
-  recognitionControlFactory->closeRecognitionControl(username,recognitionControl);
+  recognitionControlFactory->closeRecognitionControl(recognitionControl);
+  recognitionControl = 0;
 }
 
 ClientSocket::~ClientSocket()
 {
   kDebug() << "Deleting client";
   //leave databaseAccess alone since it is shared
-  if (recognitionControl)
-    closeRecognitionControl();
+  closeRecognitionControl();
 
   if (synchronisationManager)
     synchronisationManager->deleteLater();
@@ -1284,14 +1267,55 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 
 void ClientSocket::initializeRecognitionSmartly()
 {
-  kDebug() << "Recognition is initialized: " << recognitionControl->isInitialized();
+  kDebug() << "Recognition is initialized: " << (recognitionControl ? recognitionControl->isInitialized() : false);
   kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
 
-  QString modelPath = contextAdapter->currentModelPath();
-  
-  if (modelPath.isNull()) {
-    recognitionControl->suspend();
-    return;
+  QString modelPath;
+  ContextAdapter::BackendType type;
+  contextAdapter->currentModel(modelPath, type);
+  kDebug() << "Called current model";
+
+  if (modelPath.isNull() || type == ContextAdapter::Null) {
+    kDebug() << "Null model" << modelPath << type;
+    if (recognitionControl)
+      recognitionControl->suspend();
+    else
+      recognitionStarted(); // in that case doing nothing is "recognition"
+  } else {
+    RecognitionControl::BackendType recognitionType;
+    QString backendName;
+    switch (type) {
+    case ContextAdapter::SPHINX:
+      backendName = i18nc("Name of CMUs SPHINX speech recognition suite", "CMU SPHINX");
+      recognitionType = RecognitionControl::SPHINX;
+      break;
+    case ContextAdapter::HTK:
+      backendName = i18nc("Name of the Julius speech recognition software", "Julius");
+      recognitionType = RecognitionControl::HTK;
+      break;
+    default:
+      backendName = i18nc("Name of an unidentified speech recognition backend", "Unknown");
+      recognitionType = RecognitionControl::SPHINX;
+      break;
+    }
+    if (!recognitionControl || (recognitionControl && recognitionControl->type() != recognitionType)) {
+      closeRecognitionControl();
+
+      recognitionControl = recognitionControlFactory->recognitionControl(username, recognitionType);
+      if(!recognitionControl)
+      {
+        recognitionError(i18n("<html><body><p>The required speech recognition backend for this model (\"%1\") is not available.</p><p>Please install it to "
+	                      "continue.</p><p>(<a href=\"http://userbase.kde.org/Simon/Back_ends\">More information</a>).</html>"), QByteArray());
+        return;
+      }
+      connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()), Qt::UniqueConnection);
+      connect(recognitionControl, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(recognitionError(QString,QByteArray)), Qt::UniqueConnection);
+      connect(recognitionControl, SIGNAL(recognitionWarning(QString)), this, SLOT(recognitionWarning(QString)), Qt::UniqueConnection);
+      connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()), Qt::UniqueConnection);
+      connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()), Qt::UniqueConnection);
+      connect(recognitionControl, SIGNAL(recognitionResult(QString,RecognitionResultList)), this, SLOT(processRecognitionResults(QString,RecognitionResultList)), Qt::UniqueConnection);
+      connect(recognitionControl, SIGNAL(recognitionDone(QString)), this, SLOT(recognitionDone(QString)), Qt::UniqueConnection);
+    }
+    recognitionControl->initializeRecognition(modelPath);
   }
-  recognitionControl->initializeRecognition(modelPath);
 }

@@ -72,9 +72,10 @@ public:
   };
   enum BackendType
   {
-    FromConfiguration,
-    HTK,
-    SPHINX
+    FromConfiguration=1,
+    HTK=2,
+    SPHINX=4,
+    Null=8
   };
 
   void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
@@ -95,7 +96,7 @@ public:
 
   bool isCompiling() const;
 
-  QString currentModelPath() const;
+  void currentModel(QString& path, ContextAdapter::BackendType& type) const;
 
 private:
     QMutex m_compileLock;

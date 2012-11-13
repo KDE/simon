@@ -29,7 +29,7 @@
 #include <KLocale>
 
 
-SphinxControl::SphinxControl(const QString& username, QObject* parent) : RecognitionControl(username, parent)
+SphinxControl::SphinxControl(const QString& username, QObject* parent) : RecognitionControl(username, RecognitionControl::SPHINX, parent)
 {
   recog = new SphinxRecognizer();
 }

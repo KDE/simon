@@ -20,6 +20,9 @@
 
 #ifndef CACHEDMODEL_H
 #define CACHEDMODEL_H
+
+#include "contextadapter.h"
+
 #include <QDateTime>
 
 class CachedModel
@@ -31,21 +34,24 @@ public:
     Building=4,
     Null=9
   };
-  
-  CachedModel(const QDateTime& compiledDate, ModelState state, uint fingerPrint);
-  
+
+  CachedModel(const QDateTime& compiledDate, ModelState state, uint fingerPrint, ContextAdapter::BackendType type);
+
   QDateTime compiledDate() const { return m_compiledDate; }
   ModelState state() const { return m_state; }
   uint srcFingerPrint() const { return m_srcFingerPrint; }
-  
+  ContextAdapter::BackendType type() const { return m_type; }
+
   void setState(ModelState state) { m_state = state; }
   void setSrcFingerPrint ( uint fingerprint );
   void setCompiledDate(const QDateTime& compiled);
-  
+  void setType(ContextAdapter::BackendType type);
+
 private:
   QDateTime m_compiledDate;
   ModelState m_state;
   uint m_srcFingerPrint;
+  ContextAdapter::BackendType m_type;
 };
 
 #endif // CACHEDMODEL_H
