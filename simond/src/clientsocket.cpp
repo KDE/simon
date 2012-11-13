@@ -190,9 +190,10 @@ void ClientSocket::processRequest()
           recognitionControl = recognitionControlFactory->recognitionControl(username);
           if(!recognitionControl)
           {
-            kWarning()<<"There no apropriate backend found";
-            recognitionError("There no apropriate backend found", QByteArray());
-            close(); //is it neccessury now?
+            kWarning()<<"There are no backends";
+            recognitionError(i18n("There are no recognition backends available.\n\nPlease install either the latest version of CMU SPHINX or a current version of Julius."), QByteArray());
+            close();
+            return;
           }
           connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
           connect(recognitionControl, SIGNAL(recognitionError(QString,QByteArray)), this, SLOT(recognitionError(QString,QByteArray)));
