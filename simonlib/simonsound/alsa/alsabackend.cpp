@@ -183,7 +183,6 @@ QStringList ALSABackend::getAvailableOutputDevices()
 QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
 {
   QStringList devices;
-  devices << i18nc("Default audio device (%1)", "default");
 
   char **hints, **hints_;
 
@@ -193,6 +192,7 @@ QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
   }
 
   hints_ = hints;
+  bool foundDefault = false;
 
   while (*hints) {
     char* device = *hints;
@@ -205,11 +205,16 @@ QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
     if ((ioid == 0) || (strcmp(ioid, (type == SimonSound::Input) ? "Input" : "Output") == 0)) {
       //add it to the list
       QString userDeviceName = QString("%1 (%2)").arg(description).arg(name).replace('\n', ' ');
-      if (userDeviceName.contains("Default Audio Device"))
+      if (strcmp(name, "default") == 0)
+        foundDefault = true;
+      if (userDeviceName.contains("Default Audio Device", Qt::CaseInsensitive)) {
         devices.insert(0, userDeviceName);
-      else
+        foundDefault = true;
+      } else
         devices << userDeviceName;
     }
+    if (!foundDefault)
+      devices.insert(0, i18n("Default audio device (%1)", "default"));
 
     free(name);
     free(description);
@@ -272,20 +277,22 @@ bool ALSABackend::check(SimonSound::SoundDeviceType type, const QString& device,
   return false;
 }
 
+QString ALSABackend::defaultDevice(const QStringList& list)
+{
+  foreach (const QString& dev, list)
+    if (dev.contains("pulse", Qt::CaseInsensitive))
+      return dev; // make pulseaudio happy
+  return list.first();
+}
+
 QString ALSABackend::getDefaultInputDevice()
 {
-  QString systemDefault = "default";
-  if (getAvailableInputDevices().contains("pulse"))
-    systemDefault = "pulse";
-  return systemDefault;
+  return defaultDevice(getAvailableInputDevices());
 }
 
 QString ALSABackend::getDefaultOutputDevice()
 {
-  QString systemDefault = "default";
-  if (getAvailableOutputDevices().contains("pulse"))
-    systemDefault = "pulse";
-  return systemDefault;
+  return defaultDevice(getAvailableOutputDevices());
 }
 
 void ALSABackend::errorRecoveryFailed()

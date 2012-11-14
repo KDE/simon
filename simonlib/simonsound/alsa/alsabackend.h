@@ -45,6 +45,7 @@ class ALSABackend : public SoundBackend
 
     snd_pcm_t* openDevice(SimonSound::SoundDeviceType type, 
         const QString& device, int channels, int samplerate);
+    QString defaultDevice(const QStringList& list);
 
   protected:
     void errorRecoveryFailed();
