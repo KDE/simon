@@ -24,6 +24,7 @@
 #include <simonsound/soundbackend.h>
 #include <alsa/asoundlib.h>
 #include <QStringList>
+#include <QMutex>
 
 class ALSALoop;
 class ALSACaptureLoop;
@@ -35,6 +36,8 @@ class ALSABackend : public SoundBackend
   friend class ALSACaptureLoop;
 
   private:
+    QMutex m_deviceListLock;
+
     snd_pcm_t *m_handle;
     ALSALoop *m_loop;
 

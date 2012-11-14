@@ -22,6 +22,7 @@
 #include <simonsound/soundbackendclient.h>
 #include <simonlogging/logger.h>
 #include <QThread>
+#include <QMutexLocker>
 #include <KLocalizedString>
 #include <KDebug>
 
@@ -182,6 +183,7 @@ QStringList ALSABackend::getAvailableOutputDevices()
 
 QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
 {
+  QMutexLocker l(&m_deviceListLock);
   QStringList devices;
 
   char **hints, **hints_;
