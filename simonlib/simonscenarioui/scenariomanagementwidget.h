@@ -51,6 +51,8 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementWidget : public QWidget
 
     QStringList idsToDelete;
 
+    bool m_minimal;
+
     void initDisplay();
     QTreeWidgetItem* displayScenario(Scenario *scenario, QTreeWidget* widget);
     QTreeWidgetItem* displayScenario(const QString& id, QTreeWidget* widget);

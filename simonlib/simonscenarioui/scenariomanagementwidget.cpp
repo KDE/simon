@@ -46,7 +46,7 @@
 #include "ui_scenariomanagementdlg.h"
 
 ScenarioManagementWidget::ScenarioManagementWidget(const QString& dataPrefix, bool minimal, QWidget* parent) : QWidget(parent),
-  ui(new Ui::ScenarioManagementDialog()), m_dataPrefix(dataPrefix), m_dirty(false)
+  ui(new Ui::ScenarioManagementDialog()), m_dataPrefix(dataPrefix), m_dirty(false), m_minimal(minimal)
 {
   ui->setupUi(this);
   
@@ -602,7 +602,8 @@ bool ScenarioManagementWidget::save()
   foreach (const QString& id, idsToDelete) {
     QString path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+id);
     if (!QFile::remove(path)) {
-      KMessageBox::information(this, i18nc("%1 is scenario path", "Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user cannot remove it. Please remove the file manually.\n\nIn the meantime, simon has automatically deactivated the scenario if it was not already.", path));
+      if (!m_minimal)
+        KMessageBox::information(this, i18nc("%1 is scenario path", "Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user cannot remove it. Please remove the file manually.\n\nIn the meantime, simon has automatically deactivated the scenario if it was not already.", path));
       //will have been removed from selected OR available by the snipped above; just "restore" it to available
       displayScenario(id, ui->twAvailable);
     } else {
