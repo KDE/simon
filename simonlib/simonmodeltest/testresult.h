@@ -36,7 +36,7 @@ class MODELTEST_EXPORT TestResult
     QString m_label; //expected result
     int m_wordCount;
 
-    static void advanceToNextValidResultAfterSkipping(int lastGood, int skippedCount, QStringList& labels, QList<TestResultLeaf*>& children);
+    static int advanceToNextValidResultAfterSkipping(int lastGood, int skippedCount, QStringList& labels, QList<TestResultLeaf*>& children);
 
   public:
     TestResult(const QString& label);

@@ -59,7 +59,7 @@ void TestResult::parseChildren(const QString& label, QList<TestResultLeaf*>& chi
       {
         //if j != 0 there were other labels that are missing in the result
         labels.removeAt(j);
-        advanceToNextValidResultAfterSkipping(lastGood, j, labels, children);
+        i += advanceToNextValidResultAfterSkipping(lastGood, j, labels, children);
         lastGood = i;
       }
     }
@@ -69,7 +69,7 @@ void TestResult::parseChildren(const QString& label, QList<TestResultLeaf*>& chi
   advanceToNextValidResultAfterSkipping(lastGood, labels.count(), labels, children);
 }
 
-void TestResult::advanceToNextValidResultAfterSkipping(int lastGood, int skippedCount, QStringList& labels, QList<TestResultLeaf*>& children)
+int TestResult::advanceToNextValidResultAfterSkipping(int lastGood, int skippedCount, QStringList& labels, QList<TestResultLeaf*>& children)
 {
   //before adding them as new deletion errors try to redeem any
   //incorrectly as insertion errors regarded tokens
@@ -86,14 +86,17 @@ void TestResult::advanceToNextValidResultAfterSkipping(int lastGood, int skipped
     }
   }
 
+  int processedNotesInserted = 0;
   for (int k=0; ((k < skippedCount) && labels.count()); k++)
   {
     TestResultLeaf *l = new TestResultLeaf();
     //kDebug() << "Deletion error " << labels[0];
     l->setDeletionError(true);
     l->setOriginalLabel(labels.takeAt(0));
-    children << l;
+    children.insert(lastGood + processedNotesInserted, l);
+    ++processedNotesInserted;
   }
+  return processedNotesInserted;
 }
 
 bool TestResult::registerChild(TestResultLeaf* child)
