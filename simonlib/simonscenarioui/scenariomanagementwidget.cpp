@@ -165,15 +165,20 @@ void ScenarioManagementWidget::importScenario()
   if (QFile::exists(targetPath)) QFile::remove(targetPath);
   QFile::copy(path, targetPath);
 
-  QStringList exploded = Scenario::explode(targetPath);
+  importScenario(targetPath, ui->twAvailable);
+}
+
+QStringList ScenarioManagementWidget::importScenario(const QString& path, QTreeWidget* widget)
+{
+  QStringList exploded = Scenario::explode(path);
   if (exploded.isEmpty()) {
     KMessageBox::sorry(this, i18n("Failed to expand scenario."));
-    return;
+    return QStringList();
   }
 
   bool failed = false;
   foreach (const QString& e, exploded) {
-    if (!displayScenario(e, ui->twAvailable)) {
+    if (!displayScenario(e, widget)) {
       failed = true;
       break;
     }
@@ -184,6 +189,7 @@ void ScenarioManagementWidget::importScenario()
         kWarning() << "Failed to delete broken scenario"; //TODO: user visible error after the string freeze
     }
   }
+  return exploded;
 }
 
 
@@ -261,13 +267,7 @@ bool ScenarioManagementWidget::getNewScenarios()
       QStringList installedFiles = e.installedFiles();
       foreach (const QString& file, installedFiles) {
         QString key = QFileInfo(file).fileName();
-
-        kDebug() << "Exploding: " << file;
-	QStringList explodedFiles = Scenario::explode(file);
-        foreach (const QString& id, explodedFiles)
-	  displayScenario(id, ui->twSelected);
-
-	cg.writeEntry(key, explodedFiles);
+	cg.writeEntry(key, importScenario(file, ui->twSelected));
       }
     }
     if (e.status() == KNS3::Entry::Deleted) {

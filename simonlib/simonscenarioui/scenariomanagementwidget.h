@@ -69,6 +69,8 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementWidget : public QWidget
 
     QTreeWidgetItem* getItem(const QString& id, QTreeWidget *widget);
 
+    QStringList importScenario(const QString& path, QTreeWidget* widget);
+
   private slots:
     void availableScenarioSelected();
     void selectedScenarioSelected();
