@@ -165,7 +165,7 @@ void ScenarioManagementWidget::importScenario()
   if (QFile::exists(targetPath)) QFile::remove(targetPath);
   QFile::copy(path, targetPath);
 
-  importScenario(targetPath, ui->twAvailable);
+  importScenario(targetPath, ui->twSelected);
 }
 
 QStringList ScenarioManagementWidget::importScenario(const QString& path, QTreeWidget* widget)
