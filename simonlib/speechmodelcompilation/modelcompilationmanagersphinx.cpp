@@ -33,12 +33,12 @@ ModelCompilationManagerSPHINX::ModelCompilationManagerSPHINX(const QString& user
   adapter = new ModelCompilationAdapterSPHINX(userName, this);
 
   connect(adapter, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-  connect(adapter, SIGNAL(adaptionAborted()), this, SIGNAL(modelCompilationAborted()));
+  connect(adapter, SIGNAL(adaptionAborted(ModelCompilation::AbortionReason)), this, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)));
   connect(adapter, SIGNAL(status(QString,int,int)), this, SIGNAL(status(QString,int,int)));
 
   connect(compiler, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
   connect(compiler, SIGNAL(status(QString,int,int)), this, SIGNAL(status(QString,int,int)));
-  connect(compiler, SIGNAL(activeModelCompilationAborted()), this, SIGNAL(modelCompilationAborted()));
+  connect(compiler, SIGNAL(activeModelCompilationAborted(ModelCompilation::AbortionReason)), this, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)));
 
   connect(compiler, SIGNAL(wordUndefined(QString)), this, SIGNAL(wordUndefined(QString)));
   connect(compiler, SIGNAL(classUndefined(QString)), this, SIGNAL(classUndefined(QString)));
