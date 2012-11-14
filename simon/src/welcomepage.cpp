@@ -35,7 +35,11 @@
 #include <simonsound/volumewidget.h>
 
 #include <QMetaObject>
+#include <QQueue>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 #include <QVBoxLayout>
+#include <KIcon>
 #include <KDebug>
 #include <KLocalizedString>
 #include <KCMultiDialog>
@@ -60,7 +64,7 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
   connect(ui.pbAcousticConfiguration, SIGNAL(clicked()), this, SLOT(baseModelConfig()));
   connect(ui.pbAudioConfiguration, SIGNAL(clicked()), this, SLOT(audioConfig()));
   
-  connect(ui.lwScenarios, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(updateScenarioDisplays()));
+  connect(ui.twScenarios, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(updateScenarioDisplays()));
   connect(ui.pbStartTraining, SIGNAL(clicked(bool)), this, SLOT(startTraining()));
   
   connect(ui.pbEditScenario, SIGNAL(clicked(bool)), this, SIGNAL(editScenario()));
@@ -94,7 +98,7 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
   ui.pbActivation->setAction(activationAction);
   ui.tvTrainingTexts->setModel(trainingTextModel);
   ui.tvTrainingTexts->verticalHeader()->hide();
-  ui.lwScenarios->setLineWidth(24);
+  ui.twScenarios->setLineWidth(24);
 }
 
 void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitionResult, bool accepted )
@@ -106,17 +110,26 @@ void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitio
   ui.lbRecognition->setText(result);
 }
 
+QTreeWidgetItem* WelcomePage::findScenario(const QString& id) const
+{
+  QQueue<QTreeWidgetItem*> toCheck;
+  toCheck.enqueue(ui.twScenarios->invisibleRootItem());
+  do {
+    QTreeWidgetItem* current = toCheck.dequeue();
+    if (current->data(0, Qt::UserRole) == id) {
+      return current;
+    }
+    for (int i = 0; i < current->childCount(); i++)
+      toCheck.enqueue(current->child(i));
+  } while (!toCheck.isEmpty());
+  return 0;
+}
 void WelcomePage::trainingsTextSelected ( const QModelIndex& index )
 {
   TrainingText *text = static_cast<TrainingText*>(index.internalPointer());
+
   QString scenarioId = text->parentScenarioId();
-  for (int i = 0; i < ui.lwScenarios->count(); i++) {
-    if (ui.lwScenarios->item(i)->data(Qt::UserRole) == scenarioId) {
-      kDebug() << "Selecting " << scenarioId;
-      ui.lwScenarios->setCurrentRow(i);
-      return;
-    }
-  }
+  ui.twScenarios->setCurrentItem(findScenario(scenarioId));
 }
 
 void WelcomePage::displayAcousticModelInfo()
@@ -159,45 +172,53 @@ void WelcomePage::displayAcousticModelInfo()
 
 QString WelcomePage::getCurrentlySelectedScenarioId()
 {
-  if (ui.lwScenarios->currentItem())
-    return ui.lwScenarios->currentItem()->data(Qt::UserRole).toString();
+  if (ui.twScenarios->currentItem())
+    return ui.twScenarios->currentItem()->data(0, Qt::UserRole).toString();
   
   return QString();
+}
+
+void WelcomePage::displayScenario(QTreeWidgetItem* parent, Scenario *s)
+{
+  QFont deactivatedFont = QFont();
+  deactivatedFont.setItalic(true);
+  QBrush deactivatedColor = KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText);
+
+  QTreeWidgetItem *i = new QTreeWidgetItem(QStringList() << s->name());
+  i->setIcon(0, s->icon());
+  i->setData(0, Qt::UserRole, s->id());
+
+  if (!s->isActive()) {
+    i->setFont(0, deactivatedFont);
+    i->setForeground(0, deactivatedColor);
+  }
+
+  parent->addChild(i);
+  foreach (Scenario *sub, s->childScenarios())
+    displayScenario(i, sub);
 }
 
 void WelcomePage::displayScenarios()
 {
   setUpdatesEnabled(false);
-  ui.lwScenarios->blockSignals(true);
+  ui.twScenarios->blockSignals(true);
   
   QString currentData = getCurrentlySelectedScenarioId();
   
-  ui.lwScenarios->clear();
+  ui.twScenarios->clear();
 
-  QFont deactivatedFont = QFont();
-  deactivatedFont.setItalic(true);
-  QBrush deactivatedColor = KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText);
-
-  QListWidgetItem *toSelect = 0;
   QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
-  foreach (Scenario* s, scenarioList) {
-    QListWidgetItem *i = new QListWidgetItem(s->icon(), s->name());
-    i->setData(Qt::UserRole, s->id());
-    
-    if (!s->isActive()) {
-      i->setFont(deactivatedFont);
-      i->setForeground(deactivatedColor);
-    }
-    ui.lwScenarios->addItem(i);
-    
-    if (s->id() == currentData)
-      toSelect = i;
-  }
+  QSet<Scenario*> topLevelScenarios = QSet<Scenario*>::fromList(scenarioList);
+  foreach (Scenario* s, scenarioList)
+    foreach (Scenario* sub, s->childScenarios())
+      topLevelScenarios.remove(sub);
+
+  foreach (Scenario* s, topLevelScenarios)
+    displayScenario(ui.twScenarios->invisibleRootItem(), s);
   
-  if (toSelect)
-    ui.lwScenarios->setCurrentItem(toSelect);
+  ui.twScenarios->setCurrentItem(findScenario(currentData));
   
-  ui.lwScenarios->blockSignals(false);
+  ui.twScenarios->blockSignals(false);
   setUpdatesEnabled(true);
   updateTrainingsTexts();
 }
@@ -216,14 +237,8 @@ void WelcomePage::updateScenarioDisplays()
 
 void WelcomePage::displayScenarioPrivate ( Scenario* scenario )
 {
-  QListWidgetItem *item;
-  int currentRow = 0;
-  while ((item = ui.lwScenarios->item(currentRow++)) != 0) {
-    if (item->data(Qt::UserRole) == scenario->id()) {
-      ui.lwScenarios->setCurrentItem(item);
-      break;
-    }
-  }
+  QTreeWidgetItem *item = findScenario(scenario->id());
+  ui.twScenarios->setCurrentItem(item);
   
   ui.pbEditScenario->setText(i18nc("%1 is the scenario to change", "Open \"%1\"", scenario->name()));
 }
