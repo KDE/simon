@@ -126,7 +126,7 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogcommand TESTNAME
 
 target_link_libraries(simondialogcommandplugintest-dialogcommand
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY} ${simondialogcommandplugintest_plasma_LIBS}
-  ${QT_QTXML_LIBRARY} simonscenarios simonactions
+  ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS} simonscenarios simonactions
 )
 
 #################################
@@ -160,7 +160,7 @@ target_link_libraries(simondialogcommandplugintest-dialogstate
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
   ${simondialogcommandplugintest_plasma_LIBS}
   ${QT_QTXML_LIBRARY} simonscenarios simonactions
-  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB}
+  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB} ${KDE4_KDEUI_LIBS}
 )
 
 

@@ -49,7 +49,7 @@ set_target_properties(simondialogengine
 
 target_link_libraries(simondialogengine
   ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${PLAMSA_DEP_LIB} simonscenarios
-  ${QT_QTSCRIPT_LIBRARY} simonscenariobase simonactions)
+  ${QT_QTSCRIPT_LIBRARY} ${KDE4_KDEUI_LIBS} simonscenariobase simonactions)
 
 install(TARGETS simondialogengine DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 
