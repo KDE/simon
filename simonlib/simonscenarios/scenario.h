@@ -174,6 +174,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     void setPluginFont(const QFont& font);
 
+    QString preferredPath() const;
     static QString createId(const QString& name);
 
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
@@ -182,7 +183,6 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     static QString pathFromId(const QString& id, const QString& prefix=QString());
 
     static QStringList explode(const QString& inFile);
-    static QString idFromName(const QString& name);
 
   public slots:
     bool save(QString path=QString(), bool full = false);

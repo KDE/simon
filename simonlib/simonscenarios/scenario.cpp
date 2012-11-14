@@ -458,11 +458,6 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
   return true;
 }
 
-QString Scenario::idFromName(const QString& name)
-{
-  return QString(name).replace(QRegExp("[\\/:*?\"<>|]"), "_");
-}
-
 QStringList Scenario::explode(const QString& inFile)
 {
   QFile f(inFile);
@@ -489,7 +484,7 @@ QStringList Scenario::explode(const QString& inFile)
   {
     //expand children
     QString name = childElem.attribute("name");
-    QString id = idFromName(name);
+    QString id = Scenario::createId(name);
     QString path = pathFromId(id);
     kDebug() << "this id: " << id;
     QString suffix;
@@ -520,7 +515,7 @@ QStringList Scenario::explode(const QString& inFile)
     allScenarios << Scenario::explode(pathFromId(child));
 
   QString outerName = scenarioElem.attribute("name");
-  QString outerId = idFromName(outerName);
+  QString outerId = Scenario::createId(outerName);
   QString outerPath = pathFromId(outerId);
 
   QFile::remove(inFile);
@@ -546,6 +541,10 @@ QString Scenario::pathFromId(const QString& id, const QString& prefix)
   return KStandardDirs::locateLocal("data", prefix+"scenarios/"+id);
 }
 
+QString Scenario::preferredPath() const
+{
+  return pathFromId(m_scenarioId, m_prefix);
+}
 
 /**
  * Stores the scenario; The storage location will be determined automatically
@@ -568,7 +567,7 @@ bool Scenario::save(QString path, bool full)
     return false;
 
   if (path.isNull())
-    path = pathFromId(m_scenarioId, m_prefix);
+    path = preferredPath();
 
   QFile file(path);
   if (!file.open(QIODevice::WriteOnly)) {
@@ -1018,7 +1017,7 @@ bool Scenario::commitGroup()
 QString Scenario::createId(const QString& name)
 {
   QString id = name;
-  id.replace(' ', '_').replace('/','_').replace(':', '-').remove('?').replace('\\', '_').remove('<').remove('>').remove('|').remove('"');
+  id.replace(QRegExp("[\\/:*?\"<>| ]"), "_");
   return id+'-'+utcTime().toString("dd.MM.dd.yyyy-hh-mm-ss-zzz");
 }
 
