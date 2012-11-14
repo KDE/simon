@@ -47,19 +47,24 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   setupBackend(ContextAdapter::FromConfiguration);
 }
 
-void ContextAdapter::setupBackend(BackendType backendType)
+ContextAdapter::BackendType ContextAdapter::getConfiguredDefaultBackendType()
+{
+  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+  KConfigGroup backendGroup(&config, "Backend");
+  int type(-1);
+  type = backendGroup.readEntry("backend", 0);
+  if (type == 0)
+    return ContextAdapter::SPHINX;
+
+  return ContextAdapter::HTK;
+}
+
+void ContextAdapter::setupBackend(ContextAdapter::BackendType backendType)
 {
   kDebug() << "Setting up backend: " << backendType;
-  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
 
   if (backendType == ContextAdapter::FromConfiguration) {
-    KConfigGroup backendGroup(&config, "Backend");
-    int type(-1);
-    type = backendGroup.readEntry("backend", 0);
-    if (type == 0)
-      backendType = ContextAdapter::SPHINX;
-    else
-      backendType = ContextAdapter::HTK;
+    backendType = getConfiguredDefaultBackendType();
   }
 
   if (((backendType == ContextAdapter::SPHINX) && dynamic_cast<ModelCompilationManagerSPHINX*>(m_modelCompilationManager)) ||
@@ -256,19 +261,24 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
   QString name;
   QDateTime creationDate;
   QString type;
-  KTar tar(m_currentSource->baseModelPath(), "application/x-gzip");
-  if (!Model::parseContainer(tar, creationDate, name, type)) {
-    emit error(i18n("Base model is corrupt."));
-    slotModelCompilationAborted(ModelCompilation::InsufficientInput);
-  } else {
-    ContextAdapter::BackendType bType = ContextAdapter::Null;
-    if (type == "SPHINX")
-      bType = ContextAdapter::SPHINX;
-    else if (type == "HTK")
-      bType = ContextAdapter::HTK;
-    setupBackend(bType);
-    model->setType(bType);
-  }
+  ContextAdapter::BackendType bType = ContextAdapter::Null;
+
+  if (m_currentSource->baseModelType() != 2 /* no base model */) {
+    KTar tar(m_currentSource->baseModelPath(), "application/x-gzip");
+    if (!Model::parseContainer(tar, creationDate, name, type)) {
+      emit error(i18n("Base model is corrupt."));
+      slotModelCompilationAborted(ModelCompilation::InsufficientInput);
+    } else {
+      if (type == "SPHINX")
+        bType = ContextAdapter::SPHINX;
+      else if (type == "HTK")
+        bType = ContextAdapter::HTK;
+    }
+  } else
+    bType = getConfiguredDefaultBackendType();
+
+  setupBackend(bType);
+  model->setType(bType);
   m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, adaptedPromptsPath);
 }
 

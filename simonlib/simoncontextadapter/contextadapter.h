@@ -139,6 +139,8 @@ private:
 
     void setupBackend(BackendType backendType);
 
+    BackendType getConfiguredDefaultBackendType();
+
 private slots:
   void slotModelReady(uint fingerprint, const QString& path);
   void slotModelCompilationAborted( ModelCompilation::AbortionReason reason );
