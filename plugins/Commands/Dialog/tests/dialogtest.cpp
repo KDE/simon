@@ -22,6 +22,7 @@
 *********************/
 
 #include <QTest>
+#include <QtTestGui>
 #include <QSignalSpy>
 #include <QDomDocument>
 #include <QDomElement>
