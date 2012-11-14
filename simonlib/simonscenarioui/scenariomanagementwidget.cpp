@@ -416,12 +416,14 @@ void ScenarioManagementWidget::slotMovedUp()
 
 void ScenarioManagementWidget::slotRemoved()
 {
-    if (!ui->twSelected->currentItem())
+    QTreeWidgetItem *currentItem = ui->twSelected->currentItem();
+    if (!currentItem)
         return;
-    if (ui->twSelected->invisibleRootItem()->indexOfChild(ui->twSelected->currentItem()) < 0)
-        return;
-
-    ui->twAvailable->addTopLevelItem(ui->twSelected->takeTopLevelItem(ui->twSelected->currentIndex().row()));
+    QTreeWidgetItem *parent = currentItem->parent();
+    if (!parent)
+      parent = ui->twSelected->invisibleRootItem();
+    parent->removeChild(currentItem);
+    ui->twAvailable->addTopLevelItem(currentItem);
 
     updateLastSelectedIndex(ui->twAvailable->currentIndex());
     m_dirty = true;
