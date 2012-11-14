@@ -171,8 +171,18 @@ void ScenarioManagementWidget::importScenario()
     return;
   }
 
+  bool failed = false;
   foreach (const QString& e, exploded) {
-    displayScenario(e, ui->twAvailable);
+    if (!displayScenario(e, ui->twAvailable)) {
+      failed = true;
+      break;
+    }
+  }
+  if (failed) {
+    foreach (const QString& e, exploded) {
+      if (!QFile::remove(Scenario::pathFromId(e)))
+        kWarning() << "Failed to delete broken scenario"; //TODO: user visible error after the string freeze
+    }
   }
 }
 
