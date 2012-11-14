@@ -188,6 +188,14 @@ QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
 
   char **hints, **hints_;
 
+  //FIXME:
+  //Workaround: The first call to snd_device_name_hint
+  //does, for some reason, not include some devices like "pulse" or "default".
+  //This has been verified with arecord itself where adding the same workaround fixed
+  //the same problem both on Gentoo and on a clean Ubuntu 12.04 LTS installation.
+  snd_device_name_hint(-1, "pcm", (void***) &hints);
+  snd_device_name_free_hint((void**) hints);
+
   if (snd_device_name_hint(-1, "pcm", (void***) &hints) < 0) {
     kWarning() << "List of devices is empty";
     return devices;
