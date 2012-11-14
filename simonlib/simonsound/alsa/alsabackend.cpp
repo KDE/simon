@@ -214,7 +214,7 @@ QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
         devices << userDeviceName;
     }
     if (!foundDefault)
-      devices.insert(0, i18n("Default audio device (%1)", "default"));
+      devices.insert(0, i18n("Default audio device (%1)", QLatin1String("default")));
 
     free(name);
     free(description);
