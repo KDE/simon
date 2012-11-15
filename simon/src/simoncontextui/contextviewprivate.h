@@ -50,14 +50,14 @@ class ContextViewPrivate : public QWidget, public ScenarioDisplay
 {
   Q_OBJECT
 
-  signals:
-    void manageScenariosTriggered();
-
   private:
     Ui::ContextDlg ui;
 
     void updateInvalidChildList();
     void addChildScenarios(QTreeWidgetItem* parentItem, Scenario* parentScenario);
+
+  private slots:
+    void manageScenarios();
 
   public:
     void displayScenarioPrivate(Scenario *scenario);

@@ -154,7 +154,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading context..." ) );
   contextDialog = new ContextView(this);
-  connect(contextDialog, SIGNAL(manageScenariosTriggered()), this, SLOT(manageScenarios()));
   ScenarioManager::getInstance()->registerScenarioDisplay(contextDialog);
 
   if (showSplash)
@@ -297,13 +296,6 @@ void SimonView::displayScenarioPrivate(Scenario *scenario)
 {
   updateActionList();
 }
-
-
-void SimonView::manageScenarios()
-{
-  //FIXME: exit scenario edit mode if we are currently in there, return to main screen and open scenario configuration dialog
-}
-
 
 void SimonView::setupSignalSlots()
 {

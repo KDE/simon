@@ -78,7 +78,6 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void showSampleShare();
     
    private slots:
-    void manageScenarios();
     void updateActionList();
     void editScenario();
     void backToOverview();

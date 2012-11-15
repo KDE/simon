@@ -18,9 +18,10 @@
  */
 
 #include "contextviewprivate.h"
+#include <simoncontextdetection/contextmanager.h>
 #include <simonscenarios/scenario.h>
+#include <simonscenarioui/scenariomanagementdialog.h>
 #include <simoncontextcoreui/newcondition.h>
-#include "simoncontextdetection/contextmanager.h"
 
 #include <QWidget>
 #include <QPointer>
@@ -37,7 +38,12 @@
 ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
 {
   ui.setupUi(this);
-  connect ( ui.pbEditHierarchy, SIGNAL(clicked()), this, SIGNAL(manageScenariosTriggered()));
+  connect ( ui.pbEditHierarchy, SIGNAL(clicked()), this, SLOT(manageScenarios()));
+}
+
+void ContextViewPrivate::manageScenarios()
+{
+  ScenarioManagementDialog::configureScenarios(this);
 }
 
 void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)

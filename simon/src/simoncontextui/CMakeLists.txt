@@ -16,7 +16,8 @@ kde4_add_library(simoncontextui SHARED ${simoncontextui_LIB_SRCS})
 
 target_link_libraries(simoncontextui ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} 
   ${KDE4_KIO_LIBS} ${KDE4_KUTILS_LIBS} simonactions simonscenarios 
-  simonscenarios simonuicomponents simoncontextdetection simoncontextcoreui)
+  simonscenarios simonuicomponents simoncontextdetection simoncontextcoreui
+  simonscenarioui)
 
 set_target_properties(simoncontextui PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 
