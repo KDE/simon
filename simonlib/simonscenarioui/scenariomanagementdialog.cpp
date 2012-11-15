@@ -71,7 +71,7 @@ bool ScenarioManagementDialog::updateScenarioConfiguration()
 
 void ScenarioManagementDialog::configureScenarios(QWidget *parent)
 {
-  ScenarioManagementDialog *dlg = new ScenarioManagementDialog("simon/", parent);
+  QPointer<ScenarioManagementDialog> dlg(new ScenarioManagementDialog("simon/", parent));
   if (dlg->updateScenarioConfiguration())
   {
     //reload scenario information
@@ -80,7 +80,7 @@ void ScenarioManagementDialog::configureScenarios(QWidget *parent)
     if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
       KMessageBox::sorry(parent, i18n("Could not re-initialize scenarios. Please restart Simon."));
   }
-  dlg->deleteLater();
+  delete dlg;
 }
 
 QStringList ScenarioManagementDialog::getSelectedScenarioIds()
