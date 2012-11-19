@@ -21,6 +21,7 @@ Name[et]=Veebikaamera seadistamine
 Name[nl]=Configuratie voor de webcam
 Name[pt]=Configuração da Webcam
 Name[pt_BR]=Configuração da webcam
+Name[sl]=Nastavitev spletne kamere
 Name[uk]=Налаштовування вебкамери
 Name[x-test]=xxWebcam Configurationxx
 
@@ -32,5 +33,6 @@ Comment[et]=Veebikaamera seadistamine
 Comment[nl]=Configuratie van de webcam
 Comment[pt]=Configuração da Webcam
 Comment[pt_BR]=Configuração da webcam
+Comment[sl]=Nastavitev spletne kamere
 Comment[uk]=Керування налаштуваннями вебкамери
 Comment[x-test]=xxConfiguration of the Webcamxx
