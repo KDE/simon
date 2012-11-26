@@ -88,11 +88,13 @@ void ModelCompilationManagerHTK::run()
   {
     if (!keepGoing) return;
 
-    if (baseModelType < 2) {
+    if (baseModelType < 2)
+    {
       QString baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/base/");
       //base model needed - unpack it and fail if its not here
-      if (!FileUtils::unpack(baseModelPath, baseModelFolder, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats"))) {
-	emit error(i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
+      if (!FileUtils::unpack(baseModelPath, baseModelFolder, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")))
+      {
+        emit error(i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
         return;
       }
       adaptionArgs.insert("base/hmmdefs", baseModelFolder+"hmmdefs");

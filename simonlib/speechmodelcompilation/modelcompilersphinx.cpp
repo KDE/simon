@@ -79,6 +79,8 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
     return false;
   }
 
+  kDebug()<<"Base model path"<<m_BaseModelPath;
+
   this->compilationType = compilationType;
   m_ModelDir = args.value("modelDir");
   m_BaseModelPath = baseModelPath;

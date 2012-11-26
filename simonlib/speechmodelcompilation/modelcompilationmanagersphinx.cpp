@@ -20,6 +20,7 @@
 #include "modelcompilationadaptersphinx.h"
 #include "modelcompilersphinx.h"
 #include "modelcompilationmanagersphinx.h"
+#include <simonutils/fileutils.h>
 #include <KStandardDirs>
 #include <QFileInfo>
 #include <QUuid>
@@ -76,6 +77,18 @@ void ModelCompilationManagerSPHINX::run()
   {
     if (!keepGoing) return;
 
+    QString baseModelFolder;
+    if (baseModelType < 2)
+    {
+      baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/base/");
+      //base model needed - unpack it and fail if its not here
+      if (!FileUtils::unpackAll(baseModelPath, baseModelFolder))
+      {
+        emit error(i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
+        return;
+      }
+    }
+
     tryAgain = false;
     if (!adapter->startAdaption(adaptionType, scenarioPaths, promptsPathIn, adaptionArgs))
     {
@@ -116,7 +129,7 @@ void ModelCompilationManagerSPHINX::run()
     if (!keepGoing) return;
 
     if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(), 
-                                             activeDir, compilerArgs))
+                                             baseModelFolder, compilerArgs))
     {
       emit modelReady(fingerprint, outPath);
       return;
