@@ -34,10 +34,12 @@ bool ModelCompilerSPHINX::parseConfiguration()
   KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
   KConfigGroup programGroup(&config, "Programs");
 
-  if(compilationType & ModelCompiler::CompileSpeechModel)
-  {
+//  if(compilationType & ModelCompiler::CompileSpeechModel)//TODO: think and then put conditions back
+//  {
     //   (compilationType & ModelCompilerHTK::AdaptSpeechModel)) {
     m_SphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
+
+    kDebug()<<"SPhinxtrain exec: "<<m_SphinxTrain;
 
     if (!QFile::exists(m_SphinxTrain))
     {
@@ -46,10 +48,10 @@ bool ModelCompilerSPHINX::parseConfiguration()
       emit error(errorMsg);
       return false;
     }
-  }
+//  }
 
-  if(compilationType & ModelCompiler::AdaptSpeechModel)
-  {
+//  if(compilationType & ModelCompiler::AdaptSpeechModel)
+//  {
     m_Bw = programGroup.readEntry("bw", KUrl(KStandardDirs::findExe("bw"))).toLocalFile();
     m_Sphinx_fe = programGroup.readEntry("sphinx_fe", KUrl(KStandardDirs::findExe("sphinx_fe"))).toLocalFile();
     m_Pocketsphinx_mdef_convert = programGroup.readEntry("pocketsphinx_mdef_convert", KUrl(KStandardDirs::findExe("pocketsphinx_mdef_convert"))).toLocalFile();
@@ -64,7 +66,7 @@ bool ModelCompilerSPHINX::parseConfiguration()
       emit error(errorMsg);
       return false;
     }
-  }
+//  }
 
   return true;
 }
@@ -435,7 +437,9 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
     {
       //        kDebug()<< "wheee";
       QStringList capturedList = pLine.capturedTexts();
-      QString key = capturedList.first().mid(1, capturedList.first().size() - 3); //3 chars: $, ,=
+      uint dPos = capturedList.first().indexOf('$') + 1;
+      QString key = capturedList.first().mid(dPos, capturedList.first().size() - (dPos + 2)); //few chars: '$',' ','='
+      kDebug()<<key;
       if(!args.contains(key))
       {
         out << line <<"\n";
