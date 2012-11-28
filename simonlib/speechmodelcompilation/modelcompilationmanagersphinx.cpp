@@ -51,9 +51,10 @@ void ModelCompilationManagerSPHINX::run()
   //first, adapt the input to sphinx readable formats using the adapter
   QHash<QString,QString> adaptionArgs;
 
-  QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
+//  QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
   QUuid modelUuid = QUuid::createUuid();
 
+  kDebug() <<"baseModelType: "<<baseModelType;
   ModelCompilationAdapter::AdaptionType adaptionType = (baseModelType == 0) ?
                                                          (ModelCompilationAdapter::AdaptLanguageModel) :
                                                          (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel);
@@ -117,9 +118,9 @@ void ModelCompilationManagerSPHINX::run()
 
     //build fingerprint and search cache for it
     uint fingerprint = 0;
-    QStringList componentsToParse(QStringList() << GRAMMAR_EXT << PHONE_EXT << DICT_EXT);
+    QStringList componentsToParse(QStringList() << GRAMMAR_EXT << DICT_EXT);
     if (baseModelType > 0)
-      componentsToParse << TRAIN_TRANSCRIPTION << TRAIN_FIELDS ;
+      componentsToParse << TRAIN_TRANSCRIPTION << TRAIN_FIELDS << PHONE_EXT ;
 
     fingerprint = getFingerPrint(fetc, componentsToParse, compilationType);
 

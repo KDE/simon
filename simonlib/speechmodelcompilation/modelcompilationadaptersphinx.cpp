@@ -141,7 +141,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   ADAPT_CHECKPOINT;
 
   kDebug()<<"Store phonelist";
-  if(!storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary, trainedVocabulary))
+  if(!(adaptionType == ModelCompilationAdapter::AdaptLanguageModel) && !storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary, trainedVocabulary))
   {
     emit error(i18n("Failed to store phones"));
     return false;
@@ -150,9 +150,11 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   ADAPT_CHECKPOINT;
 
   kDebug()<<"Store transcription & fields";
-  if(!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+TRAIN_TRANSCRIPTION, fetc+TRAIN_FIELDS,
-                                  definedVocabulary, vocabulary) || !storeTranscriptionAndFields(adaptionType, promptsPathIn,
-                                  fetc+TEST_TRANSCRIPTION, fetc+TEST_FIELDS, definedVocabulary, vocabulary))
+  if(!(adaptionType == ModelCompilationAdapter::AdaptLanguageModel) &&
+     (!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+TRAIN_TRANSCRIPTION, fetc+TRAIN_FIELDS,
+         definedVocabulary, vocabulary)
+      || !storeTranscriptionAndFields(adaptionType, promptsPathIn,
+         fetc+TEST_TRANSCRIPTION, fetc+TEST_FIELDS, definedVocabulary, vocabulary)))
   {
     emit error(i18n("Failed to store transcription and fields"));
     return false;
@@ -190,9 +192,9 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
   m_wordCount = 0;
   foreach (Word *word, words)
   {
-    if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+    if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
             (!(adaptionType == ModelCompilationAdapter::AdaptIndependently) &&
-        !trainedVocabulary.contains(word->getLexiconWord())) || added.contains(word->getWord()))
+        (!trainedVocabulary.contains(word->getLexiconWord()) || added.contains(word->getWord()))))
     {
       kDebug() << "Skipping word " << word->getWord();
       continue;
@@ -205,7 +207,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
     added.append(word->getWord());
 
     ++m_wordCount;
-    if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+    if (//(adaptionType == ModelCompilationAdapter::AdaptAcousticModel) &&
         (!definedVocabulary.contains(word->getLexiconWord())))
       definedVocabulary << word->getLexiconWord();
   }
@@ -252,7 +254,8 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, c
   QSet<QString> uniquePhonemes;
   foreach (Word *word, vocabulary->getWords())
   {
-    if((adaptionType != AdaptIndependently) && !trainedVocabulary.contains(word->getLexiconWord()))
+    if((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+       (adaptionType != AdaptIndependently) && !trainedVocabulary.contains(word->getLexiconWord()))
     {
       kDebug() << "Skipping phones for word " << word->getWord();
       continue;
@@ -355,6 +358,9 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
   grammarStream<< "public <structure> = ";
 
   QStringList grammarStructures = grammar->getStructures();
+
+  kDebug()<<"Structures count:"<< grammarStructures.size();
+
   foreach (const QString& structure, grammarStructures)
   {
     QStringList terminals = Grammar::getTerminalsForStructure(structure);
@@ -368,10 +374,13 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
 
     QString gramBuffer;
 
+    kDebug()<<"Terminals count for structure "<<structure<<": "<<terminals.size();
     foreach (const QString &terminal, terminals)
     {
       bool fword = true;
       QList<Word*> wordsForTerminal = vocabulary->findWordsByTerminal(terminal);
+
+      kDebug()<<"Words for terminal "<<terminal<<":"<<wordsForTerminal.size();
 
       if(wordsForTerminal.isEmpty())
         continue;
@@ -381,7 +390,7 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
 
       foreach (Word* word, wordsForTerminal)
       {
-        if(!definedVocabulary.contains(word->getLexiconWord()) && adaptionType != AdaptIndependently)
+        if(!definedVocabulary.contains(word->getLexiconWord()) && adaptionType != AdaptIndependently)//WARNING: talk about adapt independently becouse of magic
           continue;
 
         if(!fword)

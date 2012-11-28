@@ -120,13 +120,20 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
 
 bool ModelCompilerSPHINX::CompileLanguageModel()
 {
+  kDebug() << "Compiling language model";
+
   emit  status(i18n("Packing new language model to existing static acoustic model..."), 0, 100);
+
+  //don't need to copy model to working dir, becouse we can just copy it to destination
+  kDebug() << "Сopying model to destination";
+
   if(!pack(m_ModelDestination, m_ModelName))
   {
     emit error(i18n("Cannot copy model to destination"));
     return false;
   }
-  emit  status(i18n("Packing new language model to existing static acoustic model..."), 100, 100);
+
+  emit  status(i18n("Compilation done"), 100, 100);
   return true;
 }
 
@@ -231,6 +238,8 @@ bool ModelCompilerSPHINX::CompileWholeModel()
   params.insert("CFG_WAVFILE_EXTENSION", "wav");
   params.insert("CFG_WAVFILE_TYPE", "mswav");
   params.insert("CFG_HMM_TYPE", MODEL_TYPE);
+  params.insert("CFG_INITIAL_NUM_DENSITIES", DENSITIES_NUM);
+  params.insert("CFG_FINAL_NUM_DENSITIES", DENSITIES_NUM);
   params.insert("CFG_QUEUE_TYPE", "Queue::POSIX");
 
 
