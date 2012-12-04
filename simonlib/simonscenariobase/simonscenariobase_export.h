@@ -24,7 +24,7 @@
 #include <kdemacros.h>
 
 #ifndef SCENARIOBASE_EXPORT
-# if defined(MAKE_SCENARIOBASE_LIB)
+# if defined(MAKE_SIMONSCENARIOBASE_LIB)
 // We are building this library
 #  define SCENARIOBASE_EXPORT KDE_EXPORT
 # else
