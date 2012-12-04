@@ -1,4 +1,108 @@
 ===========================================================================
+simon: 0.4.0-beta-1
+===========================================================================
+
+Commands
+=========
+* Adding "Dialog" command plugin: State based dialog plugin with TTS output
+* Adding "DBus" and "JSON" command plugins
+* Adding "Akonadi" plugin to schedule Simon commands and to display
+  reminders through dialogs
+* Introducing multi-stage activation in the Filter plugin
+* Moving execution of composite commands to separate thread
+* Shortcuts can now be configured to trigger press, release or both events
+* Command plugins can now receive arguments through invocation wildcards
+* Highly experimental: ATSPI plugin prototype
+
+Sound
+=====
+* Volume calibration
+* New sound implementation based on ALSA (Linux) and DirectSound
+* Multithreaded audio processing
+
+Simon
+=====
+* Adding "autorun" commands that are launched when initializing the parent
+  scenario
+* Expose Simon state through DBus (mainly for Simonoid)
+* Integrated sample sharing through Voxforge
+* Introducing Sequitur Grapheme to Phoneme conversion support including
+  Sequitur model generation from within Simon
+* Adding context-awareness: Activate or deactivate scenarios, sets of
+  training samples and even microphones based on:
+  > Running applications
+  > Currently focused application
+  > Content of a file
+  > DBus information
+  > Face detection
+  > Lip (movement) detection
+* Scenario hierarchy that is respected by the context layer
+* Introducing base model containers: SBM (Simon Base Model) with automatic
+  import within Simon.
+* Completely reworked welcome page and lots of other usability improvements
+* Added graphical management of local training corpus
+
+
+
+Simond
+======
+* Optionally limit write access to a host whitelist
+* Introduce recognition sharing (multiple clients with same username all 
+  receive results from every other client with the same username) and 
+  isolated mode (separate recognition result streams for every connected
+  client
+* Aggressive acoustic model caching
+* Moving to upstream Julius
+* Much faster synchronization protocol
+* Suport for SPHINX:
+  > Model creation with SphinxTrain
+  > Recognition with PocketSphinx
+
+
+Sam
+===
+* Playing and re-recording samples from the test set
+* Better test result breakdown (files, sentences, words), including a 
+  graphical overview
+* Improved test analysis (WER)
+* Integrated LaTeX reporting
+* New XML based project files
+* Batch mode
+* Add "conservative training" mode: Parses Simond recognition logs
+
+
+Simonlib
+========
+* Improved event simulation
+* Introduction of the dialog engine
+* Adding SimonTTS: A text to speech wrapper framework around Jovie, web
+  services and custom samples
+* HTK: Configurable GMM generation
+* HTK: User configurable regression class tree
+* HTK: GMM auto-detection during adaption
+* HTK: MFC caching
+* HTK: Multithreaded model compilation (audio coding, re-estimation)
+* Automatically detect and handle missing phonemes during model
+  compilation
+
+
+SSC
+===
+* Stability improvements - especially on poor connections.
+* "Locked" mode to hide user details for public accounts
+
+Simonoid
+========
+* New component: Simon plasmoid
+  Shows current recognition status and allows to launch / show Simon
+
+Afaras
+======
+* New component: Automatically Find And Repair Amiss Samples;
+  Helps to identify bad recordings in large corpora
+
+
+===========================================================================
 simon: 0.3.0
 ===========================================================================
 
