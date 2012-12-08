@@ -287,6 +287,8 @@ void SimonView::editScenario()
 
 void SimonView::backToOverview()
 {
+  if (ui.swMain->currentIndex() == 0)
+    return;
   backButtonAnimation->setFrameRange(35, 0);
   backButtonAnimation->start();
   ui.swMain->setCurrentIndex(0);
