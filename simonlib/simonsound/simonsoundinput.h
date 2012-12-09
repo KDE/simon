@@ -42,6 +42,7 @@ class SimonSoundInput : public QObject, public SoundBackendClient
     void inputStateChanged(SimonSound::State state);
 
   private:
+    bool m_dying;
     QMutex m_lock;
     SimonSound::DeviceConfiguration m_device;
     SoundBackend *m_input;

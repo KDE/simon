@@ -27,7 +27,7 @@
 #include "soundinputbuffer.h"
 
 SimonSoundInput::SimonSoundInput(QObject *parent) : QObject(parent),
- m_lock(QMutex::Recursive), m_input(SoundBackend::createObject()), m_buffer(0)
+ m_dying(false), m_lock(QMutex::Recursive), m_input(SoundBackend::createObject()), m_buffer(0)
 {
   connect(m_input, SIGNAL(stateChanged(SimonSound::State)), this, SLOT(slotInputStateChanged(SimonSound::State)));
   connect(m_input, SIGNAL(stateChanged(SimonSound::State)), this, SIGNAL(inputStateChanged(SimonSound::State)));
@@ -48,6 +48,8 @@ qint64 SimonSoundInput::writeData(const char *toWrite, qint64 len)
 void SimonSoundInput::processData(const QByteArray& data)
 {
   QMutexLocker l(&m_lock);
+  if (m_dying)
+    return;
   //length is in ms
   qint64 length = SoundServer::getInstance()->byteSizeToLength(data.count(), m_device);
 
@@ -130,7 +132,7 @@ void SimonSoundInput::registerInputClient(SoundInputClient* client)
 
 bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client, bool& done)
 {
-  QMutexLocker l(&m_lock);
+  m_lock.lock();
 
   kDebug() << "Deregistering input client";
 
@@ -146,10 +148,13 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client, bool& done
   if (m_activeInputClients.isEmpty() && m_suspendedInputClients.isEmpty()) {
     //then stop recording
     kDebug() << "No active clients available... Stopping recording";
+    m_dying = true;
+    m_lock.unlock();
     success = stopRecording();
     if (success)
       done = true;                     // destroy this sound input
-  }
+  } else
+    m_lock.unlock();
 
   return success;
 }
@@ -269,7 +274,7 @@ void SimonSoundInput::killBuffer()
 {
   if (m_buffer) {
     m_buffer->stop();
-//     m_buffer->wait();
+    m_buffer->wait();
   }
 
   m_buffer = 0;
@@ -283,7 +288,5 @@ SimonSoundInput::~SimonSoundInput()
   }
 
   killBuffer();
-  if (m_buffer)
-    m_buffer->wait();
   delete m_input;
 }
