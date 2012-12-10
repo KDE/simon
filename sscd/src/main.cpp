@@ -31,6 +31,7 @@ int main(int argc, char **argv)
   QCoreApplication::addLibraryPath(SSCD_BASE_DIRECTORY);
 
   QCoreApplication app(argc,argv);
+  QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath()+"/../plugins");
 
   if (app.arguments().contains("-h") || app.arguments().contains("--help")) {
     qWarning() << "Run without arguments to start a full server (to be used with SSC).";
