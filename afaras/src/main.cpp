@@ -36,6 +36,7 @@ int main(int argc, char **argv)
   KCmdLineArgs::init(argc, argv, &about);
 
   KApplication app;
+  QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath()+"/../plugins");
   AfarasView *widget = new AfarasView(0,0);
   widget->show();
   return app.exec();

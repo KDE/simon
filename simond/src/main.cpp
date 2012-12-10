@@ -50,6 +50,7 @@ int main(int argc, char **argv)
   KGlobal::setActiveComponent(KComponentData(about));
 
   QCoreApplication app(argc,argv);
+  QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath()+"/../plugins");
 
   KGlobal::locale();
   KGlobal::locale()->insertCatalog("simonlib");
