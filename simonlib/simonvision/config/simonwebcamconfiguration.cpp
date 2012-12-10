@@ -78,6 +78,8 @@ void SimonWebcamConfiguration::updateImage(const QImage &image)
 
 int SimonWebcamConfiguration::startWebcam(int webcamIndex)
 {
+  if(webcamIndex<0)
+    return 0;
   if(webcamIndex==WebcamConfiguration::webcamIndex())
   {
     emit changed(false);
@@ -99,15 +101,6 @@ int SimonWebcamConfiguration::startWebcam(int webcamIndex)
     else
     {
       return 0;
-      //      if(webcamIndex!=1)
-      //        this->webcamIndex--;
-      //      else
-      //      {
-      //        if(capture)
-      //          cvReleaseCapture(&capture);
-      //        timer->stop();
-      //        ui.lblWebcamDisplay->setText("Webcam  not found!\n Try the prev/next webcam");
-      //      }
     }
   }
   else
