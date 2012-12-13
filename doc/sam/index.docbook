@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!ENTITY kmyapplication "<application>sam</application>">
+  <!ENTITY kmyapplication "<application>Sam</application>">
   <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
                                             do *not* replace kappname-->
   <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
@@ -38,7 +38,7 @@
 <keyword>control</keyword>
 <keyword>model</keyword>
 <keyword>compilation</keyword>
-<keyword>sam</keyword>
+<keyword>Sam</keyword>
 <keyword>accessibility</keyword>
 </keywordset>
 
@@ -79,7 +79,7 @@
 
 <sect2 id="effective_testing">
   <title>Effective testing</title>
-  <para>One of the major features of sam is to test the generated acoustic models.</para>
+  <para>One of the major features of Sam is to test the generated acoustic models.</para>
 
   <para>The basic testing procedure is to run recognition on samples where the transcription is already known and comparing the results. &kmyapplication; also takes the confidence score of the recognition into account to measure how robust the created system is.</para>
 
@@ -114,7 +114,7 @@
 </para>
 
 <para>
-  The order of the tabs represents a complete sam workflow from creating a model to testing it.
+  The order of the tabs represents a complete Sam workflow from creating a model to testing it.
 </para>
 
 <sect1 id="input_output">

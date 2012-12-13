@@ -2,7 +2,7 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!-- Define an entity for your application if it is not part of KDE
        CVS -->
-  <!ENTITY kmyapplication "<application>sscd</application>">
+  <!ENTITY kmyapplication "<application>SSCd</application>">
   <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
                                             do *not* replace kappname-->
   <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
@@ -46,7 +46,7 @@ thanks ;-).
 <!-- The language must NOT be changed here. -->
 <!-- If you are writing original documentation in a language other -->
 <!-- than English, change the language above ONLY, not here -->
-<book id="sscd" lang="&language;">
+<book id="SSCd" lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
@@ -70,7 +70,7 @@ Do NOT change these in the translation. -->
 
 <abstract>
 <para>
-&kmyapplication; is the server component of the ssc sample acquisition tool. 
+&kmyapplication; is the server component of the SSC sample acquisition tool. 
 </para>
 </abstract>
 
@@ -113,16 +113,16 @@ Do NOT change these in the translation. -->
 <title>Introduction</title>
 
 <para>
-  &kmyapplication; is the server component of the ssc sample acquisition tool.
+  &kmyapplication; is the server component of the SSC sample acquisition tool.
 </para>
 <para>
   It manages speaker data (users, institutions) as well as sample meta data using a database and stores the samples.
 </para>
 <para>
-  It receives input from the ssc client(s) which connect to the server using TCP/IP.
+  It receives input from the SSC client(s) which connect to the server using TCP/IP.
 </para>
 
-<para>For more information on the general architecture of the Simon suite please see the <ulink url="help:/simon/overview.html#architecture">Simon manual</ulink>. For information about the ssc client, please refer to the <ulink url="help:/ssc">SSC manual</ulink>.</para>
+<para>For more information on the general architecture of the Simon suite please see the <ulink url="help:/simon/overview.html#architecture">Simon manual</ulink>. For information about the SSC client, please refer to the <ulink url="help:/ssc">SSC manual</ulink>.</para>
 </chapter>
 
 <chapter id="using-kapp">
@@ -135,9 +135,9 @@ Do NOT change these in the translation. -->
   <title>Base folder</title>
   <para>The base folder of &kmyapplication; contains the configuration file <filename>sscd.conf</filename> and an error log in case something goes wrong. This folder also contains the <filename>samples</filename> subfolder where all the samples are stored.</para>
 
-<para>The location of the sscd folder depends on your operating system:
+<para>The location of the SSCd folder depends on your operating system:
 
-<table frame='all'><title>ssc base folder</title>
+<table frame='all'><title>SSC base folder</title>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
 <colspec colname='c2'/>
@@ -161,22 +161,22 @@ Do NOT change these in the translation. -->
 <sect1 id="configuration">
   <title>Configuration</title>
 
-  <para>There is no graphical configuration of sscd, but there is a configuration file (<filename>sscd.conf</filename>) stored in the <link linkend="sscd_folder">sscd folder</link>.</para>
+  <para>There is no graphical configuration of SSCd, but there is a configuration file (<filename>sscd.conf</filename>) stored in the <link linkend="sscd_folder">SSCd folder</link>.</para>
 
   <para>The default configuration file is heavily commented and should be self-explanatory.</para>
 
-  <para>Before running sscd, you will want to at least change the DatabaseUser and DatabasePassword entry of the configuration file. See <link linkend="database">the database section</link> for more information.</para>
+  <para>Before running SSCd, you will want to at least change the DatabaseUser and DatabasePassword entry of the configuration file. See <link linkend="database">the database section</link> for more information.</para>
 
   <screen>
 ; This is an example config file and displays the built-in defaults
-; sscd will look for this file in:
+; SSCd will look for this file in:
 ; Linux:
 ;    /usr/share/sscd/sscd.conf
 ; Windows:
 ;    &lt;sscd installation path&gt;\sscd.conf
 
 [General]
-; Change this to use a different database; Because sscd uses db-specific
+; Change this to use a different database; Because SSCd uses db-specific
 ; commands in places, only QMYSQL is supported at the moment.
 ; Support for other DBMS can be added extremely easily, though so please
 ; feel free to request support through kde-accessibility@kde.org
@@ -189,7 +189,7 @@ DatabaseHost=127.0.0.1
 DatabasePort=3306
 
 ; The database to use; Make sure that you run the supplied create script
-; before you use sscd
+; before you use SSCd
 DatabaseName=ssc
 
 ; The username to use when connecting to the DBMS

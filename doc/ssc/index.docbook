@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!ENTITY kmyapplication "<application>ssc</application>">
+  <!ENTITY kmyapplication "<application>SSC</application>">
   <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
                                             do *not* replace kappname-->
   <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
@@ -37,7 +37,7 @@
 <keyword>collection</keyword>
 <keyword>gathering</keyword>
 <keyword>model</keyword>
-<keyword>ssc</keyword>
+<keyword>SSC</keyword>
 <keyword>utility</keyword>
 </keywordset>
 
@@ -69,13 +69,13 @@
 <para>
   &kmyapplication; is a tool for large scale sample acquisition.</para>
 
-<para>Using &kmyapplication; multiple teams can gather training data from potential end users or professional speakers and collect them on the central sscd server.</para>
+<para>Using &kmyapplication; multiple teams can gather training data from potential end users or professional speakers and collect them on the central SSCd server.</para>
 
 <para>Like Simon / Simond, &kmyapplication; is a client to the SSCd server.</para>
 
-<para>&kmyapplication; will collect samples through training procedures and send them to the sscd server.</para>
+<para>&kmyapplication; will collect samples through training procedures and send them to the SSCd server.</para>
 
-<para>The system also collects useful metadata to the samples like names (or aliases) of the recorded people, their speaking niveau, possible impairments, etc. Information about the used recording equipment is also stored. This and other information is stored on the server side in a database. Please refer to the <ulink url="help:/sscd">sscd manual</ulink> for more information.</para>
+<para>The system also collects useful metadata to the samples like names (or aliases) of the recorded people, their speaking niveau, possible impairments, etc. Information about the used recording equipment is also stored. This and other information is stored on the server side in a database. Please refer to the <ulink url="help:/sscd">SSCd manual</ulink> for more information.</para>
 
 <para>For more information on the architecture of the Simon suite please see the <ulink url="help:/Simon/overview.html#architecture">Simon manual</ulink>.</para>
 
@@ -101,12 +101,12 @@
 </para>
 
 <para>
-  To use ssc connect to the sscd by pressing <guibutton>Connect</guibutton>. As soon as you are connected, the user interface will allow you to manage users and institutions and record new samples.</para>
-<para>To proceed without connecting to the sscd, you may use the <link linkend="offline_mode">offline mode</link>.
+  To use SSC connect to the SSCd by pressing <guibutton>Connect</guibutton>. As soon as you are connected, the user interface will allow you to manage users and institutions and record new samples.</para>
+<para>To proceed without connecting to the SSCd, you may use the <link linkend="offline_mode">offline mode</link>.
 </para>
 
 <para>
-  To collect samples for a user, simply enter the id of the user in the <guilabel>User ID</guilabel> input field and press <guibutton>Select</guibutton>. The user information will be fetched from the database (sscd) and the name of the user displayed.</para>
+  To collect samples for a user, simply enter the id of the user in the <guilabel>User ID</guilabel> input field and press <guibutton>Select</guibutton>. The user information will be fetched from the database (SSCd) and the name of the user displayed.</para>
 
 <sect1 id="manage_users">
   <title>Managing users</title>
@@ -156,7 +156,7 @@
 
     <sect3 id="institution_association">
       <title>Associating with an institution</title>
-      <para>Often institutions give unique ids to each patient to reference them in their computer system. &kmyapplication; can be configured to use those institution ids instead of the internal sscd identifiers. To connect a ssc user to the institution id add a new institution connection to the user by pressing <guibutton>Add</guibutton> below <guilabel>Institution(s):</guilabel>.</para>
+      <para>Often institutions give unique ids to each patient to reference them in their computer system. &kmyapplication; can be configured to use those institution ids instead of the internal SSCd identifiers. To connect a SSC user to the institution id add a new institution connection to the user by pressing <guibutton>Add</guibutton> below <guilabel>Institution(s):</guilabel>.</para>
 
       <para>
       <screenshot>
@@ -174,7 +174,7 @@
 
       <para>Simply enter the id of the institution the identifier originates from (you may want to use the <guibutton>Search</guibutton> to find institution ids) and the id that identifies the user in that institution.</para>
 
-      <para>For example: The speaker "Jack Jones" is currently a patient in institution #1. There he is patient "#520f". You can then add an institution association associating the speaker "Jack Jones" (internal sscd id "7")  with the institution "1" and institution id "520f". If &kmyapplication; is the configured to use institution specific ids of institution "1" you can refer to "Jack Jones" by using the id "520f" instead of "7".</para>
+      <para>For example: The speaker "Jack Jones" is currently a patient in institution #1. There he is patient "#520f". You can then add an institution association associating the speaker "Jack Jones" (internal SSCd id "7")  with the institution "1" and institution id "520f". If &kmyapplication; is the configured to use institution specific ids of institution "1" you can refer to "Jack Jones" by using the id "520f" instead of "7".</para>
     </sect3>
 
     <sect3 id="user_capabilities">
@@ -238,7 +238,7 @@
 
   <sect2 id="files">
     <title>Setting up training material</title>
-    <para>Before you can use ssc you will likely want to adjust the training prompts for the recordings.</para>
+    <para>Before you can use SSC you will likely want to adjust the training prompts for the recordings.</para>
     <para>They are three, one for each training type, simple text files containing one line per prompt. The encoding is UTF-8.</para>
     <para>Their location depends on your operation system:
       <table frame='all'><title>Training data files</title>
@@ -276,7 +276,7 @@
   <sect2 id="trainingprocess">
     <title>The training</title>
 
-    <para>To launch a training session, simply press the appropriate button for your training type in the ssc main window.</para>
+    <para>To launch a training session, simply press the appropriate button for your training type in the SSC main window.</para>
 
     <para>
     <screenshot>
@@ -443,7 +443,7 @@
 
   <para>Most of the time when working with &kmyapplication; you will want to connect to the server to access the remotely stored database containing users, institutions, etc. When recording samples you will also transfer them to the server directly in most cases.</para>
 
-  <para>Sometimes, though, you might not have a (trusted) internet connection available and still need to record samples with &kmyapplication;. For this purpose &kmyapplication; contains an offline mode allowing you to gather speech data without a connection to the sscd server.</para>
+  <para>Sometimes, though, you might not have a (trusted) internet connection available and still need to record samples with &kmyapplication;. For this purpose &kmyapplication; contains an offline mode allowing you to gather speech data without a connection to the SSCd server.</para>
 
   <para>In offline mode you cannot add, edit or view users or institutions. You can only gather new samples to send to the server later on through the <link linkend="stored_samples">stored samples</link> functionality.</para>
 
@@ -468,7 +468,7 @@
   </screenshot>
   </para>
 
-  <para>When you set up &kmyapplication; for a specific institution you might want to bind it directly to this institution. The user can then use the institution specific ids of the users (instead of the internal ssc ids) when referencing the users. To set up the bound institution, use the <guilabel>Use institution specific ids instead of ssc ids</guilabel> checkbox. For more information see the <link linkend="institution_association">section about institution associations</link>.</para>
+  <para>When you set up &kmyapplication; for a specific institution you might want to bind it directly to this institution. The user can then use the institution specific ids of the users (instead of the internal SSC ids) when referencing the users. To set up the bound institution, use the <guilabel>Use institution specific ids instead of SSC ids</guilabel> checkbox. For more information see the <link linkend="institution_association">section about institution associations</link>.</para>
 
   <para>The sound configuration is shared with the whole of the Simon application suite. Read more about it in <ulink url="help:/simon/configuration.html#soundconfiguration">Simon manual</ulink>.</para>
 </sect1>
