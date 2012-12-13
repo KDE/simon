@@ -277,8 +277,11 @@ bool ModelTest::prepareTestSet(QStringList& samples)
 
   QFile promptsFile(promptsPath);
 
-  if (!promptsFile.open(QIODevice::ReadOnly))
+  if (!promptsFile.open(QIODevice::ReadOnly)) {
+    //FIXME: Make translatable after string freeze
+    emit error("Failed to open prompts file at: " + promptsPath, QByteArray());
     return false;
+  }
 
   QStringList lineWords;
   QString line;
