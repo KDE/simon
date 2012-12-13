@@ -14,8 +14,8 @@
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 
-<date>2010-08-11</date>
-<releaseinfo>0.3</releaseinfo>
+<date>2012-12-13</date>
+<releaseinfo>0.4</releaseinfo>
 
 
 <abstract>
@@ -43,7 +43,7 @@
 <legalnotice>&FDLNotice;</legalnotice>
 
 <copyright>
-<year>2009-2010</year>
+<year>2009-2012</year>
 <holder>Peter Grasch</holder>
 </copyright>
 
@@ -98,24 +98,25 @@
 
 <para>
 <screenshot>
-<screeninfo>screenshot of the simond user configuration</screeninfo>
+<screeninfo>Screenshot of the Simond user configuration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="simond_user_config.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>simond user configuration</phrase>
+      <phrase>Simond user configuration</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para>simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users (which means you have to set up at least one user for simond to use it). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model.</para>
+<para>Simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users (which means you have to have at least one Simond user set up to use it). Every Simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model.</para>
+
 <para>The users are stored in a sqlite database that is managed through the <command>simonduserconfiguration</command> KCM.</para>
 
 <para>This database is stored depending on your operating system:
 
-<table frame='all'><title>simond user database storage</title>
+<table frame='all'><title>Simond user database storage</title>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
 <colspec colname='c2'/>
@@ -135,17 +136,17 @@
 </table>
 </para>
 
-<para>simond does come with a default user so you don't have to add a user before you can connect simon to the simond server.</para>
+<para>Simond does come with a default user so you don't have to add a user before you can connect Simon to the Simond server.</para>
 
 <para>The default user name is "default" and the password is "nopassword".</para>
 
-<para>The password of the users will be hashed and cannot be shown in cleartext. When a user forgets his or her password there is no way to retrieve the original password from the simond database but you can reset it using the "Change Password" button.</para>
+<para>The password of the users will be hashed and cannot be shown in cleartext. When a user forgets his or her password there is no way to retrieve the original password from the Simond database but you can reset it using the "Change Password" button.</para>
 
 <para>When removing a user from the database which already has a speech model associated with him, you will be prompted if you also want to remove the model. If you select no and add a user with the same name later on, he will start off with this speech model.</para>
 
-<para>When selecting the <guibutton>Keep recognition samples</guibutton> option the samples the recognition works on are not deleted. This means that during normal operation, users will gather everything they say with the most likely transcription returned by &kmyapplication;. This can be used to automatically gather training data while using simon. The samples will be stored in different locations depending on your operation system:
+<para>When selecting the <guibutton>Keep recognition samples</guibutton> option the samples the recognition works on are not deleted. This means that during normal operation, users will gather everything they say with the most likely transcription returned by &kmyapplication;. This can be used to automatically gather training data while using Simon. The samples will be stored in different locations depending on your operation system:
 
-<table frame='all'><title>simond recognition sample storage</title>
+<table frame='all'><title>Simond recognition sample storage</title>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
 <colspec colname='c2'/>
@@ -164,6 +165,8 @@
 </tgroup>
 </table>
 </para>
+
+<para>When multiple clients connect to Simond with the same username simultaneously, they will use a joint recognition instance. In practice, this means that multiple clients can provide audio data (multiple microphones) and all connected clients with the same username will receive all results of this data. To avoid this behavior and instead force separate recognition paths, activate <guibutton>Isolated Mode</guibutton>.</para>
 </sect1>
 
 <sect1 id="network_configuration">
@@ -173,41 +176,45 @@
 <note><para>If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine.</para></note>
 <para>
 <screenshot>
-<screeninfo>screenshot of the simond network configuration</screeninfo>
+<screeninfo>screenshot of the Simond network configuration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="simond_network_config.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>simond network configuration</phrase>
+      <phrase>Simond network configuration</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para>The port can be changed freely. The default of 4444 is however not occupied by any major application or protocol and thus recommended. If you adjust the port here, make sure you also make the necessary adjustments on your simon clients.</para>
+<para>The port can be changed freely. The default of 4444 is however not occupied by any major application or protocol and thus recommended. If you adjust the port here, make sure you also make the necessary adjustments on your Simon clients.</para>
 
-<para>Using the option to "Only allow connections from" you can restrict the access to your server from anywhere but the given IP address. By default this is configured to only allow (simon) connections from the local host which only allows for local simon clients to connect to the server.</para>
-<para>This is simply a security measure because it effectively blocks connections from anywhere else (even if the attacker knows your simon username and password). To allow connections from other hosts simply uncheck the checkbox.</para>
+<para>Using the option to "Only allow connections from" you can restrict the access to your server from anywhere but the given IP address. By default this is configured to only allow (Simon) connections from the local host which only allows for local Simon clients to connect to the server.</para>
+<para>This is simply a security measure because it effectively blocks connections from anywhere else (even if the attacker knows your Simon username and password). To allow connections from other hosts simply uncheck the checkbox.</para>
+
+<para>Furthermore, write access can be restricted to a specific host. This allows to run "public" servers, where users can connect and use the recognition but are not allowed to initiate any form of synchronization.</para>
 
 <para>Protocol encryption is not yet implemented.</para>
 </sect1>
 
 <sect1 id="speech_model_compilation_configuration">
 <title>Speech Model Compilation Configuration</title>
-<para>simon compiles the speech model by utilizing external software.</para>
+<para>Simon compiles the speech model by utilizing external software.</para>
 
-<para>While simon will find the needed executables automatically if they are in your systems path, you can also override those automatic values in this configuration page.</para>
+<para>While Simon will find the needed executables automatically if they are in your systems path, you can also override those automatic values in this configuration page.</para>
+
+<para>Here you can also change the selected recognition backend in case of user generated models. Depending on your Simon installation, not all backends might be available.</para>
 
 <para>
 <screenshot>
-<screeninfo>screenshot of the speech model compilation configuration</screeninfo>
+<screeninfo>Screenshot of the speech model compilation configuration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="simond_speech_model_config.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>simond speech model configuration</phrase>
+      <phrase>Simond speech model configuration</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
@@ -234,11 +241,11 @@ In an effort to keep this section always up-to-date it is available at our <ulin
 &kmyapplication;
 </para>
 <para>
-Program copyright 2008-2010 Peter Grasch <email>peter.grasch@bedahr.org</email>
+Program copyright 2008-2012 Peter Grasch <email>peter.grasch@bedahr.org</email>
 </para>
 
 <para>
-Documentation Copyright &copy; 2009-2010 Peter Grasch <email>peter.grasch@bedahr.org</email>
+Documentation Copyright &copy; 2009-2012 Peter Grasch <email>peter.grasch@bedahr.org</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
