@@ -857,15 +857,19 @@ void SamView::getBuildPathsFromSimon()
   ui.leScriptPrefix->setText("Simon/scripts");
 
   ModelCompilationAdapter::AdaptionType adaptionType = ModelCompilationAdapter::None;
-  if (modelType == 0 /*static*/)
-    adaptionType = ModelCompilationAdapter::AdaptLanguageModel;
-  else
+  QString promptsPath = KStandardDirs::locate("data", "simon/model/prompts");
+  bool hasPrompts = QFile::exists(promptsPath);
+  if (hasPrompts || (modelType != 0 /*static*/)) {
     adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel |
                                                             ModelCompilationAdapter::AdaptAcousticModel);
+    if (hasPrompts)
+      adaptionType = (ModelCompilationAdapter::AdaptionType) (adaptionType | ModelCompilationAdapter::AdaptIndependently);
+  } else
+    adaptionType = ModelCompilationAdapter::AdaptLanguageModel;
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
   QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
-                    adaptionType, scenarioPaths, KStandardDirs::locate("data", "simon/model/prompts"),
+                    adaptionType, scenarioPaths, promptsPath,
                     genAdaptionArgs(KStandardDirs::locateLocal("tmp", "sam/model/")));
 }
 
