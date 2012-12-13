@@ -1,12 +1,8 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!-- Define an entity for your application if it is not part of KDE
-       CVS -->
   <!ENTITY kmyapplication "<application>Simon</application>">
   <!ENTITY kappname "&kmyapplication;">
-  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
-                                     this unchanged if your
-                                     application is not maintained in KDE CVS -->
+  <!ENTITY package "kde-module">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 
@@ -3296,11 +3292,6 @@ In an effort to keep this section always up-to-date it is available at our <ulin
 </chapter>
 
 <chapter id="credits">
-
-<!-- Include credits for the programmers, documentation writers, and
-contributors here. The license for your software should then be included below
-the credits with a reference to the appropriate license file included in the KDE
-distribution. -->
 
 <title>Credits and License</title>
 
