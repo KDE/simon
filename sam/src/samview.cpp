@@ -95,7 +95,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   KAction* getPathsFromSimon = new KAction(this);
   getPathsFromSimon->setText(i18n("Modify Simon's model"));
   getPathsFromSimon->setStatusTip(i18n("Manage Simon's current model with SSC"));
-  getPathsFromSimon->setIcon(KIcon("Simon"));
+  getPathsFromSimon->setIcon(KIcon("simon"));
   actionCollection()->addAction("getPathsFromSimon", getPathsFromSimon);
   connect(getPathsFromSimon, SIGNAL(triggered(bool)),
           this, SLOT(getBuildPathsFromSimon()));
