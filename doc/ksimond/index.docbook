@@ -190,37 +190,10 @@ Documentation Copyright &copy; 2010 Peter Grasch <email>peter.grasch@bedahr.org<
 
 </chapter>
 
+
 <appendix id="installation">
 <title>Installation</title>
-
-<sect1 id="getting-kapp">
-<title>How to obtain &kappname;</title>
-
-<para>
-Download the latest version of KSimond using the Simon-bundle available from <ulink url="http://sourceforge.net/projects/speech2text">sourceforge</ulink>.
-</para>
-</sect1>
-
-<sect1 id="requirements">
-<title>Requirements</title>
-
-<para>
-In order to successfully use &kappname;, you need &kde; 4. Simond is obviously also
-required.
-</para>
-
-<para>
-Simon and Simond itself can be found on <ulink url="http://sourceforge.net/projects/speech2text">the Simon sourceforge page</ulink>.
-</para>
-
-</sect1>
-
-<sect1 id="compilation">
-<title>Compilation and Installation</title>
-
-<para>Please see our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Installation">wiki</ulink> for install instructions.</para>
-</sect1>
-
+<para>Please see our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Installation">wiki</ulink> for installation instructions.</para>
 </appendix>
 
 &documentation.index;
