@@ -103,7 +103,7 @@
           </size>
          </property>
          <property name="icon">
-          <string>system-run</string>
+          <string notr="true">system-run</string>
          </property>
         </widget>
        </item>
@@ -152,14 +152,14 @@
    <header>kicondialog.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KTextEdit</class>
