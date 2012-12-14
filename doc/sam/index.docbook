@@ -175,6 +175,29 @@
 
 </sect1>
 
+<sect1 id="conservative_training">
+<title>Conservative Training</title>
+<para>If you have <ulink url="help:/simond/using-kapp.html#User_Configuration">configured Simond to keep recognition samples</ulink>, Sam can import this data through the <guibutton>Import recognition samples</guibutton> option in the "Input &amp; output" section.</para>
+
+<para>
+<screenshot>
+<screeninfo>Conservative training</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="conservative_training.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Conservative training</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>The label of the prompts file will be built automatically from the most likely recognition result. You can limit the selection to only include samples that achieved a given confidence score.</para>
+
+<para>If the Simon setup you're importing the samples from uses a <ulink url="help:/simon/commands.html#filter_command_plugin">global filter to deactivate recognition</ulink>, then you can provide Sam with the command that activates and deactivates this filter (pausing and resuming the recognition, respectively) to ignore any samples produced while the recognition was deactivated.</para>
+</sect1>
+
 <sect1 id="adapt_scenarios">
   <title>Adapt scenarios</title>
 
