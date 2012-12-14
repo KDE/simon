@@ -487,6 +487,69 @@
   </sect2>
 </sect1>
 
+
+
+
+<sect1 id="command_line_args">
+  <title>Command line arguments</title>
+
+  <para>&kmyapplication; provides command line arguments for the most common actions to automatize model creation and testing.</para>
+
+  <para>All actions provided as command line arguments will be taken immediately after &kmyapplication; has loaded. Options that build on one another (like compiling and testing) will be re-ordered automatically.</para>
+
+<table frame='all'><title>Command line arguments</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Argument</entry>
+  <entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry><parameter>-m &lt;type&gt;</parameter></entry>
+  <entry>Selects the used backend; Provide either "sphinx" or "htk" to select the specified backend. Depending on your installation, "sphinx" might not be available.</entry>
+</row>
+<row>
+  <entry><parameter>-s</parameter></entry>
+  <entry>Retrieves all paths from Simon; (equivalent to <guibutton>Modify Simon's model</guibutton>)</entry>
+</row>
+<row>
+  <entry><parameter>-c</parameter></entry>
+  <entry>Starts the model compilation;</entry>
+</row>
+<row>
+  <entry><parameter>-t</parameter></entry>
+  <entry>Starts the model test;</entry>
+</row>
+<row>
+  <entry><parameter>-e &lt;filename&gt;</parameter></entry>
+  <entry>Exports a report to the given filename;</entry>
+</row>
+<row>
+  <entry><parameter>-b</parameter></entry>
+  <entry>Enables batch processing; &kmyapplication; will quit automatically after all arguments have been processed. The main window will not be shown.</entry>
+</row>
+<row>
+  <entry><parameter>-l &lt;filename&gt;</parameter></entry>
+  <entry>Export the complete build log to the given file;</entry>
+</row>
+<row>
+  <entry><parameter>-w</parameter></entry>
+  <entry>Automatically safe any opened &kmyapplication; project file when exiting the application;</entry>
+</row>
+<row>
+  <entry><parameter>&lt;filename&gt;</parameter></entry>
+  <entry>Load this &kmyapplication; project file during startup.</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</sect1>
+
 </chapter>
 
 
