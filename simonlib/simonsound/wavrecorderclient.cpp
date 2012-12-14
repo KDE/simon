@@ -97,7 +97,7 @@ bool WavRecorderClient::finish()
     absoluteMinAverage = 1;
 
   //ratio is in percent
-  float ratio = (loudness->absolutePeak() / absoluteMinAverage) * 100;
+  float ratio = ((float) loudness->absolutePeak() / (float) absoluteMinAverage) * 100;
   kDebug() << "Ratio: " << ratio;
 
   if (ratio < SoundConfiguration::minimumSNR())
@@ -108,6 +108,8 @@ bool WavRecorderClient::finish()
     succ = false;
   wavData->deleteLater();
   wavData = 0;
+
+  loudness->reset();
 
   return succ;
 }
