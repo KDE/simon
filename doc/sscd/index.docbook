@@ -13,12 +13,12 @@
 
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
-<date>2010-08-11</date>
-<releaseinfo>0.3</releaseinfo>
+<date>2012-12-13</date>
+<releaseinfo>0.4</releaseinfo>
 
 <abstract>
 <para>
-&kmyapplication; is the server component of the SSC sample acquisition tool. 
+&kmyapplication; is the server component of the SSC sample acquisition tool.
 </para>
 </abstract>
 
@@ -38,7 +38,7 @@
 <legalnotice>&FDLNotice;</legalnotice>
 
 <copyright>
-<year>2009-2010</year>
+<year>2009-2012</year>
 <holder>Peter Grasch</holder>
 </copyright>
 
@@ -173,6 +173,16 @@ BindHost=127.0.0.1
 
 </sect1>
 
+<sect1 id="locked_mode">
+  <title>Locked mode</title>
+
+
+  <para>SSCd optionally takes the command line argument "-l" (or "--locked") to turn on "locked" mode (off by default).</para>
+
+  <para>In locked mode, clients can still connect and upload samples as well as create new microphones and sound cards but do not have any access (read or write) to any personal- or institutional data besides the users name and id. This can be helpful to limit the amount of private patient information shown to recoding teams.</para>
+
+  <para>While locked mode is active, there is also no search of users so make sure your recording team is provided with a list of user ids beforehand.</para>
+</sect1>
 
 <sect1 id="extracting_samples">
   <title>Extracting collected samples</title>

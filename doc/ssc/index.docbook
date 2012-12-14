@@ -14,8 +14,8 @@
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 
-<date>2010-08-14</date>
-<releaseinfo>0.3</releaseinfo>
+<date>2012-12-14</date>
+<releaseinfo>0.4</releaseinfo>
 
 <abstract>
 <para>
@@ -41,7 +41,7 @@
 <legalnotice>&FDLNotice;</legalnotice>
 
 <copyright>
-<year>2009-2010</year>
+<year>2009-2012</year>
 <holder>Peter Grasch</holder>
 </copyright>
 
