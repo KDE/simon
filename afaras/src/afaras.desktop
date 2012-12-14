@@ -27,6 +27,7 @@ Name[zh_CN]=afaras
 Exec=afaras %i -caption "%c"
 Icon=afaras
 Type=Application
+X-DocPath=afaras/index.html
 GenericName=Find and remove bad samples
 GenericName[ca]=Cerca i elimina les mostres dolentes
 GenericName[de]=Schlechte Aufnahmen suchen und entfernen
