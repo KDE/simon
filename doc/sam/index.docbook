@@ -167,7 +167,7 @@
 </para>
 
 <para>
-  Since Simon 0.4, the primary file format for models is the newly introduced SBM format. While Sam will also create SBM models, the testing still requires low level input files. This may seem counter intuitive but presents certain advantages in practice: The Simon model compilation (and thus also the SAM model compilation) still builds the low level output files for both SPHINX and HTK model compilers before packaging them into SBMs so pointing SAM to these (temporary) files is not difficult and in fact the default when using <guibutton>Modify Simon's model</guibutton>. Because acoustic model compilation is typically an iterative process, the compiler typically producees multiple temporary versions of different stages of parameter estimation. By allowing low level input, testing and comparing these intermediate results is much easier.
+  Since Simon 0.4, the primary file format for models is the newly introduced SBM format. While Sam will also create SBM models, the testing still requires low level input files. This may seem counter intuitive but presents certain advantages in practice: The Simon model compilation (and thus also the SAM model compilation) still builds the low level output files for both SPHINX and HTK model compilers before packaging them into SBMs so pointing SAM to these (temporary) files is not difficult and in fact the default when using <guibutton>Modify Simon's model</guibutton>. Because acoustic model compilation is typically an iterative process, the compiler typically produces multiple temporary versions of different stages of parameter estimation. By allowing low level input, testing and comparing these intermediate results is much easier.
 </para>
 <para>
   If you want to test a model you received as a SBM container, you can extract it with SAM through the <guibutton>Extract Simon Model</guibutton> option to gain access to the low level input files required for testing with &kmyapplication;.
@@ -366,7 +366,7 @@
     <title>Templates</title>
     <para>Reports are created by filling in templates with information. Principally, these templates are either plain text files or LaTeX files.</para>
 
-    <para>Three templates of LaTeX templates, two German and one English one, are shipped with &kmyapplication; but adding new ones is easy. Just install add new templates to one of the following locations depending on your operating system:
+    <para>Three templates of LaTeX templates, two German and one English one, are shipped with &kmyapplication; but adding new ones is easy. Just install new templates to one of the following locations depending on your operating system:
 
     <itemizedlist>
       <listitem><para>Linux: <filename>~/.kde/share/apps/sam/reports/templates</filename></para></listitem>
