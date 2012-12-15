@@ -1395,7 +1395,7 @@ However, if you want more control you can instruct Simon to ask you before start
     </mediaobject>
   </screenshot>
 </para>
-<para>You can provide any Url. &kmyapplication; will replace any instance of "%1" within the configured Url with the text to synthesize. The backend expects the queried webservice to return a <filename>.wav</filename> file that will be streamed and outputted through &kmyapplication's sound layer - respecting the <link linkend="soundconfiguration_device">sound device configuration</link>.</para>
+<para>You can provide any Url. &kmyapplication; will replace any instance of "%1" within the configured Url with the text to synthesize. The backend expects the queried webservice to return a <filename>.wav</filename> file that will be streamed and outputted through &kmyapplication;'s sound layer - respecting the <link linkend="soundconfiguration_device">sound device configuration</link>.</para>
 </sect3>
 </sect2>
 
