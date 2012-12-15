@@ -15,12 +15,12 @@
 <title>The &kmyapplication; Handbook</title>
 
 <copyright>
-<year>2008-2010</year>
+<year>2008-2012</year>
 <holder>Peter Grasch</holder>
 </copyright>
 
-<date>2010-07-25</date>
-<releaseinfo>0.3</releaseinfo>
+<date>2012-12-14</date>
+<releaseinfo>0.4</releaseinfo>
 
 <legalnotice>&FDLNotice;</legalnotice>
 
@@ -101,7 +101,7 @@ The main recognition architecture of Simon consists of three applications.
 </para>
 
 <para>
-These three components form a real client / server solution for the recognition. That means that there is one server (Simond) for one or more clients (&kmyapplication;; this application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with Simond graphically.
+These three components form a real client / server solution for the recognition. That means that there is one server (Simond) for one or more clients (&kmyapplication;; this application). KSimond is just a front-end for Simond which means it adds no functionality to the system but rather provides a way to interact with Simond graphically.
 </para>
 
 <para>
@@ -109,6 +109,7 @@ Additionally to the Simon, Simond and KSimond other, more specialized applicatio
 <itemizedlist>
   <listitem><para>Sam</para><para>Provides more in-depth control to your speech model and allows to test the acoustic model.</para></listitem>
   <listitem><para>SSC / SSCd</para><para>These two applications can be used to collect large amount of speech samples from different persons more easily.</para></listitem>
+  <listitem><para>Afaras</para><para>This simple utility allows users to quickly check large corpora of speech data for errenous samples.</para></listitem>
 </itemizedlist>
 </para>
 
@@ -128,15 +129,1368 @@ Please refer to the individual handbooks of those applications for more details.
 </screenshot>
 </para>
 
-<para>&kmyapplication; is used to create and maintain a representation of your pronunciation and language. This representation is then sent to the server simond which compiles it into a usable speech model.</para>
-<para>&kmyapplication; then records sound from the microphone and transmits it to the server which runs the recognition on the received input stream. simond sends the recognition result back to the client (&kmyapplication;).</para>
+<para>&kmyapplication; is used to create and maintain a representation of your pronunciation and language. This representation is then sent to the server Simond which compiles it into a usable speech model.</para>
+<para>&kmyapplication; then records sound from the microphone and transmits it to the server which runs the recognition on the received input stream. Simond sends the recognition result back to the client (&kmyapplication;).</para>
 <para>&kmyapplication; then uses this recognition result to execute commands like opening programs, following links, &etc;</para>
 
-<para>simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users. By default a standard user is set up in both simon and simond so the typical use case of one simond server per simon client will work <quote>out of the box</quote>.</para>
-<para> Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond server. One simond instance can of course also serve multiple users.</para>
-<para>If you want to open up the server to the Internet or use multiple users on one server, you will have to configure simond. Please see the <ulink url="help:/simond">simond manual</ulink> for details.
+<para>Simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users. By default a standard user is set up in both Simon and Simond so the typical use case of one Simond server per Simon client will work <quote>out of the box</quote>.</para>
+<para> Every Simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical Simon instances) simply by accessing the same Simond server. One Simond instance can of course also serve multiple users.</para>
+<para>If you want to open up the server to the Internet or use multiple users on one server, you will have to configure Simond. Please see the <ulink url="help:/simond">Simond manual</ulink> for details.
 </para>
 </sect1>
+
+<sect1 id="needed_parts">
+<title>Required Resources for a Working &kmyapplication; Setup</title>
+
+<note>
+<para>
+For background information about speech models, please refer to the <link linkend="speech_model">Speech Recognition: Background section</link>.
+</para>
+</note>
+
+<para>To get Simon to recognize speech and react to it you need to set up a speech model.</para>
+
+<para>Speech models describe how your voice sounds, what words exist, how they sound and what word combination (<quote>sentences</quote> or <quote>structures</quote>) exist.</para>
+
+<para>A speech model basically consists of two parts:
+<itemizedlist>
+<listitem><para>Language model: Describes all existing words and what sentences are grammatically correct </para></listitem>
+<listitem><para>Acoustic model: Describes how words sound </para></listitem>
+</itemizedlist>
+</para>
+
+<para>You need both these components to get Simon to recognize your voice.</para>
+
+<para>In Simon, the language model will be created from your active <emphasis>scenarios</emphasis> and the acoustic model will be either built solely through your voice recordings (training) or with the help of a <emphasis>base model</emphasis>.</para>
+
+<sect2 id="scenarios">
+<title>Scenarios</title>
+
+<para>
+One scenario makes up one complete use case of Simon. To control Firefox, for example, the user just installs the Firefox scenario.
+</para>
+
+<para>
+In other words, scenarios tell Simon what words and phrases to listen for and what to do when they are recognized.
+</para>
+
+<para>
+Because scenarios do not contain information about how these words and phrases actually sound, they can be shared and exchanged between different Simon users without problems. To accommodate this community based repository pool, a <ulink url="http://kde-files.org/index.php?xcontentmode=692">category for Simon scenarios has been created on kde-files.org</ulink> where the scenarios, which are just simple text files (XML format), can be exchanged easily.
+</para>
+
+<para>
+In most cases scenarios are tailored to work best with a specific <link linkend="base_model">base model</link> to avoid <link linkend="phoneme_set_issues">issues with the phoneme set</link>.
+</para>
+
+<para>
+Every Scenario contains the following components:
+<itemizedlist>
+<listitem><para><link linkend="vocabulary">Vocabulary</link>&nbsp;</para></listitem>
+<listitem><para><link linkend="grammar">Grammar</link>&nbsp;</para></listitem>
+<listitem><para><link linkend="training">Training texts</link>&nbsp;</para></listitem>
+<listitem><para><link linkend="context">Context</link>&nbsp;</para></listitem>
+<listitem><para><link linkend="commands">Commands</link>&nbsp;</para></listitem>
+</itemizedlist>
+</para>
+
+
+<para>
+For information on how to use scenarios in Simon, please refer to the <link linkend="scenarios_use">Scenario section in the Use Simon chapter</link>.
+</para>
+</sect2>
+
+<sect2 id="base_model">
+<title>Acoustic model</title>
+
+<para>As mentioned above, you need an acoustic model to activate Simon.</para>
+
+<para>You can either create your own or use and even adapt a base model. Base models are already generated, most often speaker independent, acoustic models that can be used with Simon.</para>
+
+<para>The following table shows what is required, depending on your Simon configuration:
+
+<table frame='all'><title>Ways to an acoustic model</title>
+<tgroup cols='4' align='left' colsep='1' rowsep='1'>
+<thead>
+<row>
+  <entry></entry>
+  <entry>Training required</entry>
+  <entry>Base model required</entry>
+  <entry><link linkend="model_backends">Model creation backend</link> required</entry>
+</row>
+</thead>
+<tbody>
+<row> <entry>Static base model</entry>
+  <entry>No</entry>
+  <entry>Yes</entry>
+  <entry>No</entry>
+</row>
+<row>
+  <entry>Adapted base model</entry>
+  <entry>Yes</entry>
+  <entry>Yes</entry>
+  <entry>Yes</entry>
+</row>
+<row>
+  <entry>User-generated model</entry>
+  <entry>Yes</entry>
+  <entry>No</entry>
+  <entry>Yes</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+
+<sect3 id="model_backends">
+<title>Backends</title>
+
+<para>
+Simon uses external software to build acoustic models and to recognize speech.
+</para>
+
+<para>
+Usually, these backends can be split into two distinct components: The "model compiler" or "model generation" backend used to create or adapt acoustic models and the "recognizer" used to recognize speech with the help of these models.
+</para>
+
+<para>
+Not all operation modes of Simon will require a model compiler backend. Please refer to the next section about details on when this is the case.
+</para>
+
+<para>Two different backends are supported:
+
+<itemizedlist>
+<listitem><para>Julius / HTK</para>
+<para>Models will be created with the <ulink url="http://htk.eng.cam.ac.uk">HTK</ulink>. <ulink url="http://julius.sourceforge.jp/en_index.php">Julius</ulink> will be used as recognizer.</para>
+<para>To use this backend, please make sure that you have an up-to-date version of both these tools installed.</para>
+</listitem>
+<listitem><para>CMU SPHINX</para>
+<para>This backend, also often simply referred to as "SPHINX backend", uses the PocketSphinx recognizer and the SphinxTrain model generation backend. Please refer to the <ulink url="http://cmusphinx.sourceforge.net/">CMU SPHINX website</ulink> for more details.</para>
+<para>The CMU SPHINX backend requires that Simon is built with the optional SPHINX support. If you have not compiled Simon from source, please refer to your distribution for more information.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>If you are using base models, Simon will automatically select the appropriate backend for you. However, if you want to build your own models from scratch (user-generated model, see below) and have a certain preference, please <ulink url="help:/simond/speech_model_compilation_configuration.html">refer to the Simond configuration</ulink> for more information.</para>
+
+<para>Base models created for one backend are not compatible with any other backend. Please refer to the <link linkend="base_model_compatibility">compatibility matrix</link> for details.</para>
+</sect3>
+
+<sect3 id="base_model_types">
+<title>Types of base models</title>
+
+<para>
+There are three types of base models:
+
+<itemizedlist>
+<listitem><para>Static base model</para>
+</listitem>
+<listitem><para>Adapted base model</para>
+</listitem>
+<listitem><para>User-generated model</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>
+For information on how to use base models in Simon, please refer to the <link linkend="base_model_use">Base Models section in the Use Simon chapter</link>.
+</para>
+
+<sect4 id="base_model_static">
+<title>Static base model</title>
+
+<para>Static base models simply use a pre-compiled acoustic model without modifying it.</para>
+
+<para>Any training data collected through Simon will not be used to improve the recognition accuracy.</para>
+
+<para>This type of model <emphasis>does not</emphasis> require the model creation backend to be installed.</para>
+
+</sect4>
+
+<sect4 id="base_model_adapted">
+<title>Adapted base model</title>
+
+<para>By adapting a pre-compiled acoustic model you can improve accuracy by adapting it to your voice.</para>
+
+<para>Collected training data will be compiled in a adaption matrix which will then be applied to the selected base model.</para>
+
+<para>This type of model <emphasis>does</emphasis> require the model creation backend to be installed.</para>
+
+</sect4>
+
+<sect4 id="base_model_user_generated">
+<title>User-generated model</title>
+
+<para>When using user-generated models, the user is responsible for training his own model. No base model will be used.</para>
+
+<para>The training data will be used to compile your own acoustic model allowing you to create a system which directly reflects your voice.</para>
+
+<para>This type of model <emphasis>does</emphasis> require the model creation backend to be installed.</para>
+</sect4>
+
+</sect3>
+
+<sect3 id="base_model_compatibility">
+<title>Requirements</title>
+
+<para>
+To build, adapt or use acoustic models of different types, certain software needs to be installed.
+
+<table frame='all'><title>Base model requirements</title>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>CMU SPHINX</entry>
+  <entry>Julius / HTK</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Static base model</entry>
+  <entry>PocketSphinx</entry>
+  <entry>Julius</entry>
+</row>
+<row>
+  <entry>Adapted base model</entry>
+  <entry>SphinxTrain, PocketSphinx</entry>
+  <entry>HTK, Julius</entry>
+</row>
+<row>
+  <entry>User-generated model</entry>
+  <entry>SphinxTrain, PocketSphinx</entry>
+  <entry>HTK, Julius</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+
+<para>
+All four tools, HTK, Julius, PocketSphinx and SphinxTrain, can safely be installed at the same time.
+</para>
+<para>
+SPHINX support in Simon must be enabled during compile time and might not be available on your plattform. Please refer to your distribution.
+</para>
+<para>
+Note: The Simon Windows installer includes Julius, PocketSphinx and SphinxTrain but not the HTK. Please refer to the <link linkend="installation">installation section</link> for information on how to install it should you find the need for it.
+</para>
+</sect3>
+
+<sect3 id="base_model_get">
+<title>Where to get base models</title>
+
+<para>
+Simon base models are packaged as <filename>.sbm</filename> files. If you happen to have raw model files for your backend, you can package them into a compatible SBM container within Simon. Please refer to the <link linkend="configuration_speechmodel">speech model configuration</link> for details.
+</para>
+
+<para>
+Not all SBM models may work for you. Please refer to the <link linkend="model_backends">model backends section</link> for details.
+</para>
+
+<para>
+To keep this list of available base models up to date, please refer to <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Base_models#Where_to_get_base_models">the list in our online wiki</ulink>.
+</para>
+</sect3>
+
+<sect3 id="phoneme_set_issues">
+<title>Phoneme set issues</title>
+
+<para>In order for base models to work, both your scenarios and your base model need to use the same set of phonemes.</para>
+
+<para>In practice, this often just means that you need to <emphasis>match scenarios to your base model</emphasis>. The name of &kmyapplication; base models will most likely start with a tag like "[EN/VF/JHTK]". Try to download scenarios that start with the same tag.</para>
+
+<para>
+You can not use scenarios designed for different phoneme set (different base model). If Simon recognizes this error, it will try to disable affected words by removing the from the created speech model. These words will be marked with a red background in the vocabulary of the scenario. To re-enable them, transcribe them with the proper phoneme set or use a user-generated model.
+</para>
+
+<para>Hint: If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way Simon will suggest the <quote>correct</quote> phonemes when adding the words automatically.</para>
+</sect3>
+</sect2>
+</sect1>
+
+</chapter>
+
+
+<chapter id="using-simon">
+<title>Using &kmyapplication;: Typical user</title>
+
+<para>The following sections will describe how to use Simon.</para>
+
+<sect1 id="first_run">
+<title>First run wizard</title>
+
+<para>On the first start of Simon, this assistant will guide you through the initial configuration of &kmyapplication;.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>First run: Welcome</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="first_run_1.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>The configuration consists of five easy steps which are outlined below. You can skip each step and even the whole wizard if you want to - in that case, the system will be set up with default values.</para>
+
+<para>However, please note that without any configuration, ther won't be any recognition.</para>
+
+<sect2 id="first_run_scenarios">
+<title>Scenarios</title>
+
+<para>In this step you can add or download <link linkend="scenarios">scenarios</link>.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>First run: Scenarios</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="first_run_2.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>To download scenarios from the online respository, select <menuchoice><guimenuitem>Open</guimenuitem><guimenuitem>Download</guimenuitem></menuchoice> to open the download dialog pictured below.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>First run: Get scenarios</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="get_hot_new_scenarios_1.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
+
+<para>After completing the assitant, you can change the scenario configuration with the use of the <link linkend="administrating_scenarios">scenario management dialog</link>.</para>
+
+<para>If you are planning to use a <link linkend="base_model">base model</link>, make sure that you download <link linkend="phoneme_set_issues">matching scenarios</link>.</para>
+
+</sect2>
+
+
+<sect2 id="first_run_basemodels">
+<title>Base models</title>
+
+<para>In this step you can set up Simon to use <link linkend="base_model">base models</link>.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>First run: Base models</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="first_run_3.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>Again, you can download base models from an online repository through <menuchoice><guimenuitem>Open model</guimenuitem><guimenuitem>Download</guimenuitem></menuchoice>.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>First run: Base model download</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="base_model_settings_2.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>To use a user-generated model, select <guimenuitem>Do not use a base model</guimenuitem>.</para>
+
+<para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="base_model_use">Simon configuration</link>.</para>
+
+</sect2>
+
+<sect2 id="first_run_server">
+<title>Server</title>
+
+<para>Internally, Simon is a <link linkend="architecture">server / client application</link>. If you want to take advantage of a network based installation, you can provide the server address here.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>First run: Server</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="first_run_4.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>The default configuration is sufficient for a <quote>normal</quote> installation and will assume that you use a local Simond server that will be automatically be started and stopped with Simon.</para>
+
+<para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="configure_server">server configuration</link>.</para>
+
+</sect2>
+
+<sect2 id="first_run_sound_configuration">
+<title>Sound configuration</title>
+
+<para>Because Simon recognizes sound from one or more microphones, you have to tell Simon which devices you want to use for recognition and training.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>First run: Sound configuration</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="first_run_5.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>Simon can use one or more input- and output devices for different tasks. You can find more information about Simon's multiple device capabilities in the <link linkend="soundconfiguration_device">Simon sound configuration section</link>.</para>
+
+<para>If you don't have at least one working input device for recognition, you will not be able to activate Simon.</para>
+
+<para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="soundconfiguration_device">sound configuration</link>.</para>
+
+</sect2>
+
+<sect2 id="first_run_volume_calibration">
+<title>Volume calibration</title>
+
+<para>For Simon to work correctly, you need to configure your microphones volume to a sensible level.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>First run: Volume calibration</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="first_run_6.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>For more details on this, please see the general section about <link linkend="volume_calibration">Volume Calibration</link>.</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="main_window">
+<title>The Simon Main Window</title>
+<para>
+<screenshot>
+<screeninfo>A screenshot of &kmyapplication;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot_main.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<para>The Simon main window is split into four logical sections. On the top left, you can see the scenario section, to its right you find the training section, on the bottom left is the acoustic model and finally, on the right of that, the recognition section.</para>
+
+<para>
+The Simon main window can be hidden at any time by clicking on the Simon logo in the system tray (usually next to the system clock in the task bar) which will minimize Simon to the tray. Click it again to show the main window again.
+</para>
+
+<sect2>
+<title>Main window: Scenarios</title>
+
+<para>A list of scenarios shows the currently loaded scenarios. You can manage this selection by clicking <guibutton>Manage scenarios</guibutton> which will open the <link linkend="administrating_scenarios">scenario management dialog</link>.</para>
+
+<para>To <link linkend="scenarios_use">edit a scenario</link>, select it from the list and open it by pressing <guibutton>Open "&lt;name&gt;"</guibutton>.</para> <!-- FIXME: fix link -->
+</sect2>
+
+<sect2>
+<title>Main window: Training</title>
+
+<para>This section shows all training texts from all currently active scenarios.</para>
+
+<para>Selecting a training text will highlight the parent scenario in the scenario section.</para>
+
+<para>You can start to <link linkend="training_in_progress">train the recognition</link> by selecting a text and clicking on <guibutton>Start training</guibutton>.</para>
+
+<para>The gathered training corpus can be managed by selecting <guibutton>Manage training data</guibutton> which will open the <link linkend="sample_management">sample management dialog</link>.</para>
+
+<para>To help build a general, open speech corpus, please consider contributing your training corpus to the <ulink url="http://voxforge.org">Voxforge</ulink> project by selecting <menuchoice><guimenuitem>File</guimenuitem><guimenuitem>Contribute samples</guimenuitem></menuchoice> to bring up the <link linkend="contribute_samples">sample upload assistant</link>.</para>
+</sect2>
+
+<sect2>
+<title>Main window: Acoustic model</title>
+
+<para>Here, &kmyapplication; shows information about the currently used base- and active model.</para>
+
+<para>Select <guibutton>Configure acoustic model</guibutton> to <link linkend="base_model_use">configure the base model</link>.</para>
+</sect2>
+
+<sect2>
+<title>Main window: Recognition</title>
+
+<para>This section shows information about the recognition status.</para>
+
+<para>If &kmyapplication; is connect to the server, you can activate and deactivate the recognition by toggling the <guibutton>Activate</guibutton> button. If this control element is not available, make sure you are connected by selecting <menuchoice><guimenu>File</guimenu><guimenuitem>Connect</guimenuitem></menuchoice> from &kmyapplication;s menu.</para>
+
+<para>An integrated volume calibration widget monitors the configured recognition devices. The sound setup can be modified by selecting <guibutton>Configure audio</guibutton> to bring up the <link linkend="soundconfiguration">sound configuration</link>.</para>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="recording">
+<title>Recordings</title>
+<para>If you are using user-generated or adapted models, Simon builds its acoustic model based on transcribed samples of the users voice. Because of this, the recorded samples are of vital importance for the recognition performance.</para>
+
+<sect2 id="volume">
+<title>Volume</title>
+<para>It is important that you check your microphone volume before recording any samples.</para>
+
+<sect3 id="volume_calibration">
+<title>Simon Calibration</title>
+
+<para>The current version of &kmyapplication; includes a simple way of ensuring that your volume is configured correctly.</para>
+
+<para>
+<screenshot>
+<screeninfo>Simon Volume Calibration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="volume_calibration.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>By default the volume calibration is displayed before starting any recording in &kmyapplication;.</para>
+
+<para>To calibrate simply read the text displayed.</para>
+
+<para>The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer.</para>
+
+<para>During calibration, try to talk normally. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsciously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
+
+<para>In the &kmyapplication; settings, both the text displayed and the levels considered correct can be changed. If you leave the text empty, the default text will be displayed. In the options you can also deactivate the calibration completely. See the <link linkend="soundconfiguration_training">training section</link> for more details.</para>
+</sect3>
+
+<sect3>
+<title>Audacity Calibration</title>
+
+<para>Alternatively you can use an audio editing tool like the free <ulink url="http://audacity.sourceforge.net">Audacity</ulink> to monitor the recording volume.</para>
+
+<para>
+Too quiet:
+<screenshot>
+<screeninfo>Volume: Too quiet</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="too_quiet.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+Too loud:
+<screenshot>
+<screeninfo>Volume: Too loud</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="too_loud.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+Perfect volume:
+<screenshot>
+<screeninfo>Perfect volume</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="volume_perfect.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="silence">
+<title>Silence</title>
+<para>To help Simon with the automatic segmentation it is recommended to leave about one or two seconds of silence on the recording before and after reading the prompted text.</para>
+
+<para>
+Current Simon versions include a graphical notice on when to speak during recording. The message will tell the user to wait for about half a second:
+<screenshot>
+<screeninfo>Please wait</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="pause_control_wait.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+... before telling the user to speak:
+<screenshot>
+<screeninfo>Please speak</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="pause_control_speak.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+This method of visual feedback proved especially valuable when recording with people who cannot read the prompted text for themselves and therefore need someone to tell them what they have to say. The colorful visual cue tells them when to start repeating what the facilitator said without the need of unreliable hand gestures.
+</para>
+</sect2>
+
+
+<sect2 id="recording_content">
+<title>Content</title>
+<para>Generally we recommend to record roughly the same sentences that Simon should recognize later.</para>
+<para>(Obviously that does not apply to massive sample acquisitions where other properties like phonetic balance are more important)</para>
+
+<para>Care should be taken to avoid recordings like <quote>One One One</quote> to quickly ramp up the <quote>recognition rate</quote> property. Such recordings often decrease recognition performance because the pronunciation differs greatly from saying the word in isolation.</para>
+</sect2>
+
+
+<sect2 id="microphone">
+<title>Microphone</title>
+<para>For Simon to work well, a high quality microphone is recommended.</para>
+
+<para>However, even relatively cheap headsets (around 30 Euros) achieve very good results - magnitudes better than internal microphones.</para>
+
+<para>For maximum compatibility we recommend USB headsets as they usually support the necessary samplerate of 16 kHz, are very well supported from both Microsoft Windows as well as GNU/Linux and normally don't require special, proprietary drivers to operate.</para>
+</sect2>
+
+
+<sect2 id="sample_quality_assurance">
+<title>Sample Quality Assurance</title>
+<para>Simon will check each recording against certain criteria to ensure that the recorded samples are not erroneous or of poor quality.</para>
+
+<para>If Simon detects a problematic sample, it will warn the user to re-record the sample.</para>
+
+<para>
+Currently, Simon checks the following criteria:
+<itemizedlist>
+<listitem>
+<para>Sample peak volume</para>
+<para>If the volume is too loud and the microphone started to <quote>clip</quote> (<ulink url="http://en.wikipedia.org/wiki/Clipping_%28audio%29">Clipping on wikipedia</ulink>), Simon will display a warning message urging the user to lower the microphone volume.</para>
+</listitem>
+<listitem>
+<para>Signal to noise ratio (SNR)</para>
+<para>Simon will automatically determine the signal to noise ratio of each recording. If the ratio is below a configurable threshold, a warning message will be displayed.</para>
+<para>The default value of 2300 % means that for Simon to accept a sample as correctly recorded the peak volume has to be 23 times louder than the noise baseline (lowest average over 50 ms).</para>
+<para>
+Often this can be a result of either a very low quality microphone, high levels of ambient noise or a low microphone gain coupled with a <quote>microphone boost</quote> option in the system mixer.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+
+
+<para>
+SNR warning message triggered by an empty sample. This information dialog is displayed when clicking on the <guibutton>More information</guibutton> button on the recording widget.
+<screenshot>
+<screeninfo>Empty sample triggering the SNR warning</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="snr_warning.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect2>
+</sect1>
+
+<sect1 id="contribute_samples">
+<title>Contribute Samples</title>
+
+<para>The <link linkend="base_model">base models</link> that can be used with Simon to augment or replace training are built from other peoples speech samples. In order to create high quality base models, a large amount of training samples are necessary.</para>
+
+<para>If you trained your local Simon installation, you gathered valuable voice samples that could improve the quality of the general model.</para>
+
+<para>Through &kmyapplication;'s "Contribute Samples" dialog you can upload those recordings to benefit the <ulink url="http://voxforge.org">Voxforge</ulink> project to create high quality open source base models.</para>
+
+<para>
+<screenshot>
+<screeninfo>Contributing Samples: Connect</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="contribute_samples_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>After connecting to the server, &kmyapplication; will ask for some basic meta-information. This information obviously contains no personal information. Instead, it will later be used to group together samples of similar speaker groups to build more accurate acoustic models.</para>
+
+<para>
+<screenshot>
+<screeninfo>Contributing Samples: Provide information</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="contribute_samples_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>The duration of the upload process itself will depend on your internet connection. Generally speaking, this only transmits relatively little data because the audio samples collected by &kmyapplication; are generally very small: around 0.1 MB per sample.</para>
+
+<para>
+<screenshot>
+<screeninfo>Contributing Samples: Upload</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="contribute_samples_3.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+</sect1>
+
+<sect1 id="configuration">
+<title>Configuration</title>
+<para>
+Simon was designed with high configurability in mind. Because of this, there are plentiful parameters that can be fine-tuned to your specific requirements.
+</para>
+
+<para>You can access Simons configuration dialog through the applications main menu: <menuchoice><guimenuitem>Settings</guimenuitem><guimenuitem>Configure Simon...</guimenuitem></menuchoice>.</para>
+
+<sect2 id="configuration_general">
+<title>General Configuration</title>
+<para>The general configuration page lists some basic settings.</para>
+
+<para>If you want to show the <link linkend="first_run">first run assistant</link> again, deselect <guibutton>Disable configuration wizard</guibutton>.</para>
+
+<para>
+<screenshot>
+<screeninfo>General Configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_general.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>
+Please note that the option to start Simon at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, &etc; might require manually placing Simon in the session autostart (please refer to the respective manuals of your desktop environment).
+</para>
+<para>
+When the option to start Simon minimized is selected, Simon will minimize to the system tray immediately after starting.
+</para>
+<para>
+  Deselecting the option to warn when there are problems with samples deactivates the <link linkend="sample_quality_assurance">sample quality assurance</link>.
+</para>
+</sect2>
+
+<sect2 id="soundconfiguration">
+<title>Recordings</title>
+<para>
+Simon uses fairly sophisticated internal sound processing to enable complex multi-device setups.
+</para>
+
+<sect3 id="soundconfiguration_device">
+<title>Device Configuration</title>
+<para>The sound device configuration allows you to choose which sound device(s) to use, configure them and define additional recording parameters.</para>
+
+<para>Use the <guibutton>Refresh devices</guibutton> button if you have plugged in additional sound devices since you started Simon.</para>
+
+<para>
+<screenshot>
+<screeninfo>Sound device configuration: General</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_sound_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>Most of the time you will want to use 1 channel and 16kHz (which is also the default) because the recognition only works on mono input and works best at 16kHz (8kHz and 22kHz being other viable options). Some low-cost sound cards might not support this particular mode in which case you can enable automatic Resampling in the device's advanced configuration.</para>
+
+<note><para>Only change the channel and the samplerate if you really know what you are doing. Otherwise the recognition will <emphasis>most likely</emphasis> not work.</para></note>
+
+<para>
+<screenshot>
+<screeninfo>Sound device configuration: Advanced options</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_sound_advanced.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>You can use Simon with more than one sound device at the same time. Use <guibutton>Add device</guibutton> to add a new device to the configuration and <guibutton>Remove device</guibutton> to remove it from your configuration. The first device in your sound setup cannot be removed.</para>
+
+<para>For each device you can determine for what you want the device to be used: Training or recognition (last one only applicable for input devices).</para>
+
+<para>If you use more than one device for training, you will create multiple sound files for each utterance. When using multiple devices for recognition each one feeds a separate sound input stream to the server resulting in recognition results for each stream.</para>
+
+<para>If you use multiple output devices the playback of the training samples will play on all configured audio devices.</para>
+
+<para>When using different sample rates for your input devices, the output will only play on matching output devices. If you for example have one input device configured to use 16kHz and the other to use 48kHz, the playback of samples generated by the first one will only play on 16kHz outputs, the other one only on 48kHz devices.</para>
+
+<para>In the device's advanced configuration, you can also define the <link linkend="sample_group">sample group tag</link> of the produced training samples and set activation <link linkend="context_conditions">context conditions</link>.</para>
+
+<para>If you set up this device to be used for recognition and (any of) it's activation requirements are not met, the device will not record. This can be used to augment or even replace the <link linkend="soundconfiguration_vad">traditional voice activity detection</link> with context information.</para>
+
+<para>For example, add a <link linkend="face_detection_condition">face detection condition</link> to the recording devices activation requirements to only enable the recognition when you're looking at the webcam.</para>
+
+</sect3>
+
+<sect3 id="soundconfiguration_vad">
+  <title>Voice Activity Detection</title>
+
+  <para>The recognition is done one the Simond server. See the <link linkend="architecture">architecture section</link> for more details.</para>
+
+  <para>The sound stream is not continuous but is segmented by the Simon client. This is done by something called <quote>voice activity detection</quote>.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Voice activity detection</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="vad.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>Here you can configure this segmentation through the following parameters:
+    <itemizedlist>
+      <listitem>
+        <para><guilabel>Cutoff level</guilabel></para>
+        <para>Everything below this level is considered <quote>silence</quote> (background noise).</para>
+      </listitem>
+      <listitem>
+        <para><guilabel>Head margin</guilabel></para>
+        <para>Cache for as long as head margin to start consider it a real sample. During this whole time the input level needs to be above the cutoff level.</para>
+      </listitem>
+      <listitem>
+        <para><guilabel>Tail margin</guilabel></para>
+        <para>After the recording went below the cutoff level, Simon will wait for as long as tail margin to consider the current recording a finished sample.</para>
+      </listitem>
+      <listitem>
+        <para><guilabel>Skip samples shorter than</guilabel></para>
+        <para>Samples that are shorter than this value are not considered for recognition. (coughs, &etc;)</para>
+      </listitem>
+    </itemizedlist>
+  </para>
+</sect3>
+
+<sect3 id="soundconfiguration_training">
+  <title>Training settings</title>
+
+  <para>
+  <screenshot>
+  <screeninfo>Training settings</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="training_config.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>When the option <guibutton>Default to power training</guibutton> is selected, Simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session.</para>
+
+<para>The configurable font here refers to the text that is recorded to train the acoustic model (through explicit training or when adding a word).</para>
+
+<para>This option has been introduced after we have worked with a few clients suffering spastic disability. While we used the mouse to control Simon during the training, they had to read what was on the screen. At first this was very problematic as the regular font size is relatively small and they had trouble making out what to read. This is why we made the font and the font size of the recording prompt configurable.</para>
+
+<para>Here you can also define the required signal to noise ratio for Simon to consider a training sample to be correct. See the <link linkend="sample_quality_assurance">Sample Quality Assurance</link> section for more details.</para>
+<para>On this configuration page you can also set the parameters for the <link linkend="volume_calibration">volume calibration</link>.</para>
+
+<para>It can be deactivated for both the add word dialog and the training wizard by unchecking the group box itself.</para>
+
+<para>The calibration itself uses the <link linkend="soundconfiguration_vad">voice activity recognition</link> to score your sound configuration.</para>
+
+<para>The prompted text can be configured by entering text in the input field below. If the edit is empty a default text will be used.</para>
+</sect3>
+
+<sect3 id="soundconfiguration_postprocessing">
+<title>Postprocessing</title>
+<para>All recorded (training) and imported (through the import training data) samples can be processed using a series of postprocessing commands. Postprocessing chains are an advanced feature and shouldn't be needed by the average user.</para>
+
+<para>
+<screenshot>
+<screeninfo>Sound Configuration: Postprocessing</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_sound_4.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>The postprocessing commands can be seen as a chain of filters through which the recordings have to pass through. Using these <quote>filters</quote> one could define commands to suppress background noise in the training data or normalize the recordings.</para>
+
+<para>Given the program <application>process_audio</application> which takes the input- and output files as its arguments (&eg;: <command>process_audio in.wav out.wav</command>) the postprocessing command would be: <userinput>process_audio %1 %2</userinput>. The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
+
+<para>The switch to <quote>apply filters to recordings recorded with Simon</quote> enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_training-data">import training data wizard</link>).</para>
+
+</sect3>
+
+<sect3 id="configuration_sound_context">
+<title>Context</title>
+
+<para>Every sample recorded with Simon is assigned a <link linkend="sample_group">sample group</link>.</para>
+
+<para>When creating the acoustic model from the training samples Simon can take the current situation into account to only use a subset of all gathered training data.</para>
+
+<para>
+<screenshot>
+<screeninfo>Sound Configuration: Context</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_sound_5.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>For example, in a system where multiple, very different speakers use one shared setup, <link linkend="context_conditions">context conditions</link> can be set up to automatically build separate models for both users depending on the current situation.</para>
+
+<para>The above screenshot, for example, shows a setup where, given that all samples of "peter" were tagged "peters_samples" and all samples of "mathias" were tagged "mathias_samples" (refer to the <link linkend="soundconfiguration_device">device configuration for more information on how to set up sample groups</link>), the active acoustic model will only contain the current users own samples as long as the file <filename>/home/bedahr/.username</filename> contains either "peter" or "mathias".</para>
+
+<para>Another example use-case would be to switch to a more noise-resistant acoustic model when the user starts playing music.</para>
+
+</sect3>
+</sect2>
+
+<sect2 id="configuration_speechmodel">
+<title>Speech Model</title>
+<para>Here you can adjust the parameters of the speech model.</para>
+
+<sect3>
+<title>Base model</title>
+
+<para>You can optionally use base models to limit / circumvent the training or to avoid installing a model creation backend. Please refer to the general <link linkend="base_model">base model section</link> for more details about base models.</para>
+
+<para>
+<screenshot>
+<screeninfo>Base model configuration</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="base_model_settings_1.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</screenshot>
+</para>
+
+<para>To use a <link linkend="base_model_user_generated">user-generated model</link>, select <guimenuitem>Do not use a base model</guimenuitem>. To use a <link linkend="base_model_static">static base model</link>, select a base model and <emphasis>do not</emphasis> select <guibutton>Adapt base model using training samples</guibutton>. To instead use an <link linkend="base_model_adapted">adapted base model</link>, check <guibutton>Adapt base model using training samples</guibutton> after selecting a base model.</para>
+
+<para>Simon base models are packaged in <filename>.sbm</filename> files.</para>
+
+<para>To add base models to the selection, you can either import local models (<menuchoice><guimenuitem>Open model</guimenuitem><guimenuitem>Import</guimenuitem></menuchoice>), download them from an online repository (<menuchoice><guimenuitem>Open model</guimenuitem><guimenuitem>Download</guimenuitem></menuchoice>) or create new ones from raw files (<menuchoice><guimenuitem>Open model</guimenuitem><guimenuitem>Create from model files</guimenuitem></menuchoice>).</para>
+
+<para>
+  <screenshot>
+    <screeninfo>Importing a base model from the internet</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="base_model_settings_2.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>If you have raw model files produced by either supported <link linkend="model_backends">model creation backend</link>, you can package them into SBM container for use with &kmyapplication;.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>Creating base models from raw files</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="base_model_settings_3.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>You can also export your currently active model by selecting <guibutton>Export active model</guibutton>. The exported SBM file will contain your full acoustic model (ignoring the <link linkend="configuration_sound_context">current context</link>) that can be <ulink url="http://kde-files.org/index.php?xcontentmode=648">shared with other Simon users</ulink>.</para>
+</sect3>
+
+<sect3>
+<title>Training data</title>
+
+<para>This section allows to configure the training samples.</para>
+
+<para>
+<screenshot>
+<screeninfo>Training data configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_speech_model.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>The samplerate set here is the target samplerate of the acoustic model. It has nothing to do with the recording samplerate and it is the responsibility of the user to ensure that the samples are actually made available in that format (usually by recording in that exact samplerate or by defining postprocessing commands that resample the files; see the <link linkend="soundconfiguration">sound configuration section</link> for more details).</para>
+
+<para>Usually either 16kHz or 8kHz models are built / used. 16kHz models will have higher accuracy over 8kHz models. Going higher than 16kHz is not recommended as it is very cpu-intensive and in practice probably won't result in higher recognition rates.</para>
+
+<para>Moreover, the path to the training samples can be adjusted. However, be sure that the previously gathered training samples are also moved to the new location. If you use automatic synchronization the Simond would alternatively also provide Simon with the missing sample but copying them manually is still recommended for performance reasons.</para>
+</sect3>
+
+
+<sect3 id="configure_language_profile">
+<title>Language Profile</title>
+
+<para>In the language profile section you can select a previously built or downloaded <link linkend="language_profile_general">language profile</link> to aid with the transcription of new words.</para>
+
+<para>
+<screenshot>
+<screeninfo>Language profile configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="language_profile_configuration.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect3>
+</sect2>
+
+<sect2 id="configuration_model_extensions">
+<title>Model Extensions</title>
+
+<para>Here you can configure the base URL that is going to be used for the <link linkend="import_dict_hadifix">automatic bomp import</link>. The default points to the copy on the Simon listens server.</para>
+<para>
+<screenshot>
+<screeninfo>Model Extensions</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_model_extensions.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect2>
+
+<sect2 id="configure_recognition">
+<title>Recognition</title>
+
+<para>Here you can configure the recognition and model synchronization with the Simond server.</para>
+
+<sect3 id="configure_server">
+  <title>Server</title>
+
+  <para>Using the server configuration you can set parameters of the connection to Simond.</para>
+
+<sect4 id="configure_server_general">
+<title>General</title>
+<para>
+The Simon main application connects to the Simond server (see the <link linkend="architecture">architecture section</link> for more information).
+</para>
+
+<para>
+<screenshot>
+<screeninfo>Configure Server: General</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_simond_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+To identify individual users of the system (one Simond server can of course serve multiple Simon clients), Simon and Simond use users. Every user has his own speech model. The username / password combination given here is used to log in to Simond. If Simond does not know the username or the password is incorrect, the connection will fail. See the <ulink url="help:/simond">Simond manual</ulink> on how to setup users for Simond.</para>
+
+<para>The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - vocabulary, grammar, training - are present). Using the option to start the recognition automatically once it is available, Simon will request to start the recognition when it receives the information that it is ready (all <link linkend="needed_parts">required components</link> are available).</para>
+
+<para>Using the <guilabel>Connect to server on startup</guilabel> option, Simon will automatically start the connection to the configured Simond servers after it has finished loading the user interface.</para>
+</sect4>
+
+<sect4 id="configure_server_network">
+<title>Network</title>
+<para>Simon connects to Simond using TCP/IP.</para>
+
+<para>
+<screenshot>
+<screeninfo>Configure Server: Network</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_simond_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>
+As of yet (Simon 0.4), encryption is not yet supported.
+</para>
+<para>
+The timeout setting specifies, how long Simon will wait for a first reply when contacting the hosts. If you are on a very, very slow network and/or use <quote>connect on start</quote> on a very slow machine, you may want to increase this value if you keep getting timeout errors and can resolve them by trying again repeatedly.
+</para>
+<para>Simon supports to be configured to use more than one Simond. This is very useful if you for example are going to use Simon on a laptop which connects to a different server depending where you are. You could for example add the server you use when you are home and the server used when you are at work. When connecting, Simon will try to connect to each of the servers (in order) until it finds one server that accepts the connection.</para>
+
+<para>To add a server, just enter the host name or IP address and the port (separated by <quote>:</quote>) or use the dialog that appears when you select the blue arrow next to the input field.</para>
+
+</sect4>
+</sect3>
+
+<sect3 id="configure_synchronization">
+<title>Synchronization and Model Backup</title>
+<para>Here you can configure the model synchronization and restore older versions of your speech model.</para>
+
+<para>
+<screenshot>
+<screeninfo>Synchronization and Model Backup</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_synchronization.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+Simon creates the speech input files which are then compiled and used by the Simond server (see the <link linkend="architecture">section architecture for more details</link>).
+</para>
+
+<para>
+The process of sending the speech input files, compiling them and receiving the compiled versions is called <quote>synchronization</quote>.
+Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default Simon will always synchronize the model with the server when it changes. This is called <guimenuitem>Automatic Synchronization</guimenuitem> and is the recommended setting.
+</para>
+<para>
+However, if you want more control you can instruct Simon to ask you before starting the synchronization after the model has changed or to rely on manual synchronization all together. When selecting the manual synchronization you have to manually use the <menuchoice><guimenuitem>Actions</guimenuitem><guimenuitem>Synchronize</guimenuitem></menuchoice> menu item of the Simon main window every time you want to compile the speech model.
+</para>
+
+<para>The Simon server will maintain a copy of the last five iterations of model files. However, this only includes the <quote>source files</quote> (the vocabulary, grammar, &etc;) - <emphasis>not the compiled model</emphasis>. However, the compiled model will be regenerated from the restored source files automatically.</para>
+
+<para>After you have connected to the server, you can select one of the available models and restore it by clicking on <guimenuitem>Choose  Model</guimenuitem>.</para>
+
+</sect3>
+</sect2>
+
+
+
+<sect2 id="configure_actions">
+<title>Actions</title>
+
+<para>In the actions configuration you can configure the reactions to recognition results.</para>
+
+<sect3 id="configure_actions_recognition">
+  <title>Recognition</title>
+
+  <para>The recognition of Simon computes not only the most likely result but rather the top ten results.</para>
+  <para>Each of the results are assigned a confidence score between 0 and 1 (were 1 is 100% sure).</para>
+  <para>Using the <guilabel>Minimum confidence</guilabel> you can set a minimum confidence for recognition results to be considered valid.</para>
+
+  <para>If more than one recognition results are rated higher than the minimum confidence score, Simon will provide a popup listing the most likely options for you to choose from.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Did you mean...?</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="did_you_mean.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>This popup can be disabled using the <guibutton>Display selection popup for ambiguous results</guibutton> check box.</para>
+</sect3>
+<sect3>
+  <title>Dialog font</title>
+  <para>Many plugins of Simon have a graphical user interface.</para>
+  <para>The fonts of these interfaces can be configured centrally and independent of the systems font settings here.</para>
+
+  <para>
+  <screenshot>
+    <screeninfo>Input number with custom font</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="input_number_huge_font.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+</sect3>
+
+<sect3>
+  <title>Lists</title>
+  <para>Here you can find the global list element configuration. This serves as a template for new scenarios but is also directly used for <link linkend="configure_actions_recognition">the popup for ambiguous recognition results</link>.</para>
+</sect3>
+</sect2>
+
+<sect2 id="text-to-speech_config">
+<title>Text-to-speech</title>
+
+<para>Some parts of &kmyapplication;, most notably the <link linkend="dialog_command_plugin">dialog command plugin</link> employ text-to-speech (or "TTS") to read text aloud.</para>
+
+<sect3>
+<title>Backends</title>
+<para>Multiple external TTS solutions can be used to alow &kmyapplication; to talk. Multiple backends can be enabled at the same time and will be queried in the configured order until one is found that can synthesize the requested message.</para>
+
+<para>The following backends are available:
+<itemizedlist>
+  <listitem><para>Recordings</para><para>Instead of an engine to convert arbitrary text into speech, text-snippets can be pre-recorded and will be simply played back.</para></listitem>
+  <listitem><para>Jovie</para><para>Uses the <ulink url="http://www.kde.org/applications/utilities/jovie">Jovie TTS system</ulink>. This requires a valid Jovie set-up.</para></listitem>
+  <listitem><para>Webservice</para><para>The webservice backend can be used to talk to any TTS engine that has a web front-end that returns <filename>.wav</filename> files.</para></listitem>
+</itemizedlist>
+</para>
+<para>
+  <screenshot>
+    <screeninfo>TTS: backend selection</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tts_1.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+</sect3>
+
+<sect3>
+<title>Recordings</title>
+
+<para>Instead of using an external TTS engine, you can also record yourself or other speakers reading the texts aloud. Simon can then play back these pre-recorded snippet when they are requested of it's text-to-speech engine.</para>
+
+<para>These recorded sound bites are organized into "sets" of different speakers which can also be imported and exported to share them with other &kmyapplication; users.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>TTS: recordings</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tts_2.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+</sect3>
+
+<sect3>
+<title>Webservice</title>
+<para>Through the webservice backend, &kmyapplication; can use web-based TTS engines like <ulink url="http://mary.dfki.de">MARY</ulink>.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>TTS: webservice</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tts_3.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+<para>You can provide any Url. &kmyapplication; will replace any instance of "%1" within the configured Url with the text to synthesize. The backend expects the queried webservice to return a <filename>.wav</filename> file that will be streamed and outputted through &kmyapplication's sound layer - respecting the <link linkend="soundconfiguration_device">sound device configuration</link>.</para>
+</sect3>
+</sect2>
+
+<sect2 id="social_desktop_config">
+<title>Social desktop</title>
+<para>Scenarios can be <link linkend="export_scenario">uploaded</link> and <link linkend="import_scenario">downloaded from within Simon</link>.</para>
+
+<para>For this we use KDEs social desktop facilities and our own <ulink url="http://kde-files.org/index.php?xcontentmode=692">category for Simon scenarios on kde-files.org</ulink>.</para>
+
+<para>If you already have an account on <ulink url="http://opendesktop.org">opendesktop.org</ulink> you can input the credentials there. If you don't, you can register directly in the configuration module.</para>
+
+<para>The registration is of course free of charge.</para>
+</sect2>
+
+<sect2 id="webcam_configuration">
+<title>Webcam configuration</title>
+<para>
+TODO
+</para>
+</sect2>
+
+<sect2 id="jconfs">
+<title>Advanced: Adjusting the recognition parameters manually</title>
+
+<para>
+Simon is targeted towards end-users. It's interface is designed to allow even users without any background in speech technology to design their own language and acoustic models by providing reasonable default values for simple uses.
+</para>
+<para>
+In special cases (severe speech impairments for example), special configuration might be needed. This is why the raw configuration files for the recognition are also respected by Simon and can of course be modified to suit your needs.
+</para>
+
+<sect3 id="julius">
+<title>Julius</title>
+
+<para>There are basically two parts of the Julius configuration that can be adjusted:
+<itemizedlist>
+<listitem><para>adin.jconf</para><para>This is the configuration of the Simon client of the Soundstream sent from Simon to the Simond. This file is directly read by the adinstreamer.</para>
+<para>Simon ships with a default adin.jconf without any special parameters. You can change this system wide configuration which will affect all users if there are different user accounts on your machine who all use Simon. To just change the configuration of one of those users copy the file to the user path (see below) and edit this copy.</para>
+</listitem>
+<listitem><para>julius.jconf</para><para>This is a configuration of the Simond server and directly influences the recognition. This file is parsed by libjulius and libsent directly.</para>
+<para>Simond ships with a default julius.jconf. Whenever there is a new user added to the Simond database, Simond will automatically copy this system wide configuration to the new user. After that the user is of course free to change it but it won't affect the other users. This way the <quote>template</quote> (the system wide configuration) can be changed without affecting other users.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>The path to the Julius configuration files will depend on your platform:
+
+<table frame='all'><title>Julius Configuration Files</title>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<colspec colname='c3'/>
+<thead>
+<row>
+  <entry>File</entry>
+  <entry>Microsoft Windows</entry>
+  <entry>GNU/Linux</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>adin.jconf (system)</entry>
+  <entry>(installation path)\share\apps\simon\adin.jconf</entry>
+  <entry>`kde4-config --prefix`/share/apps/simon/adin.jconf</entry>
+</row>
+<row>
+  <entry>adin.jconf (user)</entry>
+  <entry>%appdata%\.kde\share\apps\simon\adin.jconf</entry>
+  <entry>~/.kde/share/apps/simon/adin.jconf</entry>
+</row>
+<row>
+  <entry>julius.jconf (template)</entry>
+  <entry>(installation path)\share\apps\simond\default.jconf</entry>
+  <entry>`kde4-config --prefix`/share/apps/simond/default.jconf</entry>
+</row>
+<row>
+  <entry>julius.jconf (user)</entry>
+  <entry>%appdata%\.kde\share\apps\simond\models\(user)\active\julius.jconf</entry>
+  <entry>~/.kde/share/apps/simond/models/(user)/active/julius.jconf</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</sect3>
+
+</sect2>
+
+</sect1>
+
+</chapter>
+
+
+<chapter id="using-simon-advanced">
+<title>Using &kmyapplication;: Advanced user</title>
 
 
 <sect1 id="speech_model">
@@ -224,652 +1578,24 @@ Because the acoustic model actually represents how you speak the phonemes of the
 That means if you add the word <quote>clothes</quote> to the language model, your acoustic model already has an idea how the <quote>clo</quote> part is going to sound as they share the same phonemes (<quote>k</quote>, <quote>l</quote>, <quote>ow</quote>) at the beginning.
 </para>
 <para>
-To train the acoustic model (in other words to tell him how you pronounce the phonemes) you have to <quote>train</quote> words from your language model. That means that simon displays a word which you read out loud. Because the word is listed in your vocabulary, simon already knows what phonemes it contains and can thus <quote>learn</quote> from your pronunciation of the word.
+To train the acoustic model (in other words to tell him how you pronounce the phonemes) you have to <quote>train</quote> words from your language model. That means that Simon displays a word which you read out loud. Because the word is listed in your vocabulary, Simon already knows what phonemes it contains and can thus <quote>learn</quote> from your pronunciation of the word.
 </para>
 </sect2>
 </sect1>
 
-
-
-<sect1 id="scenarios">
-<title>Scenarios</title>
-
-<para>
-One scenario makes up one complete use case of simon. To control Firefox, for example, the user just installs the Firefox scenario.
-</para>
-
-<para>
-Each scenario consists of the following components:
-<itemizedlist>
-<listitem><para><link linkend="vocabulary">Vocabulary</link>&nbsp;</para></listitem>
-<listitem><para><link linkend="grammar">Grammar</link>&nbsp;</para></listitem>
-<listitem><para><link linkend="training">Training texts</link>&nbsp;</para></listitem>
-<listitem><para><link linkend="commands">Commands</link>&nbsp;</para></listitem>
-</itemizedlist>
-</para>
-
-<para>
-Scenarios only cover the language model of the recognition system, the acoustic model is completely independent.
-</para>
-
-<para>
-However, in most cases scenarios are tailored to work best with a specific <link linkend="base_model">base model</link> to avoid <link linkend="phoneme_set_issues">issues with the phoneme set</link>.
-</para>
-
-<para>
-Because scenarios are not specifically bound to the acoustic model, they can be shared and exchanged between different simon users without problems. To accommodate this community based repository pool, a <ulink url="http://kde-files.org/index.php?xcontentmode=692">category for simon scenarios has been created on kde-files.org</ulink> where the scenarios, which are just simple text files (XML format), can be exchanged easily.
-</para>
-
-<para>
-For information on how to use scenarios in simon, please refer to the <link linkend="scenarios_use">Scenario section in the Use simon chapter</link>.
-</para>
-
-</sect1>
-
-<sect1 id="base_model">
-<title>Base models</title>
-<para>
-Base models are already generated, most often speaker independent, acoustic models that can be used with simon.
-</para>
-<para>
-Using base models, the user can greatly reduce or even eliminate the need for personalized training. When using a static base model (see below), installation of the HTK is not necessary.
-</para>
-
-<para>
-Base models usable by simon consists of four files which you will find in archive when you download base models from their respective website.
-
-<itemizedlist>
-<listitem><para>hmmdefs</para></listitem>
-<listitem><para>tiedlist</para></listitem>
-<listitem><para>macros</para></listitem>
-<listitem><para>stats</para></listitem>
-</itemizedlist>
-</para>
-
-<para>
-The latter two files, macros and stats, are not required when using a static base model and might, in that case, be replaced with empty files if they are not available.
-</para>
-
-<sect2 id="base_model_get">
-<title>Where to get base models</title>
-
-<para>
-To keep this list up to date, please refer to <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Base_models#Where_to_get_base_models">the list in our online wiki</ulink>.
-</para>
-</sect2>
-
-<sect2 id="base_model_types">
-<title>Types of base models</title>
-
-<para>
-There are three types of base models:
-
-<itemizedlist>
-<listitem><para>Static base model</para>
-</listitem>
-<listitem><para>Adapted base model</para>
-</listitem>
-<listitem><para>User-generated model</para>
-</listitem>
-</itemizedlist>
-</para>
-
-<para>
-For information on how to use base models in simon, please refer to the <link linkend="base_model_use">Base Models section in the Use simon chapter</link>.
-</para>
-
-<sect3 id="base_model_static">
-<title>Static base model</title>
-
-<para>Static base models simply use a pre-compiled acoustic model without modifying it.</para>
-
-<para>Any training data collected through simon will not be used to improve the recognition accuracy.</para>
-
-<para>This type of model <emphasis>does not</emphasis> require the HTK to be installed.</para>
-
-</sect3>
-
-<sect3 id="base_model_adapted">
-<title>Adapted base model</title>
-
-<para>By adapting a pre-compiled acoustic model you can improve accuracy by adapting it to your voice.</para>
-
-<para>Collected training data will be compiled in a adaption matrix which will then be applied to the selected base model.</para>
-
-<para>This type of model <emphasis>does</emphasis> require the HTK to be installed.</para>
-
-</sect3>
-
-<sect3 id="base_model_user_generated">
-<title>User-generated model</title>
-
-<para>When using user-generated models, the user is responsible for training his own model. No base model will be used.</para>
-
-<para>The training data will be used to compile your own acoustic model allowing you to create a system which directly reflects your voice.</para>
-
-<para>This type of model <emphasis>does</emphasis> require the HTK to be installed.</para>
-</sect3>
-
-</sect2>
-
-
-<sect2 id="phoneme_set_issues">
-<title>Phoneme set issues</title>
-<para>Because the statistical comparison happens <link linkend="acoustic_model">at phoneme level</link> the base models describe how these phonemes sound.</para>
-
-<para>Your scenarios (language model) on the other hand describe what phonemes a word is composed of.</para>
-
-<para>In order for this association to work, both your scenarios and your base model need to use the same set of phonemes.</para>
-
-<para>If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way simon will suggest the <quote>correct</quote> phonemes when adding the words automatically.</para>
-
-<para>
-If you try to use scenarios designed for a different phoneme set (different base model) then you will get an error when starting the recognition listing the affected phonemes and words. To fix this, either transcribe the words according to the base models phoneme set, use a different base model or use a user-generated model.
-</para>
-</sect2>
-</sect1>
-</chapter>
-
-
-
-<chapter id="guidelines">
-<title>Guidelines</title>
-<para>This chapter lists some general guidelines that are relevant for different parts of simon.</para>
-
-<sect1 id="recording">
-<title>Recordings</title>
-<para>If you are using user-generated or adapted models, simon builds its acoustic model based on transcribed samples of the users voice. Because of this, the recorded samples are of vital importance for the recognition performance.</para>
-
-<sect2 id="volume">
-<title>Volume</title>
-<para>It is important that you check your microphone volume before recording any samples.</para>
-
-<sect3 id="volume_calibration">
-<title>simon Calibration</title>
-
-<para>The current version of &kmyapplication; includes a simple way of ensuring that your volume is configured correctly.</para>
-
-<para>
-<screenshot>
-<screeninfo>simon Volume Calibration</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="volume_calibration.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>By default the volume calibration is displayed before starting any recording in &kmyapplication;.</para>
-
-<para>To calibrate simply read the text displayed.</para>
-
-<para>The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the <guibutton>Volume changed</guibutton> button next to the affected device. This will reset the volume status.
-</para>
-
-<para>During calibration, try to talk normally. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsciously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
-
-<para>In the &kmyapplication; settings, both the text displayed and the levels considered correct can be changed. If you leave the text empty, the default text will be displayed. In the options you can also deactivate the calibration completely. See the <link linkend="soundconfiguration_training">training section</link> for more details.</para>
-</sect3>
-
-<sect3>
-<title>Audacity Calibration</title>
-
-<para>Alternatively you can use an audio editing tool like the free <ulink url="http://audacity.sourceforge.net">Audacity</ulink> to monitor the recording volume.</para>
-
-<para>
-Too quiet:
-<screenshot>
-<screeninfo>Volume: Too quiet</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="too_quiet.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>
-Too loud:
-<screenshot>
-<screeninfo>Volume: Too loud</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="too_loud.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>
-Perfect volume:
-<screenshot>
-<screeninfo>Perfect volume</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="volume_perfect.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-</sect3>
-
-</sect2>
-
-<sect2 id="silence">
-<title>Silence</title>
-<para>To help simon with the automatic segmentation it is recommended to leave about one or two seconds of silence on the recording before and after reading the prompted text.</para>
-
-<para>
-Current simon versions include a graphical notice on when to speak during recording. The message will tell the user to wait for about half a second:
-<screenshot>
-<screeninfo>Please wait</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="pause_control_wait.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>
-... before telling the user to speak:
-<screenshot>
-<screeninfo>Please speak</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="pause_control_speak.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>
-This method of visual feedback proved especially valuable when recording with people who cannot read the prompted text for themselves and therefore need someone to tell them what they have to say. The colorful visual cue tells them when to start repeating what the facilitator said without the need of unreliable hand gestures.
-</para>
-</sect2>
-
-
-<sect2 id="recording_content">
-<title>Content</title>
-<para>Generally we recommend to record roughly the same sentences that simon should recognize later.</para>
-<para>(Obviously that does not apply to massive sample acquisitions where other properties like phonetic balance are more important)</para>
-
-<para>Care should be taken to avoid recordings like <quote>One One One</quote> to quickly ramp up the <quote>recognition rate</quote> property. Such recordings often decrease recognition performance because the pronunciation differs greatly from saying the word in isolation.</para>
-</sect2>
-
-
-<sect2 id="microphone">
-<title>Microphone</title>
-<para>For simon to work well, a high quality microphone is recommended.</para>
-
-<para>However, even relatively cheap headsets (around 30 Euros) achieve very good results - magnitudes better than internal microphones.</para>
-
-<para>For maximum compatibility we recommend USB headsets as they usually support the necessary samplerate of 16 kHz, are very well supported from both Microsoft Windows as well as GNU/Linux and normally don't require special, proprietary drivers to operate.</para>
-</sect2>
-
-
-<sect2 id="sample_quality_assurance">
-<title>Sample Quality Assurance</title>
-<para>simon will check each recording against certain criteria to ensure that the recorded samples are not erroneous or of poor quality.</para>
-
-<para>If simon detects a problematic sample, it will warn the user to re-record the sample.</para>
-
-<para>
-Currently, simon checks the following criteria:
-<itemizedlist>
-<listitem>
-<para>Sample peak volume</para>
-<para>If the volume is too loud and the microphone started to <quote>clip</quote> (<ulink url="http://en.wikipedia.org/wiki/Clipping_%28audio%29">Clipping on wikipedia</ulink>), simon will display a warning message urging the user to lower the microphone volume.</para>
-</listitem>
-<listitem>
-<para>Signal to noise ratio (SNR)</para>
-<para>simon will automatically determine the signal to noise ratio of each recording. If the ratio is below a configurable threshold, a warning message will be displayed.</para>
-<para>The default value of 5000 % means that for simon to accept a sample as correctly recorded the peak volume has to be 50 times louder than the noise baseline (lowest average over 50 ms).</para>
-<para>
-Often this can be a result of either a very low quality microphone, high levels of ambient noise or a low microphone gain coupled with a <quote>microphone boost</quote> option in the system mixer.
-</para>
-</listitem>
-</itemizedlist>
-</para>
-
-
-<para>
-SNR warning message triggered by an empty sample. This information dialog is displayed when clicking on the <guibutton>More information</guibutton> button visible in the background.
-<screenshot>
-<screeninfo>Empty sample triggering the SNR warning</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="snr_warning.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-</sect2>
-</sect1>
-
-</chapter>
-
-
-<chapter id="using-simon">
-<title>Using &kmyapplication;</title>
-
-<para>The following sections will describe how to use simon.</para>
-
-<sect1 id="main_window">
-<title>The simon Main Window</title>
-<para>
-<screenshot>
-<screeninfo>A screenshot of &kmyapplication;</screeninfo>
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="screenshot_main.png" format="PNG"/>
-	  </imageobject>
-	  <textobject>
-	    <phrase>Screenshot</phrase>
-	  </textobject>
-	</mediaobject>
-</screenshot>
-
-The simon main window provides quick access to most of its features through the main toolbar.
-</para>
-
-<para>There are 9 main actions listed:
-<itemizedlist>
-<listitem>
-<para>simond connection</para>
-<para>This menu item has several states:
-<itemizedlist>
-<listitem><para>Connect</para>
-<para>When simon is not connected to simond the option says <guilabel>Connect</guilabel>. When activated, simon will start to connect to simond and change to the <guilabel>Connecting</guilabel> state.</para>
-<para>Upon connecting to the server from simon for the first time, you might be prompted for a username and a password. If you haven't done so already, set up a user for simond (see the <ulink url="help:/simond">simond manual</ulink> for details) before continuing and enter the same username and corresponding password in the login dialog from simon. If you choose to store the password, you can still change it in the <link linkend="configure_server_general">server configuration</link> at any time.</para>
-</listitem>
-<listitem><para>Connecting</para>
-<para>When simon is currently connecting to the configured simond server(s) the option says <guilabel>Connecting</guilabel> and is pressed down. When activated, simon will stop trying to connect to simond and go back to the <guilabel>Connect</guilabel> state.</para>
-</listitem>
-<listitem><para>Activate</para>
-<para>When simon established a connection to the server the option will say <guilabel>Activate</guilabel> and will not be pressed down. When activated (or automatically when simon is configured to automatically start the recognition when it is available) simon will try to start the recognition.</para>
-<para>An option to close the connection to simond (<guilabel>Disconnect</guilabel>) is available through the small down-arrow next to it.</para>
-</listitem>
-<listitem><para>Activated</para>
-<para>When simon established a connection to the server and has successfully started the recognition the option will say <guilabel>Activated</guilabel> and will be pressed down. When activated simon will deactivate the recognition but not close the connection to simond &mdash; it changes back to the previous <guilabel>Activate</guilabel> state.</para>
-<para>An option to close the connection to simond (<guilabel>Disconnect</guilabel>) is available through the small down-arrow next to it.</para>
-</listitem>
-</itemizedlist>
-</para>
-</listitem>
-
-
-<listitem>
-<para>Add Word</para>
-<para>Displays the <link linkend="add_word">add word wizard</link>.</para>
-</listitem>
-
-<listitem>
-<para>Vocabulary</para>
-<para>Displays the <link linkend="vocabulary">vocabulary</link>.</para>
-</listitem>
-
-<listitem>
-<para>Grammar</para>
-<para>Displays the <link linkend="grammar">grammar</link>.</para>
-</listitem>
-
-<listitem>
-<para>Training</para>
-<para>Displays the <link linkend="training">training</link>.</para>
-</listitem>
-
-<listitem>
-<para>Commands</para>
-<para>Displays the <link linkend="commands">commands</link>.</para>
-</listitem>
-
-<listitem>
-<para>Synchronize</para>
-<para>When connected to the simond, this option will be available.</para>
-<para>simon creates the speech input files which are then compiled and used by the simond server (see the <link linkend="architecture">section architecture for more details</link>).</para>
-<para>The process of sending the speech input files, compiling them and receiving the compiled versions is called <quote>synchronization</quote>. By default, simon will initiate a synchronization immediately after the connection has been established and whenever the model changes (please see the <link linkend="configure_synchronization">configure synchronization section</link> for information on how to change that).</para>
-<para>Using this menu option the synchronization can be triggered manually at any time.</para>
-</listitem>
-
-<listitem>
-<para>Scenario selection</para>
-<para>This selection box allows you to select the currently displayed scenario. Each subsection (vocabulary, grammar, commands, training) will then adapt to the currently displayed scenario. Selecting a different scenario here does not affect the recognition.</para>
-</listitem>
-
-<listitem>
-<para>Manage scenarios</para>
-<para>Shows the <link linkend="scenarios_use">scenario management dialog</link>. There you can manage your scenarios and change the options of the scenario selection box.</para>
-</listitem>
-
-
-</itemizedlist>
-</para>
-
-<para>
-The simon main window can be hidden at any time by clicking on the simon logo in the system tray (usually next to the system clock in the task bar) which will minimize simon to the tray. Click it again to show the main window again.</para>
-
-</sect1>
-
-
-<sect1 id="needed_parts">
-<title>Required Resources for a Working &kmyapplication; Setup</title>
-
-<note>
-<para>
-For more information about speech models, please refer to the <link linkend="speech_model">Speech Recognition: Background section in the Overview chapter</link>.
-</para>
-</note>
-
-<para>To get simon to recognize speech and react to it you need a speech model. </para>
-
-<para>Speech models describe how your voice sounds, what words exist, how they sound and what word combination (<quote>sentences</quote> or <quote>structures</quote>) exist.</para>
-
-<para>A speech model basically consists of two parts:
-<itemizedlist>
-<listitem><para>Language model: Describes all existing words and what sentences are grammatically correct </para></listitem>
-<listitem><para>Acoustic model: Describes how words sound </para></listitem>
-</itemizedlist>
-</para>
-
-<para>You need both these components to get simon to recognize your voice.</para>
-
-<sect2>
-<title>Language Model</title>
-<para>
-In most cases you only need to <link linkend="scenarios_use">install the appropriate scenario</link> for your use case to set up your language model.
-</para>
-<para>
-To create your own language model, you can use simon to <link linkend="add_word">add</link> / <link linkend="edit_word">edit</link> / <link linkend="remove_word">remove</link> words and <link linkend="grammar">grammar structures</link>.
-</para>
-<para>
-To make the adding of words easier, you can import a <link linkend="shadow_dictionary">shadow dictionary</link>.
-</para>
-
-</sect2>
-
-<sect2>
-<title>Acoustic Model</title>
-<para>
-To create your own acoustic model you can simple <link linkend="training">read the training texts</link> that come with your selected scenarios a couple of times.
-</para>
-<para>
-If you are creating your own scenario you can easily <link linkend="training">create training texts yourself</link>.
-</para>
-<para>
-You can, however use <link linkend="base_model_use">static or adapted base models</link> to avoid using the HTK or to improve the recognition rate.
-</para>
-</sect2>
-</sect1>
-
-<sect1 id="first_run">
-<title>First run wizard</title>
-
-<para>On the first start of simon, this wizard is displayed to guide you through the initial configuration of &kmyapplication;.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>First run: Welcome</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="first_run_1.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-<para>The configuration consists of five easy steps which are outlined below. You can skip each step and even the whole wizard if you want to - in that case, the system will be set up with default values.</para>
-
-<sect2 id="first_run_scenarios">
-<title>Scenarios</title>
-
-<para>In this step you can download <link linkend="scenarios">scenarios</link> from the Internet and import them into simon.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>First run: Scenarios</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="first_run_2.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-<para>Pressing <guibutton>Get scenarios</guibutton> displays the download dialog.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>First run: Get scenarios</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="get_hot_new_scenarios_1.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-<para>If you import some scenarios here (or later on in the <link linkend="scenarios_use">scenario management dialog</link>) you don't need to set up the vocabulary, grammar, commands, &etc; for yourself. Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
-
-</sect2>
-
-
-<sect2 id="first_run_basemodels">
-<title>Base models</title>
-
-<para>In this step you can set up simon to use <link linkend="base_model">base models</link>.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>First run: Base models</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="first_run_3.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-<para>The configuration page opened is the same one that is described in the <link linkend="base_model_use">base model usage</link> section.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>First run: Configure base models</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="first_run_base_model.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-<para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="base_model_use">simon configuration</link>.</para>
-
-</sect2>
-
-<sect2 id="first_run_server">
-<title>Server</title>
-
-<para>Internally, simon is a <link linkend="architecture">server / client application</link>. If you want to take advantage of a network based installation, you can provide the server address here.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>First run: Server</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="first_run_4.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-<para>The default configuration is sufficient for a <quote>normal</quote> installation and will assume that you use a local simond server that will be automatically be started and stopped with simon.</para>
-
-<para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="configure_server">server configuration</link>.</para>
-
-</sect2>
-
-<sect2 id="first_run_sound_configuration">
-<title>Sound configuration</title>
-
-<para>Because simon recognizes sound from one or more microphones, you have to tell simon which devices you want to use for recognition and training.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>First run: Sound configuration</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="first_run_5.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-<para>simon can use one or more input- and output devices for different tasks. You can find more information about simon's multiple device capabilities in the <link linkend="soundconfiguration_device">simon sound configuration section</link>.</para>
-
-<para>If you don't set at least one input device to be used for recognition, you will not be able to activate simon.</para>
-
-<para>When the option <guibutton>Default to power training</guibutton> is selected, simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session.</para>
-
-<para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="soundconfiguration_device">sound configuration</link>.</para>
-
-</sect2>
-
-<sect2 id="first_run_volume_calibration">
-<title>Volume calibration</title>
-
-<para>For simon to work correctly, you need to configure your microphones volume to a sensible level.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>First run: Volume calibration</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="first_run_6.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-<para>For more details on this, please see the <link linkend="volume_calibration">Volume Calibration section</link> in the <link linkend="guidelines">Guidelines chapter</link>.</para>
-
-</sect2>
-
-</sect1>
 
 <sect1 id="scenarios_use">
 <title>Scenarios</title>
-<para>This section describes how to use scenarios from within simon. For <link linkend="scenarios">general information about scenarios, please refer to the chapter background</link>.</para>
+<para>This section describes how to use scenarios from within Simon. For <link linkend="scenarios">general information about scenarios, please refer to the chapter background</link>.</para>
 
 <sect2 id="using_scenarios">
 <title>Using scenarios</title>
 <para>Beginning with &kmyapplication; 0.3, each word you add will be added to the currently active scenario. The same goes for grammar sentences, commands, &etc;</para>
 <para>Using scenarios then becomes just using &kmyapplication; as you did in 0.2.</para>
 
-<para>Per default, simon ships with an empty scenario names <guilabel>Standard</guilabel>, so your configuration will be stored in this scenario.</para>
+<para>Per default, Simon ships with an empty scenario names <guilabel>Standard</guilabel>, so your configuration will be stored in this scenario.</para>
 
-<para>To select which of your currently active scenarios should be changed (for example before adding new words), just select it from the drop down box in the upper right corner of the simon main window.</para>
+<para>To select which of your currently active scenarios should be changed (for example before adding new words), just select it from the drop down box in the upper right corner of the Simon main window.</para>
 
 <para>
   <screenshot>
@@ -922,7 +1648,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <para>The scenario version is just an incremental version number that makes it easier to distinguish between different revisions of a scenario.</para>
 
-<para>If your scenario needs a specific feature of simon (for example because you use a new plugin), you can define minimum and maximum version numbers of simon here.</para>
+<para>If your scenario needs a specific feature of Simon (for example because you use a new plugin), you can define minimum and maximum version numbers of Simon here.</para>
 
 <para>The license of your scenario can be set through the drop down. You can of course also add an arbitrary license text directly in the input field.</para>
 
@@ -946,9 +1672,9 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <sect3 id="import_scenario">
   <title>Import Scenario</title>
-  <para>Scenarios can be imported from a local file in simon's XML scenario file format but can also be directly downloaded and imported from the internet.</para>
+  <para>Scenarios can be imported from a local file in Simon's XML scenario file format but can also be directly downloaded and imported from the internet.</para>
 
-  <para>When downloading scenarios, the list of scenarios is retrieved from <ulink url="http://kde-files.org/index.php?xcontentmode=692">simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
+  <para>When downloading scenarios, the list of scenarios is retrieved from <ulink url="http://kde-files.org/index.php?xcontentmode=692">Simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
 
 <para>
   <screenshot>
@@ -961,16 +1687,16 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-  <para>If you create a scenario that might be valuable for other simon users, please consider <link linkend="export_scenario">uploading it</link> to this online repository and help other simon users.</para>
+  <para>If you create a scenario that might be valuable for other Simon users, please consider <link linkend="export_scenario">uploading it</link> to this online repository and help other Simon users.</para>
 </sect3>
 
 <sect3 id="export_scenario">
   <title>Export Scenario</title>
-  <para>Scenarios can be exported to a local file in simon's XML scenario file format and directly uploaded to the <ulink url="http://kde-files.org/index.php?xcontentmode=692">simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
+  <para>Scenarios can be exported to a local file in Simon's XML scenario file format and directly uploaded to the <ulink url="http://kde-files.org/index.php?xcontentmode=692">Simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
 
   <para>To upload to OpenDesktop sites, you need an account on the site. <ulink url="http://opendesktop.org/usermanager/new.php">Registration</ulink> is very easy and of course free of charge.</para>
 
-  <para>simon allows you to upload new content directly from within simon (<guibutton>Export</guibutton> > <guimenuitem>Publish</guimenuitem>).</para>
+  <para>Simon allows you to upload new content directly from within Simon (<guibutton>Export</guibutton> > <guimenuitem>Publish</guimenuitem>).</para>
 
 <para>
   <screenshot>
@@ -1016,7 +1742,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
   </screenshot>
 </para>
 
-  <para>To use this functionality, simply enter your account credentials in the <link linkend="social_desktop_config">social desktop configuration</link> in the simon configuration.</para>
+  <para>To use this functionality, simply enter your account credentials in the <link linkend="social_desktop_config">social desktop configuration</link> in the Simon configuration.</para>
 </sect3>
 
 </sect2>
@@ -1024,9 +1750,9 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <sect1 id="base_model_use">
 <title>Base models</title>
-<para>This section describes how to use base models from within simon. For <link linkend="base_model">general information about base models, please refer to the chapter background</link>.</para>
+<para>This section describes how to use base models from within Simon. For <link linkend="base_model">general information about base models, please refer to the chapter background</link>.</para>
 
-<para>To configure simon to use base models, simply select the base model type you want to use and point simon to the valid files in simon's configuration: <guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Speech Model</guimenuitem> </para>
+<para>To configure Simon to use base models, simply select the base model type you want to use and point Simon to the valid files in Simon's configuration: <guimenu>Settings</guimenu> > <guimenuitem>Configure Simon</guimenuitem> > <guimenuitem>Speech Model</guimenuitem> </para>
 
 <para>
   <screenshot>
@@ -1041,7 +1767,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <para>Load the files with the appropriate <guibutton>Load</guibutton> button next to the file you want to set. The files will be copied to an internal location so the source files can be removed once you have selected them here.</para>
 
-<para>For static models you don't need macros or stats but simon will not start a model compilation (which is needed even for setups using static base models to generate the language model) without them. If your base model doesn't provide them you can simply point simon to empty files instead.</para>
+<para>For static models you don't need macros or stats but Simon will not start a model compilation (which is needed even for setups using static base models to generate the language model) without them. If your base model doesn't provide them you can simply point Simon to empty files instead.</para>
 
 </sect1>
 
@@ -1053,22 +1779,22 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 <sect2 id="vocabulary_theory">
 <title>General</title>
 <para>
-The vocabulary defines what words the recognition process should recognize. Every word you want to be able to use with simon should be contained in your vocabulary.
+The vocabulary defines what words the recognition process should recognize. Every word you want to be able to use with Simon should be contained in your vocabulary.
 </para>
 <para>
-One entry in the vocabulary defines exactly one <quote>word</quote>. In contrast to the common use of the word <quote>word</quote>, in simon <quote>word</quote> means one unique combination of the following:
+One entry in the vocabulary defines exactly one <quote>word</quote>. In contrast to the common use of the word <quote>word</quote>, in Simon <quote>word</quote> means one unique combination of the following:
 <itemizedlist>
   <listitem><para>Wordname</para><para>(The written word itself)</para></listitem>
   <listitem><para>Terminal</para><para>(Grammatical category; for example: <quote>Noun</quote>, <quote>Verb</quote>, &etc;)</para></listitem>
-  <listitem><para>Pronunciation</para><para>(How the word is pronounced; simon accepts any kind of phonetic as long as it does not use special characters or numbers)</para></listitem>
+  <listitem><para>Pronunciation</para><para>(How the word is pronounced; Simon accepts any kind of phonetic as long as it does not use special characters or numbers)</para></listitem>
 </itemizedlist>
 
-That means that plurals or even different cases are different <quote>words</quote> to simon.
+That means that plurals or even different cases are different <quote>words</quote> to Simon.
 This is an important design decision to allow more control when using a sophisticated grammar.
 </para>
 
 <para>
-In general, it is advisable to keep your vocabulary as sleek as possible. The more words, the higher the chance that simon might misunderstand you.
+In general, it is advisable to keep your vocabulary as sleek as possible. The more words, the higher the chance that Simon might misunderstand you.
 </para>
 
 <para>
@@ -1122,11 +1848,28 @@ Example vocabulary (please note that the terminals here are deliberately set to 
 As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about its pronunciation, it would also be good to have a large dictionary where you could look up the pronunciation and other characteristics of the words.
 </para>
 <para>
-simon provides this functionality. We refer to this large reference dictionary as <quote>shadow dictionary</quote>. This shadow dictionary is not created by the user but can be imported from various sources.
+Simon provides this functionality. We refer to this large reference dictionary as <quote>shadow dictionary</quote>. This shadow dictionary is not created by the user but can be imported from various sources.
 </para>
 <para>
-As simon is a multi-language solution we do not ship shadow dictionaries with simon. However, it is very easy to import them yourself using the import dictionary wizard. This is described in the <link linkend="import_dictionary">Import Dictionary section</link>.
+As Simon is a multi-language solution we do not ship shadow dictionaries with Simon. However, it is very easy to import them yourself using the import dictionary wizard. This is described in the <link linkend="import_dictionary">Import Dictionary section</link>.
 </para>
+</sect3>
+<sect3 id="language_profile_general">
+<title>Language profile</title>
+<para>
+Additionally to a shadow dictionary, Simon can use a language profile to provide help with transcribing words.
+</para>
+
+<para>A language profile consists of rules how words are pronounced in the target language. It can be likened to the way that humans can often pronounce a word they never heard just because they know some implicit "pronounciation rules" of the language.</para>
+
+<para>Just as with humans, this process is not perfect but can provide a solid starting ground.</para>
+
+<para>This automatic deduction of a phoneme transcription from a written word is called "grapheme to phoneme conversion".</para>
+
+<para>Simon requires the <ulink url="http://www-i6.informatik.rwth-aachen.de/web/Software/g2p.html">Sequitur G2P</ulink> grapheme to phoneme converter to be installed and set up for language profiles to work.</para>
+
+<para>If you have <link linkend="configure_language_profile">selected a pre-built language profile</link> or <link linkend="create_language_profile">built your own</link>, Simon will automatically transcribe new words with it when they are not found in your <link linkend="shadow_dictionary">shadow dictionary</link>.</para>
+
 </sect3>
 </sect2>
 
@@ -1135,10 +1878,10 @@ As simon is a multi-language solution we do not ship shadow dictionaries with si
 <sect2>
 <title>Maintaining the Vocabulary</title>
 <para>
-simon provides a <guimenu>Vocabulary</guimenu> menu which lists the current vocabulary.
+Simon provides a <guimenu>Vocabulary</guimenu> menu which lists the current vocabulary.
 
 <screenshot>
-<screeninfo>simon's Vocabulary</screeninfo>
+<screeninfo>Simon's Vocabulary</screeninfo>
 <mediaobject>
 <imageobject>
   <imagedata fileref="vocabulary.png"   format="PNG"/>
@@ -1153,7 +1896,7 @@ simon provides a <guimenu>Vocabulary</guimenu> menu which lists the current voca
 Every word states it <quote>recognition rate</quote> which at the moment is just a counter of how often the word has been recorded (alone or together with other words).
 </para>
 <para>
-When this number is only one or zero the word entry is colored red (1: light red; 0: dark red). This is a visual warning. When a word contains a phoneme combination that is not covered by any other word and the word with this unusual phoneme combination is never recorded (recognition rate = 0), the model <emphasis>will</emphasis> fail to compile. However, simon will display an appropriate error message when the compilation of the model fails because of such an issue. In general it is a good idea to record each word at least once or twice (at best when <link linkend="add_word_record">adding the word</link>) to avoid such problems.
+When this number is only one or zero the word entry is colored red (1: light red; 0: dark red). This is a visual warning. When a word contains a phoneme combination that is not covered by any other word and the word with this unusual phoneme combination is never recorded (recognition rate = 0), the model <emphasis>will</emphasis> fail to compile. However, Simon will display an appropriate error message when the compilation of the model fails because of such an issue. In general it is a good idea to record each word at least once or twice (at best when <link linkend="add_word_record">adding the word</link>) to avoid such problems.
 </para>
 <para>
 
@@ -1175,7 +1918,7 @@ When this number is only one or zero the word entry is colored red (1: light red
 <sect2 id="add_word">
 <title>Adding Words</title>
 <para>To add new words to the active vocabulary, use the add word wizard.</para>
-<para>Adding words to simon is basically a two step procedure:
+<para>Adding words to Simon is basically a two step procedure:
 <itemizedlist>
 <listitem><para>Defining the word</para></listitem>
 <listitem><para>Initial training</para></listitem>
@@ -1198,11 +1941,11 @@ Firstly, the user is asked which word he wants to add.
 </para>
 
 <para>
-When the user proceeds to the next page, simon automatically tries to find as much information about the word in the <link linkend="shadow_dictionary">shadow dictionary</link> as possible.
+When the user proceeds to the next page, Simon automatically tries to find as much information about the word in the <link linkend="shadow_dictionary">shadow dictionary</link> as possible.
 </para>
 
 <para>
-If the word is listed in the shadow dictionary, simon automatically fills out all the needed fields (Terminal and Pronunciation).
+If the word is listed in the shadow dictionary, Simon automatically fills out all the needed fields (Terminal and Pronunciation).
 
 <screenshot>
 <screeninfo>Fields automatically filled out by the Shadow Dictionary</screeninfo>
@@ -1219,10 +1962,10 @@ If the word is listed in the shadow dictionary, simon automatically fills out al
 Of course this really depends on your shadow dictionary. If the shadow dictionary does not contain the word you are trying to add, the required fields have to be filled out manually.</para>
 
 <para>
-Some dictionaries that can be imported with simon (SPHINX, HTK) do not differentiate between upper and lower case. Suggestions based on those dictionaries will always be uppercase. You are of course free to change these suggestions to the correct case.
+Some dictionaries that can be imported with Simon (SPHINX, HTK) do not differentiate between upper and lower case. Suggestions based on those dictionaries will always be uppercase. You are of course free to change these suggestions to the correct case.
 </para>
 
-<para>Some dictionaries that can be imported with simon (SPHINX, PLS and HTK) provide no grammatical information at all. These will assign all the words to the terminal <guilabel>Unknown</guilabel>. You should change this to something appropriate when adding those words.
+<para>Some dictionaries that can be imported with Simon (SPHINX, PLS and HTK) provide no grammatical information at all. These will assign all the words to the terminal <guilabel>Unknown</guilabel>. You should change this to something appropriate when adding those words.
 </para>
 
 <sect4>
@@ -1240,7 +1983,7 @@ You can add new terminals to the drop-down menu by using the green plus sign nex
 <sect4 id="manual_transcription">
 <title>Manually Providing the Phonetic Transcription</title>
 <para>
-The pronunciation is a bit trickier. simon does not need a certain type of phonetics so you are free to use any method as long as it uses only ASCII characters and no numbers. However, if you want to use a shadow dictionary and want to use it to its full potential you should use the same phonetics as the shadow dictionary.
+The pronunciation is a bit trickier. Simon does not need a certain type of phonetics so you are free to use any method as long as it uses only ASCII characters and no numbers. However, if you want to use a shadow dictionary and want to use it to its full potential you should use the same phonetics as the shadow dictionary.
 </para>
 
 <para>
@@ -1264,7 +2007,7 @@ If you do not know how to transcribe a word yourself you can easily use your sha
 </para>
 
 <para>
-However, we know that firefox sounds like <quote>fire</quote> and <quote>fox</quote> put together. So let's just open the vocabulary (you can keep the wizard open) by selecting <guibutton>Vocabulary</guibutton> from your simon main toolbar.
+However, we know that firefox sounds like <quote>fire</quote> and <quote>fox</quote> put together. So let's just open the vocabulary (you can keep the wizard open) by selecting <guibutton>Vocabulary</guibutton> from your Simon main toolbar.
 </para>
 <para>
   Switch to the shadow vocabulary by clicking on the tab <guilabel>Shadow Vocabulary</guilabel>.</para>
@@ -1312,20 +2055,20 @@ We can now enter the pronunciation and change the terminal to something appropri
 </para>
 
 <para>
-  Because you are about to record some training samples, simon will display the volume calibration to make sure that your microphone is set up correctly. For more information please refer to the <link linkend="volume_calibration">volume calibration section</link>
+  Because you are about to record some training samples, Simon will display the volume calibration to make sure that your microphone is set up correctly. For more information please refer to the <link linkend="volume_calibration">volume calibration section</link>
 </para>
 
 <para>
-simon will try to prompt you for real-world examples. To do that, simon will automatically fetch grammar structures using the terminal of the word and substitute the generic terminals with example words from your active lexicon.
+Simon will try to prompt you for real-world examples. To do that, Simon will automatically fetch grammar structures using the terminal of the word and substitute the generic terminals with example words from your active lexicon.
 </para>
 <para>
-For example: You have the grammar structure <quote>Trigger Command</quote> and have the word <quote>Computer</quote> of the terminal <quote>Trigger</quote> in your vocabulary. You then add a new word <quote>Firefox</quote> of the terminal <quote>Command</quote>. simon will now automatically prompt you for <quote>Computer Firefox</quote> as it is - according to your grammar - a valid sentence.
+For example: You have the grammar structure <quote>Trigger Command</quote> and have the word <quote>Computer</quote> of the terminal <quote>Trigger</quote> in your vocabulary. You then add a new word <quote>Firefox</quote> of the terminal <quote>Command</quote>. Simon will now automatically prompt you for <quote>Computer Firefox</quote> as it is - according to your grammar - a valid sentence.
 </para>
 <para>
-If simon is unable to find appropriate sentences using the word (&ie;: No grammar, not enough words in your active lexicon, &etc;) it will just prompt you for the word alone.
+If Simon is unable to find appropriate sentences using the word (&ie;: No grammar, not enough words in your active lexicon, &etc;) it will just prompt you for the word alone.
 </para>
 <para>
-Although simon ensures that the automatically generated examples are valid, you can always override its suggestions. Just switch to the <guilabel>Examples</guilabel> tab on the <guilabel>Define Word</guilabel> page.
+Although Simon ensures that the automatically generated examples are valid, you can always override its suggestions. Just switch to the <guilabel>Examples</guilabel> tab on the <guilabel>Define Word</guilabel> page.
 <screenshot>
 <screeninfo>Editing word examples</screeninfo>
   <mediaobject>
@@ -1409,7 +2152,7 @@ The dialog offers four choices:
   <listitem>
     <para>Delete the word but keep the samples</para>
     <para>Removes the word completely but keeps the associated samples. Whenever you add another word with the same word name the samples will be re-associated.</para>
-    <para>Be careful with this option as the new word you add again might be transcribed differently and this difference cannot be taken into account automatically (simon will then try to force the new transcription on the old recordings during the model compilation).</para>
+    <para>Be careful with this option as the new word you add again might be transcribed differently and this difference cannot be taken into account automatically (Simon will then try to force the new transcription on the old recordings during the model compilation).</para>
     <para>Do not use this option if the samples you recorded for this word were erroneous.</para>
   </listitem>
   <listitem><para>Remove the word completely</para>
@@ -1431,7 +2174,7 @@ The dialog offers four choices:
 <sect2 id="import_dictionary">
 <title>Importing a Dictionary</title>
 <para>
-simon provides the functionality to import large dictionaries as a reference. This reference dictionary is called <link linkend="shadow_dictionary">shadow dictionary</link>.
+Simon provides the functionality to import large dictionaries as a reference. This reference dictionary is called <link linkend="shadow_dictionary">shadow dictionary</link>.
 </para>
 <para>
 When the user <link linkend="add_word">adds a new word</link> to the model, he has to define the following characteristics to define this word:
@@ -1456,12 +2199,12 @@ These characteristics are taken out of the shadow dictionary if it contains the 
   </screenshot>
 </para>
 
-<para>Since version 0.3 you can also import dictionaries directly to the active dictionary. This option is mostly there to make it easier to move to simon from custom solutions and to encourage importing of older models (for example one used with simon 0.2). You will <emphasis>almost never</emphasis> want to import a very large dictionary as active dictionary.</para>
+<para>Since version 0.3 you can also import dictionaries directly to the active dictionary. This option is mostly there to make it easier to move to Simon from custom solutions and to encourage importing of older models (for example one used with Simon 0.2). You will <emphasis>almost never</emphasis> want to import a very large dictionary as active dictionary.</para>
 
-<para>You can find a list of available dictionaries that work with simon on the <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Shadow_dictionary">simon wiki</ulink>.</para>
+<para>You can find a list of available dictionaries that work with Simon on the <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Shadow_dictionary">Simon wiki</ulink>.</para>
 
 <para>
-simon is able to import five different types of dictionaries:
+Simon is able to import five different types of dictionaries:
 <itemizedlist>
   <listitem><para>HADIFIX</para></listitem>
   <listitem><para>HTK</para></listitem>
@@ -1476,7 +2219,7 @@ simon is able to import five different types of dictionaries:
 <sect3 id="import_dict_hadifix">
 <title>HADIFIX Dictionary</title>
 <para>
-simon can import HADIFIX dictionaries.
+Simon can import HADIFIX dictionaries.
 </para>
 <para>
 One example of a HADIFIX dictionary is the German <ulink url="http://www.sk.uni-bonn.de/forschung/phonetik/sprachsynthese/bomp">HADIFIX BOMP</ulink>.
@@ -1486,7 +2229,7 @@ Hadifix dictionaries provide both terminals and pronunciation.
 </para>
 
 <para>
-Due to a special exemption in their license the simon listens team is proud to be able to offer you to download the excellent HADIFIX BOMP directly from within simon.
+Due to a special exemption in their license the Simon listens team is proud to be able to offer you to download the excellent HADIFIX BOMP directly from within Simon.
 </para>
 
 
@@ -1501,13 +2244,13 @@ Due to a special exemption in their license the simon listens team is proud to b
   </screenshot>
 </para>
 
-<para>Using the automatic bomp import you can, after providing name and e-Mail address for the team of the University Bonn, directly download and import the dictionary from the simon listens server.</para>
+<para>Using the automatic bomp import you can, after providing name and e-Mail address for the team of the University Bonn, directly download and import the dictionary from the Simon listens server.</para>
 </sect3>
 
 <sect3 id="import_dict_htk">
 <title>HTK Dictionary</title>
 <para>
-simon can import HTK lexica.
+Simon can import HTK lexica.
 </para>
 <para>
 One example of a HTK lexicon is the English <ulink url="http://www.repository.voxforge1.org/downloads/SpeechCorpus/Trunk/Lexicon/">Voxforge dictionary</ulink>.
@@ -1520,7 +2263,7 @@ Hadifix dictionaries provide pronunciation information but no terminals. All wor
 <sect3 id="import_dict_pls">
 <title>PLS Dictionary</title>
 <para>
-simon can import PLS dictionaries.
+Simon can import PLS dictionaries.
 </para>
 <para>
 One example of a PLS dictionary is the <ulink url="http://www.repository.voxforge1.org/downloads/de/Trunk/Lexicon/">German GPL dictionary from Voxforge</ulink>.
@@ -1533,7 +2276,7 @@ PLS dictionaries provide pronunciation information but no terminals. All words w
 <sect3 id="import_dict_sphinx">
 <title>SPHINX Dictionary</title>
 <para>
-simon can import SPHINX dictionaries.
+Simon can import SPHINX dictionaries.
 </para>
 <para>
 One example of a SPHINX dictionary is this <ulink url="http://speech.mty.itesm.mx/~jnolazco/proyectos.htm">dictionary for Mexican Spanish</ulink>.
@@ -1546,16 +2289,21 @@ SPHINX dictionaries provide pronunciation information but no terminals. All word
 <sect3 id="import_dict_julius">
 <title>Julius Dictionary</title>
 <para>
-simon can import Julius vocabularies.
+Simon can import Julius vocabularies.
 </para>
 <para>
-One example of a Julius vocabularies are the word lists of simon 0.2.
+One example of a Julius vocabularies are the word lists of Simon 0.2.
 </para>
 <para>
 Julius dictionaries provide pronunciation information as well as terminal information.
 </para>
 </sect3>
 </sect2> <!-- End Import Dict -->
+
+<sect2 id="create_language_profile">
+<title>Create language profile</title>
+<para>TODO</para>
+</sect2>
 
 </sect1> <!-- End Vocabulary -->
 
@@ -1569,7 +2317,7 @@ The grammar defines which combinations of words are correct.
 <sect2 id="grammar_general">
 <title>General</title>
 <para>
-Let's look at an example: You want to use simon to launch programs and close those windows when you are done. You would like to use the following commands:
+Let's look at an example: You want to use Simon to launch programs and close those windows when you are done. You would like to use the following commands:
 <itemizedlist>
   <listitem><para><quote>Computer, Internet</quote> to open a browser</para></listitem>
   <listitem><para><quote>Computer, Mail</quote></para><para>To open a mail client</para></listitem>
@@ -1612,7 +2360,7 @@ Following English grammar, your vocabulary would contain the following:
 </para>
 
 <para>
-To allow the sentences defined above simon would need the following grammar:
+To allow the sentences defined above Simon would need the following grammar:
 <itemizedlist>
   <listitem><para><quote>Noun Noun</quote> for sentences like <quote>Computer Internet</quote></para></listitem>
   <listitem><para><quote>Noun Verb</quote> for sentences like <quote>Computer close</quote></para></listitem>
@@ -1620,11 +2368,11 @@ To allow the sentences defined above simon would need the following grammar:
 </para>
 <para>
 While this would work, it would also allow the combinations <quote>Computer Computer</quote>, <quote>Internet Computer</quote>, <quote>Internet Internet</quote>, &etc; which are obviously bogus.
-To improve the recognition accuracy, we can try to create a grammar that better reflects what we are trying to do with simon.
+To improve the recognition accuracy, we can try to create a grammar that better reflects what we are trying to do with Simon.
 </para>
 
 <para>
-It is important to remember that you define your own <quote>language</quote> when using simon. That means that you are not bound to grammar rules that exist in whatever language you want to use simon with. For a simple command and control use-case it would for example be advisable to invent new grammatical rules to eliminate the differences between different commands imposed by grammatical information not relevant for this use case.
+It is important to remember that you define your own <quote>language</quote> when using Simon. That means that you are not bound to grammar rules that exist in whatever language you want to use Simon with. For a simple command and control use-case it would for example be advisable to invent new grammatical rules to eliminate the differences between different commands imposed by grammatical information not relevant for this use case.
 </para>
 
 <para>
@@ -1675,7 +2423,7 @@ This allows all the combinations described above. However, it also limits the po
 <sect2>
 <title>Defining your Grammar</title>
 <para>
-simon provides an easy to use text based interface to change the grammar. You can simply list all the allowed sentences (without any punctuation marks, obviously) like described above.
+Simon provides an easy to use text based interface to change the grammar. You can simply list all the allowed sentences (without any punctuation marks, obviously) like described above.
 
 <screenshot>
 <screeninfo>Grammar</screeninfo>
@@ -1695,7 +2443,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 
 <sect2>
 <title>Import a Grammar</title>
-<para>Additionally to simply entering your desired grammar sentence by sentence, simon is able to automatically deduce allowed grammar structures by reading plain text using the Import Grammar wizard.
+<para>Additionally to simply entering your desired grammar sentence by sentence, Simon is able to automatically deduce allowed grammar structures by reading plain text using the Import Grammar wizard.
 
 <screenshot>
 <screeninfo>Import Grammar</screeninfo>
@@ -1707,7 +2455,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 </screenshot>
 </para>
 
-<para>simon can read and import text files but also provides an input field if you want to simply type the text into simon.</para>
+<para>Simon can read and import text files but also provides an input field if you want to simply type the text into Simon.</para>
 
 <para>Say we have a vocabulary like in the general section above:
 
@@ -1742,7 +2490,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 </tgroup>
 </table></para>
 
-<para>We want simon to recognize the sentence <quote>Computer Internet!</quote>. So we either enter the text using the <guibutton>Import text</guibutton> option or create a simple text file with this content <quote>Computer Internet!</quote> (any punctuation mark would work) and save it as <filename>simongrammar.txt</filename> to use the <guibutton>Import files</guibutton> option.
+<para>We want Simon to recognize the sentence <quote>Computer Internet!</quote>. So we either enter the text using the <guibutton>Import text</guibutton> option or create a simple text file with this content <quote>Computer Internet!</quote> (any punctuation mark would work) and save it as <filename>simongrammar.txt</filename> to use the <guibutton>Import files</guibutton> option.
 
 <screenshot>
 <screeninfo>Import Grammar: Enter text</screeninfo>
@@ -1772,8 +2520,8 @@ simon provides an easy to use text based interface to change the grammar. You ca
 </screenshot>
 </para>
 
-<para>simon will then read the entered text or all the given text files (in this case the only given text file is <filename>simongrammar.txt</filename>) and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
-<para>In our example this would mean that he would find the sentence <quote>Computer Internet</quote>. simon would find out that <quote>Computer</quote> is of the terminal <guilabel>Trigger</guilabel> and <quote>Internet</quote> of the terminal <guilabel>Command</guilabel>. Because of this simon would <quote>learn</quote> that <quote>Trigger Command</quote> is a valid sentence and add it to its grammar.</para>
+<para>Simon will then read the entered text or all the given text files (in this case the only given text file is <filename>simongrammar.txt</filename>) and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
+<para>In our example this would mean that he would find the sentence <quote>Computer Internet</quote>. Simon would find out that <quote>Computer</quote> is of the terminal <guilabel>Trigger</guilabel> and <quote>Internet</quote> of the terminal <guilabel>Command</guilabel>. Because of this Simon would <quote>learn</quote> that <quote>Trigger Command</quote> is a valid sentence and add it to its grammar.</para>
 <para>The import automatically segments the input text by punctuation marks (<quote>.</quote>, <quote>-</quote>, <quote>!</quote>, &etc;) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
 <para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the <guilabel>Also import unknown sentences</guilabel> check box in which case those words are replaced with <guilabel>Unknown</guilabel>.</para>
 
@@ -1829,7 +2577,7 @@ The interface lists all installed training texts in a table with three columns:
 <itemizedlist>
 <listitem><para>Name</para><para>A descriptive name for the text.</para></listitem>
 <listitem><para>Pages</para><para>The number of <quote>pages</quote> the text consists of. Each page represents one recording.</para></listitem>
-<listitem><para>Recognition Rate</para><para>Analogue to the vocabulary; represents how likely simon will recognize the words (higher is better). The recognition rate of the training text is the average recognition rate of all the words in the text.</para></listitem>
+<listitem><para>Recognition Rate</para><para>Analogue to the vocabulary; represents how likely Simon will recognize the words (higher is better). The recognition rate of the training text is the average recognition rate of all the words in the text.</para></listitem>
 </itemizedlist>
 
 <screenshot>
@@ -1843,7 +2591,7 @@ The interface lists all installed training texts in a table with three columns:
 </para>
 
 <para>
-To improve the acoustic model - and thus the recognition rate - you have to record training texts. This means that simon gets essentially two needed parts:
+To improve the acoustic model - and thus the recognition rate - you have to record training texts. This means that Simon gets essentially two needed parts:
 </para>
 
 <itemizedlist>
@@ -1852,7 +2600,7 @@ To improve the acoustic model - and thus the recognition rate - you have to reco
 </itemizedlist>
 
 <para>
-The active dictionary is used to transcribe the words (mapping them from the actual word to its phonetic transcription) that make up the text so every word contained in the training text you want to read (train) has to be contained in your active dictionary. simon will warn you if this is not the case and provide you with the possibility to add all the missing words in one go.
+The active dictionary is used to transcribe the words (mapping them from the actual word to its phonetic transcription) that make up the text so every word contained in the training text you want to read (train) has to be contained in your active dictionary. Simon will warn you if this is not the case and provide you with the possibility to add all the missing words in one go.
 </para>
 
 <screenshot>
@@ -1865,10 +2613,11 @@ The active dictionary is used to transcribe the words (mapping them from the act
 </screenshot>
 
 <para>
-The procedure is the same as if you would <link linkend="add_word">add a single word</link> but the wizard will prompt you for details and recordings for all the missing words automatically. This procedure can be aborted at any time and simon will provide both a way to add the already completely defined words and to undo all changes done so far. When the user has added all the words he is prompted for (all the words missing) the changes to the active dictionary / vocabulary are saved and the training of the previously selected text starts automatically.
+The procedure is the same as if you would <link linkend="add_word">add a single word</link> but the wizard will prompt you for details and recordings for all the missing words automatically. This procedure can be aborted at any time and Simon will provide both a way to add the already completely defined words and to undo all changes done so far. When the user has added all the words he is prompted for (all the words missing) the changes to the active dictionary / vocabulary are saved and the training of the previously selected text starts automatically.
 </para>
 
 <para>
+<anchor id="training_in_progress" />
 The training (reading) of the training text works exactly the same as the initial training when adding a new word.</para>
 
 <para>Make sure you follow the guidelines listed in the <link linkend="recording">recording section</link>.</para>
@@ -1892,10 +2641,10 @@ Training texts are stored in two different locations:
 <itemizedlist>
   <listitem><para>Linux: <filename>~/.kde/share/apps/simon/texts</filename></para>
             <para>Windows: <filename>%appdata%\.kde\share\apps\simon\texts</filename></para>
-          <para>The texts of the current user. Can be deleted and added with simon (see below).</para></listitem>
+          <para>The texts of the current user. Can be deleted and added with Simon (see below).</para></listitem>
   <listitem><para>Linux: <filename>`kde4-config --prefix`/share/apps/simon/texts</filename></para>
             <para>Windows: <filename>(install folder)\share\apps\simon\texts</filename></para>
-          <para>System-wide texts. They will appear on every user account using simon on this machine and cannot be deleted from within simon because of the obvious permission restrictions on system-wide files.</para>
+          <para>System-wide texts. They will appear on every user account using Simon on this machine and cannot be deleted from within Simon because of the obvious permission restrictions on system-wide files.</para>
           <para>This folder can be used by system administrators to provide a common set of training texts for all the users on one system.</para>
           </listitem>
 </itemizedlist>
@@ -1916,13 +2665,13 @@ Training texts are stored in two different locations:
   </mediaobject>
 </screenshot>
 
-The add texts wizard provides a simple way to add new training texts to simon.
+The add texts wizard provides a simple way to add new training texts to Simon.
 </para>
 
-<para>When importing text files, simon will automatically try to recognize individual sentences and split the text into appropriate <quote>pages</quote> (recordings). The algorithm treats text between <quote>normal</quote> punctuation (<quote>.</quote>, <quote>!</quote>, <quote>?</quote>, <quote>...</quote>, <quote>"</quote>,...) and line breaks as <quote>sentences</quote>. Each <quote>sentence</quote> will be on its own page.</para>
+<para>When importing text files, Simon will automatically try to recognize individual sentences and split the text into appropriate <quote>pages</quote> (recordings). The algorithm treats text between <quote>normal</quote> punctuation (<quote>.</quote>, <quote>!</quote>, <quote>?</quote>, <quote>...</quote>, <quote>"</quote>,...) and line breaks as <quote>sentences</quote>. Each <quote>sentence</quote> will be on its own page.</para>
 
 <para>
-  simon supports two different sources for new training texts.
+  Simon supports two different sources for new training texts.
 </para>
 
 <sect3>
@@ -1952,16 +2701,16 @@ The add texts wizard provides a simple way to add new training texts to simon.
         </mediaobject>
       </screenshot>
 
-    simon can import normal text files to use them as training texts.</para>
+    Simon can import normal text files to use them as training texts.</para>
 </sect3>
 
 </sect2>
 
 <sect2 id="special_training">
 <title>On-The-Fly Training</title>
-<para>In addition to training texts, simon also allows to train individual words or word combinations from your dictionary on-the-fly.</para>
+<para>In addition to training texts, Simon also allows to train individual words or word combinations from your dictionary on-the-fly.</para>
 
-<para>This feature is located in the vocabulary menu of simon.</para>
+<para>This feature is located in the vocabulary menu of Simon.</para>
 
 <para>
 <screenshot>
@@ -1989,31 +2738,31 @@ The add texts wizard provides a simple way to add new training texts to simon.
 </screenshot>
 </para>
 
-<para>If there are more than 9 words to train simon will automatically split the text evenly across multiple pages.</para>
+<para>If there are more than 9 words to train Simon will automatically split the text evenly across multiple pages.</para>
 
-<para>Of course you are free to add words from the shadow lexicon to the list of words to train but simon will prompt you to add the words before the training starts just like he would if you would train a text that contains unknown words (see above).</para>
+<para>Of course you are free to add words from the shadow lexicon to the list of words to train but Simon will prompt you to add the words before the training starts just like he would if you would train a text that contains unknown words (see above).</para>
 </sect2>
 
 <sect2 id="import_training-data">
 <title>Importing Training Samples</title>
 <para>
-Using the import training data field you can import previously gathered training samples from previous simon versions or manual training without copying the whole dictionary.</para>
+Using the import training data field you can import previously gathered training samples from previous Simon versions or manual training without copying the whole dictionary.</para>
 
 <para>
 This feature is very specific. Please use it with caution and make sure that you know exactly what you are doing before you continue.
 </para>
 
-<para>You can either provide a separate prompts file or let simon extract the transcriptions from the filenames.</para>
+<para>You can either provide a separate prompts file or let Simon extract the transcriptions from the filenames.</para>
 
 <para>When using prompts based transcriptions your prompts file (UTF-8) needs to contain lines of the following content: <quote>[filename] [content]</quote>. Filenames are without file extensions and the content has to be uppercase. For example: <userinput>demo_2007_03_20 DEMO</userinput> to import the file <filename>demo_2007_03_20.wav</filename> containing the spoken word <quote>Demo</quote>.</para>
 
-<para>Because prompts files do not contain a file extension, simon will try wav, mp3, ogg and flac (in that order). If one of those match, no other extension will be tested and only the first file will be imported (in contrast to file based transcription where all files would be imported).</para>
+<para>Because prompts files do not contain a file extension, Simon will try wav, mp3, ogg and flac (in that order). If one of those match, no other extension will be tested and only the first file will be imported (in contrast to file based transcription where all files would be imported).</para>
 
 <para>
 When using file based transcriptions, a file called this_is_a_test.wav <emphasis>must</emphasis> contain <quote>This is a test</quote> and nothing else. Numbers and special characters (<quote>.</quote>, <quote>-</quote>,...) in the filename are ignored and stripped.
 </para>
 
-<para>Files recorded by simon 0.2 <emphasis>will</emphasis> follow this naming scheme so you can safely import them using the file name extraction method. Files generated by previous simon versions should not be imported using this function but you can use the prompts based import for that.</para>
+<para>Files recorded by Simon 0.2 <emphasis>will</emphasis> follow this naming scheme so you can safely import them using the file name extraction method. Files generated by previous Simon versions should not be imported using this function but you can use the prompts based import for that.</para>
 
 <para>
 Imported files and their transcription are then added to the training corpus.
@@ -2045,16 +2794,43 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 
 </sect2>
 
+<sect2 id="sample_management">
+<title>Manage training data</title>
+<para>TODO</para>
+<!-- TODO -->
+</sect2>
+
 </sect1>
 
+<sect1 id="context">
+<title>Context</title>
+<para>TODO</para>
+<!-- TODO -->
+
+<sect2 id="sample_group">
+<title>Sample Groups</title>
+<para>TODO</para>
+
+</sect2>
+
+<sect2 id="context_conditions">
+<title>Context conditions</title>
+
+<sect3 id="face_detection_condition">
+<title>Face detection</title>
+<para>TODO</para>
+</sect3>
+
+</sect2>
+</sect1>
 
 <sect1 id="commands">
 <title>Commands</title>
-<para>When simon is active and recognizes something, the recognition result is given to the loaded command plug-ins (in order) for processing.</para>
+<para>When Simon is active and recognizes something, the recognition result is given to the loaded command plug-ins (in order) for processing.</para>
 
 <para>
 <screenshot id="command_dialog">
-<screeninfo>simon's Command Dialog</screeninfo>
+<screeninfo>Simon's Command Dialog</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="command_main.png" format="PNG"/>
@@ -2063,12 +2839,12 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 </screenshot>
 </para>
 
-<para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (&eg; <quote>Karl</quote> knows how to start a program and <quote>Joe</quote> knows how to open a folder, &etc;). Whenever simon recognizes something it is given to <quote>Karl</quote> who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to <quote>Joe</quote> and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guibutton>Commands</guibutton> > <guibutton>Manage plugins</guibutton>).</para>
+<para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (&eg; <quote>Karl</quote> knows how to start a program and <quote>Joe</quote> knows how to open a folder, &etc;). Whenever Simon recognizes something it is given to <quote>Karl</quote> who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to <quote>Joe</quote> and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guibutton>Commands</guibutton> > <guibutton>Manage plugins</guibutton>).</para>
 
 
 <para>
 <screenshot>
-<screeninfo>simon's Action Configuration</screeninfo>
+<screeninfo>Simon's Action Configuration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="configure_actions_1.png" format="PNG"/>
@@ -2082,9 +2858,9 @@ Each plugin can be associated with a <quote>trigger</quote>. Using triggers, the
 </para>
 <para>Using the factory workers abstraction from above it could be compared to stating the name of who you mean to process your request. So instead of <quote>Open my home folder</quote> you say <quote>Joe, open my home folder</quote> and <quote>Joe</quote> (the plugin responsible for opening folders) will instantly know that the request is meant for him.</para>
 <para>In practice you could have commands like the executable command <quote>Firefox</quote> to open the popular browser and the place command <quote>Google</quote> to open the web search engine. If you assign the trigger <quote>Start</quote> to the executable plugin and the trigger <quote>Open</quote> to the place command you would have to say <quote>Start Firefox</quote> (instead of just <quote>Firefox</quote> if you don't use a trigger for the executable plugin) and <quote>Open Google</quote> to open the search engine (instead of just <quote>Google</quote>).</para>
-<para>Triggers are of course no requirement and you can easily use simon without defining any plugin triggers (although many plugins come with a default trigger of <quote>Computer</quote> set which you would have to remove). But even if you use just one trigger for all your commands (like <quote>Computer</quote> to say <quote>Computer, Firefox</quote> and <quote>Computer, Google</quote> like) it has the advantage of greatly limiting the number false-positives.</para>
+<para>Triggers are of course no requirement and you can easily use Simon without defining any plugin triggers (although many plugins come with a default trigger of <quote>Computer</quote> set which you would have to remove). But even if you use just one trigger for all your commands (like <quote>Computer</quote> to say <quote>Computer, Firefox</quote> and <quote>Computer, Google</quote> like) it has the advantage of greatly limiting the number false-positives.</para>
 
-<para>simon's <link linkend="command_dialog">command dialog</link> displays the complete phrase associated with a command in the upper right corner of the command configuration.</para>
+<para>Simon's <link linkend="command_dialog">command dialog</link> displays the complete phrase associated with a command in the upper right corner of the command configuration.</para>
 
 <para>You can load multiple instances of one plugin even in one scenario. Each instance can of course also have a different plugin trigger.</para>
 
@@ -2154,7 +2930,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 
 <sect3 id="importing_executable_commands">
 <title>Importing Programs</title>
-<para>For even easier configuration simon provides an import dialog which allows you to select programs directly from the KDE menu.</para>
+<para>For even easier configuration Simon provides an import dialog which allows you to select programs directly from the KDE menu.</para>
 
 <note><para>This option is not available on Microsoft Windows.</para></note>
 
@@ -2171,7 +2947,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 
 <para>Sub-Categories are not supported and are thus listed on the same level as top-level categories.</para>
 
-<para>Just select the program you wish to start with simon and press <guibutton>Ok</guibutton>. The correct values for the executable and the working folder as well as an appropriate command name and description will automatically be filled out for you.</para>
+<para>Just select the program you wish to start with Simon and press <guibutton>Ok</guibutton>. The correct values for the executable and the working folder as well as an appropriate command name and description will automatically be filled out for you.</para>
 
 </sect3>
 
@@ -2179,7 +2955,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 
 <sect2 id="place_commands">
 <title>Place Commands</title>
-<para>With place commands you can allow simon to open any given URL. Because simon just hands the address over to the platforms URL handler, special Protocols like <quote>remote:/</quote> (on &Linux;/&kde;) or even &kde;'s <quote>Web-Shortcuts</quote> are supported.</para>
+<para>With place commands you can allow Simon to open any given URL. Because Simon just hands the address over to the platforms URL handler, special Protocols like <quote>remote:/</quote> (on &Linux;/&kde;) or even &kde;'s <quote>Web-Shortcuts</quote> are supported.</para>
 <para>Instead of folders, files can also be set as the commands URL which will cause the file to be opened with the application which is associated with it when the command is invoked.</para>
 
 <screenshot>
@@ -2244,10 +3020,10 @@ Some command plugins might provide a configuration of the plugin itself (not the
 </para>
 
 <para>To select the shortcut you wish to simulate just toggle the shortcut button and press the key combination on your keyboard.</para>
-<para>simon will capture the shortcut and associate it with the command.</para>
-<para>Due to technical limitations there are several shortcuts on Microsoft Windows that cannot be captured by simon (this includes &eg; <keycombo>&Ctrl;&Alt;<keycap>Del</keycap></keycombo> and <keycombo>&Alt;<keycap>F4</keycap></keycombo>). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
+<para>Simon will capture the shortcut and associate it with the command.</para>
+<para>Due to technical limitations there are several shortcuts on Microsoft Windows that cannot be captured by Simon (this includes &eg; <keycombo>&Ctrl;&Alt;<keycap>Del</keycap></keycombo> and <keycombo>&Alt;<keycap>F4</keycap></keycombo>). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
 
-<note><para>This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon.</para></note>
+<note><para>This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of Simon.</para></note>
 </sect2>
 
 <sect2 id="text_macro_commands">
@@ -2307,7 +3083,7 @@ When invoked, the command will display the list centered on the screen. The list
 While a list command is active (displayed), all input that is not directed at the list itself (other commands, &etc;) will be rejected. The process can be canceled by pressing the <guibutton>Cancel</guibutton> button or by saying <quote>Cancel</quote>.</para>
 
 <para>
-If there are more than 9 items simon will add <quote>Next</quote> and <quote>Back</quote> options to the list (<quote>Zero</quote> will be associated with <quote>Back</quote> and <quote>Nine</quote> with <quote>Next</quote>).
+If there are more than 9 items Simon will add <quote>Next</quote> and <quote>Back</quote> options to the list (<quote>Zero</quote> will be associated with <quote>Back</quote> and <quote>Nine</quote> with <quote>Next</quote>).
 
 <screenshot>
 <screeninfo>List Command with many entries</screeninfo>
@@ -2340,13 +3116,13 @@ By default the list command uses the following trigger words. To use list comman
 </itemizedlist>
 </para>
 
-<para>Of course you can also configure these words in your simon configuration:
+<para>Of course you can also configure these words in your Simon configuration:
   <itemizedlist>
     <listitem>
       <para><guimenuitem>Commands</guimenuitem> > <guibutton>Manage plugins</guibutton> > <guimenuitem>General</guimenuitem> > <guimenuitem>Lists</guimenuitem> for the scenario wide list configuration.</para>
     </listitem>
     <listitem>
-      <para><guimenu>Settings</guimenu> > <guimenuitem>Configure simon...</guimenuitem> > <guimenuitem>Actions</guimenuitem> > <guimenuitem>Lists</guimenuitem> for the global configuration. When creating a new scenario, the scenario configuration will be initialized with a copy of this list configuration.</para>
+      <para><guimenu>Settings</guimenu> > <guimenuitem>Configure Simon...</guimenuitem> > <guimenuitem>Actions</guimenuitem> > <guimenuitem>Lists</guimenuitem> for the global configuration. When creating a new scenario, the scenario configuration will be initialized with a copy of this list configuration.</para>
     </listitem>
   </itemizedlist>
 </para>
@@ -2404,7 +3180,7 @@ Using the composite command the user can compose complex <quote>macros</quote>. 
     </imageobject>
   </mediaobject>
 </screenshot>
-The desktopgrid divides the screen into nine parts which are numbered from 1-9. Saying one of these numbers will again divide the selected field into 9 fields again numbered from 1-9, &etc; This is repeated 3 times. After the fourth time the desktopgrid will be closed and simon will click in the middle of the selected area.</para>
+The desktopgrid divides the screen into nine parts which are numbered from 1-9. Saying one of these numbers will again divide the selected field into 9 fields again numbered from 1-9, &etc; This is repeated 3 times. After the fourth time the desktopgrid will be closed and Simon will click in the middle of the selected area.</para>
 
 <para>The exact click action is configurable but defaults to asking the user. Therefore you will be presented with a list of possible click modes. When selecting Drag and Drop, the desktopgrid will be displayed again to select the drop point.</para>
 
@@ -2434,7 +3210,7 @@ While the desktopgrid is active (displayed), all input that is not directed at t
     </imageobject>
   </mediaobject>
 </screenshot>
-The trigger that invokes the desktopgrid is of course completely configurable. Moreover the user can use <quote>real</quote> or <quote>fake</quote> transparency. If your graphical environment allows for compositing effects (<quote>desktop effects</quote>) then you can safely use <quote>real</quote> transparency which will make the desktogrid transparent. If your platform does not support compositing simon will simulate transparency by taking a screenshot of the screen before displaying the desktopgrid and display that picture behind the desktopgrid.
+The trigger that invokes the desktopgrid is of course completely configurable. Moreover the user can use <quote>real</quote> or <quote>fake</quote> transparency. If your graphical environment allows for compositing effects (<quote>desktop effects</quote>) then you can safely use <quote>real</quote> transparency which will make the desktogrid transparent. If your platform does not support compositing Simon will simulate transparency by taking a screenshot of the screen before displaying the desktopgrid and display that picture behind the desktopgrid.
 </para>
 
 <para>If the desktopgrid is configured to use real transparency and the system does not support compositing it will display a solid gray background.</para>
@@ -2608,7 +3384,7 @@ By default the input number plugin uses numbers to select the individual digits 
 The plugin registers a configuration screen in the command configuration menu where you can choose which AIML set to load.
 </para>
 
-<para>simon will look for AIML sets in the following folder:
+<para>Simon will look for AIML sets in the following folder:
 <itemizedlist>
 <listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/aimls/</filename></para></listitem>
 <listitem><para>Microsoft Windows: <filename>[installation folder (C:\Program Files\simon 0.2\ by default)]\share\apps\ai\aimls\</filename></para></listitem>
@@ -2704,7 +3480,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
       </listitem>
       <listitem>
         <para>Active</para>
-        <para>When activated, the filter will <quote>eat</quote> all results that match the configured pattern. By default this means every result that simon recognizes will be accepted by the filter and therefore not relayed to any of the plugins following the filter plugin.</para>
+        <para>When activated, the filter will <quote>eat</quote> all results that match the configured pattern. By default this means every result that Simon recognizes will be accepted by the filter and therefore not relayed to any of the plugins following the filter plugin.</para>
       </listitem>
     </itemizedlist>
   </para>
@@ -2746,7 +3522,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   </screenshot>
   </para>
 
-  <para>Essentially, the plugin will prompt you to say specific words. The recognition will then recognize your pronunciation of the word and compare it to your speech model which should be a base model of native speakers for this to work correctly. Then simon will display the recognition rate (how similar your version was to the stored base model).</para>
+  <para>Essentially, the plugin will prompt you to say specific words. The recognition will then recognize your pronunciation of the word and compare it to your speech model which should be a base model of native speakers for this to work correctly. Then Simon will display the recognition rate (how similar your version was to the stored base model).</para>
 
   <para>The closer to the native speaker, the higher the score.</para>
 
@@ -2831,452 +3607,40 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
   <para>The keys on the num pad are configurable voice interface commands.</para>
 </sect2>
-</sect1>
 
-
-
-<sect1 id="configuration">
-<title>Configuration</title>
-<para>
-simon was designed with high configurability in mind.
-</para>
-
-<sect2 id="configuration_general">
-<title>General Configuration</title>
-<para>The general configuration page lists some basic settings.</para>
-<para>
-<screenshot>
-<screeninfo>General Configuration</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="configure_general.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-<para>
-Please note that the option to start simon at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, &etc; might require manually placing simon in the session autostart (please refer to the respective manuals of your desktop environment).
-</para>
-<para>
-When the option to start simon minimized is selected, simon will minimize to the system tray immediately after starting.
-</para>
-<para>
-  Deselecting the option to warn when there are problems with samples deactivates the <link linkend="sample_quality_assurance">sample quality assurance</link>.
-</para>
+<sect2 id="dialog_command_plugin">
+  <title>Dialog</title>
+  
+  <para>TODO</para>
 </sect2>
 
-<sect2 id="soundconfiguration">
-<title>Recordings</title>
-<para>
-simon uses QtMultimedia to record and play sound. QtMultimedia is also used to gather data from the microphone which is then sent to the simond server for recognition.
-</para>
-
-<sect3 id="soundconfiguration_device">
-<title>Device Configuration</title>
-<para>The sound device configuration allows you to choose which sound device(s) to use, how many channels to use and at which samplerate to record.</para>
-<para>
-Most of the time you will want to use 1 channel and 16kHz (which is also the default) because the recognition only works on mono input and works best at 16kHz (8kHz being the other option).</para>
-
-<para>However, some low-cost sound cards might not support this particular mode in which case simon can in many cases work around this limitation by using postprocessing chains and 3rd party software. Please see the <link linkend="soundconfiguration_postprocessing">postprocessing section</link> for more details.</para>
-
-<para>Bottom line: Only change the channel and the samplerate if you really know what you are doing. Otherwise the recognition will <emphasis>most likely</emphasis> not work.</para>
-
-<para>
-<screenshot>
-<screeninfo>Sound Configuration: General</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="configure_sound_1.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>Use the selection boxes to change the device. Use the <guibutton>Refresh devices</guibutton> button if you have changed the sound configuration since you started simon.</para>
-
-<para>You can use simon with more than one sound device at the same time. Use <guibutton>Add device</guibutton> to add a new device to the configuration and <guibutton>Remove device</guibutton> to remove it from your configuration.</para>
-
-<para>The first device in your sound setup cannot be removed.</para>
-
-<para>For each device you can determine for what you want the device to be used: Training or recognition (last one only applicable for input devices).</para>
-
-<para>If you use more than one device for training, you will create multiple sound files for each utterance. When using multiple devices for recognition each one feeds a separate sound input stream to the server resulting in recognition results for each stream.</para>
-
-<para>If you use multiple output devices the playback of the training samples will play on all configured audio devices.</para>
-
-<para>When using different sample rates for your input devices, the output will only play on matching output devices. If you for example have one input device configured to use 16kHz and the other to use 48kHz, the playback of samples generated by the first one will only play on 16kHz outputs, the other one only on 48kHz devices.</para>
-</sect3>
-
-<sect3 id="soundconfiguration_vad">
-  <title>Voice Activity Detection</title>
-
-  <para>The recognition is done one the simond server. See the <link linkend="architecture">architecture section</link> for more details.</para>
-
-  <para>The sound stream is not continuous but is segmented by the simon client. This is done by something called <quote>voice activity detection</quote>.</para>
-
-  <para>
-  <screenshot>
-  <screeninfo>Voice activity detection</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="vad.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-  </para>
-
-  <para>Here you can configure this segmentation through the following parameters:
-    <itemizedlist>
-      <listitem>
-        <para><guilabel>Cutoff level</guilabel></para>
-        <para>Everything below this level is considered <quote>silence</quote> (background noise).</para>
-      </listitem>
-      <listitem>
-        <para><guilabel>Head margin</guilabel></para>
-        <para>Cache for as long as head margin to start consider it a real sample. During this whole time the input level needs to be above the cutoff level.</para>
-      </listitem>
-      <listitem>
-        <para><guilabel>Tail margin</guilabel></para>
-        <para>After the recording went below the cutoff level, simon will wait for as long as tail margin to consider the current recording a finished sample.</para>
-      </listitem>
-      <listitem>
-        <para><guilabel>Skip samples shorter than</guilabel></para>
-        <para>Samples that are shorter than this value are not considered for recognition. (coughs, &etc;)</para>
-      </listitem>
-    </itemizedlist>
-  </para>
-</sect3>
-
-<sect3 id="soundconfiguration_training">
-  <title>Training settings</title>
-
-  <para>
-  <screenshot>
-  <screeninfo>Training settings</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="training_config.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-  </para>
-
-  <para>When the option <guibutton>Default to power training</guibutton> is selected, simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session.</para>
-
-<para>The configurable font here refers to the text that is recorded to train the acoustic model (through explicit training or when adding a word).</para>
-
-<para>This option has been introduced after we have worked with a few clients suffering spastic disability. While we used the mouse to control simon during the training, they had to read what was on the screen. At first this was very problematic as the regular font size is relatively small and they had trouble making out what to read. This is why we made the font and the font size of the recording prompt configurable.</para>
-
-<para>Here you can also define the required signal to noise ratio for simon to consider a training sample to be correct. See the <link linkend="sample_quality_assurance">Sample Quality Assurance</link> section for more details.</para>
-<para>On this configuration page you can also set the parameters for the <link linkend="volume_calibration">volume calibration</link>.</para>
-
-<para>It can be deactivated for both the add word dialog and the training wizard by unchecking the group box itself. As long as the volume is not louder than the minimum volume simon will prompt the user to raise the microphone volume. If the recording hits the maximum volume once, simon will tell the user to lower the volume.</para>
-<para>Clipping (hitting the maximum amplitude) will always cause a <quote>too loud</quote> warning.</para>
-<para>The prompted text can be configured by entering text in the input field below. If the edit is empty a default text will be used.</para>
-</sect3>
-
-<sect3 id="soundconfiguration_postprocessing">
-<title>Postprocessing</title>
-<para>All recorded (training) and imported (through the import training data) samples can be processed using a series of postprocessing commands. Postprocessing chains are an advanced feature and shouldn't be needed by the average user.</para>
-
-<para>
-<screenshot>
-<screeninfo>Sound Configuration: Postprocessing</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="configure_sound_4.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>The postprocessing commands can be seen as a chain of filters through which the recordings have to pass through. Using these <quote>filters</quote> one could define commands to suppress background noise in the training data or normalize the recordings.</para>
-
-<para>Given the program <application>process_audio</application> which takes the input- and output files as its arguments (&eg;: <command>process_audio in.wav out.wav</command>) the postprocessing command would be: <userinput>process_audio %1 %2</userinput>. The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
-
-<para>The switch to <quote>apply filters to recordings recorded with simon</quote> enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_training-data">import training data wizard</link>).</para>
-
-<para>One common use-case of postprocessing chains would be the resampling of audio because of hardware limitations. Given a soundcard that does not support mono 16kHz recordings but only supports 44100Hz stereo (<acronym>CD</acronym>) recordings, one could use the free command line sound processing utility <ulink url="http://sox.sourceforge.net">SoX</ulink> to resample the recorded files after the recording.</para>
-<para>This example would require the following postprocessing command:
-<itemizedlist>
-<listitem><para><filename>sox %1 -c 1 -r 16000 %2</filename></para></listitem>
-</itemizedlist>
-</para>
-
-<para>Using this command you can safely record in 44100Hz and 2 channels and - assuming the option to apply the filters to recordings recorded with simon is selected - simon will automatically downsample them to 16000Hz and 1 channel automatically after recording them. Make sure to adjust your <link linkend="soundconfiguration_device">sound device configuration</link> accordingly.</para>
-</sect3>
+<sect2 id="dbus_command_plugin">
+  <title>Dbus</title>
+  
+  <para>TODO</para>
 </sect2>
 
-<sect2 id="configuration_speechmodel">
-<title>Speech Model</title>
-<para>Here you can adjust the parameters of the speech model.</para>
-
-<para>
-<screenshot>
-<screeninfo>Speech Model Configuration</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="configure_speech_model.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-<para>The samplerate set here is the target samplerate of the acoustic model. It has nothing to do with the recording samplerate and it is the responsibility of the user to ensure that the samples are actually made available in that format (usually by recording in that exact samplerate or by defining postprocessing commands that resample the files; see the <link linkend="soundconfiguration">sound configuration section</link> for more details).</para>
-
-<para>Usually either 16kHz or 8kHz models are built / used. 16kHz models will have higher accuracy over 8kHz models. Going higher than 16kHz is not recommended as it is very cpu-intensive and in practice probably won't result in higher recognition rates.</para>
-
-<para>Moreover, the path to the training samples can be adjusted. However, be sure that the previously gathered training samples are also moved to the new location. If you use automatic synchronization the simond would alternatively also provide simon with the missing sample but copying them manually is still recommended for performance reasons.</para>
-
+<sect2 id="json_command_plugin">
+  <title>JSON</title>
+  
+  <para>TODO</para>
 </sect2>
 
-<sect2 id="configuration_model_extensions">
-<title>Model Extensions</title>
-
-<para>Using the model (internet) extensions simon can fetch additional resources around your speech model from the internet. At the moment only the download of training texts is supported but more features are planned for the future.</para>
-<para>
-<screenshot>
-<screeninfo>Model Extensions</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="configure_model_extensions.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-<para>Here you can configure the base URL that is going to be used for the <link linkend="import_dict_hadifix">automatic bomp import</link>. The default points to the copy on the simon listens server.</para>
+<sect2 id="akonadi_command_plugin">
+  <title>Akonadi</title>
+  
+  <para>TODO</para>
 </sect2>
 
-<sect2 id="configure_recognition">
-<title>Recognition</title>
-
-<para>Here you can configure the recognition and model synchronization with the simond server.</para>
-
-<sect3 id="configure_server">
-  <title>Server</title>
-
-  <para>Using the server configuration you can set parameters of the connection to simond.</para>
-
-<sect4 id="configure_server_general">
-<title>General</title>
-<para>
-The simon main application connects to the simond server (see the <link linkend="architecture">architecture section</link> for more information).
-</para>
-
-<para>
-<screenshot>
-<screeninfo>Configure Server: General</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="configure_simond_1.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>
-To identify individual users of the system (one simond server can of course serve multiple simon clients), simon and simond use users. Every user has his own speech model. The username / password combination given here is used to log in to simond. If simond does not know the username or the password is incorrect, the connection will fail. See the <ulink url="help:/simond">simond manual</ulink> on how to setup users for simond.</para>
-
-<para>The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - vocabulary, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available).</para>
-
-<para>Using the <guilabel>Connect to server on startup</guilabel> option, simon will automatically start the connection to the configured simond servers after it has finished loading the user interface.</para>
-</sect4>
-
-<sect4 id="configure_server_network">
-<title>Network</title>
-<para>simon connects to simond using TCP/IP.</para>
-
-<para>
-<screenshot>
-<screeninfo>Configure Server: Network</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="configure_simond_2.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-<para>
-As of yet (simon 0.3), encryption is not yet supported.
-</para>
-<para>
-The timeout setting specifies, how long simon will wait for a first reply when contacting the hosts. If you are on a very, very slow network and/or use <quote>connect on start</quote> on a very slow machine, you may want to increase this value if you keep getting timeout errors and can resolve them by trying again repeatedly.
-</para>
-<para>simon supports to be configured to use more than one simond. This is very useful if you for example are going to use simon on a laptop which connects to a different server depending where you are. You could for example add the server you use when you are home and the server used when you are at work. When connecting, simon will try to connect to each of the servers (in order) until it finds one server that accepts the connection.</para>
-
-<para>To add a server, just enter the host name or IP address and the port (separated by <quote>:</quote>) or use the dialog that appears when you select the blue arrow next to the input field.</para>
-
-</sect4>
-</sect3>
-
-<sect3 id="configure_synchronization">
-<title>Synchronization and Model Backup</title>
-<para>Here you can configure the model synchronization and restore older versions of your speech model.</para>
-
-<para>
-<screenshot>
-<screeninfo>Synchronization and Model Backup</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="configure_synchronization.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>
-Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default simon will always synchronize the model with the server when it changes. This is called <guimenuitem>Automatic Synchronization</guimenuitem> and is the recommended setting.
-</para>
-<para>
-However, if you want more control you can instruct simon to ask you before starting the synchronization after the model has changed or to rely on manual synchronization all together. When selecting the manual synchronization you have to manually use the <guimenuitem>Synchronization</guimenuitem> menu item of the simon main window (also see the section <link linkend="main_window">simon main window</link>) every time you want to compile the speech model.
-</para>
-
-<para>The simon server will maintain a copy of the last five iterations of model files. However, this only includes the <quote>source files</quote> (the vocabulary, grammar, &etc;) - <emphasis>not the compiled model</emphasis>. However, the compiled model will be regenerated from the restored source files automatically.</para>
-
-<para>After you have connected to the server, you can select one of the available models and restore it by clicking on <guimenuitem>Choose  Model</guimenuitem>.</para>
-
-<para>Please note that the synchronization will only accept complete source models (containing a vocabulary, a grammar and some training samples) so incomplete models will not be stored on the server and thus not be backed up.</para>
-
-</sect3>
-</sect2>
-
-
-
-<sect2 id="configure_actions">
-<title>Actions</title>
-
-<para>In the actions configuration you can configure the reactions to recognition results.</para>
-
-<sect3 id="configure_actions_recognition">
-  <title>Recognition</title>
-
-  <para>The recognition of simon computes not only the most likely result but rather the top ten results.</para>
-  <para>Each of the results are assigned a confidence score between 0 and 1 (were 1 is 100% sure).</para>
-  <para>Using the <guilabel>Minimum confidence</guilabel> you can set a minimum confidence for recognition results to be considered valid.</para>
-
-  <para>If more than one recognition results are rated higher than the minimum confidence score, simon will provide a popup listing the most likely options for you to choose from.</para>
-
-  <para>
-  <screenshot>
-  <screeninfo>Did you mean...?</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="did_you_mean.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-  </para>
-
-  <para>This popup can be disabled using the <guibutton>Display selection popup for ambiguous results</guibutton> check box.</para>
-</sect3>
-<sect3>
-  <title>Dialog font</title>
-  <para>Many plugins of simon have a graphical user interface.</para>
-  <para>The fonts of these interfaces can be configured centrally and independent of the systems font settings here.</para>
-
-  <para>
-  <screenshot>
-    <screeninfo>Input number with custom font</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="input_number_huge_font.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-  </para>
-</sect3>
-
-<sect3>
-  <title>Lists</title>
-  <para>Here you can find the global list element configuration. This serves as a template for new scenarios but is also directly used for <link linkend="configure_actions_recognition">the popup for ambiguous recognition results</link>.</para>
-</sect3>
-</sect2>
-
-<sect2 id="social_desktop_config">
-<title>Social desktop</title>
-<para>Scenarios can be <link linkend="export_scenario">uploaded</link> and <link linkend="import_scenario">downloaded from within simon</link>.</para>
-
-<para>For this we use KDEs social desktop facilities and our own <ulink url="http://kde-files.org/index.php?xcontentmode=692">category for simon scenarios on kde-files.org</ulink>.</para>
-
-<para>If you already have an account on <ulink url="http://opendesktop.org">opendesktop.org</ulink> you can input the credentials there. If you don't, you can register directly in the configuration module.</para>
-
-<para>The registration is of course free of charge.</para>
-</sect2>
-
-<!--
-     TODO
-<sect2 id="text-to-speech_config">
-<title>Text-to-speech</title>
-Three tabs:
-Backends (Recordings, Webservice, Jovie available)
-Recordings
-Webservice
-</sect2>
--->
-
-<sect2 id="jconfs">
-<title>Adjusting the recognition parameters manually</title>
-
-<para>
-simon is targeted towards end-users. It's interface is designed to allow even users without any background in speech technology to design their own language and acoustic models by providing reasonable default values for simple uses.
-</para>
-<para>
-In special cases (severe speech impairments for example), special configuration might be needed. This is why the raw configuration files for the recognition are also respected by simon and can of course be modified to suit your needs.
-</para>
-
-<para>There are basically two parts of the Julius configuration that can be adjusted:
-<itemizedlist>
-<listitem><para>adin.jconf</para><para>This is the configuration of the simon client of the Soundstream sent from simon to the simond. This file is directly read by the adinstreamer.</para>
-<para>simon ships with a default adin.jconf without any special parameters. You can change this system wide configuration which will affect all users if there are different user accounts on your machine who all use simon. To just change the configuration of one of those users copy the file to the user path (see below) and edit this copy.</para>
-</listitem>
-<listitem><para>julius.jconf</para><para>This is a configuration of the simond server and directly influences the recognition. This file is parsed by libjulius and libsent directly.</para>
-<para>simond ships with a default julius.jconf. Whenever there is a new user added to the simond database, simond will automatically copy this system wide configuration to the new user. After that the user is of course free to change it but it won't affect the other users. This way the <quote>template</quote> (the system wide configuration) can be changed without affecting other users.</para>
-</listitem>
-</itemizedlist>
-</para>
-
-<para>The path to the Julius configuration files will depend on your platform:
-
-<table frame='all'><title>Julius Configuration Files</title>
-<tgroup cols='3' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1'/>
-<colspec colname='c2'/>
-<colspec colname='c3'/>
-<thead>
-<row>
-  <entry>File</entry>
-  <entry>Microsoft Windows</entry>
-  <entry>GNU/Linux</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>adin.jconf (system)</entry>
-  <entry>(installation path)\share\apps\simon\adin.jconf</entry>
-  <entry>`kde4-config --prefix`/share/apps/simon/adin.jconf</entry>
-</row>
-<row>
-  <entry>adin.jconf (user)</entry>
-  <entry>%appdata%\.kde\share\apps\simon\adin.jconf</entry>
-  <entry>~/.kde/share/apps/simon/adin.jconf</entry>
-</row>
-<row>
-  <entry>julius.jconf (template)</entry>
-  <entry>(installation path)\share\apps\simond\default.jconf</entry>
-  <entry>`kde4-config --prefix`/share/apps/simond/default.jconf</entry>
-</row>
-<row>
-  <entry>julius.jconf (user)</entry>
-  <entry>%appdata%\.kde\share\apps\simond\models\(user)\active\julius.jconf</entry>
-  <entry>~/.kde/share/apps/simond/models/(user)/active/julius.jconf</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-</para>
-
+<sect2 id="atspi_command_plugin">
+  <title>AT-SPI</title>
+  
+  <para>TODO</para>
 </sect2>
 
 </sect1>
+
+
 
 </chapter>
 
