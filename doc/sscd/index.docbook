@@ -179,7 +179,7 @@ BindHost=127.0.0.1
 
   <para>SSCd optionally takes the command line argument "-l" (or "--locked") to turn on "locked" mode (off by default).</para>
 
-  <para>In locked mode, clients can still connect and upload samples as well as create new microphones and sound cards but do not have any access (read or write) to any personal- or institutional data besides the users name and id. This can be helpful to limit the amount of private patient information shown to recoding teams.</para>
+  <para>In locked mode, clients can still connect and upload samples as well as create new microphones and sound cards but do not have any access (read or write) to any personal- or institutional data besides the users name and id. This can be helpful to limit the amount of private patient information shown to recording teams.</para>
 
   <para>While locked mode is active, there is also no search of users so make sure your recording team is provided with a list of user ids beforehand.</para>
 </sect1>

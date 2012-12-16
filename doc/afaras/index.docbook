@@ -25,8 +25,6 @@
 
 <keywordset>
 <keyword>KDE</keyword>
-<keyword>kdeutils</keyword>
-<keyword>Kapp</keyword>
 <keyword>Simon</keyword>
 <keyword>sample</keyword>
 <keyword>corpus</keyword>
@@ -63,7 +61,7 @@
 <title>Introduction</title>
 
 <para>
-  &kmyapplication; is a simple tool to clean up large sample corpora.
+  &kmyapplication; is an automatic sample review tool.
 </para>
 
 <para>To build an acoustic model, man annotated samples are required. Often these will be recorded by many different teams and it can be hard to enforce strict quality requirements given the large amount of data collected.</para>
@@ -92,7 +90,7 @@
 
 <para>The main window requests the path to the prompts file to review, the path prefix to the audio samples and an output path for the produced blacklist file. If this file already exists it will be loaded when starting the review.</para>
 
-<para>Optionally, a Sam model build log of a model compilation process involving the samples to be reviewed can be provided. &kmyapplication; will then try to use intermediate results of the model compilation process to order the review samples to most- to least-likely errenous. This way, even very short reviews can substantially improve the model generation process.</para>
+<para>Optionally, a Sam model build log of a model compilation process involving the samples to be reviewed can be provided. &kmyapplication; will then try to use intermediate results of the model compilation process to order the review samples to most- to least-likely erroneous. This way, even very short reviews can substantially improve the model generation process.</para>
 
 <para>
 <screenshot>
