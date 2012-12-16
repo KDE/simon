@@ -109,7 +109,7 @@ Additionally to the Simon, Simond and KSimond other, more specialized applicatio
 <itemizedlist>
   <listitem><para>Sam</para><para>Provides more in-depth control to your speech model and allows to test the acoustic model.</para></listitem>
   <listitem><para>SSC / SSCd</para><para>These two applications can be used to collect large amount of speech samples from different persons more easily.</para></listitem>
-  <listitem><para>Afaras</para><para>This simple utility allows users to quickly check large corpora of speech data for errenous samples.</para></listitem>
+  <listitem><para>Afaras</para><para>This simple utility allows users to quickly check large corpora of speech data for erroneous samples.</para></listitem>
 </itemizedlist>
 </para>
 
@@ -371,7 +371,7 @@ To build, adapt or use acoustic models of different types, certain software need
 All four tools, HTK, Julius, PocketSphinx and SphinxTrain, can safely be installed at the same time.
 </para>
 <para>
-SPHINX support in Simon must be enabled during compile time and might not be available on your plattform. Please refer to your distribution.
+SPHINX support in Simon must be enabled during compile time and might not be available on your platform. Please refer to your distribution.
 </para>
 <para>
 Note: The Simon Windows installer includes Julius, PocketSphinx and SphinxTrain but not the HTK. Please refer to the <link linkend="installation">installation section</link> for information on how to install it should you find the need for it.
@@ -405,7 +405,10 @@ To keep this list of available base models up to date, please refer to <ulink ur
 You can not use scenarios designed for different phoneme set (different base model). If Simon recognizes this error, it will try to disable affected words by removing the from the created speech model. These words will be marked with a red background in the vocabulary of the scenario. To re-enable them, transcribe them with the proper phoneme set or use a user-generated model.
 </para>
 
-<para>Hint: If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way Simon will suggest the <quote>correct</quote> phonemes when adding the words automatically.</para>
+<note>
+<title>Hint</title>
+<para>If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way Simon will suggest the <quote>correct</quote> phonemes when adding the words automatically.</para>
+</note>
 </sect3>
 </sect2>
 </sect1>
@@ -436,7 +439,7 @@ You can not use scenarios designed for different phoneme set (different base mod
 
 <para>The configuration consists of five easy steps which are outlined below. You can skip each step and even the whole wizard if you want to - in that case, the system will be set up with default values.</para>
 
-<para>However, please note that without any configuration, ther won't be any recognition.</para>
+<para>However, please note that without any configuration, there won't be any recognition.</para>
 
 <sect2 id="first_run_scenarios">
 <title>Scenarios</title>
@@ -454,7 +457,7 @@ You can not use scenarios designed for different phoneme set (different base mod
   </screenshot>
 </para>
 
-<para>To download scenarios from the online respository, select <menuchoice><guimenuitem>Open</guimenuitem><guimenuitem>Download</guimenuitem></menuchoice> to open the download dialog pictured below.</para>
+<para>To download scenarios from the online repository, select <menuchoice><guimenuitem>Open</guimenuitem><guimenuitem>Download</guimenuitem></menuchoice> to open the download dialog pictured below.</para>
 
 <para>
   <screenshot>
@@ -469,7 +472,7 @@ You can not use scenarios designed for different phoneme set (different base mod
 
 <para>Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
 
-<para>After completing the assitant, you can change the scenario configuration with the use of the <link linkend="administrating_scenarios">scenario management dialog</link>.</para>
+<para>After completing the assistant, you can change the scenario configuration with the use of the <link linkend="administrating_scenarios">scenario management dialog</link>.</para>
 
 <para>If you are planning to use a <link linkend="base_model">base model</link>, make sure that you download <link linkend="phoneme_set_issues">matching scenarios</link>.</para>
 
@@ -871,7 +874,7 @@ SNR warning message triggered by an empty sample. This information dialog is dis
 Simon was designed with high configurability in mind. Because of this, there are plentiful parameters that can be fine-tuned to your specific requirements.
 </para>
 
-<para>You can access Simons configuration dialog through the applications main menu: <menuchoice><guimenuitem>Settings</guimenuitem><guimenuitem>Configure Simon...</guimenuitem></menuchoice>.</para>
+<para>You can access Simon's configuration dialog through the applications main menu: <menuchoice><guimenuitem>Settings</guimenuitem><guimenuitem>Configure Simon...</guimenuitem></menuchoice>.</para>
 
 <sect2 id="configuration_general">
 <title>General Configuration</title>
@@ -1860,7 +1863,7 @@ As Simon is a multi-language solution we do not ship shadow dictionaries with Si
 Additionally to a shadow dictionary, Simon can use a language profile to provide help with transcribing words.
 </para>
 
-<para>A language profile consists of rules how words are pronounced in the target language. It can be likened to the way that humans can often pronounce a word they never heard just because they know some implicit "pronounciation rules" of the language.</para>
+<para>A language profile consists of rules how words are pronounced in the target language. It can be likened to the way that humans can often pronounce a word they never heard just because they know some implicit "pronunciation rules" of the language.</para>
 
 <para>Just as with humans, this process is not perfect but can provide a solid starting ground.</para>
 
