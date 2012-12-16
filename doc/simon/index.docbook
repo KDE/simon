@@ -373,9 +373,11 @@ All four tools, HTK, Julius, PocketSphinx and SphinxTrain, can safely be install
 <para>
 SPHINX support in Simon must be enabled during compile time and might not be available on your platform. Please refer to your distribution.
 </para>
+<note>
 <para>
-Note: The Simon Windows installer includes Julius, PocketSphinx and SphinxTrain but not the HTK. Please refer to the <link linkend="installation">installation section</link> for information on how to install it should you find the need for it.
+The Simon Windows installer includes Julius, PocketSphinx and SphinxTrain but not the HTK. Please refer to the <link linkend="installation">installation section</link> for information on how to install it should you find the need for it.
 </para>
+</note>
 </sect3>
 
 <sect3 id="base_model_get">
@@ -402,7 +404,7 @@ To keep this list of available base models up to date, please refer to <ulink ur
 <para>In practice, this often just means that you need to <emphasis>match scenarios to your base model</emphasis>. The name of &kmyapplication; base models will most likely start with a tag like "[EN/VF/JHTK]". Try to download scenarios that start with the same tag.</para>
 
 <para>
-You can not use scenarios designed for different phoneme set (different base model). If Simon recognizes this error, it will try to disable affected words by removing the from the created speech model. These words will be marked with a red background in the vocabulary of the scenario. To re-enable them, transcribe them with the proper phoneme set or use a user-generated model.
+You can not use scenarios designed for different phoneme set (different base model). If Simon recognizes this error, it will try to disable affected words by removing them from the created speech model. These words will be marked with a red background in the vocabulary of the scenario. To re-enable them, transcribe them with the proper phoneme set or use a user-generated model.
 </para>
 
 <note>
@@ -874,7 +876,7 @@ SNR warning message triggered by an empty sample. This information dialog is dis
 Simon was designed with high configurability in mind. Because of this, there are plentiful parameters that can be fine-tuned to your specific requirements.
 </para>
 
-<para>You can access Simon's configuration dialog through the applications main menu: <menuchoice><guimenuitem>Settings</guimenuitem><guimenuitem>Configure Simon...</guimenuitem></menuchoice>.</para>
+<para>You can access Simon's configuration dialog through the application's main menu: <menuchoice><guimenuitem>Settings</guimenuitem><guimenuitem>Configure Simon...</guimenuitem></menuchoice>.</para>
 
 <sect2 id="configuration_general">
 <title>General Configuration</title>
@@ -1344,7 +1346,7 @@ However, if you want more control you can instruct Simon to ask you before start
 
 <sect3>
 <title>Backends</title>
-<para>Multiple external TTS solutions can be used to alow &kmyapplication; to talk. Multiple backends can be enabled at the same time and will be queried in the configured order until one is found that can synthesize the requested message.</para>
+<para>Multiple external TTS solutions can be used to allow &kmyapplication; to talk. Multiple backends can be enabled at the same time and will be queried in the configured order until one is found that can synthesize the requested message.</para>
 
 <para>The following backends are available:
 <itemizedlist>
