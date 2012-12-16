@@ -41,7 +41,6 @@ class AICommandManager : public CommandManager
 
     private:
     AIMLParser *parser;
-    KProcess *festivalProc;
 
   protected:
     bool trigger(const QString& triggerName, bool silent);

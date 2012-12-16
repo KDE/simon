@@ -23,6 +23,7 @@
 
 #include <simonlogging/logger.h>
 #include <simonscenarios/scenario.h>
+#include <simontts/simontts.h>
 
 #include <QDebug>
 #include <QXmlInputSource>
@@ -42,8 +43,7 @@ registerPlugin< AICommandManager >();
 K_EXPORT_PLUGIN( AIPluginFactory("simonaicommand") )
 
 AICommandManager::AICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-parser(0),
-festivalProc(0)
+parser(0)
 {
 }
 
@@ -68,25 +68,15 @@ CommandConfiguration* AICommandManager::getConfigurationPage() const
 
 bool AICommandManager::trigger(const QString& triggerName, bool silent)
 {
+  kDebug() << "Triggering! " << parser;
   Q_UNUSED(silent);
   Q_ASSERT(parser);
-  Q_ASSERT(festivalProc);
   if (!parser) return false;
-  if (!festivalProc) return false;
 
   QString aliceResponse = parser->getResponse(triggerName);
-  festivalProc->write("(SayText \""+aliceResponse.toLatin1().trimmed().replace("\"", "")+"\")\n");
+  SimonTTS::say(aliceResponse);
 
-  // 	QString outputName = KStandardDirs::locateLocal("tmp", "tmpSoundOutput.wav");
-  // 	festivalProc->setShellCommand("echo \""+aliceResponse.toLatin1().trimmed()+"\" | "+
-  // 					KStandardDirs::findExe("txt2pho").toLatin1()+" | "+
-  // 					KStandardDirs::findExe("mbrola").toLatin1()+
-  // 					" /opt/mbrola/de5/de5 - "+
-  // 					outputName.toLatin1()+" && "+
-  // 					"aplay -q -c 1 "+outputName.toLatin1());
-  // 	festivalProc->execute();
-
-  return false;                                   // pass this recognition result on to the other plugins
+  return true;
 }
 
 
@@ -134,22 +124,13 @@ bool AICommandManager::deSerializeConfig(const QDomElement& elem)
   config->deSerialize(elem);
 
   if (!setupParser()) return false;
+  if (!SimonTTS::initialize()) return false;
 
-  festivalProc = new KProcess(this);
-  festivalProc->setProgram(KStandardDirs::findExe("festival"));
-  festivalProc->start();
-  if (!festivalProc->waitForStarted(1000))
-    return false;
-
-  festivalProc->write("(voice_us2_mbrola)\n");
   return true;
 }
 
 void AICommandManager::finalize()
 {
-  if (festivalProc && (festivalProc->state()==QProcess::Running))
-    festivalProc->write("(quit)\n");
-
   if (parser)
     parser->saveVars(KStandardDirs::locate("data", "ai/util/vars.xml"));
 }
