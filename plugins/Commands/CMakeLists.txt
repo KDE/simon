@@ -5,7 +5,7 @@ if (KDEPIMLIBS_FOUND)
 endif (KDEPIMLIBS_FOUND)
 
 if(QAccessibilityClient_FOUND)
-  add_subdirectory(ATSPI)
+#  add_subdirectory(ATSPI)
 endif(QAccessibilityClient_FOUND)
 
 add_subdirectory(Calculator)
