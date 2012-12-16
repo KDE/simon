@@ -183,18 +183,6 @@ In most cases scenarios are tailored to work best with a specific <link linkend=
 </para>
 
 <para>
-Every Scenario contains the following components:
-<itemizedlist>
-<listitem><para><link linkend="vocabulary">Vocabulary</link>&nbsp;</para></listitem>
-<listitem><para><link linkend="grammar">Grammar</link>&nbsp;</para></listitem>
-<listitem><para><link linkend="training">Training texts</link>&nbsp;</para></listitem>
-<listitem><para><link linkend="context">Context</link>&nbsp;</para></listitem>
-<listitem><para><link linkend="commands">Commands</link>&nbsp;</para></listitem>
-</itemizedlist>
-</para>
-
-
-<para>
 For information on how to use scenarios in Simon, please refer to the <link linkend="scenarios_use">Scenario section in the Use Simon chapter</link>.
 </para>
 </sect2>
@@ -474,7 +462,7 @@ You can not use scenarios designed for different phoneme set (different base mod
 
 <para>Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
 
-<para>After completing the assistant, you can change the scenario configuration with the use of the <link linkend="administrating_scenarios">scenario management dialog</link>.</para>
+<para>After completing the assistant, you can change the scenario configuration with the use of the <link linkend="scenarios_use">scenario management dialog</link>.</para>
 
 <para>If you are planning to use a <link linkend="base_model">base model</link>, make sure that you download <link linkend="phoneme_set_issues">matching scenarios</link>.</para>
 
@@ -607,12 +595,12 @@ You can not use scenarios designed for different phoneme set (different base mod
 The Simon main window can be hidden at any time by clicking on the Simon logo in the system tray (usually next to the system clock in the task bar) which will minimize Simon to the tray. Click it again to show the main window again.
 </para>
 
-<sect2>
+<sect2 id="main_window_scenarios">
 <title>Main window: Scenarios</title>
 
-<para>A list of scenarios shows the currently loaded scenarios. You can manage this selection by clicking <guibutton>Manage scenarios</guibutton> which will open the <link linkend="administrating_scenarios">scenario management dialog</link>.</para>
+<para>A list of scenarios shows the currently loaded scenarios. You can manage this selection by clicking <guibutton>Manage scenarios</guibutton> which will open the <link linkend="scenarios_use">scenario management dialog</link>.</para>
 
-<para>To <link linkend="scenarios_use">edit a scenario</link>, select it from the list and open it by pressing <guibutton>Open "&lt;name&gt;"</guibutton>.</para> <!-- FIXME: fix link -->
+<para>To <link linkend="using-simon-advanced">modify a scenario</link>, select it from the list and open it by pressing <guibutton>Open "&lt;name&gt;"</guibutton>.</para>
 </sect2>
 
 <sect2>
@@ -622,7 +610,7 @@ The Simon main window can be hidden at any time by clicking on the Simon logo in
 
 <para>Selecting a training text will highlight the parent scenario in the scenario section.</para>
 
-<para>You can start to <link linkend="training_in_progress">train the recognition</link> by selecting a text and clicking on <guibutton>Start training</guibutton>.</para>
+<para>You can start to <link linkend="training_in_progress">train the recognition</link> by selecting a text and clicking on <guibutton>Start training</guibutton>. Please note that, depending on your selected model type, training may or may not improve your recognition accuracy. The acoustic model section (see below) in the &kmyapplication; main menu tells you if training will have an effect for your specific configuration. For more information, please refer to the <link linkend="base_model">base model section</link> for background information on this subject.</para>
 
 <para>The gathered training corpus can be managed by selecting <guibutton>Manage training data</guibutton> which will open the <link linkend="sample_management">sample management dialog</link>.</para>
 
@@ -646,6 +634,57 @@ The Simon main window can be hidden at any time by clicking on the Simon logo in
 
 <para>An integrated volume calibration widget monitors the configured recognition devices. The sound setup can be modified by selecting <guibutton>Configure audio</guibutton> to bring up the <link linkend="soundconfiguration">sound configuration</link>.</para>
 
+</sect2>
+
+</sect1>
+
+<sect1 id="scenarios_use">
+<title>Scenarios</title>
+<para>This section describes how to import and remove scenarios to your Simon configuration. For general information about scenarios, please refer to <link linkend="scenarios">the background chapter</link>. If you want to create, edit or export scenarios, please refer to the <link linkend="scenarios_use_advanced">advanced usage section</link>.</para>
+
+<para>To modify your scenario configuration, first open the scenario management dialog by pressing <guibutton>Manage scenarios</guibutton> in the Simon main window.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>Manage scenarios</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="manage_scenarios_1.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>To activate or deactivation a scenario you can use the arrow buttons between the two lists or simply double click the option you want to load / unload.</para>
+
+<para>More information about individual scenarios can be found in the tooltips of the list items.</para>
+
+<sect2 id="import_scenario">
+  <title>Import Scenario</title>
+  <para>Scenarios can be imported from a local file in Simon's XML scenario file format but can also be directly downloaded and imported from the internet.</para>
+
+  <para>When downloading scenarios, the list of scenarios is retrieved from <ulink url="http://kde-files.org/index.php?xcontentmode=692">Simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>Download scenarios</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="get_hot_new_scenarios_1.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+  <para>If you create a scenario that might be valuable for other Simon users, please consider <link linkend="export_scenario">uploading it</link> to this online repository and help other Simon users.</para>
+</sect2>
+
+<sect2 id="delete_scenario">
+<title>Delete Scenario</title>
+
+<para>To delete a scenario, select the scenario and click the <guibutton>Delete</guibutton> button.</para>
+
+<para>Because scenarios are synchronized with the recognition server, you can restore deleted scenarios through the <link linkend="configure_synchronization">model synchronization backup</link>.</para>
 </sect2>
 
 </sect1>
@@ -870,6 +909,117 @@ SNR warning message triggered by an empty sample. This information dialog is dis
 
 </sect1>
 
+<sect1 id="sample_management">
+<title>Manage training data</title>
+
+<para>To view and modify your personal training corpus, you can access the training data management dialog by selecting <guibutton>Manage training data</guibutton> in the &kmyapplication; main window or the <link linkend="training">training section of any opened scenario</link>.</para>
+
+<para>
+<screenshot>
+<screeninfo>Manage training samples</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="training_samples.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<sect2 id="open_sample">
+<title>Modifying samples</title>
+
+<para>To listen to or re-record a sample, select it from the list and select <guibutton>Open Sample</guibutton>.</para>
+
+<para>
+<screenshot>
+<screeninfo>Modifying a training sample</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="training_samples_modify.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>In this dialog you can also modify the sample's <link linkend="sample_group">after it was recorded</link>.</para>
+
+<para>If you remove the opened sample and do not re-record it, &kmyapplication; will offer to remove it from the corpus.</para>
+
+<para>
+<screenshot>
+<screeninfo>Removing a training sample</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="training_samples_remove.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+</sect2>
+
+<sect2 id="clear_training_data">
+<title>Clear training data</title>
+<para>
+After a confirmation dialog, this will remove all personal training data of the user.
+</para>
+</sect2>
+
+<sect2 id="import_training-data">
+<title>Importing Training Samples</title>
+<para>
+Using the import training data field you can import previously gathered training samples from previous Simon versions or manual training.</para>
+
+<note>
+<para>
+This feature is very specific. Please use it with caution and make sure that you know exactly what you are doing before you continue.
+</para>
+</note>
+
+<para>You can either provide a separate prompts file or let Simon extract the transcriptions from the filenames.</para>
+
+<para>When using prompts based transcriptions your prompts file (UTF-8) needs to contain lines of the following content: <quote>[filename] [content]</quote>. Filenames are without file extensions and the content has to be uppercase. For example: <userinput>demo_2007_03_20 DEMO</userinput> to import the file <filename>demo_2007_03_20.wav</filename> containing the spoken word <quote>Demo</quote>.</para>
+
+<para>Because prompts files do not contain a file extension, Simon will try wav, mp3, ogg and flac (in that order). If one of those match, no other extension will be tested and only the first file will be imported (in contrast to file based transcription where all files would be imported).</para>
+
+<para>
+When using file based transcriptions, a file called this_is_a_test.wav <emphasis>must</emphasis> contain <quote>This is a test</quote> and nothing else. Numbers and special characters (<quote>.</quote>, <quote>-</quote>,...) in the filename are ignored and stripped.
+</para>
+
+<para>Files recorded by Simon 0.2 <emphasis>will</emphasis> follow this naming scheme so you can safely import them using the file name extraction method. Files generated by previous Simon versions should not be imported using this function but you can use the prompts based import for that.</para>
+
+<para>
+Imported files and their transcription are then added to the training corpus.
+</para>
+
+<para>
+To import a folder containing training samples just select the folder to import and depending on your import type also the prompts file.
+
+<screenshot>
+<screeninfo>Import training data wizard</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import_training_data_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+The folder will be scanned recursively. This means that the given folder and all its subfolders will be searched for .wav, .flac, .mp3 and .ogg files. All files found will be imported.
+</para>
+
+<para>
+When importing the sound files, all configured <link linkend="soundconfiguration_postprocessing">post processing filters</link> are applied.
+</para>
+<para>
+  If you import anything other than WAV files you are responsible for decoding them during the import process (for example through post processing filters) or the model creation <emphasis>will</emphasis> fail.
+</para>
+
+</sect2>
+
+</sect1>
+
 <sect1 id="configuration">
 <title>Configuration</title>
 <para>
@@ -1085,7 +1235,7 @@ Simon uses fairly sophisticated internal sound processing to enable complex mult
 <title>Speech Model</title>
 <para>Here you can adjust the parameters of the speech model.</para>
 
-<sect3>
+<sect3 id="base_model_use">
 <title>Base model</title>
 
 <para>You can optionally use base models to limit / circumvent the training or to avoid installing a model creation backend. Please refer to the general <link linkend="base_model">base model section</link> for more details about base models.</para>
@@ -1495,11 +1645,37 @@ In special cases (severe speech impairments for example), special configuration 
 
 
 <chapter id="using-simon-advanced">
-<title>Using &kmyapplication;: Advanced user</title>
+<title>Advanced: Creating new scenarios with &kmyapplication;</title>
 
+<para>The following chapter is aimed towards more experienced users who want to design their own scenarios.</para>
+
+<para>For general usage instruction, please refer to the chapter <link linkend="using-simon">Using &kmyapplication;: Typical user</link>.</para>
+
+<sect1 id="creating_scenarios_general">
+<title>Introduction</title>
+<para>To add a new scenario, you first create a new scenario "shell" by <link linkend="add_scenario">adding a new scenario object</link> and then <link linkend="main_window_scenarios">open it in the &kmyapplication; main window</link>.</para>
+
+<para>To instead modify an existing scenario, you of course just have to open it.</para>
+
+<para>
+A &kmyapplication; Simon scenario contains the following components:
+<itemizedlist>
+<listitem><para><link linkend="vocabulary">Vocabulary</link></para></listitem>
+<listitem><para><link linkend="grammar">Grammar</link></para></listitem>
+<listitem><para><link linkend="training">Training texts</link></para></listitem>
+<listitem><para><link linkend="context">Context</link></para></listitem>
+<listitem><para><link linkend="commands">Commands</link></para></listitem>
+</itemizedlist>
+</para>
+
+<para>Before describing how to configure these elements in Simon, the next section provides background information that will help you understand the basic principles of speech modelling. This fundamental knowledge is necessary to design sensible scenarios.</para>
+
+</sect1>
 
 <sect1 id="speech_model">
-<title>Speech Recognition: Background</title>
+<title>Speech recognition: background</title>
+
+<note><para>Before explaining exactly how you can create new scenarios with Simon, this section introduces some fundamental basics to speech recognition in general.</para></note>
 
 <para>
 Speech recognition systems take voice input (often from a microphone) and try to translate it into written text. To do that, they rely on statistical representations of human voice. To put it into simple terms: The computer learns how words - or more correctly the sounds that make up those words - sound.
@@ -1517,7 +1693,214 @@ A speech model consists of two distinct parts:
 <title>Language Model</title>
 
 <para>The language model defines the vocabulary and the grammar you want to use.</para>
-<para>For more information see the <link linkend="vocabulary">vocabulary section</link> and the <link linkend="grammar">grammar section</link>.</para>
+
+<sect3 id="vocabulary_theory">
+<title>Vocabulary</title>
+<para>
+The vocabulary defines what words the recognition process should recognize. Every word you want to be able to use with Simon should be contained in your vocabulary.
+</para>
+<para>
+One entry in the vocabulary defines exactly one <quote>word</quote>. In contrast to the common use of the word <quote>word</quote>, in Simon <quote>word</quote> means one unique combination of the following:
+<itemizedlist>
+  <listitem><para>Wordname</para><para>(The written word itself)</para></listitem>
+  <listitem><para>Terminal</para><para>(Grammatical category; for example: <quote>Noun</quote>, <quote>Verb</quote>, &etc;)</para></listitem>
+  <listitem><para>Pronunciation</para><para>(How the word is pronounced; Simon accepts any kind of phonetic as long as it does not use special characters or numbers)</para></listitem>
+</itemizedlist>
+
+That means that plurals or even different cases are different <quote>words</quote> to Simon.
+This is an important design decision to allow more control when using a sophisticated grammar.
+</para>
+
+<para>
+In general, it is advisable to keep your vocabulary as sleek as possible. The more words, the higher the chance that Simon might misunderstand you.
+</para>
+
+<para>
+Example vocabulary (please note that the terminals here are deliberately set to Noun / Verb to help the understanding; please to refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
+<table frame='all'><title>Sample Vocabulary</title>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<colspec colname='c3'/>
+<thead>
+<row>
+  <entry>Word</entry>
+  <entry>Terminal</entry>
+  <entry>Pronunciation</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Computer</entry>
+  <entry>Noun</entry>
+  <entry>k ax m p y uw t er</entry>
+</row>
+<row>
+  <entry>Internet</entry>
+  <entry>Noun</entry>
+  <entry>ih n t er n eh t</entry>
+</row>
+<row>
+  <entry>Mail</entry>
+  <entry>Noun</entry>
+  <entry>m ey l</entry>
+</row>
+<row>
+  <entry>close</entry>
+  <entry>Verb</entry>
+  <entry>k l ow s</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+
+<sect4 id="active_dictionary">
+<title>Active Dictionary</title>
+<para>The vocabulary used for the recognition is referred to as active dictionary or active vocabulary.</para>
+</sect4>
+
+<sect4 id="shadow_dictionary">
+<title>Shadow Dictionary</title>
+<para>
+As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about its pronunciation, it would also be good to have a large dictionary where you could look up the pronunciation and other characteristics of the words.
+</para>
+<para>
+Simon provides this functionality. We refer to this large reference dictionary as <quote>shadow dictionary</quote>. This shadow dictionary is not created by the user but can be imported from various sources.
+</para>
+<para>
+As Simon is a multi-language solution we do not ship shadow dictionaries with Simon. However, it is very easy to import them yourself using the import dictionary wizard. This is described in the <link linkend="import_dictionary">Import Dictionary section</link>.
+</para>
+</sect4>
+<sect4 id="language_profile_general">
+<title>Language profile</title>
+<para>
+Additionally to a shadow dictionary, Simon can use a language profile to provide help with transcribing words.
+</para>
+
+<para>A language profile consists of rules how words are pronounced in the target language. It can be likened to the way that humans can often pronounce a word they never heard just because they know some implicit "pronounciation rules" of the language.</para>
+
+<para>Just as with humans, this process is not perfect but can provide a solid starting ground.</para>
+
+<para>This automatic deduction of a phoneme transcription from a written word is called "grapheme to phoneme conversion".</para>
+
+<para>Simon requires the <ulink url="http://www-i6.informatik.rwth-aachen.de/web/Software/g2p.html">Sequitur G2P</ulink> grapheme to phoneme converter to be installed and set up for language profiles to work.</para>
+
+<para>If you have <link linkend="configure_language_profile">selected a pre-built language profile</link> or <link linkend="create_language_profile">built your own</link>, Simon will automatically transcribe new words with it when they are not found in your <link linkend="shadow_dictionary">shadow dictionary</link>.</para>
+
+</sect4>
+</sect3>
+
+<sect3 id="grammar_general">
+<title>Grammar</title>
+<para>
+The grammar defines which combinations of words are correct.
+</para>
+<para>
+Let's look at an example: You want to use Simon to launch programs and close those windows when you are done. You would like to use the following commands:
+<itemizedlist>
+  <listitem><para><quote>Computer, Internet</quote> to open a browser</para></listitem>
+  <listitem><para><quote>Computer, Mail</quote></para><para>To open a mail client</para></listitem>
+  <listitem><para><quote>Computer, close</quote></para><para>To close the current window</para></listitem>
+</itemizedlist>
+</para>
+<para>
+Following English grammar, your vocabulary would contain the following:
+
+<table frame='all'><title>Sample Vocabulary</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Word</entry>
+  <entry>Terminal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Computer</entry>
+  <entry>Noun</entry>
+</row>
+<row>
+  <entry>Internet</entry>
+  <entry>Noun</entry>
+</row>
+<row>
+  <entry>Mail</entry>
+  <entry>Noun</entry>
+</row>
+<row>
+  <entry>close</entry>
+  <entry>Verb</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+
+<para>
+To allow the sentences defined above Simon would need the following grammar:
+<itemizedlist>
+  <listitem><para><quote>Noun Noun</quote> for sentences like <quote>Computer Internet</quote></para></listitem>
+  <listitem><para><quote>Noun Verb</quote> for sentences like <quote>Computer close</quote></para></listitem>
+</itemizedlist>
+</para>
+<para>
+While this would work, it would also allow the combinations <quote>Computer Computer</quote>, <quote>Internet Computer</quote>, <quote>Internet Internet</quote>, &etc; which are obviously bogus.
+To improve the recognition accuracy, we can try to create a grammar that better reflects what we are trying to do with Simon.
+</para>
+
+<para>
+It is important to remember that you define your own <quote>language</quote> when using Simon. That means that you are not bound to grammar rules that exist in whatever language you want to use Simon with. For a simple command and control use-case it would for example be advisable to invent new grammatical rules to eliminate the differences between different commands imposed by grammatical information not relevant for this use case.
+</para>
+
+<para>
+In the example above it is for example not relevant that <quote>close</quote> is a verb or that <quote>Computer</quote> and <quote>Internet</quote> are nouns. Instead, why not define them as something that better reflects what we want them to be:
+
+<table frame='all'><title>Improved Sample Vocabulary</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Word</entry>
+  <entry>Terminal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Computer</entry>
+  <entry>Trigger</entry>
+</row>
+<row>
+  <entry>Internet</entry>
+  <entry>Command</entry>
+</row>
+<row>
+  <entry>Mail</entry>
+  <entry>Command</entry>
+</row>
+<row>
+  <entry>close</entry>
+  <entry>Command</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+
+<para>
+Now we change the grammar to the following:
+<itemizedlist>
+  <listitem><para><quote>Trigger Command</quote></para></listitem>
+</itemizedlist>
+
+This allows all the combinations described above. However, it also limits the possibilities to exactly those three sentences. Especially in larger models a well thought grammar and vocabulary can mean a huge difference in recognition results.
+</para>
+</sect3>
+
+
 </sect2>
 
 <sect2 id="acoustic_model">
@@ -1586,39 +1969,14 @@ That means if you add the word <quote>clothes</quote> to the language model, you
 To train the acoustic model (in other words to tell him how you pronounce the phonemes) you have to <quote>train</quote> words from your language model. That means that Simon displays a word which you read out loud. Because the word is listed in your vocabulary, Simon already knows what phonemes it contains and can thus <quote>learn</quote> from your pronunciation of the word.
 </para>
 </sect2>
+
+
 </sect1>
 
 
-<sect1 id="scenarios_use">
+<sect1 id="scenarios_use_advanced">
 <title>Scenarios</title>
-<para>This section describes how to use scenarios from within Simon. For <link linkend="scenarios">general information about scenarios, please refer to the chapter background</link>.</para>
-
-<sect2 id="using_scenarios">
-<title>Using scenarios</title>
-<para>Beginning with &kmyapplication; 0.3, each word you add will be added to the currently active scenario. The same goes for grammar sentences, commands, &etc;</para>
-<para>Using scenarios then becomes just using &kmyapplication; as you did in 0.2.</para>
-
-<para>Per default, Simon ships with an empty scenario names <guilabel>Standard</guilabel>, so your configuration will be stored in this scenario.</para>
-
-<para>To select which of your currently active scenarios should be changed (for example before adding new words), just select it from the drop down box in the upper right corner of the Simon main window.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>Scenario toolbar</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="scenarios_use_1.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-  <para>To change the available options, click on the <guibutton>Manage scenarios</guibutton> button right next to it or use the menu entry <menuchoice><guimenu>File</guimenu><guimenuitem>Manage scenarios</guimenuitem></menuchoice>.</para>
-</sect2>
-
-<sect2 id="administrating_scenarios">
-<title>Managing scenarios</title>
-<para>The scenario management dialog allows you to load scenarios from your scenario pool as well as to import and export scenarios to files or directly from / to an online repository.</para>
+<para>This section extends the previous one about <link linkend="scenarios_use">basic scenario management</link> and tells you how to create, edit and export scenarios.</para>
 
 <para>
   <screenshot>
@@ -1631,10 +1989,32 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
   </screenshot>
 </para>
 
-<para>To load or unload a scenario you can use the arrow buttons between the two lists or simply double click the option you want to load / unload.</para>
-<para>More information about individual scenarios can be found in the tooltips of the list items.</para>
+<sect2 id="scenario_hierarchies">
+<title>Scenario hierarchies</title>
 
-<sect3 id="add_scenario">
+<para>You can create scenario hierarchies by dragging and dropping active scenarios on top of each other.</para>
+
+<para>
+  <screenshot>
+    <screeninfo>Manage scenarios: Scenario hierarchies</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="manage_scenarios_2.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
+
+<para>Scenario hierarchies serve two purposes:
+<itemizedlist>
+<listitem><para>The <link linkend="context">context system</link> respects scenario hierarchies: If the parent scenario gets deactivated, all child scenarios will become deactivated as well.</para></listitem>
+<listitem><para>If you attempt to <link linkend="export_scenario">export a scenario</link> that has children, &kmyapplication; will allow you to export them in a joint scenario package. This way, you can share multiple logically co-dependent scenarios (e.g. one "Office" scenario that contains sub-scenarios for "Word", "Excel", etc.).</para></listitem>
+</itemizedlist>
+</para>
+
+</sect2>
+
+<sect2 id="add_scenario">
   <title>Adding a new Scenario</title>
   <para>To add a new scenario, select the <guibutton>Add</guibutton> button. A new dialog will be displayed.</para>
 
@@ -1659,43 +2039,15 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 
 <para>You can then add your name (or alias) to the list of scenario authors. There you will also be asked for contact information. This field is purely provided as a convenient way to contact a scenario author for changes, problems, fanmail &etc; If you don't feel comfortable providing your e-Mail address you can simply enter a dash <quote>-</quote> denoting that you are not willing to divulge this information.</para>
 
-</sect3>
+</sect2>
 
-<sect3 id="edit_scenario">
+<sect2 id="edit_scenario">
 <title>Edit Scenario</title>
 <para>To edit scenarios, just select <guibutton>Edit</guibutton> from the <guilabel>Manage scenarios</guilabel> dialog.</para>
 <para>The dialog works exactly the same as the <link linkend="add_scenario">add scenario</link> dialog.</para>
-</sect3>
+</sect2>
 
-<sect3 id="delete_scenario">
-<title>Delete Scenario</title>
-
-<para>To delete a scenario, select the scenario and click the <guibutton>Delete</guibutton> button.</para>
-
-<para>Because scenarios are synchronized with the recognition server, you can restore deleted scenarios through the <link linkend="configure_synchronization">model synchronization backup</link>.</para>
-</sect3>
-
-<sect3 id="import_scenario">
-  <title>Import Scenario</title>
-  <para>Scenarios can be imported from a local file in Simon's XML scenario file format but can also be directly downloaded and imported from the internet.</para>
-
-  <para>When downloading scenarios, the list of scenarios is retrieved from <ulink url="http://kde-files.org/index.php?xcontentmode=692">Simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
-
-<para>
-  <screenshot>
-    <screeninfo>Download scenarios</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="get_hot_new_scenarios_1.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-  <para>If you create a scenario that might be valuable for other Simon users, please consider <link linkend="export_scenario">uploading it</link> to this online repository and help other Simon users.</para>
-</sect3>
-
-<sect3 id="export_scenario">
+<sect2 id="export_scenario">
   <title>Export Scenario</title>
   <para>Scenarios can be exported to a local file in Simon's XML scenario file format and directly uploaded to the <ulink url="http://kde-files.org/index.php?xcontentmode=692">Simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
 
@@ -1748,142 +2100,15 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 </para>
 
   <para>To use this functionality, simply enter your account credentials in the <link linkend="social_desktop_config">social desktop configuration</link> in the Simon configuration.</para>
-</sect3>
 
 </sect2>
-</sect1>
-
-<sect1 id="base_model_use">
-<title>Base models</title>
-<para>This section describes how to use base models from within Simon. For <link linkend="base_model">general information about base models, please refer to the chapter background</link>.</para>
-
-<para>To configure Simon to use base models, simply select the base model type you want to use and point Simon to the valid files in Simon's configuration: <guimenu>Settings</guimenu> > <guimenuitem>Configure Simon</guimenuitem> > <guimenuitem>Speech Model</guimenuitem> </para>
-
-<para>
-  <screenshot>
-    <screeninfo>Base model settings</screeninfo>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="base_model_settings_1.png" format="PNG"/>
-      </imageobject>
-    </mediaobject>
-  </screenshot>
-</para>
-
-<para>Load the files with the appropriate <guibutton>Load</guibutton> button next to the file you want to set. The files will be copied to an internal location so the source files can be removed once you have selected them here.</para>
-
-<para>For static models you don't need macros or stats but Simon will not start a model compilation (which is needed even for setups using static base models to generate the language model) without them. If your base model doesn't provide them you can simply point Simon to empty files instead.</para>
-
 </sect1>
 
 
 <sect1 id="vocabulary">
 <title>Vocabulary</title>
-<para>The vocabulary lets the user manage the available words.</para>
 
-<sect2 id="vocabulary_theory">
-<title>General</title>
-<para>
-The vocabulary defines what words the recognition process should recognize. Every word you want to be able to use with Simon should be contained in your vocabulary.
-</para>
-<para>
-One entry in the vocabulary defines exactly one <quote>word</quote>. In contrast to the common use of the word <quote>word</quote>, in Simon <quote>word</quote> means one unique combination of the following:
-<itemizedlist>
-  <listitem><para>Wordname</para><para>(The written word itself)</para></listitem>
-  <listitem><para>Terminal</para><para>(Grammatical category; for example: <quote>Noun</quote>, <quote>Verb</quote>, &etc;)</para></listitem>
-  <listitem><para>Pronunciation</para><para>(How the word is pronounced; Simon accepts any kind of phonetic as long as it does not use special characters or numbers)</para></listitem>
-</itemizedlist>
-
-That means that plurals or even different cases are different <quote>words</quote> to Simon.
-This is an important design decision to allow more control when using a sophisticated grammar.
-</para>
-
-<para>
-In general, it is advisable to keep your vocabulary as sleek as possible. The more words, the higher the chance that Simon might misunderstand you.
-</para>
-
-<para>
-Example vocabulary (please note that the terminals here are deliberately set to Noun / Verb to help the understanding; please to refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
-<table frame='all'><title>Sample Vocabulary</title>
-<tgroup cols='3' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1'/>
-<colspec colname='c2'/>
-<colspec colname='c3'/>
-<thead>
-<row>
-  <entry>Word</entry>
-  <entry>Terminal</entry>
-  <entry>Pronunciation</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>Computer</entry>
-  <entry>Noun</entry>
-  <entry>k ax m p y uw t er</entry>
-</row>
-<row>
-  <entry>Internet</entry>
-  <entry>Noun</entry>
-  <entry>ih n t er n eh t</entry>
-</row>
-<row>
-  <entry>Mail</entry>
-  <entry>Noun</entry>
-  <entry>m ey l</entry>
-</row>
-<row>
-  <entry>close</entry>
-  <entry>Verb</entry>
-  <entry>k l ow s</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-</para>
-
-<sect3 id="active_dictionary">
-<title>Active Dictionary</title>
-<para>The vocabulary used for the recognition is referred to as active dictionary or active vocabulary.</para>
-</sect3>
-
-<sect3 id="shadow_dictionary">
-<title>Shadow Dictionary</title>
-<para>
-As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about its pronunciation, it would also be good to have a large dictionary where you could look up the pronunciation and other characteristics of the words.
-</para>
-<para>
-Simon provides this functionality. We refer to this large reference dictionary as <quote>shadow dictionary</quote>. This shadow dictionary is not created by the user but can be imported from various sources.
-</para>
-<para>
-As Simon is a multi-language solution we do not ship shadow dictionaries with Simon. However, it is very easy to import them yourself using the import dictionary wizard. This is described in the <link linkend="import_dictionary">Import Dictionary section</link>.
-</para>
-</sect3>
-<sect3 id="language_profile_general">
-<title>Language profile</title>
-<para>
-Additionally to a shadow dictionary, Simon can use a language profile to provide help with transcribing words.
-</para>
-
-<para>A language profile consists of rules how words are pronounced in the target language. It can be likened to the way that humans can often pronounce a word they never heard just because they know some implicit "pronunciation rules" of the language.</para>
-
-<para>Just as with humans, this process is not perfect but can provide a solid starting ground.</para>
-
-<para>This automatic deduction of a phoneme transcription from a written word is called "grapheme to phoneme conversion".</para>
-
-<para>Simon requires the <ulink url="http://www-i6.informatik.rwth-aachen.de/web/Software/g2p.html">Sequitur G2P</ulink> grapheme to phoneme converter to be installed and set up for language profiles to work.</para>
-
-<para>If you have <link linkend="configure_language_profile">selected a pre-built language profile</link> or <link linkend="create_language_profile">built your own</link>, Simon will automatically transcribe new words with it when they are not found in your <link linkend="shadow_dictionary">shadow dictionary</link>.</para>
-
-</sect3>
-</sect2>
-
-
-
-<sect2>
-<title>Maintaining the Vocabulary</title>
-<para>
-Simon provides a <guimenu>Vocabulary</guimenu> menu which lists the current vocabulary.
+<para>The vocabulary module defines the set of words of the scenario.
 
 <screenshot>
 <screeninfo>Simon's Vocabulary</screeninfo>
@@ -1900,11 +2125,8 @@ Simon provides a <guimenu>Vocabulary</guimenu> menu which lists the current voca
 <para>
 Every word states it <quote>recognition rate</quote> which at the moment is just a counter of how often the word has been recorded (alone or together with other words).
 </para>
-<para>
-When this number is only one or zero the word entry is colored red (1: light red; 0: dark red). This is a visual warning. When a word contains a phoneme combination that is not covered by any other word and the word with this unusual phoneme combination is never recorded (recognition rate = 0), the model <emphasis>will</emphasis> fail to compile. However, Simon will display an appropriate error message when the compilation of the model fails because of such an issue. In general it is a good idea to record each word at least once or twice (at best when <link linkend="add_word_record">adding the word</link>) to avoid such problems.
-</para>
-<para>
 
+<para>
 <screenshot>
 <screeninfo>Shadow Vocabulary</screeninfo>
   <mediaobject>
@@ -1916,9 +2138,6 @@ When this number is only one or zero the word entry is colored red (1: light red
 
 
 </para>
-
-</sect2>
-
 
 <sect2 id="add_word">
 <title>Adding Words</title>
@@ -2307,7 +2526,23 @@ Julius dictionaries provide pronunciation information as well as terminal inform
 
 <sect2 id="create_language_profile">
 <title>Create language profile</title>
-<para>TODO</para>
+<para>Here, you can build a <link linkend="language_profile_general">language profile</link> from your shadow dictionary.</para>
+
+<para>
+<screenshot>
+<screeninfo>Create language profile</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="create_language_profile.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>After selecting <guibutton>Create profile</guibutton>, &kmyapplication; will analyze your current shadow dictionary and try to deduce the transcription rules from it.</para>
+<para>This is generally a very length process and can, depending on the size of your shadow dictionary, take up to several hours.</para>
+<para>The created profile will be selected automatically after the process completes.</para>
+
 </sect2>
 
 </sect1> <!-- End Vocabulary -->
@@ -2315,118 +2550,7 @@ Julius dictionaries provide pronunciation information as well as terminal inform
 
 <sect1 id="grammar">
 <title>Grammar</title>
-<para>
-The grammar defines which combinations of words are correct.
-</para>
 
-<sect2 id="grammar_general">
-<title>General</title>
-<para>
-Let's look at an example: You want to use Simon to launch programs and close those windows when you are done. You would like to use the following commands:
-<itemizedlist>
-  <listitem><para><quote>Computer, Internet</quote> to open a browser</para></listitem>
-  <listitem><para><quote>Computer, Mail</quote></para><para>To open a mail client</para></listitem>
-  <listitem><para><quote>Computer, close</quote></para><para>To close the current window</para></listitem>
-</itemizedlist>
-</para>
-<para>
-Following English grammar, your vocabulary would contain the following:
-
-<table frame='all'><title>Sample Vocabulary</title>
-<tgroup cols='2' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1'/>
-<colspec colname='c2'/>
-<thead>
-<row>
-  <entry>Word</entry>
-  <entry>Terminal</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>Computer</entry>
-  <entry>Noun</entry>
-</row>
-<row>
-  <entry>Internet</entry>
-  <entry>Noun</entry>
-</row>
-<row>
-  <entry>Mail</entry>
-  <entry>Noun</entry>
-</row>
-<row>
-  <entry>close</entry>
-  <entry>Verb</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-</para>
-
-<para>
-To allow the sentences defined above Simon would need the following grammar:
-<itemizedlist>
-  <listitem><para><quote>Noun Noun</quote> for sentences like <quote>Computer Internet</quote></para></listitem>
-  <listitem><para><quote>Noun Verb</quote> for sentences like <quote>Computer close</quote></para></listitem>
-</itemizedlist>
-</para>
-<para>
-While this would work, it would also allow the combinations <quote>Computer Computer</quote>, <quote>Internet Computer</quote>, <quote>Internet Internet</quote>, &etc; which are obviously bogus.
-To improve the recognition accuracy, we can try to create a grammar that better reflects what we are trying to do with Simon.
-</para>
-
-<para>
-It is important to remember that you define your own <quote>language</quote> when using Simon. That means that you are not bound to grammar rules that exist in whatever language you want to use Simon with. For a simple command and control use-case it would for example be advisable to invent new grammatical rules to eliminate the differences between different commands imposed by grammatical information not relevant for this use case.
-</para>
-
-<para>
-In the example above it is for example not relevant that <quote>close</quote> is a verb or that <quote>Computer</quote> and <quote>Internet</quote> are nouns. Instead, why not define them as something that better reflects what we want them to be:
-
-<table frame='all'><title>Improved Sample Vocabulary</title>
-<tgroup cols='2' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1'/>
-<colspec colname='c2'/>
-<thead>
-<row>
-  <entry>Word</entry>
-  <entry>Terminal</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>Computer</entry>
-  <entry>Trigger</entry>
-</row>
-<row>
-  <entry>Internet</entry>
-  <entry>Command</entry>
-</row>
-<row>
-  <entry>Mail</entry>
-  <entry>Command</entry>
-</row>
-<row>
-  <entry>close</entry>
-  <entry>Command</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-</para>
-
-<para>
-Now we change the grammar to the following:
-<itemizedlist>
-  <listitem><para><quote>Trigger Command</quote></para></listitem>
-</itemizedlist>
-
-This allows all the combinations described above. However, it also limits the possibilities to exactly those three sentences. Especially in larger models a well thought grammar and vocabulary can mean a huge difference in recognition results.
-</para>
-</sect2>
-
-<sect2>
-<title>Defining your Grammar</title>
 <para>
 Simon provides an easy to use text based interface to change the grammar. You can simply list all the allowed sentences (without any punctuation marks, obviously) like described above.
 
@@ -2443,8 +2567,6 @@ Simon provides an easy to use text based interface to change the grammar. You ca
 <para>When selecting a sentence on the left, the right pane will automatically show possible real sentences with the words of your vocabulary on the right.</para>
 
 <para>The example section will list at most 35 examples so if more than that amount of sentences match the selected grammar entry, the list might not be complete.</para>
-
-</sect2>
 
 <sect2>
 <title>Import a Grammar</title>
@@ -2748,82 +2870,193 @@ The add texts wizard provides a simple way to add new training texts to Simon.
 <para>Of course you are free to add words from the shadow lexicon to the list of words to train but Simon will prompt you to add the words before the training starts just like he would if you would train a text that contains unknown words (see above).</para>
 </sect2>
 
-<sect2 id="import_training-data">
-<title>Importing Training Samples</title>
-<para>
-Using the import training data field you can import previously gathered training samples from previous Simon versions or manual training without copying the whole dictionary.</para>
+</sect1>
 
-<para>
-This feature is very specific. Please use it with caution and make sure that you know exactly what you are doing before you continue.
+<sect1 id="context">
+<title>Context</title>
+<para>&kmyapplication; includes a context layer that allows you to let Simon automatically adjust its configuration depending on its context.</para>
+
+<para>For example, you could set up &kmyapplication; to only allow commands like "New tab" if Mozilla Firefox is running and the currently active window.</para>
+
+<para>There are three major areas that contextual information can influence:
+
+<itemizedlist>
+<listitem><para>Scenario selection</para></listitem>
+<listitem><para>Sample groups</para></listitem>
+<listitem><para>Active microphones</para></listitem>
+</itemizedlist>
 </para>
 
-<para>You can either provide a separate prompts file or let Simon extract the transcriptions from the filenames.</para>
-
-<para>When using prompts based transcriptions your prompts file (UTF-8) needs to contain lines of the following content: <quote>[filename] [content]</quote>. Filenames are without file extensions and the content has to be uppercase. For example: <userinput>demo_2007_03_20 DEMO</userinput> to import the file <filename>demo_2007_03_20.wav</filename> containing the spoken word <quote>Demo</quote>.</para>
-
-<para>Because prompts files do not contain a file extension, Simon will try wav, mp3, ogg and flac (in that order). If one of those match, no other extension will be tested and only the first file will be imported (in contrast to file based transcription where all files would be imported).</para>
+<sect2 id="context_scenarios">
+<title>Scenario selection</title>
+<para>Scenarios can specify to only be active during certain contextual situations. If these situations are not met, &kmyapplication; will temporarily deactivate the affected scenario.</para>
 
 <para>
-When using file based transcriptions, a file called this_is_a_test.wav <emphasis>must</emphasis> contain <quote>This is a test</quote> and nothing else. Numbers and special characters (<quote>.</quote>, <quote>-</quote>,...) in the filename are ignored and stripped.
-</para>
-
-<para>Files recorded by Simon 0.2 <emphasis>will</emphasis> follow this naming scheme so you can safely import them using the file name extraction method. Files generated by previous Simon versions should not be imported using this function but you can use the prompts based import for that.</para>
-
-<para>
-Imported files and their transcription are then added to the training corpus.
-</para>
-
-<para>
-To import a folder containing training samples just select the folder to import and depending on your import type also the prompts file.
-
 <screenshot>
-<screeninfo>Import-training-data-wizard</screeninfo>
+<screeninfo>Scenario context</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="import_training_data_1.png" format="PNG"/>
+      <imagedata fileref="context.png" format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para>
-The folder will be scanned recursively. This means that the given folder and all its subfolders will be searched for .wav, .flac, .mp3 and .ogg files. All files found will be imported.
-</para>
+<para>The local context conditions of this scenario are shown in the list of <guilabel>Activation Requirements</guilabel> and can be added, edited and deleted through the respective buttons.</para>
+<para>The context conditions respect a possible <link linkend="scenario_hierarchies">hierarchy of scenarios</link>: The activation requirements of all direct or indirect parent scenarios also apply to the child scenario(s). This condition "inheritance" is shown on the right side.</para>
+
+<para>The &kmyapplication; main window also shows a list of currently used scenarios. Scenarios that are deactivated because of their activation requirements (context conditions) are listed in light gray and italic. The screenshot below, for example, shows a temporarily deactivated Amarok scenario.</para>
 
 <para>
-When importing the sound files, all configured <link linkend="soundconfiguration_postprocessing">post processing filters</link> are applied.
-</para>
-<para>
-  If you import anything other than WAV files you are responsible for decoding them during the import process (for example through post processing filters) or the model creation <emphasis>will</emphasis> fail.
+<screenshot>
+<screeninfo>Identifying deactivated scenarios</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="context_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
 </para>
 
+<para>The same visual hints (gray, italic font for unmet activation criteria) also apply to the individual context conditions in the context menu.</para>
 </sect2>
-
-<sect2 id="sample_management">
-<title>Manage training data</title>
-<para>TODO</para>
-<!-- TODO -->
-</sect2>
-
-</sect1>
-
-<sect1 id="context">
-<title>Context</title>
-<para>TODO</para>
-<!-- TODO -->
 
 <sect2 id="sample_group">
-<title>Sample Groups</title>
-<para>TODO</para>
+<title>Sample groups</title>
+<para>Every sample recorded with Simon is assigned a sample group. Sample groups can be configured to only be used for the building of the acoustic models if certain contextual conditions are met. If this is not the case, all samples tagged with the deactivated sample group will be temporarily removed from the training corpus.</para>
 
+<para>For more information, an example use-case and instructions on how to work with sample groups, please refer to the section on <link linkend="configuration_sound_context">sample groups</link>.</para>
 </sect2>
 
 <sect2 id="context_conditions">
 <title>Context conditions</title>
 
+<para>In Simon, context is monitored through a set of context condition plugins.</para>
+<para>In general, context conditions are combined through an "and" association. For example, if the activation of resource is bound by two conditions A and B, it will only be activated if both A and B see their conditions met. To instead model alternatives ("A or B or both"), use an <link linkend="or_condition_association">Or Condition Association</link>.</para>
+
+<para>All conditions can optionally be inverted. Inverting a condition means that it will evaluate to true if it would otherwise evaluate to false and vice-versa.</para>
+
+<sect3 id="active_window_condition">
+<title>Active window</title>
+<para>True, if the title of the currently active foreground window matches the provided window title.</para>
+
+<para>
+<screenshot>
+<screeninfo>Active window condition</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="active_window_condition.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect3>
+
+<sect3 id="dbus_condition">
+<title>D-Bus</title>
+<para>The D-Bus condition plugin allows to monitor 3rd party applications that export state information on D-Bus.</para>
+
+<para>The monitored application needs to provide two methods: One signal to notify of changes and another method that returns the current state.</para>
+
+<para>
+<screenshot>
+<screeninfo>D-Bus condition</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="dbus_condition1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>The screenshot above, for example, configures a D-Bus condition that will evaluate to true while the music player "Tomahawk" is playing and to false otherwise.</para>
+</sect3>
+
 <sect3 id="face_detection_condition">
 <title>Face detection</title>
+
+<para>The face detection condition will evaluate to true, if &kmyapplication;'s vision layer has identified a person sitting in front of the <link linkend="webcam_configuration">configured webcam</link>.</para>
+
+<para>
+<screenshot>
+<screeninfo>Face detection condition</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="face_detection_condition.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect3>
+
+<sect3 id="file_content_condition">
+<title>File content</title>
+<para>This condition plugin will return true, if the given file contains the provided content.</para>
+
+<para>The file will be monitored for changes.</para>
+
+<para>
+<screenshot>
+<screeninfo>File content condition</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="file_content_condition.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect3>
+
+<sect3 id="lip_detection_condition">
+<title>Lip detection</title>
+
 <para>TODO</para>
+
+<para>
+<screenshot>
+<screeninfo>Lip detection condition</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="lip_detection_condition.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect3>
+
+<sect3 id="or_condition_association">
+<title>Or condition association</title>
+<para>The or condition association allows you to configure a meta-condition that reports to be satisfied as soon as one or more of its child conditions evaluates to true.</para>
+
+<para>Or condition associations can have an arbitrary number of child conditions that may even also be or condition associations.</para>
+
+<para>
+<screenshot>
+<screeninfo>Or condition association</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="or_condition_association.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect3>
+
+<sect3 id="process_opened_condition">
+<title>Process opened</title>
+
+<para>Is satisfied if there is a running process with the provided executable name.</para>
+
+<para>
+<screenshot>
+<screeninfo>Process opened condition</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="process_opened_condition.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
 </sect3>
 
 </sect2>
@@ -2863,7 +3096,7 @@ Each plugin can be associated with a <quote>trigger</quote>. Using triggers, the
 </para>
 <para>Using the factory workers abstraction from above it could be compared to stating the name of who you mean to process your request. So instead of <quote>Open my home folder</quote> you say <quote>Joe, open my home folder</quote> and <quote>Joe</quote> (the plugin responsible for opening folders) will instantly know that the request is meant for him.</para>
 <para>In practice you could have commands like the executable command <quote>Firefox</quote> to open the popular browser and the place command <quote>Google</quote> to open the web search engine. If you assign the trigger <quote>Start</quote> to the executable plugin and the trigger <quote>Open</quote> to the place command you would have to say <quote>Start Firefox</quote> (instead of just <quote>Firefox</quote> if you don't use a trigger for the executable plugin) and <quote>Open Google</quote> to open the search engine (instead of just <quote>Google</quote>).</para>
-<para>Triggers are of course no requirement and you can easily use Simon without defining any plugin triggers (although many plugins come with a default trigger of <quote>Computer</quote> set which you would have to remove). But even if you use just one trigger for all your commands (like <quote>Computer</quote> to say <quote>Computer, Firefox</quote> and <quote>Computer, Google</quote> like) it has the advantage of greatly limiting the number false-positives.</para>
+<para>Triggers are of course no requirement and you can easily use Simon without defining any plugin triggers (although many plugins come with a default trigger of <quote>Computer</quote> set which you would have to remove). But even if you use just one trigger for all your commands (like <quote>Computer</quote> to say <quote>Computer, Firefox</quote> and <quote>Computer, Google</quote> like) it has the advantage of greatly limiting the number of false-positives.</para>
 
 <para>Simon's <link linkend="command_dialog">command dialog</link> displays the complete phrase associated with a command in the upper right corner of the command configuration.</para>
 
@@ -2874,11 +3107,11 @@ Each Command has a name (which will trigger its invocation), an icon and more fi
 </para>
 
 <para>
-Some command plugins might provide a configuration of the plugin itself (not the commands it contains). There configuration pages will be plugged directly into the action configuration dialog (below the <guimenuitem>General</guimenuitem> menu item) when you load the associated plugin.
+Some command plugins might provide a configuration of the plugin itself (not the commands it contains). These configuration pages will be plugged directly into the action configuration dialog (below the <guimenuitem>General</guimenuitem> menu item) when you load the associated plugin.
 </para>
 
 <para>
-  Plugins that provide a graphical user interface (like for example the <link linkend="input_number">input number command plugin</link>) can be configured by configuring <guilabel>Voice commands</guilabel>. You can change the associated word that will trigger the button, for example, but also change the displayed icon, &etc; If you remove all voice interface commands from a graphical element, the element will be hidden automatically.
+  Plugins that provide a graphical user interface (like for example the <link linkend="input_number">input number command plugin</link>) can be configured by configuring <guilabel>Voice commands</guilabel>. You can, for example, change the associated word that will trigger the button, but also change the displayed icon, &etc; If you remove all voice interface commands from a graphical element, the element will be hidden automatically.
 </para>
 
 <para>Voice interface commands are added just like normal commands through the command configuration.</para>
@@ -2897,7 +3130,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 <para>To add a new interface command to a function, just select the action you want to associate with a command, click <guibutton>Create from Action template</guibutton> and adapt the resulting command to your needs.</para>
 
 <para>
-  Some plugins (for example the <link linkend="desktopgrid">desktopgrid</link> or the <link linkend="calculator_command_plugin">calculator</link>) might also provide a menu item in the <guimenu>Commands</guimenu> menu.
+  Some plugins (for example the <link linkend="desktopgrid">desktop grid</link> or the <link linkend="calculator_command_plugin">calculator</link>) might also provide a menu item in the <guimenu>Actions</guimenu> menu.
 </para>
 
 <para>
@@ -2910,6 +3143,22 @@ Some command plugins might provide a configuration of the plugin itself (not the
   </mediaobject>
 </screenshot>
 </para>
+
+<para>Scenarios can optionally define one command that will immediately be run when the scenario is initialized. If you require more than one command to run automatically, consider the use of a <link linkend="composite_commands">composite command</link>.
+
+<screenshot>
+<screeninfo>Autorun command</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_autorun.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+
+<anchor id="command_arguments" />
+<para>Command triggers can contain placeholders in the form of "%&lt;index&gt;", referring to any one word, or "%%&lt;index&gt;" describing one or more left out words. For example the recognition result "Next window" will be matched by the triggers "Next %1", "Next %%1" and "%%1" but <emphasis>not</emphasis> by the triggers "%1", "Next window %1", "%%1 Next window".</para>
 
 <sect2 id="executable_commands">
 <title>Executable Commands</title>
@@ -3012,7 +3261,8 @@ Some command plugins might provide a configuration of the plugin itself (not the
 <title>Shortcut Commands</title>
 <para>Using shortcut commands the user can associate commands with key-combinations.</para>
 
-<para>The command will simulate keyboard input to <quote>press</quote> shortcuts like <keycombo>&Ctrl;<keycap>C</keycap></keycombo> or <keycombo>&Alt;<keycap>F4</keycap></keycombo>.
+<para>The command will simulate keyboard input to trigger shortcuts like <keycombo>&Ctrl;<keycap>C</keycap></keycombo> or <keycombo>&Alt;<keycap>F4</keycap></keycombo>.</para>
+<para>The plugin can press, release or press and release the configured key combination.
 
 <screenshot>
 <screeninfo>Defining Shortcut Commands</screeninfo>
@@ -3133,7 +3383,7 @@ By default the list command uses the following trigger words. To use list comman
 </para>
 
 <para>
-List commands are internally also used by other plugins like for example the <link linkend="desktopgrid">desktopgrid</link>. The configuration of the triggers also affects their displayed lists.
+List commands are internally also used by other plugins like for example the <link linkend="desktopgrid">desktop grid</link>. The configuration of the triggers also affects their displayed lists.
 </para>
 
 </sect3>
@@ -3144,8 +3394,12 @@ List commands are internally also used by other plugins like for example the <li
 <title>Composite Commands</title>
 <para>Composite commands allow the user to group multiple commands into a sequence.</para>
 
-<para>When invoked the commands will be executed in order. Delays between commands can be inserted.
+<para>When invoked the commands will be executed in order. Delays between commands can be inserted.</para>
 
+<para>Composite commands can also work as "transparent wrappers" by selecting <guibutton>Pass recognition result through to other commands</guibutton>. In that case, the recognition result will be treated as "unprocessed" even if the composite command was executed.</para>
+<para>For example, suppose you have a command to turn on the light in one scenario. Additionally to turning on the light, you now want to add some kind of reporting to the activity by invoking a script through a <link linkend="executable_commands">program plugin</link>. You could then set up a reporting scenario that contains a transparent composite command with the same trigger than the command to turn on the light and make sure that this scenario is set before the original one in the scenario list. You can then activate and deactivate the reporting simply by loading and unloading this scenario.</para>
+
+<para>
 <screenshot>
 <screeninfo>Defining Composite Commands</screeninfo>
   <mediaobject>
@@ -3173,8 +3427,8 @@ Using the composite command the user can compose complex <quote>macros</quote>. 
 </sect2>
 
 <sect2 id="desktopgrid">
-<title>Desktopgrid</title>
-<para>The desktopgrid allows the user to control his mouse with his voice.</para>
+<title>Desktop grid</title>
+<para>The desktop grid allows the user to control his mouse with his voice.</para>
 
 <para>
 <screenshot>
@@ -3185,9 +3439,9 @@ Using the composite command the user can compose complex <quote>macros</quote>. 
     </imageobject>
   </mediaobject>
 </screenshot>
-The desktopgrid divides the screen into nine parts which are numbered from 1-9. Saying one of these numbers will again divide the selected field into 9 fields again numbered from 1-9, &etc; This is repeated 3 times. After the fourth time the desktopgrid will be closed and Simon will click in the middle of the selected area.</para>
+The desktop grid divides the screen into nine parts which are numbered from 1-9. Saying one of these numbers will again divide the selected field into 9 fields again numbered from 1-9, &etc; This is repeated 3 times. After the fourth time the desktop grid will be closed and Simon will click in the middle of the selected area.</para>
 
-<para>The exact click action is configurable but defaults to asking the user. Therefore you will be presented with a list of possible click modes. When selecting Drag and Drop, the desktopgrid will be displayed again to select the drop point.</para>
+<para>The exact click action is configurable but defaults to asking the user. Therefore you will be presented with a list of possible click modes. When selecting Drag and Drop, the desktop grid will be displayed again to select the drop point.</para>
 
 <para>
 <screenshot>
@@ -3201,10 +3455,10 @@ The desktopgrid divides the screen into nine parts which are numbered from 1-9. 
 </para>
 
 <para>
-While the desktopgrid is active (displayed), all input that is not directed at the desktopgrid itself (other commands, &etc;) will be rejected. Say <quote>Cancel</quote> at any time to abort the process.
+While the desktop grid is active (displayed), all input that is not directed at the desktop grid itself (other commands, &etc;) will be rejected. Say <quote>Cancel</quote> at any time to abort the process.
 </para>
 
-<para>The desktopgrid plugin registers a configuration screen right in the command configuration when it is loaded.</para>
+<para>The desktop grid plugin registers a configuration screen right in the command configuration when it is loaded.</para>
 
 <para>
 <screenshot>
@@ -3215,10 +3469,10 @@ While the desktopgrid is active (displayed), all input that is not directed at t
     </imageobject>
   </mediaobject>
 </screenshot>
-The trigger that invokes the desktopgrid is of course completely configurable. Moreover the user can use <quote>real</quote> or <quote>fake</quote> transparency. If your graphical environment allows for compositing effects (<quote>desktop effects</quote>) then you can safely use <quote>real</quote> transparency which will make the desktogrid transparent. If your platform does not support compositing Simon will simulate transparency by taking a screenshot of the screen before displaying the desktopgrid and display that picture behind the desktopgrid.
+The trigger that invokes the desktop grid is of course completely configurable. Moreover the user can use <quote>real</quote> or <quote>fake</quote> transparency. If your graphical environment allows for compositing effects (<quote>desktop effects</quote>) then you can safely use <quote>real</quote> transparency which will make the desktogrid transparent. If your platform does not support compositing Simon will simulate transparency by taking a screenshot of the screen before displaying the desktop grid and display that picture behind the desktop grid.
 </para>
 
-<para>If the desktopgrid is configured to use real transparency and the system does not support compositing it will display a solid gray background.</para>
+<para>If the desktop grid is configured to use real transparency and the system does not support compositing it will display a solid gray background.</para>
 
 <para>
 However, nearly all up-to-date systems will support compositing (real transparency).
@@ -3232,7 +3486,7 @@ However, nearly all up-to-date systems will support compositing (real transparen
 
 
 <para>
-By default the desktopgrid uses numbers to select the individual fields. To use the desktopgrid, make sure that your language and acoustic model contains and allows for the following <quote>sentences</quote>:
+By default the desktop grid uses numbers to select the individual fields. To use the desktop grid, make sure that your language and acoustic model contains and allows for the following <quote>sentences</quote>:
 <itemizedlist>
 <listitem><para><quote>One</quote></para></listitem>
 <listitem><para><quote>Two</quote></para></listitem>
@@ -3372,7 +3626,7 @@ By default the input number plugin uses numbers to select the individual digits 
 <title>Artificial Intelligence</title>
 <para>The Artificial Intelligence is a just-for-fun plugin that emulates a human conversation.</para>
 
-<para>Using the festival text to speech technology the computer can <quote>talk</quote> with the user and answer question or chat about the weather.</para>
+<para>Using the <link linkend="text-to-speech_config">text to speech system</link>, the computer can <quote>talk</quote> with the user.</para>
 
 <para>The plugin uses AIMLs for the actual <quote>intelligence</quote>. Most AIML sets should be supported. The popular <ulink url="http://www.pandorabots.com/pandora/talk?botid=f5d922d97e345aa1">A. L. I. C. E. bot</ulink> and a German version work and are shipped with the plugin.</para>
 
@@ -3405,13 +3659,9 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 </itemizedlist>
 </para>
 
-<para>The plugin will use <ulink url="http://tcts.fpms.ac.be/synthesis/mbrola.html">mbrola voices</ulink> if they are installed.</para>
-
 <para>As there can no command instances be created of this plugin it is not listed in the <guilabel>New Command</guilabel> dialog.</para>
 
-<para>It is recommended to not use any trigger for this plugin to provide a more natural <quote>feel</quote> for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even though it will react on any input given. This makes it possible to add a <quote>conversation</quote> to the command &amp; control use-case by developing custom AIMLs sets (&eg;: User: <quote>Computer, open Firefox</quote>; Computer: <quote>Certainly, Sir! Starting Firefox...</quote>; Firefox opens).</para>
-
-<para>Please keep in mind that the AI plugin will only work if festival is installed, set-up correctly and lies in your system path.</para>
+<para>It is recommended to not use any trigger for this plugin to provide a more natural <quote>feel</quote> for the conversation.</para>
 </sect2>
 
 <sect2 id="calculator_command_plugin">
@@ -3477,19 +3727,6 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 <sect2 id="filter_command_plugin">
   <title>Filter</title>
   <para>Using the filter plugin, you can intercept recognition results from being passed on to further command plugins. Using this plugin you can for example disable the recognition by voice.</para>
-  <para>The filter has two states:
-    <itemizedlist>
-      <listitem>
-        <para>Inactive</para>
-        <para>The default state. All recognition results will be passed through.</para>
-      </listitem>
-      <listitem>
-        <para>Active</para>
-        <para>When activated, the filter will <quote>eat</quote> all results that match the configured pattern. By default this means every result that Simon recognizes will be accepted by the filter and therefore not relayed to any of the plugins following the filter plugin.</para>
-      </listitem>
-    </itemizedlist>
-  </para>
-
   <para>
     The filter command plugin registers a configuration screen in the command configuration where you can change what results should be filtered.
   </para>
@@ -3509,6 +3746,26 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
   <para>The plugin also registers voice interface commands for activating and deactivating the filter.</para>
 
+  <para>In total, the filter therefore has three states:
+    <itemizedlist>
+      <listitem>
+        <para>Inactive</para>
+        <para>The default state. All recognition results will be passed through.</para>
+      </listitem>
+      <listitem>
+        <para>Half-active (if <guibutton>Two stage activation</guibutton> is selected)</para>
+        <para><itemizedlist>
+	<listitem><para>If the next command is the "Deactivate filter" command, the filter will enter the "Inactive" state.</para></listitem>
+	<listitem><para>If, however, the next result is something else and <guibutton>Relay results in stage one of two stage activation</guibutton> is selected, this result will be passed on to other plugins. The filter will reset to "Active" afterwards.</para></listitem>
+	</itemizedlist></para>
+      </listitem>
+      <listitem>
+        <para>Active</para>
+        <para>When activated, the filter will <quote>eat</quote> all results that match the configured pattern. By default this means every result that Simon recognizes will be accepted by the filter and therefore not relayed to any of the plugins following the filter plugin.</para>
+	<para>If <guibutton>Two stage activation</guibutton> is enabled and the filter plugin receives the command to directly enter the "Inactive" state, this command is ignored. In other ways: If two stage activation is enabled, the filter can only be disabled by going through the intermediate stage.</para>
+      </listitem>
+    </itemizedlist>
+  </para>
 </sect2>
 
 <sect2 id="pronunciation_training_command_plugin">
@@ -3616,32 +3873,284 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 <sect2 id="dialog_command_plugin">
   <title>Dialog</title>
   
-  <para>TODO</para>
-</sect2>
+  <para>The dialog plugin enables users to engage in a scripted dialog with &kmyapplication;.</para>
 
-<sect2 id="dbus_command_plugin">
-  <title>Dbus</title>
-  
-  <para>TODO</para>
-</sect2>
+  <sect3 id="dialog_design">
+  <title>Dialog design</title>
 
-<sect2 id="json_command_plugin">
-  <title>JSON</title>
-  
-  <para>TODO</para>
+  <para>&kmyapplication; treats dialogs as a succession of different states. Each state can have a text and several associated options.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Dialog design</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="dialog_design.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+
+  <para>Dialogs can have more than one text variants - one of which will be randomly picked when the dialog is displayed. This can help to make dialogs feel more natural by providing several, alternative formulations.</para>
+
+  <para>The texts can use <link linkend="dialog_bound_values">bound values</link> and <link linkend="dialog_template_options">template options</link>.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Dialog design: Options</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="dialog_design_options.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>Dialog options capsule the logic of the conversation. They are the active components of the dialog.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Dialog design: Adding an option</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="dialog_design_options_new.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>Similar to commands, dialog options have a name (trigger) that, when recognized while the dialog is active and in the option's parent state, will cause this option to activate. Alternatively, options can also be configured to trigger automatically after a set time period. This time is relative to when the state is entered.</para>
+
+  <para>Dialog options, when shown through the <link linkend="dialog_output">graphical output module</link> can show an arbitrary text (that will most likely be equivalent to the trigger but doesn't have to be) and, optionally, an icon. If the text-to-speech output module is used, the text (not the trigger) will be read aloud unless this is disabled by selecting the <guibutton>Silent</guibutton> option.</para>
+
+  <para>Every state can also optionally have an avatar that will be displayed when using the <link linkend="dialog_output">graphical output module</link>.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Dialog design: Avatar</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="dialog_design_avatar.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  </sect3>
+
+  <sect3 id="dialog_bound_values">
+  <title>Dialog: Bound values</title>
+  <para>The text of dialog states can contain variables - so called "bound values" - that will be filled in during runtime.</para>
+
+  <para>For example, the dialog text "This is a $variable$" would replace "$variable$" with the result of a bound value called "variable".</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Bound values</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="dialog_bound_values.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>There are four types of bound values:
+  <itemizedlist>
+  <listitem>
+    <para>Static</para>
+    <para>
+    <screenshot>
+    <screeninfo>Bound values: Static</screeninfo>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="dialog_bound_value_add_static.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+    </para>
+    <para>Static bound values will always be resolved to the same text. They are useful to provide configuration options to be filled in to personalize the dialog (e.g., the name of the user).</para>
+  </listitem>
+  <listitem>
+    <para>QtScript</para>
+    <para>
+    <screenshot>
+    <screeninfo>Bound values: QtScript</screeninfo>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="dialog_bound_value_add_qtscript.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+    </para>
+    <para>QtScript bound values resolve to the result of the entered <ulink url="http://doc.qt.digia.com/qt/ecmascript.html">QtScript</ulink> code.</para>
+  </listitem>
+  <listitem>
+    <para>Command arguments</para>
+    <para>
+    <screenshot>
+    <screeninfo>Bound values: Command arguments</screeninfo>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="dialog_bound_value_add_argument.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+    </para>
+    <para>If the dialog trigger command (the &kmyapplication; command that initiates the dialog) uses <link linkend="command_arguments">placeholders</link>, they can be accessed through command argument bound values. The <guilabel>Argument</guilabel> number refers to the index of the placeholder you want to access.</para>
+    <para>For example, if your dialog is started with the command "Call %1", and "name" is a command argument bound value, then launching the dialog by recognizing "Call Peter", will turn the dialog text "Are you sure you want to call $name$?" into "Are you sure you want to call Peter?".</para>
+  </listitem>
+  <listitem>
+    <para>Plasma data engine</para>
+    <para>
+    <screenshot>
+    <screeninfo>Bound values: Plasma data engine</screeninfo>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="dialog_bound_value_add_plasma.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+    </para>
+    <para>This type of bound value can readily access a wide array of high-level information through plasma data engines.</para>
+  </listitem>
+  </itemizedlist>
+  </para>
+  </sect3>
+
+  <sect3 id="dialog_template_options">
+  <title>Template options</title>
+  <para>Dialog texts can further be parametrized through template options.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Template options</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="dialog_template_options.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+  <para>These boolean values choose between different or optional text snippets.</para>
+
+  <para>For example, the template option "formal" above, would change the dialog text "Would you please {{{formal}}be quiet{{elseformal}}shut up{{endformal}}" to "Would you please be quit" or "Would you please shut up" depending on if the template option is set to true or false. The else-path can be ommitted if it is not required (e.g.: "Would you {{formal}}please {{endformal}}be quiet").</para>
+  </sect3>
+
+  <sect3 id="dialog_avatars">
+  <title>Avatars</title>
+  <para>Every state can potentially show a different avatar.</para>
+
+  <para>These images can range from the picture of a (simulated) speaker to an image of something topically appropriate.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Dialog: Avatars</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="dialog_avatars.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+  <para>To use an avatar, first add it here and later define where to use it in the <link linkend="dialog_design">dialog design section</link>.</para>
+  </sect3>
+
+  <sect3 id="dialog_output">
+  <title>Output</title>
+  <para>Dialogs can be displayed graphically, use text-to-speech or combine both approaches.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Dialog: Output</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="dialog_output.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>The <guilabel>Separator to options</guilabel> will be spoken between the dialog text and the current state's options (if there are any). If there are no options to this state or all are configured to be silent, this will not be said. The option to listen to the whole announcement again is triggered when saying one of the configured <guilabel>Repeat on trigger</guilabel>. Additionally, the text-to-speech output can optionally be configured to repeat the listing of the available options (including the configured separator) hen the user says a command that does not match any of the available dialog options.</para>
+  </sect3>
 </sect2>
 
 <sect2 id="akonadi_command_plugin">
   <title>Akonadi</title>
   
-  <para>TODO</para>
+  <para>The Akonadi plugin allows &kmyapplication; to plug into KDE's PIM infrastructure.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Akonadi command configuration</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="akonadi_command_configuration.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>The plugin fullfills two major purposes:
+    <itemizedlist>
+    <listitem>
+      <para>Execute Simon commands at scheduled times</para>
+      <para>The Akonadi plugin can monitor a specific collection (calendar) and react on entries whos summary start with a specific prefix. Per default, this prefix is "[simon-command]", meaning that events of the form "[simon-command] &lt;plugin name&gt;//&lt;command name&gt;" will trigger the appropriate &kmyapplication; command at the "start time" of the event.</para>
+
+      <para>The name of the plugins and commands are equivalent to the ones shown in the <link linkend="commands">command dialog</link> and do not necessarily need to reference commands in the same scenario as the Akonadi plugin instance.</para>
+    </listitem>
+    <listitem>
+      <para>Show reminders for events in the given calendar</para>
+      <para>If configured to do so, the Akonadi plugin can show reminders for calendar events with a set alarm flag. These reminders will be shown through the &kmyapplication; <link linkend="dialog_command_plugin">dialog engine</link>.</para>
+   </listitem>
+    </itemizedlist>
+  </para>
 </sect2>
 
+<sect2 id="dbus_command_plugin">
+  <title>D-Bus</title>
+  
+  <para>With the D-Bus command, Simon can call exported methods in 3rd party applications directly.</para>
+
+  <para>The screenshot below, for example, calls the "Pause" method of the MPRIS interface of the Tomahawk music playing software.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>D-Bus command</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="dbus_command.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+</sect2>
+
+<sect2 id="json_command_plugin">
+  <title>JSON</title>
+  
+  <para>Similar to the <link linkend="dbus_command_plugin">D-Bus command plugin</link>, the JSON plugin also allows to contact 3rd party applications to directly invoke functionality (instead of simulating user activity).</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>JSON command</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="json_command.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+</sect2>
+
+<!--
+     Not included in this version of Simon
 <sect2 id="atspi_command_plugin">
   <title>AT-SPI</title>
   
-  <para>TODO</para>
 </sect2>
+-->
 
 </sect1>
 
