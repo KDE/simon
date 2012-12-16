@@ -642,7 +642,7 @@ The Simon main window can be hidden at any time by clicking on the Simon logo in
 
 <para>This section shows information about the recognition status.</para>
 
-<para>If &kmyapplication; is connect to the server, you can activate and deactivate the recognition by toggling the <guibutton>Activate</guibutton> button. If this control element is not available, make sure you are connected by selecting <menuchoice><guimenu>File</guimenu><guimenuitem>Connect</guimenuitem></menuchoice> from &kmyapplication;s menu.</para>
+<para>If &kmyapplication; is connected to the server, you can activate and deactivate the recognition by toggling the <guibutton>Activate</guibutton> button. If this control element is not available, make sure you are connected by selecting <menuchoice><guimenu>File</guimenu><guimenuitem>Connect</guimenuitem></menuchoice> from &kmyapplication;s menu.</para>
 
 <para>An integrated volume calibration widget monitors the configured recognition devices. The sound setup can be modified by selecting <guibutton>Configure audio</guibutton> to bring up the <link linkend="soundconfiguration">sound configuration</link>.</para>
 
@@ -1074,7 +1074,7 @@ Simon uses fairly sophisticated internal sound processing to enable complex mult
 
 <para>For example, in a system where multiple, very different speakers use one shared setup, <link linkend="context_conditions">context conditions</link> can be set up to automatically build separate models for both users depending on the current situation.</para>
 
-<para>The above screenshot, for example, shows a setup where, given that all samples of "peter" were tagged "peters_samples" and all samples of "mathias" were tagged "mathias_samples" (refer to the <link linkend="soundconfiguration_device">device configuration for more information on how to set up sample groups</link>), the active acoustic model will only contain the current users own samples as long as the file <filename>/home/bedahr/.username</filename> contains either "peter" or "mathias".</para>
+<para>The above screenshot, for example, shows a setup where, given that all samples of "peter" were tagged "peters_samples" and all samples of "mathias" were tagged "mathias_samples" (refer to the <link linkend="soundconfiguration_device">device configuration for more information on how to set up sample groups</link>), the active acoustic model will only contain the current user's own samples as long as the file <filename>/home/bedahr/.username</filename> contains either "peter" or "mathias".</para>
 
 <para>Another example use-case would be to switch to a more noise-resistant acoustic model when the user starts playing music.</para>
 
