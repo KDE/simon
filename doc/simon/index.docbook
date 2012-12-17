@@ -941,7 +941,7 @@ SNR warning message triggered by an empty sample. This information dialog is dis
 </screenshot>
 </para>
 
-<para>In this dialog you can also modify the sample's <link linkend="sample_group">after it was recorded</link>.</para>
+<para>In this dialog you can also modify the sample's <link linkend="sample_group">group after it was recorded</link>.</para>
 
 <para>If you remove the opened sample and do not re-record it, &kmyapplication; will offer to remove it from the corpus.</para>
 
@@ -3397,7 +3397,7 @@ List commands are internally also used by other plugins like for example the <li
 <para>When invoked the commands will be executed in order. Delays between commands can be inserted.</para>
 
 <para>Composite commands can also work as "transparent wrappers" by selecting <guibutton>Pass recognition result through to other commands</guibutton>. In that case, the recognition result will be treated as "unprocessed" even if the composite command was executed.</para>
-<para>For example, suppose you have a command to turn on the light in one scenario. Additionally to turning on the light, you now want to add some kind of reporting to the activity by invoking a script through a <link linkend="executable_commands">program plugin</link>. You could then set up a reporting scenario that contains a transparent composite command with the same trigger than the command to turn on the light and make sure that this scenario is set before the original one in the scenario list. You can then activate and deactivate the reporting simply by loading and unloading this scenario.</para>
+<para>For example, suppose you have a command to turn on the light in one scenario. Additionally to turning on the light, you now want to add some kind of reporting to the activity by invoking a script through a <link linkend="executable_commands">program plugin</link>. You could then set up a reporting scenario that contains a transparent composite command with the same trigger as the command to turn on the light and make sure that this scenario is set before the original one in the scenario list. You can then activate and deactivate the reporting simply by loading and unloading this scenario.</para>
 
 <para>
 <screenshot>
@@ -4072,7 +4072,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   </screenshot>
   </para>
 
-  <para>The <guilabel>Separator to options</guilabel> will be spoken between the dialog text and the current state's options (if there are any). If there are no options to this state or all are configured to be silent, this will not be said. The option to listen to the whole announcement again is triggered when saying one of the configured <guilabel>Repeat on trigger</guilabel>. Additionally, the text-to-speech output can optionally be configured to repeat the listing of the available options (including the configured separator) hen the user says a command that does not match any of the available dialog options.</para>
+  <para>The <guilabel>Separator to options</guilabel> will be spoken between the dialog text and the current state's options (if there are any). If there are no options to this state or all are configured to be silent, this will not be said. The option to listen to the whole announcement again is triggered when saying one of the configured <guilabel>Repeat on trigger</guilabel>. Additionally, the text-to-speech output can optionally be configured to repeat the listing of the available options (including the configured separator) when the user says a command that does not match any of the available dialog options.</para>
   </sect3>
 </sect2>
 
