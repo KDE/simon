@@ -510,6 +510,13 @@ void ScenarioManagementWidget::initDisplay()
   QStringList  selectedIds = cg.readEntry("SelectedScenarios", QStringList() << "general");
 
   QStringList scenarioIds = ScenarioManager::getInstance()->getAllAvailableScenarioIds(m_dataPrefix);
+
+  //reorder scenarioIds according to selectedIds
+  for (int i = 0; i < selectedIds.count(); i++) {
+    scenarioIds.removeAll(selectedIds[i]);
+    scenarioIds.insert(i, selectedIds[i]);
+  }
+
   kDebug() << "Found scenarios: " << scenarioIds;
 
   QList<Scenario*> scenarios;
@@ -517,15 +524,11 @@ void ScenarioManagementWidget::initDisplay()
 
   foreach (const QString& id, scenarioIds) {
 
-    Scenario *s = new Scenario(id, m_dataPrefix);
-    if (!s->skim())
-    {
-      KMessageBox::information(this, i18nc("%1 is scenario id", "Could not init scenario \"%1\"", id));
-    }
-    else
-    {
-        scenarios << s;
-    }
+	  Scenario *s = new Scenario(id, m_dataPrefix);
+	  if (!s->skim())
+		  KMessageBox::information(this, i18nc("%1 is scenario id", "Could not init scenario \"%1\"", id));
+	  else
+		  scenarios << s;
   }
 
   //display the scenarios

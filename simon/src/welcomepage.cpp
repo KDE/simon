@@ -213,8 +213,9 @@ void WelcomePage::displayScenarios()
     foreach (Scenario* sub, s->childScenarios())
       topLevelScenarios.remove(sub);
 
-  foreach (Scenario* s, topLevelScenarios)
-    displayScenario(ui.twScenarios->invisibleRootItem(), s);
+  foreach (Scenario* s, scenarioList)
+    if (topLevelScenarios.contains(s))
+      displayScenario(ui.twScenarios->invisibleRootItem(), s);
   
   ui.twScenarios->setCurrentItem(findScenario(currentData));
   
