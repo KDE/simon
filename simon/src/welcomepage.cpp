@@ -234,6 +234,16 @@ void WelcomePage::updateScenarioDisplays()
     return;
   }
   ScenarioManager::getInstance()->updateDisplays(scenario, true);
+
+  //unset training text selection if the currently selected text does not belong to the newly selected
+  //scenario
+  QModelIndex selectedIndex = ui.tvTrainingTexts->currentIndex();
+  TrainingText* text = 0;
+  if (!selectedIndex.isValid() || !(text = static_cast<TrainingText*>(selectedIndex.internalPointer())))
+    return;
+
+  if (text->parentScenarioId() != scenario->id())
+    ui.tvTrainingTexts->setCurrentIndex(QModelIndex());
 }
 
 void WelcomePage::displayScenarioPrivate ( Scenario* scenario )
