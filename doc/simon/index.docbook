@@ -4092,7 +4092,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   </screenshot>
   </para>
 
-  <para>The plugin fulfils two major purposes:
+  <para>The plugin fulfills two major purposes:
     <itemizedlist>
     <listitem>
       <para>Execute Simon commands at scheduled times</para>
