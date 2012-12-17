@@ -124,52 +124,85 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
 
 bool Scenario::setupChildScenarios()
 {
-    m_childScenarios.clear();
+  m_childScenarios.clear();
 
-    foreach (const QString& id, m_childScenarioIds)
+  foreach (const QString& id, m_childScenarioIds)
+  {
+    Scenario* child = ScenarioManager::getInstance()->getScenario(id);
+
+    if (child)
     {
-        Scenario* child = ScenarioManager::getInstance()->getScenario(id);
+      m_childScenarios << child;
+      child->setParentScenario(this);
 
-        if (child)
-        {
-            m_childScenarios << child;
-            child->setParentScenario(this);
-
-            kDebug() << child->id() + " is set as child of " + this->id();
-        }
-        else
-        {
-            kDebug() << "Error: Child id '" + id + "'' is unavailable";
-        }
+      kDebug() << child->id() + " is set as child of " + this->id();
     }
+    else
+    {
+      kDebug() << "Error: Child id '" + id + "'' is unavailable";
+    }
+  }
 
-    return true;
+  return true;
 }
 
 QList<Scenario*> Scenario::childScenarios() const
 {
-    return m_childScenarios;
+  return m_childScenarios;
 }
 
 QStringList Scenario::childScenarioIds() const
 {
-    return m_childScenarioIds;
+  return m_childScenarioIds;
 }
 
 Scenario* Scenario::parentScenario()
 {
-    return m_parentScenario;
+  return m_parentScenario;
 }
 
 void Scenario::setParentScenario(Scenario *parent)
 {
-    m_parentScenario = parent;
-    updateActivation();
+  m_parentScenario = parent;
+  updateActivation();
 }
 
 void Scenario::setChildScenarioIds(QStringList ids)
 {
-    m_childScenarioIds = ids;
+  m_childScenarioIds = ids;
+}
+
+bool Scenario::updateChildScenarioIds(const QString& path, const QStringList& ids)
+{
+  kDebug() << "Updating child ids of " << path << " to " << ids;
+
+  QDomDocument doc("scenario");
+  QFile file(path);
+  if (!file.open(QIODevice::ReadWrite) || (!doc.setContent(&file))) {
+    return false;
+  }
+  QDomElement childrenElem = doc.documentElement().firstChildElement("childscenarioids");
+  kDebug() << "No child scenario id list element!";
+
+  QDomElement idElem = childrenElem.firstChildElement("scenarioid");
+  while (!idElem.isNull()) {
+    childrenElem.removeChild(idElem); // remove all children
+    idElem = idElem.nextSiblingElement();
+  }
+
+  foreach(const QString& id, ids)
+  {
+    idElem = doc.createElement("scenarioid");
+    idElem.appendChild(doc.createTextNode(id));
+    childrenElem.appendChild(idElem);
+  }
+
+  file.seek(0);
+  QByteArray data = doc.toString().toUtf8();
+  file.write(data);
+  file.resize(file.pos());
+  file.close();
+  return true;
 }
 
 bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
@@ -448,7 +481,7 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
   {
     m_childScenarioIds.push_back(idElem.text());
 
-      kDebug() << "Child scenario id added: " + idElem.text();
+    kDebug() << "Child scenario id added: " + idElem.text();
 
     idElem = idElem.nextSiblingElement("scenarioid");
   }
@@ -1041,39 +1074,39 @@ void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, Voic
 
 void Scenario::updateActivation()
 {
-    if (!m_parentScenario)
+  if (!m_parentScenario)
+  {
+    if (m_compoundCondition->isSatisfied())
     {
-        if (m_compoundCondition->isSatisfied())
-        {
-            kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
-            m_active = true;
-        }
-        else
-        {
-            kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
-            m_active = false;
-        }
+      kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+      m_active = true;
     }
     else
     {
-        if (m_compoundCondition->isSatisfied() && m_parentScenario->isActive())
-        {
-            kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
-            m_active = true;
-        }
-        else
-        {
-            kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
-            m_active = false;
-        }
+      kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+      m_active = false;
     }
-
-    foreach(Scenario *s, m_childScenarios)
+  }
+  else
+  {
+    if (m_compoundCondition->isSatisfied() && m_parentScenario->isActive())
     {
-        s->updateActivation();
+      kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+      m_active = true;
     }
+    else
+    {
+      kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+      m_active = false;
+    }
+  }
 
-    emit activationChanged();
+  foreach(Scenario *s, m_childScenarios)
+  {
+    s->updateActivation();
+  }
+
+  emit activationChanged();
 }
 
 

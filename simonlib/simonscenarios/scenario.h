@@ -184,6 +184,8 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     static QStringList explode(const QString& inFile);
 
+    static bool updateChildScenarioIds(const QString& path, const QStringList& ids);
+
   public slots:
     bool save(QString path=QString(), bool full = false);
     void updateActivation();

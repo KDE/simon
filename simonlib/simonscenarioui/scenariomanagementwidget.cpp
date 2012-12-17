@@ -574,27 +574,21 @@ void ScenarioManagementWidget::selectedScenarioSelected()
 
 void ScenarioManagementWidget::saveChildConfiguration(QTreeWidgetItem *parentItem)
 {
-    for (int i=0; i<parentItem->childCount(); i++)
-    {
-        //setup the item
-        QTreeWidgetItem *item = parentItem->child(i);
+  for (int i=0; i<parentItem->childCount(); i++)
+  {
+    //setup the item
+    QTreeWidgetItem *item = parentItem->child(i);
 
-        kDebug() << "Configuring children of: " << item->data(0, Qt::UserRole).toString();
+    kDebug() << "Configuring children of: " << item->data(0, Qt::UserRole).toString();
 
-        //save the item's child configuration
-        QStringList ids = getChildScenarioIds(item);
-        Scenario *s = new Scenario(item->data(0, Qt::UserRole).toString());
-        if (s->init())
-        {
-            s->setChildScenarioIds(ids);
-            s->save();
-        }
+    //save the item's child configuration
+    QStringList ids = getChildScenarioIds(item);
+    if (!Scenario::updateChildScenarioIds(Scenario::pathFromId(item->data(0, Qt::UserRole).toString()), ids))
+      kWarning() << "Failed to update cihld scenario configuration";
 
-        ids.clear();
-
-        //configure item's children's children
-        saveChildConfiguration(item);
-    }
+    //configure item's children's children
+    saveChildConfiguration(item);
+  }
 }
 
 bool ScenarioManagementWidget::save()
