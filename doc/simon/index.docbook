@@ -1658,7 +1658,7 @@ In special cases (severe speech impairments for example), special configuration 
 <para>To instead modify an existing scenario, you of course just have to open it.</para>
 
 <para>
-A &kmyapplication; Simon scenario contains the following components:
+A &kmyapplication; scenario contains the following components:
 <itemizedlist>
 <listitem><para><link linkend="vocabulary">Vocabulary</link></para></listitem>
 <listitem><para><link linkend="grammar">Grammar</link></para></listitem>
@@ -1778,7 +1778,7 @@ As Simon is a multi-language solution we do not ship shadow dictionaries with Si
 Additionally to a shadow dictionary, Simon can use a language profile to provide help with transcribing words.
 </para>
 
-<para>A language profile consists of rules how words are pronounced in the target language. It can be likened to the way that humans can often pronounce a word they never heard just because they know some implicit "pronounciation rules" of the language.</para>
+<para>A language profile consists of rules how words are pronounced in the target language. It can be likened to the way that humans can often pronounce a word they never heard just because they know some implicit "pronunciation rules" of the language.</para>
 
 <para>Just as with humans, this process is not perfect but can provide a solid starting ground.</para>
 
@@ -2008,7 +2008,7 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 <para>Scenario hierarchies serve two purposes:
 <itemizedlist>
 <listitem><para>The <link linkend="context">context system</link> respects scenario hierarchies: If the parent scenario gets deactivated, all child scenarios will become deactivated as well.</para></listitem>
-<listitem><para>If you attempt to <link linkend="export_scenario">export a scenario</link> that has children, &kmyapplication; will allow you to export them in a joint scenario package. This way, you can share multiple logically co-dependent scenarios (e.g. one "Office" scenario that contains sub-scenarios for "Word", "Excel", etc.).</para></listitem>
+<listitem><para>If you attempt to <link linkend="export_scenario">export a scenario</link> that has children, &kmyapplication; will allow you to export them in a joint scenario package. This way, you can share multiple logically co-dependent scenarios (&eg; one "Office" scenario that contains sub-scenarios for "Word", "Excel", etc.).</para></listitem>
 </itemizedlist>
 </para>
 
@@ -2934,7 +2934,7 @@ The add texts wizard provides a simple way to add new training texts to Simon.
 <para>In Simon, context is monitored through a set of context condition plugins.</para>
 <para>In general, context conditions are combined through an "and" association. For example, if the activation of resource is bound by two conditions A and B, it will only be activated if both A and B see their conditions met. To instead model alternatives ("A or B or both"), use an <link linkend="or_condition_association">Or Condition Association</link>.</para>
 
-<para>All conditions can optionally be inverted. Inverting a condition means that it will evaluate to true if it would otherwise evaluate to false and vice-versa.</para>
+<para>All conditions can optionally be inverted. Inverting a condition means that it will evaluate to true if it would otherwise evaluate to false and vice versa.</para>
 
 <sect3 id="active_window_condition">
 <title>Active window</title>
@@ -3469,7 +3469,7 @@ While the desktop grid is active (displayed), all input that is not directed at 
     </imageobject>
   </mediaobject>
 </screenshot>
-The trigger that invokes the desktop grid is of course completely configurable. Moreover the user can use <quote>real</quote> or <quote>fake</quote> transparency. If your graphical environment allows for compositing effects (<quote>desktop effects</quote>) then you can safely use <quote>real</quote> transparency which will make the desktogrid transparent. If your platform does not support compositing Simon will simulate transparency by taking a screenshot of the screen before displaying the desktop grid and display that picture behind the desktop grid.
+The trigger that invokes the desktop grid is of course completely configurable. Moreover the user can use <quote>real</quote> or <quote>fake</quote> transparency. If your graphical environment allows for compositing effects (<quote>desktop effects</quote>) then you can safely use <quote>real</quote> transparency which will make the desktop grid transparent. If your platform does not support compositing Simon will simulate transparency by taking a screenshot of the screen before displaying the desktop grid and display that picture behind the desktop grid.
 </para>
 
 <para>If the desktop grid is configured to use real transparency and the system does not support compositing it will display a solid gray background.</para>
@@ -3970,7 +3970,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
       </mediaobject>
     </screenshot>
     </para>
-    <para>Static bound values will always be resolved to the same text. They are useful to provide configuration options to be filled in to personalize the dialog (e.g., the name of the user).</para>
+    <para>Static bound values will always be resolved to the same text. They are useful to provide configuration options to be filled in to personalize the dialog (&eg;, the name of the user).</para>
   </listitem>
   <listitem>
     <para>QtScript</para>
@@ -4035,7 +4035,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   </para>
   <para>These boolean values choose between different or optional text snippets.</para>
 
-  <para>For example, the template option "formal" above, would change the dialog text "Would you please {{{formal}}be quiet{{elseformal}}shut up{{endformal}}" to "Would you please be quit" or "Would you please shut up" depending on if the template option is set to true or false. The else-path can be ommitted if it is not required (e.g.: "Would you {{formal}}please {{endformal}}be quiet").</para>
+  <para>For example, the template option "formal" above, would change the dialog text "Would you please {{{formal}}be quiet{{elseformal}}shut up{{endformal}}" to "Would you please be quit" or "Would you please shut up" depending on if the template option is set to true or false. The else-path can be omitted if it is not required (&eg; "Would you {{formal}}please {{endformal}}be quiet").</para>
   </sect3>
 
   <sect3 id="dialog_avatars">
@@ -4092,11 +4092,11 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
   </screenshot>
   </para>
 
-  <para>The plugin fullfills two major purposes:
+  <para>The plugin fulfils two major purposes:
     <itemizedlist>
     <listitem>
       <para>Execute Simon commands at scheduled times</para>
-      <para>The Akonadi plugin can monitor a specific collection (calendar) and react on entries whos summary start with a specific prefix. Per default, this prefix is "[simon-command]", meaning that events of the form "[simon-command] &lt;plugin name&gt;//&lt;command name&gt;" will trigger the appropriate &kmyapplication; command at the "start time" of the event.</para>
+      <para>The Akonadi plugin can monitor a specific collection (calendar) and react on entries whose summary start with a specific prefix. Per default, this prefix is "[simon-command]", meaning that events of the form "[simon-command] &lt;plugin name&gt;//&lt;command name&gt;" will trigger the appropriate &kmyapplication; command at the "start time" of the event.</para>
 
       <para>The name of the plugins and commands are equivalent to the ones shown in the <link linkend="commands">command dialog</link> and do not necessarily need to reference commands in the same scenario as the Akonadi plugin instance.</para>
     </listitem>
