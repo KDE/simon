@@ -59,6 +59,7 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
 
   connect(ScenarioManager::getInstance(), SIGNAL(scenarioSelectionChanged()), this, SLOT(displayScenarios()));
   connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SLOT(displayScenarios()));
+  connect(ScenarioManager::getInstance(), SIGNAL(scenariosChanged()), this, SLOT(updateTrainingsTexts()));
   
   connect(ui.pbScenarioConfiguration, SIGNAL(clicked()), this, SLOT(scenarioConfig()));
   connect(ui.pbAcousticConfiguration, SIGNAL(clicked()), this, SLOT(baseModelConfig()));
