@@ -588,7 +588,7 @@ void ScenarioManagementWidget::saveChildConfiguration(QTreeWidgetItem *parentIte
 
     //save the item's child configuration
     QStringList ids = getChildScenarioIds(item);
-    if (!Scenario::updateChildScenarioIds(Scenario::pathFromId(item->data(0, Qt::UserRole).toString()), ids))
+    if (!Scenario::updateChildScenarioIds(item->data(0, Qt::UserRole).toString(), ids))
       kWarning() << "Failed to update cihld scenario configuration";
 
     //configure item's children's children

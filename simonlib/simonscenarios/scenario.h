@@ -180,11 +180,11 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
     void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 
-    static QString pathFromId(const QString& id, const QString& prefix=QString());
+    static QString pathFromId(const QString& id, const QString& prefix=QString(), bool local=true);
 
     static QStringList explode(const QString& inFile);
 
-    static bool updateChildScenarioIds(const QString& path, const QStringList& ids);
+    static bool updateChildScenarioIds(const QString& id, const QStringList& ids);
 
   public slots:
     bool save(QString path=QString(), bool full = false);

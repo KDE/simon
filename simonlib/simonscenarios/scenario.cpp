@@ -172,35 +172,45 @@ void Scenario::setChildScenarioIds(QStringList ids)
   m_childScenarioIds = ids;
 }
 
-bool Scenario::updateChildScenarioIds(const QString& path, const QStringList& ids)
+bool Scenario::updateChildScenarioIds(const QString& id, const QStringList& ids)
 {
+  QString path = Scenario::pathFromId(id, QString(), false);
   kDebug() << "Updating child ids of " << path << " to " << ids;
-
   QDomDocument doc("scenario");
   QFile file(path);
-  if (!file.open(QIODevice::ReadWrite) || (!doc.setContent(&file))) {
+  if (!file.open(QIODevice::ReadOnly) || (!doc.setContent(&file))) {
     return false;
   }
-  QDomElement childrenElem = doc.documentElement().firstChildElement("childscenarioids");
-  kDebug() << "No child scenario id list element!";
-
-  QDomElement idElem = childrenElem.firstChildElement("scenarioid");
-  while (!idElem.isNull()) {
-    childrenElem.removeChild(idElem); // remove all children
-    idElem = idElem.nextSiblingElement();
+  QDomElement docElem = doc.documentElement();
+  docElem.setAttribute("lastModified", utcTime().toString(Qt::ISODate));
+  QDomElement childrenElem = docElem.firstChildElement("childscenarioids");
+  if (childrenElem.isNull()) {
+    kDebug() << "No child scenario id list element!";
+    childrenElem = doc.createElement("childscenarioids");
+    docElem.appendChild(childrenElem);
+  } else {
+    QDomElement idElem = childrenElem.firstChildElement("scenarioid");
+    while (!idElem.isNull()) {
+      childrenElem.removeChild(idElem); // remove all children
+      idElem = idElem.nextSiblingElement();
+    }
   }
 
   foreach(const QString& id, ids)
   {
-    idElem = doc.createElement("scenarioid");
+    QDomElement idElem = doc.createElement("scenarioid");
     idElem.appendChild(doc.createTextNode(id));
     childrenElem.appendChild(idElem);
   }
 
-  file.seek(0);
+  file.close();
+  file.setFileName(Scenario::pathFromId(id));
+  if (!file.open(QIODevice::WriteOnly|QIODevice::Truncate))
+    return false;
+
+  QString out = Scenario::pathFromId(id, QString(), false);
   QByteArray data = doc.toString().toUtf8();
   file.write(data);
-  file.resize(file.pos());
   file.close();
   return true;
 }
@@ -565,13 +575,19 @@ QStringList Scenario::explode(const QString& inFile)
 }
 
 
-QString Scenario::pathFromId(const QString& id, const QString& prefix)
+QString Scenario::pathFromId(const QString& id, const QString& prefix, bool local)
 {
-  if (prefix.isNull()) {
-    return KStandardDirs::locateLocal("appdata", "scenarios/"+id);
+  if (local) {
+    if (prefix.isNull())
+      return KStandardDirs::locateLocal("appdata", "scenarios/"+id);
+    else
+      return KStandardDirs::locateLocal("data", prefix+"scenarios/"+id);
+  } else {
+    if (prefix.isNull())
+      return KStandardDirs::locate("appdata", "scenarios/"+id);
+    else
+      return KStandardDirs::locate("data", prefix+"scenarios/"+id);
   }
-
-  return KStandardDirs::locateLocal("data", prefix+"scenarios/"+id);
 }
 
 QString Scenario::preferredPath() const
