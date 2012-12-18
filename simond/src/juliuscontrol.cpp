@@ -59,28 +59,27 @@ JuliusControl::JuliusControl(const QString& username, QObject* parent) : Recogni
 
 bool JuliusControl::initializeRecognition(const QString& modelPath)
 {
-  if (modelPath == m_lastModel) return true; //already initialized / tried to initialize with this exact model
-
+  if (modelPath != m_lastModel) { //already initialized / tried to initialize with this exact model
   
-  kDebug() << "Initializing for model: " << modelPath << " old model path: " << m_lastModel;
-  m_lastModel = modelPath;
-  if (isInitialized()) {
-    kDebug() << "Initializing recognition that was already initialized; uninitializing...";
-    uninitialize();
-    m_startRequests = 0;
-  }
+    kDebug() << "Initializing for model: " << modelPath << " old model path: " << m_lastModel;
+    m_lastModel = modelPath;
+    if (isInitialized()) {
+      kDebug() << "Initializing recognition that was already initialized; uninitializing...";
+      uninitialize();
+      m_startRequests = 0;
+    }
 
-  QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/julius/");
-  if (QFile::exists(path+"hmmdefs") && !QFile::remove(path+"hmmdefs")) return false;
-  if (QFile::exists(path+"tiedlist") && !QFile::remove(path+"tiedlist")) return false;
-  if (QFile::exists(path+"model.dfa") && !QFile::remove(path+"model.dfa")) return false;
-  if (QFile::exists(path+"model.dict") && !QFile::remove(path+"model.dict")) return false;
-  if (QFile::exists(path+"julius.jconf") && !QFile::remove(path+"julius.jconf")) return false;
+    QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/julius/");
+    if (QFile::exists(path+"hmmdefs") && !QFile::remove(path+"hmmdefs")) return false;
+    if (QFile::exists(path+"tiedlist") && !QFile::remove(path+"tiedlist")) return false;
+    if (QFile::exists(path+"model.dfa") && !QFile::remove(path+"model.dfa")) return false;
+    if (QFile::exists(path+"model.dict") && !QFile::remove(path+"model.dict")) return false;
+    if (QFile::exists(path+"julius.jconf") && !QFile::remove(path+"julius.jconf")) return false;
 
-
-  if (!FileUtils::unpackAll(modelPath, path))//, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")
-  {
-    return false;
+    if (!FileUtils::unpackAll(modelPath, path))//, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")
+    {
+      return false;
+    }
   }
 
   kDebug() << "Emitting recognition ready";

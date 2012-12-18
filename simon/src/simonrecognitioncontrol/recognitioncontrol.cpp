@@ -1406,6 +1406,7 @@ void RecognitionControl::messageReceived()
 
         case Simond::RecognitionStarted:
         {
+	  kDebug() << "Recognition started!";
           advanceStream(sizeof(qint32));
 
           recognitionReady=true;

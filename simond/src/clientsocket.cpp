@@ -655,8 +655,17 @@ void ClientSocket::processRequest()
       case Simond::StartRecognition:
       {
         kDebug() << "Got start recognition";
-	if (recognitionControl)
-          recognitionControl->startRecognition();
+	recognitionInitializationMutex.lock();
+	if (recognitionControl) {
+          ContextAdapter::BackendType type;
+          QString modelPath;
+          contextAdapter->currentModel(modelPath, type);
+	  if (type != ContextAdapter::Null) // no null model
+            recognitionControl->startRecognition();
+	  else
+            recognitionStarted();
+	}
+	recognitionInitializationMutex.unlock();
         break;
       }
 
@@ -1282,7 +1291,7 @@ void ClientSocket::initializeRecognitionSmartly()
     if (recognitionControl)
       recognitionControl->suspend();
     else
-      recognitionStarted(); // in that case doing nothing is "recognition"
+      recognitionReady(); // in that case doing nothing is "recognition"
   } else {
     RecognitionControl::BackendType recognitionType;
     QString backendName;
@@ -1301,6 +1310,7 @@ void ClientSocket::initializeRecognitionSmartly()
       break;
     }
     if (!recognitionControl || (recognitionControl && recognitionControl->type() != recognitionType)) {
+      kDebug() << "Resetting";
       closeRecognitionControl();
 
       recognitionControl = recognitionControlFactory->recognitionControl(username, recognitionType);
@@ -1318,6 +1328,7 @@ void ClientSocket::initializeRecognitionSmartly()
       connect(recognitionControl, SIGNAL(recognitionResult(QString,RecognitionResultList)), this, SLOT(processRecognitionResults(QString,RecognitionResultList)), Qt::UniqueConnection);
       connect(recognitionControl, SIGNAL(recognitionDone(QString)), this, SLOT(recognitionDone(QString)), Qt::UniqueConnection);
     }
+    kDebug() << "Initializing";
     recognitionControl->initializeRecognition(modelPath);
   }
 }
