@@ -266,17 +266,17 @@ bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compila
 {
   Q_UNUSED(baseModelPath);
 
-  QString samplePath = args.value("samples");
-  QString lexiconPath = args.value("lexicon");
-  QString grammarPath = args.value("grammar");
-  QString vocabPath = args.value("vocab");
-  QString promptsPath = args.value("prompts");
-  QString scriptBasePrefix = args.value("scriptBase");
+  samplePath = args.value("samples");
+  lexiconPath = args.value("lexicon");
+  grammarPath = args.value("grammar");
+  vocabPath = args.value("vocab");
+  promptsPath = args.value("prompts");
+  scriptBasePrefix = args.value("scriptBase");
 
-  QString baseHmmDefsPath = args.value("base/hmmdefs");
-  QString baseTiedlistPath = args.value("base/tiedlist");
-  QString baseMacrosPath = args.value("base/macros");
-  QString baseStatsPath = args.value("base/stats");
+  baseHmmDefsPath = args.value("base/hmmdefs");
+  baseTiedlistPath = args.value("base/tiedlist");
+  baseMacrosPath = args.value("base/macros");
+  baseStatsPath = args.value("base/stats");
 
   m_droppedTranscriptions = droppedTranscriptions;
 
