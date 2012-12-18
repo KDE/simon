@@ -398,6 +398,7 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
   if (announce)
     emit modelCompiled(path);
   emit newModelReady();
+  buildNext();
 }
 
 void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReason reason)
@@ -422,6 +423,7 @@ void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReaso
 
   if (reason == ModelCompilation::InsufficientInput)
     emit newModelReady();
+  buildNext();
 }
 
 void ContextAdapter::currentModel(QString& path, ContextAdapter::BackendType& type) const
