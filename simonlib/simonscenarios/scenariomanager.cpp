@@ -168,14 +168,15 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
   f.write(data);
   f.close();
 
-  Scenario *newScenario = new Scenario(id, QString(), this);
-  kDebug() << "Setting new scenario " << id;
-  if (!setupScenario(newScenario))
-    return false;
-
   for (int i=0; i < scenarios.count(); i++) {
     if (scenarios.at(i)->id() == id) {
       kDebug() << "Found scenario in the old list; replacing it with new version";
+
+      Scenario *newScenario = new Scenario(id, QString(), this);
+      kDebug() << "Setting new scenario " << id;
+      if (!setupScenario(newScenario))
+        return false;
+
       Scenario *s = scenarios.at(i);
       scenarios.insert(i, newScenario);
       scenarios.removeAt(i+1);

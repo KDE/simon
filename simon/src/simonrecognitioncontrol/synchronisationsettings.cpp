@@ -108,8 +108,12 @@ void SynchronisationSettings::displayList(const QList<QDateTime>& models)
 
   foreach (const QDateTime& date, models) {
     QListWidgetItem *item = new QListWidgetItem(ui.lwModels);
-    item->setText(date.toString());
     item->setData(Qt::UserRole, date);
+
+    QDateTime visibleDate(date);
+    visibleDate.setTimeSpec(Qt::UTC);
+    item->setText(visibleDate.toLocalTime().toString());
+
     ui.lwModels->addItem(item);
   }
 
