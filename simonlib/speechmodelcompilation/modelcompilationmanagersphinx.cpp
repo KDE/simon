@@ -113,6 +113,20 @@ void ModelCompilationManagerSPHINX::run()
       return;
     }
 
+    if (adapter->sampleCount() == 0)
+    {
+      switch (baseModelType)
+      {
+        case 1:
+          kDebug() << "No Prompts!  Switching to static model!";
+          baseModelType = 0;
+          break;
+        case 2:                                     //do not bother creating the model without prompts
+          kDebug() << "No Prompts!  Model recompilation aborting!";
+          emit modelCompilationAborted(ModelCompilation::InsufficientInput);
+          return;
+      }
+    }
     ModelCompiler::CompilationType compilationType = getCompilationType(baseModelType);
 
 
@@ -137,5 +151,5 @@ void ModelCompilationManagerSPHINX::run()
     } else
       kWarning() << "Model compilation failed for user " << userName;
   } while (tryAgain);
-  emit modelCompilationAborted(ModelCompilation::InsufficientInput);
+  keepGoing = false;
 }

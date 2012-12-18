@@ -69,7 +69,8 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
   if(mergedVocabulary->empty())
   {
     kDebug()<<"Empty vocabulary aborting adaptation";
-    abort();
+    emit adaptionAborted(ModelCompilation::InsufficientInput);
+    return false;
   }
 
   ADAPT_CHECKPOINT;
