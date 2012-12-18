@@ -637,7 +637,7 @@ void ClientSocket::processRequest()
         stream >> modelDate;
 
         if (synchronisationManager->switchToModel(modelDate))
-          startSynchronisation();                 //apply changes
+          sendCode(Simond::StartSynchronisation); //apply changes
         else
           sendCode(Simond::SwitchToModelFailed);
 
