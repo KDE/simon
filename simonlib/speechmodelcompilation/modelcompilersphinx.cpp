@@ -328,6 +328,8 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
 
   foreach (QString tFileName, sourceDir.entryList())
   {
+    if (tFileName == "metadata.xml") // skip old metadata
+      continue;
     efm.insert(srcDirName+tFileName, tFileName);
     kDebug()<<srcDirName+tFileName;
   }
