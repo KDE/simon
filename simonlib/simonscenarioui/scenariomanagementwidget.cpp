@@ -337,13 +337,18 @@ void ScenarioManagementWidget::deleteScenario(const QString& id, bool removeFile
   kDebug() << "Widget: " << widget;
 
   //removing from list
-  if (item->parent() == 0) {
-    widget->invisibleRootItem()->removeChild(item);
-    kDebug() << "remove from widget";
-  } else {
-    kDebug() << "Remove from child";
-    item->parent()->removeChild(item);
-  }
+  QList<QTreeWidgetItem*> children = item->takeChildren();
+  QTreeWidgetItem *parent;
+  int i;
+  if (item->parent() == 0)
+    parent = widget->invisibleRootItem();
+  else
+    parent = item->parent();
+
+  i = parent->indexOfChild(item);
+  foreach (QTreeWidgetItem* child, children)
+    parent->insertChild(i++, child);
+  parent->removeChild(item);
 
   if (removeFile)
     idsToDelete << id;
