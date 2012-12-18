@@ -1567,7 +1567,17 @@ However, if you want more control you can instruct Simon to ask you before start
 
 <sect2 id="webcam_configuration">
 <title>Webcam configuration</title>
-<para>In Webcam configuration, you can configure frame per second(fps) and select the webcam when multiple webcams are connected to your system. </para>
+<para>In Webcam configuration, you can configure frame per second (fps) and select the webcam to use when multiple webcams are connected to your system. </para>
+<para>
+  <screenshot>
+    <screeninfo>Webcam configuration</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="configure_webcam.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+</para>
 
 <para> Frame per second is the rate at which webcam will produce unique consecutive images called frames. The optimal value of fps is between 5-15 for proper performance. </para>
 </sect2>
@@ -3022,7 +3032,8 @@ The add texts wizard provides a simple way to add new training texts to Simon.
   </mediaobject>
 </screenshot>
 </para>
-<para> The lip detection training will set optimal value of sensitivity of the detection by monitoring your lip movements. For better accuracy of lip detection condition, stop training when the sensitivity value on the slider during training becomes almost constant.
+<para>The lip detection training will try to determine the optimal value of sensitivity of the detection by monitoring your lip movements. For better accuracy of lip detection condition, stop training when the sensitivity value on the slider during training becomes almost constant.
+</para>
 </sect3>
 
 <sect3 id="or_condition_association">
