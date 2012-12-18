@@ -232,6 +232,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
     return false;
   }
 
+  if (!keepGoing) return false;
   emit  status(i18n("Compiling model..."), 15, 100);
 
   //fix config..
@@ -250,6 +251,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
     emit error(i18n("Cannot modify config at \"%1\"",m_ConfigPath));
     return false;
   }
+  if (!keepGoing) return false;
 
   emit  status(i18n("Compiling model..."), 20, 100);
   kDebug() << "Starting actually compilation";
@@ -260,6 +262,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
     emit error(i18n("Cannot compile model"));
     return false;
   }
+  if (!keepGoing) return false;
 
   emit  status(i18n("Compiling model..."), 95, 100);
   kDebug() << "Сopying model to destination";
