@@ -17,7 +17,7 @@ Name[pt]='Plugin' de Comandos de Janelas do Simon
 Name[pt_BR]=Plugin de comandos de janelas do simon
 Name[sl]=Ukazni vstavek za simon Pogovorno okno
 Name[sv]=Simon kommandoinsticksprogram för dialogrutor
-Name[uk]=Додаток команд у діалогових вікнах simon
+Name[uk]=Додаток діалогових команд simon
 Name[x-test]=xxsimon Dialog Command Pluginxx
 Comment=Provides a way to create interactive dialogs with the user
 Comment[ca]=Proporciona una manera per crear diàlegs interactius amb l'usuari
@@ -34,7 +34,7 @@ Comment[pt]=Oferece uma forma de criar janelas interactivas com o utilizador
 Comment[pt_BR]=Oferece uma forma de criar janelas interativas com o usuário
 Comment[sl]=Ponuja pot za ustvarjanje vzajemnih pogovornih oken z uporabnikom
 Comment[sv]=Erbjuder ett sätt att skapa interaktiva dialogrutor för användaren
-Comment[uk]=Надає змогу створювати інтерактивні діалогові вікна
+Comment[uk]=Надає змогу створювати інтерактивні діалоги з користувачем
 Comment[x-test]=xxProvides a way to create interactive dialogs with the userxx
 
 X-KDE-PluginInfo-Author=Peter Grasch
