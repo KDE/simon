@@ -126,8 +126,10 @@ bool SphinxRecognizer::uninitialize()
   kDebug()<<"SPHINX uninitialization";
   log.clear();
 
-  if(decoder)
+  if(decoder) {
     ps_free(decoder);
+    decoder = 0;
+  }
 
   return true;
 }
