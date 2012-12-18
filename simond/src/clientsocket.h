@@ -26,6 +26,7 @@
 #include <QSslSocket>
 #include <QList>
 #include <QHash>
+#include <QMutex>
 #include <QString>
 
 class RecognitionControlFactory;
@@ -60,6 +61,7 @@ class ClientSocket : public QSslSocket
     ContextAdapter *contextAdapter;
 
     QHash<qint8, WAV *> currentSamples;
+    QMutex recognitionInitializationMutex;
 
     void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
     

@@ -40,6 +40,7 @@
 #include <KDateTime>
 #include <QHostAddress>
 #include <QMap>
+#include <QMutexLocker>
 
 #include <KDebug>
 #include <KMessageBox>
@@ -1267,6 +1268,7 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 
 void ClientSocket::initializeRecognitionSmartly()
 {
+  QMutexLocker l(&recognitionInitializationMutex);
   kDebug() << "Recognition is initialized: " << (recognitionControl ? recognitionControl->isInitialized() : false);
   kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
 
