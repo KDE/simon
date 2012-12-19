@@ -243,7 +243,11 @@ bool ModelCompilerSPHINX::CompileWholeModel()
   params.insert("CFG_HMM_TYPE", MODEL_TYPE);
   params.insert("CFG_INITIAL_NUM_DENSITIES", DENSITIES_NUM);
   params.insert("CFG_FINAL_NUM_DENSITIES", DENSITIES_NUM);
+#ifdef Q_OS_WIN32
+  params.insert("CFG_QUEUE_TYPE", "Queue");
+#else
   params.insert("CFG_QUEUE_TYPE", "Queue::POSIX");
+#endif
 
 
   if(!modifyConfig(m_ConfigPath, params))
