@@ -66,7 +66,7 @@ macro_log_feature(POCKETSPHINX_LIBRARIES "PocketSphinx"
   "http://cmusphinx.sourceforge.net/" FALSE "" 
   "Required to build Pocket Sphinx backend")
 find_package(OpenCV)
-macro_log_feature(OpenCV_LIBS "OpenCV"
+macro_log_feature(OpenCV_FOUND "OpenCV"
   "OpenCV (Open Source Computer Vision) is a library of programming functions for real time computer vision" "http://http://opencv.willowgarage.com/"
   FALSE "" "Required for Simon Vision")
   
