@@ -568,6 +568,7 @@ bool DirectSoundBackend::stop()
 	m_loop->wait();
 	m_loop->deleteLater();
 	m_loop = 0;
+	emit stateChanged(SimonSound::IdleState);
 	return true;
 }
 
