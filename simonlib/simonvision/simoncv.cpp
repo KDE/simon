@@ -17,6 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "simoncv.h"
+QImage* qImage=NULL;
 namespace SimonCV{ 
 
   CvRect * detectObject(IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage)
@@ -56,7 +57,8 @@ namespace SimonCV{
       int h = iplImg->height;
       int w = iplImg->width;
       int channels = iplImg->nChannels;
-      QImage *qimg = new QImage(w, h, QImage::Format_ARGB32);
+      if(qImage == NULL)
+        qImage = new QImage(w, h, QImage::Format_ARGB32);
       char *data = iplImg->imageData;
 
       for (int y = 0; y < h; y++, data += iplImg->widthStep)
@@ -80,15 +82,15 @@ namespace SimonCV{
           if (channels == 4)
           {
             a = data[x * channels + 3];
-            qimg->setPixel(x, y, qRgba(r, g, b, a));
+            qImage->setPixel(x, y, qRgba(r, g, b, a));
           }
           else
           {
-            qimg->setPixel(x, y, qRgb(r, g, b));
+            qImage->setPixel(x, y, qRgb(r, g, b));
           }
         }
       }
-      return qimg;
+      return qImage;
 
     }
     return new QImage();
