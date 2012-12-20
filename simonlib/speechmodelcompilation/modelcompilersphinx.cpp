@@ -50,8 +50,8 @@ bool ModelCompilerSPHINX::parseConfiguration()
     }
 //  }
 
-//  if(compilationType & ModelCompiler::AdaptSpeechModel)
-//  {
+  if(compilationType == ModelCompiler::AdaptSpeechModel)
+  {
     m_Bw = programGroup.readEntry("bw", KUrl(KStandardDirs::findExe("bw"))).toLocalFile();
     m_Sphinx_fe = programGroup.readEntry("sphinx_fe", KUrl(KStandardDirs::findExe("sphinx_fe"))).toLocalFile();
     m_Pocketsphinx_mdef_convert = programGroup.readEntry("pocketsphinx_mdef_convert", KUrl(KStandardDirs::findExe("pocketsphinx_mdef_convert"))).toLocalFile();
@@ -66,7 +66,7 @@ bool ModelCompilerSPHINX::parseConfiguration()
       emit error(errorMsg);
       return false;
     }
-//  }
+  }
 
   return true;
 }

@@ -36,6 +36,11 @@ class ModelCompilationSettings : public KCModule
   public:
     explicit ModelCompilationSettings(QWidget* parent, const QVariantList& args=QVariantList());
 
+    void load();
+//    void save();
+
+    static int getDefaultBackendType();
+
     ~ModelCompilationSettings();
 
 };

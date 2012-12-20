@@ -57,6 +57,26 @@ ModelCompilationSettings::ModelCompilationSettings(QWidget* parent, const QVaria
   addConfig(ModelCompilationConfiguration::self(), this);
 }
 
+void ModelCompilationSettings::load()
+{
+  KCModule::load();
+
+#ifdef BACKEND_TYPE_JHTK
+  externalProgramsUi.kcfg_backend->setCurrentIndex(1);
+  externalProgramsUi.kcfg_backend->setEnabled(false);
+  externalProgramsUi.gbSphinx->hide();
+#endif
+}
+
+int ModelCompilationSettings::getDefaultBackendType()
+{
+  int type(0);
+#ifdef BACKEND_TYPE_JHTK
+  type = 1;
+#endif
+  return type;
+}
+
 
 ModelCompilationSettings::~ModelCompilationSettings()
 {}
