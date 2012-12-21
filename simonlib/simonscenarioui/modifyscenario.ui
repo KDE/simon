@@ -54,7 +54,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="lbMinVersion">
          <property name="text">
-          <string>Min simon version:</string>
+          <string>Min Simon version:</string>
          </property>
         </widget>
        </item>
@@ -84,7 +84,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="lbMaxVersion">
        <property name="text">
-        <string>Max simon version:</string>
+        <string>Max Simon version:</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>

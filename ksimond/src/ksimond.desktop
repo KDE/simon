@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=ksimond
+Name=KSimond
 Name[ca]=ksimond
 Name[cs]=ksimond
 Name[de]=KSimond
@@ -28,7 +28,7 @@ Exec=ksimond %i -caption "%c"
 Icon=ksimond
 Type=Application
 X-DocPath=ksimond/index.html
-GenericName=KDE Front-End to simond
+GenericName=KDE Front-End to Simond
 GenericName[ca]=Frontal del KDE per a «simond»
 GenericName[de]=KDE-Programm für Simond
 GenericName[el]=Περιβάλλον χρήστη KDE για το simond

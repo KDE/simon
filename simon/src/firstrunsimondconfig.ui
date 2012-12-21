@@ -17,9 +17,9 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>simon can be set up to use a central server on the network. The model generation and recognition will then happen on the server, disburdening the clients.
+      <string>Simon can be set up to use a central server on the network. The model generation and recognition will then happen on the server, disburdening the clients.
 
-Most users will leave this page to the default values. You can find more information on the topic in the simon manual.</string>
+Most users will leave this page to the default values. You can find more information on the topic in the Simon manual.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -29,7 +29,7 @@ Most users will leave this page to the default values. You can find more informa
    <item>
     <widget class="QCheckBox" name="cbConnectAutomatically">
      <property name="text">
-      <string>Connect automatically when simon starts</string>
+      <string>Connect automatically when Simon starts</string>
      </property>
      <property name="checked">
       <bool>true</bool>
@@ -69,7 +69,7 @@ Most users will leave this page to the default values. You can find more informa
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Use a local (private) recognition server (simond) installed and running on this computer.</string>
+          <string>Use a local (private) recognition server (Simond) installed and running on this computer.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -79,7 +79,7 @@ Most users will leave this page to the default values. You can find more informa
        <item>
         <widget class="QCheckBox" name="cbStartSimond">
          <property name="text">
-          <string>Start the server automatically when simon starts</string>
+          <string>Start the server automatically when Simon starts</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -89,7 +89,7 @@ Most users will leave this page to the default values. You can find more informa
        <item>
         <widget class="QCheckBox" name="cbStopSimond">
          <property name="text">
-          <string>Stop the server automatically when simon stops</string>
+          <string>Stop the server automatically when Simon stops</string>
          </property>
          <property name="checked">
           <bool>true</bool>

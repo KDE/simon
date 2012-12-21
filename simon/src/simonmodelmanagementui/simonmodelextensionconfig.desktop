@@ -34,7 +34,7 @@ Name[x-test]=xxModel Extensionsxx
 
 #X-KDE-PluginKeyword=ModelSettings
 
-Comment=Configuration of the simon speech model extensions
+Comment=Configuration of the Simon speech model extensions
 Comment[ca]=Configuració de les extensions del model de pronunciació per a «simon»
 Comment[de]=Konfiguration der Simon-Sprachmodellerweiterungen
 Comment[el]=Διαμόρφωση των επεκτάσεων του μοντέλου ομιλίας του simon

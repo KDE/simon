@@ -31,7 +31,7 @@ Name[uk]=Синтез мовлення з тексту
 Name[x-test]=xxText-to-speechxx
 Name[zh_CN]=文本到语音
 
-Comment=Configuration of the simon text-to-speech layer
+Comment=Configuration of the Simon text-to-speech layer
 Comment[ca]=Configuració de la capa text a veu per a «simon»
 Comment[de]=Einrichtung des Simon-Sprachausgabe-Layers
 Comment[el]=Διαμόρφωση του στρώματος κείμενο-σε-ομιλία του simon

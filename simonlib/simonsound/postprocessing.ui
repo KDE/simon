@@ -16,7 +16,7 @@
    <item>
     <widget class="QCheckBox" name="kcfg_ProcessInternal" >
      <property name="text" >
-      <string>Apply filters to recordings recorded with simon</string>
+      <string>Apply filters to recordings recorded with Simon</string>
      </property>
     </widget>
    </item>

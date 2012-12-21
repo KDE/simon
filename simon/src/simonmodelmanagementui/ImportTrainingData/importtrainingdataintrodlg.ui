@@ -18,7 +18,7 @@
      <property name="text" >
       <string>Welcome to the import of existing training data.
 
-Using this wizard you can import training data collected e.g. by previous simon installations.</string>
+Using this wizard you can import training data collected e.g. by previous Simon installations.</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>

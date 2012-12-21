@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=ssc
+Name=SSC
 Name[ca]=ssc
 Name[cs]=ssc
 Name[de]=ssc
@@ -26,7 +26,7 @@ Exec=ssc %i -caption "%c"
 Icon=ssc
 Type=Application
 X-DocPath=ssc/index.html
-GenericName=simon sample collector
+GenericName=Simon sample collector
 GenericName[ca]=Col·leccionista de mostres per a «simon»
 GenericName[de]=Simon-Aufnahmensammlung
 GenericName[el]=συλλέκτης δειγμάτων του simon

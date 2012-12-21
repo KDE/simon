@@ -17,21 +17,21 @@
    <item>
     <widget class="QCheckBox" name="kcfg_AutoStart">
      <property name="text">
-      <string>Start ksimond when logging in</string>
+      <string>Start KSimond when logging in</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_AutoStartSimond">
      <property name="text">
-      <string>Start simond when ksimond starts</string>
+      <string>Start Simond when KSimond starts</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_AutoReStartSimond">
      <property name="text">
-      <string>Restart simond if it quits unexpectedly</string>
+      <string>Restart Simond if it quits unexpectedly</string>
      </property>
     </widget>
    </item>

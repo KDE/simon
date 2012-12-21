@@ -40,7 +40,7 @@
        <item row="0" column="0" colspan="2">
         <widget class="QLabel" name="coreLb">
          <property name="text">
-          <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;This assistant allows you to submit your collected training data to a central online repository where it will improve a speaker-independent voice model that helps other simon users and maybe even yourself achieve better recognition rates (&lt;a href=&quot;http://voxforge.org/home/about&quot;&gt;More information&lt;/a&gt;).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;This assistant allows you to submit your collected training data to a central online repository where it will improve a speaker-independent voice model that helps other Simon users and maybe even yourself achieve better recognition rates (&lt;a href=&quot;http://voxforge.org/home/about&quot;&gt;More information&lt;/a&gt;).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

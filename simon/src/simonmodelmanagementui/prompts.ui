@@ -42,7 +42,7 @@
      <item>
       <widget class="KPushButton" name="pbImportDir">
        <property name="toolTip">
-        <string>Import training corpuses from other simon versions</string>
+        <string>Import training corpuses from other Simon versions</string>
        </property>
        <property name="text">
         <string>Import Training data</string>

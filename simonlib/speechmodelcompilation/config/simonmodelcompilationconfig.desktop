@@ -28,7 +28,7 @@ Name[sv]=Talmodellsamling
 Name[uk]=Компіляція моделі мовлення
 Name[x-test]=xxSpeech Model Compilationxx
 
-Comment=Configuration of the simon Speech Model Compilation
+Comment=Configuration of the Simon Speech Model Compilation
 Comment[ca]=Configuració de la compilació del model de pronunciació per a «simon»
 Comment[de]=Einrichtung der Simon-Sprachmodell-Kompilierung
 Comment[el]=Διαμόρφωση της μεταγλώττισης του μοντέλου ομιλίας του simon
