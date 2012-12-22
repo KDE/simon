@@ -1,26 +1,5 @@
 [Desktop Entry]
 Name=SSCd
-Name[ca]=sscd
-Name[de]=sscd
-Name[el]=sscd
-Name[es]=sscd
-Name[et]=sscd
-Name[fi]=sscd
-Name[fr]=sscd
-Name[ga]=sscd
-Name[gl]=sscd
-Name[hu]=sscd
-Name[it]=sscd
-Name[nl]=sscd
-Name[pl]=sscd
-Name[pt]=sscd
-Name[pt_BR]=sscd
-Name[sk]=sscd
-Name[sl]=sscd
-Name[sv]=SSCD
-Name[uk]=sscd
-Name[x-test]=xxsscdxx
-Name[zh_CN]=sscd
 Exec=sscd %i -caption "%c"
 Icon=sscd
 Type=Application

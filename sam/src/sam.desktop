@@ -1,24 +1,5 @@
 [Desktop Entry]
 Name=Sam
-Name[ca]=sam
-Name[de]=sam
-Name[el]=sam
-Name[es]=sam
-Name[et]=sam
-Name[fi]=sam
-Name[fr]=sam
-Name[ga]=sam
-Name[gl]=xan
-Name[it]=sam
-Name[nl]=sam
-Name[pl]=sam
-Name[pt]=sam
-Name[pt_BR]=sam
-Name[sk]=sam
-Name[sl]=sam
-Name[sv]=Sam
-Name[uk]=sam
-Name[x-test]=xxsamxx
 Exec=sam %i -caption "%c"
 Icon=sam
 Type=Application

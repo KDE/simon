@@ -31,19 +31,4 @@ Name[x-test]=xxSpeech Modelxx
 Name[zh_CN]=语音模式
 
 Comment=Configuration of the Simon Speech Model
-Comment[ca]=Configuració del model de pronunciació per a «simon»
-Comment[de]=Einrichtung des Simon-Sprachmodells
-Comment[el]=Διαμόρφωση του μοντέλου ομιλίας του simon
-Comment[et]=Simoni kõnemudeli seadistamine
-Comment[fi]=simon puhemalliasetukset
-Comment[fr]=Configuration du modèle de voix de simon
-Comment[gl]=Configuración do Modelo de fala do simon
-Comment[nl]=Configuratie van het simon spraakmodel
-Comment[pl]=Konfiguracja modelu mowy dla simon
-Comment[pt]=Configuração do modelo de fala do Simon
-Comment[pt_BR]=Configuração do modelo de fala do simon
-Comment[sl]=Nastavitev modela govora za simon
-Comment[sv]=Inställning av Simons talmodell
-Comment[uk]=Налаштування моделі мовлення simon
-Comment[x-test]=xxConfiguration of the simon Speech Modelxx
 

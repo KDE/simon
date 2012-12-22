@@ -32,19 +32,4 @@ Name[x-test]=xxText-to-speechxx
 Name[zh_CN]=文本到语音
 
 Comment=Configuration of the Simon text-to-speech layer
-Comment[ca]=Configuració de la capa text a veu per a «simon»
-Comment[de]=Einrichtung des Simon-Sprachausgabe-Layers
-Comment[el]=Διαμόρφωση του στρώματος κείμενο-σε-ομιλία του simon
-Comment[et]=Simoni teksti ettelugemise kihi seadistamine
-Comment[fi]=simon tekstistä puheeksi-kerroksen asetukset
-Comment[fr]=Configuration de la couche de synthèse vocale de simon
-Comment[gl]=Configuración da capa de texto-para-voz do simon
-Comment[nl]=Configuratie van de simon-laag tekst-naar-spraak
-Comment[pl]=Konfiguracja warstwy tekstu-na-mowę dla simon
-Comment[pt]=Configuração da interface de texto-para-fala Simon
-Comment[pt_BR]=Configuração da interface do sintetizador de voz do simon
-Comment[sl]=Nastavitev za simon plast besedilo-v-govor
-Comment[sv]=Inställning av Simons text-till-tal lager
-Comment[uk]=Налаштування шару перетворення тексту у мовлення simon
-Comment[x-test]=xxConfiguration of the simon text-to-speech layerxx
 
