@@ -49,7 +49,7 @@ class XEvents : public CoreEvents
     void sendKeyPrivate (unsigned int key, EventSimulation::PressMode mode);
     void setModifierKey (int virtualKey, bool once);
     void unsetModifier (int virtualKey);
-    XEvents (char* displayName=":0.0");
+    XEvents (const char* displayName=":0.0");
     ~XEvents();
 
 };

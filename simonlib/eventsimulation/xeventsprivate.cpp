@@ -31,7 +31,7 @@
 // #include "../Logging/logger.h"
 #include <KLocalizedString>
 
-XEventsPrivate::XEventsPrivate(char* displayName)
+XEventsPrivate::XEventsPrivate(const char* displayName)
 {
   display = openDisplay(displayName);
 }
@@ -45,7 +45,7 @@ XEventsPrivate::XEventsPrivate(char* displayName)
  *
  * @author Peter Grasch
  */
-Display* XEventsPrivate::openDisplay(char* displayName)
+Display* XEventsPrivate::openDisplay(const char* displayName)
 {
   int Event, Error;
   int Major, Minor;
