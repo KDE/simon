@@ -1,5 +1,10 @@
 [Desktop Entry]
 Name=Sam
+Name[ca]=Sam
+Name[pt]=Sam
+Name[pt_BR]=Sam
+Name[uk]=Sam
+Name[x-test]=xxSamxx
 Exec=sam %i -caption "%c"
 Icon=sam
 Type=Application

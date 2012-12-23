@@ -1,5 +1,10 @@
 [Desktop Entry]
 Name=SSCd
+Name[ca]=SSCd
+Name[pt]=SSCd
+Name[pt_BR]=SSCd
+Name[uk]=SSCd
+Name[x-test]=xxSSCdxx
 Exec=sscd %i -caption "%c"
 Icon=sscd
 Type=Application

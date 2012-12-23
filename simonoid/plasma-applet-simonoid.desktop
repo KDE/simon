@@ -1,6 +1,16 @@
 [Desktop Entry]
 Name=Simonoid
+Name[ca]=Simonoid
+Name[pt]=Simonóide
+Name[pt_BR]=Simonoide
+Name[uk]=Саймоноїд
+Name[x-test]=xxSimonoidxx
 Comment=Plasma Simonoid
+Comment[ca]=Plasma Simonoid
+Comment[pt]=Plasmóide do Simon
+Comment[pt_BR]=Plasmoide do Simon
+Comment[uk]=Саймоноїд Плазми
+Comment[x-test]=xxPlasma Simonoidxx
 Type=Service
 Icon=simon
 

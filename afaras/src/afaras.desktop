@@ -1,5 +1,10 @@
 [Desktop Entry]
 Name=Afaras
+Name[ca]=Afaras
+Name[pt]=afaras
+Name[pt_BR]=Afaras
+Name[uk]=Afaras
+Name[x-test]=xxAfarasxx
 Exec=afaras %i -caption "%c"
 Icon=afaras
 Type=Application
