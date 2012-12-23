@@ -28,7 +28,7 @@ K_PLUGIN_FACTORY( ModelCompilationSettingsFactory,
 registerPlugin< ModelCompilationSettings >();
 )
 
-K_EXPORT_PLUGIN( ModelCompilationSettingsFactory("ModelCompilationSettings") )
+K_EXPORT_PLUGIN( ModelCompilationSettingsFactory("simonlib") )
 
 ModelCompilationSettings::ModelCompilationSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
