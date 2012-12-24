@@ -13,6 +13,7 @@ X-KDE-ParentApp=simon
 
 Name=Speech Model
 Name[ca]=Model de pronunciació
+Name[da]=Talemodel
 Name[de]=Sprachmodell
 Name[el]=Μοντέλο ομιλίας
 Name[es]=Modelo de habla
@@ -32,6 +33,7 @@ Name[zh_CN]=语音模式
 
 Comment=Configuration of the Simon Speech Model
 Comment[ca]=Configuració del model de pronunciació per a Simon
+Comment[nl]=Configuratie van het Simon spraakmodel
 Comment[pt]=Configuração do modelo de fala do Simon
 Comment[pt_BR]=Configuração do modelo de fala do Simon
 Comment[uk]=Налаштування моделі мовлення Simon

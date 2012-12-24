@@ -16,6 +16,7 @@ X-KDE-ParentApp=ssc
 Name=SSC
 Name[ca]=SSC
 Name[cs]=SSC
+Name[da]=SSC
 Name[de]=SSC
 Name[el]=SSC
 Name[es]=SSC
@@ -38,6 +39,7 @@ Name[zh_CN]=SSC
 
 Comment=Configuration of the Simon sample collector
 Comment[ca]=Configuració del col·leccionista de mostres per a Simon
+Comment[nl]=Configuratie van de sample-verzamelaar van Simon
 Comment[pt]=Configuração da recolha de amostras do Simon
 Comment[pt_BR]=Configuração da coletor de amostras do Simon
 Comment[uk]=Налаштування збирача зразків Simon

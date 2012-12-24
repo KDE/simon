@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=SSCd
 Name[ca]=SSCd
+Name[nl]=SSCd
 Name[pt]=SSCd
 Name[pt_BR]=SSCd
 Name[uk]=SSCd
@@ -11,6 +12,7 @@ Type=Application
 X-DocPath=sscd/index.html
 GenericName=Sample Collection Server
 GenericName[ca]=Servidor de la col·lecció de mostres
+GenericName[da]=Server til sample-indsamling
 GenericName[de]=Server für die Aufnahmensammlung
 GenericName[el]=Εξυπηρετητής συλλογής δειγμάτων
 GenericName[et]=Näidete kogumise server

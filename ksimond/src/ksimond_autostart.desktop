@@ -2,6 +2,7 @@
 Name=KSimond
 Name[ca]=KSimond
 Name[cs]=KSimond
+Name[da]=KSimond
 Name[de]=KSimond
 Name[el]=KSimond
 Name[es]=KSimond
@@ -30,6 +31,7 @@ Type=Application
 X-DocPath=ksimond/index.html
 GenericName=KDE Front-End to Simond
 GenericName[ca]=Frontal del KDE per a Simond
+GenericName[nl]=KDE-frontend naar Simond
 GenericName[pt]=Interface para o KDE do Simond
 GenericName[pt_BR]=Interface gráfica do Simond para o KDE
 GenericName[uk]=Графічна оболонка KDE до Simond

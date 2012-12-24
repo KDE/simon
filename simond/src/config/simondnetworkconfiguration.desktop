@@ -17,6 +17,7 @@ X-KDE-PluginKeyword=SimondNetworkConfiguration
 Name=Network
 Name[ca]=Xarxa
 Name[cs]=Síť
+Name[da]=Netværk
 Name[de]=Netzwerk
 Name[el]=Δίκτυο
 Name[es]=Red local
@@ -40,6 +41,7 @@ Name[zh_CN]=网络
 
 Comment=Configuration of the Network Settings
 Comment[ca]=Configuració dels paràmetres de xarxa
+Comment[da]=Konfiguration af netværksindstillingerne
 Comment[de]=Einrichtung der Netzwerkeinstellungen
 Comment[el]=Διαμόρφωση των ρυθμίσεων δικτύου
 Comment[et]=Võrgu seadistamine

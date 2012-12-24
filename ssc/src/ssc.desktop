@@ -2,6 +2,7 @@
 Name=SSC
 Name[ca]=SSC
 Name[cs]=SSC
+Name[da]=SSC
 Name[de]=SSC
 Name[el]=SSC
 Name[es]=SSC
@@ -27,6 +28,7 @@ Type=Application
 X-DocPath=ssc/index.html
 GenericName=Simon sample collector
 GenericName[ca]=Col·leccionista de mostres per a Simon
+GenericName[nl]=Sample-verzamelaar van Simon
 GenericName[pt]=Recolha de amostras do Simon
 GenericName[pt_BR]=Coletor de amostras do Simon
 GenericName[uk]=Збирач зразків Simon

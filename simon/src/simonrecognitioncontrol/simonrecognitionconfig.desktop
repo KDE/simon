@@ -16,6 +16,7 @@ X-KDE-ParentApp=simon
 
 Name=Recognition
 Name[ca]=Reconeixement
+Name[da]=Genkendelse
 Name[de]=Erkennung
 Name[el]=Αναγνώριση
 Name[es]=Reconocimiento
@@ -37,6 +38,7 @@ Name[zh_CN]=识别
 
 Comment=Recognition settings
 Comment[ca]=Configuració del reconeixement
+Comment[da]=Indstillinger til genkendelse
 Comment[de]=Erkennungseinstellungen
 Comment[el]=Ρυθμίσεις αναγνώρισης
 Comment[es]=Preferencias del reconocimiento

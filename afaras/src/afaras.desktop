@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=Afaras
 Name[ca]=Afaras
+Name[ga]=Afaras
+Name[nl]=Afaras
 Name[pt]=afaras
 Name[pt_BR]=Afaras
 Name[uk]=Afaras
@@ -11,6 +13,7 @@ Type=Application
 X-DocPath=afaras/index.html
 GenericName=Find and remove bad samples
 GenericName[ca]=Cerca i elimina les mostres dolentes
+GenericName[da]=Find og fjern dårlige samples
 GenericName[de]=Schlechte Aufnahmen suchen und entfernen
 GenericName[el]=εύρεση και αφαίρεση ακατάλληλων δειγμάτων
 GenericName[et]=Halbade näidete leidmine ja eemaldamine

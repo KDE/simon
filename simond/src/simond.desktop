@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=Simond
 Name[ca]=Simond
+Name[ga]=Simond
+Name[nl]=Simond
 Name[pt]=Simond
 Name[pt_BR]=Simond
 Name[uk]=Simond
@@ -10,7 +12,8 @@ Icon=simond
 Type=Application
 X-DocPath=simond/index.html
 GenericName=Speech Recognition Server
-GenericName[ca]=Servidor de reconeixement de la veu
+GenericName[ca]=Servidor per al reconeixement de la veu
+GenericName[da]=Talegenkendelsesserver
 GenericName[de]=Spracherkennungsserver
 GenericName[el]=Εξυπηρετητής αναγνώρισης ομιλίας
 GenericName[es]=Servidor de reconocimiento de voz
