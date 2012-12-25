@@ -76,7 +76,7 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   kDebug() <<"Adaptation complete";
 
   keepGoing=false;
-  
+
   return true;
 }
 
@@ -135,7 +135,7 @@ bool ModelCompilationAdapterHTK::checkTriphones(const QString& baseTiedListPathI
           triphone[nextStart - 1] = '+';
           if (!supportedTranscription(allowedTriphones, triphone))
             break;
-        } 
+        }
       }
     }
     broken = (i != pronunciation.count());
@@ -403,7 +403,7 @@ bool ModelCompilationAdapterHTK::storeGrammar(const QString& grammarPathOut, QSt
     emit error(i18n("Failed to adapt grammar to \"%1\"", grammarPathOut));
     return false;
   }
-  
+
   if (structures.isEmpty()) {
     emit adaptionAborted(ModelCompilation::InsufficientInput); //no grammar
     return false;
@@ -478,23 +478,22 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
   if(!readPrompts(adaptionType, vocabulary, promptsPathIn, trainedVocabulary))
     return false;
 
-  if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
-    return true;
+  if (adaptionType & ModelCompilationAdapter::AdaptLanguageModel) {
+    /////  Lexicon  ////////////////
 
-  /////  Lexicon  ////////////////
+    if(!storeLexicon(adaptionType, lexiconPathOut, vocabulary, trainedVocabulary, definedVocabulary))
+      return false;
 
-  if(!storeLexicon(adaptionType, lexiconPathOut, vocabulary, trainedVocabulary, definedVocabulary))
-    return false;
+    //    /////  Vocabulary  /////////////
+    QStringList structures = grammar->getStructures();
 
-  //    /////  Vocabulary  /////////////
-  QStringList structures = grammar->getStructures();
+    if(!storeVocabulary(adaptionType, simpleVocabPathOut, vocabulary, grammar, trainedVocabulary, structures))
+      return false;
 
-  if(!storeVocabulary(adaptionType, simpleVocabPathOut, vocabulary, grammar, trainedVocabulary, structures))
-    return false;
-
-  ///// Grammar ///////////
-  if(!storeGrammar(grammarPathOut, structures))
-    return false;
+    ///// Grammar ///////////
+    if(!storeGrammar(grammarPathOut, structures))
+      return false;
+  }
 
   ///// Prompts (2) //////
   if(!storePrompts(adaptionType, promptsPathOut, promptsPathIn, definedVocabulary))
