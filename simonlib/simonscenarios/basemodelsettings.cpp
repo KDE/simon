@@ -23,7 +23,7 @@
 #include "model.h"
 #include "speechmodelmanagementconfiguration.h"
 #include "ui_modelsettingsdlg.h"
-#include <simonscenarios/scenariomanager.h>
+#include "modelmanager.h"
 #include <QMenu>
 #include <knewstuff3/downloaddialog.h>
 #include <KTar>
@@ -33,12 +33,12 @@
 BaseModelSettings::BaseModelSettings ( QWidget* parent, Qt::WFlags flags ) : QWidget ( parent, flags), ui(new Ui::ModelDlg())
 {
   ui->setupUi(this);
-  
+
   connect(ui->cbBaseModels, SIGNAL(currentIndexChanged(int)), this, SLOT(baseModelSelectionChanged()));
   connect(ui->cbAdapt, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  
+
   ui->pbRemove->setIcon(KIcon("list-remove"));
-  
+
   connect(ui->pbExport, SIGNAL(clicked()), this, SLOT(exportBaseModel()));
 
   QMenu *importMenu = new QMenu(this);
@@ -68,17 +68,21 @@ void BaseModelSettings::slotChanged()
   emit changed(true);
 }
 
-QString BaseModelSettings::baseModelDescription(const QString& path)
+QString BaseModelSettings::baseModelDescription(const QString& path, QString* name, QDateTime* dateTime)
 {
   if (path.isEmpty())
     return baseModelDescription(QString(), QDateTime());
-  
-  QString name;
-  QDateTime dateTime;
+
+  QString lName;
+  QDateTime lDateTime;
   QString type;
   KTar tar(path, "application/x-gzip");
-  Model::parseContainer(tar, dateTime, name, type);
-  return baseModelDescription(name, dateTime);
+  Model::parseContainer(tar, lDateTime, lName, type);
+  if (name)
+    *name = lName;
+  if (dateTime)
+    *dateTime = lDateTime;
+  return baseModelDescription(lName, lDateTime);
 }
 
 QString BaseModelSettings::baseModelDescription(const QString& name, const QDateTime& dateTime)
@@ -86,7 +90,7 @@ QString BaseModelSettings::baseModelDescription(const QString& name, const QDate
   if (name.isNull())
     return i18n("Do not use a base model");
 
-  return i18nc("%1 is model name, %2 is creation date", "%1 (Created: %2)", 
+  return i18nc("%1 is model name, %2 is creation date", "%1 (Created: %2)",
                       name, dateTime.toString(Qt::LocalDate));
 }
 
@@ -106,10 +110,10 @@ void BaseModelSettings::load()
 {
   kDebug() << "Load";
   kDebug() << this;
-  ui->cbAdapt->setChecked(ScenarioManager::getInstance()->baseModelType() == 1);
+  ui->cbAdapt->setChecked(ModelManager::getInstance()->baseModelType() == 1);
   setupBaseModelSelection();
 
-  m_storedModelType = ScenarioManager::getInstance()->baseModelType();
+  m_storedModelType = ModelManager::getInstance()->baseModelType();
 }
 
 void BaseModelSettings::setupBaseModelSelection()
@@ -121,10 +125,10 @@ void BaseModelSettings::setupBaseModelSelection()
   foreach (const QString& path, baseModelsDir.entryList(QDir::Files|QDir::NoDotAndDotDot))
     addBaseModelToSelection(baseModelsBasePath + path);
 
-  if (ScenarioManager::getInstance()->baseModelType() == 2)
+  if (ModelManager::getInstance()->baseModelType() == 2)
     ui->cbBaseModels->setCurrentIndex(0); // no base model
   else
-    ui->cbBaseModels->setCurrentIndex(qMax(0, ui->cbBaseModels->findData(ScenarioManager::getInstance()->baseModel())));
+    ui->cbBaseModels->setCurrentIndex(qMax(0, ui->cbBaseModels->findData(ModelManager::getInstance()->baseModel())));
   baseModelSelectionChanged();
 }
 
@@ -195,7 +199,11 @@ void BaseModelSettings::importBaseModel ( const QString& path )
 
 void BaseModelSettings::addBaseModelToSelection(const QString& path)
 {
-  ui->cbBaseModels->addItem(baseModelDescription(path), path);
+  QString name;
+  QDateTime creationDate;
+  ui->cbBaseModels->addItem(baseModelDescription(path, &name, &creationDate), path);
+  ui->cbBaseModels->setItemData(ui->cbBaseModels->count() - 1, name, Qt::UserRole + 1);
+  ui->cbBaseModels->setItemData(ui->cbBaseModels->count() - 1, creationDate, Qt::UserRole + 2);
 }
 
 void BaseModelSettings::baseModelSelectionChanged()
@@ -206,15 +214,16 @@ void BaseModelSettings::baseModelSelectionChanged()
 
 void BaseModelSettings::save()
 {
-
   QString selectedBaseModel = ui->cbBaseModels->itemData(ui->cbBaseModels->currentIndex()).toString();
+  QString selectedBaseModelName = ui->cbBaseModels->itemData(ui->cbBaseModels->currentIndex(), Qt::UserRole + 1).toString();
+  QDateTime selectedBaseModelDate = ui->cbBaseModels->itemData(ui->cbBaseModels->currentIndex(), Qt::UserRole + 2).toDateTime();
 
   int modelType = 2;
   if (!selectedBaseModel.isNull()) {
     modelType = ui->cbAdapt->isChecked() ? 1 : 0;
-    if (ScenarioManager::getInstance()->baseModel() != selectedBaseModel) {
+    if (ModelManager::getInstance()->baseModel() != selectedBaseModel) {
       QString targetPath = KStandardDirs::locateLocal("appdata", "model/basemodel.sbm");
-      
+
       bool succ = true;
       if (QFile::exists(targetPath) && !QFile::remove(targetPath)) {
         KMessageBox::sorry(this, i18n("Could not remove current base model"));
@@ -225,19 +234,18 @@ void BaseModelSettings::save()
         KMessageBox::sorry(this, i18n("Could not import base model."));
         succ = false;
       }
-
-      if (succ)
-        ScenarioManager::getInstance()->setBaseModel(selectedBaseModel);
+      if (!succ)
+        selectedBaseModel.clear();
     }
   }
 
-  ScenarioManager::getInstance()->setBaseModelType(modelType);
+  ModelManager::getInstance()->setBaseModel(selectedBaseModel, modelType);
+  ModelManager::getInstance()->announceBaseModel(selectedBaseModelName, modelType, selectedBaseModelDate);
 }
 
 void BaseModelSettings::defaults()
 {
-  ScenarioManager::getInstance()->setBaseModel(QString());
-  ScenarioManager::getInstance()->setBaseModelType(2);
+  ModelManager::getInstance()->setBaseModel(QString(), 2);
 
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/basemodel.sbm"));
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/languageProfile"));

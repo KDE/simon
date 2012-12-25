@@ -39,10 +39,10 @@ g2p(new GraphemeToPhoneme)
   ui->setupUi(widget);
   setMainWidget(widget);
   setWindowTitle(i18n("Create language profile..."));
-  
-  
+
+
   setButtonText(Ok, i18n("Create profile"));
-  
+
   connect(g2p, SIGNAL(state(QString,int,int)), this, SLOT(displayState(QString,int,int)));
   connect(g2p, SIGNAL(success(QString)), this, SLOT(success(QString)));
   connect(g2p, SIGNAL(failed()), this, SLOT(failed()));
@@ -58,13 +58,13 @@ void LanguageProfileView::displayState(const QString& state, int now, int max)
 void LanguageProfileView::success(const QString& path)
 {
   QString storePath = KStandardDirs::locateLocal("appdata", "model/languageProfile");
-  if ((QFile::exists(storePath) && !QFile::remove(storePath)) || 
+  if ((QFile::exists(storePath) && !QFile::remove(storePath)) ||
        !QFile::copy(path, storePath)) {
     KMessageBox::sorry(this, i18n("Could not copy model to final destination."));
     failed();
   } else {
     ModelManager::getInstance()->touchLanguageDescription();
-    ScenarioManager::getInstance()->setLanguageProfileName(i18n("Generated from shadow dictionary"));
+    ModelManager::getInstance()->setLanguageProfileName(i18n("Generated from shadow dictionary"));
     setButtonText(Ok, i18n("OK"));
     button(Ok)->setEnabled(true);
   }
@@ -95,14 +95,14 @@ void LanguageProfileView::slotButtonClicked(int button)
 void LanguageProfileView::createProfile()
 {
   button(Ok)->setEnabled(false);
-  
+
   //prepare sphinx dict
   if (!ScenarioManager::getInstance()->getShadowVocabulary()->
     exportToFile(KStandardDirs::locateLocal("tmp", "simon/sequitur/train.lex"), Vocabulary::SPHINX)) {
     KMessageBox::sorry(this, i18n("Could not export current shadow dictionary to file for further processing."));
     return;
   }
-  
+
   if (!g2p->createProfile())
     KMessageBox::sorry(this, g2p->getError(), QString(), KMessageBox::Notify|KMessageBox::AllowLink);
 }

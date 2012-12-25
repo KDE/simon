@@ -98,7 +98,7 @@ QHash<QString,QString> ScenarioManager::transcribe(QStringList words)
       kWarning() << "Sequitur transcription failed. Is sequitur installed and do you have a valid model?";
       return out;
     }
-    
+
     for (QHash<QString,TranscriptionResult>::const_iterator i = sequiturResults.constBegin();
          i != sequiturResults.constEnd(); ++i) {
       if (i.value().getSuccess())
@@ -525,7 +525,6 @@ bool ScenarioManager::commitGroup(bool silent)
   return success;
 }
 
-
 void ScenarioManager::touchBaseModelAccessTime()
 {
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
@@ -538,39 +537,6 @@ void ScenarioManager::touchBaseModelAccessTime()
   else
     emit baseModelChanged();
 }
-
-
-int ScenarioManager::baseModelType()
-{
-  return SpeechModelManagementConfiguration::modelType();
-}
-
-void ScenarioManager::setBaseModelType(int type)
-{
-  SpeechModelManagementConfiguration::setModelType(type);
-  SpeechModelManagementConfiguration::self()->writeConfig();
-  touchBaseModelAccessTime();
-}
-
-QString ScenarioManager::baseModel()
-{
-  return SpeechModelManagementConfiguration::selectedBaseModel();
-}
-void ScenarioManager::setBaseModel(const QString& model)
-{
-  SpeechModelManagementConfiguration::setSelectedBaseModel(model);
-}
-
-QString ScenarioManager::languageProfileName()
-{
-  return SpeechModelManagementConfiguration::languageProfileName();
-}
-void ScenarioManager::setLanguageProfileName(const QString& name)
-{
-  SpeechModelManagementConfiguration::setLanguageProfileName(name);
-  SpeechModelManagementConfiguration::self()->writeConfig();
-}
-
 
 void ScenarioManager::setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands)
 {

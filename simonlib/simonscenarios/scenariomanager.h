@@ -64,7 +64,6 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     bool m_scenariosDirty;
     bool m_shadowVocabularyDirty;
     bool setupScenario(Scenario *s);
-    void touchBaseModelAccessTime();
 
     ShadowVocabulary *shadowVocab;
     Scenario *currentScenario;
@@ -115,17 +114,11 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 
     void setPluginFont(const QFont& font);
 
-    int baseModelType();
-    void setBaseModelType(int);
-    QString baseModel();
-    void setBaseModel(const QString&);
-    
-    QString languageProfileName();
-    void setLanguageProfileName(const QString& name);
-
     void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands);
 
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListBaseConfiguration();
+
+    void touchBaseModelAccessTime();
 
 
   public slots:

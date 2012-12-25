@@ -35,15 +35,15 @@ Q_OBJECT
 public:
   explicit BaseModelSettings ( QWidget* parent = 0, Qt::WFlags flags = 0 );
   void setMinimal(bool minimal);
-  
+
 signals:
   void changed(bool);
-  
+
 public slots:
   void load();
   void save();
   void defaults();
-    
+
 private slots:
   void slotChanged();
   void createBaseModel();
@@ -52,14 +52,14 @@ private slots:
   void getNewBaseModels();
   void exportBaseModel();
   void removeBaseModel();
-  
+
 private:
   Ui::ModelDlg *ui;
 
   int m_storedModelType;
-  
+
   void importBaseModel(const QString& path);
-  QString baseModelDescription(const QString& path);
+  QString baseModelDescription(const QString& path, QString* name=0, QDateTime* dateTime=0);
   QString baseModelDescription(const QString& name, const QDateTime& dateTime);
 
   void setupBaseModelSelection();

@@ -171,6 +171,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QLabel" name="lbActiveModelDescription">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <spacer name="horizontalSpacer_3">

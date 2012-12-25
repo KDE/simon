@@ -66,6 +66,9 @@ private slots:
     void manageSamples();
     
     void trainingsTextSelected(const QModelIndex& index);
+
+    void displayBaseModelInformation(int type, const QDateTime& creationDate, const QString& name);
+    void displayActiveModelInformation(const QDateTime& creationDate, const QString& name);
     
 private:
     Ui::WelcomePage ui;

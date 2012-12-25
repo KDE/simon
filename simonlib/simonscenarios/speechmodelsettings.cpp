@@ -18,8 +18,8 @@
  */
 
 #include "speechmodelsettings.h"
-#include <simonscenarios/scenariomanager.h>
 #include "basemodelsettings.h"
+#include "modelmanager.h"
 #include "speechmodelmanagementconfiguration.h"
 
 #include "ui_trainingsettings.h"
@@ -50,14 +50,14 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
   if (args.count() == 1)
     pageWidget->setFaceType(KPageView::Tabbed);
 
-  
+
   baseModelSettings = new BaseModelSettings(this);
   connect(baseModelSettings, SIGNAL(changed(bool)), this, SLOT(slotSubChanged(bool)));
-  
+
   QWidget *trainingsDataWidget = new QWidget(this);
   uiTrainingsData->setupUi(trainingsDataWidget);
-  
-  
+
+
   QWidget *languageProfileWidget = new QWidget(this);
   uiLanguageProfile->setupUi(languageProfileWidget);
 
@@ -74,7 +74,7 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
 
   addConfig(SpeechModelManagementConfiguration::self(), this);
   uiLanguageProfile->pbLoadLanguageProfile->setIcon(KIcon("document-open"));
-  
+
   connect(uiLanguageProfile->pbLoadLanguageProfile, SIGNAL(clicked()), this, SLOT(loadLanguageProfile()));
 }
 
@@ -92,7 +92,7 @@ void SpeechModelSettings::slotChanged()
 void SpeechModelSettings::load()
 {
   baseModelSettings->load();
-  uiLanguageProfile->lbProfileName->setText(ScenarioManager::getInstance()->languageProfileName());
+  uiLanguageProfile->lbProfileName->setText(ModelManager::getInstance()->languageProfileName());
   KCModule::load();
   emit changed(false);
 }
@@ -113,9 +113,9 @@ void SpeechModelSettings::save()
 
     m_languageProfileToImport.clear();
   }
-  
-  ScenarioManager::getInstance()->setLanguageProfileName(uiLanguageProfile->lbProfileName->text());
-  
+
+  ModelManager::getInstance()->setLanguageProfileName(uiLanguageProfile->lbProfileName->text());
+
   int smpFreq = SpeechModelManagementConfiguration::modelSampleRate();
   KCModule::save();
   if (smpFreq != SpeechModelManagementConfiguration::modelSampleRate()) {
@@ -128,12 +128,12 @@ void SpeechModelSettings::save()
 void SpeechModelSettings::defaults()
 {
   baseModelSettings->defaults();
-  ScenarioManager::getInstance()->setLanguageProfileName(i18nc("Filename of a not yet selected language profile", "None"));
+  ModelManager::getInstance()->setLanguageProfileName(i18nc("Filename of a not yet selected language profile", "None"));
 
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
 
   m_languageProfileToImport.clear();
-  
+
   KCModule::defaults();
 
   load();

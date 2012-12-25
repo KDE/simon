@@ -21,11 +21,11 @@
 #include "welcomepage.h"
 #include <simonmodelmanagementui/promptsview.h>
 #include <simonmodelmanagementui/TrainSamples/trainingswizard.h>
-#include <simonrecognitioncontrol/recognitioncontrol.h>
 #include "trainingtextaggregatormodel.h"
 #include "version.h"
 
 #include <simonscenarioui/scenariomanagementdialog.h>
+#include <simonscenarios/modelmanager.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/modelmanager.h>
 #include <simonscenarios/scenario.h>
@@ -53,29 +53,29 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
 {
   ui.setupUi(this);
   static_cast<QVBoxLayout*>(ui.gbRecognition->layout())->insertWidget(1, volumeWidget);
-  
+
   volumeWidget->enablePrompt(false);
   volumeWidget->init();
 
   connect(ScenarioManager::getInstance(), SIGNAL(scenarioSelectionChanged()), this, SLOT(displayScenarios()));
   connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SLOT(displayScenarios()));
   connect(ScenarioManager::getInstance(), SIGNAL(scenariosChanged()), this, SLOT(updateTrainingsTexts()));
-  
+
   connect(ui.pbScenarioConfiguration, SIGNAL(clicked()), this, SLOT(scenarioConfig()));
   connect(ui.pbAcousticConfiguration, SIGNAL(clicked()), this, SLOT(baseModelConfig()));
   connect(ui.pbAudioConfiguration, SIGNAL(clicked()), this, SLOT(audioConfig()));
-  
+
   connect(ui.twScenarios, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(updateScenarioDisplays()));
   connect(ui.pbStartTraining, SIGNAL(clicked(bool)), this, SLOT(startTraining()));
-  
+
   connect(ui.pbEditScenario, SIGNAL(clicked(bool)), this, SIGNAL(editScenario()));
   connect(ActionManager::getInstance(), SIGNAL(processedRecognitionResult(RecognitionResult,bool)), this, SLOT(processedRecognitionResult(RecognitionResult, bool)));
-  
+
   connect(ui.pbManageSamples, SIGNAL(clicked()), this, SLOT(manageSamples()));
 
   displayScenarios();
   displayAcousticModelInfo();
-  
+
   ui.pbAcousticConfiguration->setIcon(KIcon("view-pim-news"));
   ui.pbAudioConfiguration->setIcon(KIcon("preferences-desktop-sound"));
   ui.pbScenarioConfiguration->setIcon(KIcon("view-list-tree"));
@@ -92,10 +92,11 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
   ui.gbTraining->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-training.png" ) ));
   ui.gbAcousticModel->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-acoustic-model.png" ) ));
   ui.gbRecognition->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-recognition.png" ) ));
-  
-  connect(RecognitionControl::getInstance(), SIGNAL(synchroniationCompleted()), this, SLOT(displayAcousticModelInfo()));
+
+  connect(ModelManager::getInstance(), SIGNAL(baseModelStored(int, QDateTime, QString)), this, SLOT(displayBaseModelInformation(int, QDateTime, QString)));
+  connect(ModelManager::getInstance(), SIGNAL(activeModelStored(QDateTime, QString)), this, SLOT(displayActiveModelInformation(QDateTime, QString)));
   connect(ui.tvTrainingTexts, SIGNAL(activated(QModelIndex)), this, SLOT(trainingsTextSelected(QModelIndex)));
-  
+
   ui.pbActivation->setAction(activationAction);
   ui.tvTrainingTexts->setModel(trainingTextModel);
   ui.tvTrainingTexts->verticalHeader()->hide();
@@ -107,7 +108,7 @@ void WelcomePage::processedRecognitionResult(const RecognitionResult& recognitio
   QString result = recognitionResult.sentence();
   if (!accepted)
     result = i18nc("%1 is the result string", "%1 (no applicable command)", result);
-    
+
   ui.lbRecognition->setText(result);
 }
 
@@ -135,47 +136,58 @@ void WelcomePage::trainingsTextSelected ( const QModelIndex& index )
 
 void WelcomePage::displayAcousticModelInfo()
 {
-  QString description;
   Model* baseModel = ModelManager::getInstance()->createBaseModelContainer();
   if (baseModel) {
-    switch (baseModel->baseModelType()) {
-      case 2:
-        description = i18n("You are using a user generated acoustic model.\nRecognition rate can be improved with training.");
-        break;
-      case 1:
-        description = i18n("You are using an adapted base model.\nRecognition rate depends on the base model but can be improved with training.");
-        break;
-      case 0:
-        description = i18n("You are using a static base model.\nRecognition rate depends solely on the base model.");
-        break;
-    }
-    if (!baseModel->container().isNull()) {
-      //we have a base model
-      description += "\n\n";
-      description += i18nc("%1 is model name, %2 is creation date", "Base model: %1 (Created: %2)", 
-                          baseModel->modelName(), baseModel->modelCreationDate().toString(Qt::LocalDate));
-    }
+    displayBaseModelInformation(baseModel->baseModelType(), baseModel->modelCreationDate(), baseModel->modelName());
     delete baseModel;
-  }
+  } else
+    displayBaseModelInformation(2, QDateTime(), QString());
+
   Model *activeModel = ModelManager::getInstance()->createActiveContainer();
   if (activeModel) {
-    if (!activeModel->container().isNull()) {
-      //we have an active model
-      description += "\n\n";
-      description += i18nc("%1 is model name, %2 is creation date", "Active model: %1 (Created: %2)", 
-                          activeModel->modelName(), activeModel->modelCreationDate().toString(Qt::LocalDate));
-    }
+    displayActiveModelInformation(activeModel->modelCreationDate(), activeModel->modelName());
     delete activeModel;
+  } else
+    displayActiveModelInformation(QDateTime(), QString());
+}
+
+void WelcomePage::displayBaseModelInformation(int type, const QDateTime& creationDate, const QString& name)
+{
+  QString description;
+  switch (type) {
+    case 2:
+      description = i18n("You are using a user generated acoustic model.\nRecognition rate can be improved with training.");
+      break;
+    case 1:
+      description = i18n("You are using an adapted base model.\nRecognition rate depends on the base model but can be improved with training.");
+      break;
+    case 0:
+      description = i18n("You are using a static base model.\nRecognition rate depends solely on the base model.");
+      break;
   }
-  
+  if (type != 2) {
+    //we have a base model
+    description += "\n\n";
+    description += i18nc("%1 is model name, %2 is creation date", "Base model: %1 (Created: %2)",
+                         name, creationDate.toString(Qt::LocalDate));
+  }
   ui.lbBaseModelDescription->setText(description);
+}
+
+void WelcomePage::displayActiveModelInformation(const QDateTime& creationDate, const QString& name)
+{
+  if (name.isNull())
+    ui.lbActiveModelDescription->setText(QString());
+  else
+    ui.lbActiveModelDescription->setText(i18nc("%1 is model name, %2 is creation date", "Active model: %1 (Created: %2)",
+                                             name, creationDate.toString(Qt::LocalDate)));
 }
 
 QString WelcomePage::getCurrentlySelectedScenarioId()
 {
   if (ui.twScenarios->currentItem())
     return ui.twScenarios->currentItem()->data(0, Qt::UserRole).toString();
-  
+
   return QString();
 }
 
@@ -203,9 +215,9 @@ void WelcomePage::displayScenarios()
 {
   setUpdatesEnabled(false);
   ui.twScenarios->blockSignals(true);
-  
+
   QString currentData = getCurrentlySelectedScenarioId();
-  
+
   ui.twScenarios->clear();
 
   QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
@@ -217,9 +229,9 @@ void WelcomePage::displayScenarios()
   foreach (Scenario* s, scenarioList)
     if (topLevelScenarios.contains(s))
       displayScenario(ui.twScenarios->invisibleRootItem(), s);
-  
+
   ui.twScenarios->setCurrentItem(findScenario(currentData));
-  
+
   ui.twScenarios->blockSignals(false);
   setUpdatesEnabled(true);
   updateTrainingsTexts();
@@ -251,7 +263,7 @@ void WelcomePage::displayScenarioPrivate ( Scenario* scenario )
 {
   QTreeWidgetItem *item = findScenario(scenario->id());
   ui.twScenarios->setCurrentItem(item);
-  
+
   ui.pbEditScenario->setText(i18nc("%1 is the scenario to change", "Open \"%1\"", scenario->name()));
 }
 
@@ -275,7 +287,7 @@ void WelcomePage::startTraining()
                                         "the training text in the \"Training\" menu."));
     return;
   }
-  
+
   TrainingText* text = static_cast<TrainingText*>(selectedIndex.internalPointer());
   if (!text)
     return;
