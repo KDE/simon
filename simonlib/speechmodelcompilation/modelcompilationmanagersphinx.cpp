@@ -43,7 +43,7 @@ ModelCompilationManagerSPHINX::ModelCompilationManagerSPHINX(const QString& user
 
   connect(compiler, SIGNAL(wordUndefined(QString)), this, SIGNAL(wordUndefined(QString)));
   connect(compiler, SIGNAL(classUndefined(QString)), this, SIGNAL(classUndefined(QString)));
-  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SIGNAL(phonemeUndefined(QString)));
+  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SLOT(slotPhonemeUndefined(QString)));
 }
 
 void ModelCompilationManagerSPHINX::run()
@@ -143,7 +143,7 @@ void ModelCompilationManagerSPHINX::run()
 
     if (!keepGoing) return;
 
-    if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(), 
+    if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(),
                                              baseModelFolder, compilerArgs))
     {
       emit modelReady(fingerprint, outPath);

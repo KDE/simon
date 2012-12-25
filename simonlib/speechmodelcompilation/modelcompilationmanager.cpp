@@ -26,7 +26,7 @@
 #include <QString>
 #include <stdexcept>
 
-ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObject* parent ) : 
+ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObject* parent ) :
     QThread ( parent ), keepGoing(false), userName(userName), compiler(0), adapter(0)
 {
 //  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SIGNAL(phonemeUndefined(QString)));
@@ -39,11 +39,16 @@ ModelCompilationManager::~ModelCompilationManager()
   delete compiler;
 }
 
+void ModelCompilationManager::slotPhonemeUndefined ( const QString& phoneme )
+{
+  adapter->poisonPhoneme(phoneme);
+  tryAgain = true;
+}
 
 QString ModelCompilationManager::cachedModelPath ( uint fingerprint, bool* exists )
 {
   QString path = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/"+QString::number(fingerprint)+".sbm");
-  if (exists) 
+  if (exists)
     *exists = QFile::exists(path);
   return path;
 }
@@ -54,17 +59,17 @@ void ModelCompilationManager::startModelCompilation ( int baseModelType, const Q
   this->baseModelPath = baseModelPath;
   this->scenarioPaths = scenarioPaths;
   this->promptsPathIn = promptsPathIn;
-  
+
   keepGoing = true;
-  
+
   start();
 }
 
 void ModelCompilationManager::abort()
-{  
+{
   if (!keepGoing) return;
   keepGoing = false;
-  
+
   if (adapter) adapter->abort();
   if (compiler) compiler->abort();
 

@@ -35,42 +35,36 @@ ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, 
   adapter = new ModelCompilationAdapterHTK(userName, this);
 
   tryAgain = false;
-  
+
   connect(adapter, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
   connect(adapter, SIGNAL(adaptionAborted(ModelCompilation::AbortionReason)), this, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)));
   connect(adapter, SIGNAL(status(QString,int,int)), this, SIGNAL(status(QString,int,int)));
-  
+
   connect(compiler, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
   connect(compiler, SIGNAL(status(QString,int,int)), this, SIGNAL(status(QString,int,int)));
   connect(compiler, SIGNAL(activeModelCompilationAborted(ModelCompilation::AbortionReason)), this, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)));
-  
+
   connect(compiler, SIGNAL(wordUndefined(QString)), this, SIGNAL(wordUndefined(QString)));
   connect(compiler, SIGNAL(classUndefined(QString)), this, SIGNAL(classUndefined(QString)));
-  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SIGNAL(phonemeUndefined(QString)));
-}
-
-void ModelCompilationManagerHTK::slotPhonemeUndefined ( const QString& phoneme )
-{
-  adapter->poisonPhoneme(phoneme);
-  tryAgain = true;
+  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SLOT(slotPhonemeUndefined(QString)));
 }
 
 void ModelCompilationManagerHTK::run()
 {
   //first, adapt the input to htk readable formats using the adapter
   QHash<QString,QString> adaptionArgs;
-  
+
   QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
 
   ModelCompilationAdapter::AdaptionType adaptionType = (baseModelType == 0) ?
                                                          (ModelCompilationAdapter::AdaptLanguageModel) :
                                                          (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel);
-  
+
   adaptionArgs.insert("lexicon", activeDir+"lexicon");
   adaptionArgs.insert("grammar", activeDir+"model.grammar");
   adaptionArgs.insert("simpleVocab", activeDir+"simple.voca");
   adaptionArgs.insert("prompts", activeDir+"prompts");
-  
+
   //then, compile the model using the model compilation manager
   QHash<QString,QString> compilerArgs;
 
@@ -81,9 +75,9 @@ void ModelCompilationManagerHTK::run()
   compilerArgs.insert("prompts", activeDir+"prompts");
 
   compilerArgs.insert("scriptBase", "simon/scripts");
-  
+
   adapter->clearPoisonedPhonemes();
-  
+
   do
   {
     if (!keepGoing) return;
@@ -106,7 +100,7 @@ void ModelCompilationManagerHTK::run()
       compilerArgs.insert("base/macros", baseModelFolder+"macros");
       compilerArgs.insert("base/stats", baseModelFolder+"stats");
     }
-    
+
     tryAgain = false;
     if (!adapter->startAdaption(adaptionType, scenarioPaths, promptsPathIn, adaptionArgs))
     {
@@ -143,9 +137,9 @@ void ModelCompilationManagerHTK::run()
           return;
       }
     }
-    
+
     ModelCompiler::CompilationType compilationType = getCompilationType(baseModelType);
-    
+
     //build fingerprint and search cache for it
     uint fingerprint = 0;
     QStringList componentsToParse(QStringList() << "lexicon" << "model.grammar" << "simple.voca");
@@ -156,12 +150,12 @@ void ModelCompilationManagerHTK::run()
 
     bool exists;
     QString outPath = cachedModelPath(fingerprint, &exists);
-    
+
     if (!keepGoing) return;
-    
+
     if (exists) kDebug() << "Pulling compiled model from cache";
 
-    if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(), 
+    if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(),
                                              baseModelPath, compilerArgs))
     {
       emit modelReady(fingerprint, outPath);
