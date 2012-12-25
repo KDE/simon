@@ -51,7 +51,7 @@
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
 {
   Q_OBJECT
-  
+
 signals:
   void status(QString, int progressNow, int progressMax);
   void error(QString);
@@ -121,7 +121,7 @@ protected:
 
   QString m_promptsPathOut;
 
-  bool removeContextAdditions();
+  bool removeContextAdditions(AdaptionType adaptionType);
 
   /*!
    * \brief mergeInputData Forms vocabulary and grammar from given list of scenarios.

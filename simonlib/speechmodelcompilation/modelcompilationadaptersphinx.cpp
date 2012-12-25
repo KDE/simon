@@ -23,7 +23,7 @@
 
 #include<KLocalizedString>
 #include <QDir>
-
+#include <QSet>
 
 ModelCompilationAdapterSPHINX::ModelCompilationAdapterSPHINX(const QString &userName, QObject *parent)
   : ModelCompilationAdapter(userName, parent)
@@ -49,7 +49,7 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
   if (args.value("stripContext") == "true")
   {
     //remove context additions for prompts file
-    if(!removeContextAdditions())
+    if(!removeContextAdditions(adaptionType))
       return false;
   }
 
@@ -66,7 +66,7 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
   //merging scenarios
   mergeInputData(scenarioPathsIn, mergedVocabulary, mergedGrammar);
 
-  if(mergedVocabulary->empty())
+  if((adaptionType & ModelCompilationAdapter::AdaptLanguageModel) &&  mergedVocabulary->empty())
   {
     kDebug()<<"Empty vocabulary aborting adaptation";
     emit adaptionAborted(ModelCompilation::InsufficientInput);
@@ -104,11 +104,6 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel)) // I do not fully understand the meaning of this code snippet, so I just copied it:(
-    return true;
-
-  ADAPT_CHECKPOINT;
-
   FileUtils::removeDirRecursive(workingDirPath+"/"+mName);
 
   //Creating a directory hierarchy, where model compilation will be executed
@@ -122,8 +117,8 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   QString fetc = workingDirPath+"/"+mName+"/etc/"+mName;
 
   kDebug()<<"Store dictionary";
-
-  if(!storeDictionary(adaptionType, fetc+DICT_EXT, trainedVocabulary, definedVocabulary,
+  if(!purgeUnusedVocabulary(vocabulary, grammar) ||
+     !storeDictionary(adaptionType, fetc+DICT_EXT, trainedVocabulary, definedVocabulary,
                       vocabulary))
   {
     emit error(i18n("Failed to store dictionary"));
@@ -170,6 +165,19 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
     return false;
   }
 
+  return true;
+}
+
+bool ModelCompilationAdapterSPHINX::purgeUnusedVocabulary(QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar)
+{
+  QSet<QString> terminals;
+  foreach (const QString& structure, grammar->getStructures())
+    foreach (const QString& terminal, structure.split(" ", QString::SkipEmptyParts))
+      terminals.insert(terminal);
+  QList<Word*> words = vocabulary->getWords();
+  foreach (Word* w, words)
+    if (!terminals.contains(w->getTerminal()))
+      vocabulary->removeWord(w);
   return true;
 }
 
@@ -220,6 +228,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
 
 bool ModelCompilationAdapterSPHINX::storeFiller(AdaptionType adaptionType, const QString &fillerPathOut)
 {
+  Q_UNUSED(adaptionType);
   QFile fillerFile(fillerPathOut);
   if (!fillerFile.open(QIODevice::WriteOnly))
   {
@@ -324,9 +333,8 @@ bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType ada
         wordsString.append(word.toLower());//WARNING: error or not?
     }
 
-    if (allWordsInLexicon || adaptionType == AdaptIndependently)
+    if (allWordsInLexicon || !(adaptionType & AdaptLanguageModel) || (adaptionType & AdaptIndependently))
     {
-
       promptsOutFile.write("<s> "+wordsString.toUtf8() + " </s> (" + line.left(splitter).toUtf8() /*filename*/+ ")\n");
       fieldsOutFile.write(line.left(splitter).toUtf8() /*filename*/ + "\n");
       ++m_sampleCount;

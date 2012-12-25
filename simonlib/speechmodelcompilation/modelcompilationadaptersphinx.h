@@ -46,6 +46,8 @@ protected:
                   const QString& promptsPathIn, const QString &workingDirPath, const QString &mName,
                   QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar);
 
+  bool purgeUnusedVocabulary(QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar);
+
   bool storeDictionary(AdaptionType adaptionType, const QString &dictionaryPathOut, QStringList &trainedVocabulary,
                        QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary);
 

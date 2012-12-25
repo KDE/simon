@@ -44,8 +44,11 @@ void ModelCompilationAdapter::abort()
   keepGoing = false;
 }
 
-bool ModelCompilationAdapter::removeContextAdditions()
+bool ModelCompilationAdapter::removeContextAdditions(ModelCompilationAdapter::AdaptionType adaptionType)
 {
+  if (!(adaptionType & AdaptAcousticModel))
+    return true;
+
   QString realInPrompts = m_promptsPathIn;
   m_promptsPathIn = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_userName+"/compile/tmpprompts");
   QFile newPrompts(m_promptsPathIn);

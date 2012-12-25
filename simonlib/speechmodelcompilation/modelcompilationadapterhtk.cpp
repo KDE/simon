@@ -58,7 +58,7 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   if (args.value("stripContext") == "true")
   {
     //remove context additions for prompts file
-    if(!removeContextAdditions())
+    if(!removeContextAdditions(adaptionType))
       return false;
   }
 
@@ -443,12 +443,14 @@ bool ModelCompilationAdapterHTK::storePrompts(ModelCompilationAdapter::AdaptionT
       bool allWordsInLexicon = true;
       QStringList words = line.mid(splitter+1).trimmed().split(' ');
 
-      foreach (const QString& word, words)
-      {
-        if (!definedVocabulary.contains(word))
+      if ((adaptionType & ModelCompilationAdapter::AdaptLanguageModel) && !(adaptionType & ModelCompilationAdapter::AdaptIndependently)) {
+        foreach (const QString& word, words)
         {
-          allWordsInLexicon = false;
-          break;
+          if (!definedVocabulary.contains(word))
+          {
+            allWordsInLexicon = false;
+            break;
+          }
         }
       }
       if (allWordsInLexicon)

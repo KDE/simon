@@ -945,7 +945,10 @@ void SamView::serializePromptsRun(const QString promptsPath, const QString& outp
   if (output.isEmpty()) return;
 
   QHash<QString,QString> adaptionArgs;
-  adaptionArgs.insert("prompts", output+"prompts");
+  adaptionArgs.insert("stripContext", "true");
+  adaptionArgs.insert("prompts", output + "prompts");
+  adaptionArgs.insert("workingDir", output);
+  adaptionArgs.insert("modelName", m_user+QUuid::createUuid().toString());
   QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
         ModelCompilationAdapter::AdaptAcousticModel,
         QStringList(), promptsPath, adaptionArgs);
