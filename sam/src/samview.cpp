@@ -854,7 +854,7 @@ void SamView::getBuildPathsFromSimon()
   //take several corner cases into account as well as streamline the model with the
   //information he can extract from the input files
 
-  ui.leScriptPrefix->setText("Simon/scripts");
+  ui.leScriptPrefix->setText("simon/scripts");
 
   ModelCompilationAdapter::AdaptionType adaptionType = ModelCompilationAdapter::None;
   QString promptsPath = KStandardDirs::locate("data", "simon/model/prompts");
