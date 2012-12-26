@@ -88,6 +88,7 @@ void ModelCompilationManagerSPHINX::run()
         emit error(i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
         return;
       }
+      compilerArgs.insert("baseModelDir", baseModelFolder);
     }
 
     tryAgain = false;
@@ -144,7 +145,7 @@ void ModelCompilationManagerSPHINX::run()
     if (!keepGoing) return;
 
     if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(),
-                                             baseModelFolder, compilerArgs))
+                                             baseModelPath, compilerArgs))
     {
       emit modelReady(fingerprint, outPath);
       return;

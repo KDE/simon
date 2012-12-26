@@ -1002,13 +1002,23 @@ void SamView::compileModel()
   QHash<QString,QString> compilerArgs;
 
   QString baseModelPath = ui.urBaseModel->url().toLocalFile();
-
+  QString baseModelFolder;
+  if (modelType < 2) {
+    baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/base/");
+    //base model needed - unpack it and fail if its not here
+    if (!FileUtils::unpackAll(baseModelPath, baseModelFolder)) {
+      KMessageBox::sorry(this, i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
+      return;
+    }
+  }
   switch (getBackendType())
   {
   case TestConfigurationWidget::SPHINX:
     compilerArgs.insert("audioPath",ui.urPromptsBasePath->url().toLocalFile());
     compilerArgs.insert("modelName", ui.leMName->text());
     compilerArgs.insert("modelDir", ui.urDir->url().toLocalFile());
+    if (modelType < 2)
+      compilerArgs.insert("baseModelDir", baseModelFolder);
     break;
   case TestConfigurationWidget::JHTK:
     compilerArgs.insert("samples",ui.urPromptsBasePath->url().toLocalFile());
@@ -1018,17 +1028,10 @@ void SamView::compileModel()
     compilerArgs.insert("prompts", ui.urPrompts->url().toLocalFile());
     compilerArgs.insert("scriptBase", ui.leScriptPrefix->text());
     if (modelType < 2) {
-      QString baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/base/");
-      //base model needed - unpack it and fail if its not here
-      if (!FileUtils::unpack(baseModelPath, baseModelFolder, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats"))) {
-        KMessageBox::sorry(this, i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
-        return;
-      }
       compilerArgs.insert("base/hmmdefs", baseModelFolder+"hmmdefs");
       compilerArgs.insert("base/tiedlist", baseModelFolder+"tiedlist");
       compilerArgs.insert("base/macros", baseModelFolder+"macros");
       compilerArgs.insert("base/stats", baseModelFolder+"stats");
-      baseModelPath = baseModelFolder;
     }
     break;
   }

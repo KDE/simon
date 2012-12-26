@@ -75,6 +75,8 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
                                            const QStringList& droppedTranscriptions, const QString &baseModelPath,
                                            const QHash<QString, QString> &args)
 {
+  Q_UNUSED(baseModelPath);
+
   if(args.isEmpty())
   {
     analyseError(i18n("There no arguments to compile"));
@@ -85,7 +87,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
 
   this->compilationType = compilationType;
   m_ModelDir = args.value("modelDir");
-  m_BaseModelPath = baseModelPath;
+  m_BaseModelPath = args.value("baseModelDir");
   m_ModelName = args.value("modelName");
   m_WavPath = args.value("audioPath");
   m_ModelDestination = modelDestination;
@@ -94,7 +96,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
 
   m_ConfigPath = m_ModelDir+"/"+m_ModelName+"/etc/sphinx_train.cfg";
 
-  kDebug() << modelDestination << baseModelPath << args;
+  kDebug() << modelDestination << m_BaseModelPath << args;
   kDebug() << "Compiling model";
 
   keepGoing = true;
