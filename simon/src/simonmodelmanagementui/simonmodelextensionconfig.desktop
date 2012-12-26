@@ -37,6 +37,9 @@ Name[x-test]=xxModel Extensionsxx
 
 Comment=Configuration of the Simon speech model extensions
 Comment[ca]=Configuració de les extensions del model de pronunciació per a Simon
+Comment[da]=Konfiguration af udvidelser til Simons talemodeller
+Comment[el]=Διαμόρφωση των επεκτάσεων του μοντέλου ομιλίας του Simon
+Comment[et]=Simoni kõnemudelite laienduste seadistused
 Comment[nl]=Configuratie van de extensies van het Simon spraakmodel
 Comment[pt]=Configuração das extensões do modelo de fala do Simon
 Comment[pt_BR]=Configuração das extensões do modelo de fala do Simon
