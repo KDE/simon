@@ -20,7 +20,7 @@
 QImage* qImage=NULL;
 namespace SimonCV{ 
 
-  CvRect * detectObject(IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage)
+  CvRect * detectObject(const IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage)
   {
     CvSeq * objectRectSeq=0;                    // memory-access interface
     CvRect* objectRect = 0;
