@@ -77,7 +77,8 @@ void ContextAdapter::setupBackend(ContextAdapter::BackendType backendType)
     m_modelCompilationManager = new ModelCompilationManagerSPHINX(m_username, this);
   else
     m_modelCompilationManager = new ModelCompilationManagerHTK(m_username, this);
-  delete old;
+  if (old)
+    old->deleteLater();
 
   connect(m_modelCompilationManager, SIGNAL(modelReady(uint, QString)), this, SLOT(slotModelReady(uint,QString)));
   connect(m_modelCompilationManager, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)), this, SLOT(slotModelCompilationAborted(ModelCompilation::AbortionReason)));
@@ -330,9 +331,6 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
 void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDate, int baseModelType, const QString& baseModelPath, const QStringList& scenarioPaths, const QString& promptsPathIn )
 {
   kDebug() << "Updating model parameters";
-  if (m_modelCompilationManager)
-    m_modelCompilationManager->abort();
-
   m_compileLock.lock();
   ModelSource *src = m_currentSource;
   m_currentSource = new ModelSource(modelDate, baseModelType, baseModelPath, scenarioPaths, promptsPathIn);
@@ -345,6 +343,9 @@ void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDa
   }
   safelyAddContextFreeModelToCache(); //it might have been removed when canceling the compilation e.g. because of missing prompts / grammar
   storeCachedModels();
+
+  if (m_modelCompilationManager)
+    m_modelCompilationManager->abort();
   m_compileLock.unlock();
 
   buildNext();
