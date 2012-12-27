@@ -39,6 +39,7 @@
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   QObject(parent),
+  m_compileLock(QMutex::Recursive),
   m_username(username),
   m_modelCompilationManager(0),
   m_currentSource(0)
