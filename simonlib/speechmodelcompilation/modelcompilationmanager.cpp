@@ -75,6 +75,7 @@ void ModelCompilationManager::abort()
 
   if (!wait(3000)) {
     terminate();
+    if (compiler) compiler->reset();
     wait();
   }
   emit modelCompilationAborted(ModelCompilation::Manual);

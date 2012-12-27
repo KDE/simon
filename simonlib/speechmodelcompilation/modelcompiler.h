@@ -64,7 +64,7 @@ public:
   };
 
   virtual bool startCompilation(ModelCompiler::CompilationType compilationType, const QString& modelDestination,
-                                const QStringList& droppedTranscriptions, const QString& baseModelPath, 
+                                const QStringList& droppedTranscriptions, const QString& baseModelPath,
 				const QHash<QString, QString>& args)=0;
 
   virtual bool hasBuildLog() const;
@@ -72,12 +72,13 @@ public:
   virtual QString getBuildLog() const;
 
   virtual void abort();
+  virtual void reset();
 
   virtual QString information(bool condensed=false) const=0;
 
 protected:
   bool keepGoing;
-  
+
   QString userName;
   QString tempDir;
 
@@ -85,7 +86,7 @@ protected:
 
   QMutex buildLogMutex;
   QByteArray buildLog;
-  
+
   CompilationType compilationType;
 
   QList<QProcess*> activeProcesses;
@@ -110,7 +111,7 @@ protected:
    * \return Generated metadata.
    */
   virtual ModelMetadata getMetaData(const QString &name, const QString &type);
-  
+
   /*!
    * \brief Executes given command line in given directory.
    * \param command Command line.
@@ -118,7 +119,7 @@ protected:
    * \return Succes status.
    */
   bool execute(const QString& command, const QString &wDir);
-  
+
   virtual void clearLog();
   void analyseError(QString readableError);
 

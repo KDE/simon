@@ -77,6 +77,8 @@ void ModelCompiler::addStatusToLog(const QString& status)
 
 bool ModelCompiler::execute(const QString& command, const QString &wDir)
 {
+  if (!keepGoing)
+    return false;
   kDebug() << command;
   kDebug() << wDir;
   QProcess proc;
@@ -89,9 +91,12 @@ bool ModelCompiler::execute(const QString& command, const QString &wDir)
   buildLog.append("<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>");
   buildLogMutex.unlock();
 
+  kDebug() << "Waiting for process to finish..." << activeProcesses.count();
   proc.waitForFinished(-1);
+  kDebug() << "Process finished..." << activeProcesses.count();
 
   activeProcesses.removeAll(&proc);
+  kDebug() << "Process removed" << activeProcesses.count();
 
   QByteArray err = proc.readAllStandardError();
   QByteArray out = proc.readAllStandardOutput();
@@ -115,6 +120,12 @@ bool ModelCompiler::execute(const QString& command, const QString &wDir)
   if (proc.exitCode() != 0)
     return false;
   else return true;
+}
+
+void ModelCompiler::reset()
+{
+  clearLog();
+  activeProcesses.clear();
 }
 
 void ModelCompiler::clearLog()
