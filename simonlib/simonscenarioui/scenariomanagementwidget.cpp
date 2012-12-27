@@ -177,10 +177,20 @@ QStringList ScenarioManagementWidget::importScenario(const QString& path, QTreeW
   }
 
   bool failed = false;
+  QHash<QString /*id*/, QTreeWidgetItem* /*prospective parent*/> parents;
+  QTreeWidgetItem *cur;
+  QStringList children;
   foreach (const QString& e, exploded) {
-    if (!displayScenario(e, widget)) {
+    if (!(cur = displayScenario(e, widget, &children))) {
       failed = true;
       break;
+    }
+    if (parents.contains(e)) {
+      widget->takeTopLevelItem(widget->invisibleRootItem()->indexOfChild(cur));
+      parents[e]->addChild(cur);
+    }
+    foreach (const QString& child, children) {
+      parents.insert(child, cur);
     }
   }
   if (failed) {
@@ -197,6 +207,7 @@ void ScenarioManagementWidget::exportScenarioGHNS()
 {
   Scenario *s = getCurrentlySelectedScenario();
   if (!s) return;
+  if (!save()) return;
 
   QString path;
   if (askExportFull(s)) {
@@ -235,6 +246,7 @@ void ScenarioManagementWidget::exportScenarioFile()
 {
   Scenario *s = getCurrentlySelectedScenario();
   if (!s) return;
+  if (!save()) return;
 
   if (!s->init()) {
     KMessageBox::sorry(this, i18n("Could not load scenario."));
@@ -445,7 +457,7 @@ void ScenarioManagementWidget::slotRemoved()
 }
 
 
-QTreeWidgetItem* ScenarioManagementWidget::displayScenario(const QString& scenario, QTreeWidget* widget)
+QTreeWidgetItem* ScenarioManagementWidget::displayScenario(const QString& scenario, QTreeWidget* widget, QStringList* children)
 {
     kDebug() << "Displaying scenario: " << scenario;
     Scenario *s = new Scenario(scenario);
@@ -456,6 +468,8 @@ QTreeWidgetItem* ScenarioManagementWidget::displayScenario(const QString& scenar
       return 0;
     }
     QTreeWidgetItem *ret = displayScenario(s, widget);
+    if (children)
+      *children = s->childScenarioIds();
     s->deleteLater();
     return ret;
 }

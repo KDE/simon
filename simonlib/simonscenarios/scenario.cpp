@@ -549,13 +549,14 @@ QStringList Scenario::explode(const QString& inFile)
   }
   //strip children
   while (!(childElem = childrenElem.firstChildElement("scenario")).isNull()) {
-    QDomElement idElem = d.createElement("scenarioid");
-    idElem.appendChild(d.createTextNode(childElem.attribute("name")));
-    childrenElem.appendChild(idElem); // add link
     childrenElem.removeChild(childElem);
   }
-  foreach (QString child, childrenSrc) //explode recursively
+  foreach (QString child, childrenSrc) {//explode recursively
     allScenarios << Scenario::explode(pathFromId(child));
+    QDomElement idElem = d.createElement("scenarioid");
+    idElem.appendChild(d.createTextNode(child));
+    childrenElem.appendChild(idElem); // add link
+  }
 
   QString outerName = scenarioElem.attribute("name");
   QString outerId = Scenario::createId(outerName);
@@ -569,7 +570,7 @@ QStringList Scenario::explode(const QString& inFile)
   } else {
     fInSrc.write(d.toString().toUtf8());
     fInSrc.close();
-    allScenarios << outerId;
+    allScenarios.insert(0, outerId);
   }
   return allScenarios;
 }

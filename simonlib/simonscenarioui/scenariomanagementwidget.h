@@ -55,7 +55,7 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementWidget : public QWidget
 
     void initDisplay();
     QTreeWidgetItem* displayScenario(Scenario *scenario, QTreeWidget* widget);
-    QTreeWidgetItem* displayScenario(const QString& id, QTreeWidget* widget);
+    QTreeWidgetItem* displayScenario(const QString& id, QTreeWidget* widget, QStringList* children=0);
     void setupItemToScenario(QTreeWidgetItem *item, Scenario *scenario);
 
     Scenario* getCurrentlySelectedScenario();
