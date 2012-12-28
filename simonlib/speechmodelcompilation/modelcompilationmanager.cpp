@@ -106,18 +106,17 @@ int ModelCompilationManager::sampleCount() const
   return adapter->sampleCount();
 }
 
-uint ModelCompilationManager::getFingerPrint(QString dir, QStringList files, ModelCompiler::CompilationType compilationType)
+uint ModelCompilationManager::getFingerPrint(const QStringList& files, ModelCompiler::CompilationType compilationType)
 {
   uint fingerprint(0);
-  foreach (const QString& component, files)
+  foreach (const QString& file, files)
   {
-    QString file = dir + component;
     qDebug() << "Analyzing file: " << file;
     QFile f(file);
     if (!f.open(QIODevice::ReadOnly))
     {
       kDebug() << "Error building fingerprint";
-      kDebug() << dir <<"\n"<<component;
+      kDebug() << file;
 //      emit modelCompilationAborted();
       //WARNING:&
 //      throw std::runtime_error(qPrintable("Error building fingerprint. Can't open file " + file));

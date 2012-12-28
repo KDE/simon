@@ -96,7 +96,7 @@ protected:
 
   virtual void run()=0;
 
-  uint getFingerPrint(QString dir, QStringList files, ModelCompiler::CompilationType compilationType);
+  uint getFingerPrint(const QStringList& files, ModelCompiler::CompilationType compilationType);
   ModelCompiler::CompilationType getCompilationType(int baseModelType);
 
 protected slots:

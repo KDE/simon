@@ -142,11 +142,13 @@ void ModelCompilationManagerHTK::run()
 
     //build fingerprint and search cache for it
     uint fingerprint = 0;
-    QStringList componentsToParse(QStringList() << "lexicon" << "model.grammar" << "simple.voca");
+    QStringList componentsToParse(QStringList() << activeDir + "lexicon" << activeDir + "model.grammar" << activeDir + "simple.voca");
     if (baseModelType > 0)
-      componentsToParse << "prompts";
+      componentsToParse << activeDir + "prompts";
+    if (baseModelType < 2)
+      componentsToParse << baseModelPath;
 
-    fingerprint = getFingerPrint(activeDir, componentsToParse, compilationType);
+    fingerprint = getFingerPrint(componentsToParse, compilationType);
 
     bool exists;
     QString outPath = cachedModelPath(fingerprint, &exists);
