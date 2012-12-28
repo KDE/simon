@@ -189,11 +189,9 @@ bool Scenario::updateChildScenarioIds(const QString& id, const QStringList& ids)
     childrenElem = doc.createElement("childscenarioids");
     docElem.appendChild(childrenElem);
   } else {
-    QDomElement idElem = childrenElem.firstChildElement("scenarioid");
-    while (!idElem.isNull()) {
+    QDomElement idElem;
+    while (!(idElem = childrenElem.firstChildElement("scenarioid")).isNull())
       childrenElem.removeChild(idElem); // remove all children
-      idElem = idElem.nextSiblingElement();
-    }
   }
 
   foreach(const QString& id, ids)
