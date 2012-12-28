@@ -212,7 +212,7 @@ void ScenarioManagementWidget::exportScenarioGHNS()
   QString path;
   if (askExportFull(s)) {
     //we need to merge this
-    path = KStandardDirs::locate("tmp", m_dataPrefix+"mergedscenario");
+    path = KStandardDirs::locateLocal("tmp", m_dataPrefix+"mergedscenario");
 
     if (!s->init()) {
       KMessageBox::sorry(this, i18n("Could not load scenario."));
