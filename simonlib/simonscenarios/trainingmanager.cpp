@@ -225,45 +225,6 @@ bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
   return true;
 }
 
-
-/**
- * \brief checks if all words are in the dict and returns those that aren't
- * \author Susanne Tschernegg, Peter Grasch
- * @return Missing words
- */
-QStringList TrainingManager::missingWords(const QStringList& prompts)
-{
-  QStringList strListAllWords;
-  for ( int x=0; x<prompts.count(); x++ ) {
-    QStringList strList = prompts[x].split ( ' ' );
-    int strListSize = strList.size();
-    for ( int y=0; y < strListSize; y++ ) {
-      QString word = strList.at ( y );
-
-      word.remove ( '.' );
-      word.remove ( ',' );
-      word.remove ( '(' );
-      word.remove ( ')' );
-      word.remove ( '?' );
-      word.remove ( '!' );
-      word.remove ( '"' );
-      word.remove ( '/' );
-      word.remove ( '\\' );
-      word.remove ( '[' );
-      word.remove ( ']' );
-      word = word.trimmed();
-
-      //if (!WordListManager::getInstance()->mainWordListContainsStr(word, Qt::CaseInsensitive))
-      if (!ScenarioManager::getInstance()->getCurrentScenario()->containsWord(word)) {
-        if (!strListAllWords.contains(word))
-          strListAllWords.append ( word );
-      }
-    }
-  }
-  return strListAllWords;
-}
-
-
 /**
  * \brief Calculates the relevance of the given text with the given wordlist
  * \author Peter Grasch, Susanne Tschernegg
