@@ -181,8 +181,9 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 
     static QString pathFromId(const QString& id, const QString& prefix=QString(), bool local=true);
+    static QString idFromPath(const QString& path);
 
-    static QStringList explode(const QString& inFile);
+    static QStringList explode(const QString& inFile, bool keepFile = false);
 
     static bool updateChildScenarioIds(const QString& id, const QStringList& ids);
 

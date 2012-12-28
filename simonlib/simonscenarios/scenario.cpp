@@ -499,7 +499,7 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
   return true;
 }
 
-QStringList Scenario::explode(const QString& inFile)
+QStringList Scenario::explode(const QString& inFile, bool keepFile)
 {
   QFile f(inFile);
 
@@ -550,15 +550,21 @@ QStringList Scenario::explode(const QString& inFile)
     childrenElem.removeChild(childElem);
   }
   foreach (QString child, childrenSrc) {//explode recursively
-    allScenarios << Scenario::explode(pathFromId(child));
+    allScenarios << Scenario::explode(pathFromId(child), true);
     QDomElement idElem = d.createElement("scenarioid");
     idElem.appendChild(d.createTextNode(child));
     childrenElem.appendChild(idElem); // add link
   }
 
-  QString outerName = scenarioElem.attribute("name");
-  QString outerId = Scenario::createId(outerName);
-  QString outerPath = pathFromId(outerId);
+  QString outerId;
+  QString outerPath;
+  if (!keepFile) {
+    outerId = Scenario::createId(scenarioElem.attribute("name"));
+    outerPath = pathFromId(outerId);
+  } else {
+    outerId = idFromPath(inFile);
+    outerPath = inFile;
+  }
 
   QFile::remove(inFile);
   kDebug() << "Output path: " << outerPath;
@@ -587,6 +593,10 @@ QString Scenario::pathFromId(const QString& id, const QString& prefix, bool loca
     else
       return KStandardDirs::locate("data", prefix+"scenarios/"+id);
   }
+}
+QString Scenario::idFromPath(const QString& path)
+{
+  return QFileInfo(path).fileName();
 }
 
 QString Scenario::preferredPath() const
