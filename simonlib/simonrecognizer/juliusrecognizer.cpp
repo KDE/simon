@@ -76,12 +76,18 @@ bool JuliusRecognizer::startProcess()
   }
 
   m_juliusProcess->start();
-  if (!m_juliusProcess->waitForStarted())
-  {
-    m_lastError = i18n("Failed to start Julius with given model");
-    m_juliusProcess->kill();
-    initializationLock.unlock();
-    return false;
+  int deferredCount = 0;
+  while (!m_juliusProcess->waitForStarted(500)) {
+    if (deferredCount++ == 15) {
+      m_lastError = i18n("Failed to start Julius with given model");
+      m_juliusProcess->kill();
+      initializationLock.unlock();
+      return false;
+    }
+    if (isBeingKilled) {
+      initializationLock.unlock();
+      return true;
+    }
   }
   initializationLock.unlock();
 
@@ -101,12 +107,12 @@ bool JuliusRecognizer::blockTillPrompt(QByteArray *data)
   //wait until julius is ready
   QByteArray currentData;
   initializationLock.lock();
-  int defferedCount = 0;
+  int deferredCount = 0;
   if (isBeingKilled) {
     initializationLock.unlock();
     return true; // uninitialized
   }
-  while (m_juliusProcess->bytesAvailable() || m_juliusProcess->waitForReadyRead(500) || defferedCount < 90) // 45 seconds max
+  while (m_juliusProcess->bytesAvailable() || m_juliusProcess->waitForReadyRead(500) || deferredCount < 90) // 45 seconds max
   {
     currentData = readData();
     initializationLock.unlock();
@@ -117,9 +123,9 @@ bool JuliusRecognizer::blockTillPrompt(QByteArray *data)
     }
 
     if (currentData.isEmpty())
-      ++defferedCount;
+      ++deferredCount;
     else
-      defferedCount = 0;
+      deferredCount = 0;
 
     initializationLock.lock();
     if (isBeingKilled) {
@@ -248,7 +254,7 @@ bool JuliusRecognizer::uninitialize()
   if (m_juliusProcess->state() != QProcess::NotRunning)
   {
     m_juliusProcess->terminate();
-    if (!m_juliusProcess->waitForFinished())
+    if (!m_juliusProcess->waitForFinished(5000))
     {
       m_juliusProcess->kill();
       if (!m_juliusProcess->waitForFinished())
