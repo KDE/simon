@@ -34,7 +34,9 @@ class SIMONRECOGNIZER_EXPORT JuliusRecognizer : public Recognizer
 {
 private:
   KProcess *m_juliusProcess;
+  bool isBeingKilled;
   QMutex recognitionLock;
+  QMutex initializationLock;
   
 private:
   bool blockTillPrompt(QByteArray *data=0);

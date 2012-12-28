@@ -34,7 +34,7 @@
 #include <KDebug>
 #include <QThread>
 
-JuliusRecognizer::JuliusRecognizer() : m_juliusProcess(0)
+JuliusRecognizer::JuliusRecognizer() : m_juliusProcess(0), isBeingKilled(false)
 {
 }
 
@@ -54,6 +54,7 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
   
   m_juliusProcess = new KProcess;
   m_juliusProcess->setOutputChannelMode(KProcess::MergedChannels);
+  isBeingKilled = false;
   QString exe = KStandardDirs::findExe("julius");
   if (exe.isNull())
   {
@@ -68,15 +69,23 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
 
 bool JuliusRecognizer::startProcess()
 {
+  initializationLock.lock();
+  if (isBeingKilled) {
+    initializationLock.unlock();
+    return true;
+  }
+
   m_juliusProcess->start();
   if (!m_juliusProcess->waitForStarted())
   {
     m_lastError = i18n("Failed to start Julius with given model");
     m_juliusProcess->kill();
+    initializationLock.unlock();
     return false;
   }
-  kDebug() << "Julius started - let's block for the prompt now";
+  initializationLock.unlock();
 
+  kDebug() << "Julius started - let's block for the prompt now";
   if (!blockTillPrompt())
   {
     m_lastError = i18n("Julius did not initialize correctly");
@@ -91,14 +100,34 @@ bool JuliusRecognizer::blockTillPrompt(QByteArray *data)
 {
   //wait until julius is ready
   QByteArray currentData;
-  while (m_juliusProcess->bytesAvailable() || m_juliusProcess->waitForReadyRead())
+  initializationLock.lock();
+  int defferedCount = 0;
+  if (isBeingKilled) {
+    initializationLock.unlock();
+    return true; // uninitialized
+  }
+  while (m_juliusProcess->bytesAvailable() || m_juliusProcess->waitForReadyRead(500) || defferedCount < 90) // 45 seconds max
   {
     currentData = readData();
+    initializationLock.unlock();
     if (data) *data += currentData;
-    if (currentData.contains("enter filename->"))
+    if (currentData.contains("enter filename->")) {
+      initializationLock.unlock();
       return true;
+    }
+
+    if (currentData.isEmpty())
+      ++defferedCount;
+    else
+      defferedCount = 0;
+
+    initializationLock.lock();
+    if (isBeingKilled) {
+      initializationLock.unlock();
+      return true; // uninitialized
+    }
   }
-  kDebug() << "Failed to block for prompt: " << m_juliusProcess->exitCode() << m_juliusProcess->state() << m_juliusProcess->error();
+  initializationLock.unlock();
   kDebug() << "Last data: " << currentData;
   return false;
 }
@@ -212,8 +241,11 @@ bool JuliusRecognizer::uninitialize()
   if (!m_juliusProcess) return true; // already uninitialized
 
   kDebug() << "Uninitializing";
+  isBeingKilled = true;
+  initializationLock.lock();
   log.clear();
-  if (m_juliusProcess && (m_juliusProcess->state() != QProcess::NotRunning))
+
+  if (m_juliusProcess->state() != QProcess::NotRunning)
   {
     m_juliusProcess->terminate();
     if (!m_juliusProcess->waitForFinished())
@@ -222,12 +254,15 @@ bool JuliusRecognizer::uninitialize()
       if (!m_juliusProcess->waitForFinished())
       {
         m_lastError = i18n("Failed to stop running Julius process");
+	initializationLock.unlock();
         return false;
       }
     }
   }
-  delete m_juliusProcess;
+
+  m_juliusProcess->deleteLater();
   m_juliusProcess = 0;
+  initializationLock.unlock();
   return true;
 }
 
