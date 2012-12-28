@@ -20,6 +20,11 @@
 #include "screengrid.h"
 #include <QKeyEvent>
 
+ScreenGrid::ScreenGrid(QWidget* parent) : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint)
+{
+  setWindowTitle("Screengrid"); // invisible anyway; no need for translation
+}
+
 void ScreenGrid::keyPressEvent(QKeyEvent *event)
 {
   if (!event) return;
