@@ -40,12 +40,8 @@ bool SphinxControl::initializeRecognition(const QString &modelPath)
   if (modelPath != m_lastModel) { //already initialized / tried to initialize with this exact model
     m_lastModel = modelPath;
     kDebug() << "Initializing";
-    if (isInitialized())
-    {
-      kDebug() << "Initializing recognition that was already initialized; uninitializing...";
-      uninitialize();
-      m_startRequests = 0;
-    }
+    uninitialize();
+    m_startRequests = 0;
 
     QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
     if(!QDir(path).entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst).isEmpty())

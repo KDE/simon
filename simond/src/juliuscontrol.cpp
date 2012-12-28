@@ -63,11 +63,8 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
   
     kDebug() << "Initializing for model: " << modelPath << " old model path: " << m_lastModel;
     m_lastModel = modelPath;
-    if (isInitialized()) {
-      kDebug() << "Initializing recognition that was already initialized; uninitializing...";
-      uninitialize();
-      m_startRequests = 0;
-    }
+    uninitialize();
+    m_startRequests = 0;
 
     QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/julius/");
     if (QFile::exists(path+"hmmdefs") && !QFile::remove(path+"hmmdefs")) return false;
@@ -77,9 +74,7 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
     if (QFile::exists(path+"julius.jconf") && !QFile::remove(path+"julius.jconf")) return false;
 
     if (!FileUtils::unpackAll(modelPath, path))//, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")
-    {
       return false;
-    }
   }
 
   kDebug() << "Emitting recognition ready";
