@@ -88,7 +88,6 @@ void RecognitionControl::recognize(const QString& fileName)
 void RecognitionControl::run()
 {
   Q_ASSERT(recog);
-  shouldBeRunning=true;
 
   RecognitionConfiguration *cfg = setupConfig();
   bool success = recog->init(cfg);
@@ -118,6 +117,7 @@ void RecognitionControl::run()
 
 bool RecognitionControl::startRecognitionInternal()
 {
+  shouldBeRunning=true;
   start();
 
   emit recognitionStarted();
@@ -152,8 +152,7 @@ bool RecognitionControl::suspend()
 void RecognitionControl::uninitialize()
 {
   kDebug() << "Uninitializing recognition control";
-  if (!m_initialized) return;
-
+  shouldBeRunning = false;
   recog->uninitialize();
   stopInternal();
 
