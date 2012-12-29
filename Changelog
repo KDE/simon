@@ -1,4 +1,55 @@
 ===========================================================================
+simon: 0.4.0
+===========================================================================
+
+General:
+=======
+* Minor string fixes and UI improvements
+
+Simon:
+======
+* Improving the base- and active model information display in the welcome
+  page
+* Fixing memory leaks in simonvision
+* Fixing Scenario explosion
+
+Simond:
+======
+* Phoneme poisoning in SPHINX
+
+Simonlib:
+========
+* More robust handling of model input files for both HTK and SPHINX
+* Bugfixing in the model compilation backends
+
+Sam
+===
+* SPHINX model adaption
+
+===========================================================================
+simon: 0.4.0-rc-1
+===========================================================================
+
+General:
+=======
+* Updating documentation
+* Bugfixes in simonvision
+
+Afaras:
+======
+* Handle sample groups in promps
+
+Simonlib:
+========
+* Less strict warnings regarding the sample quality assurance
+
+Commands:
+========
+* Disable the ATSPI plugin for this release
+* AI: use SimonTTS as output
+
+
+===========================================================================
 simon: 0.4.0-beta-2
 ===========================================================================
 
