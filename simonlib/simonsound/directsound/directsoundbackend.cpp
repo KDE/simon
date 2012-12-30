@@ -53,6 +53,15 @@ public:
     void stop() {
         shouldRun = false;
     }
+
+    bool checkCursor(ulong &cursor,const ulong &written,const ulong &size)
+    {
+        if(written == -1)
+            return false;
+        cursor += written;
+        cursor = cursor % size;
+        return true;
+    }
 };
 
 //Capture loop
@@ -67,16 +76,14 @@ public:
         shouldRun = true;
 
         HRESULT hr = 0;
-        char * buffer = new char[m_parent->m_bufferSize];
-        memset(buffer, 0, m_parent->m_bufferSize);
 
-        void* capture1 = NULL;
-        void* capture2 = NULL;
-        DWORD captureLength1, captureLength2;
-        UINT dataWritten = 0;
-        DWORD dwMyReadCursor = 0;
-        DWORD dwReadPos;
-        LONG lockSize;
+        void* audioBuffer1 = 0;
+        void* audioBuffer2 = 0;
+        ulong sizeAudioBuffer1 = 0;
+        ulong sizeAudioBuffer2 = 0;
+        ulong myCursor = 0;
+        ulong readCursor = 0;
+        long lockSize = 0;
 
         if(FAILED(hr = m_parent->m_primaryBufferC->Start( DSCBSTART_LOOPING ) )){
             kWarning()<<"Failed to start recording"<<DXERR_TO_STRING(hr);
@@ -91,12 +98,12 @@ public:
             }else if(lr != WAIT_OBJECT_0){
                 continue;
             }
-            if(FAILED(hr = m_parent->m_primaryBufferC->GetCurrentPosition(NULL,&dwReadPos))){
+            if(FAILED(hr = m_parent->m_primaryBufferC->GetCurrentPosition(NULL,&readCursor))){
                 kWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
                 break;
             }
 
-            lockSize = dwReadPos - dwMyReadCursor;
+            lockSize = readCursor - myCursor;
             if( lockSize  < 0 )
                 lockSize += m_parent->m_bufferSize;
 
@@ -105,24 +112,18 @@ public:
                 continue;
             }
 
-            if (FAILED(hr = m_parent->m_primaryBufferC->Lock(dwMyReadCursor, lockSize,&capture1, &captureLength1, &capture2, &captureLength2, 0))){
+            if (FAILED(hr = m_parent->m_primaryBufferC->Lock(myCursor, lockSize,&audioBuffer1, &sizeAudioBuffer1, &audioBuffer2, &sizeAudioBuffer2, 0))){
                 kWarning()<<"Capture lock failure"<<lockSize<<DXERR_TO_STRING(hr);
                 break;
             }
 
-
-
-            memcpy(buffer,capture1,captureLength1);
-            if (capture2 != NULL){
-                memcpy(buffer+captureLength1,capture2,captureLength2);
+            checkCursor(myCursor,m_parent->m_client->writeData((char*)audioBuffer1,sizeAudioBuffer1),m_parent->m_bufferSize);
+            if (audioBuffer2 != NULL){
+                checkCursor(myCursor,m_parent->m_client->writeData((char*)audioBuffer2,sizeAudioBuffer2),m_parent->m_bufferSize);
             }
 
-            dataWritten  = m_parent->m_client->writeData(buffer, lockSize);
+            m_parent->m_primaryBufferC->Unlock(audioBuffer1,sizeAudioBuffer1,audioBuffer2,sizeAudioBuffer2);
 
-
-            m_parent->m_primaryBufferC->Unlock(capture1,captureLength1,capture2,captureLength2);
-            dwMyReadCursor += dataWritten;
-            dwMyReadCursor %= m_parent->m_bufferSize;
 
         }
         if(hr != 0){
@@ -131,7 +132,6 @@ public:
         }
 
         kWarning()<<"Record loop ended";
-        delete[] buffer;
         m_parent->closeSoundSystem();
         shouldRun = false;
     }
@@ -144,15 +144,6 @@ class DirectSoundPlaybackLoop : public DirectSoundLoop
 public:
     DirectSoundPlaybackLoop(DirectSoundBackend *parent) : DirectSoundLoop(parent)
     {}
-
-    bool checkCursor(ulong &cursor,const ulong &written)
-    {
-        if(written == -1)
-            return false;
-        cursor += written;
-        cursor = cursor % m_parent->m_bufferSize;
-        return true;
-    }
 
     void run()
     {
@@ -173,7 +164,7 @@ public:
             m_parent->errorRecoveryFailed();
             return;
         }
-        checkCursor(myCursor,m_parent->m_client->readData((char*) audioBuffer1,sizeAudioBuffer1));
+        checkCursor(myCursor,m_parent->m_client->readData((char*) audioBuffer1,sizeAudioBuffer1),m_parent->m_bufferSize);
         m_parent->m_primaryBuffer->Unlock(audioBuffer1, sizeAudioBuffer1,NULL, 0);
 
         //Begin playback
@@ -213,7 +204,7 @@ public:
                 break;
             }
 
-            if( !checkCursor(myCursor,m_parent->m_client->readData((char*)audioBuffer1, sizeAudioBuffer1))){
+            if( !checkCursor(myCursor,m_parent->m_client->readData((char*)audioBuffer1, sizeAudioBuffer1),m_parent->m_bufferSize)){
                 //end of file
                 memset(audioBuffer1,0,sizeAudioBuffer1);
                 memset(audioBuffer2,0,sizeAudioBuffer2);
@@ -223,7 +214,7 @@ public:
             }
             if(lockSize>sizeAudioBuffer1)
             {
-                if( !checkCursor(myCursor,m_parent->m_client->readData((char*)audioBuffer2, sizeAudioBuffer2)))
+                if( !checkCursor(myCursor,m_parent->m_client->readData((char*)audioBuffer2, sizeAudioBuffer2),m_parent->m_bufferSize))
                 {
                     //end of file
                     memset(audioBuffer2,0,sizeAudioBuffer2);
