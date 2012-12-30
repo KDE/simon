@@ -13,6 +13,7 @@ Name[hu]=Simon D-Bus feltétel bővítmény
 Name[nl]=Plugin van Simon D-Bus-voorwaarde
 Name[pt]='Plugin' de Condição do DBus do Simon
 Name[pt_BR]=Plugin de condição do D-Bus do Simon
+Name[sv]=Simon D-Bus villkorsinsticksprogram
 Name[uk]=Додаток умов D-Bus Simon
 Name[x-test]=xxSimon D-Bus Condition Pluginxx
 Comment=Checks application state over D-Bus

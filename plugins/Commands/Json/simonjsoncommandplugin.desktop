@@ -13,6 +13,7 @@ Name[hu]=Simon JSON parancs bővítmény
 Name[nl]=Commando-plugin van Simon JSON
 Name[pt]='Plugin' de Comandos JSON do Simon
 Name[pt_BR]=Plugin de comando JSON do Simon
+Name[sv]=Simon JSON kommandoinsticksprogram
 Name[uk]=Додаток команд JSON Simon
 Name[x-test]=xxSimon JSON Command Pluginxx
 Comment=Provides a way to create interface to other applications through JSON

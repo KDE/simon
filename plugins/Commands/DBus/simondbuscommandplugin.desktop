@@ -13,6 +13,7 @@ Name[hu]=Simon D-Bus parancs bővítmény
 Name[nl]=Commando-plugin van Simon D-Bus
 Name[pt]='Plugin' de Comandos de D-Bus do Simon
 Name[pt_BR]=Plugin de comandos de D-Bus do Simon
+Name[sv]=Simon D-Bus kommandoinsticksprogram
 Name[uk]=Додаток команд D-Bus Simon
 Name[x-test]=xxSimon D-Bus Command Pluginxx
 Comment=Provides a way to create interfaces to other applications through D-Bus

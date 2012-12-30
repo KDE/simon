@@ -11,6 +11,7 @@ Name[hu]=Sam
 Name[nl]=Sam
 Name[pt]=Sam
 Name[pt_BR]=Sam
+Name[sv]=Sam
 Name[uk]=Sam
 Name[x-test]=xxSamxx
 Exec=sam %i -caption "%c"

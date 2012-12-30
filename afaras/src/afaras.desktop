@@ -10,6 +10,7 @@ Name[hu]=Afaras
 Name[nl]=Afaras
 Name[pt]=afaras
 Name[pt_BR]=Afaras
+Name[sv]=Afaras
 Name[uk]=Afaras
 Name[x-test]=xxAfarasxx
 Exec=afaras %i -caption "%c"

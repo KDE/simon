@@ -9,6 +9,7 @@ Name[hu]=SSCd
 Name[nl]=SSCd
 Name[pt]=SSCd
 Name[pt_BR]=SSCd
+Name[sv]=SSCd
 Name[uk]=SSCd
 Name[x-test]=xxSSCdxx
 Exec=sscd %i -caption "%c"
