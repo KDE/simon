@@ -12,6 +12,7 @@ X-KDE-ParentComponents=libsimonappcore
 X-KDE-ParentApp=simon
 
 Name=General
+Name[bs]=Opšte
 Name[ca]=General
 Name[cs]=Obecné
 Name[da]=Generelt

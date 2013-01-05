@@ -15,6 +15,7 @@ X-KDE-System-Settings-Parent-Category=simond
 X-KDE-PluginKeyword=SimondNetworkConfiguration
 
 Name=Network
+Name[bs]=Mreža
 Name[ca]=Xarxa
 Name[cs]=Síť
 Name[da]=Netværk
