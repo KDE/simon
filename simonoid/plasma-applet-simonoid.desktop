@@ -1,11 +1,13 @@
 [Desktop Entry]
 Name=Simonoid
 Name[ca]=Simonoid
+Name[cs]=Simonoid
 Name[da]=Simonoid
 Name[de]=Simonoid
 Name[el]=Simonoid
 Name[et]=Simonoid
 Name[ga]=Simonoid
+Name[gl]=Simonoid
 Name[hu]=Simonoid
 Name[nl]=Simonoid
 Name[pl]=Simonoid
@@ -21,6 +23,7 @@ Comment[de]=Plasma Simonoid
 Comment[el]=Plasma Simonoid
 Comment[et]=Plasma simonoid
 Comment[ga]=Plasma Simonoid
+Comment[gl]=Simonoid para Plasma.
 Comment[hu]=Plasma Simonoid
 Comment[nl]=Plasma Simonoid
 Comment[pl]=Plazma Simonoid
