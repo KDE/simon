@@ -1317,7 +1317,7 @@ void ClientSocket::initializeRecognitionSmartly()
       if(!recognitionControl)
       {
         recognitionError(i18n("<html><body><p>The required speech recognition backend for this model (\"%1\") is not available.</p><p>Please install it to "
-	                      "continue.</p><p>(<a href=\"http://userbase.kde.org/Simon/Back_ends\">More information</a>).</html>"), QByteArray());
+	                      "continue.</p><p>(<a href=\"http://userbase.kde.org/Simon/Back_ends\">More information</a>).</html>", backendName), QByteArray());
         return;
       }
       connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()), Qt::UniqueConnection);
