@@ -31,6 +31,7 @@ Type=Application
 X-DocPath=ksimond/index.html
 GenericName=KDE Front-End to Simond
 GenericName[ca]=Frontal del KDE per a Simond
+GenericName[cs]=Rozhraní KDE k Simond
 GenericName[da]=KDE's brugerflade til Simond
 GenericName[de]=KDE-Programm für Simond
 GenericName[el]=Περιβάλλον-χρήσης του KDE για το simond
