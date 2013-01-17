@@ -347,6 +347,8 @@ void ScenarioManagementWidget::deleteScenario(const QString& id, bool removeFile
   }
   kDebug() << "Item: " << item;
   kDebug() << "Widget: " << widget;
+  if (!item)
+    return;
 
   //removing from list
   QList<QTreeWidgetItem*> children = item->takeChildren();
