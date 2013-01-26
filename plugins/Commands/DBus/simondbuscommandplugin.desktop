@@ -22,6 +22,7 @@ Name[uk]=Додаток команд D-Bus Simon
 Name[x-test]=xxSimon D-Bus Command Pluginxx
 Comment=Provides a way to create interfaces to other applications through D-Bus
 Comment[ca]=Proporciona una manera per crear interfícies amb altres aplicacions a través de D-Bus
+Comment[cs]=Nabízí možnost vytvořit rozhraní k jiným programům přes D-Bus
 Comment[da]=Giver en måde at oprette brugerflader til andre programmer ved hjælp af D-Bus
 Comment[de]=Bietet die Möglichkeit, über D-Bus Schnittstellen zu anderen Anwendungen zu erstellen
 Comment[el]=Παρέχει τρόπο δημιουργίας διεπαφών χρήστη με άλλες εφαρμογές μέσω D-Bus

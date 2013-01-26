@@ -5,6 +5,7 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonexecutablecommandplugin
 Name=Simon ExecutableCommand Plugin
 Name[ca]=Connector per a ordre executable del Simon
+Name[cs]=Modul pro provádění příkazů pro Simon
 Name[da]=Simon-plugin til udførbare kommandoer
 Name[de]=Befehlsausfürungsmodul für Simon
 Name[el]=Πρόσθετο ExecutableCommand για το Simon

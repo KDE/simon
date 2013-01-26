@@ -13,6 +13,7 @@ X-KDE-ParentApp=simon
 
 Name=Recordings
 Name[ca]=Enregistraments
+Name[cs]=Nahrávky
 Name[da]=Optagelser
 Name[de]=Aufnahmen
 Name[el]=Ηχογραφήσεις
@@ -35,6 +36,7 @@ Name[x-test]=xxRecordingsxx
 
 Comment=Configuration of the Simon Soundsystem
 Comment[ca]=Configuració del sistema de so per a Simon
+Comment[cs]=Nastavení zvukového systému Simon
 Comment[da]=Konfiguration af Simons lydsystem
 Comment[de]=Einrichtung des Simon-Soundsystems
 Comment[el]=Διαμόρφωση του ηχητικού συστήματος του Simon

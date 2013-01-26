@@ -5,6 +5,7 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonrecognizercommandplugin
 Name=Simon Recognizer Plugin
 Name[ca]=Connector per a reconeixement del Simon
+Name[cs]=Modul pro rozpoznávání pro Simon
 Name[da]=Simon-plugin til genkendelse
 Name[de]=Erkennungsmodul für Simon
 Name[el]=Πρόσθετο αναγνώρισης για το Simon

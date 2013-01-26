@@ -5,6 +5,7 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonakonadicommandplugin
 Name=Simon Akonadi Command Plugin
 Name[ca]=Connector per a ordres de Akonadi del Simon
+Name[cs]=Modul příkazů pro Akonadi pro Simon
 Name[da]=Simon-plugin til Akonadi-kommandoer
 Name[de]=Akonadi-Befehlsmodul für Simon
 Name[el]=Πρόσθετο εντολών Akonadi για το Simon

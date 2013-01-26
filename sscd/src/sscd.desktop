@@ -22,6 +22,7 @@ Type=Application
 X-DocPath=sscd/index.html
 GenericName=Sample Collection Server
 GenericName[ca]=Servidor per a la col·lecció de mostres
+GenericName[cs]=Server pro sbírku vzorků
 GenericName[da]=Server til sample-indsamling
 GenericName[de]=Server für die Aufnahmensammlung
 GenericName[el]=Εξυπηρετητής συλλογής δειγμάτων
