@@ -15,6 +15,7 @@ Name=Actions
 Name[ast]=Aiciones
 Name[bs]=Radnje
 Name[ca]=Accions
+Name[ca@valencia]=Accions
 Name[cs]=Činnosti
 Name[da]=Handlinger
 Name[de]=Aktionen
@@ -41,6 +42,7 @@ Name[zh_CN]=动作
 
 Comment=Configuration of Simon's actions
 Comment[ca]=Configuració de les accions per a Simon
+Comment[ca@valencia]=Configuració de les accions per a Simon
 Comment[da]=Konfiguration af Simons handlinger
 Comment[de]=Konfiguration der Simon-Aktionen
 Comment[el]=Διαμόρφωση ενεργειών του Simon

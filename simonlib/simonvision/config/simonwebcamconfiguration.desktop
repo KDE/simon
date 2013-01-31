@@ -15,6 +15,7 @@ X-KDE-PluginKeyword=SimonWebcamConfiguration
 
 Name=Webcam Configuration
 Name[ca]=Configuració càmera web
+Name[ca@valencia]=Configuració càmera web
 Name[cs]=Nastavení webové kamery
 Name[da]=Konfiguration af webcam
 Name[de]=Webcam-Einrichtung
@@ -35,6 +36,7 @@ Name[x-test]=xxWebcam Configurationxx
 
 Comment=Configuration of the Webcam
 Comment[ca]=Configuració de la càmera web
+Comment[ca@valencia]=Configuració de la càmera web
 Comment[cs]=Nastavení webové kamery
 Comment[da]=Konfiguration af webcam
 Comment[de]=Einrichtung einer Webcam

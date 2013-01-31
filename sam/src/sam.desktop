@@ -2,6 +2,7 @@
 Name=Sam
 Name[ast]=Sam
 Name[ca]=Sam
+Name[ca@valencia]=Sam
 Name[da]=Sam
 Name[de]=Sam
 Name[el]=Sam
@@ -24,6 +25,7 @@ Type=Application
 X-DocPath=sam/index.html
 GenericName=Acoustic Modeller
 GenericName[ca]=Modelador acústic
+GenericName[ca@valencia]=Modelador acústic
 GenericName[da]=Akustisk model-værktøj
 GenericName[de]=Akustischer Modellierer
 GenericName[el]=Ακουστικός μοντελιστής

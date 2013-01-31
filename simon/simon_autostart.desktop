@@ -4,6 +4,7 @@ Type=Application
 
 Name=Simon
 Name[ca]=Simon
+Name[ca@valencia]=Simon
 Name[cs]=Simon
 Name[da]=Simon
 Name[de]=Simon
@@ -27,6 +28,7 @@ Name[x-test]=xxSimonxx
 
 GenericName=Speech Recognition
 GenericName[ca]=Reconeixement de la veu
+GenericName[ca@valencia]=Reconeixement de la veu
 GenericName[da]=Talegenkendelse
 GenericName[de]=Spracherkennung
 GenericName[el]=Αναγνώριση ομιλίας
@@ -52,6 +54,7 @@ Exec=simon
 
 Comment=Speech Recognition and Model Management
 Comment[ca]=Gestió del reconeixement i model de pronunciació
+Comment[ca@valencia]=Gestió del reconeixement i model de pronunciació
 Comment[da]=Talegenkendelse og håndtering af modeller
 Comment[de]=Spracherkennung und Modellverwaltung
 Comment[el]=Αναγνώριση ομιλίας και διαχείριση μοντέλου

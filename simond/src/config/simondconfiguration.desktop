@@ -16,6 +16,7 @@ X-KDE-System-Settings-Parent-Category=accessibility
 
 Name=Simond
 Name[ca]=Simond
+Name[ca@valencia]=Simond
 Name[cs]=Simond
 Name[da]=Simond
 Name[de]=Simond
@@ -36,6 +37,7 @@ Name[x-test]=xxSimondxx
 
 Comment=simond Configuration
 Comment[ca]=Configuració de «simond»
+Comment[ca@valencia]=Configuració de «simond»
 Comment[da]=Konfiguration af simond
 Comment[de]=Simond-Konfiguration
 Comment[el]=Διαμόρφωση του simond

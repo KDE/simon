@@ -12,6 +12,7 @@ X-DocPath=simon/imdex.html#configuration
 
 Name=Text-to-speech
 Name[ca]=Text a veu
+Name[ca@valencia]=Text a veu
 Name[cs]=Hlasová syntéza
 Name[da]=Tekst til tale
 Name[de]=Sprachausgabe
@@ -35,6 +36,7 @@ Name[zh_CN]=文本到语音
 
 Comment=Configuration of the Simon text-to-speech layer
 Comment[ca]=Configuració de la capa text a veu per a Simon
+Comment[ca@valencia]=Configuració de la capa text a veu per a Simon
 Comment[da]=Konfiguration af Simons tekst til tale-lag
 Comment[de]=Einrichtung des Simon-Sprachausgabe-Layers
 Comment[el]=Διαμόρφωση του στρώματος κείμενο-σε-ομιλία του Simon

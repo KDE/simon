@@ -13,6 +13,7 @@ X-KDE-System-Settings-Parent-Category=accessibility
 
 Name=Speech Model Compilation
 Name[ca]=Compilació del model de pronunciació
+Name[ca@valencia]=Compilació del model de pronunciació
 Name[cs]=Vytvoření modelu řeči
 Name[da]=Kompilering af talemodel
 Name[de]=Sprachmodell-Kompilierung
@@ -34,6 +35,7 @@ Name[x-test]=xxSpeech Model Compilationxx
 
 Comment=Configuration of the Simon Speech Model Compilation
 Comment[ca]=Configuració de la compilació del model de pronunciació per a Simon
+Comment[ca@valencia]=Configuració de la compilació del model de pronunciació per a Simon
 Comment[cs]=Nastavení vytvoření modelů řeči Simon
 Comment[da]=Konfiguration af Simons kompilation af talemodeller
 Comment[de]=Einrichtung der Simon-Sprachmodell-Kompilierung

@@ -17,6 +17,7 @@ X-KDE-PluginKeyword=SynchronisationSettings
 
 Name=Synchronization
 Name[ca]=Sincronització
+Name[ca@valencia]=Sincronització
 Name[cs]=Synchronizace
 Name[da]=Synkronisering
 Name[de]=Abgleich
@@ -41,6 +42,7 @@ Name[zh_CN]=同步
 
 Comment=Configuration of the model synchronization
 Comment[ca]=Configuració de la sincronització del model
+Comment[ca@valencia]=Configuració de la sincronització del model
 Comment[da]=Konfiguration af modelsynkronisering
 Comment[de]=Konfiguration des Modellabgleichs
 Comment[el]=Διαμόρφωση συγχρονισμού του μοντέλου
