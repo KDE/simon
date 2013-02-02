@@ -34,6 +34,7 @@ Name[sl]=Posnetki
 Name[sv]=Inspelning
 Name[uk]=Записи
 Name[x-test]=xxRecordingsxx
+Name[zh_TW]=錄音
 
 Comment=Configuration of the Simon Soundsystem
 Comment[ca]=Configuració del sistema de so per a Simon
@@ -53,4 +54,5 @@ Comment[pt_BR]=Configuração do sistema de som do Simon
 Comment[sv]=Inställning av Simons ljudsystem
 Comment[uk]=Налаштування звукової системи Simon
 Comment[x-test]=xxConfiguration of the Simon Soundsystemxx
+Comment[zh_TW]=設定 Simon 音效系統
 

@@ -41,6 +41,7 @@ Name[sv]=Nätverk
 Name[uk]=Мережа
 Name[x-test]=xxNetworkxx
 Name[zh_CN]=网络
+Name[zh_TW]=網路
 
 Comment=Configuration of the Network Settings
 Comment[ca]=Configuració dels paràmetres de xarxa
@@ -64,3 +65,4 @@ Comment[sv]=Anpassning av nätverksinställningar
 Comment[uk]=Налаштування параметрів мережі
 Comment[x-test]=xxConfiguration of the Network Settingsxx
 Comment[zh_CN]=配置网络设置
+Comment[zh_TW]=網路設定

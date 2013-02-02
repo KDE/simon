@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de comando do teclado do Simon
 Name[sv]=Simon insticksprogram för tangentbordskommandon
 Name[uk]=Додаток команд клавіатури Simon
 Name[x-test]=xxSimon Keyboard Command Pluginxx
+Name[zh_TW]=Simon 鍵盤指令外掛程式
 Comment=Provides a full keyboard functionality
 Comment[ca]=Proporciona una completa funcionalitat per al teclat
 Comment[ca@valencia]=Proporciona una completa funcionalitat per al teclat
@@ -43,6 +44,7 @@ Comment[sl]=Omogoča polno opravilnost tipkovnice
 Comment[sv]=Tillhandahåller fullständig tangentbordsfunktion
 Comment[uk]=Віртуальна клавіатура з повним набором можливостей
 Comment[x-test]=xxProvides a full keyboard functionalityxx
+Comment[zh_TW]=提供一個完整的鍵盤功能
 
 X-KDE-PluginInfo-Author=Neumeister Dominik und Strametz Mario
 X-KDE-PluginInfo-Email=neudob06@edvhtl.at

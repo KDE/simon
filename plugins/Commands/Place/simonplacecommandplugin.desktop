@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de comando de locais do Simon
 Name[sv]=Simon insticksprogram för platskommandon
 Name[uk]=Додаток команд «Місць» Simon
 Name[x-test]=xxSimon PlaceCommand Pluginxx
+Name[zh_TW]=Simon 地方指令外掛程式
 Comment=Open places
 Comment[ca]=Obre llocs
 Comment[ca@valencia]=Obri llocs
@@ -44,6 +45,7 @@ Comment[sl]=Odprite mesta
 Comment[sv]=Öppna platser
 Comment[uk]=Відкриття пунктів зі списку «Місця»
 Comment[x-test]=xxOpen placesxx
+Comment[zh_TW]=開啟地方
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org

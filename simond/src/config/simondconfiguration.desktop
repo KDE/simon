@@ -34,6 +34,7 @@ Name[sk]=Simond
 Name[sv]=Simond
 Name[uk]=Simond
 Name[x-test]=xxSimondxx
+Name[zh_TW]=Simond
 
 Comment=simond Configuration
 Comment[ca]=Configuració de «simond»
@@ -58,3 +59,4 @@ Comment[sv]=Anpassning av Simond
 Comment[uk]=Налаштування simond
 Comment[x-test]=xxsimond Configurationxx
 Comment[zh_CN]=simond 配置
+Comment[zh_TW]=simond 設定

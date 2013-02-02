@@ -20,6 +20,7 @@ Name[pt_BR]=Plugin de conteúdo do arquivo do Simon
 Name[sv]=Simon insticksprogram för filinnehåll
 Name[uk]=Додаток вмісту файлів Simon
 Name[x-test]=xxSimon File Content Pluginxx
+Name[zh_TW]=Simon 檔案內容外掛程式
 Comment=Checks for the content of a file
 Comment[ca]=Comprova el contingut d'un fitxer
 Comment[ca@valencia]=Comprova el contingut d'un fitxer
@@ -41,6 +42,7 @@ Comment[sl]=Preveri za vsebino datoteke
 Comment[sv]=Kontrollerar innehållet i en fil
 Comment[uk]=Перевірка вмісту файлів
 Comment[x-test]=xxChecks for the content of a filexx
+Comment[zh_TW]=檢查檔案的內容
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org

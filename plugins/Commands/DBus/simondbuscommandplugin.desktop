@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de comandos de D-Bus do Simon
 Name[sv]=Simon D-Bus kommandoinsticksprogram
 Name[uk]=Додаток команд D-Bus Simon
 Name[x-test]=xxSimon D-Bus Command Pluginxx
+Name[zh_TW]=Simon D-Bus 指令外掛程式
 Comment=Provides a way to create interfaces to other applications through D-Bus
 Comment[ca]=Proporciona una manera per crear interfícies amb altres aplicacions a través de D-Bus
 Comment[ca@valencia]=Proporciona una manera per crear interfícies amb altres aplicacions a través de D-Bus
@@ -42,6 +43,7 @@ Comment[sl]=Ponuja način za ustvarjanje vmesnikov drugim programom preko D-Bus
 Comment[sv]=Erbjuder ett sätt att skapa gränssnitt till andra program via D-Bus
 Comment[uk]=Забезпечує роботу з іншими програмами за допомогою D-Bus
 Comment[x-test]=xxProvides a way to create interfaces to other applications through D-Busxx
+Comment[zh_TW]=提供一個透過 D-Bus 與其他應用程式溝通的介面的方法
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=kde-accessibility@kde.org

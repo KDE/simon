@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin da grade da área de trabalho do Simon
 Name[sv]=Simon insticksprogram för skrivbordsrutnät
 Name[uk]=Додаток стільничної ґратки Simon
 Name[x-test]=xxSimon DesktopGrid Pluginxx
+Name[zh_TW]=Simon 桌面格外掛程式
 Comment=Voice-controlled mouseclicks
 Comment[ca]=Controla per veu els clics del ratolí
 Comment[ca@valencia]=Controla per veu els clics del ratolí
@@ -43,6 +44,7 @@ Comment[sl]=Glasovno vodeni miškini kliki
 Comment[sv]=Röststyrda musklick
 Comment[uk]=Керовані голосом клацання кнопками миші
 Comment[x-test]=xxVoice-controlled mouseclicksxx
+Comment[zh_TW]=語音控制滑鼠點擊
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org

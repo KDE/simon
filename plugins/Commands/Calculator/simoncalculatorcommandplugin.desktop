@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de comandos da calculadora do Simon
 Name[sv]=Simon kommandoinsticksprogram för miniräknare
 Name[uk]=Додаток команд калькулятора Simon
 Name[x-test]=xxSimon Calculator Command Pluginxx
+Name[zh_TW]=Simon 計算機指令外掛程式
 Comment=Provides a voice-controllable user interface
 Comment[ca]=Proporciona una interfície d'usuari controlable per veu
 Comment[ca@valencia]=Proporciona una interfície d'usuari controlable per veu
@@ -43,6 +44,7 @@ Comment[sl]=Ponuja glasovno nadzorovan uporabniški vmesnik
 Comment[sv]=Tillhandahåller ett röststyrt användargränssnitt
 Comment[uk]=Надає інтерфейс користувача з керуванням за допомогою голосу
 Comment[x-test]=xxProvides a voice-controllable user interfacexx
+Comment[zh_TW]=提供語音控制的使用者介面
 
 X-KDE-PluginInfo-Author=Dominik Neumeister
 X-KDE-PluginInfo-Email=domar@gmx.at

@@ -20,6 +20,7 @@ Name[pt_BR]=Plugin de associação OU do Simon
 Name[sv]=Simon insticksprogram för eller-association
 Name[uk]=Додаток прив’язки Simon
 Name[x-test]=xxSimon Or Association Pluginxx
+Name[zh_TW]=Simon Or 關聯外掛程式
 Comment=Checks for Or Association
 Comment[ca]=Comprova si hi ha associació O
 Comment[ca@valencia]=Comprova si hi ha associació O
@@ -40,6 +41,7 @@ Comment[sl]=Preveri povezave Or
 Comment[sv]=Söker efter eller-association
 Comment[uk]=Перевірка прив’язки
 Comment[x-test]=xxChecks for Or Associationxx
+Comment[zh_TW]=檢查 Or 關聯
 
 X-KDE-PluginInfo-Author=Adam Nash
 X-KDE-PluginInfo-Email=adam.t.nash@gmail.com

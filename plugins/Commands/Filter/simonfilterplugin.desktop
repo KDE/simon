@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de filtragem do Simon
 Name[sv]=Simon filterinsticksprogram
 Name[uk]=Додаток фільтрування Simon
 Name[x-test]=xxSimon Filter Pluginxx
+Name[zh_TW]=Simon 過濾器外掛程式
 Comment=Filters recognition results
 Comment[ca]=Filtra els resultats del reconeixement
 Comment[ca@valencia]=Filtra els resultats del reconeixement
@@ -43,6 +44,7 @@ Comment[sl]=Rezultati prepoznavanja Filtrov
 Comment[sv]=Filtrerar igenkänningsresultat
 Comment[uk]=Додаток фільтрування результатів розпізнавання
 Comment[x-test]=xxFilters recognition resultsxx
+Comment[zh_TW]=過濾辨識結果
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org

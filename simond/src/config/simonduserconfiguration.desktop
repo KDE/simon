@@ -40,6 +40,7 @@ Name[sv]=Användare
 Name[uk]=Користувач
 Name[x-test]=xxUserxx
 Name[zh_CN]=用户
+Name[zh_TW]=使用者
 
 Comment=Userconfiguration
 Comment[ca]=Configuració d'usuari
@@ -64,4 +65,5 @@ Comment[sv]=Användarinställning
 Comment[uk]=Налаштування користувача
 Comment[x-test]=xxUserconfigurationxx
 Comment[zh_CN]=用户配置
+Comment[zh_TW]=使用者設定
 

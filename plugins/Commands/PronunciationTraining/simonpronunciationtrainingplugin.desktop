@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de treino de pronúncia do Simon
 Name[sv]=Simon insticksprogram för uttalsövning
 Name[uk]=Додаток навчання вимові Simon
 Name[x-test]=xxSimon pronunciation training Pluginxx
+Name[zh_TW]=Simon 發音訓練外掛程式
 Comment=Educational software to train the pronuncation of a foreign language
 Comment[ca]=Programari educatiu per entrenar la pronunciació d'una llengua estrangera
 Comment[ca@valencia]=Programari educatiu per entrenar la pronunciació d'una llengua estrangera
@@ -43,6 +44,7 @@ Comment[sl]=Izobraževalna programska oprema za učenje izgovorjave tujega jezik
 Comment[sv]=Utbildningsprogramvara för att öva på uttal på ett främmande språk
 Comment[uk]=Програмне забезпечення для навчання вимові різними мовами
 Comment[x-test]=xxEducational software to train the pronuncation of a foreign languagexx
+Comment[zh_TW]=訓練外語發音的教育軟體
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org

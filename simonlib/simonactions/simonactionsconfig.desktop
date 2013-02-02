@@ -39,6 +39,7 @@ Name[sv]=Åtgärder
 Name[uk]=Дії
 Name[x-test]=xxActionsxx
 Name[zh_CN]=动作
+Name[zh_TW]=動作
 
 Comment=Configuration of Simon's actions
 Comment[ca]=Configuració de les accions per a Simon
@@ -57,4 +58,5 @@ Comment[pt_BR]=Configuração das ações do Simon
 Comment[sv]=Inställning av Simons åtgärder
 Comment[uk]=Налаштування дій Simon
 Comment[x-test]=xxConfiguration of Simon's actionsxx
+Comment[zh_TW]=設定 Simon 的動作
 

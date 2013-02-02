@@ -20,6 +20,7 @@ Name[pt_BR]=Plugin de condição do D-Bus do Simon
 Name[sv]=Simon D-Bus villkorsinsticksprogram
 Name[uk]=Додаток умов D-Bus Simon
 Name[x-test]=xxSimon D-Bus Condition Pluginxx
+Name[zh_TW]=Simon D-Bus 條件外掛程式
 Comment=Checks application state over D-Bus
 Comment[ca]=Comprova l'estat de l'aplicació en D-Bus
 Comment[ca@valencia]=Comprova l'estat de l'aplicació en D-Bus
@@ -41,6 +42,7 @@ Comment[sl]=Preverja programsko stanje preko D-Bus
 Comment[sv]=Kontrollerar programtillstånd via D-Bus
 Comment[uk]=Перевірка стану програм за допомогою D-Bus
 Comment[x-test]=xxChecks application state over D-Busxx
+Comment[zh_TW]=透過 D-Bus 檢查應用程式狀態
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org

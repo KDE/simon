@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de reconhecimento do Simon
 Name[sv]=Simon insticksprogram för igenkänning
 Name[uk]=Додаток розпізнавання Simon
 Name[x-test]=xxSimon Recognizer Pluginxx
+Name[zh_TW]=Simon 辨識器外掛程式
 Comment=Recognize
 Comment[ca]=Reconeix
 Comment[ca@valencia]=Reconeix
@@ -44,6 +45,7 @@ Comment[sv]=Igenkänning
 Comment[uk]=Розпізнати
 Comment[x-test]=xxRecognizexx
 Comment[zh_CN]=识别
+Comment[zh_TW]=辨認
 
 X-KDE-PluginInfo-Author=Adam Nash
 X-KDE-PluginInfo-Email=adam.t.nash@gmail.com

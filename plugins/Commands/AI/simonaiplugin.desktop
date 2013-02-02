@@ -22,6 +22,7 @@ Name[sk]=Simon AI Plugin
 Name[sv]=Simon AI-insticksprogram
 Name[uk]=Додаток штучного інтелекту Simon
 Name[x-test]=xxSimon AI Pluginxx
+Name[zh_TW]=Simon 人工智慧外掛程式
 Comment=Voice-controlled Chatbot with Festival-based speech output
 Comment[ca]=Àrea de conversa controlada per veu amb sortida parlada basada en Festival
 Comment[ca@valencia]=Àrea de conversa controlada per veu amb eixida parlada basada en Festival
@@ -43,6 +44,7 @@ Comment[sl]=Glasovno vodeni robot klepeta z govornim izhodom, ki temelji na Fest
 Comment[sv]=Röststyrt automatiskt chattprogram med Festival-baserad uppläsning
 Comment[uk]=Керований голосом бот з заснованим на Festival мовленням
 Comment[x-test]=xxVoice-controlled Chatbot with Festival-based speech outputxx
+Comment[zh_TW]=語音控制聊天機器人，使用 Festival 語音輸出
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org

@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de comandos ATSPI do Simon
 Name[sv]=Simon ATSPI kommandoinsticksprogram
 Name[uk]=Додаток команд ATSPI Simon
 Name[x-test]=xxSimon ATSPI Command Pluginxx
+Name[zh_TW]=Simon ATSPI 指令外掛程式
 Comment=Allows controlling an ATSPI2-enabled desktop
 Comment[ca]=Permet controlar un escriptori amb ATSPI2 activat
 Comment[ca@valencia]=Permet controlar un escriptori amb ATSPI2 activat
@@ -42,6 +43,7 @@ Comment[sl]=Omogoča nadzor namizja z ATSPI2
 Comment[sv]=Tillåter styrning av ett ATSPI2-aktiverat skrivbord
 Comment[uk]=Надає змогу керувати стільницею з увімкненим ATSPI2
 Comment[x-test]=xxAllows controlling an ATSPI2-enabled desktopxx
+Comment[zh_TW]=允許控制開啟 ATSPI2 的桌面
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=kde-accessibility@kde.org

@@ -20,6 +20,7 @@ Name[pt_BR]=Plugin do comando de introdução numérica do Simon
 Name[sv]=Simon kommandoinsticksprogram för nummerinmatning
 Name[uk]=Додаток команд з введення чисел Simon
 Name[x-test]=xxSimon Input Number Command Pluginxx
+Name[zh_TW]=Simon 數字輸入指令外掛程式
 Comment=Provides an easy way to spell out any number
 Comment[ca]=Proporciona una forma fàcil per escriure qualsevol número
 Comment[ca@valencia]=Proporciona una forma fàcil per escriure qualsevol número
@@ -42,6 +43,7 @@ Comment[sl]=Ponuja enostaven način za črkovanje katerihkoli številk
 Comment[sv]=Erbjuder ett enkelt sätt att ange vilket nummer som helst
 Comment[uk]=Простий спосіб фільтрування у мовленні будь-яких чисел
 Comment[x-test]=xxProvides an easy way to spell out any numberxx
+Comment[zh_TW]=提供一個簡單的方式來拼湊出所有的數字
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org

@@ -39,6 +39,7 @@ Name[sv]=Synkronisering
 Name[uk]=Синхронізація
 Name[x-test]=xxSynchronizationxx
 Name[zh_CN]=同步
+Name[zh_TW]=同步化
 
 Comment=Configuration of the model synchronization
 Comment[ca]=Configuració de la sincronització del model
@@ -61,4 +62,5 @@ Comment[sl]=Nastavitev usklajevanja modelov
 Comment[sv]=Inställning av modellsynkroniseringen
 Comment[uk]=Налаштування синхронізації моделей
 Comment[x-test]=xxConfiguration of the model synchronizationxx
+Comment[zh_TW]=設定模型同步
 

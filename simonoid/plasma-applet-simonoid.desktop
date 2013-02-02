@@ -19,6 +19,7 @@ Name[sk]=Simonoid
 Name[sv]=Simonoid
 Name[uk]=Саймоноїд
 Name[x-test]=xxSimonoidxx
+Name[zh_TW]=Simonoid
 Comment=Plasma Simonoid
 Comment[ca]=Plasma Simonoid
 Comment[ca@valencia]=Plasma Simonoid
@@ -39,6 +40,7 @@ Comment[sk]=Plasma Simonoid
 Comment[sv]=Plasma Simonoid
 Comment[uk]=Саймоноїд Плазми
 Comment[x-test]=xxPlasma Simonoidxx
+Comment[zh_TW]=Plasma Simonoid
 Type=Service
 Icon=simon
 

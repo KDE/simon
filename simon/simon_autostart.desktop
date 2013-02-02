@@ -25,6 +25,7 @@ Name[sl]=Simon
 Name[sv]=Simon
 Name[uk]=Simon
 Name[x-test]=xxSimonxx
+Name[zh_TW]=Simon
 
 GenericName=Speech Recognition
 GenericName[ca]=Reconeixement de la veu
@@ -49,6 +50,7 @@ GenericName[sv]=Taligenkänning
 GenericName[uk]=Розпізнавання мовлення
 GenericName[x-test]=xxSpeech Recognitionxx
 GenericName[zh_CN]=语音识别
+GenericName[zh_TW]=語音辨識
 
 Exec=simon
 
@@ -74,6 +76,7 @@ Comment[sv]=Taligenkänning och modellhantering
 Comment[uk]=Керування розпізнаванням мовлення та моделями
 Comment[x-test]=xxSpeech Recognition and Model Managementxx
 Comment[zh_CN]=语音识别和模式管理
+Comment[zh_TW]=語音辨識與模型管理
 
 Terminal=false
 

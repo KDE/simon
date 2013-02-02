@@ -20,6 +20,7 @@ Name[pt_BR]=Plugin da janela ativa do Simon
 Name[sv]=Simon insticksprogram för aktivt fönster
 Name[uk]=Додаток активного вікна Simon
 Name[x-test]=xxSimon Active Window Pluginxx
+Name[zh_TW]=Simon 作用中視窗外掛程式
 Comment=Checks for Active Window
 Comment[ca]=Comprova la finestra activa
 Comment[ca@valencia]=Comprova la finestra activa
@@ -41,6 +42,7 @@ Comment[sl]=Preveri dejavna okna
 Comment[sv]=Söker efter aktivt fönster
 Comment[uk]=Визначення активного вікна
 Comment[x-test]=xxChecks for Active Windowxx
+Comment[zh_TW]=檢查作用中視窗
 
 X-KDE-PluginInfo-Author=Adam Nash
 X-KDE-PluginInfo-Email=adam.t.nash@gmail.com

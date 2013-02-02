@@ -33,6 +33,7 @@ Name[sv]=Text-till-tal
 Name[uk]=Синтез мовлення з тексту
 Name[x-test]=xxText-to-speechxx
 Name[zh_CN]=文本到语音
+Name[zh_TW]=文字轉語音
 
 Comment=Configuration of the Simon text-to-speech layer
 Comment[ca]=Configuració de la capa text a veu per a Simon
@@ -51,4 +52,5 @@ Comment[pt_BR]=Configuração da interface do sintetizador de voz do Simon
 Comment[sv]=Inställning av Simons text-till-tal lager
 Comment[uk]=Налаштування шару перетворення тексту у мовлення Simon
 Comment[x-test]=xxConfiguration of the Simon text-to-speech layerxx
+Comment[zh_TW]=設定 Simon 文字轉語音層
 

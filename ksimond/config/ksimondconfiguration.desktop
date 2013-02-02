@@ -41,6 +41,7 @@ Name[sv]=Ksimond
 Name[uk]=KSimond
 Name[x-test]=xxKSimondxx
 Name[zh_CN]=KSimond
+Name[zh_TW]=KSimond
 
 Comment=Configuration of the KDE simond front-end
 Comment[ca]=Configuració del frontal de «simond» per al KDE
@@ -66,3 +67,4 @@ Comment[sv]=Inställning av KDE:s Simond gränssnitt
 Comment[uk]=Налаштування оболонки simond у KDE
 Comment[x-test]=xxConfiguration of the KDE simond front-endxx
 Comment[zh_CN]=KDE simond 的配置前端
+Comment[zh_TW]=設定 KDE simond 前端介面

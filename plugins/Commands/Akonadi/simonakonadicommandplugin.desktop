@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de comandos do Akonadi para o Simon
 Name[sv]=Simon Akonadi kommandoinsticksprogram
 Name[uk]=Додаток команд Akonadi Simon
 Name[x-test]=xxSimon Akonadi Command Pluginxx
+Name[zh_TW]=Simon Akonadi 指令外掛程式
 Comment=Provides a way to create schedule commands for later execution
 Comment[ca]=Proporciona una forma per crear ordres de calendari per a una execució posterior
 Comment[ca@valencia]=Proporciona una forma per crear ordes de calendari per a una execució posterior
@@ -41,6 +42,7 @@ Comment[sl]=Ponuja način za ustvarjanje razporeda ukazov za poznejše izvajanje
 Comment[sv]=Erbjuder ett sätt att skapa schemalagda kommandon att utföra senare
 Comment[uk]=Надає змогу створювати команди з відкладеним виконанням
 Comment[x-test]=xxProvides a way to create schedule commands for later executionxx
+Comment[zh_TW]=提供一個建立排程指令以便稍後執行的方法
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=kde-accessibility@kde.org

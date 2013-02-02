@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de ditados do Simon
 Name[sv]=Simon dikteringsinsticksprogram
 Name[uk]=Додаток диктування Simon
 Name[x-test]=xxSimon Dictation Pluginxx
+Name[zh_TW]=Simon 口述外掛程式
 Comment=Dictate Texts
 Comment[ca]=Dicta textos
 Comment[ca@valencia]=Dicta textos
@@ -45,6 +46,7 @@ Comment[sl]=Narekujte besedila
 Comment[sv]=Dikterar text
 Comment[uk]=Диктування текстів
 Comment[x-test]=xxDictate Textsxx
+Comment[zh_TW]=口述文字
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org

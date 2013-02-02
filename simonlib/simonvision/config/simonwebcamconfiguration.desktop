@@ -33,6 +33,7 @@ Name[sl]=Nastavitev spletne kamere
 Name[sv]=Webbkamerainställning
 Name[uk]=Налаштовування вебкамери
 Name[x-test]=xxWebcam Configurationxx
+Name[zh_TW]=網路攝影機設定
 
 Comment=Configuration of the Webcam
 Comment[ca]=Configuració de la càmera web
@@ -53,3 +54,4 @@ Comment[sl]=Nastavitev spletne kamere
 Comment[sv]=Inställning av webbkameran
 Comment[uk]=Керування налаштуваннями вебкамери
 Comment[x-test]=xxConfiguration of the Webcamxx
+Comment[zh_TW]=設定網路攝影機

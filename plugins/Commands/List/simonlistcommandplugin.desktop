@@ -21,6 +21,7 @@ Name[pt_BR]=Plugin de comandos compostos do Simon
 Name[sv]=Simon insticksprogram för sammansatta kommandon
 Name[uk]=Додаток складених команд Simon
 Name[x-test]=xxSimon Composite Command Pluginxx
+Name[zh_TW]=Simon 組合指令外掛程式
 Comment=Combines multiple commands into one
 Comment[ca]=Combina múltiples ordres en una sola
 Comment[ca@valencia]=Combina múltiples ordes en una sola
@@ -44,6 +45,7 @@ Comment[sl]=Spoji več ukazov v enega
 Comment[sv]=Kombinerar flera kommandon till ett
 Comment[uk]=Поєднує декілька команд у одну
 Comment[x-test]=xxCombines multiple commands into onexx
+Comment[zh_TW]=將多個指令組合起來
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=peter.grasch@bedahr.org
