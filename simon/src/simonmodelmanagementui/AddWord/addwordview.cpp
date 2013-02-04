@@ -190,7 +190,7 @@ QWizardPage* AddWordView::createFinishedPage()
 
 
 /**
- * \brief Adds the list of words to the wordlistmanager
+ * \brief Adds the list of words to the current scenario
  */
 void AddWordView::commitList()
 {

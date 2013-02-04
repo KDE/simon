@@ -52,7 +52,7 @@ QWizardPage* ImportGrammarWizard::createIntroPage()
     "grammar parser which will look up every single word in your dictionary-"
     "corpus. If the word is found its terminal will be added to the sentence. "
     "This way the parsers will find valid grammatical sentences on terminal "
-    "level.\n\nThis process requires a large shadow-lexicon containing terminal information or targeted input "
+    "level.\n\nThis process requires a large shadow dictionary containing terminal information or targeted input "
     "material."));
 
   return intro;

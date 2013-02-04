@@ -1588,7 +1588,7 @@ void RecognitionControl::wordUndefined(const QString& word)
 {
   int ret = KMessageBox::questionYesNoCancel(0,
     i18n("The word \"%1\" is used in your training samples but it is not contained "
-    "in your wordlist.\n\nWhat do you want to do?", word), QString(),
+    "in your vocabulary.\n\nWhat do you want to do?", word), QString(),
     KGuiItem(i18n("Remove samples containing the word"), KIcon("list-remove")),
     KGuiItem(i18n("Add the word"), KIcon("list-add")));
 

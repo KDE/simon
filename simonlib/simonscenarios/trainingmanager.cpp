@@ -226,10 +226,9 @@ bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
 }
 
 /**
- * \brief Calculates the relevance of the given text with the given wordlist
+ * \brief Calculates the relevance of the given text
  * \author Peter Grasch, Susanne Tschernegg
  * @param text The text to check
- * @param wlist The wordlist as reference
  * @return An index of how well simon would recognize it - the lower the worse
  */
 float TrainingManager::calcRelevance ( const TrainingText *text )

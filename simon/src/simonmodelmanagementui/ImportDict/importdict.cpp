@@ -41,7 +41,7 @@ deleteFileWhenDone(false)
 
 
 /**
- * \brief Parses the wordlist of an existing dictionary
+ * \brief Parses the list of words of an existing dictionary
  * \author Peter Grasch
  */
 void ImportDict::parseWordList(QString pathToDict, QString encoding, int type, bool deleteFileWhenDone)
@@ -65,7 +65,7 @@ QList<Word*> ImportDict::getCurrentWordList()
 /**
  * \brief The main execution loop
  * Does the real work.
- * Uses the members pathToDict to get the location and writes the finished wordlist to the member wordList
+ * Uses the members pathToDict to get the location and writes the finished list of word to the member wordList
  * \author Peter Grasch
  */
 void ImportDict::run()

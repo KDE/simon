@@ -21,16 +21,8 @@
 #include "vocabularyviewprivate.h"
 #include <KLocalizedString>
 
-/**
- * @brief Constructor
- *
- * Creates a new WordlistView Objects, creates the Links
- * and initializes the list of vocabulary
- *
- * @author Peter Grasch
- */
 VocabularyView::VocabularyView(QWidget *parent)
-: InlineWidget(i18n("Word list"),
+: InlineWidget(i18n("Vocabulary"),
   KIcon("format-justify-fill"),
   i18n("View and modify the vocabulary."), parent),
   d(new VocabularyViewPrivate(this))
