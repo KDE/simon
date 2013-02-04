@@ -48,7 +48,7 @@ class MODELMANAGEMENT_EXPORT ActiveVocabulary : public Vocabulary, public Scenar
     bool takeWord(Word*);
     bool deSerialize(const QDomElement&);
     QDomElement serialize(QDomDocument *doc);
-    bool renameTerminal(const QString& from, const QString& to);
+    bool renameCategory(const QString& from, const QString& to);
     bool empty();
 };
 #endif

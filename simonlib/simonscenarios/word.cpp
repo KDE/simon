@@ -26,7 +26,7 @@ bool isWordLessThan(Word *w1, Word *w2)
   if (w1->getLexiconWord() < w2->getLexiconWord())
     return true;
   else return ((w1->getLexiconWord() == w2->getLexiconWord()) && ((w1->getPronunciation() < w2->getPronunciation()) ||
-      ((w1->getPronunciation() == w2->getPronunciation()) && (w1->getTerminal() < w2->getTerminal()))));
+      ((w1->getPronunciation() == w2->getPronunciation()) && (w1->getCategory() < w2->getCategory()))));
 }
 
 

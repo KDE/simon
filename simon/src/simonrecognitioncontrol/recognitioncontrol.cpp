@@ -1613,7 +1613,7 @@ void RecognitionControl::wordUndefined(const QString& word)
 
 void RecognitionControl::classUndefined(const QString& undefClass)
 {
-  KMessageBox::sorry(0, i18n("Your grammar uses the undefined terminal \"%1\".\n\nPlease add a word that uses this terminal or remove the structure(s) containing the terminal from your grammar.", undefClass));
+  KMessageBox::sorry(0, i18n("Your grammar uses the undefined category \"%1\".\n\nPlease add a word that uses this category or remove the structure(s) containing the category from your grammar.", undefClass));
 }
 
 

@@ -64,16 +64,16 @@ void JuliusVocabulary::load(QString path, QString encoding)
   dictStream->setCodec(encoding.toAscii());
   emit loaded();
 
-  QString line, word, terminal, xsp;
+  QString line, word, category, xsp;
   int splitter;
-  terminal = i18nc("Terminal name for words that are imported from a dictionary "
-				  "which does not provide terminal information", "Unknown");
+  category = i18nc("Category name for words that are imported from a dictionary "
+				  "which does not provide category information", "Unknown");
   while (!dictStream->atEnd()) {
     line = dictStream->readLine(1000);
     currentProg += line.length();
     line = line.trimmed();
     if (line.startsWith(QLatin1String("% "))) {
-      terminal = line.mid(2).trimmed();
+      category = line.mid(2).trimmed();
       continue;
     }
     else {
@@ -83,7 +83,7 @@ void JuliusVocabulary::load(QString path, QString encoding)
         continue;
       xsp = line.mid(splitter).trimmed();
       words << word;
-      terminals << terminal;
+      categories << category;
       pronunciations << adaptToSimonPhonemeSet(xsp);
     }
 

@@ -42,7 +42,7 @@ bool isWordLessThan(Word *w1, Word *w2)
   if (w1->getLexiconWord() < w2->getLexiconWord())
     return true;
   else return ((w1->getLexiconWord() == w2->getLexiconWord()) && ((w1->getPronunciation() < w2->getPronunciation()) ||
-      ((w1->getPronunciation() == w2->getPronunciation()) && (w1->getTerminal() < w2->getTerminal()))));
+      ((w1->getPronunciation() == w2->getPronunciation()) && (w1->getCategory() < w2->getCategory()))));
 }
 
 
@@ -88,7 +88,7 @@ void AddWordView::accept()
   Logger::log(i18n("New word: %1", word));
 
   listToAdd.append(new Word(word.trimmed(), field("wordPronunciation").toString(),
-    field("wordTerminal").toString()));
+    field("wordCategory").toString()));
 
   QList<AddWordRecordPage*> recordPages;
   recordPages << record1;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MergeTerminalsSelectTerminalsPage</class>
- <widget class="QWidget" name="MergeTerminalsSelectTerminalsPage">
+ <class>MergeCategoriesSelectCategoriesPage</class>
+ <widget class="QWidget" name="MergeCategoriesSelectCategoriesPage">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -48,14 +48,14 @@
    <item>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="lbNewTerminal">
+      <widget class="QLabel" name="lbNewCategory">
        <property name="text">
         <string>New Name:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="KLineEdit" name="leNewTerminal"/>
+      <widget class="KLineEdit" name="leNewCategory"/>
      </item>
     </layout>
    </item>

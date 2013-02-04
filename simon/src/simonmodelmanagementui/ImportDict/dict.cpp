@@ -390,5 +390,5 @@ Dict::~Dict()
 
   words.clear();
   pronunciations.clear();
-  terminals.clear();
+  categories.clear();
 }

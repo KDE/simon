@@ -231,7 +231,7 @@ void VocabularyViewPrivate::deleteSelectedWord()
     //delete the word
     switch (del->getDeletionType()) {
       case DeleteWordDialog::MoveToUnused:
-        w->setTerminal(i18nc("Standard name for terminals that are not used for the recognition", "Unused"));
+        w->setCategory(i18nc("Standard name for categories that are not used for the recognition", "Unused"));
         scenario->save();                         //save changes
         break;
       case DeleteWordDialog::MoveToShadow:
@@ -301,7 +301,7 @@ void VocabularyViewPrivate::copyWordToTrain()
   if (!w) return;
 
   trainingVocabulary.append(w);
-  ui.lwTrainingWords->addItem(QString("%1 (%2)").arg(w->getWord()).arg(w->getTerminal()));
+  ui.lwTrainingWords->addItem(QString("%1 (%2)").arg(w->getWord()).arg(w->getCategory()));
 }
 
 

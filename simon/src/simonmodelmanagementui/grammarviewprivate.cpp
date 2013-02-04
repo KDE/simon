@@ -19,8 +19,8 @@
 
 #include "grammarviewprivate.h"
 #include "ImportGrammar/importgrammarwizard.h"
-#include "MergeTerminals/mergeterminalswizard.h"
-#include "RenameTerminal/renameterminalwizard.h"
+#include "MergeCategories/mergecategorieswizard.h"
+#include "RenameCategory/renamecategorywizard.h"
 
 #include <QSortFilterProxyModel>
 #include <KInputDialog>
@@ -116,10 +116,10 @@ void GrammarViewPrivate::displayScenarioPrivate(Scenario *scenario)
 
 void GrammarViewPrivate::showRenameWizard()
 {
-  QPointer<RenameTerminalWizard> renameTerminalWizard = new RenameTerminalWizard(this);
-  renameTerminalWizard->restart();
-  renameTerminalWizard->exec();
-  delete renameTerminalWizard;
+  QPointer<RenameCategoryWizard> renameCategoryWizard = new RenameCategoryWizard(this);
+  renameCategoryWizard->restart();
+  renameCategoryWizard->exec();
+  delete renameCategoryWizard;
   currentSelectionChanged();
 }
 
@@ -135,10 +135,10 @@ void GrammarViewPrivate::showImportWizard()
 
 void GrammarViewPrivate::showMergeWizard()
 {
-  QPointer<MergeTerminalsWizard> mergeTerminalsWizard = new MergeTerminalsWizard(this);
-  mergeTerminalsWizard->restart();
-  mergeTerminalsWizard->exec();
-  delete mergeTerminalsWizard;
+  QPointer<MergeCategoriesWizard> mergeCategoriesWizard = new MergeCategoriesWizard(this);
+  mergeCategoriesWizard->restart();
+  mergeCategoriesWizard->exec();
+  delete mergeCategoriesWizard;
   currentSelectionChanged();
 }
 

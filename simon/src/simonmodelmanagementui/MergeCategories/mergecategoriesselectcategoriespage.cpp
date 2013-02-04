@@ -17,31 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "renameterminalselectparameterspage.h"
-#include <simonscenarios/scenariomanager.h>
-#include <simonscenarios/speechmodel.h>
+#include "mergecategoriesselectcategoriespage.h"
 
-RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *parent)
-: QWizardPage(parent)
+#include <simonscenarios/scenariomanager.h>
+
+MergeCategoriesSelectCategoriesPage::MergeCategoriesSelectCategoriesPage(QWidget* parent): QWizardPage(parent)
 {
   ui.setupUi(this);
-  registerField("renameNewName*",ui.leNewName);
-  registerField("renameTerminal*",ui.lwTerminal, "currentText", SIGNAL(currentRowChanged(int)));
-  registerField("renameIncludeShadow", ui.cbIncludeShadow);
-  registerField("renameIncludeGrammar", ui.cbIncludeGrammar);
+  setTitle(i18n("Choose Categories"));
+  registerField("newName*", ui.leNewCategory);
+  registerField("categoryA*", ui.lwA, "currentText", SIGNAL(currentTextChanged(QString)));
+  registerField("categoryB*", ui.lwB, "currentText", SIGNAL(currentTextChanged(QString)));
+  registerField("includeShadow", ui.cbIncludeShadow);
+  registerField("includeGrammar", ui.cbIncludeGrammar);
 }
 
 
-void RenameTerminalSelectParametersPage::initializePage()
+void MergeCategoriesSelectCategoriesPage::initializePage()
 {
-  QStringList availableTerminals;
-  availableTerminals = ScenarioManager::getInstance()->getTerminals((SpeechModel::ModelElements)
+  QStringList availableCategories;
+  availableCategories = ScenarioManager::getInstance()->getCategories((SpeechModel::ModelElements)
     (SpeechModel::ShadowVocabulary|SpeechModel::ScenarioVocabulary|SpeechModel::ScenarioGrammar));
-  ui.lwTerminal->clear();
-  ui.lwTerminal->addItems(availableTerminals);
+  ui.lwA->clear();
+  ui.lwB->clear();
+  ui.lwA->addItems(availableCategories);
+  ui.lwB->addItems(availableCategories);
 }
 
 
-RenameTerminalSelectParametersPage::~RenameTerminalSelectParametersPage()
+MergeCategoriesSelectCategoriesPage::~MergeCategoriesSelectCategoriesPage()
 {
 }

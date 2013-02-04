@@ -152,7 +152,7 @@ QStringList ImportGrammar::importFile(QString path)
     currentSentence.remove('"');
     QStringList words = currentSentence.split(' ',QString::SkipEmptyParts);
 
-    QString terminal;
+    QString category;
     bool everyWordSure=true;
     for (int j=0; (j < words.count()) && everyWordSure; j++) {
       //first: quick lookup
@@ -160,26 +160,26 @@ QStringList ImportGrammar::importFile(QString path)
         SpeechModel::ScenarioVocabulary, Vocabulary::ExactMatch);
       kDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
 
-      QStringList wordTerminals=terminals(lookupResult);
-      if (wordTerminals.count()==0) {
+      QStringList wordCategories=categories(lookupResult);
+      if (wordCategories.count()==0) {
         //don't delete the contents of the list
         lookupResult = ScenarioManager::getInstance()->findWords(words[j],
           SpeechModel::ShadowVocabulary, Vocabulary::ExactMatch);
 
         kDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
 
-        wordTerminals = terminals(lookupResult);
+        wordCategories = categories(lookupResult);
       }
-      kDebug() << wordTerminals;
+      kDebug() << wordCategories;
 
-      if (wordTerminals.count() != 1 /*change this to include ambigous terminals */) {
+      if (wordCategories.count() != 1 /*change this to include ambigous categories */) {
         if (includeUnknown)
           words.replace(j, i18nc("Category name for words that are imported from a dictionary "
 				  "which does not provide category information", "Unknown"));
         else
           everyWordSure = false;
       } else
-      words.replace(j, wordTerminals[0]);
+      words.replace(j, wordCategories[0]);
     }
     if (everyWordSure) {
       //add to output
@@ -194,17 +194,17 @@ QStringList ImportGrammar::importFile(QString path)
 }
 
 
-QStringList ImportGrammar::terminals(QList<Word*> in)
+QStringList ImportGrammar::categories(QList<Word*> in)
 {
-  QStringList terminals;
-  QString terminal;
+  QStringList categories;
+  QString category;
   foreach (Word* w, in) {
-    terminal = w->getTerminal();
-    if (!terminals.contains(terminal)) terminals << terminal;
+    category = w->getCategory();
+    if (!categories.contains(category)) categories << category;
   }
-  if (!includeUnknown) terminals.removeAll(i18nc("Category name for words that are imported from a dictionary "
+  if (!includeUnknown) categories.removeAll(i18nc("Category name for words that are imported from a dictionary "
 				  "which does not provide category information", "Unknown"));
-  return terminals;
+  return categories;
 }
 
 

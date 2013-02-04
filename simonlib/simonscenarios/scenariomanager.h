@@ -88,13 +88,13 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 
     bool storeScenario(const QString& id, const QByteArray& data);
 
-    QStringList getTerminals(SpeechModel::ModelElements elements);
-    bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
+    QStringList getCategories(SpeechModel::ModelElements elements);
+    bool renameCategory(const QString& category, const QString& newName, SpeechModel::ModelElements affect);
 
     QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements, Vocabulary::MatchType);
-    QList<Word*> findWordsByTerminal(const QString& name, SpeechModel::ModelElements elements);
+    QList<Word*> findWordsByCategory(const QString& name, SpeechModel::ModelElements elements);
 
-    QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
+    QStringList getExampleSentences(const QString& name, const QString& category, int count, SpeechModel::ModelElements elements);
     bool setupScenarios(bool forceChange=false);
     void setupAllChildScenarios();
 

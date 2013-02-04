@@ -86,14 +86,14 @@ const QXmlAttributes &attributes)
 
     int typeIndex = attributes.index("role");
     if (typeIndex != -1) {
-      currentTerminal = attributes.value(typeIndex);
-      if (currentTerminal.isEmpty())
+      currentCategory = attributes.value(typeIndex);
+      if (currentCategory.isEmpty())
         typeIndex = -1;
     }
     
     if (typeIndex == -1)
-      currentTerminal = i18nc("Terminal name for words that are imported from a dictionary "
-				  "which does not provide terminal information", "Unknown");
+      currentCategory = i18nc("Category name for words that are imported from a dictionary "
+				  "which does not provide category information", "Unknown");
   }
   else
   if (qName == "grapheme")
@@ -127,8 +127,8 @@ const QXmlAttributes &attributes)
  *
  * This function is called internally every time the parser sees the closing of a tag.
  * We then react on that by parsing the data we gathered while "in" the tag.
- * We extract the terminal, the pronunciation(s) and insert this data into the 3 stringlists
- * (words, terminals, pronunciations)
+ * We extract the category, the pronunciation(s) and insert this data into the 3 stringlists
+ * (words, categories, pronunciations)
  *
  * \param QString namespaceURI
  *  namespaceURI is the namespace URI, or an empty string if the element has no namespace URI or if no namespace processing is done
@@ -152,7 +152,7 @@ const QString &qName)
       foreach (const QString& phonemeDefinition, phonemeDefinitions) {
         words << w.trimmed();
         pronunciations << phonemeDefinition;
-        terminals << currentTerminal;
+        categories << currentCategory;
       }
     }
     //cleanup

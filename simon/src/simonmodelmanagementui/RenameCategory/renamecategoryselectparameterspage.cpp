@@ -17,34 +17,31 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "mergeterminalsselectterminalspage.h"
-
+#include "renamecategoryselectparameterspage.h"
 #include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/speechmodel.h>
 
-MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(QWidget* parent): QWizardPage(parent)
+RenameCategorySelectParametersPage::RenameCategorySelectParametersPage(QWidget *parent)
+: QWizardPage(parent)
 {
   ui.setupUi(this);
-  setTitle(i18n("Choose Categories"));
-  registerField("newName*", ui.leNewTerminal);
-  registerField("terminalA*", ui.lwA, "currentText", SIGNAL(currentTextChanged(QString)));
-  registerField("terminalB*", ui.lwB, "currentText", SIGNAL(currentTextChanged(QString)));
-  registerField("includeShadow", ui.cbIncludeShadow);
-  registerField("includeGrammar", ui.cbIncludeGrammar);
+  registerField("renameNewName*",ui.leNewName);
+  registerField("renameCategory*",ui.lwCategory, "currentText", SIGNAL(currentRowChanged(int)));
+  registerField("renameIncludeShadow", ui.cbIncludeShadow);
+  registerField("renameIncludeGrammar", ui.cbIncludeGrammar);
 }
 
 
-void MergeTerminalsSelectTerminalsPage::initializePage()
+void RenameCategorySelectParametersPage::initializePage()
 {
-  QStringList availableTerminals;
-  availableTerminals = ScenarioManager::getInstance()->getTerminals((SpeechModel::ModelElements)
+  QStringList availableCategories;
+  availableCategories = ScenarioManager::getInstance()->getCategories((SpeechModel::ModelElements)
     (SpeechModel::ShadowVocabulary|SpeechModel::ScenarioVocabulary|SpeechModel::ScenarioGrammar));
-  ui.lwA->clear();
-  ui.lwB->clear();
-  ui.lwA->addItems(availableTerminals);
-  ui.lwB->addItems(availableTerminals);
+  ui.lwCategory->clear();
+  ui.lwCategory->addItems(availableCategories);
 }
 
 
-MergeTerminalsSelectTerminalsPage::~MergeTerminalsSelectTerminalsPage()
+RenameCategorySelectParametersPage::~RenameCategorySelectParametersPage()
 {
 }

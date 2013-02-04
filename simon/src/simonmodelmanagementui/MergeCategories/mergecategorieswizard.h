@@ -17,24 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_RENAMETERMINALSELECTPARAMETERSPAGE_H_634D7DC412D24E0696239562AA94C143
-#define SIMON_RENAMETERMINALSELECTPARAMETERSPAGE_H_634D7DC412D24E0696239562AA94C143
+#ifndef SIMON_MERGECATEGORIESWIZARD_H_14ABC8E4DBD54DDE86D831B9195E9C3D
+#define SIMON_MERGECATEGORIESWIZARD_H_14ABC8E4DBD54DDE86D831B9195E9C3D
 
-#include <QWizardPage>
-#include "ui_renameterminalselectparameterspage.h"
+#include <simonuicomponents/simonwizard.h>
+
 /**
-  @author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <peter.grasch@bedahr.org>
 */
-class RenameTerminalSelectParametersPage : public QWizardPage
-{
-  Q_OBJECT
-    private:
-    Ui::RenameTerminalSelectParametersDlg ui;
-  public:
-    RenameTerminalSelectParametersPage(QWidget *parent);
-    void initializePage();
+class QWizardPage;
 
-    ~RenameTerminalSelectParametersPage();
+class MergeCategoriesWizard : public SimonWizard
+{
+    Q_OBJECT
+
+  public:
+    MergeCategoriesWizard(QWidget* parent);
+
+  private:
+    QWizardPage* createIntroPage();
+    QWizardPage* createSelectCategoriesPage();
+    QWizardPage* createWorkingPage();
+    QWizardPage* createFinishedPage();
 
 };
 #endif

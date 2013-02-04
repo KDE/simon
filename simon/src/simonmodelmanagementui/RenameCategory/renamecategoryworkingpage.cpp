@@ -17,28 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "renameterminalworkingpage.h"
-#include "renameterminal.h"
+#include "renamecategoryworkingpage.h"
+#include "renamecategory.h"
 
-RenameTerminalWorkingPage::RenameTerminalWorkingPage(QWidget* parent)
+RenameCategoryWorkingPage::RenameCategoryWorkingPage(QWidget* parent)
 : QWizardPage(parent),
 complete(false),
-renameTerminal(new RenameTerminal(this))
+renameCategory(new RenameCategory(this))
 {
-  connect(renameTerminal, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
-  connect(renameTerminal, SIGNAL(done()), this, SLOT(finish()));
+  connect(renameCategory, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
+  connect(renameCategory, SIGNAL(done()), this, SLOT(finish()));
   ui.setupUi(this);
-  setTitle(i18n("Renaming terminal..."));
+  setTitle(i18n("Renaming category..."));
 }
 
 
-void RenameTerminalWorkingPage::displayProgress(int progress)
+void RenameCategoryWorkingPage::displayProgress(int progress)
 {
   ui.pgProgress->setValue(progress);
 }
 
 
-void RenameTerminalWorkingPage::finish()
+void RenameCategoryWorkingPage::finish()
 {
   complete = true;
   emit completeChanged();
@@ -46,18 +46,18 @@ void RenameTerminalWorkingPage::finish()
 }
 
 
-void RenameTerminalWorkingPage::initializePage()
+void RenameCategoryWorkingPage::initializePage()
 {
   //do the work
-  renameTerminal->setOldName(field("renameTerminal").toString());
+  renameCategory->setOldName(field("renameCategory").toString());
 
-  renameTerminal->setNewName(field("renameNewName").toString());
-  renameTerminal->setIncludeShadow((field("renameIncludeShadow").toBool()));
-  renameTerminal->setIncludeGrammar(field("renameIncludeGrammar").toBool());
-  renameTerminal->start();
+  renameCategory->setNewName(field("renameNewName").toString());
+  renameCategory->setIncludeShadow((field("renameIncludeShadow").toBool()));
+  renameCategory->setIncludeGrammar(field("renameIncludeGrammar").toBool());
+  renameCategory->start();
 }
 
 
-RenameTerminalWorkingPage::~RenameTerminalWorkingPage()
+RenameCategoryWorkingPage::~RenameCategoryWorkingPage()
 {
 }

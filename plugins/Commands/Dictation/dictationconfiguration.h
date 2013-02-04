@@ -31,7 +31,7 @@ class DictationConfiguration : public CommandConfiguration
 
     private:
     Ui::DictationConfigurationDlg ui;
-    void initTerminals();
+    void initCategories();
 
   public slots:
     virtual bool deSerialize(const QDomElement&);

@@ -67,14 +67,14 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="lbTerminalD">
+         <widget class="QLabel" name="lbCategoryD">
           <property name="text">
-           <string comment="Grammar category of the word">Terminal:</string>
+           <string comment="Grammar category of the word">Category:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLabel" name="lbTerminal">
+         <widget class="QLabel" name="lbCategory">
           <property name="text">
            <string comment="KDE::DoNotExtract">TextLabel</string>
           </property>
@@ -148,9 +148,9 @@
     </layout>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbTerminal">
+    <widget class="QRadioButton" name="rbCategory">
      <property name="text">
-      <string>Move the word to the &quot;Unused&quot; terminal</string>
+      <string>Move the word to the &quot;Unused&quot; category</string>
      </property>
      <property name="checked">
       <bool>true</bool>
@@ -176,7 +176,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="lbTerminalDesc">
+      <widget class="QLabel" name="lbCategoryDesc">
        <property name="text">
         <string>The word will stay in your active dictionary and all samples will be kept. The samples will still be used to improve the acoustic model but in Simon the word will no longer be considered during the recognition.</string>
        </property>

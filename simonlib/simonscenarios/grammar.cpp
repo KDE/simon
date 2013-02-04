@@ -95,28 +95,28 @@ QDomElement Grammar::serialize(QDomDocument *doc)
 }
 
 
-bool Grammar::renameTerminal(QString terminal, const QString& newName)
+bool Grammar::renameCategory(QString category, const QString& newName)
 {
-  kDebug() << "Renaming terminal: " << terminal << newName;
+  kDebug() << "Renaming category: " << category << newName;
   QMutexLocker lock(&structuresLock);
 
-  //make the terminal regex-able :)
-  /*terminal.replace('.', "\\.");
-  terminal.replace('-', "\\-");
-  terminal.replace('+', "\\+");
-  terminal.replace('!', "\\!");
-  terminal.replace('?', "\\?");
-  terminal.replace('*', "\\*");
-  terminal.replace('\\', "\\\\");
-  terminal.replace('^', "\\^");
-  terminal.replace('$', "\\$");*/
+  //make the category regex-able :)
+  /*category.replace('.', "\\.");
+  category.replace('-', "\\-");
+  category.replace('+', "\\+");
+  category.replace('!', "\\!");
+  category.replace('?', "\\?");
+  category.replace('*', "\\*");
+  category.replace('\\', "\\\\");
+  category.replace('^', "\\^");
+  category.replace('$', "\\$");*/
 
   QStringList newStructures;
   //replace using regex patterns
   for (int j=0; j < m_structures.count(); j++) {
     QStringList currentStructure = m_structures.at(j).split(' ');
     for (int i=0; i < currentStructure.count(); i++) {
-      if (currentStructure[i] == terminal)
+      if (currentStructure[i] == category)
         currentStructure.replace(i, newName);
     }
     m_structures.replace(j, currentStructure.join(" "));
@@ -126,28 +126,28 @@ bool Grammar::renameTerminal(QString terminal, const QString& newName)
 }
 
 
-QStringList Grammar::getTerminals()
+QStringList Grammar::getCategories()
 {
   QMutexLocker lock(&structuresLock);
   QStringList out;
-  QStringList terminalsInStruct;
+  QStringList categoriesInStruct;
   foreach (const QString& structure, m_structures)
   {
-    terminalsInStruct = getTerminalsForStructure(structure);
-    for (int j=0; j < terminalsInStruct.count(); j++)
-      if (!out.contains(terminalsInStruct[j]))
-        out << terminalsInStruct[j];
+    categoriesInStruct = getCategoriesForStructure(structure);
+    for (int j=0; j < categoriesInStruct.count(); j++)
+      if (!out.contains(categoriesInStruct[j]))
+        out << categoriesInStruct[j];
   }
   return out;
 }
 
-QStringList Grammar::getTerminalsForStructure(const QString &structure)
+QStringList Grammar::getCategoriesForStructure(const QString &structure)
 {
   return structure.split(' ');
 }
 
 
-QString Grammar::getExampleSentence(const QString& terminal)
+QString Grammar::getExampleSentence(const QString& category)
 {
   if (m_structures.count() == 0) return QString();
 
@@ -155,12 +155,12 @@ QString Grammar::getExampleSentence(const QString& terminal)
 
   //start at this random position
   for (int i=start; i < m_structures.count(); i++)
-    if (m_structures.at(i).contains(terminal))
+    if (m_structures.at(i).contains(category))
       return m_structures.at(i);
 
   //not found? ok start backwards
   for (int i=start-1; i > 0; i--)
-    if (m_structures.at(i).contains(terminal))
+    if (m_structures.at(i).contains(category))
       return m_structures.at(i);
 
   return QString();                               //no sentence found

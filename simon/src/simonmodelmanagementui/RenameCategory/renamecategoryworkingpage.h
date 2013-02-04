@@ -17,37 +17,35 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_MERGETERMINALS_H_8AFCF149C4C744B1A75467E07DD4E402
-#define SIMON_MERGETERMINALS_H_8AFCF149C4C744B1A75467E07DD4E402
+#ifndef SIMON_RENAMECATEGORYWORKINGPAGE_H_3D51221A254347329D67EF19AE2477BB
+#define SIMON_RENAMECATEGORYWORKINGPAGE_H_3D51221A254347329D67EF19AE2477BB
 
-#include <QThread>
-
+#include <QWizardPage>
+#include "ui_renamecategoryworkingpage.h"
 /**
   @author Peter Grasch <bedahr@gmx.net>
 */
-
-class MergeTerminals : public QThread
+class RenameCategory;
+class RenameCategoryWorkingPage : public QWizardPage
 {
   Q_OBJECT
     signals:
-  void status ( QString );
-  void progress ( int cur, int max );
   void done();
+  private slots:
+    void finish();
+    void displayProgress(int);
   private:
-    QString newName, terminalA, terminalB;
-    bool includeShadow, includeGrammar;
+    Ui::RenameCategoryWorkingPage ui;
+    bool complete;
+    RenameCategory *renameCategory;
+
   public:
-    void run();
+    RenameCategoryWorkingPage(QWidget *parent);
 
-    void setNewName ( QString newName ) { this->newName = newName.trimmed(); }
-    void setTerminalA ( QString terminalA ) { this->terminalA = terminalA.trimmed(); }
-    void setTerminalB ( QString terminalB ) { this->terminalB = terminalB.trimmed(); }
-    void setIncludeShadow ( bool includeShadow ) { this->includeShadow= includeShadow; }
-    void setIncludeGrammar ( bool includeGrammar) { this->includeGrammar= includeGrammar; }
+    void initializePage();
+    bool isComplete() const { return this->complete; }
 
-    MergeTerminals ( QObject* parent );
-
-    ~MergeTerminals();
+    ~RenameCategoryWorkingPage();
 
 };
 #endif

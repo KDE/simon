@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>RenameTerminalWorkingPage</class>
- <widget class="QWidget" name="RenameTerminalWorkingPage" >
+ <class>RenameCategoryWorkingPage</class>
+ <widget class="QWidget" name="RenameCategoryWorkingPage" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
-      <string>The terminal is now being renamed.
+      <string>The category is now being renamed.
 
 Depending on your parameters this could take a few minutes.</string>
      </property>

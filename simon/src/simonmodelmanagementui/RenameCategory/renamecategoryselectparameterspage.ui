@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RenameTerminalSelectParametersDlg</class>
- <widget class="QWidget" name="RenameTerminalSelectParametersDlg">
+ <class>RenameCategorySelectParametersDlg</class>
+ <widget class="QWidget" name="RenameCategorySelectParametersDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -32,14 +32,14 @@
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="lbTerminal">
+    <widget class="QLabel" name="lbCategory">
      <property name="text">
-      <string>Old Terminal:</string>
+      <string>Old Category:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="TextListWidget" name="lwTerminal"/>
+    <widget class="TextListWidget" name="lwCategory"/>
    </item>
    <item>
     <widget class="QCheckBox" name="cbIncludeShadow">

@@ -17,26 +17,29 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_MERGETERMINALSSELECTTERMINALSPAGE_H_9DDC9A5462034D2989F1B6EE6A811D47
-#define SIMON_MERGETERMINALSSELECTTERMINALSPAGE_H_9DDC9A5462034D2989F1B6EE6A811D47
+#include "renamecategory.h"
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/speechmodel.h>
 
-#include <QWizardPage>
+RenameCategory::RenameCategory(QObject* parent): QThread(parent)
+{}
 
-#include "ui_mergeterminalsselectpage.h"
-/**
-  @author Peter Grasch <bedahr@gmx.net>
-*/
-class MergeTerminalsSelectTerminalsPage : public QWizardPage
+RenameCategory::~RenameCategory()
 {
-  Q_OBJECT
-    private:
-    Ui::MergeTerminalsSelectTerminalsPage ui;
-  public:
-    MergeTerminalsSelectTerminalsPage(QWidget* parent);
+}
 
-    void initializePage();
 
-    ~MergeTerminalsSelectTerminalsPage();
+void RenameCategory::run()
+{
+  emit progress(0);
 
-};
-#endif
+  SpeechModel::ModelElements elem = SpeechModel::ScenarioVocabulary;
+  if (includeShadow)
+    elem = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elem);
+  elem = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elem);
+
+  ScenarioManager::getInstance()->renameCategory(oldName, newName, elem);
+
+  emit progress(100);
+  emit done();
+}

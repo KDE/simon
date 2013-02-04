@@ -62,7 +62,7 @@ class WiktionaryDict : public QXmlDefaultHandler, public Dict
     bool characters (const QString &str);
 
     QStringList findIPAs(QString haystack);
-    void insertWords(QString word, QString terminal, QStringList pronunciations);
+    void insertWords(QString word, QString category, QStringList pronunciations);
 
     ~WiktionaryDict();
 

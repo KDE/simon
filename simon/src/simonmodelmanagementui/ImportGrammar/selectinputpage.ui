@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="lbUnknownDesc">
      <property name="text">
-      <string>If you check the following field, sentences containing words with unknown terminals will also be imported (words with more than one terminal will still cause the word to be marked &quot;Unknown&quot; and will only be included if this field is set).</string>
+      <string>If you check the following field, sentences containing words with unknown categories will also be imported (words with more than one category will still cause the word to be marked &quot;Unknown&quot; and will only be included if this field is set).</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

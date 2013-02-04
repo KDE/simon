@@ -17,39 +17,39 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "mergeterminalswizard.h"
-#include "mergeterminalsselectterminalspage.h"
-#include "mergeterminalsworkingpage.h"
+#include "mergecategorieswizard.h"
+#include "mergecategoriesselectcategoriespage.h"
+#include "mergecategoriesworkingpage.h"
 #include <QWizardPage>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <KStandardDirs>
 
-MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): SimonWizard(parent)
+MergeCategoriesWizard::MergeCategoriesWizard(QWidget* parent): SimonWizard(parent)
 {
   setWindowTitle(i18n("Merge Categories"));
-  addPage(createSelectTerminalsPage());
+  addPage(createSelectCategoriesPage());
   addPage(createWorkingPage());
   addPage(createFinishedPage());
   setBanner("merge");
 }
 
 
-QWizardPage* MergeTerminalsWizard::createSelectTerminalsPage()
+QWizardPage* MergeCategoriesWizard::createSelectCategoriesPage()
 {
-  return new MergeTerminalsSelectTerminalsPage(this);
+  return new MergeCategoriesSelectCategoriesPage(this);
 }
 
 
-QWizardPage* MergeTerminalsWizard::createWorkingPage()
+QWizardPage* MergeCategoriesWizard::createWorkingPage()
 {
-  MergeTerminalsWorkingPage *working = new MergeTerminalsWorkingPage(this);
+  MergeCategoriesWorkingPage *working = new MergeCategoriesWorkingPage(this);
   connect(working, SIGNAL(done()), this, SLOT(next()));
   return working;
 }
 
 
-QWizardPage* MergeTerminalsWizard::createFinishedPage()
+QWizardPage* MergeCategoriesWizard::createFinishedPage()
 {
   QWizardPage *finished = new QWizardPage(this);
   QHBoxLayout *lay = new QHBoxLayout(finished);

@@ -31,7 +31,7 @@
   \brief Provides some basic functions and members that make up a Dictionary
 
   Provides functions to convert between IPA and XSP and holds some members like
-  the words, pronunciations and terminals.
+  the words, pronunciations and categories.
   This are simple QStringLists because this is still _very_ low-level
 
   The matrix from ipa to x-sampa was built with the matrix from theiling for reference.
@@ -53,7 +53,7 @@ class Dict : public QObject
 
     QStringList words;
     QStringList pronunciations;
-    QStringList terminals;
+    QStringList categories;
 
     void buildAllowedPhonemes();
     void buildTranslationTables();
@@ -76,7 +76,7 @@ class Dict : public QObject
     virtual void load(QString path, QString encodingName) = 0;
     QStringList getWords() const { return words; }
     QStringList getPronuncations() const { return pronunciations; }
-    QStringList getTerminals() const { return terminals; }
+    QStringList getCategories() const { return categories; }
     virtual ~Dict();
 
 };

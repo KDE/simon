@@ -1713,7 +1713,7 @@ The vocabulary defines what words the recognition process should recognize. Ever
 One entry in the vocabulary defines exactly one <quote>word</quote>. In contrast to the common use of the word <quote>word</quote>, in Simon <quote>word</quote> means one unique combination of the following:
 <itemizedlist>
   <listitem><para>Wordname</para><para>(The written word itself)</para></listitem>
-  <listitem><para>Terminal</para><para>(Grammatical category; for example: <quote>Noun</quote>, <quote>Verb</quote>, &etc;)</para></listitem>
+  <listitem><para>Category</para><para>(Grammatical category; for example: <quote>Noun</quote>, <quote>Verb</quote>, &etc;)</para></listitem>
   <listitem><para>Pronunciation</para><para>(How the word is pronounced; Simon accepts any kind of phonetic as long as it does not use special characters or numbers)</para></listitem>
 </itemizedlist>
 
@@ -1726,7 +1726,7 @@ In general, it is advisable to keep your vocabulary as sleek as possible. The mo
 </para>
 
 <para>
-Example vocabulary (please note that the terminals here are deliberately set to Noun / Verb to help the understanding; please to refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
+Example vocabulary (please note that the categories here are deliberately set to Noun / Verb to help the understanding; please to refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
 <table frame='all'><title>Sample Vocabulary</title>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
@@ -1735,7 +1735,7 @@ Example vocabulary (please note that the terminals here are deliberately set to 
 <thead>
 <row>
   <entry>Word</entry>
-  <entry>Terminal</entry>
+  <entry>Category</entry>
   <entry>Pronunciation</entry>
 </row>
 </thead>
@@ -1824,7 +1824,7 @@ Following English grammar, your vocabulary would contain the following:
 <thead>
 <row>
   <entry>Word</entry>
-  <entry>Terminal</entry>
+  <entry>Category</entry>
 </row>
 </thead>
 <tbody>
@@ -1875,7 +1875,7 @@ In the example above it is for example not relevant that <quote>close</quote> is
 <thead>
 <row>
   <entry>Word</entry>
-  <entry>Terminal</entry>
+  <entry>Category</entry>
 </row>
 </thead>
 <tbody>
@@ -1926,7 +1926,7 @@ This allows all the combinations described above. However, it also limits the po
 <thead>
 <row>
   <entry>Word</entry>
-  <entry>Terminal</entry>
+  <entry>Category</entry>
   <entry>Pronunciation</entry>
 </row>
 </thead>
@@ -2179,7 +2179,7 @@ When the user proceeds to the next page, Simon automatically tries to find as mu
 </para>
 
 <para>
-If the word is listed in the shadow dictionary, Simon automatically fills out all the needed fields (Terminal and Pronunciation).
+If the word is listed in the shadow dictionary, Simon automatically fills out all the needed fields (Category and Pronunciation).
 
 <screenshot>
 <screeninfo>Fields automatically filled out by the Shadow Dictionary</screeninfo>
@@ -2199,18 +2199,18 @@ Of course this really depends on your shadow dictionary. If the shadow dictionar
 Some dictionaries that can be imported with Simon (SPHINX, HTK) do not differentiate between upper and lower case. Suggestions based on those dictionaries will always be uppercase. You are of course free to change these suggestions to the correct case.
 </para>
 
-<para>Some dictionaries that can be imported with Simon (SPHINX, PLS and HTK) provide no grammatical information at all. These will assign all the words to the terminal <guilabel>Unknown</guilabel>. You should change this to something appropriate when adding those words.
+<para>Some dictionaries that can be imported with Simon (SPHINX, PLS and HTK) provide no grammatical information at all. These will assign all the words to the category <guilabel>Unknown</guilabel>. You should change this to something appropriate when adding those words.
 </para>
 
 <sect4>
-<title>Manually Selecting a Terminal</title>
+<title>Manually Selecting a Category</title>
 <para>
-The terminal of the word is defined as the grammatical category the word belongs to. This might be <guilabel>Noun</guilabel>, <guilabel>Verb</guilabel> or completely new categories like <guilabel>Command</guilabel>. For more information see the <link linkend="grammar">grammar section</link>.</para>
+The category of the word is defined as the grammatical category the word belongs to. This might be <guilabel>Noun</guilabel>, <guilabel>Verb</guilabel> or completely new categories like <guilabel>Command</guilabel>. For more information see the <link linkend="grammar">grammar section</link>.</para>
 <para>
-The list contains all terminals used in both your active and your shadow lexicon and in your grammar.
+The list contains all categories used in both your active and your shadow lexicon and in your grammar.
 </para>
 <para>
-You can add new terminals to the drop-down menu by using the green plus sign next to it.
+You can add new categories to the drop-down menu by using the green plus sign next to it.
 </para>
 </sect4>
 
@@ -2267,7 +2267,7 @@ Using this approach of deducing the pronunciation from parts of the word has the
 </para>
 
 <para>
-We can now enter the pronunciation and change the terminal to something appropriate.
+We can now enter the pronunciation and change the category to something appropriate.
 <screenshot>
 <screeninfo>Completely defined word</screeninfo>
   <mediaobject>
@@ -2293,10 +2293,10 @@ We can now enter the pronunciation and change the terminal to something appropri
 </para>
 
 <para>
-Simon will try to prompt you for real-world examples. To do that, Simon will automatically fetch grammar structures using the terminal of the word and substitute the generic terminals with example words from your active lexicon.
+Simon will try to prompt you for real-world examples. To do that, Simon will automatically fetch grammar structures using the category of the word and substitute the generic categories with example words from your active lexicon.
 </para>
 <para>
-For example: You have the grammar structure <quote>Trigger Command</quote> and have the word <quote>Computer</quote> of the terminal <quote>Trigger</quote> in your vocabulary. You then add a new word <quote>Firefox</quote> of the terminal <quote>Command</quote>. Simon will now automatically prompt you for <quote>Computer Firefox</quote> as it is - according to your grammar - a valid sentence.
+For example: You have the grammar structure <quote>Trigger Command</quote> and have the word <quote>Computer</quote> of the category <quote>Trigger</quote> in your vocabulary. You then add a new word <quote>Firefox</quote> of the category <quote>Command</quote>. Simon will now automatically prompt you for <quote>Computer Firefox</quote> as it is - according to your grammar - a valid sentence.
 </para>
 <para>
 If Simon is unable to find appropriate sentences using the word (&ie;: No grammar, not enough words in your active lexicon, &etc;) it will just prompt you for the word alone.
@@ -2351,7 +2351,7 @@ All that is left is to record the examples.
 </para>
 
 <para>
-  There you can change name, terminal and pronunciation of the selected word.
+  There you can change name, category and pronunciation of the selected word.
 </para>
 </sect2>
 
@@ -2373,10 +2373,10 @@ All that is left is to record the examples.
 The dialog offers four choices:
 <itemizedlist>
   <listitem>
-    <para>Move the word to the <guilabel>Unused</guilabel> terminal.</para>
-    <para>Because you (hopefully) don't use the terminal <guilabel>Unused</guilabel> in your grammar, the word will no longer be considered for recognition. In fact, it will be removed from the active vocabulary before compiling the model because no grammar sentence references it.</para>
-    <para>If you want to use the terminal <guilabel>Unused</guilabel> in your grammar, you can of course use a different terminal for unused words. Just set the terminal through the <link linkend="edit_word">Edit word</link> dialog.</para>
-    <para>To use the word again, just set the right terminal again. No data will be lost.</para>
+    <para>Move the word to the <guilabel>Unused</guilabel> category.</para>
+    <para>Because you (hopefully) don't use the category <guilabel>Unused</guilabel> in your grammar, the word will no longer be considered for recognition. In fact, it will be removed from the active vocabulary before compiling the model because no grammar sentence references it.</para>
+    <para>If you want to use the category <guilabel>Unused</guilabel> in your grammar, you can of course use a different category for unused words. Just set the category through the <link linkend="edit_word">Edit word</link> dialog.</para>
+    <para>To use the word again, just set the right category again. No data will be lost.</para>
   </listitem>
   <listitem>
     <para>Move the word to the shadow lexicon</para>
@@ -2414,7 +2414,7 @@ Simon provides the functionality to import large dictionaries as a reference. Th
 When the user <link linkend="add_word">adds a new word</link> to the model, he has to define the following characteristics to define this word:
 <itemizedlist>
   <listitem><para>Wordname</para></listitem>
-  <listitem><para>Terminal</para></listitem>
+  <listitem><para>Category</para></listitem>
   <listitem><para>Phonetic definition</para></listitem>
 </itemizedlist>
 </para>
@@ -2459,7 +2459,7 @@ Simon can import HADIFIX dictionaries.
 One example of a HADIFIX dictionary is the German <ulink url="http://www.sk.uni-bonn.de/forschung/phonetik/sprachsynthese/bomp">HADIFIX BOMP</ulink>.
 </para>
 <para>
-Hadifix dictionaries provide both terminals and pronunciation.
+Hadifix dictionaries provide both categories and pronunciation.
 </para>
 
 <para>
@@ -2490,7 +2490,7 @@ Simon can import HTK lexica.
 One example of a HTK lexicon is the English <ulink url="http://www.repository.voxforge1.org/downloads/SpeechCorpus/Trunk/Lexicon/">Voxforge dictionary</ulink>.
 </para>
 <para>
-Hadifix dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal <guilabel>Unknown</guilabel>.
+Hadifix dictionaries provide pronunciation information but no categories. All words will be assigned to the category <guilabel>Unknown</guilabel>.
 </para>
 </sect3>
 
@@ -2503,7 +2503,7 @@ Simon can import PLS dictionaries.
 One example of a PLS dictionary is the <ulink url="http://www.repository.voxforge1.org/downloads/de/Trunk/Lexicon/">German GPL dictionary from Voxforge</ulink>.
 </para>
 <para>
-PLS dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal <guilabel>Unknown</guilabel>.
+PLS dictionaries provide pronunciation information but no categories. All words will be assigned to the category <guilabel>Unknown</guilabel>.
 </para>
 </sect3>
 
@@ -2516,7 +2516,7 @@ Simon can import SPHINX dictionaries.
 One example of a SPHINX dictionary is this <ulink url="http://speech.mty.itesm.mx/~jnolazco/proyectos.htm">dictionary for Mexican Spanish</ulink>.
 </para>
 <para>
-SPHINX dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal <guilabel>Unknown</guilabel>.
+SPHINX dictionaries provide pronunciation information but no categories. All words will be assigned to the category <guilabel>Unknown</guilabel>.
 </para>
 </sect3>
 
@@ -2529,7 +2529,7 @@ Simon can import Julius vocabularies.
 One example of a Julius vocabularies are the word lists of Simon 0.2.
 </para>
 <para>
-Julius dictionaries provide pronunciation information as well as terminal information.
+Julius dictionaries provide pronunciation information as well as category information.
 </para>
 </sect3>
 </sect2> <!-- End Import Dict -->
@@ -2603,7 +2603,7 @@ Simon provides an easy to use text based interface to change the grammar. You ca
 <thead>
 <row>
   <entry>Word</entry>
-  <entry>Terminal</entry>
+  <entry>Category</entry>
 </row>
 </thead>
 <tbody>
@@ -2657,9 +2657,9 @@ Simon provides an easy to use text based interface to change the grammar. You ca
 </screenshot>
 </para>
 
-<para>Simon will then read the entered text or all the given text files (in this case the only given text file is <filename>simongrammar.txt</filename>) and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
-<para>In our example this would mean that he would find the sentence <quote>Computer Internet</quote>. Simon would find out that <quote>Computer</quote> is of the terminal <guilabel>Trigger</guilabel> and <quote>Internet</quote> of the terminal <guilabel>Command</guilabel>. Because of this Simon would <quote>learn</quote> that <quote>Trigger Command</quote> is a valid sentence and add it to its grammar.</para>
-<para>The import automatically segments the input text by punctuation marks (<quote>.</quote>, <quote>-</quote>, <quote>!</quote>, &etc;) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
+<para>Simon will then read the entered text or all the given text files (in this case the only given text file is <filename>simongrammar.txt</filename>) and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its category.</para>
+<para>In our example this would mean that he would find the sentence <quote>Computer Internet</quote>. Simon would find out that <quote>Computer</quote> is of the category <guilabel>Trigger</guilabel> and <quote>Internet</quote> of the category <guilabel>Command</guilabel>. Because of this Simon would <quote>learn</quote> that <quote>Trigger Command</quote> is a valid sentence and add it to its grammar.</para>
+<para>The import automatically segments the input text by punctuation marks (<quote>.</quote>, <quote>-</quote>, <quote>!</quote>, &etc;) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple categories assigned to it.</para>
 <para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the <guilabel>Also import unknown sentences</guilabel> check box in which case those words are replaced with <guilabel>Unknown</guilabel>.</para>
 
 </sect2>
@@ -2669,14 +2669,14 @@ Simon provides an easy to use text based interface to change the grammar. You ca
 
 
 <sect2>
-<title>Renaming Terminals</title>
-<para>The rename terminal wizard allows you to rename terminals in both your active vocabulary, your shadow dictionary and the grammar.
+<title>Renaming Categories</title>
+<para>The rename category wizard allows you to rename categories in both your active vocabulary, your shadow dictionary and the grammar.
 
 <screenshot>
-<screeninfo>Rename Terminal</screeninfo>
+<screeninfo>Rename Category</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="rename_terminal.png" format="PNG"/>
+      <imagedata fileref="rename_category.png" format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
@@ -2684,14 +2684,14 @@ Simon provides an easy to use text based interface to change the grammar. You ca
 </sect2>
 
 <sect2>
-<title>Merging Terminals</title>
-<para>The merge terminal wizard allows you to merge two terminals into one new terminal in both your active vocabulary, your shadow dictionary and the grammar.
+<title>Merging Categories</title>
+<para>The merge category wizard allows you to merge two categories into one new category in both your active vocabulary, your shadow dictionary and the grammar.
 
 <screenshot>
-<screeninfo>Merge Terminal</screeninfo>
+<screeninfo>Merge Category</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="merge_terminal.png" format="PNG"/>
+      <imagedata fileref="merge_category.png" format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
@@ -3802,7 +3802,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
   <para>The plugin adds an entry to your <guimenu>Commands</guimenu> menu to launch the pronunciation training dialog.</para>
 
-  <para>The training itself consists of multiple pages. Each page contains one word fetched from your active vocabulary. They are identified by a terminal which needs to be selected in the command configuration before starting the training.</para>
+  <para>The training itself consists of multiple pages. Each page contains one word fetched from your active vocabulary. They are identified by a category which needs to be selected in the command configuration before starting the training.</para>
 
   <para>
   <screenshot>

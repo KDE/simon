@@ -46,7 +46,7 @@ class MODELMANAGEMENT_EXPORT Word
   private:
     QString word;                                 //!< Saves the represented word
     QString pronunciation;                        //!< Saves all valid pronunciations of the word in Sam-Pa
-    QString terminal;                             //!< Category of the word
+    QString category;                             //!< Category of the word
     QString lexiconWord;
 
   public:
@@ -61,14 +61,14 @@ class MODELMANAGEMENT_EXPORT Word
      * Contains the written word
      * @param QString pronunciation
      * The sampa notation of the pronunciation
-     * @param QString terminal
-     * Terminal the word belongs to
+     * @param QString category
+     * Category the word belongs to
      *
      */
-    Word(QString word_, QString pronunciation_, QString terminal_)
+    Word(QString word_, QString pronunciation_, QString category_)
       : word(word_),
       pronunciation(pronunciation_),
-      terminal(terminal_),
+      category(category_),
     lexiconWord(word_.toUpper()) {
     }
 
@@ -135,25 +135,25 @@ class MODELMANAGEMENT_EXPORT Word
     }
 
     /**
-     * @brief Getter-Method: terminal
+     * @brief Getter-Method: category
      *
      * @author Peter Grasch
      * @return QString
-     * Returns the terminal (category) of the word
+     * Returns the category (category) of the word
      *
      */
-    QString getTerminal() const
+    QString getCategory() const
     {
-      return this->terminal;
+      return this->category;
     }
 
     /**
-     * \brief Setter-Method: terminals
+     * \brief Setter-Method: categories
      * \author Peter Grasch
-     * @param terminal The (new) terminal of the word
+     * @param category The (new) category of the word
      */
-    void setTerminal(QString terminal) {
-      this->terminal = terminal;
+    void setCategory(QString category) {
+      this->category = category;
     }
 
     /**
@@ -170,12 +170,12 @@ class MODELMANAGEMENT_EXPORT Word
       if (getLexiconWord() < w2.getLexiconWord())
         return true;
       else return ((getLexiconWord() == w2.getLexiconWord()) && ((getPronunciation() < w2.getPronunciation()) ||
-          ((getPronunciation() == w2.getPronunciation()) && (getTerminal() < w2.getTerminal()))));
+          ((getPronunciation() == w2.getPronunciation()) && (getCategory() < w2.getCategory()))));
     }
 
     bool operator!=(const Word& w2) const
     {
-      if ((getWord() != w2.getWord()) || (getTerminal() != w2.getTerminal()) || (getPronunciation() != w2.getPronunciation()))
+      if ((getWord() != w2.getWord()) || (getCategory() != w2.getCategory()) || (getPronunciation() != w2.getPronunciation()))
         return true;
 
       return false;
@@ -183,7 +183,7 @@ class MODELMANAGEMENT_EXPORT Word
 
     bool operator==(const Word& w2) const
     {
-      return ((getWord() == w2.getWord()) && (getTerminal() == w2.getTerminal()) && (getPronunciation() == w2.getPronunciation()));
+      return ((getWord() == w2.getWord()) && (getCategory() == w2.getCategory()) && (getPronunciation() == w2.getPronunciation()));
     }
 
     /**

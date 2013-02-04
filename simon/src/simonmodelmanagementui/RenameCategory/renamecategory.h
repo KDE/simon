@@ -17,28 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_RENAMETERMINALWIZARD_H_81323ACF45B7425ABFB0297D096887DA
-#define SIMON_RENAMETERMINALWIZARD_H_81323ACF45B7425ABFB0297D096887DA
+#ifndef SIMON_RENAMECATEGORY_H_953886639A0B4A90BE6F5E94B338072A
+#define SIMON_RENAMECATEGORY_H_953886639A0B4A90BE6F5E94B338072A
 
-#include <simonuicomponents/simonwizard.h>
+#include <QThread>
 
 /**
   @author Peter Grasch <bedahr@gmx.net>
 */
-class QWizardPage;
-
-class RenameTerminalWizard : public SimonWizard
+class RenameCategory : public QThread
 {
   Q_OBJECT
-    private:
-    QWizardPage *createIntroPage();
-    QWizardPage *createSelectParametersPage();
-    QWizardPage *createWorkingPage();
-    QWizardPage *createFinishedPage();
+    signals:
+  void progress(int);
+  void done();
+  private:
+    QString oldName, newName;
+    bool includeShadow, includeGrammar;
   public:
-    RenameTerminalWizard(QWidget* parent);
+    RenameCategory(QObject* parent);
+    void setOldName(QString old) { oldName = old; }
+    void setNewName(QString newName) { this->newName = newName; }
+    void setIncludeShadow (bool includeShadow)
+      { this->includeShadow = includeShadow; }
+    void setIncludeGrammar (bool includeGrammar)
+      { this->includeGrammar = includeGrammar; }
+    ~RenameCategory();
 
-    ~RenameTerminalWizard();
+    void run();
 
 };
 #endif

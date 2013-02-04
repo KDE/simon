@@ -40,7 +40,7 @@ class EditWordDialog : public KDialog
     int exec(Word *word);
 
   private slots:
-    void addTerminal();
+    void addCategory();
 
   private:
     Ui::EditWordView ui;

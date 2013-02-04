@@ -789,38 +789,38 @@ bool Scenario::addStructures(const QStringList& newStructures)
 }
 
 
-QStringList Scenario::getTerminals(SpeechModel::ModelElements elements)
+QStringList Scenario::getCategories(SpeechModel::ModelElements elements)
 {
-  QStringList terminals;
+  QStringList categories;
 
   if (elements & SpeechModel::ScenarioVocabulary)
-    terminals = m_vocabulary->getTerminals();
+    categories = m_vocabulary->getCategories();
 
   if (elements & SpeechModel::ScenarioGrammar) {
-    QStringList grammarTerminals = m_grammar->getTerminals();
-    foreach (const QString& terminal, grammarTerminals)
-      if (!terminals.contains(terminal))
-      terminals << terminal;
+    QStringList grammarCategories = m_grammar->getCategories();
+    foreach (const QString& category, grammarCategories)
+      if (!categories.contains(category))
+      categories << category;
   }
 
-  return terminals;
+  return categories;
 }
 
 
-bool Scenario::renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect)
+bool Scenario::renameCategory(const QString& category, const QString& newName, SpeechModel::ModelElements affect)
 {
   bool success = true;
   bool scenarioChanged = false;
 
   if (affect & SpeechModel::ScenarioVocabulary) {
-    if (m_vocabulary->renameTerminal(terminal, newName))
+    if (m_vocabulary->renameCategory(category, newName))
       scenarioChanged=true;
     else
       success=false;
   }
 
   if (affect & SpeechModel::ScenarioGrammar) {
-    if (m_grammar->renameTerminal(terminal, newName))
+    if (m_grammar->renameCategory(category, newName))
       scenarioChanged=true;
     else
       success=false;
@@ -838,39 +838,39 @@ QList<Word*> Scenario::findWords(const QString& name, Vocabulary::MatchType type
 }
 
 
-QList<Word*> Scenario::findWordsByTerminal(const QString& name)
+QList<Word*> Scenario::findWordsByCategory(const QString& name)
 {
-  return m_vocabulary->findWordsByTerminal(name);
+  return m_vocabulary->findWordsByCategory(name);
 }
 
 
-QString Scenario::fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate,
-const QString& toDemonstrateTerminal)
+QString Scenario::fillGrammarSentenceWithExamples(const QString& categorySentence, bool &ok, const QString& toDemonstrate,
+const QString& toDemonstrateCategory)
 {
 
-  int terminalOccuranceCount = terminalSentence.count(toDemonstrateTerminal);
-  //this occurrence of the terminal in the sentence is going to be replaced
+  int categoryOccuranceCount = categorySentence.count(toDemonstrateCategory);
+  //this occurrence of the category in the sentence is going to be replaced
   //by the word we should put in a random sentence
-  int selectedOccurance = qrand() % terminalOccuranceCount;
+  int selectedOccurance = qrand() % categoryOccuranceCount;
 
-  QStringList segmentedTerminals = terminalSentence.split(' ');
+  QStringList segmentedCategories = categorySentence.split(' ');
 
   QStringList actualSentence;
 
   ok = true;
 
   int currentOccuranceCounter = 0;
-  foreach (const QString& terminalNow, segmentedTerminals) {
-    if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
+  foreach (const QString& categoryNow, segmentedCategories) {
+    if (!toDemonstrate.isNull() && (categoryNow == toDemonstrateCategory)) {
       if (currentOccuranceCounter++ == selectedOccurance) {
         actualSentence.append(toDemonstrate);
         continue;
       }
     }
 
-    QString randomWord = m_vocabulary->getRandomWord(terminalNow);
+    QString randomWord = m_vocabulary->getRandomWord(categoryNow);
     if (randomWord.isNull()) {
-      if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
+      if (!toDemonstrate.isNull() && (categoryNow == toDemonstrateCategory)) {
         actualSentence.append(toDemonstrate);
       } else ok = false;
     }
@@ -883,21 +883,21 @@ const QString& toDemonstrateTerminal)
 }
 
 
-QStringList Scenario::getExampleSentences(const QString& name, const QString& terminal, int count)
+QStringList Scenario::getExampleSentences(const QString& name, const QString& category, int count)
 {
   QStringList out;
 
   int failedCounter = 0;
 
   for (int i=0; i < count; i++) {
-    QString terminalSentence = m_grammar->getExampleSentence(terminal);
-    if (terminalSentence.isNull()) {
+    QString categorySentence = m_grammar->getExampleSentence(category);
+    if (categorySentence.isNull()) {
       //no sentence found
       return out;
     }
 
     bool ok = true;
-    QString resolvedSentence = fillGrammarSentenceWithExamples(terminalSentence, ok, name, terminal);
+    QString resolvedSentence = fillGrammarSentenceWithExamples(categorySentence, ok, name, category);
 
     if (ok) {
       out << resolvedSentence;
@@ -915,11 +915,11 @@ QStringList Scenario::getExampleSentences(const QString& name, const QString& te
 
 QStringList Scenario::getAllPossibleSentences()
 {
-  QStringList terminalSentences = m_grammar->getStructures();
+  QStringList categorySentences = m_grammar->getStructures();
 
   QStringList allSentences;
 
-  foreach (const QString& structure, terminalSentences) {
+  foreach (const QString& structure, categorySentences) {
     allSentences.append(getAllPossibleSentencesOfStructure(structure));
   }
   return allSentences;
@@ -943,7 +943,7 @@ QStringList Scenario::getAllPossibleSentencesOfStructure(const QString& structur
   QList< QList<Word*> > sentenceMatrix;
 
   foreach (const QString& element, structureElements)
-    sentenceMatrix.append(m_vocabulary->findWordsByTerminal(element));
+    sentenceMatrix.append(m_vocabulary->findWordsByCategory(element));
 
   //sentences: ( (Window, Test), (Next, Previous) )
 
@@ -977,9 +977,9 @@ QStringList Scenario::getValidSentences(QList< QList<Word*> > sentenceMatrix, in
 }
 
 
-QString Scenario::getRandomWord(const QString& terminal)
+QString Scenario::getRandomWord(const QString& category)
 {
-  return m_vocabulary->getRandomWord(terminal);
+  return m_vocabulary->getRandomWord(category);
 }
 
 
@@ -989,9 +989,9 @@ bool Scenario::containsWord(const QString& word)
 }
 
 
-bool Scenario::containsWord(const QString& word, const QString& terminal, const QString& pronunciation)
+bool Scenario::containsWord(const QString& word, const QString& category, const QString& pronunciation)
 {
-  return (m_vocabulary->containsWord(word, terminal, pronunciation));
+  return (m_vocabulary->containsWord(word, category, pronunciation));
 }
 
 

@@ -17,29 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "renameterminal.h"
-#include <simonscenarios/scenariomanager.h>
-#include <simonscenarios/speechmodel.h>
+#ifndef SIMON_RENAMECATEGORIESELECTPARAMETERSPAGE_H_634D7DC412D24E0696239562AA94C143
+#define SIMON_RENAMECATEGORIESELECTPARAMETERSPAGE_H_634D7DC412D24E0696239562AA94C143
 
-RenameTerminal::RenameTerminal(QObject* parent): QThread(parent)
-{}
-
-RenameTerminal::~RenameTerminal()
+#include <QWizardPage>
+#include "ui_renamecategoryselectparameterspage.h"
+/**
+  @author Peter Grasch <bedahr@gmx.net>
+*/
+class RenameCategorySelectParametersPage : public QWizardPage
 {
-}
+  Q_OBJECT
+    private:
+    Ui::RenameCategorySelectParametersDlg ui;
+  public:
+    RenameCategorySelectParametersPage(QWidget *parent);
+    void initializePage();
 
+    ~RenameCategorySelectParametersPage();
 
-void RenameTerminal::run()
-{
-  emit progress(0);
-
-  SpeechModel::ModelElements elem = SpeechModel::ScenarioVocabulary;
-  if (includeShadow)
-    elem = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elem);
-  elem = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elem);
-
-  ScenarioManager::getInstance()->renameTerminal(oldName, newName, elem);
-
-  emit progress(100);
-  emit done();
-}
+};
+#endif

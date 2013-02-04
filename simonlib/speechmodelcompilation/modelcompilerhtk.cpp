@@ -433,7 +433,7 @@ bool ModelCompilerHTK::makeTempVocab()
 {
   QFile vocab ( vocabPath );
 
-  QString terminal;
+  QString category;
   if ( !vocab.open ( QFile::ReadOnly ) ) return false;
 
   QFile tmpVocab ( tempDir+"/tempvoca" );
@@ -452,10 +452,10 @@ bool ModelCompilerHTK::makeTempVocab()
     vocabEntry = vocabEntry.trimmed();
     if ( vocabEntry.isEmpty() ) continue;
     if ( vocabEntry.startsWith ( '%' ) ) {
-      terminal = vocabEntry.mid ( 1 ).trimmed();
-      tmpVocab.write ( '#'+terminal.toUtf8() +'\n' );
+      category = vocabEntry.mid ( 1 ).trimmed();
+      tmpVocab.write ( '#'+category.toUtf8() +'\n' );
 
-      term.write ( QString::number(termid).toUtf8()+'\t'+terminal.toUtf8() +'\n' );
+      term.write ( QString::number(termid).toUtf8()+'\t'+category.toUtf8() +'\n' );
       termid++;
     }
   }
@@ -486,7 +486,7 @@ bool ModelCompilerHTK::generateReverseGrammar()
 
   QString reverseGrammarEntry;
   QString grammarEntry;
-  QStringList terminals;
+  QStringList categories;
   QString identifier;
 
   int structureCount=0;
@@ -504,9 +504,9 @@ bool ModelCompilerHTK::generateReverseGrammar()
     reverseGrammarEntry = grammarEntry.left(splitter+1);
     //reverse = "S:"
 
-    terminals = grammarEntry.mid(splitter+1).split(' ');
-    for (int j=terminals.count()-1; j >= 0; j--)
-      reverseGrammarEntry += terminals[j]+' ';
+    categories = grammarEntry.mid(splitter+1).split(' ');
+    for (int j=categories.count()-1; j >= 0; j--)
+      reverseGrammarEntry += categories[j]+' ';
 
     structureCount++;
     // reverse = "S:NS_E NOM NS_B "

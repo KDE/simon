@@ -17,34 +17,26 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_MERGETERMINALSWORKINGPAGE_H_8EDA9465BFB2449C8CD156F41B54419F
-#define SIMON_MERGETERMINALSWORKINGPAGE_H_8EDA9465BFB2449C8CD156F41B54419F
+#ifndef SIMON_MERGECATEGORIESSELECTCATEGORIESPAGE_H_9DDC9A5462034D2989F1B6EE6A811D47
+#define SIMON_MERGECATEGORIESSELECTCATEGORIESPAGE_H_9DDC9A5462034D2989F1B6EE6A811D47
 
 #include <QWizardPage>
-#include "ui_mergeterminalsworkingpage.h"
+
+#include "ui_mergecategoriesselectpage.h"
 /**
   @author Peter Grasch <bedahr@gmx.net>
 */
-class MergeTerminals;
-class MergeTerminalsWorkingPage : public QWizardPage
+class MergeCategoriesSelectCategoriesPage : public QWizardPage
 {
   Q_OBJECT
-    signals:
-  void done();
-  private:
-    Ui::MergeTerminalsWorkingPage ui;
-    MergeTerminals *mergeTerminals;
-    bool complete;
-  private slots:
-    void displayProgress(int progress, int max);
-    void displayStatus(QString status);
-    void finished();
-
+    private:
+    Ui::MergeCategoriesSelectCategoriesPage ui;
   public:
-    MergeTerminalsWorkingPage(QWidget* parent);
-    bool isComplete() const { return this->complete; }
+    MergeCategoriesSelectCategoriesPage(QWidget* parent);
+
     void initializePage();
-    ~MergeTerminalsWorkingPage();
+
+    ~MergeCategoriesSelectCategoriesPage();
 
 };
 #endif

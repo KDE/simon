@@ -25,10 +25,10 @@
 #include <KMessageBox>
 #include <KIcon>
 
-PronunciationTraining::PronunciationTraining(const QString& terminal, QWidget* parent):
+PronunciationTraining::PronunciationTraining(const QString& category, QWidget* parent):
 QWidget(parent),
 GreedyReceiver(0 /* no manager */),
-m_terminal(terminal)
+m_category(category)
 {
   ui.setupUi(this);
   setFont(ActionManager::getInstance()->pluginBaseFont());
@@ -48,7 +48,7 @@ void PronunciationTraining::init()
 {
   m_wordsToTest.clear();
   m_scores.clear();
-  m_wordsToTest.append(ScenarioManager::getInstance()->findWordsByTerminal(m_terminal,
+  m_wordsToTest.append(ScenarioManager::getInstance()->findWordsByCategory(m_category,
     (SpeechModel::ModelElements)
     (SpeechModel::ShadowVocabulary|
     SpeechModel::AllScenariosVocabulary|

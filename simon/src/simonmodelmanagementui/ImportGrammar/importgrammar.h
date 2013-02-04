@@ -43,7 +43,7 @@ class ImportGrammar : public QThread
     QString encoding;
     bool includeUnknown;
     QStringList importFile(QString path);
-    QStringList terminals(QList<Word*> in);
+    QStringList categories(QList<Word*> in);
     QStringList readFile(QString path);
 
   public:

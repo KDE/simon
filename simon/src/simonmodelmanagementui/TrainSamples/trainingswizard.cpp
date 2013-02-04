@@ -71,7 +71,7 @@ bool TrainingsWizard::init(const QList<Word*>& wList, bool smartSentences)
     //resolve sentences
     foreach (Word *w, wList) {
       QStringList examples = ScenarioManager::getInstance()->
-        getCurrentScenario()->getExampleSentences(w->getWord(), w->getTerminal(), 1);
+        getCurrentScenario()->getExampleSentences(w->getWord(), w->getCategory(), 1);
       if (examples.isEmpty())
         pages << w->getWord();
       else pages << examples[0];

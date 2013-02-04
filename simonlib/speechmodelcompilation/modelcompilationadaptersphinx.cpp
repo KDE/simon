@@ -170,13 +170,13 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
 bool ModelCompilationAdapterSPHINX::purgeUnusedVocabulary(QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar)
 {
-  QSet<QString> terminals;
+  QSet<QString> categories;
   foreach (const QString& structure, grammar->getStructures())
-    foreach (const QString& terminal, structure.split(" ", QString::SkipEmptyParts))
-      terminals.insert(terminal);
+    foreach (const QString& category, structure.split(" ", QString::SkipEmptyParts))
+      categories.insert(category);
   QList<Word*> words = vocabulary->getWords();
   foreach (Word* w, words)
-    if (!terminals.contains(w->getTerminal()))
+    if (!categories.contains(w->getCategory()))
       vocabulary->removeWord(w);
   return true;
 }
@@ -372,8 +372,8 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
 
   foreach (const QString& structure, grammarStructures)
   {
-    QStringList terminals = Grammar::getTerminalsForStructure(structure);
-    if(terminals.isEmpty())
+    QStringList categories = Grammar::getCategoriesForStructure(structure);
+    if(categories.isEmpty())
       continue;
 
 //    if(structure != grammarStructures.first())
@@ -383,21 +383,21 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
 
     QString gramBuffer;
 
-    kDebug()<<"Terminals count for structure "<<structure<<": "<<terminals.size();
-    foreach (const QString &terminal, terminals)
+    kDebug()<<"Categories count for structure "<<structure<<": "<<categories.size();
+    foreach (const QString &category, categories)
     {
       bool fword = true;
-      QList<Word*> wordsForTerminal = vocabulary->findWordsByTerminal(terminal);
+      QList<Word*> wordsForCategory = vocabulary->findWordsByCategory(category);
 
-      kDebug()<<"Words for terminal "<<terminal<<":"<<wordsForTerminal.size();
+      kDebug()<<"Words for category "<<category<<":"<<wordsForCategory.size();
 
-      if(wordsForTerminal.isEmpty())
+      if(wordsForCategory.isEmpty())
         continue;
 
       QString termBuffer;
 //      uint addedCount(0);
 
-      foreach (Word* word, wordsForTerminal)
+      foreach (Word* word, wordsForCategory)
       {
         if(!definedVocabulary.contains(word->getLexiconWord()) && adaptionType != AdaptIndependently)//WARNING: talk about adapt independently becouse of magic
           continue;

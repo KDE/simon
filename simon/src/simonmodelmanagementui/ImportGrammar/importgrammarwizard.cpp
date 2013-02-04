@@ -50,9 +50,9 @@ QWizardPage* ImportGrammarWizard::createIntroPage()
     "then create your "
     "personal grammar profile.\n\nTo do this each of the files / the input text will be read by a "
     "grammar parser which will look up every single word in your dictionary-"
-    "corpus. If the word is found its terminal will be added to the sentence. "
-    "This way the parsers will find valid grammatical sentences on terminal "
-    "level.\n\nThis process requires a large shadow dictionary containing terminal information or targeted input "
+    "corpus. If the word is found its category will be added to the sentence. "
+    "This way the parsers will find valid grammatical sentences on category "
+    "level.\n\nThis process requires a large shadow dictionary containing category information or targeted input "
     "material."));
 
   return intro;

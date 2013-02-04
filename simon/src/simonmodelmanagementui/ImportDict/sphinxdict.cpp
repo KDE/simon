@@ -86,8 +86,8 @@ void SPHINXDict::load(QString path, QString encodingName)
 
     if (!word.isEmpty()) {
       words << word;
-      terminals << i18nc("Terminal name for words that are imported from a dictionary "
-				  "which does not provide terminal information", "Unknown");
+      categories << i18nc("Category name for words that are imported from a dictionary "
+				  "which does not provide category information", "Unknown");
       pronunciations << line.mid(wordend+1).trimmed();
     }
 

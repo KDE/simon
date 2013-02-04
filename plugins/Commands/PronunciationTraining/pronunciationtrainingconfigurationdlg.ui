@@ -22,12 +22,12 @@
      <item row="0" column="0">
       <widget class="QLabel" name="lbWordGroup">
        <property name="text">
-        <string>Terminal to fetch:</string>
+        <string>Category to fetch:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="KComboBox" name="cbTerminal"/>
+      <widget class="KComboBox" name="cbCategory"/>
      </item>
     </layout>
    </item>

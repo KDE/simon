@@ -17,35 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_RENAMETERMINALWORKINGPAGE_H_3D51221A254347329D67EF19AE2477BB
-#define SIMON_RENAMETERMINALWORKINGPAGE_H_3D51221A254347329D67EF19AE2477BB
+#ifndef SIMON_MERGECATEGORIESWORKINGPAGE_H_8EDA9465BFB2449C8CD156F41B54419F
+#define SIMON_MERGECATEGORIESWORKINGPAGE_H_8EDA9465BFB2449C8CD156F41B54419F
 
 #include <QWizardPage>
-#include "ui_renameterminalworkingpage.h"
+#include "ui_mergecategoriesworkingpage.h"
 /**
   @author Peter Grasch <bedahr@gmx.net>
 */
-class RenameTerminal;
-class RenameTerminalWorkingPage : public QWizardPage
+class MergeCategories;
+class MergeCategoriesWorkingPage : public QWizardPage
 {
   Q_OBJECT
     signals:
   void done();
-  private slots:
-    void finish();
-    void displayProgress(int);
   private:
-    Ui::RenameTerminalWorkingPage ui;
+    Ui::MergeCategoriesWorkingPage ui;
+    MergeCategories *mergeCategories;
     bool complete;
-    RenameTerminal *renameTerminal;
+  private slots:
+    void displayProgress(int progress, int max);
+    void displayStatus(QString status);
+    void finished();
 
   public:
-    RenameTerminalWorkingPage(QWidget *parent);
-
-    void initializePage();
+    MergeCategoriesWorkingPage(QWidget* parent);
     bool isComplete() const { return this->complete; }
-
-    ~RenameTerminalWorkingPage();
+    void initializePage();
+    ~MergeCategoriesWorkingPage();
 
 };
 #endif

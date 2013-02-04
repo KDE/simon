@@ -367,7 +367,7 @@ Vocabulary
 * Words can now be edited
 
 * When words are removed, the user can now move the word to an unused
-terminal, or completely remove the word but keep the samples (for a total of 4
+category, or completely remove the word but keep the samples (for a total of 4
 deletion modes)
 
 

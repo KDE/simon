@@ -334,12 +334,12 @@ void ScenarioManager::scenarioActivationChanged()
 }
 
 
-QStringList ScenarioManager::getTerminals(SpeechModel::ModelElements elements)
+QStringList ScenarioManager::getCategories(SpeechModel::ModelElements elements)
 {
-  QStringList terminals;
+  QStringList categories;
 
   if ((elements & SpeechModel::ScenarioGrammar) || (elements & SpeechModel::ScenarioVocabulary))
-    terminals << getCurrentScenario()->getTerminals(elements);
+    categories << getCurrentScenario()->getCategories(elements);
 
   SpeechModel::ModelElements foreignElements;
   if (elements & SpeechModel::AllScenariosGrammar)
@@ -348,35 +348,35 @@ QStringList ScenarioManager::getTerminals(SpeechModel::ModelElements elements)
     foreignElements = (SpeechModel::ModelElements) (((int)foreignElements)|((int)SpeechModel::ScenarioVocabulary));
 
   foreach (Scenario *s, scenarios) {
-    QStringList foreignTerminals = s->getTerminals(foreignElements);
-    foreach (const QString& terminal, foreignTerminals)
-      if (!terminals.contains(terminal))
-      terminals << terminal;
+    QStringList foreignCategories = s->getCategories(foreignElements);
+    foreach (const QString& category, foreignCategories)
+      if (!categories.contains(category))
+      categories << category;
   }
 
   if (elements & SpeechModel::ShadowVocabulary) {
-    QStringList shadowTerminals = shadowVocab->getTerminals();
-    foreach (const QString& terminal, shadowTerminals)
-      if (!terminals.contains(terminal))
-      terminals << terminal;
+    QStringList shadowCategories = shadowVocab->getCategories();
+    foreach (const QString& category, shadowCategories)
+      if (!categories.contains(category))
+      categories << category;
   }
 
-  terminals.sort();
+  categories.sort();
 
-  return terminals;
+  return categories;
 }
 
 
-bool ScenarioManager::renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect)
+bool ScenarioManager::renameCategory(const QString& category, const QString& newName, SpeechModel::ModelElements affect)
 {
   bool success = true;
 
   if (affect & SpeechModel::ShadowVocabulary) {
-    if (!(shadowVocab->renameTerminal(terminal, newName)))
+    if (!(shadowVocab->renameCategory(category, newName)))
       success=false;
   }
 
-  if (!getCurrentScenario()->renameTerminal(terminal, newName, affect))
+  if (!getCurrentScenario()->renameCategory(category, newName, affect))
     success = false;
 
   return success;
@@ -406,23 +406,23 @@ QList<Word*> ScenarioManager::findWords(const QString& name, SpeechModel::ModelE
 }
 
 
-QList<Word*> ScenarioManager::findWordsByTerminal(const QString& name, SpeechModel::ModelElements elements)
+QList<Word*> ScenarioManager::findWordsByCategory(const QString& name, SpeechModel::ModelElements elements)
 {
   QList<Word*> words;
   if (elements & SpeechModel::ShadowVocabulary) {
-    QList<Word*> newWords = shadowVocab->findWordsByTerminal(name);
+    QList<Word*> newWords = shadowVocab->findWordsByCategory(name);
     words.append(newWords);
   }
 
   if (elements & SpeechModel::AllScenariosVocabulary) {
     foreach (Scenario* s, scenarios) {
-      QList<Word*> newWords = s->findWordsByTerminal(name);
+      QList<Word*> newWords = s->findWordsByCategory(name);
       kDebug() << "Got " << newWords.count() << " words from " << s->id();
       words.append(newWords);
     }
   } else
   if (elements & SpeechModel::ScenarioVocabulary) {
-    QList<Word*> newWords = getCurrentScenario()->findWordsByTerminal(name);
+    QList<Word*> newWords = getCurrentScenario()->findWordsByCategory(name);
     words.append(newWords);
   }
 
@@ -430,19 +430,19 @@ QList<Word*> ScenarioManager::findWordsByTerminal(const QString& name, SpeechMod
 }
 
 
-QStringList ScenarioManager::getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements)
+QStringList ScenarioManager::getExampleSentences(const QString& name, const QString& category, int count, SpeechModel::ModelElements elements)
 {
   QStringList outSentences;
 
   if (elements == SpeechModel::AllScenariosGrammar) {
     foreach (Scenario* s, scenarios) {
-      outSentences.append(s->getExampleSentences(name, terminal, count));
+      outSentences.append(s->getExampleSentences(name, category, count));
     }
   }
   kDebug() << "Out sentences: " << outSentences;
 
   if (elements == SpeechModel::ScenarioGrammar) {
-    outSentences.append(getCurrentScenario()->getExampleSentences(name, terminal, count));
+    outSentences.append(getCurrentScenario()->getExampleSentences(name, category, count));
   }
   kDebug() << "Out sentences: " << outSentences;
 

@@ -17,40 +17,40 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "renameterminalwizard.h"
+#include "renamecategorywizard.h"
 #include <QWizardPage>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <KStandardDirs>
-#include "renameterminalselectparameterspage.h"
-#include "renameterminalworkingpage.h"
+#include "renamecategoryselectparameterspage.h"
+#include "renamecategoryworkingpage.h"
 
-RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): SimonWizard(parent)
+RenameCategoryWizard::RenameCategoryWizard(QWidget* parent): SimonWizard(parent)
 {
-  setWindowTitle(i18n("Rename terminal"));
+  setWindowTitle(i18n("Rename category"));
   addPage(createIntroPage());
   addPage(createSelectParametersPage());
   addPage(createWorkingPage());
   addPage(createFinishedPage());
-  setBanner("editterminal");
+  setBanner("editcategory");
 }
 
 
-QWizardPage* RenameTerminalWizard::createSelectParametersPage()
+QWizardPage* RenameCategoryWizard::createSelectParametersPage()
 {
-  return  new RenameTerminalSelectParametersPage(this);
+  return  new RenameCategorySelectParametersPage(this);
 }
 
 
-QWizardPage* RenameTerminalWizard::createWorkingPage()
+QWizardPage* RenameCategoryWizard::createWorkingPage()
 {
-  RenameTerminalWorkingPage *work =  new RenameTerminalWorkingPage(this);
+  RenameCategoryWorkingPage *work =  new RenameCategoryWorkingPage(this);
   connect(work, SIGNAL(done()), this, SLOT(next()));
   return work;
 }
 
 
-QWizardPage* RenameTerminalWizard::createIntroPage()
+QWizardPage* RenameCategoryWizard::createIntroPage()
 {
   QWizardPage *intro = new QWizardPage(this);
   QHBoxLayout *lay = new QHBoxLayout(intro);
@@ -59,14 +59,14 @@ QWizardPage* RenameTerminalWizard::createIntroPage()
   intro->setLayout(lay);
 
   desc->setWordWrap(true);
-  intro->setTitle(i18n("Welcome to the renaming of a terminal"));
-  desc->setText(i18n("This assistant will allow you to rename an existing terminal."));
+  intro->setTitle(i18n("Welcome to the renaming of a category"));
+  desc->setText(i18n("This assistant will allow you to rename an existing category."));
 
   return intro;
 }
 
 
-QWizardPage* RenameTerminalWizard::createFinishedPage()
+QWizardPage* RenameCategoryWizard::createFinishedPage()
 {
   QWizardPage *finished = new QWizardPage(this);
   QHBoxLayout *lay = new QHBoxLayout(finished);
@@ -76,12 +76,12 @@ QWizardPage* RenameTerminalWizard::createFinishedPage()
 
   desc->setWordWrap(true);
   finished->setTitle(i18n("Renaming complete"));
-  desc->setText(i18n("The terminal has been renamed.\n\nThank you for improving Simon."));
+  desc->setText(i18n("The category has been renamed.\n\nThank you for improving Simon."));
 
   return finished;
 }
 
 
-RenameTerminalWizard::~RenameTerminalWizard()
+RenameCategoryWizard::~RenameCategoryWizard()
 {
 }

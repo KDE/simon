@@ -17,22 +17,22 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "mergeterminals.h"
+#include "mergecategories.h"
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/modelmanager.h>
 #include <KLocalizedString>
 
-MergeTerminals::MergeTerminals(QObject* parent): QThread(parent),
-newName(""), terminalA(""), terminalB(""), includeShadow(true), includeGrammar(true)
+MergeCategories::MergeCategories(QObject* parent): QThread(parent),
+newName(""), categoryA(""), categoryB(""), includeShadow(true), includeGrammar(true)
 {
 }
 
 
-void MergeTerminals::run()
+void MergeCategories::run()
 {
   ModelManager::getInstance()->startGroup();
 
-  emit status(i18nc("%1 is terminal", "Processing Words of Category %1", this->terminalA));
+  emit status(i18nc("%1 is category", "Processing Words of Category %1", this->categoryA));
   emit progress(0,100);
 
   SpeechModel::ModelElements elements = SpeechModel::ScenarioVocabulary;
@@ -42,12 +42,12 @@ void MergeTerminals::run()
   if (includeShadow)
     elements = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elements);
 
-  ScenarioManager::getInstance()->renameTerminal(terminalA, newName, elements);
+  ScenarioManager::getInstance()->renameCategory(categoryA, newName, elements);
 
-  emit status(i18nc("%1 is terminal", "Processing Words of Category %1", this->terminalB));
+  emit status(i18nc("%1 is category", "Processing Words of Category %1", this->categoryB));
   emit progress(50,100);
 
-  ScenarioManager::getInstance()->renameTerminal(terminalB, newName, elements);
+  ScenarioManager::getInstance()->renameCategory(categoryB, newName, elements);
 
   ModelManager::getInstance()->commitGroup();
 
@@ -57,6 +57,6 @@ void MergeTerminals::run()
 }
 
 
-MergeTerminals::~MergeTerminals()
+MergeCategories::~MergeCategories()
 {
 }
