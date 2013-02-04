@@ -126,14 +126,14 @@ bool ModelCompilerSPHINX::CompileLanguageModel()
 {
   kDebug() << "Compiling language model";
 
-  emit  status(i18n("Packing new language model to existing static acoustic model..."), 0, 100);
+  emit  status(i18nc("'Packing' in the sense of archiving", "Packing new language model to existing static acoustic model..."), 0, 100);
 
   //don't need to copy model to working dir, becouse we can just copy it to destination
   kDebug() << "Deploying model to destination";
 
   if(!pack(m_ModelDestination, m_ModelName))
   {
-    analyseError(i18n("Cannot copy model to destination"));
+    analyseError(i18n("Could not copy model to destination"));
     return false;
   }
 
@@ -166,7 +166,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   if(!generateAcousticFeatureFiles())
   {
-    analyseError(i18n("Cannot generate acoustic feature files"));
+    analyseError(i18n("Could not generate acoustic features"));
     return false;
   }
 
@@ -175,7 +175,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   if(!convertMdef())
   {
-    analyseError(i18n("Cannot convert mdef"));
+    analyseError(i18n("Could not convert mdef"));
     return false;
   }
 
@@ -184,7 +184,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   if(!getStatistics())
   {
-    analyseError(i18n("Cannot collect statistics from the adaptation data"));
+    analyseError(i18n("Could not collect statistics from the adaptation data"));
     return false;
   }
 
@@ -193,7 +193,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   if(!mapUpdate())
   {
-    analyseError(i18n("Cannot performing adaption with map method"));
+    analyseError(i18n("Could not perform adaption with \"map\" method"));
     return false;
   }
 
@@ -202,7 +202,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
   kDebug() << "Сopying model to destination";
   if(!pack(m_ModelDestination, m_ModelName))
   {
-    analyseError(i18n("Cannot copy model to destination"));
+    analyseError(i18n("Could not copy model to destination"));
     return false;
   }
 
@@ -229,7 +229,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
 
   if(!setupModel(m_ModelDir, m_ModelName))
   {
-    analyseError(i18n("Cannot setup model"));
+    analyseError(i18n("Could not setup model"));
     return false;
   }
 
@@ -253,7 +253,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
 
   if(!modifyConfig(m_ConfigPath, params))
   {
-    analyseError(i18n("Cannot modify config at \"%1\"",m_ConfigPath));
+    analyseError(i18n("Could not modify config at \"%1\"",m_ConfigPath));
     return false;
   }
   if (!keepGoing) return false;
@@ -263,7 +263,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
 
   if(!compileModel(m_ModelDir, m_ModelName))
   {
-    analyseError(i18n("Cannot compile model"));
+    analyseError(i18n("Could not compile model"));
     return false;
   }
   if (!keepGoing) return false;
@@ -273,7 +273,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
 
   if(!pack(m_ModelDestination, m_ModelName))
   {
-    analyseError(i18n("Cannot copy model to destination"));
+    analyseError(i18n("Could not copy model to destination"));
     return false;
   }
 

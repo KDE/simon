@@ -146,7 +146,7 @@ void SynchronisationSettings::selectModel()
     return;
   }
 
-  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to revert all changes made since this Model?")) != KMessageBox::Yes)
+  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to revert all changes made after this model?")) != KMessageBox::Yes)
     return;
 
   QDateTime modelDate = ui.lwModels->currentItem()->data(Qt::UserRole).toDateTime();

@@ -130,7 +130,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   kDebug()<<"Store filler";
   if(!storeFiller(adaptionType, fetc+".filler"))
   {
-    emit error(i18n("Failed to store filler"));
+    emit error(i18nc("Please keep \"filler\" in English as it refers to a file that is usually named that", "Failed to store filler"));
     return false;
   }
 
@@ -232,7 +232,7 @@ bool ModelCompilationAdapterSPHINX::storeFiller(AdaptionType adaptionType, const
   QFile fillerFile(fillerPathOut);
   if (!fillerFile.open(QIODevice::WriteOnly))
   {
-    emit error(i18n("Failed to write filler to \"%1\"", fillerPathOut));
+    emit error(i18nc("Please keep \"filler\" in English as it refers to a file that is usually named that", "Failed to write filler to \"%1\"", fillerPathOut));
     return false;
   }
 

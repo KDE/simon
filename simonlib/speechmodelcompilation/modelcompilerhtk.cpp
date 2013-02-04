@@ -1042,7 +1042,7 @@ bool ModelCompilerHTK::increaseMixtures()
 
     if (!succ)
     {
-      analyseError(i18n("Could not generate increase mixtures according to this config: %1.\n\n"
+      analyseError(i18n("Could not increase mixtures according to this config: %1.\n\n"
             "Please check the path to HHEd (%2), HERest (%3) and the content of the config file.", config, hHEd, hERest));
       return false;
     }
