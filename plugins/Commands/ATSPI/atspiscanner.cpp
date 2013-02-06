@@ -22,7 +22,7 @@
 #include <QMutexLocker>
 #include <KDebug>
 
-ATSPIScanner::ATSPIScanner() : m_abort(false), 
+ATSPIScanner::ATSPIScanner() : m_abort(false),
   m_thread(new QThread()), m_registry(0), m_cleanStringRegExp(QRegExp("[^\\w ]"))
 {
   moveToThread(m_thread);
@@ -40,6 +40,10 @@ void ATSPIScanner::initialize()
 
   connect(m_registry, SIGNAL(accessibleNameChanged(QAccessibleClient::AccessibleObject)), this, SLOT(nameChanged(QAccessibleClient::AccessibleObject)));
   connect(m_registry, SIGNAL(accessibleDescriptionChanged(QAccessibleClient::AccessibleObject)), this, SLOT(descriptionChanged(QAccessibleClient::AccessibleObject)));
+
+  connect(m_registry, SIGNAL(childAdded(QAccessibleClient::AccessibleObject, int)), this, SLOT(childAdded(QAccessibleClient::AccessibleObject, int)));
+  connect(m_registry, SIGNAL(childRemoved(QAccessibleClient::AccessibleObject, int)), this, SLOT(childRemoved(QAccessibleClient::AccessibleObject, int)));
+  connect(m_registry, SIGNAL(added(QAccessibleClient::AccessibleObject)), this, SLOT(added(QAccessibleClient::AccessibleObject)));
 
   m_registry->subscribeEventListeners(QAccessibleClient::Registry::AllEventListeners);
 }
@@ -76,6 +80,8 @@ QVector<QSharedPointer<QAction> > ATSPIScanner::getActions(const QString& trigge
 
 void ATSPIScanner::processTree(const QAccessibleClient::AccessibleObject &object, bool added, bool reset)
 {
+  kDebug() << "Entering processTree" << object << added << reset;
+  qDebug() << "Entering processTree" << object << "added=" << added << "reset=" << reset;
   QStringList alreadyParsed;
   QList<QAccessibleClient::AccessibleObject> objectsToParse;
   objectsToParse.append(object);
@@ -83,34 +89,43 @@ void ATSPIScanner::processTree(const QAccessibleClient::AccessibleObject &object
   // in case this is called from a recently hidden object, this objects visibility will be false
   // but we still want to remove all visible children from the AT model. So force re-evaluation
   // of the objects children
-  objectsToParse.append(object.children());
-  
+  if (reset || !m_reverseActions.contains(object)) {
+    objectsToParse.append(object.children()); //poll from dbus
+  } else {
+    qDebug() << "Pulling direct children from cache...";
+    objectsToParse.append(m_reverseActions.value(object).second);
+  }
+
   while (!objectsToParse.isEmpty()) {
     const QAccessibleClient::AccessibleObject& o  = objectsToParse.takeFirst();
-    kDebug() << "Object " << o.name() << " is visible: " << o.isVisible() << " id: " << o.id();
+    //kDebug() << "Object " << o.name() << " is visible: " << o.isVisible() << " id: " << o.id();
+    qDebug() << "Object " << o.name() << " is visible: " << o.isVisible() << " id: " << o.id() << " role: " << o.roleName();
 
     if (alreadyParsed.contains(o.id()))
       continue;
+    alreadyParsed << o.id();
 
-    QString cleanName = cleanString(o.name());
-    if (!added && !o.isVisible()) {
-      m_modelMutex.lock();
-      removeAction(cleanName, o);
-      m_reverseActions.remove(o);
-      m_modelMutex.unlock();
-    }
-
-    if (!o.isVisible()) {
-      alreadyParsed << o.id();
+    if (added && !o.isVisible())
       continue;
+
+    QList<QAccessibleClient::AccessibleObject> children;
+    if (reset || !m_reverseActions.contains(o)) {
+      children = o.children(); //poll from dbus
+    } else {
+      qDebug() << "Pulling children from cache";
+      children = m_reverseActions.value(o).second;
     }
-    
-    if (!cleanName.isEmpty()) {
-      if (!o.actions().isEmpty()) {
+    qDebug() << children.count() << " children";
+
+    QString cleanName;
+    if (added) {
+      cleanName = cleanString(o.name());
+      if (!cleanName.isEmpty() && !o.actions().isEmpty()) {
         kDebug() << "========== Triggerable: " << cleanName;
 
         m_modelMutex.lock();
         if (m_abort) {
+	  qDebug() << "Aborting";
           m_modelMutex.unlock();
           return;
         }
@@ -118,36 +133,51 @@ void ATSPIScanner::processTree(const QAccessibleClient::AccessibleObject &object
           if (!m_reverseActions.contains(o)) {
 	    kDebug() << "Tracking: " << cleanName << o.id();
             m_actions.insertMulti(cleanName, o);
-            m_reverseActions.insert(o, cleanName);
+            m_reverseActions.insert(o, qMakePair(cleanName, children));
           }
-        } else {
-          removeAction(cleanName, o);
-          m_reverseActions.remove(o);
         }
         m_modelMutex.unlock();
       }
+    } else {
+      qDebug() << "Removing " << cleanName << o.isValid();
+      m_modelMutex.lock();
+      if (m_reverseActions.contains(o)) {
+	//get cleanName from cache
+        cleanName = m_reverseActions.value(o).first;
+        removeAction(cleanName, o);
+        m_reverseActions.remove(o);
+      }
+      m_modelMutex.unlock();
     }
-    alreadyParsed << o.id();
+
     //add children to the list to parse
-    objectsToParse.append(o.children());
+    objectsToParse.append(children);
   }
 
   QMutexLocker l(&m_modelMutex);
+  qDebug() << "processTree(): Emitting commandsShown()" << m_actions.keys();
   kDebug() << "Emitting commands shown" << m_actions.keys();
   emit commandsShown(m_actions.keys(), reset);
 }
 
 void ATSPIScanner::windowActivated(const QAccessibleClient::AccessibleObject& object)
 {
+  qDebug() << "Window activated: " << object.name() << object.childCount();
   clearATModel();
   kDebug() << "Window activated: " << object.name() << object.childCount();
-  
+
   // parse all children of this object
   processTree(object, true /* added */, true);
 }
 
+void ATSPIScanner::added(const QAccessibleClient::AccessibleObject &object)
+{
+  kDebug() << "Object added: " << object.id() << object.roleName();
+}
+
 void ATSPIScanner::stateChanged (const QAccessibleClient::AccessibleObject &object, const QString& state, bool active)
 {
+  qDebug() << "State changed: " << object.id() << object.roleName() << state << active;
   kDebug() << "State changed: " << object.id() << state << active;
   if (state != "showing")
     return;
@@ -156,6 +186,7 @@ void ATSPIScanner::stateChanged (const QAccessibleClient::AccessibleObject &obje
     m_modelMutex.lock();
     if (!m_reverseActions.contains(object)) {
       kDebug() << "Untracked object changed: " << object.name() << object.id();
+      qDebug() << "Untracked object changed: " << object.name() << object.id();
       m_modelMutex.unlock();
       return;
     }
@@ -186,31 +217,36 @@ void ATSPIScanner::removeAction(const QString& name, const QAccessibleClient::Ac
 
 void ATSPIScanner::nameChanged(const QAccessibleClient::AccessibleObject& object)
 {
+  qDebug() << "nameChanged()";
   QMutexLocker l(&m_modelMutex);
   if (!m_reverseActions.contains(object)) {
-    kDebug() << "Untracked object changed its name: " << object.name() << object.id();
+    //kDebug() << "Untracked object changed its name: " << object.name() << object.id();
+    qDebug() << "Untracked object changed its name: " << object.name() << object.id();
     return;
   }
 
   QString cleanName = cleanString(object.name());
-  kDebug() << "Name changed: " << cleanName;
+  qDebug() << "Name changed: " << cleanName;
+  //kDebug() << "Name changed: " << cleanName;
 
-  QStringList toAdd;
-  QStringList toRemove;
+  QPair<QString, QList<QAccessibleClient::AccessibleObject> > oldValue = m_reverseActions.value(object);
+  m_reverseActions.insert(object, qMakePair(cleanName, oldValue.second)); // replace
 
-  QString oldName = m_reverseActions.value(object);
-  m_reverseActions.insert(object, cleanName); // replace
-
-  if (!m_actions.contains(cleanName))
-    toAdd << cleanName;
-
+  QString oldName = oldValue.first;
   removeAction(oldName, object);
   m_actions.insert(cleanName, object);
-  kDebug() << oldName << m_actions.keys();
-  if (!m_actions.keys().contains(oldName))
-    toRemove << oldName;
 
+  qDebug() << "nameChanged(): " << cleanName << " Emitting commandsShown()" << m_actions.keys();
   emit commandsShown(m_actions.keys(), false);
+}
+
+void ATSPIScanner::childAdded(const QAccessibleClient::AccessibleObject &parent, int index)
+{
+  qDebug() << "Child added to " << parent.name();
+}
+void ATSPIScanner::childRemoved(const QAccessibleClient::AccessibleObject &parent, int index)
+{
+  qDebug() << "Child removed from " << parent.name();
 }
 
 inline QString ATSPIScanner::cleanString(const QString& input)
