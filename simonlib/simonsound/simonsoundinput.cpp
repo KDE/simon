@@ -136,13 +136,11 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client, bool& done
 
   kDebug() << "Deregistering input client";
 
+  bool success = true;
   if (m_activeInputClients.remove(client) == 0) {
     //wasn't active anyways
-    /*return */
-    m_suspendedInputClients.remove(client);
+    success = (m_suspendedInputClients.remove(client) != 0);
   }
-
-  bool success = true;
 
                                                   //do not need to record any longer
   if (m_activeInputClients.isEmpty() && m_suspendedInputClients.isEmpty()) {
