@@ -54,12 +54,16 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
     void progress(int);
     void recordingFinished();
     void playbackFinished();
+    void speaking();
+    void speakingStopped();
 
   private:
     QTimer *statusTimer;
     Ui::RecWidgetUi *ui;
     bool m_simpleMode;
     bool m_playbackOnly;
+
+    int m_speakingCount;
 
     QList<WavFileWidget*> waves;
 
@@ -87,6 +91,9 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
     void showStartPrompt();
     void showFinishPrompt();
     void showWaitPrompt();
+
+    void clientReportedSpeaking();
+    void clientReportedSilence();
 
   public slots:
     void record();

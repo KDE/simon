@@ -59,8 +59,8 @@ fileName( prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\', '
   connect(recorder, SIGNAL(recording()), this, SIGNAL(completeChanged()));
   connect(recorder, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
   connect(recorder, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
+  connect(recorder, SIGNAL(speakingStopped()), this, SLOT(speakingStopped()));
 }
-
 
 void TrainSamplePage::initializePage()
 {
@@ -154,6 +154,12 @@ bool TrainSamplePage::isComplete() const
     return recorder->hasRecordingReady();
 }
 
+void TrainSamplePage::speakingStopped()
+{
+  kDebug() << "Speaking stopped";
+  if (field("powerRecording").toBool())
+    wizard()->next();
+}
 
 TrainSamplePage::~TrainSamplePage()
 {

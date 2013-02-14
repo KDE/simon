@@ -22,7 +22,7 @@
 #include <soundconfig.h>
 
 #include "soundserver.h"
-#include "loudnessmetersoundprocessor.h"
+#include "vadsoundprocessor.h"
 
 #include <QObject>
 
@@ -35,9 +35,11 @@ WavRecorderClient::WavRecorderClient(const SimonSound::DeviceConfiguration& devi
 QObject(parent),
 SoundInputClient(deviceConfiguration),
 wavData(0),
-loudness(new LoudnessMeterSoundProcessor())
+vad(new VADSoundProcessor(deviceConfiguration, true))
 {
-  registerSoundProcessor(loudness);
+  registerSoundProcessor(vad);
+  connect(vad, SIGNAL(listening()), this, SIGNAL(speaking()));
+  connect(vad, SIGNAL(complete()), this, SIGNAL(speakingStopped()));
 }
 
 
@@ -69,9 +71,9 @@ void WavRecorderClient::processPrivate(const QByteArray& data, qint64 currentTim
 {
   wavData->write(data);
 
-  float peak = loudness->peak() / 32768.0f;
+  float peak = vad->peak() / 32768.0f;
   emit currentProgress(currentTime, peak);
-  if (loudness->clipping())
+  if (vad->clipping())
     emit clippingOccured();
 }
 
@@ -88,16 +90,16 @@ bool WavRecorderClient::finish()
 
   succ = SoundServer::getInstance()->deRegisterInputClient(this);
 
-  kDebug() << "Min: " << loudness->absoluteMinAverage();
-  kDebug() << "Max: " << loudness->absolutePeak();
-  kDebug() << "Theoretical max: " << loudness->maxAmp();
-  int absoluteMinAverage = loudness->absoluteMinAverage();
+  kDebug() << "Min: " << vad->absoluteMinAverage();
+  kDebug() << "Max: " << vad->absolutePeak();
+  kDebug() << "Theoretical max: " << vad->maxAmp();
+  int absoluteMinAverage = vad->absoluteMinAverage();
 
   if (absoluteMinAverage == 0)
     absoluteMinAverage = 1;
 
   //ratio is in percent
-  float ratio = ((float) loudness->absolutePeak() / (float) absoluteMinAverage) * 100;
+  float ratio = ((float) vad->absolutePeak() / (float) absoluteMinAverage) * 100;
   kDebug() << "Ratio: " << ratio;
 
   if (ratio < SoundConfiguration::minimumSNR())
@@ -109,7 +111,7 @@ bool WavRecorderClient::finish()
   wavData->deleteLater();
   wavData = 0;
 
-  loudness->reset();
+  vad->reset();
 
   return succ;
 }

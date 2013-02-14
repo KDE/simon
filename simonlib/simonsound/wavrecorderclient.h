@@ -25,20 +25,23 @@
 #include "soundinputclient.h"
 
 class WAV;
-class LoudnessMeterSoundProcessor;
+class VADSoundProcessor;
 
 class WavRecorderClient :public QObject, public SoundInputClient
 {
   Q_OBJECT
 
-    private:
+  private:
     WAV *wavData;
-    LoudnessMeterSoundProcessor *loudness;
+    VADSoundProcessor *vad;
 
-    signals:
+  signals:
     void currentProgress(int msecs, float level);
     void clippingOccured();
     void signalToNoiseRatioLow();
+
+    void speaking();
+    void speakingStopped();
 
   public:
     explicit WavRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
