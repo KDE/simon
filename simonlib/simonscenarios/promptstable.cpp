@@ -75,11 +75,11 @@ bool PromptsTable::init(const QString& path)
         label = line.left ( index );
         prompt = line.mid ( index ).trimmed();
       }
+      m_samples << label;
+      m_wordBySample.insert (label, prompt);
+      m_groupBySample.insert(label, group);
     }
 
-    m_samples << label;
-    m_wordBySample.insert (label, prompt);
-    m_groupBySample.insert(label, group);
     prompts->close();
   }
   prompts->deleteLater();
