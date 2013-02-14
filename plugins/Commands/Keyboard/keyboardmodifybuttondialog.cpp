@@ -87,7 +87,7 @@ KeyboardButton* KeyboardModifyButtonDialog::addButton()
   if(exec()) {
     if (!allFieldsEntered()) {
       KMessageBox::sorry(this, i18n("All fields are mandatory"));
-      return false;
+      return 0;
     }
 
     Keyboard::ButtonType type = getCurrentlySelectedButtonType();;
