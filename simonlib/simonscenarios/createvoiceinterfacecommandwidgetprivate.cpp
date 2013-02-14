@@ -64,7 +64,7 @@ VoiceInterfaceCommandTemplate* CreateVoiceInterfaceCommandWidgetPrivate::getCurr
   int currentIndex = ui.cbAction->currentIndex();
   if ((currentIndex == -1) || (currentIndex > voiceInterfaceCommandTemplates.count())) {
     KMessageBox::information(this, i18n("Please select a valid action"));
-    return false;
+    return 0;
   }
 
   return voiceInterfaceCommandTemplates[currentIndex];
