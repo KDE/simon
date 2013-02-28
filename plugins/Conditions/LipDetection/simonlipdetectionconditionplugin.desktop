@@ -6,6 +6,7 @@ X-KDE-Library=simonlipdetectionconditionplugin
 Name=Simon Lip Detection Plugin
 Name[ca]=Connector per a la detecció de llavis del Simon
 Name[ca@valencia]=Connector per a la detecció de llavis del Simon
+Name[cs]=Modul pro rozpoznání rtů pro Simon
 Name[da]=Simon-plugin til detektion af læbebevægelse
 Name[de]=Lippenerkennung für Simon
 Name[el]=Πρόσθετο ανίχνευσης χείλους για το Simon

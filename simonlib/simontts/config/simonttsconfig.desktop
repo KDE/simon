@@ -38,6 +38,7 @@ Name[zh_TW]=文字轉語音
 Comment=Configuration of the Simon text-to-speech layer
 Comment[ca]=Configuració de la capa text a veu per a Simon
 Comment[ca@valencia]=Configuració de la capa text a veu per a Simon
+Comment[cs]=Nastavení vrstvy text-na-řeč Simon
 Comment[da]=Konfiguration af Simons tekst til tale-lag
 Comment[de]=Einrichtung des Simon-Sprachausgabe-Layers
 Comment[el]=Διαμόρφωση του στρώματος κείμενο-σε-ομιλία του Simon
