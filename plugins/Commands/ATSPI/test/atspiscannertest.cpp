@@ -25,9 +25,9 @@
 #include <KCmdLineArgs>
 #include <QSignalSpy>
 #include <QDebug>
+#include <QTimer>
 #include "../atspiscanner.h"
 #include "accessibleapp.h"
-#include <qt4/QtCore/QTimer>
 
 
 class testATSPIScanner: public QObject
