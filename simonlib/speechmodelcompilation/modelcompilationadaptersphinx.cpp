@@ -117,9 +117,12 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   QString fetc = workingDirPath+"/"+mName+"/etc/"+mName;
 
   kDebug()<<"Store dictionary";
-  if(!purgeUnusedVocabulary(vocabulary, grammar) ||
-     !storeDictionary(adaptionType, fetc+DICT_EXT, trainedVocabulary, definedVocabulary,
-                      vocabulary))
+
+  bool errorStoringDictionary = !storeDictionary(adaptionType, fetc+DICT_EXT,
+                                                 trainedVocabulary, definedVocabulary,
+                                                 vocabulary);
+
+  if(!purgeUnusedVocabulary(vocabulary, grammar) || errorStoringDictionary)
   {
     emit error(i18n("Failed to store dictionary"));
     return false;
@@ -130,14 +133,16 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   kDebug()<<"Store filler";
   if(!storeFiller(adaptionType, fetc+".filler"))
   {
-    emit error(i18nc("Please keep \"filler\" in English as it refers to a file that is usually named that", "Failed to store filler"));
+    emit error(i18nc("Please keep \"filler\" in English as it refers to a file that is usually named that",
+                     "Failed to store filler"));
     return false;
   }
 
   ADAPT_CHECKPOINT;
 
   kDebug()<<"Store phonelist";
-  if(!(adaptionType == ModelCompilationAdapter::AdaptLanguageModel) && !storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary, trainedVocabulary))
+  if(!(adaptionType == ModelCompilationAdapter::AdaptLanguageModel) &&
+     !storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary, trainedVocabulary))
   {
     emit error(i18n("Failed to store phones"));
     return false;
@@ -146,11 +151,18 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   ADAPT_CHECKPOINT;
 
   kDebug()<<"Store transcription & fields";
+  bool errorStoringTrainTS = !storeTranscriptionAndFields(adaptionType, promptsPathIn,
+                                                          fetc+TRAIN_TRANSCRIPTION,
+                                                          fetc+TRAIN_FIELDS,
+                                                          definedVocabulary, vocabulary);
+
+  bool errorStoringTestingTS = !storeTranscriptionAndFields(adaptionType, promptsPathIn,
+                                                            fetc+TEST_TRANSCRIPTION,
+                                                            fetc+TEST_FIELDS,
+                                                            definedVocabulary, vocabulary);
+
   if(!(adaptionType == ModelCompilationAdapter::AdaptLanguageModel) &&
-     (!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+TRAIN_TRANSCRIPTION, fetc+TRAIN_FIELDS,
-         definedVocabulary, vocabulary)
-      || !storeTranscriptionAndFields(adaptionType, promptsPathIn,
-         fetc+TEST_TRANSCRIPTION, fetc+TEST_FIELDS, definedVocabulary, vocabulary)))
+     (errorStoringTrainTS || errorStoringTestingTS ))
   {
     emit error(i18n("Failed to store transcription and fields"));
     return false;
@@ -232,7 +244,8 @@ bool ModelCompilationAdapterSPHINX::storeFiller(AdaptionType adaptionType, const
   QFile fillerFile(fillerPathOut);
   if (!fillerFile.open(QIODevice::WriteOnly))
   {
-    emit error(i18nc("Please keep \"filler\" in English as it refers to a file that is usually named that", "Failed to write filler to \"%1\"", fillerPathOut));
+    emit error(i18nc("Please keep \"filler\" in English as it refers to a file that is usually named that",
+                     "Failed to write filler to \"%1\"", fillerPathOut));
     return false;
   }
 
@@ -249,7 +262,8 @@ bool ModelCompilationAdapterSPHINX::storeFiller(AdaptionType adaptionType, const
 }
 
 bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut,
-                                                    QSharedPointer<Vocabulary> vocabulary, const QStringList &trainedVocabulary)
+                                                    QSharedPointer<Vocabulary> vocabulary,
+                                                    const QStringList &trainedVocabulary)
 {
   QFile phoneFile(phonesListPathOut);
   if (!phoneFile.open(QIODevice::WriteOnly))
@@ -290,8 +304,12 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, c
   return true;
 }
 
-bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType adaptionType, const QString &promptsPathIn, const QString &transcriptionPathOut,
-                                                                const QString &fieldsPathOut, QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary)
+bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType adaptionType,
+                                                                const QString &promptsPathIn,
+                                                                const QString &transcriptionPathOut,
+                                                                const QString &fieldsPathOut,
+                                                                QStringList &definedVocabulary,
+                                                                QSharedPointer<Vocabulary> vocabulary)
 {
   QFile promptsInFile(promptsPathIn);
   QFile promptsOutFile(transcriptionPathOut);
