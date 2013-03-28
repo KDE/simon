@@ -359,14 +359,20 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
     return false;
   }
 
+  QStringList grammarStructures = grammar->getStructures();
+
+  if (grammarStructures.isEmpty())
+  {
+    emit adaptionAborted(ModelCompilation::InsufficientInput); //no grammar
+    return false;
+  }
+
   QTextStream grammarStream(&grammarFile);
   grammarStream.setCodec("UTF-8");
 
   grammarStream<<"#JSGF V1.0; \n\n"
                  <<"grammar generalGrammar;\n";
   grammarStream<< "public <structure> = ";
-
-  QStringList grammarStructures = grammar->getStructures();
 
   kDebug()<<"Structures count:"<< grammarStructures.size();
 
@@ -375,11 +381,6 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
     QStringList categories = Grammar::getCategoriesForStructure(structure);
     if(categories.isEmpty())
       continue;
-
-//    if(structure != grammarStructures.first())
-//    {
-//     grammarStream<<"| ";
-//    }
 
     QString gramBuffer;
 
@@ -395,7 +396,6 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
         continue;
 
       QString termBuffer;
-//      uint addedCount(0);
 
       foreach (Word* word, wordsForCategory)
       {
@@ -428,13 +428,6 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
       grammarStream<< "(" << gramBuffer <<") ";
 
     }
-
-//    grammarStream<<") ";
-//    if(structure != grammarStructures.last())
-//    {
-//      grammarStream<<"| ";
-//    }
-
   }
   grammarStream<<";\n";
   return true;
