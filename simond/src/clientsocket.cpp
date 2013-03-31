@@ -35,6 +35,8 @@
 
 #include <simoncontextadapter/contextadapter.h>
 
+#include <unistd.h>
+
 #include <QDir>
 #include <QTime>
 #include <KDateTime>
@@ -85,9 +87,18 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
 void ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
 {
   Q_ASSERT(stream.device());
+  int delayed = 0;
   while (stream.device()->bytesAvailable() < length) {
-    if (waitForReadyRead())
+    if (waitForReadyRead()) {
       message += readAll();
+    } else {
+      usleep(100000 /* 100 ms */);
+      if (delayed++ == 50) {
+        //no new data for 5 seconds
+	kWarning() << "Timeout";
+	close();
+      }
+    }
   }
 }
 
