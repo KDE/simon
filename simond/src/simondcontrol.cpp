@@ -123,7 +123,7 @@ void SimondControl::connectionClosing(QAbstractSocket::SocketState state)
 
   for (int i=0; i<clients.count(); i++) {
     if (clients[i]->state() == state) {
-      kDebug() << "Connection dropped from " << clients[i]->localAddress().toString();
+      kDebug() << "Connection dropped from " << clients[i]->peerAddress().toString();
       clients[i]->disconnectFromHost();
       clients[i]->waitForDisconnected();
       clients.takeAt(i)->deleteLater();
