@@ -83,7 +83,14 @@ RecognitionConfiguration *SphinxControl::setupConfig()
   kDebug() << "Setting config up";
   QString dirPath = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
 
-  return new SphinxRecognitionConfiguration(dirPath, dirPath+modelName+QLatin1String(".jsgf"),
+  QString grammar = dirPath+modelName+QLatin1String(".jsgf");
+  QString lm = dirPath+modelName+QLatin1String(".lm");
+  if (!QFile::exists(grammar))
+    grammar.clear();
+  if (!QFile::exists(lm))
+    lm.clear();
+
+  return new SphinxRecognitionConfiguration(dirPath, grammar, lm,
                                             dirPath+modelName+QLatin1String(".dic"), DEFAULT_SAMPRATE);
 }
 
