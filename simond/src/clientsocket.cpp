@@ -89,12 +89,12 @@ void ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray
   Q_ASSERT(stream.device());
   int delayed = 0;
   while (stream.device()->bytesAvailable() < length) {
-    if (waitForReadyRead()) {
+    if (waitForReadyRead(500)) {
       message += readAll();
+      delayed = 0;
     } else {
       usleep(100000 /* 100 ms */);
-      if (delayed++ == 50) {
-        //no new data for 5 seconds
+      if (delayed++ == 3) {
 	kWarning() << "Timeout";
 	close();
       }
