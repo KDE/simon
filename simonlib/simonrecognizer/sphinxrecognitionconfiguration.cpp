@@ -30,6 +30,8 @@ QStringList SphinxRecognitionConfiguration::toArgs()
        args << "-jsgf " << m_Grammar;
   else if (!m_LanguageModel.isEmpty())
        args << "-lm " << m_LanguageModel;
+  if (!m_MLLR.isEmpty())
+       args << "-mllr " << m_MLLR;
   return args;
 }
 
@@ -44,14 +46,23 @@ cmd_ln_t* SphinxRecognitionConfiguration::getSphinxConfig()
   QByteArray grammar = m_Grammar.toUtf8();
   QByteArray lm = m_LanguageModel.toUtf8();
   QByteArray dict = m_Dictionary.toUtf8();
+  QByteArray mllr = m_MLLR.toUtf8();
   QByteArray samprate = QString::number(m_Samprate).toUtf8();
 
-  cmd_ln_t *config = cmd_ln_init(NULL, ps_args(), TRUE,
+  if (mllr.isEmpty())
+     return cmd_ln_init(NULL, ps_args(), TRUE,
                                "-hmm", model.data(),
                                (!grammar.isEmpty()) ? "-jsgf" : "-lm", (!grammar.isEmpty()) ? grammar.data() : lm.data(),
                                "-dict", dict.data(),
                                "-samprate", samprate.data(),
                                NULL);
-  return config;
+  else
+     return cmd_ln_init(NULL, ps_args(), TRUE,
+                               "-hmm", model.data(),
+                               (!grammar.isEmpty()) ? "-jsgf" : "-lm", (!grammar.isEmpty()) ? grammar.data() : lm.data(),
+                               "-dict", dict.data(),
+                               "-samprate", samprate.data(),
+                               "-mllr", mllr.data(),
+                               NULL);
 }
 

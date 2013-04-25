@@ -85,13 +85,16 @@ RecognitionConfiguration *SphinxControl::setupConfig()
 
   QString grammar = dirPath+modelName+QLatin1String(".jsgf");
   QString lm = dirPath+modelName+QLatin1String(".lm");
+  QString mllr = dirPath+modelName+QLatin1String(".mllr");
   if (!QFile::exists(grammar))
     grammar.clear();
   if (!QFile::exists(lm))
     lm.clear();
+  if (!QFile::exists(mllr))
+    mllr.clear();
 
   return new SphinxRecognitionConfiguration(dirPath, grammar, lm,
-                                            dirPath+modelName+QLatin1String(".dic"), DEFAULT_SAMPRATE);
+                                            dirPath+modelName+QLatin1String(".dic"), mllr, DEFAULT_SAMPRATE);
 }
 
 void SphinxControl::emitError(const QString &error)
