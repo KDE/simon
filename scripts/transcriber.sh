@@ -5,7 +5,7 @@ for i in `ls -1 $1/*.wav`; do
     aplay -r 16000 -c 1 -f S16_LE $i 2> /dev/null
     echo "Prompt (empty to hear again):"
     read -e test
-    if [ -z $test ]; then
+    if [ -z "$test" ]; then
       echo "Again..."
     else
       if [ "$test" == "-" ]; then
