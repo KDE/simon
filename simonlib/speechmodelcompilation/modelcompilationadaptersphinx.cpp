@@ -153,7 +153,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
     kDebug()<<"Store transcription & fields";
-    bool err = !storeTranscriptionAndFields(adaptionType, promptsPathIn,
+    bool err = storeTranscriptionAndFields(adaptionType, promptsPathIn,
                                                             fetc+TRAIN_TRANSCRIPTION,
                                                             fetc+TRAIN_FIELDS,
                                                             definedVocabulary, vocabulary);
