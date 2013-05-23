@@ -128,10 +128,10 @@
             <widget class="QLabel" name="label_4">
              <property name="text">
               <string>Replacements:
-%1: Summary
-%2: Date
-%3: Time
-%4: Location</string>
+%summary
+%date
+%time
+%location</string>
              </property>
             </widget>
            </item>
