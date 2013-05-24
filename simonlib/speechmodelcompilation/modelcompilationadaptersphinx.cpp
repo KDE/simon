@@ -162,8 +162,10 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
                                                                 fetc+TEST_TRANSCRIPTION,
                                                                 fetc+TEST_FIELDS,
                                                                 definedVocabulary, vocabulary);
-    if (!err)
+    if (!err) {
+        kDebug() << "Returning here; store transcription and fields failed...?";
         return false; // error reporting done by the function itself
+    }
   }
 
   ADAPT_CHECKPOINT;
