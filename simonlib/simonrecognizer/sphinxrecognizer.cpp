@@ -21,18 +21,31 @@
 #include "sphinxrecognitionconfiguration.h"
 #include <simonrecognitionresult/recognitionresult.h>
 
-#include <KDebug>
-#include <KDE/KLocalizedString>
 #include <cstdlib>
 #include <stdexcept>
 
-SphinxRecognizer::SphinxRecognizer():decoder(0)
+#include <QUuid>
+#include <QFile>
+#include <KDebug>
+#include <KDE/KLocalizedString>
+#include <KDE/KStandardDirs>
+
+SphinxRecognizer::SphinxRecognizer():
+    logPath(KStandardDirs::locateLocal("tmp", QLatin1String("pocketsphinx_log_")+QUuid::createUuid().toString())),
+    decoder(0)
 {
 }
 
 SphinxRecognizer::~SphinxRecognizer()
 {
   uninitialize();
+}
+
+QByteArray SphinxRecognizer::getLog()
+{
+  QFile f(logPath);
+  f.open(QIODevice::ReadOnly);
+  return f.readAll();
 }
 
 bool SphinxRecognizer::init(RecognitionConfiguration *config)
@@ -47,6 +60,11 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
   try
   {
     SphinxRecognitionConfiguration *sconfig = dynamic_cast<SphinxRecognitionConfiguration*> (config);
+    //old file will be closed and released by sphinxbase automatically
+    FILE *logFile = fopen(logPath.toUtf8().constData(), "w");
+    if (logFile == 0)
+      logFile = stderr;
+    err_set_logfp(logFile);
 
     cmd_ln_t *spconf = sconfig->getSphinxConfig();
     if(!spconf)
