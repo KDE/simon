@@ -454,6 +454,8 @@ bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger
 {
   kDebug() << "Should execute command " << type << trigger;
   foreach (Scenario *s, scenarios) {
+    if (!s->isActive())
+      continue;
     if (s->triggerCommand(type, trigger, silent))
       return true;
   }
@@ -467,6 +469,8 @@ bool ScenarioManager::processResult(RecognitionResult recognitionResult)
   kDebug() << "Processing result " <<  recognitionResult.sentence().toUtf8().data();
 
   foreach (Scenario *s, scenarios) {
+    if (!s->isActive())
+      continue;
     if (s->processResult(recognitionResult))
       return true;
   }
