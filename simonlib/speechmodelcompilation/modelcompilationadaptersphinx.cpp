@@ -353,8 +353,15 @@ bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType ada
 
     if (allWordsInLexicon || !(adaptionType & AdaptLanguageModel) || (adaptionType & AdaptIndependently))
     {
-      promptsOutFile.write("<s> "+wordsString.toUtf8() + " </s> (" + line.left(splitter).toUtf8() /*filename*/+ ")\n");
-      fieldsOutFile.write(line.left(splitter).toUtf8() /*filename*/ + "\n");
+      QByteArray filename;
+#ifdef Q_OS_WIN
+      filename = line.left(splitter).toLocal8Bit();
+#else
+      filename = line.left(splitter).toUtf8();
+#endif
+
+      promptsOutFile.write("<s> "+wordsString.toUtf8() + " </s> (" + filename + ")\n");
+      fieldsOutFile.write(filename + "\n");
       ++m_sampleCount;
     }
   }
