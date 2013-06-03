@@ -37,11 +37,15 @@ ShadowVocabulary::ShadowVocabulary(QObject *parent)
 {
   QString vocabFilename = KStandardDirs::locate("appdata", "shadowvocabulary.xml");
 
-  QIODevice *shadowVocabFile = KFilterDev::deviceForFile(vocabFilename,
-    KMimeType::findByFileContent(vocabFilename)->name());
+  //it's only an error if the vocabulary file exists but can not be read for some reason
+  //if it doesn't exist, we'll silently create a new (empty one)
+  if (QFile::exists(vocabFilename)) {
+    QIODevice *shadowVocabFile = KFilterDev::deviceForFile(vocabFilename,
+      KMimeType::findByFileContent(vocabFilename)->name());
 
-  reset(shadowVocabFile);
-  shadowVocabFile->deleteLater();
+    reset(shadowVocabFile);
+    shadowVocabFile->deleteLater();
+  }
 }
 
 
