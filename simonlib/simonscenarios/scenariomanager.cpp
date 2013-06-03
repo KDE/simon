@@ -51,11 +51,11 @@ ScenarioManager *ScenarioManager::getInstance()
 }
 
 ScenarioManager::ScenarioManager(QObject *parent) : QObject(parent),
-m_inGroup(false),
-m_baseModelDirty(false),
-m_scenariosDirty(false),
-m_shadowVocabularyDirty(false),
-currentScenario(0)
+  m_inGroup(false),
+  m_baseModelDirty(false),
+  m_scenariosDirty(false),
+  m_shadowVocabularyDirty(false),
+  currentScenario(0)
 {
 }
 
@@ -141,24 +141,24 @@ QStringList ScenarioManager::getAllAvailableScenarioIds()
 
 QStringList ScenarioManager::getAllDeactivatedScenarioIds()
 {
-    QStringList deactivatedScenarios;
+  QStringList deactivatedScenarios;
 
-    kDebug() << "Preparing a list of deactivated scenarios...";
+  kDebug() << "Preparing a list of deactivated scenarios...";
 
-    foreach (Scenario* scenario, scenarios)
+  foreach (Scenario* scenario, scenarios)
+  {
+    if (!scenario->isActive())
     {
-        if (!scenario->isActive())
-        {
-            deactivatedScenarios.push_back(scenario->id());
-            kDebug() << scenario->id() + " is deactivated";
-        }
-        else
-        {
-            kDebug() << scenario->id() + " is activated";
-        }
+      deactivatedScenarios.push_back(scenario->id());
+      kDebug() << scenario->id() + " is deactivated";
     }
+    else
+    {
+      kDebug() << scenario->id() + " is activated";
+    }
+  }
 
-    return deactivatedScenarios;
+  return deactivatedScenarios;
 }
 
 
