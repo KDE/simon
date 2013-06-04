@@ -42,7 +42,7 @@
 #include <simonutils/fileutils.h>
 
 #include <qwt_legend.h>
-#include <qwt_legend_item.h>
+//#include <qwt_legend_item.h>
 
 #include <QHash>
 #include <QThread>
@@ -86,7 +86,16 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.qpPlot->hide();
 
   barGraphLegend = new QwtLegend(ui.qpPlot);
+
   ui.qpPlot->insertLegend(barGraphLegend);
+  #if QWT_VERSION >= 0x060100
+  connect(ui.qpPlot, SIGNAL(legendDataChanged(const QVariant &, const QList<QwtLegendData>&)),
+          barGraphLegend, SLOT(updateLegend(const QVariant&, const QList<QwtLegendData>&)));
+
+  barGraphLegend->show();
+  ui.qpPlot->updateLegend();
+  #endif
+
 
   initGraph();
 
@@ -1285,14 +1294,15 @@ void SamView::clearTest()
   barGraph->detach();
   ui.qpPlot->replot();
   initGraph();
+  #if QWT_VERSION < 0x060100
   barGraphLegend->clear();
+  #endif
 }
 
 void SamView::initGraph()
 {
   delete barGraph;
   barGraph = new QwtBarsItem();
-  barGraph->setType(QwtBarsItem::SideBySide);
   barGraph->attach(ui.qpPlot);
 }
 

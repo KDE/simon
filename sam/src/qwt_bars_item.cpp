@@ -18,13 +18,16 @@
  */
 
 #include "qwt_bars_item.h"
+#include <qwt_global.h>
+#include <qwt_scale_map.h>
+
+#if QWT_VERSION < 0x060100
 
 #include <qwt_plot_seriesitem.h>
 #include <qwt_painter.h>
 #include <qwt_compat.h>
 #include <qwt_legend_item.h>
 #include <qwt_plot.h>
-#include <qwt_scale_map.h>
 
 #include <QDebug>
 #include <QPen>
@@ -364,6 +367,8 @@ void QwtBarsItem::draw(QPainter *, const QwtScaleMap &,
 
 }
 
+#endif
+
 
 QwtScaleDrawLabels::QwtScaleDrawLabels( const QStringList& l, int indexOffset ) : d_labels( l ), d_indexOffset( indexOffset ) {}
 QwtText QwtScaleDrawLabels::label(double val) const {
@@ -378,5 +383,4 @@ QwtText QwtScaleDrawLabels::label(double val) const {
 		return QwtText();
 	return d_labels[intVal];
 }
-
 

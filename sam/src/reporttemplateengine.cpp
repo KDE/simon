@@ -175,9 +175,13 @@ QByteArray ReportTemplateEngine::createGraphs(const QByteArray& input, const QLi
   QwtLegend barGraphLegend;
   plot.insertLegend(&barGraphLegend);
   QwtBarsItem barGraph;
-  barGraph.setType(QwtBarsItem::SideBySide);
   barGraph.attach(&plot);
+  #if QWT_VERSION < 0x060100
+  barGraph.setType(QwtBarsItem::SideBySide);
   barGraph.updateLegend(&barGraphLegend);
+  #else
+  plot.updateLegend();
+  #endif
 
   
   QStringList labels;
