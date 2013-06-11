@@ -1112,8 +1112,8 @@ void RecognitionControl::messageReceived()
         case Simond::ErrorRetrievingTrainingsSample:
         {
           parseLengthHeader();
-	  QByteArray sampleName;
-	  msg >> sampleName;
+          QByteArray sampleName;
+          msg >> sampleName;
           sampleNotAvailable(QString::fromUtf8(sampleName));
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
           break;
@@ -1131,9 +1131,8 @@ void RecognitionControl::messageReceived()
           QByteArray sampleNameByte;
           msg >> sampleNameByte;
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server requested sampleNameByte";
+          kDebug() << "Server requested sampleNameByte" << sampleNameByte;
 
-          kDebug() << sampleNameByte;
           sendSample(QString::fromUtf8(sampleNameByte));
           break;
         }
@@ -1152,7 +1151,7 @@ void RecognitionControl::messageReceived()
           msg >> sample;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server sent Training Sample";
+          kDebug() << "Server sent Training Sample" << name;
 
           if (!storeSample(QString::fromUtf8(name), sample)) {
             sendRequest(Simond::TrainingsSampleStorageFailed);
@@ -1491,7 +1490,8 @@ void RecognitionControl::messageReceived()
 
         default:
           kDebug() << "Unknown request: " << request;
-	  Q_ASSERT(false);
+          Q_ASSERT(false);
+          exit(-1);
       }
     }
 
@@ -1577,7 +1577,8 @@ void RecognitionControl::sampleNotAvailable(const QString& sample)
     if (succ)
       TrainingManager::getInstance()->savePrompts();
 
-    ModelManager::getInstance()->commitGroup(false /*silent*/);
+    //can only happen within a synchronization, no need to re-start that
+    ModelManager::getInstance()->commitGroup(true /*silent*/);
 
     if (!succ)
       KMessageBox::error(0, i18n("Could not remove sample from the training corpus"));

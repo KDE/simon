@@ -460,7 +460,7 @@ bool ModelManager::storeSample(const QString& name, const QByteArray& sample)
 {
   QString dirPath = TrainingManager::getInstance()->getTrainingDir()+'/';
 
-  QFile f(dirPath+name+".wav");
+  QFile f(dirPath+name);
   if (!f.open(QIODevice::WriteOnly)) return false;
 
   f.write(sample);
