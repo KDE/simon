@@ -251,7 +251,7 @@ void ClientSocket::processRequest()
         //base models
         stream >> baseModelDate;
         QDateTime localBaseModelDate = synchronisationManager->getBaseModelDate();
-	kDebug() << "Base models: " << baseModelDate << localBaseModelDate;
+        kDebug() << "Base models: " << baseModelDate << localBaseModelDate;
         if (baseModelDate != localBaseModelDate) {
           if ((baseModelDate > localBaseModelDate) || !sendBaseModel())
             sendCode(Simond::GetBaseModel);
@@ -259,7 +259,7 @@ void ClientSocket::processRequest()
         //active model
         stream >> activeModelDate;
         QDateTime localActiveModelDate = synchronisationManager->getActiveModelDate();
-	kDebug() << "Active model date: " << activeModelDate << localActiveModelDate;
+        kDebug() << "Active model date: " << activeModelDate << localActiveModelDate;
         if (activeModelDate != localActiveModelDate) {
           if (activeModelDate > localActiveModelDate || !sendActiveModel())
             sendCode(Simond::GetActiveModel);
@@ -270,7 +270,7 @@ void ClientSocket::processRequest()
         //language description
         stream >> languageDescriptionDate;
         QDateTime localLanguageDescriptionDate=synchronisationManager->getLanguageDescriptionDate();
-	kDebug() << "Language description date: " << languageDescriptionDate << localLanguageDescriptionDate;
+        kDebug() << "Language description date: " << languageDescriptionDate << localLanguageDescriptionDate;
         if (languageDescriptionDate != localLanguageDescriptionDate) {
           if (languageDescriptionDate > localLanguageDescriptionDate || !sendLanguageDescription())
             sendCode(Simond::GetLanguageDescription);
@@ -279,7 +279,7 @@ void ClientSocket::processRequest()
         //training
         stream >> trainingModifiedDate;
         QDateTime localTrainingDate = synchronisationManager->getTrainingDate();
-	kDebug() << "Training date: " << trainingModifiedDate << localTrainingDate;
+        kDebug() << "Training date: " << trainingModifiedDate << localTrainingDate;
         if (trainingModifiedDate != localTrainingDate) {
           if (localTrainingDate < trainingModifiedDate || !sendTraining()) {
             sendCode(Simond::GetTraining);
@@ -288,12 +288,12 @@ void ClientSocket::processRequest()
 
         //samples
         stream >> missingSamplesList;
-	kDebug() << "Missing samples: " << missingSamplesList;
+        kDebug() << "Missing samples: " << missingSamplesList;
         foreach (const QString& missingSample, missingSamplesList)
           sendSample(missingSample);
 
         stream >> availableSamplesList;
-	kDebug() << "Available samples: " << availableSamplesList;
+        kDebug() << "Available samples: " << availableSamplesList;
         QStringList localSamples = synchronisationManager->getAvailableSamples();
         foreach (const QString& sampleOnClient, availableSamplesList) {
           if (!localSamples.contains(sampleOnClient)) {
@@ -304,7 +304,7 @@ void ClientSocket::processRequest()
         //deleted scenarios
         stream >> deletedScenarios;
         stream >> deletedScenarioTimesStrings;
-	kDebug() << "Deleted scenarios: " << deletedScenarios;
+        kDebug() << "Deleted scenarios: " << deletedScenarios;
         QList<QDateTime> deletedScenarioTimes;
         foreach (const QString& str, deletedScenarioTimesStrings)
           deletedScenarioTimes << QDateTime::fromString(str, "yyyy-MM-dd-hh-mm-ss");
@@ -312,11 +312,7 @@ void ClientSocket::processRequest()
 
         //scenario selection
         stream >> selectedScenariosDate;
-        QDateTime localSelectedScenarioDate = synchronisationManager->selectedScenariosDate();
-	kDebug() << "Selected scenario dates: " << selectedScenariosDate << localSelectedScenarioDate;
-        if (localSelectedScenarioDate != selectedScenariosDate)
-          if (localSelectedScenarioDate < selectedScenariosDate || !sendSelectedScenarioList())
-            sendCode(Simond::GetSelectedScenarioList);
+        //continues after the scenario synchronization...
 
         //all scenarios
         stream >> allScenariosCount;
@@ -328,17 +324,23 @@ void ClientSocket::processRequest()
           clientScenarios << scenarioId;
 
           QDateTime localScenarioDate = synchronisationManager->localScenarioDate(scenarioId);
-	  kDebug() << "Scenario: " << scenarioId << " local date: " << localScenarioDate << " client date: " << scenarioDate;
+          kDebug() << "Scenario: " << scenarioId << " local date: " << localScenarioDate << " client date: " << scenarioDate;
           if (localScenarioDate != scenarioDate)
             if (localScenarioDate.isNull() || localScenarioDate < scenarioDate || !sendScenario(scenarioId))
               requestScenario(scenarioId);
         }
-	kDebug() << "Local scenarios: " << synchronisationManager->getAllScenarioIds();
-	kDebug() << "Client scenarios: " << synchronisationManager->getAllScenarioIds();
+        kDebug() << "Local scenarios: " << synchronisationManager->getAllScenarioIds();
+        kDebug() << "Client scenarios: " << synchronisationManager->getAllScenarioIds();
         foreach (const QString& localScenarioId, synchronisationManager->getAllScenarioIds()) 
           if (!clientScenarios.contains(localScenarioId))
             sendScenario(localScenarioId);
 
+        //synchronize active scenarios
+        QDateTime localSelectedScenarioDate = synchronisationManager->selectedScenariosDate();
+        kDebug() << "Selected scenario dates: " << selectedScenariosDate << localSelectedScenarioDate;
+        if (localSelectedScenarioDate != selectedScenariosDate)
+          if (localSelectedScenarioDate < selectedScenariosDate || !sendSelectedScenarioList())
+            sendCode(Simond::GetSelectedScenarioList);
         sendCode(Simond::SynchronisationEndPending);
         break;
       }

@@ -265,7 +265,14 @@ bool ScenarioManager::setupScenarios(bool forceChange)
     defaultScenarioIds << generalScenarioId;
     scenarioIds = defaultScenarioIds;
     cg.writeEntry("SelectedScenarios", defaultScenarioIds);
-    cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
+
+    //this is not supposed to be the current time but the date of the stock
+    //configuration.
+    //We set it to the beginning of the epoch to ensure, that any user configuration
+    //that might get synced from the server is preferred to this one.
+    QDateTime stockTime;
+    stockTime.setTime_t(0);
+    cg.writeEntry("LastModified", stockTime);
     cg.sync();
 
     // first run or corrupted configuration; Start off with new standard scenario
@@ -274,7 +281,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
     QList<Author*> authors;
     authors << new Author(s, i18nc("Standard author of a scenario", "Anonymous"), i18nc("Standard \"email address\" of a scenario", "No mail provided"));
 
-    if (!s->create(i18nc("Default name of an (empty) standard scenario", "Standard"), "simon", 1, minVersion, 0 /*maxVersion*/, "BSD", authors) || !s->save()) {
+    if (!s->create(i18nc("Default name of an (empty) standard scenario", "Standard"), "simon", 1, minVersion, 0 /*maxVersion*/, "BSD", authors) || !s->save(QString(), false, false)) {
       kWarning() << "Standard scenario could not be created";
       s->deleteLater();
       return false;

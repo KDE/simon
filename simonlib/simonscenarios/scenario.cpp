@@ -608,17 +608,25 @@ QString Scenario::preferredPath() const
  * Stores the scenario; The storage location will be determined automatically
  * through the scenarioId of the scenario.
  *
- * Only use the parameter to EXPORT the scenario
+ * Only use the parameter @a path to EXPORT the scenario to the given path
+ *
+ * When @a full is true, all sub-secnarios will be inlined in the output XML
+ *
+ * When @a touchModifiedTime is true, the modification time will be set to the current
+ * UTC time, otherwise it will stay unchanged.
+ *
  * \author Peter Grasch <peter.grasch@bedahr.org>
  */
-bool Scenario::save(QString path, bool full)
+bool Scenario::save(QString path, bool full, bool touchModifiedTime)
 {
   if (m_inGroup > 0) {
     m_dirty = true;
     return true;
   }
 
-  m_lastModifiedDate = utcTime();
+  if (touchModifiedTime)
+    m_lastModifiedDate = utcTime();
+
   QString serialized = serialize(full);
 
   if (serialized.isNull())
