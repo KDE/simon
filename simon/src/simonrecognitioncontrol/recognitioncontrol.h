@@ -90,6 +90,8 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     QTimer *timeoutWatcher;
 
     QMutex sendMutex;
+    QMutex receiveMutex;
+    bool currentlyReading;
 
     QStringList serverConnectionsToTry;
     QStringList serverConnectionErrors;
