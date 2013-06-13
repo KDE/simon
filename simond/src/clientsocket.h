@@ -64,7 +64,7 @@ class ClientSocket : public QSslSocket
     QMutex sendingMutex;
     QMutex recognitionInitializationMutex;
 
-    void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+    bool waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
     void send(qint32 requestId, const QByteArray& data, bool includeLength=true);
     void sendCode(Simond::Request code);
 

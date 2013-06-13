@@ -52,6 +52,9 @@
 
 #include <KConfig>
 
+
+#define WAITFORMESSAGEORRETURN(a, b, c) if (!waitForMessage(a, b, c)) return;
+
 ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, RecognitionControlFactory *factory, bool keepSamples, const QHostAddress& writeAccessHost, QObject *parent)
 : QSslSocket(parent),
   m_keepSamples(keepSamples),
@@ -84,7 +87,7 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
 }
 
 
-void ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
+bool ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
 {
   Q_ASSERT(stream.device());
   int delayed = 0;
@@ -95,11 +98,13 @@ void ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray
     } else {
       usleep(100000 /* 100 ms */);
       if (delayed++ == 3) {
-	kWarning() << "Timeout";
-	close();
+        kWarning() << "Timeout";
+        close();
+	return false;
       }
     }
   }
+  return true;
 }
 
 
@@ -110,7 +115,7 @@ void ClientSocket::processRequest()
   qint32 type;
 
   while (!stream.atEnd()) {
-    waitForMessage(sizeof(qint32), stream, msg);
+    WAITFORMESSAGEORRETURN(sizeof(qint32), stream, msg);
     Simond::Request request;
     stream >> type;
     request = (Simond::Request) type;
@@ -146,7 +151,7 @@ void ClientSocket::processRequest()
       case Simond::Login:
       {
         kDebug() << "Login requested";
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
 
         qint8 remoteProtocolVersion;
         QString user;
@@ -157,7 +162,7 @@ void ClientSocket::processRequest()
         qint64 length;
 
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         stream >> remoteProtocolVersion;
         stream >> userBytes;
@@ -222,10 +227,10 @@ void ClientSocket::processRequest()
 
       case Simond::SynchronisationInformation:
       {
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         synchronisationRunning = true;
 
@@ -380,11 +385,11 @@ void ClientSocket::processRequest()
 
         kDebug() << "Received Active model";
 
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
 
         qint64 length;
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         qint32 sampleRate;
         QByteArray container;
@@ -418,7 +423,7 @@ void ClientSocket::processRequest()
       {
         Q_ASSERT(synchronisationManager);
         qint32 sampleRate;
-        waitForMessage(sizeof(qint32), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint32), stream, msg);
         stream >> sampleRate;
         kDebug() << "Got sample rate: " << sampleRate;
         synchronisationManager->setActiveModelSampleRate(sampleRate);
@@ -433,11 +438,11 @@ void ClientSocket::processRequest()
       {
         Q_ASSERT(synchronisationManager);
         kDebug() << "Received base model";
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
 
         qint64 length;
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         qint32 baseModelType;
         QByteArray container;
@@ -455,10 +460,10 @@ void ClientSocket::processRequest()
 
       case Simond::DeactivatedScenarioList:
       {
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
         QStringList scenarioIds;
         stream >> scenarioIds;
 
@@ -470,10 +475,10 @@ void ClientSocket::processRequest()
 
       case Simond::DeactivatedSampleGroup:
       {
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         QStringList sampleGroups;
         stream >> sampleGroups;
@@ -493,10 +498,10 @@ void ClientSocket::processRequest()
       case Simond::Scenario:
       {
         kDebug() << "Received scenario";
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         QByteArray scenarioId;
         QByteArray scenario;
@@ -525,10 +530,10 @@ void ClientSocket::processRequest()
       case Simond::SelectedScenarioList:
       {
         kDebug() << "Received selected scenario list";
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
         QDateTime modifiedDate;
         QStringList scenarioIds;
         stream >> modifiedDate;
@@ -547,11 +552,11 @@ void ClientSocket::processRequest()
         kDebug() << "Received Training";
         Q_ASSERT(synchronisationManager);
 
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
 
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         qint32 sampleRate;
         QByteArray prompts;
@@ -577,10 +582,10 @@ void ClientSocket::processRequest()
         Q_ASSERT(synchronisationManager);
 
         qint64 length;
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         stream >> length;
 
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         QByteArray shadowVocab, languageProfile;
         QDateTime changedTime;
@@ -599,9 +604,9 @@ void ClientSocket::processRequest()
         Q_ASSERT(synchronisationManager);
 
         qint64 length;
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
         QByteArray name;
         stream >> name;
 
@@ -615,10 +620,10 @@ void ClientSocket::processRequest()
         Q_ASSERT(synchronisationManager);
 
         qint64 length;
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         stream >> length;
 
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         QByteArray name;
         stream >> name;
@@ -650,9 +655,9 @@ void ClientSocket::processRequest()
       {
         Q_ASSERT(synchronisationManager);
         qint64 length;
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         QDateTime modelDate;
         stream >> modelDate;
@@ -699,10 +704,10 @@ void ClientSocket::processRequest()
 
       case Simond::RecognitionStartSample:
       {
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         qint8 id;
         qint8 channels;
@@ -729,10 +734,10 @@ void ClientSocket::processRequest()
       case Simond::RecognitionSampleData:
       {
         //kDebug() << "Received sample data";
-        waitForMessage(sizeof(qint64), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
-        waitForMessage(length, stream, msg);
+        WAITFORMESSAGEORRETURN(length, stream, msg);
 
         QByteArray sampleData;
         qint8 id;
@@ -748,7 +753,7 @@ void ClientSocket::processRequest()
       case Simond::RecognitionSampleFinished:
       {
         //kDebug() << "Recognizing on sample";
-        waitForMessage(sizeof(qint8), stream, msg);
+        WAITFORMESSAGEORRETURN(sizeof(qint8), stream, msg);
         qint8 id;
         stream >> id;
         WAV *w = currentSamples.value(id);
