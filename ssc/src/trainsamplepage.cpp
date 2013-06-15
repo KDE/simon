@@ -43,8 +43,8 @@ m_maxPage(maxPage),
 m_directory(directory)
 {
   if (forcedFileNameTemplate.isEmpty()) {
-    fileName = prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\','_')
-      .remove('<').remove('>').remove('|').remove('"').left(100)
+    fileName = QFile::encodeName(prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\','_')
+      .remove('<').remove('>').remove('|').remove('"')).left(100)
       + "_S"
       + QString::number(nowPage)
       + '_'
