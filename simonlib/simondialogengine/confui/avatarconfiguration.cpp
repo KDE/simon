@@ -86,6 +86,7 @@ Avatar* AvatarConfiguration::getCurrentAvatarGraphical()
 void AvatarConfiguration::editAvatar()
 {
   Avatar *a = getCurrentAvatarGraphical();
+  if (!a) return;
   CreateAvatarDialog *dlg = new CreateAvatarDialog(this);
   dlg->editAvatar(a);
   delete dlg;
@@ -93,6 +94,7 @@ void AvatarConfiguration::editAvatar()
 void AvatarConfiguration::removeAvatar()
 {
   Avatar *a = getCurrentAvatarGraphical();
+  if (!a) return;
   if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is avatar name", "Do you really want to remove the avatar \"%1\" from your dialog?", a->name())) == KMessageBox::Yes)
   {
     if (!avatarModel->removeAvatar(a))

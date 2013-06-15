@@ -297,6 +297,16 @@ bool ModelCompilerSPHINX::processError()
     return true;
   }
 
+  //check logdir/05.vector_quantize/<modelname>.kmeans.log for "Too few observations"
+  QString kmeansLogPath(m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/logdir/05.vector_quantize/")+m_ModelName+QLatin1String(".kmeans.log"));
+  if (QFile::exists(kmeansLogPath)) {
+    QFile log(kmeansLogPath);
+    log.open(QIODevice::ReadOnly);
+    log.readAll().contains("Too few observations");
+    emit error(i18n("Too little training material available.\n\nPlease train your acoustic model by recording samples."));
+    return true;
+  }
+
   return false;
 }
 
@@ -337,7 +347,8 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
 
   if(!sourceDir.exists())
   {
-    analyseError(i18n("Failed to pack to archive. Source directory does not exist (\"%1\")", srcDirName));
+    //error will be reported by caller
+    //analyseError(i18n("Failed to pack to archive. Source directory does not exist (\"%1\")", srcDirName));
     return false;
   }
 

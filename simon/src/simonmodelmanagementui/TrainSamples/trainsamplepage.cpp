@@ -25,13 +25,14 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QVariant>
+#include <QFile>
 
 #include <KLocalizedString>
 #include <KMessageBox>
 
 TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
 prompt(prompt_),
-fileName( prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\', '_').remove('<').remove('>').remove('|').remove('"')
+fileName( QFile::encodeName(prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\', '_').remove('<').remove('>').remove('|').remove('"')).left(100)
 + "_S"
 + QString::number(nowPage)
 + '_'

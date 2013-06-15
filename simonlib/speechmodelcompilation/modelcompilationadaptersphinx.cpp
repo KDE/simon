@@ -66,9 +66,10 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
   //merging scenarios
   mergeInputData(scenarioPathsIn, mergedVocabulary, mergedGrammar);
 
-  if((adaptionType & ModelCompilationAdapter::AdaptLanguageModel) &&  mergedVocabulary->empty())
+  if ((adaptionType & ModelCompilationAdapter::AdaptLanguageModel) &&
+      (mergedVocabulary->empty() || (mergedGrammar->structureCount() == 0)))
   {
-    kDebug()<<"Empty vocabulary aborting adaptation";
+    kDebug() << "Empty vocabulary or grammar; aborting adaptation";
     emit adaptionAborted(ModelCompilation::InsufficientInput);
     return false;
   }
@@ -150,22 +151,21 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  kDebug()<<"Store transcription & fields";
-  bool errorStoringTrainTS = !storeTranscriptionAndFields(adaptionType, promptsPathIn,
-                                                          fetc+TRAIN_TRANSCRIPTION,
-                                                          fetc+TRAIN_FIELDS,
-                                                          definedVocabulary, vocabulary);
-
-  bool errorStoringTestingTS = !storeTranscriptionAndFields(adaptionType, promptsPathIn,
-                                                            fetc+TEST_TRANSCRIPTION,
-                                                            fetc+TEST_FIELDS,
+  if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
+    kDebug()<<"Store transcription & fields";
+    bool err = storeTranscriptionAndFields(adaptionType, promptsPathIn,
+                                                            fetc+TRAIN_TRANSCRIPTION,
+                                                            fetc+TRAIN_FIELDS,
                                                             definedVocabulary, vocabulary);
 
-  if(!(adaptionType == ModelCompilationAdapter::AdaptLanguageModel) &&
-     (errorStoringTrainTS || errorStoringTestingTS ))
-  {
-    emit error(i18n("Failed to store transcription and fields"));
-    return false;
+    err = err && storeTranscriptionAndFields(adaptionType, promptsPathIn,
+                                                                fetc+TEST_TRANSCRIPTION,
+                                                                fetc+TEST_FIELDS,
+                                                                definedVocabulary, vocabulary);
+    if (!err) {
+        kDebug() << "Returning here; store transcription and fields failed...?";
+        return false; // error reporting done by the function itself
+    }
   }
 
   ADAPT_CHECKPOINT;
@@ -353,8 +353,15 @@ bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType ada
 
     if (allWordsInLexicon || !(adaptionType & AdaptLanguageModel) || (adaptionType & AdaptIndependently))
     {
-      promptsOutFile.write("<s> "+wordsString.toUtf8() + " </s> (" + line.left(splitter).toUtf8() /*filename*/+ ")\n");
-      fieldsOutFile.write(line.left(splitter).toUtf8() /*filename*/ + "\n");
+      QByteArray filename;
+#ifdef Q_OS_WIN
+      filename = line.left(splitter).toLocal8Bit();
+#else
+      filename = line.left(splitter).toUtf8();
+#endif
+
+      promptsOutFile.write("<s> "+wordsString.toUtf8() + " </s> (" + filename + ")\n");
+      fieldsOutFile.write(filename + "\n");
       ++m_sampleCount;
     }
   }

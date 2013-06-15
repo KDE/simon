@@ -188,7 +188,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     static bool updateChildScenarioIds(const QString& id, const QStringList& ids);
 
   public slots:
-    bool save(QString path=QString(), bool full = false);
+    bool save(QString path=QString(), bool full = false, bool touchModifiedTime = true);
     void updateActivation();
 };
 #endif

@@ -24,9 +24,14 @@
 #include "qwt_series_data.h"
 #include <qwt_plot.h>
 #include <qwt_legend.h>
-#include <qwt_legend_item.h>
+//#include <qwt_legend_item.h>
 #include <QStringList>
 
+#if QWT_VERSION >= 0x060100
+#include <qwt_column_symbol.h>
+#include <qwt_plot_layout.h>
+#include <qwt_scale_draw.h>
+#endif
 
 void TestResultPlotter::plot(const QStringList& labels, const QList<double>& confidence, const QList<double>& accuracy, 
 	    QwtPlot *plot, QwtBarsItem *barGraph, QwtLegend *barGraphLegend)
@@ -35,6 +40,7 @@ void TestResultPlotter::plot(const QStringList& labels, const QList<double>& con
   Q_ASSERT(count == confidence.count());
   Q_ASSERT(count == accuracy.count());
   
+  #if QWT_VERSION < 0x060100
   double *accuracyA = new double[count];
   double *confidenceA = new double[count];
   for (int i=0; i < count; i++)
@@ -48,15 +54,63 @@ void TestResultPlotter::plot(const QStringList& labels, const QList<double>& con
 
   QwtSeriesData<double> *confSeries = new CArrayData<double>( confidenceA, count );
   barGraph->addSerie( i18n("Confidence"), *confSeries, QBrush( Qt::green ), QPen( QColor( Qt::darkGreen ), 1 ) );
-  
+
   barGraph->updateLegend(barGraphLegend);
   barGraph->setType(QwtBarsItem::SideBySide);
+  #else
+  static const char *colors[] = { "Blue", "Red" };
+  const int numBars = 2; // accuracy, confidence
+  QList<QwtText> barTitles;
+  barTitles << i18n("Accuracy");
+  barTitles << i18n("Confidence");
+  barGraph->setBarTitles(barTitles);
+
+  barGraph->setLegendIconSize(QSize(10, 14));
+
+  for ( int i = 0; i < numBars; i++ )
+  {
+    QwtColumnSymbol *symbol = new QwtColumnSymbol(QwtColumnSymbol::Box);
+    symbol->setLineWidth(2);
+    symbol->setFrameStyle(QwtColumnSymbol::Raised);
+    symbol->setPalette(QPalette(colors[i]));
+    barGraph->setSymbol(i, symbol);
+  }
+
+  QVector<QVector<double> > series;
+  for (int i = 0; i < count; i++)
+  {
+    QVector<double> values;
+    values << accuracy[i];
+    values << confidence[i];
+    series << values;
+  }
+
+  barGraph->setSamples(series);
+  #endif
+
   barGraph->attach(plot);
+  plot->setAxisScaleDraw(QwtPlot::xBottom, new QwtScaleDrawLabels( labels, 1 ));
   
   // scale:
-  plot->setAxisScaleDraw( QwtPlot::xBottom, new QwtScaleDrawLabels( labels, 1 ) );
-  plot->setAxisMaxMinor( QwtPlot::xBottom, 0 );
-  plot->setAxisMaxMajor( QwtPlot::xBottom, count+1 );
+  #if QWT_VERSION < 0x60100
+  plot->setAxisMaxMinor(QwtPlot::xBottom, 0);
+  plot->setAxisMaxMajor(QwtPlot::xBottom, count+1);
+  #else
+  QwtScaleDraw *scaleDraw1 = new QwtScaleDrawLabels( labels, 0 );
+  scaleDraw1->enableComponent(QwtScaleDraw::Labels, true);
+  scaleDraw1->enableComponent(QwtScaleDraw::Backbone, false);
+  scaleDraw1->enableComponent(QwtScaleDraw::Ticks, false);
+  plot->setAxisScaleDraw(QwtPlot::xBottom, scaleDraw1);
+
+  QwtScaleDraw *scaleDraw2 = plot->axisScaleDraw(QwtPlot::yLeft);
+  scaleDraw2->enableComponent(QwtScaleDraw::Backbone, true);
+  scaleDraw2->enableComponent(QwtScaleDraw::Labels, true);
+  scaleDraw2->enableComponent(QwtScaleDraw::Ticks, true);
+
+  plot->plotLayout()->setAlignCanvasToScale(QwtPlot::xBottom, true);
+  plot->plotLayout()->setAlignCanvasToScale(QwtPlot::yLeft, false);
+  #endif
+
   plot->replot();
 }
 

@@ -59,10 +59,10 @@ bool AlarmScheduleItem::trigger()
   }
   
   QString text = m_config->dialogText();
-  text.replace("%1", m_summary);
-  text.replace("%2", KGlobal::locale()->formatDate(m_eventTime.date()));
-  text.replace("%3", KGlobal::locale()->formatTime(m_eventTime.time()));
-  text.replace("%4", m_eventLocation);
+  text.replace("%summary", m_summary, Qt::CaseInsensitive);
+  text.replace("%date", KGlobal::locale()->formatDate(m_eventTime.date()), Qt::CaseInsensitive);
+  text.replace("%time", KGlobal::locale()->formatTime(m_eventTime.time()), Qt::CaseInsensitive);
+  text.replace("%location", m_eventLocation, Qt::CaseInsensitive);
 
   DialogState *state = new DialogState(parser, "Name", text, false, true, commands, 0);
   state->setDisplayAvatar(m_config->getDisplayAvatar());

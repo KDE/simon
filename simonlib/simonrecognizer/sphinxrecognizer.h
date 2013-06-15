@@ -25,10 +25,12 @@
 
 #include <QString>
 #include <pocketsphinx/pocketsphinx.h>
+#include <sphinxbase/err.h>
 
 class SIMONRECOGNIZER_EXPORT SphinxRecognizer : public Recognizer
 {
 private:
+  QString logPath;
   ps_decoder_t *decoder;
 
 public:
@@ -37,6 +39,7 @@ public:
 
   bool init(RecognitionConfiguration* config);
   QList<RecognitionResult> recognize(const QString& file);
+  virtual QByteArray getLog();
   bool uninitialize();
 
 };

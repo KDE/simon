@@ -61,10 +61,12 @@ class ClientSocket : public QSslSocket
     ContextAdapter *contextAdapter;
 
     QHash<qint8, WAV *> currentSamples;
+    QMutex sendingMutex;
     QMutex recognitionInitializationMutex;
 
-    void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
-    
+    bool waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+    void send(qint32 requestId, const QByteArray& data, bool includeLength=true);
+    void sendCode(Simond::Request code);
 
   public slots:
     void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
@@ -75,7 +77,6 @@ class ClientSocket : public QSslSocket
     void startSynchronisation();
     void recognitionDone(const QString& fileName);
 
-    void sendCode(Simond::Request code);
     void processRequest();
     void slotSocketError();
 

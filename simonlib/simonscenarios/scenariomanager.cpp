@@ -19,12 +19,15 @@
 
 #include "scenariomanager.h"
 #include "speechmodelmanagementconfiguration.h"
+#include "version.h"
 #include "scenariodisplay.h"
 #include "voiceinterfacecommand.h"
 
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/shadowvocabulary.h>
+#include "author.h"
 #include <simongraphemetophoneme/graphemetophoneme.h>
+#include <simonscenariobase/versionnumber.h>
 
 #include <QFileInfo>
 #include <QCoreApplication>
@@ -48,11 +51,11 @@ ScenarioManager *ScenarioManager::getInstance()
 }
 
 ScenarioManager::ScenarioManager(QObject *parent) : QObject(parent),
-m_inGroup(false),
-m_baseModelDirty(false),
-m_scenariosDirty(false),
-m_shadowVocabularyDirty(false),
-currentScenario(0)
+  m_inGroup(false),
+  m_baseModelDirty(false),
+  m_scenariosDirty(false),
+  m_shadowVocabularyDirty(false),
+  currentScenario(0)
 {
 }
 
@@ -138,24 +141,24 @@ QStringList ScenarioManager::getAllAvailableScenarioIds()
 
 QStringList ScenarioManager::getAllDeactivatedScenarioIds()
 {
-    QStringList deactivatedScenarios;
+  QStringList deactivatedScenarios;
 
-    kDebug() << "Preparing a list of deactivated scenarios...";
+  kDebug() << "Preparing a list of deactivated scenarios...";
 
-    foreach (Scenario* scenario, scenarios)
+  foreach (Scenario* scenario, scenarios)
+  {
+    if (!scenario->isActive())
     {
-        if (!scenario->isActive())
-        {
-            deactivatedScenarios.push_back(scenario->id());
-            kDebug() << scenario->id() + " is deactivated";
-        }
-        else
-        {
-            kDebug() << scenario->id() + " is activated";
-        }
+      deactivatedScenarios.push_back(scenario->id());
+      kDebug() << scenario->id() + " is deactivated";
     }
+    else
+    {
+      kDebug() << scenario->id() + " is activated";
+    }
+  }
 
-    return deactivatedScenarios;
+  return deactivatedScenarios;
 }
 
 
@@ -243,67 +246,88 @@ Scenario* ScenarioManager::getScenario(const QString& id)
 
 bool ScenarioManager::setupScenarios(bool forceChange)
 {
-    bool success = true;
+  bool success = true;
 
+
+  QStringList scenarioIds;
+
+  qDeleteAll(scenarios);
+  scenarios.clear();
+
+  KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+  KConfigGroup cg(config, "");
+
+  if (cg.hasKey("SelectedScenarios")) {
+    scenarioIds = cg.readEntry("SelectedScenarios", QStringList());
+  } else {
+    QString generalScenarioId = Scenario::createId(QLatin1String("general"));
     QStringList defaultScenarioIds;
-    defaultScenarioIds << "general";
+    defaultScenarioIds << generalScenarioId;
+    scenarioIds = defaultScenarioIds;
+    cg.writeEntry("SelectedScenarios", defaultScenarioIds);
 
-    QStringList scenarioIds;
+    //this is not supposed to be the current time but the date of the stock
+    //configuration.
+    //We set it to the beginning of the epoch to ensure, that any user configuration
+    //that might get synced from the server is preferred to this one.
+    QDateTime stockTime;
+    stockTime.setTime_t(0);
+    cg.writeEntry("LastModified", stockTime);
+    cg.sync();
 
-    qDeleteAll(scenarios);
-    scenarios.clear();
+    // first run or corrupted configuration; Start off with new standard scenario
+    Scenario *s = new Scenario(generalScenarioId);
+    VersionNumber *minVersion = new VersionNumber(s, simon_version);
+    QList<Author*> authors;
+    authors << new Author(s, i18nc("Standard author of a scenario", "Anonymous"), i18nc("Standard \"email address\" of a scenario", "No mail provided"));
 
-    KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
-    KConfigGroup cg(config, "");
-
-    if (cg.hasKey("SelectedScenarios")) {
-        scenarioIds = cg.readEntry("SelectedScenarios", defaultScenarioIds);
-    } else {
-        scenarioIds = defaultScenarioIds;
-        cg.writeEntry("SelectedScenarios", defaultScenarioIds);
-        cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
-        cg.sync();
+    if (!s->create(i18nc("Default name of an (empty) standard scenario", "Standard"), "simon", 1, minVersion, 0 /*maxVersion*/, "BSD", authors) || !s->save(QString(), false, false)) {
+      kWarning() << "Standard scenario could not be created";
+      s->deleteLater();
+      return false;
     }
+    s->deleteLater();
+  }
 
-    kDebug() << "Loading scenarios: " << scenarioIds;
+  kDebug() << "Loading scenarios: " << scenarioIds;
 
-    foreach (const QString& id, scenarioIds) {
-        Scenario *s = new Scenario(id, QString(), this);
-        kDebug() << "Initializing scenario" << id;
+  foreach (const QString& id, scenarioIds) {
+    Scenario *s = new Scenario(id, QString(), this);
+    kDebug() << "Initializing scenario" << id;
 
-        if (setupScenario(s))
-            scenarios << s;
-        else {
-            success = false;
-            kDebug() << "Could not initialize scenario: " << id;
-        }
+    if (setupScenario(s))
+      scenarios << s;
+    else {
+      success = false;
+      kDebug() << "Could not initialize scenario: " << id;
     }
+  }
 
-    setupAllChildScenarios();
+  setupAllChildScenarios();
 
-    if (forceChange) {
-        if (m_inGroup)
-            m_scenariosDirty = true;
-        else
-            emit scenariosChanged();
-    }
+  if (forceChange) {
+    if (m_inGroup)
+      m_scenariosDirty = true;
+    else
+      emit scenariosChanged();
+  }
 
-    emit scenarioSelectionChanged();
+  emit scenarioSelectionChanged();
 
-    //we have to have at least one scenario loaded anyways; If not this
-    //crash here is the least of our worries...
-    kDebug() << "Updating displays here";
-    updateDisplays(scenarios.at(0), true);
+  //we have to have at least one scenario loaded anyways; If not this
+  //crash here is the least of our worries...
+  kDebug() << "Updating displays here";
+  updateDisplays(scenarios.at(0), true);
 
-    return success;
+  return success;
 }
 
 void ScenarioManager::setupAllChildScenarios()
 {
-    foreach(Scenario* loadedScenario, scenarios)
-    {
-        loadedScenario->setupChildScenarios();
-    }
+  foreach(Scenario* loadedScenario, scenarios)
+  {
+    loadedScenario->setupChildScenarios();
+  }
 }
 
 void ScenarioManager::setPluginFont(const QFont& font)
@@ -328,9 +352,9 @@ bool ScenarioManager::setupScenario(Scenario *s)
 
 void ScenarioManager::scenarioActivationChanged()
 {
-    kDebug() << "ScenarioManager is preparing the list of deactivated scenarios!";
+  kDebug() << "ScenarioManager is preparing the list of deactivated scenarios!";
 
-    emit deactivatedScenarioListChanged();
+  emit deactivatedScenarioListChanged();
 }
 
 
@@ -454,6 +478,8 @@ bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger
 {
   kDebug() << "Should execute command " << type << trigger;
   foreach (Scenario *s, scenarios) {
+    if (!s->isActive())
+      continue;
     if (s->triggerCommand(type, trigger, silent))
       return true;
   }
@@ -467,6 +493,8 @@ bool ScenarioManager::processResult(RecognitionResult recognitionResult)
   kDebug() << "Processing result " <<  recognitionResult.sentence().toUtf8().data();
 
   foreach (Scenario *s, scenarios) {
+    if (!s->isActive())
+      continue;
     if (s->processResult(recognitionResult))
       return true;
   }
