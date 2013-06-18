@@ -74,6 +74,7 @@ void ModelCompilationManagerSPHINX::run()
 
   adapter->clearPoisonedPhonemes();
 
+  QStringList additionalOutPaths;
   do
   {
     if (!keepGoing) return;
@@ -149,10 +150,14 @@ void ModelCompilationManagerSPHINX::run()
     if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(),
                                              baseModelPath, compilerArgs))
     {
+      //we had to re-try; all old, intermediate fingerprints are going to end up here; short circuit this for the next time
+      foreach (const QString& copy, additionalOutPaths)
+        QFile::copy(outPath, copy);
       emit modelReady(fingerprint, outPath);
       return;
     } else
-      kWarning() << "Model compilation failed for user " << userName;
+      kWarning() << "Model compilation failed for user " << userName << " try again: " << tryAgain;
+    additionalOutPaths << outPath;
   } while (tryAgain);
   keepGoing = false;
 }

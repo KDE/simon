@@ -78,6 +78,7 @@ void ModelCompilationManagerHTK::run()
 
   adapter->clearPoisonedPhonemes();
 
+  QStringList additionalOutPaths;
   do
   {
     if (!keepGoing) return;
@@ -160,11 +161,15 @@ void ModelCompilationManagerHTK::run()
     if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(),
                                              baseModelPath, compilerArgs))
     {
+      //we had to re-try; all old, intermediate fingerprints are going to end up here; short circuit this for the next time
+      foreach (const QString& copy, additionalOutPaths)
+        QFile::copy(outPath, copy);
       emit modelReady(fingerprint, outPath);
       keepGoing = false;
       return;
     } else
       kWarning() << "Model compilation failed for user " << userName;
+    additionalOutPaths << outPath;
   } while (tryAgain);
   keepGoing = false;
 }
