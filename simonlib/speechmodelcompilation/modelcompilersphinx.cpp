@@ -362,7 +362,7 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
 
   QString fetc = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/etc/")+m_ModelName;
   efm.insert(fetc+QLatin1String(".jsgf"), m_ModelName+QLatin1String(".jsgf"));
-  efm.insert(fetc+QLatin1String(".dic"), m_ModelName+QLatin1String(".dic"));
+  efm.insert(fetc+QLatin1String("_ship.dic"), m_ModelName+QLatin1String(".dic"));
 
   return FileUtils::pack(targetArchive, fm, efm);
 }
