@@ -43,7 +43,7 @@ ModelCompilationManagerSPHINX::ModelCompilationManagerSPHINX(const QString& user
 
   connect(compiler, SIGNAL(wordUndefined(QString)), this, SIGNAL(wordUndefined(QString)));
   connect(compiler, SIGNAL(classUndefined(QString)), this, SIGNAL(classUndefined(QString)));
-  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SLOT(slotPhonemeUndefined(QString)));
+  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SLOT(slotPhonemeUndefined(QString)), Qt::DirectConnection);
 }
 
 void ModelCompilationManagerSPHINX::run()
