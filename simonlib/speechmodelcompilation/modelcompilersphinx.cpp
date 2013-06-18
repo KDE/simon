@@ -287,12 +287,11 @@ bool ModelCompilerSPHINX::processError()
 {
   QString err = getBuildLog().trimmed();
 
-  int startIndex=0;
   //"WARNING: This phone (m=) occurs in the phonelist (.*phone), but not in the dictionary (.*dic)"
-  static QRegExp phonemeToPoison("WARNING: This phone \\((.*)\\) occurs in the phonelist .*, but not in the dictionary", Qt::CaseInsensitive);
+  static QRegExp phonemeToPoison("WARNING: This phone \\(([^)]*)\\) occurs in the phonelist .*, but not in", Qt::CaseInsensitive);
   if (phonemeToPoison.indexIn(err) != -1) {
     QString phoneme = phonemeToPoison.cap(1);
-    kDebug() << "Phoneme: " << phoneme;
+    kDebug() << "Phoneme is undefined: " << phoneme;
     emit phonemeUndefined(phoneme);
     return true;
   }
