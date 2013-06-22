@@ -232,14 +232,14 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
     QString wordNameShip = word->getLexiconWord();
     if (wordCounts.contains(wordName)) {
       int currentCount = wordCounts.value(wordName) + 1;
-      wordName += '(' + QByteArray::number(currentCount) + ')';
       wordCounts.insert(wordName, currentCount);
+      wordName += '(' + QByteArray::number(currentCount) + ')';
     } else
       wordCounts.insert(wordName, 1);
     if (wordCountsShip.contains(wordNameShip)) {
       int currentCount = wordCountsShip.value(wordNameShip) + 1;
-      wordNameShip += '(' + QByteArray::number(currentCount) + ')';
       wordCountsShip.insert(wordNameShip, currentCount);
+      wordNameShip += '(' + QByteArray::number(currentCount) + ')';
     } else
       wordCountsShip.insert(wordNameShip, 1);
     dictionary << wordName << QLatin1String("\t\t") <<
