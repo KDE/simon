@@ -490,11 +490,14 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
     m_sampleRate = samplerate;
     m_blockAlign = m_waveFormat.nBlockAlign;
 
-    //GET GUID
-    // remove everything up to (
-    QString internalDeviceName = device.mid(device.lastIndexOf("(")+1);
-    // remove )
-    internalDeviceName = internalDeviceName.left(internalDeviceName.length()-1);
+    QString internalDeviceName = device;
+    if (internalDeviceName.contains('(')) {
+      //GET GUID
+      // remove everything up to (
+      internalDeviceName = internalDeviceName.mid(internalDeviceName.lastIndexOf("(")+1);
+      // remove )
+      internalDeviceName = internalDeviceName.left(internalDeviceName.length()-1);
+    }
 
     wchar_t *internalDeviceNameW= new wchar_t[internalDeviceName.length()+1];
     internalDeviceNameW[internalDeviceName.toWCharArray(internalDeviceNameW)] = '\0';
