@@ -49,6 +49,8 @@ ScenarioManagementDialog::ScenarioManagementDialog(const QString& dataPrefix, QW
   managementWidget(new ScenarioManagementWidget(dataPrefix, false /* not minimal */, parent))
 {
   setMainWidget(managementWidget);
+  setAcceptDrops(true);
+  managementWidget->setAcceptDrops(true);
   setCaption( i18n("Manage scenarios") );
 }
 
