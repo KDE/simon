@@ -96,6 +96,7 @@ RecognitionControl::RecognitionControl() : SimonSender(),
 localSimond(0),
 blockAutoStart(false),
 simondStreamer(new SimondStreamer(this, this)),
+m_loggedIn(false),
 recognitionReady(false),
 socket(new ThreadedSSLSocket(this)),
 synchronisationOperation(0),
@@ -210,6 +211,7 @@ void RecognitionControl::slotDisconnected()
 {
   stopSimondStreamer();
 
+  m_loggedIn = false;
   recognitionReady=false;
   if (synchronisationOperation) {
     if (synchronisationOperation->isRunning())
@@ -552,6 +554,7 @@ bool RecognitionControl::sendBaseModel()
 
 void RecognitionControl::sendDeactivatedScenarioList()
 {
+  if (!m_loggedIn) return;
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -562,6 +565,7 @@ void RecognitionControl::sendDeactivatedScenarioList()
 
 void RecognitionControl::sendDeactivatedSampleGroups()
 {
+  if (!m_loggedIn) return;
   sendDeactivatedSampleGroups(ContextManager::instance()->getDeactivatedSampleGroups());
 }
 
@@ -804,6 +808,7 @@ void RecognitionControl::messageReceived()
         {
           advanceStream(sizeof(qint32));
           emit loggedIn();
+          m_loggedIn = true;
           sendDeactivatedScenarioList();
           sendDeactivatedSampleGroups();
           break;
