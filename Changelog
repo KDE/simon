@@ -1,4 +1,54 @@
 ===========================================================================
+simon: 0.4.1
+===========================================================================
+
+General:
+=======
+* Fixing up some strings
+* Support for Qwt >= 6.1 (bug: 320680)
+* Better dependency documentation (bug: 314042)
+
+Simon:
+======
+* Better placeholders for the Akonadi plugin (bug: 314422)
+* Bugfix: Avoid samples filenames that may be too long for the file system
+* Powertraining: Advance to next page automatically
+* Bugfix: Server -> Client synchronization: Ensure that all scenarios that
+  we request the client to load are actually synchronized first.
+* Bufix: Synchronization "hangs" (race condition in the network stream
+  processing) (bug: 314264)
+* Bugfix: Cleaner timeout handling
+* Bugfix: Avoid crash on deleting scenarios when those scenarios don't exist
+  anymore (bug: 313417)
+* Bugfix: Block commands from deactivated scenarios (bug: 314634)
+* Built-in defaults for prompts, "general" scenario and shadow dict (bug: 320204)
+
+SSCd:
+====
+* Bugfix: Ensure 4 bytes are available before parsing request id
+
+Simond:
+======
+* Bugfix: If a model was repaired during compilation (e.g. phoneme poisoning)
+  link all intermediate inputs to the final result (avoid model re-creation on
+  minor changes)
+* Bugfix: Full sample synchronization
+* Bugfix: Enable timeout for possibly malicious requests
+* Bugfix: Broken HTML in "missing backend" message (bug: 312657)
+
+Simonlib:
+========
+* Bugfix: SPHINX: Support multiple transcriptions per word properly
+* Bugfix: SPHINX: Fixed encoding issue on WIN32 (bug: 315460)
+* Bugfix: SPHINX: Proper error message for "too little training data"
+* Bugfix: SPHINX: Proper error reporting (log) for model compilation (bug:
+  320202)
+* Bugfix: SPHINX: Cancel adaption when no grammar was specified
+* Bugfix: Avoiding double-delete when using multiple recording devices
+* Bugfix: Better detection of null models
+
+
+===========================================================================
 simon: 0.4.0
 ===========================================================================
 
