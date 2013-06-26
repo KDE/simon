@@ -41,6 +41,11 @@ find_library(SphinxBase_LIBRARY
   PATHS ${SphinxBase_PKGCONF_LIBRARY_DIRS}
 )
 
+IF(WIN32)
+  set (SphinxBase_LIBRARIES ${SphinxBase_LIBRARIES} iconv)
+ENDIF(WIN32)
+
+
 # Set the include dir variables and the libraries and let libfind_process do the rest.
 # NOTE: Singular variables for this library, plural for libraries this lib depends on.
 set(SphinxBase_PROCESS_INCLUDES SphinxBase_INCLUDE_DIR SphinxBase_INCLUDE_DIRS)

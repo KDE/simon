@@ -80,6 +80,7 @@ class SimonSoundOutput : public QObject, public SoundBackendClient
     void startClientUpdate();
     void completeClientUpdate();
 
+  public slots:
     void popClient();
 
 };

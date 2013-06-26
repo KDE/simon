@@ -253,6 +253,7 @@ bool JuliusRecognizer::uninitialize()
 
   if (m_juliusProcess->state() != QProcess::NotRunning)
   {
+#ifndef Q_OS_WIN32
     m_juliusProcess->terminate();
     if (!m_juliusProcess->waitForFinished(5000))
     {
@@ -260,10 +261,20 @@ bool JuliusRecognizer::uninitialize()
       if (!m_juliusProcess->waitForFinished())
       {
         m_lastError = i18n("Failed to stop running Julius process");
-	initializationLock.unlock();
+        initializationLock.unlock();
         return false;
       }
     }
+#else
+    //be a bit more aggressive on windows as terminate doesn't seem to
+    //do much
+    m_juliusProcess->kill();
+    if (!m_juliusProcess->waitForFinished()) {
+      m_lastError = i18n("Failed to stop running Julius process");
+      initializationLock.unlock();
+      return false;
+    }
+#endif
   }
 
   m_juliusProcess->deleteLater();

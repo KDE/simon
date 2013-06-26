@@ -96,6 +96,7 @@ RecognitionControl::RecognitionControl() : SimonSender(),
 localSimond(0),
 blockAutoStart(false),
 simondStreamer(new SimondStreamer(this, this)),
+m_loggedIn(false),
 recognitionReady(false),
 socket(new ThreadedSSLSocket(this)),
 synchronisationOperation(0),
@@ -141,8 +142,8 @@ void RecognitionControl::startPrivateSimond()
 {
   if (!localSimond) {
     localSimond = new QProcess(this);
-    connect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
   }
+  disconnect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
   if (localSimond->state() != QProcess::NotRunning) {
     localSimond->close();
     localSimond->waitForFinished();
@@ -150,6 +151,16 @@ void RecognitionControl::startPrivateSimond()
 
   localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
   localSimond->waitForStarted();
+  // we don't know when Simond will start listening for connections;
+  // if we connect too soon, we will get a "connection refused" error.
+  // Additionally, if we mindlessly restart simond as it exits, we won't catch the situtation where
+  // another Simond is already running (blocking the port).
+  // So here we wait for Simond to "finish" (exit prematurely, really). After half a second of runtime
+  // we assume that either Simond is now listening or, if it did quit, that it was unable to initialize
+  // (i.e., start listening) and there is no point in restarting it
+  if (!localSimond->waitForFinished(500))
+    connect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
+     //otherwise, no restarting
 }
 
 void RecognitionControl::startup()
@@ -210,6 +221,7 @@ void RecognitionControl::slotDisconnected()
 {
   stopSimondStreamer();
 
+  m_loggedIn = false;
   recognitionReady=false;
   if (synchronisationOperation) {
     if (synchronisationOperation->isRunning())
@@ -552,6 +564,7 @@ bool RecognitionControl::sendBaseModel()
 
 void RecognitionControl::sendDeactivatedScenarioList()
 {
+  if (!m_loggedIn) return;
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -562,6 +575,7 @@ void RecognitionControl::sendDeactivatedScenarioList()
 
 void RecognitionControl::sendDeactivatedSampleGroups()
 {
+  if (!m_loggedIn) return;
   sendDeactivatedSampleGroups(ContextManager::instance()->getDeactivatedSampleGroups());
 }
 
@@ -804,6 +818,7 @@ void RecognitionControl::messageReceived()
         {
           advanceStream(sizeof(qint32));
           emit loggedIn();
+          m_loggedIn = true;
           sendDeactivatedScenarioList();
           sendDeactivatedSampleGroups();
           break;
@@ -1753,6 +1768,7 @@ RecognitionControl::~RecognitionControl()
   simondStreamer->stop();
   simondStreamer->deleteLater();
   if (localSimond) {
+    disconnect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
     localSimond->terminate();
     localSimond->waitForFinished(1000);
     if (localSimond->state() != QProcess::NotRunning)

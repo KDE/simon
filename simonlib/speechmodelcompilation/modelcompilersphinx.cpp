@@ -37,11 +37,21 @@ bool ModelCompilerSPHINX::parseConfiguration()
 //  if(compilationType & ModelCompiler::CompileSpeechModel)//TODO: think and then put conditions back
 //  {
     //   (compilationType & ModelCompilerHTK::AdaptSpeechModel)) {
+#ifdef Q_OS_WIN32
+    QString python = KStandardDirs::findExe("python");
+    QString sphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
+    m_SphinxTrain = '"' + python + "\" \"" + sphinxTrain + '"';
+#else
     m_SphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
+#endif
 
-    kDebug()<<"SPhinxtrain exec: "<<m_SphinxTrain;
+    kDebug()<<"Sphinxtrain exec: "<<m_SphinxTrain;
 
+#ifdef Q_OS_WIN32
+    if (!QFile::exists(python) || !QFile::exists(sphinxTrain))
+#else
     if (!QFile::exists(m_SphinxTrain))
+#endif
     {
       //SphinxTrain not found
       QString errorMsg = i18n("The SphinxTrain cannot be found. Please make sure it is installed correctly.");

@@ -20,6 +20,7 @@
 #include "simonsoundoutput.h"
 #include <QMutexLocker>
 #include <KDebug>
+#include <QTimer>
 
 SoundOutputBuffer::SoundOutputBuffer(SimonSoundOutput* output): SoundBuffer(output),
   m_output(output)
@@ -30,7 +31,11 @@ qint64 SoundOutputBuffer::read(char* data, qint64 maxLen)
 {
   QMutexLocker l(&bufferLock);
   if (m_buffer.isEmpty()) {
+#ifndef Q_OS_WIN32
     m_output->popClient();
+#else
+    QTimer::singleShot(2000, m_output, SLOT("popClient"));
+#endif
     //return zeros to keep stream going while we sort out the next client or
     //stop the stream
     memset(data, 0, maxLen);
