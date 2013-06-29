@@ -49,7 +49,6 @@ TrainingManager* TrainingManager::m_instance;
  */
 TrainingManager::TrainingManager(QObject* parent) : QObject(parent),
 m_dirty(false),
-m_trainingTexts(new TrainingList()),
 m_promptsLock(QMutex::Recursive),
 m_promptsTable(0)
 {
@@ -167,6 +166,7 @@ bool TrainingManager::savePrompts()
   if (m_dirty)
   {
       m_wordRelevance.clear();                        // drop probability cache
+      m_textRelevance.clear();
 
       //Update the training date and signal a change in the data
       KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
@@ -233,6 +233,9 @@ bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
  */
 float TrainingManager::calcRelevance ( const TrainingText *text )
 {
+  if (m_textRelevance.contains(text))
+    return m_textRelevance.value(text);
+
   QString currPage;
   QStringList words;
   int wordCount=0;
@@ -266,9 +269,9 @@ float TrainingManager::calcRelevance ( const TrainingText *text )
   }
   m_promptsLock.unlock();
 
-  if ( wordCount > 0 )
-    return qRound ( probability/wordCount );
-  else return 0;
+  const float relevance = ( wordCount > 0 ) ? qRound ( probability/wordCount ) : 0;
+  m_textRelevance.insert(text, relevance);
+  return relevance;
 }
 
 
@@ -354,6 +357,4 @@ bool TrainingManager::clear()
  */
 TrainingManager::~TrainingManager()
 {
-  qDeleteAll(*m_trainingTexts);
-  delete m_trainingTexts;
 }
