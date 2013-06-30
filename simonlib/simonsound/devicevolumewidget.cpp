@@ -60,18 +60,22 @@ void DeviceVolumeWidget::deviceReportedLevel(qint64 time, float level)
    * So, I'd say around 10 seconds would be reasonable so that the above condition (10 or more data samples) is satisfied.
    * So let's remove all records that are older than 10 seconds.
    */
-  if( listOfLevels.last().first - listOfLevels.first().first >= 10000 )
+  qint64 measuredTimeDist = listOfLevels.last().first - listOfLevels.first().first;
+  if( measuredTimeDist >= 10000 ) {
     listOfLevels.takeFirst();
+    highLevel = lowLevel = listOfLevels[0].second;
 
-  highLevel = lowLevel = listOfLevels[0].second;
-
-  for(int i=1; i<listOfLevels.length(); i++){
-    highLevel = qMax<float>(listOfLevels[i].second,highLevel);
-    lowLevel = qMin<float>(listOfLevels[i].second,lowLevel);
+    for(int i=1; i<listOfLevels.length(); i++){
+      highLevel = qMax<float>(listOfLevels[i].second,highLevel);
+      lowLevel = qMin<float>(listOfLevels[i].second,lowLevel);
+    }
+  } else {
+    //not measured long enough; assume good SNR
+    highLevel = 1;
+    lowLevel = 0;
   }
 
   updateLabel();
-
 }
 
 void DeviceVolumeWidget::completed()
@@ -148,10 +152,9 @@ void DeviceVolumeWidget::tooLow()
 
 void DeviceVolumeWidget::start()
 {
+  listOfLevels.clear();
   if (!rec->start())
     KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be started for device: %1.", m_deviceName));
-  else
-    labelUpdater.start(1000);
 }
 
 
@@ -159,8 +162,6 @@ void DeviceVolumeWidget::stop()
 {
   if (!rec->finish())
     KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be stopped for device: %1.", m_deviceName));
-  else
-    labelUpdater.stop();
 }
 
 
