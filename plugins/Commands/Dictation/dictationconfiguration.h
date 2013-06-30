@@ -41,6 +41,7 @@ public:
   ~DictationConfiguration();
 
   //configuration options
+  bool upperCaseFirst() const;
   QString appendText() const;
   Replacements* replacements() const;
 

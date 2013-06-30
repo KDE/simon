@@ -32,6 +32,13 @@
     </layout>
    </item>
    <item>
+    <widget class="QCheckBox" name="cbUpperCaseFirst">
+     <property name="text">
+      <string>Upper case first character</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Replacements:</string>

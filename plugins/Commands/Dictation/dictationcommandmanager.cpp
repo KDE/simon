@@ -39,6 +39,8 @@ bool DictationCommandManager::trigger(const QString& triggerName, bool silent)
   DictationConfiguration *c = static_cast<DictationConfiguration*>(config);
   QString appendText = c->appendText();
   QString myText = c->replacements()->replace(triggerName);
+  if (c->upperCaseFirst())
+    myText = myText.left(1).toUpper() + myText.mid(1);
   EventHandler::getInstance()->sendWord(myText+appendText);
   return true;
 }

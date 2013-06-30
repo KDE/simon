@@ -56,6 +56,7 @@ bool DictationConfiguration::deSerialize(const QDomElement& elem)
 {
   QString text = elem.firstChildElement("postText").attribute("value");
   ui.leAppendText->setText(text);
+  ui.cbUpperCaseFirst->setChecked(elem.firstChildElement("upperCaseFirst").attribute("enabled") == "1");
   m_replacements->deSerialize(elem.firstChildElement("replacements"));
   return true;
 }
@@ -65,12 +66,19 @@ QDomElement DictationConfiguration::serialize(QDomDocument *doc)
 {
   QDomElement configElem = doc->createElement("config");
   QDomElement postTextElem = doc->createElement("postText");
+  QDomElement upperCaseFirstElem = doc->createElement("upperCaseFirst");
   postTextElem.setAttribute("value", ui.leAppendText->text());
+  upperCaseFirstElem.setAttribute("enabled", upperCaseFirst() ? "1" : "0");
   configElem.appendChild(postTextElem);
+  configElem.appendChild(upperCaseFirstElem);
   configElem.appendChild(m_replacements->serialize(doc));
   return configElem;
 }
 
+bool DictationConfiguration::upperCaseFirst() const
+{
+  return ui.cbUpperCaseFirst->isChecked();
+}
 
 QString DictationConfiguration::appendText() const
 {
@@ -87,6 +95,7 @@ void DictationConfiguration::defaults()
 {
   ui.leAppendText->setText(" ");
   m_replacements->defaults();
+  ui.cbUpperCaseFirst->setChecked(false);
 }
 
 void DictationConfiguration::addReplacement()
