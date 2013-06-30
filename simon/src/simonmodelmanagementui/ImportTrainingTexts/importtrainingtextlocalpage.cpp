@@ -35,6 +35,7 @@ ImportTrainingTextLocalPage::ImportTrainingTextLocalPage(QWidget *parent) : QWiz
   registerField("importTrainingTextLFilename*", ui.urPath, "url", SIGNAL(textChanged(QString)));
   registerField("importTrainingTextLTextname*", ui.leName);
   registerField("importTrainingTextLEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
+  registerField("importTrainingTextLVerbatim", ui.cbSplitSentences);
 }
 
 

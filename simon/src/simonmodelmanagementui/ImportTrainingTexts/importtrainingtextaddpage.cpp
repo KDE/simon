@@ -34,6 +34,7 @@ ImportTrainingTextAddPage::ImportTrainingTextAddPage(QWidget *parent) : QWizardP
 
   registerField("importTrainingTextATextname*", ui.leName);
   registerField("importTrainingAddText*", ui.teText, "plainText", SIGNAL(textChanged()));
+  registerField("importTrainingTextAVerbatim", ui.cbSplitSentences);
 }
 
 

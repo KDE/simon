@@ -141,10 +141,16 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 }
 
 
-QStringList ImportTrainingTextWorkingPage::parse(QIODevice *input, const QString& encoding)
+QStringList ImportTrainingTextWorkingPage::parse(QIODevice* input, const QString& encoding)
 {
   if ((!input) || (!input->open(QIODevice::ReadOnly)))
     return QStringList();
+
+  bool verbatim;
+  if (field("importTrainingTextLocal").toBool())
+    verbatim = field("importTrainingTextLVerbatim").toBool();
+  else
+    verbatim = field("importTrainingTextAVerbatim").toBool();
 
   QTextStream ts(input);
   if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic")) {
@@ -167,45 +173,27 @@ QStringList ImportTrainingTextWorkingPage::parse(QIODevice *input, const QString
   ui.pbProgress->setValue(2);
 
   QStringList sents;
-  QString tmp;
 
   int sentend;
-  QRegExp reg("(\\.|\\!|\\?)");                   //TODO: maybe add an option to treat "\n" as sentence-stopper
-  QRegExp spec("(\\.\\.\\.|\\!\\!\\!|\\?\\?\\?)");
+  QRegExp reg("[\\.\\!\\?]+");
   QString currentLine;
-  while ((!ts.atEnd()) || (!tmp.trimmed().isEmpty())) {
-    if (!ts.atEnd())
-      currentLine = ts.readLine();
-    else currentLine = "";
+  while (!ts.atEnd()) {
+    currentLine = ts.readLine();
 
-    QString currentProcessQueue = tmp+currentLine;
-
-    int regIndex = currentProcessQueue.indexOf(reg);
-    int specIndex = currentProcessQueue.indexOf(spec);
-
-    if (regIndex != -1) {
-      if ((specIndex <=regIndex) && (specIndex != -1))
-        sentend = specIndex+3;
-      else
-        sentend = regIndex+1;
-    } else sentend = currentProcessQueue.length();
-
-    QString sentence = QString(currentProcessQueue).left(sentend).trimmed();
-    sentence.remove('"');
-    sentence.remove(',');
-    sentence.remove('.');
-    sentence.remove('#');
-    sentence.remove('`');
-    sentence.remove('!');
-    sentence.remove('?');
-    sentence.replace(QRegExp("( |^)'"), " ");
-    sentence.remove('.');
-    sentence.replace('-', ' ');
-    sentence.replace('\n', ' ');
-    sentence.replace(QRegExp("  *"), " ");
-    if (!sentence.isEmpty()) sents << sentence;
-
-    tmp = currentProcessQueue.mid(sentend).trimmed()+' ';
+    if (!verbatim) {
+      currentLine.remove('"');
+      currentLine.remove(',');
+      currentLine.remove('.');
+      currentLine.remove('#');
+      currentLine.remove('`');
+      currentLine.replace(QRegExp("( |^)'"), " ");
+      currentLine.replace('-', ' ');
+      currentLine.replace('\n', ' ');
+      currentLine.replace(QRegExp("  *"), " ");
+      sents << currentLine.split(reg, QString::SkipEmptyParts);
+    } else
+      if (!currentLine.isEmpty())
+        sents << currentLine;
   }
   input->close();
   return sents;
