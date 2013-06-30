@@ -174,7 +174,6 @@ QStringList ImportTrainingTextWorkingPage::parse(QIODevice* input, const QString
 
   QStringList sents;
 
-  int sentend;
   QRegExp reg("[\\.\\!\\?]+");
   QString currentLine;
   while (!ts.atEnd()) {
