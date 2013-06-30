@@ -1,9 +1,12 @@
 set (simondictationcommandplugin_SRCS 
   dictationcommandmanager.cpp 
   dictationconfiguration.cpp
+  replacements.cpp
+  replacement.cpp
+  dictationreplacementui.cpp
 )
 
-kde4_add_ui_files(simondictationcommandplugin_SRCS dictationconfigurationdlg.ui)
+kde4_add_ui_files(simondictationcommandplugin_SRCS dictationconfigurationdlg.ui dictationreplacementui.ui)
 
 kde4_add_plugin(simondictationcommandplugin ${simondictationcommandplugin_SRCS})
 

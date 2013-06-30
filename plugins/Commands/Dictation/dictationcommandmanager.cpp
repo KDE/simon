@@ -17,6 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "dictationcommandmanager.h"
+#include "replacements.h"
 #include "dictationconfiguration.h"
 #include <eventsimulation/eventhandler.h>
 #include <KLocalizedString>
@@ -35,8 +36,10 @@ DictationCommandManager::DictationCommandManager(QObject* parent, const QVariant
 bool DictationCommandManager::trigger(const QString& triggerName, bool silent)
 {
   Q_UNUSED(silent);
-  QString appendText = static_cast<DictationConfiguration*>(config)->appendText();
-  EventHandler::getInstance()->sendWord(triggerName+appendText);
+  DictationConfiguration *c = static_cast<DictationConfiguration*>(config);
+  QString appendText = c->appendText();
+  QString myText = c->replacements()->replace(triggerName);
+  EventHandler::getInstance()->sendWord(myText+appendText);
   return true;
 }
 
