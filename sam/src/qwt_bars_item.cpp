@@ -222,7 +222,7 @@ QwtBarsItem::Type QwtBarsItem::type() const
 void QwtBarsItem::setBarsFraction( double f )
 {
 	if ( d->barsFraction != f ) {
-		d->barsFraction = qBound( qreal(0.1), f, qreal(1.0) );
+		d->barsFraction = qBound( 0.1, f, 1.0 );
 		updateSeries();
 	}
 }
