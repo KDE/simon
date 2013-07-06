@@ -74,7 +74,7 @@ void SelectProgramDialog::initialize()
 void SelectProgramDialog::findCategories(QString relPath)
 {
   KServiceGroup::Ptr root = KServiceGroup::group(relPath);
-  KServiceGroup::List list = root->entries();
+  const KServiceGroup::List list = root->entries();
 
   for (KServiceGroup::List::ConstIterator it = list.begin(); it != list.end(); ++it) {
     const KSycocaEntry::Ptr p = (*it);
@@ -118,7 +118,7 @@ void SelectProgramDialog::searchForPrograms()
   if (!curCategory) return;
 
   KServiceGroup::Ptr root = KServiceGroup::group(curCategory->data(Qt::UserRole).toString());
-  KServiceGroup::List list = root->entries();
+  const KServiceGroup::List list = root->entries();
 
   for (KServiceGroup::List::ConstIterator it = list.begin(); it != list.end(); ++it) {
     const KSycocaEntry::Ptr p = (*it);

@@ -364,7 +364,7 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
         kDebug() << "Model has changed";
         //delete old cached model here iff no other cached model has the old fingerprint.
         bool isOnlyOne = true;
-        for (QHash<Situation, CachedModel*>::const_iterator k = m_modelCache.constBegin(); k != m_modelCache.end(); k++) {
+        for (QHash<Situation, CachedModel*>::const_iterator k = m_modelCache.constBegin(); k != m_modelCache.constEnd(); k++) {
           if (!(k.key() == j.key()) && (k.value()->srcFingerPrint() == j.value()->srcFingerPrint())) {
             isOnlyOne = false;
             break;

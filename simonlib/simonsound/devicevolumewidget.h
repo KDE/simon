@@ -24,6 +24,7 @@
 #include "soundclient.h"
 #include <QWidget>
 #include <QTimer>
+#include <QList>
 
 namespace Ui
 {
@@ -65,7 +66,12 @@ class SIMONSOUND_EXPORT DeviceVolumeWidget : public QWidget
     qint32 lastStartedSample;
     qint32 lastCompletedSample;
     
-    QTimer labelUpdater;
+    float highLevel;
+    float lowLevel;
+    // the following stores a list of the volume levels recorded by the mic
+    // and the respective times at which each level comes, hence making it
+    // a list of pairs of timestamp and volume level (qint64 and float)
+    QList<QPair<qint64,float> > listOfLevels;
 
   private slots:
     void deviceReportedLevel(qint64 time, float level);
@@ -75,7 +81,8 @@ class SIMONSOUND_EXPORT DeviceVolumeWidget : public QWidget
     void completed();
     
     void tooLoud();
-    void volumeOk();
+    void snrOk();
+    void snrLow();
     void tooLow();
     
     void updateLabel();

@@ -42,7 +42,6 @@ DeviceVolumeWidget::DeviceVolumeWidget( const SimonSound::DeviceConfiguration& d
   connect(rec, SIGNAL(sampleStarted()), this, SLOT(started()));
   connect(rec, SIGNAL(sampleCompleted()), this, SLOT(completed()));
   
-  connect(&labelUpdater, SIGNAL(timeout()), this, SLOT(updateLabel()));
   tooLow();
 }
 
@@ -50,6 +49,33 @@ void DeviceVolumeWidget::deviceReportedLevel(qint64 time, float level)
 {
   Q_UNUSED(time);
   ui->pbVolume->setValue(qRound(100*level));
+
+  listOfLevels.append( qMakePair<qint64,float>(time,level) );
+
+  /*
+   * The frequency of the calls to deviceReportedLevel() is almost arbitrary and depends on hardware. Let's assume,
+   * for example, that your hardware has a 200ms buffer. Then, to look at 10 or more levels of volume, you'd need
+   * to monitor 2000 ms or 2 seconds of speech data. If the device uses a larger, 1 second buffer, you'd be looking at 10 seconds.
+   * Now, to get the highest and the lowest volume level we need to have a minimum good number of data samples to look at (10 or more).
+   * So, I'd say around 10 seconds would be reasonable so that the above condition (10 or more data samples) is satisfied.
+   * So let's remove all records that are older than 10 seconds.
+   */
+  qint64 measuredTimeDist = listOfLevels.last().first - listOfLevels.first().first;
+  if( measuredTimeDist >= 10000 ) {
+    listOfLevels.takeFirst();
+    highLevel = lowLevel = listOfLevels[0].second;
+
+    for(int i=1; i<listOfLevels.length(); i++){
+      highLevel = qMax<float>(listOfLevels[i].second,highLevel);
+      lowLevel = qMin<float>(listOfLevels[i].second,lowLevel);
+    }
+  } else {
+    //not measured long enough; assume good SNR
+    highLevel = 1;
+    lowLevel = 0;
+  }
+
+  updateLabel();
 }
 
 void DeviceVolumeWidget::completed()
@@ -73,9 +99,15 @@ void DeviceVolumeWidget::updateLabel()
   } else {
     //let's check if we haven't detected a sample for at least 5 seconds - then the volume is
     //apparently too low. Otherwise it's perfect.
-    if (lastCompletedSample < lastStartedSample)
+    if (lastCompletedSample < lastStartedSample){
       //we currently have a sample
-      volumeOk();
+
+      if(highLevel/lowLevel * 100 < SoundConfiguration::minimumSNR()){
+        snrLow();
+      }else{
+        snrOk();
+      }
+    }
     else
       if (lastCompletedSample + window < cur)
         tooLow();
@@ -97,10 +129,17 @@ void DeviceVolumeWidget::tooLoud()
 }
 
 
-void DeviceVolumeWidget::volumeOk()
+void DeviceVolumeWidget::snrOk()
 {
   ui->lbStatus->setText(i18n("Volume correct."));
   ui->lbIcon->setPixmap(KIcon("dialog-ok-apply").pixmap(24,24));
+}
+
+
+void DeviceVolumeWidget::snrLow()
+{
+  ui->lbStatus->setText(i18n("High levels of background noise detected. Please check your microphone and disable \"Mic Boost\" if enabled."));
+  ui->lbIcon->setPixmap(KIcon("dialog-error").pixmap(24,24));
 }
 
 
@@ -113,10 +152,9 @@ void DeviceVolumeWidget::tooLow()
 
 void DeviceVolumeWidget::start()
 {
+  listOfLevels.clear();
   if (!rec->start())
     KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be started for device: %1.", m_deviceName));
-  else
-    labelUpdater.start(1000);
 }
 
 
@@ -124,8 +162,6 @@ void DeviceVolumeWidget::stop()
 {
   if (!rec->finish())
     KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be stopped for device: %1.", m_deviceName));
-  else
-    labelUpdater.stop();
 }
 
 
