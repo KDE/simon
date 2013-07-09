@@ -31,7 +31,7 @@ K_PLUGIN_FACTORY_DECLARATION(DictationCommandPluginFactory)
 
 DictationConfiguration::DictationConfiguration(Scenario *parent, const QVariantList &args)
   : CommandConfiguration(parent, "dictation", ki18n( "Dictation" ),
-  "0.1", ki18n("Dictation"),
+  "0.2", ki18n("Dictation"),
   "text-field",
   DictationCommandPluginFactory::componentData()),
   m_replacements(new Replacements)
@@ -89,7 +89,6 @@ Replacements* DictationConfiguration::replacements() const
 {
   return m_replacements;
 }
-
 
 void DictationConfiguration::defaults()
 {
