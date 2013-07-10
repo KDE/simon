@@ -46,6 +46,12 @@ protected:
 public:
   virtual bool init(RecognitionConfiguration* config)=0;
   virtual QList<RecognitionResult> recognize(const QString& file)=0;
+
+  //optional continuous recognition
+  virtual bool startSample(const QString& /*file*/) { return false; }
+  virtual bool feedSampleData(const QString& /*file*/, const QByteArray& /*data*/) { return false; }
+  virtual QList<RecognitionResult> endSample(const QString& /*file*/) { return QList<RecognitionResult>(); }
+
   virtual bool uninitialize()=0;
   
   QString getLastError() { return m_lastError; }

@@ -30,6 +30,7 @@ public:
   SphinxControl(const QString &username, QObject *parent = 0);
 
   bool initializeRecognition(const QString& modelPath);
+  virtual Capabilities getCapabilities() const;
 
 protected:
   RecognitionConfiguration* setupConfig();

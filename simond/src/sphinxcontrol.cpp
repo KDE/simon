@@ -97,6 +97,11 @@ RecognitionConfiguration *SphinxControl::setupConfig()
                                             dirPath+modelName+QLatin1String(".dic"), mllr, DEFAULT_SAMPRATE);
 }
 
+RecognitionControl::Capabilities SphinxControl::getCapabilities() const
+{
+  return RecognitionControl::StreamingSamples;
+}
+
 void SphinxControl::emitError(const QString &error)
 {
   emit recognitionError(error, getBuildLog());

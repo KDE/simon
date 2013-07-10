@@ -160,6 +160,11 @@ void JuliusControl::emitError(const QString& error)
   emit recognitionError(specificError, buildLog);
 }
 
+RecognitionControl::Capabilities JuliusControl::getCapabilities() const
+{
+  return RecognitionControl::ConcurrentSamples;
+}
+
 JuliusControl::~JuliusControl()
 {
   uninitialize();

@@ -98,14 +98,54 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
   }
 
   int rv = ps_decode_raw(decoder, toRecognize, fName.data(), -1);
+  fclose(toRecognize);
   if(rv < 0)
   {
     m_lastError = i18n("Failed to decode \"%1\"", file);
     return recognitionResults;
   }
 
-  kDebug()<<"Recognition checkpoint";
+  return getHypothesis(file);
+}
 
+bool SphinxRecognizer::startSample(const QString& file)
+{
+  int rv = ps_start_utt(decoder, 0);
+  if(rv < 0)
+  {
+    m_lastError = i18n("Failed to start sample \"%1\"", file);
+    return false;
+  }
+  return true;
+}
+
+bool SphinxRecognizer::feedSampleData(const QString& file, const QByteArray& data)
+{
+  Q_UNUSED(file);
+  int rv = ps_process_raw(decoder, (const short*) data.constData(), data.length() / 2 /* 16 bit */, 0, 0);
+  if(rv < 0)
+  {
+    m_lastError = i18n("Error processing frames");
+    return false;
+  }
+  getHypothesis("foo");
+  return true;
+}
+
+QList< RecognitionResult > SphinxRecognizer::endSample(const QString& file)
+{
+  int rv = ps_end_utt(decoder);
+  if(rv < 0)
+  {
+    m_lastError = i18n("Failed to end sample \"%1\"", file);
+    return QList<RecognitionResult>();
+  }
+  return getHypothesis(file);
+}
+
+QList< RecognitionResult > SphinxRecognizer::getHypothesis(const QString& file)
+{
+  QList<RecognitionResult> recognitionResults;
   int score;
   char const *hyp, *uttid;
   hyp = ps_get_hyp(decoder, &score, &uttid);
@@ -114,8 +154,6 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
     m_lastError = i18n("Cannot get hypothesis for \"%1\"", file);
     return recognitionResults;
   }
-
-  fclose(toRecognize);
 
   QString sentence = QString::fromUtf8(hyp);
   QString sampa;
@@ -135,7 +173,6 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
   recognitionResults.append(res); //WARNING: some magic
 
   kDebug()<<"Got hypothesis: " <<QString::fromUtf8(hyp);
-
   return recognitionResults;
 }
 
