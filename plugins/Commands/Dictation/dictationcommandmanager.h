@@ -27,6 +27,7 @@
 
 #include <simonscenarios/commandmanager.h>
 #include <QVariantList>
+#include <QStack>
 
 /**
  *	@class DictationCommandManager
@@ -50,6 +51,7 @@ class DictationCommandManager : public CommandManager
     DictationCommandManager(QObject* parent, const QVariantList& args);
 
   protected slots:
+    void deleteThat();
     void selectText(const QString& text);
 
   protected:

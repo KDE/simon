@@ -73,17 +73,29 @@ void DictationCommandManager::selectText(const QString& text)
   #endif
 }
 
+void DictationCommandManager::deleteThat()
+{
+
+}
+
 bool DictationCommandManager::setupCommands()
 {
   bool succ = true;
 
   succ &= installInterfaceCommand(this, "selectText", i18n("Select %%1"), "document-edit",
-    i18n("Selects the given text in the currently edited text.\n\nIf ambiguous, the last matching sequence is selected"),
-    true /* announce */, true /* show icon */,
-    SimonCommand::DefaultState /* consider this command when in this state */,
-    SimonCommand::DefaultState, /* if executed switch to this state */
-    QString() /* take default visible id from action name */,
-    "selectText" /* id */);
+				  i18n("Selects the given text in the currently edited text.\n\nIf ambiguous, the last matching sequence is selected"),
+				  true /* announce */, true /* show icon */,
+				  SimonCommand::DefaultState /* consider this command when in this state */,
+				  SimonCommand::DefaultState, /* if executed switch to this state */
+				  QString() /* take default visible id from action name */,
+				  "selectText" /* id */);
+  succ &= installInterfaceCommand(this, "deleteThat", i18n("Delete that"), "edit-clear",
+				  i18n("Deletes the last written unit or - if it exists, the current selection."),
+				  true /* announce */, true /* show icon */,
+				  SimonCommand::DefaultState /* consider this command when in this state */,
+				  SimonCommand::DefaultState, /* if executed switch to this state */
+				  QString() /* take default visible id from action name */,
+					  "deleteThat" /* id */);
   #ifdef ATSPI_ENABLED
   kDebug() << "ATSPI dictation enabled";
   #endif
