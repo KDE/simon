@@ -59,9 +59,10 @@ void DictationCommandManager::selectText(const QString& text)
   #ifdef ATSPI_ENABLED
   if (m_currentInputField.isValid()) {
     QString currentText = m_currentInputField.text();
-    int lastIndex = currentText.lastIndexOf(text);
+    int lastIndex = currentText.lastIndexOf(text, -1, Qt::CaseInsensitive);
     if (lastIndex == -1) {
       SimonInfo::showMessage(i18n("No such text: %1", text), 2500);
+      kDebug() << "this text: " << currentText;
       return;
     }
     int endIndex = text.length() + lastIndex;
@@ -122,6 +123,7 @@ void DictationCommandManager::focusChanged(const QAccessibleClient::AccessibleOb
 {
   if (object.supportedInterfaces() & QAccessibleClient::AccessibleObject::TextInterface) {
     m_currentInputField = object;
+    kDebug() << "Current field: " << object.text();
   } else {
     if (m_currentInputField.isValid()) {
       kDebug() << "No current input field";
