@@ -128,7 +128,9 @@ bool SphinxRecognizer::feedSampleData(const QString& file, const QByteArray& dat
     m_lastError = i18n("Error processing frames");
     return false;
   }
-  getHypothesis("foo");
+  // TODO: maybe group larger chunks instead of individual calls to ps_process_raw
+  // TODO: Share partial hypothesis with client
+  //getHypothesis();
   return true;
 }
 
