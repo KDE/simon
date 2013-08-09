@@ -39,6 +39,7 @@ Comment[et]=Võimalus luua liides teistele rakendustele JSON-i vahendusel
 Comment[fi]=Tarjoaa tavan luoda rajapintoja muihin sovelluksiin JSON-yhteyskäytännön kautta
 Comment[fr]=Fournit un moyen de création d'interfaces avec d'autres applications via « JSON »
 Comment[gl]=Fornece unha maneira de crear interfaces para outros aplicativos mediante JSON
+Comment[hu]=Egy módot ad felület létrehozásához más alkalmazásokkal JSON-ön keresztül
 Comment[it]=Fornisce un modo per interfacciarsi ad altre applicazioni tramite JSON
 Comment[nl]=Biedt een manier om interfaces te maken naar andere toepassingen via JSON
 Comment[pl]=Zapewnia sposób utworzenia interfejsu do innych programów przez JSON
