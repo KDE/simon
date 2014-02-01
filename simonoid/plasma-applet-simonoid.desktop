@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Simonoid
+Name[bs]=Simonoid
 Name[ca]=Simonoid
 Name[ca@valencia]=Simonoid
 Name[cs]=Simonoid
@@ -26,6 +27,7 @@ Name[uk]=Саймоноїд
 Name[x-test]=xxSimonoidxx
 Name[zh_TW]=Simonoid
 Comment=Plasma Simonoid
+Comment[bs]=Plazma Simonoid
 Comment[ca]=Plasma Simonoid
 Comment[ca@valencia]=Plasma Simonoid
 Comment[cs]=Plasma Simonoid

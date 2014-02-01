@@ -2,6 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=simon/CommandPlugin
 Name=Simon command plugin
+Name[bs]=Simon dodatak za naredbe
 Name[ca]=Connector per a ordres del Simon
 Name[ca@valencia]=Connector per a ordes del Simon
 Name[cs]=Modul příkazů pro Simon

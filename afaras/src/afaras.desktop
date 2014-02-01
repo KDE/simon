@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Afaras
+Name[bs]=Afaras
 Name[ca]=Afaras
 Name[ca@valencia]=Afaras
 Name[cs]=Afaras
@@ -30,6 +31,7 @@ Icon=afaras
 Type=Application
 X-DocPath=afaras/index.html
 GenericName=Find and remove bad samples
+GenericName[bs]=Nađi i ukloni loše uzorke
 GenericName[ca]=Cerca i elimina les mostres dolentes
 GenericName[ca@valencia]=Cerca i elimina les mostres dolentes
 GenericName[cs]=Najít a odstranit špatné vzorky

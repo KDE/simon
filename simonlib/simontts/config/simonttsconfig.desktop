@@ -11,6 +11,7 @@ X-KDE-ParentApp=simon
 X-DocPath=simon/imdex.html#configuration
 
 Name=Text-to-speech
+Name[bs]=Tekst-u-govor
 Name[ca]=Text a veu
 Name[ca@valencia]=Text a veu
 Name[cs]=Hlasová syntéza
@@ -39,6 +40,7 @@ Name[zh_CN]=文本到语音
 Name[zh_TW]=文字轉語音
 
 Comment=Configuration of the Simon text-to-speech layer
+Comment[bs]=Konfiguracija Simon tekst-u-govor sloja
 Comment[ca]=Configuració de la capa text a veu per a Simon
 Comment[ca@valencia]=Configuració de la capa text a veu per a Simon
 Comment[cs]=Nastavení vrstvy text-na-řeč Simon

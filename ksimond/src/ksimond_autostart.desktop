@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=KSimond
+Name[bs]=KSimond
 Name[ca]=KSimond
 Name[ca@valencia]=KSimond
 Name[cs]=xKSimond
@@ -33,6 +34,7 @@ Icon=ksimond
 Type=Application
 X-DocPath=ksimond/index.html
 GenericName=KDE Front-End to Simond
+GenericName[bs]=KDE pročelje za Simond
 GenericName[ca]=Frontal del KDE per a Simond
 GenericName[ca@valencia]=Frontal del KDE per a Simond
 GenericName[cs]=Rozhraní KDE k Simond

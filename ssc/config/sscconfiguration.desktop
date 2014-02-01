@@ -14,6 +14,7 @@ X-KDE-ParentApp=ssc
 #X-KDE-PluginKeyword=SSCConfiguration
 
 Name=SSC
+Name[bs]=SSC
 Name[ca]=SSC
 Name[ca@valencia]=SSC
 Name[cs]=SSC
@@ -41,6 +42,7 @@ Name[zh_CN]=SSC
 Name[zh_TW]=SSC
 
 Comment=Configuration of the Simon sample collector
+Comment[bs]=Konfiguracija Simon Sakupljača Uzoraka
 Comment[ca]=Configuració del col·leccionista de mostres per a Simon
 Comment[ca@valencia]=Configuració del col·leccionista de mostres per a Simon
 Comment[cs]=Nastavení Simonova sběratele nahrávek

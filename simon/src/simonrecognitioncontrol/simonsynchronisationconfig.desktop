@@ -16,6 +16,7 @@ X-KDE-ParentApp=simon
 X-KDE-PluginKeyword=SynchronisationSettings
 
 Name=Synchronization
+Name[bs]=Usklađivanje
 Name[ca]=Sincronització
 Name[ca@valencia]=Sincronització
 Name[cs]=Synchronizace
@@ -44,6 +45,7 @@ Name[zh_CN]=同步
 Name[zh_TW]=同步化
 
 Comment=Configuration of the model synchronization
+Comment[bs]=Konfiguracija modela usklađivanja
 Comment[ca]=Configuració de la sincronització del model
 Comment[ca@valencia]=Configuració de la sincronització del model
 Comment[cs]=Nastavení synchronizace modelu

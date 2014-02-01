@@ -12,6 +12,7 @@ X-KDE-ParentApp=simond
 X-KDE-System-Settings-Parent-Category=accessibility
 
 Name=Speech Model Compilation
+Name[bs]=Sastavljanje Govornog Modela
 Name[ca]=Compilació del model de pronunciació
 Name[ca@valencia]=Compilació del model de pronunciació
 Name[cs]=Vytvoření modelu řeči
@@ -38,6 +39,7 @@ Name[x-test]=xxSpeech Model Compilationxx
 Name[zh_TW]=語音模型編譯
 
 Comment=Configuration of the Simon Speech Model Compilation
+Comment[bs]=Konfiguracija Simon Sastavljanja Govornog Modela
 Comment[ca]=Configuració de la compilació del model de pronunciació per a Simon
 Comment[ca@valencia]=Configuració de la compilació del model de pronunciació per a Simon
 Comment[cs]=Nastavení vytvoření modelů řeči Simon

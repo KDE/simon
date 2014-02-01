@@ -12,6 +12,7 @@ X-KDE-ParentComponents=libsimonsound
 X-KDE-ParentApp=simon
 
 Name=Recordings
+Name[bs]=Snimke
 Name[ca]=Enregistraments
 Name[ca@valencia]=Enregistraments
 Name[cs]=Nahrávky
@@ -38,6 +39,7 @@ Name[x-test]=xxRecordingsxx
 Name[zh_TW]=錄音
 
 Comment=Configuration of the Simon Soundsystem
+Comment[bs]=Konfiguracija Simon Zvučnog Sistema
 Comment[ca]=Configuració del sistema de so per a Simon
 Comment[ca@valencia]=Configuració del sistema de so per a Simon
 Comment[cs]=Nastavení zvukového systému Simon
