@@ -50,7 +50,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver, publi
   private:
     KAction *activateAction;
 
-    DialogState *currentDialogSate;
+    DialogState *currentDialogState;
 
     DialogTextParser *dialogParser;
     QList<DialogView*> dialogViews;
