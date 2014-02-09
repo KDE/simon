@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <peter.grasch@bedahr.org>
+ *   Copyright (C) 2014 Benjamin Bowley-Bryant <benbb@utexas.edu>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,19 +21,20 @@
 #include <QString>
 #include <QMap>
 #include "dialogvariablestore.h"
+#include "dialogvariable.h"
 
-void DialogVariableStore::addVariable(QString& name, DialogVariable* dialogVariable)
+void DialogVariableStore::addVariable(const QString& name, DialogVariableBase * const dialogVariable)
 {
   Q_ASSERT(!this->dialogVariables.values().contains(dialogVariable));
   this->dialogVariables[name] = dialogVariable;
 }
 
-int DialogVariableStore::removeVariable(QString& name)
+int DialogVariableStore::removeVariable(const QString& name)
 {
   return this->dialogVariables.remove(name);
 }
 
-const DialogVariable* DialogVariableStore::get(QString& name) const
+DialogVariableBase * DialogVariableStore::get(const QString& name) const
 {
   return this->dialogVariables[name];
 }

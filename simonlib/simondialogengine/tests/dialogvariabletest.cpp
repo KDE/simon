@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <peter.grasch@bedahr.org>
+ *   Copyright (C) 2014 Benjamin Bowley-Bryant <benbb@utexas.edu>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -25,6 +25,7 @@
 #include <KDebug>
  
 #include "../dialogvariablestore.h"
+#include "../dialogvariable.h"
 
 //TODO: Separate this into testDialogVariableStore and testDialogVariable
 
@@ -35,34 +36,43 @@ class testVariables: public QObject
     void testInitial();
     //void testGeneral();
     void testAdd();
-    void testRemove();    
+    void testRemove();
 };
 
 void testVariables::testInitial()
 {
+  //Sanity test
   int * i = new int();
   *i = 3;
   QCOMPARE(*i,3);
   *i += 2;
   QCOMPARE(*i,5);
-  //QCOMPARE(*i,4);
   delete i;
 }
 
 void testVariables::testAdd()
 {
   DialogVariableStore v;
-  DialogVariable * k = new DialogVariable();
+  
+  //Test basic addition to the underlying map
+  DialogVariableBase * k = new DialogVariableBase();
   QString a = "Test";
   v.addVariable(a,k);
   QCOMPARE(v.count(), 1);
+  
+  //Test overriding
+  DialogVariableBase * k_2 = new DialogVariableBase();
+  v.addVariable(a,k_2);
+  QVERIFY(v.get(a) == k_2);
+  
   delete k;
+  delete k_2;
 }
 
 void testVariables::testRemove()
 {
   DialogVariableStore v;
-  DialogVariable * k = new DialogVariable();
+  DialogVariableBase * k = new DialogVariableBase();
   QString a = "test";
   QString b = "test2";
   v.addVariable(a,k);

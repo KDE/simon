@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <peter.grasch@bedahr.org>
+ *   Copyright (C) 2014 Benjamin Bowley-Bryant <benbb@utexas.edu>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,15 +21,16 @@
 
 //Ben Notes:  An instance of this class is essentially going to be a list
 //            of active variables for the current Dialog Instance.
+//TODO: Add factory methods for generating DialogVariable.
 
-class DialogVariable {};
+class DialogVariableBase;
 
 class DialogVariableStore {
   private:
-    QMap<QString,DialogVariable*> dialogVariables;
+    QMap<QString,DialogVariableBase*> dialogVariables;
   public:
-    void addVariable(QString& name, DialogVariable* dialogVariable);
-    int removeVariable(QString& name);
-    const DialogVariable* get(QString& name) const;
+    void addVariable(const QString& name, DialogVariableBase * const dialogVariable);
+    int removeVariable(const QString& name);
+    DialogVariableBase * get(const QString& name) const;
     int count() { return dialogVariables.count(); }
 };
