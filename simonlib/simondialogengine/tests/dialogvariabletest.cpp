@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <peter.grasch@bedahr.org>
+ *   Copyright (C) 2010 Peter Grasch <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,30 +17,31 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <QList>
-#include "dialogvariablestore.h"
+#include <QTest>
+#include <QBuffer>
+#include <QDomDocument>
+#include <QDomElement>
+ 
+#include "../dialogvariablestore.h"
 
-void DialogVariableStore::addVariable(DialogVariable* dialogVariable)
+class testVariables: public QObject
 {
-  this->dialogVariables.append(dialogVariable);
+  Q_OBJECT
+  private slots:
+    void testInitial();
+};
+
+void testVariables::testInitial()
+{
+  int * i = new int();
+  *i = 3;
+  QCOMPARE(*i,3);
+  *i += 2;
+  QCOMPARE(*i,5);
+  //QCOMPARE(*i,4);
+  delete i;
 }
 
-void DialogVariableStore::removeVariable(DialogVariable* dialogVariable)
-{
-  this->dialogVariables.removeOne(dialogVariable);
-}
+QTEST_MAIN(testVariables)
 
-int DialogVariableStore::indexOf(DialogVariable* dialogVariable)
-{
-  return this->dialogVariables.indexOf(dialogVariable);
-}
-
-void DialogVariableStore::removeVariableAt(int index)
-{
-  this->dialogVariables.removeAt(index);
-}
-
-DialogVariable* DialogVariableStore::variableAt(int index)
-{
-  return this->dialogVariables.at(index);
-}
+#include "dialogvariabletest.moc"
