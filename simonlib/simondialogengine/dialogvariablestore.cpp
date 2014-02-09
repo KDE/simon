@@ -18,29 +18,22 @@
  */
 
 #include <QList>
+#include <QString>
+#include <QMap>
 #include "dialogvariablestore.h"
 
-void DialogVariableStore::addVariable(DialogVariable* dialogVariable)
+void DialogVariableStore::addVariable(QString& name, DialogVariable* dialogVariable)
 {
-  this->dialogVariables.append(dialogVariable);
+  Q_ASSERT(!this->dialogVariables.values().contains(dialogVariable));
+  this->dialogVariables[name] = dialogVariable;
 }
 
-void DialogVariableStore::removeVariable(DialogVariable* dialogVariable)
+int DialogVariableStore::removeVariable(QString& name)
 {
-  this->dialogVariables.removeOne(dialogVariable);
+  return this->dialogVariables.remove(name);
 }
 
-int DialogVariableStore::indexOf(DialogVariable* dialogVariable)
+const DialogVariable* DialogVariableStore::get(QString& name) const
 {
-  return this->dialogVariables.indexOf(dialogVariable);
-}
-
-void DialogVariableStore::removeVariableAt(int index)
-{
-  this->dialogVariables.removeAt(index);
-}
-
-DialogVariable* DialogVariableStore::variableAt(int index)
-{
-  return this->dialogVariables.at(index);
+  return this->dialogVariables[name];
 }

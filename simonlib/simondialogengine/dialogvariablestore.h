@@ -17,19 +17,19 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include <QList>
+#include <QString>
 
 //Ben Notes:  An instance of this class is essentially going to be a list
 //            of active variables for the current Dialog Instance.
 
-class DialogVariable;
+class DialogVariable {};
 
 class DialogVariableStore {
   private:
-    QList<DialogVariable*> dialogVariables;
+    QMap<QString,DialogVariable*> dialogVariables;
   public:
-    void addVariable(DialogVariable* dialogVariable);
-    void removeVariable(DialogVariable* dialogVariable);
-    void removeVariableAt(int index);
-    DialogVariable* variableAt(int index);
-    int indexOf(DialogVariable* dialogVariable);
+    void addVariable(QString& name, DialogVariable* dialogVariable);
+    int removeVariable(QString& name);
+    const DialogVariable* get(QString& name) const;
+    int count() { return dialogVariables.count(); }
 };
