@@ -4,6 +4,8 @@ if (KDEPIMLIBS_FOUND)
     add_subdirectory(Akonadi)
 endif (KDEPIMLIBS_FOUND)
 
+add_subdirectory(Amarok)
+
 if(QAccessibilityClient_FOUND)
 add_subdirectory(ATSPI)
 endif(QAccessibilityClient_FOUND)
