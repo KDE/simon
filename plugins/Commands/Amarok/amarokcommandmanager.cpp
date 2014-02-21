@@ -82,7 +82,7 @@ void AmarokCommandManager::updateCollection()
 {
   QDBusMessage msg(QDBusMessage::createMethodCall("org.kde.amarok", "/Collection", "org.kde.amarok.Collection", "MprisQuery"));
   msg.setArguments(QList<QVariant>() << "<query version=\"1.0\">"
-                                          "<limit value=\"10\" />"
+                                          "<limit value=\"100\" />"
                                           "<returnValues>"
                                             "<tracks />"
                                             "<artists />"
@@ -90,8 +90,8 @@ void AmarokCommandManager::updateCollection()
                                         "</query>" );
   QDBusPendingCall pendingCall = QDBusConnection::sessionBus().asyncCall(msg);
 
-  QObject::connect(new QDBusPendingCallWatcher(pendingCall, this), SIGNAL(finished(QDBusPendingCallWatcher*)), this, SLOT(collectionUpdate(QDBusPendingCallWatcher*)));
-//   m_dbusConnection.callWithCallback(msg, this, SLOT(collectionUpdateReceived()), SLOT(collectionUpdateError()));
+  QObject::connect(new QDBusPendingCallWatcher(pendingCall, this), SIGNAL(finished(QDBusPendingCallWatcher*)),
+                   this, SLOT(collectionUpdate(QDBusPendingCallWatcher*)));
 }
 
 void AmarokCommandManager::collectionUpdate(QDBusPendingCallWatcher* watcher)
@@ -101,8 +101,6 @@ void AmarokCommandManager::collectionUpdate(QDBusPendingCallWatcher* watcher)
     collectionUpdateError();
   } else {
     collectionUpdateReceived(reply.argumentAt<0>());
-//     QString text = reply.argumentAt<0>();
-//     QByteArray data = reply.argumentAt<1>();
   }
 
   watcher->deleteLater();
@@ -115,6 +113,7 @@ void AmarokCommandManager::collectionUpdateError()
 
 void AmarokCommandManager::collectionUpdateReceived(const VariantMapList& result)
 {
+  kDebug() << "Received amarok collection update";
   ScenarioManager::getInstance()->startGroup();
 
   // 1. delete all words that were set up to suppor the earlier collection
@@ -125,18 +124,18 @@ void AmarokCommandManager::collectionUpdateReceived(const VariantMapList& result
   QList<QString> pseudoWordsToAdd;
   QStringList toTranscribe;
 
-  QList< QPair<QString, QString> > commandsToAdd;
-  kDebug() << "Received amarok collection update";
   foreach (const QVariantMap& map, result) {
-    kDebug() << map.keys();
-    kDebug() << map.values("location");
-    kDebug() << map.values("title");
     QString songTitle = map.value(QLatin1String("title")).toString();
     QString songPath = map.value(QLatin1String("location")).toString();
+    kDebug() << songTitle;
     //create safe trigger word
     songTitle.remove(QRegExp(QLatin1String("\\(.*\\)")));
+    songTitle.remove(QLatin1String("("));
+    songTitle.remove(QLatin1String(")"));
     songTitle.replace(' ', '_');
     songTitle = songTitle.trimmed();
+
+    //check if we already have the required vocabulary
     bool isNew = true;
     foreach (Word *w, internalWords) {
       if (w->getWord() == songTitle) {
@@ -145,11 +144,13 @@ void AmarokCommandManager::collectionUpdateReceived(const VariantMapList& result
         break;
       }
     }
+    //if it's a new "word", add it to the list of pending words
     if (isNew) {
       toTranscribe << songTitle.split('_', QString::SkipEmptyParts);
       pseudoWordsToAdd.append(songTitle);
     }
 
+    //check if we already have the required command
     isNew = true;
     foreach (Command *c, oldCommands) {
       if (dynamic_cast<AmarokCommand*>(c)->getPath() == songPath) {
@@ -158,8 +159,10 @@ void AmarokCommandManager::collectionUpdateReceived(const VariantMapList& result
         break;
       }
     }
+
+    //if not, add the command
     if (isNew)
-      commandsToAdd.append(QPair<QString,QString>(songTitle, songPath));
+      addCommand(new AmarokCommand(songTitle, "amarok", i18n("Play song"), songPath));
   }
 
   //remove words no longer needed
@@ -177,12 +180,6 @@ void AmarokCommandManager::collectionUpdateReceived(const VariantMapList& result
     foreach (const QString realWord, wordToBe.split('_'))
       transcription.append(transcriptions.value(realWord.toUpper()));
     parentScenario->addWord(new Word(wordToBe, transcription.join(" "), AmarokCommandWordCategory));
-  }
-
-  //add the commands
-  for (int i = 0; i < commandsToAdd.count(); ++i) {
-    const QPair<QString,QString>& commandToBe = commandsToAdd[i];
-    addCommand(new AmarokCommand(commandToBe.first, "amarok", i18n("Play song"), commandToBe.second));
   }
 
   ScenarioManager::getInstance()->commitGroup();

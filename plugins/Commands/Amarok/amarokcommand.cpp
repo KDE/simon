@@ -62,8 +62,6 @@ const QMap<QString,QVariant> AmarokCommand::getValueMapPrivate() const
 
 bool AmarokCommand::triggerPrivate(int *state)
 {
-  kDebug() << "Triggering..." << m_path;
-
   QDBusMessage msg(QDBusMessage::createMethodCall("org.kde.amarok", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player", "OpenUri"));
   msg.setArguments(QList<QVariant>() << m_path );
   QDBusConnection::sessionBus().call(msg);
