@@ -22,6 +22,8 @@
 #include "version.h"
 #include "scenariodisplay.h"
 #include "voiceinterfacecommand.h"
+#include "scenariomanageradaptor.h"
+#include "scenarioofferui.h"
 
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/shadowvocabulary.h>
@@ -31,6 +33,7 @@
 
 #include <QFileInfo>
 #include <QCoreApplication>
+#include <QDBusConnection>
 
 #include <KDebug>
 #include <KGlobal>
@@ -55,8 +58,13 @@ ScenarioManager::ScenarioManager(QObject *parent) : QObject(parent),
   m_baseModelDirty(false),
   m_scenariosDirty(false),
   m_shadowVocabularyDirty(false),
-  currentScenario(0)
+  currentScenario(0),
+  m_scenarioOfferUi(0)
 {
+  new ScenarioManagerAdaptor(this);
+  QDBusConnection dbus = QDBusConnection::sessionBus();
+  dbus.registerObject("/ScenarioManager", this);
+  dbus.registerService("org.simon-listens.ScenarioManager");
 }
 
 bool ScenarioManager::init()
@@ -69,7 +77,6 @@ bool ScenarioManager::init()
   connect(shadowVocab, SIGNAL(changed()), this, SIGNAL(shadowVocabularyChanged()));
   return succ && !shadowVocab->isNull();
 }
-
 
 void ScenarioManager::slotBaseModelChanged()
 {
@@ -576,6 +583,63 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ScenarioManager::get
   return listInterfaceCommands;
 }
 
+void ScenarioManager::installScenarioOfferUi(const ScenarioOfferUi* offerUi)
+{
+  m_scenarioOfferUi = offerUi;
+}
+
+ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QString& requester, const QString& path)
+{
+  Scenario* scenario = new Scenario(QLatin1String("scenarioOffer"));
+
+  // copy to temporary location
+  QString tempPath = KStandardDirs::locateLocal("tmp", "simon/offered_scenario_" + requester);
+  if (QFile::exists(tempPath)) QFile::remove(tempPath);
+  QFile::copy(path, tempPath);
+
+  if (!scenario->skim(tempPath)) {
+    kDebug() << "Failed to skim from " << tempPath;
+    scenario->deleteLater();
+    return ScenarioManager::Incompatible;
+  }
+
+  if (m_scenarioOfferUi && !m_scenarioOfferUi->askToAcceptScenario(requester, scenario->name(), scenario->authors())) {
+    scenario->deleteLater();
+    return ScenarioManager::Rejected;
+  }
+  scenario->deleteLater();
+
+  QStringList explodedScenarios = Scenario::explode(tempPath);
+  if (explodedScenarios.isEmpty())
+    return ScenarioManager::Incompatible;
+  for (int i = 0; i < explodedScenarios.count(); ++i) {
+    scenario = new Scenario(explodedScenarios[i]);
+    if (!scenario->init() || !scenario->save()) {
+      kWarning() << "Failed to initialize (sub-) scenario: " << explodedScenarios[i];
+      scenario->deleteLater();
+
+      //delete scenarios extracted so far
+      for (int j=i-1; j >= 0; --j)
+        if (!QFile::remove(Scenario::pathFromId(explodedScenarios[j])))
+          kWarning() << "Couldn't rollback scenario extraction: " << explodedScenarios[j];
+      return ScenarioManager::Incompatible;
+    }
+    scenario->deleteLater();
+  }
+  // save scenarios
+  KSharedConfigPtr scenariosConfig = KSharedConfig::openConfig("simonscenariosrc");
+  KConfigGroup scenariosConfigGroup(scenariosConfig, "");
+  scenariosConfigGroup.writeEntry("SelectedScenarios",
+                                  scenariosConfigGroup.readEntry("SelectedScenarios", QStringList())
+                                          << explodedScenarios);
+  scenariosConfigGroup.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
+  scenariosConfigGroup.sync();
+
+  if (!setupScenarios(true))
+    kWarning() << "Failed to reload scenarios";
+
+  return ScenarioManager::Accepted;
+}
 
 ScenarioManager::~ScenarioManager()
 {
