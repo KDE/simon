@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Grasch Peter <peter.grasch@bedahr.org>
+ *   Copyright (C) 2014 Grasch Peter <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
