@@ -591,9 +591,10 @@ void ScenarioManager::installScenarioOfferUi(const ScenarioOfferUi* offerUi)
 ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QString& requester, const QString& path)
 {
   Scenario* scenario = new Scenario(QLatin1String("scenarioOffer"));
+  QString scenarioId = Scenario::idFromPath(path);
 
   // copy to temporary location
-  QString tempPath = KStandardDirs::locateLocal("tmp", "simon/offered_scenario_" + requester);
+  QString tempPath = KStandardDirs::locateLocal("tmp", "simon/" + scenarioId);
   if (QFile::exists(tempPath)) QFile::remove(tempPath);
   QFile::copy(path, tempPath);
 
@@ -601,6 +602,30 @@ ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QStri
     kDebug() << "Failed to skim from " << tempPath;
     scenario->deleteLater();
     return ScenarioManager::Incompatible;
+  }
+
+  //open scenario configuration
+  KSharedConfigPtr scenariosConfig = KSharedConfig::openConfig("simonscenariosrc");
+  KConfigGroup scenariosConfigGroup(scenariosConfig, "");
+  //string list of imported scenarios of the form:
+  // <id of the scenario to import>/<id of the (first) imported scenario>
+
+
+  //check if we already have the scenario and if so, check if the version of this one is newer
+  QStringList importedScenarios = scenariosConfigGroup.readEntry("AcceptedScenarioOffers", QStringList());
+  foreach (const QString& importedScenario, importedScenarios) {
+    if (importedScenario.startsWith(scenarioId+"/")) {
+      QString oldScenarioId = importedScenario.mid(importedScenario.indexOf('/') + 1);
+      //is this scenario still installed?
+      if (getAllAvailableScenarioIds().contains(oldScenarioId)) {
+        Scenario s(oldScenarioId);
+        s.skim();
+        if (s.version() >= scenario->version()) {
+          kWarning() << "Rejecting because not newer as already installed version.";
+          return ScenarioManager::Rejected;
+        }
+      }
+    }
   }
 
   if (m_scenarioOfferUi && !m_scenarioOfferUi->askToAcceptScenario(requester, scenario->name(), scenario->authors())) {
@@ -612,6 +637,8 @@ ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QStri
   QStringList explodedScenarios = Scenario::explode(tempPath);
   if (explodedScenarios.isEmpty())
     return ScenarioManager::Incompatible;
+  else
+    importedScenarios << scenarioId+'/'+explodedScenarios[0];
   for (int i = 0; i < explodedScenarios.count(); ++i) {
     scenario = new Scenario(explodedScenarios[i]);
     if (!scenario->init() || !scenario->save()) {
@@ -627,12 +654,11 @@ ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QStri
     scenario->deleteLater();
   }
   // save scenarios
-  KSharedConfigPtr scenariosConfig = KSharedConfig::openConfig("simonscenariosrc");
-  KConfigGroup scenariosConfigGroup(scenariosConfig, "");
   scenariosConfigGroup.writeEntry("SelectedScenarios",
                                   scenariosConfigGroup.readEntry("SelectedScenarios", QStringList())
                                           << explodedScenarios);
   scenariosConfigGroup.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
+  scenariosConfigGroup.writeEntry("AcceptedScenarioOffers", importedScenarios);
   scenariosConfigGroup.sync();
 
   if (!setupScenarios(true))
