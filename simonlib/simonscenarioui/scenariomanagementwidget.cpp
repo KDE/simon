@@ -373,6 +373,12 @@ void ScenarioManagementWidget::deleteScenario()
   Scenario *s = getCurrentlySelectedScenario();
   if (!s) return;
 
+  QTreeWidget* lastUsedUi = 0;
+  if (m_lastSelectedIndex.model() == ui->twAvailable->model())
+    lastUsedUi = ui->twAvailable;
+  else
+    lastUsedUi = ui->twSelected;
+
   if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is scenario name, %2 is scenario id", "Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2\")?",
       s->name(), s->id())) == KMessageBox::Yes) {
     deleteScenario(s->id(), true);
@@ -380,7 +386,7 @@ void ScenarioManagementWidget::deleteScenario()
   }
 
   s->deleteLater();
-  m_lastSelectedIndex = QModelIndex();
+  m_lastSelectedIndex = lastUsedUi->currentIndex();
 }
 
 
@@ -579,18 +585,6 @@ void ScenarioManagementWidget::initDisplay()
   }
 
   m_dirty = false;
-}
-
-
-void ScenarioManagementWidget::availableScenarioSelected()
-{
-  //ui->asScenarios->setButtonsEnabled();
-}
-
-
-void ScenarioManagementWidget::selectedScenarioSelected()
-{
-  //ui->asScenarios->setButtonsEnabled();
 }
 
 void ScenarioManagementWidget::saveChildConfiguration(QTreeWidgetItem *parentItem)

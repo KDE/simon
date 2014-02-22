@@ -298,6 +298,7 @@ void SimonView::backToOverview()
 
 void SimonView::displayScenarioPrivate(Scenario *scenario)
 {
+  Q_UNUSED(scenario);
   updateActionList();
 }
 
