@@ -17,21 +17,46 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include <string>
 #include <QString>
+#include <QVariant>
+#include <sstream>
 
-//TODO:  Figure out what exactly this class needs to be functional.
-//TODO:  Make the class very extendable.
+//TODO:  Implement the parser class and have tihs use it to get/set the variable.
 
-class DialogVariableBase {};
+template <class T>
+class DialogVariable;
 
-template <typename T>
+class DialogVariableBase {
+  public:
+    DialogVariableBase() {}
+    virtual ~DialogVariableBase() {}
+    
+    virtual QString getValue() = 0;
+};
+
+template <class T>
 class DialogVariable : public DialogVariableBase
 {
   typedef T variableType;
   
   private:
       QString name;
-      T value;
+      variableType value;
+      class Parser {} parser; 
   public:
-      int help();
+      DialogVariable<T>(QString n, variableType val) : name(n), value(val) { }
+      variableType getTypedValue() { return value; }
+      virtual QString getValue()
+      {
+	  return QVariant(value).toString();
+      }
+};
+
+class DialogStringVariable : public DialogVariable<QString> { };
+class DialogIntegerVariable : public DialogVariable<int> { };
+class DialogDecimalVaraible : public DialogVariable<double> { 
+  public:
+    DialogDecimalVaraible(QString n, double val) : DialogVariable<double>(n,val) {} 
+    DialogDecimalVaraible() : DialogVariable< double >("null",0.0) {} 
 };

@@ -24,13 +24,52 @@
 //TODO: Add factory methods for generating DialogVariable.
 
 class DialogVariableBase;
+class DialogStringVariable;
+class DialogIntegerVariable;
+class DialogDecimalVariable;
+template <class T>
+class DialogVariable;
 
 class DialogVariableStore {
   private:
     QMap<QString,DialogVariableBase*> dialogVariables;
+    class DialogVariableFactory
+    {
+      public:
+	DialogVariable<QString> * CreateString(QString n, QString val) { return Create<QString>(n,val); }
+	DialogVariable<int> * CreateInteger(QString n, int val) { return Create<int>(n,val); }
+	DialogVariable<double> * CreateDecimal(QString n, double val) { return Create<double>(n,val); }
+	template <typename T>
+	DialogVariable<T> * Create(QString n, T val) {return new DialogVariable<T>(n,val);};
+    } factory;
   public:
-    void addVariable(const QString& name, DialogVariableBase * const dialogVariable);
-    int removeVariable(const QString& name);
-    DialogVariableBase * get(const QString& name) const;
+    void removeVariable(const QString& name);
+    QString getValue(const QString& name) const;
     int count() { return dialogVariables.count(); }
+    
+    template <typename T>
+    void addVariable(const QString& name, const T& val)
+    {
+      Q_ASSERT(!this->dialogVariables.contains(name));
+      this->dialogVariables[name] = this->factory.Create<T>(name,val);
+    }
+    
+    template <typename T>
+    T getTypedValue(const QString& name) const
+    {
+      //TODO:  Fix this so it doesn't return if there's a bad cast.
+      if(DialogVariable<T> * temp = dynamic_cast<DialogVariable<T>*>(this->dialogVariables[name]))
+      {
+	return temp->getTypedValue();
+      } 
+      return T();
+    }
+    
+    
+    template <typename T>
+    void setVariable(const QString& name, const T& value)
+    {
+      removeVariable(name);
+      addVariable<T>(name,value);
+    }
 };

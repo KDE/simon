@@ -23,18 +23,15 @@
 #include "dialogvariablestore.h"
 #include "dialogvariable.h"
 
-void DialogVariableStore::addVariable(const QString& name, DialogVariableBase * const dialogVariable)
+
+QString DialogVariableStore::getValue(const QString& name) const
 {
-  Q_ASSERT(!this->dialogVariables.values().contains(dialogVariable));
-  this->dialogVariables[name] = dialogVariable;
+  return this->dialogVariables[name]->getValue();
 }
 
-int DialogVariableStore::removeVariable(const QString& name)
+void DialogVariableStore::removeVariable(const QString& name)
 {
-  return this->dialogVariables.remove(name);
+  Q_ASSERT(this->dialogVariables.contains(name));
+  delete(this->dialogVariables.take(name));
 }
 
-DialogVariableBase * DialogVariableStore::get(const QString& name) const
-{
-  return this->dialogVariables[name];
-}

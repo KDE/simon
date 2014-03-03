@@ -199,6 +199,7 @@ set(simonvariabletest_SRCS
   dialogvariabletest.cpp
 
   #deps
+  
   ../dialogvariablestore.cpp
 )
 
