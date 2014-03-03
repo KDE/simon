@@ -17,36 +17,30 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_TTSDIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_TTSDIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
+#ifndef SIMON_CREATETRANSITIONDIALOG_H_7A7B9100FF5245329569C1B540119C37
+#define SIMON_CREATETRANSITIONDIALOG_H_7A7B9100FF5245329569C1B540119C37
 
-#include <simondialogengine/dialogview.h>
-#include "simondialogenginettsview_export.h"
-#include <QString>
+#include <KDialog>
 
-class DialogTurn;
-class QFont;
+#include "ui_createtransitiondlg.h"
 
-class SIMONDIALOGENGINETTSVIEW_EXPORT TTSDialogView : public DialogView
+class CreateDialogCommandWidget;
+class DialogCommand;
+
+class CreateTransitionDialog : protected KDialog
 {
   private:
-    QString optionsRepeat;
-
-    bool say(const QString& text);
-    bool synthesizeTurn(const DialogTurn& turn);
+    Ui::CreateTransitionDlg ui;
+    CreateDialogCommandWidget *m_creator;
 
   public:
-    TTSDialogView(DialogManager *dialog);
-    ~TTSDialogView();
+    explicit CreateTransitionDialog(CreateDialogCommandWidget *creator, QWidget *parent=0);
 
-    bool start();
-    bool stop();
-    void repeat(const DialogTurn& turn);
-
-    void warnOfInvalidInput(const QString& input);
-    bool present(const DialogTurn& turn);
+    DialogCommand* createTransition();
+    bool editTransition(DialogCommand *transition);
 
 };
+
 
 #endif
 

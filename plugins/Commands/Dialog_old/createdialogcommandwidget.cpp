@@ -111,7 +111,7 @@ void CreateDialogCommandWidget::initStates()
   foreach (DialogState *state, states)
   {
     kDebug() << "Adding state";
-    ui.cbNextState->addItem(i18nc("%1...Index of the turn; %2...Name of the turn", "%1: %2",
+    ui.cbNextState->addItem(i18nc("%1...Index of the state; %2...Name of the state", "%1: %2",
           QString::number(index++), state->getName()));
   }
 }

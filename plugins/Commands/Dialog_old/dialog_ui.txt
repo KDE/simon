@@ -1,0 +1,739 @@
+diff --git a/plugins/Commands/Dialog/DialogCreateView.ui b/plugins/Commands/Dialog/DialogCreateView.ui
+new file mode 100644
+index 0000000..5d063fe
+--- /dev/null
++++ b/plugins/Commands/Dialog/DialogCreateView.ui
+@@ -0,0 +1,192 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<ui version="4.0">
++ <class>DialogCreateView</class>
++ <widget class="QWidget" name="DialogCreateView">
++  <property name="geometry">
++   <rect>
++    <x>0</x>
++    <y>0</y>
++    <width>463</width>
++    <height>485</height>
++   </rect>
++  </property>
++  <property name="windowTitle">
++   <string>Form</string>
++  </property>
++  <layout class="QVBoxLayout" name="verticalLayout_7">
++   <item>
++    <widget class="KTabWidget" name="ktabwidget">
++     <property name="currentIndex">
++      <number>0</number>
++     </property>
++     <widget class="QWidget" name="tab">
++      <attribute name="title">
++       <string>States</string>
++      </attribute>
++      <layout class="QHBoxLayout" name="horizontalLayout_2">
++       <item>
++        <widget class="QScrollArea" name="scrollArea">
++         <property name="frameShadow">
++          <enum>QFrame::Plain</enum>
++         </property>
++         <property name="widgetResizable">
++          <bool>true</bool>
++         </property>
++         <widget class="QWidget" name="scrollAreaWidgetContents">
++          <property name="geometry">
++           <rect>
++            <x>0</x>
++            <y>0</y>
++            <width>433</width>
++            <height>431</height>
++           </rect>
++          </property>
++          <layout class="QHBoxLayout" name="horizontalLayout_4">
++           <item>
++            <widget class="QPushButton" name="pbAddState">
++             <property name="text">
++              <string>Add</string>
++             </property>
++            </widget>
++           </item>
++           <item>
++            <spacer name="horizontalSpacer_2">
++             <property name="orientation">
++              <enum>Qt::Horizontal</enum>
++             </property>
++             <property name="sizeHint" stdset="0">
++              <size>
++               <width>40</width>
++               <height>20</height>
++              </size>
++             </property>
++            </spacer>
++           </item>
++          </layout>
++         </widget>
++        </widget>
++       </item>
++      </layout>
++     </widget>
++     <widget class="QWidget" name="tab_2">
++      <attribute name="title">
++       <string>Fields</string>
++      </attribute>
++      <layout class="QVBoxLayout" name="verticalLayout_6">
++       <item>
++        <widget class="QTableWidget" name="tableWidget_3">
++         <column>
++          <property name="text">
++           <string>Name</string>
++          </property>
++         </column>
++         <column>
++          <property name="text">
++           <string>Type</string>
++          </property>
++         </column>
++         <column>
++          <property name="text">
++           <string>Required</string>
++          </property>
++         </column>
++        </widget>
++       </item>
++       <item>
++        <layout class="QHBoxLayout" name="horizontalLayout">
++         <item>
++          <widget class="KPushButton" name="pbAddField">
++           <property name="text">
++            <string>Add</string>
++           </property>
++          </widget>
++         </item>
++         <item>
++          <widget class="KPushButton" name="pbEditField">
++           <property name="text">
++            <string>Edit</string>
++           </property>
++          </widget>
++         </item>
++         <item>
++          <widget class="KPushButton" name="pbRemoveField">
++           <property name="text">
++            <string>Remove</string>
++           </property>
++          </widget>
++         </item>
++        </layout>
++       </item>
++      </layout>
++     </widget>
++     <widget class="QWidget" name="tab_3">
++      <attribute name="title">
++       <string>Actors</string>
++      </attribute>
++      <layout class="QVBoxLayout" name="verticalLayout_11">
++       <item>
++        <widget class="QTableWidget" name="tableWidget_5">
++         <column>
++          <property name="text">
++           <string>Name</string>
++          </property>
++         </column>
++         <column>
++          <property name="text">
++           <string>Text to Match</string>
++          </property>
++         </column>
++         <column>
++          <property name="text">
++           <string>Action</string>
++          </property>
++         </column>
++        </widget>
++       </item>
++       <item>
++        <layout class="QHBoxLayout" name="horizontalLayout_3">
++         <item>
++          <widget class="KPushButton" name="pbAddActor">
++           <property name="text">
++            <string>Add</string>
++           </property>
++          </widget>
++         </item>
++         <item>
++          <widget class="KPushButton" name="pbEditActor">
++           <property name="text">
++            <string>Edit</string>
++           </property>
++          </widget>
++         </item>
++         <item>
++          <widget class="KPushButton" name="pbRemoveActor">
++           <property name="text">
++            <string>Remove</string>
++           </property>
++          </widget>
++         </item>
++        </layout>
++       </item>
++      </layout>
++     </widget>
++    </widget>
++   </item>
++  </layout>
++ </widget>
++ <customwidgets>
++  <customwidget>
++   <class>KPushButton</class>
++   <extends>QPushButton</extends>
++   <header>kpushbutton.h</header>
++  </customwidget>
++  <customwidget>
++   <class>KTabWidget</class>
++   <extends>QTabWidget</extends>
++   <header>ktabwidget.h</header>
++   <container>1</container>
++  </customwidget>
++ </customwidgets>
++ <resources/>
++ <connections/>
++</ui>
+diff --git a/plugins/Commands/Dialog/DialogStateView.ui b/plugins/Commands/Dialog/DialogStateView.ui
+new file mode 100644
+index 0000000..daa9505
+--- /dev/null
++++ b/plugins/Commands/Dialog/DialogStateView.ui
+@@ -0,0 +1,358 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<ui version="4.0">
++ <class>DialogStateView</class>
++ <widget class="QWidget" name="DialogStateView">
++  <property name="geometry">
++   <rect>
++    <x>0</x>
++    <y>0</y>
++    <width>365</width>
++    <height>516</height>
++   </rect>
++  </property>
++  <property name="windowTitle">
++   <string>Form</string>
++  </property>
++  <layout class="QVBoxLayout" name="verticalLayout_2">
++   <item>
++    <widget class="QGroupBox" name="groupBox_2">
++     <property name="title">
++      <string/>
++     </property>
++     <property name="flat">
++      <bool>false</bool>
++     </property>
++     <layout class="QVBoxLayout" name="verticalLayout">
++      <item>
++       <layout class="QHBoxLayout" name="horizontalLayout_6">
++        <item>
++         <widget class="QGroupBox" name="gbStateName">
++          <property name="title">
++           <string>Name</string>
++          </property>
++          <property name="flat">
++           <bool>true</bool>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="QLineEdit" name="leStateName"/>
++        </item>
++        <item>
++         <spacer name="horizontalSpacer_2">
++          <property name="orientation">
++           <enum>Qt::Horizontal</enum>
++          </property>
++          <property name="sizeHint" stdset="0">
++           <size>
++            <width>40</width>
++            <height>20</height>
++           </size>
++          </property>
++         </spacer>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbRemoveState">
++          <property name="text">
++           <string>Remove</string>
++          </property>
++          <property name="checkable">
++           <bool>false</bool>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbEditState">
++          <property name="text">
++           <string>Edit</string>
++          </property>
++          <property name="checkable">
++           <bool>true</bool>
++          </property>
++         </widget>
++        </item>
++       </layout>
++      </item>
++      <item>
++       <widget class="QGroupBox" name="gbRequiredFields">
++        <property name="title">
++         <string>Required Fields</string>
++        </property>
++        <property name="flat">
++         <bool>true</bool>
++        </property>
++       </widget>
++      </item>
++      <item>
++       <widget class="KListWidget" name="lwRequiredFields"/>
++      </item>
++      <item>
++       <layout class="QHBoxLayout" name="horizontalLayout">
++        <item>
++         <spacer name="horizontalSpacer">
++          <property name="orientation">
++           <enum>Qt::Horizontal</enum>
++          </property>
++          <property name="sizeHint" stdset="0">
++           <size>
++            <width>40</width>
++            <height>20</height>
++           </size>
++          </property>
++         </spacer>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbAddRequiredField">
++          <property name="text">
++           <string>Add</string>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbRemoveRequiredField">
++          <property name="text">
++           <string>Remove</string>
++          </property>
++         </widget>
++        </item>
++       </layout>
++      </item>
++      <item>
++       <layout class="QHBoxLayout" name="horizontalLayout_3">
++        <item>
++         <widget class="QGroupBox" name="gbTurns">
++          <property name="title">
++           <string>Turns</string>
++          </property>
++          <property name="flat">
++           <bool>true</bool>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <spacer name="horizontalSpacer_4">
++          <property name="orientation">
++           <enum>Qt::Horizontal</enum>
++          </property>
++          <property name="sizeHint" stdset="0">
++           <size>
++            <width>40</width>
++            <height>20</height>
++           </size>
++          </property>
++         </spacer>
++        </item>
++       </layout>
++      </item>
++      <item>
++       <widget class="QScrollArea" name="scrollArea">
++        <property name="frameShadow">
++         <enum>QFrame::Plain</enum>
++        </property>
++        <property name="widgetResizable">
++         <bool>true</bool>
++        </property>
++        <widget class="QWidget" name="scrollAreaWidgetContents">
++         <property name="geometry">
++          <rect>
++           <x>0</x>
++           <y>0</y>
++           <width>337</width>
++           <height>175</height>
++          </rect>
++         </property>
++         <layout class="QVBoxLayout" name="verticalLayout_4">
++          <item>
++           <widget class="KListWidget" name="lwTurns"/>
++          </item>
++         </layout>
++        </widget>
++       </widget>
++      </item>
++      <item>
++       <layout class="QHBoxLayout" name="horizontalLayout_2">
++        <item>
++         <spacer name="horizontalSpacer_3">
++          <property name="orientation">
++           <enum>Qt::Horizontal</enum>
++          </property>
++          <property name="sizeHint" stdset="0">
++           <size>
++            <width>40</width>
++            <height>20</height>
++           </size>
++          </property>
++         </spacer>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbAddTurn">
++          <property name="text">
++           <string>Add</string>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbEditTurn">
++          <property name="text">
++           <string>Edit</string>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbRemoveTurn">
++          <property name="text">
++           <string>Remove</string>
++          </property>
++         </widget>
++        </item>
++       </layout>
++      </item>
++     </layout>
++    </widget>
++   </item>
++  </layout>
++ </widget>
++ <customwidgets>
++  <customwidget>
++   <class>KPushButton</class>
++   <extends>QPushButton</extends>
++   <header>kpushbutton.h</header>
++  </customwidget>
++  <customwidget>
++   <class>KListWidget</class>
++   <extends>QListWidget</extends>
++   <header>klistwidget.h</header>
++  </customwidget>
++ </customwidgets>
++ <resources/>
++ <connections>
++  <connection>
++   <sender>pbEditState</sender>
++   <signal>clicked(bool)</signal>
++   <receiver>pbRemoveRequiredField</receiver>
++   <slot>setVisible(bool)</slot>
++   <hints>
++    <hint type="sourcelabel">
++     <x>319</x>
++     <y>34</y>
++    </hint>
++    <hint type="destinationlabel">
++     <x>297</x>
++     <y>275</y>
++    </hint>
++   </hints>
++  </connection>
++  <connection>
++   <sender>pbEditState</sender>
++   <signal>clicked(bool)</signal>
++   <receiver>pbAddRequiredField</receiver>
++   <slot>setVisible(bool)</slot>
++   <hints>
++    <hint type="sourcelabel">
++     <x>322</x>
++     <y>30</y>
++    </hint>
++    <hint type="destinationlabel">
++     <x>238</x>
++     <y>270</y>
++    </hint>
++   </hints>
++  </connection>
++  <connection>
++   <sender>pbEditState</sender>
++   <signal>clicked(bool)</signal>
++   <receiver>pbRemoveTurn</receiver>
++   <slot>setVisible(bool)</slot>
++   <hints>
++    <hint type="sourcelabel">
++     <x>326</x>
++     <y>24</y>
++    </hint>
++    <hint type="destinationlabel">
++     <x>302</x>
++     <y>439</y>
++    </hint>
++   </hints>
++  </connection>
++  <connection>
++   <sender>pbEditState</sender>
++   <signal>clicked(bool)</signal>
++   <receiver>pbEditTurn</receiver>
++   <slot>setVisible(bool)</slot>
++   <hints>
++    <hint type="sourcelabel">
++     <x>313</x>
++     <y>22</y>
++    </hint>
++    <hint type="destinationlabel">
++     <x>249</x>
++     <y>450</y>
++    </hint>
++   </hints>
++  </connection>
++  <connection>
++   <sender>pbEditState</sender>
++   <signal>clicked(bool)</signal>
++   <receiver>pbAddTurn</receiver>
++   <slot>setVisible(bool)</slot>
++   <hints>
++    <hint type="sourcelabel">
++     <x>325</x>
++     <y>23</y>
++    </hint>
++    <hint type="destinationlabel">
++     <x>185</x>
++     <y>456</y>
++    </hint>
++   </hints>
++  </connection>
++  <connection>
++   <sender>pbEditState</sender>
++   <signal>clicked(bool)</signal>
++   <receiver>pbRemoveState</receiver>
++   <slot>setVisible(bool)</slot>
++   <hints>
++    <hint type="sourcelabel">
++     <x>321</x>
++     <y>28</y>
++    </hint>
++    <hint type="destinationlabel">
++     <x>263</x>
++     <y>35</y>
++    </hint>
++   </hints>
++  </connection>
++  <connection>
++   <sender>pbEditState</sender>
++   <signal>clicked(bool)</signal>
++   <receiver>leStateName</receiver>
++   <slot>setVisible(bool)</slot>
++   <hints>
++    <hint type="sourcelabel">
++     <x>308</x>
++     <y>31</y>
++    </hint>
++    <hint type="destinationlabel">
++     <x>178</x>
++     <y>32</y>
++    </hint>
++   </hints>
++  </connection>
++  <connection>
++   <sender>pbEditState</sender>
++   <signal>clicked(bool)</signal>
++   <receiver>gbStateName</receiver>
++   <slot>setHidden(bool)</slot>
++   <hints>
++    <hint type="sourcelabel">
++     <x>323</x>
++     <y>30</y>
++    </hint>
++    <hint type="destinationlabel">
++     <x>42</x>
++     <y>21</y>
++    </hint>
++   </hints>
++  </connection>
++ </connections>
++</ui>
+diff --git a/plugins/Commands/Dialog/TurnCreateEditView.ui b/plugins/Commands/Dialog/TurnCreateEditView.ui
+new file mode 100644
+index 0000000..a6ac0a4
+--- /dev/null
++++ b/plugins/Commands/Dialog/TurnCreateEditView.ui
+@@ -0,0 +1,171 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<ui version="4.0">
++ <class>TurnCreateEditView</class>
++ <widget class="QWidget" name="TurnCreateEditView">
++  <property name="geometry">
++   <rect>
++    <x>0</x>
++    <y>0</y>
++    <width>404</width>
++    <height>467</height>
++   </rect>
++  </property>
++  <property name="windowTitle">
++   <string>Form</string>
++  </property>
++  <layout class="QVBoxLayout" name="verticalLayout">
++   <item>
++    <widget class="QGroupBox" name="groupBox">
++     <property name="title">
++      <string/>
++     </property>
++     <layout class="QVBoxLayout" name="verticalLayout_2">
++      <item>
++       <layout class="QHBoxLayout" name="horizontalLayout">
++        <item>
++         <widget class="QGroupBox" name="gbTurnName">
++          <property name="title">
++           <string>Name</string>
++          </property>
++          <property name="flat">
++           <bool>true</bool>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="QLineEdit" name="leTurnName">
++          <property name="text">
++           <string/>
++          </property>
++         </widget>
++        </item>
++       </layout>
++      </item>
++      <item>
++       <layout class="QHBoxLayout" name="horizontalLayout_9">
++        <item>
++         <widget class="QLabel" name="lbPrompt">
++          <property name="text">
++           <string>Prompts:</string>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="QSpinBox" name="sbPrompt">
++          <property name="minimum">
++           <number>1</number>
++          </property>
++          <property name="maximum">
++           <number>1</number>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbAddPrompt">
++          <property name="text">
++           <string>Add</string>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbEditPrompt">
++          <property name="text">
++           <string>Edit</string>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbRemovePrompt">
++          <property name="enabled">
++           <bool>false</bool>
++          </property>
++          <property name="text">
++           <string>Remove</string>
++          </property>
++         </widget>
++        </item>
++       </layout>
++      </item>
++      <item>
++       <widget class="KTextEdit" name="tePrompt"/>
++      </item>
++      <item>
++       <widget class="QGroupBox" name="gbExtractors">
++        <property name="title">
++         <string>Extractors</string>
++        </property>
++        <property name="flat">
++         <bool>true</bool>
++        </property>
++       </widget>
++      </item>
++      <item>
++       <widget class="QTableWidget" name="twExtractors">
++        <column>
++         <property name="text">
++          <string>Name</string>
++         </property>
++        </column>
++        <column>
++         <property name="text">
++          <string>Type</string>
++         </property>
++        </column>
++        <column>
++         <property name="text">
++          <string>Description</string>
++         </property>
++        </column>
++       </widget>
++      </item>
++      <item>
++       <layout class="QHBoxLayout" name="horizontalLayout_4">
++        <item>
++         <spacer name="horizontalSpacer_3">
++          <property name="orientation">
++           <enum>Qt::Horizontal</enum>
++          </property>
++          <property name="sizeHint" stdset="0">
++           <size>
++            <width>40</width>
++            <height>20</height>
++           </size>
++          </property>
++         </spacer>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbAddExtractor">
++          <property name="text">
++           <string>Add</string>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="KPushButton" name="pbRemoveExtractor">
++          <property name="text">
++           <string>Remove</string>
++          </property>
++         </widget>
++        </item>
++       </layout>
++      </item>
++     </layout>
++    </widget>
++   </item>
++  </layout>
++ </widget>
++ <customwidgets>
++  <customwidget>
++   <class>KPushButton</class>
++   <extends>QPushButton</extends>
++   <header>kpushbutton.h</header>
++  </customwidget>
++  <customwidget>
++   <class>KTextEdit</class>
++   <extends>QTextEdit</extends>
++   <header>ktextedit.h</header>
++  </customwidget>
++ </customwidgets>
++ <resources/>
++ <connections/>
++</ui>

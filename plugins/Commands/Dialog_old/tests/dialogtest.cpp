@@ -156,21 +156,21 @@ void testDialog::testGeneral()
      "<name>Dialog</name>"
      "<icon>im-user</icon>"
      "<description>Start dialog</description>"
-     "<turn>0</turn>"
+     "<state>0</state>"
      "<newState>4096</newState>"
      "<announce>1</announce>"
      "<id>startDialog</id>"
      "<visibleTrigger>Dialog</visibleTrigger>"
      "<showIcon>1</showIcon>"
     "</voiceInterfaceCommand>"
-    "<turn name=\"Welcome\">"
+    "<state name=\"Welcome\">"
      "<text>Welcome, {{formal}}Sir{{elseformal}}you{{endformal}}: $time$</text>"
      "<transitions>"
       "<command>"
        "<name>Yes</name>"
        "<icon>accessories-dictionary</icon>"
        "<description></description>"
-       "<turn>4097</turn>"
+       "<state>4097</state>"
        "<newState>4098</newState>"
        "<announce>1</announce>"
        "<presentation>"
@@ -188,7 +188,7 @@ void testDialog::testGeneral()
        "<name>CloseStock</name>"
        "<icon>dialog-close</icon>"
        "<description>Closes this dialog</description>"
-       "<turn>4098</turn>"
+       "<state>4098</state>"
        "<newState>4096</newState>"
        "<announce>1</announce>"
        "<presentation>"
@@ -204,15 +204,15 @@ void testDialog::testGeneral()
       "</command>"
 
      "</transitions>"
-    "</turn>"
-    "<turn name=\"Good bye\">"
+    "</state>"
+    "<state name=\"Good bye\">"
      "<text>Thanks</text>"
      "<transitions>"
       "<command>"
        "<name>Back</name>"
        "<icon>go-left</icon>"
        "<description>Goes back to page 1</description>"
-       "<turn>4098</turn>"
+       "<state>4098</state>"
        "<newState>4096</newState>"
        "<announce>1</announce>"
        "<presentation>"
@@ -227,7 +227,7 @@ void testDialog::testGeneral()
        "<childCommands enabled=\"0\"/>"
       "</command>"
      "</transitions>"
-    "</turn>"
+    "</state>"
    "</commands>"
    "<pluginCompatibility>"
     "<minimumVersion>"
@@ -249,10 +249,10 @@ void testDialog::testGeneral()
   QVERIFY(dialog);
   QVERIFY(dialog->getConfigurationPage());
 
-  QList<DialogState*> turns = dialog->getStates();
-  QCOMPARE(turns.count(), 2);
-  QCOMPARE(turns.at(0)->getName(), QString("Welcome"));
-  QCOMPARE(turns.at(0)->getText(), QString("<html><head /><body><p>Welcome, Sir: Test</p></body></html>"));
+  QList<DialogState*> states = dialog->getStates();
+  QCOMPARE(states.count(), 2);
+  QCOMPARE(states.at(0)->getName(), QString("Welcome"));
+  QCOMPARE(states.at(0)->getText(), QString("<html><head /><body><p>Welcome, Sir: Test</p></body></html>"));
 }
 
 void testDialog::testStates()
@@ -367,55 +367,55 @@ void testDialog::checkStates1()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
-  QCOMPARE(turns.count(), 3);
-  QCOMPARE(turns.at(2)->getName(), QString("newState"));
+  QList<DialogState*> states = dialog->getStates();
+  QCOMPARE(states.count(), 3);
+  QCOMPARE(states.at(2)->getName(), QString("newState"));
 }
 
 void testDialog::checkStates2()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
+  QList<DialogState*> states = dialog->getStates();
   QCOMPARE(dialog->getStates().count(), 3);
 
-  QCOMPARE(turns.at(0)->getName(), QString("Welcome"));
-  QCOMPARE(turns.at(2)->getName(), QString("newStateNewName"));
+  QCOMPARE(states.at(0)->getName(), QString("Welcome"));
+  QCOMPARE(states.at(2)->getName(), QString("newStateNewName"));
 }
 
 void testDialog::checkStates3()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
+  QList<DialogState*> states = dialog->getStates();
   QCOMPARE(dialog->getStates().count(), 3);
 
-  QCOMPARE(turns.at(0)->getText(), QString("<html><head /><body><p>Welcome, Sir: Test</p></body></html>"));
-  QCOMPARE(turns.at(2)->getText(), QString("<html><head /><body><p>Message</p></body></html>"));
+  QCOMPARE(states.at(0)->getText(), QString("<html><head /><body><p>Welcome, Sir: Test</p></body></html>"));
+  QCOMPARE(states.at(2)->getText(), QString("<html><head /><body><p>Message</p></body></html>"));
 }
 
 void testDialog::checkStates4()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
+  QList<DialogState*> states = dialog->getStates();
   QCOMPARE(dialog->getStates().count(), 3);
 
-  QCOMPARE(turns.at(0)->getName(), QString("Welcome"));
-  QCOMPARE(turns.at(1)->getName(), QString("newStateNewName"));
-  QCOMPARE(turns.at(2)->getName(), QString("Good bye"));
+  QCOMPARE(states.at(0)->getName(), QString("Welcome"));
+  QCOMPARE(states.at(1)->getName(), QString("newStateNewName"));
+  QCOMPARE(states.at(2)->getName(), QString("Good bye"));
 }
 
 void testDialog::checkStates5()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
+  QList<DialogState*> states = dialog->getStates();
   QCOMPARE(dialog->getStates().count(), 3);
 
-  QCOMPARE(turns.at(0)->getName(), QString("Welcome"));
-  QCOMPARE(turns.at(1)->getName(), QString("Good bye"));
-  QCOMPARE(turns.at(2)->getName(), QString("newStateNewName"));
+  QCOMPARE(states.at(0)->getName(), QString("Welcome"));
+  QCOMPARE(states.at(1)->getName(), QString("Good bye"));
+  QCOMPARE(states.at(2)->getName(), QString("newStateNewName"));
 }
 
 void testDialog::checkStates6()
@@ -554,9 +554,9 @@ void testDialog::checkTransitions1()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
+  QList<DialogState*> states = dialog->getStates();
   QCOMPARE(dialog->getStates().count(), 2);
-  QList<DialogCommand*> commands = turns.at(1)->getTransitions();
+  QList<DialogCommand*> commands = states.at(1)->getTransitions();
   QCOMPARE(commands.count(), 2);
   DialogCommand *newCommand = commands.at(1);
   QCOMPARE(newCommand->getTrigger(), QString("Close"));
@@ -568,9 +568,9 @@ void testDialog::checkTransitions2()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
+  QList<DialogState*> states = dialog->getStates();
   QCOMPARE(dialog->getStates().count(), 2);
-  QList<DialogCommand*> commands = turns.at(1)->getTransitions();
+  QList<DialogCommand*> commands = states.at(1)->getTransitions();
   QCOMPARE(commands.count(), 2);
   DialogCommand *newCommand = commands.at(1);
   QCOMPARE(newCommand->getTrigger(), QString("Close2"));
@@ -584,8 +584,8 @@ void testDialog::checkTransitions3()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
-  QList<DialogCommand*> commands = turns.at(1)->getTransitions();
+  QList<DialogState*> states = dialog->getStates();
+  QList<DialogCommand*> commands = states.at(1)->getTransitions();
   QCOMPARE(commands.count(), 2);
   QCOMPARE(commands.at(0)->getTrigger(), QString("Close2"));
   QCOMPARE(commands.at(1)->getTrigger(), QString("Back"));
@@ -595,8 +595,8 @@ void testDialog::checkTransitions4()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
-  QList<DialogCommand*> commands = turns.at(1)->getTransitions();
+  QList<DialogState*> states = dialog->getStates();
+  QList<DialogCommand*> commands = states.at(1)->getTransitions();
   QCOMPARE(commands.count(), 2);
   QCOMPARE(commands.at(0)->getTrigger(), QString("Back"));
   QCOMPARE(commands.at(1)->getTrigger(), QString("Close2"));
@@ -606,8 +606,8 @@ void testDialog::checkTransitions5()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QList<DialogState*> turns = dialog->getStates();
-  QList<DialogCommand*> commands = turns.at(1)->getTransitions();
+  QList<DialogState*> states = dialog->getStates();
+  QList<DialogCommand*> commands = states.at(1)->getTransitions();
   QCOMPARE(commands.count(), 1);
   QCOMPARE(commands.at(0)->getTrigger(), QString("Back"));
 }
