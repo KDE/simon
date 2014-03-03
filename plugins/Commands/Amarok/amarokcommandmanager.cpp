@@ -132,6 +132,8 @@ void AmarokCommandManager::collectionUpdateReceived(const VariantMapList& result
     songTitle.remove(QRegExp(QLatin1String("\\(.*\\)")));
     songTitle.remove(QLatin1String("("));
     songTitle.remove(QLatin1String(")"));
+    songTitle.remove(QLatin1String("$"));
+    songTitle.remove(QLatin1String("/"));
     songTitle.replace(' ', '_');
     songTitle = songTitle.trimmed();
 
