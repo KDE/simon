@@ -15,6 +15,7 @@ X-KDE-System-Settings-Parent-Category=accessibility
 #X-KDE-PluginKeyword=KSimondSettings
 
 Name=KSimond
+Name[bs]=KSimond
 Name[ca]=KSimond
 Name[ca@valencia]=KSimond
 Name[cs]=xKSimond
@@ -45,6 +46,7 @@ Name[zh_CN]=KSimond
 Name[zh_TW]=KSimond
 
 Comment=Configuration of the KDE simond front-end
+Comment[bs]=Konfiguracija KDE simond pročelja
 Comment[ca]=Configuració del frontal de «simond» per al KDE
 Comment[ca@valencia]=Configuració del frontal de «simond» per al KDE
 Comment[cs]=Nastavení rozhraní KDE k Simond

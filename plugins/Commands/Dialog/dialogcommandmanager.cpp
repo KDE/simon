@@ -96,9 +96,15 @@ void DialogCommandManager::initState(int State)
     return;
   }
 
+<<<<<<< HEAD
   //else, keep in mind that indizes do still start with 0 so 
   //decrement State
   State--;
+=======
+  //else, keep in mind that indices do still start with 0 so 
+  //decrement state
+  state--;
+>>>>>>> local_testing
 
   initState(DialogStates.at(State));
 }
@@ -227,7 +233,11 @@ bool DialogCommandManager::trigger(const QString& triggerName, bool silent)
     if (getDialogConfiguration()->getRepeatTriggers().contains(triggerName, Qt::CaseInsensitive))
     {
       foreach (DialogView* view, dialogViews)
+<<<<<<< HEAD
         view->repeat(*(currentDialogState->getTurns().at(0)));
+=======
+        view->repeat(*currentDialogState);
+>>>>>>> local_testing
       found = true;
     }
   }

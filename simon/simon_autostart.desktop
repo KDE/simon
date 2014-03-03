@@ -3,6 +3,7 @@ Icon=simon
 Type=Application
 
 Name=Simon
+Name[bs]=Simon
 Name[ca]=Simon
 Name[ca@valencia]=Simon
 Name[cs]=Simon
@@ -30,6 +31,7 @@ Name[x-test]=xxSimonxx
 Name[zh_TW]=Simon
 
 GenericName=Speech Recognition
+GenericName[bs]=Prepoznavanje Govora
 GenericName[ca]=Reconeixement de la veu
 GenericName[ca@valencia]=Reconeixement de la veu
 GenericName[cs]=Rozpoznávání řeči
@@ -60,6 +62,7 @@ GenericName[zh_TW]=語音辨識
 Exec=simon
 
 Comment=Speech Recognition and Model Management
+Comment[bs]=Prepoznavanje Govora i Upravljanje Modelima
 Comment[ca]=Gestió del reconeixement i model de pronunciació
 Comment[ca@valencia]=Gestió del reconeixement i model de pronunciació
 Comment[cs]=Rozpoznávání řeči a správa modelů

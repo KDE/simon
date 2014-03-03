@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=SSC
+Name[bs]=SSC
 Name[ca]=SSC
 Name[ca@valencia]=SSC
 Name[cs]=SSC
@@ -30,6 +31,7 @@ Icon=ssc
 Type=Application
 X-DocPath=ssc/index.html
 GenericName=Simon sample collector
+GenericName[bs]=Simon sakupljač uzoraka
 GenericName[ca]=Col·leccionista de mostres per a Simon
 GenericName[ca@valencia]=Col·leccionista de mostres per a Simon
 GenericName[cs]=Simonův sběratel nahrávek

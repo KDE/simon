@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Sam
 Name[ast]=Sam
+Name[bs]=Sam
 Name[ca]=Sam
 Name[ca@valencia]=Sam
 Name[cs]=Sam
@@ -32,6 +33,7 @@ Icon=sam
 Type=Application
 X-DocPath=sam/index.html
 GenericName=Acoustic Modeller
+GenericName[bs]=Akustični Modelar
 GenericName[ca]=Modelador acústic
 GenericName[ca@valencia]=Modelador acústic
 GenericName[da]=Akustisk model-værktøj

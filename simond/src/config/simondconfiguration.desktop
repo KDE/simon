@@ -15,6 +15,7 @@ X-KDE-System-Settings-Parent-Category=accessibility
 #X-KDE-PluginKeyword=SimondNetworkConfiguration
 
 Name=Simond
+Name[bs]=Simond
 Name[ca]=Simond
 Name[ca@valencia]=Simond
 Name[cs]=Simond
@@ -42,6 +43,7 @@ Name[x-test]=xxSimondxx
 Name[zh_TW]=Simond
 
 Comment=simond Configuration
+Comment[bs]=simond Konfiguracija
 Comment[ca]=Configuració de «simond»
 Comment[ca@valencia]=Configuració de «simond»
 Comment[cs]=Nastavení simond

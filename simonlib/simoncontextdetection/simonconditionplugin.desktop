@@ -2,6 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=simon/ConditionPlugin
 Name=Simon condition plugin
+Name[bs]=Simon dodatak za stanje
 Name[ca]=Connector per a condició del Simon
 Name[ca@valencia]=Connector per a condició del Simon
 Name[cs]=Modul stavu pro Simon

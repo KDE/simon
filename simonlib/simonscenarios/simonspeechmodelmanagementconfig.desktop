@@ -12,6 +12,7 @@ X-KDE-ParentComponents=libsimonscenarios
 X-KDE-ParentApp=simon
 
 Name=Speech Model
+Name[bs]=Model Govora
 Name[ca]=Model de pronunciació
 Name[ca@valencia]=Model de pronunciació
 Name[cs]=Model řeči
@@ -39,6 +40,7 @@ Name[zh_CN]=语音模式
 Name[zh_TW]=語音模型
 
 Comment=Configuration of the Simon Speech Model
+Comment[bs]=Konfiguracija Simon Modela Govora
 Comment[ca]=Configuració del model de pronunciació per a Simon
 Comment[ca@valencia]=Configuració del model de pronunciació per a Simon
 Comment[cs]=Nastavení modelů řeči Simon
