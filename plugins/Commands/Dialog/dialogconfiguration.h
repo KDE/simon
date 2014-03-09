@@ -21,7 +21,7 @@
 #define SIMON_DIALOGCONFIGURATION_H_4B4956DCAE204C49977297D20CB81F09
 
 #include <simonscenarios/commandconfiguration.h>
-#include "ui_dialogconfigurationdlg.h"
+#include "ui_dialogcreateview.h"
 #include <KSharedConfig>
 #include <QPointer>
 #include <QPoint>
@@ -44,7 +44,7 @@ class DialogConfiguration : public CommandConfiguration
   Q_OBJECT
 
   private:
-    Ui::DialogConfigurationDlg ui;
+    Ui::DialogCreateView ui;
     DialogCommandManager *commandManager;
     BoundValuesConfiguration *boundValuesConfig;
     TemplateOptionsConfiguration *templateOptionsConfig;

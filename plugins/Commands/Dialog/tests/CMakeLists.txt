@@ -13,6 +13,7 @@ kde4_add_ui_files(simondialogcommandplugindialogtest_SRCS
   ../dialogconfigurationdlg.ui
   ../createdialogcommandwidget.ui
   ../createtransitiondlg.ui
+  ../dialogcreateview.ui
 )
 
 kde4_add_unit_test(simondialogcommandplugintest-dialog TESTNAME
