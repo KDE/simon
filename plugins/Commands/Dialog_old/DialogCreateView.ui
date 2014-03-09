@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_7">
    <item>
-    <widget class="KTabWidget" name="ktabwidget">
+    <widget class="KTabWidget" name="twMain">
      <property name="currentIndex">
       <number>0</number>
      </property>
