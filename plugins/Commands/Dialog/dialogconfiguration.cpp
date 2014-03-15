@@ -62,18 +62,19 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   templateOptionsConfig(new TemplateOptionsConfiguration(this)),
   avatarsConfig(new AvatarConfiguration(this)),
   outputConfiguration(new OutputConfiguration(this))
+
 {
   Q_UNUSED(args);
   ui.setupUi(this);
 
-  // connect(ui.lwStates, SIGNAL(currentRowChanged(int)), this, SLOT(displayCurrentState()));
+  connect(ui.lwStates, SIGNAL(currentRowChanged(int)), this, SLOT(displayCurrentState()));
 
   connect(ui.pbAddState, SIGNAL(clicked()), this, SLOT(addState()));
-  // connect(ui.pbRenameState, SIGNAL(clicked()), this, SLOT(renameState()));
-  // connect(ui.pbRemoveState, SIGNAL(clicked()), this, SLOT(removeState()));
+  connect(ui.pbRenameState, SIGNAL(clicked()), this, SLOT(renameState()));
+  connect(ui.pbRemoveState, SIGNAL(clicked()), this, SLOT(removeState()));
 
-  // connect(ui.pbMoveStateUp, SIGNAL(clicked()), this, SLOT(moveStateUp()));
-  // connect(ui.pbMoveStateDown, SIGNAL(clicked()), this, SLOT(moveStateDown()));
+  connect(ui.pbMoveStateUp, SIGNAL(clicked()), this, SLOT(moveStateUp()));
+  connect(ui.pbMoveStateDown, SIGNAL(clicked()), this, SLOT(moveStateDown()));
 
   // connect(ui.pbEditText, SIGNAL(clicked()), this, SLOT(editText()));
 
@@ -433,37 +434,36 @@ void DialogConfiguration::init()
 
 void DialogConfiguration::displayStates()
 {
-  // int oldRow = ui.lwStates->currentRow();
+  int oldRow = ui.lwStates->currentRow();
 
-  // ui.lwStates->clear();
+  ui.lwStates->clear();
   
-  // QList<DialogState*> states = commandManager->getStates();
-  // int id = 1;
-  // foreach (DialogState* state, states)
-  // {
-  //   ui.lwStates->addItem(i18nc("%1: id of turn; %2: name of turn", "%1: %2", id, state->getName()));
-  //   id++;
-  // }
+  QList<DialogState*> states = commandManager->getStates();
+  int id = 1;
+  foreach (DialogState* state, states)
+  {
+    ui.lwStates->addItem(i18nc("%1: id of turn; %2: name of turn", "%1: %2", id, state->getName()));
+    id++;
+  }
 
-  // if (ui.lwStates->count() > 0)
-  // {
-  //   if ((ui.lwStates->count() > oldRow) && (oldRow >= 0))
-  //     ui.lwStates->setCurrentRow(oldRow);
-  //   else
-  //     ui.lwStates->setCurrentRow(0);
-  // }
+  if (ui.lwStates->count() > 0)
+  {
+    if ((ui.lwStates->count() > oldRow) && (oldRow >= 0))
+      ui.lwStates->setCurrentRow(oldRow);
+    else
+      ui.lwStates->setCurrentRow(0);
+  }
 }
 
 DialogState* DialogConfiguration::getCurrentState()
 {
-  // int row = ui.lwStates->currentRow();
+  int row = ui.lwStates->currentRow();
 
-  // if (row == -1) return 0;
+  if (row == -1) return 0;
 
-  // QList<DialogState*> turns = commandManager->getStates();
+  QList<DialogState*> turns = commandManager->getStates();
 
-  // return turns[row];
-  return 0;
+  return turns[row];
 }
 
 DialogState* DialogConfiguration::getCurrentStateGraphical()
@@ -497,7 +497,7 @@ DialogCommand* DialogConfiguration::getCurrentTransitionGraphical()
 
 void DialogConfiguration::displayCurrentState()
 {
-  // DialogState* currentState = getCurrentState();
+  DialogState* currentState = getCurrentState();
 
   // ui.wgText->setEnabled(currentState);
   // ui.wgOptions->setEnabled(currentState);
