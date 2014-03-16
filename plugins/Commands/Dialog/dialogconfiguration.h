@@ -87,6 +87,8 @@ class DialogConfiguration : public CommandConfiguration
     void updateTextSelector();
     void displaySelectedText();
 
+    void addTurn();
+
   public slots:
     void init();
 

@@ -17,6 +17,7 @@
  */
 
 #include "dialogconfiguration.h"
+#include "turnconfiguration.h"
 #include "dialogcommandmanager.h"
 
 #include <simondialogengine/dialogtemplateoptions.h>
@@ -119,7 +120,16 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 
   // ui.pbAddText->setIcon(KIcon("list-add"));
   // ui.pbRemoveText->setIcon(KIcon("list-remove"));
+
+  connect(ui.pbAddTurn, SIGNAL(clicked()), this, SLOT(addTurn()));
+
   displayCurrentState();
+}
+
+void DialogConfiguration::addTurn()
+{
+  TurnConfiguration* turnConfig = new TurnConfiguration(getCurrentState(), this);
+  turnConfig->show();
 }
 
 void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
