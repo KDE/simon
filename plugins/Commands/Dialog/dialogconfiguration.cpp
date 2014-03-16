@@ -107,7 +107,7 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   // ui.pbRemoveState->setIcon(KIcon("list-remove"));
   // ui.pbRemoveTransition->setIcon(KIcon("list-remove"));
 
-  // ui.pbRenameState->setIcon(KIcon("document-edit"));
+  ui.pbRenameState->setIcon(KIcon("document-edit"));
   // ui.pbEditTransition->setIcon(KIcon("document-edit"));
   // ui.pbEditText->setIcon(KIcon("document-edit"));
 
@@ -197,18 +197,18 @@ void DialogConfiguration::addState()
 
 void DialogConfiguration::renameState()
 {
-  // DialogState *state = getCurrentStateGraphical();
-  // if (!state) return;
+  DialogState *state = getCurrentStateGraphical();
+  if (!state) return;
 
-  // bool ok = true;
-  // QString name = KInputDialog::getText(i18n("Rename turn"), i18n("New name of the turn:"), 
-  //                                       state->getName(), &ok);
-  // if (!ok) return;
+  bool ok = true;
+  QString name = KInputDialog::getText(i18n("Rename turn"), i18n("New name of the turn:"), 
+                                        state->getName(), &ok);
+  if (!ok) return;
 
-  // if (!state->rename(name))
-  //   KMessageBox::sorry(this, i18n("Failed to rename turn"));
+  if (!state->rename(name))
+    KMessageBox::sorry(this, i18n("Failed to rename turn"));
 
-  // displayStates();
+  displayStates();
 }
 
 void DialogConfiguration::removeState()
@@ -503,12 +503,12 @@ void DialogConfiguration::displayCurrentState()
   // ui.wgOptions->setEnabled(currentState);
   // ui.wgAvatar->setEnabled(currentState);
 
-  // if (!currentState)
-  // {
+  if (!currentState)
+  {
   //   ui.teText->clear();
   //   ui.lvTransitions->setModel(0);
-  //   return;
-  // }
+    return;
+  }
 
   // updateTextSelector();
   // ui.cbSilence->setChecked(currentState->silence());
