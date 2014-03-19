@@ -28,7 +28,7 @@ class SIMONDIALOGENGINE_EXPORT DialogManager
 protected:
   virtual void initState(DialogState *state)=0;
 public:
-  virtual void initState(int state)=0;
+  virtual void initState(int turn)=0;
   virtual Avatar* getAvatar(int id) const=0;
   virtual int getAvatarSize() const=0;
   virtual bool getDisplayAvatarNames() const=0;

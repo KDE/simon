@@ -19,7 +19,7 @@
 
 #include "ttsdialogview.h"
 #include <simondialogengine/dialogmanager.h>
-#include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogturn.h>
 #include <simondialogengine/dialogcommand.h>
 #include <simontts/simontts.h>
 #include <KDebug>
@@ -67,17 +67,17 @@ bool TTSDialogView::say(const QString& text)
   return true;
 }
 
-bool TTSDialogView::synthesizeState(const DialogState& state)
+bool TTSDialogView::synthesizeTurn(const DialogTurn& turn)
 {
   QString text;
   
-  if (!state.silence())
-    text += state.getText()+'\n';
+  if (!turn.silence())
+    text += turn.getText()+'\n';
   
   optionsRepeat = "";
   
 
-  QList<DialogCommand*> transitions = state.getTransitions();
+  QList<DialogCommand*> transitions = turn.getTransitions();
 
   kDebug() << "Presenting " << transitions.count() << " transitions";
   foreach (DialogCommand* transition, transitions)
@@ -91,7 +91,7 @@ bool TTSDialogView::synthesizeState(const DialogState& state)
     text += optionsRepeat;
   }
 
-  if (state.announceRepeat())
+  if (turn.announceRepeat())
     text += m_dialog->getRepeatAnnouncement();
     //say(m_dialog->getRepeatAnnouncement());
 
@@ -105,17 +105,17 @@ bool TTSDialogView::synthesizeState(const DialogState& state)
   return say(text);
 }
 
-bool TTSDialogView::present(const DialogState& state)
+bool TTSDialogView::present(const DialogTurn& turn)
 {
-  kDebug() << "Presenting state in tts dialog view...";
+  kDebug() << "Presenting turn in tts dialog view...";
   if (!SimonTTS::interrupt()) return false;
 
-  return synthesizeState(state);
+  return synthesizeTurn(turn);
 }
 
-void TTSDialogView::repeat(const DialogState& state)
+void TTSDialogView::repeat(const DialogTurn& turn)
 {
-  synthesizeState(state);
+  synthesizeTurn(turn);
 }
 
 void TTSDialogView::warnOfInvalidInput(const QString& /*input*/)

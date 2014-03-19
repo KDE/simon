@@ -65,7 +65,7 @@ void DialogCommandManager::setFont(const QFont& font)
     view->setFont(font);
 }
 
-void DialogCommandManager::initState(DialogState *state)
+void DialogCommandManager::initState(DialogState* state)
 {
   if (currentDialogState)
     currentDialogState->left();
@@ -73,7 +73,7 @@ void DialogCommandManager::initState(DialogState *state)
   state->updateRandomTextSelection();
   
   foreach (DialogView* view, dialogViews)
-    view->present(*state);
+    view->present(*(state->getTurns().at(0)));
 
   state->presented();
 
@@ -84,8 +84,8 @@ void DialogCommandManager::initState(int state)
 {
   kDebug() << "Switching to state: " << state;
 
-  //0 state means quit
-  if ((state == 0) ||  (state >= dialogStates.count()+1 || state < 1))
+  //0 State means quit
+  if ((state == 0) ||  (state >= DialogStates.count()+1 || state < 1))
   {
     if (currentDialogState)
       currentDialogState->left();
@@ -100,16 +100,23 @@ void DialogCommandManager::initState(int state)
   //decrement state
   state--;
 
-  initState(dialogStates.at(state));
+  initState(DialogStates.at(state));
 }
 
 bool DialogCommandManager::addState(const QString& name)
 {
-  DialogState *state = new DialogState(dialogParser, name, QString(), false, true,
+  DialogState* state = new DialogState(dialogParser, name, 
+                                    QList<DialogTurn*>(), this);
+  connect(state, SIGNAL(changed()), this, SLOT(StateChanged()));
+  DialogStates << state;
+
+  /*
+  DialogState *turn = new DialogState(dialogParser, name, QString(), false, true,
                                     QList<DialogCommand*>(), this);
-  connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
-  connect(state, SIGNAL(changed()), this, SLOT(stateChanged()));
-  dialogStates << state;
+  connect(turn, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
+    DialogStates << turn;
+  currentDialogState->addTurn(name, dialogParser);
+  */
   kDebug() << "Adding state...";
 
   return true;
@@ -123,7 +130,7 @@ bool DialogCommandManager::removeState(DialogState *state)
     currentDialogState = NULL;
     initState(0);
   }
-  int removed = dialogStates.removeAll(state);
+  int removed = DialogStates.removeAll(state);
 
   if (!removed)
     return false;
@@ -135,21 +142,21 @@ bool DialogCommandManager::removeState(DialogState *state)
 
 bool DialogCommandManager::moveStateUp(DialogState *state)
 {
-  int index = dialogStates.indexOf(state);
+  int index = DialogStates.indexOf(state);
   if (index <= 0) return false;
 
-  dialogStates.insert(index-1, dialogStates.takeAt(index));
+  DialogStates.insert(index-1, DialogStates.takeAt(index));
   return true;
   //return parentScenario->save();
 }
 
 bool DialogCommandManager::moveStateDown(DialogState *state)
 {
-  int index = dialogStates.indexOf(state);
-  if ((index == -1) || (index == (dialogStates.count()-1))) 
+  int index = DialogStates.indexOf(state);
+  if ((index == -1) || (index == (DialogStates.count()-1)))
     return false;
 
-  dialogStates.insert(index+1, dialogStates.takeAt(index));
+  DialogStates.insert(index+1, DialogStates.takeAt(index));
   return true;
   //return parentScenario->save();
 }
@@ -167,7 +174,7 @@ void DialogCommandManager::activate(const QString& arg0, const QString& arg1, co
   qDeleteAll(dialogViews);
   dialogViews.clear();
 
-  if (dialogStates.isEmpty())
+  if (DialogStates.isEmpty())
     return;
 
   if (getDialogConfiguration()->useGUIOutput())
@@ -182,10 +189,10 @@ void DialogCommandManager::activate(const QString& arg0, const QString& arg1, co
 
   startGreedy();
   
-  //switch the command managers internal state to +1 as then the
+  //switch the command managers internal State to +1 as then the
   //numbers line up to the pages
   switchToState(SimonCommand::GreedyState + 1);
-  initState(1); // always start with state 1;
+  initState(1); // always start with State 1;
 }
 
 void DialogCommandManager::deregister()
@@ -220,7 +227,7 @@ bool DialogCommandManager::trigger(const QString& triggerName, bool silent)
     if (getDialogConfiguration()->getRepeatTriggers().contains(triggerName, Qt::CaseInsensitive))
     {
       foreach (DialogView* view, dialogViews)
-        view->repeat(*currentDialogState);
+        view->repeat(*(currentDialogState->getTurns().at(0)));
       found = true;
     }
   }
@@ -258,15 +265,15 @@ QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
     }
   }
 
-  foreach (DialogState *state, dialogStates) {
-    QDomElement commandElem = state->serialize(doc);
+  foreach (DialogState *turn, DialogStates) {
+    QDomElement commandElem = turn->serialize(doc);
     commandsElem.appendChild(commandElem);
   }
 
   return commandsElem;
 }
 
-void DialogCommandManager::stateChanged()
+void DialogCommandManager::StateChanged()
 {
   bindStateCommands();
 }
@@ -275,21 +282,21 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 { 
   if (elem.isNull()) return false;
 
-  QDomElement stateElem = elem.firstChildElement("state");
+  QDomElement stateElem = elem.firstChildElement("State");
   while(!stateElem.isNull())
   {
-    kDebug() << "Deserializing state element";
-    DialogState *state = DialogState::createInstance(dialogParser, stateElem);
+    kDebug() << "Deserializing State element";
+    DialogState *turn = DialogState::createInstance(dialogParser, stateElem);
 
-    if (state)
+    if (turn)
     {
-      connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
-      connect(state, SIGNAL(changed()), this, SLOT(stateChanged()));
-      connect(state, SIGNAL(destroyed()), this, SLOT(stateDestroyed()));
-      dialogStates << state;
+      connect(turn, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
+      connect(turn, SIGNAL(changed()), this, SLOT(StateChanged()));
+      connect(turn, SIGNAL(destroyed()), this, SLOT(StateDestroyed()));
+      DialogStates << turn;
     }
 
-    stateElem = stateElem.nextSiblingElement("state");
+    stateElem = stateElem.nextSiblingElement("State");
   }
 
   bindStateCommands();
@@ -298,9 +305,9 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
   return true;
 }
 
-void DialogCommandManager::stateDestroyed()
+void DialogCommandManager::StateDestroyed()
 {
-  dialogStates.removeAll(static_cast<DialogState*>(sender()));
+  DialogStates.removeAll(static_cast<DialogState*>(sender()));
 }
 
 void DialogCommandManager::bindStateCommands()
@@ -317,18 +324,23 @@ void DialogCommandManager::bindStateCommands()
     }
   }
 
-  int stateId = SimonCommand::GreedyState + 1;
-  foreach (DialogState *state, dialogStates)
+  int StateId = SimonCommand::GreedyState + 1;
+  foreach (DialogState *state, DialogStates)
   {
+    /*
     QList<DialogCommand*> transitions = state->getTransitions();
-
+    
     foreach (DialogCommand* transition, transitions)
     {
-      transition->createStateLink(stateId);
+      transition->createStateLink(StateId);
       commands << transition;
     }
 
-    stateId++;
+    StateId++;
+    */
+
+    state->bindStateCommands(commands);
+    StateId++;
   }
 
   foreach (Command* c, oldCommands)
@@ -348,8 +360,8 @@ bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
   bool succ = true;
   succ &= installInterfaceCommand(this, "activate", i18n("Dialog"), iconSrc(),
     i18n("Start dialog"), true /* announce */, true /* show icon */,
-    SimonCommand::DefaultState /* consider this command when in this state */,
-    SimonCommand::GreedyState,                    /* if executed switch to this state */
+    SimonCommand::DefaultState /* consider this command when in this State */,
+    SimonCommand::GreedyState,                    /* if executed switch to this State */
     QString() /* take default visible id from action name */,
     "startDialog" /* id */);
 
@@ -392,7 +404,7 @@ DialogCommandManager::~DialogCommandManager()
 {
   activateAction->deleteLater();
   qDeleteAll(dialogViews);
-  foreach (DialogState *s, dialogStates)
-    disconnect(s, SIGNAL(destroyed()), this, SLOT(stateDestroyed()));
-  qDeleteAll(dialogStates);
+  foreach (DialogState *s, DialogStates)
+    disconnect(s, SIGNAL(destroyed()), this, SLOT(StateDestroyed()));
+  qDeleteAll(DialogStates);
 }

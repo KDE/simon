@@ -54,7 +54,7 @@ class SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT VisualDialogView : public QWidget, p
     bool start();
     bool stop();
 
-    bool present(const DialogState& state);
+    bool present(const DialogTurn& turn);
 
     void setFont(const QFont& font);
 

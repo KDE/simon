@@ -23,26 +23,26 @@
 #include <QDomElement>
 #include <QByteArray>
 
-#include "../dialogstate.h"
+#include "../dialogturn.h"
 #include "../dialogcommand.h"
 #include "../dialogtextparser.h"
 #include "../dialogtemplateoptions.h"
 #include "../dialogboundvalues.h"
 
-class testDialogState: public QObject
+class testDialogTurn: public QObject
 {
   Q_OBJECT
   private slots:
     void testGeneral();
     
   private:
-    DialogState *state;
+    DialogTurn *turn;
 };
 
-void testDialogState::testGeneral()
+void testDialogTurn::testGeneral()
 {
-  state = DialogState::createInstance(NULL /*dialog text parser */, QDomElement());
-  QVERIFY(!state);
+  turn = DialogTurn::createInstance(NULL /*dialog text parser */, QDomElement());
+  QVERIFY(!turn);
 
   //deserialization
   QDomDocument doc;
@@ -57,15 +57,15 @@ void testDialogState::testGeneral()
 
   doc.setContent(
       QByteArray(
-        "<state name=\"Welcome\">"
+        "<turn name=\"Welcome\">"
          "<text>Testtext{{bla}} here{{endbla}}</text>"
          "<transitions>"
           "<command>"
            "<name>Yes</name>"
            "<icon>accessories-dictionary</icon>"
            "<description></description>"
-           "<state>4097</state>"
-           "<newState>4098</newState>"
+           "<turn>4097</turn>"
+           "<newTurn>4098</newTurn>"
            "<announce>1</announce>"
            "<presentation>"
             "<text>Yup</text>"
@@ -75,40 +75,40 @@ void testDialogState::testGeneral()
             "<active>0</active>"
             "<timeout>1</timeout>"
            "</auto>"
-           "<switchState enabled=\"1\">2</switchState>"
+           "<switchTurn enabled=\"1\">2</switchTurn>"
            "<childCommands enabled=\"0\"/>"
           "</command>"
          "</transitions>"
-        "</state>"
+        "</turn>"
        ));
-  state = DialogState::createInstance(textParser, doc.documentElement());
-  QVERIFY(state);
+  turn = DialogTurn::createInstance(textParser, doc.documentElement());
+  QVERIFY(turn);
 
-  QDomElement elem = state->serialize(&doc);
-  delete state;
-  state = DialogState::createInstance(textParser, elem);
-  QVERIFY(state);
+  QDomElement elem = turn->serialize(&doc);
+  delete turn;
+  turn = DialogTurn::createInstance(textParser, elem);
+  QVERIFY(turn);
 
-  QSignalSpy changedSpy(state, SIGNAL(changed()));
+  QSignalSpy changedSpy(turn, SIGNAL(changed()));
   QVERIFY(changedSpy.isValid());
   QCOMPARE(changedSpy.count(), 0);
 
-  QCOMPARE(state->rowCount(), 1);
-  QCOMPARE(state->columnCount(), 1);
-  QCOMPARE(state->data(state->index(0, 0), Qt::DisplayRole), QVariant("Yes"));
-  QCOMPARE(state->getName(), QString("Welcome"));
+  QCOMPARE(turn->rowCount(), 1);
+  QCOMPARE(turn->columnCount(), 1);
+  QCOMPARE(turn->data(turn->index(0, 0), Qt::DisplayRole), QVariant("Yes"));
+  QCOMPARE(turn->getName(), QString("Welcome"));
 
-  state->rename("Renamed");
+  turn->rename("Renamed");
   QCOMPARE(changedSpy.count(), 1);
-  QCOMPARE(state->getName(), QString("Renamed"));
+  QCOMPARE(turn->getName(), QString("Renamed"));
 
-  QCOMPARE(state->getText(), QString("<html><head /><body><p>Testtext</p></body></html>"));
-  QCOMPARE(state->getRawText(0), QString("Testtext{{bla}} here{{endbla}}"));
-  state->setRawText(0, "Raw text changed");
+  QCOMPARE(turn->getText(), QString("<html><head /><body><p>Testtext</p></body></html>"));
+  QCOMPARE(turn->getRawText(0), QString("Testtext{{bla}} here{{endbla}}"));
+  turn->setRawText(0, "Raw text changed");
   QCOMPARE(changedSpy.count(), 2);
-  QCOMPARE(state->getRawText(0), QString("Raw text changed"));
+  QCOMPARE(turn->getRawText(0), QString("Raw text changed"));
 
-  QList<DialogCommand*> transitions = state->getTransitions();
+  QList<DialogCommand*> transitions = turn->getTransitions();
   QCOMPARE(transitions.count(), 1);
   DialogCommand *containedCommand = transitions.at(0);
 
@@ -121,89 +121,89 @@ void testDialogState::testGeneral()
   QCOMPARE(containedCommand->text(), QString("Really no"));
 
   //Values are NOT destroyed when not used in conjunction with a dialogcommandmanager instance!
-  state->removeTransition(containedCommand);
+  turn->removeTransition(containedCommand);
 
-  QCOMPARE(state->rowCount(), 0);
-  state->addTransition(containedCommand);
-  QCOMPARE(state->rowCount(), 1);
+  QCOMPARE(turn->rowCount(), 0);
+  turn->addTransition(containedCommand);
+  QCOMPARE(turn->rowCount(), 1);
   
   DialogCommand *otherCommand =  new DialogCommand("Yes", "accessories-dictionary", "desc", "Yup", true, true, false, 3000, 
       true,  2, true, QStringList() << "testT", QStringList() << "testC");
 
-  state->addTransition(otherCommand);
-  QCOMPARE(state->rowCount(), 2);
-  QCOMPARE(state->data(state->index(0, 0), Qt::DisplayRole), QVariant("No"));
-  QCOMPARE(state->data(state->index(1, 0), Qt::DisplayRole), QVariant("Yes"));
-  transitions = state->getTransitions();
+  turn->addTransition(otherCommand);
+  QCOMPARE(turn->rowCount(), 2);
+  QCOMPARE(turn->data(turn->index(0, 0), Qt::DisplayRole), QVariant("No"));
+  QCOMPARE(turn->data(turn->index(1, 0), Qt::DisplayRole), QVariant("Yes"));
+  transitions = turn->getTransitions();
   QCOMPARE(transitions.count(), 2);
   QCOMPARE(transitions.at(0)->getTrigger(), QString("No"));
   QCOMPARE(transitions.at(1)->getTrigger(), QString("Yes"));
 
-  bool success = state->moveTransitionUp(otherCommand);
+  bool success = turn->moveTransitionUp(otherCommand);
   QCOMPARE(success, true);
-  QCOMPARE(state->rowCount(), 2);
-  QCOMPARE(state->data(state->index(0, 0), Qt::DisplayRole), QVariant("Yes"));
-  QCOMPARE(state->data(state->index(1, 0), Qt::DisplayRole), QVariant("No"));
-  transitions = state->getTransitions();
+  QCOMPARE(turn->rowCount(), 2);
+  QCOMPARE(turn->data(turn->index(0, 0), Qt::DisplayRole), QVariant("Yes"));
+  QCOMPARE(turn->data(turn->index(1, 0), Qt::DisplayRole), QVariant("No"));
+  transitions = turn->getTransitions();
   QCOMPARE(transitions.count(), 2);
   QCOMPARE(transitions.at(0)->getTrigger(), QString("Yes"));
   QCOMPARE(transitions.at(1)->getTrigger(), QString("No"));
 
-  success = state->moveTransitionUp(0);
+  success = turn->moveTransitionUp(0);
   QCOMPARE(success, false);
 
-  success = state->moveTransitionDown(containedCommand);
+  success = turn->moveTransitionDown(containedCommand);
   QCOMPARE(success, false); // already at end
-  success = state->moveTransitionDown(otherCommand);
+  success = turn->moveTransitionDown(otherCommand);
   QCOMPARE(success, true); 
-  QCOMPARE(state->rowCount(), 2);
-  QCOMPARE(state->data(state->index(0, 0), Qt::DisplayRole), QVariant("No"));
-  QCOMPARE(state->data(state->index(1, 0), Qt::DisplayRole), QVariant("Yes"));
-  transitions = state->getTransitions();
+  QCOMPARE(turn->rowCount(), 2);
+  QCOMPARE(turn->data(turn->index(0, 0), Qt::DisplayRole), QVariant("No"));
+  QCOMPARE(turn->data(turn->index(1, 0), Qt::DisplayRole), QVariant("Yes"));
+  transitions = turn->getTransitions();
   QCOMPARE(transitions.count(), 2);
   QCOMPARE(transitions.at(0)->getTrigger(), QString("No"));
   QCOMPARE(transitions.at(1)->getTrigger(), QString("Yes"));
   
   
-  QCOMPARE(state->getTextCount(), 1);
-  QCOMPARE(state->getRawText(0), QString("Raw text changed"));
+  QCOMPARE(turn->getTextCount(), 1);
+  QCOMPARE(turn->getRawText(0), QString("Raw text changed"));
   
-  state->addText("SecondTestText");
-  QCOMPARE(state->getTextCount(), 2);
-  QCOMPARE(state->getRawText(0), QString("Raw text changed"));
-  QCOMPARE(state->getRawText(1), QString("SecondTestText"));
+  turn->addText("SecondTestText");
+  QCOMPARE(turn->getTextCount(), 2);
+  QCOMPARE(turn->getRawText(0), QString("Raw text changed"));
+  QCOMPARE(turn->getRawText(1), QString("SecondTestText"));
   
-  QVERIFY(!state->removeText(7));
-  QVERIFY(state->removeText(0));
-  QCOMPARE(state->getTextCount(), 1);
+  QVERIFY(!turn->removeText(7));
+  QVERIFY(turn->removeText(0));
+  QCOMPARE(turn->getTextCount(), 1);
   
-  QCOMPARE(state->getRawText(0), QString("SecondTestText"));
-  state->addText("ThirdTestText");
-  QCOMPARE(state->getTextCount(), 2);
+  QCOMPARE(turn->getRawText(0), QString("SecondTestText"));
+  turn->addText("ThirdTestText");
+  QCOMPARE(turn->getTextCount(), 2);
   
-  QCOMPARE(state->getRawText(0), QString("SecondTestText"));
-  QCOMPARE(state->getRawText(1), QString("ThirdTestText"));
+  QCOMPARE(turn->getRawText(0), QString("SecondTestText"));
+  QCOMPARE(turn->getRawText(1), QString("ThirdTestText"));
   
-  QDomElement multipleTextsElem = state->serialize(&doc);
+  QDomElement multipleTextsElem = turn->serialize(&doc);
   
 
   QSignalSpy destroyedSpy(containedCommand, SIGNAL(destroyed()));
   QVERIFY(destroyedSpy.isValid());
   QCOMPARE(destroyedSpy.count(), 0);
-  delete state;
+  delete turn;
   QCOMPARE(destroyedSpy.count(), 0); //commands are deleted by command manager
 
   delete containedCommand;
   delete otherCommand;
   
-  state = DialogState::createInstance(textParser, multipleTextsElem);
-  QCOMPARE(state->getRawText(0), QString("SecondTestText"));
-  QCOMPARE(state->getRawText(1), QString("ThirdTestText"));
-  delete state;
+  turn = DialogTurn::createInstance(textParser, multipleTextsElem);
+  QCOMPARE(turn->getRawText(0), QString("SecondTestText"));
+  QCOMPARE(turn->getRawText(1), QString("ThirdTestText"));
+  delete turn;
 }
 
  
-QTEST_MAIN(testDialogState)
+QTEST_MAIN(testDialogTurn)
 
-#include "dialogstatetest.moc"
+#include "dialogturntest.moc"
 
