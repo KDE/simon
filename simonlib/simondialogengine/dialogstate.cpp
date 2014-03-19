@@ -20,34 +20,41 @@
 #include "dialogstate.h"
 #include "dialogcommand.h"
 #include "dialogtext.h"
+#include "dialogturn.h"
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDateTime>
 
-DialogState::DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
-    bool silence, bool announceRepeat,
-    QList<DialogCommand*> transitions, QObject *parent) : 
+DialogState::DialogState(DialogTextParser* parser, const QString& name, QList<DialogTurn*> turns, QObject* parent) :
   QAbstractItemModel(parent),
   m_name(name),
-  m_currentRandomTextIndex(0), /*only one text*/
+  m_currentRandomTurnIndex(0), /* only one turn */
   m_parser(parser),
-  m_silence(silence),
-  m_announceRepeat(announceRepeat),
-  m_transitions(transitions)
+  //m_silence(silence),
+  //m_announceRepeat(announceRepeat),
+  m_turns(turns)
+  //m_transitions(transitions)
 {
   qsrand(QDateTime::currentDateTime().toTime_t());
-  m_texts << new DialogText(parser, text);
+
+  DialogTurn* turn = new DialogTurn(parser, name, QString(), false, true, QList<DialogCommand*>(), this);
+  //connect(turn, SIGNAL(requestDialogTurn(int)), this, SLOT(initState(int)));
+  connect(turn, SIGNAL(changed()), this, SLOT(TurnChanged()));
+  m_turns << turn;
+
+  /*
   foreach (DialogCommand *c, m_transitions)
   {
     kDebug() << "Registering dialog command: " << c->getTrigger();
     connect(c, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
     connect(c, SIGNAL(changed()), this, SIGNAL(changed()));
   }
+  */
 }
 
 DialogState* DialogState::createInstance(DialogTextParser *parser, const QDomElement& elem)
 {
-  DialogState *state = new DialogState();
+  DialogState* state = new DialogState();
 
   if (!state->deSerialize(parser, elem))
   {
@@ -58,74 +65,113 @@ DialogState* DialogState::createInstance(DialogTextParser *parser, const QDomEle
   return state;
 }
 
+void DialogState::addTurn(const QString& name, DialogTextParser* dialogParser)
+{
+  DialogTurn *turn = new DialogTurn(dialogParser, name, QString(), false, true,
+                                      QList<DialogCommand*>(), this);
+  //connect(turn, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
+  connect(turn, SIGNAL(changed()), this, SLOT(TurnChanged()));
+  m_turns << turn;
+}
+
 int DialogState::getTextCount()
 {
-  return m_texts.count();
+  int count = 0;
+  foreach(DialogTurn* t, m_turns)
+  {
+    count += t->getTextCount();
+  }
+  return count;
 }
 
 int DialogState::addText(const QString& text)
 {
+  return m_turns.at(0)->addText(text);
+  /*
   m_texts << new DialogText(m_parser, text);
   updateRandomTextSelection();
   return m_texts.count() - 1;
+  */
 }
 
 bool DialogState::removeText(int id)
 {
+  return m_turns.at(0)->removeText(id);
+  /*
   if (id >= m_texts.count())
     return false;
   
   delete m_texts.takeAt(id);
   updateRandomTextSelection();
   return true;
+  */
 }
 
 void DialogState::updateRandomTextSelection()
 {
   //yeah, yeah non-even distribution and predictable randoms on old implementations..
   //who cares for this purpose :)
-  m_currentRandomTextIndex = qrand() % m_texts.count();
+  m_turns.at(0)->updateRandomTextSelection();
 }
 
 QString DialogState::getText() const
 {
-  return m_texts[m_currentRandomTextIndex]->parse();
+  return m_turns.at(0)->getText();
+  //return m_texts[m_currentRandomTextIndex]->parse();
 }
 
 QString DialogState::getRawText(int index) const
 {
-  return m_texts[index]->source();
+  return m_turns.at(0)->getRawText(index);
+  //return m_texts[index]->source();
 }
 
 bool DialogState::setRawText(int index, const QString& data)
 {
+  return m_turns.at(0)->setRawText(index, data);
+  /*
   m_texts[index]->setSource(data);
   emit changed();
   return true;
+  */
 }
 
 void DialogState::presented()
 {
+  /*
   foreach (DialogCommand *c, m_transitions)
     c->presented();
+  */
+  m_turns.at(0)->presented();
 }
 
 void DialogState::left()
 {
+  /*
   foreach (DialogCommand *c, m_transitions)
     c->left();
+  */
+  m_turns.at(0)->left();
 }
 
 bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
 {
+  return true;
+  /*
   if (elem.isNull()) return false;
 
   m_name = elem.attribute("name");
   m_parser = parser;
 
-  qDeleteAll(m_texts);
-  m_texts.clear();
+  //qDeleteAll(m_texts);
+  //m_texts.clear();
+
+  qDeleteAll(m_turns);
+  m_turns.clear();
   
+  QList m_texts = QList<DialogText*>();
+  QList m_transitions = QList<DialogCommand*>();
+
   QDomElement text = elem.firstChildElement("text");
   do
   {
@@ -168,10 +214,12 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
 
   m_transitions = commands;
   return true;
+  */
 }
 
 QDomElement DialogState::serialize(QDomDocument *doc)
 {
+  /*
   QDomElement elem = doc->createElement("state");
   elem.setAttribute("name", m_name);
 
@@ -205,10 +253,13 @@ QDomElement DialogState::serialize(QDomDocument *doc)
   elem.appendChild(transitionsElem);
 
   return elem;
+  */
+  return m_turns.at(0)->serialize(doc);
 }
 
 void DialogState::addTransition(DialogCommand* command)
 {
+  /*
   beginInsertRows(QModelIndex(), m_transitions.count(), m_transitions.count());
 
   m_transitions << command;
@@ -216,10 +267,13 @@ void DialogState::addTransition(DialogCommand* command)
   emit changed();
 
   endInsertRows();
+  */
+  m_turns.at(0)->addTransition(command);
 }
 
 void DialogState::removeTransition(DialogCommand* command)
 {
+  /*
   for (int i=0; i < m_transitions.count(); i++) {
     if (m_transitions.at(i) == command) {
       beginRemoveRows(QModelIndex(), i, i);
@@ -231,10 +285,13 @@ void DialogState::removeTransition(DialogCommand* command)
     }
   }
   emit changed();
+  */
+  m_turns.at(0)->removeTransition(command);
 }
 
 bool DialogState::moveTransitionUp(DialogCommand* command)
 {
+  /*
   int i = m_transitions.indexOf(command);
   if (i <= 0) return false;
 
@@ -242,10 +299,13 @@ bool DialogState::moveTransitionUp(DialogCommand* command)
   emit changed();
   emit dataChanged(index(i-1, 0),index(i, 0));
   return true;
+  */
+  return m_turns.at(0)->moveTransitionUp(command);
 }
 
 bool DialogState::moveTransitionDown(DialogCommand* command)
 {
+  /*
   int i = m_transitions.indexOf(command);
   if ((i == -1) || (i == (m_transitions.count()-1))) 
     return false;
@@ -254,6 +314,8 @@ bool DialogState::moveTransitionDown(DialogCommand* command)
   emit changed();
   emit dataChanged(index(i, 0),index(i+1, 0));
   return true;
+  */
+  return m_turns.at(0)->moveTransitionDown(command);
 }
 
 bool DialogState::rename(const QString& name)
@@ -266,15 +328,19 @@ bool DialogState::rename(const QString& name)
 
 Qt::ItemFlags DialogState::flags(const QModelIndex &index) const
 {
+  /*
   if (!index.isValid())
     return 0;
 
   return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+  */
+  return m_turns.at(0)->flags(index);
 }
 
 QVariant DialogState::headerData(int column, Qt::Orientation orientation,
                   int role) const
 {
+  /*
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     switch (column) {
       case 0:
@@ -284,32 +350,44 @@ QVariant DialogState::headerData(int column, Qt::Orientation orientation,
 
   //default
   return QVariant();
+  */
+  return m_turns.at(0)->headerData(column, orientation, role);
 }
 
 QModelIndex DialogState::parent(const QModelIndex &index) const
 {
+  /*
   Q_UNUSED(index);
   return QModelIndex();
+  */
+  return m_turns.at(0)->parent(index);
 }
 
 int DialogState::rowCount(const QModelIndex &parent) const
 {
+  /*
   Q_UNUSED(parent);
   return m_transitions.count();
+  */
+  return m_turns.at(0)->rowCount(parent);
 }
 
 
-QModelIndex DialogState::index(int row, int column,const QModelIndex &parent) const
+QModelIndex DialogState::index(int row, int column, const QModelIndex &parent) const
 {
+  /*
   if (!hasIndex(row, column, parent) || parent.isValid())
     return QModelIndex();
 
 
    return createIndex(row, column, m_transitions[row]);
+  */
+  return m_turns.at(0)->index(row, column, parent);
 }
 
 QVariant DialogState::data(const QModelIndex &index, int role) const
 {
+  /*
   if (!index.isValid()) return QVariant();
 
   if (role == Qt::DisplayRole)
@@ -319,6 +397,8 @@ QVariant DialogState::data(const QModelIndex &index, int role) const
     return m_transitions.at(index.row())->getIcon();
 
   return QVariant();
+  */
+  return m_turns.at(0)->data(index, role);
 }
 
 int DialogState::columnCount(const QModelIndex &parent) const
@@ -329,17 +409,223 @@ int DialogState::columnCount(const QModelIndex &parent) const
 
 void DialogState::setSilence(bool silence)
 {
-  m_silence = silence;
+  m_turns.at(0)->setSilence(silence);
 }
 
 void DialogState::setAnnounceRepeat(bool announce)
 {
-  m_announceRepeat = announce;
+  m_turns.at(0)->setAnnounceRepeat(announce);
 }
-
 
 DialogState::~DialogState()
 {
-  qDeleteAll(m_texts);
+  qDeleteAll(m_turns);
+}
+
+/*
+void DialogCommandManager::initState(DialogTurn* turn)
+{
+  if (currentDialogTurn)
+    currentDialogTurn->left();
+
+  turn->updateRandomTextSelection();
+
+  foreach (DialogView* view, dialogViews)
+    view->present(*turn);
+
+  turn->presented();
+
+  currentDialogTurn = turn;
+}
+
+bool DialogCommandManager::addTurn(const QString& name)
+{
+  DialogTurn *turn = new DialogTurn(dialogParser, name, QString(), false, true,
+                                    QList<DialogCommand*>(), this);
+  connect(turn, SIGNAL(requestDialogTurn(int)), this, SLOT(initState(int)));
+  connect(turn, SIGNAL(changed()), this, SLOT(StateChanged()));
+  DialogTurns << turn;
+  kDebug() << "Adding turn...";
+
+  return true;
+  //return parentScenario->save();
+}
+
+bool DialogCommandManager::removeTurn(DialogTurn *turn)
+{
+  if (turn == currentDialogTurn)
+  {
+    currentDialogTurn = NULL;
+    initState(0);
+  }
+  int removed = DialogTurns.removeAll(turn);
+
+  if (!removed)
+    return false;
+
+  delete turn;
+  return true;
+  //return parentScenario->save();
+}
+
+bool DialogCommandManager::moveTurnUp(DialogTurn *turn)
+{
+  int index = DialogTurns.indexOf(turn);
+  if (index <= 0) return false;
+
+  DialogTurns.insert(index-1, DialogTurns.takeAt(index));
+  return true;
+  //return parentScenario->save();
+}
+
+bool DialogCommandManager::moveTurnDown(DialogTurn *turn)
+{
+  int index = DialogTurns.indexOf(turn);
+  if ((index == -1) || (index == (DialogTurns.count()-1)))
+    return false;
+
+  DialogTurns.insert(index+1, DialogTurns.takeAt(index));
+  return true;
+  //return parentScenario->save();
+}
+
+
+QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
+{
+  QDomElement commandsElem = doc->createElement("commands");
+  foreach (Command *c, commands) {
+    //only store voice interface commands
+    if (dynamic_cast<VoiceInterfaceCommand*>(c))
+    {
+      QDomElement commandElem = c->serialize(doc);
+      commandElem.setTagName("voiceInterfaceCommand");
+      commandsElem.appendChild(commandElem);
+    }
+  }
+
+  foreach (DialogTurn *turn, DialogTurns) {
+    QDomElement commandElem = turn->serialize(doc);
+    commandsElem.appendChild(commandElem);
+  }
+
+  return commandsElem;
+}
+
+bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
+{
+  if (elem.isNull()) return false;
+
+  QDomElement stateElem = elem.firstChildElement("State");
+  while(!stateElem.isNull())
+  {
+    kDebug() << "Deserializing State element";
+    DialogTurn *turn = DialogTurn::createInstance(dialogParser, stateElem);
+
+    if (turn)
+    {
+      connect(turn, SIGNAL(requestDialogTurn(int)), this, SLOT(initState(int)));
+      connect(turn, SIGNAL(changed()), this, SLOT(StateChanged()));
+      connect(turn, SIGNAL(destroyed()), this, SLOT(StateDestroyed()));
+      DialogTurns << turn;
+    }
+
+    stateElem = stateElem.nextSiblingElement("State");
+  }
+
+  bindStateCommands();
+
+  getDialogConfiguration()->init();
+  return true;
+}
+
+void DialogCommandManager::StateDestroyed()
+{
+  DialogTurns.removeAll(static_cast<DialogTurn*>(sender()));
+}
+
+void DialogCommandManager::bindStateCommands()
+{
+  kDebug() << "rebinding";
+  QList<Command*> oldCommands;
+
+  foreach (Command* c, commands)
+  {
+    if (dynamic_cast<DialogCommand*>(c))
+    {
+      commands.removeAll(c);
+      oldCommands << c;
+    }
+  }
+
+  int StateId = SimonCommand::GreedyState + 1;
+  foreach (DialogTurn *turn, DialogTurns)
+  {
+    QList<DialogCommand*> transitions = turn->getTransitions();
+
+    foreach (DialogCommand* transition, transitions)
+    {
+      transition->createStateLink(StateId);
+      commands << transition;
+    }
+
+    StateId++;
+  }
+
+  foreach (Command* c, oldCommands)
+  {
+    if (!commands.contains(c))
+      delete c;
+  }
+}
+
+DialogCommandManager::~DialogCommandManager()
+{
+  activateAction->deleteLater();
+  qDeleteAll(dialogViews);
+  foreach (DialogTurn *s, DialogTurns)
+    disconnect(s, SIGNAL(destroyed()), this, SLOT(StateDestroyed()));
+  qDeleteAll(DialogTurns);
+}
+*/
+
+void DialogState::bindStateCommands(QList<Command*> commands)
+{
+  int StateId = SimonCommand::GreedyState + 1;
+  foreach (DialogTurn *turn, m_turns)
+  {
+    QList<DialogCommand*> transitions = turn->getTransitions();
+
+    foreach (DialogCommand* transition, transitions)
+    {
+      transition->createStateLink(StateId);
+      commands << transition;
+    }
+
+    StateId++;
+  }
+}
+
+bool DialogState::silence() const { return m_turns.at(0)->silence(); }
+bool DialogState::announceRepeat() const { return m_turns.at(0)->announceRepeat(); }
+
+bool DialogState::getDisplayAvatar() const { return m_turns.at(0)->getDisplayAvatar(); }
+void DialogState::setDisplayAvatar(bool display) { m_turns.at(0)->setDisplayAvatar(display); }
+
+int DialogState::getAvatarId() const { return m_turns.at(0)->getAvatarId(); }
+void DialogState::setAvatar(int id) { m_turns.at(0)->setAvatar(id); }
+
+QList<DialogCommand*> DialogState::getTransitions() const
+{
+  return m_turns.at(0)->getTransitions();
+}
+
+void DialogState::TurnChanged()
+{
+  emit changed();
+}
+
+void DialogState::TurnDestroyed()
+{
+  emit destroyed();
 }
 

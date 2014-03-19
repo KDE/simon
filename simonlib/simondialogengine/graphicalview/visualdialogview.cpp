@@ -21,7 +21,7 @@
 #include "visualdialogview.h"
 #include "ui_dialogwidget.h"
 
-#include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogturn.h>
 #include <simondialogengine/dialogcommand.h>
 #include <simondialogengine/avatar.h>
 #include <simondialogengine/dialogmanager.h>
@@ -79,14 +79,14 @@ bool VisualDialogView::stop()
 }
 
 
-bool VisualDialogView::present(const DialogState& state)
+bool VisualDialogView::present(const DialogTurn& turn)
 {
   while (!m_buttons.isEmpty())
     delete m_buttons.takeFirst();
   m_buttons.clear();
   
-  Avatar* a = m_dialog->getAvatar(state.getAvatarId());
-  if (a && state.getDisplayAvatar())
+  Avatar* a = m_dialog->getAvatar(turn.getAvatarId());
+  if (a && turn.getDisplayAvatar())
   {
     ui->wgAvatar->show();
     QString avatarName = a->name();
@@ -101,9 +101,9 @@ bool VisualDialogView::present(const DialogState& state)
   } else
     ui->wgAvatar->hide();
 
-  ui->lbText->setText(state.getText());
+  ui->lbText->setText(turn.getText());
 
-  QList<DialogCommand*> transitions = state.getTransitions();
+  QList<DialogCommand*> transitions = turn.getTransitions();
 
   kDebug() << "Presenting " << transitions.count() << " transitions";
 

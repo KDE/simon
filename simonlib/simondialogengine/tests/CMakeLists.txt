@@ -138,6 +138,7 @@ set(simondialogcommandplugindialogstatetest_SRCS
 
   #deps
   ../dialogstate.cpp
+  ../dialogturn.cpp
   ../dialogcommand.cpp
 
   ../dialogtextparser.cpp

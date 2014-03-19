@@ -9,6 +9,7 @@ endif()
 set(simondialogengine_SRCS
   dialogcommand.cpp
   dialogstate.cpp
+  dialogturn.cpp
   dialogtext.cpp
   dialogtextparser.cpp
   dialogtemplateoptions.cpp
@@ -28,6 +29,7 @@ set(simondialogengine_LIB_HDRS
   dialogcommand.h
   dialogstate.h
   dialogtext.h
+  dialogturn.h
   dialogtextparser.h
   dialogtemplateoptions.h
   boundvalue.h

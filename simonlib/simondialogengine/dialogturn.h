@@ -17,54 +17,42 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
+#ifndef SIMON_DIALOGTURN_H_7A7B9100FF5245329569C1B540119C37
+#define SIMON_DIALOGTURN_H_7A7B9100FF5245329569C1B540119C37
 
 #include "simondialogengine_export.h"
-#include <simonscenarios/command.h>
-#include <simondialogengine/dialogtextparser.h>
 #include <QList>
 #include <QAbstractItemModel>
 #include <QString>
 
 class DialogCommand;
 class DialogText;
-class DialogTurn;
 class DialogTextParser;
 class QDomElement;
 class QDomDocument;
 
-class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
+class SIMONDIALOGENGINE_EXPORT DialogTurn : public QAbstractItemModel
 {
   Q_OBJECT
   signals:
-    void requestDialogState(int state);
+    void requestDialogTurn(int turn);
     void changed();
-
-  private slots:
-    void TurnChanged();
-    void TurnDestroyed();
 
   private:
     QString m_name;
-    int m_currentRandomTurnIndex;
-
-    //QList<DialogText*> m_texts;
-
+    int m_currentRandomTextIndex;
+    QList<DialogText*> m_texts;
     DialogTextParser *m_parser;
-    //bool m_silence;
-    //bool m_announceRepeat;
+    bool m_silence;
+    bool m_announceRepeat;
     
-    //bool m_displayAvatar;
-    //int m_avatarId;
+    bool m_displayAvatar;
+    int m_avatarId;
     
-    //QList<DialogCommand*> m_transitions;
-    
-    QList<DialogTurn*> m_turns;
-    DialogTurn* currentDialogTurn;
+    QList<DialogCommand*> m_transitions;
     
     bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
-    DialogState(QObject *parent=0) : QAbstractItemModel(parent) {}
+    DialogTurn(QObject *parent=0) : QAbstractItemModel(parent) {}
 
   public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -78,7 +66,8 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-    DialogState(DialogTextParser *parser, const QString& name, QList<DialogTurn*> turns, QObject *parent=0);
+    DialogTurn(DialogTextParser *parser, const QString& name, const QString& text, 
+        bool silence, bool announceRepeat, QList<DialogCommand*> transitions, QObject *parent=0);
 
     QString getName() const { return m_name; }
     int getTextCount();
@@ -88,14 +77,9 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
     
     QString getText() const;
     QString getRawText(int index) const;
+    QList<DialogCommand*> getTransitions() const { return m_transitions; }
 
-    QList<DialogCommand*> getTransitions() const;
-
-    QList<DialogTurn*> getTurns() const { return m_turns; }
-    void addTurn(const QString& name, DialogTextParser* dialogParser);
-    void bindStateCommands(QList<Command*> commands);
-
-    static DialogState* createInstance(DialogTextParser *parser, const QDomElement& elem);
+    static DialogTurn* createInstance(DialogTextParser *parser, const QDomElement& elem);
     QDomElement serialize(QDomDocument *doc);
 
     void addTransition(DialogCommand* command);
@@ -109,21 +93,21 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
 
     void setSilence(bool silence);
     void setAnnounceRepeat(bool announce);
-    bool silence() const;// { return m_turns.at(0)->silence(); }
-    bool announceRepeat() const;// { return m_turns.at(0)->announceRepeat(); }
+    bool silence() const { return m_silence; }
+    bool announceRepeat() const { return m_announceRepeat; }
     
-    bool getDisplayAvatar() const;// { return m_turns.at(0)->getDisplayAvatar(); }
-    void setDisplayAvatar(bool display);// { m_turns.at(0)->setDisplayAvatar(display) }
+    bool getDisplayAvatar() const { return m_displayAvatar; }
+    void setDisplayAvatar(bool display) { m_displayAvatar = display; }
     
-    int getAvatarId() const;// { return m_turns.at(0)->getAvatarId(); }
-    void setAvatar(int id);// { m_turns.at(0)->setAvatar(id); }
+    int getAvatarId() const { return m_avatarId; }
+    void setAvatar(int id) { m_avatarId = id; }
     
     void updateRandomTextSelection();
 
     void presented();
     void left();
 
-    ~DialogState();
+    ~DialogTurn();
 };
 
 #endif

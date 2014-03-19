@@ -24,7 +24,7 @@
 #include "simondialogenginettsview_export.h"
 #include <QString>
 
-class DialogState;
+class DialogTurn;
 class QFont;
 
 class SIMONDIALOGENGINETTSVIEW_EXPORT TTSDialogView : public DialogView
@@ -33,7 +33,7 @@ class SIMONDIALOGENGINETTSVIEW_EXPORT TTSDialogView : public DialogView
     QString optionsRepeat;
 
     bool say(const QString& text);
-    bool synthesizeState(const DialogState& state);
+    bool synthesizeTurn(const DialogTurn& turn);
 
   public:
     TTSDialogView(DialogManager *dialog);
@@ -41,10 +41,10 @@ class SIMONDIALOGENGINETTSVIEW_EXPORT TTSDialogView : public DialogView
 
     bool start();
     bool stop();
-    void repeat(const DialogState& state);
+    void repeat(const DialogTurn& turn);
 
     void warnOfInvalidInput(const QString& input);
-    bool present(const DialogState& state);
+    bool present(const DialogTurn& turn);
 
 };
 

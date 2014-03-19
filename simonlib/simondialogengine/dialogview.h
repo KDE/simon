@@ -23,7 +23,7 @@
 #include "simondialogengine_export.h"
 class QFont;
 class DialogManager;
-class DialogState;
+class DialogTurn;
 class QString;
 
 class SIMONDIALOGENGINE_EXPORT DialogView
@@ -37,13 +37,13 @@ class SIMONDIALOGENGINE_EXPORT DialogView
     virtual bool start()=0;
     virtual bool stop()=0;
 
-    virtual bool present(const DialogState& state)=0;
+    virtual bool present(const DialogTurn& turn)=0;
 
     virtual void setFont(const QFont& /*font*/) {}
 
     virtual void correctInputReceived() {};
     virtual void warnOfInvalidInput(const QString& /*input*/) {}
-    virtual void repeat(const DialogState& /*state*/) {}
+    virtual void repeat(const DialogTurn& /*state*/) {}
 
     virtual ~DialogView() {}
 };
