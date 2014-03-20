@@ -189,3 +189,30 @@ target_link_libraries(simondialogcommandplugintest-avatars
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
   ${QT_QTXML_LIBRARY}
 )
+
+#################################
+##### Dialog Variables ##########
+#################################
+
+set(simonvariabletest_SRCS
+  dialogvariabletest.cpp
+
+  #deps
+  
+  ../dialogvariablestore.cpp
+)
+
+#enable exports for the test
+#add_definitions(-DMAKE_SIMONDIALOGENGINE_LIB)
+
+kde4_add_unit_test(simondialogcommandplugintest-variables TESTNAME
+  simondialogcommandplugin-variables
+  ${simonvariabletest_SRCS}
+)
+
+
+target_link_libraries(simondialogcommandplugintest-variables
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY}
+)
+
