@@ -28,7 +28,7 @@ ENDIF(NOT QT4_FOUND)
 IF( QT4_FOUND )
 	# Is Qwt6 installed? Look for header files
 
-	FILE(GLOB Qwt6_GLOB_PATH /usr/qwt* /usr/local/qwt* /usr/include/qwt*)
+	FILE(GLOB Qwt6_GLOB_PATH /usr/qwt* /usr/local/qwt* /usr/include/qwt* /usr/lib/qt4/include/qwt* /usr/lib64/qt4/include/qwt* )
 
 	FIND_PATH( Qwt6_INCLUDE_DIR qwt.h 
                PATHS ${QT_INCLUDE_DIR} ${Qwt6_GLOB_PATH}
