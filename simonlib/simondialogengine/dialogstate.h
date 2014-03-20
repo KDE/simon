@@ -109,14 +109,14 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
 
     void setSilence(bool silence);
     void setAnnounceRepeat(bool announce);
-    bool silence() const;// { return m_turns.at(0)->silence(); }
-    bool announceRepeat() const;// { return m_turns.at(0)->announceRepeat(); }
+    bool silence() const;
+    bool announceRepeat() const;
     
-    bool getDisplayAvatar() const;// { return m_turns.at(0)->getDisplayAvatar(); }
-    void setDisplayAvatar(bool display);// { m_turns.at(0)->setDisplayAvatar(display) }
+    bool getDisplayAvatar() const;
+    void setDisplayAvatar(bool display);
     
-    int getAvatarId() const;// { return m_turns.at(0)->getAvatarId(); }
-    void setAvatar(int id);// { m_turns.at(0)->setAvatar(id); }
+    int getAvatarId() const;
+    void setAvatar(int id);
     
     void updateRandomTextSelection();
 
