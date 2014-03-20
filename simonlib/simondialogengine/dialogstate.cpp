@@ -39,7 +39,7 @@ DialogState::DialogState(DialogTextParser* parser, const QString& name, QList<Di
 
   DialogTurn* turn = new DialogTurn(parser, name, QString(), false, true, QList<DialogCommand*>(), this);
   //connect(turn, SIGNAL(requestDialogTurn(int)), this, SLOT(initState(int)));
-  connect(turn, SIGNAL(changed()), this, SLOT(TurnChanged()));
+  connect(turn, SIGNAL(changed()), this, SLOT(turnChanged()));
   m_turns << turn;
 
   /*
@@ -70,7 +70,7 @@ void DialogState::addTurn(const QString& name, DialogTextParser* dialogParser)
   DialogTurn *turn = new DialogTurn(dialogParser, name, QString(), false, true,
                                       QList<DialogCommand*>(), this);
   //connect(turn, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
-  connect(turn, SIGNAL(changed()), this, SLOT(TurnChanged()));
+  connect(turn, SIGNAL(changed()), this, SLOT(turnChanged()));
   m_turns << turn;
 }
 
@@ -619,12 +619,12 @@ QList<DialogCommand*> DialogState::getTransitions() const
   return m_turns.at(0)->getTransitions();
 }
 
-void DialogState::TurnChanged()
+void DialogState::turnChanged()
 {
   emit changed();
 }
 
-void DialogState::TurnDestroyed()
+void DialogState::turnDestroyed()
 {
   emit destroyed();
 }

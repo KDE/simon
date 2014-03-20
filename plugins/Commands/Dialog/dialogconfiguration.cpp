@@ -129,7 +129,7 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 void DialogConfiguration::addTurn()
 {
   TurnConfiguration* turnConfig = new TurnConfiguration(getCurrentState(), this);
-  turnConfig->show();
+  turnConfig->exec();
 }
 
 void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
