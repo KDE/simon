@@ -93,9 +93,11 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
 
     QList<DialogTurn*> getTurns() const { return m_turns; }
     void addTurn(const QString& name, DialogTextParser* dialogParser);
+    void addTurn(DialogTurn* turn);
     void bindStateCommands(QList<Command*> commands);
 
     static DialogState* createInstance(DialogTextParser *parser, const QDomElement& elem);
+    DialogTurn* createTurnInstance();
     QDomElement serialize(QDomDocument *doc);
 
     void addTransition(DialogCommand* command);

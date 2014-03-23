@@ -37,10 +37,10 @@ DialogState::DialogState(DialogTextParser* parser, const QString& name, QList<Di
 {
   qsrand(QDateTime::currentDateTime().toTime_t());
 
-  DialogTurn* turn = new DialogTurn(parser, name, QString(), false, true, QList<DialogCommand*>(), this);
+  // DialogTurn* turn = new DialogTurn(parser, name, QString(), false, true, QList<DialogCommand*>(), this);
   //connect(turn, SIGNAL(requestDialogTurn(int)), this, SLOT(initState(int)));
-  connect(turn, SIGNAL(changed()), this, SLOT(turnChanged()));
-  m_turns << turn;
+  // connect(turn, SIGNAL(changed()), this, SLOT(turnChanged()));
+  // m_turns << turn;
 
   /*
   foreach (DialogCommand *c, m_transitions)
@@ -65,6 +65,13 @@ DialogState* DialogState::createInstance(DialogTextParser *parser, const QDomEle
   return state;
 }
 
+DialogTurn* DialogState::createTurnInstance()
+{
+  DialogTurn *turn = new DialogTurn(m_parser, QString(), QString(), false, true,
+                                      QList<DialogCommand*>(), this);
+  return turn;
+}
+
 void DialogState::addTurn(const QString& name, DialogTextParser* dialogParser)
 {
   DialogTurn *turn = new DialogTurn(dialogParser, name, QString(), false, true,
@@ -74,19 +81,28 @@ void DialogState::addTurn(const QString& name, DialogTextParser* dialogParser)
   m_turns << turn;
 }
 
+void DialogState::addTurn(DialogTurn* turn)
+{
+  connect(turn, SIGNAL(changed()), this, SLOT(turnChanged()));
+  m_turns << turn;
+  currentDialogTurn = turn;
+}
+
 int DialogState::getTextCount()
 {
-  int count = 0;
-  foreach(DialogTurn* t, m_turns)
-  {
-    count += t->getTextCount();
-  }
-  return count;
+  // int count = 0;
+  // foreach(DialogTurn* t, m_turns)
+  // {
+  //   count += t->getTextCount();
+  // }
+  // return count;
+  return currentDialogTurn->getTextCount();
 }
 
 int DialogState::addText(const QString& text)
 {
-  return m_turns.at(0)->addText(text);
+  return currentDialogTurn->addText(text);
+  // return m_turns.at(0)->addText(text);
   /*
   m_texts << new DialogText(m_parser, text);
   updateRandomTextSelection();
@@ -96,7 +112,8 @@ int DialogState::addText(const QString& text)
 
 bool DialogState::removeText(int id)
 {
-  return m_turns.at(0)->removeText(id);
+  return currentDialogTurn->removeText(id);
+  // return m_turns.at(0)->removeText(id);
   /*
   if (id >= m_texts.count())
     return false;
@@ -111,24 +128,28 @@ void DialogState::updateRandomTextSelection()
 {
   //yeah, yeah non-even distribution and predictable randoms on old implementations..
   //who cares for this purpose :)
-  m_turns.at(0)->updateRandomTextSelection();
+  // m_turns.at(0)->updateRandomTextSelection();
+  currentDialogTurn->updateRandomTextSelection();
 }
 
 QString DialogState::getText() const
 {
-  return m_turns.at(0)->getText();
+  return currentDialogTurn->getText();
+  // return m_turns.at(0)->getText();
   //return m_texts[m_currentRandomTextIndex]->parse();
 }
 
 QString DialogState::getRawText(int index) const
 {
-  return m_turns.at(0)->getRawText(index);
+  return currentDialogTurn->getRawText(index);
+  // return m_turns.at(0)->getRawText(index);
   //return m_texts[index]->source();
 }
 
 bool DialogState::setRawText(int index, const QString& data)
 {
-  return m_turns.at(0)->setRawText(index, data);
+  return currentDialogTurn->setRawText(index, data);
+  // return m_turns.at(0)->setRawText(index, data);
   /*
   m_texts[index]->setSource(data);
   emit changed();
@@ -142,7 +163,8 @@ void DialogState::presented()
   foreach (DialogCommand *c, m_transitions)
     c->presented();
   */
-  m_turns.at(0)->presented();
+  // m_turns.at(0)->presented();
+  currentDialogTurn->presented();
 }
 
 void DialogState::left()
@@ -151,7 +173,8 @@ void DialogState::left()
   foreach (DialogCommand *c, m_transitions)
     c->left();
   */
-  m_turns.at(0)->left();
+  // m_turns.at(0)->left();
+  currentDialogTurn->left();
 }
 
 bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
@@ -254,7 +277,8 @@ QDomElement DialogState::serialize(QDomDocument *doc)
 
   return elem;
   */
-  return m_turns.at(0)->serialize(doc);
+  // return m_turns.at(0)->serialize(doc);
+  return currentDialogTurn->serialize(doc);
 }
 
 void DialogState::addTransition(DialogCommand* command)
@@ -268,7 +292,8 @@ void DialogState::addTransition(DialogCommand* command)
 
   endInsertRows();
   */
-  m_turns.at(0)->addTransition(command);
+  // m_turns.at(0)->addTransition(command);
+  currentDialogTurn->addTransition(command);
 }
 
 void DialogState::removeTransition(DialogCommand* command)
@@ -286,7 +311,8 @@ void DialogState::removeTransition(DialogCommand* command)
   }
   emit changed();
   */
-  m_turns.at(0)->removeTransition(command);
+  // m_turns.at(0)->removeTransition(command);
+  currentDialogTurn->addTransition(command);
 }
 
 bool DialogState::moveTransitionUp(DialogCommand* command)
@@ -300,7 +326,8 @@ bool DialogState::moveTransitionUp(DialogCommand* command)
   emit dataChanged(index(i-1, 0),index(i, 0));
   return true;
   */
-  return m_turns.at(0)->moveTransitionUp(command);
+  // return m_turns.at(0)->moveTransitionUp(command);
+  return currentDialogTurn->moveTransitionUp(command);
 }
 
 bool DialogState::moveTransitionDown(DialogCommand* command)
@@ -315,7 +342,8 @@ bool DialogState::moveTransitionDown(DialogCommand* command)
   emit dataChanged(index(i, 0),index(i+1, 0));
   return true;
   */
-  return m_turns.at(0)->moveTransitionDown(command);
+  // return m_turns.at(0)->moveTransitionDown(command);
+  return currentDialogTurn->moveTransitionDown(command);
 }
 
 bool DialogState::rename(const QString& name)
@@ -334,7 +362,8 @@ Qt::ItemFlags DialogState::flags(const QModelIndex &index) const
 
   return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
   */
-  return m_turns.at(0)->flags(index);
+  // return m_turns.at(0)->flags(index);
+  return currentDialogTurn->flags(index);
 }
 
 QVariant DialogState::headerData(int column, Qt::Orientation orientation,
@@ -351,7 +380,8 @@ QVariant DialogState::headerData(int column, Qt::Orientation orientation,
   //default
   return QVariant();
   */
-  return m_turns.at(0)->headerData(column, orientation, role);
+  // return m_turns.at(0)->headerData(column, orientation, role);
+  return currentDialogTurn->headerData(column, orientation, role);
 }
 
 QModelIndex DialogState::parent(const QModelIndex &index) const
@@ -360,7 +390,8 @@ QModelIndex DialogState::parent(const QModelIndex &index) const
   Q_UNUSED(index);
   return QModelIndex();
   */
-  return m_turns.at(0)->parent(index);
+  // return m_turns.at(0)->parent(index);
+  return currentDialogTurn->parent(index);
 }
 
 int DialogState::rowCount(const QModelIndex &parent) const
@@ -369,7 +400,8 @@ int DialogState::rowCount(const QModelIndex &parent) const
   Q_UNUSED(parent);
   return m_transitions.count();
   */
-  return m_turns.at(0)->rowCount(parent);
+  // return m_turns.at(0)->rowCount(parent);
+  return currentDialogTurn->rowCount(parent);
 }
 
 
@@ -382,7 +414,8 @@ QModelIndex DialogState::index(int row, int column, const QModelIndex &parent) c
 
    return createIndex(row, column, m_transitions[row]);
   */
-  return m_turns.at(0)->index(row, column, parent);
+  // return m_turns.at(0)->index(row, column, parent);
+   return currentDialogTurn->index(row, column, parent);
 }
 
 QVariant DialogState::data(const QModelIndex &index, int role) const
@@ -398,7 +431,8 @@ QVariant DialogState::data(const QModelIndex &index, int role) const
 
   return QVariant();
   */
-  return m_turns.at(0)->data(index, role);
+  // return m_turns.at(0)->data(index, role);
+  return currentDialogTurn->data(index, role);
 }
 
 int DialogState::columnCount(const QModelIndex &parent) const
@@ -409,12 +443,14 @@ int DialogState::columnCount(const QModelIndex &parent) const
 
 void DialogState::setSilence(bool silence)
 {
-  m_turns.at(0)->setSilence(silence);
+  // m_turns.at(0)->setSilence(silence);
+  currentDialogTurn->setSilence(silence);
 }
 
 void DialogState::setAnnounceRepeat(bool announce)
 {
-  m_turns.at(0)->setAnnounceRepeat(announce);
+  // m_turns.at(0)->setAnnounceRepeat(announce);
+  currentDialogTurn->setAnnounceRepeat(announce);
 }
 
 DialogState::~DialogState()

@@ -17,12 +17,15 @@
  */
 
 #include "turnconfiguration.h"
+#include <simondialogengine/dialogstate.h>
 #include <simondialogengine/dialogturn.h>
 
 #include <simonscenarios/scenario.h>
 
 #include "createdialogcommandwidget.h"
 #include "createtransitiondialog.h"
+
+#include <iostream>
 
 #include <QVariantList>
 #include <QList>
@@ -38,18 +41,56 @@
 #include <KMessageBox>
 #include <KStandardDirs>
 
-TurnConfiguration::TurnConfiguration(DialogState* _state, QWidget* parent) :
+TurnConfiguration::TurnConfiguration(DialogState* _state, QWidget* parent) : KDialog(parent),
   state(_state)
 {
-  ui.setupUi(this);
+	ui.setupUi(mainWidget());
+
+  connect(ui.pbAddPrompt, SIGNAL(clicked()), this, SLOT(addPrompt()));
+  connect(this, SIGNAL(okClicked()), this, SLOT(save()));
+
+  turn = state->createTurnInstance();
 }
 
 void TurnConfiguration::addPrompt()
 {
+	state->addText("");
+
+  updateTextSelector();
+  ui.sbPrompt->setValue(ui.sbPrompt->maximum());
+  displaySelectedText();
 }
 
 void TurnConfiguration::removePrompt()
 {
+	state->removeText(0);
+}
+
+void TurnConfiguration::updateTextSelector()
+{
+  ui.sbPrompt->setMaximum(state->getTextCount());
+  
+  displaySelectedText();
+  ui.pbRemovePrompt->setEnabled(state->getTextCount() > 1);
+}
+
+void TurnConfiguration::displaySelectedText()
+{
+  int textId = ui.sbPrompt->value()-1;
+  kDebug() << "Getting text " << textId;
+  ui.tePrompt->setText(state->getRawText(textId));
+}
+
+void TurnConfiguration::save()
+{
+	turn->rename(ui.leTurnName->displayText());
+	state->addTurn(turn);
+	KDialog::accept();
+}
+
+void TurnConfiguration::forget()
+{
+	delete turn;
 }
 
 void TurnConfiguration::editPrompt()

@@ -30,12 +30,13 @@
 class DialogState;
 class DialogTurn;
 
-class TurnConfiguration : public QWidget
+class TurnConfiguration : public KDialog
 {
   Q_OBJECT
 
   private:
     DialogState* state;
+    DialogTurn* turn;
     Ui::TurnCreateEditView ui;
 
   private slots:
@@ -48,6 +49,12 @@ class TurnConfiguration : public QWidget
 
     void addExtractor();
     void removeExtractor();
+
+    void displaySelectedText();
+    void updateTextSelector();
+    // virtual void slotButtonClicked(int button);
+    void save();
+    void forget();
 
   public slots:
     void init();

@@ -15,7 +15,7 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+#include <iostream>
 #include "dialogconfiguration.h"
 #include "turnconfiguration.h"
 #include "dialogcommandmanager.h"
@@ -27,6 +27,7 @@
 #include <simondialogengine/avatarmodel.h>
 #include <simondialogengine/boundvalue.h>
 #include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogturn.h>
 #include <simondialogengine/dialogcommand.h>
 #include <simondialogengine/confui/templateoptionsconfiguration.h>
 #include <simondialogengine/confui/boundvaluesconfiguration.h>
@@ -130,6 +131,7 @@ void DialogConfiguration::addTurn()
 {
   TurnConfiguration* turnConfig = new TurnConfiguration(getCurrentState(), this);
   turnConfig->exec();
+  displayCurrentState();
 }
 
 void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
@@ -196,12 +198,12 @@ void DialogConfiguration::removeText()
 void DialogConfiguration::addState()
 {
   bool ok = true;
-  QString name = KInputDialog::getText(i18n("Add turn"), i18n("Name of the new turn:"), 
+  QString name = KInputDialog::getText(i18n("Add State"), i18n("Name of the new state:"), 
                                         QString(), &ok);
   if (!ok) return;
 
   if (!commandManager->addState(name))
-    KMessageBox::sorry(this, i18n("Failed to add turn"));
+    KMessageBox::sorry(this, i18n("Failed to add state"));
   displayStates();
 }
 
@@ -211,12 +213,12 @@ void DialogConfiguration::renameState()
   if (!state) return;
 
   bool ok = true;
-  QString name = KInputDialog::getText(i18n("Rename turn"), i18n("New name of the turn:"), 
+  QString name = KInputDialog::getText(i18n("Rename state"), i18n("New name of the state:"), 
                                         state->getName(), &ok);
   if (!ok) return;
 
   if (!state->rename(name))
-    KMessageBox::sorry(this, i18n("Failed to rename turn"));
+    KMessageBox::sorry(this, i18n("Failed to rename state"));
 
   displayStates();
 }
@@ -518,6 +520,15 @@ void DialogConfiguration::displayCurrentState()
   //   ui.teText->clear();
   //   ui.lvTransitions->setModel(0);
     return;
+  }
+
+  ui.lwTurns->clear();
+  QList<DialogTurn*> turns = currentState->getTurns();
+  int id = 1;
+  foreach (DialogTurn* turn, turns)
+  {
+    ui.lwTurns->addItem(i18nc("%1: id of turn; %2: name of turn", "%1: %2", id, turn->getName()));
+    ++id;
   }
 
   // updateTextSelector();
