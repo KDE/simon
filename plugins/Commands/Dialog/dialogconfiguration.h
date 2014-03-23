@@ -30,6 +30,7 @@
 class Avatar;
 class DialogCommand;
 class DialogState;
+class DialogTurn;
 class DialogSetContainer;
 class DialogCommandManager;
 class DialogTemplateOptions;
@@ -55,6 +56,7 @@ class DialogConfiguration : public CommandConfiguration
     void displayStates();
     DialogState* getCurrentState();
     DialogState* getCurrentStateGraphical();
+    DialogTurn* getCurrentTurn();
     DialogCommand* getCurrentTransition();
     DialogCommand* getCurrentTransitionGraphical();
 

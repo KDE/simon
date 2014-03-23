@@ -54,6 +54,7 @@ class TurnConfiguration : public KDialog
     void updateTextSelector();
     void save();
     void forget();
+    void displayCurrentTurn();
 
   public slots:
     void init();

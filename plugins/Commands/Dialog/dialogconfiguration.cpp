@@ -56,14 +56,14 @@ K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
 DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
 : CommandConfiguration(parent,  "dialog", ki18n( "Dialog" ),
-  "0.1", ki18n("Control a robot"),
-  "im-user",
-  DialogCommandPluginFactory::componentData()),
-  commandManager(_commandManager),
-  boundValuesConfig(new BoundValuesConfiguration(this)),
-  templateOptionsConfig(new TemplateOptionsConfiguration(this)),
-  avatarsConfig(new AvatarConfiguration(this)),
-  outputConfiguration(new OutputConfiguration(this))
+    "0.1", ki18n("Control a robot"),
+    "im-user",
+    DialogCommandPluginFactory::componentData()),
+    commandManager(_commandManager),
+    boundValuesConfig(new BoundValuesConfiguration(this)),
+    templateOptionsConfig(new TemplateOptionsConfiguration(this)),
+    avatarsConfig(new AvatarConfiguration(this)),
+    outputConfiguration(new OutputConfiguration(this))
 
 {
   Q_UNUSED(args);
@@ -89,9 +89,9 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 
   // connect(ui.pbMoveTransitionUp, SIGNAL(clicked()), this, SLOT(moveTransitionUp()));
   // connect(ui.pbMoveTransitionDown, SIGNAL(clicked()), this, SLOT(moveTransitionDown()));
-  
+
   // connect(ui.cbDisplayAvatar, SIGNAL(toggled(bool)), this, SLOT(avatarDisplayToggled(bool)));
-  
+
   // connect(ui.sbText, SIGNAL(valueChanged(int)), this, SLOT(displaySelectedText()));
   // connect(ui.pbAddText, SIGNAL(clicked()), this, SLOT(addText()));
   // connect(ui.pbRemoveText, SIGNAL(clicked()), this, SLOT(removeText()));
@@ -128,14 +128,27 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   displayCurrentState();
 }
 
+DialogTurn* DialogConfiguration::getCurrentTurn()
+{
+  DialogState* state = getCurrentState();
+  int row = ui.lwTurns->currentRow();
+
+  if (row == -1) return 0;
+
+  QList<DialogTurn*> turns = state->getTurns();
+
+  return turns[row];
+}
+
 void DialogConfiguration::addTurn()
 {
   DialogState* state = getCurrentState();
-  DialogTurn* turn = state->createTurnInstance();
-  TurnConfiguration* turnConfig = new TurnConfiguration(turn, this);
-  turnConfig->exec();
+  DialogTurn* turn = state->createTurn();
 
-  if (turnConfig->code == QDialog::Accepted)
+  TurnConfiguration turnConfig(turn, this);
+  turnConfig.exec();
+
+  if (turnConfig.code == QDialog::Accepted)
   {
     state->addTurn(turn);
   }
@@ -149,16 +162,15 @@ void DialogConfiguration::addTurn()
 
 void DialogConfiguration::editTurn()
 {
-  DialogState* state = getCurrentState();
-  DialogTurn* turn = state->getCurrentTurn();
+  DialogTurn* turn = getCurrentTurn();
   DialogTurn* clone = turn->clone();
 
-  TurnConfiguration* turnConfig = new TurnConfiguration(clone, this);
-  turnConfig->exec();
+  TurnConfiguration turnConfig(clone, this);
+  turnConfig.exec();
 
-  if (turnConfig->code == QDialog::Accepted)
+  if (turnConfig.code == QDialog::Accepted)
   {
-    //change stuff
+    getCurrentState()->setTurn(clone, ui.lwTurns->currentRow());
   }
   else
   {
@@ -184,9 +196,9 @@ void DialogConfiguration::updateTextSelector()
 {
   // DialogState *state = getCurrentState();
   // if (!state) return;
-  
+
   // ui.sbText->setMaximum(state->getTextCount());
-  
+
   // displaySelectedText();
   // ui.pbRemoveText->setEnabled(state->getTextCount() > 1);
 }
@@ -215,10 +227,10 @@ void DialogConfiguration::removeText()
 {
   // DialogState *state = getCurrentStateGraphical();
   // if (!state) return;
-  
+
   // if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to remove the selected text variant?")) != KMessageBox::Yes)
   //   return;
-  
+
   // if (state->getTextCount() == 1)
   // {
   //   KMessageBox::information(this, i18n("Each dialog turn has to have at least one text."));
@@ -233,7 +245,7 @@ void DialogConfiguration::addState()
 {
   bool ok = true;
   QString name = KInputDialog::getText(i18n("Add State"), i18n("Name of the new state:"), 
-                                        QString(), &ok);
+      QString(), &ok);
   if (!ok) return;
 
   if (!commandManager->addState(name))
@@ -248,7 +260,7 @@ void DialogConfiguration::renameState()
 
   bool ok = true;
   QString name = KInputDialog::getText(i18n("Rename state"), i18n("New name of the state:"), 
-                                        state->getName(), &ok);
+      state->getName(), &ok);
   if (!ok) return;
 
   if (!state->rename(name))
@@ -323,7 +335,7 @@ void DialogConfiguration::editText()
   // QString text = KInputDialog::getMultiLineText(i18n("Text"), i18n("Enter the text to present to the user when this turn is entered:"), 
   //                                       turn->getRawText(ui.sbText->value()-1), &ok);
   // if (!ok) return;
-  
+
   // if (!turn->setRawText(ui.sbText->value()-1, text))
   //   KMessageBox::sorry(this, i18n("Failed to update turn text."));
 
@@ -349,7 +361,7 @@ void DialogConfiguration::textAnnounceRepeatChanged()
   // turn->setAnnounceRepeat(ui.cbAnnounceRepeat->isChecked());
   //displayCurrentState();
 }
- 
+
 
 void DialogConfiguration::addTransition()
 {
@@ -434,7 +446,7 @@ void DialogConfiguration::moveTransitionDown()
   //                         QItemSelectionModel::ClearAndSelect);
 }
 
-    
+
 QDomElement DialogConfiguration::serialize(QDomDocument* doc)
 {
   QDomElement configElem = doc->createElement("config");
@@ -458,7 +470,7 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
   //   kDebug() << "Setting defaults...";
   //   return true;
   // }
-  
+
   // if (!templateOptionsConfig->deSerialize(elem))
   //   return false;
 
@@ -483,7 +495,7 @@ void DialogConfiguration::displayStates()
   int oldRow = ui.lwStates->currentRow();
 
   ui.lwStates->clear();
-  
+
   QList<DialogState*> states = commandManager->getStates();
   int id = 1;
   foreach (DialogState* state, states)
@@ -551,8 +563,8 @@ void DialogConfiguration::displayCurrentState()
 
   if (!currentState)
   {
-  //   ui.teText->clear();
-  //   ui.lvTransitions->setModel(0);
+    //   ui.teText->clear();
+    //   ui.lvTransitions->setModel(0);
     return;
   }
 
@@ -568,16 +580,16 @@ void DialogConfiguration::displayCurrentState()
   // updateTextSelector();
   // ui.cbSilence->setChecked(currentState->silence());
   // ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
-  
+
   // ui.cbDisplayAvatar->setChecked(currentState->getDisplayAvatar());
   // ui.lvStateAvatar->setEnabled(ui.cbDisplayAvatar->isChecked());
   // int avatarId = currentState->getAvatarId();
   // QModelIndex avatarIndex = avatarsConfig->getAvatarIndex(avatarId);
-  
+
   // kDebug() << "Avatar index: " << avatarIndex;
   //FIXME!
   //ui.lvStateAvatar->selectionModel()->select(avatarIndex,
-    //QItemSelectionModel::ClearAndSelect);
+  //QItemSelectionModel::ClearAndSelect);
 
   // kDebug() << currentState;
   // ui.lvTransitions->setModel(currentState);

@@ -65,20 +65,11 @@ DialogState* DialogState::createInstance(DialogTextParser *parser, const QDomEle
   return state;
 }
 
-DialogTurn* DialogState::createTurnInstance()
+DialogTurn* DialogState::createTurn()
 {
   DialogTurn *turn = new DialogTurn(m_parser, QString(), QString(), false, true,
                                       QList<DialogCommand*>(), this);
   return turn;
-}
-
-void DialogState::addTurn(const QString& name, DialogTextParser* dialogParser)
-{
-  DialogTurn *turn = new DialogTurn(dialogParser, name, QString(), false, true,
-                                      QList<DialogCommand*>(), this);
-  //connect(turn, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
-  connect(turn, SIGNAL(changed()), this, SLOT(turnChanged()));
-  m_turns << turn;
 }
 
 void DialogState::addTurn(DialogTurn* turn)
@@ -86,6 +77,14 @@ void DialogState::addTurn(DialogTurn* turn)
   connect(turn, SIGNAL(changed()), this, SLOT(turnChanged()));
   m_turns << turn;
   currentDialogTurn = turn;
+}
+
+void DialogState::setTurn(DialogTurn* turn, int index)
+{
+  DialogTurn* old = m_turns[index];
+  m_turns[index] = turn;
+  connect(turn, SIGNAL(changed()), this, SLOT(turnChanged()));
+  delete old;
 }
 
 int DialogState::getTextCount()

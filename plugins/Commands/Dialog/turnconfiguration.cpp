@@ -24,8 +24,6 @@
 #include "createdialogcommandwidget.h"
 #include "createtransitiondialog.h"
 
-#include <iostream>
-
 #include <QVariantList>
 #include <QList>
 #include <QString>
@@ -50,13 +48,16 @@ TurnConfiguration::TurnConfiguration(DialogTurn* _turn, QWidget* parent) :
   connect(this, SIGNAL(okClicked()), this, SLOT(save()));
   connect(this, SIGNAL(cancelClicked()), this, SLOT(forget()));
 
-  // turn = state->createTurnInstance();
+  displayCurrentTurn();
+}
+
+void TurnConfiguration::displayCurrentTurn()
+{
 }
 
 void TurnConfiguration::addPrompt()
 {
 	turn->addText("");
-
   updateTextSelector();
   ui.sbPrompt->setValue(ui.sbPrompt->maximum());
   displaySelectedText();
