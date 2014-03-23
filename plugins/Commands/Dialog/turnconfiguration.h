@@ -27,15 +27,15 @@
 #include <QPoint>
 #include <QSize>
 
-class DialogState;
 class DialogTurn;
 
 class TurnConfiguration : public KDialog
 {
   Q_OBJECT
+  public:
+    QDialog::DialogCode code;
 
   private:
-    DialogState* state;
     DialogTurn* turn;
     Ui::TurnCreateEditView ui;
 
@@ -52,7 +52,6 @@ class TurnConfiguration : public KDialog
 
     void displaySelectedText();
     void updateTextSelector();
-    // virtual void slotButtonClicked(int button);
     void save();
     void forget();
 
@@ -64,7 +63,7 @@ class TurnConfiguration : public KDialog
     virtual void defaults();
 
   public:
-    TurnConfiguration(DialogState* _state, QWidget *parent);
+    TurnConfiguration(DialogTurn* _turn, QWidget *parent);
     ~TurnConfiguration();
 
     QString getRepeatAnnouncement() const;

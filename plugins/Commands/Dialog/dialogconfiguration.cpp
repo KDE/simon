@@ -123,14 +123,48 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   // ui.pbRemoveText->setIcon(KIcon("list-remove"));
 
   connect(ui.pbAddTurn, SIGNAL(clicked()), this, SLOT(addTurn()));
+  connect(ui.pbEditTurn, SIGNAL(clicked()), this, SLOT(editTurn()));
 
   displayCurrentState();
 }
 
 void DialogConfiguration::addTurn()
 {
-  TurnConfiguration* turnConfig = new TurnConfiguration(getCurrentState(), this);
+  DialogState* state = getCurrentState();
+  DialogTurn* turn = state->createTurnInstance();
+  TurnConfiguration* turnConfig = new TurnConfiguration(turn, this);
   turnConfig->exec();
+
+  if (turnConfig->code == QDialog::Accepted)
+  {
+    state->addTurn(turn);
+  }
+  else
+  {
+    delete turn;
+  }
+
+  displayCurrentState();
+}
+
+void DialogConfiguration::editTurn()
+{
+  DialogState* state = getCurrentState();
+  DialogTurn* turn = state->getCurrentTurn();
+  DialogTurn* clone = turn->clone();
+
+  TurnConfiguration* turnConfig = new TurnConfiguration(clone, this);
+  turnConfig->exec();
+
+  if (turnConfig->code == QDialog::Accepted)
+  {
+    //change stuff
+  }
+  else
+  {
+    delete clone;
+  }
+
   displayCurrentState();
 }
 

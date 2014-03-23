@@ -337,6 +337,12 @@ void DialogTurn::setAnnounceRepeat(bool announce)
   m_announceRepeat = announce;
 }
 
+DialogTurn* DialogTurn::clone()
+{
+  QDomDocument doc;
+  QDomElement elem = serialize(&doc);
+  return createInstance(m_parser, elem);
+}
 
 DialogTurn::~DialogTurn()
 {
