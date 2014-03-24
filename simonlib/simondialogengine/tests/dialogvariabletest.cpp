@@ -24,10 +24,7 @@
 #include <QDomElement>
 #include <KDebug>
 
-#define private public
-
 #include "../dialogvariablestore.h"
-#include "../dialogvariable.h"
 
 //TODO: Separate this into testDialogVariableStore and testDialogVariable
 
@@ -35,55 +32,43 @@ class testVariables: public QObject
 {
   Q_OBJECT
   private slots:
-    void testInitial();
+    //void testInitial();
     //void testGeneral();
     void testAdd();
     void testRemove();
     void testSet();
     void testTypedGet();
-    void testInvalidTypedGet(); //TODO: Modify this test when method throws bad cast exception
+    void testInvalidTypedGet();
     void testInvalidSet();
     void testCustomType(); //TODO:  Fix dialog variable so custom types can be used.
-    
 };
-
-void testVariables::testInitial()
-{
-  //Sanity test
-  int * i = new int();
-  *i = 3;
-  QCOMPARE(*i,3);
-  *i += 2;
-  QCOMPARE(*i,5);
-  delete i;
-}
 
 void testVariables::testAdd()
 {
   DialogVariableStore v;
-  QString name = QString("attack");
+  QString name = "attack";
   QString result = QString("3.01");
   v.addVariable<double>(name,3.01);
-  QCOMPARE(v.getValue(name),result);
+  QCOMPARE(v.getValue(name).toString(),result);
 }
 
 void testVariables::testRemove()
 {
   DialogVariableStore v;
   v.addVariable<double>("attack",3.4);
-  QCOMPARE(v.getValue("attack"),QString("3.4"));
-  QVERIFY(v.dialogVariables.contains("attack"));
+  QCOMPARE(v.getValue("attack").toString(),QString("3.4"));
+  QVERIFY(v.contains("attack"));
   v.removeVariable("attack");
-  QVERIFY(!v.dialogVariables.contains("attack"));
+  QVERIFY(!v.contains("attack"));
 }
 
 void testVariables::testSet()
 {
   DialogVariableStore v;
   v.addVariable<double>("attack",3.4);
-  QCOMPARE(v.getValue("attack"),QString("3.4"));
+  QCOMPARE(v.getValue("attack").toString(),QString("3.4"));
   v.setVariable<double>("attack",3.5);
-  QCOMPARE(v.getValue("attack"),QString("3.5"));
+  QCOMPARE(v.getValue("attack").toString(),QString("3.5"));
 }
 
 void testVariables::testTypedGet()
@@ -106,10 +91,10 @@ void testVariables::testInvalidTypedGet()
 void testVariables::testInvalidSet()
 {
   DialogVariableStore v;
-  
   v.addVariable<int>("mistakes",1);
-  v.setVariable<double>("mistakes",3.5); //Should be OK. Set is really remove+add
-  QCOMPARE(v.getTypedValue<double>("mistakes"),3.5);
+  bool result = v.setVariable<double>("mistakes",3.5);
+  QVERIFY(!result); //This set should fail.
+  QCOMPARE(v.getTypedValue<int>("mistakes"),1);
 }
 
 
@@ -121,8 +106,6 @@ void testVariables::testCustomType()
   //DialogDecimalVaraible d(QString("name"),3.4);
   //v.addVariable<DialogDecimalVaraible>("attack",d);
 }
-
-
 
 QTEST_MAIN(testVariables)
 

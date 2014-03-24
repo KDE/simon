@@ -17,21 +17,21 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <QList>
-#include <QString>
-#include <QMap>
 #include "dialogvariablestore.h"
-#include "dialogvariable.h"
 
 
-QString DialogVariableStore::getValue(const QString& name) const
+QVariant DialogVariableStore::getValue(const QString& name) const
 {
   return this->dialogVariables[name]->getValue();
 }
 
-void DialogVariableStore::removeVariable(const QString& name)
+bool DialogVariableStore::removeVariable(const QString& name)
 {
-  Q_ASSERT(this->dialogVariables.contains(name));
-  delete(this->dialogVariables.take(name));
+  if(this->dialogVariables.contains(name));
+  {
+    kWarning() << "Variable " << name << " does not exist.";
+    return false;
+  }
+  delete this->dialogVariables.take(name);
+  return true;
 }
-

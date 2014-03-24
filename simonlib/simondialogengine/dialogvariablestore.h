@@ -18,17 +18,13 @@
  */
 #include <QList>
 #include <QString>
+#include <QHash>
+#include "dialogvariable.h"
+#include <KDebug>
 
 //Ben Notes:  An instance of this class is essentially going to be a list
 //            of active variables for the current Dialog Instance.
 //TODO: Add factory methods for generating DialogVariable.
-
-class DialogVariableBase;
-class DialogStringVariable;
-class DialogIntegerVariable;
-class DialogDecimalVariable;
-template <class T>
-class DialogVariable;
 
 class DialogVariableStore {
   private:
@@ -36,22 +32,25 @@ class DialogVariableStore {
     class DialogVariableFactory
     {
       public:
-	DialogVariable<QString> * CreateString(QString n, QString val) { return Create<QString>(n,val); }
-	DialogVariable<int> * CreateInteger(QString n, int val) { return Create<int>(n,val); }
-	DialogVariable<double> * CreateDecimal(QString n, double val) { return Create<double>(n,val); }
 	template <typename T>
 	DialogVariable<T> * Create(QString n, T val) {return new DialogVariable<T>(n,val);};
     } factory;
   public:
-    void removeVariable(const QString& name);
-    QString getValue(const QString& name) const;
-    int count() { return dialogVariables.count(); }
+    bool removeVariable(const QString& name);
+    QVariant getValue(const QString& name) const;
+    int count() const { return dialogVariables.count(); }
+    bool contains(QString s) { return dialogVariables.contains(s); }
     
     template <typename T>
-    void addVariable(const QString& name, const T& val)
+    bool addVariable(const QString& name, const T& val)
     {
-      Q_ASSERT(!this->dialogVariables.contains(name));
+      if(!this->dialogVariables.contains(name))
+      {
+	 kWarning() << "Variable " << name << " already exists.";
+	 return false;
+      }
       this->dialogVariables[name] = this->factory.Create<T>(name,val);
+      return true;
     }
     
     template <typename T>
@@ -61,15 +60,17 @@ class DialogVariableStore {
       if(DialogVariable<T> * temp = dynamic_cast<DialogVariable<T>*>(this->dialogVariables[name]))
       {
 	return temp->getTypedValue();
-      } 
+      }
       return T();
     }
     
-    
     template <typename T>
-    void setVariable(const QString& name, const T& value)
+    bool setVariable(const QString& name, const T& value)
     {
-      removeVariable(name);
-      addVariable<T>(name,value);
+      if(DialogVariable<T> * temp = dynamic_cast<DialogVariable<T>*>(this->dialogVariables[name]))
+      {
+	return temp->setTypedValue(value);
+      }
+      return false;
     }
 };

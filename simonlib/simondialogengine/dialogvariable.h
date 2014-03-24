@@ -17,46 +17,44 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <string>
 #include <QString>
 #include <QVariant>
-#include <sstream>
 
-//TODO:  Implement the parser class and have tihs use it to get/set the variable.
-
-template <class T>
-class DialogVariable;
+//TODO:  Implement the parser class and have this use it to get/set the variable.
 
 class DialogVariableBase {
   public:
     DialogVariableBase() {}
     virtual ~DialogVariableBase() {}
-    
-    virtual QString getValue() = 0;
+    virtual QVariant getValue() = 0;
+    virtual bool setValue(const QString& val) = 0;
 };
 
 template <class T>
 class DialogVariable : public DialogVariableBase
 {
-  typedef T variableType;
-  
+  typedef T VariableType;
   private:
       QString name;
-      variableType value;
-      class Parser {} parser; 
+      VariableType value;
+      class Parser {} parser;
   public:
-      DialogVariable<T>(QString n, variableType val) : name(n), value(val) { }
-      variableType getTypedValue() { return value; }
-      virtual QString getValue()
+      DialogVariable<T>(QString n, VariableType val) : name(n), value(val) { }
+      VariableType getTypedValue() { return value; }
+      virtual QVariant getValue()
       {
-	  return QVariant(value).toString();
+	  return QVariant(value);
       }
-};
-
-class DialogStringVariable : public DialogVariable<QString> { };
-class DialogIntegerVariable : public DialogVariable<int> { };
-class DialogDecimalVaraible : public DialogVariable<double> { 
-  public:
-    DialogDecimalVaraible(QString n, double val) : DialogVariable<double>(n,val) {} 
-    DialogDecimalVaraible() : DialogVariable< double >("null",0.0) {} 
+      virtual bool setValue(const QString& val)
+      {
+	Q_UNUSED(val);
+	//TODO: Implement this with parsers
+	return false;
+      }
+      virtual bool setTypedValue(const T& val)
+      {
+	value = val;
+	return true;
+      }
+	
 };
