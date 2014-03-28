@@ -35,3 +35,5 @@ install( FILES ${eventsimulation_LIB_HDRS}
 )
  
 install(TARGETS eventsimulation DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon)
+
+add_subdirectory(test)
