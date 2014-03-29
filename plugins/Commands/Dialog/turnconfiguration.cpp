@@ -56,8 +56,9 @@ TurnConfiguration::TurnConfiguration(DialogTurn* _turn, QWidget* parent) :
 void TurnConfiguration::displayCurrentTurn()
 {
   ui.leTurnName->setText(turn->getName());
-  //TODO: display distractors
+  //TODO: display extractors & required fields
   displaySelectedText();
+  updateTextSelector();
 }
 
 void TurnConfiguration::addPrompt()
@@ -97,7 +98,7 @@ void TurnConfiguration::updateTextSelector()
 
 void TurnConfiguration::displaySelectedText()
 {
-  int textId = ui.sbPrompt->value()-1;
+  int textId = ui.sbPrompt->value() - 1;
   kDebug() << "Getting text " << textId;
   ui.tePrompt->setText(turn->getRawText(textId));
 }
@@ -111,14 +112,6 @@ void TurnConfiguration::save()
 {
 	code = QDialog::Accepted;
 	turn->rename(ui.leTurnName->displayText());
-}
-
-void TurnConfiguration::textSilenceChanged()
-{
-}
-
-void TurnConfiguration::textAnnounceRepeatChanged()
-{
 }
 
 void TurnConfiguration::addExtractor()
@@ -138,7 +131,7 @@ bool TurnConfiguration::deSerialize(const QDomElement&)
   return true;
 }
 
-QDomElement TurnConfiguration::serialize(QDomDocument *doc)
+QDomElement TurnConfiguration::serialize(QDomDocument* doc)
 {
   return QDomElement();
 }
@@ -149,19 +142,4 @@ void TurnConfiguration::defaults()
 
 TurnConfiguration::~TurnConfiguration()
 {
-}
-
-QString TurnConfiguration::getRepeatAnnouncement() const
-{
-  return QString();
-}
-
-QStringList TurnConfiguration::getRepeatTriggers() const
-{
-  return QStringList();
-}
-
-bool TurnConfiguration::getRepeatOnInvalidInput() const
-{
-  return true;
 }

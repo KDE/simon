@@ -44,9 +44,6 @@ class TurnConfiguration : public KDialog
     void removePrompt();
     void editPrompt();
 
-    void textSilenceChanged();
-    void textAnnounceRepeatChanged();
-
     void addExtractor();
     void removeExtractor();
 
@@ -67,8 +64,5 @@ class TurnConfiguration : public KDialog
     TurnConfiguration(DialogTurn* _turn, QWidget *parent);
     ~TurnConfiguration();
 
-    QString getRepeatAnnouncement() const;
-    QStringList getRepeatTriggers() const;
-    bool getRepeatOnInvalidInput() const;
 };
 #endif

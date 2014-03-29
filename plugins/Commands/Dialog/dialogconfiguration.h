@@ -46,11 +46,11 @@ class DialogConfiguration : public CommandConfiguration
 
   private:
     Ui::DialogCreateView ui;
-    DialogCommandManager *commandManager;
-    BoundValuesConfiguration *boundValuesConfig;
-    TemplateOptionsConfiguration *templateOptionsConfig;
-    AvatarConfiguration *avatarsConfig;
-    OutputConfiguration *outputConfiguration;
+    DialogCommandManager* commandManager;
+    BoundValuesConfiguration* boundValuesConfig;
+    TemplateOptionsConfiguration* templateOptionsConfig;
+    AvatarConfiguration* avatarsConfig;
+    OutputConfiguration* outputConfiguration;
 
     
     void displayStates();
@@ -70,7 +70,6 @@ class DialogConfiguration : public CommandConfiguration
     void moveStateUp();
     void moveStateDown();
 
-    void editText();
     void textSilenceChanged();
     void textAnnounceRepeatChanged();
 
@@ -84,11 +83,6 @@ class DialogConfiguration : public CommandConfiguration
     void avatarSelected ( const QModelIndex& selected );
     void avatarDisplayToggled(bool show);
     
-    void addText();
-    void removeText();
-    void updateTextSelector();
-    void displaySelectedText();
-
     void addTurn();
     void editTurn();
     void removeTurn();
