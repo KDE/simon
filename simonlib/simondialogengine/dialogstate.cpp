@@ -385,6 +385,11 @@ QVariant DialogState::data(const QModelIndex &index, int role) const
   return currentDialogTurn->data(index, role);
 }
 
+void DialogState::setCurrentTurn(int index)
+{
+  currentDialogTurn = m_turns[index];
+}
+
 int DialogState::columnCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent)
@@ -393,201 +398,35 @@ int DialogState::columnCount(const QModelIndex &parent) const
 
 void DialogState::setSilence(bool silence)
 {
-  // m_turns.at(0)->setSilence(silence);
   currentDialogTurn->setSilence(silence);
 }
 
 void DialogState::setAnnounceRepeat(bool announce)
 {
-  // m_turns.at(0)->setAnnounceRepeat(announce);
   currentDialogTurn->setAnnounceRepeat(announce);
 }
 
 DialogState::~DialogState()
 {
+  foreach (DialogTurn* t, m_turns)
+    disconnect(t, SIGNAL(destroyed()), this, SLOT(turnDestroyed()));
   qDeleteAll(m_turns);
 }
 
-/*
-void DialogCommandManager::initState(DialogTurn* turn)
-{
-  if (currentDialogTurn)
-    currentDialogTurn->left();
-
-  turn->updateRandomTextSelection();
-
-  foreach (DialogView* view, dialogViews)
-    view->present(*turn);
-
-  turn->presented();
-
-  currentDialogTurn = turn;
-}
-
-bool DialogCommandManager::addTurn(const QString& name)
-{
-  DialogTurn *turn = new DialogTurn(dialogParser, name, QString(), false, true,
-                                    QList<DialogCommand*>(), this);
-  connect(turn, SIGNAL(requestDialogTurn(int)), this, SLOT(initState(int)));
-  connect(turn, SIGNAL(changed()), this, SLOT(StateChanged()));
-  DialogTurns << turn;
-  kDebug() << "Adding turn...";
-
-  return true;
-  //return parentScenario->save();
-}
-
-bool DialogCommandManager::removeTurn(DialogTurn *turn)
-{
-  if (turn == currentDialogTurn)
-  {
-    currentDialogTurn = NULL;
-    initState(0);
-  }
-  int removed = DialogTurns.removeAll(turn);
-
-  if (!removed)
-    return false;
-
-  delete turn;
-  return true;
-  //return parentScenario->save();
-}
-
-bool DialogCommandManager::moveTurnUp(DialogTurn *turn)
-{
-  int index = DialogTurns.indexOf(turn);
-  if (index <= 0) return false;
-
-  DialogTurns.insert(index-1, DialogTurns.takeAt(index));
-  return true;
-  //return parentScenario->save();
-}
-
-bool DialogCommandManager::moveTurnDown(DialogTurn *turn)
-{
-  int index = DialogTurns.indexOf(turn);
-  if ((index == -1) || (index == (DialogTurns.count()-1)))
-    return false;
-
-  DialogTurns.insert(index+1, DialogTurns.takeAt(index));
-  return true;
-  //return parentScenario->save();
-}
-
-
-QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
-{
-  QDomElement commandsElem = doc->createElement("commands");
-  foreach (Command *c, commands) {
-    //only store voice interface commands
-    if (dynamic_cast<VoiceInterfaceCommand*>(c))
-    {
-      QDomElement commandElem = c->serialize(doc);
-      commandElem.setTagName("voiceInterfaceCommand");
-      commandsElem.appendChild(commandElem);
-    }
-  }
-
-  foreach (DialogTurn *turn, DialogTurns) {
-    QDomElement commandElem = turn->serialize(doc);
-    commandsElem.appendChild(commandElem);
-  }
-
-  return commandsElem;
-}
-
-bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
-{
-  if (elem.isNull()) return false;
-
-  QDomElement stateElem = elem.firstChildElement("State");
-  while(!stateElem.isNull())
-  {
-    kDebug() << "Deserializing State element";
-    DialogTurn *turn = DialogTurn::createInstance(dialogParser, stateElem);
-
-    if (turn)
-    {
-      connect(turn, SIGNAL(requestDialogTurn(int)), this, SLOT(initState(int)));
-      connect(turn, SIGNAL(changed()), this, SLOT(StateChanged()));
-      connect(turn, SIGNAL(destroyed()), this, SLOT(StateDestroyed()));
-      DialogTurns << turn;
-    }
-
-    stateElem = stateElem.nextSiblingElement("State");
-  }
-
-  bindStateCommands();
-
-  getDialogConfiguration()->init();
-  return true;
-}
-
-void DialogCommandManager::StateDestroyed()
-{
-  DialogTurns.removeAll(static_cast<DialogTurn*>(sender()));
-}
-
-void DialogCommandManager::bindStateCommands()
-{
-  kDebug() << "rebinding";
-  QList<Command*> oldCommands;
-
-  foreach (Command* c, commands)
-  {
-    if (dynamic_cast<DialogCommand*>(c))
-    {
-      commands.removeAll(c);
-      oldCommands << c;
-    }
-  }
-
-  int StateId = SimonCommand::GreedyState + 1;
-  foreach (DialogTurn *turn, DialogTurns)
-  {
-    QList<DialogCommand*> transitions = turn->getTransitions();
-
-    foreach (DialogCommand* transition, transitions)
-    {
-      transition->createStateLink(StateId);
-      commands << transition;
-    }
-
-    StateId++;
-  }
-
-  foreach (Command* c, oldCommands)
-  {
-    if (!commands.contains(c))
-      delete c;
-  }
-}
-
-DialogCommandManager::~DialogCommandManager()
-{
-  activateAction->deleteLater();
-  qDeleteAll(dialogViews);
-  foreach (DialogTurn *s, DialogTurns)
-    disconnect(s, SIGNAL(destroyed()), this, SLOT(StateDestroyed()));
-  qDeleteAll(DialogTurns);
-}
-*/
-
 void DialogState::bindStateCommands(QList<Command*> commands)
 {
-  int StateId = SimonCommand::GreedyState + 1;
+  int stateId = SimonCommand::GreedyState + 1;
   foreach (DialogTurn *turn, m_turns)
   {
     QList<DialogCommand*> transitions = turn->getTransitions();
 
     foreach (DialogCommand* transition, transitions)
     {
-      transition->createStateLink(StateId);
+      transition->createStateLink(stateId);
       commands << transition;
     }
 
-    StateId++;
+    stateId++;
   }
 }
 
@@ -612,6 +451,6 @@ void DialogState::turnChanged()
 
 void DialogState::turnDestroyed()
 {
-  emit destroyed();
+  m_turns.removeAll(static_cast<DialogTurn*>(sender()));
 }
 

@@ -328,19 +328,6 @@ void DialogCommandManager::bindStateCommands()
   int stateId = SimonCommand::GreedyState + 1;
   foreach (DialogState *state, dialogStates)
   {
-    //TODO: Have each state bind commands.
-    /*
-    QList<DialogCommand*> transitions = state->getTransitions();
-    
-    foreach (DialogCommand* transition, transitions)
-    {
-      transition->createStateLink(stateId);
-      commands << transition;
-    }
-
-    StateId++;
-    */
-
     state->bindStateCommands(commands);
     stateId++;
   }

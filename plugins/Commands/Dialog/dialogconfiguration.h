@@ -62,6 +62,7 @@ class DialogConfiguration : public CommandConfiguration
 
   private slots:
     void displayCurrentState();
+    void setCurrentTurn();
 
     void addState();
     void renameState();

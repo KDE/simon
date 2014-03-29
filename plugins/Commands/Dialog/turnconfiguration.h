@@ -56,10 +56,6 @@ class TurnConfiguration : public KDialog
   public slots:
     void init();
 
-    virtual bool deSerialize(const QDomElement&);
-    virtual QDomElement serialize(QDomDocument *doc);
-    virtual void defaults();
-
   public:
     TurnConfiguration(DialogTurn* _turn, QWidget *parent);
     ~TurnConfiguration();

@@ -82,6 +82,7 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
 
     QString getName() const { return m_name; }
     int getTextCount();
+    void setCurrentTurn(int index);
     
     int addText(const QString& text);
     bool removeText(int id);

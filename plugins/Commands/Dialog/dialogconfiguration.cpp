@@ -70,6 +70,7 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   ui.setupUi(this);
 
   connect(ui.lwStates, SIGNAL(currentRowChanged(int)), this, SLOT(displayCurrentState()));
+  connect(ui.lwTurns, SIGNAL(currentRowChanged(int)), this, SLOT(setCurrentTurn()));
 
   connect(ui.pbAddState, SIGNAL(clicked()), this, SLOT(addState()));
   connect(ui.pbRenameState, SIGNAL(clicked()), this, SLOT(renameState()));
@@ -481,6 +482,11 @@ void DialogConfiguration::displayCurrentState()
     ui.lwTurns->addItem(i18nc("%1: id of turn; %2: name of turn", "%1: %2", id, turn->getName()));
     ++id;
   }
+}
+
+void DialogConfiguration::setCurrentTurn()
+{
+  getCurrentState()->setCurrentTurn(ui.lwTurns->currentRow());
 }
 
 void DialogConfiguration::defaults()

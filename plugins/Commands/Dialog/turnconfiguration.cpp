@@ -126,20 +126,6 @@ void TurnConfiguration::init()
 {
 }
 
-bool TurnConfiguration::deSerialize(const QDomElement&)
-{
-  return true;
-}
-
-QDomElement TurnConfiguration::serialize(QDomDocument* doc)
-{
-  return QDomElement();
-}
-
-void TurnConfiguration::defaults()
-{
-}
-
 TurnConfiguration::~TurnConfiguration()
 {
 }
