@@ -95,6 +95,7 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
     DialogTurn* getCurrentTurn() { return currentDialogTurn; }
     DialogTurn* createTurn();
     void addTurn(DialogTurn* turn);
+    void removeTurn(int index);
     void setTurn(DialogTurn* turn, int index);
     void bindStateCommands(QList<Command*> commands);
 

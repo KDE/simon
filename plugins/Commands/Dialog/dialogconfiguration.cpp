@@ -78,8 +78,6 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   connect(ui.pbMoveStateUp, SIGNAL(clicked()), this, SLOT(moveStateUp()));
   connect(ui.pbMoveStateDown, SIGNAL(clicked()), this, SLOT(moveStateDown()));
 
-  // connect(ui.pbEditText, SIGNAL(clicked()), this, SLOT(editText()));
-
   // connect(ui.cbSilence, SIGNAL(toggled(bool)), this, SLOT(textSilenceChanged()));
   // connect(ui.cbAnnounceRepeat, SIGNAL(toggled(bool)), this, SLOT(textAnnounceRepeatChanged()));
 
@@ -124,6 +122,7 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 
   connect(ui.pbAddTurn, SIGNAL(clicked()), this, SLOT(addTurn()));
   connect(ui.pbEditTurn, SIGNAL(clicked()), this, SLOT(editTurn()));
+  connect(ui.pbRemoveTurn, SIGNAL(clicked()), this, SLOT(removeTurn()));
 
   displayCurrentState();
 }
@@ -177,6 +176,12 @@ void DialogConfiguration::editTurn()
     delete clone;
   }
 
+  displayCurrentState();
+}
+
+void DialogConfiguration::removeTurn()
+{
+  getCurrentState()->removeTurn(ui.lwTurns->currentRow());
   displayCurrentState();
 }
 
@@ -465,23 +470,22 @@ QDomElement DialogConfiguration::serialize(QDomDocument* doc)
 
 bool DialogConfiguration::deSerialize(const QDomElement& elem)
 {
-  // if (!outputConfiguration->deSerialize(elem)) {
-  //   defaults();
-  //   kDebug() << "Setting defaults...";
-  //   return true;
-  // }
+  if (!outputConfiguration->deSerialize(elem)) {
+    defaults();
+    kDebug() << "Setting defaults...";
+    return true;
+  }
 
-  // if (!templateOptionsConfig->deSerialize(elem))
-  //   return false;
+  if (!templateOptionsConfig->deSerialize(elem))
+    return false;
 
-  // if (!boundValuesConfig->deSerialize(elem))
-  //   return false;
+  if (!boundValuesConfig->deSerialize(elem))
+    return false;
 
-  // if (!avatarsConfig->deSerialize(elem))
-  //   return false;
+  if (!avatarsConfig->deSerialize(elem))
+    return false;
   // ui.lvStateAvatar->setModel(avatarsConfig->getModel());
 
-  // return true;
   return true;
 }
 

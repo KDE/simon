@@ -79,6 +79,13 @@ void DialogState::addTurn(DialogTurn* turn)
   currentDialogTurn = turn;
 }
 
+void DialogState::removeTurn(int index)
+{
+  DialogTurn* turn = m_turns[index];
+  m_turns.removeAll(turn);
+  delete turn;
+}
+
 void DialogState::setTurn(DialogTurn* turn, int index)
 {
   DialogTurn* old = m_turns[index];
@@ -178,106 +185,50 @@ void DialogState::left()
 
 bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
 {
-  return true;
-  /*
   if (elem.isNull()) return false;
 
   m_name = elem.attribute("name");
   m_parser = parser;
 
-  //qDeleteAll(m_texts);
-  //m_texts.clear();
-
   qDeleteAll(m_turns);
   m_turns.clear();
-  
-  QList m_texts = QList<DialogText*>();
-  QList m_transitions = QList<DialogCommand*>();
 
-  QDomElement text = elem.firstChildElement("text");
-  do
+  QDomElement turns = elem.firstChildElement("turns");
+  QDomElement turn = turns.firstChildElement("turn");
+
+  kDebug() << "Deserializing turn: setup";
+  while (!turn.isNull())
   {
-    m_texts << new DialogText(parser, text.text());
-    text = text.nextSiblingElement("text");
-  } while (!text.isNull());
-  
-  updateRandomTextSelection();
-  
-  QDomElement textOptions = elem.firstChildElement("textOptions");
-  QDomElement textSilenceOption = textOptions.firstChildElement("silence");
-  QDomElement textAnnounceRepeatOption = textOptions.firstChildElement("announceRepeat");
-  
-  m_silence = (textSilenceOption.text() == "1");
-  m_announceRepeat = (textAnnounceRepeatOption.text() == "1");
-  
-  QDomElement avatarElem = elem.firstChildElement("avatar");
-  m_displayAvatar = (avatarElem.attribute("enabled") == "1");
-  m_avatarId = avatarElem.text().toInt();
-
-  QDomElement transitions = elem.firstChildElement("transitions");
-  QDomElement transition = transitions.firstChildElement("command");
-
-  QList<DialogCommand*> commands;
-    kDebug() << "Deserializing transition: setup";
-  while (!transition.isNull())
-  {
-    kDebug() << "Deserializing transition";
-    DialogCommand *c = DialogCommand::createInstance(transition);
-    if (c)
+    kDebug() << "Deserializing turn";
+    DialogTurn* t = DialogTurn::createInstance(parser, turn);
+    if (t)
     {
-      connect(c, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
-      connect(c, SIGNAL(changed()), this, SIGNAL(changed()));
-      commands << c;
+      connect(t, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
+      connect(t, SIGNAL(changed()), this, SIGNAL(changed()));
+      m_turns << t;
     } else 
       kDebug() << "FAILED";
 
-    transition = transition.nextSiblingElement("command");
+    turn = turn.nextSiblingElement("turn");
   }
 
-  m_transitions = commands;
   return true;
-  */
 }
 
 QDomElement DialogState::serialize(QDomDocument *doc)
 {
-  /*
+  
   QDomElement elem = doc->createElement("state");
   elem.setAttribute("name", m_name);
 
-  foreach (DialogText *t, m_texts)
-  {
-    QDomElement textElem = doc->createElement("text");
-    textElem.appendChild(doc->createTextNode(t->source()));
-    elem.appendChild(textElem);
-  }
-  QDomElement textOptions = doc->createElement("textOptions");
-  QDomElement textSilenceOption = doc->createElement("silence");
-  QDomElement textAnnounceOption = doc->createElement("announceRepeat");
-
-  textSilenceOption.appendChild(doc->createTextNode(m_silence ? "1" : "0"));
-  textAnnounceOption.appendChild(doc->createTextNode(m_announceRepeat ? "1" : "0"));
-
-  textOptions.appendChild(textSilenceOption);
-  textOptions.appendChild(textAnnounceOption);
+  QDomElement turnsElem = doc->createElement("turns");
   
-  QDomElement avatarElem = doc->createElement("avatar");
-  avatarElem.setAttribute("enabled", m_displayAvatar ? "1" : "0");
-  avatarElem.appendChild(doc->createTextNode(QString::number(m_avatarId)));
+  foreach (DialogTurn* t, m_turns)
+    turnsElem.appendChild(t->serialize(doc));
 
-  QDomElement transitionsElem = doc->createElement("transitions");
-  
-  foreach (DialogCommand *c, m_transitions)
-    transitionsElem.appendChild(c->serialize(doc));
-
-  elem.appendChild(textOptions);
-  elem.appendChild(avatarElem);
-  elem.appendChild(transitionsElem);
+  elem.appendChild(turnsElem);
 
   return elem;
-  */
-  // return m_turns.at(0)->serialize(doc);
-  return currentDialogTurn->serialize(doc);
 }
 
 void DialogState::addTransition(DialogCommand* command)

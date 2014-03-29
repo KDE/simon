@@ -45,6 +45,8 @@ TurnConfiguration::TurnConfiguration(DialogTurn* _turn, QWidget* parent) :
 	ui.setupUi(mainWidget());
 
   connect(ui.pbAddPrompt, SIGNAL(clicked()), this, SLOT(addPrompt()));
+  connect(ui.pbEditPrompt, SIGNAL(clicked()), this, SLOT(editPrompt()));
+  connect(ui.sbPrompt, SIGNAL(valueChanged(int)), this, SLOT(displaySelectedText()));
   connect(this, SIGNAL(okClicked()), this, SLOT(save()));
   connect(this, SIGNAL(cancelClicked()), this, SLOT(forget()));
 
@@ -53,6 +55,9 @@ TurnConfiguration::TurnConfiguration(DialogTurn* _turn, QWidget* parent) :
 
 void TurnConfiguration::displayCurrentTurn()
 {
+  ui.leTurnName->setText(turn->getName());
+  //TODO: display distractors
+  displaySelectedText();
 }
 
 void TurnConfiguration::addPrompt()
@@ -65,7 +70,21 @@ void TurnConfiguration::addPrompt()
 
 void TurnConfiguration::removePrompt()
 {
-	turn->removeText(0);
+	turn->removeText(ui.sbPrompt->value() - 1);
+  displaySelectedText();
+}
+
+void TurnConfiguration::editPrompt()
+{
+  bool ok;
+  QString text = KInputDialog::getMultiLineText(i18n("Text"), i18n("Enter the text to present to the user when this turn is entered:"), 
+                                        turn->getRawText(ui.sbPrompt->value()-1), &ok);
+  if (!ok) return;
+  
+  if (!turn->setRawText(ui.sbPrompt->value()-1, text))
+    KMessageBox::sorry(this, i18n("Failed to update turn text."));
+
+  displaySelectedText();
 }
 
 void TurnConfiguration::updateTextSelector()
@@ -92,10 +111,6 @@ void TurnConfiguration::save()
 {
 	code = QDialog::Accepted;
 	turn->rename(ui.leTurnName->displayText());
-}
-
-void TurnConfiguration::editPrompt()
-{
 }
 
 void TurnConfiguration::textSilenceChanged()

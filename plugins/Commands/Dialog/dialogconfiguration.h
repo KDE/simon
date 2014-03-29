@@ -91,6 +91,7 @@ class DialogConfiguration : public CommandConfiguration
 
     void addTurn();
     void editTurn();
+    void removeTurn();
 
   public slots:
     void init();
