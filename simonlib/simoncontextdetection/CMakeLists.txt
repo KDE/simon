@@ -46,3 +46,5 @@ install(FILES ${simoncontextdetection_LIB_HDRS}
  
 install(TARGETS simoncontextdetection DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore)
 install(FILES simonconditionplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR} COMPONENT simoncore)
+
+add_subdirectory(test)
