@@ -34,10 +34,13 @@ set(simonsound_LIB_SRCS
 
 IF(WIN32)
   set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} directsound/directsoundbackend.cpp)
-ENDIF(WIN32)
-IF(UNIX)
+ENDIF()
+IF(UNIX AND NOT WIN32 AND NOT APPLE)
   set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} alsa/alsabackend.cpp)
-ENDIF(UNIX)
+ENDIF()
+IF(APPLE)
+  set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} coreaudio/coreaudiobackend.cpp)
+ENDIF()
 
 if(LIBSAMPLERATE_FOUND)
   set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} resamplesoundprocessor.cpp)

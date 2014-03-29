@@ -23,10 +23,12 @@
 
 #include <QChar>
 
-#ifdef Q_OS_UNIX
+#ifdef Q_OS_LINUX
 #include "xevents.h"
 #endif
-#ifdef Q_OS_WIN
+#ifdef Q_OS_MAC
+#endif
+#ifdef Q_OS_WIN32
 #include "windowsevents.h"
 #endif
 
@@ -43,12 +45,14 @@ EventHandler* EventHandler::instance;
  * @author Peter Grasch
  */
 EventHandler::EventHandler()
-#ifdef Q_OS_UNIX
+#ifdef Q_OS_LINUX
 : coreEvents(new XEvents())
-#else
-#ifdef Q_OS_WIN
-: coreEvents( (CoreEvents*) new WindowsEvents())
 #endif
+#ifdef Q_OS_MAC
+: coreEvents(0)
+#endif
+#ifdef Q_OS_WIN32
+: coreEvents( (CoreEvents*) new WindowsEvents())
 #endif
 {
 }

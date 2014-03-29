@@ -18,8 +18,14 @@
  */
 
 #include "processinfo.h"
-#include "linuxprocessinfogatherer.h"
+#ifdef Q_OS_WIN32
 #include "windowsprocessinfogatherer.h"
+#endif
+#ifdef Q_OS_LINUX
+#include "linuxprocessinfogatherer.h"
+#endif
+#ifdef Q_OS_MAC
+#endif
 
 ProcessInfo* ProcessInfo::m_instance;
 
@@ -27,8 +33,12 @@ ProcessInfo::ProcessInfo()
 {
     #ifdef Q_OS_WIN32
     m_gatherer = new WindowsProcessInfoGatherer();
-    #else
+    #endif
+    #ifdef Q_OS_LINUX
     m_gatherer = new LinuxProcessInfoGatherer();
+    #endif
+    #ifdef Q_OS_MAC
+    m_gatherer = 0; //TODO
     #endif
 
     connect(m_gatherer, SIGNAL(processAdded(QString)),
