@@ -47,6 +47,14 @@ class LinuxProcessInfoGathererHelper : public QObject
 public:
     explicit LinuxProcessInfoGathererHelper(QObject *parent = 0);
 
+    /** \brief Returns executable name of given pid
+     *
+     * \warning May return more than the executable itself in case the application is not setting their process information correctly
+     *          (like for example Chromium (https://code.google.com/p/chromium/issues/detail?id=336850); In that case the full invoking
+     *          command line will be returned
+    */
+    static QString getProcessName(int id);
+
 private:
     /** \brief The current active window name/title
       *

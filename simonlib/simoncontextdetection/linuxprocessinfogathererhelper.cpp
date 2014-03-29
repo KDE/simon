@@ -23,6 +23,7 @@
 #include <NETWinInfo>
 #include <QX11Info>
 #include <QFile>
+#include <QFileInfo>
 #include <KDebug>
 
 LinuxProcessInfoGathererHelper::LinuxProcessInfoGathererHelper(QObject *parent) :
@@ -42,21 +43,12 @@ void LinuxProcessInfoGathererHelper::checkActiveWindow()
                        NET::WMPid | NET::WMName);
 
     //Get tne name of the process controlling the active window with the pid from netInfo
-    QFile commFile;
     QString processName;
     QString windowName;
     QString strPID;
 
-    strPID.setNum(netInfo.pid());
-    commFile.setFileName("/proc/" + strPID + "/comm");
-    if (commFile.exists())
-    {
-        commFile.open(QFile::ReadOnly);
-        processName = QString(commFile.readAll());
-        commFile.close();
-        //get rid of the newline character
-        processName.chop(1);
-
+    processName = getProcessName(netInfo.pid());
+    if (!processName.isNull()) {
         windowName = netInfo.name();
 
         //emit any changes to the active window name or its process
@@ -72,4 +64,27 @@ void LinuxProcessInfoGathererHelper::checkActiveWindow()
         }
     }
 #endif
+}
+
+QString LinuxProcessInfoGathererHelper::getProcessName(int id)
+{
+    QFile procFile;
+    QString stat;
+    QString command;
+    QString executable;
+
+    procFile.setFileName("/proc/" + QString::number(id) + "/cmdline");
+    if (!procFile.exists())
+        return QString();
+
+    procFile.open(QFile::ReadOnly);
+    stat = QString(procFile.readAll());
+
+    command = stat.left(stat.indexOf(QChar('\0')));
+
+    QFileInfo commandInfo(command);
+    if (commandInfo.exists())
+      return commandInfo.fileName();
+
+    return command;
 }
