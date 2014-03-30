@@ -2,6 +2,9 @@ set(eventsimulation_LIB_SRCS
   eventhandler.cpp
   coreevents.cpp
 )
+IF(NOT APPLE)
+  set(eventsimulation_LIB_SRCS ${eventsimulation_LIB_SRCS} pcevents.cpp)
+ENDIF()
 
 set(eventsimulation_LIB_LINUX_SRCS
   xevents.cpp
@@ -13,7 +16,7 @@ set(eventsimulation_LIB_WINDOWS_SRCS
 )
 
 set(eventsimulation_LIB_APPLE_SRCS
-  #appleevents.cpp
+  carbonevents.cpp
 )
 
 set(eventsimulation_LIB_HDRS
@@ -34,6 +37,7 @@ IF(WIN32)
 ENDIF(WIN32)
 
 IF(APPLE)
+  add_definitions( -framework ApplicationServices)
   kde4_add_library(eventsimulation SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_APPLE_SRCS})
   target_link_libraries(eventsimulation ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS})
 ENDIF()

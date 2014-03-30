@@ -53,7 +53,7 @@
  * saves the special character and there parent keys into a hash
  * @author Phillip Goriup
  */
-WindowsEvents::WindowsEvents() : CoreEvents()
+WindowsEvents::WindowsEvents() : PCEvents()
 {
 }
 
@@ -164,32 +164,24 @@ void WindowsEvents::dragAndDrop(int xStart, int yStart, int x, int y)
 
  * @author Phillip Goriup
  */
-void WindowsEvents::setModifierKey(int virtualKey, bool once)
+void WindowsEvents::setModifierKeyPrivate(int virtualKey)
 {
-  if ((!shiftSet) && (virtualKey & Qt::SHIFT)) {
+  switch (virtualKey) {
+  case Qt::SHIFT:
     pressVk(VK_SHIFT, EventSimulation::Press);
-    shiftSet=true;
-    shiftOnce=once;
-  }
-  if ((!altgrSet) && (virtualKey & Qt::Key_AltGr)) {
+    break;
+  case Qt::Key_AltGr:
     pressVk(VK_RMENU, EventSimulation::Press);
-    altgrSet=true;
-    altgrOnce=once;
-  }
-  if ((!strgSet) && (virtualKey & Qt::CTRL)) {
+    break;
+  case Qt::CTRL:
     pressVk(VK_CONTROL, EventSimulation::Press);
-    strgSet=true;
-    strgOnce=once;
-  }
-  if ((!altSet) && (virtualKey & Qt::ALT)) {
+    break;
+  case Qt::ALT:
     pressVk(VK_MENU, EventSimulation::Press);
-    altSet=true;
-    altOnce=once;
-  }
-  if ((!superSet) && (virtualKey & Qt::META)) {
+    break;
+  case Qt::META:
     pressVk(VK_LWIN, EventSimulation::Press);
-    superSet=true;
-    superOnce=once;
+    break;
   }
 }
 
@@ -457,84 +449,26 @@ void WindowsEvents::pressVk(BYTE vK, EventSimulation::PressMode mode)
 }
 
 
-/**
- * @brief
- *
- * @param int virtualKey
- *
- *
- * @author Peter Grasch
- */
-void WindowsEvents::unsetModifier(int virtualKey)
+void WindowsEvents::unsetModifierKeyPrivate(int virtualKey)
 {
-  int msVirtualKey = 0;
-  
-  if (virtualKey & Qt::SHIFT) {
-	pressVk(VK_SHIFT, EventSimulation::Release);
-    shiftSet=false;
-  }
-
-  if (virtualKey & Qt::Key_AltGr) {
-	pressVk(VK_RMENU, EventSimulation::Release);
-    altgrSet=false;
-  }
-
-  if (virtualKey & Qt::CTRL) {
-	pressVk(VK_CONTROL, EventSimulation::Release);
-    strgSet=false;
-  }
-
-  if (virtualKey & Qt::ALT) {
-	pressVk(VK_MENU, EventSimulation::Release);
-    altSet=false;
-  }
-
-  if (virtualKey & Qt::META) {
-	pressVk(VK_LWIN, EventSimulation::Release);
-    superSet=false;
+  switch (virtualKey) {
+  case Qt::SHIFT:
+    pressVk(VK_SHIFT, EventSimulation::Release);
+    break;
+  case Qt::Key_AltGr:
+    pressVk(VK_RMENU, EventSimulation::Release);
+    break;
+  case Qt::CTRL:
+    pressVk(VK_CONTROL, EventSimulation::Release);
+    break;
+  case Qt::ALT:
+    pressVk(VK_MENU, EventSimulation::Release);
+    break;
+  case Qt::META:
+    pressVk(VK_LWIN, EventSimulation::Release);
+    break;
   }
 }
-
-
-/**
- * @brief
- *
- * @param int virtualKey
- *
- *
- * @author Phillip Goriup
- */
- /*
-void WindowsEvents::unsetUnneededModifiers()
-{
-  if (shiftSet && shiftOnce) {
-    unsetModifier(Qt::SHIFT);
-    shiftSet=false;
-    shiftOnce=false;
-  }
-  if (altSet && altOnce) {
-    unsetModifier(Qt::ALT);
-    altSet=false;
-    altOnce=false;
-  }
-  if (strgSet && strgOnce) {
-    unsetModifier(Qt::CTRL);
-    strgSet=false;
-    strgOnce=false;
-  }
-  if (superSet && superOnce) {
-    unsetModifier(Qt::META);
-    superSet=false;
-    superOnce=false;
-  }
-  if (altgrSet && altgrOnce) {
-    unsetModifier(Qt::Key_AltGr);
-    altgrSet=false;
-    altgrOnce=false;
-  }
-}
-*/
-
 
 /**
  * @brief Destructor

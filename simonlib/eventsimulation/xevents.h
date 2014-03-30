@@ -21,7 +21,7 @@
 #define SIMON_XEVENTS_H_2BF2636B0148404495C2D0D8A926A43A
 
 #include "pressmode.h"
-#include "coreevents.h"
+#include "pcevents.h"
 
 class QString;
 
@@ -30,25 +30,24 @@ class XEventsPrivate;
  * @class XEvents
  * @brief The X11 Event Backend
  *
- * Implements CoreEvents
+ * Implements PCEvents
  *
  * @version 0.1
  * @date 4.03.2007
  * @author Peter Grasch
  */
 
-class XEvents : public CoreEvents
+class XEvents : public PCEvents
 {
-
   private:
     XEventsPrivate *d;
+    void setModifierKeyPrivate (int virtualKey);
+    void unsetModifierKeyPrivate (int virtualKey);
+    void sendKeyPrivate (unsigned int key, EventSimulation::PressMode mode);
 
   public:
     void click (int x, int y, EventSimulation::ClickMode clickMode);
     void dragAndDrop (int xStart, int yStart, int x, int y);
-    void sendKeyPrivate (unsigned int key, EventSimulation::PressMode mode);
-    void setModifierKey (int virtualKey, bool once);
-    void unsetModifier (int virtualKey);
     XEvents (const char* displayName=":0.0");
     ~XEvents();
 

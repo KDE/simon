@@ -27,6 +27,7 @@
 #include "xevents.h"
 #endif
 #ifdef Q_OS_MAC
+#include "carbonevents.h"
 #endif
 #ifdef Q_OS_WIN32
 #include "windowsevents.h"
@@ -49,7 +50,7 @@ EventHandler::EventHandler()
 : coreEvents(new XEvents())
 #endif
 #ifdef Q_OS_MAC
-: coreEvents(0)
+: coreEvents(new CarbonEvents())
 #endif
 #ifdef Q_OS_WIN32
 : coreEvents( (CoreEvents*) new WindowsEvents())

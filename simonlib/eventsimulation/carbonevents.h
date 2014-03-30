@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <peter.grasch@bedahr.org>
+ *   Copyright (C) 2014 Peter Grasch <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,29 +17,15 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_WINDOWSEVENTS_H_648808A9BE984CC98FF8681C9BF5D4F9
-#define SIMON_WINDOWSEVENTS_H_648808A9BE984CC98FF8681C9BF5D4F9
+#ifndef SIMON_CARBONEVENTS_H_648808A9BE984CC98FF8681C9BF5D4F9
+#define SIMON_CARBONEVENTS_H_648808A9BE984CC98FF8681C9BF5D4F9
 
-#include "pcevents.h"
-#include "pressmode.h"
-#include "clickmode.h"
-#include <QString>
-#include <windows.h>
+#include "coreevents.h"
 #include <QHash>
+#include <ApplicationServices/ApplicationServices.h>
 
-/**
- *	@class WindowsEvents
- *	@brief The WinAPI Event Backend
- *
- *	Implements CoreEvents
- *
- *	@version 0.1
- *	@date 4.03.2007
- *	@author Phillip Goriup
- */
-class WindowsEvents : public PCEvents
+class CarbonEvents : public CoreEvents
 {
-
   private:
     enum MouseButton
     {
@@ -47,18 +33,23 @@ class WindowsEvents : public PCEvents
       Right=2,
       Middle=3
     };
-    void pressVk(BYTE vK, EventSimulation::PressMode mode);
-    void moveMouse(int x, int y);
-    void activateMouseButton(MouseButton btn, EventSimulation::PressMode mode);
+    QHash<unsigned int, QPair<unsigned int /*modifiers*/, unsigned int /*keycode*/> > m_keyTable;
+    inline QPair<unsigned int /*modifiers*/, unsigned int /*keycode*/> keyCodeForChar(unsigned short c);
+    void buildKeyLookupTable();
+    void scanKeyCodes(unsigned int modifiers, unsigned int modifierCodes, const UCKeyboardLayout * keyboardLayout, unsigned char kbdType);
 
     void setModifierKeyPrivate(int virtualKey);
     void unsetModifierKeyPrivate(int virtualKey);
-    void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode);
+    void pressCode(const CGKeyCode code, EventSimulation::PressMode mode, unsigned short string = 0);
+    void moveMouse(int x, int y);
+    void postClick(const CGMouseButton& button, const CGEventType& type, const CGPoint& point);
+
   public:
-    WindowsEvents();
+    CarbonEvents();
     void click(int x, int y, EventSimulation::ClickMode clickMode);
     void dragAndDrop(int xStart, int yStart, int x, int y);
-    ~WindowsEvents();
+    void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode);
+    ~CarbonEvents();
 
 };
 #endif
