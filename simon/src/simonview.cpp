@@ -204,8 +204,12 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
     delete info;
   }
 
-  if (!control->startMinimized())
+  if (!control->startMinimized()) {
     show();
+#ifdef Q_OS_MAC
+    raise();
+#endif
+  }
 }
 
 void SimonView::backButtonAnimationStep ( int step )
