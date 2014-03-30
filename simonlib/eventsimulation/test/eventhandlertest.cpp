@@ -142,6 +142,7 @@ void eventHandlerTest::testClick()
   btn->move(0,0);
   btn->resize(100,100);
   btn->show();
+  btn->raise();
   QTest::qWait(200);
   QSignalSpy spyL(btn, SIGNAL(clicked()));
   QSignalSpy spyR(btn, SIGNAL(rightClicked()));
@@ -186,6 +187,7 @@ void eventHandlerTest::testDragAndDrop()
   dragTester->move(0,0);
   dragTester->resize(500,500);
   dragTester->show();
+  dragTester->raise();
   QTest::qWait(200);
   EventHandler::getInstance()->dragAndDrop(40, 40, 80, 80);
   QTest::qWait(1000);
@@ -200,6 +202,7 @@ void eventHandlerTest::testSendShortcut()
   btn->move(0,0);
   btn->resize(100,100);
   btn->show();
+  btn->raise();
   QTest::qWait(200);
   QSignalSpy spy(btn, SIGNAL(clicked()));
   int fireCount = 0;
@@ -222,6 +225,7 @@ void eventHandlerTest::testSendWord()
 {
   QLineEdit *leTest = new QLineEdit();
   leTest->show();
+  leTest->raise();
   QStringList words;
   words << "Test" << "!@#$%&*()_";
   QTest::qWait(300);
