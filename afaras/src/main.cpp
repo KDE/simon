@@ -39,6 +39,9 @@ int main(int argc, char **argv)
   QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath()+"/../plugins");
   AfarasView *widget = new AfarasView(0,0);
   widget->show();
+#ifdef Q_OS_MAC
+  widget->raise();
+#endif
   return app.exec();
 }
 
