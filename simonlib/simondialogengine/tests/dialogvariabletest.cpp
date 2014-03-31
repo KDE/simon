@@ -36,10 +36,10 @@ class testVariables: public QObject
     //void testGeneral();
     void testAdd();
     void testRemove();
-    void testSet();
-    void testTypedGet();
+    //void testSet();
+    //void testTypedGet();
     void testInvalidTypedGet();
-    void testInvalidSet();
+    //void testInvalidSet();
     void testCustomType(); //TODO:  Fix dialog variable so custom types can be used.
 };
 
@@ -47,54 +47,38 @@ void testVariables::testAdd()
 {
   DialogVariableStore v;
   QString name = "attack";
-  QString result = QString("3.01");
+  double result = 3.01;
   v.addVariable<double>(name,3.01);
-  QCOMPARE(v.getValue(name).toString(),result);
+  QCOMPARE(*(v.getValue<double>(name).data()),result);
 }
 
 void testVariables::testRemove()
 {
   DialogVariableStore v;
   v.addVariable<double>("attack",3.4);
-  QCOMPARE(v.getValue("attack").toString(),QString("3.4"));
+  DialogVariableValue<double> result = v.getValue<double>("attack");
+  QCOMPARE(*result.data(),3.4);
   QVERIFY(v.contains("attack"));
   v.removeVariable("attack");
   QVERIFY(!v.contains("attack"));
 }
 
-void testVariables::testSet()
-{
-  DialogVariableStore v;
-  v.addVariable<double>("attack",3.4);
-  QCOMPARE(v.getValue("attack").toString(),QString("3.4"));
-  v.setVariable<double>("attack",3.5);
-  QCOMPARE(v.getValue("attack").toString(),QString("3.5"));
-}
-
-void testVariables::testTypedGet()
+/*void testVariables::testTypedGet()
 {
   DialogVariableStore v;
   v.addVariable<int>("defense",3);
   int i = v.getTypedValue<int>("defense");
   v.setVariable<int>("defense",i+1);
   QCOMPARE(v.getTypedValue<int>("defense"),i+1);
-}
+}*/
 
 void testVariables::testInvalidTypedGet()
 {
   DialogVariableStore v;
   v.addVariable<int>("oh noes",4);
-  double d = v.getTypedValue<double>("oh noes");
-  QCOMPARE(d,double());
-}
-
-void testVariables::testInvalidSet()
-{
-  DialogVariableStore v;
-  v.addVariable<int>("mistakes",1);
-  bool result = v.setVariable<double>("mistakes",3.5);
-  QVERIFY(!result); //This set should fail.
-  QCOMPARE(v.getTypedValue<int>("mistakes"),1);
+  DialogVariableValue<double> d = v.getValue<double>("oh noes");
+  bool result = !d.isValid();
+  QVERIFY(result);
 }
 
 

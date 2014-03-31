@@ -37,14 +37,13 @@ class DialogVariableStore {
     } factory;
   public:
     bool removeVariable(const QString& name);
-    QVariant getValue(const QString& name) const;
     int count() const { return dialogVariables.count(); }
     bool contains(QString s) { return dialogVariables.contains(s); }
     
     template <typename T>
     bool addVariable(const QString& name, const T& val)
     {
-      if(!this->dialogVariables.contains(name))
+      if(this->dialogVariables.contains(name))
       {
 	 kWarning() << "Variable " << name << " already exists.";
 	 return false;
@@ -54,23 +53,8 @@ class DialogVariableStore {
     }
     
     template <typename T>
-    T getTypedValue(const QString& name) const
+    DialogVariableValue<T> getValue(const QString& name) const
     {
-      //TODO:  Fix this so it doesn't return if there's a bad cast.
-      if(DialogVariable<T> * temp = dynamic_cast<DialogVariable<T>*>(this->dialogVariables[name]))
-      {
-	return temp->getTypedValue();
-      }
-      return T();
-    }
-    
-    template <typename T>
-    bool setVariable(const QString& name, const T& value)
-    {
-      if(DialogVariable<T> * temp = dynamic_cast<DialogVariable<T>*>(this->dialogVariables[name]))
-      {
-	return temp->setTypedValue(value);
-      }
-      return false;
+	return this->dialogVariables[name]->getValue<T>();
     }
 };

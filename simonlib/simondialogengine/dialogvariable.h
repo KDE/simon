@@ -19,16 +19,61 @@
 
 #include <QString>
 #include <QVariant>
+#include <QSharedPointer>
 
 //TODO:  Implement the parser class and have this use it to get/set the variable.
 
+
+template <class T>
+class DialogVariable;
+
+template <class T>
+class DialogVariableValue
+{
+  private:
+    QSharedPointer<T> ptr;
+    bool isValidCast;
+  public:
+    DialogVariableValue<T>() : ptr(), isValidCast(false) { }
+    DialogVariableValue<T>(const DialogVariableValue<T>& cpy) : ptr(cpy.ptr), isValidCast(cpy.isValidCast) { }
+    explicit DialogVariableValue<T>(const QSharedPointer<T>& pointer) : ptr(pointer), isValidCast(true) { }
+    
+    T* data() { return this->ptr.data(); }
+    
+    bool isValid() { return this->isValidCast; }
+    
+    /*DialogVariableValue<T>& operator=(const T& val) 
+    { 
+      *ptr = val;
+      return *this;
+    }*/
+};
+
 class DialogVariableBase {
+  protected:
+    //TODO: Find a less hacky solution to this.
   public:
     DialogVariableBase() {}
     virtual ~DialogVariableBase() {}
-    virtual QVariant getValue() = 0;
+    //virtual QVariant getValue() = 0;
     virtual bool setValue(const QString& val) = 0;
+    virtual QString toString() = 0;
+    
+    
+    template <class T>
+    DialogVariableValue<T> getValue()
+    {
+      if(DialogVariable<T> * casted_this = dynamic_cast<DialogVariable<T>*>(this))
+      {
+	return casted_this->getVal();
+      }
+      else
+      {
+	return DialogVariableValue<T>();
+      }
+    }
 };
+
 
 template <class T>
 class DialogVariable : public DialogVariableBase
@@ -36,25 +81,22 @@ class DialogVariable : public DialogVariableBase
   typedef T VariableType;
   private:
       QString name;
-      VariableType value;
+      QSharedPointer<VariableType> value;
       class Parser {} parser;
   public:
-      DialogVariable<T>(QString n, VariableType val) : name(n), value(val) { }
-      VariableType getTypedValue() { return value; }
-      virtual QVariant getValue()
+      DialogVariable<T>(const QString& n, const VariableType& val) : name(n), value(new VariableType(val)) { }
+      
+      DialogVariableValue<T> getVal()
       {
-	  return QVariant(value);
+	return DialogVariableValue<T>(value);
       }
+      
       virtual bool setValue(const QString& val)
       {
 	Q_UNUSED(val);
 	//TODO: Implement this with parsers
 	return false;
       }
-      virtual bool setTypedValue(const T& val)
-      {
-	value = val;
-	return true;
-      }
-	
+      
+      virtual QString toString() { return "test"; }
 };

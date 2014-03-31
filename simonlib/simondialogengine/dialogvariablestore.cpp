@@ -19,15 +19,9 @@
 
 #include "dialogvariablestore.h"
 
-
-QVariant DialogVariableStore::getValue(const QString& name) const
-{
-  return this->dialogVariables[name]->getValue();
-}
-
 bool DialogVariableStore::removeVariable(const QString& name)
 {
-  if(this->dialogVariables.contains(name));
+  if(!this->dialogVariables.contains(name))
   {
     kWarning() << "Variable " << name << " does not exist.";
     return false;
