@@ -50,7 +50,11 @@ endif(UNIX)
 
 macro_optional_find_package(KdepimLibs 4.5.60)
 macro_log_feature(KdepimLibs_FOUND "KDE PIM Libs" "KDE Libraries for PIM" "http://pim.kde.org/" FALSE "4.5.60" "Required for PIM plugin.")
+if(UNIX AND NOT APPLE)
 set(USE_PLASMA true CACHE BOOL "Use the plasma data engines in the dialog plugin")
+else()
+set(USE_PLAMSA false)
+endif()
 
 if(USE_PLASMA)
   add_definitions(-DUSE_PLASMA)
