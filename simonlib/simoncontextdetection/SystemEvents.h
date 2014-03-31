@@ -2,6 +2,8 @@
  * SystemEvents.h
  */
 
+// krazy:excludeall=copyright,license
+
 #import <AppKit/AppKit.h>
 #import <ScriptingBridge/ScriptingBridge.h>
 
