@@ -109,6 +109,9 @@ void testBoundValue::testScript()
 
 void testBoundValue::testPlasma()
 {
+#ifndef USE_PLASMA
+  QSKIP("Plasma integration disabled", SkipAll);
+#endif
   //basic value check
     //PlasmaBoundValue(const QString& name, const QString& dataEngine, const QString& dataEngineName, 
         //const QString& dataSource, const QString& key);
