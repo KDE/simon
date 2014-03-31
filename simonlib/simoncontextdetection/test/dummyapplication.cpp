@@ -26,5 +26,6 @@ int main(int argc, char** argv)
   QWidget w;
   w.setWindowTitle("Test Dummy Application");
   w.show();
+  w.raise();
   return app.exec();
 }
