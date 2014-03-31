@@ -25,6 +25,7 @@
 #include "linuxprocessinfogatherer.h"
 #endif
 #ifdef Q_OS_MAC
+#include "macprocessinfogatherer.h"
 #endif
 
 ProcessInfo* ProcessInfo::m_instance;
@@ -38,7 +39,7 @@ ProcessInfo::ProcessInfo()
     m_gatherer = new LinuxProcessInfoGatherer();
     #endif
     #ifdef Q_OS_MAC
-    m_gatherer = 0; //TODO
+    m_gatherer = new MacProcessInfoGatherer();
     #endif
 
     connect(m_gatherer, SIGNAL(processAdded(QString)),
