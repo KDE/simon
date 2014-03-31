@@ -37,7 +37,7 @@ IF(WIN32)
 ENDIF(WIN32)
 
 IF(APPLE)
-  add_definitions( -framework ApplicationServices)
+  set(CMAKE_SHARED_LINKER_FLAGS "-framework ApplicationServices")
   kde4_add_library(eventsimulation SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_APPLE_SRCS})
   target_link_libraries(eventsimulation ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS})
 ENDIF()
