@@ -52,8 +52,11 @@ void processInfoGathererTest::initTestCase()
 
   app = new KApplication(true);
   proc = new KProcess();
+#ifndef Q_OS_MAC
   proc->setProgram(qApp->applicationDirPath() + QDir::separator() + "dummyapplication");
-  qDebug() << proc->program();
+#else
+  proc->setProgram(qApp->applicationDirPath() + "/../../../dummyapplication.app/Contents/MacOS/dummyapplication");
+#endif
   
   delete[] argv;
   delete[] appName;
@@ -70,9 +73,13 @@ void processInfoGathererTest::testProcessTracking()
   QString thisExecutable = QFileInfo(qApp->applicationFilePath()).fileName();
   ProcessInfo::instance(); //setting up
 
-  QTest::qWait(500);
+#ifdef Q_OS_MAC
+  qWarning() << "If this test fails, make sure that you *disabled* the option to change the terminal's window title "
+                "according to the running application in it's preferences as this interferes with the test.";
+#endif
 
-  qDebug() << "Testing process tracking" << thisExecutable;
+  QTest::qWait(1200);
+
   QSignalSpy spyAdd(ProcessInfo::instance(), SIGNAL(processAdded(QString)));
   QSignalSpy spyRem(ProcessInfo::instance(), SIGNAL(processRemoved(QString)));
   QSignalSpy spyTitleChanged(ProcessInfo::instance(), SIGNAL(activeWindowTitleChanged(QString)));
@@ -84,7 +91,7 @@ void processInfoGathererTest::testProcessTracking()
 
   proc->start();
   proc->waitForStarted();
-  QTest::qWait(1000);
+  QTest::qWait(1200);
 
   QVERIFY(ProcessInfo::instance()->getRunningProcesses().contains(thisExecutable));
   QVERIFY(ProcessInfo::instance()->getRunningProcesses().contains("dummyapplication"));
@@ -109,7 +116,7 @@ void processInfoGathererTest::testProcessTracking()
 
   proc->terminate();
   proc->waitForFinished();
-  QTest::qWait(1000);
+  QTest::qWait(1200);
 
   QVERIFY(ProcessInfo::instance()->getRunningProcesses().contains(thisExecutable));
   QVERIFY(!ProcessInfo::instance()->getRunningProcesses().contains("dummyapplication"));
