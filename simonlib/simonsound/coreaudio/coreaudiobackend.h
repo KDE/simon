@@ -25,9 +25,14 @@
 #include <QStringList>
 #include <QMutex>
 
+struct AQRecorderState;
+
 class CoreAudioBackend : public SoundBackend
 {
   public:
+    CoreAudioBackend();
+    ~CoreAudioBackend();
+
     //device listing / checking
     QStringList getAvailableInputDevices();
     QStringList getAvailableOutputDevices();
@@ -48,6 +53,11 @@ class CoreAudioBackend : public SoundBackend
     bool preparePlayback(const QString& device, int& channels, int& samplerate);
     bool startPlayback(SoundBackendClient *client);
     bool stopPlayback();
+
+  private:
+    int m_bufferSize;
+    AQRecorderState* aqData;
+    bool prepare(const QString& device, int& channels, int& samplerate, bool isPlayback);
 };
 
 #endif

@@ -39,7 +39,7 @@ IF(UNIX AND NOT WIN32 AND NOT APPLE)
   set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} alsa/alsabackend.cpp)
 ENDIF()
 IF(APPLE)
-  set(CMAKE_SHARED_LINKER_FLAGS "-framework Foundation -framework CoreAudio")
+  set(CMAKE_SHARED_LINKER_FLAGS "-framework Foundation -framework CoreAudio -framework AudioToolbox")
   set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} coreaudio/coreaudiobackend.mm)
 ENDIF()
 
