@@ -24,6 +24,93 @@
 #include <Foundation/NSString.h>
 #include <KDebug>
 
+QString getDeviceName(AudioDeviceID device);
+QStringList getDevices(bool inputDevices);
+
+QStringList CoreAudioBackend::getAvailableInputDevices()
+{
+  return getDevices(true);
+}
+
+QStringList CoreAudioBackend::getAvailableOutputDevices()
+{
+  return getDevices(false);
+}
+
+bool CoreAudioBackend::check(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate)
+{
+  Q_UNUSED(type);
+  Q_UNUSED(device);
+  Q_UNUSED(channels);
+  Q_UNUSED(samplerate);
+  return true; // Automatic resampling
+}
+
+QString getDefaultDevice(bool inputDevice)
+{
+  AudioDeviceID defaultId = 0;
+  UInt32 propertySize = sizeof(AudioDeviceID);
+  AudioObjectPropertyAddress address = { (inputDevice) ? kAudioHardwarePropertyDefaultInputDevice :
+                                                         kAudioHardwarePropertyDefaultOutputDevice,
+                                            kAudioObjectPropertyScopeGlobal,
+                                            kAudioObjectPropertyElementMaster };
+  if (AudioObjectGetPropertyData(kAudioObjectSystemObject,
+                                 &address, 0, NULL, &propertySize, &defaultId) != noErr) {
+    kWarning() << "Failed to get default device";
+    return QString();
+  }
+  return getDeviceName(defaultId);
+}
+
+QString CoreAudioBackend::getDefaultInputDevice()
+{
+  return getDefaultDevice(true);
+}
+
+QString CoreAudioBackend::getDefaultOutputDevice()
+{
+  return getDefaultDevice(false);
+}
+
+
+int CoreAudioBackend::bufferSize()
+{
+  return 0;
+}
+
+//recording
+bool CoreAudioBackend::prepareRecording(const QString& device, int& channels, int& samplerate)
+{
+  return false;
+}
+
+bool CoreAudioBackend::startRecording(SoundBackendClient *client)
+{
+  return false;
+}
+
+bool CoreAudioBackend::stopRecording()
+{
+  return false;
+}
+
+
+//playback
+bool CoreAudioBackend::preparePlayback(const QString& device, int& channels, int& samplerate)
+{
+  return false;
+}
+
+bool CoreAudioBackend::startPlayback(SoundBackendClient *client)
+{
+  return false;
+}
+
+bool CoreAudioBackend::stopPlayback()
+{
+  return false;
+}
+
 QString getDeviceName(AudioDeviceID device)
 {
   CFStringRef deviceName;
@@ -122,90 +209,3 @@ QStringList getDevices(bool inputDevices)
   free(deviceIDs);
   return devices;
 }
-
-QStringList CoreAudioBackend::getAvailableInputDevices()
-{
-  return getDevices(true);
-}
-
-QStringList CoreAudioBackend::getAvailableOutputDevices()
-{
-  return getDevices(false);
-}
-
-bool CoreAudioBackend::check(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate)
-{
-  Q_UNUSED(type);
-  Q_UNUSED(device);
-  Q_UNUSED(channels);
-  Q_UNUSED(samplerate);
-  return true; // Automatic resampling
-}
-
-QString getDefaultDevice(bool inputDevice)
-{
-  AudioDeviceID defaultId = 0;
-  UInt32 propertySize = sizeof(AudioDeviceID);
-  AudioObjectPropertyAddress address = { (inputDevice) ? kAudioHardwarePropertyDefaultInputDevice :
-                                                         kAudioHardwarePropertyDefaultOutputDevice,
-                                            kAudioObjectPropertyScopeGlobal,
-                                            kAudioObjectPropertyElementMaster };
-  if (AudioObjectGetPropertyData(kAudioObjectSystemObject,
-                                 &address, 0, NULL, &propertySize, &defaultId) != noErr) {
-    kWarning() << "Failed to get default device";
-    return QString();
-  }
-  return getDeviceName(defaultId);
-}
-
-QString CoreAudioBackend::getDefaultInputDevice()
-{
-  return getDefaultDevice(true);
-}
-
-QString CoreAudioBackend::getDefaultOutputDevice()
-{
-  return getDefaultDevice(false);
-}
-
-
-int CoreAudioBackend::bufferSize()
-{
-  return 0;
-}
-
-
-//recording
-bool CoreAudioBackend::prepareRecording(const QString& device, int& channels, int& samplerate)
-{
-  return false;
-}
-
-bool CoreAudioBackend::startRecording(SoundBackendClient *client)
-{
-  return false;
-}
-
-bool CoreAudioBackend::stopRecording()
-{
-  return false;
-}
-
-
-//playback
-bool CoreAudioBackend::preparePlayback(const QString& device, int& channels, int& samplerate)
-{
-  return false;
-}
-
-bool CoreAudioBackend::startPlayback(SoundBackendClient *client)
-{
-  return false;
-}
-
-bool CoreAudioBackend::stopPlayback()
-{
-  return false;
-}
-
-
