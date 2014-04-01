@@ -24,6 +24,51 @@
 #include <Foundation/NSString.h>
 #include <KDebug>
 
+QString getDeviceName(AudioDeviceID device)
+{
+  CFStringRef deviceName;
+  CFStringRef manufacturerName;
+  CFStringRef uidString;
+  QString qDeviceName;
+  QString qManufacturerName;
+  QString qAddress;
+  AudioObjectPropertyAddress propertyAddress;
+  UInt32 propertySize;
+
+  //device name
+  propertySize = sizeof(deviceName);
+  propertyAddress.mSelector = kAudioObjectPropertyName;
+  if (AudioObjectGetPropertyData(device, &propertyAddress, 0, NULL, &propertySize, &deviceName) != noErr) {
+    kWarning() << "Failed to get device name for device";
+    return QString();
+  }
+  qDeviceName = QString::fromLocal8Bit(CFStringGetCStringPtr(deviceName, CFStringGetSystemEncoding()));
+  CFRelease(deviceName);
+
+  //manufacturer name
+  propertySize = sizeof(manufacturerName);
+  propertyAddress.mSelector = kAudioObjectPropertyManufacturer;
+  if (AudioObjectGetPropertyData(device, &propertyAddress, 0, NULL, &propertySize, &manufacturerName) != noErr) {
+    kWarning() << "Failed to get manufacturer name for device " << qDeviceName;
+    return QString();
+  }
+  qManufacturerName = QString::fromLocal8Bit(CFStringGetCStringPtr(manufacturerName, CFStringGetSystemEncoding()));
+  CFRelease(manufacturerName);
+
+  //address
+  propertySize = sizeof(uidString);
+  propertyAddress.mSelector = kAudioDevicePropertyDeviceUID;
+  if (AudioObjectGetPropertyData(device, &propertyAddress, 0, NULL, &propertySize, &uidString) != noErr) {
+    kWarning() << "Failed to get address for device " << qDeviceName;
+    return QString();
+  }
+  qAddress  = QString::fromLocal8Bit(CFStringGetCStringPtr(uidString, CFStringGetSystemEncoding()));
+  CFRelease(uidString);
+  return i18nc("%1 is device name, %2 is manufacturer name and %3 is the id (which needs to be at "
+                     "the end and wrapped in paranthesis", "%1 by %2 (%3)", qDeviceName,
+                     qManufacturerName, qAddress);
+}
+
 /*
  * Roughly based on:
  * http://stackoverflow.com/questions/1983984/how-to-get-audio-device-uid-to-pass-into-nssounds-setplaybackdeviceidentifier
@@ -32,9 +77,10 @@ QStringList getDevices(bool inputDevices)
 {
   QStringList devices;
   AudioObjectPropertyAddress propertyAddress;
-  AudioObjectID *deviceIDs;
   UInt32 propertySize;
+  AudioObjectID *deviceIDs;
   NSInteger numDevices;
+  QString thisDeviceName;
 
   propertyAddress.mSelector = kAudioHardwarePropertyDevices;
   propertyAddress.mScope = (inputDevices) ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput;
@@ -51,63 +97,27 @@ QStringList getDevices(bool inputDevices)
     kWarning() << "Failed to get device list";
     return devices;
   }
-  CFStringRef deviceName;
-  CFStringRef manufacturerName;
-  CFStringRef uidString;
-  QString qDeviceName;
-  QString qManufacturerName;
-  QString qAddress;
-
   for (NSInteger idx=0; idx<numDevices; idx++) {
-    //device name
-    propertySize = sizeof(deviceName);
-    propertyAddress.mSelector = kAudioObjectPropertyName;
-    if (AudioObjectGetPropertyData(deviceIDs[idx], &propertyAddress, 0, NULL, &propertySize, &deviceName) != noErr) {
-      kWarning() << "Failed to get device name for device";
-      continue;
-    }
-    qDeviceName = QString::fromLocal8Bit(CFStringGetCStringPtr(deviceName, CFStringGetSystemEncoding()));
-    CFRelease(deviceName);
-
-    //manufacturer name
-    propertySize = sizeof(manufacturerName);
-    propertyAddress.mSelector = kAudioObjectPropertyManufacturer;
-    if (AudioObjectGetPropertyData(deviceIDs[idx], &propertyAddress, 0, NULL, &propertySize, &manufacturerName) != noErr) {
-      kWarning() << "Failed to get manufacturer name for device " << qDeviceName;
-      continue;
-    }
-    qManufacturerName = QString::fromLocal8Bit(CFStringGetCStringPtr(manufacturerName, CFStringGetSystemEncoding()));
-    CFRelease(manufacturerName);
-
-    //address
-    propertySize = sizeof(uidString);
-    propertyAddress.mSelector = kAudioDevicePropertyDeviceUID;
-    if (AudioObjectGetPropertyData(deviceIDs[idx], &propertyAddress, 0, NULL, &propertySize, &uidString) != noErr) {
-      kWarning() << "Failed to get address for device " << qDeviceName;
-      continue;
-    }
-    qAddress  = QString::fromLocal8Bit(CFStringGetCStringPtr(uidString, CFStringGetSystemEncoding()));
-    CFRelease(uidString);
-
     //channels
     propertyAddress.mSelector = kAudioDevicePropertyStreamConfiguration;
     if (AudioObjectGetPropertyDataSize(deviceIDs[idx], &propertyAddress, 0, NULL, &propertySize) != noErr) {
-      kWarning() << "Failed to get channel information size for device " << qDeviceName;
+      kWarning() << "Failed to get channel information size for device " << idx;
       continue;
     }
     AudioBufferList *bufferList = static_cast<AudioBufferList *>(malloc(propertySize));
     if (AudioObjectGetPropertyData(deviceIDs[idx], &propertyAddress, 0, NULL, &propertySize, bufferList) != noErr) {
-      kWarning() << "Failed to get channel information for device " << qDeviceName;
+      kWarning() << "Failed to get channel information for device " << idx;
       delete bufferList;
       continue;
     }
-    kDebug() << "Input channels for " << qDeviceName << " = " << bufferList->mNumberBuffers;
-    if (bufferList->mNumberBuffers > 0)
-      devices << i18nc("%1 is device name, %2 is manufacturer name and %3 is the id (which needs to be at "
-                       "the end and wrapped in paranthesis", "%1 by %2 (%3)", qDeviceName,
-                       qManufacturerName, qAddress);
-
+    if (bufferList->mNumberBuffers == 0) {
+      delete bufferList;
+      continue;
+    }
     delete bufferList;
+    thisDeviceName = getDeviceName(deviceIDs[idx]);
+    if (!thisDeviceName.isNull())
+      devices << thisDeviceName;
   }
   free(deviceIDs);
   return devices;
@@ -125,18 +135,37 @@ QStringList CoreAudioBackend::getAvailableOutputDevices()
 
 bool CoreAudioBackend::check(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate)
 {
-  return false;
+  Q_UNUSED(type);
+  Q_UNUSED(device);
+  Q_UNUSED(channels);
+  Q_UNUSED(samplerate);
+  return true; // Automatic resampling
 }
 
+QString getDefaultDevice(bool inputDevice)
+{
+  AudioDeviceID defaultId = 0;
+  UInt32 propertySize = sizeof(AudioDeviceID);
+  AudioObjectPropertyAddress address = { (inputDevice) ? kAudioHardwarePropertyDefaultInputDevice :
+                                                         kAudioHardwarePropertyDefaultOutputDevice,
+                                            kAudioObjectPropertyScopeGlobal,
+                                            kAudioObjectPropertyElementMaster };
+  if (AudioObjectGetPropertyData(kAudioObjectSystemObject,
+                                 &address, 0, NULL, &propertySize, &defaultId) != noErr) {
+    kWarning() << "Failed to get default device";
+    return QString();
+  }
+  return getDeviceName(defaultId);
+}
 
 QString CoreAudioBackend::getDefaultInputDevice()
 {
-  return QString();
+  return getDefaultDevice(true);
 }
 
 QString CoreAudioBackend::getDefaultOutputDevice()
 {
-  return QString();
+  return getDefaultDevice(false);
 }
 
 
