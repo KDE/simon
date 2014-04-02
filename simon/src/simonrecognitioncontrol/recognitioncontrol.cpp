@@ -142,6 +142,7 @@ void RecognitionControl::startPrivateSimond()
 {
   if (!localSimond) {
     localSimond = new QProcess(this);
+    localSimond->setProcessChannelMode(QProcess::ForwardedChannels);
   }
   disconnect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
   if (localSimond->state() != QProcess::NotRunning) {
