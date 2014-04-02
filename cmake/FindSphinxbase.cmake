@@ -30,9 +30,8 @@ libfind_pkg_check_modules(SphinxBase_PKGCONF sphinxbase)
 
 # Include dir
 find_path(SphinxBase_INCLUDE_DIR
-  NAMES cmd_ln.h
+  NAMES sphinxbase/cmd_ln.h
   PATHS ${SphinxBase_PKGCONF_INCLUDE_DIRS}
-  PATH_SUFFIXES sphinxbase
 )
 
 # Finally the library itself
