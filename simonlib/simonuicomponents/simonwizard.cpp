@@ -28,6 +28,7 @@
 SimonWizard::SimonWizard(QWidget* parent, Qt::WFlags flags)
 : QWizard(parent, flags)
 {
+  setWizardStyle(QWizard::ModernStyle);
 }
 
 
