@@ -54,7 +54,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver, publi
 
     DialogTextParser *dialogParser;
     QList<DialogView*> dialogViews;
-    QList<DialogState*> DialogStates;
+    QList<DialogState*> dialogStates;
 
     void initState(DialogState *state);
 
@@ -63,13 +63,13 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver, publi
     void bindStateCommands();
     void deregister();
 
-    void StateChanged();
-    void StateDestroyed();
+    void stateChanged();
+    void stateDestroyed();
     
     DialogConfiguration* getDialogConfiguration() const;
 
   public slots:
-    void initState(int State);
+    void initState(int state);
     bool greedyTrigger(const QString& inputText);
     void activate(const QString& arg0="", const QString& arg1="", const QString& arg2="", const QString& arg3="",
       const QString& arg4="", const QString& arg5="", const QString& arg6="",
@@ -89,7 +89,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver, publi
     bool deSerializeConfig(const QDomElement& elem);
     void setFont(const QFont& font);
 
-    QList<DialogState*> getStates() const { return DialogStates; }
+    QList<DialogState*> getStates() const { return dialogStates; }
 
     bool addState(const QString& name);
     bool removeState(DialogState *state);
