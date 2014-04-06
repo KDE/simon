@@ -82,6 +82,8 @@ class SIMONDIALOGENGINE_EXPORT DialogTurn : public QAbstractItemModel
     static DialogTurn* createInstance(DialogTextParser *parser, const QDomElement& elem);
     QDomElement serialize(QDomDocument *doc);
 
+    DialogTurn* clone();
+
     void addTransition(DialogCommand* command);
     void removeTransition(DialogCommand* command);
 

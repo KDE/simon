@@ -17,6 +17,7 @@
  */
 
 #include "dialogconfiguration.h"
+#include "turnconfiguration.h"
 #include "dialogcommandmanager.h"
 
 #include <simondialogengine/dialogtemplateoptions.h>
@@ -26,6 +27,7 @@
 #include <simondialogengine/avatarmodel.h>
 #include <simondialogengine/boundvalue.h>
 #include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogturn.h>
 #include <simondialogengine/dialogcommand.h>
 #include <simondialogengine/confui/templateoptionsconfiguration.h>
 #include <simondialogengine/confui/boundvaluesconfiguration.h>
@@ -54,19 +56,21 @@ K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
 DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
 : CommandConfiguration(parent,  "dialog", ki18n( "Dialog" ),
-  "0.1", ki18n("Control a robot"),
-  "im-user",
-  DialogCommandPluginFactory::componentData()),
-  commandManager(_commandManager),
-  boundValuesConfig(new BoundValuesConfiguration(this)),
-  templateOptionsConfig(new TemplateOptionsConfiguration(this)),
-  avatarsConfig(new AvatarConfiguration(this)),
-  outputConfiguration(new OutputConfiguration(this))
+    "0.1", ki18n("Control a robot"),
+    "im-user",
+    DialogCommandPluginFactory::componentData()),
+    commandManager(_commandManager),
+    boundValuesConfig(new BoundValuesConfiguration(this)),
+    templateOptionsConfig(new TemplateOptionsConfiguration(this)),
+    avatarsConfig(new AvatarConfiguration(this)),
+    outputConfiguration(new OutputConfiguration(this))
+
 {
   Q_UNUSED(args);
   ui.setupUi(this);
 
   connect(ui.lwStates, SIGNAL(currentRowChanged(int)), this, SLOT(displayCurrentState()));
+  connect(ui.lwTurns, SIGNAL(currentRowChanged(int)), this, SLOT(setCurrentTurn()));
 
   connect(ui.pbAddState, SIGNAL(clicked()), this, SLOT(addState()));
   connect(ui.pbRenameState, SIGNAL(clicked()), this, SLOT(renameState()));
@@ -75,122 +79,112 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   connect(ui.pbMoveStateUp, SIGNAL(clicked()), this, SLOT(moveStateUp()));
   connect(ui.pbMoveStateDown, SIGNAL(clicked()), this, SLOT(moveStateDown()));
 
-  connect(ui.pbEditText, SIGNAL(clicked()), this, SLOT(editText()));
-
-  connect(ui.cbSilence, SIGNAL(toggled(bool)), this, SLOT(textSilenceChanged()));
-  connect(ui.cbAnnounceRepeat, SIGNAL(toggled(bool)), this, SLOT(textAnnounceRepeatChanged()));
-
-  connect(ui.pbAddTransition, SIGNAL(clicked()), this, SLOT(addTransition()));
-  connect(ui.pbEditTransition, SIGNAL(clicked()), this, SLOT(editTransition()));
-  connect(ui.pbRemoveTransition, SIGNAL(clicked()), this, SLOT(removeTransition()));
-
-  connect(ui.pbMoveTransitionUp, SIGNAL(clicked()), this, SLOT(moveTransitionUp()));
-  connect(ui.pbMoveTransitionDown, SIGNAL(clicked()), this, SLOT(moveTransitionDown()));
-  
-  connect(ui.cbDisplayAvatar, SIGNAL(toggled(bool)), this, SLOT(avatarDisplayToggled(bool)));
-  
-  connect(ui.sbText, SIGNAL(valueChanged(int)), this, SLOT(displaySelectedText()));
-  connect(ui.pbAddText, SIGNAL(clicked()), this, SLOT(addText()));
-  connect(ui.pbRemoveText, SIGNAL(clicked()), this, SLOT(removeText()));
-
-  connect(ui.lvStateAvatar, SIGNAL(clicked(QModelIndex)), this, SLOT(avatarSelected(QModelIndex)));
-
   ui.twMain->addTab(boundValuesConfig, i18n("Bound values"));
   ui.twMain->addTab(templateOptionsConfig, i18n("Template options"));
   ui.twMain->addTab(avatarsConfig, i18n("Avatars"));
   ui.twMain->addTab(outputConfiguration, i18n("Output"));
 
   ui.pbAddState->setIcon(KIcon("list-add"));
-  ui.pbAddTransition->setIcon(KIcon("list-add"));
-
-  ui.pbRemoveState->setIcon(KIcon("list-remove"));
-  ui.pbRemoveTransition->setIcon(KIcon("list-remove"));
-
   ui.pbRenameState->setIcon(KIcon("document-edit"));
-  ui.pbEditTransition->setIcon(KIcon("document-edit"));
-  ui.pbEditText->setIcon(KIcon("document-edit"));
+  ui.pbRemoveState->setIcon(KIcon("list-remove"));
 
   ui.pbMoveStateUp->setIcon(KIcon("arrow-up"));
-  ui.pbMoveTransitionUp->setIcon(KIcon("arrow-up"));
-
   ui.pbMoveStateDown->setIcon(KIcon("arrow-down"));
-  ui.pbMoveTransitionDown->setIcon(KIcon("arrow-down"));
 
-  ui.pbAddText->setIcon(KIcon("list-add"));
-  ui.pbRemoveText->setIcon(KIcon("list-remove"));
+  connect(ui.pbAddTurn, SIGNAL(clicked()), this, SLOT(addTurn()));
+  connect(ui.pbEditTurn, SIGNAL(clicked()), this, SLOT(editTurn()));
+  connect(ui.pbRemoveTurn, SIGNAL(clicked()), this, SLOT(removeTurn()));
+
+  ui.pbAddTurn->setIcon(KIcon("list-add"));
+  ui.pbEditTurn->setIcon(KIcon("document-edit"));
+  ui.pbRemoveTurn->setIcon(KIcon("list-remove"));
+
+  ui.pbAddRequiredField->setIcon(KIcon("list-add"));
+  ui.pbRemoveRequiredField->setIcon(KIcon("list-remove"));
+
+  displayCurrentState();
+}
+
+DialogTurn* DialogConfiguration::getCurrentTurn()
+{
+  DialogState* state = getCurrentState();
+  int row = ui.lwTurns->currentRow();
+
+  if (row == -1) return 0;
+
+  QList<DialogTurn*> turns = state->getTurns();
+
+  return turns[row];
+}
+
+void DialogConfiguration::addTurn()
+{
+  DialogState* state = getCurrentState();
+  DialogTurn* turn = state->createTurn();
+
+  TurnConfiguration turnConfig(turn, this);
+  turnConfig.exec();
+
+  if (turnConfig.code == QDialog::Accepted)
+  {
+    state->addTurn(turn);
+  }
+  else
+  {
+    delete turn;
+  }
+
+  displayCurrentState();
+}
+
+void DialogConfiguration::editTurn()
+{
+  DialogTurn* turn = getCurrentTurn();
+  DialogTurn* clone = turn->clone();
+
+  TurnConfiguration turnConfig(clone, this);
+  turnConfig.exec();
+
+  if (turnConfig.code == QDialog::Accepted)
+  {
+    getCurrentState()->setTurn(clone, ui.lwTurns->currentRow());
+  }
+  else
+  {
+    delete clone;
+  }
+
+  displayCurrentState();
+}
+
+void DialogConfiguration::removeTurn()
+{
+  if (!getCurrentState()->removeTurn())
+    KMessageBox::sorry(this, i18n("No turn selected!"));
   displayCurrentState();
 }
 
 void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
 {
-  if (!selected.isValid())
-  {
-    getCurrentState()->setAvatar(0);
-  } else {
-    Avatar *a = static_cast<Avatar*>(selected.internalPointer());
-    kDebug() << "Selected avatar: " << a->name();
-    getCurrentState()->setAvatar(a->id());
-  }
-}
-
-void DialogConfiguration::updateTextSelector()
-{
-  DialogState *state = getCurrentState();
-  if (!state) return;
-  
-  ui.sbText->setMaximum(state->getTextCount());
-  
-  displaySelectedText();
-  ui.pbRemoveText->setEnabled(state->getTextCount() > 1);
-}
-
-void DialogConfiguration::displaySelectedText()
-{
-  DialogState *state = getCurrentStateGraphical();
-  if (!state) return;
-  int textId = ui.sbText->value()-1;
-  kDebug() << "Getting text " << textId;
-  ui.teText->setText(state->getRawText(textId));
-}
-
-void DialogConfiguration::addText()
-{
-  DialogState *turn = getCurrentStateGraphical();
-  if (!turn) return;
-
-  turn->addText("");
-  updateTextSelector();
-  ui.sbText->setValue(ui.sbText->maximum());
-  displaySelectedText();
-}
-
-void DialogConfiguration::removeText()
-{
-  DialogState *state = getCurrentStateGraphical();
-  if (!state) return;
-  
-  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to remove the selected text variant?")) != KMessageBox::Yes)
-    return;
-  
-  if (state->getTextCount() == 1)
-  {
-    KMessageBox::information(this, i18n("Each dialog turn has to have at least one text."));
-    return;
-  }
-  if (!state->removeText(ui.sbText->value()-1))
-    KMessageBox::sorry(this, i18n("Could not remove text from turn."));
-  updateTextSelector();
+  // if (!selected.isValid())
+  // {
+  //   getCurrentState()->setAvatar(0);
+  // } else {
+  //   Avatar *a = static_cast<Avatar*>(selected.internalPointer());
+  //   kDebug() << "Selected avatar: " << a->name();
+  //   getCurrentState()->setAvatar(a->id());
+  // }
 }
 
 void DialogConfiguration::addState()
 {
   bool ok = true;
-  QString name = KInputDialog::getText(i18n("Add turn"), i18n("Name of the new turn:"), 
-                                        QString(), &ok);
+  QString name = KInputDialog::getText(i18n("Add State"), i18n("Name of the new state:"), 
+      QString(), &ok);
   if (!ok) return;
 
   if (!commandManager->addState(name))
-    KMessageBox::sorry(this, i18n("Failed to add turn"));
+    KMessageBox::sorry(this, i18n("Failed to add state"));
   displayStates();
 }
 
@@ -200,29 +194,29 @@ void DialogConfiguration::renameState()
   if (!state) return;
 
   bool ok = true;
-  QString name = KInputDialog::getText(i18n("Rename turn"), i18n("New name of the turn:"), 
-                                        state->getName(), &ok);
+  QString name = KInputDialog::getText(i18n("Rename state"), i18n("New name of the state:"), 
+      state->getName(), &ok);
   if (!ok) return;
 
   if (!state->rename(name))
-    KMessageBox::sorry(this, i18n("Failed to rename turn"));
+    KMessageBox::sorry(this, i18n("Failed to rename state"));
 
   displayStates();
 }
 
 void DialogConfiguration::removeState()
 {
-  DialogState* turn = getCurrentStateGraphical();
-  if (!turn) return;
+  DialogState* state = getCurrentStateGraphical();
+  if (!state) return;
 
-  if (!turn ||
+  if (!state ||
       KMessageBox::questionYesNoCancel(this, 
-        i18n("Do you really want to remove the selected turn?"))
+        i18n("Do you really want to remove the selected state?"))
       != KMessageBox::Yes)
     return;
 
-  if (!commandManager->removeState(turn))
-    KMessageBox::sorry(this, i18n("Failed to remove turn"));
+  if (!commandManager->removeState(state))
+    KMessageBox::sorry(this, i18n("Failed to remove state"));
 
   displayStates();
 
@@ -239,7 +233,7 @@ void DialogConfiguration::moveStateUp()
 
   if (!commandManager->moveStateUp(state))
   {
-    KMessageBox::sorry(this, i18n("Failed to move turn up.\n\nMaybe it is already at the top of the list?"));
+    KMessageBox::sorry(this, i18n("Failed to move state up.\n\nMaybe it is already at the top of the list?"));
     return;
   }
 
@@ -256,7 +250,7 @@ void DialogConfiguration::moveStateDown()
 
   if (!commandManager->moveStateDown(state))
   {
-    KMessageBox::sorry(this, i18n("Failed to move turn down.\n\nMaybe it is already at the end of the list?"));
+    KMessageBox::sorry(this, i18n("Failed to move state down.\n\nMaybe it is already at the end of the list?"));
     return;
   }
 
@@ -265,129 +259,111 @@ void DialogConfiguration::moveStateDown()
   ui.lwStates->setCurrentRow(row+1);
 }
 
-
-void DialogConfiguration::editText()
-{
-  DialogState *turn = getCurrentStateGraphical();
-  if (!turn)
-    return;
-
-  bool ok;
-  QString text = KInputDialog::getMultiLineText(i18n("Text"), i18n("Enter the text to present to the user when this turn is entered:"), 
-                                        turn->getRawText(ui.sbText->value()-1), &ok);
-  if (!ok) return;
-  
-  if (!turn->setRawText(ui.sbText->value()-1, text))
-    KMessageBox::sorry(this, i18n("Failed to update turn text."));
-
-  displayCurrentState();
-}
-
 void DialogConfiguration::textSilenceChanged()
 {
-  DialogState *turn = getCurrentStateGraphical();
-  if (!turn)
-    return;
+  // DialogState *turn = getCurrentStateGraphical();
+  // if (!turn)
+  //   return;
 
-  turn->setSilence(ui.cbSilence->isChecked());
-  displayCurrentState();
+  // turn->setSilence(ui.cbSilence->isChecked());
+  // displayCurrentState();
 }
 
 void DialogConfiguration::textAnnounceRepeatChanged()
 {
-  DialogState *turn = getCurrentStateGraphical();
-  if (!turn)
-    return;
+  // DialogState *turn = getCurrentStateGraphical();
+  // if (!turn)
+  //   return;
 
-  turn->setAnnounceRepeat(ui.cbAnnounceRepeat->isChecked());
+  // turn->setAnnounceRepeat(ui.cbAnnounceRepeat->isChecked());
   //displayCurrentState();
 }
- 
+
 
 void DialogConfiguration::addTransition()
 {
-  DialogState *turn = getCurrentStateGraphical();
-  if (!turn)
-    return;
+  // DialogState *turn = getCurrentStateGraphical();
+  // if (!turn)
+  //   return;
 
-  CreateDialogCommandWidget *create = new CreateDialogCommandWidget(commandManager, this);
-  CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
+  // CreateDialogCommandWidget *create = new CreateDialogCommandWidget(commandManager, this);
+  // CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
 
-  DialogCommand *transition = dialog->createTransition();
+  // DialogCommand *transition = dialog->createTransition();
 
-  delete create;
-  delete dialog;
+  // delete create;
+  // delete dialog;
 
-  if (!transition) return;
+  // if (!transition) return;
 
-  ((Command*) transition)->setParent(commandManager);
-  turn->addTransition(transition);
+  // ((Command*) transition)->setParent(commandManager);
+  // turn->addTransition(transition);
 }
 
 void DialogConfiguration::editTransition()
 {
-  DialogState *turn = getCurrentStateGraphical();
-  DialogCommand *transition = getCurrentTransitionGraphical();
-  if (!turn || !transition)
-    return;
+  // DialogState *turn = getCurrentStateGraphical();
+  // DialogCommand *transition = getCurrentTransitionGraphical();
+  // if (!turn || !transition)
+  //   return;
 
-  CreateDialogCommandWidget *create = new CreateDialogCommandWidget(commandManager, this);
-  CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
+  // CreateDialogCommandWidget *create = new CreateDialogCommandWidget(commandManager, this);
+  // CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
 
-  dialog->editTransition(transition);
+  // dialog->editTransition(transition);
 
-  delete create;
-  delete dialog;
+  // delete create;
+  // delete dialog;
 }
 
 void DialogConfiguration::removeTransition()
 {
-  DialogState *turn = getCurrentStateGraphical();
-  DialogCommand *transition = getCurrentTransitionGraphical();
-  if (!turn || !transition || 
-      KMessageBox::questionYesNoCancel(this, 
-        i18n("Do you really want to remove the selected transition?"))
-      != KMessageBox::Yes)
-    return;
+  // DialogState *turn = getCurrentStateGraphical();
+  // DialogCommand *transition = getCurrentTransitionGraphical();
+  // if (!turn || !transition || 
+  //     KMessageBox::questionYesNoCancel(this, 
+  //       i18n("Do you really want to remove the selected transition?"))
+  //     != KMessageBox::Yes)
+  //   return;
 
-  turn->removeTransition(transition);
+  // turn->removeTransition(transition);
 }
 
 void DialogConfiguration::moveTransitionUp()
 {
-  DialogState *turn = getCurrentStateGraphical();
-  DialogCommand *transition = getCurrentTransitionGraphical();
-  if (!turn || !transition)
-    return;
+  // DialogState *turn = getCurrentStateGraphical();
+  // DialogCommand *transition = getCurrentTransitionGraphical();
+  // if (!turn || !transition)
+  //   return;
 
-  QItemSelectionModel *model = ui.lvTransitions->selectionModel();
-  int row = model->selectedRows().at(0).row();
+  // QItemSelectionModel *model = ui.lvTransitions->selectionModel();
+  // int row = model->selectedRows().at(0).row();
 
-  if (!turn->moveTransitionUp(transition))
-    KMessageBox::sorry(this, i18n("Failed to move transition up.\n\nMaybe it is already at the top of the list?"));
+  // if (!turn->moveTransitionUp(transition))
+  //   KMessageBox::sorry(this, i18n("Failed to move transition up.\n\nMaybe it is already at the top of the list?"));
 
-  model->select(ui.lvTransitions->model()->index(row-1, 0),
-                          QItemSelectionModel::ClearAndSelect);
+  // model->select(ui.lvTransitions->model()->index(row-1, 0),
+  //                         QItemSelectionModel::ClearAndSelect);
 }
 
 void DialogConfiguration::moveTransitionDown()
 {
-  DialogState *turn = getCurrentStateGraphical();
-  DialogCommand *transition = getCurrentTransitionGraphical();
-  if (!turn || !transition)
-    return;
+  // DialogState *turn = getCurrentStateGraphical();
+  // DialogCommand *transition = getCurrentTransitionGraphical();
+  // if (!turn || !transition)
+  //   return;
 
-  QItemSelectionModel *model = ui.lvTransitions->selectionModel();
-  int row = model->selectedRows().at(0).row();
+  // QItemSelectionModel *model = ui.lvTransitions->selectionModel();
+  // int row = model->selectedRows().at(0).row();
 
-  if (!turn->moveTransitionDown(transition))
-    KMessageBox::sorry(this, i18n("Failed to move transition down.\n\nMaybe it is already at the end of the list?"));
+  // if (!turn->moveTransitionDown(transition))
+  //   KMessageBox::sorry(this, i18n("Failed to move transition down.\n\nMaybe it is already at the end of the list?"));
 
-  model->select(ui.lvTransitions->model()->index(row+1, 0),
-                          QItemSelectionModel::ClearAndSelect);
+  // model->select(ui.lvTransitions->model()->index(row+1, 0),
+  //                         QItemSelectionModel::ClearAndSelect);
 }
 
-    
+
 QDomElement DialogConfiguration::serialize(QDomDocument* doc)
 {
   QDomElement configElem = doc->createElement("config");
@@ -411,7 +387,7 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
     kDebug() << "Setting defaults...";
     return true;
   }
-  
+
   if (!templateOptionsConfig->deSerialize(elem))
     return false;
 
@@ -420,7 +396,7 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
 
   if (!avatarsConfig->deSerialize(elem))
     return false;
-  ui.lvStateAvatar->setModel(avatarsConfig->getModel());
+  // ui.lvStateAvatar->setModel(avatarsConfig->getModel());
 
   return true;
 }
@@ -435,12 +411,12 @@ void DialogConfiguration::displayStates()
   int oldRow = ui.lwStates->currentRow();
 
   ui.lwStates->clear();
-  
+
   QList<DialogState*> states = commandManager->getStates();
   int id = 1;
   foreach (DialogState* state, states)
   {
-    ui.lwStates->addItem(i18nc("%1: id of turn; %2: name of turn", "%1: %2", id, state->getName()));
+    ui.lwStates->addItem(i18nc("%1: id of state; %2: name of state", "%1: %2", id, state->getName()));
     id++;
   }
 
@@ -451,6 +427,20 @@ void DialogConfiguration::displayStates()
     else
       ui.lwStates->setCurrentRow(0);
   }
+
+  if (!getCurrentState())
+  {
+    ui.lwTurns->clear();
+  }
+
+  bool stateEnabled = ui.lwStates->count() > 0;
+  bool turnEnabled = ui.lwTurns->count() > 0;
+  ui.pbAddRequiredField->setEnabled(stateEnabled);
+  ui.pbRemoveRequiredField->setEnabled(stateEnabled);
+  ui.pbAddTurn->setEnabled(stateEnabled);
+  ui.pbEditTurn->setEnabled(stateEnabled && turnEnabled);
+  ui.pbRemoveTurn->setEnabled(stateEnabled && turnEnabled);
+  
 }
 
 DialogState* DialogConfiguration::getCurrentState()
@@ -475,11 +465,12 @@ DialogState* DialogConfiguration::getCurrentStateGraphical()
 
 DialogCommand* DialogConfiguration::getCurrentTransition()
 {
-  QModelIndex index = ui.lvTransitions->currentIndex();
-  if (!index.isValid())
-    return 0;
+  // QModelIndex index = ui.lvTransitions->currentIndex();
+  // if (!index.isValid())
+  //   return 0;
 
-  return static_cast<DialogCommand*>(index.internalPointer());
+  // return static_cast<DialogCommand*>(index.internalPointer());
+  return 0;
 }
 
 DialogCommand* DialogConfiguration::getCurrentTransitionGraphical()
@@ -496,33 +487,28 @@ void DialogConfiguration::displayCurrentState()
 {
   DialogState* currentState = getCurrentState();
 
-  ui.wgText->setEnabled(currentState);
-  ui.wgOptions->setEnabled(currentState);
-  ui.wgAvatar->setEnabled(currentState);
-
   if (!currentState)
   {
-    ui.teText->clear();
-    ui.lvTransitions->setModel(0);
     return;
   }
 
-  updateTextSelector();
-  ui.cbSilence->setChecked(currentState->silence());
-  ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
-  
-  ui.cbDisplayAvatar->setChecked(currentState->getDisplayAvatar());
-  ui.lvStateAvatar->setEnabled(ui.cbDisplayAvatar->isChecked());
-  int avatarId = currentState->getAvatarId();
-  QModelIndex avatarIndex = avatarsConfig->getAvatarIndex(avatarId);
-  
-  kDebug() << "Avatar index: " << avatarIndex;
-  //FIXME!
-  //ui.lvStateAvatar->selectionModel()->select(avatarIndex,
-    //QItemSelectionModel::ClearAndSelect);
+  ui.lwTurns->clear();
+  QList<DialogTurn*> turns = currentState->getTurns();
+  int id = 1;
+  foreach (DialogTurn* turn, turns)
+  {
+    ui.lwTurns->addItem(i18nc("%1: id of turn; %2: name of turn", "%1: %2", id, turn->getName()));
+    ++id;
+  }
 
-  kDebug() << currentState;
-  ui.lvTransitions->setModel(currentState);
+  bool turnEnabled = ui.lwTurns->count() > 0;
+  ui.pbEditTurn->setEnabled(turnEnabled);
+  ui.pbRemoveTurn->setEnabled(turnEnabled);
+}
+
+void DialogConfiguration::setCurrentTurn()
+{
+  getCurrentState()->setCurrentTurn(ui.lwTurns->currentRow());
 }
 
 void DialogConfiguration::defaults()
@@ -567,7 +553,7 @@ bool DialogConfiguration::useTTSOutput() const
   return outputConfiguration->useTTSOutput();
 }
 
-void DialogConfiguration::avatarDisplayToggled ( bool show )
+void DialogConfiguration::avatarDisplayToggled (bool show)
 {
   getCurrentState()->setDisplayAvatar(show);
 }

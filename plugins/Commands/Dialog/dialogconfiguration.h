@@ -21,7 +21,7 @@
 #define SIMON_DIALOGCONFIGURATION_H_4B4956DCAE204C49977297D20CB81F09
 
 #include <simonscenarios/commandconfiguration.h>
-#include "ui_dialogconfigurationdlg.h"
+#include "ui_dialogcreateview.h"
 #include <KSharedConfig>
 #include <QPointer>
 #include <QPoint>
@@ -30,6 +30,7 @@
 class Avatar;
 class DialogCommand;
 class DialogState;
+class DialogTurn;
 class DialogSetContainer;
 class DialogCommandManager;
 class DialogTemplateOptions;
@@ -44,22 +45,24 @@ class DialogConfiguration : public CommandConfiguration
   Q_OBJECT
 
   private:
-    Ui::DialogConfigurationDlg ui;
-    DialogCommandManager *commandManager;
-    BoundValuesConfiguration *boundValuesConfig;
-    TemplateOptionsConfiguration *templateOptionsConfig;
-    AvatarConfiguration *avatarsConfig;
-    OutputConfiguration *outputConfiguration;
+    Ui::DialogCreateView ui;
+    DialogCommandManager* commandManager;
+    BoundValuesConfiguration* boundValuesConfig;
+    TemplateOptionsConfiguration* templateOptionsConfig;
+    AvatarConfiguration* avatarsConfig;
+    OutputConfiguration* outputConfiguration;
 
     
     void displayStates();
     DialogState* getCurrentState();
     DialogState* getCurrentStateGraphical();
+    DialogTurn* getCurrentTurn();
     DialogCommand* getCurrentTransition();
     DialogCommand* getCurrentTransitionGraphical();
 
   private slots:
     void displayCurrentState();
+    void setCurrentTurn();
 
     void addState();
     void renameState();
@@ -68,7 +71,6 @@ class DialogConfiguration : public CommandConfiguration
     void moveStateUp();
     void moveStateDown();
 
-    void editText();
     void textSilenceChanged();
     void textAnnounceRepeatChanged();
 
@@ -82,10 +84,9 @@ class DialogConfiguration : public CommandConfiguration
     void avatarSelected ( const QModelIndex& selected );
     void avatarDisplayToggled(bool show);
     
-    void addText();
-    void removeText();
-    void updateTextSelector();
-    void displaySelectedText();
+    void addTurn();
+    void editTurn();
+    void removeTurn();
 
   public slots:
     void init();

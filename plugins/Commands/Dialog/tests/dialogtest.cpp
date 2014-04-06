@@ -259,37 +259,37 @@ void testDialog::testStates()
 {
   //if (!sender()) QSKIP("Make it fast", SkipAll);
 
-  clickConfigButton("pbAddState", 500, SLOT(fillInNewStateDialog()));
-  QTest::qWait(1000);
+  // clickConfigButton("pbAddState", 500, SLOT(fillInNewStateDialog()));
+  // QTest::qWait(1000);
 
-  DialogConfiguration *config = static_cast<DialogConfiguration*>(dialog->getConfigurationPage());
-  QListWidget *lwStates = findChild<QListWidget*>(config, "lwStates");
-  QVERIFY(lwStates);
-  lwStates->setCurrentRow(2);
-  clickConfigButton("pbRenameState", 500, SLOT(fillInEditStateDialog()));
+  // DialogConfiguration *config = static_cast<DialogConfiguration*>(dialog->getConfigurationPage());
+  // QListWidget *lwStates = findChild<QListWidget*>(config, "lwStates");
+  // QVERIFY(lwStates);
+  // lwStates->setCurrentRow(2);
+  // clickConfigButton("pbRenameState", 500, SLOT(fillInEditStateDialog()));
 
-  QTest::qWait(1000);
+  // QTest::qWait(1000);
 
-  clickConfigButton("pbEditText", 500, SLOT(fillInMessage()));
-  QTest::qWait(1000);
+  // clickConfigButton("pbEditText", 500, SLOT(fillInMessage()));
+  // QTest::qWait(1000);
 
-  clickConfigButton("pbMoveStateUp", 500, SLOT(checkStates4()));
-  QTest::qWait(1000);
+  // clickConfigButton("pbMoveStateUp", 500, SLOT(checkStates4()));
+  // QTest::qWait(1000);
 
-  clickConfigButton("pbMoveStateDown", 500, SLOT(checkStates5()));
-  QTest::qWait(1000);
+  // clickConfigButton("pbMoveStateDown", 500, SLOT(checkStates5()));
+  // QTest::qWait(1000);
 
-  clickConfigButton("pbRemoveState", 500, SLOT(removeStateAbort()));
-  QTest::qWait(1000);
+  // clickConfigButton("pbRemoveState", 500, SLOT(removeStateAbort()));
+  // QTest::qWait(1000);
 
-  QSignalSpy destroyedSpy(dialog->getStates().at(2), SIGNAL(destroyed()));
-  QVERIFY(destroyedSpy.isValid());
-  QCOMPARE(destroyedSpy.count(), 0);
-  clickConfigButton("pbRemoveState", 500, SLOT(removeState()));
-  QTest::qWait(1000);
-  QCOMPARE(destroyedSpy.count(), 1); // make sure it got destroyed
+  // QSignalSpy destroyedSpy(dialog->getStates().at(2), SIGNAL(destroyed()));
+  // QVERIFY(destroyedSpy.isValid());
+  // QCOMPARE(destroyedSpy.count(), 0);
+  // clickConfigButton("pbRemoveState", 500, SLOT(removeState()));
+  // QTest::qWait(1000);
+  // QCOMPARE(destroyedSpy.count(), 1); // make sure it got destroyed
 
-  lwStates->setCurrentRow(1);
+  // lwStates->setCurrentRow(1);
 }
 
 void testDialog::fillInNewStateDialog()
@@ -330,20 +330,20 @@ void testDialog::fillInEditStateDialog()
 
 void testDialog::fillInMessage()
 {
-  if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
+  // if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QWidget *dlg = app->activeModalWidget();
-  QVERIFY(dlg);
-  KTextEdit *teText = findChild<KTextEdit*>(dlg, "");
-  QVERIFY(teText);
-  QTest::keyClicks(teText, "Message");
+  // QWidget *dlg = app->activeModalWidget();
+  // QVERIFY(dlg);
+  // KTextEdit *teText = findChild<KTextEdit*>(dlg, "");
+  // QVERIFY(teText);
+  // QTest::keyClicks(teText, "Message");
 
-  int skip = 1;
-  KPushButton *okButton = findChild<KPushButton*>(dlg, "", &skip);
-  QVERIFY(okButton);
-  okButton->click();
+  // int skip = 1;
+  // KPushButton *okButton = findChild<KPushButton*>(dlg, "", &skip);
+  // QVERIFY(okButton);
+  // okButton->click();
 
-  QTimer::singleShot(150, this, SLOT(checkStates3()));
+  // QTimer::singleShot(150, this, SLOT(checkStates3()));
 }
 
 void testDialog::removeStateAbort()
@@ -439,99 +439,99 @@ void testDialog::testCommands()
 {
   //if (!sender()) QSKIP("Make it fast", SkipAll);
 
-  clickConfigButton("pbAddTransition", 500, SLOT(createTransition()));
+  // clickConfigButton("pbAddTransition", 500, SLOT(createTransition()));
 
-  QTest::qWait(1000);
+  // QTest::qWait(1000);
 
-  DialogConfiguration *config = static_cast<DialogConfiguration*>(dialog->getConfigurationPage());
-  QListView *lvTransitions = findChild<QListView*>(config, "lvTransitions");
-  QVERIFY(lvTransitions);
+  // DialogConfiguration *config = static_cast<DialogConfiguration*>(dialog->getConfigurationPage());
+  // QListView *lvTransitions = findChild<QListView*>(config, "lvTransitions");
+  // QVERIFY(lvTransitions);
 
-  QTest::mouseClick(lvTransitions, Qt::LeftButton);
-  QTest::keyClick(lvTransitions, Qt::Key_Down);
-  QTest::keyClick(lvTransitions, Qt::Key_Down);
-  QTest::qWait(200);
+  // QTest::mouseClick(lvTransitions, Qt::LeftButton);
+  // QTest::keyClick(lvTransitions, Qt::Key_Down);
+  // QTest::keyClick(lvTransitions, Qt::Key_Down);
+  // QTest::qWait(200);
 
-  clickConfigButton("pbEditTransition", 500, SLOT(editTransition()));
-  QTest::qWait(1000);
-  clickConfigButton("pbMoveTransitionUp", 500, SLOT(checkTransitions3()));
-  QTest::qWait(1000);
-  clickConfigButton("pbMoveTransitionDown", 500, SLOT(checkTransitions4()));
-  QTest::qWait(1000);
+  // clickConfigButton("pbEditTransition", 500, SLOT(editTransition()));
+  // QTest::qWait(1000);
+  // clickConfigButton("pbMoveTransitionUp", 500, SLOT(checkTransitions3()));
+  // QTest::qWait(1000);
+  // clickConfigButton("pbMoveTransitionDown", 500, SLOT(checkTransitions4()));
+  // QTest::qWait(1000);
 
-  clickConfigButton("pbRemoveTransition", 500, SLOT(removeTransitionAbort()));
-  QTest::qWait(1000);
-  clickConfigButton("pbRemoveTransition", 500, SLOT(removeTransition()));
+  // clickConfigButton("pbRemoveTransition", 500, SLOT(removeTransitionAbort()));
+  // QTest::qWait(1000);
+  // clickConfigButton("pbRemoveTransition", 500, SLOT(removeTransition()));
 
-  QTest::qWait(1000);
+  // QTest::qWait(1000);
 
-  CommandList commands = dialog->getCommands();
-  QCOMPARE(commands.count(), 4); 
-  QCOMPARE(dialog->rowCount(), 1); // transitions are hidden internal commands
+  // CommandList commands = dialog->getCommands();
+  // QCOMPARE(commands.count(), 4); 
+  // QCOMPARE(dialog->rowCount(), 1); // transitions are hidden internal commands
 
-  QCOMPARE(dialog->trigger("bla", true), false);
-  QCOMPARE(dialog->trigger("Dialog", true), true);
+  // QCOMPARE(dialog->trigger("bla", true), false);
+  // QCOMPARE(dialog->trigger("Dialog", true), true);
 }
 
 void testDialog::createTransition()
 {
-  if (!sender())
-    QSKIP("Internal slot, not a test by itself", SkipAll);
+  // if (!sender())
+  //   QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QWidget *dlg = app->activeModalWidget();
-  QVERIFY(dlg);
-  KLineEdit *leTrigger = findChild<KLineEdit*>(dlg, "leTrigger");
-  QVERIFY(leTrigger);
-  QTest::keyClicks(leTrigger, "Close");
+  // QWidget *dlg = app->activeModalWidget();
+  // QVERIFY(dlg);
+  // KLineEdit *leTrigger = findChild<KLineEdit*>(dlg, "leTrigger");
+  // QVERIFY(leTrigger);
+  // QTest::keyClicks(leTrigger, "Close");
 
-  QGroupBox *gbAutomatic = findChild<QGroupBox*>(dlg, "gbAutomatic");
-  QVERIFY(gbAutomatic);
-  QTest::keyClick(gbAutomatic, ' ');
+  // QGroupBox *gbAutomatic = findChild<QGroupBox*>(dlg, "gbAutomatic");
+  // QVERIFY(gbAutomatic);
+  // QTest::keyClick(gbAutomatic, ' ');
 
-  KIntSpinBox *sbTimeout = findChild<KIntSpinBox*>(dlg, "sbAutoTimeout");
-  QVERIFY(sbTimeout);
-  QTest::keyClick(sbTimeout, Qt::Key_Delete);
-  QTest::keyClick(sbTimeout, Qt::Key_Delete);
-  QTest::keyClick(sbTimeout, Qt::Key_Delete);
-  QTest::keyClick(sbTimeout, Qt::Key_Delete);
-  QTest::keyClick(sbTimeout, Qt::Key_Delete);
-  QTest::keyClicks(sbTimeout, "150");
+  // KIntSpinBox *sbTimeout = findChild<KIntSpinBox*>(dlg, "sbAutoTimeout");
+  // QVERIFY(sbTimeout);
+  // QTest::keyClick(sbTimeout, Qt::Key_Delete);
+  // QTest::keyClick(sbTimeout, Qt::Key_Delete);
+  // QTest::keyClick(sbTimeout, Qt::Key_Delete);
+  // QTest::keyClick(sbTimeout, Qt::Key_Delete);
+  // QTest::keyClick(sbTimeout, Qt::Key_Delete);
+  // QTest::keyClicks(sbTimeout, "150");
 
-  KComboBox *cbNextState = findChild<KComboBox*>(dlg, "cbNextState");
-  QVERIFY(cbNextState);
-  QTest::keyClick(cbNextState, '0');
+  // KComboBox *cbNextState = findChild<KComboBox*>(dlg, "cbNextState");
+  // QVERIFY(cbNextState);
+  // QTest::keyClick(cbNextState, '0');
 
-  QTest::keyClick(dlg, Qt::Key_Return);
+  // QTest::keyClick(dlg, Qt::Key_Return);
 
-  QTimer::singleShot(150, this, SLOT(checkTransitions1()));
+  // QTimer::singleShot(150, this, SLOT(checkTransitions1()));
 }
 
 void testDialog::editTransition()
 {
-  if (!sender())
-    QSKIP("Internal slot, not a test by itself", SkipAll);
+  // if (!sender())
+  //   QSKIP("Internal slot, not a test by itself", SkipAll);
 
-  QWidget *dlg = app->activeModalWidget();
-  QVERIFY(dlg);
-  KLineEdit *leTrigger = findChild<KLineEdit*>(dlg, "leTrigger");
-  QVERIFY(leTrigger);
-  QTest::keyClicks(leTrigger, "2");
+  // QWidget *dlg = app->activeModalWidget();
+  // QVERIFY(dlg);
+  // KLineEdit *leTrigger = findChild<KLineEdit*>(dlg, "leTrigger");
+  // QVERIFY(leTrigger);
+  // QTest::keyClicks(leTrigger, "2");
 
-  QGroupBox *gbAutomatic = findChild<QGroupBox*>(dlg, "gbAutomatic");
-  QVERIFY(gbAutomatic);
-  QTest::keyClick(gbAutomatic, ' ');
+  // QGroupBox *gbAutomatic = findChild<QGroupBox*>(dlg, "gbAutomatic");
+  // QVERIFY(gbAutomatic);
+  // QTest::keyClick(gbAutomatic, ' ');
 
-  QGroupBox *gbCommands = findChild<QGroupBox*>(dlg, "gbCommands");
-  QVERIFY(gbCommands);
-  QTest::keyClick(gbCommands, ' ');
+  // QGroupBox *gbCommands = findChild<QGroupBox*>(dlg, "gbCommands");
+  // QVERIFY(gbCommands);
+  // QTest::keyClick(gbCommands, ' ');
 
-  KComboBox *cbNextState = findChild<KComboBox*>(dlg, "cbNextState");
-  QVERIFY(cbNextState);
-  QTest::keyClick(cbNextState, '1');
+  // KComboBox *cbNextState = findChild<KComboBox*>(dlg, "cbNextState");
+  // QVERIFY(cbNextState);
+  // QTest::keyClick(cbNextState, '1');
 
-  QTest::keyClick(dlg, Qt::Key_Return);
+  // QTest::keyClick(dlg, Qt::Key_Return);
 
-  QTimer::singleShot(150, this, SLOT(checkTransitions2()));
+  // QTimer::singleShot(150, this, SLOT(checkTransitions2()));
 }
 
 

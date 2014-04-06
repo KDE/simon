@@ -42,24 +42,13 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
     void changed();
 
   private slots:
-    void TurnChanged();
-    void TurnDestroyed();
+    void turnChanged();
+    void turnDestroyed();
 
   private:
     QString m_name;
     int m_currentRandomTurnIndex;
-
-    //QList<DialogText*> m_texts;
-
-    DialogTextParser *m_parser;
-    //bool m_silence;
-    //bool m_announceRepeat;
-    
-    //bool m_displayAvatar;
-    //int m_avatarId;
-    
-    //QList<DialogCommand*> m_transitions;
-    
+    DialogTextParser *m_parser;    
     QList<DialogTurn*> m_turns;
     DialogTurn* currentDialogTurn;
     
@@ -82,6 +71,7 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
 
     QString getName() const { return m_name; }
     int getTextCount();
+    void setCurrentTurn(int index);
     
     int addText(const QString& text);
     bool removeText(int id);
@@ -92,7 +82,11 @@ class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
     QList<DialogCommand*> getTransitions() const;
 
     QList<DialogTurn*> getTurns() const { return m_turns; }
-    void addTurn(const QString& name, DialogTextParser* dialogParser);
+    DialogTurn* getCurrentTurn() { return currentDialogTurn; }
+    DialogTurn* createTurn();
+    void addTurn(DialogTurn* turn);
+    bool removeTurn();
+    void setTurn(DialogTurn* turn, int index);
     void bindStateCommands(QList<Command*> commands);
 
     static DialogState* createInstance(DialogTextParser *parser, const QDomElement& elem);
