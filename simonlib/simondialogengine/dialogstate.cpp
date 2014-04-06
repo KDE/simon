@@ -240,7 +240,14 @@ QVariant DialogState::data(const QModelIndex &index, int role) const
 
 void DialogState::setCurrentTurn(int index)
 {
-  currentDialogTurn = m_turns[index];
+  if (index < 0)
+  {
+    currentDialogTurn = 0;
+  }
+  else
+  {
+    currentDialogTurn = m_turns[index];
+  }
 }
 
 int DialogState::columnCount(const QModelIndex &parent) const

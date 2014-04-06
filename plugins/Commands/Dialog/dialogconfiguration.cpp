@@ -16,6 +16,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include <iostream>
 #include "dialogconfiguration.h"
 #include "turnconfiguration.h"
 #include "dialogcommandmanager.h"
@@ -140,21 +141,28 @@ void DialogConfiguration::addTurn()
 void DialogConfiguration::editTurn()
 {
   DialogTurn* turn = getCurrentTurn();
-  DialogTurn* clone = turn->clone();
-
-  TurnConfiguration turnConfig(clone, this);
-  turnConfig.exec();
-
-  if (turnConfig.code == QDialog::Accepted)
+  if (!turn)
   {
-    getCurrentState()->setTurn(clone, ui.lwTurns->currentRow());
+    KMessageBox::sorry(this, i18n("No turn selected!"));
   }
   else
   {
-    delete clone;
-  }
+    DialogTurn* clone = turn->clone();
 
-  displayCurrentState();
+    TurnConfiguration turnConfig(clone, this);
+    turnConfig.exec();
+
+    if (turnConfig.code == QDialog::Accepted)
+    {
+      getCurrentState()->setTurn(clone, ui.lwTurns->currentRow());
+    }
+    else
+    {
+      delete clone;
+    }
+
+    displayCurrentState();
+  }
 }
 
 void DialogConfiguration::removeTurn()
@@ -508,6 +516,7 @@ void DialogConfiguration::displayCurrentState()
 
 void DialogConfiguration::setCurrentTurn()
 {
+  std::cout << ui.lwTurns->currentRow() << std::endl;
   getCurrentState()->setCurrentTurn(ui.lwTurns->currentRow());
 }
 
