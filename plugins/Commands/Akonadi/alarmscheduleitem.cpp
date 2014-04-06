@@ -64,12 +64,15 @@ bool AlarmScheduleItem::trigger()
   text.replace("%time", KGlobal::locale()->formatTime(m_eventTime.time()), Qt::CaseInsensitive);
   text.replace("%location", m_eventLocation, Qt::CaseInsensitive);
 
-  DialogState *state = new DialogState(parser, "Name", text, false, true, commands, 0);
-  state->setDisplayAvatar(m_config->getDisplayAvatar());
-  state->setAvatar(m_config->getSelectedAvatar());
+  // TODO: add proper fix
+  /*
+  dialogstate *state = new dialogstate(parser, "name", text, false, true, commands, 0);
+  state->setdisplayavatar(m_config->getdisplayavatar());
+  state->setavatar(m_config->getselectedavatar());
   
-  DialogRunner *runner = new DialogRunner(m_config, parser, state);
+  dialogrunner *runner = new dialogrunner(m_config, parser, state);
   runner->run();
-  kDebug() << "Displaying alarm for event: " << m_summary;
+  kdebug() << "displaying alarm for event: " << m_summary;
+  */
   return true;
 }

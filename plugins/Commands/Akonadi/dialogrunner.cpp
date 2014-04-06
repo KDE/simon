@@ -42,7 +42,7 @@ bool DialogRunner::greedyTrigger(const QString& sentence)
     if (m_config->getRepeatTriggers().contains(sentence, Qt::CaseInsensitive))
     {
       foreach (DialogView* view, m_dialogViews)
-        view->repeat(*m_state);
+        view->repeat(*m_state->getCurrentTurn());
       found = true;
     }
   }
@@ -126,8 +126,7 @@ void DialogRunner::initState(int state)
 void DialogRunner::initState(DialogState* state)
 {
   foreach (DialogView* view, m_dialogViews)
-    view->present(*state);
-
+    view->present(*state->getCurrentTurn());
   state->presented();
 }
 
