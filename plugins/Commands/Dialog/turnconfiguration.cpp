@@ -46,9 +46,12 @@ TurnConfiguration::TurnConfiguration(DialogTurn* _turn, QWidget* parent) :
 
   connect(ui.pbAddPrompt, SIGNAL(clicked()), this, SLOT(addPrompt()));
   connect(ui.pbEditPrompt, SIGNAL(clicked()), this, SLOT(editPrompt()));
+  connect(ui.pbRemovePrompt, SIGNAL(clicked()), this, SLOT(removePrompt()));
   connect(ui.sbPrompt, SIGNAL(valueChanged(int)), this, SLOT(displaySelectedText()));
   connect(this, SIGNAL(okClicked()), this, SLOT(save()));
   connect(this, SIGNAL(cancelClicked()), this, SLOT(forget()));
+
+  ui.leTurnName->setFocus();
 
   displayCurrentTurn();
 }

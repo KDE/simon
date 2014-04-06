@@ -16,7 +16,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <iostream>
 #include "dialogconfiguration.h"
 #include "turnconfiguration.h"
 #include "dialogcommandmanager.h"
@@ -72,6 +71,7 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 
   connect(ui.lwStates, SIGNAL(currentRowChanged(int)), this, SLOT(displayCurrentState()));
   connect(ui.lwTurns, SIGNAL(currentRowChanged(int)), this, SLOT(setCurrentTurn()));
+  connect(ui.lwTurns, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(editTurn()));
 
   connect(ui.pbAddState, SIGNAL(clicked()), this, SLOT(addState()));
   connect(ui.pbRenameState, SIGNAL(clicked()), this, SLOT(renameState()));
@@ -516,7 +516,6 @@ void DialogConfiguration::displayCurrentState()
 
 void DialogConfiguration::setCurrentTurn()
 {
-  std::cout << ui.lwTurns->currentRow() << std::endl;
   getCurrentState()->setCurrentTurn(ui.lwTurns->currentRow());
 }
 
