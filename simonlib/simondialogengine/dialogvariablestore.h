@@ -29,17 +29,19 @@
 class DialogVariableStore {
   private:
     QMap<QString,DialogVariableBase*> dialogVariables;
-    class DialogVariableFactory
+    QMap<QString,DialogFieldTypeInfo const *> creators;
+    //TODO: Remove depricated DVF
+    /*class DialogVariableFactory
     {
       public:
 	template <typename T>
 	DialogVariable<T> * Create(QString n, T val) {return new DialogVariable<T>(n,val);};
-    } factory;
+    } factory;*/
   public:
     bool removeVariable(const QString& name);
     int count() const { return dialogVariables.count(); }
     bool contains(QString s) { return dialogVariables.contains(s); }
-    
+  /*
     template <typename T>
     bool addVariable(const QString& name, const T& val)
     {
@@ -51,7 +53,18 @@ class DialogVariableStore {
       this->dialogVariables[name] = this->factory.Create<T>(name,val);
       return true;
     }
-    
+  */
+    bool registerFactory(const QString& key, const DialogFieldTypeInfo& dfti)
+    {
+      if(this->creators.contains(key))
+      {
+	kWarning() << "Factory method already registered for key " << key;
+	return false;
+      }
+      this->creators[key] = &dfti;
+      return true;
+    }
+
     template <typename T>
     DialogVariableValue<T> getValue(const QString& name) const
     {

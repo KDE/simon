@@ -34,23 +34,11 @@ class testDialogBoundValues: public QObject
     void testAdd();
     void testGet();
     void testRemove();
-    void testUnderstanding();
 
   private:
     DialogBoundValues *values;
     BoundValue *addedValue;
 };
-
-void testDialogBoundValues::testUnderstanding()
-{
-  int * i = new int();
-  *i = 3;
-  QCOMPARE(*i,3);
-  *i += 2;
-  QCOMPARE(*i,5);
-  //QCOMPARE(*i,4);
-  delete i;
-}
 
 
 void testDialogBoundValues::testGeneral()
@@ -123,7 +111,7 @@ void testDialogBoundValues::testRemove()
   }
 }
 
- 
+
 QTEST_MAIN(testDialogBoundValues)
 
 #include "dialogboundvaluestest.moc"
