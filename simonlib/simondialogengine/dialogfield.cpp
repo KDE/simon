@@ -18,6 +18,7 @@
  */
 
 #include "dialogfield.h"
+#include <QString>
 
 const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("int","Integer","All whole negative and non-negative numbers",&createDialogIntegerField);
 

@@ -26,9 +26,7 @@
 
 #include "../dialogfieldstore.h"
 
-//TODO: Separate this into testDialogFieldStore and testDialogField
-
-class testFields: public QObject
+class testFieldStore: public QObject
 {
   Q_OBJECT
   private slots:
@@ -43,7 +41,7 @@ class testFields: public QObject
     void testCustomType(); //TODO:  Fix dialog variable so custom types can be used.
 };
 
-void testFields::testAdd()
+void testFieldStore::testAdd()
 {
   DialogFieldStore v;
   //QString name = "attack";
@@ -52,7 +50,7 @@ void testFields::testAdd()
   //QCOMPARE(*(v.getValue<double>(name).data()),result);
 }
 
-void testFields::testRemove()
+void testFieldStore::testRemove()
 {
   DialogFieldStore v;
   //v.addVariable<double>("attack",3.4);
@@ -63,7 +61,7 @@ void testFields::testRemove()
   //QVERIFY(!v.contains("attack"));
 }
 
-/*void testFields::testTypedGet()
+/*void testFieldStore::testTypedGet()
 {
   DialogFieldStore v;
   v.addVariable<int>("defense",3);
@@ -72,7 +70,7 @@ void testFields::testRemove()
   QCOMPARE(v.getTypedValue<int>("defense"),i+1);
 }*/
 
-void testFields::testInvalidTypedGet()
+void testFieldStore::testInvalidTypedGet()
 {
   DialogFieldStore v;
   //v.addVariable<int>("oh noes",4);
@@ -82,7 +80,7 @@ void testFields::testInvalidTypedGet()
 }
 
 
-void testFields::testCustomType()
+void testFieldStore::testCustomType()
 {
   //UNIMPLIMENTED
   QSKIP("This test is currently unimplemented", SkipSingle);
@@ -91,6 +89,6 @@ void testFields::testCustomType()
   //v.addVariable<DialogDecimalVaraible>("attack",d);
 }
 
-QTEST_MAIN(testFields)
+QTEST_MAIN(testFieldStore)
 
 #include "dialogfieldstoretest.moc"

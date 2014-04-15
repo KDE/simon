@@ -200,10 +200,8 @@ set(simonfieldstoretest_SRCS
 
   #deps
   ../dialogfieldstore.cpp
+  ../dialogfield.cpp
 )
-
-#enable exports for the test
-#add_definitions(-DMAKE_SIMONDIALOGENGINE_LIB)
 
 kde4_add_unit_test(simondialogcommandplugintest-fieldstore TESTNAME
   simondialogcommandplugin-fieldstore
@@ -212,6 +210,28 @@ kde4_add_unit_test(simondialogcommandplugintest-fieldstore TESTNAME
 
 
 target_link_libraries(simondialogcommandplugintest-fieldstore
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY}
+)
+
+#################################
+######### Dialog Field ##########
+#################################
+
+set(simonfieldtest_SRCS
+  dialogfieldtest.cpp
+
+  #deps
+  ../dialogfield.cpp
+)
+
+kde4_add_unit_test(simondialogcommandplugintest-field TESTNAME
+  simondialogcommandplugin-field
+  ${simonfieldtest_SRCS}
+)
+
+
+target_link_libraries(simondialogcommandplugintest-field
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
   ${QT_QTXML_LIBRARY}
 )

@@ -36,13 +36,14 @@ class QDomDocument;
 class DialogFieldTypeInfo
 {
   public:
-    typedef DialogFieldBase* (DialogFieldTypeInfo::*createFunction)(const QDomElement& elem);
+    typedef DialogFieldBase* (*createFunction)(const QDomElement& elem);
 
     const QString _id;
     const QString _name;
     const QString _description;
 
-    DialogFieldTypeInfo(const QString& id, const QString& name, const QString& desc, const createFunction func_ptr) : _id(id), _name(name), _description(desc), cf(func_ptr) { }
+    DialogFieldTypeInfo(const QString id, const QString name, const QString desc, const createFunction func_ptr) : _id(id), _name(name), _description(desc), cf(func_ptr) { }
+    //DialogFieldTypeInfo(const QString& id, const QString& name, const QString& desc, const createFunction func_ptr) : _id(id), _name(name), _description(desc), cf(func_ptr) { }
   private:
     createFunction cf;
 };
@@ -108,7 +109,7 @@ class DialogField : public DialogFieldBase
     typedef T VariableType;
     DialogField<T>() : name("Uninitialized"), value() { }
     virtual const QString& getType() const = 0;
-    virtual QSharedPointer<VariableType> parseValue(const QString& value);
+    virtual QSharedPointer<VariableType> parseValue(const QString& value) = 0;
   private:
       QString name;
       QSharedPointer<VariableType> value;
