@@ -36,16 +36,16 @@ class QDomDocument;
 class DialogFieldTypeInfo
 {
   public:
-    typedef DialogFieldBase* (*createFunction)(const QDomElement& elem);
+    typedef DialogFieldBase* (*deSerializeFunction)(const QDomElement& elem);
 
     const QString _id;
     const QString _name;
     const QString _description;
 
-    DialogFieldTypeInfo(const QString id, const QString name, const QString desc, const createFunction func_ptr) : _id(id), _name(name), _description(desc), cf(func_ptr) { }
+    DialogFieldTypeInfo(const QString id, const QString name, const QString desc, const deSerializeFunction func_ptr) : _id(id), _name(name), _description(desc), dsf(func_ptr) { }
     //DialogFieldTypeInfo(const QString& id, const QString& name, const QString& desc, const createFunction func_ptr) : _id(id), _name(name), _description(desc), cf(func_ptr) { }
   private:
-    createFunction cf;
+    deSerializeFunction dsf;
 };
 
 template <class T>
