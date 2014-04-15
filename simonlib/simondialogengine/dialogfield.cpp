@@ -17,7 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "dialogvariable.h"
+#include "dialogfield.h"
 
 const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("int","Integer","All whole negative and non-negative numbers",&createDialogIntegerField);
 

@@ -19,7 +19,7 @@
 #include <QList>
 #include <QString>
 #include <QHash>
-#include "dialogvariable.h"
+#include "dialogfield.h"
 #include <KDebug>
 
 //Ben Notes:  An instance of this class is essentially going to be a list
