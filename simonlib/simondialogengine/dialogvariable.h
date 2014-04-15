@@ -65,7 +65,7 @@ class DialogVariableValue
 
 class DialogVariableBase {
   protected:
-    virtual QString getType() = 0;
+    virtual const QString& getType() const = 0;
   public:
     DialogVariableBase() {}
     virtual ~DialogVariableBase() {}
@@ -108,7 +108,7 @@ class DialogVariable : public DialogVariableBase
     typedef T VariableType;
     DialogVariable<T>(const DialogFieldTypeInfo& ti) : name("Uninitialized"), value() { }
 
-    virtual QString getType() = 0;
+    virtual const QString& getType() const = 0;
     virtual QSharedPointer<VariableType> parseValue(const QString& value);
   private:
       QString name;
@@ -165,7 +165,7 @@ class DialogVariable : public DialogVariableBase
 class DialogIntegerField : public DialogVariable<int>
 {
   protected:
-    virtual QString getType() { return "int"; }
+    virtual const QString& getType() const { return DialogIntegerField::typeInfo._id; }
     virtual QSharedPointer<VariableType> parseValue(const QString& value) { return QSharedPointer<VariableType>(new int(value.toInt())); }
   public:
     static const DialogFieldTypeInfo typeInfo;
