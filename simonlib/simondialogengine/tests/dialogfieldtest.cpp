@@ -88,7 +88,7 @@ void testFields::testIntegerDeSerialize()
 
   QDomElement first_elem = doc.firstChildElement();
 
-  DialogIntegerField* result_field = dynamic_cast<DialogIntegerField*>(DialogIntegerField::createDialogIntegerField(first_elem));
+  DialogIntegerField* result_field = dynamic_cast<DialogIntegerField*>(DialogIntegerField::deSerializeDialogIntegerField(first_elem));
   QVERIFY(result_field); // Check to make sure it's not null.
   QCOMPARE(result_field->getName(),QString("Name"));
   QCOMPARE(*(result_field->getVal().data()),3);

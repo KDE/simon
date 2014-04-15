@@ -37,15 +37,19 @@ class DialogFieldTypeInfo
 {
   public:
     typedef DialogFieldBase* (*deSerializeFunction)(const QDomElement& elem);
+    typedef DialogFieldBase* (*createFunction)(const QString& value);
 
     const QString _id;
     const QString _name;
     const QString _description;
 
-    DialogFieldTypeInfo(const QString id, const QString name, const QString desc, const deSerializeFunction func_ptr) : _id(id), _name(name), _description(desc), dsf(func_ptr) { }
+    DialogFieldTypeInfo(const QString id, const QString name, const QString desc, const deSerializeFunction dfs_ptr,
+			const createFunction cf_ptr) : _id(id), _name(name), _description(desc),
+							dsf(dfs_ptr), cf(cf_ptr) { }
     //DialogFieldTypeInfo(const QString& id, const QString& name, const QString& desc, const createFunction func_ptr) : _id(id), _name(name), _description(desc), cf(func_ptr) { }
   private:
     deSerializeFunction dsf;
+    createFunction cf;
 };
 
 template <class T>
@@ -174,13 +178,14 @@ class DialogIntegerField : public DialogField<int>
 {
   protected:
     virtual const QString& getType() const { return DialogIntegerField::typeInfo._id; }
-    virtual QSharedPointer<VariableType> parseValue(const QString& value) { return QSharedPointer<VariableType>(new int(value.toInt())); }
+    virtual QSharedPointer<VariableType> parseValue(const QString& value);
 
     DialogIntegerField() : DialogField< int >() { }
   public:
     static const DialogFieldTypeInfo typeInfo;
+    static DialogFieldBase* deSerializeDialogIntegerField(const QDomElement& elem);
+    static DialogFieldBase* createDialogIntegerField(const QString& value);
 
     virtual QString toString() { return QString::number(*getVal().data()); }
     DialogIntegerField(const QString& name, const VariableType& val) : DialogField<int>(name,val) { }
-    static DialogFieldBase* createDialogIntegerField(const QDomElement& elem);
 };

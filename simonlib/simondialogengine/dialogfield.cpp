@@ -22,9 +22,12 @@
 
 //TODO: Add Debug statements
 
-const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("int","Integer","All whole negative and non-negative numbers",&createDialogIntegerField);
+const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("int","Integer",
+									     "All whole negative and non-negative numbers",
+									     &DialogIntegerField::deSerializeDialogIntegerField,
+									     &DialogIntegerField::createDialogIntegerField);
 
-DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QDomElement& elem)
+DialogFieldBase* DialogIntegerField::deSerializeDialogIntegerField(const QDomElement& elem)
 {
   DialogIntegerField* retval = new DialogIntegerField();
   if(!retval->deSerialize(elem))
@@ -34,3 +37,27 @@ DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QDomElement&
   }
   return retval;
 }
+
+DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QString& value)
+{
+  DialogIntegerField* retval = new DialogIntegerField();
+  if(retval->parseValue(value).isNull())
+  {
+    delete retval;
+    retval = 0;
+  }
+  return retval;
+}
+
+QSharedPointer<int> DialogIntegerField::parseValue(const QString& value)
+{
+  bool ok;
+  int v = value.toInt(&ok);
+  if(ok)
+  {
+    return QSharedPointer<int>(new int(v));
+  }
+  return QSharedPointer<int>(0);
+
+}
+
