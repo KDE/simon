@@ -23,5 +23,11 @@ const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("in
 
 DialogVariableBase* DialogIntegerField::createDialogIntegerField(const QDomElement& elem)
 {
-  return 0;
+  DialogIntegerField* retval = new DialogIntegerField();
+  if(!retval->deSerialize(elem))
+  {
+    delete retval;
+    retval = 0;
+  }
+  return retval;
 }

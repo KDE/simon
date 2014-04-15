@@ -29,3 +29,25 @@ bool DialogVariableStore::removeVariable(const QString& name)
   delete this->dialogVariables.take(name);
   return true;
 }
+
+bool DialogVariableStore::registerFactory(const QString& key, const DialogFieldTypeInfo& dfti)
+{
+  if(this->creators.contains(key))
+  {
+    kWarning() << "Factory method already registered for key " << key;
+    return false;
+  }
+  this->creators[key] = &dfti;
+  return true;
+}
+
+/*bool DialogVariableStore::unregisterFactory(const QString& key)
+{
+  if(!this->creators.contains(key))
+  {
+    kWarning() << "Key " << key << " is not registered."
+    return false;
+  }
+  this->creators.remove(key);
+  return true;
+}*/
