@@ -31,19 +31,70 @@ class testFields: public QObject
   Q_OBJECT
   private slots:
     //void testInitial();
-    void testSerialize();
+    void testGeneral();
+
+    //Default Value Tests
+
+    //Integer tests
+    void testIntegerToString();
+
+    void testIntegerSerialize();
+    void testIntegerDeSerialize();
 };
 
-void testFields::testSerialize()
+void testFields::testGeneral()
 {
-  QDomDocument doc("testdoc");
+  QSKIP("This test is currently unimplemented", SkipSingle);
+}
+
+void testFields::testIntegerToString()
+{
+  DialogIntegerField test_field("Name",4);
+  QCOMPARE(test_field.toString(),QString("4"));
+}
+
+
+void testFields::testIntegerSerialize()
+{
+  QDomDocument doc("");
+  QDomDocument expected_doc("");
   DialogIntegerField test_field("Name",3);
 
-  QDomElement serialized = test_field.serialize(&doc);
-  doc.documentElement().appendChild(serialized);
+  expected_doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>int</type>"
+	"<value>3</value>"
+	"</field>"
+  ));
 
-  kDebug() << "Doc is: " << doc.toString();
+  QDomElement serialized = test_field.serialize(&doc);
+  doc.appendChild(serialized);
+
+  QCOMPARE(doc.toString(),expected_doc.toString());
 }
+
+void testFields::testIntegerDeSerialize()
+{
+  QDomDocument doc("");
+
+  doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>int</type>"
+	"<value>3</value>"
+	"</field>"
+  ));
+
+  QDomElement first_elem = doc.firstChildElement();
+
+  DialogIntegerField* result_field = dynamic_cast<DialogIntegerField*>(DialogIntegerField::createDialogIntegerField(first_elem));
+  QVERIFY(result_field); // Check to make sure it's not null.
+  QCOMPARE(result_field->getName(),QString("Name"));
+  QCOMPARE(*(result_field->getVal().data()),3);
+  delete result_field;
+}
+
 
 QTEST_MAIN(testFields)
 

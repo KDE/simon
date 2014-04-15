@@ -118,9 +118,14 @@ class DialogField : public DialogFieldBase
       class Parser {} parser;
   public:
       DialogField<T>(const QString& n, const VariableType& val) : name(n), value(new VariableType(val)) { }
-      DialogFieldValue<T> getVal()
+      DialogFieldValue<T> getVal() const
       {
 	return DialogFieldValue<T>(value);
+      }
+
+      QString getName() const
+      {
+	return name;
       }
 
       virtual QDomElement serialize(QDomDocument * doc)
