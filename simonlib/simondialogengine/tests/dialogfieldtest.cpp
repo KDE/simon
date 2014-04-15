@@ -17,20 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "dialogfield.h"
+#include <QTest>
+#include <QBuffer>
 #include <QString>
+#include <QDomDocument>
+#include <QDomElement>
+#include <KDebug>
 
-//TODO: Add Debug statements
+#include "../dialogfield.h"
 
-const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("int","Integer","All whole negative and non-negative numbers",&createDialogIntegerField);
-
-DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QDomElement& elem)
+class testFields: public QObject
 {
-  DialogIntegerField* retval = new DialogIntegerField();
-  if(!retval->deSerialize(elem))
-  {
-    delete retval;
-    retval = 0;
-  }
-  return retval;
+  Q_OBJECT
+  private slots:
+    //void testInitial();
+    void testSerialize();
+};
+
+void testFields::testSerialize()
+{
+  QDomDocument doc("testdoc");
+  DialogIntegerField test_field("Name",3);
+
+  QDomElement serialized = test_field.serialize(&doc);
+  doc.documentElement().appendChild(serialized);
+
+  kDebug() << "Doc is: " << doc.toString();
 }
+
+QTEST_MAIN(testFields)
+
+#include "dialogfieldtest.moc"

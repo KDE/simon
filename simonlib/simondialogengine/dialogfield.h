@@ -109,6 +109,8 @@ class DialogField : public DialogFieldBase
     typedef T VariableType;
     DialogField<T>() : name("Uninitialized"), value() { }
     virtual const QString& getType() const = 0;
+
+    //TODO: Overload this so QDomElement is an option as well.
     virtual QSharedPointer<VariableType> parseValue(const QString& value) = 0;
   private:
       QString name;
@@ -160,6 +162,8 @@ class DialogField : public DialogFieldBase
 
       virtual QString toString() = 0;
 };
+
+//TODO: Separate this into its own file called "standarddialogfields.h"/"standarddialogfields.cpp"
 
 class DialogIntegerField : public DialogField<int>
 {
