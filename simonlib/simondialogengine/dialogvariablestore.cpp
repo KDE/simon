@@ -41,13 +41,13 @@ bool DialogVariableStore::registerFactory(const QString& key, const DialogFieldT
   return true;
 }
 
-/*bool DialogVariableStore::unregisterFactory(const QString& key)
+bool DialogVariableStore::unregisterFactory(const QString& key)
 {
   if(!this->creators.contains(key))
   {
-    kWarning() << "Key " << key << " is not registered."
+    kWarning() << "Key " << key << " is not registered.";
     return false;
   }
   this->creators.remove(key);
   return true;
-}*/
+}
