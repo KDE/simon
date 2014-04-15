@@ -24,11 +24,11 @@
 #include <fcntl.h>
 
 //TODO:  Implement the parser class and have this use it to get/set the variable.
-//TODO:  Split the DialogVariableValue and DialogFieldInfo classes into their own separate files.
+//TODO:  Split the DialogFieldValue and DialogFieldInfo classes into their own separate files.
 
 template <class T>
-class DialogVariable;
-class DialogVariableBase;
+class DialogField;
+class DialogFieldBase;
 
 class QDomElement;
 class QDomDocument;
@@ -36,7 +36,7 @@ class QDomDocument;
 class DialogFieldTypeInfo
 {
   public:
-    typedef DialogVariableBase* (DialogFieldTypeInfo::*createFunction)(const QDomElement& elem);
+    typedef DialogFieldBase* (DialogFieldTypeInfo::*createFunction)(const QDomElement& elem);
 
     const QString _id;
     const QString _name;
@@ -48,50 +48,50 @@ class DialogFieldTypeInfo
 };
 
 template <class T>
-class DialogVariableValue
+class DialogFieldValue
 {
   private:
     QSharedPointer<T> ptr;
     bool isValidCast;
   public:
-    DialogVariableValue<T>() : ptr(), isValidCast(false) { }
-    DialogVariableValue<T>(const DialogVariableValue<T>& cpy) : ptr(cpy.ptr), isValidCast(cpy.isValidCast) { }
-    explicit DialogVariableValue<T>(const QSharedPointer<T>& pointer) : ptr(pointer), isValidCast(true) { }
+    DialogFieldValue<T>() : ptr(), isValidCast(false) { }
+    DialogFieldValue<T>(const DialogFieldValue<T>& cpy) : ptr(cpy.ptr), isValidCast(cpy.isValidCast) { }
+    explicit DialogFieldValue<T>(const QSharedPointer<T>& pointer) : ptr(pointer), isValidCast(true) { }
 
     T* data() { return this->ptr.data(); }
 
     bool isValid() { return this->isValidCast; }
 };
 
-class DialogVariableBase {
+class DialogFieldBase {
   protected:
     virtual const QString& getType() const = 0;
   public:
-    DialogVariableBase() {}
-    virtual ~DialogVariableBase() {}
+    DialogFieldBase() {}
+    virtual ~DialogFieldBase() {}
     virtual QString toString() = 0;
 
     virtual bool deSerialize(const QDomElement& elem) = 0;
     virtual QDomElement serialize(QDomDocument * doc) = 0;
 
     template <class T>
-    DialogVariableValue<T> getValue()
+    DialogFieldValue<T> getValue()
     {
-      if(DialogVariable<T> * casted_this = dynamic_cast<DialogVariable<T>*>(this))
+      if(DialogField<T> * casted_this = dynamic_cast<DialogField<T>*>(this))
       {
 	return casted_this->getVal();
       }
       else
       {
-	return DialogVariableValue<T>();
+	return DialogFieldValue<T>();
       }
     }
 
     /*
     template <class T>
-    static DialogVariable<T> * deSerialize(const QDomElement& elem)
+    static DialogField<T> * deSerialize(const QDomElement& elem)
     {
-      DialogVariable<T> newField = new DialogVariable<T>();
+      DialogField<T> newField = new DialogField<T>();
       if(!newField->deSerialize(elem))
       {
 	delete newField;
@@ -102,11 +102,11 @@ class DialogVariableBase {
 };
 
 template <class T>
-class DialogVariable : public DialogVariableBase
+class DialogField : public DialogFieldBase
 {
   protected:
     typedef T VariableType;
-    DialogVariable<T>() : name("Uninitialized"), value() { }
+    DialogField<T>() : name("Uninitialized"), value() { }
     virtual const QString& getType() const = 0;
     virtual QSharedPointer<VariableType> parseValue(const QString& value);
   private:
@@ -114,10 +114,10 @@ class DialogVariable : public DialogVariableBase
       QSharedPointer<VariableType> value;
       class Parser {} parser;
   public:
-      DialogVariable<T>(const QString& n, const VariableType& val) : name(n), value(new VariableType(val)) { }
-      DialogVariableValue<T> getVal()
+      DialogField<T>(const QString& n, const VariableType& val) : name(n), value(new VariableType(val)) { }
+      DialogFieldValue<T> getVal()
       {
-	return DialogVariableValue<T>(value);
+	return DialogFieldValue<T>(value);
       }
 
       virtual QDomElement serialize(QDomDocument * doc)
@@ -160,17 +160,17 @@ class DialogVariable : public DialogVariableBase
       virtual QString toString() = 0;
 };
 
-class DialogIntegerField : public DialogVariable<int>
+class DialogIntegerField : public DialogField<int>
 {
   protected:
     virtual const QString& getType() const { return DialogIntegerField::typeInfo._id; }
     virtual QSharedPointer<VariableType> parseValue(const QString& value) { return QSharedPointer<VariableType>(new int(value.toInt())); }
 
-    DialogIntegerField() : DialogVariable< int >() { }
+    DialogIntegerField() : DialogField< int >() { }
   public:
     static const DialogFieldTypeInfo typeInfo;
 
     virtual QString toString() { return QString::number(*getVal().data()); }
-    DialogIntegerField(const QString& name, const VariableType& val) : DialogVariable<int>(name,val) { }
-    static DialogVariableBase* createDialogIntegerField(const QDomElement& elem);
+    DialogIntegerField(const QString& name, const VariableType& val) : DialogField<int>(name,val) { }
+    static DialogFieldBase* createDialogIntegerField(const QDomElement& elem);
 };

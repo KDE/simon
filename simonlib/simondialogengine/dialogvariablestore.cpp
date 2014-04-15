@@ -19,7 +19,7 @@
 
 #include "dialogvariablestore.h"
 
-bool DialogVariableStore::removeVariable(const QString& name)
+bool DialogFieldStore::removeVariable(const QString& name)
 {
   if(!this->dialogVariables.contains(name))
   {
@@ -30,7 +30,7 @@ bool DialogVariableStore::removeVariable(const QString& name)
   return true;
 }
 
-bool DialogVariableStore::registerFactory(const QString& key, const DialogFieldTypeInfo& dfti)
+bool DialogFieldStore::registerFactory(const QString& key, const DialogFieldTypeInfo& dfti)
 {
   if(this->creators.contains(key))
   {
@@ -41,7 +41,7 @@ bool DialogVariableStore::registerFactory(const QString& key, const DialogFieldT
   return true;
 }
 
-bool DialogVariableStore::unregisterFactory(const QString& key)
+bool DialogFieldStore::unregisterFactory(const QString& key)
 {
   if(!this->creators.contains(key))
   {

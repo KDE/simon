@@ -26,7 +26,7 @@
 
 #include "../dialogvariablestore.h"
 
-//TODO: Separate this into testDialogVariableStore and testDialogVariable
+//TODO: Separate this into testDialogFieldStore and testDialogField
 
 class testVariables: public QObject
 {
@@ -45,7 +45,7 @@ class testVariables: public QObject
 
 void testVariables::testAdd()
 {
-  DialogVariableStore v;
+  DialogFieldStore v;
   //QString name = "attack";
   //double result = 3.01;
   //v.addVariable<double>(name,3.01);
@@ -54,9 +54,9 @@ void testVariables::testAdd()
 
 void testVariables::testRemove()
 {
-  DialogVariableStore v;
+  DialogFieldStore v;
   //v.addVariable<double>("attack",3.4);
-  //DialogVariableValue<double> result = v.getValue<double>("attack");
+  //DialogFieldValue<double> result = v.getValue<double>("attack");
   //QCOMPARE(*result.data(),3.4);
   //QVERIFY(v.contains("attack"));
   //v.removeVariable("attack");
@@ -65,7 +65,7 @@ void testVariables::testRemove()
 
 /*void testVariables::testTypedGet()
 {
-  DialogVariableStore v;
+  DialogFieldStore v;
   v.addVariable<int>("defense",3);
   int i = v.getTypedValue<int>("defense");
   v.setVariable<int>("defense",i+1);
@@ -74,9 +74,9 @@ void testVariables::testRemove()
 
 void testVariables::testInvalidTypedGet()
 {
-  DialogVariableStore v;
+  DialogFieldStore v;
   //v.addVariable<int>("oh noes",4);
-  //DialogVariableValue<double> d = v.getValue<double>("oh noes");
+  //DialogFieldValue<double> d = v.getValue<double>("oh noes");
   //bool result = !d.isValid();
   //QVERIFY(result);
 }
@@ -86,7 +86,7 @@ void testVariables::testCustomType()
 {
   //UNIMPLIMENTED
   QSKIP("This test is currently unimplemented", SkipSingle);
-  DialogVariableStore v;
+  DialogFieldStore v;
   //DialogDecimalVaraible d(QString("name"),3.4);
   //v.addVariable<DialogDecimalVaraible>("attack",d);
 }

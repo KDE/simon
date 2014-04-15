@@ -24,18 +24,18 @@
 
 //Ben Notes:  An instance of this class is essentially going to be a list
 //            of active variables for the current Dialog Instance.
-//TODO: Add factory methods for generating DialogVariable.
+//TODO: Add factory methods for generating DialogField.
 
-class DialogVariableStore {
+class DialogFieldStore {
   private:
-    QHash<QString,DialogVariableBase*> dialogVariables;
+    QHash<QString,DialogFieldBase*> dialogVariables;
     QHash<QString,DialogFieldTypeInfo const *> creators;
     //TODO: Remove depricated DVF
-    /*class DialogVariableFactory
+    /*class DialogFieldFactory
     {
       public:
 	template <typename T>
-	DialogVariable<T> * Create(QString n, T val) {return new DialogVariable<T>(n,val);};
+	DialogField<T> * Create(QString n, T val) {return new DialogField<T>(n,val);};
     } factory;*/
   public:
     bool removeVariable(const QString& name);
@@ -58,7 +58,7 @@ class DialogVariableStore {
   */
 
     template <typename T>
-    DialogVariableValue<T> getValue(const QString& name) const
+    DialogFieldValue<T> getValue(const QString& name) const
     {
 	return this->dialogVariables[name]->getValue<T>();
     }
