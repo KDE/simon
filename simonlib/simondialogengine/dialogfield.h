@@ -43,13 +43,13 @@ class DialogFieldTypeInfo
     const QString _name;
     const QString _description;
 
+    const deSerializeFunction dsf;
+    const createFunction cf;
+
     DialogFieldTypeInfo(const QString id, const QString name, const QString desc, const deSerializeFunction dfs_ptr,
 			const createFunction cf_ptr) : _id(id), _name(name), _description(desc),
 							dsf(dfs_ptr), cf(cf_ptr) { }
     //DialogFieldTypeInfo(const QString& id, const QString& name, const QString& desc, const createFunction func_ptr) : _id(id), _name(name), _description(desc), cf(func_ptr) { }
-  private:
-    deSerializeFunction dsf;
-    createFunction cf;
 };
 
 template <class T>
