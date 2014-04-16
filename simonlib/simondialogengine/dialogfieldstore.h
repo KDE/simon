@@ -41,8 +41,8 @@ class DialogFieldStore {
 
     bool registerDefaults();
 
-    //bool addVariable(const QString& name);
-    bool addVariable(const QString& type, const QString& name, const QString& value);
+    //bool addField(const QString& name);
+    bool addField(const QString& type, const QString& name, const QString& value);
 
 
     template <typename T>

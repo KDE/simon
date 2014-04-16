@@ -51,14 +51,14 @@ class testFieldStore: public QObject
 void testFieldStore::testAdd()
 {
   DialogFieldStore v;
-  v.addVariable("int","attack","3");
+  v.addField("int","attack","3");
   QCOMPARE(*(v.getValue<int>("attack").data()),3);
 }
 
 void testFieldStore::testRemove()
 {
   DialogFieldStore v;
-  v.addVariable("int","attack","3");
+  v.addField("int","attack","3");
   DialogFieldValue<int> result = v.getValue<int>("attack");
   QCOMPARE(*result.data(),3);
   QVERIFY(v.contains("attack"));
@@ -69,7 +69,7 @@ void testFieldStore::testRemove()
 void testFieldStore::testTypedGet()
 {
   DialogFieldStore v;
-  v.addVariable("int","yay","3535");
+  v.addField("int","yay","3535");
   DialogFieldValue<int> i = v.getValue<int>("yay");
   QVERIFY(i.isValid());
   QCOMPARE(*i.data(),3535);
@@ -87,7 +87,7 @@ void testFieldStore::testUnregisterFactory()
 {
   DialogFieldStore v;
   v.unregisterFactory(DialogIntegerField::typeInfo._id);
-  QVERIFY(!v.addVariable("int","name","3"));
+  QVERIFY(!v.addField("int","name","3"));
 }
 
 void testFieldStore::testDoubleRegister()
@@ -99,13 +99,13 @@ void testFieldStore::testDoubleRegister()
 void testFieldStore::testInvalidTypeKeyAdd()
 {
   DialogFieldStore v;
-  QVERIFY(!v.addVariable("cat","name","3"));
+  QVERIFY(!v.addField("cat","name","3"));
 }
 
 void testFieldStore::testInvalidValueAdd()
 {
   DialogFieldStore v;
-  QVERIFY(!v.addVariable("int","name","foolish"));
+  QVERIFY(!v.addField("int","name","foolish"));
 }
 
 void testFieldStore::testNonExistantRemove()
@@ -117,7 +117,7 @@ void testFieldStore::testNonExistantRemove()
 void testFieldStore::testInvalidTypedGet()
 {
   DialogFieldStore v;
-  v.addVariable("int","oh noes","4");
+  v.addField("int","oh noes","4");
   DialogFieldValue<double> d = v.getValue<double>("oh noes");
   bool result = !d.isValid();
   QVERIFY(result);

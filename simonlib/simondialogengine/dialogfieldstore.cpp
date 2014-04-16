@@ -30,7 +30,7 @@ bool DialogFieldStore::removeVariable(const QString& name)
   return true;
 }
 
-bool DialogFieldStore::addVariable(const QString& type, const QString& name, const QString& value)
+bool DialogFieldStore::addField(const QString& type, const QString& name, const QString& value)
 {
     if(this->dialogFields.contains(name))
     {
