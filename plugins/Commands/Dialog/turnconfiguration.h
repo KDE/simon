@@ -32,8 +32,6 @@ class DialogTurn;
 class TurnConfiguration : public KDialog
 {
   Q_OBJECT
-  public:
-    QDialog::DialogCode code;
 
   private:
     DialogTurn* turn;
@@ -49,12 +47,11 @@ class TurnConfiguration : public KDialog
 
     void displaySelectedText();
     void updateTextSelector();
-    void save();
-    void forget();
     void displayCurrentTurn();
 
   public slots:
     void init();
+    int exec();
 
   public:
     TurnConfiguration(DialogTurn* _turn, QWidget *parent);

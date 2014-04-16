@@ -69,7 +69,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver, publi
     DialogConfiguration* getDialogConfiguration() const;
 
   public slots:
-    void initState(int State);
+    void initState(int state);
     bool greedyTrigger(const QString& inputText);
     void activate(const QString& arg0="", const QString& arg1="", const QString& arg2="", const QString& arg3="",
       const QString& arg4="", const QString& arg5="", const QString& arg6="",

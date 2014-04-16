@@ -44,6 +44,7 @@
 #include <QTableView>
 #include <QThread>
 #include <QApplication>
+#include <QPointer>
 
 #include <kgenericfactory.h>
 #include <KAboutData>
@@ -56,7 +57,7 @@ K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
 DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
 : CommandConfiguration(parent,  "dialog", ki18n( "Dialog" ),
-    "0.1", ki18n("Control a robot"),
+    "0.2", ki18n("Build voice controlled dialogs"),
     "im-user",
     DialogCommandPluginFactory::componentData()),
     commandManager(_commandManager),
@@ -123,10 +124,9 @@ void DialogConfiguration::addTurn()
   DialogState* state = getCurrentState();
   DialogTurn* turn = state->createTurn();
 
-  TurnConfiguration turnConfig(turn, this);
-  turnConfig.exec();
+  QPointer<TurnConfiguration> turnConfig = new TurnConfiguration(turn, this);
 
-  if (turnConfig.code == QDialog::Accepted)
+  if (turnConfig->exec() == QDialog::Accepted)
   {
     state->addTurn(turn);
   }
@@ -135,6 +135,7 @@ void DialogConfiguration::addTurn()
     delete turn;
   }
 
+  delete turnConfig;
   displayCurrentState();
 }
 
@@ -143,16 +144,14 @@ void DialogConfiguration::editTurn()
   DialogTurn* turn = getCurrentTurn();
   if (!turn)
   {
-    KMessageBox::sorry(this, i18n("No turn selected!"));
+    KMessageBox::sorry(this, i18n("No turn selected."));
   }
   else
   {
     DialogTurn* clone = turn->clone();
+    QPointer<TurnConfiguration> turnConfig = new TurnConfiguration(clone, this);
 
-    TurnConfiguration turnConfig(clone, this);
-    turnConfig.exec();
-
-    if (turnConfig.code == QDialog::Accepted)
+    if (turnConfig->exec() == QDialog::Accepted)
     {
       getCurrentState()->setTurn(clone, ui.lwTurns->currentRow());
     }
@@ -161,6 +160,7 @@ void DialogConfiguration::editTurn()
       delete clone;
     }
 
+    delete turnConfig;
     displayCurrentState();
   }
 }
@@ -168,7 +168,7 @@ void DialogConfiguration::editTurn()
 void DialogConfiguration::removeTurn()
 {
   if (!getCurrentState()->removeTurn())
-    KMessageBox::sorry(this, i18n("No turn selected!"));
+    KMessageBox::sorry(this, i18n("No turn selected."));
   displayCurrentState();
 }
 
@@ -187,7 +187,7 @@ void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
 void DialogConfiguration::addState()
 {
   bool ok = true;
-  QString name = KInputDialog::getText(i18n("Add State"), i18n("Name of the new state:"), 
+  QString name = KInputDialog::getText(i18n("Add State"), i18n("Name of the new state:"),
       QString(), &ok);
   if (!ok) return;
 
@@ -457,9 +457,9 @@ DialogState* DialogConfiguration::getCurrentState()
 
   if (row == -1) return 0;
 
-  QList<DialogState*> turns = commandManager->getStates();
+  QList<DialogState*> states = commandManager->getStates();
 
-  return turns[row];
+  return states[row];
 }
 
 DialogState* DialogConfiguration::getCurrentStateGraphical()

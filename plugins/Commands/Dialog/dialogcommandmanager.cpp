@@ -34,6 +34,11 @@
 #include <KLocalizedString>
 #include <KAction>
 #include <KMessageBox>
+#include <QString>
+
+#include <iostream>
+using std::cout;
+using std::endl;
 
 K_PLUGIN_FACTORY( DialogCommandPluginFactory,
 registerPlugin< DialogCommandManager >();
@@ -71,9 +76,10 @@ void DialogCommandManager::initState(DialogState* state)
     currentDialogState->left();
 
   state->updateRandomTextSelection();
-  
+  cout << (state->getName()).toUtf8().constData() << endl;
+
   foreach (DialogView* view, dialogViews)
-    view->present(*(state->getCurrentTurn()));
+    view->present(*(state->getTurns().at(0)));
 
   state->presented();
 

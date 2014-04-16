@@ -37,7 +37,7 @@ K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
 DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
 : CommandConfiguration(parent,  "dialog", ki18n( "Dialog" ),
-"0.1", ki18n("Control a robot"),
+"0.1.1", ki18n("Build voice controlled dialogs"),
 "im-user",
 DialogCommandPluginFactory::componentData())
 {
