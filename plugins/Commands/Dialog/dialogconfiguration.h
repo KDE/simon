@@ -52,24 +52,16 @@ class DialogConfiguration : public CommandConfiguration
     AvatarConfiguration* avatarsConfig;
     OutputConfiguration* outputConfiguration;
 
-    
-    void displayStates();
     DialogState* getCurrentState();
     DialogState* getCurrentStateGraphical();
-    DialogTurn* getCurrentTurn();
     DialogCommand* getCurrentTransition();
     DialogCommand* getCurrentTransitionGraphical();
 
+    void addStateGraphical(DialogState* state);
+
   private slots:
-    void displayCurrentState();
-    void setCurrentTurn();
-
     void addState();
-    void renameState();
     void removeState();
-
-    void moveStateUp();
-    void moveStateDown();
 
     void textSilenceChanged();
     void textAnnounceRepeatChanged();
@@ -84,12 +76,9 @@ class DialogConfiguration : public CommandConfiguration
     void avatarSelected ( const QModelIndex& selected );
     void avatarDisplayToggled(bool show);
     
-    void addTurn();
-    void editTurn();
-    void removeTurn();
-
   public slots:
     void init();
+    void displayStates();
 
     virtual bool deSerialize(const QDomElement&);
     virtual QDomElement serialize(QDomDocument *doc);

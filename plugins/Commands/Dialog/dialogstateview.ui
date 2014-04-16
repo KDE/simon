@@ -233,12 +233,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>319</x>
-     <y>34</y>
+     <x>352</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>297</x>
-     <y>275</y>
+     <x>352</x>
+     <y>260</y>
     </hint>
    </hints>
   </connection>
@@ -249,12 +249,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>322</x>
-     <y>30</y>
+     <x>352</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>238</x>
-     <y>270</y>
+     <x>267</x>
+     <y>260</y>
     </hint>
    </hints>
   </connection>
@@ -265,12 +265,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>326</x>
-     <y>24</y>
+     <x>352</x>
+     <y>80</y>
     </hint>
     <hint type="destinationlabel">
-     <x>302</x>
-     <y>439</y>
+     <x>352</x>
+     <y>503</y>
     </hint>
    </hints>
   </connection>
@@ -281,12 +281,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>313</x>
-     <y>22</y>
+     <x>352</x>
+     <y>78</y>
     </hint>
     <hint type="destinationlabel">
-     <x>249</x>
-     <y>450</y>
+     <x>267</x>
+     <y>503</y>
     </hint>
    </hints>
   </connection>
@@ -297,12 +297,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>325</x>
-     <y>23</y>
+     <x>352</x>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
-     <x>185</x>
-     <y>456</y>
+     <x>206</x>
+     <y>503</y>
     </hint>
    </hints>
   </connection>
@@ -313,12 +313,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>321</x>
-     <y>28</y>
+     <x>352</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>263</x>
-     <y>35</y>
+     <x>291</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>
@@ -329,12 +329,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>308</x>
-     <y>31</y>
+     <x>352</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>178</x>
-     <y>32</y>
+     <x>183</x>
+     <y>80</y>
     </hint>
    </hints>
   </connection>
@@ -345,12 +345,12 @@
    <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>323</x>
-     <y>30</y>
+     <x>352</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>42</x>
-     <y>21</y>
+     <x>54</x>
+     <y>77</y>
     </hint>
    </hints>
   </connection>

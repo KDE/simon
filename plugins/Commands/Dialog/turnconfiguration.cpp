@@ -40,16 +40,14 @@
 
 TurnConfiguration::TurnConfiguration(DialogTurn* _turn, QWidget* parent) :
 	KDialog(parent),
-  turn(_turn)
+	turn(_turn)
 {
-	ui.setupUi(mainWidget());
+  ui.setupUi(mainWidget());
 
   connect(ui.pbAddPrompt, SIGNAL(clicked()), this, SLOT(addPrompt()));
   connect(ui.pbEditPrompt, SIGNAL(clicked()), this, SLOT(editPrompt()));
   connect(ui.pbRemovePrompt, SIGNAL(clicked()), this, SLOT(removePrompt()));
   connect(ui.sbPrompt, SIGNAL(valueChanged(int)), this, SLOT(displaySelectedText()));
-  connect(this, SIGNAL(okClicked()), this, SLOT(save()));
-  connect(this, SIGNAL(cancelClicked()), this, SLOT(forget()));
 
   ui.leTurnName->setFocus();
 
@@ -66,7 +64,7 @@ void TurnConfiguration::displayCurrentTurn()
 
 void TurnConfiguration::addPrompt()
 {
-	turn->addText("");
+  turn->addText("");
   updateTextSelector();
   ui.sbPrompt->setValue(ui.sbPrompt->maximum());
   displaySelectedText();
@@ -74,7 +72,7 @@ void TurnConfiguration::addPrompt()
 
 void TurnConfiguration::removePrompt()
 {
-	turn->removeText(ui.sbPrompt->value() - 1);
+  turn->removeText(ui.sbPrompt->value() - 1);
   displaySelectedText();
 }
 
@@ -106,17 +104,6 @@ void TurnConfiguration::displaySelectedText()
   ui.tePrompt->setText(turn->getRawText(textId));
 }
 
-void TurnConfiguration::forget()
-{
-	code = QDialog::Rejected;
-}
-
-void TurnConfiguration::save()
-{
-	code = QDialog::Accepted;
-	turn->rename(ui.leTurnName->displayText());
-}
-
 void TurnConfiguration::addExtractor()
 {
 }
@@ -127,6 +114,16 @@ void TurnConfiguration::removeExtractor()
 
 void TurnConfiguration::init()
 {
+}
+
+int TurnConfiguration::exec()
+{
+  int result = KDialog::exec();
+  if (result == QDialog::Accepted)
+  {
+    turn->rename(ui.leTurnName->displayText());
+  }
+  return result;
 }
 
 TurnConfiguration::~TurnConfiguration()

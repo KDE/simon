@@ -24,6 +24,10 @@
 #include <QDomElement>
 #include <QDateTime>
 
+#include <iostream>
+using std::endl;
+using std::cout;
+
 DialogTurn::DialogTurn(DialogTextParser *parser, const QString& name, const QString& text, 
     bool silence, bool announceRepeat,
     QList<DialogCommand*> transitions, QObject *parent) : 
@@ -82,8 +86,6 @@ bool DialogTurn::removeText(int id)
 
 void DialogTurn::updateRandomTextSelection()
 {
-  //yeah, yeah non-even distribution and predictable randoms on old implementations..
-  //who cares for this purpose :)
   m_currentRandomTextIndex = qrand() % m_texts.count();
 }
 

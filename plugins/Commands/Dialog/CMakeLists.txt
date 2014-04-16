@@ -1,6 +1,7 @@
 set (simondialogcommandplugin_SRCS 
   dialogcommandmanager.cpp 
   dialogconfiguration.cpp
+  dialogstateconfiguration.cpp
   createdialogcommandwidget.cpp
   createtransitiondialog.cpp
   turnconfiguration.cpp
@@ -11,6 +12,7 @@ kde4_add_ui_files(simondialogcommandplugin_SRCS
   createdialogcommandwidget.ui
   createtransitiondlg.ui
   dialogcreateview.ui
+  dialogstateview.ui
   turncreateeditview.ui
 )
 

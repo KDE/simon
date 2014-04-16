@@ -34,6 +34,7 @@
 #include <KLocalizedString>
 #include <KAction>
 #include <KMessageBox>
+#include <QString>
 
 K_PLUGIN_FACTORY( DialogCommandPluginFactory,
 registerPlugin< DialogCommandManager >();
@@ -71,7 +72,7 @@ void DialogCommandManager::initState(DialogState* state)
     currentDialogState->left();
 
   state->updateRandomTextSelection();
-  
+
   foreach (DialogView* view, dialogViews)
     view->present(*(state->getCurrentTurn()));
 

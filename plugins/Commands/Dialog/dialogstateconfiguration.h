@@ -17,45 +17,49 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_TURNCONFIGURATION_H_4B4956DCAE204C49977297D20CB81F09
-#define SIMON_TURNCONFIGURATION_H_4B4956DCAE204C49977297D20CB81F09
+#ifndef SIMON_DIALOGSTATECONFIGURATION_H
+#define SIMON_DIALOGSTATECONFIGURATION_H
 
-#include <simonscenarios/commandconfiguration.h>
-#include "ui_turncreateeditview.h"
-#include <KSharedConfig>
-#include <QPointer>
-#include <QPoint>
-#include <QSize>
+#include <simondialogengine/dialogturn.h>
 
-class DialogTurn;
+#include <QWidget>
 
-class TurnConfiguration : public KDialog
+class DialogCommandManager;
+class DialogState;
+
+namespace Ui {
+  class DialogStateView;
+}
+
+class DialogStateConfiguration : public QWidget
 {
   Q_OBJECT
+  signals:
+    void deleted();
 
   private:
-    DialogTurn* turn;
-    Ui::TurnCreateEditView ui;
+    Ui::DialogStateView* ui;
+    DialogState* state;
+    DialogCommandManager* commandManager;
+
+    DialogTurn* getCurrentTurn();
 
   private slots:
-    void addPrompt();
-    void removePrompt();
-    void editPrompt();
-
-    void addExtractor();
-    void removeExtractor();
-
-    void displaySelectedText();
-    void updateTextSelector();
-    void displayCurrentTurn();
+    void editState();
+    void removeState();
+    void stateChanged();
+    void stateDestroyed();
+    void addTurn();
+    void editTurn();
+    void removeTurn();
+    void setCurrentTurn();
 
   public slots:
     void init();
-    int exec();
 
   public:
-    TurnConfiguration(DialogTurn* _turn, QWidget *parent);
-    ~TurnConfiguration();
+    DialogStateConfiguration(QWidget* parent, DialogCommandManager* _commandManager, DialogState* _state);
+    ~DialogStateConfiguration();
 
 };
 #endif

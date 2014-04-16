@@ -84,7 +84,7 @@ bool VisualDialogView::present(const DialogTurn& turn)
   while (!m_buttons.isEmpty())
     delete m_buttons.takeFirst();
   m_buttons.clear();
-  
+
   Avatar* a = m_dialog->getAvatar(turn.getAvatarId());
   if (a && turn.getDisplayAvatar())
   {

@@ -25,6 +25,8 @@
 #include <QDomElement>
 #include <QDateTime>
 
+#include <iostream>
+
 DialogState::DialogState(DialogTextParser* parser, const QString& name, QList<DialogTurn*> turns, QObject* parent) :
   QAbstractItemModel(parent),
   m_name(name),
@@ -59,6 +61,8 @@ DialogTurn* DialogState::createTurn()
 void DialogState::addTurn(DialogTurn* turn)
 {
   connect(turn, SIGNAL(changed()), this, SLOT(turnChanged()));
+  //I don't think the UI needs to get updated of turnChanged events because
+  //the UI doesn't show anything relating to the turn besides the name.
   m_turns << turn;
   currentDialogTurn = turn;
 }
@@ -100,14 +104,14 @@ bool DialogState::removeText(int id)
 
 void DialogState::updateRandomTextSelection()
 {
-  //yeah, yeah non-even distribution and predictable randoms on old implementations..
-  //who cares for this purpose :)
+  m_currentRandomTurnIndex = qrand() % m_turns.count();
+  currentDialogTurn = m_turns[m_currentRandomTurnIndex];
   currentDialogTurn->updateRandomTextSelection();
 }
 
 QString DialogState::getText() const
 {
-  return currentDialogTurn->getText();
+  return m_turns[m_currentRandomTurnIndex]->getText();
 }
 
 QString DialogState::getRawText(int index) const
@@ -153,7 +157,8 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
       connect(t, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
       connect(t, SIGNAL(changed()), this, SIGNAL(changed()));
       m_turns << t;
-    } else 
+    }
+    else
       kDebug() << "FAILED";
 
     turn = turn.nextSiblingElement("turn");
@@ -290,14 +295,35 @@ void DialogState::bindStateCommands(QList<Command*> commands)
   }
 }
 
-bool DialogState::silence() const { return m_turns.at(0)->silence(); }
-bool DialogState::announceRepeat() const { return m_turns.at(0)->announceRepeat(); }
+bool DialogState::silence() const
+{
+  return m_turns.at(0)->silence();
+}
 
-bool DialogState::getDisplayAvatar() const { return m_turns.at(0)->getDisplayAvatar(); }
-void DialogState::setDisplayAvatar(bool display) { m_turns.at(0)->setDisplayAvatar(display); }
+bool DialogState::announceRepeat() const
+{
+  return m_turns.at(0)->announceRepeat();
+}
 
-int DialogState::getAvatarId() const { return m_turns.at(0)->getAvatarId(); }
-void DialogState::setAvatar(int id) { m_turns.at(0)->setAvatar(id); }
+bool DialogState::getDisplayAvatar() const
+{
+  return m_turns.at(0)->getDisplayAvatar();
+}
+
+void DialogState::setDisplayAvatar(bool display)
+{
+  m_turns.at(0)->setDisplayAvatar(display);
+}
+
+int DialogState::getAvatarId() const
+{
+  return m_turns.at(0)->getAvatarId();
+}
+
+void DialogState::setAvatar(int id)
+{
+  m_turns.at(0)->setAvatar(id);
+}
 
 QList<DialogCommand*> DialogState::getTransitions() const
 {
@@ -313,4 +339,3 @@ void DialogState::turnDestroyed()
 {
   m_turns.removeAll(static_cast<DialogTurn*>(sender()));
 }
-
