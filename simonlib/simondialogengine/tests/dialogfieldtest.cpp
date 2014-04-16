@@ -26,6 +26,8 @@
 
 #include "../dialogfield.h"
 
+//TODO: Write custom class to test this with.
+
 class testFields: public QObject
 {
   Q_OBJECT

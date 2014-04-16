@@ -56,8 +56,8 @@ template <class T>
 class DialogFieldValue
 {
   private:
-    QSharedPointer<T> ptr;
-    bool isValidCast;
+    const QSharedPointer<T> ptr;
+    const bool isValidCast;
   public:
     DialogFieldValue<T>() : ptr(), isValidCast(false) { }
     DialogFieldValue<T>(const DialogFieldValue<T>& cpy) : ptr(cpy.ptr), isValidCast(cpy.isValidCast) { }
