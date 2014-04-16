@@ -21,18 +21,18 @@
 
 bool DialogFieldStore::removeVariable(const QString& name)
 {
-  if(!this->dialogVariables.contains(name))
+  if(!this->dialogFields.contains(name))
   {
     kWarning() << "Variable " << name << " does not exist.";
     return false;
   }
-  delete this->dialogVariables.take(name);
+  delete this->dialogFields.take(name);
   return true;
 }
 
 bool DialogFieldStore::addVariable(const QString& type, const QString& name, const QString& value)
 {
-    if(this->dialogVariables.contains(name))
+    if(this->dialogFields.contains(name))
     {
 	kWarning() << "Variable " << name << " already exists.";
 	return false;
@@ -52,7 +52,7 @@ bool DialogFieldStore::addVariable(const QString& type, const QString& name, con
       kWarning() << "Failed to create field " << name << " with value " << value;
       return false;
     }
-    this->dialogVariables[name] = b;
+    this->dialogFields[name] = b;
     return true;
 }
 

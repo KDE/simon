@@ -34,10 +34,9 @@ class testFieldStore: public QObject
     //void testGeneral();
     void testAdd();
     void testRemove();
-    //void testSet();
-    //void testTypedGet();
+
     void testInvalidTypedGet();
-    //void testInvalidSet();
+
     void testCustomType(); //TODO:  Fix dialog variable so custom types can be used.
 };
 
@@ -61,22 +60,14 @@ void testFieldStore::testRemove()
   //QVERIFY(!v.contains("attack"));
 }
 
-/*void testFieldStore::testTypedGet()
-{
-  DialogFieldStore v;
-  v.addVariable<int>("defense",3);
-  int i = v.getTypedValue<int>("defense");
-  v.setVariable<int>("defense",i+1);
-  QCOMPARE(v.getTypedValue<int>("defense"),i+1);
-}*/
 
 void testFieldStore::testInvalidTypedGet()
 {
   DialogFieldStore v;
-  //v.addVariable<int>("oh noes",4);
-  //DialogFieldValue<double> d = v.getValue<double>("oh noes");
-  //bool result = !d.isValid();
-  //QVERIFY(result);
+  v.addVariable("int","oh noes","4");
+  DialogFieldValue<double> d = v.getValue<double>("oh noes");
+  bool result = !d.isValid();
+  QVERIFY(result);
 }
 
 

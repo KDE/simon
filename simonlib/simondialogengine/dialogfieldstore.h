@@ -28,14 +28,14 @@
 
 class DialogFieldStore {
   private:
-    QHash<QString,DialogFieldBase*> dialogVariables;
+    QHash<QString,DialogFieldBase*> dialogFields;
     QHash<QString,DialogFieldTypeInfo const *> creators;
   public:
     //TODO: Figure out a better solution to this
     DialogFieldStore() { registerDefaults(); }
     bool removeVariable(const QString& name);
-    int count() const { return dialogVariables.count(); }
-    bool contains(QString s) { return dialogVariables.contains(s); }
+    int count() const { return dialogFields.count(); }
+    bool contains(QString s) { return dialogFields.contains(s); }
     bool registerFactory(const QString& key, const DialogFieldTypeInfo& dfti);
     bool unregisterFactory(const QString& key);
 
@@ -48,6 +48,6 @@ class DialogFieldStore {
     template <typename T>
     DialogFieldValue<T> getValue(const QString& name) const
     {
-	return this->dialogVariables[name]->getValue<T>();
+	return this->dialogFields[name]->getValue<T>();
     }
 };
