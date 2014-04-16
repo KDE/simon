@@ -34,6 +34,7 @@ DialogFieldBase* DialogIntegerField::deSerializeDialogIntegerField(const QDomEle
   {
     delete retval;
     retval = 0;
+    kWarning() << "deSerialization of DialogIntegerField failed!";
   }
   return retval;
 }
@@ -46,6 +47,7 @@ DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QString& nam
   {
     delete retval;
     retval = 0;
+    kWarning() << "creation of DialogIntegerField failed!";
   }
   return retval;
 }
@@ -58,6 +60,7 @@ QSharedPointer<int> DialogIntegerField::parseValue(const QString& value)
   {
     return QSharedPointer<int>(new int(v));
   }
+  kWarning() << "Could not convert value into a QString.";
   return QSharedPointer<int>(0);
 
 }

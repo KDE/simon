@@ -36,7 +36,7 @@ class DialogFieldStore {
     bool removeVariable(const QString& name);
     int count() const { return dialogFields.count(); }
     bool contains(QString s) { return dialogFields.contains(s); }
-    bool registerFactory(const QString& key, const DialogFieldTypeInfo& dfti);
+    bool registerFactory(const DialogFieldTypeInfo& dfti);
     bool unregisterFactory(const QString& key);
 
     bool registerDefaults();

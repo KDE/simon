@@ -22,6 +22,7 @@
 #include <QDomElement>
 #include <QSharedPointer>
 #include <fcntl.h>
+#include <kdebug.h>
 
 //TODO:  Implement the parser class and have this use it to get/set the variable.
 //TODO:  Split the DialogFieldValue and DialogFieldInfo classes into their own separate files.
@@ -87,6 +88,7 @@ class DialogFieldBase {
       }
       else
       {
+	kWarning() << "Get value cast failed!";
 	return DialogFieldValue<T>();
       }
     }
@@ -123,6 +125,12 @@ class DialogField : public DialogFieldBase
 
       virtual QDomElement serialize(QDomDocument * doc)
       {
+	if(!doc)
+	{
+	  kWarning() << "Doc submitted to serialize was null!";
+	  return QDomElement();
+	}
+
 	QDomElement elem = doc->createElement("field");
 
 	QDomElement name = doc->createElement("name");

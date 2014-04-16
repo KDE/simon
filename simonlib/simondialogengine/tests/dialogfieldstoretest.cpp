@@ -34,11 +34,19 @@ class testFieldStore: public QObject
     //void testGeneral();
     void testAdd();
     void testRemove();
+    void testTypedGet();
+    void testRegisterFactory();
+    void testUnregisterFactory();
 
+    void testDoubleRegister();
+    void testInvalidTypeKeyAdd();
+    void testInvalidValueAdd();
+    void testNonExistantRemove();
     void testInvalidTypedGet();
 
     void testCustomType(); //TODO:  Fix dialog variable so custom types can be used.
 };
+
 
 void testFieldStore::testAdd()
 {
@@ -58,6 +66,53 @@ void testFieldStore::testRemove()
   QVERIFY(!v.contains("attack"));
 }
 
+void testFieldStore::testTypedGet()
+{
+  DialogFieldStore v;
+  v.addVariable("int","yay","3535");
+  DialogFieldValue<int> i = v.getValue<int>("yay");
+  QVERIFY(i.isValid());
+  QCOMPARE(*i.data(),3535);
+}
+
+void testFieldStore::testRegisterFactory()
+{
+  DialogFieldStore v;
+  QSKIP("This test is currently unimplemented", SkipSingle);
+  //DialogFieldTypeInfo f = DialogFieldTypeInfo("nope",
+  //v.registerFactory();
+}
+
+void testFieldStore::testUnregisterFactory()
+{
+  DialogFieldStore v;
+  v.unregisterFactory(DialogIntegerField::typeInfo._id);
+  QVERIFY(!v.addVariable("int","name","3"));
+}
+
+void testFieldStore::testDoubleRegister()
+{
+  DialogFieldStore v;
+  QVERIFY(!v.registerFactory(DialogIntegerField::typeInfo));
+}
+
+void testFieldStore::testInvalidTypeKeyAdd()
+{
+  DialogFieldStore v;
+  QVERIFY(!v.addVariable("cat","name","3"));
+}
+
+void testFieldStore::testInvalidValueAdd()
+{
+  DialogFieldStore v;
+  QVERIFY(!v.addVariable("int","name","foolish"));
+}
+
+void testFieldStore::testNonExistantRemove()
+{
+  DialogFieldStore v;
+  QVERIFY(!v.removeVariable("help"));
+}
 
 void testFieldStore::testInvalidTypedGet()
 {
@@ -74,8 +129,6 @@ void testFieldStore::testCustomType()
   //UNIMPLIMENTED
   QSKIP("This test is currently unimplemented", SkipSingle);
   DialogFieldStore v;
-  //DialogDecimalVaraible d(QString("name"),3.4);
-  //v.addVariable<DialogDecimalVaraible>("attack",d);
 }
 
 QTEST_MAIN(testFieldStore)

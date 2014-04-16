@@ -59,18 +59,18 @@ bool DialogFieldStore::addVariable(const QString& type, const QString& name, con
 
 bool DialogFieldStore::registerDefaults()
 {
-  return this->registerFactory(DialogIntegerField::typeInfo._id,DialogIntegerField::typeInfo);
+  return this->registerFactory(DialogIntegerField::typeInfo);
 }
 
 
-bool DialogFieldStore::registerFactory(const QString& key, const DialogFieldTypeInfo& dfti)
+bool DialogFieldStore::registerFactory(const DialogFieldTypeInfo& dfti)
 {
-  if(this->creators.contains(key))
+  if(this->creators.contains(dfti._id))
   {
-    kWarning() << "Factory method already registered for key " << key;
+    kWarning() << "Factory method already registered for type " << dfti._id;
     return false;
   }
-  this->creators[key] = &dfti;
+  this->creators[dfti._id] = &dfti;
   return true;
 }
 
@@ -78,7 +78,7 @@ bool DialogFieldStore::unregisterFactory(const QString& key)
 {
   if(!this->creators.contains(key))
   {
-    kWarning() << "Key " << key << " is not registered.";
+    kWarning() << "Type " << key << " is not registered.";
     return false;
   }
   this->creators.remove(key);

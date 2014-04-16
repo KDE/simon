@@ -38,13 +38,26 @@ class testFields: public QObject
     //Integer tests
     void testIntegerToString();
 
+    void testIntegerCreate();
     void testIntegerSerialize();
     void testIntegerDeSerialize();
+
+    void testIntegerBadCreate();
+    void testIntegerBadDeSerialize();
+    void testIntegerBadDoc();
 };
 
 void testFields::testGeneral()
 {
   QSKIP("This test is currently unimplemented", SkipSingle);
+}
+
+void testFields::testIntegerCreate()
+{
+  DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.cf("Name","3"));
+  QVERIFY(d);
+  QCOMPARE(d->getName(),QString("Name"));
+  QCOMPARE(*d->getVal().data(),3);
 }
 
 void testFields::testIntegerToString()
@@ -93,6 +106,36 @@ void testFields::testIntegerDeSerialize()
   QCOMPARE(result_field->getName(),QString("Name"));
   QCOMPARE(*(result_field->getVal().data()),3);
   delete result_field;
+}
+
+void testFields::testIntegerBadDeSerialize()
+{
+  QDomDocument doc("");
+
+  doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>int</type>"
+	"</field>"
+  ));
+
+  QDomElement first_elem = doc.firstChildElement();
+
+  //Should be null due to doc not having a value
+  DialogIntegerField* result_field = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.dsf(first_elem));
+  QVERIFY(!result_field);
+}
+
+void testFields::testIntegerBadCreate()
+{
+  DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.cf("name","value"));
+  QVERIFY(!d);
+}
+
+void testFields::testIntegerBadDoc()
+{
+  QDomElement empty_elem = DialogIntegerField("Name",3).serialize(NULL);
+  QVERIFY(empty_elem.isNull());
 }
 
 
