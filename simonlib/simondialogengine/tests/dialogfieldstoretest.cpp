@@ -43,21 +43,19 @@ class testFieldStore: public QObject
 void testFieldStore::testAdd()
 {
   DialogFieldStore v;
-  //QString name = "attack";
-  //double result = 3.01;
-  //v.addVariable<double>(name,3.01);
-  //QCOMPARE(*(v.getValue<double>(name).data()),result);
+  v.addVariable("int","attack","3");
+  QCOMPARE(*(v.getValue<int>("attack").data()),3);
 }
 
 void testFieldStore::testRemove()
 {
   DialogFieldStore v;
-  //v.addVariable<double>("attack",3.4);
-  //DialogFieldValue<double> result = v.getValue<double>("attack");
-  //QCOMPARE(*result.data(),3.4);
-  //QVERIFY(v.contains("attack"));
-  //v.removeVariable("attack");
-  //QVERIFY(!v.contains("attack"));
+  v.addVariable("int","attack","3");
+  DialogFieldValue<int> result = v.getValue<int>("attack");
+  QCOMPARE(*result.data(),3);
+  QVERIFY(v.contains("attack"));
+  v.removeVariable("attack");
+  QVERIFY(!v.contains("attack"));
 }
 
 
