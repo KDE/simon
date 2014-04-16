@@ -24,13 +24,15 @@
 
 //Ben Notes:  An instance of this class is essentially going to be a list
 //            of active variables for the current Dialog Instance.
-//TODO: Add factory methods for generating DialogField.
+//TODO: Add documentation
 
 class DialogFieldStore {
   private:
     QHash<QString,DialogFieldBase*> dialogVariables;
     QHash<QString,DialogFieldTypeInfo const *> creators;
   public:
+    //TODO: Figure out a better solution to this
+    DialogFieldStore() { registerDefaults(); }
     bool removeVariable(const QString& name);
     int count() const { return dialogVariables.count(); }
     bool contains(QString s) { return dialogVariables.contains(s); }
@@ -40,7 +42,7 @@ class DialogFieldStore {
     bool registerDefaults();
 
     //bool addVariable(const QString& name);
-    //bool addVariable(const QString& name, const QString& value);
+    bool addVariable(const QString& type, const QString& name, const QString& value);
 
 
     template <typename T>

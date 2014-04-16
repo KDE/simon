@@ -29,31 +29,33 @@ bool DialogFieldStore::removeVariable(const QString& name)
   delete this->dialogVariables.take(name);
   return true;
 }
-/*
-bool DialogFieldStore::addVariable(const QString& name)
-{
-    if(this->dialogVariables.contains(name))
-    {
-	kWarning() << "Variable " << name << " already exists.";
-	return false;
-    }
-    this->dialogVariables[name] = this->factory.Create<T>(name,val);
-    return true;
-}
-*/
 
-/*
-bool DialogFieldStore::addVariable(const QString& name, const QString& value)
+bool DialogFieldStore::addVariable(const QString& type, const QString& name, const QString& value)
 {
     if(this->dialogVariables.contains(name))
     {
 	kWarning() << "Variable " << name << " already exists.";
 	return false;
     }
-    this->dialogVariables[name] = this->factory.Create<T>(name,val);
+
+    if(!this->creators.contains(type))
+    {
+	kWarning() << "Type " << type << " has no registered factories.";
+	return false;
+    }
+
+    const DialogFieldTypeInfo* dfti = this->creators[type];
+    DialogFieldBase* b = dfti->cf(name,value);
+
+    if(!b)
+    {
+      kWarning() << "Failed to create field " << name << " with value " << value;
+      return false;
+    }
+    this->dialogVariables[name] = b;
     return true;
 }
-*/
+
 
 bool DialogFieldStore::registerDefaults()
 {

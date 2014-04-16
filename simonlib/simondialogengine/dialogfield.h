@@ -37,7 +37,7 @@ class DialogFieldTypeInfo
 {
   public:
     typedef DialogFieldBase* (*deSerializeFunction)(const QDomElement& elem);
-    typedef DialogFieldBase* (*createFunction)(const QString& value);
+    typedef DialogFieldBase* (*createFunction)(const QString& name, const QString& value);
 
     const QString _id;
     const QString _name;
@@ -111,14 +111,17 @@ class DialogField : public DialogFieldBase
 {
   protected:
     typedef T VariableType;
+
+    QString name;
+    QSharedPointer<VariableType> value;
+
     DialogField<T>() : name("Uninitialized"), value() { }
+    DialogField<T>(const QString& n) : name(n), value() { }
     virtual const QString& getType() const = 0;
 
     //TODO: Overload this so QDomElement is an option as well.
     virtual QSharedPointer<VariableType> parseValue(const QString& value) = 0;
   private:
-      QString name;
-      QSharedPointer<VariableType> value;
       class Parser {} parser;
   public:
       DialogField<T>(const QString& n, const VariableType& val) : name(n), value(new VariableType(val)) { }
@@ -181,11 +184,13 @@ class DialogIntegerField : public DialogField<int>
     virtual QSharedPointer<VariableType> parseValue(const QString& value);
 
     DialogIntegerField() : DialogField< int >() { }
+    DialogIntegerField(const QString& n) : DialogField< int >(n) { }
   public:
     static const DialogFieldTypeInfo typeInfo;
     static DialogFieldBase* deSerializeDialogIntegerField(const QDomElement& elem);
-    static DialogFieldBase* createDialogIntegerField(const QString& value);
+    static DialogFieldBase* createDialogIntegerField(const QString& name, const QString& value);
+
+    DialogIntegerField(const QString& name, const VariableType& val) : DialogField<int>(name,val) { }
 
     virtual QString toString() { return QString::number(*getVal().data()); }
-    DialogIntegerField(const QString& name, const VariableType& val) : DialogField<int>(name,val) { }
 };

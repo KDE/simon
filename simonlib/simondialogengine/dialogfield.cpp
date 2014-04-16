@@ -38,10 +38,11 @@ DialogFieldBase* DialogIntegerField::deSerializeDialogIntegerField(const QDomEle
   return retval;
 }
 
-DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QString& value)
+DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QString& name, const QString& value)
 {
-  DialogIntegerField* retval = new DialogIntegerField();
-  if(retval->parseValue(value).isNull())
+  DialogIntegerField* retval = new DialogIntegerField(name);
+  retval->value = retval->parseValue(value);
+  if(retval->value.isNull())
   {
     delete retval;
     retval = 0;
