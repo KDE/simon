@@ -33,7 +33,7 @@ class DialogFieldStore {
   public:
     //TODO: Figure out a better solution to this
     DialogFieldStore() { registerDefaults(); }
-    bool removeVariable(const QString& name);
+    bool removeField(const QString& name);
     int count() const { return dialogFields.count(); }
     bool contains(QString s) { return dialogFields.contains(s); }
     bool registerFactory(const DialogFieldTypeInfo& dfti);

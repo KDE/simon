@@ -62,7 +62,7 @@ void testFieldStore::testRemove()
   DialogFieldValue<int> result = v.getValue<int>("attack");
   QCOMPARE(*result.data(),3);
   QVERIFY(v.contains("attack"));
-  v.removeVariable("attack");
+  v.removeField("attack");
   QVERIFY(!v.contains("attack"));
 }
 
@@ -111,7 +111,7 @@ void testFieldStore::testInvalidValueAdd()
 void testFieldStore::testNonExistantRemove()
 {
   DialogFieldStore v;
-  QVERIFY(!v.removeVariable("help"));
+  QVERIFY(!v.removeField("help"));
 }
 
 void testFieldStore::testInvalidTypedGet()

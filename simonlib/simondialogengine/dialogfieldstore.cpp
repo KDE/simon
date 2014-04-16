@@ -19,7 +19,7 @@
 
 #include "dialogfieldstore.h"
 
-bool DialogFieldStore::removeVariable(const QString& name)
+bool DialogFieldStore::removeField(const QString& name)
 {
   if(!this->dialogFields.contains(name))
   {
