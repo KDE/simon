@@ -49,7 +49,6 @@ class DialogFieldTypeInfo
     DialogFieldTypeInfo(const QString id, const QString name, const QString desc, const deSerializeFunction dfs_ptr,
 			const createFunction cf_ptr) : _id(id), _name(name), _description(desc),
 							dsf(dfs_ptr), cf(cf_ptr) { }
-    //DialogFieldTypeInfo(const QString& id, const QString& name, const QString& desc, const createFunction func_ptr) : _id(id), _name(name), _description(desc), cf(func_ptr) { }
 };
 
 template <class T>
@@ -91,19 +90,6 @@ class DialogFieldBase {
 	return DialogFieldValue<T>();
       }
     }
-
-    /*
-    template <class T>
-    static DialogField<T> * deSerialize(const QDomElement& elem)
-    {
-      DialogField<T> newField = new DialogField<T>();
-      if(!newField->deSerialize(elem))
-      {
-	delete newField;
-	newField = 0;
-      }
-      return newField;
-    }*/
 };
 
 template <class T>
@@ -168,6 +154,11 @@ class DialogField : public DialogFieldBase
 
 	this->name = elem.firstChildElement("name").text();
 	this->value = this->parseValue(elem.firstChildElement("value").text());
+
+	if(this->value.isNull())
+	{
+	  return false;
+	}
 
 	return true;
       }
