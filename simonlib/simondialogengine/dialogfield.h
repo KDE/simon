@@ -40,15 +40,15 @@ class DialogFieldTypeInfo
     typedef DialogFieldBase* (*deSerializeFunction)(const QDomElement& elem);
     typedef DialogFieldBase* (*createFunction)(const QString& name, const QString& value);
 
-    const QString _id;
-    const QString _name;
-    const QString _description;
+    const QString id_;
+    const QString name_;
+    const QString description_;
 
     const deSerializeFunction dsf;
     const createFunction cf;
 
     DialogFieldTypeInfo(const QString id, const QString name, const QString desc, const deSerializeFunction dfs_ptr,
-			const createFunction cf_ptr) : _id(id), _name(name), _description(desc),
+			const createFunction cf_ptr) : id_(id), name_(name), description_(desc),
 							dsf(dfs_ptr), cf(cf_ptr) { }
 };
 
@@ -179,7 +179,7 @@ class DialogField : public DialogFieldBase
 class DialogIntegerField : public DialogField<int>
 {
   protected:
-    virtual const QString& getType() const { return DialogIntegerField::typeInfo._id; }
+    virtual const QString& getType() const { return DialogIntegerField::typeInfo.id_; }
     virtual QSharedPointer<VariableType> parseValue(const QString& value);
 
     DialogIntegerField() : DialogField< int >() { }
