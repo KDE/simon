@@ -86,7 +86,7 @@ void testFieldStore::testRegisterFactory()
 void testFieldStore::testUnregisterFactory()
 {
   DialogFieldStore v;
-  v.unregisterFactory(DialogIntegerField::typeInfo.id_);
+  v.unregisterFactory(DialogIntegerField::typeInfo.id);
   QVERIFY(!v.addField("int","name","3"));
 }
 

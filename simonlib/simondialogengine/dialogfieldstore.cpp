@@ -65,12 +65,12 @@ bool DialogFieldStore::registerDefaults()
 
 bool DialogFieldStore::registerFactory(const DialogFieldTypeInfo& dfti)
 {
-  if(this->creators.contains(dfti.id_))
+  if(this->creators.contains(dfti.id))
   {
-    kWarning() << "Factory method already registered for type " << dfti.id_;
+    kWarning() << "Factory method already registered for type " << dfti.id;
     return false;
   }
-  this->creators[dfti.id_] = &dfti;
+  this->creators[dfti.id] = &dfti;
   return true;
 }
 
