@@ -103,7 +103,7 @@ class DialogField : public DialogFieldBase
     QString name;
     QSharedPointer<VariableType> value;
 
-    DialogField<T>() : name("Uninitialized"), value() { }
+    DialogField<T>() : name(), value() { }
     DialogField<T>(const QString& n) : name(n), value() { }
     virtual const QString& getType() const = 0;
 
