@@ -46,7 +46,7 @@ class testFields: public QObject
 
     void testIntegerBadCreate();
     void testIntegerBadDeSerialize();
-    void testIntegerBadDoc();
+    //void testIntegerBadDoc();
 };
 
 void testFields::testGeneral()
@@ -133,13 +133,6 @@ void testFields::testIntegerBadCreate()
   DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.cf("name","value"));
   QVERIFY(!d);
 }
-
-void testFields::testIntegerBadDoc()
-{
-  QDomElement empty_elem = DialogIntegerField("Name",3).serialize(NULL);
-  QVERIFY(empty_elem.isNull());
-}
-
 
 QTEST_MAIN(testFields)
 

@@ -31,7 +31,6 @@ class DialogFieldStore {
     QHash<QString,DialogFieldBase*> dialogFields;
     QHash<QString,DialogFieldTypeInfo const *> creators;
   public:
-    //TODO: Figure out a better solution to this
     DialogFieldStore() { registerDefaults(); }
     bool removeField(const QString& name);
     int count() const { return dialogFields.count(); }
