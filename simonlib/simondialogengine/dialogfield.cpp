@@ -19,11 +19,13 @@
 
 #include "dialogfield.h"
 #include <QString>
+#include <klocalizedstring.h>
 
 //TODO: Add Debug statements
 
-const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("int","Integer",
-									     "All whole negative and non-negative numbers",
+const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("int",
+									     i18nc("Integer","Variable type name of the dialog integer field"),
+									     i18n("All whole negative and non-negative numbers"),
 									     &DialogIntegerField::deSerializeDialogIntegerField,
 									     &DialogIntegerField::createDialogIntegerField);
 
