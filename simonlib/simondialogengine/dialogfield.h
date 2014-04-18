@@ -33,6 +33,11 @@ class DialogFieldBase;
 class QDomElement;
 class QDomDocument;
 
+class DialogFieldCreator
+{
+
+};
+
 class DialogFieldTypeInfo
 {
   public:
@@ -78,6 +83,8 @@ class DialogFieldBase {
     virtual bool deSerialize(const QDomElement& elem) = 0;
     virtual QDomElement serialize(QDomDocument * doc) = 0;
 
+    virtual QString getName() const = 0;
+
     template <class T>
     DialogFieldValue<T> getValue()
     {
@@ -117,7 +124,7 @@ class DialogField : public DialogFieldBase
 	return DialogFieldValue<T>(value);
       }
 
-      QString getName() const
+      virtual QString getName() const
       {
 	return name;
       }

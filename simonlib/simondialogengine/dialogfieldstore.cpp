@@ -84,3 +84,43 @@ bool DialogFieldStore::unregisterFactory(const QString& key)
   this->creators.remove(key);
   return true;
 }
+
+bool DialogFieldStore::deSerialize(const QDomElement& elem)
+{
+   if(elem.isNull()) return false;
+   QDomNodeList l = elem.elementsByTagName("field");
+   for(unsigned i = 0;i<l.length();i++)
+   {
+      QDomElement e = l.at(i).toElement();
+      QDomElement type = e.firstChildElement("type");
+      if(type.isNull())
+      {
+	kWarning() << "Encountered an element without a type when deSerializing the DialogFieldStore";
+	continue;
+      }
+
+      if(!this->creators.contains(type.text()))
+      {
+	kWarning() << "Type " << type.text() << " not registered in creators!";
+	continue;
+      }
+
+      DialogFieldBase* result = this->creators[type.text()]->dsf(e);
+
+      if(result)
+      {
+	this->dialogFields[result->getName()] = result;
+      }
+   }
+   return true;
+}
+
+QDomElement DialogFieldStore::serialize(QDomDocument* doc)
+{
+  QDomElement root = doc->createElement("fieldstore");
+  foreach(const QString& key, this->dialogFields.keys())
+  {
+    root.appendChild(this->dialogFields[key]->serialize(doc));
+  }
+  return root;
+}

@@ -43,6 +43,8 @@ class DialogFieldStore {
     //bool addField(const QString& name);
     bool addField(const QString& type, const QString& name, const QString& value);
 
+    bool deSerialize(const QDomElement& elem);
+    QDomElement serialize(QDomDocument * doc);
 
     template <typename T>
     DialogFieldValue<T> getValue(const QString& name) const
