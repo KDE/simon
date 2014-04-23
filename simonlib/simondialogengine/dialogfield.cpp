@@ -67,7 +67,7 @@ QSharedPointer<int> DialogIntegerField::parseValue(const QString& value)
 
 }
 
-QSharedPointer< int > DialogIntegerField::parseValue(const QDomElement& elem)
+QSharedPointer< int > DialogIntegerField::deSerializeValue(const QDomElement& elem)
 {
   return parseValue(elem.text());
 }
