@@ -37,6 +37,8 @@ class testFieldStore: public QObject
     void testTypedGet();
     void testRegisterFactory();
     void testUnregisterFactory();
+    void testSerialize();
+    void testDeSerialize();
 
     void testDoubleRegister();
     void testInvalidTypeKeyAdd();
@@ -88,6 +90,92 @@ void testFieldStore::testUnregisterFactory()
   DialogFieldStore v;
   v.unregisterFactory(DialogIntegerField::typeInfo.id);
   QVERIFY(!v.addField("int","name","3"));
+}
+
+void testFieldStore::testSerialize()
+{
+  QDomDocument doc("");
+  QDomDocument expected_doc("");
+
+  expected_doc.setContent(QByteArray(
+	"<fieldstore>"
+	"<field>"
+	"<name>Number of Apples</name>"
+	"<type>int</type>"
+	"<value>6</value>"
+	"</field>"
+	"<field>"
+	"<name>Number of Farmers</name>"
+	"<type>int</type>"
+	"<value>1</value>"
+	"</field>"
+	"<field>"
+	"<name>Number of Caterpillers</name>"
+	"<type>int</type>"
+	"<value>5</value>"
+	"</field>"
+	"</fieldstore>"
+  ));
+
+  DialogFieldStore v;
+  v.addField("int","Number of Caterpillers","5");
+  v.addField("int","Number of Apples","6");
+  v.addField("int","Number of Farmers", "1");
+
+  QDomElement serialized = v.serialize(&doc);
+  doc.appendChild(serialized);
+
+  QCOMPARE(doc.toString(),expected_doc.toString());
+
+}
+
+void testFieldStore::testDeSerialize()
+{
+  QDomDocument doc("");
+
+  doc.setContent(QByteArray(
+	"<fieldstore>"
+	"<field>"
+	"<name>Number of Apples</name>"
+	"<type>int</type>"
+	"<value>6</value>"
+	"</field>"
+	"<field>"
+	"<name>Number of Farmers</name>"
+	"<type>int</type>"
+	"<value>1</value>"
+	"</field>"
+	"<field>"
+	"<name>Number of Caterpillers</name>"
+	"<type>int</type>"
+	"<value>5</value>"
+	"</field>"
+	"</fieldstore>"
+  ));
+
+  QDomElement first_child = doc.firstChildElement();
+
+  DialogFieldStore v;
+  QVERIFY(v.deSerialize(first_child));
+  QVERIFY(v.contains("Number of Farmers"));
+
+  {
+    DialogFieldValue<int> val = v.getValue<int>("Number of Farmers");
+    QCOMPARE(*val.data(),1);
+  }
+
+  QVERIFY(v.contains("Number of Caterpillers"));
+  {
+    DialogFieldValue<int> val = v.getValue<int>("Number of Caterpillers");
+    QCOMPARE(*val.data(),5);
+  }
+
+  QVERIFY(v.contains("Number of Apples"));
+  {
+    DialogFieldValue<int> val = v.getValue<int>("Number of Apples");
+    QCOMPARE(*val.data(),6);
+  }
+
 }
 
 void testFieldStore::testDoubleRegister()

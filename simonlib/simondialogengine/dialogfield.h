@@ -64,7 +64,6 @@ class DialogFieldValue
     const bool isValidCast;
   public:
     DialogFieldValue<T>() : ptr(), isValidCast(false) { }
-    DialogFieldValue<T>(const DialogFieldValue<T>& cpy) : ptr(cpy.ptr), isValidCast(cpy.isValidCast) { }
     explicit DialogFieldValue<T>(const QSharedPointer<T>& pointer) : ptr(pointer), isValidCast(true) { }
 
     T* data() { return this->ptr.data(); }
