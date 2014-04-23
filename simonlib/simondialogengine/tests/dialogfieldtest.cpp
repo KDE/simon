@@ -25,6 +25,7 @@
 #include <KDebug>
 
 #include "../dialogfield.h"
+#include "../dialogintegerfield.h"
 
 //TODO: Write custom class to test this with.
 

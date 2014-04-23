@@ -17,6 +17,9 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef SIMON_DIALOGFIELD_H_numbers
+#define SIMON_DIALOGFIELD_H_numbers
+
 #include <QString>
 #include <QDomDocument>
 #include <QDomElement>
@@ -112,7 +115,6 @@ class DialogField : public DialogFieldBase
     DialogField<T>(const QString& n) : name(n), value() { }
     virtual const QString& getType() const = 0;
 
-    //TODO: Overload this so QDomElement is an option as well.
     virtual QSharedPointer<VariableType> parseValue(const QString& value) = 0;
 
     virtual QSharedPointer<VariableType> deSerializeValue(const QDomElement& elem) = 0;
@@ -174,25 +176,4 @@ class DialogField : public DialogFieldBase
       virtual QString toString() = 0;
 };
 
-//TODO: Separate this into its own file called "standarddialogfields.h"/"standarddialogfields.cpp"
-
-class DialogIntegerField : public DialogField<int>
-{
-  protected:
-    virtual const QString& getType() const { return DialogIntegerField::typeInfo.id; }
-    virtual QSharedPointer<VariableType> parseValue(const QString& value);
-
-    virtual QSharedPointer<VariableType> deSerializeValue(const QDomElement& elem);
-    virtual QDomElement seriaizeValue(QDomDocument * doc);
-
-    DialogIntegerField() : DialogField< int >() { }
-    DialogIntegerField(const QString& n) : DialogField< int >(n) { }
-  public:
-    static const DialogFieldTypeInfo typeInfo;
-    static DialogFieldBase* deSerializeDialogIntegerField(const QDomElement& elem);
-    static DialogFieldBase* createDialogIntegerField(const QString& name, const QString& value);
-
-    DialogIntegerField(const QString& name, const VariableType& val) : DialogField<int>(name,val) { }
-
-    virtual QString toString() { return QString::number(*getVal().data()); }
-};
+#endif /* SIMON_DIALOGFIELD_H_numbers */

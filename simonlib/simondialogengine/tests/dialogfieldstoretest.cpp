@@ -25,6 +25,7 @@
 #include <KDebug>
 
 #include "../dialogfieldstore.h"
+#include "../dialogintegerfield.h"
 
 class testFieldStore: public QObject
 {

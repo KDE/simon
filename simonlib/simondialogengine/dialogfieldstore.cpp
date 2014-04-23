@@ -18,6 +18,7 @@
  */
 
 #include "dialogfieldstore.h"
+#include "dialogintegerfield.h"
 
 bool DialogFieldStore::removeField(const QString& name)
 {

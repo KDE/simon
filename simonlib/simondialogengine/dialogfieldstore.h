@@ -16,6 +16,10 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+#ifndef SIMON_DIALOGFIELDSTORE_H_numbers
+#define SIMON_DIALOGFIELDSTORE_H_numbers
+
 #include <QList>
 #include <QString>
 #include <QHash>
@@ -52,3 +56,5 @@ class DialogFieldStore {
 	return this->dialogFields[name]->getValue<T>();
     }
 };
+
+#endif /* SIMON_DIALOGFIELDSTORE_H_numbers */
