@@ -67,3 +67,14 @@ QSharedPointer<int> DialogIntegerField::parseValue(const QString& value)
 
 }
 
+QSharedPointer< int > DialogIntegerField::parseValue(const QDomElement& elem)
+{
+  return parseValue(elem.text());
+}
+
+QDomElement DialogIntegerField::seriaizeValue(QDomDocument* doc)
+{
+  QDomElement result = doc->createElement("value");
+  result.appendChild(doc->createTextNode(this->toString()));
+  return result;
+}

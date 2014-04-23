@@ -64,7 +64,7 @@ class DialogFieldValue
     const bool isValidCast;
   public:
     DialogFieldValue<T>() : ptr(), isValidCast(false) { }
-    explicit DialogFieldValue<T>(const QSharedPointer<T>& pointer) : ptr(pointer), isValidCast(true) { }
+    explicit DialogFieldValue<T>(const QSharedPointer<T>& pointer) : ptr(pointer), isValidCast(!pointer.isNull()) { }
 
     T* data() { return this->ptr.data(); }
 
@@ -114,6 +114,9 @@ class DialogField : public DialogFieldBase
 
     //TODO: Overload this so QDomElement is an option as well.
     virtual QSharedPointer<VariableType> parseValue(const QString& value) = 0;
+
+    virtual QSharedPointer<VariableType> parseValue(const QDomElement& elem) = 0;
+    virtual QDomElement seriaizeValue(QDomDocument * doc) = 0;
   private:
       class Parser {} parser;
   public:
@@ -135,15 +138,11 @@ class DialogField : public DialogFieldBase
 	QDomElement elem = doc->createElement("field");
 
 	QDomElement name = doc->createElement("name");
-	QDomElement value = doc->createElement("value");
+	QDomElement value = this->seriaizeValue(doc);
 	QDomElement type = doc->createElement("type");
 
 	QDomText name_value = doc->createTextNode(this->name);
 	name.appendChild(name_value);
-
-	//TODO: Change this to allow different
-	QDomText value_value = doc->createTextNode(this->toString());
-	value.appendChild(value_value);
 
 	QDomText type_value = doc->createTextNode(this->getType());
 	type.appendChild(type_value);
@@ -162,7 +161,7 @@ class DialogField : public DialogFieldBase
 	if(elem.firstChildElement("type").text() != getType()) return false;
 
 	this->name = elem.firstChildElement("name").text();
-	this->value = this->parseValue(elem.firstChildElement("value").text());
+	this->value = this->parseValue(elem.firstChildElement("value"));
 
 	if(this->value.isNull())
 	{
@@ -182,6 +181,9 @@ class DialogIntegerField : public DialogField<int>
   protected:
     virtual const QString& getType() const { return DialogIntegerField::typeInfo.id; }
     virtual QSharedPointer<VariableType> parseValue(const QString& value);
+
+    virtual QSharedPointer<VariableType> parseValue(const QDomElement& elem);
+    virtual QDomElement seriaizeValue(QDomDocument * doc);
 
     DialogIntegerField() : DialogField< int >() { }
     DialogIntegerField(const QString& n) : DialogField< int >(n) { }
