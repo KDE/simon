@@ -36,27 +36,34 @@ class DialogFieldBase;
 class QDomElement;
 class QDomDocument;
 
-class DialogFieldCreator
-{
-
-};
-
 class DialogFieldTypeInfo
 {
+  private:
+    typedef DialogFieldBase* (*createFunction)(const QString& name);
+    typedef DialogFieldBase* (*createFunctionWDV)(const QString& name, const QString& value);
+    const createFunction createFunc;
+    const createFunctionWDV createFuncWithDefaultValue;
+
   public:
     typedef DialogFieldBase* (*deSerializeFunction)(const QDomElement& elem);
-    typedef DialogFieldBase* (*createFunction)(const QString& name, const QString& value);
 
     const QString id;
     const QString name;
     const QString description;
 
     const deSerializeFunction deSerialize;
-    const createFunction create;
 
     DialogFieldTypeInfo(const QString id_, const QString name_, const QString desc_, const deSerializeFunction dfs_ptr,
-			const createFunction cf_ptr) : id(id_), name(name_), description(desc_),
-							deSerialize(dfs_ptr), create(cf_ptr) { }
+			const createFunction cf_ptr, const createFunctionWDV cfwdv_ptr) : createFunc(cf_ptr), createFuncWithDefaultValue(cfwdv_ptr), id(id_), name(name_), description(desc_),
+							deSerialize(dfs_ptr) { }
+
+    //TODO: Do creator thing peter suggested so we can handle default values.
+    DialogFieldBase* create(const QString& name, const QString& value = QString()) const
+    {
+      if(value.isNull())
+	return createFunc(name);
+      return createFuncWithDefaultValue(name,value);
+    }
 };
 
 template <class T>

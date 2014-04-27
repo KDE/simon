@@ -42,6 +42,7 @@ class DialogIntegerField : public DialogField<int>
     static const DialogFieldTypeInfo typeInfo;
     static DialogFieldBase* deSerializeDialogIntegerField(const QDomElement& elem);
     static DialogFieldBase* createDialogIntegerField(const QString& name, const QString& value);
+    static DialogFieldBase* createDialogIntegerField(const QString& name);
 
     DialogIntegerField(const QString& name, const VariableType& val) : DialogField<int>(name,val) { }
     DialogIntegerField(const QString& name, const QSharedPointer<VariableType>& val) : DialogField<int>(name,val) { }

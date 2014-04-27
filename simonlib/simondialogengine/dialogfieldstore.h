@@ -36,6 +36,7 @@ class DialogFieldStore {
     QHash<QString,DialogFieldTypeInfo const *> creators;
   public:
     DialogFieldStore() { registerDefaults(); }
+    ~DialogFieldStore();
     bool removeField(const QString& name);
     int count() const { return dialogFields.count(); }
     bool contains(QString s) { return dialogFields.contains(s); }
@@ -46,6 +47,7 @@ class DialogFieldStore {
 
     //bool addField(const QString& name);
     bool addField(const QString& type, const QString& name, const QString& value);
+    bool addField(DialogFieldBase* df);
 
     bool deSerialize(const QDomElement& elem);
     QDomElement serialize(QDomDocument * doc);

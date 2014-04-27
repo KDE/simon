@@ -20,6 +20,14 @@
 #include "dialogfieldstore.h"
 #include "dialogintegerfield.h"
 
+DialogFieldStore::~DialogFieldStore()
+{
+  foreach(const QString& key, this->dialogFields.keys())
+  {
+    removeField(key);
+  }
+}
+
 bool DialogFieldStore::removeField(const QString& name)
 {
   if(!this->dialogFields.contains(name))
@@ -31,7 +39,7 @@ bool DialogFieldStore::removeField(const QString& name)
   return true;
 }
 
-bool DialogFieldStore::addField(const QString& type, const QString& name, const QString& value)
+bool DialogFieldStore::addField(const QString& type, const QString& name, const QString& value = QString())
 {
     if(this->dialogFields.contains(name))
     {
@@ -57,6 +65,21 @@ bool DialogFieldStore::addField(const QString& type, const QString& name, const 
     return true;
 }
 
+bool DialogFieldStore::addField(DialogFieldBase* df)
+{
+  const QString& name = df->getName();
+
+  if(this->dialogFields.contains(name))
+  {
+    kWarning() << "Variable " << name << " already exists.";
+    return false;
+  }
+
+  Q_ASSERT(!df);
+
+  this->dialogFields[name] = df;
+  return true;
+}
 
 bool DialogFieldStore::registerDefaults()
 {

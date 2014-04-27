@@ -24,6 +24,7 @@ const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("in
 									     i18nc("Integer","Variable type name of the dialog integer field"),
 									     i18n("All whole negative and non-negative numbers"),
 									     &DialogIntegerField::deSerializeDialogIntegerField,
+									     &DialogIntegerField::createDialogIntegerField,
 									     &DialogIntegerField::createDialogIntegerField);
 
 DialogFieldBase* DialogIntegerField::deSerializeDialogIntegerField(const QDomElement& elem)
@@ -35,6 +36,13 @@ DialogFieldBase* DialogIntegerField::deSerializeDialogIntegerField(const QDomEle
     retval = 0;
     kWarning() << "deSerialization of DialogIntegerField failed!";
   }
+  return retval;
+}
+
+DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QString& name)
+{
+  DialogIntegerField* retval = new DialogIntegerField(name);
+  retval->value = QSharedPointer<int>(new int());
   return retval;
 }
 
