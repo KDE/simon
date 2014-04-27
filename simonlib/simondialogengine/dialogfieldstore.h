@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGFIELDSTORE_H_numbers
-#define SIMON_DIALOGFIELDSTORE_H_numbers
+#ifndef SIMON_DIALOGFIELDSTORE_H_30683738694b47f68743788cf61493e6
+#define SIMON_DIALOGFIELDSTORE_H_30683738694b47f68743788cf61493e6
 
 #include <QList>
 #include <QString>
@@ -57,4 +57,4 @@ class DialogFieldStore {
     }
 };
 
-#endif /* SIMON_DIALOGFIELDSTORE_H_numbers */
+#endif /* SIMON_DIALOGFIELDSTORE_H_30683738694b47f68743788cf61493e6 */

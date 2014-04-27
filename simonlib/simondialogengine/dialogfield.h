@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGFIELD_H_numbers
-#define SIMON_DIALOGFIELD_H_numbers
+#ifndef SIMON_DIALOGFIELD_H_30683738694b47f68743788cf61493e6
+#define SIMON_DIALOGFIELD_H_30683738694b47f68743788cf61493e6
 
 #include <QString>
 #include <QDomDocument>
@@ -123,6 +123,7 @@ class DialogField : public DialogFieldBase
       class Parser {} parser;
   public:
       DialogField<T>(const QString& n, const VariableType& val) : name(n), value(new VariableType(val)) { }
+      DialogField<T>(const QString& n, const QSharedPointer<VariableType>& val) : name(n), value(val) { }
       DialogFieldValue<T> getVal() const
       {
 	return DialogFieldValue<T>(value);
@@ -176,4 +177,4 @@ class DialogField : public DialogFieldBase
       virtual QString toString() = 0;
 };
 
-#endif /* SIMON_DIALOGFIELD_H_numbers */
+#endif /* SIMON_DIALOGFIELD_H_30683738694b47f68743788cf61493e6 */
