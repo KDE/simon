@@ -57,7 +57,7 @@ void testFields::testGeneral()
 
 void testFields::testIntegerCreate()
 {
-  DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.cf("Name","3"));
+  DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.create("Name","3"));
   QVERIFY(d);
   QCOMPARE(d->getName(),QString("Name"));
   QCOMPARE(*d->getVal().data(),3);
@@ -104,7 +104,7 @@ void testFields::testIntegerDeSerialize()
 
   QDomElement first_elem = doc.firstChildElement();
 
-  DialogIntegerField* result_field = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.dsf(first_elem));
+  DialogIntegerField* result_field = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.deSerialize(first_elem));
   QVERIFY(result_field); // Check to make sure it's not null.
   QCOMPARE(result_field->getName(),QString("Name"));
   QCOMPARE(*(result_field->getVal().data()),3);
@@ -125,16 +125,17 @@ void testFields::testIntegerBadDeSerialize()
   QDomElement first_elem = doc.firstChildElement();
 
   //Should be null due to doc not having a value
-  DialogIntegerField* result_field = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.dsf(first_elem));
+  DialogIntegerField* result_field = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.deSerialize(first_elem));
   QVERIFY(!result_field);
 }
 
 void testFields::testIntegerBadCreate()
 {
-  DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.cf("name","value"));
+  DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.create("name","value"));
   QVERIFY(!d);
 }
 
 QTEST_MAIN(testFields)
 
 #include "dialogfieldtest.moc"
+

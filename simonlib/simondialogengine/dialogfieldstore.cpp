@@ -46,7 +46,7 @@ bool DialogFieldStore::addField(const QString& type, const QString& name, const 
     }
 
     const DialogFieldTypeInfo* dfti = this->creators[type];
-    DialogFieldBase* b = dfti->cf(name,value);
+    DialogFieldBase* b = dfti->create(name,value);
 
     if(!b)
     {
@@ -106,7 +106,7 @@ bool DialogFieldStore::deSerialize(const QDomElement& elem)
 	continue;
       }
 
-      DialogFieldBase* result = this->creators[type.text()]->dsf(e);
+      DialogFieldBase* result = this->creators[type.text()]->deSerialize(e);
 
       if(result)
       {

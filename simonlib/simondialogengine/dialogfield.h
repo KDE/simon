@@ -51,20 +51,20 @@ class DialogFieldTypeInfo
     const QString name;
     const QString description;
 
-    const deSerializeFunction dsf;
-    const createFunction cf;
+    const deSerializeFunction deSerialize;
+    const createFunction create;
 
     DialogFieldTypeInfo(const QString id_, const QString name_, const QString desc_, const deSerializeFunction dfs_ptr,
 			const createFunction cf_ptr) : id(id_), name(name_), description(desc_),
-							dsf(dfs_ptr), cf(cf_ptr) { }
+							deSerialize(dfs_ptr), create(cf_ptr) { }
 };
 
 template <class T>
 class DialogFieldValue
 {
   private:
-    const QSharedPointer<T> ptr;
-    const bool isValidCast;
+    QSharedPointer<T> ptr;
+    bool isValidCast;
   public:
     DialogFieldValue<T>() : ptr(), isValidCast(false) { }
     explicit DialogFieldValue<T>(const QSharedPointer<T>& pointer) : ptr(pointer), isValidCast(!pointer.isNull()) { }
