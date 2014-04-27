@@ -40,6 +40,7 @@ class testDialogBoundValues: public QObject
     BoundValue *addedValue;
 };
 
+
 void testDialogBoundValues::testGeneral()
 {
   //error handling check
@@ -110,7 +111,7 @@ void testDialogBoundValues::testRemove()
   }
 }
 
- 
+
 QTEST_MAIN(testDialogBoundValues)
 
 #include "dialogboundvaluestest.moc"

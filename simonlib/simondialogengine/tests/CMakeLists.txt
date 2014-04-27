@@ -190,3 +190,51 @@ target_link_libraries(simondialogcommandplugintest-avatars
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
   ${QT_QTXML_LIBRARY}
 )
+
+
+#################################
+##### Dialog Field Store ########
+#################################
+
+set(simonfieldstoretest_SRCS
+  dialogfieldstoretest.cpp
+
+  #deps
+  ../dialogintegerfield.cpp
+  ../dialogfieldstore.cpp
+  ../dialogfield.cpp
+)
+
+kde4_add_unit_test(simondialogcommandplugintest-fieldstore TESTNAME
+  simondialogcommandplugin-fieldstore
+  ${simonfieldstoretest_SRCS}
+)
+
+
+target_link_libraries(simondialogcommandplugintest-fieldstore
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY}
+)
+
+#################################
+######### Dialog Field ##########
+#################################
+
+set(simonfieldtest_SRCS
+  dialogfieldtest.cpp
+
+  #deps
+  ../dialogintegerfield.cpp
+  ../dialogfield.cpp
+)
+
+kde4_add_unit_test(simondialogcommandplugintest-field TESTNAME
+  simondialogcommandplugin-field
+  ${simonfieldtest_SRCS}
+)
+
+
+target_link_libraries(simondialogcommandplugintest-field
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY}
+)

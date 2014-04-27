@@ -3,5 +3,5 @@
 *.kdev4
 *.orig
 *.kate-swp
-
+build/*
 

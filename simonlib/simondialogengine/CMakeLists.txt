@@ -31,6 +31,8 @@ set(simondialogengine_LIB_HDRS
   dialogtext.h
   dialogturn.h
   dialogtextparser.h
+  dialogfieldstore.h
+  dialogfield.h
   dialogtemplateoptions.h
   boundvalue.h
   dialogboundvalues.h
