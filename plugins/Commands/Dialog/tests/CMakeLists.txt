@@ -7,6 +7,8 @@ set (simondialogcommandplugindialogtest_SRCS
   ../dialogconfiguration.cpp
   ../createtransitiondialog.cpp
   ../createdialogcommandwidget.cpp
+  ../dialogstateconfiguration.cpp
+  ../turnconfiguration.cpp
 )
 
 kde4_add_ui_files(simondialogcommandplugindialogtest_SRCS
@@ -14,6 +16,8 @@ kde4_add_ui_files(simondialogcommandplugindialogtest_SRCS
   ../createdialogcommandwidget.ui
   ../createtransitiondlg.ui
   ../dialogcreateview.ui
+  ../turncreateeditview.ui
+  ../dialogstateview.ui
 )
 
 kde4_add_unit_test(simondialogcommandplugintest-dialog TESTNAME
