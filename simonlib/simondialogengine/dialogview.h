@@ -39,11 +39,11 @@ class SIMONDIALOGENGINE_EXPORT DialogView
 
     virtual bool present(const DialogTurn& turn)=0;
 
-    virtual void setFont(const QFont& /*font*/) {}
+    virtual void setFont(const QFont&) {}
 
     virtual void correctInputReceived() {};
-    virtual void warnOfInvalidInput(const QString& /*input*/) {}
-    virtual void repeat(const DialogTurn& /*state*/) {}
+    virtual void warnOfInvalidInput(const QString&) {}
+    virtual void repeat(const DialogTurn&) {}
 
     virtual ~DialogView() {}
 };
