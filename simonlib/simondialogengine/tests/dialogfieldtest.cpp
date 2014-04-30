@@ -27,6 +27,7 @@
 #include "../dialogfield.h"
 #include "../dialogintegerfield.h"
 #include "../dialogdoublefield.h"
+#include "../dialogbooleanfield.h"
 
 //TODO: Write custom class to test this with.
 
@@ -62,7 +63,16 @@ class testFields: public QObject
     void testDoubleBadCreate();
     void testDoubleBadDeSerialize();
 
-    //void testIntegerBadDoc();
+    //Boolean tests
+    void testBooleanToString();
+
+    void testBooleanCreate();
+    void testBooleanCreateWithDefaultValue();
+    void testBooleanSerialize();
+    void testBooleanDeSerialize();
+
+    void testBooleanBadCreate();
+    void testBooleanBadDeSerialize();
 };
 
 void testFields::testGeneral()
@@ -258,6 +268,95 @@ void testFields::testDoubleBadCreate()
   DialogDoubleField* d = dynamic_cast<DialogDoubleField*>(DialogDoubleField::typeInfo.create("name","value"));
   QVERIFY(!d);
 }
+
+//----------------------------
+//      Boolean Tests
+//----------------------------
+
+void testFields::testBooleanToString()
+{
+  DialogBooleanField b("Test",0);
+  QCOMPARE(b.toString(),QString("false"));
+}
+
+void testFields::testBooleanCreate()
+{
+  DialogBooleanField* b = dynamic_cast<DialogBooleanField*>(DialogBooleanField::typeInfo.create("Test"));
+  QVERIFY(b);
+  QCOMPARE(b->getName(),QString("Test"));
+  QCOMPARE(*(b->getVal().data()),bool());
+}
+
+void testFields::testBooleanCreateWithDefaultValue()
+{
+  DialogBooleanField* b = dynamic_cast<DialogBooleanField*>(DialogBooleanField::typeInfo.create("Test","true"));
+  QVERIFY(b);
+  QCOMPARE(b->getName(),QString("Test"));
+  QCOMPARE(*(b->getVal().data()),true);
+}
+
+void testFields::testBooleanSerialize()
+{
+  QDomDocument doc("");
+  QDomDocument expected_doc("");
+  DialogBooleanField test_field("Name",true);
+
+  expected_doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>bool</type>"
+	"<value>true</value>"
+	"</field>"
+  ));
+
+  QDomElement serialized = test_field.serialize(&doc);
+  doc.appendChild(serialized);
+
+  QCOMPARE(doc.toString(),expected_doc.toString());
+}
+
+void testFields::testBooleanDeSerialize()
+{
+  QDomDocument doc("");
+
+  doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>bool</type>"
+	"<value>true</value>"
+	"</field>"
+  ));
+
+  QDomElement elem = doc.firstChildElement();
+  DialogBooleanField* result = dynamic_cast<DialogBooleanField*>(DialogBooleanField::typeInfo.deSerialize(elem));
+  QVERIFY(result);
+  QCOMPARE(result->getName(),QString("Name"));
+  QCOMPARE(*(result->getVal().data()),true);
+}
+
+void testFields::testBooleanBadDeSerialize()
+{
+  QDomDocument doc("");
+
+  doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>bool</type>"
+	"<value>dasdf###agds\0\343\35</value>"
+	"</field>"
+  ));
+
+  QDomElement elem = doc.firstChildElement();
+  DialogBooleanField* result = dynamic_cast<DialogBooleanField*>(DialogBooleanField::typeInfo.deSerialize(elem));
+  QVERIFY(!result);
+}
+
+void testFields::testBooleanBadCreate()
+{
+  DialogBooleanField* result = dynamic_cast<DialogBooleanField*>(DialogBooleanField::typeInfo.create("String","cats"));
+  QVERIFY(!result);
+}
+
 
 QTEST_MAIN(testFields)
 

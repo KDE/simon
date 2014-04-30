@@ -224,6 +224,7 @@ set(simonfieldtest_SRCS
   dialogfieldtest.cpp
 
   #deps
+  ../dialogbooleanfield.cpp
   ../dialogdoublefield.cpp
   ../dialogintegerfield.cpp
   ../dialogfield.cpp
