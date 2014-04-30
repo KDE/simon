@@ -26,6 +26,7 @@
 
 #include "../dialogfield.h"
 #include "../dialogintegerfield.h"
+#include "../dialogdoublefield.h"
 
 //TODO: Write custom class to test this with.
 
@@ -35,6 +36,7 @@ class testFields: public QObject
   private slots:
     //void testInitial();
     void testGeneral();
+    void testFieldValue();
 
     //Default Value Tests
 
@@ -42,11 +44,24 @@ class testFields: public QObject
     void testIntegerToString();
 
     void testIntegerCreate();
+    void testIntegerCreateWithDefaultValue();
     void testIntegerSerialize();
     void testIntegerDeSerialize();
 
     void testIntegerBadCreate();
     void testIntegerBadDeSerialize();
+
+    //Double tests
+    void testDoubleToString();
+
+    void testDoubleCreate();
+    void testDoubleCreateWithDefaultValue();
+    void testDoubleSerialize();
+    void testDoubleDeSerialize();
+
+    void testDoubleBadCreate();
+    void testDoubleBadDeSerialize();
+
     //void testIntegerBadDoc();
 };
 
@@ -55,7 +70,24 @@ void testFields::testGeneral()
   QSKIP("This test is currently unimplemented", SkipSingle);
 }
 
+void testFields::testFieldValue()
+{
+  DialogIntegerField d("Name",3);
+  DialogFieldValue<int> v = d.getVal();
+  QCOMPARE(*d.getVal().data(),3);
+  *v.data() = 54;
+  QCOMPARE(*d.getVal().data(),54);
+}
+
 void testFields::testIntegerCreate()
+{
+  DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.create("Name"));
+  QVERIFY(d);
+  QCOMPARE(d->getName(),QString("Name"));
+  QCOMPARE(*d->getVal().data(),int());
+}
+
+void testFields::testIntegerCreateWithDefaultValue()
 {
   DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.create("Name","3"));
   QVERIFY(d);
@@ -132,6 +164,98 @@ void testFields::testIntegerBadDeSerialize()
 void testFields::testIntegerBadCreate()
 {
   DialogIntegerField* d = dynamic_cast<DialogIntegerField*>(DialogIntegerField::typeInfo.create("name","value"));
+  QVERIFY(!d);
+}
+
+//----------------------------
+//       Double Tests
+//----------------------------
+
+void testFields::testDoubleCreate()
+{
+  DialogDoubleField* d = dynamic_cast<DialogDoubleField*>(DialogDoubleField::typeInfo.create("Name"));
+  QVERIFY(d);
+  QCOMPARE(d->getName(),QString("Name"));
+  QCOMPARE(*d->getVal().data(),double());
+}
+
+void testFields::testDoubleCreateWithDefaultValue()
+{
+  DialogDoubleField* d = dynamic_cast<DialogDoubleField*>(DialogDoubleField::typeInfo.create("Name",".3"));
+  QVERIFY(d);
+  QCOMPARE(d->getName(),QString("Name"));
+  QCOMPARE(*d->getVal().data(),.3);
+}
+
+void testFields::testDoubleToString()
+{
+  DialogDoubleField test_field("Name",.45);
+  QCOMPARE(test_field.toString(),QString("0.45"));
+}
+
+
+void testFields::testDoubleSerialize()
+{
+  QDomDocument doc("");
+  QDomDocument expected_doc("");
+  DialogDoubleField test_field("Name",3.5);
+
+  expected_doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>double</type>"
+	"<value>3.5</value>"
+	"</field>"
+  ));
+
+  QDomElement serialized = test_field.serialize(&doc);
+  doc.appendChild(serialized);
+
+  QCOMPARE(doc.toString(),expected_doc.toString());
+}
+
+void testFields::testDoubleDeSerialize()
+{
+  QDomDocument doc("");
+
+  doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>double</type>"
+	"<value>3.5</value>"
+	"</field>"
+  ));
+
+  QDomElement first_elem = doc.firstChildElement();
+
+  DialogDoubleField* result_field = dynamic_cast<DialogDoubleField*>(DialogDoubleField::typeInfo.deSerialize(first_elem));
+  QVERIFY(result_field); // Check to make sure it's not null.
+  QCOMPARE(result_field->getName(),QString("Name"));
+  QCOMPARE(*(result_field->getVal().data()),3.5);
+  delete result_field;
+}
+
+void testFields::testDoubleBadDeSerialize()
+{
+  QDomDocument doc("");
+
+  doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>double</type>"
+	"</field>"
+  ));
+
+  QDomElement first_elem = doc.firstChildElement();
+
+  //Should be null due to doc not having a value
+  DialogDoubleField* result_field = dynamic_cast<DialogDoubleField*>(DialogDoubleField::typeInfo.deSerialize(first_elem));
+  QVERIFY(!result_field);
+}
+
+void testFields::testDoubleBadCreate()
+{
+  DialogDoubleField* d = dynamic_cast<DialogDoubleField*>(DialogDoubleField::typeInfo.create("name","value"));
   QVERIFY(!d);
 }
 
