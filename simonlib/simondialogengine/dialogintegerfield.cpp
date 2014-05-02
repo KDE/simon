@@ -74,6 +74,8 @@ QSharedPointer<DialogIntegerField::VariableType> DialogIntegerField::parseValue(
 
 QSharedPointer< DialogIntegerField::VariableType > DialogIntegerField::deSerializeValue(const QDomElement& elem)
 {
+  if(elem.isNull())
+    return QSharedPointer<VariableType>(0);
   return parseValue(elem.text());
 }
 

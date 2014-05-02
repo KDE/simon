@@ -74,6 +74,8 @@ QSharedPointer<DialogDoubleField::VariableType> DialogDoubleField::parseValue(co
 
 QSharedPointer< DialogDoubleField::VariableType > DialogDoubleField::deSerializeValue(const QDomElement& elem)
 {
+  if(elem.isNull())
+    return QSharedPointer<VariableType>(0);
   return parseValue(elem.text());
 }
 

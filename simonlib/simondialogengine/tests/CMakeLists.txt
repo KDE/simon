@@ -199,6 +199,8 @@ set(simonfieldstoretest_SRCS
   dialogfieldstoretest.cpp
 
   #deps
+  ../dialogstringfield.cpp
+  ../dialogbooleanfield.cpp
   ../dialogdoublefield.cpp
   ../dialogintegerfield.cpp
   ../dialogfieldstore.cpp
@@ -224,6 +226,7 @@ set(simonfieldtest_SRCS
   dialogfieldtest.cpp
 
   #deps
+  ../dialogstringfield.cpp
   ../dialogbooleanfield.cpp
   ../dialogdoublefield.cpp
   ../dialogintegerfield.cpp

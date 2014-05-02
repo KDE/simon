@@ -28,6 +28,7 @@
 #include "../dialogintegerfield.h"
 #include "../dialogdoublefield.h"
 #include "../dialogbooleanfield.h"
+#include "../dialogstringfield.h"
 
 //TODO: Write custom class to test this with.
 
@@ -73,6 +74,14 @@ class testFields: public QObject
 
     void testBooleanBadCreate();
     void testBooleanBadDeSerialize();
+
+    //String tests
+    void testStringCreate();
+    void testStringCreateWithDefaultValue();
+    void testStringSerialize();
+    void testStringDeSerialize();
+
+    void testStringBadDeSerialize();
 };
 
 void testFields::testGeneral()
@@ -356,6 +365,84 @@ void testFields::testBooleanBadCreate()
   DialogBooleanField* result = dynamic_cast<DialogBooleanField*>(DialogBooleanField::typeInfo.create("String","cats"));
   QVERIFY(!result);
 }
+
+//----------------------------
+//      String Tests
+//----------------------------
+
+void testFields::testStringCreate()
+{
+  DialogStringField* result = dynamic_cast<DialogStringField*>(DialogStringField::typeInfo.create("String"));
+  QVERIFY(result);
+  QCOMPARE(result->getName(),QString("String"));
+  QCOMPARE(result->toString(),QString());
+}
+
+void testFields::testStringCreateWithDefaultValue()
+{
+  DialogStringField* result = dynamic_cast<DialogStringField*>(DialogStringField::typeInfo.create("String","string"));
+  QVERIFY(result);
+  QCOMPARE(result->getName(),QString("String"));
+  QCOMPARE(result->toString(),QString("string"));
+}
+
+void testFields::testStringSerialize()
+{
+  QDomDocument doc("");
+  QDomDocument expected_doc("");
+  DialogStringField test_field("Name","words");
+
+  expected_doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>QString</type>"
+	"<value>words</value>"
+	"</field>"
+  ));
+
+  QDomElement serialized = test_field.serialize(&doc);
+  doc.appendChild(serialized);
+
+  QCOMPARE(doc.toString(),expected_doc.toString());
+
+}
+
+void testFields::testStringDeSerialize()
+{
+  QDomDocument doc("");
+
+  doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>QString</type>"
+	"<value>apples</value>"
+	"</field>"
+  ));
+
+  QDomElement elem = doc.firstChildElement();
+  DialogStringField* result = dynamic_cast<DialogStringField*>(DialogStringField::typeInfo.deSerialize(elem));
+  QVERIFY(result);
+  QCOMPARE(result->getName(),QString("Name"));
+  QCOMPARE(*(result->getVal().data()),QString("apples"));
+}
+
+void testFields::testStringBadDeSerialize()
+{
+  QDomDocument doc("");
+
+  doc.setContent(QByteArray(
+	"<field>"
+	"<name>Name</name>"
+	"<type>QString</type>"
+	"<valuedasdf###agds\0\343\35\0</vue>"
+	"</field>"
+  ));
+
+  QDomElement elem = doc.firstChildElement();
+  DialogStringField* result = dynamic_cast<DialogStringField*>(DialogStringField::typeInfo.deSerialize(elem));
+  QVERIFY(!result);
+}
+
 
 
 QTEST_MAIN(testFields)

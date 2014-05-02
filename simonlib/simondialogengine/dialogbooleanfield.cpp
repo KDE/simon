@@ -74,6 +74,8 @@ QSharedPointer<DialogBooleanField::VariableType> DialogBooleanField::parseValue(
 
 QSharedPointer< DialogBooleanField::VariableType > DialogBooleanField::deSerializeValue(const QDomElement& elem)
 {
+  if(elem.isNull())
+    return QSharedPointer<VariableType>(0);
   return parseValue(elem.text());
 }
 
