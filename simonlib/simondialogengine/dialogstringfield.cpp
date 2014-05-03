@@ -26,7 +26,7 @@ const DialogFieldTypeInfo DialogStringField::typeInfo = DialogFieldTypeInfo("QSt
 									     &DialogStringField::deSerializeDialogStringField,
 									     &DialogStringField::createDialogStringField,
 									     &DialogStringField::createDialogStringField,
-									     0
+									     &DialogStringFieldCreator::getCreatorInstance
 									   );
 
 DialogFieldBase* DialogStringField::deSerializeDialogStringField(const QDomElement& elem)
