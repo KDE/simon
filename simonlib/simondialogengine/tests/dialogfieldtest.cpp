@@ -23,6 +23,10 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <KDebug>
+#include <KIntSpinBox>
+#include <QApplication>
+#include <QtGui>
+#include <QtTest/QtTestGui>
 
 #include "../dialogfield.h"
 #include "../dialogintegerfield.h"
@@ -37,7 +41,7 @@ class testFields: public QObject
   Q_OBJECT
   private slots:
     //void testInitial();
-    void testGeneral();
+    void testGUICreator();
     void testFieldValue();
 
     //Default Value Tests
@@ -84,9 +88,22 @@ class testFields: public QObject
     void testStringBadDeSerialize();
 };
 
-void testFields::testGeneral()
+void testFields::testGUICreator()
 {
-  QSKIP("This test is currently unimplemented", SkipSingle);
+  QApplication a(0,0,true);
+  //QLineEdit k;
+  //KIntSpinBox k;
+  //QSKIP("This test is currently unimplemented", SkipSingle);
+  QSharedPointer<DialogFieldCreator> dfc = DialogBooleanField::typeInfo.getCreator();
+  QSharedPointer<DialogBooleanFieldCreator> dbfc = dfc.dynamicCast<DialogBooleanFieldCreator>();
+  QSharedPointer<QCheckBox> checkbox = dbfc.data()->getUI().dynamicCast<QCheckBox>();
+
+  checkbox.data()->setChecked(true);
+
+  DialogBooleanField* b = dynamic_cast<DialogBooleanField*>(dbfc.data()->createField("Hooray True!"));
+  QCOMPARE(b->getName(),QString("Hooray True!"));
+  QVERIFY(*b->getVal().data());
+  delete b;
 }
 
 void testFields::testFieldValue()

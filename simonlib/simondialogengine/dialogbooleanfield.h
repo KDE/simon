@@ -24,6 +24,7 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QSharedPointer>
+#include <QCheckBox>
 #include <KDebug>
 #include "dialogfield.h"
 
@@ -48,6 +49,18 @@ class DialogBooleanField : public DialogField<bool>
     DialogBooleanField(const QString& name, const QSharedPointer<VariableType>& val) : DialogField<VariableType>(name,val) { }
 
     virtual QString toString();
+};
+
+class DialogBooleanFieldCreator : public DialogFieldCreator
+{
+  private:
+    QSharedPointer<QCheckBox> ui;
+    DialogBooleanFieldCreator() : ui(new QCheckBox()) { }
+  public:
+    static QSharedPointer< DialogFieldCreator > getCreatorInstance() {  return QSharedPointer<DialogFieldCreator>(new DialogBooleanFieldCreator()); }
+    virtual QSharedPointer< QWidget > getUI() { return ui; }
+    virtual DialogFieldBase* createField(const QString& name) const { return new DialogBooleanField(name,ui.data()->isChecked()); }
+    virtual ~DialogBooleanFieldCreator() { }
 };
 
 #endif /* SIMON_DIALOGBOOLEANFIELD_H_30683738694b47f68743788cf61493e6 */

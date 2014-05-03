@@ -25,6 +25,8 @@
 #include <QDomElement>
 #include <QSharedPointer>
 #include <KDebug>
+#include <KIntSpinBox>
+#include <fcntl.h>
 #include "dialogfield.h"
 
 class DialogIntegerField : public DialogField<int>
@@ -48,5 +50,17 @@ class DialogIntegerField : public DialogField<int>
     DialogIntegerField(const QString& name, const QSharedPointer<VariableType>& val) : DialogField<int>(name,val) { }
 
     virtual QString toString() { return QString::number(*getVal().data()); }
+};
+
+class DialogIntegerFieldCreator : public DialogFieldCreator
+{
+  private:
+    QSharedPointer<KIntSpinBox> ui;
+    DialogIntegerFieldCreator() : ui(new KIntSpinBox()) { }
+  public:
+    static QSharedPointer< DialogFieldCreator > getCreatorInstance() {  return QSharedPointer<DialogFieldCreator>(new DialogIntegerFieldCreator()); }
+    virtual QSharedPointer< QWidget > getUI() { return ui; }
+    virtual DialogFieldBase* createField(const QString& name) const { return new DialogIntegerField(name,ui.data()->value()); }
+    virtual ~DialogIntegerFieldCreator() { }
 };
 #endif /* SIMON_DIALOGINTEGERFIELD_H_30683738694b47f68743788cf61493e6 */

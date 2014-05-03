@@ -25,7 +25,9 @@ const DialogFieldTypeInfo DialogDoubleField::typeInfo = DialogFieldTypeInfo("dou
 									     i18n("All decimal values"),
 									     &DialogDoubleField::deSerializeDialogDoubleField,
 									     &DialogDoubleField::createDialogDoubleField,
-									     &DialogDoubleField::createDialogDoubleField);
+									     &DialogDoubleField::createDialogDoubleField,
+									     &DialogDoubleFieldCreator::getCreatorInstance
+ 									  );
 
 DialogFieldBase* DialogDoubleField::deSerializeDialogDoubleField(const QDomElement& elem)
 {

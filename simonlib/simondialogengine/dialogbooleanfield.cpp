@@ -25,7 +25,9 @@ const DialogFieldTypeInfo DialogBooleanField::typeInfo = DialogFieldTypeInfo("bo
 									     i18n("Value that can be represented as true or false."),
 									     &DialogBooleanField::deSerializeDialogBooleanField,
 									     &DialogBooleanField::createDialogBooleanField,
-									     &DialogBooleanField::createDialogBooleanField);
+									     &DialogBooleanField::createDialogBooleanField,
+									     &DialogBooleanFieldCreator::getCreatorInstance
+									    );
 
 DialogFieldBase* DialogBooleanField::deSerializeDialogBooleanField(const QDomElement& elem)
 {

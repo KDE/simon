@@ -19,6 +19,9 @@
 
 #include "dialogfieldstore.h"
 #include "dialogintegerfield.h"
+#include "dialogbooleanfield.h"
+#include "dialogdoublefield.h"
+#include "dialogstringfield.h"
 
 DialogFieldStore::~DialogFieldStore()
 {
@@ -83,7 +86,12 @@ bool DialogFieldStore::addField(DialogFieldBase* df)
 
 bool DialogFieldStore::registerDefaults()
 {
-  return this->registerFactory(DialogIntegerField::typeInfo);
+  bool success;
+  success = this->registerFactory(DialogIntegerField::typeInfo);
+  success = success && this->registerFactory(DialogDoubleField::typeInfo);
+  success = success && this->registerFactory(DialogBooleanField::typeInfo);
+  success = success && this->registerFactory(DialogStringField::typeInfo);
+  return success;
 }
 
 

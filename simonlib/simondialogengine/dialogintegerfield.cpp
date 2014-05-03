@@ -25,7 +25,9 @@ const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("in
 									     i18n("All whole negative and non-negative numbers"),
 									     &DialogIntegerField::deSerializeDialogIntegerField,
 									     &DialogIntegerField::createDialogIntegerField,
-									     &DialogIntegerField::createDialogIntegerField);
+									     &DialogIntegerField::createDialogIntegerField,
+									     &DialogIntegerFieldCreator::getCreatorInstance
+									    );
 
 DialogFieldBase* DialogIntegerField::deSerializeDialogIntegerField(const QDomElement& elem)
 {

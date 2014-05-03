@@ -25,6 +25,7 @@
 #include <QDomElement>
 #include <QSharedPointer>
 #include <KDebug>
+#include <KIntSpinBox>
 #include "dialogfield.h"
 
 class DialogDoubleField : public DialogField<double>
@@ -50,4 +51,15 @@ class DialogDoubleField : public DialogField<double>
     virtual QString toString() { return QString::number(*getVal().data()); }
 };
 
+class DialogDoubleFieldCreator : public DialogFieldCreator
+{
+  private:
+    QSharedPointer<KDoubleNumInput> ui;
+    DialogDoubleFieldCreator() : ui(new KDoubleNumInput()) { }
+  public:
+    static QSharedPointer< DialogFieldCreator > getCreatorInstance() {  return QSharedPointer<DialogFieldCreator>(new DialogDoubleFieldCreator()); }
+    virtual QSharedPointer< QWidget > getUI() { return ui; }
+    virtual DialogFieldBase* createField(const QString& name) const { return new DialogDoubleField(name,ui.data()->value()); }
+    virtual ~DialogDoubleFieldCreator() { }
+};
 #endif /* SIMON_DIALOGDOUBLEFIELD_H_30683738694b47f68743788cf61493e6 */
