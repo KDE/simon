@@ -25,6 +25,7 @@
 #include <QDomElement>
 #include <QSharedPointer>
 #include <KDebug>
+#include <QWidget>
 
 //TODO:  Implement the parser class and have this use it to get/set the variable.
 //TODO:  Split the DialogFieldValue and DialogFieldInfo classes into their own separate files.
@@ -36,11 +37,22 @@ class DialogFieldBase;
 class QDomElement;
 class QDomDocument;
 
+class DialogFieldCreator
+{
+  protected:
+    DialogFieldCreator() {}
+  public:
+    virtual QSharedPointer<QWidget> getUI() = 0;
+    virtual DialogFieldBase* createField(const QString& name) const = 0;
+    virtual ~DialogFieldCreator() {};
+};
+
 class DialogFieldTypeInfo
 {
   private:
     typedef DialogFieldBase* (*createFunction)(const QString& name);
     typedef DialogFieldBase* (*createFunctionWDV)(const QString& name, const QString& value);
+    typedef QSharedPointer<DialogFieldCreator> (*getCreatorInstance)();
     const createFunction createFunc;
     const createFunctionWDV createFuncWithDefaultValue;
 
@@ -52,10 +64,11 @@ class DialogFieldTypeInfo
     const QString description;
 
     const deSerializeFunction deSerialize;
+    const getCreatorInstance getCreator;
 
     DialogFieldTypeInfo(const QString id_, const QString name_, const QString desc_, const deSerializeFunction dfs_ptr,
-			const createFunction cf_ptr, const createFunctionWDV cfwdv_ptr) : createFunc(cf_ptr), createFuncWithDefaultValue(cfwdv_ptr), id(id_), name(name_), description(desc_),
-							deSerialize(dfs_ptr) { }
+			const createFunction cf_ptr, const createFunctionWDV cfwdv_ptr, const getCreatorInstance c) : createFunc(cf_ptr), createFuncWithDefaultValue(cfwdv_ptr), id(id_), name(name_), description(desc_),
+							deSerialize(dfs_ptr), getCreator(c) { }
 
     //TODO: Do creator thing peter suggested so we can handle default values.
     DialogFieldBase* create(const QString& name, const QString& value = QString()) const
@@ -166,7 +179,6 @@ class DialogField : public DialogFieldBase
 
       virtual bool deSerialize(const QDomElement& elem)
       {
-	//Assumption; elem is a "field" elem
 	if(elem.isNull()) return false;
 	if(elem.firstChildElement("type").text() != getType()) return false;
 

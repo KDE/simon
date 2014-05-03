@@ -200,6 +200,9 @@ set(simonfieldstoretest_SRCS
   dialogfieldstoretest.cpp
 
   #deps
+  ../dialogstringfield.cpp
+  ../dialogbooleanfield.cpp
+  ../dialogdoublefield.cpp
   ../dialogintegerfield.cpp
   ../dialogfieldstore.cpp
   ../dialogfield.cpp
@@ -213,7 +216,7 @@ kde4_add_unit_test(simondialogcommandplugintest-fieldstore TESTNAME
 
 target_link_libraries(simondialogcommandplugintest-fieldstore
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
-  ${QT_QTXML_LIBRARY}
+  ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS}
 )
 
 #################################
@@ -224,6 +227,9 @@ set(simonfieldtest_SRCS
   dialogfieldtest.cpp
 
   #deps
+  ../dialogstringfield.cpp
+  ../dialogbooleanfield.cpp
+  ../dialogdoublefield.cpp
   ../dialogintegerfield.cpp
   ../dialogfield.cpp
 )
@@ -236,5 +242,5 @@ kde4_add_unit_test(simondialogcommandplugintest-field TESTNAME
 
 target_link_libraries(simondialogcommandplugintest-field
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
-  ${QT_QTXML_LIBRARY}
+  ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS}
 )

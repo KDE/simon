@@ -17,54 +17,54 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "dialogintegerfield.h"
+#include "dialogdoublefield.h"
 #include <klocalizedstring.h>
 
-const DialogFieldTypeInfo DialogIntegerField::typeInfo = DialogFieldTypeInfo("int",
-									     i18nc("Integer","Variable type name of the dialog integer field"),
-									     i18n("All whole negative and non-negative numbers"),
-									     &DialogIntegerField::deSerializeDialogIntegerField,
-									     &DialogIntegerField::createDialogIntegerField,
-									     &DialogIntegerField::createDialogIntegerField,
-									     &DialogIntegerFieldCreator::getCreatorInstance
-									    );
+const DialogFieldTypeInfo DialogDoubleField::typeInfo = DialogFieldTypeInfo("double",
+									     i18nc("Double","Variable type name of the dialog double field"),
+									     i18n("All decimal values"),
+									     &DialogDoubleField::deSerializeDialogDoubleField,
+									     &DialogDoubleField::createDialogDoubleField,
+									     &DialogDoubleField::createDialogDoubleField,
+									     &DialogDoubleFieldCreator::getCreatorInstance
+ 									  );
 
-DialogFieldBase* DialogIntegerField::deSerializeDialogIntegerField(const QDomElement& elem)
+DialogFieldBase* DialogDoubleField::deSerializeDialogDoubleField(const QDomElement& elem)
 {
-  DialogIntegerField* retval = new DialogIntegerField();
+  DialogDoubleField* retval = new DialogDoubleField();
   if(!retval->deSerialize(elem))
   {
     delete retval;
     retval = 0;
-    kWarning() << "deSerialization of DialogIntegerField failed!";
+    kWarning() << "deSerialization of DialogDoubleField failed!";
   }
   return retval;
 }
 
-DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QString& name)
+DialogFieldBase* DialogDoubleField::createDialogDoubleField(const QString& name)
 {
-  DialogIntegerField* retval = new DialogIntegerField(name);
+  DialogDoubleField* retval = new DialogDoubleField(name);
   retval->value = QSharedPointer<VariableType>(new VariableType());
   return retval;
 }
 
-DialogFieldBase* DialogIntegerField::createDialogIntegerField(const QString& name, const QString& value)
+DialogFieldBase* DialogDoubleField::createDialogDoubleField(const QString& name, const QString& value)
 {
-  DialogIntegerField* retval = new DialogIntegerField(name);
+  DialogDoubleField* retval = new DialogDoubleField(name);
   retval->value = retval->parseValue(value);
   if(retval->value.isNull())
   {
     delete retval;
     retval = 0;
-    kWarning() << "creation of DialogIntegerField failed!";
+    kWarning() << "creation of DialogDoubleField failed!";
   }
   return retval;
 }
 
-QSharedPointer<DialogIntegerField::VariableType> DialogIntegerField::parseValue(const QString& value)
+QSharedPointer<DialogDoubleField::VariableType> DialogDoubleField::parseValue(const QString& value)
 {
   bool ok;
-  VariableType v = value.toInt(&ok);
+  VariableType v = value.toDouble(&ok);
   if(ok)
   {
     return QSharedPointer<VariableType>(new VariableType(v));
@@ -74,14 +74,14 @@ QSharedPointer<DialogIntegerField::VariableType> DialogIntegerField::parseValue(
 
 }
 
-QSharedPointer< DialogIntegerField::VariableType > DialogIntegerField::deSerializeValue(const QDomElement& elem)
+QSharedPointer< DialogDoubleField::VariableType > DialogDoubleField::deSerializeValue(const QDomElement& elem)
 {
   if(elem.isNull())
     return QSharedPointer<VariableType>(0);
   return parseValue(elem.text());
 }
 
-QDomElement DialogIntegerField::seriaizeValue(QDomDocument* doc)
+QDomElement DialogDoubleField::seriaizeValue(QDomDocument* doc)
 {
   QDomElement result = doc->createElement("value");
   result.appendChild(doc->createTextNode(this->toString()));
