@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Service
+Icon=network-connect
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simonvrpncommandplugin
+Name=Simon VRPN Command Plugin
+Comment=Provides a way to set up and control VRPN buttons
+X-KDE-PluginInfo-Author=Peter Grasch
+X-KDE-PluginInfo-Email=kde-accessibility@kde.org
+X-KDE-PluginInfo-Name=simonvrpnplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://userbase.kde.org/Simon
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=false
+X-KDE-ParentApp=simon

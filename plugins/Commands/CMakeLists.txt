@@ -24,3 +24,7 @@ add_subdirectory(Place)
 add_subdirectory(PronunciationTraining)
 add_subdirectory(Shortcut)
 add_subdirectory(TextMacro)
+
+if(VRPN_FOUND)
+add_subdirectory(VRPN)
+endif(VRPN_FOUND)
