@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.0 FATAL_ERROR)
 cmake_policy(SET CMP0017 NEW)
 cmake_policy(SET CMP0002 OLD)
+cmake_policy(SET CMP0022 OLD)
 
 project(Simon)
 
@@ -15,6 +16,7 @@ configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 find_package(KDE4 "4.4" REQUIRED)
+include(KDE4Macros NO_POLICY_SCOPE)
 find_package(Qt4 COMPONENTS QtCore QtDbus QtGui QtTest QtXml QtScript QtConcurrent REQUIRED)
 find_package(Qwt6 REQUIRED)
 
