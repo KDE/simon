@@ -79,6 +79,13 @@ macro_log_feature(OpenCV_FOUND "OpenCV"
   "OpenCV (Open Source Computer Vision) is a library of programming functions for real time computer vision" "http://http://opencv.willowgarage.com/"
   FALSE "" "Required for Simon Vision")
   
+
+macro_optional_find_package(VRPN)
+macro_log_feature(VRPN_LIBRARY "VRPN"
+  "Virtual-Reality Peripheral Network Connector"
+  "http://www.cs.unc.edu/Research/vrpn/index.html" FALSE ""
+  "Required to build the VRPN command plugin")
+
 set(BackendType "both" CACHE STRING "Backend type used while building")
 set_property(CACHE BackendType PROPERTY STRINGS jhtk both)
 
