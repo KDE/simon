@@ -22,20 +22,12 @@
 
 #include <simonscenarios/command.h>
 #include <QDomElement>
-#include <KUrl>
 class QDomDocument;
 
-/**
- *	@class VRPNCommand
- *	@brief Ressembles one exec-command
- *
- *	@version 0.1
- *	@date 19.05.2008
- *	@author Peter Grasch
- */
 class VRPNCommand : public Command
 {
   protected:
+    QString button;
     const QMap<QString,QVariant> getValueMapPrivate() const;
     bool triggerPrivate(int *state);
     VRPNCommand() {}
@@ -50,11 +42,16 @@ class VRPNCommand : public Command
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
     bool deSerializePrivate(const QDomElement& commandElem);
 
-    VRPNCommand(const QString& name, const QString& iconSrc, const QString& description) :
-    Command(name, iconSrc, description) {
-    }
+    VRPNCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& button) :
+      Command(name, iconSrc, description), button(button)
+    { }
 
     ~VRPNCommand() {}
+
+    QString getButton() const
+    {
+      return button;
+    }
 
     STATIC_CREATE_INSTANCE_H(VRPNCommand);
 };

@@ -13,26 +13,16 @@
   <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="lbHelloWorld">
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="lbButton">
      <property name="text">
-      <string>Hello world</string>
+      <string>Button:</string>
      </property>
     </widget>
    </item>
-   <item>
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>99</height>
-      </size>
-     </property>
-    </spacer>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="cbButton"/>
    </item>
   </layout>
  </widget>

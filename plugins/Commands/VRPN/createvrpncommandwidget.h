@@ -25,6 +25,7 @@
 #include "ui_createvrpncommandwidget.h"
 
 class Command;
+class QStringList;
 class CommandManager;
 
 /**
@@ -32,7 +33,6 @@ class CommandManager;
  *	@brief Provides a widget to modify the specific attributes of an VRPNCommand
  *
  *	@version 0.1
- *	@date 8.10.2008
  *	@author Peter Grasch
  */
 class CreateVRPNCommandWidget : public CreateCommandWidget
@@ -49,12 +49,7 @@ class CreateVRPNCommandWidget : public CreateCommandWidget
     bool init(Command* command);
     bool isComplete();
 
-    /**
-     * @brief Constructor
-     *
-     *	@author Peter Grasch
-     */
-    explicit CreateVRPNCommandWidget(CommandManager *manager, QWidget *parent=0);
+    explicit CreateVRPNCommandWidget(const QStringList& buttons, CommandManager *manager, QWidget *parent=0);
 
     virtual ~CreateVRPNCommandWidget();
 

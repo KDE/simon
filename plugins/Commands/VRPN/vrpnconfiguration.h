@@ -30,9 +30,9 @@ class VRPNConfiguration : public CommandConfiguration
 {
   Q_OBJECT
 
-    private:
+  private:
     Ui::VRPNConfigurationDlg ui;
-
+    VRPNCommandManager* commandManager;
 
   public slots:
     virtual bool deSerialize(const QDomElement&);
@@ -44,6 +44,9 @@ class VRPNConfiguration : public CommandConfiguration
     ~VRPNConfiguration();
 
     void destroy();
+
+    int getPort() const;
+    QStringList getButtons() const;
 
 };
 #endif

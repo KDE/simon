@@ -22,8 +22,15 @@
 #include "createvrpncommandwidget.h"
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
+
+#include <vrpn_Connection.h>
+#include <vrpn_Button.h>
+
+#include <QMutexLocker>
+#include <QThread>
 #include <KLocalizedString>
 #include <KAction>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( VRPNCommandPluginFactory,
 registerPlugin< VRPNCommandManager >();
@@ -31,8 +38,32 @@ registerPlugin< VRPNCommandManager >();
 
 K_EXPORT_PLUGIN( VRPNCommandPluginFactory("simonvrpncommand") )
 
-VRPNCommandManager::VRPNCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
+
+class SimonButton : public vrpn_Button {
+public:
+  SimonButton(const QString& name, vrpn_Connection* connection) : vrpn_Button(name.toUtf8(), connection) {
+    vrpn_Button::num_buttons = 1;
+    vrpn_Button::buttons[0] = vrpn_Button::lastbuttons[0] = 0;
+  }
+  virtual void mainloop() {
+    server_mainloop();
+  }
+  void press() {
+    timeval timestampTemp;
+    for (int i = 0; i < 2; ++i) {
+      vrpn_gettimeofday(&timestampTemp, NULL);
+      vrpn_Button::timestamp = timestampTemp;
+      vrpn_Button::lastbuttons[0] = vrpn_Button::buttons[0];
+      vrpn_Button::buttons[0] = !vrpn_Button::buttons[0];
+      vrpn_Button::report_changes();
+    }
+  }
+};
+
+VRPNCommandManager::VRPNCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
+  connection(0)
 {
+  connect(&serverMainLoopTimer, SIGNAL(timeout()), this, SLOT(serverMainLoop()));
 }
 
 bool VRPNCommandManager::shouldAcceptCommand(Command *command)
@@ -59,16 +90,59 @@ bool VRPNCommandManager::deSerializeConfig(const QDomElement& elem)
 {
   if (!config) config->deleteLater();
   config = new VRPNConfiguration(this, parentScenario);
-  return config->deSerialize(elem);
+  bool success = config->deSerialize(elem);
+  restartServer();
+  return success;
 }
 
 CreateCommandWidget* VRPNCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-  return new CreateVRPNCommandWidget(this, parent);
+  return new CreateVRPNCommandWidget(getVRPNConfiguration()->getButtons(), this, parent);
 }
 
+void VRPNCommandManager::restartServer()
+{
+  QMutexLocker l(&serverMutex);
+  qDeleteAll(buttons);
+  buttons.clear();
+  delete connection;
 
+  connection = vrpn_create_server_connection(getVRPNConfiguration()->getPort());
+  foreach (const QString& name, getVRPNConfiguration()->getButtons()) {
+    SimonButton* button = 0;
+    if ( (button = new SimonButton(name, connection)) == 0) {
+      kWarning() << "Failed to create button: " << name;
+    }
+    buttons.insert(name, button);
+  }
+  serverMainLoopTimer.start(600);
+}
+
+void VRPNCommandManager::serverMainLoop()
+{
+  QMutexLocker l(&serverMutex);
+  if (!connection)
+    return;
+  foreach (SimonButton* button, buttons)
+    button->mainloop();
+  connection->mainloop();
+}
+
+bool VRPNCommandManager::pressButton(const QString &name)
+{
+  QMutexLocker l(&serverMutex);
+  if (!buttons.contains(name))
+    return false;
+  SimonButton *button = buttons.value(name);
+  button->press();
+  return true;
+}
+
+DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(VRPNCommandManager, VRPNCommand);
 
 VRPNCommandManager::~VRPNCommandManager()
 {
+  QMutexLocker l(&serverMutex);
+  qDeleteAll(buttons);
+  delete connection;
 }

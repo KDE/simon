@@ -23,18 +23,31 @@
 #include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
+#include <QTimer>
+#include <QMutex>
+#include <QHash>
 
 class QWidget;
 class VRPNConfiguration;
 class VRPNSet;
 class VRPNSetContainer;
+class vrpn_Connection;
+class SimonButton;
 
 class VRPNCommandManager : public CommandManager
 {
   Q_OBJECT
 
   private:
+    QTimer serverMainLoopTimer;
+    QMutex serverMutex;
+    vrpn_Connection* connection;
+    QHash<QString, SimonButton*> buttons;
+
     VRPNConfiguration* getVRPNConfiguration();
+
+  private slots:
+    void serverMainLoop();
 
   protected:
     bool shouldAcceptCommand(Command *command);
@@ -46,6 +59,12 @@ class VRPNCommandManager : public CommandManager
     bool deSerializeConfig(const QDomElement& elem);
 
     CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
+
+    void restartServer();
+
+    bool pressButton(const QString& name);
+
+    DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
 
     VRPNCommandManager(QObject* parent, const QVariantList& args);
 

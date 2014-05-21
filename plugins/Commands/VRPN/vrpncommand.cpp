@@ -18,6 +18,7 @@
  */
 
 #include "vrpncommand.h"
+#include "vrpncommandmanager.h"
 #include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
@@ -53,20 +54,24 @@ const KIcon VRPNCommand::getCategoryIcon() const
 const QMap<QString,QVariant> VRPNCommand::getValueMapPrivate() const
 {
   QMap<QString,QVariant> out;
-  //out.insert(i18nc("The vrpn file to launch", "VRPN"), getVRPN());
+  out.insert(i18n("Button name"), getButton());
   return out;
 }
 
 
 bool VRPNCommand::triggerPrivate(int *state)
 {
-  kDebug() << "Triggering...";
-  return true;
+  Q_UNUSED(state);
+  kDebug() << "Triggering..." << button;
+  return static_cast<VRPNCommandManager*>(parent())->pressButton(button);
 }
 
 
 QDomElement VRPNCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
+  QDomElement buttonElem = doc->createElement("button");
+  buttonElem.appendChild(doc->createTextNode(button));
+  commandElem.appendChild(buttonElem);
 
   return commandElem;
 }
@@ -74,7 +79,8 @@ QDomElement VRPNCommand::serializePrivate(QDomDocument *doc, QDomElement& comman
 
 bool VRPNCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-
+  QDomElement buttonElem = commandElem.firstChildElement("button");
+  button = buttonElem.text();
   return true;
 }
 
