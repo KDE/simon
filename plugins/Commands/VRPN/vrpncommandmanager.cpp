@@ -40,6 +40,13 @@ K_EXPORT_PLUGIN( VRPNCommandPluginFactory("simonvrpncommand") )
 
 
 class SimonButton : public vrpn_Button {
+protected:
+  void prepareChange() {
+    timeval timestampTemp;
+    vrpn_gettimeofday(&timestampTemp, NULL);
+    vrpn_Button::timestamp = timestampTemp;
+    vrpn_Button::lastbuttons[0] = vrpn_Button::buttons[0];
+  }
 public:
   SimonButton(const QString& name, vrpn_Connection* connection) : vrpn_Button(name.toUtf8(), connection) {
     vrpn_Button::num_buttons = 1;
@@ -48,15 +55,20 @@ public:
   virtual void mainloop() {
     server_mainloop();
   }
+  void toggle() {
+    prepareChange();
+    vrpn_Button::buttons[0] = !vrpn_Button::buttons[0];
+    vrpn_Button::report_changes();
+  }
   void press() {
-    timeval timestampTemp;
-    for (int i = 0; i < 2; ++i) {
-      vrpn_gettimeofday(&timestampTemp, NULL);
-      vrpn_Button::timestamp = timestampTemp;
-      vrpn_Button::lastbuttons[0] = vrpn_Button::buttons[0];
-      vrpn_Button::buttons[0] = !vrpn_Button::buttons[0];
-      vrpn_Button::report_changes();
-    }
+    prepareChange();
+    vrpn_Button::buttons[0] = 1;
+    vrpn_Button::report_changes();
+  }
+  void release() {
+    prepareChange();
+    vrpn_Button::buttons[0] = 0;
+    vrpn_Button::report_changes();
   }
 };
 
@@ -128,13 +140,27 @@ void VRPNCommandManager::serverMainLoop()
   connection->mainloop();
 }
 
-bool VRPNCommandManager::pressButton(const QString &name)
+bool VRPNCommandManager::activateButton(const QString &name, VRPNCommand::ClickMode clickMode)
 {
   QMutexLocker l(&serverMutex);
   if (!buttons.contains(name))
     return false;
   SimonButton *button = buttons.value(name);
-  button->press();
+  switch (clickMode) {
+    case VRPNCommand::Press:
+      button->press();
+      break;
+    case VRPNCommand::Release:
+      button->release();
+      break;
+    case VRPNCommand::PressAndRelease:
+      button->press();
+      button->release();
+      break;
+    case VRPNCommand::Toggle:
+      button->toggle();
+      break;
+  }
   return true;
 }
 

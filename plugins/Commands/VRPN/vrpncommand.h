@@ -26,13 +26,14 @@ class QDomDocument;
 
 class VRPNCommand : public Command
 {
-  protected:
-    QString button;
-    const QMap<QString,QVariant> getValueMapPrivate() const;
-    bool triggerPrivate(int *state);
-    VRPNCommand() {}
 
   public:
+    enum ClickMode {
+      PressAndRelease=0,
+      Press=1,
+      Release=2,
+      Toggle=3
+    };
     static const QString staticCategoryText();
     static const KIcon staticCategoryIcon();
 
@@ -42,8 +43,8 @@ class VRPNCommand : public Command
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
     bool deSerializePrivate(const QDomElement& commandElem);
 
-    VRPNCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& button) :
-      Command(name, iconSrc, description), button(button)
+    VRPNCommand(const QString& name, ClickMode clickMode, const QString& iconSrc, const QString& description, const QString& button) :
+      Command(name, iconSrc, description), button(button), clickMode(clickMode)
     { }
 
     ~VRPNCommand() {}
@@ -53,6 +54,17 @@ class VRPNCommand : public Command
       return button;
     }
 
+    ClickMode getClickMode() const
+    {
+      return clickMode;
+    }
+
     STATIC_CREATE_INSTANCE_H(VRPNCommand);
+  protected:
+    QString button;
+    ClickMode clickMode;
+    const QMap<QString,QVariant> getValueMapPrivate() const;
+    bool triggerPrivate(int *state);
+    VRPNCommand() {}
 };
 #endif

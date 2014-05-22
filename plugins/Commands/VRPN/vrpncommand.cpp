@@ -55,6 +55,22 @@ const QMap<QString,QVariant> VRPNCommand::getValueMapPrivate() const
 {
   QMap<QString,QVariant> out;
   out.insert(i18n("Button name"), getButton());
+  QString clickModeStr;
+  switch (clickMode) {
+    case Press:
+      clickModeStr = i18nc("Click mode description: Pressing the VRPN button", "Press");
+      break;
+    case Release:
+      clickModeStr = i18nc("Click mode description: Releasing the VRPN button", "Release");
+      break;
+    case PressAndRelease:
+      clickModeStr = i18nc("Click mode description: Pressing and releasing the VRPN button", "Press And Release");
+      break;
+    case Toggle:
+      clickModeStr = i18nc("Click mode description: Toggling the VRPN button", "Toggle");
+      break;
+  }
+  out.insert(i18nc("Describes how a button will be clicked", "Click Mode"), clickModeStr);
   return out;
 }
 
@@ -63,7 +79,7 @@ bool VRPNCommand::triggerPrivate(int *state)
 {
   Q_UNUSED(state);
   kDebug() << "Triggering..." << button;
-  return static_cast<VRPNCommandManager*>(parent())->pressButton(button);
+  return static_cast<VRPNCommandManager*>(parent())->activateButton(button, clickMode);
 }
 
 
@@ -71,6 +87,7 @@ QDomElement VRPNCommand::serializePrivate(QDomDocument *doc, QDomElement& comman
 {
   QDomElement buttonElem = doc->createElement("button");
   buttonElem.appendChild(doc->createTextNode(button));
+  buttonElem.setAttribute("mode", static_cast<int>(clickMode));
   commandElem.appendChild(buttonElem);
 
   return commandElem;
@@ -80,6 +97,11 @@ QDomElement VRPNCommand::serializePrivate(QDomDocument *doc, QDomElement& comman
 bool VRPNCommand::deSerializePrivate(const QDomElement& commandElem)
 {
   QDomElement buttonElem = commandElem.firstChildElement("button");
+  bool okay = true;
+  int clickModeInt = buttonElem.attribute("mode").toInt(&okay);
+  if (!okay)
+    clickModeInt = 0;
+  clickMode = static_cast<ClickMode>(clickModeInt);
   button = buttonElem.text();
   return true;
 }

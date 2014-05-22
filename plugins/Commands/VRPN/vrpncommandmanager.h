@@ -20,6 +20,7 @@
 #ifndef SIMON_VRPNCOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_VRPNCOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
+#include "vrpncommand.h"
 #include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
@@ -62,7 +63,7 @@ class VRPNCommandManager : public CommandManager
 
     void restartServer();
 
-    bool pressButton(const QString& name);
+    bool activateButton(const QString& name, VRPNCommand::ClickMode clickMode);
 
     DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
 

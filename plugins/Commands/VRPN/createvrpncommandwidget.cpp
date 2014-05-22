@@ -51,12 +51,14 @@ bool CreateVRPNCommandWidget::init(Command* command)
   int index = ui.cbButton->findText(vrpnCommand->getButton());
   // if not found, this behaves correctly as it well be set to index -1 (i.e., nothing)
   ui.cbButton->setCurrentIndex(index);
+  ui.cbClickMode->setCurrentIndex(static_cast<int>(vrpnCommand->getClickMode()));
   return true;
 }
 
 Command* CreateVRPNCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-  return new VRPNCommand(name, iconSrc, description, ui.cbButton->currentText());
+  return new VRPNCommand(name, static_cast<VRPNCommand::ClickMode>(ui.cbClickMode->currentIndex()),
+                         iconSrc, description, ui.cbButton->currentText());
 }
 
 CreateVRPNCommandWidget::~CreateVRPNCommandWidget()
