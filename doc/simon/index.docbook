@@ -4123,7 +4123,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 <sect2 id="dbus_command_plugin">
   <title>D-Bus</title>
   
-  <para>With the D-Bus command, Simon can call exported methods in 3rd party applications directly.</para>
+  <para>With the D-Bus command plugin, Simon can call exported methods in 3rd party applications directly.</para>
 
   <para>The screenshot below, for example, calls the "Pause" method of the MPRIS interface of the Tomahawk music playing software.</para>
 
@@ -4154,6 +4154,40 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
     </mediaobject>
   </screenshot>
   </para>
+</sect2>
+
+<sect2 id="vrpn_command_plugin">
+  <title>VRPN</title>
+
+  <para>With the VRPN command plugin, Simon can act as a VRPN server and export voice controlled buttons.</para>
+
+
+  <para>
+  <screenshot>
+  <screeninfo>VRPN plugin configuration</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="vrpn_command_config.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+  <para>The plugin configuration allows you to set the port the server should operate on and to define an arbitrary list of buttons. Each of these button objects will have exactly one "button" (in VRPN, a button may theoretically have more than one clickable item).</para>
+
+  <para>After setting up the buttons, you can now configure Simon commands to act on them. You can set the commands to either Press &amp; Release (consecutively), Press, Release or Toggle the button they manipulate.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>VRPN command configuration</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="vrpn_command.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>For example, the command shown in the screenshot above would press and release ("click") the VRPN button at index 0 of the button device accessible as "ButtonB@localhost".</para>
 </sect2>
 
 <!--
