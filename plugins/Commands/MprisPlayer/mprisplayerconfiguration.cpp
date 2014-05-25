@@ -48,7 +48,11 @@ void MprisPlayerConfiguration::setMediaPlayerServiceName(const QString& serviceN
 bool MprisPlayerConfiguration::deSerialize(const QDomElement& elem)
 {
     QDomElement serviceNameElem = elem.firstChildElement("serviceName");
-    setMediaPlayerServiceName(serviceNameElem.text());
+    if (!serviceNameElem.text().isEmpty()) {
+        setMediaPlayerServiceName(serviceNameElem.text());
+    } else {
+        setMediaPlayerServiceName("org.mpris.MediaPlayer2.plasma-mediacenter");
+    }
 
     return true;
 }
