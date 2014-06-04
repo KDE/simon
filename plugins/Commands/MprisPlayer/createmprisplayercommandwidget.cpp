@@ -18,20 +18,28 @@
  */
 
 #include "createmprisplayercommandwidget.h"
-#include "mprisplayercommand.h"
+#include "mprisconstants.h"
 
 #include <QStringList>
 
-CreateMprisPlayerCommandWidget::CreateMprisPlayerCommandWidget(QString serviceName, CommandManager *manager, QWidget *parent)
-    : CreateCommandWidget(manager, parent),
-      m_serviceName(serviceName)
+CreateMprisPlayerCommandWidget::CreateMprisPlayerCommandWidget(CommandManager *manager, QWidget *parent)
+    : CreateCommandWidget(manager, parent)
 {
     ui.setupUi(this);
 
     setWindowIcon(MprisPlayerCommand::staticCategoryIcon());
     setWindowTitle(MprisPlayerCommand::staticCategoryText());
 
-    connect(ui.cbDBusMethod, SIGNAL(currentTextChanged(QString)), this, SLOT(completeChanged()));
+    ui.cbCommand->addItem(i18n("Play / Pause"),QVariant(PlayPause));
+    ui.cbCommand->addItem(i18n("Play"), QVariant(Play));
+    ui.cbCommand->addItem(i18n("Pause"), QVariant(Pause));
+    ui.cbCommand->addItem(i18n("Stop"), QVariant(Stop));
+    ui.cbCommand->addItem(i18n("Next"), QVariant(Next));
+    ui.cbCommand->addItem(i18n("Previous"), QVariant(Previous));
+    ui.cbCommand->addItem(i18n("Volume Up"), QVariant(VolumeUp));
+    ui.cbCommand->addItem(i18n("Volume Down"), QVariant(VolumeDown));
+    ui.cbCommand->addItem(i18n("Seek Ahead"), QVariant(SeekAhead));
+    ui.cbCommand->addItem(i18n("Seek Back"), QVariant(SeekBack));
 }
 
 CreateMprisPlayerCommandWidget::~CreateMprisPlayerCommandWidget()
@@ -40,9 +48,8 @@ CreateMprisPlayerCommandWidget::~CreateMprisPlayerCommandWidget()
 
 Command *CreateMprisPlayerCommandWidget::createCommand(const QString &name, const QString &iconSrc, const QString &description)
 {
-    return new MprisPlayerCommand(name, iconSrc, description, m_serviceName,
-                                  "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player",
-                                  ui.cbDBusMethod->currentText(), QStringList());
+    CommandRole role = static_cast<CommandRole>(ui.cbCommand->itemData(ui.cbCommand->currentIndex()).toInt());
+    return new MprisPlayerCommand(name, iconSrc, description, role);
 }
 
 bool CreateMprisPlayerCommandWidget::init(Command *command)
@@ -54,7 +61,7 @@ bool CreateMprisPlayerCommandWidget::init(Command *command)
         return false;
     }
 
-    ui.cbDBusMethod->setCurrentIndex(ui.cbDBusMethod->findText(mpCommand->method()));
+    ui.cbCommand->setCurrentIndex(ui.cbCommand->findData(QVariant(mpCommand->role())));
 
     return true;
 }

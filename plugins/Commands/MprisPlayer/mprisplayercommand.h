@@ -21,13 +21,15 @@
 #define SIMON_MPRISPLAYERCOMMAND_H_1822E03B797C494599B9629C6B47E478
 
 #include <simonscenarios/command.h>
+#include "mprisconstants.h"
 
+#include <QDBusReply>
 #include <QDomElement>
 #include <QDomDocument>
 
 /**
  *	@class MprisPlayerCommand
- *	@brief Ressembles one exec-command
+ *	@brief Creates a particular D-Bus call to send to media player
  *
  *	@version 0.1
  *	@date 19.05.2014
@@ -46,21 +48,14 @@ class MprisPlayerCommand : public Command
     bool deSerializePrivate(const QDomElement& commandElem);
 
     MprisPlayerCommand(const QString& name, const QString& iconSrc, const QString& description,
-                const QString& serviceName, const QString& path, const QString& interface,
-                const QString& method, const QStringList& args) :
+                       CommandRole role) :
         Command(name, iconSrc, description),
-        m_serviceName(serviceName), m_path(path),
-        m_interface(interface),
-        m_method(method), m_args(args)
+        m_role(role)
     {
     }
     ~MprisPlayerCommand() {}
 
-    QString serviceName();
-    QString path();
-    QString interface();
-    QString method();
-    QStringList arguments();
+    CommandRole role();
 
     STATIC_CREATE_INSTANCE_H(MprisPlayerCommand)
 
@@ -70,11 +65,12 @@ class MprisPlayerCommand : public Command
     MprisPlayerCommand() {}
 
   private:
-    QString m_serviceName;
-    QString m_path;
-    QString m_interface;
-    QString m_method;
-    QStringList m_args;
+    QDBusReply<QVariant> getPropertyValue(const QString& service, const QString& interfaceName,
+                                          const QString& propertyName);
+    bool setPropertyValue(const QString& service, const QString& interfaceName,
+                          const QString& propertyName, const QVariant& propValue);
+
+    CommandRole m_role;
 };
 
 #endif // SIMON_MPRISPLAYERCOMMAND_H_1822E03B797C494599B9629C6B47E478

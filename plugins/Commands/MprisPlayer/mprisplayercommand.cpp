@@ -18,15 +18,16 @@
  */
 
 #include "mprisplayercommand.h"
+#include "mprisplayercommandmanager.h"
 
 #include <QObject>
 #include <QVariant>
 #include <QDBusConnection>
 #include <QDBusMessage>
+#include <QDBusVariant>
 #include <QDBusInterface>
 
 #include <KIcon>
-#include <KDebug>
 #include <KLocalizedString>
 
 const QString MprisPlayerCommand::staticCategoryText()
@@ -49,125 +50,156 @@ const KIcon MprisPlayerCommand::getCategoryIcon() const
     return MprisPlayerCommand::staticCategoryIcon();
 }
 
-QString MprisPlayerCommand::serviceName()
+CommandRole MprisPlayerCommand::role()
 {
-    return m_serviceName;
-}
-
-QString MprisPlayerCommand::path()
-{
-    return m_path;
-}
-
-QString MprisPlayerCommand::interface()
-{
-    return m_interface;
-}
-
-QString MprisPlayerCommand::method()
-{
-    return m_method;
-}
-
-QStringList MprisPlayerCommand::arguments()
-{
-    return m_args;
+    return m_role;
 }
 
 QDomElement MprisPlayerCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
-  QDomElement serviceNameElem = doc->createElement("serviceName");
-  serviceNameElem.appendChild(doc->createTextNode(m_serviceName));
-  QDomElement pathElem = doc->createElement("path");
-  pathElem.appendChild(doc->createTextNode(m_path));
-  QDomElement interfaceElem = doc->createElement("interface");
-  interfaceElem.appendChild(doc->createTextNode(m_interface));
-  QDomElement methodElem = doc->createElement("method");
-  methodElem.appendChild(doc->createTextNode(m_method));
+    QDomElement roleElem = doc->createElement("role");
+    roleElem.appendChild(doc->createTextNode(QString::number((int)m_role)));
+    commandElem.appendChild(roleElem);
 
-  QDomElement argsElem = doc->createElement("arguments");
-
-  foreach (const QString& a, m_args)
-  {
-    QDomElement argElem = doc->createElement("argument");
-    argElem.appendChild(doc->createTextNode(a));
-    argsElem.appendChild(argElem);
-  }
-
-  commandElem.appendChild(serviceNameElem);
-  commandElem.appendChild(pathElem);
-  commandElem.appendChild(interfaceElem);
-  commandElem.appendChild(methodElem);
-  commandElem.appendChild(argsElem);
-
-  return commandElem;
+    return commandElem;
 }
 
 
 bool MprisPlayerCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-  QDomElement serviceNameElem = commandElem.firstChildElement("serviceName");
-  QDomElement pathElem = commandElem.firstChildElement("path");
-  QDomElement interfaceElem = commandElem.firstChildElement("interface");
-  QDomElement methodElem = commandElem.firstChildElement("method");
-  QDomElement argsElem = commandElem.firstChildElement("arguments");
+    QDomElement roleElem = commandElem.firstChildElement("role");
 
-  if (serviceNameElem.isNull() || pathElem.isNull() || interfaceElem.isNull()
-      || methodElem.isNull() || argsElem.isNull())
-    return false;
+    if (roleElem.isNull())
+        return false;
+    m_role = static_cast<CommandRole>(roleElem.text().toInt());
 
-  m_serviceName = serviceNameElem.text();
-  m_path = pathElem.text();
-  m_interface = interfaceElem.text();
-  m_method = methodElem.text();
-
-  QDomElement argElem = argsElem.firstChildElement("argument");
-  m_args.clear();
-  while (!argElem.isNull())
-  {
-    m_args << argElem.text();
-    argElem = argElem.nextSiblingElement("argument");
-  }
-  return true;
+    return true;
 }
 
 const QMap<QString,QVariant> MprisPlayerCommand::getValueMapPrivate() const
 {
-  QMap<QString,QVariant> out;
-  out.insert(i18nc("Name of the service", "Service Name"), m_serviceName);
-  out.insert(i18nc("Name of the path", "Path"), m_path);
-  out.insert(i18nc("Name of the D-Bus interface", "Interface"), m_interface);
-  out.insert(i18nc("Name of the method to call", "Method"), m_method);
-  out.insert(i18nc("Arguments of the call", "Arguments"), m_args.join(", "));
-  return out;
+    QMap<QString,QVariant> out;
+    QString typeString;
+    switch (m_role) {
+    case PlayPause:
+        typeString = i18nc("Toggle between Play and Pause", "Play / Pause");
+        break;
+    case Play:
+        typeString = i18nc("Start playing the media", "Play");
+        break;
+    case Pause:
+        typeString = i18nc("Pause the media", "Pause");
+        break;
+    case Stop:
+        typeString = i18nc("Stop the media", "Stop");
+        break;
+    case Next:
+        typeString = i18nc("Play the next media in the list", "Next");
+        break;
+    case Previous:
+        typeString = i18nc("Play the previous media in the list", "Previous");
+        break;
+    case VolumeUp:
+        typeString = i18nc("Increase the volume of the player", "Increase Volume");
+        break;
+    case VolumeDown:
+        typeString = i18nc("Decrease the volume of the player", "Decrease Volume");
+        break;
+    case SeekAhead:
+        typeString = i18nc("Fast forward to some time ahead", "Seek Ahead");
+        break;
+    case SeekBack:
+        typeString = i18nc("Rewind to some time back", "Seek Back");
+        break;
+    }
+    out.insert(i18nc("Type of the command", "Type"), typeString);
+    return out;
 }
 
 bool MprisPlayerCommand::triggerPrivate(int *state)
 {
-  Q_UNUSED(state);
-  QDBusMessage m = QDBusMessage::createMethodCall(m_serviceName,
-                                                    m_path,
-                                                    m_interface,
-                                                    m_method);
-  QList<QVariant> args;
-  foreach (QString arg, m_args) { // krazy:exclude=foreach
-    int i=0;
-    while ((arg.contains("%")) && (i < currentArguments().count())) {
-      arg = arg.arg(currentArguments()[i++]);
+    Q_UNUSED(state);
+    QStringList playersList;
+    playersList << static_cast<MprisPlayerCommandManager*>(parent())->targetServices();
+
+    QString method;
+    QList<QVariant> args;
+    bool success = true;
+    switch (m_role) {
+    case PlayPause:
+        method = "PlayPause";
+        break;
+    case Play:
+        method = "Play";
+        break;
+    case Pause:
+        method = "Pause";
+        break;
+    case Stop:
+        method = "Stop";
+        break;
+    case Next:
+        method = "Next";
+        break;
+    case Previous:
+        method = "Previous";
+        break;
+    case VolumeUp:
+    case VolumeDown:
+        double currentVolume, change;
+        change = volumeChange;
+        if (m_role == VolumeDown) {
+            change *= -1.0;
+        }
+        foreach (const QString& service, playersList) {
+            currentVolume = getPropertyValue(service, PlayerInterface, "Volume").value().toDouble();
+            if (success) {
+                success = setPropertyValue(service, PlayerInterface, "Volume", QVariant(currentVolume + change));
+            }
+        }
+        return success;
+    case SeekAhead:
+    case SeekBack:
+        qlonglong offset = seekOffset;
+        if (m_role == SeekBack) {
+            offset *= -1;
+        }
+        args << offset;
+        method = "Seek";
+        break;
     }
 
-    //check for integers
-    bool ok = true;
-    int a = arg.toInt(&ok);
-    if (ok)
-      args.append(QVariant(a));
-    else
-      args.append(arg);
-  }
+    QDBusMessage m;
+    foreach (const QString& service, playersList) {
+        m = QDBusMessage::createMethodCall(service, DBusMprisPath, PlayerInterface, method);
+        m.setArguments(args);
+        if (success) {
+            success = QDBusConnection::sessionBus().send(m);
+        }
+    }
+    return success;
+}
 
-  kDebug() << args;
-  m.setArguments(args);
-  return QDBusConnection::sessionBus().send(m);
+QDBusReply<QVariant> MprisPlayerCommand::getPropertyValue(const QString &service, const QString &interfaceName, const QString &propertyName)
+{
+    QDBusInterface *iface = new QDBusInterface(service, DBusMprisPath, PropertiesInterface,
+                                               QDBusConnection::sessionBus());
+    QDBusReply<QVariant> reply = iface->call("Get", interfaceName, propertyName);
+    delete iface;
+
+    return reply;
+}
+
+bool MprisPlayerCommand::setPropertyValue(const QString &service, const QString &interfaceName, const QString &propertyName, const QVariant& propValue)
+{
+    QDBusInterface *iface = new QDBusInterface(service, DBusMprisPath, PropertiesInterface,
+                                               QDBusConnection::sessionBus());
+    QDBusVariant arg(propValue);
+    QDBusReply<void> reply = iface->call("Set", interfaceName, propertyName,
+                                         QVariant::fromValue<QDBusVariant>(arg));
+    delete iface;
+
+    return reply.isValid();
 }
 
 STATIC_CREATE_INSTANCE_C(MprisPlayerCommand)

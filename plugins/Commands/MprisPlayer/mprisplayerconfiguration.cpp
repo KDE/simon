@@ -18,6 +18,11 @@
  */
 
 #include "mprisplayerconfiguration.h"
+#include "mprisconstants.h"
+
+#include <QDBusConnection>
+#include <QDBusConnectionInterface>
+#include <QDBusReply>
 
 K_PLUGIN_FACTORY_DECLARATION(MprisPlayerPluginFactory)
 
@@ -28,30 +33,34 @@ MprisPlayerConfiguration::MprisPlayerConfiguration(Scenario *parent)
 {
     ui.setupUi(this);
 
-    QObject::connect(ui.playerNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+    QObject::connect(ui.rbSupportAll, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    QObject::connect(ui.rbSupportOne, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+    QObject::connect(ui.cbMediaServiceNames, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+    QObject::connect(ui.rbSupportOne, SIGNAL(clicked()), this, SLOT(populateMediaServices()));
 }
 
 MprisPlayerConfiguration::~MprisPlayerConfiguration()
 {
 }
 
-QString MprisPlayerConfiguration::mediaPlayerServiceName()
-{
-    return ui.playerNameLineEdit->text();
-}
-
-void MprisPlayerConfiguration::setMediaPlayerServiceName(const QString& serviceName)
-{
-    ui.playerNameLineEdit->setText(serviceName);
-}
-
 bool MprisPlayerConfiguration::deSerialize(const QDomElement& elem)
 {
-    QDomElement serviceNameElem = elem.firstChildElement("serviceName");
-    if (!serviceNameElem.text().isEmpty()) {
-        setMediaPlayerServiceName(serviceNameElem.text());
+    QDomElement supportAllElem = elem.firstChildElement("supportAll");
+    if (supportAllElem.text() == "") {
+        setSupportAll(true);
     } else {
-        setMediaPlayerServiceName("org.mpris.MediaPlayer2.plasma-mediacenter");
+        setSupportAll(static_cast<bool>(supportAllElem.text().toInt()));
+    }
+
+    QDomElement serviceNameElem = elem.firstChildElement("serviceName");
+    QString selectedMediaService = serviceNameElem.text();
+
+    int selectedPos = ui.cbMediaServiceNames->findText(selectedMediaService);
+    if (selectedPos != -1) {
+        ui.cbMediaServiceNames->setCurrentIndex(selectedPos);
+    } else {
+        ui.cbMediaServiceNames->insertItem(0, selectedMediaService);
+        ui.cbMediaServiceNames->setCurrentIndex(0);
     }
 
     return true;
@@ -60,8 +69,12 @@ bool MprisPlayerConfiguration::deSerialize(const QDomElement& elem)
 QDomElement MprisPlayerConfiguration::serialize(QDomDocument *doc)
 {
     QDomElement configElem = doc->createElement("config");
+    QDomElement supportAllElem = doc->createElement("supportAll");
+    supportAllElem.appendChild(doc->createTextNode(QString::number(static_cast<int>(supportAll()))));
+    configElem.appendChild(supportAllElem);
+
     QDomElement serviceNameElem = doc->createElement("serviceName");
-    serviceNameElem.appendChild(doc->createTextNode(mediaPlayerServiceName()));
+    serviceNameElem.appendChild(doc->createTextNode(ui.cbMediaServiceNames->currentText()));
     configElem.appendChild(serviceNameElem);
 
     return configElem;
@@ -69,7 +82,39 @@ QDomElement MprisPlayerConfiguration::serialize(QDomDocument *doc)
 
 void MprisPlayerConfiguration::defaults()
 {
-    setMediaPlayerServiceName("org.mpris.MediaPlayer2.plasma-mediacenter");
+    setSupportAll(true);
 }
 
+void MprisPlayerConfiguration::populateMediaServices()
+{
+    if (!ui.cbMediaServiceNames->currentText().startsWith(MprisPlayerPrefix)) {
+        ui.cbMediaServiceNames->removeItem(ui.cbMediaServiceNames->currentIndex());
+    }
+    QDBusReply<QStringList> reply = QDBusConnection::sessionBus().interface()->registeredServiceNames();
+    QStringList services = reply.value();
+    foreach (const QString& serviceName, services) {
+        if (serviceName.startsWith(MprisPlayerPrefix)
+                && ui.cbMediaServiceNames->findText(serviceName) == -1) {
+            ui.cbMediaServiceNames->addItem(serviceName);
+        }
+    }
+}
 
+bool MprisPlayerConfiguration::supportAll()
+{
+    return ui.rbSupportAll->isChecked();
+}
+
+QString MprisPlayerConfiguration::selectedMediaService()
+{
+    return ui.cbMediaServiceNames->currentText();
+}
+
+void MprisPlayerConfiguration::setSupportAll(bool b)
+{
+    if (b) {
+        ui.rbSupportAll->click();
+    } else {
+        ui.rbSupportOne->click();
+    }
+}

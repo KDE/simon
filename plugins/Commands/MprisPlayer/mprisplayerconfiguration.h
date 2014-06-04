@@ -23,6 +23,7 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_mprisplayerconfigurationdlg.h"
 
+
 /**
  *	@class MprisPlayerConfiguration
  *	@brief Configures the plug-in
@@ -40,17 +41,19 @@ class MprisPlayerConfiguration : public CommandConfiguration
     ~MprisPlayerConfiguration();
 
     //configuration options
-    QString mediaPlayerServiceName();
+    bool supportAll();
+    QString selectedMediaService();
 
   public slots:
     virtual bool deSerialize(const QDomElement& elem);
     virtual QDomElement serialize(QDomDocument *doc);
     virtual void defaults();
+    void populateMediaServices();
 
   private:
     Ui::MprisPlayerConfigurationDlg ui;
 
-    void setMediaPlayerServiceName(const QString& serviceName);
+    void setSupportAll(bool b);
 };
 
 #endif // SIMON_MPRISPLAYERCONFIGURATION_H_F800C7EC08DA40FEBD5B5BA233D7AC7C

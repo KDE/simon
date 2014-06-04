@@ -22,6 +22,8 @@
 
 #include <simonscenarios/commandmanager.h>
 
+#include <QDBusServiceWatcher>
+
 class MprisPlayerConfiguration;
 
 /**
@@ -44,6 +46,8 @@ class MprisPlayerCommandManager : public CommandManager
     const QString iconSrc() const;
     const QString name() const;
 
+    const QStringList targetServices();
+
     CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
     bool deSerializeConfig(const QDomElement& elem);
@@ -52,6 +56,16 @@ class MprisPlayerCommandManager : public CommandManager
     MprisPlayerCommandManager(QObject* parent, const QVariantList& args);
     ~MprisPlayerCommandManager();
 
+  private slots:
+    void serviceRegistered(const QString& serviceName);
+    void serviceUnregistered(const QString& serviceName);
+
+  private:
+    const QStringList runningMediaPlayerServices();
+
+    QStringList m_mediaPlayerList;
+    QDBusServiceWatcher* m_registerWatcher;
+    QDBusServiceWatcher* m_unregisterWatcher;
 };
 
 #endif // SIMON_MPRISPLAYERCOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37

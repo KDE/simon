@@ -20,12 +20,12 @@
 #ifndef SIMON_CREATEMPRISPLAYERCOMMANDWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
 #define SIMON_CREATEMPRISPLAYERCOMMANDWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
 
+#include "mprisplayercommand.h"
 #include "ui_createmprisplayercommandwidget.h"
 #include <simonscenarios/createcommandwidget.h>
 
 #include <QWidget>
 
-class Command;
 class CommandManager;
 
 /**
@@ -46,13 +46,11 @@ class CreateMprisPlayerCommandWidget : public CreateCommandWidget
     bool init(Command* command);
     bool isComplete();
 
-    explicit CreateMprisPlayerCommandWidget(QString serviceName, CommandManager *manager, QWidget *parent=0);
+    explicit CreateMprisPlayerCommandWidget(CommandManager *manager, QWidget *parent=0);
     virtual ~CreateMprisPlayerCommandWidget();
 
   private:
     Ui::CreateMprisPlayerCommandWidget ui;
-
-    QString m_serviceName;
 };
 
 #endif // SIMON_CREATEMPRISPLAYERCOMMANDWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
