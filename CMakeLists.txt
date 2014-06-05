@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 2.8.0 FATAL_ERROR)
 cmake_policy(SET CMP0017 NEW)
 cmake_policy(SET CMP0002 OLD)
-cmake_policy(SET CMP0022 OLD)
+if(NOT "${CMAKE_VERSION}" VERSION_LESS 2.8.12)
+  cmake_policy(SET CMP0022 OLD)
+endif()
 
 project(Simon)
 
@@ -72,13 +74,13 @@ macro_log_feature(SphinxBase_LIBRARIES "Sphinxbase"
 find_package(Pocketsphinx)
 macro_log_feature(POCKETSPHINX_LIBRARIES "PocketSphinx"
   "PocketSphinx is a small-footprint continuous speech recognition system"
-  "http://cmusphinx.sourceforge.net/" FALSE "" 
+  "http://cmusphinx.sourceforge.net/" FALSE ""
   "Required to build Pocket Sphinx backend")
 macro_optional_find_package(OpenCV)
 macro_log_feature(OpenCV_FOUND "OpenCV"
   "OpenCV (Open Source Computer Vision) is a library of programming functions for real time computer vision" "http://http://opencv.willowgarage.com/"
   FALSE "" "Required for Simon Vision")
-  
+
 
 macro_optional_find_package(VRPN)
 macro_log_feature(VRPN_LIBRARY "VRPN"
