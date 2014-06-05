@@ -54,13 +54,14 @@ bool MprisPlayerConfiguration::deSerialize(const QDomElement& elem)
 
     QDomElement serviceNameElem = elem.firstChildElement("serviceName");
     QString selectedMediaService = serviceNameElem.text();
-
-    int selectedPos = ui.cbMediaServiceNames->findText(selectedMediaService);
-    if (selectedPos != -1) {
-        ui.cbMediaServiceNames->setCurrentIndex(selectedPos);
-    } else {
-        ui.cbMediaServiceNames->insertItem(0, selectedMediaService);
-        ui.cbMediaServiceNames->setCurrentIndex(0);
+    if (!selectedMediaService.isEmpty()) {
+        int selectedPos = ui.cbMediaServiceNames->findText(selectedMediaService);
+        if (selectedPos != -1) {
+            ui.cbMediaServiceNames->setCurrentIndex(selectedPos);
+        } else {
+            ui.cbMediaServiceNames->insertItem(0, selectedMediaService);
+            ui.cbMediaServiceNames->setCurrentIndex(0);
+        }
     }
 
     return true;
@@ -87,9 +88,6 @@ void MprisPlayerConfiguration::defaults()
 
 void MprisPlayerConfiguration::populateMediaServices()
 {
-    if (!ui.cbMediaServiceNames->currentText().startsWith(MprisPlayerPrefix)) {
-        ui.cbMediaServiceNames->removeItem(ui.cbMediaServiceNames->currentIndex());
-    }
     QDBusReply<QStringList> reply = QDBusConnection::sessionBus().interface()->registeredServiceNames();
     QStringList services = reply.value();
     foreach (const QString& serviceName, services) {
