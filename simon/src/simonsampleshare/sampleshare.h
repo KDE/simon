@@ -24,6 +24,7 @@
 #include <KDialog>
 #include <KDebug>
 #include <QPointer>
+#include <QStringList>
 #include "simonsampleshareui_export.h"
 
 template<class T >
@@ -55,6 +56,9 @@ private:
   void connectToServer();
   void startTransmission();
   void cleanup();
+
+  QStringList getListOfTransmittedSamples(const QString& server);
+  void recordTransmittedSample(const QString& server, const QString& identifier);
   
 private slots:
   void transmissionError(const QString&);

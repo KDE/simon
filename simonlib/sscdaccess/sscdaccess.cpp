@@ -1113,6 +1113,10 @@ bool SSCDAccess::processSampleAnswer()
   return false;
 }
 
+QString SSCDAccess::remote() const
+{
+  return socket->peerName();
+}
 
 /**
  *	@brief Destructor

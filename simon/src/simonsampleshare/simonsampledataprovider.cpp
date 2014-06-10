@@ -27,9 +27,11 @@
 
 SimonSampleDataProvider::SimonSampleDataProvider(qint32 userId, Microphone *microphone, 
 			    SoundCard *soundCard, Sample::SampleType sampleType, 
-			    const QString& name) :
+			    const QString& name,
+          const QStringList& sampleBlackList) :
   AbstractSampleDataProvider(userId, sampleType, name, true),
-  m_microphone(microphone), m_soundCard(soundCard)
+  m_microphone(microphone), m_soundCard(soundCard),
+  m_sampleBlackList(sampleBlackList)
 {
 }
 
@@ -70,8 +72,11 @@ QList< TrainingSamplesDescriptor* > SimonSampleDataProvider::buildSampleDescript
   QString dir = TrainingManager::getInstance()->getTrainingDir();
   for (QHash<QString, QString>::const_iterator i = prompts->samples().constBegin();
        i != prompts->samples().constEnd(); ++i) {
+    QString path = dir+i.key()+".wav";
+    if (m_sampleBlackList.contains(path))
+      continue;
     sampleDescriptors << new TrainingSamplesDescriptor(i.value(),
-						       QStringList() << dir+i.key()+".wav",
+						       QStringList() << path,
 						       QStringList() << "simon");
   }
   return sampleDescriptors;
