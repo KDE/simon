@@ -179,7 +179,8 @@ void SampleShare::transmissionWarning(const QString& warning)
 }
 
 SampleShare::~SampleShare(){
-  progressWidget->disconnect();
+  if (progressWidget)
+    progressWidget->disconnect();
   cleanup();
   //server deleted by qt parent / child relationship
   delete ui;
