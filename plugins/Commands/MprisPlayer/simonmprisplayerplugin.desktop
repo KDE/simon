@@ -13,6 +13,7 @@ Name[pl]=Sterowanie odtwarzaczami multimediów wyposażonych w MPRIS dla Simon
 Name[pt]='Plugin' de Comandos de Controlo de Leitores Multimédia do Simon
 Name[pt_BR]=Plugin de comandos de controle de reprodutores de mídia do Simon
 Name[sk]=Plugin ovládacieho príkazu prehrávač médií Simon
+Name[sv]=Simon kommandoinsticksprogram för styrning av mediaspelare
 Name[uk]=Додаток команд керування мультимедійними програвачами
 Name[x-test]=xxSimon Media Player Control Command Pluginxx
 Comment=Control any MPRIS enabled media player using Simon
@@ -25,6 +26,7 @@ Comment[pl]=Sterowanie odtwarzacz multimediów z możliwością sterowania przez
 Comment[pt]=Controlar qualquer leitor multimédia com suporte para MPRIS com o Simon
 Comment[pt_BR]=Controla qualquer reprodutor de mídia com suporte a MPRIS usando o Simon
 Comment[sk]=Ovláda ľubovoľný prehrávač médií MPRIS pomocou Simon
+Comment[sv]=Styr eventuella MPRIS-kontrollerade mediaspelare genom att använda Simon
 Comment[uk]=Керування усіма програвачами з можливостями MPRIS за допомогою Simon
 Comment[x-test]=xxControl any MPRIS enabled media player using Simonxx
 
