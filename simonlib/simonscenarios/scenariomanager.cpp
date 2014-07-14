@@ -192,7 +192,7 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
       scenarios.removeAt(i+1);
       if (s == currentScenario) {
         updateDisplays(newScenario, true);
-	emit scenarioSelectionChanged();
+        emit scenarioSelectionChanged();
       }
       kDebug() << "Deleted scenario: " << s;
       s->deleteLater();
@@ -669,9 +669,14 @@ ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QStri
 
 ScenarioManager::~ScenarioManager()
 {
-  foreach (Scenario *s, scenarios)
-    s->blockSignals(true);
+  QList<Scenario*> oldScenarios  = scenarios;
+  scenarios.clear();
+
   blockSignals(true);
+  foreach (Scenario *s, oldScenarios) {
+    s->blockSignals(true);
+    s->deleteLater();
+  }
 
   qDeleteAll(listInterfaceCommands);
 }

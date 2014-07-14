@@ -49,6 +49,7 @@ class MODELMANAGEMENT_EXPORT ActionModel : public QAbstractItemModel
     QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    void finalizeActions();
 
   private slots:
     void updateAction();
