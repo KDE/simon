@@ -69,12 +69,13 @@ ScenarioManager::ScenarioManager(QObject *parent) : QObject(parent),
 
 bool ScenarioManager::init()
 {
+  shadowVocab = new ShadowVocabulary(this);
+  connect(shadowVocab, SIGNAL(changed()), this, SIGNAL(shadowVocabularyChanged()));
+
   bool succ = true;
   if (!setupScenarios())
     succ = false;
 
-  shadowVocab = new ShadowVocabulary(this);
-  connect(shadowVocab, SIGNAL(changed()), this, SIGNAL(shadowVocabularyChanged()));
   return succ && !shadowVocab->isNull();
 }
 
