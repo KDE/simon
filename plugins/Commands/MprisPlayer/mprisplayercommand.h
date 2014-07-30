@@ -53,14 +53,26 @@ class MprisPlayerCommand : public Command
         m_role(role)
     {
     }
+    MprisPlayerCommand(const QString& name, const QString& iconSrc,
+                       const QString& description, const QString& serviceName,
+                       const QString& trackId) :
+        Command(name, iconSrc, description),
+        m_role(PlayParticular),
+        m_serviceName(serviceName),
+        m_trackId(trackId)
+    {
+    }
+
     ~MprisPlayerCommand() {}
 
     CommandRole role();
+    QString trackId();
+    QString serviceName();
 
     STATIC_CREATE_INSTANCE_H(MprisPlayerCommand)
 
   protected:
-    const QMap<QString,QVariant> getValueMapPrivate() const;
+    const QMap<QString, QVariant> getValueMapPrivate() const;
     bool triggerPrivate(int *state);
     MprisPlayerCommand() {}
 
@@ -71,6 +83,10 @@ class MprisPlayerCommand : public Command
                           const QString& propertyName, const QVariant& propValue);
 
     CommandRole m_role;
+
+    //These members used only for "PlayParticular" CommandRole
+    QString m_serviceName;
+    QDBusObjectPath m_trackId;
 };
 
 #endif // SIMON_MPRISPLAYERCOMMAND_H_1822E03B797C494599B9629C6B47E478

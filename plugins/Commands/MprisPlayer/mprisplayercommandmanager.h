@@ -21,10 +21,12 @@
 #define SIMON_MPRISPLAYERCOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
 #include <simonscenarios/commandmanager.h>
+#include "mprisconstants.h"
 
 #include <QDBusServiceWatcher>
 
 class MprisPlayerConfiguration;
+class Player;
 
 /**
  *	@class MprisPlayerCommandManager
@@ -45,13 +47,18 @@ class MprisPlayerCommandManager : public CommandManager
     const QString preferredTrigger() const;
     const QString iconSrc() const;
     const QString name() const;
+    void finalize();
 
     const QStringList targetServices();
+    void addToCommandlist(const TrackList& trackIdTitleMap,
+                          const QString& serviceName);
+    void removeFromCommandlist(const QStringList& removedTracksList,
+                          const QString& serviceName);
 
     CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
     bool deSerializeConfig(const QDomElement& elem);
-    DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H
+    bool deSerializeCommandsPrivate(const QDomElement& elem);
 
     MprisPlayerCommandManager(QObject* parent, const QVariantList& args);
     ~MprisPlayerCommandManager();
@@ -62,10 +69,14 @@ class MprisPlayerCommandManager : public CommandManager
 
   private:
     const QStringList runningMediaPlayerServices();
+    void cleanupCommandsAndWords();
+    void cleanupCommandsAndWords(const QString& serviceName);
+    void removeWordsWithCategoryPrefix(const QString& prefix);
 
     QStringList m_mediaPlayerList;
     QDBusServiceWatcher* m_registerWatcher;
     QDBusServiceWatcher* m_unregisterWatcher;
+    QHash<QString, Player*> m_players;
 };
 
 #endif // SIMON_MPRISPLAYERCOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37

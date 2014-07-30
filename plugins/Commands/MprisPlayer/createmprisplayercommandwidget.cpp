@@ -46,7 +46,7 @@ CreateMprisPlayerCommandWidget::~CreateMprisPlayerCommandWidget()
 {
 }
 
-Command *CreateMprisPlayerCommandWidget::createCommand(const QString &name, const QString &iconSrc, const QString &description)
+Command *CreateMprisPlayerCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
     CommandRole role = static_cast<CommandRole>(ui.cbCommand->itemData(ui.cbCommand->currentIndex()).toInt());
     return new MprisPlayerCommand(name, iconSrc, description, role);

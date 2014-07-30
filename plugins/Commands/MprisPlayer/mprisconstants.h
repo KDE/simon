@@ -20,6 +20,9 @@
 #ifndef SIMON_MPRIS_CONSTANTS_H_9A22E03B797C494599B9629C6B47E478
 #define SIMON_MPRIS_CONSTANTS_H_9A22E03B797C494599B9629C6B47E478
 
+typedef QPair<QString, QString> Track;
+typedef QList<Track> TrackList;
+
 enum CommandRole
 {
     PlayPause,
@@ -31,13 +34,19 @@ enum CommandRole
     VolumeUp,
     VolumeDown,
     SeekAhead,
-    SeekBack
+    SeekBack,
+    PlayParticular
 };
 
 static const QString MprisPlayerPrefix("org.mpris.MediaPlayer2.");
 static const QString DBusMprisPath("/org/mpris/MediaPlayer2");
 static const QString PlayerInterface("org.mpris.MediaPlayer2.Player");
+static const QString TracklistInterface("org.mpris.MediaPlayer2.TrackList");
 static const QString PropertiesInterface("org.freedesktop.DBus.Properties");
+
+static const QString titleMetadata("xesam:title");
+static const QString trackIdMetadata("mpris:trackid");
+
 static const double volumeChange = 0.05;
 static const qlonglong seekOffset = 1000000; // 1 second
 

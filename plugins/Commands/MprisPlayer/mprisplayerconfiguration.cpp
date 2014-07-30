@@ -92,7 +92,7 @@ void MprisPlayerConfiguration::populateMediaServices()
     QStringList services = reply.value();
     foreach (const QString& serviceName, services) {
         if (serviceName.startsWith(MprisPlayerPrefix)
-                && ui.cbMediaServiceNames->findText(serviceName) == -1) {
+               && ui.cbMediaServiceNames->findText(serviceName) == -1) {
             ui.cbMediaServiceNames->addItem(serviceName);
         }
     }

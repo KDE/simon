@@ -55,6 +55,16 @@ CommandRole MprisPlayerCommand::role()
     return m_role;
 }
 
+QString MprisPlayerCommand::trackId()
+{
+    return m_trackId.path();
+}
+
+QString MprisPlayerCommand::serviceName()
+{
+    return m_serviceName;
+}
+
 QDomElement MprisPlayerCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
     QDomElement roleElem = doc->createElement("role");
@@ -111,6 +121,9 @@ const QMap<QString,QVariant> MprisPlayerCommand::getValueMapPrivate() const
     case SeekBack:
         typeString = i18nc("Rewind to some time back", "Seek Back");
         break;
+    case PlayParticular:
+        typeString = i18nc("Play a particular track from a playlist", "Play Particular");
+        break;
     }
     out.insert(i18nc("Type of the command", "Type"), typeString);
     return out;
@@ -124,6 +137,10 @@ bool MprisPlayerCommand::triggerPrivate(int *state)
 
     QString method;
     QList<QVariant> args;
+    QDBusMessage m;
+    qlonglong offset;
+    double currentVolume, change;
+
     bool success = true;
     switch (m_role) {
     case PlayPause:
@@ -146,7 +163,6 @@ bool MprisPlayerCommand::triggerPrivate(int *state)
         break;
     case VolumeUp:
     case VolumeDown:
-        double currentVolume, change;
         change = volumeChange;
         if (m_role == VolumeDown) {
             change *= -1.0;
@@ -160,16 +176,23 @@ bool MprisPlayerCommand::triggerPrivate(int *state)
         return success;
     case SeekAhead:
     case SeekBack:
-        qlonglong offset = seekOffset;
+        offset = seekOffset;
         if (m_role == SeekBack) {
             offset *= -1;
         }
         args << offset;
         method = "Seek";
         break;
+    case PlayParticular:
+        m = QDBusMessage::createMethodCall(m_serviceName, DBusMprisPath,
+                                                        TracklistInterface,
+                                                        "GoTo");
+        args << QVariant::fromValue(m_trackId);
+        m.setArguments(args);
+        success = QDBusConnection::sessionBus().send(m);
+        return success;
     }
 
-    QDBusMessage m;
     foreach (const QString& service, playersList) {
         m = QDBusMessage::createMethodCall(service, DBusMprisPath, PlayerInterface, method);
         m.setArguments(args);
@@ -180,7 +203,7 @@ bool MprisPlayerCommand::triggerPrivate(int *state)
     return success;
 }
 
-QDBusReply<QVariant> MprisPlayerCommand::getPropertyValue(const QString &service, const QString &interfaceName, const QString &propertyName)
+QDBusReply<QVariant> MprisPlayerCommand::getPropertyValue(const QString& service, const QString& interfaceName, const QString& propertyName)
 {
     QDBusInterface *iface = new QDBusInterface(service, DBusMprisPath, PropertiesInterface,
                                                QDBusConnection::sessionBus());
@@ -190,7 +213,7 @@ QDBusReply<QVariant> MprisPlayerCommand::getPropertyValue(const QString &service
     return reply;
 }
 
-bool MprisPlayerCommand::setPropertyValue(const QString &service, const QString &interfaceName, const QString &propertyName, const QVariant& propValue)
+bool MprisPlayerCommand::setPropertyValue(const QString& service, const QString& interfaceName, const QString& propertyName, const QVariant& propValue)
 {
     QDBusInterface *iface = new QDBusInterface(service, DBusMprisPath, PropertiesInterface,
                                                QDBusConnection::sessionBus());

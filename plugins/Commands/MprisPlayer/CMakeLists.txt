@@ -3,6 +3,7 @@ set (simonmprisplayerplugin_SRCS
   mprisplayerconfiguration.cpp
   mprisplayercommand.cpp
   createmprisplayercommandwidget.cpp
+  player.cpp
 )
 
 kde4_add_ui_files(simonmprisplayerplugin_SRCS
