@@ -41,7 +41,9 @@ K_EXPORT_PLUGIN( MprisPlayerPluginFactory("simoncommandmprisplayer") )
 const QString MprisCategoryPrefix("MPRIS_");
 
 MprisPlayerCommandManager::MprisPlayerCommandManager(QObject *parent, const QVariantList& args)
-    : CommandManager((Scenario*) parent, args)
+    : CommandManager((Scenario*) parent, args),
+      m_registerWatcher(0),
+      m_unregisterWatcher(0)
 {
 }
 
@@ -87,6 +89,9 @@ const QStringList MprisPlayerCommandManager::runningMediaPlayerServices()
 
 void MprisPlayerCommandManager::cleanupCommandsAndWords()
 {
+    if (!parentScenario)
+        return;
+
     removeWordsWithCategoryPrefix(MprisCategoryPrefix);
 
     ScenarioManager::getInstance()->startGroup();
@@ -123,11 +128,13 @@ void MprisPlayerCommandManager::cleanupCommandsAndWords(const QString& serviceNa
 
 void MprisPlayerCommandManager::removeWordsWithCategoryPrefix(const QString& prefix)
 {
+    if (!parentScenario)
+        return;
+
     ScenarioManager::getInstance()->startGroup();
 
     Vocabulary *vocab = parentScenario->vocabulary();
     QList<Word*> internalWords = vocab->getWords();
-
     foreach (Word *w, internalWords) {
         if (w->getCategory().startsWith(prefix)) {
             vocab->removeWord(w, true);
