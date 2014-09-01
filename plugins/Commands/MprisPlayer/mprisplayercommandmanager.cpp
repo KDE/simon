@@ -26,6 +26,7 @@
 #include <simonactions/actionmanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/activevocabulary.h>
+#include <simonscenarios/grammar.h>
 
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
@@ -137,6 +138,9 @@ void MprisPlayerCommandManager::removeWordsWithCategoryPrefix(const QString& pre
     QList<Word*> internalWords = vocab->getWords();
     foreach (Word *w, internalWords) {
         if (w->getCategory().startsWith(prefix)) {
+            //remove the sentence from grammar
+            parentScenario->grammar()->deleteStructure(w->getCategory());
+
             vocab->removeWord(w, true);
             internalWords.removeAll(w);
         }
@@ -255,6 +259,9 @@ void MprisPlayerCommandManager::addToCommandlist(const TrackList& trackList, con
         toTranscribe << trackTitle.split('_', QString::SkipEmptyParts);
         pseudoWordsToAdd.append(QPair<QString, QString>(trackTitle, category));
 
+        //add the sentence to scenario's grammar
+        parentScenario->grammar()->addStructure(category);
+
         //check if we already have the required command
         bool isNew = true;
         foreach (Command *c, oldCommands) {
@@ -315,6 +322,9 @@ void MprisPlayerCommandManager::removeFromCommandlist(const QStringList& removed
                 internalWords.removeAll(w);
             }
         }
+
+        //remove the sentence from scenario's grammar
+        parentScenario->grammar()->deleteStructure(category);
     }
 
     ScenarioManager::getInstance()->commitGroup();
