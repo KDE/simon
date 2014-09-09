@@ -128,3 +128,5 @@ target_link_libraries(simonsoundkcm ${KDE4_KDEUI_LIBS}
 
 install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncore)
 install(FILES simonsoundconfig.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncore)
+
+add_subdirectory(test)
