@@ -33,6 +33,7 @@ m_passAll(passAll),
 lastLevel(0),
 lastTimeUnderLevel(0),
 lastTimeOverLevel(0),
+sampleStartTime(0),
 waitingForSampleToInit(true),
 waitingForSampleToStart(true),
 waitingForSampleToFinish(false),
@@ -147,7 +148,7 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
         currentSample += data;
       }
     }
-    
+
     lastTimeUnderLevel = currentTime + thisTime;
   }
 
@@ -163,7 +164,7 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
     }
     data = currentSample;
     currentSample.clear();
-  } 
+  }
   else {
     data.clear();
   }
