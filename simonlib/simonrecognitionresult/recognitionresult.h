@@ -32,14 +32,27 @@ class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
     QString m_sentence;
     QString m_sampa;
     QString m_sampaRaw;
+    float   m_arousal;
     QList<float> m_confidenceScores;
   public:
     RecognitionResult() {}
-    RecognitionResult(QString sentence, QString sampa, QString sampaRaw, QList<float> confidenceScores)
+    RecognitionResult(QString sentence, QString sampa, QString sampaRaw,
+                      float arousal, QList<float> confidenceScores)
       : m_sentence(sentence),
       m_sampa(sampa),
       m_sampaRaw(sampaRaw),
-    m_confidenceScores(confidenceScores) {
+      m_arousal(arousal),
+      m_confidenceScores(confidenceScores)
+    {
+    }
+    RecognitionResult(QString sentence, QString sampa, QString sampaRaw,
+                      QList<float> confidenceScores)
+      : m_sentence(sentence),
+      m_sampa(sampa),
+      m_sampaRaw(sampaRaw),
+      m_arousal(0.0f),
+      m_confidenceScores(confidenceScores)
+    {
     }
 
     QString sentence() const { return m_sentence; }
@@ -47,6 +60,7 @@ class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
     QString sampa() const { return m_sampa; }
     QStringList sampas() const { return m_sampa.split(" |", QString::SkipEmptyParts); }
     QString sampaRaw() const { return m_sampaRaw; }
+    float arousal() const { return m_arousal; }
     QList<float> confidenceScores() const { return m_confidenceScores; }
 
     float averageConfidenceScore() const;

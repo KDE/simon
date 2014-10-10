@@ -235,7 +235,7 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
     if (!ok)
       continue;
     recognitionResults.append(RecognitionResult(result,
-                              sampa, sampa, confidenceScores));
+                              sampa, sampa, 0.0f, confidenceScores));
     //kDebug() <<result <<"\t"<<
   }
   

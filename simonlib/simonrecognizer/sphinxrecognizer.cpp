@@ -129,7 +129,9 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
     sampa.append("FIXME |");
   }
 
-  RecognitionResult res = RecognitionResult(sentence, sampa /*"FIXME"*/, sampa /*"FIXME"*/, tlist);
+  float arousal = 0;
+  RecognitionResult res = RecognitionResult(sentence,
+                          sampa /*"FIXME"*/, sampa /*"FIXME"*/, arousal, tlist);
 
   recognitionResults.append(res); //TODO: Find how to get SAMPA, using sphinx..
   recognitionResults.append(res); //WARNING: some magic

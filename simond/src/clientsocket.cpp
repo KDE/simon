@@ -1113,6 +1113,7 @@ void ClientSocket::sendRecognitionResult(const QString& fileName, const Recognit
     bodyStream << recognitionResults[i].sentence().toUtf8()
       << recognitionResults[i].sampa().toUtf8()
       << recognitionResults[i].sampaRaw().toUtf8()
+      << recognitionResults[i].arousal()
       << recognitionResults[i].confidenceScores();
   }
   send(Simond::RecognitionResult, body);

@@ -1460,14 +1460,17 @@ void RecognitionControl::messageReceived()
 
           for (int i=0; i < sentenceCount; i++) {
             QByteArray word, sampa, samparaw;
+            float arousal;
             QList<float> confidenceScores;
             msg >> word;
             msg >> sampa;
             msg >> samparaw;
+            msg >> arousal;
             msg >> confidenceScores;
             recognitionResults.append(RecognitionResult(QString::fromUtf8(word),
               QString::fromUtf8(sampa),
               QString::fromUtf8(samparaw),
+              arousal,
               confidenceScores));
           }
 
