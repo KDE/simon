@@ -32,6 +32,7 @@ class SIMONRECOGNIZER_EXPORT SphinxRecognizer : public Recognizer
 private:
   QString logPath;
   ps_decoder_t *decoder;
+  QString smileExtractExe;
 
 public:
   SphinxRecognizer();

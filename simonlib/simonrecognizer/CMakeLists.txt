@@ -45,3 +45,4 @@ install(FILES ${simonrecognizer_LIB_HDRS}
 )
  
 install(TARGETS simonrecognizer DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore)
+install(FILES smileExtract.conf DESTINATION ${DATA_INSTALL_DIR}/simonrecognizer COMPONENT simoncore)

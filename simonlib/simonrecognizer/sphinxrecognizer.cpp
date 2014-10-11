@@ -27,6 +27,7 @@
 #include <QUuid>
 #include <QFile>
 #include <KDebug>
+#include <KProcess>
 #include <KDE/KLocalizedString>
 #include <KDE/KStandardDirs>
 
@@ -34,6 +35,9 @@ SphinxRecognizer::SphinxRecognizer():
     logPath(KStandardDirs::locateLocal("tmp", QLatin1String("pocketsphinx_log_")+QUuid::createUuid().toString())),
     decoder(0)
 {
+  smileExtractExe = KStandardDirs::findExe("SMILExtract");
+  if (smileExtractExe.isNull())
+    kWarning() << "SMILExtract not found, arousal will be fixed to 0";
 }
 
 SphinxRecognizer::~SphinxRecognizer()
@@ -85,6 +89,16 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
 
 QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
 {
+  KProcess* smileExtract = 0;
+  if (!smileExtractExe.isNull()) {
+    smileExtract = new KProcess;
+    smileExtract->setProgram(smileExtractExe,
+           QStringList() << "-C" << KStandardDirs::locate("data", "simonrecognizer/smileExtract.conf")
+                         << "-I" << file);
+    smileExtract->setOutputChannelMode(KProcess::SeparateChannels);
+    smileExtract->start();
+  }
+
   QList<RecognitionResult> recognitionResults;
 
   FILE *toRecognize;
@@ -130,6 +144,31 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
   }
 
   float arousal = 0;
+
+  if (smileExtract) {
+    smileExtract->waitForFinished(-1);
+    QString output = QString::fromUtf8(smileExtract->readAllStandardError());
+    if (smileExtract->exitCode() != 0) {
+      kWarning() << "SmileExtract returned exit code: "
+                 << smileExtract->exitCode();
+    } else {
+      int count = 0;
+      int indicatorIndex;
+      foreach (const QString& line, output.split('\n')) {
+        if ((indicatorIndex = line.indexOf(":  ~~> ")) != -1) {
+          float thisResult = line.mid(indicatorIndex + 7,
+                                  line.indexOf(" <~~") - indicatorIndex - 7).toFloat();
+          ++count;
+          arousal += thisResult;
+        }
+      }
+      if (count == 0)
+        arousal = 0;
+      else
+        arousal /= count;
+    }
+    delete smileExtract;
+  }
   RecognitionResult res = RecognitionResult(sentence,
                           sampa /*"FIXME"*/, sampa /*"FIXME"*/, arousal, tlist);
 
