@@ -26,8 +26,10 @@ QString RecognitionResult::toString() const
   out += i18n("Sentence: %1\n"
     "SAMPA: %2\n"
     "Raw SAMPA: %3\n"
-    "Average Confidence: %4\n",
+    "Arousal: %4\n"
+    "Average Confidence: %5\n",
     m_sentence, m_sampa, m_sampaRaw,
+    m_arousal,
     averageConfidenceScore()*100.0f);
 
   out += i18n("Confidence Scores: ");
