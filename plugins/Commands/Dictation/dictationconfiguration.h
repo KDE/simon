@@ -25,24 +25,34 @@
 #include <KSharedConfig>
 #include <QPointer>
 
+class Replacement;
+class Replacements;
 class DictationConfiguration : public CommandConfiguration
 {
-  Q_OBJECT
+Q_OBJECT
 
-    private:
-    Ui::DictationConfigurationDlg ui;
-    void initCategories();
+public slots:
+  virtual bool deSerialize(const QDomElement&);
+  virtual QDomElement serialize(QDomDocument *doc);
+  virtual void defaults();
 
-  public slots:
-    virtual bool deSerialize(const QDomElement&);
-    virtual QDomElement serialize(QDomDocument *doc);
-    virtual void defaults();
+public:
+  explicit DictationConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+  ~DictationConfiguration();
 
-  public:
-    explicit DictationConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
-    ~DictationConfiguration();
+  //configuration options
+  bool upperCaseFirst() const;
+  QString appendText() const;
+  Replacements* replacements() const;
 
-    //configuration options
-    QString appendText();
+private slots:
+  void addReplacement();
+  void editReplacement();
+  void removeReplacement();
+
+private:
+  Ui::DictationConfigurationDlg ui;
+  Replacements *m_replacements;
+  Replacement* getCurrentlySelectedRecommendation() const;
 };
 #endif

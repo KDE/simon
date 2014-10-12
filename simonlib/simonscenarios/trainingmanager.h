@@ -38,8 +38,6 @@
  *	@author Peter Grasch
  */
 
-typedef  QList<TrainingText*> TrainingList;
-
 class TrainingManager;
 
 class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
@@ -49,9 +47,9 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
     bool m_dirty;
 
     static TrainingManager *m_instance;
-    TrainingList *m_trainingTexts;
 
     QHash<QString,int> m_wordRelevance;             /// Stores the relevance of words (caching for getProbability)
+    QHash<const TrainingText*, int> m_textRelevance;
 
     QMutex m_promptsLock;
     PromptsTable *m_promptsTable;

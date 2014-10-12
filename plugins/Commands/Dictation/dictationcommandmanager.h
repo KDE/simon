@@ -20,8 +20,14 @@
 #ifndef SIMON_DICTATIONCOMMANDMANAGER_H_19E629596C1B44AF866AF7901F4DD37B
 #define SIMON_DICTATIONCOMMANDMANAGER_H_19E629596C1B44AF866AF7901F4DD37B
 
+#ifdef ATSPI_ENABLED
+#include <qaccessibilityclient/accessibleobject.h>
+#include <qaccessibilityclient/registry.h>
+#endif
+
 #include <simonscenarios/commandmanager.h>
 #include <QVariantList>
+#include <QStack>
 
 /**
  *	@class DictationCommandManager
@@ -35,23 +41,31 @@ class DictationCommandManager : public CommandManager
 {
   Q_OBJECT
 
-    protected:
-    bool trigger(const QString& triggerName, bool silent);
-
   public:
     const QString preferredTrigger() const { return ""; }
     const QString name() const;
     const QString iconSrc() const;
     bool deSerializeConfig(const QDomElement& elem);
+    bool setupCommands();
 
-    /**
-     * @brief Constructor
-     *
-     *	@author Peter Grasch
-     */
     DictationCommandManager(QObject* parent, const QVariantList& args);
 
+  protected slots:
+    void deleteThat();
+    void selectText(const QString& text);
+
+  protected:
+    bool trigger(const QString& triggerName, bool silent);
     ~DictationCommandManager();
+
+#ifdef ATSPI_ENABLED
+  private slots:
+    void focusChanged(const QAccessibleClient::AccessibleObject &object);
+
+  private:
+    QAccessibleClient::Registry *m_registry;
+    QAccessibleClient::AccessibleObject m_currentInputField;
+#endif
 
 };
 #endif

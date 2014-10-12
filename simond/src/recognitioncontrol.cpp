@@ -35,6 +35,7 @@ RecognitionControl::RecognitionControl(const QString& user_name, RecognitionCont
   shouldBeRunning(false),
   recog(0)
 {
+  queueLock.lock();
 }
 
 bool RecognitionControl::isEmpty() const
@@ -81,8 +82,47 @@ void RecognitionControl::recognize(const QString& fileName)
   kDebug() << "Recognizing " << fileName;
 
   queueLock.lock();
-  toRecognize.enqueue(fileName);
+  toRecognize.enqueue(qMakePair(RecognizeFile, QVariant(fileName)));
   queueLock.unlock();
+  queueCond.wakeOne();
+}
+
+void RecognitionControl::startUtterance(const QString& fileName)
+{
+  if (!getCapabilities() & StreamingSamples) {
+    kWarning() << "This backend does not support streaming samples";
+    return;
+  }
+  if (!shouldBeRunning) return;
+  queueLock.lock();
+  toRecognize.enqueue(qMakePair(StartSample, QVariant(fileName)));
+  queueLock.unlock();
+  queueCond.wakeOne();
+}
+void RecognitionControl::endUtterance(const QString& fileName)
+{
+  if (!getCapabilities() & StreamingSamples) {
+    kWarning() << "This backend does not support streaming samples";
+    return;
+  }
+  if (!shouldBeRunning) return;
+  queueLock.lock();
+  toRecognize.enqueue(qMakePair(EndSample, QVariant(fileName)));
+  queueLock.unlock();
+  queueCond.wakeOne();
+}
+void RecognitionControl::feedData(const QString& fileName, const QByteArray& sampleData)
+{
+  if (!getCapabilities() & StreamingSamples) {
+    kWarning() << "This backend does not support streaming samples";
+    return;
+  }
+  if (!shouldBeRunning) return;
+  queueLock.lock();
+  Q_UNUSED(fileName); //TODO: required for streaming concurrent engines
+  toRecognize.enqueue(qMakePair(FeedData, QVariant(sampleData)));
+  queueLock.unlock();
+  queueCond.wakeOne();
 }
 
 void RecognitionControl::run()
@@ -98,19 +138,41 @@ void RecognitionControl::run()
   }
 
   m_initialized=true;
-
+  bool insideContinuousSample = false;
   while (shouldBeRunning)
   {
-    if (!queueLock.tryLock(500)) continue;
-    QString file;
-    if (!toRecognize.isEmpty())
-      file = toRecognize.dequeue();
-    queueLock.unlock();
-    if (file.isNull()) {
-      QThread::msleep(100);
-    } else {
-      emit recognitionResult(file, recog->recognize(file));
-      emit recognitionDone(file);
+    if (!queueCond.wait(&queueLock, 300 /* max time */))
+      continue;
+
+    while (!toRecognize.isEmpty()) {
+      QPair<Request, QVariant> command = toRecognize.dequeue();
+      QString file;
+      QByteArray data;
+      switch (command.first) {
+        case RecognizeFile:
+          file = command.second.toString();
+          if (!insideContinuousSample || getCapabilities() & ConcurrentSamples) {
+            emit recognitionResult(file, recog->recognize(file));
+          } else
+            kWarning() << "Don't interleave samples on this backend";
+          emit recognitionDone(file);
+          break;
+        case StartSample:
+          file = command.second.toString();
+          if (!recog->startSample(file))
+            emitError(i18n("Failed to start utterance: %1", recog->getLastError()));
+          break;
+        case FeedData:
+          data = command.second.toByteArray();
+          if (!recog->feedSampleData(QString() /* TODO */, data))
+            emitError(i18n("Failed to feed data of utterance to recognition: %1", recog->getLastError()));
+          break;
+        case EndSample:
+          file = command.second.toString();
+          emit recognitionResult(file, recog->endSample(file));
+          emit recognitionDone(file);
+          break;
+      }
     }
   }
 }

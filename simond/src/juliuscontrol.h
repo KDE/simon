@@ -62,6 +62,8 @@ public:
 
   ~JuliusControl();
 
+  Capabilities getCapabilities() const;
+
 protected:
 
   RecognitionConfiguration* setupConfig();

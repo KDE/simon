@@ -49,7 +49,7 @@ bool SphinxModelTest::startTest(const QString& samplePath, const QString& prompt
   if (!parseConfiguration())
     return false;
 
-  config = new SphinxRecognitionConfiguration(m_modelDirPath, m_Grammar, m_Dictionary, sampleRate);
+  config = new SphinxRecognitionConfiguration(m_modelDirPath, m_Grammar, QString(), m_Dictionary, QString(), sampleRate);
 
   start();
   return true;

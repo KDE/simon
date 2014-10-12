@@ -71,6 +71,13 @@ Please ensure that the file you import is a plain text document (.txt).</string>
      <item row="2" column="1">
       <widget class="KComboBox" name="cbEncoding"/>
      </item>
+     <item row="3" column="1">
+      <widget class="QCheckBox" name="cbSplitSentences">
+       <property name="text">
+        <string>Split sentences based on punctuation marks</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

@@ -728,6 +728,9 @@ void ClientSocket::processRequest()
           KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+'.'+QString::number(id)+".wav"),
           channels, sampleRate);
         currentSamples.insert(id, currentSample);
+
+        if (recognitionControl && recognitionControl->getCapabilities() & RecognitionControl::StreamingSamples)
+          recognitionControl->startUtterance(currentSample->getFilename());
         currentSample->beginAddSequence();
         break;
       }
@@ -744,9 +747,11 @@ void ClientSocket::processRequest()
         stream >> id;
         stream >> sampleData;
         WAV *w = currentSamples.value(id);
-        if (w)
+        if (w) {
           w->write(sampleData);
-        else
+          if (recognitionControl && recognitionControl->getCapabilities() & RecognitionControl::StreamingSamples)
+            recognitionControl->feedData(w->getFilename(), sampleData);
+        } else
           kDebug() << "Received invalid id: " << id;
         break;
       }
@@ -761,8 +766,12 @@ void ClientSocket::processRequest()
           w->endAddSequence();
           w->writeFile();
 
-          if (recognitionControl)
-            recognitionControl->recognize(w->getFilename());
+          if (recognitionControl) {
+            if (recognitionControl->getCapabilities() & RecognitionControl::StreamingSamples)
+              recognitionControl->endUtterance(w->getFilename());
+            else
+              recognitionControl->recognize(w->getFilename());
+          }
 
           w->deleteLater();
         } else

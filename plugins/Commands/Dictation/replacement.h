@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2012 Vladislav Sitalo <root@stvad.org>
+ *   Copyright (C) 2013 Peter Grasch <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,25 +17,23 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SPHINXCONTROL_H
-#define SPHINXCONTROL_H
+#ifndef SIMON_REPLACEMENT_H_DF2B936F15A84FD8962EF68E1DAFE24F
+#define SIMON_REPLACEMENT_H_DF2B936F15A84FD8962EF68E1DAFE24F
 
-#define DEFAULT_SAMPRATE 16000
-#include "recognitioncontrol.h"
-
-class SphinxControl : public RecognitionControl
+#include <QRegExp>
+#include <QString>
+class Replacement
 {
-Q_OBJECT
+
 public:
-  SphinxControl(const QString &username, QObject *parent = 0);
+  Replacement(const QString& from, const QString& to) : m_from(from), m_to(to)
+  {}
+  QRegExp from() const { return m_from; }
+  QString to() const { return m_to; }
 
-  bool initializeRecognition(const QString& modelPath);
-  virtual Capabilities getCapabilities() const;
-
-protected:
-  RecognitionConfiguration* setupConfig();
-  void emitError(const QString& error);
-  QString modelName;
+private:
+  QRegExp m_from;
+  QString m_to;
 };
 
-#endif // SPHINXCONTROL_H
+#endif

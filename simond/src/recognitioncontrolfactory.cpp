@@ -45,6 +45,7 @@ void RecognitionControlFactory::setIsolatedMode(bool isolatedMode)
     m_isolatedMode = isolatedMode;
 }
 
+//TODO: account for getCapabilities() & ConcurrentSamples
 RecognitionControl* RecognitionControlFactory::recognitionControl(const QString& user, RecognitionControl::BackendType type)
 {
   RecognitionControl *r = NULL;

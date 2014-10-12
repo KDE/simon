@@ -18,7 +18,10 @@
  */
 
 #include "dictationconfiguration.h"
+#include "replacements.h"
+#include "dictationreplacementui.h"
 #include <QVariantList>
+#include <QModelIndex>
 #include <KDebug>
 #include <kgenericfactory.h>
 #include <KAboutData>
@@ -28,15 +31,24 @@ K_PLUGIN_FACTORY_DECLARATION(DictationCommandPluginFactory)
 
 DictationConfiguration::DictationConfiguration(Scenario *parent, const QVariantList &args)
   : CommandConfiguration(parent, "dictation", ki18n( "Dictation" ),
-  "0.1", ki18n("Dictation"),
+  "0.2", ki18n("Dictation"),
   "text-field",
-  DictationCommandPluginFactory::componentData())
+  DictationCommandPluginFactory::componentData()),
+  m_replacements(new Replacements)
 {
   Q_UNUSED(args);
   ui.setupUi(this);
 
+  ui.tvReplacements->setModel(m_replacements);
+
+  ui.pbAddReplacement->setIcon(KIcon("list-add"));
+  ui.pbRemoveReplacement->setIcon(KIcon("list-remove"));
+  ui.pbEditReplacement->setIcon(KIcon("list-edit"));
+
   QObject::connect(ui.leAppendText, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-  
+  QObject::connect(ui.pbRemoveReplacement, SIGNAL(clicked()), this, SLOT(removeReplacement()));
+  QObject::connect(ui.pbEditReplacement, SIGNAL(clicked()), this, SLOT(editReplacement()));
+  QObject::connect(ui.pbAddReplacement, SIGNAL(clicked()), this, SLOT(addReplacement()));
 }
 
 
@@ -44,6 +56,8 @@ bool DictationConfiguration::deSerialize(const QDomElement& elem)
 {
   QString text = elem.firstChildElement("postText").attribute("value");
   ui.leAppendText->setText(text);
+  ui.cbUpperCaseFirst->setChecked(elem.firstChildElement("upperCaseFirst").attribute("enabled") == "1");
+  m_replacements->deSerialize(elem.firstChildElement("replacements"));
   return true;
 }
 
@@ -52,21 +66,77 @@ QDomElement DictationConfiguration::serialize(QDomDocument *doc)
 {
   QDomElement configElem = doc->createElement("config");
   QDomElement postTextElem = doc->createElement("postText");
+  QDomElement upperCaseFirstElem = doc->createElement("upperCaseFirst");
   postTextElem.setAttribute("value", ui.leAppendText->text());
+  upperCaseFirstElem.setAttribute("enabled", upperCaseFirst() ? "1" : "0");
   configElem.appendChild(postTextElem);
+  configElem.appendChild(upperCaseFirstElem);
+  configElem.appendChild(m_replacements->serialize(doc));
   return configElem;
 }
 
+bool DictationConfiguration::upperCaseFirst() const
+{
+  return ui.cbUpperCaseFirst->isChecked();
+}
 
-QString DictationConfiguration::appendText()
+QString DictationConfiguration::appendText() const
 {
   return ui.leAppendText->text();
 }
 
+Replacements* DictationConfiguration::replacements() const
+{
+  return m_replacements;
+}
 
 void DictationConfiguration::defaults()
 {
   ui.leAppendText->setText(" ");
+  m_replacements->defaults();
+  ui.cbUpperCaseFirst->setChecked(false);
+}
+
+void DictationConfiguration::addReplacement()
+{
+  QPointer<DictationReplacementUi> ui(new DictationReplacementUi(this));
+  Replacement *r = ui->add();
+  if (r)
+    m_replacements->add(r);
+  emit changed(true);
+}
+
+void DictationConfiguration::editReplacement()
+{
+  QPointer<DictationReplacementUi> ui(new DictationReplacementUi(this));
+  Replacement *old = getCurrentlySelectedRecommendation();
+  if (!old) return;
+  ui->init(old);
+  Replacement *r = ui->add();
+  if (r) {
+    m_replacements->remove(old);
+    m_replacements->add(r);
+  }
+  emit changed(true);
+}
+
+void DictationConfiguration::removeReplacement()
+{
+  Replacement *r = getCurrentlySelectedRecommendation();
+  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to remove the selected replacement?")) == KMessageBox::Yes) {
+    m_replacements->remove(r);
+    emit changed(true);
+  }
+}
+
+Replacement* DictationConfiguration::getCurrentlySelectedRecommendation() const
+{
+  QModelIndex i = ui.tvReplacements->currentIndex();
+  if (!i.isValid()) {
+    KMessageBox::information(0, i18n("Please select a replacement from the list."));
+    return 0;
+  }
+  return static_cast<Replacement*>(i.internalPointer());
 }
 
 

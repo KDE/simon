@@ -42,6 +42,13 @@
    <item>
     <widget class="KTextEdit" name="teText"/>
    </item>
+   <item>
+    <widget class="QCheckBox" name="cbSplitSentences">
+     <property name="text">
+      <string>Split sentences based on punctuation marks</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>

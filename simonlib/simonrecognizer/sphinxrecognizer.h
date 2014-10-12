@@ -29,11 +29,6 @@
 
 class SIMONRECOGNIZER_EXPORT SphinxRecognizer : public Recognizer
 {
-private:
-  QString logPath;
-  ps_decoder_t *decoder;
-  QString smileExtractExe;
-
 public:
   SphinxRecognizer();
   virtual ~SphinxRecognizer();
@@ -43,6 +38,16 @@ public:
   virtual QByteArray getLog();
   bool uninitialize();
 
+  bool startSample(const QString& file);
+  bool feedSampleData(const QString& file, const QByteArray& data);
+  QList<RecognitionResult> endSample(const QString& file);
+
+private:
+  QString logPath;
+  ps_decoder_t *decoder;
+  QString smileExtractExe;
+
+  QList<RecognitionResult> getHypothesis(const QString& file);
 };
 
 #endif // SPHINXRECOGNIZER_H

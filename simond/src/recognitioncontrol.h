@@ -31,6 +31,8 @@
 #include <QMetaType>
 #include <QMutex>
 #include <QQueue>
+#include <QVariant>
+#include <QWaitCondition>
 
 /*!
  * \class RecognitionControl
@@ -62,6 +64,11 @@ class RecognitionControl : public QThread
       HTK = 1,
       SPHINX = 2
     };
+    enum Capabilities
+    {
+      ConcurrentSamples = 1,
+      StreamingSamples = 2
+    };
     explicit RecognitionControl(const QString& username, BackendType type, QObject *parent=0);
 
     virtual bool initializeRecognition(const QString& modelPath)=0;
@@ -72,11 +79,18 @@ class RecognitionControl : public QThread
     virtual bool stop();
     virtual bool suspend(); //stop temporarily (still reflect the intention of being active, but don't do any recognition)
 
+    virtual Capabilities getCapabilities() const=0;
+
     /*!
      * \brief Add file name to recognition queue.
      * \param fileName File name.
      */
     virtual void recognize(const QString& fileName);
+
+    /// For streaming recognizers
+    virtual void startUtterance(const QString& fileName);
+    virtual void feedData(const QString& fileName, const QByteArray& sampleData);
+    virtual void endUtterance(const QString& fileName);
 
     bool recognitionRunning();
 
@@ -94,15 +108,22 @@ class RecognitionControl : public QThread
     BackendType m_type;
 
   protected:
+    enum Request {
+      RecognizeFile, // data: file name (QString)
+      StartSample, // data: file name (QString)
+      FeedData, // data: sample data
+      EndSample // data: file name (QString)
+    };
+
     QString m_lastModel;
 
-  protected:
     QString username;
     int m_startRequests;
     bool m_initialized;
 
+    QWaitCondition queueCond;
     QMutex queueLock;
-    QQueue<QString> toRecognize;
+    QQueue<QPair<Request, QVariant> > toRecognize;
 
     bool stopping;
 

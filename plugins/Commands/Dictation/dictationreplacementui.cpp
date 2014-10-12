@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <peter.grasch@bedahr.org>
+ *   Copyright (C) 2013 Peter Grasch <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,33 +17,27 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "importtrainingtextaddpage.h"
-#include <QFile>
-#include <QTextCodec>
+#include "dictationreplacementui.h"
+#include "replacement.h"
+#include <KDebug>
+#include <QRegExp>
 
-/**
- * \brief Constructor
- * \author Peter Grasch
- * @param parent
- * Parent of the wizardpage
- */
-ImportTrainingTextAddPage::ImportTrainingTextAddPage(QWidget *parent) : QWizardPage(parent)
+DictationReplacementUi::DictationReplacementUi(QWidget* parent): KDialog(parent)
 {
-  ui.setupUi(this);
-  setTitle(i18n("Create Text"));
-
-  registerField("importTrainingTextATextname*", ui.leName);
-  registerField("importTrainingAddText*", ui.teText, "plainText", SIGNAL(textChanged()));
-  registerField("importTrainingTextAVerbatim", ui.cbSplitSentences);
+  QWidget *w = new QWidget(this);
+  ui.setupUi(w);
+  setMainWidget(w);
 }
 
-
-void ImportTrainingTextAddPage::initializePage()
+Replacement* DictationReplacementUi::add()
 {
+  if (exec())
+    return new Replacement(ui.leFrom->text(), ui.leTo->text());
+  else return 0;
 }
 
-
-bool ImportTrainingTextAddPage::isComplete() const
+void DictationReplacementUi::init(Replacement* r)
 {
-  return QWizardPage::isComplete();
+  ui.leFrom->setText(r->from().pattern());
+  ui.leTo->setText(r->to());
 }
