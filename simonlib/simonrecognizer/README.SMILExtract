@@ -1,0 +1,5 @@
+Dump the smile extract config file in this directory and call it smileExtract.conf.
+It will then be installed with Simon.
+
+During runtime, the recognizer expects that all output of all SMILExtract classifiers is numeric.
+All numbers will be averaged and added to the recognition result as an "arousal" value.
