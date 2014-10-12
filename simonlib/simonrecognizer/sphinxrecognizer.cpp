@@ -161,6 +161,16 @@ QList< RecognitionResult > SphinxRecognizer::endSample(const QString& file)
 
 QList< RecognitionResult > SphinxRecognizer::getHypothesis(const QString& file)
 {
+  KProcess* smileExtract = 0;
+  if (!smileExtractExe.isNull()) {
+    smileExtract = new KProcess;
+    smileExtract->setProgram(smileExtractExe,
+           QStringList() << "-C" << KStandardDirs::locate("data", "simonrecognizer/smileExtract.conf")
+                         << "-I" << file);
+    smileExtract->setOutputChannelMode(KProcess::SeparateChannels);
+    smileExtract->start();
+  }
+
   QList<RecognitionResult> recognitionResults;
   int score;
   char const *hyp, *uttid;
