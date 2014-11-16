@@ -29,7 +29,7 @@
 #include <QDataStream>
 #include <QSignalSpy>
 
-static const QString dataFolder = "/Users/bedahr/simon-src/simonlib/simonsound/test/data/";
+static const QString dataFolder = KDESRCDIR "data/";
 static const SimonSound::DeviceConfiguration deviceConfiguration(QString(), 1, 16000, false, 16000);
 static const qint64 chunkLength = 10 /* 10 msecs */;
 static const qint64 chunkSize = SoundServer::getInstance()->lengthToByteSize(chunkLength, deviceConfiguration);
