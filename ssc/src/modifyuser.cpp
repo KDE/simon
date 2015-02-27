@@ -172,7 +172,7 @@ void ModifyUser::removeInstitutionAssociation()
   QTableWidgetItem *selectedItem = ui.twInstitutions->item(ui.twInstitutions->currentRow(), 0);
   if (!selectedItem) return;
 
-  if (!KMessageBox::questionYesNo(this, i18n("Do you really want to remove this user - institution association?")) == KMessageBox::Yes)
+  if (KMessageBox::questionYesNo(this, i18n("Do you really want to remove this user - institution association?")) != KMessageBox::Yes)
     return;
 
   UserInInstitution *uiiN = selectedItem->data(Qt::UserRole).value<UserInInstitution*>();
