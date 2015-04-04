@@ -26,17 +26,16 @@
 #include <QVBoxLayout>
 #include <QVariant>
 #include <QFile>
+#include <QUuid>
 
 #include <KLocalizedString>
 #include <KMessageBox>
 
 TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
 prompt(prompt_),
-fileName( QFile::encodeName(prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\', '_').remove('<').remove('>').remove('|').remove('"')).left(100)
-+ "_S"
-+ QString::number(nowPage)
-+ '_'
-+ QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") )
+fileName(QFile::encodeName(QUuid::createUuid().toString())
+    + '_'
+    + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss"))
 {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   QString title = i18nc("%1 is current page number, %2 is total page count", "Page %1 of %2", nowPage, maxPage);
