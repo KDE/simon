@@ -299,7 +299,7 @@ For information on how to use base models in Simon, please refer to the <link li
 
 <para>By adapting a pre-compiled acoustic model you can improve accuracy by adapting it to your voice.</para>
 
-<para>Collected training data will be compiled in a adaption matrix which will then be applied to the selected base model.</para>
+<para>Collected training data will be compiled in an adaption matrix which will then be applied to the selected base model.</para>
 
 <para>This type of model <emphasis>does</emphasis> require the model creation backend to be installed.</para>
 
@@ -520,7 +520,7 @@ You can not use scenarios designed for different phoneme set (different base mod
   </screenshot>
 </para>
 
-<para>The default configuration is sufficient for a <quote>normal</quote> installation and will assume that you use a local Simond server that will be automatically be started and stopped with Simon.</para>
+<para>The default configuration is sufficient for a <quote>normal</quote> installation and will assume that you use a local Simond server that will be started automatically and stopped with Simon.</para>
 
 <para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="configure_server">server configuration</link>.</para>
 
@@ -655,7 +655,7 @@ The Simon main window can be hidden at any time by clicking on the Simon logo in
   </screenshot>
 </para>
 
-<para>To activate or deactivation a scenario you can use the arrow buttons between the two lists or simply double click the option you want to load / unload.</para>
+<para>To activate or deactivate a scenario you can use the arrow buttons between the two lists or simply double click the option you want to load / unload.</para>
 
 <para>More information about individual scenarios can be found in the tooltips of the list items.</para>
 
@@ -1045,7 +1045,7 @@ Simon was designed with high configurability in mind. Because of this, there are
 </screenshot>
 </para>
 <para>
-Please note that the option to start Simon at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, &etc; might require manually placing Simon in the session autostart (please refer to the respective manuals of your desktop environment).
+Please note that the option to start Simon at login will work on both Microsoft Windows and when you are using KDE's Plasma on Linux. Support for other desktop environments like Gnome, XFCE, &etc; might require manually placing Simon in the session autostart (please refer to the respective manuals of your desktop environment).
 </para>
 <para>
 When the option to start Simon minimized is selected, Simon will minimize to the system tray immediately after starting.
@@ -1078,7 +1078,7 @@ Simon uses fairly sophisticated internal sound processing to enable complex mult
 </screenshot>
 </para>
 
-<para>Most of the time you will want to use 1 channel and 16kHz (which is also the default) because the recognition only works on mono input and works best at 16kHz (8kHz and 22kHz being other viable options). Some low-cost sound cards might not support this particular mode in which case you can enable automatic Resampling in the device's advanced configuration.</para>
+<para>Most of the time you will want to use 1 channel and 16kHz (which is also the default) because the recognition only works on mono input and works best at 16kHz (8kHz and 22kHz being other viable options). Some low-cost sound cards might not support this particular mode in which case you can enable automatic resampling in the device's advanced configuration.</para>
 
 <note><para>Only change the channel and the samplerate if you really know what you are doing. Otherwise the recognition will <emphasis>most likely</emphasis> not work.</para></note>
 
@@ -1114,7 +1114,7 @@ Simon uses fairly sophisticated internal sound processing to enable complex mult
 <sect3 id="soundconfiguration_vad">
   <title>Voice Activity Detection</title>
 
-  <para>The recognition is done one the Simond server. See the <link linkend="architecture">architecture section</link> for more details.</para>
+  <para>The recognition is done on the Simond server. See the <link linkend="architecture">architecture section</link> for more details.</para>
 
   <para>The sound stream is not continuous but is segmented by the Simon client. This is done by something called <quote>voice activity detection</quote>.</para>
 
@@ -1145,7 +1145,7 @@ Simon uses fairly sophisticated internal sound processing to enable complex mult
       </listitem>
       <listitem>
         <para><guilabel>Skip samples shorter than</guilabel></para>
-        <para>Samples that are shorter than this value are not considered for recognition. (coughs, &etc;)</para>
+        <para>Samples that are shorter than this value are not considered for recognition (coughs, &etc;).</para>
       </listitem>
     </itemizedlist>
   </para>
@@ -1200,7 +1200,7 @@ Simon uses fairly sophisticated internal sound processing to enable complex mult
 
 <para>Given the program <application>process_audio</application> which takes the input- and output files as its arguments (&eg;: <command>process_audio in.wav out.wav</command>) the postprocessing command would be: <userinput>process_audio %1 %2</userinput>. The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
 
-<para>The switch to <quote>apply filters to recordings recorded with Simon</quote> enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_training-data">import training data wizard</link>).</para>
+<para>The switch to <quote>apply filters to recordings recorded with Simon</quote> enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocessing commands are only applied to imported samples (through the <link linkend="import_training-data">import training data wizard</link>).</para>
 
 </sect3>
 
@@ -1224,7 +1224,7 @@ Simon uses fairly sophisticated internal sound processing to enable complex mult
 
 <para>For example, in a system where multiple, very different speakers use one shared setup, <link linkend="context_conditions">context conditions</link> can be set up to automatically build separate models for both users depending on the current situation.</para>
 
-<para>The above screenshot, for example, shows a setup where, given that all samples of "peter" were tagged "peters_samples" and all samples of "mathias" were tagged "mathias_samples" (refer to the <link linkend="soundconfiguration_device">device configuration for more information on how to set up sample groups</link>), the active acoustic model will only contain the current user's own samples as long as the file <filename>/home/bedahr/.username</filename> contains either "peter" or "mathias".</para>
+<para>The above screenshot, for example, shows a setup where, given that all samples of "peter" were tagged "peters_samples" and all samples of "mathias" were tagged "mathias_samples" (refer to the <link linkend="soundconfiguration_device">device configuration</link> for more information on how to set up sample groups), the active acoustic model will only contain the current user's own samples as long as the file <filename>/home/bedahr/.username</filename> contains either "peter" or "mathias".</para>
 
 <para>Another example use-case would be to switch to a more noise-resistant acoustic model when the user starts playing music.</para>
 
@@ -1391,7 +1391,7 @@ To identify individual users of the system (one Simond server can of course serv
 </screenshot>
 </para>
 <para>
-As of yet (Simon 0.4), encryption is not yet supported.
+As of now (Simon 0.4), encryption is not yet supported.
 </para>
 <para>
 The timeout setting specifies, how long Simon will wait for a first reply when contacting the hosts. If you are on a very, very slow network and/or use <quote>connect on start</quote> on a very slow machine, you may want to increase this value if you keep getting timeout errors and can resolve them by trying again repeatedly.
@@ -1419,7 +1419,7 @@ The timeout setting specifies, how long Simon will wait for a first reply when c
 </para>
 
 <para>
-Simon creates the speech input files which are then compiled and used by the Simond server (see the <link linkend="architecture">section architecture for more details</link>).
+Simon creates the speech input files which are then compiled and used by the Simond server (see the <link linkend="architecture">section architecture</link> for more details).
 </para>
 
 <para>
@@ -1448,7 +1448,7 @@ However, if you want more control you can instruct Simon to ask you before start
   <title>Recognition</title>
 
   <para>The recognition of Simon computes not only the most likely result but rather the top ten results.</para>
-  <para>Each of the results are assigned a confidence score between 0 and 1 (were 1 is 100% sure).</para>
+  <para>Each of the results are assigned a confidence score between 0 and 1 (where 1 is 100% sure).</para>
   <para>Using the <guilabel>Minimum confidence</guilabel> you can set a minimum confidence for recognition results to be considered valid.</para>
 
   <para>If more than one recognition results are rated higher than the minimum confidence score, Simon will provide a popup listing the most likely options for you to choose from.</para>
@@ -1520,7 +1520,7 @@ However, if you want more control you can instruct Simon to ask you before start
 <sect3>
 <title>Recordings</title>
 
-<para>Instead of using an external TTS engine, you can also record yourself or other speakers reading the texts aloud. Simon can then play back these pre-recorded snippet when they are requested of it's text-to-speech engine.</para>
+<para>Instead of using an external TTS engine, you can also record yourself or other speakers reading the texts aloud. Simon can then play back these pre-recorded snippets when they are requested of its text-to-speech engine.</para>
 
 <para>These recorded sound bites are organized into "sets" of different speakers which can also be imported and exported to share them with other &kmyapplication; users.</para>
 
@@ -1550,7 +1550,7 @@ However, if you want more control you can instruct Simon to ask you before start
     </mediaobject>
   </screenshot>
 </para>
-<para>You can provide any Url. &kmyapplication; will replace any instance of "%1" within the configured Url with the text to synthesize. The backend expects the queried webservice to return a <filename>.wav</filename> file that will be streamed and outputted through &kmyapplication;'s sound layer - respecting the <link linkend="soundconfiguration_device">sound device configuration</link>.</para>
+<para>You can provide any URL. &kmyapplication; will replace any instance of "%1" within the configured URL with the text to synthesize. The backend expects the queried webservice to return a <filename>.wav</filename> file that will be streamed and outputted through &kmyapplication;'s sound layer - respecting the <link linkend="soundconfiguration_device">sound device configuration</link>.</para>
 </sect3>
 </sect2>
 
@@ -1567,7 +1567,7 @@ However, if you want more control you can instruct Simon to ask you before start
 
 <sect2 id="webcam_configuration">
 <title>Webcam configuration</title>
-<para>In Webcam configuration, you can configure frame per second (fps) and select the webcam to use when multiple webcams are connected to your system. </para>
+<para>In Webcam configuration, you can configure frames per second (fps) and select the webcam to use when multiple webcams are connected to your system. </para>
 <para>
   <screenshot>
     <screeninfo>Webcam configuration</screeninfo>
@@ -1579,14 +1579,14 @@ However, if you want more control you can instruct Simon to ask you before start
   </screenshot>
 </para>
 
-<para> Frame per second is the rate at which webcam will produce unique consecutive images called frames. The optimal value of fps is between 5-15 for proper performance. </para>
+<para> Frames per second is the rate at which the webcam will produce unique consecutive images called frames. The optimal value of fps is between 5-15 for proper performance. </para>
 </sect2>
 
 <sect2 id="jconfs">
 <title>Advanced: Adjusting the recognition parameters manually</title>
 
 <para>
-Simon is targeted towards end-users. It's interface is designed to allow even users without any background in speech technology to design their own language and acoustic models by providing reasonable default values for simple uses.
+Simon is targeted towards end-users. Its interface is designed to allow even users without any background in speech technology to design their own language and acoustic models by providing reasonable default values for simple uses.
 </para>
 <para>
 In special cases (severe speech impairments for example), special configuration might be needed. This is why the raw configuration files for the recognition are also respected by Simon and can of course be modified to suit your needs.
@@ -1597,7 +1597,7 @@ In special cases (severe speech impairments for example), special configuration 
 
 <para>There are basically two parts of the Julius configuration that can be adjusted:
 <itemizedlist>
-<listitem><para>adin.jconf</para><para>This is the configuration of the Simon client of the Soundstream sent from Simon to the Simond. This file is directly read by the adinstreamer.</para>
+<listitem><para>adin.jconf</para><para>This is the configuration of the Simon client of the sound stream sent from Simon to the Simond. This file is directly read by the adinstreamer.</para>
 <para>Simon ships with a default adin.jconf without any special parameters. You can change this system wide configuration which will affect all users if there are different user accounts on your machine who all use Simon. To just change the configuration of one of those users copy the file to the user path (see below) and edit this copy.</para>
 </listitem>
 <listitem><para>julius.jconf</para><para>This is a configuration of the Simond server and directly influences the recognition. This file is parsed by libjulius and libsent directly.</para>
@@ -1726,7 +1726,7 @@ In general, it is advisable to keep your vocabulary as sleek as possible. The mo
 </para>
 
 <para>
-Example vocabulary (please note that the categories here are deliberately set to Noun / Verb to help the understanding; please to refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
+Example vocabulary (please note that the categories here are deliberately set to Noun / Verb to help the understanding; please refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
 <table frame='all'><title>Sample Vocabulary</title>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
@@ -1906,7 +1906,7 @@ Now we change the grammar to the following:
   <listitem><para><quote>Trigger Command</quote></para></listitem>
 </itemizedlist>
 
-This allows all the combinations described above. However, it also limits the possibilities to exactly those three sentences. Especially in larger models a well thought grammar and vocabulary can mean a huge difference in recognition results.
+This allows all the combinations described above. However, it also limits the possibilities to exactly those three sentences. Especially in larger models a well-thought-out grammar and vocabulary can mean a huge difference in recognition results.
 </para>
 </sect3>
 
@@ -2047,7 +2047,7 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 
 <para>The license of your scenario can be set through the drop down. You can of course also add an arbitrary license text directly in the input field.</para>
 
-<para>You can then add your name (or alias) to the list of scenario authors. There you will also be asked for contact information. This field is purely provided as a convenient way to contact a scenario author for changes, problems, fanmail &etc; If you don't feel comfortable providing your e-Mail address you can simply enter a dash <quote>-</quote> denoting that you are not willing to divulge this information.</para>
+<para>You can then add your name (or alias) to the list of scenario authors. There you will also be asked for contact information. This field is purely provided as a convenient way to contact a scenario author for changes, problems, fanmail &etc; If you don't feel comfortable providing your email address you can simply enter a dash <quote>-</quote> denoting that you are not willing to divulge this information.</para>
 
 </sect2>
 
@@ -2478,7 +2478,7 @@ Due to a special exemption in their license the Simon listens team is proud to b
   </screenshot>
 </para>
 
-<para>Using the automatic bomp import you can, after providing name and e-Mail address for the team of the University Bonn, directly download and import the dictionary from the Simon listens server.</para>
+<para>Using the automatic bomp import you can, after providing name and email address for the team of the University Bonn, directly download and import the dictionary from the Simon listens server.</para>
 </sect3>
 
 <sect3 id="import_dict_htk">
