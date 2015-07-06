@@ -60,7 +60,6 @@
 #include <KDE/KComboBox>
 #include <QDesktopServices>
 #include <QTimeLine>
-#include <QWebView>
 
 #include <KMessageBox>
 #include <KApplication>
