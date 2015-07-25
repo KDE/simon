@@ -61,6 +61,7 @@ if(EXISTS "${OpenCV_DIR}")
 		
                 ## Include the standard CMake script
                 include("${OpenCV_DIR}/OpenCVConfig.cmake")
+                include_directories(${OpenCV_INCLUDE_DIRS})
                  
                 ## Search for a specific version
                 set(CVLIB_SUFFIX "${OpenCV_VERSION_MAJOR}${OpenCV_VERSION_MINOR}${OpenCV_VERSION_PATCH}")
