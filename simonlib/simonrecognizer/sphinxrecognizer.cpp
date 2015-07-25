@@ -15,7 +15,7 @@
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */ 
+ */
 
 #include "sphinxrecognizer.h"
 #include "sphinxrecognitionconfiguration.h"
@@ -102,7 +102,7 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
     return recognitionResults;
   }
 
-  int rv = 
+  int rv =
 #ifdef SPHINX_0_8
       ps_decode_raw(decoder, toRecognize, fName.data(), -1);
 #else
@@ -120,7 +120,12 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
 
 bool SphinxRecognizer::startSample(const QString& file)
 {
-  int rv = ps_start_utt(decoder, 0);
+  int rv =
+#ifdef SPHINX_0_8
+    ps_start_utt(decoder, 0);
+#else
+    ps_start_utt(decoder);
+#endif
   if(rv < 0)
   {
     m_lastError = i18n("Failed to start sample \"%1\"", file);
