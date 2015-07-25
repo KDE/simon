@@ -39,6 +39,9 @@ int main(int argc, char **argv)
   app.setQuitOnLastWindowClosed(false);
   SSCView *widget = new SSCView();
   widget->show();
+#ifdef Q_OS_MAC
+  widget->raise();
+#endif
 
   int ret = app.exec();
   return ret;

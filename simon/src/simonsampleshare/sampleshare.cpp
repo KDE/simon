@@ -179,7 +179,8 @@ void SampleShare::transmissionWarning(const QString& warning)
 }
 
 SampleShare::~SampleShare(){
-  progressWidget->disconnect();
+  if (progressWidget)
+    progressWidget->disconnect();
   cleanup();
   //server deleted by qt parent / child relationship
   delete ui;
@@ -365,12 +366,17 @@ void SampleShare::startTransmission()
   
   qDeleteAll(users);
   delete filter;
+
+  /* build list of samples that were already uploaded to this server */
+  QStringList alreadyTransmittedIds = getListOfTransmittedSamples(server->remote());
+
   
   /* mic, soundcard? */
   worker = new SendSampleWorker(server, new SimonSampleDataProvider(userId, 
 							    new Microphone(microphoneId, QString(), QString()),
 							    new SoundCard(soundCardId, QString(), QString()),
-                                                           Sample::Training, i18n("Simon training data")));
+                  Sample::Training, i18n("Simon training data"),
+                  alreadyTransmittedIds));
   
   transmissionOperation = new Operation(QThread::currentThread(), i18n("Uploading samples..."), i18n("Initializing"), 0, 0, false);
   progressWidget = new ProgressWidget(transmissionOperation, ProgressWidget::Large, this);
@@ -392,6 +398,22 @@ void SampleShare::startTransmission()
   enableButtonCancel(false); //job has its own cancel button
 }
 
+QStringList SampleShare::getListOfTransmittedSamples(const QString& serverIdentifier)
+{
+  KConfig sampleShareRc("simonsamplesharerc");
+  KConfigGroup sampleShareRcTransmissionList(&sampleShareRc, "Transmission");
+  return sampleShareRcTransmissionList.readEntry(serverIdentifier, QStringList());
+}
+
+void SampleShare::recordTransmittedSample(const QString& serverIdentifier, const QString& identifier)
+{
+  KConfig sampleShareRc("simonsamplesharerc");
+  KConfigGroup sampleShareRcTransmissionList(&sampleShareRc, "Transmission");
+  QStringList list = sampleShareRcTransmissionList.readEntry(serverIdentifier, QStringList());
+  list.append(identifier);
+  sampleShareRcTransmissionList.writeEntry(serverIdentifier, list);
+}
+
 void SampleShare::displayError(QString error)
 {
   KMessageBox::error(this, error);
@@ -407,4 +429,6 @@ void SampleShare::sendSample(Sample *s)
 {
   if (!server->sendSample(s))
     KMessageBox::error(this, i18n("Could not send sample"));
+  else
+    recordTransmittedSample(server->remote(), s->path());
 }

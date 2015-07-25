@@ -56,10 +56,10 @@ void SimonSoundInput::processData(const QByteArray& data)
   //pass data on to all registered, active clients
   QList<SoundInputClient*> activeInputClientsKeys = m_activeInputClients.keys();
   foreach (SoundInputClient *c, activeInputClientsKeys) {
-    qint64 streamTime = m_activeInputClients.value(c)+length;
+    qint64 streamTime = m_activeInputClients.value(c);
     c->process(data, streamTime);
     //update time stamp
-    m_activeInputClients.insert(c, streamTime);
+    m_activeInputClients.insert(c, streamTime+length);
   }
 }
 

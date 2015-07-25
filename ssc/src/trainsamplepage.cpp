@@ -26,6 +26,7 @@
 #include <QSettings>
 #include <QVBoxLayout>
 #include <QVariant>
+#include <QUuid>
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -43,12 +44,9 @@ m_maxPage(maxPage),
 m_directory(directory)
 {
   if (forcedFileNameTemplate.isEmpty()) {
-    fileName = QFile::encodeName(prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\','_')
-      .remove('<').remove('>').remove('|').remove('"')).left(100)
-      + "_S"
-      + QString::number(nowPage)
-      + '_'
-      + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss");
+    fileName = QFile::encodeName(QUuid::createUuid().toString())
+        + '_'
+        + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss");
   }
   else {
     fileName = forcedFileNameTemplate;

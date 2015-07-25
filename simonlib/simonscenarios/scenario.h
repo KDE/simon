@@ -183,7 +183,11 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     static QString pathFromId(const QString& id, const QString& prefix=QString(), bool local=true);
     static QString idFromPath(const QString& path);
 
-    static QStringList explode(const QString& inFile, bool keepFile = false);
+    /**
+     * @warning Input file will *always* be modified, use temporary files!
+     * @param isIntegrated true, if the scenario is already part of the Simon scenario folder
+     */
+    static QStringList explode(const QString& inFile, bool isIntegrated = false);
 
     static bool updateChildScenarioIds(const QString& id, const QStringList& ids);
 

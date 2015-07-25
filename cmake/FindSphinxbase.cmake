@@ -30,9 +30,8 @@ libfind_pkg_check_modules(SphinxBase_PKGCONF sphinxbase)
 
 # Include dir
 find_path(SphinxBase_INCLUDE_DIR
-  NAMES cmd_ln.h
+  NAMES sphinxbase/cmd_ln.h
   PATHS ${SphinxBase_PKGCONF_INCLUDE_DIRS}
-  PATH_SUFFIXES sphinxbase
 )
 
 # Finally the library itself
@@ -51,12 +50,3 @@ ENDIF(WIN32)
 set(SphinxBase_PROCESS_INCLUDES SphinxBase_INCLUDE_DIR SphinxBase_INCLUDE_DIRS)
 set(SphinxBase_PROCESS_LIBS SphinxBase_LIBRARY SphinxBase_LIBRARIES)
 libfind_process(SphinxBase)
-
-#include(FindPackageHandleStandardArgs)
-#if(SPHINXBASE_INCLUDE_DIR AND SPHINXBASE_LIBRARIES)
-#set(Sphinxbase_FIND_QUIETLY TRUE)
-#endif(SPHINXBASE_INCLUDE_DIR AND SPHINXBASE_LIBRARIES)
-
-#FIND_PATH(SPHINXBASE_INCLUDE_DIR cmd_ln.h PATHS /usr/include/sphinxbase)
-#find_library(SPHINXBASE_LIBRARIES sphinxad sphinxbase PATHS /usr/lib)
-#find_package_handle_standard_args(Sphinxbase DEFAULT_MSG SPHINXBASE_LIBRARIES SPHINXBASE_INCLUDE_DIR)

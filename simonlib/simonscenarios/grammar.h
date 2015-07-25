@@ -63,6 +63,7 @@ class MODELMANAGEMENT_EXPORT Grammar : public ScenarioObject, public QAbstractIt
     bool addStructures(const QStringList& newStructures, bool save=true);
     bool addStructure(const QString& newStructure, bool save=true);
     bool deleteStructure(int index);
+    bool deleteStructure(const QString& structure);
 
     static QStringList getCategoriesForStructure(const QString& structure);
     QStringList getCategories();

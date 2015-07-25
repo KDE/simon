@@ -26,7 +26,6 @@
 
 #include <QThread>
 #include <QStringList>
-#include <QMutex>
 
 /**
  *	@class ProcessInfoGatherer
@@ -64,11 +63,6 @@ private:
       *
       */
     bool m_abort;
-
-    /** \brief Mutex used to make sure that \var m_abort is only accessed by one thread at a time
-      *
-      */
-    QMutex m_mutex;
 
 protected:
     /** \brief Reimplemented run() function which contains the main loop of the ProcessInfoGatherer

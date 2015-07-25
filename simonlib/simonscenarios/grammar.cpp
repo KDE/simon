@@ -252,6 +252,11 @@ bool Grammar::deleteStructure(int index)
   return parentScenario ? parentScenario->save() : true;
 }
 
+bool Grammar::deleteStructure(const QString& structure)
+{
+  int index = m_structures.indexOf(structure);
+  return (index == -1) ? false : deleteStructure(index);
+}
 
 QModelIndex Grammar::parent(const QModelIndex &index) const
 {

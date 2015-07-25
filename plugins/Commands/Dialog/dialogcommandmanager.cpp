@@ -44,7 +44,7 @@ K_EXPORT_PLUGIN( DialogCommandPluginFactory("simondialogcommand") )
 DialogCommandManager::DialogCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
   GreedyReceiver(this),
   activateAction(new KAction(this)),
-  currentDialogSate(NULL),
+  currentDialogState(NULL),
   dialogParser(NULL)
 {
   activateAction->setText(i18n("Activate Dialog"));
@@ -67,8 +67,8 @@ void DialogCommandManager::setFont(const QFont& font)
 
 void DialogCommandManager::initState(DialogState *state)
 {
-  if (currentDialogSate)
-    currentDialogSate->left();
+  if (currentDialogState)
+    currentDialogState->left();
 
   state->updateRandomTextSelection();
   
@@ -77,7 +77,7 @@ void DialogCommandManager::initState(DialogState *state)
 
   state->presented();
 
-  currentDialogSate = state;
+  currentDialogState = state;
 }
 
 void DialogCommandManager::initState(int state)
@@ -87,16 +87,16 @@ void DialogCommandManager::initState(int state)
   //0 state means quit
   if ((state == 0) ||  (state >= dialogStates.count()+1 || state < 1))
   {
-    if (currentDialogSate)
-      currentDialogSate->left();
-    currentDialogSate = NULL;
+    if (currentDialogState)
+      currentDialogState->left();
+    currentDialogState = NULL;
 
     deregister();
     switchToState(SimonCommand::DefaultState);
     return;
   }
 
-  //else, keep in mind that indizes do still start with 0 so 
+  //else, keep in mind that indices do still start with 0 so 
   //decrement state
   state--;
 
@@ -118,9 +118,9 @@ bool DialogCommandManager::addState(const QString& name)
 
 bool DialogCommandManager::removeState(DialogState *state)
 {
-  if (state == currentDialogSate)
+  if (state == currentDialogState)
   {
-    currentDialogSate = NULL;
+    currentDialogState = NULL;
     initState(0);
   }
   int removed = dialogStates.removeAll(state);
@@ -211,7 +211,7 @@ const QString DialogCommandManager::name() const
 bool DialogCommandManager::trigger(const QString& triggerName, bool silent)
 {
   bool found = CommandManager::trigger(triggerName, silent);
-  if (!currentDialogSate)
+  if (!currentDialogState)
     return found;
 
   if (!found)
@@ -220,7 +220,7 @@ bool DialogCommandManager::trigger(const QString& triggerName, bool silent)
     if (getDialogConfiguration()->getRepeatTriggers().contains(triggerName, Qt::CaseInsensitive))
     {
       foreach (DialogView* view, dialogViews)
-        view->repeat(*currentDialogSate);
+        view->repeat(*currentDialogState);
       found = true;
     }
   }

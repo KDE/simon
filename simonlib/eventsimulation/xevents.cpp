@@ -30,7 +30,7 @@
  *
  * @author Peter Grasch
  */
-XEvents::XEvents (const char* displayName) : CoreEvents(),
+XEvents::XEvents (const char* displayName) : PCEvents(),
 d (new XEventsPrivate (displayName))
 {
 }
@@ -54,67 +54,46 @@ void XEvents::sendKeyPrivate (unsigned int key, EventSimulation::PressMode mode)
   unsetUnneededModifiers();
 }
 
-
-void XEvents::setModifierKey (int virtualKey, bool once)
+void XEvents::setModifierKeyPrivate (int virtualKey)
 {
-  if ((!shiftSet) && (virtualKey & Qt::SHIFT)) {
-    d->setModifierKey (Qt::SHIFT);
-    shiftSet=true;
-    shiftOnce=once;
-  }
-
-  if ((!altgrSet) && (virtualKey & Qt::Key_AltGr)) {
-    d->setModifierKey (Qt::Key_AltGr);
-    altgrSet=true;
-    altgrOnce=once;
-  }
-
-  if ((!strgSet) && (virtualKey & Qt::CTRL)) {
-    d->setModifierKey (Qt::CTRL);
-    strgSet=true;
-    strgOnce=once;
-  }
-
-  if ((!altSet) && (virtualKey & Qt::ALT)) {
-    d->setModifierKey (Qt::ALT);
-    altSet=true;
-    altOnce=once;
-  }
-
-  if ((!superSet) && (virtualKey & Qt::META)) {
-    d->setModifierKey (Qt::META);
-    superSet=true;
-    superOnce=once;
+  switch (virtualKey) {
+  case Qt::SHIFT:
+    d->setModifierKey(Qt::SHIFT);
+    break;
+  case Qt::Key_AltGr:
+    d->setModifierKey(Qt::Key_AltGr);
+    break;
+  case Qt::CTRL:
+    d->setModifierKey(Qt::CTRL);
+    break;
+  case Qt::ALT:
+    d->setModifierKey(Qt::ALT);
+    break;
+  case Qt::META:
+    d->setModifierKey(Qt::META);
+    break;
   }
 }
 
 
-void XEvents::unsetModifier (int virtualKey)
+void XEvents::unsetModifierKeyPrivate (int virtualKey)
 {
-
-  if (virtualKey & Qt::SHIFT) {
-    d->unsetModifier (Qt::SHIFT);
-    shiftSet=false;
-  }
-
-  if (virtualKey & Qt::Key_AltGr) {
-    d->unsetModifier (Qt::Key_AltGr);
-    altgrSet=false;
-  }
-
-  if (virtualKey & Qt::CTRL) {
-    d->unsetModifier (Qt::CTRL);
-    strgSet=false;
-  }
-
-  if (virtualKey & Qt::ALT) {
-    d->unsetModifier (Qt::ALT);
-    altSet=false;
-  }
-
-  if (virtualKey & Qt::META) {
-    d->unsetModifier (Qt::META);
-    superSet=false;
+  switch (virtualKey) {
+  case Qt::SHIFT:
+    d->unsetModifier(Qt::SHIFT);
+    break;
+  case Qt::Key_AltGr:
+    d->unsetModifier(Qt::Key_AltGr);
+    break;
+  case Qt::CTRL:
+    d->unsetModifier(Qt::CTRL);
+    break;
+  case Qt::ALT:
+    d->unsetModifier(Qt::ALT);
+    break;
+  case Qt::META:
+    d->unsetModifier(Qt::META);
+    break;
   }
 }
 

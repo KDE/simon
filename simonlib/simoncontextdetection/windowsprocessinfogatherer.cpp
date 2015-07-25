@@ -19,14 +19,10 @@
 
 #include "windowsprocessinfogatherer.h"
 
-#ifdef Q_OS_WIN32
-
 #include "windows.h"
 #include "tchar.h"
 #include "psapi.h"
 #include <QDebug>
-
-#endif
 
 //WINAPI:
 //krazy:excludeall=captruefalse
@@ -38,8 +34,6 @@ WindowsProcessInfoGatherer::WindowsProcessInfoGatherer(QObject *parent) :
 
 void WindowsProcessInfoGatherer::checkCurrentProcesses()
 {
-#ifdef Q_OS_WIN32
-
     DWORD aProcesses[1024], cbNeeded, cProcesses;
     TCHAR szProcessName[MAX_PATH];
     HANDLE hProcess;
@@ -93,14 +87,10 @@ void WindowsProcessInfoGatherer::checkCurrentProcesses()
             CloseHandle( hProcess );
         }
     }
-
-#endif
 }
 
 void WindowsProcessInfoGatherer::checkActiveWindow()
 {
-#ifdef Q_OS_WIN32
-
     HWND hwnd;
     DWORD activeWindowProcess;
     HANDLE hProcess;
@@ -162,8 +152,6 @@ void WindowsProcessInfoGatherer::checkActiveWindow()
             CloseHandle( hProcess );
         }
     }
-
-#endif
 }
 
 

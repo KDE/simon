@@ -39,14 +39,12 @@ LinuxProcessInfoGatherer::LinuxProcessInfoGatherer(QObject *parent) :
 
 void LinuxProcessInfoGatherer::checkCurrentProcesses()
 {
-    QRegExp digits;
     QDir procDir;
     QFileInfoList files;
     QFile commFile;
     QString processName;
-
-    //process directories will be a series of digits
-    digits = QRegExp("[0-9]+");
+    bool okay = true;
+    int pid;
 
     //get a list of all the directories in the /proc directory
     procDir.setPath("/proc");
@@ -55,23 +53,14 @@ void LinuxProcessInfoGatherer::checkCurrentProcesses()
     //find the process directories and get the names from the comm files
     foreach (QFileInfo info, files)
     {
-        if (digits.exactMatch(info.baseName()))
-        {
-            commFile.setFileName("/proc/" + info.baseName() + "/comm");
+        pid = info.baseName().toInt(&okay);
+        if (!okay)
+          continue;
 
-            if (commFile.exists())
-            {
-                commFile.open(QFile::ReadOnly);
-                processName = QString(commFile.readAll());
-                commFile.close();
-
-                //get rid of the newline character
-                processName.chop(1);
-
-                //add the process name to the list of current process names
-                m_currentlyRunningProcesses.push_back(processName);
-            }
-        }
+        processName = m_helper->getProcessName(pid);
+        if (!processName.isNull())
+            //add the process name to the list of current process names
+            m_currentlyRunningProcesses.push_back(processName);
     }
 }
 

@@ -32,7 +32,7 @@ class SIMONSOUND_EXPORT VADSoundProcessor : public LoudnessMeterSoundProcessor
 
   signals:
     void listening();
-    void complete();
+    void complete(qint64 start, qint64 end);
 
   private:
     SimonSound::DeviceConfiguration m_deviceConfiguration;
@@ -44,6 +44,7 @@ class SIMONSOUND_EXPORT VADSoundProcessor : public LoudnessMeterSoundProcessor
 
     qint64 sampleStartTime;
 
+    bool waitingForSampleToInit;
     bool waitingForSampleToStart;
     bool waitingForSampleToFinish;
 

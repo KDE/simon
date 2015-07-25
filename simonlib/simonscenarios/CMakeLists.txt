@@ -74,11 +74,15 @@ set(simonscenarios_LIB_HDRS
   promptstable.h
   promptstablemodel.h
   basemodelsettings.h
+
+  scenarioofferui.h
 )
 
 
 
 kde4_add_ui_files(simonscenarios_LIB_SRCS createvoiceinterfacecommandwidget.ui basemodelconfig.ui modelsettingsdlg.ui)
+
+qt4_add_dbus_adaptor(simonscenarios_LIB_SRCS org.simon-listens.ScenarioManager.xml scenariomanager.h ScenarioManager)
 
 kde4_add_kcfg_files(simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
 

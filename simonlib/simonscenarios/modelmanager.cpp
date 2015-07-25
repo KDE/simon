@@ -348,14 +348,12 @@ LanguageDescriptionContainer* ModelManager::getLanguageDescriptionContainer()
   QFile shadowVocab(KStandardDirs::locate("appdata", "shadowvocabulary.xml"));
   QFile languageProfile(KStandardDirs::locate("appdata", "model/languageProfile"));
 
-  if (!shadowVocab.open(QIODevice::ReadOnly))
-    return 0;
-
   QByteArray languageP;
   if (languageProfile.open(QIODevice::ReadOnly))
     languageP += languageProfile.readAll();
 
-  return new LanguageDescriptionContainer(shadowVocab.readAll(), languageP);
+  return new LanguageDescriptionContainer((shadowVocab.open(QIODevice::ReadOnly)) ?
+                shadowVocab.readAll() : QByteArray(), languageP);
 }
 
 

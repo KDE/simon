@@ -39,7 +39,7 @@ vad(new VADSoundProcessor(deviceConfiguration, true))
 {
   registerSoundProcessor(vad);
   connect(vad, SIGNAL(listening()), this, SIGNAL(speaking()));
-  connect(vad, SIGNAL(complete()), this, SIGNAL(speakingStopped()));
+  connect(vad, SIGNAL(complete(qint64, qint64)), this, SIGNAL(speakingStopped()));
 }
 
 

@@ -20,7 +20,7 @@
 #ifndef SIMON_WINDOWSEVENTS_H_648808A9BE984CC98FF8681C9BF5D4F9
 #define SIMON_WINDOWSEVENTS_H_648808A9BE984CC98FF8681C9BF5D4F9
 
-#include "coreevents.h"
+#include "pcevents.h"
 #include "pressmode.h"
 #include "clickmode.h"
 #include <QString>
@@ -37,7 +37,7 @@
  *	@date 4.03.2007
  *	@author Phillip Goriup
  */
-class WindowsEvents : public CoreEvents
+class WindowsEvents : public PCEvents
 {
 
   private:
@@ -50,15 +50,14 @@ class WindowsEvents : public CoreEvents
     void pressVk(BYTE vK, EventSimulation::PressMode mode);
     void moveMouse(int x, int y);
     void activateMouseButton(MouseButton btn, EventSimulation::PressMode mode);
+
+    void setModifierKeyPrivate(int virtualKey);
+    void unsetModifierKeyPrivate(int virtualKey);
+    void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode);
   public:
     WindowsEvents();
     void click(int x, int y, EventSimulation::ClickMode clickMode);
     void dragAndDrop(int xStart, int yStart, int x, int y);
-    void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode);
-
-    inline void setModifierKey(int virtualKey, bool once);
-    inline void unsetModifier(int virtualKey);
-    //void unsetUnneededModifiers();
     ~WindowsEvents();
 
 };

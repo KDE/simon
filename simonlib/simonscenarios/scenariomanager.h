@@ -46,10 +46,12 @@ class Command;
 class Action;
 class CommandManager;
 class VoiceInterfaceCommand;
+class ScenarioOfferUi;
 
 class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 {
   Q_OBJECT
+  Q_CLASSINFO("Simons scenario interface", "org.simon-listens.ScenarioManager")
 
   signals:
     void scenarioSelectionChanged();
@@ -75,6 +77,11 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
   public:
     static ScenarioManager *getInstance();
 
+    enum ScenarioOfferReply {
+      Accepted=1,
+      Rejected=0,
+      Incompatible=-1
+    };
 
     QList<Scenario*> getScenarios() { return scenarios; }
     void registerScenarioDisplay(ScenarioDisplay *display);
@@ -120,6 +127,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 
     void touchBaseModelAccessTime();
 
+    void installScenarioOfferUi(const ScenarioOfferUi* offerUi);
 
   public slots:
     // If force is true, every registered display will switch to this scenario
@@ -131,10 +139,14 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     QHash< QString, QString > transcribe(QStringList words);
     QString transcribe(QString word);
 
+    ScenarioOfferReply installScenario(const QString& requester, const QString& path);
+
   private:
     ScenarioManager(QObject *parent=0);
     ~ScenarioManager();
     static ScenarioManager *instance;
+
+    const ScenarioOfferUi* m_scenarioOfferUi;
 };
 
 

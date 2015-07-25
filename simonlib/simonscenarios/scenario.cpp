@@ -499,7 +499,7 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
   return true;
 }
 
-QStringList Scenario::explode(const QString& inFile, bool keepFile)
+QStringList Scenario::explode(const QString& inFile, bool isIntegrated)
 {
   QFile f(inFile);
 
@@ -527,7 +527,7 @@ QStringList Scenario::explode(const QString& inFile, bool keepFile)
     QString name = childElem.attribute("name");
     QString id = Scenario::createId(name);
     QString path = pathFromId(id);
-    kDebug() << "this id: " << id;
+    kDebug() << "this id: " << id << " full path: " << path;
     QString suffix;
     while (QFile::exists(path + suffix))
       suffix += "_";
@@ -558,7 +558,7 @@ QStringList Scenario::explode(const QString& inFile, bool keepFile)
 
   QString outerId;
   QString outerPath;
-  if (!keepFile) {
+  if (!isIntegrated) {
     outerId = Scenario::createId(scenarioElem.attribute("name"));
     outerPath = pathFromId(outerId);
   } else {

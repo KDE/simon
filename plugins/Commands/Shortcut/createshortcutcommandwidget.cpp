@@ -33,7 +33,7 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(CommandManager *manager
   setWindowTitle(ShortcutCommand::staticCategoryText());
 
   connect(ui.ksShortcut, SIGNAL(keySequenceChanged(QKeySequence)), this, SIGNAL(completeChanged()));
-  #ifndef Q_OS_WIN
+  #ifdef Q_OS_LINUX
   ui.cbSpecialShortcut->hide();
   ui.lbSpecialShortcut->hide();
   ui.pbApplySpecialShortcut->hide();
@@ -44,12 +44,12 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(CommandManager *manager
 }
 
 
-#ifdef Q_OS_WIN
 void CreateShortcutCommandWidget::applySpecialShortcut()
 {
+#ifndef Q_OS_LINUX
   ui.ksShortcut->setKeySequence(QKeySequence(ui.cbSpecialShortcut->currentText()));
-}
 #endif
+}
 
 bool CreateShortcutCommandWidget::isComplete()
 {
