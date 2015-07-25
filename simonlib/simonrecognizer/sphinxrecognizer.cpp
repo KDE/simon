@@ -67,16 +67,21 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
     err_set_logfp(logFile);
 
     cmd_ln_t *spconf = sconfig->getSphinxConfig();
-    if(!spconf)
+    if(!spconf) {
+      kDebug() << "Config errenous";
       return false;
+    }
 
     decoder = ps_init(spconf);
 
-    if(!decoder)
+    if(!decoder) {
+      kDebug() << "Decoder setup failed";
       return false;
+    }
 
   } catch (std::runtime_error err)
   {
+    kDebug() << "Caught exception";
     return false;
   }
 
@@ -97,7 +102,12 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
     return recognitionResults;
   }
 
-  int rv = ps_decode_raw(decoder, toRecognize, fName.data(), -1);
+  int rv = 
+#ifdef SPHINX_0_8
+      ps_decode_raw(decoder, toRecognize, fName.data(), -1);
+#else
+      ps_decode_raw(decoder, toRecognize, -1);
+#endif
   if(rv < 0)
   {
     m_lastError = i18n("Failed to decode \"%1\"", file);
@@ -107,8 +117,13 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
   kDebug()<<"Recognition checkpoint";
 
   int score;
-  char const *hyp, *uttid;
+  char const *hyp;
+#ifdef SPHINX_0_8
+  char const *uttid;
   hyp = ps_get_hyp(decoder, &score, &uttid);
+#else
+  hyp = ps_get_hyp(decoder, &score);
+#endif
   if(!hyp)
   {
     m_lastError = i18n("Cannot get hypothesis for \"%1\"", file);
