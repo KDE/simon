@@ -9,20 +9,20 @@ set (simondialogcommandplugindialogtest_SRCS
   ../createdialogcommandwidget.cpp
 )
 
-kde4_add_ui_files(simondialogcommandplugindialogtest_SRCS
+ki18n_wrap_ui(simondialogcommandplugindialogtest_SRCS
   ../dialogconfigurationdlg.ui
   ../createdialogcommandwidget.ui
   ../createtransitiondlg.ui
 )
 
-kde4_add_unit_test(simondialogcommandplugintest-dialog TESTNAME
+add_test(simondialogcommandplugintest-dialog NAME
   simondialogcommandplugin-dialog
   ${simondialogcommandplugindialogtest_SRCS}
 )
 
 
 target_link_libraries( simondialogcommandplugintest-dialog
-  ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES}
+  KF5::KDELibs4Support KF5::KIOCore Qt5::Test ${QT_LIBRARIES}
   ${simondialogcommandplugintest_plasma_LIBS}
   simonscenarios simonactions simondialogengine
   simondialogenginettsview simondialogenginegraphicalview

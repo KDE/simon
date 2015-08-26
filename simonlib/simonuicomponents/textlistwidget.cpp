@@ -19,7 +19,7 @@
 
 #include "textlistwidget.h"
 
-TextListWidget::TextListWidget(QWidget* parent) : KListWidget(parent)
+TextListWidget::TextListWidget(QWidget* parent) : QListWidget(parent)
 {
 }
 

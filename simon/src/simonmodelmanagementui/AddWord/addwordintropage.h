@@ -21,7 +21,6 @@
 #define SIMON_ADDWORDINTROPAGE_H_6B00540FA9AA4CAEA57D7485E150ABA9
 
 #include <QWizardPage>
-#include <QVariant>
 #include "ui_addwordintropage.h"
 
 class KLineEdit;

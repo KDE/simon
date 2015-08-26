@@ -18,12 +18,11 @@
  */
 
 #include "placecommand.h"
-#include <QObject>
 #include <QDesktopServices>
 #include <QVariant>
 #include <QDomDocument>
 #include <QDomElement>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 STATIC_CREATE_INSTANCE_C(PlaceCommand);
 
@@ -39,13 +38,13 @@ const QString PlaceCommand::getCategoryText() const
 }
 
 
-const KIcon PlaceCommand::staticCategoryIcon()
+const QIcon PlaceCommand::staticCategoryIcon()
 {
-  return KIcon("folder");
+  return QIcon::fromTheme("folder");
 }
 
 
-const KIcon PlaceCommand::getCategoryIcon() const
+const QIcon PlaceCommand::getCategoryIcon() const
 {
   return PlaceCommand::staticCategoryIcon();
 }
@@ -62,7 +61,7 @@ const QMap<QString,QVariant> PlaceCommand::getValueMapPrivate() const
 QDomElement PlaceCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
   QDomElement urlElem = doc->createElement("url");
-  urlElem.appendChild(doc->createTextNode(url.pathOrUrl()));
+  urlElem.appendChild(doc->createTextNode(url.path())); //QT5TODO: Check this
 
   commandElem.appendChild(urlElem);
 
@@ -75,7 +74,7 @@ bool PlaceCommand::deSerializePrivate(const QDomElement& commandElem)
   QDomElement urlElem = commandElem.firstChildElement("url");
   if (urlElem.isNull()) return false;
 
-  url = KUrl(urlElem.text());
+  url = QUrl(urlElem.text());
   return true;
 }
 

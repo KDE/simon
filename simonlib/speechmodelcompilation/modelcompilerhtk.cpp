@@ -31,25 +31,23 @@
 #include <QFile>
 #include <QProcess>
 #include <QString>
-#include <QVector>
-#include <QtConcurrentMap>
-#include <QMutexLocker>
 
-#include <KUrl>
+#include <QUrl>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KStandardDirs>
-#include <KTar>
-#include <KComponentData>
-#include <KAboutData>
+#include <QStandardPaths>
+#include <KArchive/KTar>
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
+#include <K4AboutData>
+#include <QtConcurrent/QtConcurrent>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
 #ifdef Q_WS_X11
 #include <X11/Xproto.h>
+#include <QStandardPaths>
 #endif
 
 #ifdef Q_OS_WIN
@@ -111,7 +109,7 @@ QString ModelCompilerHTK::htkIfyPath(const QString& in)
 
 bool ModelCompilerHTK::createDirs()
 {
-  tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/");
+  tempDir = QDir::tempPath() + QLatin1Char('/') + KAboutData::applicationData().productName() + '/'+userName+"/compile/";
 
   if (tempDir.isEmpty()) return false;
 
@@ -142,22 +140,22 @@ bool ModelCompilerHTK::createDirs()
 
 bool ModelCompilerHTK::parseConfiguration()
 {
-  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+    KConfig config( QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + "simonmodelcompilationrc", KConfig::FullConfig);
   KConfigGroup programGroup(&config, "Programs");
 
   if ((compilationType & ModelCompilerHTK::CompileSpeechModel)||
   (compilationType & ModelCompilerHTK::AdaptSpeechModel)) {
-    hDMan = programGroup.readEntry("HDMan", KUrl(KStandardDirs::findExe("HDMan"))).toLocalFile();
-    hLEd = programGroup.readEntry("HLEd", KUrl(KStandardDirs::findExe("HLEd"))).toLocalFile();
-    hCopy = programGroup.readEntry("HCopy", KUrl(KStandardDirs::findExe("HCopy"))).toLocalFile();
-    hCompV = programGroup.readEntry("HCompV", KUrl(KStandardDirs::findExe("HCompV"))).toLocalFile();
-    hERest = programGroup.readEntry("HERest", KUrl(KStandardDirs::findExe("HERest"))).toLocalFile();
-    hHEd = programGroup.readEntry("HHEd", KUrl(KStandardDirs::findExe("HHEd"))).toLocalFile();
-    hVite = programGroup.readEntry("HVite", KUrl(KStandardDirs::findExe("HVite"))).toLocalFile();
+    hDMan = programGroup.readEntry("HDMan", QUrl(QStandardPaths::findExecutable("HDMan"))).toLocalFile();
+    hLEd = programGroup.readEntry("HLEd", QUrl(QStandardPaths::findExecutable("HLEd"))).toLocalFile();
+    hCopy = programGroup.readEntry("HCopy", QUrl(QStandardPaths::findExecutable("HCopy"))).toLocalFile();
+    hCompV = programGroup.readEntry("HCompV", QUrl(QStandardPaths::findExecutable("HCompV"))).toLocalFile();
+    hERest = programGroup.readEntry("HERest", QUrl(QStandardPaths::findExecutable("HERest"))).toLocalFile();
+    hHEd = programGroup.readEntry("HHEd", QUrl(QStandardPaths::findExecutable("HHEd"))).toLocalFile();
+    hVite = programGroup.readEntry("HVite", QUrl(QStandardPaths::findExecutable("HVite"))).toLocalFile();
   }
   if (compilationType & ModelCompilerHTK::CompileLanguageModel) {
-    mkfa = programGroup.readEntry("mkfa", KUrl(KStandardDirs::findExe("mkfa"))).toLocalFile();
-    dfaMinimize = programGroup.readEntry("dfa_minimize", KUrl(KStandardDirs::findExe("dfa_minimize"))).toLocalFile();
+    mkfa = programGroup.readEntry("mkfa", QUrl(QStandardPaths::findExecutable("mkfa"))).toLocalFile();
+    dfaMinimize = programGroup.readEntry("dfa_minimize", QUrl(QStandardPaths::findExecutable("dfa_minimize"))).toLocalFile();
   }
 
   if ((compilationType & ModelCompilerHTK::CompileSpeechModel) &&
@@ -293,9 +291,9 @@ bool ModelCompilerHTK::pack ( const QString& targetArchive, const QString& name 
 
   QHash<QString, QString> efm;
 
-  QString jconfFile = KStandardDirs::locate("data", "models/"+userName+"/active/julius.jconf");
+  QString jconfFile = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "models/"+userName+"/active/julius.jconf");
   if (!QFile::exists(jconfFile))
-    jconfFile = KStandardDirs::locate("data", "simond/default.jconf");
+    jconfFile = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simond/default.jconf");
 
   efm.insert(tempDir+"hmmout/hmmdefs", "hmmdefs");
   efm.insert(tempDir+"tiedlist", "tiedlist");
@@ -316,7 +314,7 @@ bool ModelCompilerHTK::compile(ModelCompiler::CompilationType compilationType,
   const QString& vocabPath, const QString& promptsPath,
   const QString& scriptBasePrefix)
 {
-  kDebug() << "Compiling model";
+  qDebug() << "Compiling model";
   this->compilationType = compilationType;
 
   this->samplePath = samplePath;
@@ -643,7 +641,7 @@ bool ModelCompilerHTK::generateCodetrainScp(QStringList &codeTrainScps)
 
     if (QFile::exists(mfcFile))
     {
-      kDebug() << "MFC already exists: " << mfcFile;
+      qDebug() << "MFC already exists: " << mfcFile;
       continue;
     }
 
@@ -686,11 +684,11 @@ bool ModelCompilerHTK::splitScp(const QString& scpIn, const QString& outputDirec
   }
 
   //remove files without content
-  kDebug() << currentLine << threadCount;
-  kDebug() << scpFiles;
+  qDebug() << currentLine << threadCount;
+  qDebug() << scpFiles;
   for (int i = currentLine; i < threadCount; i++)
     scpFiles.removeAt(currentLine);
-  kDebug() << scpFiles;
+  qDebug() << scpFiles;
 
   qDeleteAll(scpFilesF);
   return true;
@@ -721,13 +719,13 @@ bool ModelCompilerHTK::generateInputFiles()
 
 QString ModelCompilerHTK::getScriptFile(const QString& id)
 {
-  return KStandardDirs::locate("data", KStandardDirs::locate("data", scriptBasePrefix+'/'+id));
+    return QStandardPaths::locate(QStandardPaths::GenericDataLocation, scriptBasePrefix+'/'+id);
 }
 
 QStringList ModelCompilerHTK::getScriptFiles(const QString& id)
 {
-  return KGlobal::dirs()->findAllResources("data",
-      scriptBasePrefix+'/'+id, KStandardDirs::NoDuplicates);
+    //QT5TODO: Need to reproduce "NoDuplicates" by hand
+    return QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, scriptBasePrefix+'/'+id);
 }
 
 bool ModelCompilerHTK::makeTranscriptions()
@@ -979,7 +977,7 @@ bool ModelCompilerHTK::doesIncreaseMixtures(const QString& script)
     bool ok = true;
     int newCount = number.toInt(&ok);
     if (!ok) return false;
-    kDebug() << number << ok << newCount << script;
+    qDebug() << number << ok << newCount << script;
 
     return ok && (newCount > 0);
   }
@@ -1013,7 +1011,7 @@ bool ModelCompilerHTK::increaseMixtures()
   int progressPerStep = qRound(500.0 /* full range */ / ((float) steps));
 
   int currentHMMNumber = 15;
-  kDebug() << "Increasing mixtures: " << mixtureConfigs;
+  qDebug() << "Increasing mixtures: " << mixtureConfigs;
   for (int i=0; i < mixtureConfigs.count(); i++)
   {
     QString config = mixtureConfigs[i];
@@ -1270,8 +1268,8 @@ bool ModelCompilerHTK::pruneScp(const QString& inMlf, const QString& inScp, cons
       alignedScp.write(originalLine);
     else
     {
-      kDebug() << "Transcribed files: " << transcribedFiles;
-      kDebug() << "Error decoding " << line << "; You might want to increase the beam width?";
+      qDebug() << "Transcribed files: " << transcribedFiles;
+      qDebug() << "Error decoding " << line << "; You might want to increase the beam width?";
     }
 
   }
@@ -1731,9 +1729,9 @@ QString ModelCompilerHTK::information(bool condensed) const
 QString ModelCompilerHTK::htkInformation(bool condensed) const
 {
   QProcess proc;
-  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+  KConfig config( QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + "simonmodelcompilationrc", KConfig::FullConfig) ;
   KConfigGroup programGroup(&config, "Programs");
-  QString hHEd = programGroup.readEntry("HHEd", KUrl(KStandardDirs::findExe("HHEd"))).toLocalFile();
+  QString hHEd = programGroup.readEntry("HHEd", QUrl(QStandardPaths::findExecutable("HHEd"))).toLocalFile();
   proc.start(hHEd, QStringList() << "-V");
   if (!proc.waitForStarted() || !proc.waitForFinished())
     return i18nc("\"version information\" for a not installed HTK", "Not available");
@@ -1809,7 +1807,7 @@ bool ModelCompilerHTK::reestimate(const QString& mlf, bool useStats, const QStri
 #ifdef HEREST_MULTITHREADED
   commands << command;
   }
-//   kDebug() << commands; exit(0);
+//   qDebug() << commands; exit(0);
   QString mergeCmd = commands.takeFirst();
   for (int i=1; i <= commands.count(); i++)
     mergeCmd += " \""+outputDirectory+"HER"+QString::number(i)+".acc\"";
@@ -1827,7 +1825,7 @@ bool ModelCompilerHTK::reestimate(const QString& mlf, bool useStats, const QStri
   {
     //merge
     // no -S parameter; add -p 0; add /tmp/kde-bedahr/sam/internalsamuser/compile//hmm1//*.acc
-    kDebug() << "Merge command: " << mergeCmd;
+    qDebug() << "Merge command: " << mergeCmd;
 
     return execute(mergeCmd, tempDir);
   }

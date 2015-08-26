@@ -20,7 +20,6 @@
 #include "createvrpncommandwidget.h"
 #include "vrpncommand.h"
 #include <QStringList>
-#include <KLineEdit>
 
 CreateVRPNCommandWidget::CreateVRPNCommandWidget(const QStringList& buttons, CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
 {

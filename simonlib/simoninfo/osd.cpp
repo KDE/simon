@@ -17,9 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+
+// #include <qstandardpaths.h>
+
 #include "osd.h"
 #include <QString>
-#include <KIcon>
+#include <QIcon>
 #include <QPixmap>
 #include <QTimer>
 #include <QLabel>
@@ -27,8 +30,8 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QMouseEvent>
-#include <KLocalizedString>
-#include <KStandardDirs>
+#include <QStandardPaths>
+#include <KI18n/klocalizedstring.h>
 
 /**
  * @brief Constructor
@@ -47,13 +50,13 @@
  *
  * @author Peter Grasch
  */
-OSD::OSD(QString message_, int timeout, KIcon* icon_)
+OSD::OSD(QString message_, int timeout, QIcon* icon_)
 : QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint),
 timer(new QTimer(this)),
 message(new QLabel(this)),
 icon(new QLabel(this))
 {
-  setPixmap(QPixmap(KStandardDirs::locate("data", "simoninfo/themes/default/osd.png")));
+  setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simoninfo/themes/default/osd.png")));
 
   QDesktopWidget* tmp = QApplication::desktop();
 
@@ -83,7 +86,7 @@ icon(new QLabel(this))
     this->icon->setPixmap(icon_->pixmap(48));
   }
   else {
-    this->icon->setPixmap(KIcon("simon").pixmap(QSize(48,48)));
+    this->icon->setPixmap(QIcon::fromTheme("simon").pixmap(QSize(48,48)));
   }
 
   show();

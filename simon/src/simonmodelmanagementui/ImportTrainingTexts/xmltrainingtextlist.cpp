@@ -19,8 +19,8 @@
 
 #include "xmltrainingtextlist.h"
 #include <simonlogging/logger.h>
-#include <QDomDocument>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
+#include <QDomElement>
 
 /**
  * \brief Constructor

@@ -22,8 +22,8 @@
 #include "voiceinterfacecommand.h"
 #include "voiceinterfacecommandtemplate.h"
 #include <QHash>
-#include <KIcon>
-#include <KMessageBox>
+#include <QIcon>
+#include <KWidgetsAddons/KMessageBox>
 
 CreateVoiceInterfaceCommandWidgetPrivate::CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent) :
 CreateCommandWidget(manager, parent)
@@ -33,7 +33,7 @@ CreateCommandWidget(manager, parent)
   ui.cbAction->clear();
   QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates = manager->getVoiceInterfaceCommandTemplates();
   foreach (VoiceInterfaceCommandTemplate* tem, voiceInterfaceCommandTemplates)
-    ui.cbAction->addItem(KIcon(tem->icon()), tem->actionName(), tem->id());
+    ui.cbAction->addItem(QIcon::fromTheme(tem->icon()), tem->actionName(), tem->id());
 
   //	QHash<QString, QString> voiceInterfaceActionNames = m_manager->getVoiceInterfaceActionNames();
   //	QStringList ids = voiceInterfaceActionNames.keys();

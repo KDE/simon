@@ -31,13 +31,13 @@
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
 #include <QDBusReply>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 K_PLUGIN_FACTORY( MprisPlayerPluginFactory,
                   registerPlugin< MprisPlayerCommandManager >();
 )
 
-K_EXPORT_PLUGIN( MprisPlayerPluginFactory("simoncommandmprisplayer") )
+// K_EXPORT_PLUGIN( MprisPlayerPluginFactory("simoncommandmprisplayer") )
 
 const QString MprisCategoryPrefix("MPRIS_");
 
@@ -329,3 +329,5 @@ void MprisPlayerCommandManager::removeFromCommandlist(const QStringList& removed
 
     ScenarioManager::getInstance()->commitGroup();
 }
+
+#include "mprisplayercommandmanager.moc"

@@ -19,10 +19,10 @@
 
 #include "contextmanager.h"
 #include "processinfo.h"
-#include <KService>
-#include <KServiceTypeTrader>
-#include <KStandardDirs>
-#include <KDebug>
+#include <KService/kservice.h>
+#include <KService/kservicetypetrader.h>
+
+#include <QDebug>
 #include <QTextStream>
 
 ContextManager* ContextManager::m_instance;
@@ -80,7 +80,7 @@ Condition* ContextManager::getEmptyCondition(const QString &pluginName)
     //get the service
     KService::Ptr service = KService::serviceByStorageId(pluginName);
     if (!service) {
-      kDebug() << "Service not found! Source: " << pluginName;
+      qDebug() << "Service not found! Source: " << pluginName;
       return 0;
     }
 
@@ -91,7 +91,7 @@ Condition* ContextManager::getEmptyCondition(const QString &pluginName)
       factory->deleteLater();
     }
     else {
-      kDebug() << "Factory not found! Source: " << pluginName;
+      qDebug() << "Factory not found! Source: " << pluginName;
       return 0;
     }
 
@@ -111,7 +111,7 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
     condition = m_conditionLookup.value(str, 0);
     if (condition != 0)
     {
-	kDebug() << "Condition is a duplicate!";
+	qDebug() << "Condition is a duplicate!";
         // increment reference counter
         incrementRefCount(condition);
 	return condition;
@@ -123,7 +123,7 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
     //get the service
     KService::Ptr service = KService::serviceByStorageId(source);
     if (!service) {
-      kDebug() << "Service not found! Source: " << source;
+      qDebug() << "Service not found! Source: " << source;
       return 0;
     }
 
@@ -134,7 +134,7 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
       factory->deleteLater();
     }
     else {
-      kDebug() << "Factory not found! Source: " << source;
+      qDebug() << "Factory not found! Source: " << source;
       return 0;
     }
 
@@ -167,7 +167,7 @@ void ContextManager::incrementRefCount ( Condition* c )
 
 void ContextManager::decrementRefCount ( Condition* c )
 {
-  kDebug() << "Decrementing ref counter for: " << c->name();
+  qDebug() << "Decrementing ref counter for: " << c->name();
   int refCount = m_conditionReferenceCounter.value(c, 0);
   --refCount;
   if (refCount == -1) return; // not in there

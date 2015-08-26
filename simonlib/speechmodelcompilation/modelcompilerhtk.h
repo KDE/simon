@@ -25,7 +25,6 @@
 #include "simonmodelcompilationmanagement_export.h"
 
 #include <QProcess>
-#include <QMutex>
 #include <QString>
 
 class AudioCopyConfig;

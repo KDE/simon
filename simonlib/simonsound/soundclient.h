@@ -20,7 +20,6 @@
 #ifndef SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
 #define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
 
-#include <QtGlobal>
 #include <QList>
 #include <simonsound/simonsound.h>
 #include "simonsound_export.h"

@@ -21,8 +21,6 @@
 #define SIMON_DELAYCOMMAND_H_F5A3CC93AA8147729EE9C50D4454725E
 
 #include <simonscenarios/command.h>
-#include <QList>
-#include <KUrl>
 
 /**
  *	@class DelayCommand
@@ -46,9 +44,9 @@ class DelayCommand : public Command
   public:
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
     static const QString staticCategoryText();
-    static const KIcon staticCategoryIcon();
+    static const QIcon staticCategoryIcon();
 
-    const KIcon getCategoryIcon() const;
+    const QIcon getCategoryIcon() const;
     const QString getCategoryText() const;
 
     STATIC_CREATE_INSTANCE_H(DelayCommand);

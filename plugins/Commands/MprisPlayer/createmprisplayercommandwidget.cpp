@@ -20,7 +20,6 @@
 #include "createmprisplayercommandwidget.h"
 #include "mprisconstants.h"
 
-#include <QStringList>
 
 CreateMprisPlayerCommandWidget::CreateMprisPlayerCommandWidget(CommandManager *manager, QWidget *parent)
     : CreateCommandWidget(manager, parent)

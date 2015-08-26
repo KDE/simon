@@ -20,12 +20,12 @@
 #ifndef qwt_bars_item_IS_INCLUDED     // -*- C++ -*-
 #define qwt_bars_item_IS_INCLUDED
 
-#include <qwt_global.h>
-#include <qwt_scale_draw.h>
+#include <qwt/qwt_global.h>
+#include <qwt/qwt_scale_draw.h>
 
 #if QWT_VERSION < 0x060100
-#include <qwt_plot_item.h>
-#include <qwt_series_data.h>
+#include <qwt/qwt_plot_item.h>
+#include <qwt/qwt_series_data.h>
 
 
 #include <QStringList>
@@ -85,7 +85,7 @@ private:
 };
 #else
 
-#include <qwt_plot_multi_barchart.h>
+#include <qwt/qwt_plot_multi_barchart.h>
 
 class QwtBarsItem : public QwtPlotMultiBarChart {
 };

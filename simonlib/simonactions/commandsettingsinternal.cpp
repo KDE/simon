@@ -25,6 +25,7 @@
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/voiceinterfacecommand.h>
 
+#include <KSharedConfig>
 #include <KConfigGroup>
 
 CommandSettingsInternal* CommandSettingsInternal::instance;
@@ -35,7 +36,7 @@ CommandSettingsInternal::CommandSettingsInternal(QWidget *parent)
 {
   if (instance) instance->deleteLater();
   instance = this;
-  config = KSharedConfig::openConfig(KGlobal::mainComponent(), "simoncommandrc");
+  config = KSharedConfig::openConfig("simoncommandrc");
   load();
 }
 
@@ -298,7 +299,7 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> CommandSettingsInter
 
 CommandSettingsInternal::~CommandSettingsInternal()
 {
-  kDebug() << "DELETING COMMAND SETTINGS INTERNAL";
+  qDebug() << "DELETING COMMAND SETTINGS INTERNAL";
   instance = 0;
 }
 

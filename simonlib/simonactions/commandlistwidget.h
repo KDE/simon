@@ -23,13 +23,11 @@
 #include "actionlib_export.h"
 #include <simonscenarios/command.h>
 #include <simonscenarios/commandlistelements.h>
-#include <QList>
 #include <QTimer>
 #include <QWidget>
-#include <KUrl>
 
 class QCloseEvent;
-class KPushButton;
+class QPushButton;
 class QTableWidget;
 class QProgressBar;
 class QShowEvent;
@@ -143,7 +141,7 @@ class SIMONACTIONS_EXPORT CommandListWidget : public QWidget
 
   protected:
     /// The cancel button
-    KPushButton *pbCancel;
+    QPushButton *pbCancel;
     /// Table widget containing all the options
     QTableWidget *twCommands;
     /// Progress bar to show the approaching timeout if automatic selection after timeout is enabled

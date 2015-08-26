@@ -26,38 +26,31 @@
 #include <simonscenarios/scenariomanager.h>
 #include <QWidget>
 #include <QTreeWidget>
-#include <QSize>
-#include <QVariant>
-#include <QMenu>
-#include <QFileInfo>
-#include <KDateTime>
-#include <QTreeWidgetItem>
 #include <KSharedConfig>
-#include <KConfigGroup>
-#include <KDebug>
-#include <KGlobal>
-#include <KMessageBox>
-#include <KStandardDirs>
-#include <KFileDialog>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
+
 
 #include <knewstuff3/downloaddialog.h>
 #include <knewstuff3/uploaddialog.h>
 
 #include "ui_scenariomanagementdlg.h"
 
-ScenarioManagementDialog::ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent) : KDialog(parent),
+ScenarioManagementDialog::ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent) : QDialog(parent),
   managementWidget(new ScenarioManagementWidget(dataPrefix, false /* not minimal */, parent))
 {
-  setMainWidget(managementWidget);
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(managementWidget);
   setAcceptDrops(true);
   managementWidget->setAcceptDrops(true);
-  setCaption( i18n("Manage scenarios") );
+  setWindowTitle( i18n("Manage scenarios") );
 }
 
 int ScenarioManagementDialog::exec()
 {
   managementWidget->init();
-  return KDialog::exec();
+  return QDialog::exec();
 }
 
 bool ScenarioManagementDialog::updateScenarioConfiguration()
@@ -77,7 +70,7 @@ void ScenarioManagementDialog::configureScenarios(QWidget *parent)
   if (dlg->updateScenarioConfiguration())
   {
     //reload scenario information
-    kDebug() << "Reloading Scenario Information";
+    qDebug() << "Reloading Scenario Information";
 
     if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
       KMessageBox::sorry(parent, i18n("Could not re-initialize scenarios. Please restart Simon."));

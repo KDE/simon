@@ -36,10 +36,7 @@
 #endif
 
 #include <QDir>
-#include <QDateTime>
 #include <QHostAddress>
-#include <QMutexLocker>
-#include <QMap>
 #include <QDebug>
 #include <QList>
 

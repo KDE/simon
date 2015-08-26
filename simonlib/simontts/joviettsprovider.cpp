@@ -22,7 +22,7 @@
 #include <QRegExp>
 #include <QDBusInterface>
 #include <QDBusConnection>
-#include <KDebug>
+#include <QDebug>
 
 JovieTTSProvider::JovieTTSProvider() : interface(0)
 {
@@ -42,7 +42,7 @@ JovieTTSProvider::JovieTTSProvider() : interface(0)
 bool JovieTTSProvider::initialize()
 {
   if (interface && interface->isValid()) return true;
-  kDebug() << "Initializing tts";
+  qDebug() << "Initializing tts";
 
   interface = new QDBusInterface("org.kde.jovie",
         "/KSpeech",
@@ -51,7 +51,7 @@ bool JovieTTSProvider::initialize()
 
   if (!interface->isValid())
   {
-    kWarning() << "DBus interface for speech to text not valid: " << interface->lastError();
+    qWarning() << "DBus interface for speech to text not valid: " << interface->lastError();
     uninitialize();
     return false;
   }
@@ -97,7 +97,7 @@ bool JovieTTSProvider::say(const QString& text)
 
   while (!sentences.isEmpty())
   {
-    kDebug() << "Saying: " << sentences[0].trimmed();
+    qDebug() << "Saying: " << sentences[0].trimmed();
     interface->call("say", sentences.takeAt(0).trimmed(), 0);
   }
   */

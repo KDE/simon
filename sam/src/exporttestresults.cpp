@@ -30,22 +30,22 @@
 #include <QWidget>
 #include <QDir>
 #include <QFile>
-#include <KGlobal>
 #include <KLocale>
 #include <KCmdLineArgs>
-#include <KMessageBox>
-#include <KTabWidget>
-#include <KStandardDirs>
-#include <KProcess>
-#include <KDebug>
-#include <KFileDialog>
+#include <QTabWidget>
 
-ExportTestResults::ExportTestResults(QWidget *parent) : KDialog(parent)
+#include <QDebug>
+#include <KDELibs4Support/KDE/KFileDialog>
+#include <QStandardPaths>
+
+ExportTestResults::ExportTestResults(QWidget *parent) : QDialog(parent)
 {
   QWidget *w = new QWidget(this);
   ui.setupUi(w);
-  setMainWidget(w);
-  setCaption(i18n("Export test results"));
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(w);
+  setWindowTitle(i18n("Export test results"));
   connect(ui.pbRetrieveSystemInformation, SIGNAL(clicked()), this, SLOT(initSystemDefinition()));
 }
 
@@ -53,7 +53,7 @@ void ExportTestResults::initTemplates()
 {
   QStringList templates;
 
-  QStringList directories = KGlobal::dirs()->findDirs("data", "sam/reports/templates");
+  QStringList directories = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "sam/reports/templates");
   QDir d;
   QStringList files;
   foreach (const QString& dir, directories)
@@ -63,14 +63,14 @@ void ExportTestResults::initTemplates()
     foreach (const QString& f, relFiles)
       files << dir+f;
   }
-  kDebug() << "Found templates: " << files;
+  qDebug() << "Found templates: " << files;
 
   foreach (const QString& file, files)
   {
     QFile f(file);
     if (!f.open(QIODevice::ReadOnly))
     {
-      kDebug() << "Could not open file: " << file;
+      qWarning() << "Could not open file: " << file;
       continue;
     }
 
@@ -230,7 +230,7 @@ void ExportTestResults::createReport()
   if (KCmdLineArgs::parsedArgs()->isSet("e"))
     outputFile = KCmdLineArgs::parsedArgs()->getOption("e");
   else
-    outputFile = KFileDialog::getSaveFileName(KUrl(), engine->fileType(), this);
+    outputFile = KFileDialog::getSaveFileName(QUrl(), engine->fileType(), this);
   
   if (!outputFile.isEmpty())
   {
@@ -248,16 +248,16 @@ int ExportTestResults::exec()
   if (batchMode())
     return true;
 
-  return KDialog::exec();
+  return QDialog::exec();
 }
 
-void ExportTestResults::displayCorpora(KTabWidget* tableWidget, QList<CorpusInformationWidget*>& list,
+void ExportTestResults::displayCorpora(QTabWidget* tableWidget, QList<CorpusInformationWidget*>& list,
     const QList<CorpusInformation*>& corpora)
 {
-  kDebug() << "Displaying corpora: " << corpora;
+  qDebug() << "Displaying corpora: " << corpora;
   foreach (CorpusInformation* corpus, corpora)
   {
-    kDebug() << corpus->tag();
+    qDebug() << corpus->tag();
     CorpusInformationWidget *widget = new CorpusInformationWidget(corpus, this);
     tableWidget->addTab(widget, corpus->tag());
     list << widget;
@@ -303,7 +303,7 @@ bool ExportTestResults::exportTestResults(ReportParameters *reportParameters, QL
   foreach (TestResultWidget* testResult, testResults)
     testCorpora << testResult->getConfiguration()->corpusInformation();
 
-  kDebug() << "Exporting creation corpora: " << creationCorpora.count();
+  qDebug() << "Exporting creation corpora: " << creationCorpora.count();
   displayCorpora(ui.twTrainingCorpora, m_creationCorporaWidgets, creationCorpora);
   displayCorpora(ui.twTestCorpora, m_testCorporaWidgets, testCorpora);
 

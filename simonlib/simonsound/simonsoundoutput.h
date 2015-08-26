@@ -25,7 +25,6 @@
 #include <simonsound/soundbackendclient.h>
 #include <QList>
 #include <QObject>
-#include <QMutex>
 #include <qvarlengtharray.h>
 
 class SoundOutputClient;

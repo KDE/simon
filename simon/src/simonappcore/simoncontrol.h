@@ -34,8 +34,6 @@
  */
 
 #include <QObject>
-#include <QStringList>
-#include <QList>
 #include <simonrecognitioncontrol/recognitioncontrol.h>
 #include <simonscenarios/scenariomanager.h>
 #include "simonappcore_export.h"

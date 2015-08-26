@@ -4,12 +4,12 @@ set (simondesktopgridplugin_SRCS
   screengrid.cpp
 )
 
-kde4_add_ui_files(simondesktopgridplugin_SRCS desktopgridconfigurationdlg.ui)
+ki18n_wrap_ui(simondesktopgridplugin_SRCS desktopgridconfigurationdlg.ui)
 
 kde4_add_plugin(simondesktopgridplugin ${simondesktopgridplugin_SRCS})
 
-target_link_libraries(simondesktopgridplugin ${KDE4_KDEUI_LIBS}
-  ${QT_QTXML_LIBRARY} simonscenariobase
+target_link_libraries(simondesktopgridplugin 
+  Qt5::Xml simonscenariobase
   eventsimulation simonlogging simonscenarios simonactions)
 
 install(TARGETS simondesktopgridplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddesktopgridplugin)

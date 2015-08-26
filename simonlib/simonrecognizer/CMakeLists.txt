@@ -29,7 +29,7 @@ endif()
 
 kde4_add_library(simonrecognizer SHARED ${simonrecognizer_LIB_SRCS})
 
-target_link_libraries(simonrecognizer ${QT_QTCORE_LIBRARY} ${KDE4_KDECORE_LIBS} simonrecognitionresult)
+target_link_libraries(simonrecognizer Qt5::Core KF5::KDELibs4Support simonrecognitionresult)
 
 if(${BackendType} STREQUAL both)
   target_link_libraries(simonrecognizer ${POCKETSPHINX_LIBRARIES} ${SphinxBase_LIBRARIES} simonrecognitionresult)

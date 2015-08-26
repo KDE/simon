@@ -22,13 +22,10 @@
 #include <simonscenarios/simoncommand.h>
 #include <QModelIndex>
 #include <QMap>
-#include <QFormLayout>
 #include <QLayout>
-#include <QUrl>
 
-#include <KIcon>
-#include <KIconLoader>
-#include <KMessageBox>
+#include <QIcon>
+#include <QUrl>
 
 CommandPreviewWidget::CommandPreviewWidget(QWidget* parent) : QWidget(parent),
 command(0)
@@ -57,7 +54,7 @@ void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
     return;
   } else show();
 
-  ui.lbIcon->setPixmap(KIcon(command->getIcon()).pixmap(64,64));
+  ui.lbIcon->setPixmap(command->getIcon().pixmap(64,64));
   ui.lbName->setText(command->getTrigger());
 
   QLayoutItem *child;

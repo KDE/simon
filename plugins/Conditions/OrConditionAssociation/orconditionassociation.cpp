@@ -19,13 +19,13 @@
 
 #include "orconditionassociation.h"
 #include "createorconditionassociationwidget.h"
-#include <KDebug>
+#include <QDebug>
 
 K_PLUGIN_FACTORY( OrConditionAssociationPluginFactory,
 registerPlugin< OrConditionAssociation >();
 )
 
-K_EXPORT_PLUGIN( OrConditionAssociationPluginFactory("simonorconditionassociation") )
+// K_EXPORT_PLUGIN( OrConditionAssociationPluginFactory("simonorconditionassociation") )
 
 OrConditionAssociation::OrConditionAssociation(QObject *parent, const QVariantList &args) :
     ConditionAssociation(parent, args)
@@ -71,7 +71,7 @@ void OrConditionAssociation::evaluateConditions()
       }
       
       m_satisfied = false;
-      kDebug() << name() + " is false!";
+      qDebug() << name() + " is false!";
       emit conditionChanged();
       return;
    }
@@ -82,10 +82,11 @@ void OrConditionAssociation::evaluateConditions()
        if (condition->isSatisfied())
        {
 	  m_satisfied = true;
-          kDebug() << name() + " is true!";
+          qDebug() << name() + " is true!";
 	  emit conditionChanged();
           return;
        }
      }
    }
 }
+#include "orconditionassociation.moc"

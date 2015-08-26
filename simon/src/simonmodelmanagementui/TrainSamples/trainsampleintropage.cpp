@@ -23,10 +23,9 @@
 
 #include <QVBoxLayout>
 #include <QLabel>
-#include <QTimer>
 #include <QCheckBox>
 
-#include <KDebug>
+#include <QDebug>
 
 TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent)
 {

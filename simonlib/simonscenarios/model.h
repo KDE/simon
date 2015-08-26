@@ -23,7 +23,6 @@
 #include "simonmodelmanagement_export.h"
 #include <QString>
 #include <QHash>
-#include <QStringList>
 #include <QDateTime>
 
 class KTar;

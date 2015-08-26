@@ -20,17 +20,14 @@
 #include "filterconfiguration.h"
 #include "filtercommandmanager.h"
 #include <QVariantList>
-#include <kgenericfactory.h>
-#include <KAboutData>
-#include <KMessageBox>
+#include <KDELibs4Support/kgenericfactory.h>
 
 K_PLUGIN_FACTORY_DECLARATION(FilterPluginFactory)
 
 FilterConfiguration::FilterConfiguration(Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent, "filter", ki18n( "Filter" ),
-"0.1", ki18n("Filter recognition results"),
-"view-filter",
-FilterPluginFactory::componentData())
+: CommandConfiguration(parent, "filter", i18n( "Filter" ),
+"0.1", i18n("Filter recognition results"),
+"view-filter")
 {
   Q_UNUSED(args);
   ui.setupUi(this);

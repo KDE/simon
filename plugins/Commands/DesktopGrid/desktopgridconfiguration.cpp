@@ -20,17 +20,14 @@
 #include "desktopgridconfiguration.h"
 #include "desktopgridcommandmanager.h"
 #include <QVariantList>
-#include <kgenericfactory.h>
-#include <KAboutData>
-#include <KMessageBox>
+#include <KDELibs4Support/kgenericfactory.h>
 
 K_PLUGIN_FACTORY_DECLARATION(DesktopGridPluginFactory)
 
 DesktopGridConfiguration::DesktopGridConfiguration(Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent, "desktopgrid", ki18n( "Desktop Grid" ),
-"0.1", ki18n("Voice controlled mouse clicks"),
-"games-config-board",
-DesktopGridPluginFactory::componentData())
+: CommandConfiguration(parent, "desktopgrid", i18n( "Desktop Grid" ),
+"0.1", i18n("Voice controlled mouse clicks"),
+"games-config-board")
 {
   Q_UNUSED(args);
   ui.setupUi(this);
@@ -119,7 +116,7 @@ void DesktopGridConfiguration::setClickMode(EventSimulation::ClickMode actionM)
       ui.cbDefaultClickMode->setCurrentIndex(3);
       break;
     default:
-      kDebug() << "Invalid default action mode: " << actionM;
+      qDebug() << "Invalid default action mode: " << actionM;
   }
 }
 
@@ -175,7 +172,7 @@ QDomElement DesktopGridConfiguration::serialize(QDomDocument *doc)
 
 void DesktopGridConfiguration::defaults()
 {
-  kDebug() << "Defaults...";
+  qDebug() << "Defaults...";
   ui.cbUseRealTransparency->setChecked(true);
   ui.rbActionDefault->click();
   ui.sbActionDefaultTimeout->setValue(12);

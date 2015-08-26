@@ -23,17 +23,19 @@
 #include <QFile>
 #include <QDir>
 #include <QStringList>
-
-#include <KMessageBox>
-#include <KDebug>
+#include <KWidgetsAddons/KMessageBox>
+#include <QDebug>
 
 ConservativeTraining::ConservativeTraining(QWidget *parent) : KDialog(parent),
   ui(new Ui::ConservativeTrainingDlg)
 {
   QWidget *widget = new QWidget( this );
   ui->setupUi(widget);
-  setMainWidget( widget );
-  setCaption( i18n("Conservative Training") );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Conservative Training") );
 
   connect(ui->urInputFolder, SIGNAL(textChanged(QString)), this, SLOT(updateComplete()));
   connect(ui->urOutputPrompts, SIGNAL(textChanged(QString)), this, SLOT(updateComplete()));
@@ -44,7 +46,7 @@ ConservativeTraining::ConservativeTraining(QWidget *parent) : KDialog(parent),
 
 void ConservativeTraining::updateComplete()
 {
-  enableButtonOk(ui->urInputFolder->url().isValid() && ui->urOutputPrompts->url().isValid());
+  enableButton(KDialog::Ok,ui->urInputFolder->url().isValid() && ui->urOutputPrompts->url().isValid());
 }
 
 void ConservativeTraining::accept()
@@ -59,7 +61,7 @@ void ConservativeTraining::accept()
   
   bool ok;
 
-  //path = KFileDialog::getExistingDirectory(KUrl(), this, i18n("Recognition sample folder"));
+  //path = KFileDialog::getExistingDirectory(QUrl(), this, i18n("Recognition sample folder"));
   //if (path.isEmpty()) return;
   // minConfidence = KInputDialog::getDouble(i18n("Minimum confidence"), i18n("You can limit "
         // "the import to samples that were recognized with at least the following confidence rate "
@@ -67,7 +69,7 @@ void ConservativeTraining::accept()
         // 0.7, 0, 1,0.1,5,&ok);
   // if (!ok) return;
 
-  //promptsPath = KFileDialog::getSaveFileName(KUrl(), i18n("Prompts files"), this, i18n("Output prompts"));
+  //promptsPath = KFileDialog::getSaveFileName(QUrl(), i18n("Prompts files"), this, i18n("Output prompts"));
 
   QFile prompts(promptsPath);
   if (!prompts.open(QIODevice::WriteOnly)) {
@@ -75,7 +77,7 @@ void ConservativeTraining::accept()
     return;
   }
 
-  kDebug() << "Importing: " << path << minConfidence;
+  qDebug() << "Importing: " << path << minConfidence;
 
   QString delimiter = ".wav-log.txt";
   int delimiterSize = delimiter.size();
@@ -86,7 +88,7 @@ void ConservativeTraining::accept()
   foreach (const QString& log, logs) {
     QFile f(path+QDir::separator()+log);
     if (!f.open(QIODevice::ReadOnly)) {
-      kWarning() << "Could not open file: " << log;
+      qWarning() << "Could not open file: " << log;
       continue;
     }
     QList< QPair<double, QString> > scoring;
@@ -98,13 +100,13 @@ void ConservativeTraining::accept()
       QString averageConfidence = QString::fromUtf8(f.readLine());
       averageConfidence = averageConfidence.mid(averageConfidence.indexOf(": ")+2).trimmed();
 
-      double dConfidence = KGlobal::locale()->readNumber(averageConfidence, &ok) / 100;
+      double dConfidence = QLocale().toDouble(averageConfidence, &ok) / 100;
       if (ok &&
           (dConfidence >= minConfidence)) {
-        kDebug() << "Sentence: " << sentence << "Confidence: " << dConfidence;
+        qDebug() << "Sentence: " << sentence << "Confidence: " << dConfidence;
         scoring << qMakePair(dConfidence, sentence);
       }
-      if (!ok) kDebug() << "Not ok: " << averageConfidence;
+      if (!ok) qDebug() << "Not ok: " << averageConfidence;
 
       f.readLine(); // individual confidences
       f.readLine(); // empty line
@@ -114,13 +116,13 @@ void ConservativeTraining::accept()
 
     qSort(scoring);
     QString file = log.left(log.size()-delimiterSize);
-    kDebug() << "Best guess for file: " << file << scoring.last().second;
+    qDebug() << "Best guess for file: " << file << scoring.last().second;
 
     prompts.write(QString("%1 %2\n").arg(file).arg(scoring.last().second.toUpper()).toUtf8());
   }
 
   prompts.close();
-  KDialog::accept();
+  QDialog::accept();
 }
 
 ConservativeTraining::~ConservativeTraining()

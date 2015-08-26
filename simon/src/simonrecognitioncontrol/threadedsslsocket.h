@@ -24,10 +24,9 @@
 #include <QIODevice>
 #include <QMutex>
 #include <QBuffer>
-#include <QMetaType>
-#include <QSslSocket>
 #include <QWaitCondition>
 #include <qabstractsocket.h>
+#include <QSslError>
 
 class SimonSSLSocket;
 class QThread;

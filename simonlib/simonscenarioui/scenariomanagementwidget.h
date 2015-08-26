@@ -21,7 +21,6 @@
 #define SIMON_SCENARIOMANAGEMENTWIDGET_H_FA6CC60BFE674C5DA2F42DE2132BC4C0
 
 #include <QWidget>
-#include <QList>
 #include <QStringList>
 #include <QModelIndex>
 

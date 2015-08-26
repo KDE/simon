@@ -20,7 +20,8 @@
 #ifndef SIMON_NEWSCENARIO_H_CFC94622A0054FCBB56958AF2C9BF205
 #define SIMON_NEWSCENARIO_H_CFC94622A0054FCBB56958AF2C9BF205
 
-#include <KDialog>
+#include <KDELibs4Support/KDE/KDialog>
+#include <KIconThemes/KIconButton>
 #include <QList>
 #include "ui_modifyscenario.h"
 

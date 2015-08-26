@@ -25,13 +25,13 @@
 
 #include <QNetworkReply>
 
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 K_PLUGIN_FACTORY( JsonCommandPluginFactory,
 registerPlugin< JsonCommandManager >();
 )
 
-K_EXPORT_PLUGIN( JsonCommandPluginFactory("simonjsoncommand") )
+// K_EXPORT_PLUGIN( JsonCommandPluginFactory("simonjsoncommand") )
 
 JsonCommandManager::JsonCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
@@ -48,14 +48,14 @@ bool JsonCommandManager::deSerializeConfig(const QDomElement& elem)
 bool JsonCommandManager::sendRequest(const QString& url, const QString& request)
 {
   JsonConfiguration *jsonConfig = static_cast<JsonConfiguration*>(config);
-  kDebug() << "Configuration: " << jsonConfig->host() << jsonConfig->port();
-  kDebug() << "Triggering..." << url << request;
+  qDebug() << "Configuration: " << jsonConfig->host() << jsonConfig->port();
+  qDebug() << "Triggering..." << url << request;
 
   SimonJsonConnector::getInstance()->sendRequest(jsonConfig->host(), jsonConfig->port(), 
                                                   url, request, this, "requestFinished");
   //QNetworkRequest networkRequest;
   //networkRequest.setUrl(QUrl("http://"+jsonConfig->host()+':'+QString::number(jsonConfig->port())+'/'+url));
-  //kDebug() << "Url: " << "http://"+jsonConfig->host()+':'+QString::number(jsonConfig->port())+'/'+url;
+  //qDebug() << "Url: " << "http://"+jsonConfig->host()+':'+QString::number(jsonConfig->port())+'/'+url;
   //m_accessManager->post(networkRequest, request.toAscii());
 
   return true;
@@ -63,11 +63,11 @@ bool JsonCommandManager::sendRequest(const QString& url, const QString& request)
 
 void JsonCommandManager::requestFinished(QNetworkReply *reply)
 {
-  kDebug() << "Request has finished...";
-  kDebug() << "Reply: " << reply;
+  qDebug() << "Request has finished...";
+  qDebug() << "Reply: " << reply;
 
-  kDebug() << "Reply: " << reply->readAll();
-  kDebug() << "Error: " << reply->error();
+  qDebug() << "Reply: " << reply->readAll();
+  qDebug() << "Error: " << reply->error();
 }
 
 
@@ -101,3 +101,5 @@ DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(JsonCommandManager, JsonCommand);
 JsonCommandManager::~JsonCommandManager()
 {
 }
+
+#include "jsoncommandmanager.moc"

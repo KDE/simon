@@ -19,7 +19,6 @@
 
 #include "createjsoncommandwidget.h"
 #include "jsoncommand.h"
-#include <KLineEdit>
 
 CreateJsonCommandWidget::CreateJsonCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
 {

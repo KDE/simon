@@ -23,7 +23,6 @@
 #include <simonscenarios/command.h>
 #include <QDomElement>
 #include <QObject>
-#include <KUrl>
 #include <KDateTime>
 
 class KJob;class QDomDocument;
@@ -66,9 +65,9 @@ class AkonadiCommand : public QObject, public Command
 
   public:
     static const QString staticCategoryText();
-    static const KIcon staticCategoryIcon();
+    static const QIcon staticCategoryIcon();
 
-    const KIcon getCategoryIcon() const;
+    const QIcon getCategoryIcon() const;
     const QString getCategoryText() const;
 
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);

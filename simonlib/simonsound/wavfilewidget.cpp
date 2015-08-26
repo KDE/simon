@@ -26,17 +26,14 @@
 
 #include "ui_wavfilewidget.h"
 
-#include <KPushButton>
-#include <QProgressBar>
+#include <QPushButton>
 #include <QString>
 #include <QFile>
-#include <QFont>
 
-#include <KIcon>
-#include <KMessageBox>
-#include <KLocalizedString>
-
-#include <QPlainTextEdit>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
 
 /**
  * \brief Constructor
@@ -63,8 +60,8 @@ m_filename(filename), m_sampleGroup(recordingDevice.defaultSampleGroup()), m_cha
   play = new WavPlayerClient(this);
 
   ui->setupUi(this);
-  ui->pbPlay->setIcon(KIcon("media-playback-start"));
-  ui->pbDelete->setIcon(KIcon("edit-delete"));
+  ui->pbPlay->setIcon(QIcon::fromTheme("media-playback-start"));
+  ui->pbDelete->setIcon(QIcon::fromTheme("edit-delete"));
 
   connect(ui->pbMoreInformation, SIGNAL(clicked()), this, SLOT(displayWarning()));
   ui->wgWarning->hide();
@@ -134,7 +131,7 @@ void WavFileWidget::signalToNoiseRatioLow()
 {
   m_problems = m_problems | SimonSamples::SNRTooLow;
 
-  kDebug() << "Signal to noise ratio low!";
+  qDebug() << "Signal to noise ratio low!";
   ui->wgWarning->show();
 }
 

@@ -36,15 +36,15 @@
 #include <QStringList>
 #include <QPointer>
 
-#include <KCMultiDialog>
-#include <KIcon>
-#include <KLocalizedString>
+#include <KCMUtils/KCMultiDialog>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
 #include <KStatusBar>
-#include <KAction>
+#include <QAction>
 #include <KActionCollection>
-#include <KMessageBox>
-#include <KStandardDirs>
+
 #include <sscdaccess/sscdaccesssingleton.h>
+#include <KWidgetsAddons/KMessageBox>
 
 SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent),
 wantToDisconnect(true)
@@ -194,25 +194,25 @@ void SSCView::findUser()
  */
 void SSCView::setupActions()
 {
-  KAction* connectAction = new KAction(this);
+  QAction * connectAction = new QAction(this);
   connectAction->setText(i18n("Connect"));
-  connectAction->setIcon(KIcon("network-connect"));
+  connectAction->setIcon(QIcon::fromTheme("network-connect"));
   connectAction->setStatusTip(i18n("Connect to the SSCd server"));
   actionCollection()->addAction("connect", connectAction);
   connect(connectAction, SIGNAL(triggered(bool)),
     this, SLOT(connectToServer()));
 
-  KAction* disconnectAction = new KAction(this);
+  QAction * disconnectAction = new QAction(this);
   disconnectAction->setText(i18n("Disconnect"));
-  disconnectAction->setIcon(KIcon("network-disconnect"));
+  disconnectAction->setIcon(QIcon::fromTheme("network-disconnect"));
   disconnectAction->setStatusTip(i18n("Disconnect from the SSCd server"));
   actionCollection()->addAction("disconnect", disconnectAction);
   connect(disconnectAction, SIGNAL(triggered(bool)),
     this, SLOT(disconnectFromServer()));
 
-  KAction* offlineAction = new KAction(this);
+  QAction * offlineAction = new QAction(this);
   offlineAction->setText(i18n("Offline mode"));
-  offlineAction->setIcon(KIcon("document-open-remote"));
+  offlineAction->setIcon(QIcon::fromTheme("document-open-remote"));
   offlineAction->setStatusTip(i18n("Switch to offline mode"));
   actionCollection()->addAction("offline", offlineAction);
   offlineAction->setCheckable(true);
@@ -220,33 +220,33 @@ void SSCView::setupActions()
   connect(offlineAction, SIGNAL(triggered(bool)),
     this, SLOT(toggleOfflineMode(bool)));
 
-  KAction* addUserAction = new KAction(this);
+  QAction * addUserAction = new QAction(this);
   addUserAction->setText(i18n("Add user"));
-  addUserAction->setIcon(KIcon("list-add-user"));
+  addUserAction->setIcon(QIcon::fromTheme("list-add-user"));
   addUserAction->setStatusTip(i18n("Add a new user"));
   actionCollection()->addAction("adduser", addUserAction);
   connect(addUserAction, SIGNAL(triggered(bool)),
     this, SLOT(addUser()));
 
-  KAction* usersAction = new KAction(this);
+  QAction * usersAction = new QAction(this);
   usersAction->setText(i18n("Manage users"));
   usersAction->setStatusTip(i18n("Show, edit and add users"));
-  usersAction->setIcon(KIcon("user-properties"));
+  usersAction->setIcon(QIcon::fromTheme("user-properties"));
   actionCollection()->addAction("users", usersAction);
   connect(usersAction, SIGNAL(triggered(bool)),
     this, SLOT(listUsers()));
 
-  KAction* institutionsAction = new KAction(this);
+  QAction * institutionsAction = new QAction(this);
   institutionsAction->setText(i18n("Manage institutions"));
-  institutionsAction->setIcon(KIcon("user-group-properties"));
+  institutionsAction->setIcon(QIcon::fromTheme("user-group-properties"));
   institutionsAction->setStatusTip(i18n("Show, edit and add institutions"));
   actionCollection()->addAction("institutions", institutionsAction);
   connect(institutionsAction, SIGNAL(triggered(bool)),
     this, SLOT(listInstitutions()));
 
-  KAction* storeAction = new KAction(this);
+  QAction * storeAction = new QAction(this);
   storeAction->setText(i18n("Upload stored data"));
-  storeAction->setIcon(KIcon("folder-sync"));
+  storeAction->setIcon(QIcon::fromTheme("folder-sync"));
   storeAction->setStatusTip(i18n("Browse, edit, delete and upload stored sample collections"));
   actionCollection()->addAction("store", storeAction);
   connect(storeAction, SIGNAL(triggered(bool)),
@@ -258,8 +258,8 @@ void SSCView::setupActions()
     this, SLOT(showConfigurationDialog()));
 
   setupGUI();
-  statusBar()->insertItem(i18nc("Disconnected from server", "Disconnected"),0);
-  statusBar()->insertItem("",1,10);
+  statusBar()->showMessage(i18nc("Disconnected from server", "Disconnected"));
+  // statusBar()->insertItem("",1,10);  //QT5TODO: What was this? 
   statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
 }
 
@@ -281,7 +281,7 @@ void SSCView::toggleOfflineMode(bool offline)
     ui.cbPatientId->setEnabled(true);
     ui.pbSelectPatient->setEnabled(true);
     displayConnectionStatus(i18n("Not connected (Offline mode)"));
-    kDebug() << "set to offline mode";
+    qDebug() << "set to offline mode";
   }
   else {
     ui.cbPatientId->setEnabled(false);
@@ -430,7 +430,7 @@ void SSCView::clearUserSelection()
 void SSCView::disconnected()
 {
   displayConnectionStatus(i18n("Not connected"));
-  kDebug() << "set to disconnected mode";
+  qDebug() << "set to disconnected mode";
 
   ui.pbSelectPatient->setEnabled(false);
   ui.pbSearchPatient->setEnabled(false);
@@ -502,7 +502,7 @@ void SSCView::disconnectFromServer()
  */
 void SSCView::displayConnectionStatus(const QString &status)
 {
-  statusBar()->changeItem(status, 0);
+  statusBar()->showMessage(status, 0);
 }
 
 

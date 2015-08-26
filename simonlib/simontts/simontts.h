@@ -21,7 +21,6 @@
 #define SIMON_SIMONTTS_H_7A7B9100FF5245329569C1B540119C37
 
 #include "simontts_export.h"
-#include <QFlags>
 #include <QStringList>
 
 class QString;

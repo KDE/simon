@@ -20,9 +20,9 @@
 
 #include "actionbutton.h"
 #include <QAction>
-#include <KDebug>
+#include <QDebug>
 
-ActionButton::ActionButton ( QWidget* parent ) : KPushButton ( parent ), m_action(0)
+ActionButton::ActionButton ( QWidget* parent ) : QPushButton ( parent ), m_action(0)
 {
 }
 
@@ -44,7 +44,7 @@ void ActionButton::setAction ( QAction* action )
 void ActionButton::updateUi()
 {
   setText(m_action->text());
-  setIcon((KIcon) m_action->icon());
+  setIcon((QIcon) m_action->icon());
   setEnabled(m_action->isEnabled());
   setCheckable(m_action->isCheckable());
   setChecked(m_action->isChecked());

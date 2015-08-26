@@ -19,8 +19,9 @@
 
 #include "dict.h"
 #include <QFile>
-#include <KStandardDirs>
-#include <KDebug>
+
+#include <QDebug>
+#include <QStandardPaths>
 
 /**
  * \brief Constructor
@@ -279,7 +280,7 @@ void Dict::buildTranslationTables()
 
 void Dict::buildAllowedPhonemes()
 {
-  QFile phon(KStandardDirs::locate("appdata", "model/phonemes"));
+  QFile phon(QStandardPaths::locate(QStandardPaths::DataLocation, "model/phonemes"));
   if (!phon.open(QIODevice::ReadOnly))
     return;
 
@@ -351,7 +352,7 @@ QString Dict::segmentSampa(const QString& sampa)
     return xspFertig.trimmed();
   }
 
-  kDebug() << "Couldn't segment: " << filteredXsp << sampa;
+  qDebug() << "Couldn't segment: " << filteredXsp << sampa;
   return sampa;
 }
 

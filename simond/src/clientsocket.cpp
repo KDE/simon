@@ -37,20 +37,16 @@
 
 #include <unistd.h>
 
-#include <QDir>
-#include <QTime>
 #include <KDateTime>
 #include <QHostAddress>
 #include <QMap>
 #include <QMutexLocker>
+#include <QFile>
 
-#include <KDebug>
-#include <KMessageBox>
+#include <QDebug>
 #include <QString>
-#include <KStandardDirs>
-#include <KConfigGroup>
 
-#include <KConfig>
+
 
 
 #define WAITFORMESSAGEORRETURN(a, b, c) if (!waitForMessage(a, b, c)) return;
@@ -69,7 +65,7 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
   Q_ASSERT(databaseAccess);
   this->databaseAccess = databaseAccess;
 
-  kDebug() << "Created ClientSocket with Descriptor " << socketDescriptor;
+  qDebug() << "Created ClientSocket with Descriptor " << socketDescriptor;
 
   this->setSocketDescriptor(socketDescriptor);
    connect(this, SIGNAL(readyRead()), this, SLOT(processRequest()));
@@ -83,7 +79,7 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
   
   this->m_writeAccess = (writeAccessHost == QHostAddress::Any)||(writeAccessHost == this->peerAddress());
   
-  kDebug() << "Done constructing";
+  qDebug() << "Done constructing";
 }
 
 
@@ -98,7 +94,7 @@ bool ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray
     } else {
       usleep(100000 /* 100 ms */);
       if (delayed++ == 3) {
-        kWarning() << "Timeout";
+        qWarning() << "Timeout";
         close();
 	return false;
       }
@@ -121,7 +117,7 @@ void ClientSocket::processRequest()
     request = (Simond::Request) type;
 
     if ((request != Simond::Login) &&  (username.isEmpty())) {
-      kDebug() << "Sending access denied because user sent request: " << request;
+      qDebug() << "Sending access denied because user sent request: " << request;
       sendCode(Simond::AccessDenied);
       break;
     } else if(!m_writeAccess) {
@@ -150,7 +146,7 @@ void ClientSocket::processRequest()
     switch (request) {
       case Simond::Login:
       {
-        kDebug() << "Login requested";
+        qDebug() << "Login requested";
         WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
 
         qint8 remoteProtocolVersion;
@@ -214,7 +210,7 @@ void ClientSocket::processRequest()
         } else
           sendCode(Simond::AuthenticationFailed);
 
-        kDebug() << "Done with login";
+        qDebug() << "Done with login";
         break;
 
       }
@@ -256,7 +252,7 @@ void ClientSocket::processRequest()
         //base models
         stream >> baseModelDate;
         QDateTime localBaseModelDate = synchronisationManager->getBaseModelDate();
-        kDebug() << "Base models: " << baseModelDate << localBaseModelDate;
+        qDebug() << "Base models: " << baseModelDate << localBaseModelDate;
         if (baseModelDate != localBaseModelDate) {
           if ((baseModelDate > localBaseModelDate) || !sendBaseModel())
             sendCode(Simond::GetBaseModel);
@@ -264,7 +260,7 @@ void ClientSocket::processRequest()
         //active model
         stream >> activeModelDate;
         QDateTime localActiveModelDate = synchronisationManager->getActiveModelDate();
-        kDebug() << "Active model date: " << activeModelDate << localActiveModelDate;
+        qDebug() << "Active model date: " << activeModelDate << localActiveModelDate;
         if (activeModelDate != localActiveModelDate) {
           if (activeModelDate > localActiveModelDate || !sendActiveModel())
             sendCode(Simond::GetActiveModel);
@@ -275,7 +271,7 @@ void ClientSocket::processRequest()
         //language description
         stream >> languageDescriptionDate;
         QDateTime localLanguageDescriptionDate=synchronisationManager->getLanguageDescriptionDate();
-        kDebug() << "Language description date: " << languageDescriptionDate << localLanguageDescriptionDate;
+        qDebug() << "Language description date: " << languageDescriptionDate << localLanguageDescriptionDate;
         if (languageDescriptionDate != localLanguageDescriptionDate) {
           if (languageDescriptionDate > localLanguageDescriptionDate || !sendLanguageDescription())
             sendCode(Simond::GetLanguageDescription);
@@ -284,7 +280,7 @@ void ClientSocket::processRequest()
         //training
         stream >> trainingModifiedDate;
         QDateTime localTrainingDate = synchronisationManager->getTrainingDate();
-        kDebug() << "Training date: " << trainingModifiedDate << localTrainingDate;
+        qDebug() << "Training date: " << trainingModifiedDate << localTrainingDate;
         if (trainingModifiedDate != localTrainingDate) {
           if (localTrainingDate < trainingModifiedDate || !sendTraining()) {
             sendCode(Simond::GetTraining);
@@ -293,12 +289,12 @@ void ClientSocket::processRequest()
 
         //samples
         stream >> missingSamplesList;
-        kDebug() << "Missing samples: " << missingSamplesList;
+        qDebug() << "Missing samples: " << missingSamplesList;
         foreach (const QString& missingSample, missingSamplesList)
           sendSample(missingSample);
 
         stream >> availableSamplesList;
-        kDebug() << "Available samples: " << availableSamplesList;
+        qDebug() << "Available samples: " << availableSamplesList;
         QStringList localSamples = synchronisationManager->getAvailableSamples();
         foreach (const QString& sampleOnClient, availableSamplesList) {
           if (!localSamples.contains(sampleOnClient)) {
@@ -317,7 +313,7 @@ void ClientSocket::processRequest()
         //deleted scenarios
         stream >> deletedScenarios;
         stream >> deletedScenarioTimesStrings;
-        kDebug() << "Deleted scenarios: " << deletedScenarios;
+        qDebug() << "Deleted scenarios: " << deletedScenarios;
         QList<QDateTime> deletedScenarioTimes;
         foreach (const QString& str, deletedScenarioTimesStrings)
           deletedScenarioTimes << QDateTime::fromString(str, "yyyy-MM-dd-hh-mm-ss");
@@ -337,20 +333,20 @@ void ClientSocket::processRequest()
           clientScenarios << scenarioId;
 
           QDateTime localScenarioDate = synchronisationManager->localScenarioDate(scenarioId);
-          kDebug() << "Scenario: " << scenarioId << " local date: " << localScenarioDate << " client date: " << scenarioDate;
+          qDebug() << "Scenario: " << scenarioId << " local date: " << localScenarioDate << " client date: " << scenarioDate;
           if (localScenarioDate != scenarioDate)
             if (localScenarioDate.isNull() || localScenarioDate < scenarioDate || !sendScenario(scenarioId))
               requestScenario(scenarioId);
         }
-        kDebug() << "Local scenarios: " << synchronisationManager->getAllScenarioIds();
-        kDebug() << "Client scenarios: " << synchronisationManager->getAllScenarioIds();
+        qDebug() << "Local scenarios: " << synchronisationManager->getAllScenarioIds();
+        qDebug() << "Client scenarios: " << synchronisationManager->getAllScenarioIds();
         foreach (const QString& localScenarioId, synchronisationManager->getAllScenarioIds()) 
           if (!clientScenarios.contains(localScenarioId))
             sendScenario(localScenarioId);
 
         //synchronize active scenarios
         QDateTime localSelectedScenarioDate = synchronisationManager->selectedScenariosDate();
-        kDebug() << "Selected scenario dates: " << selectedScenariosDate << localSelectedScenarioDate;
+        qDebug() << "Selected scenario dates: " << selectedScenariosDate << localSelectedScenarioDate;
         if (localSelectedScenarioDate != selectedScenariosDate)
           if (localSelectedScenarioDate < selectedScenariosDate || !sendSelectedScenarioList())
             sendCode(Simond::GetSelectedScenarioList);
@@ -383,7 +379,7 @@ void ClientSocket::processRequest()
       {
         Q_ASSERT(synchronisationManager);
 
-        kDebug() << "Received Active model";
+        qDebug() << "Received Active model";
 
         WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
 
@@ -408,9 +404,9 @@ void ClientSocket::processRequest()
       {
         Q_ASSERT(synchronisationManager);
 
-        kDebug() << "Client reported error during the retrieving of the active model";
+        qDebug() << "Client reported error during the retrieving of the active model";
 
-        kDebug() << "Requesting sample rate";
+        qDebug() << "Requesting sample rate";
 
         if (!sendActiveModel()) {
           sendCode(Simond::GetActiveModelSampleRate);
@@ -425,19 +421,19 @@ void ClientSocket::processRequest()
         qint32 sampleRate;
         WAITFORMESSAGEORRETURN(sizeof(qint32), stream, msg);
         stream >> sampleRate;
-        kDebug() << "Got sample rate: " << sampleRate;
+        qDebug() << "Got sample rate: " << sampleRate;
         synchronisationManager->setActiveModelSampleRate(sampleRate);
         break;
       }
 
       case Simond::ErrorRetrievingBaseModel:
-        kDebug() << "Client failed to retrieve base model!";
+        qDebug() << "Client failed to retrieve base model!";
         break;
 
       case Simond::BaseModel:
       {
         Q_ASSERT(synchronisationManager);
-        kDebug() << "Received base model";
+        qDebug() << "Received base model";
         WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
 
         qint64 length;
@@ -467,7 +463,7 @@ void ClientSocket::processRequest()
         QStringList scenarioIds;
         stream >> scenarioIds;
 
-        kDebug() << "Received list of scenarios to deactivate: " << scenarioIds;
+        qDebug() << "Received list of scenarios to deactivate: " << scenarioIds;
 
         contextAdapter->updateDeactivatedScenarios(scenarioIds);
         break;
@@ -483,7 +479,7 @@ void ClientSocket::processRequest()
         QStringList sampleGroups;
         stream >> sampleGroups;
 
-        kDebug() << "Received Sample Groups: " << sampleGroups;
+        qDebug() << "Received Sample Groups: " << sampleGroups;
 
         contextAdapter->updateDeactivatedSampleGroups(sampleGroups);
         break;
@@ -491,13 +487,13 @@ void ClientSocket::processRequest()
 
       case Simond::ErrorRetrievingScenario:
       {
-        kDebug() << "Could not get scenario";
+        qDebug() << "Could not get scenario";
         break;
       }
 
       case Simond::Scenario:
       {
-        kDebug() << "Received scenario";
+        qDebug() << "Received scenario";
         WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
@@ -508,7 +504,7 @@ void ClientSocket::processRequest()
         stream >> scenarioId;
         stream >> scenario;
 
-        kDebug() << "Client sent scenario: " << scenarioId;
+        qDebug() << "Client sent scenario: " << scenarioId;
         if (!synchronisationManager->storeScenario(scenarioId, scenario))
           sendCode(Simond::ScenarioStorageFailed);
         break;
@@ -517,19 +513,19 @@ void ClientSocket::processRequest()
       case Simond::ScenarioStorageFailed:         // we should maybe do something here
       case Simond::ScenarioStored:
       {
-        kDebug() << "Client stored scenario";
+        qDebug() << "Client stored scenario";
         break;
       }
 
       case Simond::ErrorRetrievingTraining:
       {
-        kDebug() << "Could not get training";
+        qDebug() << "Could not get training";
         break;
       }
 
       case Simond::SelectedScenarioList:
       {
-        kDebug() << "Received selected scenario list";
+        qDebug() << "Received selected scenario list";
         WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
@@ -539,7 +535,7 @@ void ClientSocket::processRequest()
         stream >> modifiedDate;
         stream >> scenarioIds;
 
-        kDebug() << "Selected scenario list: " << scenarioIds;
+        qDebug() << "Selected scenario list: " << scenarioIds;
         if (!synchronisationManager->storeSelectedScenarioList(modifiedDate, scenarioIds)) {
           sendCode(Simond::SelectedScenarioListStorageFailed);
         }
@@ -549,7 +545,7 @@ void ClientSocket::processRequest()
 
       case Simond::Training:
       {
-        kDebug() << "Received Training";
+        qDebug() << "Received Training";
         Q_ASSERT(synchronisationManager);
 
         WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
@@ -572,13 +568,13 @@ void ClientSocket::processRequest()
 
       case Simond::ErrorRetrievingLanguageDescription:
       {
-        kDebug() << "Could not get languagedescription";
+        qDebug() << "Could not get languagedescription";
         break;
       }
 
       case Simond::LanguageDescription:
       {
-        kDebug() << "Received languagedescription";
+        qDebug() << "Received languagedescription";
         Q_ASSERT(synchronisationManager);
 
         qint64 length;
@@ -610,8 +606,8 @@ void ClientSocket::processRequest()
         QByteArray name;
         stream >> name;
 
-        kWarning() << "WARNING: Not all samples available!";
-        kWarning() << "Could not fetch: " << name;
+        qWarning() << "WARNING: Not all samples available!";
+        qWarning() << "Could not fetch: " << name;
         break;
       }
 
@@ -680,7 +676,7 @@ void ClientSocket::processRequest()
 
       case Simond::StartRecognition:
       {
-        kDebug() << "Got start recognition";
+        qDebug() << "Got start recognition";
 	recognitionInitializationMutex.lock();
 	if (recognitionControl) {
           ContextAdapter::BackendType type;
@@ -716,7 +712,7 @@ void ClientSocket::processRequest()
         stream >> channels;
         stream >> sampleRate;
 
-        kDebug() << "Starting sample " << id << channels << sampleRate;
+        qDebug() << "Starting sample " << id << channels << sampleRate;
 
         if (currentSamples.contains(id)) {
           WAV* w = currentSamples.value(id);
@@ -724,16 +720,17 @@ void ClientSocket::processRequest()
           currentSamples.remove(id);
         }
 
-        WAV *currentSample = new WAV(KStandardDirs::locateLocal("appdata", "models/"+username+"/recognitionsamples/"+
-          KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+'.'+QString::number(id)+".wav"),
-          channels, sampleRate);
+        //QT5TODO: QStandardDirs will not make this directory if it doesn't exist
+        WAV *currentSample = new WAV( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "models/"+username+"/recognitionsamples/"+
+                                      KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+'.'+QString::number(id)+".wav",
+                                      channels, sampleRate);
         currentSamples.insert(id, currentSample);
         currentSample->beginAddSequence();
         break;
       }
       case Simond::RecognitionSampleData:
       {
-        //kDebug() << "Received sample data";
+        //qDebug() << "Received sample data";
         WAITFORMESSAGEORRETURN(sizeof(qint64), stream, msg);
         qint64 length;
         stream >> length;
@@ -747,12 +744,12 @@ void ClientSocket::processRequest()
         if (w)
           w->write(sampleData);
         else
-          kDebug() << "Received invalid id: " << id;
+          qDebug() << "Received invalid id: " << id;
         break;
       }
       case Simond::RecognitionSampleFinished:
       {
-        //kDebug() << "Recognizing on sample";
+        //qDebug() << "Recognizing on sample";
         WAITFORMESSAGEORRETURN(sizeof(qint8), stream, msg);
         qint8 id;
         stream >> id;
@@ -766,14 +763,14 @@ void ClientSocket::processRequest()
 
           w->deleteLater();
         } else
-          kDebug() << "Received invalid id: " << id;
+          qDebug() << "Received invalid id: " << id;
         currentSamples.remove(id);
         break;
       }
 
       default:
       {
-        kDebug() << "Unknown request: " << request << msg;
+        qDebug() << "Unknown request: " << request << msg;
       }
     }
 
@@ -785,10 +782,10 @@ void ClientSocket::processRequest()
 
 void ClientSocket::startSynchronisation()
 {
-  kDebug() << "Entering startSynchronisation";
+  qDebug() << "Entering startSynchronisation";
   if (synchronisationRunning) return;
 
-  kDebug() << "Locking sync.";
+  qDebug() << "Locking sync.";
   synchronisationRunning = true;
 
   if (!synchronisationManager->startSynchronisation())
@@ -814,7 +811,7 @@ void ClientSocket::activeModelCompilationAborted()
 
 void ClientSocket::fetchTrainingSample(const QString& sample)
 {
-  kDebug() << "Fetching sample " << sample;
+  qDebug() << "Fetching sample " << sample;
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
   bodyStream << sample.toUtf8();
@@ -833,7 +830,7 @@ void ClientSocket::sendScenarioList()
 
 void ClientSocket::requestScenario(const QString& scenarioId)
 {
-  kDebug() << "Fetching scenario " << scenarioId;
+  qDebug() << "Fetching scenario " << scenarioId;
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
   bodyStream << scenarioId.toUtf8();
@@ -843,7 +840,7 @@ void ClientSocket::requestScenario(const QString& scenarioId)
 
 bool ClientSocket::sendScenario(const QString& scenarioId)
 {
-  kDebug() << "Sending scenario " << scenarioId;
+  qDebug() << "Sending scenario " << scenarioId;
   QByteArray scenarioByte = synchronisationManager->getScenario(scenarioId);
   if (scenarioByte.isNull()) {
     sendCode(Simond::ErrorRetrievingScenario);
@@ -860,7 +857,7 @@ bool ClientSocket::sendScenario(const QString& scenarioId)
 
 bool ClientSocket::sendSelectedScenarioList()
 {
-  kDebug() << "Sending selected scenario list";
+  qDebug() << "Sending selected scenario list";
   QStringList list = synchronisationManager->getLatestSelectedScenarioList();
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
@@ -877,7 +874,7 @@ void ClientSocket::sendSample(QString sampleName)
   QByteArray sample = synchronisationManager->getSample(sampleName);
 
   if (sample.isNull()) {
-    kDebug() << "Cannot find sample! " << sampleName;
+    qDebug() << "Cannot find sample! " << sampleName;
     QByteArray body;
     QDataStream bodyStream(&body, QIODevice::WriteOnly);
     bodyStream <<  sampleName.toUtf8();
@@ -909,7 +906,7 @@ void ClientSocket::slotSocketError()
   sslErrors = this->sslErrors();
   for (int i=0; i < sslErrors.count(); i++)
     error+=sslErrors[i].errorString()+'\n';
-  kDebug() << error;
+  qDebug() << error;
 
   //    ignoreSslErrors();
 }
@@ -917,7 +914,7 @@ void ClientSocket::slotSocketError()
 
 bool ClientSocket::sendActiveModel()
 {
-  kDebug() << "Sending active model...";
+  qDebug() << "Sending active model...";
   Q_ASSERT(synchronisationManager);
 
   Model *model = synchronisationManager->getActiveModel();
@@ -928,7 +925,7 @@ bool ClientSocket::sendActiveModel()
 
 bool ClientSocket::sendBaseModel()
 {
-  kDebug() << "Sending base model...";
+  qDebug() << "Sending base model...";
   Q_ASSERT(synchronisationManager);
 
   Model *model = synchronisationManager->getBaseModel();
@@ -954,7 +951,7 @@ bool ClientSocket::sendModel(Simond::Request request, const QDateTime& changedTi
 
 void ClientSocket::synchronisationDone()
 {
-  kDebug() << "Synchronization done";
+  qDebug() << "Synchronization done";
   synchronisationRunning=false;
   //reset modelsource
 
@@ -972,13 +969,13 @@ void ClientSocket::updateModelCompilationParameters()
 
 void ClientSocket::synchronisationComplete()
 {
-  kDebug() << "Synchronization complete";
+  qDebug() << "Synchronization complete";
   if (!synchronisationManager->commit()) {
-    kDebug() << "Synchronization commit failed";
+    qDebug() << "Synchronization commit failed";
     sendCode(Simond::SynchronisationCommitFailed);
   }
   else {
-    kDebug() << "Synchronization succeeded";
+    qDebug() << "Synchronization succeeded";
     sendCode(Simond::SynchronisationComplete);
   }
 
@@ -988,7 +985,7 @@ void ClientSocket::synchronisationComplete()
 
 bool ClientSocket::sendLanguageDescription()
 {
-  kDebug() << "Sending Language Description";
+  qDebug() << "Sending Language Description";
   Q_ASSERT(synchronisationManager);
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
@@ -1066,7 +1063,7 @@ void ClientSocket::recognitionWarning(const QString& warning)
 
 void ClientSocket::recognitionStarted()
 {
-  kDebug() << "Recognition started...";
+  qDebug() << "Recognition started...";
   sendCode(Simond::RecognitionStarted);
 }
 
@@ -1079,7 +1076,7 @@ void ClientSocket::recognitionStopped()
 void ClientSocket::recognitionDone(const QString& fileName)
 {
   if (!m_keepSamples) {
-    kDebug() << "Removing: " << fileName;
+    qDebug() << "Removing: " << fileName;
     QFile::remove(fileName);
   }
 }
@@ -1094,7 +1091,7 @@ void ClientSocket::processRecognitionResults(const QString& fileName, const Reco
 
       f.close();
     } else
-    kWarning() << "Cannot open output log for sample";
+    qWarning() << "Cannot open output log for sample";
   }
 
   sendRecognitionResult(fileName, recognitionResults);
@@ -1140,7 +1137,7 @@ void ClientSocket::closeRecognitionControl()
 
 ClientSocket::~ClientSocket()
 {
-  kDebug() << "Deleting client";
+  qDebug() << "Deleting client";
   //leave databaseAccess alone since it is shared
   closeRecognitionControl();
 
@@ -1227,16 +1224,16 @@ void ClientSocket::send(qint32 requestId, const QByteArray& data, bool includeLe
 void ClientSocket::initializeRecognitionSmartly()
 {
   QMutexLocker l(&recognitionInitializationMutex);
-  kDebug() << "Recognition is initialized: " << (recognitionControl ? recognitionControl->isInitialized() : false);
-  kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
+  qDebug() << "Recognition is initialized: " << (recognitionControl ? recognitionControl->isInitialized() : false);
+  qDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
 
   QString modelPath;
   ContextAdapter::BackendType type;
   contextAdapter->currentModel(modelPath, type);
-  kDebug() << "Called current model";
+  qDebug() << "Called current model";
 
   if (modelPath.isNull() || type == ContextAdapter::Null) {
-    kDebug() << "Null model" << modelPath << type;
+    qDebug() << "Null model" << modelPath << type;
     if (recognitionControl)
       recognitionControl->suspend();
     else
@@ -1259,7 +1256,7 @@ void ClientSocket::initializeRecognitionSmartly()
       break;
     }
     if (!recognitionControl || (recognitionControl && recognitionControl->type() != recognitionType)) {
-      kDebug() << "Resetting";
+      qDebug() << "Resetting";
       closeRecognitionControl();
 
       recognitionControl = recognitionControlFactory->recognitionControl(username, recognitionType);
@@ -1277,7 +1274,7 @@ void ClientSocket::initializeRecognitionSmartly()
       connect(recognitionControl, SIGNAL(recognitionResult(QString,RecognitionResultList)), this, SLOT(processRecognitionResults(QString,RecognitionResultList)), Qt::UniqueConnection);
       connect(recognitionControl, SIGNAL(recognitionDone(QString)), this, SLOT(recognitionDone(QString)), Qt::UniqueConnection);
     }
-    kDebug() << "Initializing";
+    qDebug() << "Initializing";
     recognitionControl->initializeRecognition(modelPath);
   }
 }

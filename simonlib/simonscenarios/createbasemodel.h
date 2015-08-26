@@ -21,7 +21,8 @@
 #ifndef SIMON_CREATEBASEMODEL_H
 #define SIMON_CREATEBASEMODEL_H
 
-#include <KDialog>
+
+#include <KDELibs4Support/KDE/KDialog>
 #include "ui_basemodelconfig.h"
 
 class CreateBaseModel : public KDialog

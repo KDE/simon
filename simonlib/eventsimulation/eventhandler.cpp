@@ -34,7 +34,7 @@
 #endif
 
 #include <QString>
-#include <KDebug>
+#include <QDebug>
 
 EventHandler* EventHandler::instance;
 

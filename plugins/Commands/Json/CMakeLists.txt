@@ -5,15 +5,15 @@ set (simonjsoncommandplugin_SRCS
   createjsoncommandwidget.cpp
 )
 
-kde4_add_ui_files(simonjsoncommandplugin_SRCS 
+ki18n_wrap_ui(simonjsoncommandplugin_SRCS
   jsonconfigurationdlg.ui
   createjsoncommandwidget.ui
 )
 
-kde4_add_plugin(simonjsoncommandplugin ${simonjsoncommandplugin_SRCS})
+kde4_add_library(simonjsoncommandplugin MODULE ${simonjsoncommandplugin_SRCS})
 
-target_link_libraries(simonjsoncommandplugin ${KDE4_KDEUI_LIBS}
-  ${KDE4_KIO_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simonjsoncommandplugin
+  KF5::KIOCore Qt5::Xml
   simonscenarios simonscenariobase simonjsonconnector)
 
 install(TARGETS simonjsoncommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandjsonplugin)

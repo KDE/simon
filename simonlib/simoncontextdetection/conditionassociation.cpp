@@ -58,7 +58,7 @@ bool ConditionAssociation::privateDeSerialize(QDomElement elem)
 	condition = manager->getCondition(conditionElem);
 	if (condition == NULL)
         {
-            kDebug() << "Context manager returned NULL Condition!  Deserialization failure!";
+            qDebug() << "Context manager returned NULL Condition!  Deserialization failure!";
             return 0;
 	}
 	

@@ -19,9 +19,8 @@
  */
 
 #include "recognitioncontrol.h"
-#include <KDateTime>
-#include <KDebug>
-#include <KLocalizedString>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
 
 #include <simonrecognizer/recognitionconfiguration.h>
 
@@ -54,7 +53,7 @@ void RecognitionControl::pop()
 
 bool RecognitionControl::recognitionRunning()
 {
-  kDebug() << m_startRequests;
+  qDebug() << m_startRequests;
   return (m_startRequests > 0);
 }
 
@@ -65,12 +64,12 @@ QByteArray RecognitionControl::getBuildLog()
 
 bool RecognitionControl::startRecognition()
 {
-  kDebug() << "Starting recognition" << ++m_startRequests;
+  qDebug() << "Starting recognition" << ++m_startRequests;
   if (isInitialized() && (m_startRequests > 1))  {
     emit recognitionStarted();
     return true;
   }
-  kDebug() << "Starting recognition: Continuing";
+  qDebug() << "Starting recognition: Continuing";
   return startRecognitionInternal();
 }
 
@@ -78,7 +77,7 @@ void RecognitionControl::recognize(const QString& fileName)
 {
   if (!shouldBeRunning) return;
 
-  kDebug() << "Recognizing " << fileName;
+  qDebug() << "Recognizing " << fileName;
 
   queueLock.lock();
   toRecognize.enqueue(fileName);
@@ -132,7 +131,7 @@ bool RecognitionControl::stopInternal()
 
   if (!wait(1000)) {
     while (isRunning()) {
-      kDebug() << "Forcefully terminating";
+      qDebug() << "Forcefully terminating";
       terminate();
       wait(500);
     }
@@ -151,7 +150,7 @@ bool RecognitionControl::suspend()
 
 void RecognitionControl::uninitialize()
 {
-  kDebug() << "Uninitializing recognition control";
+  qDebug() << "Uninitializing recognition control";
   shouldBeRunning = false;
   recog->uninitialize();
   stopInternal();
@@ -161,14 +160,14 @@ void RecognitionControl::uninitialize()
 
 bool RecognitionControl::stop()
 {
-  kDebug() << "Stopping recognition" << m_startRequests;
+  qDebug() << "Stopping recognition" << m_startRequests;
   if (--m_startRequests > 0)
     return true;
 
   if (m_startRequests < 0)
     m_startRequests = 0;
 
-  kDebug() << "Stopping recognition: Continuing";
+  qDebug() << "Stopping recognition: Continuing";
   return stopInternal();
 }
 

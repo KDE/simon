@@ -35,7 +35,7 @@ VersionNumber::VersionNumber(Scenario *parent, const QString& version) : Scenari
 }
 
 
-#include <KDebug>
+#include <QDebug>
 bool VersionNumber::parseString(const QString& version)
 {
   QString v = version;

@@ -20,10 +20,10 @@
 #include "postprocessing.h"
 #include <QProcess>
 #include <QFile>
-#include <KProgressDialog>
+#include <KDELibs4Support/KDE/KProgressDialog>
 #include <QCoreApplication>
 #include <QObject>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KLocale>
 #include "soundconfig.h"
 
@@ -42,8 +42,10 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 {
   KProgressDialog *progDialog=0;
   if (!silent) {
-    progDialog = new KProgressDialog(0, i18n("Post-Processing"),
-      i18n("Filter is being applied..."));
+    progDialog = new KProgressDialog(0);
+    progDialog->setWindowTitle(i18n("Post-Processing"));
+    // QT5TODO: What happened here?
+      // i18n("Filter is being applied..."));
   }
   if (QFile::exists(out) && (!QFile::remove(out))) {
     emit error(i18n("Could not overwrite %1.\n\nPlease check if you have the needed permissons.", out));

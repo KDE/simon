@@ -19,13 +19,13 @@
 #include "dictationcommandmanager.h"
 #include "dictationconfiguration.h"
 #include <eventsimulation/eventhandler.h>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 K_PLUGIN_FACTORY( DictationCommandPluginFactory,
 registerPlugin< DictationCommandManager >();
 )
 
-K_EXPORT_PLUGIN( DictationCommandPluginFactory("simondictationcommand") )
+// K_EXPORT_PLUGIN( DictationCommandPluginFactory("simondictationcommand") )
 
 DictationCommandManager::DictationCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)
 {
@@ -62,3 +62,5 @@ bool DictationCommandManager::deSerializeConfig(const QDomElement& elem)
 DictationCommandManager::~DictationCommandManager()
 {
 }
+
+#include "dictationcommandmanager.moc"

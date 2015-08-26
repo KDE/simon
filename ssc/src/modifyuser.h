@@ -20,7 +20,7 @@
 #ifndef SIMON_SSC_MODIFYUSER_H_BAF52575E3B8429C94DF14318118B503
 #define SIMON_SSC_MODIFYUSER_H_BAF52575E3B8429C94DF14318118B503
 
-#include <KDialog>
+#include <KDELibs4Support/KDE/KDialog>
 #include "ui_details.h"
 
 class User;

@@ -19,7 +19,7 @@ set(simondialogengineconfui_LIB_HDRS
   simondialogengineconfui_export.h
 )
 
-kde4_add_ui_files(simondialogengineconfui_SRCS 
+ki18n_wrap_ui(simondialogengineconfui_SRCS
   createtemplateoptiondialog.ui
   createboundvalue.ui
   createavatardlg.ui
@@ -35,9 +35,9 @@ set_target_properties( simondialogengineconfui
 )
 
 if (USE_PLASMA)
-  target_link_libraries(simondialogengineconfui ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simondialogengine)
+  target_link_libraries(simondialogengineconfui ${QT_LIBRARIES} KF5::KIOCore ${KDE4_PLASMA_LIBS} simondialogengine)
 else ()
-  target_link_libraries(simondialogengineconfui ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simondialogengine)
+  target_link_libraries(simondialogengineconfui ${QT_LIBRARIES} KF5::KIOCore simondialogengine)
 endif()
 
 install(TARGETS simondialogengineconfui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore)

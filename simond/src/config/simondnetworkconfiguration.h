@@ -20,9 +20,8 @@
 #ifndef SIMON_SIMONDNETWORKCONFIGURATION_H_932B7362E7CC428398A5F279795080B6
 #define SIMON_SIMONDNETWORKCONFIGURATION_H_932B7362E7CC428398A5F279795080B6
 
-#include <KCModule>
 #include <QVariantList>
-
+#include <KConfigWidgets/KCModule>
 #include "ui_simondnetworkconfiguration.h"
 
 class SimondNetworkConfiguration : public KCModule

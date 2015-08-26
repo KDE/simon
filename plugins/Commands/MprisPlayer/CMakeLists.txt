@@ -6,14 +6,14 @@ set (simonmprisplayerplugin_SRCS
   player.cpp
 )
 
-kde4_add_ui_files(simonmprisplayerplugin_SRCS
+ki18n_wrap_ui(simonmprisplayerplugin_SRCS
   mprisplayerconfigurationdlg.ui
   createmprisplayercommandwidget.ui
 )
 
-kde4_add_plugin(simonmprisplayerplugin ${simonmprisplayerplugin_SRCS})
+kde4_add_library(simonmprisplayerplugin MODULE ${simonmprisplayerplugin_SRCS})
 
-target_link_libraries(simonmprisplayerplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simonmprisplayerplugin  Qt5::Xml
   simonscenarios simonactions)
 
 install(TARGETS simonmprisplayerplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandmprisplayerplugin)

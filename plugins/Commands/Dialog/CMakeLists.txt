@@ -5,22 +5,22 @@ set (simondialogcommandplugin_SRCS
   createtransitiondialog.cpp
 )
 
-kde4_add_ui_files(simondialogcommandplugin_SRCS 
+ki18n_wrap_ui(simondialogcommandplugin_SRCS
   dialogconfigurationdlg.ui
   createdialogcommandwidget.ui
   createtransitiondlg.ui
 )
 
-kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
+kde4_add_library(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
 
 if (USE_PLASMA)
-target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS}
-  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simonscenarios
+target_link_libraries(simondialogcommandplugin
+  ${QT_LIBRARIES} KF5::KIOCore ${KDE4_PLASMA_LIBS} simonscenarios
   simonscenariobase simonactions simondialogengine simondialogenginettsview
   simondialogenginegraphicalview simondialogengineconfui)
 else ()
-target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS}
-  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simonscenarios simonscenariobase
+target_link_libraries(simondialogcommandplugin
+  ${QT_LIBRARIES} KF5::KIOCore simonscenarios simonscenariobase
   simonactions simondialogengine simondialogenginettsview 
   simondialogenginegraphicalview simondialogengineconfui)
 endif()
@@ -28,4 +28,4 @@ endif()
 install(TARGETS simondialogcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddialogplugin)
 install(FILES simondialogcommandplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddialogplugin)
 
-add_subdirectory(tests)
+# add_subdirectory(tests)

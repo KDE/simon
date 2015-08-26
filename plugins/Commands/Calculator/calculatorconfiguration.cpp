@@ -20,17 +20,14 @@
 #include "calculatorconfiguration.h"
 #include "calculatorcommandmanager.h"
 #include <QVariantList>
-#include <kgenericfactory.h>
-#include <KAboutData>
-#include <KMessageBox>
+#include <KDELibs4Support/kgenericfactory.h>
 
 K_PLUGIN_FACTORY_DECLARATION(CalculatorCommandPluginFactory)
 
 CalculatorConfiguration::CalculatorConfiguration(Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent, "calculator", ki18n( "Calculator" ),
-"0.1", ki18n("Calculate with your voice"),
-"accessories-calculator",
-CalculatorCommandPluginFactory::componentData())
+: CommandConfiguration(parent, "calculator", i18n( "Calculator" ),
+"0.1", i18n("Calculate with your voice"),
+"accessories-calculator")
 {
   Q_UNUSED(args);
   ui.setupUi(this);

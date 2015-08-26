@@ -21,7 +21,6 @@
 #define SIMON_ADDWORDRECORDPAGE_H_E54814732D4746A581807C9D3C61441E
 
 #include <QWizardPage>
-#include <QStringList>
 #include <simonscenarios/promptstable.h>
 
 class TrainSamplePage;

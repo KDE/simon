@@ -23,9 +23,9 @@
 #include "nullrecorderclient.h"
 #include "ui_devicevolumewidget.h"
 #include <QDateTime>
-#include <KIcon>
-#include <KLocalizedString>
-#include <KMessageBox>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
+#include <KWidgetsAddons/KMessageBox>
 
 DeviceVolumeWidget::DeviceVolumeWidget( const SimonSound::DeviceConfiguration& device, SoundClient::SoundClientPriority inputPriority, QWidget* parent ) : QWidget(parent),
     ui(new Ui::DeviceVolumeWidgetUi()),
@@ -125,28 +125,28 @@ void DeviceVolumeWidget::clipping()
 void DeviceVolumeWidget::tooLoud()
 {
   ui->lbStatus->setText(i18n("Lower the volume."));
-  ui->lbIcon->setPixmap(KIcon("go-down").pixmap(24,24));
+  ui->lbIcon->setPixmap(QIcon::fromTheme("go-down").pixmap(24,24));
 }
 
 
 void DeviceVolumeWidget::snrOk()
 {
   ui->lbStatus->setText(i18n("Volume correct."));
-  ui->lbIcon->setPixmap(KIcon("dialog-ok-apply").pixmap(24,24));
+  ui->lbIcon->setPixmap(QIcon::fromTheme("dialog-ok-apply").pixmap(24,24));
 }
 
 
 void DeviceVolumeWidget::snrLow()
 {
   ui->lbStatus->setText(i18n("High levels of background noise detected. Please check your microphone and disable \"Mic Boost\" if enabled."));
-  ui->lbIcon->setPixmap(KIcon("dialog-error").pixmap(24,24));
+  ui->lbIcon->setPixmap(QIcon::fromTheme("dialog-error").pixmap(24,24));
 }
 
 
 void DeviceVolumeWidget::tooLow()
 {
   ui->lbStatus->setText(i18n("Please speak (volume too low)."));
-  ui->lbIcon->setPixmap(KIcon("go-up").pixmap(24,24));
+  ui->lbIcon->setPixmap(QIcon::fromTheme("go-up").pixmap(24,24));
 }
 
 
@@ -154,14 +154,14 @@ void DeviceVolumeWidget::start()
 {
   listOfLevels.clear();
   if (!rec->start())
-    KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be started for device: %1.", m_deviceName));
+      KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be started for device: %1.", m_deviceName));
 }
 
 
 void DeviceVolumeWidget::stop()
 {
   if (!rec->finish())
-    KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be stopped for device: %1.", m_deviceName));
+      KMessageBox::error(this, i18nc("%1 is device name", "Recording could not be stopped for device: %1.", m_deviceName));
 }
 
 

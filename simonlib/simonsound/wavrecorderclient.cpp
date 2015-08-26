@@ -26,7 +26,7 @@
 
 #include <QObject>
 
-#include <KDebug>
+#include <QDebug>
 
 /**
  * \brief Constructor
@@ -90,9 +90,9 @@ bool WavRecorderClient::finish()
 
   succ = SoundServer::getInstance()->deRegisterInputClient(this);
 
-  kDebug() << "Min: " << vad->absoluteMinAverage();
-  kDebug() << "Max: " << vad->absolutePeak();
-  kDebug() << "Theoretical max: " << vad->maxAmp();
+  qDebug() << "Min: " << vad->absoluteMinAverage();
+  qDebug() << "Max: " << vad->absolutePeak();
+  qDebug() << "Theoretical max: " << vad->maxAmp();
   int absoluteMinAverage = vad->absoluteMinAverage();
 
   if (absoluteMinAverage == 0)
@@ -100,7 +100,7 @@ bool WavRecorderClient::finish()
 
   //ratio is in percent
   float ratio = ((float) vad->absolutePeak() / (float) absoluteMinAverage) * 100;
-  kDebug() << "Ratio: " << ratio;
+  qDebug() << "Ratio: " << ratio;
 
   if (ratio < SoundConfiguration::minimumSNR())
     emit signalToNoiseRatioLow();

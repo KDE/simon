@@ -21,14 +21,14 @@
 #include "createexecutablecommandwidget.h"
 #include <simonlogging/logger.h>
 #include <simonscenarios/scenario.h>
-#include <KLocalizedString>
-#include <KStandardDirs>
+#include <KI18n/klocalizedstring.h>
+
 
 K_PLUGIN_FACTORY( ExecutableCommandPluginFactory,
 registerPlugin< ExecutableCommandManager >();
 )
 
-K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
+// K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
 
 ExecutableCommandManager::ExecutableCommandManager(QObject* parent, const QVariantList& args) :
 CommandManager((Scenario*) parent, args)
@@ -65,3 +65,5 @@ DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(ExecutableCommandManager, ExecutableComma
 ExecutableCommandManager::~ExecutableCommandManager()
 {
 }
+
+#include "executablecommandmanager.moc"

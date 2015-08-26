@@ -21,12 +21,12 @@
 #ifndef SIMON_ACTIONBUTTON_H_279F7C1C95C94FFEA3A7CC7B1B1A2B9F
 #define SIMON_ACTIONBUTTON_H_279F7C1C95C94FFEA3A7CC7B1B1A2B9F
 
-#include <KPushButton>
+#include <QPushButton>
 #include "simonuicomponents_export.h"
 
 class QAction;
 
-class SIMONUICOMPONENTS_EXPORT ActionButton : public KPushButton
+class SIMONUICOMPONENTS_EXPORT ActionButton : public QPushButton
 {
   Q_OBJECT
 public:

@@ -21,7 +21,7 @@
 #define SIMON_SIMONDIALOGENGINE_EXPORT_H_4FA87AEF3A384359BC5F62307EE59A64
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONDIALOGENGINE_EXPORT
 # if defined(MAKE_SIMONDIALOGENGINE_LIB)

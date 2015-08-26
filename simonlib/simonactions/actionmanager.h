@@ -28,7 +28,6 @@
 #include <simonscenarios/command.h>
 #include <simonscenarios/commandlistelements.h>
 #include <simonactions/greedyreceiver.h>
-#include <KIcon>
 #include <simonscenarios/action.h>
 
 class Action;

@@ -22,11 +22,12 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QPointer>
-#include <KIcon>
+#include <QIcon>
 #include <KLineEdit>
-#include <KLocalizedString>
-#include <KMessageBox>
+#include <KI18n/klocalizedstring.h>
+#include <KWidgetsAddons/kmessagebox.h>
 #include <KLocale>
+#include <KWidgetsAddons/KMessageBox>
 
 ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 {
@@ -35,7 +36,7 @@ ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
   leServerAddress->setToolTip(i18n("IP address or host name and port using &lt;host&gt;:&lt;port&gt;"));
   pbSelectServerAddress = new QToolButton(this);
 
-  pbSelectServerAddress->setIcon(KIcon("go-previous"));
+  pbSelectServerAddress->setIcon(QIcon::fromTheme("go-previous"));
   pbSelectServerAddress->setText(i18n("Add new host"));
   pbSelectServerAddress->setToolTip(i18n("Select a new host / port."));
 

@@ -21,21 +21,19 @@
 #include <simonlogging/logger.h>
 #include <simonactions/commandlistwidget.h>
 #include <eventsimulation/eventhandler.h>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KGenericFactory>
-#include <KAction>
-#include <KPushButton>
+#include <QAction>
+#include <QPushButton>
 #include <QGridLayout>
 #include <QDesktopWidget>
-#include <QKeyEvent>
-#include <QWidget>
 #include "desktopgridconfiguration.h"
 
 K_PLUGIN_FACTORY( DesktopGridPluginFactory,
 registerPlugin< DesktopGridCommandManager >();
 )
 
-K_EXPORT_PLUGIN( DesktopGridPluginFactory("simondesktopgridcommand") )
+// K_EXPORT_PLUGIN( DesktopGridPluginFactory("simondesktopgridcommand") )
 
 DesktopGridCommandManager::DesktopGridCommandManager(QObject* parent, const QVariantList& args) :
 CommandManager((Scenario*) parent, args),
@@ -99,10 +97,10 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
   config = new DesktopGridConfiguration(parentScenario);
   config->deSerialize(elem);
 
-  KAction *activateAction = new KAction(this);
+  QAction *activateAction = new QAction(this);
   activateAction->setText(i18n("Activate Desktop Grid"));
   activateAction->setStatusTip(i18n("Display the desktop grid"));
-  activateAction->setIcon(KIcon("games-config-board"));
+  activateAction->setIcon(QIcon::fromTheme("games-config-board"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(activate()));
   guiActions << activateAction;
@@ -117,7 +115,7 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
   short btnNr=1;
   for (int i=0; i < 3; i++) {
     for (int j=0; j<3; j++) {
-      KPushButton *btn = new KPushButton(QString::number(btnNr), screenGrid);
+      QPushButton *btn = new QPushButton(QString::number(btnNr), screenGrid);
 
       QPalette pal = btn->palette();
       pal.setBrush(QPalette::Button, transbrush);
@@ -149,7 +147,7 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
   connect(commandListWidget, SIGNAL(canceled()), this, SLOT(deactivate()), Qt::DirectConnection);
 
   if (!installInterfaceCommands()) {
-    kDebug() << "Failed to install interface commands";
+    qDebug() << "Failed to install interface commands";
     return false;
   }
 
@@ -235,7 +233,7 @@ void DesktopGridCommandManager::init()
 
   buttons->setGeometry(screenGrid->geometry());
 
-  foreach (KPushButton *btn, btns) {
+  foreach (QPushButton *btn, btns) {
     setButtonFontSize(btn);
     btn->setMinimumHeight(deskSize.height()/3);
     btn->setMinimumWidth(1);
@@ -267,7 +265,7 @@ void DesktopGridCommandManager::init()
 }
 
 
-void DesktopGridCommandManager::setButtonFontSize(KPushButton *btn)
+void DesktopGridCommandManager::setButtonFontSize(QPushButton *btn)
 {
   QFont f = btn->font();
   f.setPointSize(btn->height()/4-2);
@@ -287,14 +285,14 @@ void DesktopGridCommandManager::sendDragAndDrop()
 }
 
 
-void DesktopGridCommandManager::click(KPushButton* btn)
+void DesktopGridCommandManager::click(QPushButton* btn)
 {
   m_x = screenGrid->x()+btn->x()+(btn->width()/2);
   m_y = screenGrid->y()+btn->y()+(btn->height()/2);
   screenGrid->hide();
 
   if (m_isDragging) {
-    kDebug() << "Sending drag and drop";
+    qDebug() << "Sending drag and drop";
     sendDragAndDrop();
     deactivate();
     return;
@@ -302,7 +300,7 @@ void DesktopGridCommandManager::click(KPushButton* btn)
 
   DesktopGridConfiguration::ActionSelection modeSelection = static_cast<DesktopGridConfiguration*>(config)->actionSelection();
   EventSimulation::ClickMode mode = static_cast<DesktopGridConfiguration*>(config)->clickMode();
-  kDebug() << modeSelection << mode;
+  qDebug() << modeSelection << mode;
 
   switchToState(SimonCommand::GreedyState+1);     // switch to new state
 
@@ -339,19 +337,19 @@ void DesktopGridCommandManager::clickRequestReceived(int index)
   commandListWidget->hide();
   commandListWidget->abortTimeoutSelection();
 
-  kDebug() << "Click request received: " << index;
+  qDebug() << "Click request received: " << index;
   switch (index) {
     case 1: sendClick(EventSimulation::LMB);
-    kDebug() << "LMB";
+    qDebug() << "LMB";
     break;
     case 2: sendClick(EventSimulation::LMBDouble);
-    kDebug() << "LMBDouble";
+    qDebug() << "LMBDouble";
     break;
     case 3: sendClick(EventSimulation::RMB);
-    kDebug() << "RMB";
+    qDebug() << "RMB";
     break;
     case 4: sendClick(EventSimulation::MMB);
-    kDebug() << "MMB";
+    qDebug() << "MMB";
     break;
     case 5:
       m_startX = m_x;
@@ -373,7 +371,7 @@ void DesktopGridCommandManager::sendClick(EventSimulation::ClickMode clickMode)
 
 void DesktopGridCommandManager::regionSelected()
 {
-  KPushButton *senderBtn = dynamic_cast<KPushButton*>(sender());
+  QPushButton *senderBtn = dynamic_cast<QPushButton*>(sender());
   if (!senderBtn) return;
 
   if ((senderBtn->width() <= 20) && (senderBtn->height() <= 20)) {
@@ -388,7 +386,7 @@ void DesktopGridCommandManager::regionSelected()
 
   int btnHeight = senderBtn->height()/3;
 
-  foreach (KPushButton *btn, btns) {
+  foreach (QPushButton *btn, btns) {
     setButtonFontSize(btn);
     btn->setMinimumHeight(btnHeight);
   }
@@ -426,3 +424,5 @@ DesktopGridCommandManager::~DesktopGridCommandManager()
   buttons->deleteLater();
   screenGrid->deleteLater();
 }
+
+#include "desktopgridcommandmanager.moc"

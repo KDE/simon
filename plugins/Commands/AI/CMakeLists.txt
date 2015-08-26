@@ -4,11 +4,11 @@ set (simonaiplugin_SRCS
   aimlparser.cpp
 )
 
-kde4_add_ui_files(simonaiplugin_SRCS aiconfigurationdlg.ui)
+ki18n_wrap_ui(simonaiplugin_SRCS aiconfigurationdlg.ui)
 
-kde4_add_plugin(simonaiplugin ${simonaiplugin_SRCS})
+kde4_add_plugin(simonaiplugin MODULE ${simonaiplugin_SRCS})
 
-target_link_libraries(simonaiplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simonaiplugin  Qt5::Xml
   ${QT_LIBRARIES} simonlogging simonscenarios simonscenariobase simontts)
 
 install(TARGETS simonaiplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandaiplugin)

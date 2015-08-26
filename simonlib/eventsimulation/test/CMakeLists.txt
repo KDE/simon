@@ -2,12 +2,14 @@ set(simoneventhandlertest_SRCS
   eventhandlertest.cpp
 )
 
-kde4_add_unit_test(simoneventhandlertest-eventhandler TESTNAME
+add_executable(simoneventhandlertest-eventhandler NAME
+add_test(simoneventhandlertest simoneventhandlertest)
+ecm_mark_as_test(simoneventhandlertest)
   simoneventhandlertest-eventhandler
   ${simoneventhandlertest_SRCS}
 )
 
 target_link_libraries(simoneventhandlertest-eventhandler
-  ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  KF5::KDELibs4Support  Qt5::Test ${QT_LIBRARIES}
   eventsimulation
 )

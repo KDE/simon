@@ -18,10 +18,14 @@
  */
 
 #include "ksimondview.h"
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kcmdlineargs.h>
+
+#include <KCoreAddons/kaboutdata.h>
+
 #include <KDE/KLocale>
+#include <QApplication>
+#include <KAboutData>
+#include <KLocalizedString>
+#include <QCommandLineParser>
 #include "version.h"
 
 static const char description[] =
@@ -29,12 +33,22 @@ I18N_NOOP("A KDE 4 frontend for Simond");
 
 int main(int argc, char **argv)
 {
-  KAboutData about("ksimond", 0, ki18n("KSimond"), simon_version, ki18n(description),
-    KAboutData::License_GPL, ki18n("(C) 2008 Peter Grasch"), KLocalizedString(), 0, "peter.grasch@bedahr.org");
-  about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "peter.grasch@bedahr.org" );
-  KCmdLineArgs::init(argc, argv, &about);
+  KAboutData about("ksimond", i18n("KSimond"), simon_version,
+                   i18n(description), KAboutLicense::GPL,
+                   i18n("(C) 2008 Peter Grasch"), QString(), QString(), "peter.grasch@bedahr.org");
+  about.addAuthor( i18n("Peter Grasch"), QString(), "peter.grasch@bedahr.org" );
+  QApplication app(argc, argv);
+  QCommandLineParser parser;
+  parser.addVersionOption();
+  parser.addHelpOption();
 
-  KApplication app;
+  //QT5TODO: KCommandLineParser script botched. Figure out what this was doing before and replace it.
+  //PORTING SCRIPT: adapt aboutdata variable if necessary
+  // aboutData.setupCommandLine(&parser);
+  parser.process(app);
+  // aboutData.processCommandLine(&parser);
+  KAboutData::setApplicationData(about);
+
   QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath()+"/../plugins");
   app.setQuitOnLastWindowClosed(false);
   KSimondView *widget = new KSimondView();

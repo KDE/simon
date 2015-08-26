@@ -21,25 +21,24 @@
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 #include <QRegExp>
-#include <QTimer>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KGenericFactory>
-#include <KAction>
+#include <QAction>
 #include "filterconfiguration.h"
 
 K_PLUGIN_FACTORY( FilterPluginFactory,
 registerPlugin< FilterCommandManager >();
 )
 
-K_EXPORT_PLUGIN( FilterPluginFactory("simonfiltercommand") )
+// K_EXPORT_PLUGIN( FilterPluginFactory("simonfiltercommand") )
 
 FilterCommandManager::FilterCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 isActive(false),
 stageOne(false),
-activateAction(new KAction(this))
+activateAction(new QAction(this))
 {
   activateAction->setText(i18n("Activate Filter"));
-  activateAction->setIcon(KIcon("view-filter"));
+  activateAction->setIcon(QIcon::fromTheme("view-filter"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(toggle()));
 
@@ -62,11 +61,11 @@ const QString FilterCommandManager::iconSrc() const
 void FilterCommandManager::updateAction()
 {
   if (!isActive) {
-    //SimonInfo::showMessage(i18n("Filter deactivated"), 2500, new KIcon("view-filter"));
+    SimonInfo::showMessage(i18n("Filter deactivated"), 2500, QIcon::fromTheme("view-filter"));
     activateAction->setText(i18n("Activate Filter"));
   }
   else {
-    //SimonInfo::showMessage(i18n("Filter activated"), 2500, new KIcon("view-filter"));
+    SimonInfo::showMessage(i18n("Filter activated"), 2500, QIcon::fromTheme("view-filter"));
     activateAction->setText(i18n("Deactivate Filter"));
   }
 }
@@ -99,10 +98,10 @@ void FilterCommandManager::deactivateOnce()
 {
   if (!isActive) return;
   stageOne = true;
-  kDebug() << "Deactivating once..."  << configuration()->autoLeaveStageOne();
+  qDebug() << "Deactivating once..."  << configuration()->autoLeaveStageOne();
   if (configuration()->autoLeaveStageOne())
   {
-    kDebug() << "Starting timeout...";
+    qDebug() << "Starting timeout...";
     timeoutTimer.stop();
     timeoutTimer.setInterval(configuration()->autoLeaveStageOneTimeout());
     timeoutTimer.start();
@@ -117,7 +116,7 @@ FilterConfiguration* FilterCommandManager::configuration()
 void FilterCommandManager::leaveStageOne()
 {
   if (!configuration()->twoStage() || !stageOne) return;
-  kDebug() << "Leaving stage one...";
+  qDebug() << "Leaving stage one...";
 
   stageOne = false;
   switchToState(SimonCommand::DefaultState+1);
@@ -125,19 +124,19 @@ void FilterCommandManager::leaveStageOne()
 
 bool FilterCommandManager::trigger(const QString& triggerName, bool silent)
 {
-  kDebug() << "Filter state: " << m_currentState;
+  qDebug() << "Filter state: " << m_currentState;
   if ((m_currentState == SimonCommand::DefaultState+1) && (!configuration()->twoStage()))
   {
     switchToState(SimonCommand::DefaultState+2); // if not in two stage mode, "upgrade" immediately
   }
 
-  kDebug() << "Triggering: " << triggerName;
+  qDebug() << "Triggering: " << triggerName;
   if (CommandManager::trigger(triggerName, silent))
     return true;
 
-  kDebug() << "Still here";
+  qDebug() << "Still here";
   if (configuration()->twoStage() && stageOne) {
-    kDebug() << "Switching to " << SimonCommand::DefaultState+1;
+    qDebug() << "Switching to " << SimonCommand::DefaultState+1;
     switchToState(SimonCommand::DefaultState+1);
   }
 
@@ -188,7 +187,7 @@ bool FilterCommandManager::deSerializeConfig(const QDomElement& elem)
     "stopsFilteringOnce" /* id */);
 
   if (!succ)
-    kDebug() << "Something went wrong!";
+    qDebug() << "Something went wrong!";
   
   connect(&timeoutTimer, SIGNAL(timeout()), this, SLOT(leaveStageOne()));
   timeoutTimer.setSingleShot(true);
@@ -206,3 +205,5 @@ const QString FilterCommandManager::preferredTrigger() const
 FilterCommandManager::~FilterCommandManager()
 {
 }
+
+#include "filtercommandmanager.moc"

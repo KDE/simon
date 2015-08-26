@@ -18,13 +18,12 @@
  */
 
 #include "executablecommand.h"
-#include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QVariant>
-#include <KIcon>
+#include <QIcon>
 #include <KProcess>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 const QString ExecutableCommand::staticCategoryText()
 {
@@ -38,13 +37,13 @@ const QString ExecutableCommand::getCategoryText() const
 }
 
 
-const KIcon ExecutableCommand::staticCategoryIcon()
+const QIcon ExecutableCommand::staticCategoryIcon()
 {
-  return KIcon("applications-system");
+  return QIcon::fromTheme("applications-system");
 }
 
 
-const KIcon ExecutableCommand::getCategoryIcon() const
+const QIcon ExecutableCommand::getCategoryIcon() const
 {
   return ExecutableCommand::staticCategoryIcon();
 }

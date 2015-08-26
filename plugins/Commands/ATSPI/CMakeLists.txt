@@ -6,14 +6,14 @@ set(simonatspicommandplugin_SRCS
   atspiscanner.cpp
 )
 
-kde4_add_ui_files(simonatspicommandplugin_SRCS  atspiconfigurationdlg.ui)
+ki18n_wrap_ui(simonatspicommandplugin_SRCS  atspiconfigurationdlg.ui)
 
-kde4_add_plugin(simonatspicommandplugin ${simonatspicommandplugin_SRCS})
+kde4_add_library(simonatspicommandplugin MODULE ${simonatspicommandplugin_SRCS})
 
-target_link_libraries(simonatspicommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simonatspicommandplugin  Qt5::Xml
   ${QACCESSIBILITYCLIENT_LIBRARY} simonscenarios simonactions)
 
 install(TARGETS simonatspicommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandatspiplugin)
 install(FILES simonatspicommandplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncommandatspiplugin)
 
-add_subdirectory(test)
+# add_subdirectory(test)

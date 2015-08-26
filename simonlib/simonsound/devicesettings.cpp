@@ -23,11 +23,11 @@
 #include "singledevicesettings.h"
 
 #include <QVBoxLayout>
-#include <KIcon>
+#include <QIcon>
 #include <QTimer>
 
-#include <KLocalizedString>
-#include <KDebug>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 #include "simonsound.h"
 #include <simoncontextdetection/compoundcondition.h>
@@ -45,11 +45,11 @@ enabled(true)
   ui = new Ui::DeviceConfiguration();
 
   ui->setupUi(this);
-  ui->pbAddInput->setIcon(KIcon("list-add"));
-  ui->pbAddOutput->setIcon(KIcon("list-add"));
+  ui->pbAddInput->setIcon(QIcon::fromTheme("list-add"));
+  ui->pbAddOutput->setIcon(QIcon::fromTheme("list-add"));
 
-  ui->pbReload1->setIcon(KIcon("view-refresh"));
-  ui->pbReload2->setIcon(KIcon("view-refresh"));
+  ui->pbReload1->setIcon(QIcon::fromTheme("view-refresh"));
+  ui->pbReload2->setIcon(QIcon::fromTheme("view-refresh"));
   connect(ui->pbReload1, SIGNAL(clicked()), this, SLOT(refreshDevices()));
   connect(ui->pbReload2, SIGNAL(clicked()), this, SLOT(refreshDevices()));
 
@@ -218,7 +218,7 @@ void DeviceSettings::load()
 
   if (soundInputDefaultSampleGroups.count() != soundInputDevices.count())
   {
-      kDebug() << "sample group config is new or incorrect.  resetting entries.";
+      qDebug() << "sample group config is new or incorrect.  resetting entries.";
       soundInputDefaultSampleGroups.clear();
 
       for (int i=0; i<soundInputDevices.count(); i++)

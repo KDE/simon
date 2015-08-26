@@ -22,7 +22,7 @@
 #include "voiceinterfacecommandtemplate.h"
 #include "createvoiceinterfacecommandwidget.h"
 #include "commandconfiguration.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <simonscenarios/scenario.h>
 #include <QAction>
 #include <QDomElement>
@@ -31,20 +31,20 @@
 /**
  * \brief Returns the icon of the plugin
  *
- * The default implementation creates a KIcon() from using the
+ * The default implementation creates a QIcon() from using the
  * icon name returned by iconSrc().
  *
  * \sa iconSrc() Overwrite iconSrc() instead of this  function
  * \return Icon of the plugin
  */
-const KIcon CommandManager::icon() const
+const QIcon CommandManager::icon() const
 {
   QString iconS = iconSrc();
 
   if (iconS.isNull())
-    return KIcon();
+    return QIcon();
 
-  return KIcon(iconS);
+  return QIcon::fromTheme(iconS);
 }
 
 
@@ -88,10 +88,10 @@ bool CommandManager::trigger(const QString& triggerName, bool silent)
   foreach (Command* c, commands) {
     if (c->matches(m_currentState, triggerName))
     {
-      kDebug() << "Matches: " << c->getTrigger();
+      qDebug() << "Matches: " << c->getTrigger();
       if (c->trigger(&m_currentState, silent))
         return true;
-    } else kDebug() << "Command doesn't match: " << c->getTrigger() << c->getBoundStates() << triggerName << m_currentState;
+    } else qDebug() << "Command doesn't match: " << c->getTrigger() << c->getBoundStates() << triggerName << m_currentState;
   }
 
   return false;
@@ -253,7 +253,7 @@ QString id)
     id = object->objectName();
 
   if (id.isEmpty()) {
-    kDebug() << "id is empty. panicking!";
+    qDebug() << "id is empty. panicking!";
     return false;
   }
 
@@ -428,12 +428,12 @@ bool CommandManager::deSerialize(const QDomElement& elem)
 {
   QDomElement configElem = elem.firstChildElement("config");
   if (!deSerializeConfig(configElem)) {
-    kDebug() << "Could not load config of plugin";
+    qDebug() << "Could not load config of plugin";
     return false;
   }
   QDomElement commandsElem = elem.firstChildElement("commands");
   if (!deSerializeCommands(commandsElem)) {
-    kDebug() << "Could not load commands of plugin";
+    qDebug() << "Could not load commands of plugin";
     return false;
   }
 
@@ -602,7 +602,7 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
     }
   }
 
-  kDebug() << "Loaded commands: " << commands.count();
+  qDebug() << "Loaded commands: " << commands.count();
 
   bool succ = deSerializeCommandsPrivate(elem);
 

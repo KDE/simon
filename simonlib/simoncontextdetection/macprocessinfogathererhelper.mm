@@ -22,7 +22,6 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 #import <ScriptingBridge/ScriptingBridge.h>
-#include <QDebug>
 #include <QFileInfo>
 
 /**

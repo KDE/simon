@@ -21,16 +21,13 @@
 #include "processopenedcondition.h"
 #include <simoncontextdetection/contextmanager.h>
 #include <simonuicomponents/selectprogramdialog.h>
-#include <QLineEdit>
-#include <QFileDialog>
-#include <QStringList>
 
 CreateProcessOpenedConditionWidget::CreateProcessOpenedConditionWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 
   setWindowTitle(i18n("Process Opened Condition"));
-  setWindowIcon(KIcon("view-process-all"));
+  setWindowIcon(QIcon::fromTheme("view-process-all"));
 
   connect(ui.leProgramName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.pbLocateProgram, SIGNAL(clicked()), this, SLOT(processFileDialog()));

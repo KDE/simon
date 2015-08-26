@@ -20,7 +20,7 @@
 #ifndef SIMON_SELECTPROGRAMDIALOG_H_5C48BD3D50AE452B9063AD517C4E8E94
 #define SIMON_SELECTPROGRAMDIALOG_H_5C48BD3D50AE452B9063AD517C4E8E94
 
-#include <KDialog>
+#include <QDialog>
 #include "simonuicomponents_export.h"
 
 namespace Ui
@@ -36,7 +36,7 @@ class SelectProgramDlg;
  * \brief The user must choose a category, to display the corresponding programs, where he also must choose one to continue.
  */
 
-class SIMONUICOMPONENTS_EXPORT SelectProgramDialog : public KDialog
+class SIMONUICOMPONENTS_EXPORT SelectProgramDialog : public QDialog
 {
   Q_OBJECT
 

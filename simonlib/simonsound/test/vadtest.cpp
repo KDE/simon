@@ -26,7 +26,6 @@
 #include <QList>
 #include <QDebug>
 #include <QFile>
-#include <QDataStream>
 #include <QSignalSpy>
 
 static const QString dataFolder = KDESRCDIR "data/";

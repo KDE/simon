@@ -20,14 +20,18 @@
 #include "selectplacedialog.h"
 #include "placecommand.h"
 
-#include <KUrl>
+#include <QUrl>
+#include <QDir>
 
 SelectPlaceDialog::SelectPlaceDialog(QWidget *parent) : KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
-  setMainWidget( widget );
-  setCaption( i18n("Select Place") );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Select Place") );
 
   ui.urLocalPlaceUrl->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
   ui.urLocalFileUrl->setMode(/*KFile::Directory |*/ KFile::File | KFile::ExistingOnly);
@@ -50,7 +54,7 @@ SelectPlaceDialog::SelectPlaceDialog(QWidget *parent) : KDialog(parent)
 
 void SelectPlaceDialog::checkComplete()
 {
-  enableButton(KDialog::Ok, isComplete());
+  enableButton(KDialog::Ok,isComplete());
 }
 
 
@@ -128,13 +132,13 @@ bool SelectPlaceDialog::isComplete() const
 
 void SelectPlaceDialog::buildRemoteUrl()
 {
-  KUrl url;
+  QUrl url;
   url.setScheme(ui.cbProtocol->currentText());
   url.setHost(ui.leHost->text());
   url.setPath(ui.lePath->text());
   url.setUserName(ui.leUser->text());
   url.setPassword(ui.lePass->text());
-  QString urlStr = url.prettyUrl();               //toString((!ui.cbAuthentification->isChecked()) ? KUrl::RemoveUserInfo : KUrl::None);
+  QString urlStr = url.toDisplayString();               //toString((!ui.cbAuthentification->isChecked()) ? QUrl::RemoveUserInfo : QUrl::None);
   ui.leRemoteUrl->setText(urlStr);
 }
 
@@ -151,7 +155,7 @@ QString SelectPlaceDialog::getName() const
   }
   else {
                                                   //remote place
-    QString name = KUrl(ui.leRemoteUrl->text()).host();
+    QString name = QUrl(ui.leRemoteUrl->text()).host();
 
     if (name.isEmpty())
       name = ui.leRemoteUrl->text();
@@ -163,7 +167,7 @@ QString SelectPlaceDialog::getName() const
 
 void SelectPlaceDialog::parseRemoteUrl()
 {
-  KUrl url(ui.leRemoteUrl->text());
+  QUrl url(ui.leRemoteUrl->text());
   ui.cbProtocol->setEditText(url.scheme());
   ui.leHost->setText(url.host());
   ui.lePath->setText(url.path());
@@ -176,7 +180,7 @@ void SelectPlaceDialog::parseRemoteUrl()
 }
 
 
-KUrl SelectPlaceDialog::getUrl() const
+QUrl SelectPlaceDialog::getUrl() const
 {
   if (ui.rbLocalPlace->isChecked()) {
                                                   //local place
@@ -189,8 +193,8 @@ KUrl SelectPlaceDialog::getUrl() const
   else {
                                                   //remote place
 
-    KUrl url(ui.leRemoteUrl->text());
-    if (url.protocol().isEmpty()) {
+    QUrl url(ui.leRemoteUrl->text());
+    if (url.scheme().isEmpty()) { //QT5TODO: was url.protocol()
       url = "http://"+ui.leRemoteUrl->text();     //default to http
     }
 

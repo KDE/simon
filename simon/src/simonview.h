@@ -33,18 +33,18 @@
  */
 
 #include "ui_simonview.h"
-#include <KDE/KXmlGuiWindow>
+#include <KXmlGui/KXmlGuiWindow>
 #include <simonappcore/simoncontrol.h>
 #include <simonscenarios/scenariodisplay.h>
 #include <simonscenarios/scenarioofferui.h>
 
 #include <QMutex>
 
-#include <KDE/KHTMLPart>
+#include <KHtml/KHTMLPart>
 
 class TrayIconManager;
 class KCMultiDialog;
-class KAction;
+class QAction;
 class KComboBox;
 class WelcomePage;
 class TrainingView;
@@ -94,9 +94,9 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay, public ScenarioO
     
     QMutex guiUpdateMutex;
 
-    KAction *disconnectAction;
-    KAction *activateAction;
-    KAction *connectAction;
+    QAction *disconnectAction;
+    QAction *activateAction;
+    QAction *connectAction;
 
     Ui::MainWindow ui;                            //!< Mainwindow UI definition - made by uic from the QTDesigner .ui
     SimonControl *control;                        //!< Pointer to the main concept class

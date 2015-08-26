@@ -23,7 +23,6 @@
 #include "pcevents.h"
 #include "pressmode.h"
 #include "clickmode.h"
-#include <QString>
 #include <windows.h>
 #include <QHash>
 

@@ -21,18 +21,21 @@
 #include "keyboardmodifybuttondialog.h"
 #include <simoninfo/simoninfo.h>
 #include <QWidget>
-#include <KMessageBox>
 #include <QKeySequence>
 #include <kdeversion.h>
+#include <KWidgetsAddons/KMessageBox>
 
-KeyboardModifyButtonDialog::KeyboardModifyButtonDialog(QWidget *parent) : KDialog(parent)
+KeyboardModifyButtonDialog::KeyboardModifyButtonDialog(QWidget *parent) : QDialog(parent)
 {
   QWidget *w = new QWidget(this);
   ui.setupUi(w);
 
-  setMainWidget( w );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( w );
+// Add mainLayout->addWidget(w); if necessary
+// Add mainLayout->addWidget(w); if necessary
+// Add mainLayout->addWidget(w); if necessary
 
-  setCaption(i18n("Add key"));
+  setWindowTitle(i18n("Add key"));
 
   #if KDE_IS_VERSION(4,1,60)
   ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
@@ -181,7 +184,7 @@ bool KeyboardModifyButtonDialog::editButton(KeyboardButton* button)
 
 int KeyboardModifyButtonDialog::exec()
 {
-  return KDialog::exec();
+  return QDialog::exec();
 }
 
 

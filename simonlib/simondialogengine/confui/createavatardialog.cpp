@@ -21,15 +21,17 @@
 #include <simondialogengine/avatar.h>
 #include <simondialogengine/avatarmodel.h>
 #include <QFile>
-#include <KStandardDirs>
-#include <KMessageBox>
+#include <KWidgetsAddons/KMessageBox>
+#include <QDir>
 
-CreateAvatarDialog::CreateAvatarDialog(QWidget* parent, Qt::WFlags flags): KDialog(parent, flags), ui(new Ui::CreateAvatarDlg)
+CreateAvatarDialog::CreateAvatarDialog(QWidget* parent, Qt::WFlags flags): QDialog(parent, flags), ui(new Ui::CreateAvatarDlg)
 {
   QWidget *w = new QWidget(this);
   ui->setupUi(this);
-  setMainWidget(w);
-  setCaption(i18n("Avatar"));
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(w);
+  setWindowTitle(i18n("Avatar"));
   connect(ui->urImage, SIGNAL(returnPressed()), this, SLOT(updateImagePreview()));
 }
 
@@ -43,7 +45,7 @@ bool CreateAvatarDialog::getData(QString& name, QImage& image)
   bool dataOk = false;
   do
   {
-    if (!KDialog::exec())
+    if (!QDialog::exec())
       return false;
     name = ui->leName->text();
     image.load(ui->urImage->url().toLocalFile());
@@ -66,9 +68,9 @@ void CreateAvatarDialog::addAvatar(AvatarModel* model)
 void CreateAvatarDialog::editAvatar(Avatar* avatar)
 {
   ui->leName->setText(avatar->name());
-  QString fileName = KStandardDirs::locateLocal("tmp", "simon_avatar_tmp.png");
+  QString fileName = QDir::tempPath() + QLatin1Char('/') +  "simon_avatar_tmp.png";
   QFile f(fileName);
-  
+
   if (!f.open(QIODevice::WriteOnly))
   {
     KMessageBox::sorry(this, i18n("Could not open temporary file at \"%1\".", fileName));
@@ -76,7 +78,7 @@ void CreateAvatarDialog::editAvatar(Avatar* avatar)
   }
   
   avatar->image().save(fileName);
-  ui->urImage->setUrl(KUrl(fileName));
+  ui->urImage->setUrl(QUrl(fileName));
   
   updateImagePreview();
   

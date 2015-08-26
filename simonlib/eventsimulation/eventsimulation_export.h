@@ -21,7 +21,7 @@
 #define SIMON_EVENTSIMULATION_EXPORT_H_5D77B443FF0A456297DE6C3C3FEAC6F1
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef EVENTSIMULATION_EXPORT
 # if defined(MAKE_EVENTSIMULATION_LIB)

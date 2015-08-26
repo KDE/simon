@@ -19,14 +19,14 @@
 
 
 #include "compoundconditionsettings.h"
+#include <QtWidgets/qmessagebox.h>
 #include "newcondition.h"
 #include "ui_compoundconditionsettings.h"
 #include <simoncontextdetection/condition.h>
 #include <simoncontextdetection/contextmanager.h>
 #include <simoncontextdetection/compoundcondition.h>
 #include <QSortFilterProxyModel>
-#include <KMessageBox>
-#include <KDebug>
+#include <QDebug>
 
 CompoundConditionSettings::CompoundConditionSettings ( QWidget* parent, Qt::WindowFlags f ) : QWidget(parent, f),
     ui(new Ui::CompoundConditionSettings()),
@@ -40,9 +40,9 @@ CompoundConditionSettings::CompoundConditionSettings ( QWidget* parent, Qt::Wind
   ui->lvConditions->setIconSize(QSize(24,24));
   ui->lvConditions->setSpacing(2);
 
-  ui->pbNewCondition->setIcon(KIcon("list-add"));
-  ui->pbEditCondition->setIcon(KIcon("edit-rename"));
-  ui->pbDeleteCondition->setIcon(KIcon("edit-delete"));
+  ui->pbNewCondition->setIcon(QIcon::fromTheme("list-add"));
+  ui->pbEditCondition->setIcon(QIcon::fromTheme("edit-rename"));
+  ui->pbDeleteCondition->setIcon(QIcon::fromTheme("edit-delete"));
 
   conditionsProxy = new QSortFilterProxyModel(this);
   conditionsProxy->setFilterKeyColumn(0);
@@ -135,11 +135,14 @@ void CompoundConditionSettings::deleteCondition()
     if (!condition)
         return;
 
-    if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is condition name", "Are you sure that you want to irreversibly remove the condition \"%1\"?", condition->name()), i18n("Remove Condition")) == KMessageBox::Yes)
+    QMessageBox rmcond;
+    rmcond.setText(i18nc("%1 is condition name", "Are you sure that you want to irreversibly remove the condition \"%1\"?", condition->name()));
+    rmcond.setStandardButtons(QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+    if (rmcond.exec())
     {
         if (!m_conditions->removeCondition(condition))
         {
-            kDebug() << "Error removing condition!";
+            qDebug() << "Error removing condition!";
         }
     }
 }

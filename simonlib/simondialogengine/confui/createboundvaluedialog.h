@@ -21,10 +21,10 @@
 #ifndef SIMON_CREATEBOUNDVALUEDIALOG_H_4B4956DCAE204C49977297D20CB81F09
 #define SIMON_CREATEBOUNDVALUEDIALOG_H_4B4956DCAE204C49977297D20CB81F09
 
-#include <KDialog>
+#include <QDialog>
 
 //#ifdef USE_PLASMA
-//#include <KService>
+//#include <KService/KService>
 //#endif
 
 namespace Ui
@@ -35,7 +35,7 @@ namespace Ui
 #ifdef USE_PLASMA
 namespace Plasma
 {
-  class DataEngineManager;
+  class DataEngineConsumer;
   //class DataEngine::Data;
 }
 
@@ -44,7 +44,7 @@ namespace Plasma
 
 class BoundValue;
 
-class CreateBoundValueDialog : protected KDialog
+class CreateBoundValueDialog : protected QDialog
 {
   Q_OBJECT
   private:
@@ -55,7 +55,7 @@ class CreateBoundValueDialog : protected KDialog
     bool m_requestingSource;
     QString m_currentEngineName;
     Plasma::DataEngine *m_currentEngine;
-    Plasma::DataEngineManager *m_engineManager;
+    Plasma::DataEngineConsumer *m_engineConsumer;
     //QList<KService::Ptr> m_dataEngines;
 
     void initPlasma();

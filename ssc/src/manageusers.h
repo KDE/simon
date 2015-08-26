@@ -20,14 +20,14 @@
 #ifndef SIMON_SSC_MANAGEUSERS_H_B9CB5471B4234231A17437881707E5A8
 #define SIMON_SSC_MANAGEUSERS_H_B9CB5471B4234231A17437881707E5A8
 
-#include <KDialog>
+#include <QDialog>
 #include "ui_finduser.h"
 
 class User;
 class UserModel;
 class QSortFilterProxyModel;
 
-class ManageUsers : public KDialog
+class ManageUsers : public QDialog
 {
 
   Q_OBJECT

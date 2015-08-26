@@ -22,9 +22,11 @@
 #include <QIODevice>
 #include <QFileInfo>
 #include <QTextStream>
-#include <KLocalizedString>
-#include <KMimeType>
-#include <KFilterDev>
+#include <KI18n/klocalizedstring.h>
+
+#include <KArchive/KFilterDev>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 LexiconDict::LexiconDict(QObject* parent): Dict(parent)
 {
@@ -44,16 +46,17 @@ void LexiconDict::load(QString path, QString encoding)
 				  "which does not provide category information", "Unknown");
 
   emit progress(0);
-
+    
+  QMimeDatabase db;
   QIODevice *dict = KFilterDev::deviceForFile(path,
-    KMimeType::findByFileContent(path)->name());
+    db.mimeTypeForFile(path, QMimeDatabase::MatchContent).name());
   if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
     return;
 
   int maxProg=0;
 
-  KMimeType::Ptr mimeType = KMimeType::findByFileContent(path);
-  if (mimeType->is("text/plain")) {               //not compressed
+  QMimeType mimeType = db.mimeTypeForFile(path, QMimeDatabase::MatchContent);
+  if (mimeType.inherits("text/plain")) {               //not compressed
     QFileInfo info;
     QFile f(path);
     info.setFile(f);

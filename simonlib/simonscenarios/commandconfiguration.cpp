@@ -19,11 +19,12 @@
 
 #include "commandconfiguration.h"
 #include <KAboutData>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <QString>
 #include <KSharedConfig>
 #include <KComponentData>
 #include <QVariantList>
+#include <KCoreAddons/KAboutData>
 
 /**
  * Initializes the configuration. This will initialize the KAboutData object #about with the given values.
@@ -37,17 +38,18 @@
  * \param componentData Componentdata object
  * \param args Optional arguments
  */
-CommandConfiguration::CommandConfiguration(Scenario *parent, const QByteArray& internalName, const KLocalizedString& name,
-const QByteArray& version, const KLocalizedString& desc,
-const QString& iconName, const KComponentData& componentData,
-const QVariantList &args)
-: QWidget(), ScenarioObject(parent)
+CommandConfiguration::CommandConfiguration(Scenario *parent, 
+                                           const QString& internalName, 
+                                           const QString& name,
+                                           const QByteArray& version, 
+                                           const QString& desc,
+                                           const QString& iconName)
+    : QWidget(), ScenarioObject(parent)
 {
-  Q_UNUSED(args);
-  Q_UNUSED(componentData);
 
-  about = new KAboutData(internalName, "", name,
-    version, desc, KAboutData::License_GPL);
+  //QT5TODO: check this
+  // about = new KAboutData(internalName, "", name, version, desc, KAboutData::GPL);
+  about = new KAboutData(internalName, name, version);
   about->setProgramIconName(iconName);
 }
 

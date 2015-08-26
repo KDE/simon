@@ -21,8 +21,8 @@
 #include "boundvalue.h"
 #include "argumentboundvalue.h"
 #include <QDomDocument>
-#include <KLocalizedString>
-#include <KDebug>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 DialogBoundValues::DialogBoundValues()
 {
@@ -48,7 +48,7 @@ bool DialogBoundValues::deSerialize(const QDomElement& elem)
     }
     else 
     {
-      kWarning() << "Failed to create bound value instance";
+      qWarning() << "Failed to create bound value instance";
     }
 
     valueElem = valueElem.nextSiblingElement("boundValue");

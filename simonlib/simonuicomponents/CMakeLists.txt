@@ -29,10 +29,10 @@ set(simonuicomponents_LIB_HDRS
   verticalscrollarea.h
 )
 
-kde4_add_ui_files(simonuicomponents_LIB_SRCS selectprogramdlg.ui)
+ki18n_wrap_ui(simonuicomponents_LIB_SRCS selectprogramdlg.ui)
 kde4_add_library(simonuicomponents SHARED ${simonuicomponents_LIB_SRCS})
 
-target_link_libraries(simonuicomponents ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS})
+target_link_libraries(simonuicomponents ${QT_LIBRARIES} Qt5::Widgets KF5::Service KF5::WidgetsAddons  KF5::ConfigWidgets KF5::KDELibs4Support)
 
 set_target_properties(simonuicomponents
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

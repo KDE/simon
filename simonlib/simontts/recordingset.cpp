@@ -21,11 +21,12 @@
 #include <QStringList>
 #include <QFile>
 #include <QDir>
-#include <KLocalizedString>
-#include <KStandardDirs>
-#include <KDebug>
+#include <KI18n/klocalizedstring.h>
 
-RecordingSet::RecordingSet() : 
+#include <QDebug>
+#include <QStandardPaths>
+
+RecordingSet::RecordingSet() :
   m_isNull(true)
 {
   clearTemp();
@@ -64,7 +65,7 @@ bool RecordingSet::deserialize(const QDomElement& elem)
     QDomElement textElem = recordingElem.firstChildElement("text");
     QDomElement pathElem = recordingElem.firstChildElement("path");
 
-    kDebug() << "Provides recording: " << textElem.text() << pathElem.text();
+    qDebug() << "Provides recording: " << textElem.text() << pathElem.text();
     m_recordings.insert(RecordingSetText(textElem.text()), pathElem.text());
 
     recordingElem = recordingElem.nextSiblingElement("recording");
@@ -86,8 +87,8 @@ QDomElement RecordingSet::serialize(QDomDocument *doc) const
   QDomElement recordingsElem = doc->createElement("recordings");
   QList<RecordingSetText> texts = m_recordings.keys();
 
-  kDebug() << "Available texts:";
-  kDebug() << texts;
+  qDebug() << "Available texts:";
+  qDebug() << texts;
 
   foreach (const RecordingSetText& text, texts)
   {
@@ -126,7 +127,7 @@ bool RecordingSet::exportData(const QString& path)
 
 bool RecordingSet::importData(const QString& path)
 {
-  kDebug() << "Importing data from: " << path;
+  qDebug() << "Importing data from: " << path;
   QList<QString> files = m_recordings.values();
 
   bool succ = true;
@@ -134,7 +135,7 @@ bool RecordingSet::importData(const QString& path)
   {
     if (!QFile::copy(path+f, getBaseDirectory()+f))
     {
-      kDebug() << "Failed to copy from " << path+f << " to " << getBaseDirectory()+f;
+      qDebug() << "Failed to copy from " << path+f << " to " << getBaseDirectory()+f;
       succ = false;
     } else QFile::remove(path+f);
   }
@@ -143,12 +144,12 @@ bool RecordingSet::importData(const QString& path)
 
 QString RecordingSet::getBaseDirectory() const
 {
-  return KStandardDirs::locateLocal("appdata", QString("ttsrec/%1/").arg(m_id));
+  return QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString("ttsrec/%1/").arg(m_id);
 }
 
 QString RecordingSet::getTempDirectory() const
 {
-  return KStandardDirs::locateLocal("tmp", QString("simontts/ttsrec/%1/").arg(m_id));
+  return QDir::tempPath() + QLatin1Char('/') +  QString("simontts/ttsrec/%1/").arg(m_id);
 }
 
 QString RecordingSet::getSamplePath(int sampleId, bool absolute, bool temporary) const
@@ -198,7 +199,7 @@ bool RecordingSet::rename(const QString& newName)
 
 bool RecordingSet::keepFile(const QString& file)
 {
-  kDebug() << "Keeping file: " << file;
+  qDebug() << "Keeping file: " << file;
   QFile toRemove(getTempDirectory()+"torm");
   QStringList lines;
   if (toRemove.open(QIODevice::ReadOnly))
@@ -206,11 +207,11 @@ bool RecordingSet::keepFile(const QString& file)
     while (!toRemove.atEnd())
     {
       QString path = QString::fromUtf8(toRemove.readLine()).trimmed();
-      kDebug() << "To rm: " << path;
+      qDebug() << "To rm: " << path;
       if (path != file)
         lines << path;
       else
-        kDebug() << "Removing: " << path;
+        qDebug() << "Removing: " << path;
     }
     toRemove.seek(0);
     toRemove.close();
@@ -246,7 +247,7 @@ bool RecordingSet::addRecording(const QString& text, const QString& path)
   removeTemporarySample(text);
   if (!QFile::copy(path, absoluteNewPath))
   {
-    kDebug() << "Copy failed: " << path << absoluteNewPath;
+    qDebug() << "Copy failed: " << path << absoluteNewPath;
     return false;
   }
 
@@ -276,21 +277,21 @@ bool RecordingSet::removeTemporarySample(const QString& text)
 
 bool RecordingSet::removeRecording(const QString& text)
 {
-  kDebug() << "Removing recording for text: " << text;
+  qDebug() << "Removing recording for text: " << text;
   bool succ = true;
   removeTemporarySample(text);
 
   //add this to the list of samples to remove
   QString file = m_recordings.value(text.trimmed());
-  kDebug() << "Removing recording: " << file;
+  qDebug() << "Removing recording: " << file;
   if (!file.isNull() && QFile::exists(getBaseDirectory()+file))
   {
-    kDebug() << "Adding to torm";
+    qDebug() << "Adding to torm";
     QFile f(getTempDirectory()+"torm");
-    kDebug() << "Torm file:" << getTempDirectory()+"torm";
+    qDebug() << "Torm file:" << getTempDirectory()+"torm";
     if (f.open(QIODevice::WriteOnly|QIODevice::Append))
     {
-      kDebug() << "Wrote to file" << file.toUtf8()+'\n';
+      qDebug() << "Wrote to file" << file.toUtf8()+'\n';
       f.write(file.toUtf8()+'\n');
     }
     else succ = false;
@@ -304,7 +305,7 @@ bool RecordingSet::removeRecording(const QString& text)
 
 bool RecordingSet::clearTemp()
 {
-  kDebug() << "Clearing temp";
+  qDebug() << "Clearing temp";
   bool succ = true;
 
   QString tempDir = getTempDirectory();
@@ -321,19 +322,19 @@ bool RecordingSet::applyTemp()
   bool succ = true;
 
   //move samples over existing samples
-  kDebug() << "Copying all files";
+  qDebug() << "Copying all files";
   QString tempDir = getTempDirectory();
   QString baseDir = getBaseDirectory();
   QDir d(tempDir);
-  kDebug() << "Temp dir: " << tempDir << d.exists();
+  qDebug() << "Temp dir: " << tempDir << d.exists();
   d.setNameFilters(QStringList() << "*.wav");
   QStringList samples = d.entryList(QDir::Files|QDir::NoDotAndDotDot);
-  kDebug() << "Samples: " << samples;
+  qDebug() << "Samples: " << samples;
   foreach (const QString& f, samples)
   {
     if (QFile::exists(baseDir+f) && !QFile::remove(baseDir+f))
     {
-      kDebug() << "Failed to remove existing: " << baseDir+f;
+      qDebug() << "Failed to remove existing: " << baseDir+f;
       succ = false;
       continue;
     }
@@ -342,9 +343,9 @@ bool RecordingSet::applyTemp()
            QFile::remove(tempDir+f);
 
     if (!succ)
-      kDebug() << "Failed to copy: " << tempDir+f << " to " << baseDir+f;
+      qDebug() << "Failed to copy: " << tempDir+f << " to " << baseDir+f;
   }
-  kDebug() << "Copied all files: " << succ;
+  qDebug() << "Copied all files: " << succ;
 
   //remove samples in torm list
   QFile toRemove(tempDir+"torm");
@@ -353,13 +354,13 @@ bool RecordingSet::applyTemp()
     while (!toRemove.atEnd())
     {
       QString path = QString::fromUtf8(toRemove.readLine()).trimmed();
-      kDebug() << "Removing: " << path << baseDir+path;
+      qDebug() << "Removing: " << path << baseDir+path;
       succ = QFile::remove(baseDir+path) && succ;
     }
-    kDebug() << "Removed all scheduled files: " << succ;
+    qDebug() << "Removed all scheduled files: " << succ;
     toRemove.close();
     succ = QFile::remove(tempDir+"torm") && succ;
-    kDebug() << "Removed file list: " << succ;
+    qDebug() << "Removed file list: " << succ;
   }
 
   return d.rmdir(tempDir) && succ;
@@ -372,7 +373,7 @@ bool RecordingSet::clear()
   foreach (const RecordingSetText& t, texts)
     succ = removeRecording(t) && succ;
 
-  kDebug() << "Cleared";
+  qDebug() << "Cleared";
   //succ = clearTemp() && succ;
   return succ;
 }
@@ -409,7 +410,7 @@ QVariant RecordingSet::data (const QModelIndex& index, int role) const
 
 QModelIndex RecordingSet::index(int row, int column, const QModelIndex& /*parent*/) const
 {
-  return createIndex(row, column, 0);
+  return createIndex(row, column, nullptr);
 }
 
 QModelIndex RecordingSet::parent(const QModelIndex& /*index*/) const

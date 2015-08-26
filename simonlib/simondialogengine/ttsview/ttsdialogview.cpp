@@ -22,9 +22,9 @@
 #include <simondialogengine/dialogstate.h>
 #include <simondialogengine/dialogcommand.h>
 #include <simontts/simontts.h>
-#include <KDebug>
+#include <QDebug>
 #include <KLocale>
-#include <KMessageBox>
+#include <KWidgetsAddons/KMessageBox>
 
 TTSDialogView::TTSDialogView(DialogManager *dialog) :
   DialogView(dialog)
@@ -33,7 +33,7 @@ TTSDialogView::TTSDialogView(DialogManager *dialog) :
 
 bool TTSDialogView::start()
 {
-  kDebug() << "Starting tts dialog view...";
+  qDebug() << "Starting tts dialog view...";
 
   if (!SimonTTS::initialize())
   {
@@ -46,7 +46,7 @@ bool TTSDialogView::start()
 
 bool TTSDialogView::stop()
 {
-  kDebug() << "Stopping tts dialog view...";
+  qDebug() << "Stopping tts dialog view...";
 
   if (!SimonTTS::interrupt() || !SimonTTS::uninitialize())
   {
@@ -79,7 +79,7 @@ bool TTSDialogView::synthesizeState(const DialogState& state)
 
   QList<DialogCommand*> transitions = state.getTransitions();
 
-  kDebug() << "Presenting " << transitions.count() << " transitions";
+  qDebug() << "Presenting " << transitions.count() << " transitions";
   foreach (DialogCommand* transition, transitions)
   {
     if (!transition->silent())
@@ -97,17 +97,17 @@ bool TTSDialogView::synthesizeState(const DialogState& state)
 
   if (text.isEmpty())
   {
-    kDebug() << "Nothing to say";
+    qDebug() << "Nothing to say";
     return true;
   }
-  kDebug() << "Saying text: " << text;
+  qDebug() << "Saying text: " << text;
 
   return say(text);
 }
 
 bool TTSDialogView::present(const DialogState& state)
 {
-  kDebug() << "Presenting state in tts dialog view...";
+  qDebug() << "Presenting state in tts dialog view...";
   if (!SimonTTS::interrupt()) return false;
 
   return synthesizeState(state);

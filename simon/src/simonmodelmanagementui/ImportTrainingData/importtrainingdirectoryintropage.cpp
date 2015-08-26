@@ -60,7 +60,7 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
 
 void ImportTrainingDirectoryIntroPage::promptsPathChanged()
 {
-  KUrl url = ui.urPrompts->url();
+  QUrl url = ui.urPrompts->url();
 }
 
 

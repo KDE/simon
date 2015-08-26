@@ -23,7 +23,6 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_pronunciationtrainingconfigurationdlg.h"
 #include <KSharedConfig>
-#include <QPointer>
 
 class PronunciationTrainingConfiguration : public CommandConfiguration
 {

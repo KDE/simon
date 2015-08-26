@@ -23,8 +23,8 @@
 #include <simonlogging/logger.h>
 #include <QThread>
 #include <QMutexLocker>
-#include <KLocalizedString>
-#include <KDebug>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 //Basic functions to set up alsa
 static int set_hwparams(snd_pcm_t *handle,
@@ -131,7 +131,7 @@ class ALSAPlaybackLoop : public ALSALoop
           err = xrun_recovery(m_parent->m_handle, -ESTRPIPE);
 
         if (err < 0) {
-          kWarning() << "XRUN / SUSPEND recovery failed: " << snd_strerror(err);
+          qWarning() << "XRUN / SUSPEND recovery failed: " << snd_strerror(err);
           break;
         }
 
@@ -141,7 +141,7 @@ class ALSAPlaybackLoop : public ALSALoop
 
         snd_pcm_sframes_t writtenCount = snd_pcm_writei(m_parent->m_handle, buffer, written/sizeof(short));
         if (writtenCount < 0) {
-          kWarning() << "Write failed";
+          qWarning() << "Write failed";
           break;
         }
       }
@@ -197,7 +197,7 @@ QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
   snd_device_name_free_hint((void**) hints);
 
   if (snd_device_name_hint(-1, "pcm", (void***) &hints) < 0) {
-    kWarning() << "List of devices is empty";
+    qWarning() << "List of devices is empty";
     return devices;
   }
 
@@ -255,7 +255,7 @@ snd_pcm_t* ALSABackend::openDevice(SimonSound::SoundDeviceType type, const QStri
   if (snd_pcm_open(&handle, internalDeviceName.constData(), (type == SimonSound::Input) ? 
                       SND_PCM_STREAM_CAPTURE : SND_PCM_STREAM_PLAYBACK,
                       /*SND_PCM_NONBLOCK*/ 0) < 0) {
-    kWarning() << "Couldn't open audio device: " << internalDeviceName << " - " 
+    qWarning() << "Couldn't open audio device: " << internalDeviceName << " - " 
                << snd_strerror(err);
     handle = 0;
   } else {
@@ -263,7 +263,7 @@ snd_pcm_t* ALSABackend::openDevice(SimonSound::SoundDeviceType type, const QStri
     if (handle && (err = set_hwparams(handle, hwparams, SND_PCM_ACCESS_RW_INTERLEAVED,
             &m_bufferSize, &m_periodSize, &m_chunks,
             channels, srate)) < 0) {
-      kWarning() << "Setting of hwparams failed: " << snd_strerror(err);
+      qWarning() << "Setting of hwparams failed: " << snd_strerror(err);
       snd_pcm_close(handle);
       handle = 0;
     }
@@ -314,7 +314,7 @@ void ALSABackend::errorRecoveryFailed()
 // stop playback / recording
 bool ALSABackend::stop()
 {
-  kDebug() << "Called stop()";
+  qDebug() << "Called stop()";
   if (state() == SimonSound::IdleState)
     return true;
 
@@ -438,55 +438,55 @@ static int set_hwparams(snd_pcm_t *handle,
   /* choose all parameters */
   err = snd_pcm_hw_params_any(handle, params);
   if (err < 0) {
-    kWarning() << "Broken configuration for playback: no configurations available:" << snd_strerror(err);
+    qWarning() << "Broken configuration for playback: no configurations available:" << snd_strerror(err);
     return err;
   }
   /* set hardware resampling */
   err = snd_pcm_hw_params_set_rate_resample(handle, params, true); //TODO: yeah?!
   if (err < 0) {
-    kWarning() << "Resampling setup failed for playback:" << snd_strerror(err);
+    qWarning() << "Resampling setup failed for playback:" << snd_strerror(err);
     return err;
   }
   /* set the interleaved read/write format */
   err = snd_pcm_hw_params_set_access(handle, params, access);
   if (err < 0) {
-    kWarning() << "Access type not available for playback:" << snd_strerror(err);
+    qWarning() << "Access type not available for playback:" << snd_strerror(err);
     return err;
   }
   /* set the sample format */
   err = snd_pcm_hw_params_set_format(handle, params, SND_PCM_FORMAT_S16);
   if (err < 0) {
-    kWarning() << "Sample format not available for playback:" << snd_strerror(err);
+    qWarning() << "Sample format not available for playback:" << snd_strerror(err);
     return err;
   }
   /* set the count of channels */
   err = snd_pcm_hw_params_set_channels(handle, params, channels);
   if (err < 0) {
-    kWarning() << "Channels count (%i) not available for playbacks:" << channels << snd_strerror(err);
+    qWarning() << "Channels count (%i) not available for playbacks:" << channels << snd_strerror(err);
     return err;
   }
   /* set the stream rate */
   rrate = samplerate;
   err = snd_pcm_hw_params_set_rate_near(handle, params, &samplerate, 0);
   if (err < 0) {
-    kWarning() << "Rate %iHz not available for playback:" << samplerate << snd_strerror(err);
+    qWarning() << "Rate %iHz not available for playback:" << samplerate << snd_strerror(err);
     return err;
   }
   if (rrate != samplerate) {
-    kWarning() << "Rate doesn't match (requested %iHz, get %iHz)\n" << samplerate << err;
+    qWarning() << "Rate doesn't match (requested %iHz, get %iHz)\n" << samplerate << err;
     return -EINVAL;
   }
   /* set the buffer time */
   unsigned int buffer_time = 100000;
   err = snd_pcm_hw_params_set_buffer_time_near(handle, params, &buffer_time, &dir);
   if (err < 0) {
-    kWarning() << "Unable to set buffer time %i for playback:" << buffer_time << snd_strerror(err);
+    qWarning() << "Unable to set buffer time %i for playback:" << buffer_time << snd_strerror(err);
     return err;
   }
 
   err = snd_pcm_hw_params_get_buffer_size(params, &size);
   if (err < 0) {
-    kWarning() << "Unable to get buffer size for playback:" << snd_strerror(err);
+    qWarning() << "Unable to get buffer size for playback:" << snd_strerror(err);
     return err;
   }
   *bufferSize = size;
@@ -495,28 +495,28 @@ static int set_hwparams(snd_pcm_t *handle,
   /* set the period time */
   err = snd_pcm_hw_params_set_period_time_near(handle, params, &period_time, &dir);
   if (err < 0) {
-    kWarning() << "Unable to set period time %i for playback:" << period_time << snd_strerror(err);
+    qWarning() << "Unable to set period time %i for playback:" << period_time << snd_strerror(err);
     return err;
   }
 
   unsigned int chunks_ = 8;
   err = snd_pcm_hw_params_set_periods_near(handle, params, &chunks_, &dir);
   if ( err < 0 ) {
-    kWarning() << "Unable to set periods: " << snd_strerror(err);
+    qWarning() << "Unable to set periods: " << snd_strerror(err);
     return err;
   }
   *chunks = chunks_;
 
   err = snd_pcm_hw_params_get_period_size(params, &size, &dir);
   if (err < 0) {
-    kWarning() << "Unable to get period size for playback:" << snd_strerror(err);
+    qWarning() << "Unable to get period size for playback:" << snd_strerror(err);
     return err;
   }
   *periodSize = size;
   /* write the parameters to device */
   err = snd_pcm_hw_params(handle, params);
   if (err < 0) {
-    kWarning() << "Unable to set hw params for playback:" << snd_strerror(err);
+    qWarning() << "Unable to set hw params for playback:" << snd_strerror(err);
     return err;
   }
   return 0;

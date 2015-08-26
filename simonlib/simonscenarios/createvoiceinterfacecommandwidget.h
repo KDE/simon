@@ -27,7 +27,7 @@
 
 class Command;
 class CommandManager;
-class KIcon;
+class QIcon;
 class CreateVoiceInterfaceCommandWidgetPrivate;
 
 /**

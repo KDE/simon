@@ -20,15 +20,14 @@
 #include "mprisplayercommand.h"
 #include "mprisplayercommandmanager.h"
 
-#include <QObject>
 #include <QVariant>
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDBusVariant>
 #include <QDBusInterface>
 
-#include <KIcon>
-#include <KLocalizedString>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
 
 const QString MprisPlayerCommand::staticCategoryText()
 {
@@ -40,12 +39,12 @@ const QString MprisPlayerCommand::getCategoryText() const
     return MprisPlayerCommand::staticCategoryText();
 }
 
-const KIcon MprisPlayerCommand::staticCategoryIcon()
+const QIcon MprisPlayerCommand::staticCategoryIcon()
 {
-    return KIcon("applications-multimedia");
+    return QIcon::fromTheme("applications-multimedia");
 }
 
-const KIcon MprisPlayerCommand::getCategoryIcon() const
+const QIcon MprisPlayerCommand::getCategoryIcon() const
 {
     return MprisPlayerCommand::staticCategoryIcon();
 }

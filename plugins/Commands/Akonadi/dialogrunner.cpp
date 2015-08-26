@@ -23,7 +23,7 @@
 #include <simondialogengine/dialogstate.h>
 #include <simondialogengine/graphicalview/visualdialogview.h>
 #include <simondialogengine/ttsview/ttsdialogview.h>
-#include <KDebug>
+#include <QDebug>
 #include <QTimer>
 
 bool DialogRunner::greedyTrigger(const QString& sentence)
@@ -88,7 +88,7 @@ Avatar* DialogRunner::getAvatar(int id) const
 
 void DialogRunner::initState(int state)
 {
-  kDebug() << "Switching to state: " << state;
+  qDebug() << "Switching to state: " << state;
 
   bool quit = false;
   //0 state means quit
@@ -97,14 +97,14 @@ void DialogRunner::initState(int state)
       initState(m_state);
       break;
     case 2:
-      kDebug() << "dismissing";
+      qDebug() << "dismissing";
       deleteLater();
       quit = true;
       break;
     case 3:
-      kDebug() << "reminding later";
+      qDebug() << "reminding later";
       quit = true;
-      kDebug() << "Restarting in: " << m_config->getRestartDelay()*1000;
+      qDebug() << "Restarting in: " << m_config->getRestartDelay()*1000;
 //       run();
 //       QTimer::singleShot(10, this, SLOT(run()));
       QTimer::singleShot(m_config->getRestartDelay()*1000, this, SLOT(run()));

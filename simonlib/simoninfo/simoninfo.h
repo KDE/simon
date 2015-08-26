@@ -22,6 +22,7 @@
 
 #include "simoninfo_export.h"
 #include <QString>
+#include <QIcon>
 
 /**
  *	@class SimonInfo
@@ -36,15 +37,15 @@
  *	@author Peter Grasch
  */
 class QWidget;
-class KIcon;
 
-class KSplashScreen;
+
+class QSplashScreen;
 
 class SIMONINFO_EXPORT SimonInfo
 {
 
   private:
-    KSplashScreen *splash;                        //!< Splashscreen-Pointer
+    QSplashScreen *splash;                        //!< Splashscreen-Pointer
     QWidget *parent;
 
   public:
@@ -53,7 +54,8 @@ class SIMONINFO_EXPORT SimonInfo
     void showSplash();
     void writeToSplash(QString status);
     void hideSplash();
-    static void showMessage(QString message, short time, KIcon *icon=0);
+    static void showMessage(QString message, short time, QIcon *icon=0);
+    static void showMessage(QString message, short time, QIcon icon);
     ~SimonInfo();
 
 };

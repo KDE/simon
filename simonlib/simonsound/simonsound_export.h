@@ -21,7 +21,7 @@
 #define SIMON_SIMONSOUND_EXPORT_H_DAA46318B9EE4B9888F8F8C2CDDFD6DC
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONSOUND_EXPORT
 # if defined(MAKE_SIMONSOUND_LIB)

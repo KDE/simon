@@ -24,7 +24,7 @@
 #include <QDBusInterface>
 #include <QDBusReply>
 #include <QDBusConnection>
-#include <KDebug>
+#include <QDebug>
 
 //could be made into proper methods if conditions are refactored to use the
 //qt property system to store configuration values (makes attributes
@@ -33,7 +33,7 @@
 #define deSerializeTextElem(tagName, elementName) \
     {QDomElement qElem = elem.firstChildElement(tagName); \
     if (qElem.isNull()) { \
-        kDebug() << "No element " << tagName << " found!  Deserialization failure!"; \
+        qDebug() << "No element " << tagName << " found!  Deserialization failure!"; \
         return false; \
     } \
     elementName = qElem.text();}
@@ -47,7 +47,7 @@ K_PLUGIN_FACTORY( DBusConditionPluginFactory,
                   registerPlugin< DBusCondition >();
                 )
 
-K_EXPORT_PLUGIN( DBusConditionPluginFactory("simondbuscondition") )
+// K_EXPORT_PLUGIN( DBusConditionPluginFactory("simondbuscondition") )
 
 
 DBusCondition::DBusCondition(QObject *parent, const QVariantList &args) :
@@ -99,20 +99,20 @@ QString DBusCondition::name()
 
 void DBusCondition::check()
 {
-  kDebug() << "Checking";
+  qDebug() << "Checking";
 
   bool newSatisfied = false;
   QList<QVariant> args;
   foreach (const QString& a, m_stateArguments)
     args << a;
   QDBusReply<QVariant> reply = m_stateConnection->callWithArgumentList(QDBus::BlockWithGui, m_stateCheckMethod, args);
-  kDebug() << reply << reply.isValid();
+  qDebug() << reply << reply.isValid();
   if (reply.isValid())
     newSatisfied = reply.value().toString() == m_value;
   
   bool changed = (newSatisfied != m_satisfied);
   m_satisfied = newSatisfied;
-  kDebug() << "Satisfied: " << m_satisfied;
+  qDebug() << "Satisfied: " << m_satisfied;
 
   if (changed)
     emit conditionChanged();
@@ -153,3 +153,4 @@ bool DBusCondition::privateDeSerialize(QDomElement elem)
 
   return true;
 }
+#include "dbuscondition.moc"

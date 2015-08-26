@@ -21,9 +21,9 @@
 #define SIMON_TRAYICONMANAGER_H_6FF7C67B484A402598AAED62DF36E4B4
 
 #include <QObject>
-#include <KAction>
-#include <KIcon>
-#include <KSystemTrayIcon>
+#include <KDELibs4Support/kaction.h>
+#include <QIcon>
+#include <KDELibs4Support/ksystemtrayicon.h>
 #include "simonuicomponents_export.h"
 
 /**
@@ -45,8 +45,8 @@ class SIMONUICOMPONENTS_EXPORT TrayIconManager : public QObject
 
   public:
     void parentWidgetTrayClose();
-    void createIcon(const KIcon& icon, const QString& tooltip);
-    void addAction(const QString& name, KAction* action);
+    void createIcon(const QIcon& icon, const QString& tooltip);
+    void addAction(const QString& name, QAction* action);
     TrayIconManager(QWidget *parent=0);
 
     ~TrayIconManager();

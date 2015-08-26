@@ -17,22 +17,22 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <KPluginFactory>
+#include <KCoreAddons/KPluginFactory>
 #include <simonvision/webcamdispatcher.h>
 #include <simonvision/simoncv.h>
-#include<QPixmap>
+#include <QPixmap>
 #include "simonwebcamconfiguration.h"
 #include "webcamconfiguration.h"
 
 K_PLUGIN_FACTORY( SimonWebcamConfigurationFactory,
                   registerPlugin< SimonWebcamConfiguration >() ; )
 
-K_EXPORT_PLUGIN( SimonWebcamConfigurationFactory("SimonWebcamConfiguration"); )
+// // K_EXPORT_PLUGIN( SimonWebcamConfigurationFactory("SimonWebcamConfiguration"); )
 
 CvCapture* capture=0;
 
 SimonWebcamConfiguration::SimonWebcamConfiguration(QWidget* parent, const QVariantList& args)
-  : KCModule(KGlobal::mainComponent(), parent)
+    : KCModule(parent)
 {
   ui.setupUi(this);
   Q_UNUSED(args);
@@ -187,3 +187,5 @@ SimonWebcamConfiguration::~SimonWebcamConfiguration()
   if(analyzer)
     delete analyzer;
 }
+
+#include "simonwebcamconfiguration.moc"

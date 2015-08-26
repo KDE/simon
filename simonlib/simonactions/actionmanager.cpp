@@ -30,22 +30,13 @@
 #include <simonscenarios/actioncollection.h>
 #include <simonscenarios/scenario.h>
 
-#include <QFile>
-#include <QMetaObject>
 #include <QDBusConnection>
 #include <QCoreApplication>
 
-#include <KMessageBox>
-#include <KLocalizedString>
-#include <KService>
-#include <KServiceTypeTrader>
-#include <KStandardDirs>
-#include <KDesktopFile>
-#include <KDebug>
+#include <KI18n/klocalizedstring.h>
+
+#include <QDebug>
 #include <KLocale>
-#include <KXmlGuiWindow>
-#include <KXMLGUIClient>
-#include <KXMLGUIFactory>
 
 ActionManager* ActionManager::instance;
 
@@ -100,7 +91,7 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger, 
     foreach (const RecognitionResult &result, currentlyPromptedListOfResults) {
       QString sentence = result.sentence();
       if (sentence == selectedSentence) {
-        kDebug() << "Found the result!";
+        qDebug() << "Found the result!";
         RecognitionResultList list;
         list.append(result);
         currentlyPromptedListOfResults.clear();
@@ -134,7 +125,7 @@ void ActionManager::processRawResults(const RecognitionResultList &recognitionRe
   if (recognitionResults.isEmpty())
     return;
 
-  kDebug() << "Processing " << recognitionResults.count() << " raw results";
+  qDebug() << "Processing " << recognitionResults.count() << " raw results";
 
   RecognitionResultList selectedRecognitionResults;
 
@@ -147,17 +138,17 @@ void ActionManager::processRawResults(const RecognitionResultList &recognitionRe
       //it will be not be included in the list of results
 
       QList<float> confidenceScores = recognitionResults.at(i).confidenceScores();
-      kDebug() << confidenceScores;
+      qDebug() << confidenceScores;
 
       //calc average
       float avg= recognitionResults.at(i).averageConfidenceScore();
-      kDebug() << avg << minimumConfidenceThreshold;
+      qDebug() << avg << minimumConfidenceThreshold;
 
       if (!confidenceScores.contains(0.0f) && (avg >= minimumConfidenceThreshold))
         selectedRecognitionResults.append(recognitionResults.at(i));
     }
 
-    kDebug() << "Viable recognition results: " << selectedRecognitionResults.count();
+    qDebug() << "Viable recognition results: " << selectedRecognitionResults.count();
 
     if (selectedRecognitionResults.isEmpty()) {
       return;
@@ -168,7 +159,7 @@ void ActionManager::processRawResults(const RecognitionResultList &recognitionRe
     selectedRecognitionResults.append(recognitionResults.at(0));
   }
 
-  kDebug() << "Greedy Recievers: " << greedyReceivers.count();
+  qDebug() << "Greedy Recievers: " << greedyReceivers.count();
 
   if (!greedyReceivers.isEmpty()) {
     greedyReceivers.at(0)->greedyTriggerRawList(selectedRecognitionResults);
@@ -193,14 +184,14 @@ CommandList ActionManager::getCommandList()
 
 void ActionManager::resultSelectionDone()
 {
-  kDebug() << "resultSelectionDone()";
+  qDebug() << "resultSelectionDone()";
   currentlyPromptedListOfResults.clear();
 }
 
 
 void ActionManager::presentUserWithResults(const RecognitionResultList &recognitionResults)
 {
-  kDebug() << "More than one possible recognition result ... should display list!";
+  qDebug() << "More than one possible recognition result ... should display list!";
   if (!useDYM || !currentlyPromptedListOfResults.isEmpty()) {
     //no double did-you-means...
     processResult(recognitionResults.at(0));

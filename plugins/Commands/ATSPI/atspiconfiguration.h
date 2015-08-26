@@ -23,9 +23,6 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_atspiconfigurationdlg.h"
 #include <KSharedConfig>
-#include <QPointer>
-#include <QPoint>
-#include <QSize>
 
 class ATSPICommandManager;
 

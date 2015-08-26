@@ -20,7 +20,7 @@
 #ifndef SIMON_ADDACTIONDIALOG_H_C44C2BD2497A4FE982149C3550DF0662
 #define SIMON_ADDACTIONDIALOG_H_C44C2BD2497A4FE982149C3550DF0662
 
-#include <KDialog>
+#include <KDELibs4Support/KDE/KDialog>
 #include "ui_addactiondlg.h"
 
 class Action;

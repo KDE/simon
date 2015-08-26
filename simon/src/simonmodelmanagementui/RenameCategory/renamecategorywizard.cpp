@@ -21,7 +21,7 @@
 #include <QWizardPage>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <KStandardDirs>
+
 #include "renamecategoryselectparameterspage.h"
 #include "renamecategoryworkingpage.h"
 

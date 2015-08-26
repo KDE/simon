@@ -23,33 +23,34 @@
 #include <QDir>
 #include <QFile>
 #include <QStringList>
-#include <QSettings>
 #include <QPointer>
 #include <KInputDialog>
 
-#include <KDebug>
-#include <KMessageBox>
-#include <KStandardDirs>
-#include <KDialogButtonBox>
-#include <KIcon>
+#include <QDebug>
+#include <QStandardPaths>
+#include <QIcon>
+#include <KWidgetsAddons/KMessageBox>
 
 UploadSamples::UploadSamples(QWidget* parent) :
-KDialog(parent)
+QDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
 
-  setMainWidget( widget );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
 
-  setCaption( i18n("Local Samples") );
+  setWindowTitle( i18n("Local Samples") );
 
   connect(ui.pbDeleteSamples, SIGNAL(clicked()), this, SLOT(remove()));
   connect(ui.pbUploadSamples, SIGNAL(clicked()), this, SLOT(upload()));
   connect(ui.pbEdit, SIGNAL(clicked()), this, SLOT(edit()));
 
-  ui.pbDeleteSamples->setIcon(KIcon("edit-delete"));
-  ui.pbUploadSamples->setIcon(KIcon("folder-sync"));
-  ui.pbEdit->setIcon(KIcon("document-edit"));
+  ui.pbDeleteSamples->setIcon(QIcon::fromTheme("edit-delete"));
+  ui.pbUploadSamples->setIcon(QIcon::fromTheme("folder-sync"));
+  ui.pbEdit->setIcon(QIcon::fromTheme("document-edit"));
 }
 
 
@@ -65,7 +66,7 @@ void UploadSamples::upload()
 
   QString path = item->data(Qt::UserRole).toString();
 
-  kDebug() << "Restoring data from: " << path;
+  qDebug() << "Restoring data from: " << path;
   
   QPointer<TrainingsWizard> wizard = new TrainingsWizard(this);
   wizard->init(item->data(Qt::UserRole+1).toInt() /*user id*/, path);
@@ -82,16 +83,16 @@ void UploadSamples::remove()
 
   QString path = item->data(Qt::UserRole).toString();
 
-  kDebug() << "Deleting data from: " << path;
+  qDebug() << "Deleting data from: " << path;
   if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is path", "Do you really want to delete the stored samples at \"%1\"?", path)) != KMessageBox::Yes)
     return;
 
   QDir d(path);
   QStringList files = d.entryList(QDir::Files|QDir::NoDotAndDotDot);
   bool succ = true;
-  kDebug() << "Entries in " << path << files;
+  qDebug() << "Entries in " << path << files;
   foreach (const QString& file, files) {
-    kDebug() << "Removing: " << path+'/'+file;
+    qDebug() << "Removing: " << path+'/'+file;
     succ = QFile::remove(path+'/'+file) && succ;
   }
 
@@ -118,9 +119,9 @@ void UploadSamples::edit()
   qint32 newId = KInputDialog::getInteger(i18n("Edit samples pack"), i18n("If you want to change the user ID of this samples pack, please provide the new ID below."), userId, 0, 2147483647, 1, &ok);
   if (!ok) return;
 
-  kDebug() << "Editing: " << path << " to new id: " << newId;
+  qDebug() << "Editing: " << path << " to new id: " << newId;
 
-  QString rootDirectory = KStandardDirs::locateLocal("appdata", QString("stored/"));
+  QString rootDirectory = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString("stored/");
   QString newDirectory = rootDirectory+QString::number(newId)+'/';
 
   QDir storedDirectory(rootDirectory);
@@ -144,7 +145,7 @@ void UploadSamples::edit()
 int UploadSamples::exec()
 {
   initDisplay();
-  return (KDialog::exec());
+  return (QDialog::exec());
 }
 
 
@@ -152,7 +153,7 @@ void UploadSamples::initDisplay()
 {
   ui.lwSamples->clear();
 
-  QString directory = KStandardDirs::locateLocal("appdata", QString("stored/"));
+  QString directory = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString("stored/");
   QDir d(directory);
   QStringList storedUsers = d.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
 
@@ -161,13 +162,13 @@ void UploadSamples::initDisplay()
     qint32 userId = user.toInt(&ok);
     if (!ok) continue;
 
-    kDebug() << "Found stored user: " << user;
+    qDebug() << "Found stored user: " << user;
 
     d.cd(directory+'/'+user);
     QStringList models = d.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
     foreach (const QString& model, models) {
       if (!QFile::exists(directory+'/'+user+'/'+model+"/profile.ini")) continue;
-      kDebug() << "   Found stored samples: " << model;
+      qDebug() << "   Found stored samples: " << model;
       QListWidgetItem* item = new QListWidgetItem(QString("%1: %2").arg(user).arg(model), ui.lwSamples);
       item->setData(Qt::UserRole, directory+'/'+user+'/'+model+'/');
       item->setData(Qt::UserRole+1, userId);

@@ -20,7 +20,6 @@
 #ifndef SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
 
-#include <QList>
 #include "simondialogengine_export.h"
 
 class DialogDataProvider;

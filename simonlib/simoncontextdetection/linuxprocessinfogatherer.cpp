@@ -18,7 +18,6 @@
  */
 
 #include "linuxprocessinfogatherer.h"
-#include <QRegExp>
 #include <QDir>
 #include <QApplication>
 

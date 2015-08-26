@@ -27,33 +27,33 @@
 #include <QDesktopWidget>
 #include <QPoint>
 #include <QSize>
-#include <KLocalizedString>
-#include <KAction>
+#include <KI18n/klocalizedstring.h>
+#include <QAction>
 
 K_PLUGIN_FACTORY( KeyboardCommandPluginFactory,
 registerPlugin< KeyboardCommandManager >();
 )
 
-K_EXPORT_PLUGIN( KeyboardCommandPluginFactory("simonkeyboardcommand") )
+// K_EXPORT_PLUGIN( KeyboardCommandPluginFactory("simonkeyboardcommand") )
 
 QStringList KeyboardCommandManager::numberIdentifiers;
 
 KeyboardCommandManager::KeyboardCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 GreedyReceiver(this),
 keyboardWidget(new QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
-activateAction(new KAction(this)),
+activateAction(new QAction(this)),
 keyboardSet(0)
 {
   setContainer = new KeyboardSetContainer();
 
   setFont(ActionManager::getInstance()->pluginBaseFont());
 
-  keyboardWidget->setWindowIcon(KIcon("input-keyboard"));
+  keyboardWidget->setWindowIcon(QIcon::fromTheme("input-keyboard"));
   ui.setupUi(keyboardWidget);
   keyboardWidget->hide();
 
   activateAction->setText(i18n("Activate Keyboard"));
-  activateAction->setIcon(KIcon("input-keyboard"));
+  activateAction->setIcon(QIcon::fromTheme("input-keyboard"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(activate()));
   guiActions<<activateAction;
@@ -265,7 +265,7 @@ void KeyboardCommandManager::numberBackSpace()
 
 void KeyboardCommandManager::shift(bool down)
 {
-  kDebug() << "Shift";
+  qDebug() << "Shift";
   if (down)
     EventHandler::getInstance()->setModifier((int) Qt::SHIFT, true /*once*/);
   else
@@ -276,7 +276,7 @@ void KeyboardCommandManager::shift(bool down)
 
 void KeyboardCommandManager::returnPressed()
 {
-  kDebug() << "Return";
+  qDebug() << "Return";
   EventHandler::getInstance()->sendWord("\n");
   untoggleShift();
 }
@@ -284,7 +284,7 @@ void KeyboardCommandManager::returnPressed()
 
 void KeyboardCommandManager::capsLock(bool down)
 {
-  kDebug() << "CapsLock";
+  qDebug() << "CapsLock";
   untoggleShift();
   if (down)
     EventHandler::getInstance()->setModifier((int) Qt::SHIFT);
@@ -337,7 +337,7 @@ void KeyboardCommandManager::backSpace()
 
 void KeyboardCommandManager::sendDecimalSeparator()
 {
-  ui.leNumber->setText(ui.leNumber->text()+KGlobal::locale()->decimalSymbol());
+  ui.leNumber->setText(ui.leNumber->text()+QLocale().decimalPoint());
 }
 
 
@@ -448,7 +448,7 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
     SimonCommand::GreedyState, "9");
   succ &= installInterfaceCommand(ui.pbDecimalSeparator, "click", i18nc("Decimal separator (voice trigger)", "Point"), iconSrc(),
     i18n("Decimal separator"), false, false, SimonCommand::GreedyState,
-    SimonCommand::GreedyState, KGlobal::locale()->decimalSymbol());
+    SimonCommand::GreedyState, QLocale().decimalPoint());
 
   succ &= installInterfaceCommand(ui.pbSelectNumber, "click", i18n("Select number"), iconSrc(),
     i18n("Select number"), false, false, SimonCommand::GreedyState,
@@ -469,3 +469,5 @@ KeyboardCommandManager::~KeyboardCommandManager()
   activateAction->deleteLater();
   delete setContainer;
 }
+
+#include "keyboardcommandmanager.moc"

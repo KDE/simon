@@ -8,12 +8,12 @@ set(simonrecognition_LIB_HDRS
   recognitioncontrol.h
 )
 
-kde4_add_kcfg_files(simonrecognition_LIB_SRCS recognitionconfiguration.kcfgc)
+kconfig_add_kcfg_files(simonrecognition_LIB_SRCS recognitionconfiguration.kcfgc)
 kde4_add_library(simonrecognitioncontrol SHARED ${simonrecognition_LIB_SRCS})
 
 target_link_libraries(simonrecognitioncontrol ${QT_LIBRARIES}
-  ${KDE4_KDEUI_LIBS} simondstreamer simoncontextdetection
-  ${QT_QTNETWORK_LIBRARY}
+   simondstreamer simoncontextdetection
+  Qt5::Network KF5::KCMUtils
   simonmodelmanagementui simonscenarios simonrecognitionresult simonprogresstracking)
 
 set_target_properties(simonrecognitioncontrol
@@ -29,15 +29,15 @@ set( kcm_simonrecognitioncontrol_LIB_SRCS
   synchronisationsettings.cpp
 )
 
-kde4_add_ui_files( kcm_simonrecognitioncontrol_LIB_SRCS
+ki18n_wrap_ui( kcm_simonrecognitioncontrol_LIB_SRCS
   networksettingsdlg.ui
   synchronisationsettings.ui
 )
 
-kde4_add_kcfg_files(kcm_simonrecognitioncontrol_LIB_SRCS recognitionconfiguration.kcfgc)
-kde4_add_plugin(simonrecognitioncontrolkcm ${kcm_simonrecognitioncontrol_LIB_SRCS})
+kconfig_add_kcfg_files(kcm_simonrecognitioncontrol_LIB_SRCS recognitionconfiguration.kcfgc)
+kde4_add_library(simonrecognitioncontrolkcm MODULE ${kcm_simonrecognitioncontrol_LIB_SRCS})
 
-target_link_libraries( simonrecognitioncontrolkcm  ${KDE4_KUTILS_LIBS} ${KDE4_KDEUI_LIBS}
+target_link_libraries( simonrecognitioncontrolkcm   
   simonuicomponents simonrecognitioncontrol
 )
 

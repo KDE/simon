@@ -19,15 +19,17 @@ set(simondialogcommandpluginboundvaluetest_SRCS
   ${PLAMSA_DEP_TEST_SRC}
 )
 
-kde4_add_unit_test(simondialogcommandplugintest-boundvalue TESTNAME
+add_executable(simondialogcommandplugintest-boundvalueNAME
+add_test(simondialogcommandplugintest simondialogcommandplugintest)
+ecm_mark_as_test(simondialogcommandplugintest)
   simondialogcommandplugin-boundValue
   ${simondialogcommandpluginboundvaluetest_SRCS}
 )
 
 target_link_libraries(simondialogcommandplugintest-boundvalue
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
-  ${QT_QTXML_LIBRARY} ${simondialogcommandplugintest_plasma_LIBS}
-  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB}
+  KF5::KDELibs4Support Qt5::Test Qt5::Gui
+  Qt5::Xml ${simondialogcommandplugintest_plasma_LIBS}
+  Qt5::Script ${PLAMSA_DEP_LIB}
 )
 
 #################################
@@ -46,15 +48,17 @@ set(simondialogcommandplugindialogboundvaluestest_SRCS
   ${PLAMSA_DEP_TEST_SRC}
 )
 
-kde4_add_unit_test(simondialogcommandplugintest-dialogboundvalues TESTNAME
+add_executable(simondialogcommandplugintest-dialogboundvaluesNAME
+add_test(simondialogcommandplugintest simondialogcommandplugintest)
+ecm_mark_as_test(simondialogcommandplugintest)
   simondialogcommandplugin-dialogboundvalues
   ${simondialogcommandplugindialogboundvaluestest_SRCS}
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogboundvalues
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
-  ${QT_QTXML_LIBRARY} ${simondialogcommandplugintest_plasma_LIBS}
-  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB}
+  KF5::KDELibs4Support Qt5::Test Qt5::Gui
+  Qt5::Xml ${simondialogcommandplugintest_plasma_LIBS}
+  Qt5::Script ${PLAMSA_DEP_LIB}
 )
 
 #################################
@@ -68,14 +72,16 @@ set(simondialogcommandplugindialogtemplateoptionstest_SRCS
   ../dialogtemplateoptions.cpp
 )
 
-kde4_add_unit_test(simondialogcommandplugintest-dialogtemplateoptions TESTNAME
+add_executable(simondialogcommandplugintest-dialogtemplateoptionsNAME
+add_test(simondialogcommandplugintest simondialogcommandplugintest)
+ecm_mark_as_test(simondialogcommandplugintest)
   simondialogcommandplugin-dialogtemplateoptions
   ${simondialogcommandplugindialogtemplateoptionstest_SRCS}
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogtemplateoptions
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
-  ${QT_QTXML_LIBRARY}
+  KF5::KDELibs4Support Qt5::Test Qt5::Gui
+  Qt5::Xml
 )
 
 #################################
@@ -97,15 +103,17 @@ set(simondialogcommandplugindialogtextparsertest_SRCS
   ${PLAMSA_DEP_TEST_SRC}
 )
 
-kde4_add_unit_test(simondialogcommandplugintest-dialogtextparser TESTNAME
+add_executable(simondialogcommandplugintest-dialogtextparserNAME
+add_test(simondialogcommandplugintest simondialogcommandplugintest)
+ecm_mark_as_test(simondialogcommandplugintest)
   simondialogcommandplugin-dialogtextparser
   ${simondialogcommandplugindialogtextparsertest_SRCS}
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogtextparser
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
-  ${QT_QTXML_LIBRARY} ${simondialogcommandplugintest_plasma_LIBS}
-  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB}
+  KF5::KDELibs4Support Qt5::Test Qt5::Gui
+  Qt5::Xml ${simondialogcommandplugintest_plasma_LIBS}
+  Qt5::Script ${PLAMSA_DEP_LIB}
 )
 
 #################################
@@ -119,14 +127,16 @@ set(simondialogcommandplugindialogcommandtest_SRCS
   ../dialogcommand.cpp
 )
 
-kde4_add_unit_test(simondialogcommandplugintest-dialogcommand TESTNAME
+add_executable(simondialogcommandplugintest-dialogcommandNAME
+add_test(simondialogcommandplugintest simondialogcommandplugintest)
+ecm_mark_as_test(simondialogcommandplugintest)
   simondialogcommandplugin-dialogcommand
   ${simondialogcommandplugindialogcommandtest_SRCS}
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogcommand
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY} ${simondialogcommandplugintest_plasma_LIBS}
-  ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS} simonscenarios simonactions
+  KF5::KDELibs4Support Qt5::Test Qt5::Gui ${simondialogcommandplugintest_plasma_LIBS}
+  Qt5::Xml  simonscenarios simonactions
 )
 
 #################################
@@ -151,16 +161,18 @@ set(simondialogcommandplugindialogstatetest_SRCS
   ${PLAMSA_DEP_TEST_SRC}
 )
 
-kde4_add_unit_test(simondialogcommandplugintest-dialogstate TESTNAME
+add_executable(simondialogcommandplugintest-dialogstateNAME
+add_test(simondialogcommandplugintest simondialogcommandplugintest)
+ecm_mark_as_test(simondialogcommandplugintest)
   simondialogcommandplugin-dialogstate
   ${simondialogcommandplugindialogstatetest_SRCS}
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogstate
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  KF5::KDELibs4Support Qt5::Test Qt5::Gui
   ${simondialogcommandplugintest_plasma_LIBS}
-  ${QT_QTXML_LIBRARY} simonscenarios simonactions
-  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB} ${KDE4_KDEUI_LIBS}
+  Qt5::Xml simonscenarios simonactions
+  Qt5::Script ${PLAMSA_DEP_LIB}
 )
 
 
@@ -179,13 +191,15 @@ set(simonavatarstest_SRCS
 #enable exports for the test
 add_definitions(-DMAKE_SIMONDIALOGENGINE_LIB)
 
-kde4_add_unit_test(simondialogcommandplugintest-avatars TESTNAME
+add_executable(simondialogcommandplugintest-avatarsNAME
+add_test(simondialogcommandplugintest simondialogcommandplugintest)
+ecm_mark_as_test(simondialogcommandplugintest)
   simondialogcommandplugin-avatars
   ${simonavatarstest_SRCS}
 )
 
 
 target_link_libraries(simondialogcommandplugintest-avatars
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
-  ${QT_QTXML_LIBRARY}
+  KF5::KDELibs4Support Qt5::Test Qt5::Gui
+  Qt5::Xml
 )

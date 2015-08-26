@@ -21,8 +21,6 @@
 #define SIMON_COMPOSITECOMMAND_H_A199F7E674344957A6099B02965126F1
 
 #include <simonscenarios/command.h>
-#include <QList>
-#include <KUrl>
 
 /**
  *	@class CompositeCommand
@@ -50,9 +48,9 @@ class CompositeCommand : public Command
   public:
     STATIC_CREATE_INSTANCE_H(CompositeCommand);
     static const QString staticCategoryText();
-    static const KIcon staticCategoryIcon();
+    static const QIcon staticCategoryIcon();
 
-    const KIcon getCategoryIcon() const;
+    const QIcon getCategoryIcon() const;
     const QString getCategoryText() const;
 
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);

@@ -23,16 +23,13 @@
 
 #include <simoncontextdetection/contextmanager.h>
 
-#include <QLineEdit>
-#include <QFileDialog>
-#include <QStringList>
 
 CreateDBusConditionWidget::CreateDBusConditionWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 
   setWindowTitle(i18n("D-Bus Condition"));
-  setWindowIcon(KIcon("network-connect"));
+  setWindowIcon(QIcon::fromTheme("network-connect"));
 
   connect(ui.leServiceName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.leStatePath, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));

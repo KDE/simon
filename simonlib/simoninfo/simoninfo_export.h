@@ -21,7 +21,7 @@
 #define SIMON_SIMONINFO_EXPORT_H_8CA34A9B8AFC4A6F9E7EE02D02D85646
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONINFO_EXPORT
 # if defined(MAKE_SIMONINFO_LIB)

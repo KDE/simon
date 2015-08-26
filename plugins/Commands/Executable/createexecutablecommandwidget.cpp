@@ -20,7 +20,7 @@
 #include "createexecutablecommandwidget.h"
 #include "executablecommand.h"
 #include "simonuicomponents/selectprogramdialog.h"
-#include <KLineEdit>
+#include <KCompletion/KLineEdit>
 
 CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
 {
@@ -38,13 +38,13 @@ CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *man
   #endif
 
   connect(ui.urExecutable, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
-  connect(ui.urExecutable, SIGNAL(urlSelected(KUrl)), this, SLOT(urlSelected(KUrl)));
+  connect(ui.urExecutable, SIGNAL(urlSelected(QUrl)), this, SLOT(urlSelected(QUrl)));
 
   connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(selectProgram()));
 }
 
 
-void CreateExecutableCommandWidget::urlSelected(const KUrl& urlSelected)
+void CreateExecutableCommandWidget::urlSelected(const QUrl& urlSelected)
 {
   //wrap url in quotes
   ui.urExecutable->lineEdit()->setText("\""+urlSelected.path()+"\"");
@@ -81,7 +81,7 @@ bool CreateExecutableCommandWidget::init(Command* command)
   ExecutableCommand *execCommand = dynamic_cast<ExecutableCommand*>(command);
   if (!execCommand) return false;
 
-  ui.urExecutable->setUrl(KUrl(execCommand->getExecutable()));
+  ui.urExecutable->setUrl(QUrl(execCommand->getExecutable()));
   ui.urWorkingDirectory->setUrl(execCommand->getWorkingDirectory());
   return true;
 }

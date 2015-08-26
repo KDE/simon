@@ -20,7 +20,7 @@
 #include "webcamconfigurationanalyzer.h"
 #include <simonvision/webcamdispatcher.h>
 #include <simonvision/simoncv.h>
-#include <KDebug>
+#include <QDebug>
 
 WebcamConfigurationAnalyzer::WebcamConfigurationAnalyzer()
 {
@@ -50,7 +50,7 @@ void WebcamConfigurationAnalyzer::analyze(const IplImage* currentImage)
 
 WebcamConfigurationAnalyzer::~WebcamConfigurationAnalyzer()
 {
-  kDebug()<<"Destroying Webcam Configuration Analyzer";
+  qDebug()<<"Destroying Webcam Configuration Analyzer";
   WebcamDispatcher::unregisterAnalyzer(this);
 
   // Release resources allocated in the analyzer

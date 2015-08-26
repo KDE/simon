@@ -25,8 +25,8 @@
 #include <simonactions/greedyreceiver.h>
 #include <eventsimulation/clickmode.h>
 #include <QVariantList>
+#include <QPushButton>
 
-class KPushButton;
 class QGridLayout;
 class QLabel;
 class QWidget;
@@ -53,7 +53,7 @@ class DesktopGridCommandManager : public CommandManager, public GreedyReceiver
     int m_startX;
     int m_startY;
     bool m_isDragging;
-    QList<KPushButton*> btns;
+    QList<QPushButton*> btns;
     QGridLayout *buttons;
 
     CommandListWidget *commandListWidget;
@@ -63,7 +63,7 @@ class DesktopGridCommandManager : public CommandManager, public GreedyReceiver
 
     QPixmap makeFakeTransparency();
 
-    void click(KPushButton* btn);
+    void click(QPushButton* btn);
 
     void init();
 
@@ -97,7 +97,7 @@ class DesktopGridCommandManager : public CommandManager, public GreedyReceiver
 
     const QString iconSrc() const;
 
-    void setButtonFontSize(KPushButton *btn);
+    void setButtonFontSize(QPushButton *btn);
 
     /**
      * @brief Constructor

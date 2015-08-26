@@ -28,7 +28,7 @@
 #include <QStringList>
 #include <QFile>
 
-#include <KDebug>
+#include <QDebug>
 #include <qvarlengtharray.h>
 
 AbstractSampleDataProvider::AbstractSampleDataProvider(qint32 userId, Sample::SampleType sampleType,
@@ -43,23 +43,23 @@ bool AbstractSampleDataProvider::startTransmission()
   //build m_samplesToTransmit
   bool ok;
 
-  kDebug() << "Building mappings...";
+  qDebug() << "Building mappings...";
   fprintf(stderr, "Building mappings\n");
   QHash<QString, Microphone*> microphones = buildMicrophoneMappings(ok);
   if (!ok) {
     fprintf(stderr, "Mapping building failed.\n");
     return false;
   }
-  kDebug() << "Found Microphones: " << microphones.keys();
+  qDebug() << "Found Microphones: " << microphones.keys();
 
-  kDebug() << "Microphone done...";
+  qDebug() << "Microphone done...";
   fprintf(stderr, "Building soundcards mappings\n");
   QHash<QString, SoundCard*> soundCards = buildSoundCardMappings(ok);
   if (!ok) {
     fprintf(stderr, "Building mappings for soundcards failed\n");
     return false;
   }
-  kDebug() << "Found Soundcards: " << soundCards.keys();
+  qDebug() << "Found Soundcards: " << soundCards.keys();
 
   QList<TrainingSamplesDescriptor*> sampleDescriptors = buildSampleDescriptors(ok);
   if (!ok) {
@@ -68,31 +68,31 @@ bool AbstractSampleDataProvider::startTransmission()
   }
 
   fprintf(stderr, "Starting transmission\n");
-  kDebug() << "Starting transmission";
+  qDebug() << "Starting transmission";
 
   foreach (TrainingSamplesDescriptor *sample, sampleDescriptors) {
-    kDebug() << "Processing page";
+    qDebug() << "Processing page";
     QStringList fileNames = sample->getFileNames();
     QStringList devices = sample->getDevices();
     QString prompt = sample->getPrompt();
 
-    kDebug() << "Page contains these files: " << fileNames;
-    kDebug() << "Recorded with these devices: " << devices;
+    qDebug() << "Page contains these files: " << fileNames;
+    qDebug() << "Recorded with these devices: " << devices;
     Q_ASSERT(fileNames.count() == devices.count());
 
     for (int i=0; i < fileNames.count(); i++) {
       QString fullPath = fileNames[i];
       QFile d(fullPath);
       if (!d.open(QIODevice::ReadOnly)) {
-        kWarning() << "Could not open file: " << fullPath << "; Skipping";
+        qWarning() << "Could not open file: " << fullPath << "; Skipping";
         continue;
       }
 
       Microphone *mic = microphones.value(devices[i]);
       SoundCard *soundCard = soundCards.value(devices[i]);
 
-      kDebug() << fileNames[i] << " was recorded with " << mic->id() << mic->model() << mic->type();
-      kDebug() << "                " << soundCard->id() << soundCard->model() << soundCard->type();
+      qDebug() << fileNames[i] << " was recorded with " << mic->id() << mic->model() << mic->type();
+      qDebug() << "                " << soundCard->id() << soundCard->model() << soundCard->type();
 
       m_samplesToTransmit << new Sample(-1, m_sampleType, m_userId,
         mic->id(), soundCard->id(),
@@ -108,7 +108,7 @@ bool AbstractSampleDataProvider::startTransmission()
 
 void AbstractSampleDataProvider::stopTransmission()
 {
-  kDebug() << "Calling stop transmission!";
+  qDebug() << "Calling stop transmission!";
   qDeleteAll(m_samplesToTransmit);
   m_samplesToTransmit.clear();
 }
@@ -124,9 +124,9 @@ void AbstractSampleDataProvider::sampleTransmitted()
 {
   Sample *s = m_samplesToTransmit.takeAt(0);
   if (!m_keepSamples) {
-    kDebug() << "Deleting file: " << s->path();
+    qDebug() << "Deleting file: " << s->path();
     bool succ = s->deleteFile();
-    kDebug() << "Deleted file: " << succ;
+    qDebug() << "Deleted file: " << succ;
   }
   delete s;
 }
@@ -140,6 +140,6 @@ void AbstractSampleDataProvider::skipSample()
 
 AbstractSampleDataProvider::~AbstractSampleDataProvider()
 {
-  kDebug() << "Deleting abstract sample data provider";
+  qDebug() << "Deleting abstract sample data provider";
   qDeleteAll(m_samplesToTransmit);
 }

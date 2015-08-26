@@ -29,16 +29,12 @@
 #include <simonsound/recwidget.h>
 #include <simoninfo/simoninfo.h>
 
-#include <QDir>
 #include <QHash>
 #include <QHashIterator>
 #include <QWidget>
 #include <QPointer>
-#include <QString>
-#include <QTableWidget>
-#include <QHeaderView>
 #include <QSortFilterProxyModel>
-#include <KMessageBox>
+#include <KWidgetsAddons/KMessageBox>
 
 /**
  * \brief Constructor - inits the Gui
@@ -62,10 +58,10 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
   ui.tvTrainingTexts->setModel(textsProxy);
 
   //set up icons
-  ui.pbTrainText->setIcon(KIcon("go-next"));
-  ui.pbDelText->setIcon(KIcon("edit-delete"));
-  ui.pbImportText->setIcon(KIcon("document-import"));
-  ui.pbManageSamples->setIcon(KIcon("view-list-tree"));
+  ui.pbTrainText->setIcon(QIcon::fromTheme("go-next"));
+  ui.pbDelText->setIcon(QIcon::fromTheme("edit-delete"));
+  ui.pbImportText->setIcon(QIcon::fromTheme("document-import"));
+  ui.pbManageSamples->setIcon(QIcon::fromTheme("view-list-tree"));
 }
 
 

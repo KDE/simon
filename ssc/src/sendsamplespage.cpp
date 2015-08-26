@@ -27,20 +27,19 @@
 #include <simonprogresstracking/operation.h>
 #include <simonprogresstracking/progresswidget.h>
 
-#include <QDir>
 #include <QLabel>
-#include <QtConcurrentRun>
 
 #include <QThread>
 #include <QVBoxLayout>
 #include <QFuture>
 #include <QFutureWatcher>
 
-#include <KMessageBox>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KPushButton>
-#include <KDebug>
+#include <QDebug>
 #include <sscdaccess/sscdaccesssingleton.h>
+#include <KWidgetsAddons/KMessageBox>
+#include <QtConcurrent/QtConcurrent>
 
 SendSamplePage::SendSamplePage(AbstractSampleDataProvider* dataProvider, bool isStored, const QString& ini, QWidget* parent) :
     QWizardPage(parent),
@@ -55,11 +54,11 @@ SendSamplePage::SendSamplePage(AbstractSampleDataProvider* dataProvider, bool is
   QLabel *desc = new QLabel(i18n("The recorded samples are now ready to be sent to the server or stored locally to be sent later."), this);
   desc->setWordWrap(true);
   layout->addWidget(desc);
-  pbReSendData = new KPushButton(KIcon("view-refresh"), i18n("Send samples"), this);
+  pbReSendData = new KPushButton(QIcon::fromTheme("view-refresh"), i18n("Send samples"), this);
   connect(pbReSendData, SIGNAL(clicked()), this, SLOT(prepareDataSending()));
   layout->addWidget(pbReSendData);
 
-  pbStoreData  = new KPushButton(KIcon("document-save"), i18n("Store samples (send later)"), this);
+  pbStoreData  = new KPushButton(QIcon::fromTheme("document-save"), i18n("Store samples (send later)"), this);
   connect(pbStoreData, SIGNAL(clicked()), this, SLOT(storeData()));
   layout->addWidget(pbStoreData);
 
@@ -120,7 +119,7 @@ void SendSamplePage::storeData()
 
 void SendSamplePage::transmissionFinished()
 {
-  kDebug() << "Transmission finished";
+  qDebug() << "Transmission finished";
 
   updateStatusDisplay();
   emit completeChanged();
@@ -128,7 +127,7 @@ void SendSamplePage::transmissionFinished()
   wizard()->button(QWizard::CancelButton)->setEnabled(true);
 
   if (!futureWatcher->result() || worker->getShouldAbort()) {
-    kDebug() << "Result: " << futureWatcher->result() << " should abort: " << worker->getShouldAbort();
+    qDebug() << "Result: " << futureWatcher->result() << " should abort: " << worker->getShouldAbort();
     pbReSendData->setEnabled(true);
     pbStoreData->setEnabled(true);
     wizard()->button(QWizard::BackButton)->setEnabled(true);
@@ -201,7 +200,7 @@ void SendSamplePage::initializePage()
    * if (KMessageBox::questionYesNo(this, i18n("Do you want to send the samples to the server?")) == KMessageBox::Yes) {
     prepareDataSending();
   } else
-    kDebug() << "Nothing";
+    qDebug() << "Nothing";
   */
 }
 
@@ -238,7 +237,7 @@ void SendSamplePage::sendData()
   if (!SSCDAccessSingleton::getInstance()->isConnected())
     KMessageBox::information(this, i18n("Not connected to server."));
 
-  kDebug() << "Sending data";
+  qDebug() << "Sending data";
   pbReSendData->setEnabled(false);
   pbStoreData->setEnabled(false);
 
@@ -249,7 +248,7 @@ void SendSamplePage::sendData()
 
   QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
   futureWatcher->setFuture(future);
-  kDebug() << "Thread started";
+  qDebug() << "Thread started";
 }
 
 

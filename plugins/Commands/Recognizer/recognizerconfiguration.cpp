@@ -19,18 +19,15 @@
 
 #include "recognizerconfiguration.h"
 #include <QVariantList>
-#include <KDebug>
-#include <kgenericfactory.h>
-#include <KAboutData>
-#include <KMessageBox>
+#include <QDebug>
+#include <KDELibs4Support/kgenericfactory.h>
 
 K_PLUGIN_FACTORY_DECLARATION(RecognizerCommandPluginFactory)
 
 RecognizerConfiguration::RecognizerConfiguration(Scenario *parent, const QVariantList &args)
-  : CommandConfiguration(parent, "recognizer", ki18n( "Recognizer" ),
-  "0.1", ki18n("Recognizer"),
-  "text-field",
-  RecognizerCommandPluginFactory::componentData())
+  : CommandConfiguration(parent, "recognizer", i18n( "Recognizer" ),
+  "0.1", i18n("Recognizer"),
+  "text-field")
 {
   Q_UNUSED(args);
   ui.setupUi(this);

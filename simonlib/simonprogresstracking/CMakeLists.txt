@@ -12,7 +12,7 @@ set(simonprogresstracking_LIB_HDRS
 )
 
 kde4_add_library(simonprogresstracking SHARED ${simonprogresstracking_LIB_SRCS})
-target_link_libraries(simonprogresstracking ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS})
+target_link_libraries(simonprogresstracking KF5::KDELibs4Support Qt5::Widgets)
 
 set_target_properties(simonprogresstracking
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

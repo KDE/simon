@@ -21,7 +21,7 @@
 #include <simonscenarios/word.h>
 #include <simonscenarios/scenariomanager.h>
 #include <KInputDialog>
-#include <KIcon>
+#include <QIcon>
 
 /**
  * \brief Constructor
@@ -30,13 +30,16 @@
  * @param f Window flags
  */
 EditWordDialog::EditWordDialog(QWidget* parent, Qt::WindowFlags f)
-  : KDialog(parent, f)
+  : QDialog(parent, f)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
-  setMainWidget( widget );
-  setCaption( i18n("Edit Word") );
-  ui.tbAddCategory->setIcon(KIcon("list-add"));
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Edit Word") );
+  ui.tbAddCategory->setIcon(QIcon::fromTheme("list-add"));
   connect(ui.tbAddCategory, SIGNAL(clicked()), this, SLOT(addCategory()));
 }
 
@@ -63,7 +66,7 @@ int EditWordDialog::exec(Word *word)
   ui.cbType->setCurrentIndex(ui.cbType->findText(word->getCategory()));
   ui.leSampa->setText(word->getPronunciation());
 
-  int ret = KDialog::exec();
+  int ret = QDialog::exec();
 
   if (ret) {
     //update word

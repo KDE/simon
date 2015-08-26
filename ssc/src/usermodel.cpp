@@ -19,8 +19,7 @@
 
 #include "usermodel.h"
 #include <sscobjects/user.h>
-#include <QtGlobal>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 UserModel::UserModel(QList<User*> users, QObject *parent) :
 QAbstractItemModel(parent),

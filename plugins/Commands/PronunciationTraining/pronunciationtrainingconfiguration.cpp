@@ -21,18 +21,15 @@
 #include "pronunciationtrainingcommandmanager.h"
 #include <simonscenarios/scenariomanager.h>
 #include <QVariantList>
-#include <KDebug>
-#include <kgenericfactory.h>
-#include <KAboutData>
-#include <KMessageBox>
+#include <QDebug>
+#include <KDELibs4Support/kgenericfactory.h>
 
 K_PLUGIN_FACTORY_DECLARATION(PronunciationTrainingPluginFactory)
 
 PronunciationTrainingConfiguration::PronunciationTrainingConfiguration(Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent, "pronunciationtraining", ki18n( "Pronunciation Training" ),
-"0.1", ki18n("Pronunciation Training"),
-"applications-education",
-PronunciationTrainingPluginFactory::componentData())
+: CommandConfiguration(parent, "pronunciationtraining", i18n( "Pronunciation Training" ),
+"0.1", i18n("Pronunciation Training"),
+"applications-education")
 {
   Q_UNUSED(args);
   ui.setupUi(this);

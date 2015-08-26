@@ -28,15 +28,18 @@
 #endif
 
 #include <QDesktopWidget>
-#include <KDialog>
-#include <KLocalizedString>
-#include <KAction>
+#include <QDialog>
+#include <KI18n/klocalizedstring.h>
+#include <QAction>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 K_PLUGIN_FACTORY( InputNumberCommandPluginFactory,
 registerPlugin< InputNumberCommandManager >();
 )
 
-K_EXPORT_PLUGIN( InputNumberCommandPluginFactory("simoninputnumbercommand") )
+// K_EXPORT_PLUGIN( InputNumberCommandPluginFactory("simoninputnumbercommand") )
 
 InputNumberCommandManager::InputNumberCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 GreedyReceiver(this),
@@ -49,25 +52,31 @@ activateAction(0)
 
 bool InputNumberCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-  activateAction = new KAction(this);
+  activateAction = new QAction(this);
   activateAction->setStatusTip(i18n("Display the number input"));
-  widget = new KDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
+  widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
   Q_UNUSED(elem);
-  widget->setWindowIcon(KIcon("accessories-calculator"));
+  widget->setWindowIcon(QIcon::fromTheme("accessories-calculator"));
   setFont(ActionManager::getInstance()->pluginBaseFont());
   connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
 
   QWidget *internalWidget = new QWidget(widget);
   ui.setupUi(internalWidget);
-  widget->setMainWidget(internalWidget);
-  widget->setButtons(0); //don't show any kdialog buttons
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  widget->setLayout(mainLayout);
+  mainLayout->addWidget(internalWidget);
+  QDialogButtonBox *buttonBox = new QDialogButtonBox();
+  widget->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  widget->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+  mainLayout->addWidget(buttonBox);
 
-  ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
-  ui.pbCancel->setIcon(KIcon("dialog-cancel"));
+  ui.pbOk->setIcon(QIcon::fromTheme("dialog-ok-apply"));
+  ui.pbCancel->setIcon(QIcon::fromTheme("dialog-cancel"));
   widget->hide();
 
   activateAction->setText(i18n("Activate Number Input"));
-  activateAction->setIcon(KIcon("accessories-calculator"));
+  activateAction->setIcon(QIcon::fromTheme("accessories-calculator"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(activate()));
   guiActions << activateAction;
@@ -88,7 +97,7 @@ bool InputNumberCommandManager::deSerializeConfig(const QDomElement& elem)
   connect(ui.pb8, SIGNAL(clicked()), this, SLOT(send8()));
   connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
 
-  kDebug() << "Installed commands!";
+  qDebug() << "Installed commands!";
   bool succ = true;
   succ &= installInterfaceCommand(this, "activate", i18n("Number"), iconSrc(),
     i18n("Displays the number input field"), true /* announce */, true /* show icon */,
@@ -129,7 +138,7 @@ bool InputNumberCommandManager::deSerializeConfig(const QDomElement& elem)
     SimonCommand::GreedyState, "9");
   succ &= installInterfaceCommand(ui.pbComma, "click", i18nc("Decimal separator (voice trigger)", "Point"), iconSrc(),
     i18n("Decimal separator"), false, false, SimonCommand::GreedyState,
-    SimonCommand::GreedyState, KGlobal::locale()->decimalSymbol());
+    SimonCommand::GreedyState, QLocale().decimalPoint());
 
   succ &= installInterfaceCommand(ui.pbBack, "click", i18nc("Word to say to remove the last recognized digit", "Back"), iconSrc(),
     i18n("Deletes the last input character"), false, false, SimonCommand::GreedyState,
@@ -231,3 +240,5 @@ InputNumberCommandManager::~InputNumberCommandManager()
 {
   widget->deleteLater();
 }
+
+#include "inputnumbercommandmanager.moc"

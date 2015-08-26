@@ -21,14 +21,14 @@
 #include "createcompositecommandwidget.h"
 #include <simonscenarios/scenario.h>
 #include <simonlogging/logger.h>
-#include <KLocalizedString>
-#include <KStandardDirs>
+#include <KI18n/klocalizedstring.h>
+
 
 K_PLUGIN_FACTORY( CompositeCommandPluginFactory,
 registerPlugin< CompositeCommandManager >();
 )
 
-K_EXPORT_PLUGIN( CompositeCommandPluginFactory("simoncompositecommand") )
+// K_EXPORT_PLUGIN( CompositeCommandPluginFactory("simoncompositecommand") )
 
 CompositeCommandManager::CompositeCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)
 {
@@ -64,3 +64,5 @@ DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(CompositeCommandManager, CompositeCommand
 CompositeCommandManager::~CompositeCommandManager()
 {
 }
+
+#include "compositecommandmanager.moc"

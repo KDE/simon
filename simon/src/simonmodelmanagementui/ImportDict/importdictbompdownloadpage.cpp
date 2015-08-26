@@ -19,16 +19,16 @@
 
 #include "importdictbompdownloadpage.h"
 #include "speechmodelmanagementuiconfiguration.h"
-#include <QTextCodec>
-#include <QScrollBar>
-#include <KFilterDev>
-#include <KMimeType>
+#include <KArchive/KFilterDev>
 #include <QFile>
-#include <KDebug>
-#include <KStandardDirs>
-#include <KMessageBox>
+#include <QDebug>
+
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
+#include <KWidgetsAddons/KMessageBox>
+#include <KJobWidgets>
+#include <QDir>
+
 
 /**
  * \brief Constructor - inits the GUI
@@ -55,10 +55,10 @@ void ImportDictBOMPDownloadPage::initializePage()
 {
   QString bompBaseUrl = SpeechModelManagementUiConfiguration::bompDownloadBase()+'/';
 
-  QString localLicencePath = KStandardDirs::locateLocal("tmp", "bomp_license");
-  KIO::FileCopyJob *job = KIO::file_copy(KUrl(bompBaseUrl+"bomp_license.php"),
+  QString localLicencePath = QDir::tempPath() + QLatin1Char('/') +  "bomp_license";
+  KIO::FileCopyJob *job = KIO::file_copy(QUrl(bompBaseUrl+"bomp_license.php"),
     localLicencePath, -1, KIO::Overwrite);
-  job->ui()->setWindow(this);
+  KJobWidgets::setWindow(job, this);
 
   if (!job->exec()) {
     job->ui()->showErrorMessage();
@@ -86,14 +86,14 @@ bool ImportDictBOMPDownloadPage::validatePage()
   if (bompUrl.isNull()) return false;
 
   //download bomp lexicon
-  QString tempBompPath = KStandardDirs::locateLocal("tmp", "bomp");
-  KUrl fullUrl(bompUrl);
+  QString tempBompPath = QDir::tempPath() + QLatin1Char('/') +  "bomp";
+  QUrl fullUrl(bompUrl);
   fullUrl.addQueryItem("iAcceptTheLicence", acceptTag);
   fullUrl.addQueryItem("name", ui.leName->text());
   fullUrl.addQueryItem("mail", ui.leMail->text());
   KIO::FileCopyJob *job = KIO::file_copy(fullUrl,
     tempBompPath, -1, KIO::Overwrite);
-  job->ui()->setWindow(this);
+  KJobWidgets::setWindow(job, this);
 
   if (!job->exec()) {
     job->ui()->showErrorMessage();

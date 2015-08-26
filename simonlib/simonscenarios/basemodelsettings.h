@@ -22,7 +22,7 @@
 #define SIMON_BASEMODELSETTINGS_H
 
 #include "simonmodelmanagement_export.h"
-#include <KDialog>
+#include <QWidget>
 
 namespace Ui
 {

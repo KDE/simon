@@ -3,16 +3,16 @@ set(simonttsconfiguration_LIB_SRCS
   editrecording.cpp
 )
 
-kde4_add_ui_files(simonttsconfiguration_LIB_SRCS
+ki18n_wrap_ui(simonttsconfiguration_LIB_SRCS
   simonttsconfigurationdlg.ui
   editrecording.ui
 )
 
-kde4_add_kcfg_files(simonttsconfiguration_LIB_SRCS ttsconfiguration.kcfgc)
+kconfig_add_kcfg_files(simonttsconfiguration_LIB_SRCS ttsconfiguration.kcfgc)
 
-kde4_add_plugin(simonttsconfiguration ${simonttsconfiguration_LIB_SRCS})
+kde4_add_library(simonttsconfiguration MODULE ${simonttsconfiguration_LIB_SRCS})
 target_link_libraries( simonttsconfiguration simonsound simontts 
-  ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
+  ${QT_LIBRARIES}  KF5::KIOCore)
 
 install(TARGETS simonttsconfiguration DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncore)
 install(FILES simonttsconfig.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncore)

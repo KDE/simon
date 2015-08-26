@@ -31,7 +31,7 @@
 class Condition;
 class QDomDocument;
 class QDomElement;
-class KIcon;
+class QIcon;
 
 /**
  *	@class CreateConditionWidget

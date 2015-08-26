@@ -21,7 +21,7 @@
 #define SIMON_SIMONLOGGING_EXPORT_H_F1032DFE61FA42E3B31933515AF33099
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONLOGGING_EXPORT
 # if defined(MAKE_SIMONLOGGING_LIB)

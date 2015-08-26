@@ -21,8 +21,9 @@
 #ifndef SIMONSAMPLESHARE_H
 #define SIMONSAMPLESHARE_H
 
-#include <KDialog>
-#include <KDebug>
+
+#include <KDELibs4Support/KDE/KDialog>
+#include <QDebug>
 #include <QPointer>
 #include <QStringList>
 #include "simonsampleshareui_export.h"
@@ -38,7 +39,7 @@ namespace Ui {
 
 class SSCDAccess;
 class Operation;
-class KProgressDialog;
+class QProgressDialog;
 class Sample;
 
 class SIMONSAMPLESHARE_EXPORT SampleShare : public KDialog{
@@ -50,7 +51,7 @@ private:
   SendSampleWorker *worker;
   QPointer<Operation> transmissionOperation;
   ProgressWidget *progressWidget;
-  QPointer<KProgressDialog> connectionProgressDialog;
+  QPointer<QProgressDialog> connectionProgressDialog;
   QFutureWatcher<bool> *futureWatcher;
   
   void connectToServer();

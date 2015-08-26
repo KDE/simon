@@ -22,15 +22,17 @@
 #include "ui_createtemplateoptiondialog.h"
 
 #include <QWidget>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
-CreateTemplateOptionDialog::CreateTemplateOptionDialog(QWidget *parent) : KDialog(parent),
+CreateTemplateOptionDialog::CreateTemplateOptionDialog(QWidget *parent) : QDialog(parent),
   ui(new Ui::CreateTemplateOptionDialog())
 {
   QWidget *main = new QWidget(this);
   ui->setupUi(main);
-  setMainWidget(main);
-  setCaption(i18n("Template Option"));
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(main);
+  setWindowTitle(i18n("Template Option"));
 }
 
 QString CreateTemplateOptionDialog::getName()

@@ -32,7 +32,7 @@
 #include <QVBoxLayout>
 #include <QList>
 
-#include <KIcon>
+#include <QIcon>
 
 VisualDialogView::VisualDialogView(DialogManager *dialog, QWidget *parent, Qt::WindowFlags flags) : 
   QWidget(parent,flags),
@@ -41,7 +41,7 @@ VisualDialogView::VisualDialogView(DialogManager *dialog, QWidget *parent, Qt::W
 {
   setFont(ActionManager::getInstance()->pluginBaseFont());
 
-  setWindowIcon(KIcon("im-user"));
+  setWindowIcon(QIcon::fromTheme("im-user"));
 
   ui->setupUi(this);
   hide();
@@ -105,7 +105,7 @@ bool VisualDialogView::present(const DialogState& state)
 
   QList<DialogCommand*> transitions = state.getTransitions();
 
-  kDebug() << "Presenting " << transitions.count() << " transitions";
+  qDebug() << "Presenting " << transitions.count() << " transitions";
 
   foreach (DialogCommand* transition, transitions)
   {

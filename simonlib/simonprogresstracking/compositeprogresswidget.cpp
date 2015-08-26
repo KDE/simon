@@ -26,9 +26,9 @@
 #include <QVBoxLayout>
 #include <QFrame>
 
-#include <KLocalizedString>
-#include <KIcon>
-#include <KPushButton>
+#include <KI18n/klocalizedstring.h>
+#include <QIcon>
+#include <QPushButton>
 #include <KLocale>
 
 CompositeProgressWidget::CompositeProgressWidget(QWidget* parent): QWidget(parent)
@@ -43,7 +43,7 @@ CompositeProgressWidget::CompositeProgressWidget(QWidget* parent): QWidget(paren
   popupWidget->setAutoFillBackground(true);
   popupWidget->setFrameStyle(QFrame::Box);
 
-  togglePopup = new KPushButton(KIcon("arrow-up"), i18n("Details"), this);
+  togglePopup = new QPushButton(QIcon::fromTheme("arrow-up"), i18n("Details"), this);
   togglePopup->setCheckable(true);
   togglePopup->setEnabled(false);
 

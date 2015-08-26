@@ -23,14 +23,9 @@
 
 #include <QWizardPage>
 #include <QLabel>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <KLineEdit>
-#include <QDir>
-#include <KPushButton>
-#include <QIcon>
-#include <QCoreApplication>
-#include <KStandardDirs>
+#include <QPushButton>
+
 
 /**
  * \brief Constructor - Creats the pages and adds them

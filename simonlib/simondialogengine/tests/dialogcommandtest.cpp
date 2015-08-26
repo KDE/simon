@@ -22,8 +22,9 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QByteArray>
-#include <KApplication>
-#include <KCmdLineArgs>
+#include <KDELibs4Support/kapplication.h>
+#include <QCommandLineParser>
+
 
 #include "../dialogcommand.h"
 
@@ -144,7 +145,16 @@ void testDialogCommand::testExecution()
   strcpy(appName, "test");
   char **argv = new char*[1];
   argv[0] = appName;
-  KCmdLineArgs::init(1, argv, argv[0], "", ki18n("test"), "0.1");
+  KAboutData aboutData( argv[0], i18n("test"), QLatin1String("0.1"));
+    QApplication app(argc, argv);
+    QCommandLineParser parser;
+    KAboutData::setApplicationData(aboutData);
+    parser.addVersionOption();
+    parser.addHelpOption();
+    //PORTING SCRIPT: adapt aboutdata variable if necessary
+    aboutData.setupCommandLine(&parser);
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
 
   KApplication *app = new KApplication(true);
 

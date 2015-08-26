@@ -25,7 +25,6 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_keyboardconfigurationdlg.h"
 #include <KSharedConfig>
-#include <QPointer>
 #include <QPoint>
 #include <QSize>
 

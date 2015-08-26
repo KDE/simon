@@ -20,24 +20,17 @@
 #include "atspicommandmanager.h"
 
 #include <QVariantList>
-#include <kgenericfactory.h>
-#include <QList>
-#include <KAboutData>
-#include <KMessageBox>
-#include <KStandardDirs>
-#include <QString>
-#include <QTableView>
+#include <KDELibs4Support/kgenericfactory.h>
+
 #include <QThread>
-#include <QApplication>
 #include <simonscenarios/scenario.h>
 
 K_PLUGIN_FACTORY_DECLARATION(ATSPICommandPluginFactory)
 
 ATSPIConfiguration::ATSPIConfiguration(ATSPICommandManager* _commandManager, Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent,  "ATSPI", ki18n( "ATSPI" ),
-"0.1", ki18n("Workspace integration"),
-"help-hint",
-ATSPICommandPluginFactory::componentData())
+: CommandConfiguration(parent,  "ATSPI", i18n( "ATSPI" ),
+                       "0.1", i18n("Workspace integration"),
+                       "help-hint")
 {
   Q_UNUSED(args);
   Q_UNUSED(_commandManager);

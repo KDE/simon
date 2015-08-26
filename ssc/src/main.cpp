@@ -18,10 +18,15 @@
  */
 
 #include "sscview.h"
-#include <kapplication.h>
+
 #include <kaboutdata.h>
-#include <kcmdlineargs.h>
+
 #include <KDE/KLocale>
+#include <QApplication>
+#include <K4AboutData>
+#include <KLocalizedString>
+#include <KCmdLineArgs>
+#include <KDELibs4Support/kapplication.h>
 #include "version.h"
 
 static const char description[] =
@@ -29,8 +34,8 @@ I18N_NOOP("simon sample collector");
 
 int main(int argc, char **argv)
 {
-  KAboutData about("ssc", 0, ki18n("ssc"), simon_version, ki18n(description),
-    KAboutData::License_GPL, ki18n("(C) 2009 Peter Grasch"), KLocalizedString(), 0, "peter.grasch@bedahr.org");
+  K4AboutData about("ssc", 0, ki18n("ssc"), simon_version, ki18n(description),
+    K4AboutData::License_GPL, ki18n("(C) 2009 Peter Grasch"), KLocalizedString(), 0, "peter.grasch@bedahr.org");
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "peter.grasch@bedahr.org" );
   KCmdLineArgs::init(argc, argv, &about);
 

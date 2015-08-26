@@ -22,16 +22,20 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QFile>
-#include <KTar>
-#include <KStandardDirs>
-#include <KMessageBox>
-#include <KLocalizedString>
+#include <KArchive/KTar>
+
+#include <KI18n/klocalizedstring.h>
+#include <QMessageBox>
+#include <KDialog>
+#include <QDir>
 
 CreateBaseModel::CreateBaseModel ( QWidget* parent, Qt::WFlags flags ) : KDialog ( parent, flags)
 {
   QWidget *w = new QWidget(this);
   ui.setupUi(w);
-  setMainWidget(w);
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(w);
   slotCompleteChanged();
   connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
   connect(ui.urHMM, SIGNAL(textChanged(const QString&)), this, SLOT(slotCompleteChanged()));
@@ -70,7 +74,7 @@ void CreateBaseModel::slotCompleteChanged()
              QFile::exists(ui.urMacros->url().toLocalFile()) &&
              QFile::exists(ui.urStats->url().toLocalFile());
   }
-  button(Ok)->setEnabled(status);
+  enableButton(KDialog::Ok,status);
 }
 
 QString CreateBaseModel::buildModel()
@@ -97,10 +101,10 @@ QString CreateBaseModel::buildModel()
   rootElem.appendChild(typeElem);
   doc.appendChild(rootElem);
   
-  QString dest = KStandardDirs::locateLocal("tmp", "basemodel.sbm");
+  QString dest = QDir::tempPath() + QLatin1Char('/') +  "basemodel.sbm";
   KTar archive(dest, "application/x-gzip");
   if (!archive.open(QIODevice::WriteOnly)) {
-    KMessageBox::sorry(this, i18nc("%1 is path", "Failed to create temporary archive at %1", dest));
+      QMessageBox::warning(this, "Error", i18nc("%1 is path", "Failed to create temporary archive at %1", dest));
     return QString();
   }
   
@@ -127,7 +131,7 @@ QString CreateBaseModel::buildModel()
   }
   
   if (!archive.close()) {
-    KMessageBox::sorry(this, i18nc("%1 is path", "Failed to store temporary base model archive at %1", dest));
+      QMessageBox::warning(this, "Error", i18nc("%1 is path", "Failed to store temporary base model archive at %1", dest));
     return QString();
   }
   return dest;

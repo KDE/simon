@@ -20,8 +20,10 @@
 #ifndef SIMON_NEWCOMMAND_H_CD6234308AA54117A89845ADFE98BCA1
 #define SIMON_NEWCOMMAND_H_CD6234308AA54117A89845ADFE98BCA1
 
-#include <KDialog>
+#include <QDialog>
 #include <QList>
+#include <KDELibs4Support/KDE/KDialog>
+#include <KIconThemes/KIconButton>
 #include "ui_modifycommands.h"
 
 class Command;

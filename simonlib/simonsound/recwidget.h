@@ -24,6 +24,7 @@
 #include "simonsamples.h"
 #include "simonsound.h"
 #include <QWidget>
+#include <QDebug>
 
 class WavFileWidget;
 class QTimer;

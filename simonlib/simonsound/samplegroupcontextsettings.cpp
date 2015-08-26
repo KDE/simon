@@ -21,7 +21,6 @@
 #include "samplegroupcontextsettings.h"
 #include "ui_samplegroupcontextsettings.h"
 #include <simoncontextcoreui/newcondition.h>
-#include <KMessageBox>
 #include <QtXml/QDomDocument>
 #include <simoncontextdetection/samplegroupcondition.h>
 
@@ -31,9 +30,9 @@ SampleGroupContextSettings::SampleGroupContextSettings(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->pbAdd->setIcon(KIcon("list-add"));
-    ui->pbEdit->setIcon(KIcon("edit-rename"));
-    ui->pbRemove->setIcon(KIcon("edit-delete"));
+    ui->pbAdd->setIcon(QIcon::fromTheme("list-add"));
+    ui->pbEdit->setIcon(QIcon::fromTheme("edit-rename"));
+    ui->pbRemove->setIcon(QIcon::fromTheme("edit-delete"));
 
     connect(ui->pbAdd, SIGNAL(clicked()),
             this, SLOT(addCondition()));
@@ -139,7 +138,7 @@ void SampleGroupContextSettings::removeCondition()
     int row = ui->tvSampleGroupConditions->currentIndex().row();
     if (!m_editCopyOfSampleGroupCondition->removeSampleGroupCondition(row))
     {
-        kDebug() << "Error removing sample group condition!";
+        qDebug() << "Error removing sample group condition!";
     }
 
     ui->tvSampleGroupConditions->reset();

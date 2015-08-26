@@ -30,11 +30,10 @@
 #include <simonscenarios/model.h>
 #include <QDir>
 #include <QSettings>
-#include <KStandardDirs>
-#include <KDebug>
-#include <KAboutData>
-#include <KDateTime>
-#include <KTar>
+
+#include <QDebug>
+#include <KArchive/KTar>
+#include <QStandardPaths>
 #include <KConfigGroup>
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
@@ -50,7 +49,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
 
 ContextAdapter::BackendType ContextAdapter::getConfiguredDefaultBackendType()
 {
-  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+    KConfig config( QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + "simonmodelcompilationrc", KConfig::FullConfig) ;
   KConfigGroup backendGroup(&config, "Backend");
   int type(-1);
   type = backendGroup.readEntry("backend", 0);
@@ -62,7 +61,7 @@ ContextAdapter::BackendType ContextAdapter::getConfiguredDefaultBackendType()
 
 void ContextAdapter::setupBackend(ContextAdapter::BackendType backendType)
 {
-  kDebug() << "Setting up backend: " << backendType;
+  qDebug() << "Setting up backend: " << backendType;
 
   if (backendType == ContextAdapter::FromConfiguration) {
     backendType = getConfiguredDefaultBackendType();
@@ -103,7 +102,7 @@ void ContextAdapter::readCachedModels()
   qDeleteAll(m_modelCache);
   m_modelCache.clear();
 
-  QSettings ini(KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/models.ini"), QSettings::IniFormat);
+  QSettings ini(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+m_username+"/active/models.ini", QSettings::IniFormat);
 
   ini.beginGroup("Models");
   int size = ini.beginReadArray("Model");
@@ -131,7 +130,7 @@ void ContextAdapter::readCachedModels()
 
 void ContextAdapter::storeCachedModels()
 {
-  QSettings ini(KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/models.ini"), QSettings::IniFormat);
+  QSettings ini(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+m_username+"/active/models.ini", QSettings::IniFormat);
 
   ini.beginGroup("Models");
   ini.beginWriteArray("Model");
@@ -166,7 +165,7 @@ void ContextAdapter::safelyAddContextFreeModelToCache()
 void ContextAdapter::clearCache()
 {
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++)
-    QFile::remove(KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/"+j.key().id()+".sbm"));
+    QFile::remove(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+m_username+"/active/"+j.key().id()+".sbm");
   qDeleteAll(m_modelCache);
   m_modelCache.clear();
   safelyAddContextFreeModelToCache();
@@ -199,11 +198,11 @@ void ContextAdapter::updateDeactivatedSampleGroups(const QStringList& deactivate
 
 void ContextAdapter::buildCurrentSituation()
 {
-  kDebug() << "Building current situation: " << m_requestedSituation.deactivatedSampleGroups() << m_requestedSituation.deactivatedScenarios();
+  qDebug() << "Building current situation: " << m_requestedSituation.deactivatedSampleGroups() << m_requestedSituation.deactivatedScenarios();
   m_compileLock.lock();
   CachedModel *model = m_modelCache.value(m_requestedSituation, 0);
   if (model) {
-    kDebug() << "Model already exists and has state: " << model->state();
+    qDebug() << "Model already exists and has state: " << model->state();
     if ((model->state() & CachedModel::Current) || (model->state() == CachedModel::Building)) {
       //we are golden
       m_compileLock.unlock();
@@ -227,7 +226,7 @@ void ContextAdapter::buildNext()
 {
   if (!m_currentSource || (m_modelCompilationManager && m_modelCompilationManager->isRunning())) return;
 
-  kDebug() << "Locking compile lock. Models to check: " << m_modelCache.count();
+  qDebug() << "Locking compile lock. Models to check: " << m_modelCache.count();
   m_compileLock.lock();
 
   Q_ASSERT(m_modelCache.value(Situation())); //should be here at any time
@@ -238,11 +237,11 @@ void ContextAdapter::buildNext()
   } else {
     for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
       if (j.value()->state() == CachedModel::ToBeEvaluated) {
-        kDebug() << "Building model " << j.key().id();
+        qDebug() << "Building model " << j.key().id();
         adaptAndBuild(j.key(), j.value());
         break;
       } else
-        kDebug() << "Model is fine: " << j.key().id();
+        qDebug() << "Model is fine: " << j.key().id();
     }
   }
 
@@ -257,7 +256,7 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
   QString inputPrompts = m_currentSource->promptsPath();
   QString adaptedPromptsPath = adaptPrompts(inputPrompts, situation.deactivatedSampleGroups());
 
-  kDebug() << "Starting model build";
+  qDebug() << "Starting model build";
   model->setState(CachedModel::Building);
 
   QString name;
@@ -297,10 +296,11 @@ QStringList ContextAdapter::adaptScenarios ( const QStringList& scenarioPaths, c
 
 QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QStringList& deactivatedSampleGroups )
 {
-  QString outPath = KStandardDirs::locateLocal("tmp",
-                                            KGlobal::mainComponent().aboutData()->appName()+'/'+m_username+"/context/prompts_"+
-                                            QString::number(qHash(deactivatedSampleGroups.join(";"))));
-  kDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups << promptsPath << outPath;
+  QString outPath = QDir::tempPath() +
+      QLatin1Char('/') +
+      KAboutData::applicationData().productName()+'/'+m_username+"/context/prompts_"+
+      QString::number(qHash(deactivatedSampleGroups.join(";")));
+  qDebug() << "=============== Adapting prompts: " << deactivatedSampleGroups << promptsPath << outPath;
   QFile outFile(outPath);
   QFile promptsFile(promptsPath);
   bool allEmpty = true;
@@ -330,7 +330,7 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
 
 void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDate, int baseModelType, const QString& baseModelPath, const QStringList& scenarioPaths, const QString& promptsPathIn )
 {
-  kDebug() << "Updating model parameters";
+  qDebug() << "Updating model parameters";
   m_compileLock.lock();
   ModelSource *src = m_currentSource;
   m_currentSource = new ModelSource(modelDate, baseModelType, baseModelPath, scenarioPaths, promptsPathIn);
@@ -353,7 +353,7 @@ void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDa
 
 void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
 {
-  kDebug() << "Model ready: " << fingerprint << path;
+  qDebug() << "Model ready: " << fingerprint << path;
   bool announce = false;
   m_compileLock.lock();
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
@@ -361,7 +361,7 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
       j.value()->setState(CachedModel::Current);
 
       if (j.value()->srcFingerPrint() != fingerprint) {
-        kDebug() << "Model has changed";
+        qDebug() << "Model has changed";
         //delete old cached model here iff no other cached model has the old fingerprint.
         bool isOnlyOne = true;
         for (QHash<Situation, CachedModel*>::const_iterator k = m_modelCache.constBegin(); k != m_modelCache.constEnd(); k++) {
@@ -387,7 +387,7 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
         if (j.key().id() == "active")
           announce = true;
       } else
-        kDebug() << "Model hasn't changed";
+        qDebug() << "Model hasn't changed";
 
       j.value()->setSrcFingerPrint(fingerprint);
       j.value()->setCompiledDate(m_currentSource->date());
@@ -406,7 +406,7 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
 void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReason reason)
 {
   m_compileLock.lock();
-  kDebug() << "Aborted model compilation with reason: " << reason;
+  qDebug() << "Aborted model compilation with reason: " << reason;
   for (QHash<Situation, CachedModel*>::iterator j = m_modelCache.begin(); j != m_modelCache.end(); j++) {
     if (j.value()->state() == CachedModel::Building) {
       if (reason == ModelCompilation::InsufficientInput) {
@@ -430,13 +430,13 @@ void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReaso
 
 void ContextAdapter::currentModel(QString& path, ContextAdapter::BackendType& type) const
 {
-  kDebug() << "Requested situation: " << m_requestedSituation.deactivatedSampleGroups() << m_requestedSituation.deactivatedScenarios();
+  qDebug() << "Requested situation: " << m_requestedSituation.deactivatedSampleGroups() << m_requestedSituation.deactivatedScenarios();
   //try to find models for:
   // 1. the currently requested situation
   // 2. if that's not available let's see if we have a general model
   foreach (const Situation& s, QList<Situation>() << m_requestedSituation << Situation()) {
     if (m_modelCache.contains(s)) {
-      kDebug() << "Situation found: " << s.id() << (int) m_modelCache.value(s)->state();
+      qDebug() << "Situation found: " << s.id() << (int) m_modelCache.value(s)->state();
       if (m_modelCache.value(s)->state() == CachedModel::Current) {
         path = m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
 	type = m_modelCache.value(s)->type();

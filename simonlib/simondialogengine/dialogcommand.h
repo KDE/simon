@@ -26,7 +26,6 @@
 #include <QObject>
 #include <QStringList>
 #include "simondialogengine_export.h"
-#include <KUrl>
 class QDomDocument;
 class QTimer;
 
@@ -72,9 +71,9 @@ class SIMONDIALOGENGINE_EXPORT DialogCommand : public QObject, public Command
 
   public:
     static const QString staticCategoryText();
-    static const KIcon staticCategoryIcon();
+    static const QIcon staticCategoryIcon();
 
-    const KIcon getCategoryIcon() const;
+    const QIcon getCategoryIcon() const;
     const QString getCategoryText() const;
 
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);

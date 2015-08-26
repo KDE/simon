@@ -39,7 +39,7 @@ CreateCommandWidget(manager, parent),  d(new CreateVoiceInterfaceCommandWidgetPr
 
 Command* CreateVoiceInterfaceCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-  kDebug() << "Calling create command";
+  qDebug() << "Calling create command";
   return d->createCommand(name, iconSrc, description);
 }
 

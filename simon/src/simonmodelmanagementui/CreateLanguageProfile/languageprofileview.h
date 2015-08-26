@@ -21,7 +21,7 @@
 #ifndef LANGUAGEPROFILEVIEW_H
 #define LANGUAGEPROFILEVIEW_H
 
-#include <KDialog>
+#include <KDELibs4Support/KDE/KDialog>
 
 class KProcess;
 class GraphemeToPhoneme;

@@ -21,14 +21,14 @@
 #include "createlistcommandwidget.h"
 #include <simonlogging/logger.h>
 #include <simonscenarios/scenario.h>
-#include <KLocalizedString>
-#include <KStandardDirs>
+#include <KI18n/klocalizedstring.h>
+
 
 K_PLUGIN_FACTORY( ListCommandPluginFactory,
 registerPlugin< ListCommandManager >();
 )
 
-K_EXPORT_PLUGIN( ListCommandPluginFactory("simonlistcommand") )
+// K_EXPORT_PLUGIN( ListCommandPluginFactory("simonlistcommand") )
 
 ListCommandManager::ListCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
@@ -88,3 +88,5 @@ bool ListCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 ListCommandManager::~ListCommandManager()
 {
 }
+
+#include "listcommandmanager.moc"

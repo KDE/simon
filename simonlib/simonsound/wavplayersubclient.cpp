@@ -19,7 +19,7 @@
 
 #include "wavplayersubclient.h"
 #include "soundserver.h"
-#include <KDebug>
+#include <QDebug>
 
 /**
  * \brief Constructor

@@ -20,21 +20,22 @@
 #include "lipanalyzer.h"
 #include "webcamdispatcher.h"
 #include "simoncv.h"
-#include <KDebug>
-#include <KStandardDirs>
+#include <QDebug>
+#include <QStandardPaths>
+
 
 using namespace SimonCV;
 LipAnalyzer::LipAnalyzer()
 {
   if (!initLipDetection())
-    kDebug() <<"Error Initializing lip detection";
+    qDebug() <<"Error Initializing lip detection";
 
 }
 
 LipAnalyzer::LipAnalyzer(int thresholdValue)
 {
   if (!initLipDetection(thresholdValue))
-    kDebug() <<"Error Initializing lip detection";
+    qDebug() <<"Error Initializing lip detection";
 }
 
 void LipAnalyzer::setThreshold(int thresholdValue)
@@ -51,12 +52,12 @@ bool LipAnalyzer::initLipDetection(int thresholdVal)
   prevVideoFrame=0;
   memoryStorage=0;
   totalCount=5;
-  const QString& lipHaarCascadePath=KStandardDirs::locate("data", "haarcascade_mcs_mouth.xml");
-  const QString& faceHaarCascadePath=KStandardDirs::locate("data", "haarcascade_frontalface_default.xml");
+  const QString& lipHaarCascadePath=QStandardPaths::locate(QStandardPaths::GenericDataLocation, "haarcascade_mcs_mouth.xml");
+  const QString& faceHaarCascadePath=QStandardPaths::locate(QStandardPaths::GenericDataLocation, "haarcascade_frontalface_default.xml");
 
   if (!(memoryStorage = cvCreateMemStorage(0)))
   {
-    kDebug() <<"Can\'t allocate memory for lip detection\n";
+    qDebug() <<"Can\'t allocate memory for lip detection\n";
     return false;
   }
 
@@ -64,7 +65,7 @@ bool LipAnalyzer::initLipDetection(int thresholdVal)
 
   if (!faceCascade)
   {
-    kDebug() <<"Can\'t load Haar classifier face cascade from "<<faceHaarCascadePath<<
+    qDebug() <<"Can\'t load Haar classifier face cascade from "<<faceHaarCascadePath<<
     "\nPlease check that this is the correct path\n";
     return false;
   }
@@ -73,7 +74,7 @@ bool LipAnalyzer::initLipDetection(int thresholdVal)
 
   if (!lipCascade)
   {
-    kDebug() <<"Can\'t load Haar classifier lip cascade from "<<lipHaarCascadePath<<
+    qDebug() <<"Can\'t load Haar classifier lip cascade from "<<lipHaarCascadePath<<
     "\nPlease check that this is the correct path\n";
     return false;
   }
@@ -172,9 +173,9 @@ void LipAnalyzer::analyze(const IplImage* currentImage)
       cvCopy(liveVideoFrameCopy,prevVideoFrame);
     }
   } else
-    kDebug() << "Face not found";
+    qDebug() << "Face not found";
 
- kDebug()<<"Sum: "<<sum<< " total count:  "<<totalCount<<" threshold value: "<<thresholdValue;
+ qDebug()<<"Sum: "<<sum<< " total count:  "<<totalCount<<" threshold value: "<<thresholdValue;
 
   if (sum>thresholdValue&&totalCount>0&&totalCount<5)
   {
@@ -195,13 +196,13 @@ void LipAnalyzer::analyze(const IplImage* currentImage)
   if (totalCount>0)
   {
     emit lipMovementChanged(true,sum);
-    kDebug()<<"Speaking: TRUE\n";
+    qDebug()<<"Speaking: TRUE\n";
   }
 
   else
   {
     emit lipMovementChanged(false,sum);
-    kDebug()<<"Speaking: False\n";
+    qDebug()<<"Speaking: False\n";
 
   }
   cvReleaseImage(&liveVideoFrameCopy);
@@ -228,7 +229,7 @@ void LipAnalyzer::closeLipDetection()
 
 LipAnalyzer::~LipAnalyzer()
 {
-  kDebug()<<"Destroying Lip Analyzer";
+  qDebug()<<"Destroying Lip Analyzer";
   WebcamDispatcher::unregisterAnalyzer(this);
 
   // Release resources allocated in the analyzer

@@ -19,15 +19,14 @@
 #include "recognizercommandmanager.h"
 #include "recognizerconfiguration.h"
 #include <eventsimulation/eventhandler.h>
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <QDebug>
+#include <KI18n/klocalizedstring.h>
+
 
 K_PLUGIN_FACTORY( RecognizerCommandPluginFactory,
 registerPlugin< RecognizerCommandManager >();
 )
 
-K_EXPORT_PLUGIN( RecognizerCommandPluginFactory("simonrecognizercommand") )
+// K_EXPORT_PLUGIN( RecognizerCommandPluginFactory("simonrecognizercommand") )
 
 RecognizerCommandManager::RecognizerCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)
 {
@@ -63,3 +62,5 @@ bool RecognizerCommandManager::deSerializeConfig(const QDomElement& elem)
 RecognizerCommandManager::~RecognizerCommandManager()
 {
 }
+
+#include "recognizercommandmanager.moc"

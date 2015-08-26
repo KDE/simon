@@ -24,10 +24,10 @@
 #include <simoncontextdetection/condition.h>
 #include <simoncontextdetection/createconditionwidget.h>
 
-#include <KDE/KUrl>
+#include <QUrl>
 #include <KDE/KMessageBox>
 #include <KDE/KKeySequenceWidget>
-#include <KDE/KDialogButtonBox>
+#include <QtWidgets/QDialogButtonBox>
 
 NewCondition::NewCondition(QWidget* parent) : KDialog(parent), ui(new Ui::DlgModifyCondition)
 {
@@ -36,9 +36,10 @@ NewCondition::NewCondition(QWidget* parent) : KDialog(parent), ui(new Ui::DlgMod
 
   ui->swConditionCreators->removeWidget(ui->swConditionCreators->currentWidget());
 
-  setMainWidget( widget );
-  setCaption( i18n("Condition") );
-  
+//PORTING: Verify that widget was added to mainLayout:    setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Condition") );
+
   connect(ui->cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(checkIfComplete()));
 }
 
@@ -56,9 +57,9 @@ bool sortCreateConditionHelper(const CreateConditionWidget* a, const CreateCondi
 bool NewCondition::registerCreators(QList<CreateConditionWidget *> conditionCreators)
 {
   qDeleteAll(m_conditionCreators);
- 
+
   qSort(conditionCreators.begin(), conditionCreators.end(), sortCreateConditionHelper);
-  
+
   foreach (CreateConditionWidget *widget, conditionCreators) {
     ui->cbType->addItem(widget->windowIcon(), widget->windowTitle());
     ui->swConditionCreators->addWidget(widget);
@@ -74,7 +75,7 @@ bool NewCondition::registerCreators(QList<CreateConditionWidget *> conditionCrea
 void NewCondition::conditionSuggested(Condition *condition)
 {
   if (!condition) return;
-  
+
   init(condition);
   delete condition;
 }
@@ -112,7 +113,7 @@ void NewCondition::checkIfComplete()
   else
     complete = creator->isComplete();
 
-  enableButtonOk(complete);
+  enableButton(KDialog::Ok,complete);
 }
 
 Condition* NewCondition::newCondition()
@@ -122,10 +123,10 @@ Condition* NewCondition::newCondition()
     return 0;
   }
 
-  if (KDialog::exec()) {
+  if (QDialog::exec()) {
     //creating
     CreateConditionWidget *creator = dynamic_cast<CreateConditionWidget*>(ui->swConditionCreators->currentWidget());
-    kDebug() << "Creating with creator: " << creator;
+    qDebug() << "Creating with creator: " << creator;
     Q_ASSERT(creator);
 
     if (!creator) return 0;

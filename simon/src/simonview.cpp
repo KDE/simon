@@ -47,36 +47,27 @@
 #include <simonscenarios/actioncollection.h>
 #include <simonscenarios/author.h>
 
-#include <QTimer>
-#include <QFile>
-#include <QPixmap>
 #include <QCryptographicHash>
 #include <QCloseEvent>
-#include <QMenu>
 #include <QThread>
 #include <KToolBar>
-#include <QLabel>
-#include <QHBoxLayout>
 #include <KDE/KComboBox>
-#include <QDesktopServices>
 #include <QTimeLine>
 
-#include <KMessageBox>
-#include <KApplication>
-#include <KAction>
+#include <KDELibs4Support/kapplication.h>
+#include <QAction>
 #include <KToolBarPopupAction>
-#include <KMenu>
 #include <KLocale>
 #include <KActionCollection>
 #include <KStandardAction>
-#include <KStandardDirs>
+#include <KWidgetsAddons/KMessageBox>
+
 #include <KStatusBar>
-#include <KCMultiDialog>
-#include <KCModuleProxy>
-#include <KPageWidgetItem>
+#include <KCMUtils/KCMultiDialog>
 #include <KIconLoader>
 #include <KCmdLineArgs>
 #include <KColorScheme>
+#include <QMenu>
 
 /**
  * @brief Constructor
@@ -108,7 +99,8 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
     info->writeToSplash ( i18n ( "Loading core..." ) );
   }
 
-  KGlobal::locale()->insertCatalog("simonlib");
+  //QT5TODO: This must be ported separately
+  // QLocale().insertCatalog("simonlib");
 
   control = (new SimonControl(this));
 
@@ -123,14 +115,16 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
   trayManager = new TrayIconManager(this);
 
-  this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deactivated" ) );
+  this->trayManager->createIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState), i18n ( "Simon - Deactivated" ) );
 
   QMainWindow ( parent,flags );
   qApp->setQuitOnLastWindowClosed(false);
   ui.setupUi ( this );
   
-  statusBar()->insertItem(i18n("Not connected"),0);
-  statusBar()->insertItem("",1,10);
+  
+  statusBar()->showMessage(i18n("Not connected"),0);
+  //QT5TODO: What was this? 
+  // statusBar()->insertItem("",1,10);
   statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
 
   ScenarioManager::getInstance()->registerScenarioDisplay(this);
@@ -224,18 +218,18 @@ void SimonView::updateActionList()
 
 void SimonView::setupActions()
 {
-  connectAction = new KAction(this);
+  connectAction = new QAction(this);
   connectAction->setText(i18n("Connect"));
   connectAction->setCheckable(true);
-  connectAction->setIcon(KIcon("network-disconnect"));
+  connectAction->setIcon(QIcon::fromTheme("network-disconnect"));
   connect(connectAction, SIGNAL(triggered(bool)),
     this, SLOT(toggleConnection()));
   actionCollection()->addAction("connect", connectAction);
   this->trayManager->addAction("connect", connectAction);
 
-  activateAction = new KAction(this);
+  activateAction = new QAction(this);
   activateAction->setText(i18n("Activate"));
-  activateAction->setIcon(KIcon("media-playback-start"));
+  activateAction->setIcon(QIcon::fromTheme("media-playback-start"));
   activateAction->setCheckable(true);
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(toggleActivation()));
@@ -246,13 +240,13 @@ void SimonView::setupActions()
   // deactivated because of KDE bug #307225
   //activateAction->setGlobalShortcut(KShortcut(Qt::SHIFT + Qt::Key_Pause));
 
-  disconnectAction = new KAction(this);
+  disconnectAction = new QAction(this);
   disconnectAction->setText(i18n("Disconnect"));
-  disconnectAction->setIcon(KIcon("network-disconnect"));
+  disconnectAction->setIcon(QIcon::fromTheme("network-disconnect"));
   connect(disconnectAction, SIGNAL(triggered(bool)),
     control, SLOT(disconnectFromServer()));
 
-  KToolBarPopupAction* connectActivate = new KToolBarPopupAction(KIcon("network-disconnect"), i18n("Connect"), this);
+  KToolBarPopupAction* connectActivate = new KToolBarPopupAction(QIcon::fromTheme("network-disconnect"), i18n("Connect"), this);
   connectActivate->setCheckable(true);
   connectActivate->setShortcut(Qt::CTRL + Qt::Key_C);
 
@@ -261,18 +255,18 @@ void SimonView::setupActions()
     this, SLOT(toggleConnection()));
 
   
-  KAction* recompile = new KAction(this);
+  QAction * recompile = new QAction(this);
   recompile->setEnabled(control->getStatus() != SimonControl::Disconnected);
   recompile->setText(i18n("Synchronize"));
-  recompile->setIcon(KIcon("view-refresh"));
+  recompile->setIcon(QIcon::fromTheme("view-refresh"));
   recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
   actionCollection()->addAction("compileModel", recompile);
   connect(recompile, SIGNAL(triggered(bool)),
     control, SLOT(compileModel()));
 
-  KAction* sendSampleShareAction = new KAction(this);
+  QAction * sendSampleShareAction = new QAction(this);
   sendSampleShareAction->setText(i18n("Contribute samples"));
-  sendSampleShareAction->setIcon(KIcon("repository"));
+  sendSampleShareAction->setIcon(QIcon::fromTheme("repository"));
   actionCollection()->addAction("sampleShare", sendSampleShareAction);
   connect(sendSampleShareAction, SIGNAL(triggered(bool)),this, SLOT(showSampleShare()));
   
@@ -325,7 +319,7 @@ void SimonView::showSampleShare()
 
 void SimonView::displayConnectionStatus(const QString &status)
 {
-  statusBar()->changeItem(status, 0);
+    statusBar()->showMessage(status, 0);
 }
 
 void SimonView::toggleConnection()
@@ -433,7 +427,7 @@ void SimonView::showSystemDialog ()
 	      if (connectActivate) {
 		connectActivate->setText(i18n ( "Connect" ));
 		connectActivate->setChecked(false);
-		connectActivate->setIcon(KIcon("network-disconnect"));
+		connectActivate->setIcon(QIcon::fromTheme("network-disconnect"));
 		if (connectActivate->menu()->actions().contains(disconnectAction))
 		  connectActivate->menu()->removeAction(disconnectAction);
 
@@ -446,14 +440,14 @@ void SimonView::showSystemDialog ()
 	      
 	      activateAction->setEnabled(false);
 	      activateAction->setText(i18n("Activate"));
-	      activateAction->setIcon(KIcon("media-playback-start"));
+	      activateAction->setIcon(QIcon::fromTheme("media-playback-start"));
 	      activateAction->setChecked(false);
 
 	      if (trayManager)
-		trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deactivated" ) );
+		trayManager->createIcon (KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) , i18n ( "Simon - Deactivated" ) );
       connectAction->setText(i18n("Connect"));
       connectAction->setChecked(false);
-      connectAction->setIcon(KIcon("network-disconnect"));
+      connectAction->setIcon(QIcon::fromTheme("network-disconnect"));
       break;
     }
 
@@ -464,7 +458,7 @@ void SimonView::showSystemDialog ()
       if (connectActivate) {
         connectActivate->setText(connectionStr);
         connectActivate->setChecked(true);
-        connectActivate->setIcon(KIcon("network-disconnect"));
+        connectActivate->setIcon(QIcon::fromTheme("network-disconnect"));
 
         disconnect(connectActivate,0,0,0);
         connect(connectActivate, SIGNAL(triggered(bool)),
@@ -476,7 +470,7 @@ void SimonView::showSystemDialog ()
 
       connectAction->setText(connectionStr);
       connectAction->setChecked(true);
-      connectAction->setIcon(KIcon("network-disconnect"));
+      connectAction->setIcon(QIcon::fromTheme("network-disconnect"));
 
       break;
     }
@@ -503,7 +497,7 @@ void SimonView::showSystemDialog ()
       if (connectActivate) {
         connectActivate->setText(i18n ( "Activate" ));
         connectActivate->setChecked(false);
-        connectActivate->setIcon(KIcon("media-playback-start"));
+        connectActivate->setIcon(QIcon::fromTheme("media-playback-start"));
 
         disconnect(connectActivate,0,0,0);
         connect(connectActivate, SIGNAL(triggered(bool)),
@@ -517,14 +511,14 @@ void SimonView::showSystemDialog ()
       activateAction->setEnabled(true);
       activateAction->setText(i18n("Activate"));
       activateAction->setChecked(false);
-      activateAction->setIcon(KIcon("media-playback-start"));
+      activateAction->setIcon(QIcon::fromTheme("media-playback-start"));
       connectAction->setText(i18n("Connected"));
-      connectAction->setIcon(KIcon("network-connect"));
+      connectAction->setIcon(QIcon::fromTheme("network-connect"));
       connectAction->setChecked(true);
 
       SimonInfo::showMessage ( i18n ( "Simon has been deactivated" ), 2000 );
 
-      this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
+      this->trayManager->createIcon (KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) , i18n ( "simon - Deactivated" ) );
       //repaint();
       break;
     }
@@ -548,7 +542,7 @@ void SimonView::showSystemDialog ()
       if (connectActivate) {
         connectActivate->setText(i18n ( "Activated" ));
         connectActivate->setChecked(true);
-        connectActivate->setIcon(KIcon("media-playback-start"));
+        connectActivate->setIcon(QIcon::fromTheme("media-playback-start"));
 
         disconnect(connectActivate,0,0,0);
         connect(connectActivate, SIGNAL(triggered(bool)),
@@ -560,9 +554,9 @@ void SimonView::showSystemDialog ()
 
       activateAction->setText(i18n("Activated"));
       activateAction->setChecked(true);
-      activateAction->setIcon(KIcon("media-playback-start"));
+      activateAction->setIcon(QIcon::fromTheme("media-playback-start"));
 
-      this->trayManager->createIcon ( KIcon ( "simon" ), "Simon" );
+      this->trayManager->createIcon ( QIcon::fromTheme( "simon" ), "Simon" );
 
       SimonInfo::showMessage ( i18n ( "Simon has been activated" ), 2000 );
 

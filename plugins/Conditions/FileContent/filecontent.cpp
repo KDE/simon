@@ -23,13 +23,13 @@
 #include <QWidget>
 #include <QFileSystemWatcher>
 #include <QTimer>
-#include <KDebug>
+#include <QDebug>
 
 K_PLUGIN_FACTORY( FileContentPluginFactory,
 registerPlugin< FileContent >();
 )
 
-K_EXPORT_PLUGIN( FileContentPluginFactory("simonfilecontent") )
+// K_EXPORT_PLUGIN( FileContentPluginFactory("simonfilecontent") )
 
 FileContent::FileContent(QObject *parent, const QVariantList &args) :
     Condition(parent, args),
@@ -77,7 +77,7 @@ bool FileContent::privateDeSerialize(QDomElement elem)
     //get the file name
     nameElement = elem.firstChildElement("filename");
     if (nameElement.isNull()) {
-        kDebug() << "No file name specified!  Deserialization failure!";
+        qDebug() << "No file name specified!  Deserialization failure!";
         return false;
     }
     m_filename = nameElement.text();
@@ -85,7 +85,7 @@ bool FileContent::privateDeSerialize(QDomElement elem)
     //get the file content
     nameElement = elem.firstChildElement("filecontent");
     if (nameElement.isNull()) {
-        kDebug() << "No window name specified!  Deserialization failure!";
+        qDebug() << "No window name specified!  Deserialization failure!";
         return false;
     }
     m_fileContent = nameElement.text();
@@ -103,7 +103,7 @@ bool FileContent::privateDeSerialize(QDomElement elem)
         m_fileContentRegExp = QRegExp(m_fileContent, Qt::CaseSensitive, QRegExp::FixedString);
 
     watcher->addPath(m_filename);
-    kDebug() << "Adding watcher to: " << m_filename;
+    qDebug() << "Adding watcher to: " << m_filename;
     
     checkFile();
     return true;
@@ -117,10 +117,10 @@ void FileContent::checkFile()
 
 void FileContent::checkFileInternal()
 {
-    kDebug() << "Checking file: " << m_filename;
+    qDebug() << "Checking file: " << m_filename;
     QFile f(m_filename);
     if (!f.open(QIODevice::ReadOnly)) {
-        kDebug() << "Couldn't open file: " << m_filename;
+        qDebug() << "Couldn't open file: " << m_filename;
         return;
     }
 
@@ -134,7 +134,7 @@ void FileContent::checkFileInternal()
     }
     bool changed = (newSatisfied != m_satisfied);
     m_satisfied = newSatisfied;
-    kDebug() << "Satisfied: " << m_satisfied;
+    qDebug() << "Satisfied: " << m_satisfied;
     if (changed)
         emit conditionChanged();
     
@@ -143,3 +143,4 @@ void FileContent::checkFileInternal()
     watcher->removePath(m_filename);
     watcher->addPath(m_filename);
 }
+#include "filecontent.moc"

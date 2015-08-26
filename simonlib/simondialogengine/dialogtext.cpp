@@ -19,7 +19,7 @@
 
 #include "dialogtext.h"
 #include "dialogtextparser.h"
-#include <KDebug>
+#include <QDebug>
 
 
 DialogText::DialogText(DialogTextParser *textParser, const QString& data) :
@@ -30,13 +30,13 @@ DialogText::DialogText(DialogTextParser *textParser, const QString& data) :
 
 QString DialogText::parse() const
 {
-  kDebug() << "parsing text: " << m_data;
+  qDebug() << "parsing text: " << m_data;
   QString out = m_data;
   
   bool ok = m_textParser->parse(out);
 
   if (!ok)
-    kWarning() << "Failed to parse: " << out;
+    qWarning() << "Failed to parse: " << out;
 
   out = QString("<html><head /><body><p>%1</p></body></html>").arg(out.replace('\n', "<br />"));
 

@@ -30,15 +30,16 @@
 
 #include <version.h>
 
-#include <KStandardDirs>
+
 #include <QDomDocument>
 #include <QDateTime>
 #include <QDomElement>
 #include <QFile>
 #include <QFileInfo>
-#include <KDebug>
+#include <QDebug>
 #include <KDateTime>
-#include <KConfigGroup>
+#include <QDir>
+#include <QStandardPaths>
 
 Scenario::Scenario(const QString& scenarioId, const QString& prefix, QObject *parent)
 : QObject(parent),
@@ -135,11 +136,11 @@ bool Scenario::setupChildScenarios()
       m_childScenarios << child;
       child->setParentScenario(this);
 
-      kDebug() << child->id() + " is set as child of " + this->id();
+      qDebug() << child->id() + " is set as child of " + this->id();
     }
     else
     {
-      kDebug() << "Error: Child id '" + id + "'' is unavailable";
+      qDebug() << "Error: Child id '" + id + "'' is unavailable";
     }
   }
 
@@ -175,7 +176,7 @@ void Scenario::setChildScenarioIds(QStringList ids)
 bool Scenario::updateChildScenarioIds(const QString& id, const QStringList& ids)
 {
   QString path = Scenario::pathFromId(id, QString(), false);
-  kDebug() << "Updating child ids of " << path << " to " << ids;
+  qDebug() << "Updating child ids of " << path << " to " << ids;
   QDomDocument doc("scenario");
   QFile file(path);
   if (!file.open(QIODevice::ReadOnly) || (!doc.setContent(&file))) {
@@ -185,7 +186,7 @@ bool Scenario::updateChildScenarioIds(const QString& id, const QStringList& ids)
   docElem.setAttribute("lastModified", utcTime().toString(Qt::ISODate));
   QDomElement childrenElem = docElem.firstChildElement("childscenarioids");
   if (childrenElem.isNull()) {
-    kDebug() << "No child scenario id list element!";
+    qDebug() << "No child scenario id list element!";
     childrenElem = doc.createElement("childscenarioids");
     docElem.appendChild(childrenElem);
   } else {
@@ -223,25 +224,33 @@ bool Scenario::setupPathToParse(QString& path)
 {
   if (path.isNull()) {
     if (m_prefix.isNull())
-      path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
+        path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/scenarios/";
     else
-      path = KStandardDirs::locate("data", m_prefix+"scenarios/"+m_scenarioId);
+        path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + m_prefix + "/scenarios/";
+    QDir dir(path);
+    path = path + m_scenarioId;
+    return dir.mkpath(dir.path());
   }
   return true;
 }
 
 bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
 {
-  if (!setupPathToParse(path)) return false;
+  if (!setupPathToParse(path)) {
+      qWarning() << "Failed to make directory" << path;
+      return false;
+  }
 
   if (!doc) {
     doc = new QDomDocument("scenario");
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
+      qWarning() << "Could not open file" << path;
       delete doc;
       return false;
     }
     if (!doc->setContent(&file)) {
+      qDebug() << "Could not parse scenario document";
       file.close();
       delete doc;
       return false;
@@ -298,7 +307,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
     return false;
   }
 
-  //kDebug() << "Loading scenario " << m_name << " version " << m_version;
+  //qDebug() << "Loading scenario " << m_name << " version " << m_version;
 
   //  simon compatibility
   //************************************************/
@@ -313,7 +322,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
   m_simonMaxVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem.nextSiblingElement());
 
   if (!m_simonMinVersion) {
-    kDebug() << "Could not parse Simon requirements!";
+    qDebug() << "Could not parse Simon requirements!";
     if (deleteDoc) delete doc;
     return false;
   }
@@ -321,7 +330,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
   VersionNumber simonCurVersion(this, simon_version);
   if ((!m_simonMinVersion->isValid()) || (simonCurVersion < *m_simonMinVersion) ||
   (m_simonMaxVersion && m_simonMaxVersion->isValid() && (!(simonCurVersion <= *m_simonMaxVersion)))) {
-    kDebug() << "Scenario not compatible with this Simon version";
+    qDebug() << "Scenario not compatible with this Simon version";
     if (deleteDoc) delete doc;
     return false;
   }
@@ -338,7 +347,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
   while (!authorElem.isNull()) {
     Author *a = Author::createAuthor(this, authorElem);
     if (!a) {
-      kDebug() << "Author information could not be parsed!";
+      qDebug() << "Author information could not be parsed!";
       continue;
     }
 
@@ -376,18 +385,18 @@ bool Scenario::readLanguageModel(QString path, QDomDocument* doc, bool deleteDoc
     if (deleteDoc) delete doc;
     return false;
   }
-  //kDebug() << m_vocabulary->wordCount() << " words loaded";
+  //qDebug() << m_vocabulary->wordCount() << " words loaded";
 
   //  Grammar
   //************************************************/
   QDomElement grammarElem = docElem.firstChildElement("grammar");
   m_grammar = Grammar::createGrammar(this, grammarElem);
   if (!m_grammar) {
-    kDebug() << "Grammar could not be loaded!";
+    qDebug() << "Grammar could not be loaded!";
     if (deleteDoc) delete doc;
     return false;
   }
-  //kDebug() << m_grammar->structureCount() << " structurs loaded";
+  //qDebug() << m_grammar->structureCount() << " structurs loaded";
 
   if (deleteDoc)
     delete doc;
@@ -408,7 +417,7 @@ bool Scenario::readActions(QString path, QDomDocument* doc, bool deleteDoc)
   if (deleteDoc) delete doc;
 
   if (!m_actionCollection) {
-    kDebug() << "ActionCollection could not be loaded!";
+    qDebug() << "ActionCollection could not be loaded!";
     return false;
   }
   return true;
@@ -427,7 +436,7 @@ bool Scenario::readTrainingsTexts(QString path, QDomDocument* doc, bool deleteDo
   if (deleteDoc) delete doc;
 
   if (!m_texts) {
-    kDebug() << "Trainingtextcollection could not be loaded!";
+    qDebug() << "Trainingtextcollection could not be loaded!";
     return false;
   }
   return true;
@@ -453,7 +462,7 @@ bool Scenario::readCompoundCondition(QString path, QDomDocument* doc, bool delet
   if (deleteDoc) delete doc;
 
   if (!m_compoundCondition) {
-    kDebug() << "CompoundCondition could not be deSerialized!";
+    qDebug() << "CompoundCondition could not be deSerialized!";
     return false;
   }
 
@@ -464,7 +473,7 @@ bool Scenario::readCompoundCondition(QString path, QDomDocument* doc, bool delet
   connect(m_compoundCondition, SIGNAL(modified()),
           this, SLOT(save()));
 
-  kDebug() << "Compound condition has been deSerialized!";
+  qDebug() << "Compound condition has been deSerialized!";
 
   return true;
 }
@@ -479,7 +488,7 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
 
   if (childrenElem.isNull())
   {
-    kDebug() << "No child scenario id list element!";
+    qDebug() << "No child scenario id list element!";
     return true;
   }
 
@@ -489,12 +498,12 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
   {
     m_childScenarioIds.push_back(idElem.text());
 
-    kDebug() << "Child scenario id added: " + idElem.text();
+    qDebug() << "Child scenario id added: " + idElem.text();
 
     idElem = idElem.nextSiblingElement("scenarioid");
   }
 
-  kDebug() << "Child scenario id list has been deSerialized!";
+  qDebug() << "Child scenario id list has been deSerialized!";
 
   return true;
 }
@@ -512,7 +521,7 @@ QStringList Scenario::explode(const QString& inFile, bool isIntegrated)
 
   QDomElement scenarioElem = d.firstChildElement("scenario");
   if (scenarioElem.isNull()) {
-    kDebug() << "This is not a scenario";
+    qDebug() << "This is not a scenario";
     return QStringList();
   }
 
@@ -527,19 +536,19 @@ QStringList Scenario::explode(const QString& inFile, bool isIntegrated)
     QString name = childElem.attribute("name");
     QString id = Scenario::createId(name);
     QString path = pathFromId(id);
-    kDebug() << "this id: " << id << " full path: " << path;
+    qDebug() << "this id: " << id << " full path: " << path;
     QString suffix;
     while (QFile::exists(path + suffix))
       suffix += "_";
 
     QFile f(path + suffix);
     if (!f.open(QIODevice::WriteOnly)) {
-      kWarning() << "Failed to write temporary scenario";
+      qWarning() << "Failed to write temporary scenario";
       continue;
     }
     QDomDocument tempDoc;
     tempDoc.appendChild(tempDoc.importNode(childElem, true));
-    kDebug() << "Writing: " << tempDoc.toString().toUtf8();
+    qDebug() << "Writing: " << tempDoc.toString().toUtf8();
     f.write(tempDoc.toString().toUtf8());
 
     childrenSrc << id + suffix;
@@ -567,10 +576,10 @@ QStringList Scenario::explode(const QString& inFile, bool isIntegrated)
   }
 
   QFile::remove(inFile);
-  kDebug() << "Output path: " << outerPath;
+  qDebug() << "Output path: " << outerPath;
   QFile fInSrc(outerPath);
   if (!fInSrc.open(QIODevice::WriteOnly)) {
-    kWarning() << "couldn't write outer scenario";
+    qWarning() << "couldn't write outer scenario";
   } else {
     fInSrc.write(d.toString().toUtf8());
     fInSrc.close();
@@ -579,21 +588,22 @@ QStringList Scenario::explode(const QString& inFile, bool isIntegrated)
   return allScenarios;
 }
 
-
+//QT5TODO: 
 QString Scenario::pathFromId(const QString& id, const QString& prefix, bool local)
 {
   if (local) {
     if (prefix.isNull())
-      return KStandardDirs::locateLocal("appdata", "scenarios/"+id);
+      return QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "scenarios/"+id;
     else
-      return KStandardDirs::locateLocal("data", prefix+"scenarios/"+id);
+      return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + prefix+"scenarios/"+id;
   } else {
     if (prefix.isNull())
-      return KStandardDirs::locate("appdata", "scenarios/"+id);
+      return QStandardPaths::StandardLocation(QStandardPaths::DataLocation) + "/scenarios/"+id;
     else
-      return KStandardDirs::locate("data", prefix+"scenarios/"+id);
+      return QStandardPaths::StandardLocation(QStandardPaths::GenericDataLocation) + prefix+"/scenarios/"+id;
   }
 }
+
 QString Scenario::idFromPath(const QString& path)
 {
   return QFileInfo(path).fileName();
@@ -637,7 +647,7 @@ bool Scenario::save(QString path, bool full, bool touchModifiedTime)
 
   QFile file(path);
   if (!file.open(QIODevice::WriteOnly)) {
-    kDebug() << "could not open file at " << path;
+    qDebug() << "could not open file at " << path;
     return false;
   }
 
@@ -647,6 +657,7 @@ bool Scenario::save(QString path, bool full, bool touchModifiedTime)
   m_dirty = false;
   emit changed(this);
 
+  qDebug() << "Wrote scenario file" << file.fileName();
   return true;
 }
 
@@ -725,12 +736,12 @@ QDomElement Scenario::serialize(QDomDocument doc, bool full)
   //************************************************/
   if (!m_compoundCondition)
   {
-    kDebug() << "No compound condition to serialize!";
+    qDebug() << "No compound condition to serialize!";
     rootElem.appendChild(CompoundCondition::createEmpty(&doc));
   }
   else
   {
-    kDebug() << "Serializing compound condition!";
+    qDebug() << "Serializing compound condition!";
     rootElem.appendChild(m_compoundCondition->serialize(&doc));
   }
 
@@ -1111,12 +1122,12 @@ void Scenario::updateActivation()
   {
     if (m_compoundCondition->isSatisfied())
     {
-      kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+      qDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
       m_active = true;
     }
     else
     {
-      kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+      qDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
       m_active = false;
     }
   }
@@ -1124,12 +1135,12 @@ void Scenario::updateActivation()
   {
     if (m_compoundCondition->isSatisfied() && m_parentScenario->isActive())
     {
-      kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+      qDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
       m_active = true;
     }
     else
     {
-      kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+      qDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
       m_active = false;
     }
   }

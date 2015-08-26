@@ -28,7 +28,7 @@ CreateFaceDetectionConditionWidget::CreateFaceDetectionConditionWidget(QWidget *
   ui.setupUi(this);
 
   setWindowTitle(i18n("Face Detection"));
-  setWindowIcon(KIcon(""));
+  setWindowIcon(QIcon::fromTheme(""));
 }
 
 

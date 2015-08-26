@@ -82,12 +82,12 @@ QDomElement OutputConfiguration::serialize(QDomDocument* doc)
   return outputElem;
 }
 
-#include <KDebug>
+#include <QDebug>
 bool OutputConfiguration::deSerialize(const QDomElement& elem)
 {
   QDomElement outputElem = elem.firstChildElement("output");
   if (outputElem.isNull()) {
-    kDebug() << "Given null node";
+    qDebug() << "Given null node";
     return false;
   }
 

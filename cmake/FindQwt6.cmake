@@ -1,117 +1,112 @@
-# Find the Qwt 6.x includes and library, either the version linked to Qt3 or the version linked to Qt4
+# Qt Widgets for Technical Applications
+# available at http://www.http://qwt.sourceforge.net/
 #
-# On Windows it makes these assumptions:
-#    - the Qwt DLL is where the other DLLs for Qt are (QT_DIR\bin) or in the path
-#    - the Qwt .h files are in QT_DIR\include\Qwt or in the path
-#    - the Qwt .lib is where the other LIBs for Qt are (QT_DIR\lib) or in the path
+# The module defines the following variables:
+#  QWT_FOUND - the system has Qwt
+#  QWT_INCLUDE_DIR - where to find qwt_plot.h
+#  QWT_INCLUDE_DIRS - qwt includes
+#  QWT_LIBRARY - where to find the Qwt library
+#  QWT_LIBRARIES - aditional libraries
+#  QWT_MAJOR_VERSION - major version
+#  QWT_MINOR_VERSION - minor version
+#  QWT_PATCH_VERSION - patch version
+#  QWT_VERSION_STRING - version (ex. 5.2.1)
+#  QWT_ROOT_DIR - root dir (ex. /usr/local)
+
+#=============================================================================
+# Copyright 2010-2013, Julien Schueller
+# All rights reserved.
 #
-# Qwt6_INCLUDE_DIR - where to find qwt.h if Qwt
-# Qwt6_Qt4_LIBRARY - The Qwt6 library linked against Qt4 (if it exists)
-# Qwt6_Qt3_LIBRARY - The Qwt6 library linked against Qt4 (if it exists)
-# Qwt6_Qt4_FOUND   - Qwt6 was found and uses Qt4
-# Qwt6_Qt3_FOUND   - Qwt6 was found and uses Qt3
-# Qwt6_FOUND - Set to TRUE if Qwt6 was found (linked either to Qt3 or Qt4)
-
-# Copyright (c) 2007, Pau Garcia i Quiles, <pgquiles@elpauer.org>
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
 #
-# Redistribution and use is allowed according to the terms of the 3-clause BSD license.
+# 1. Redistributions of source code must retain the above copyright notice, this
+#    list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Condition is "(A OR B) AND C", CMake does not support parentheses but it evaluates left to right
-IF(Qwt6_Qt4_LIBRARY OR Qwt6_Qt3_LIBRARY AND Qwt6_INCLUDE_DIR)
-    SET(Qwt6_FIND_QUIETLY TRUE)
-ENDIF(Qwt6_Qt4_LIBRARY OR Qwt6_Qt3_LIBRARY AND Qwt6_INCLUDE_DIR)
+# The views and conclusions contained in the software and documentation are those
+# of the authors and should not be interpreted as representing official policies,
+# either expressed or implied, of the FreeBSD Project.
+#=============================================================================
 
-IF(NOT QT4_FOUND)
-	FIND_PACKAGE( Qt4 REQUIRED QUIET )
-ENDIF(NOT QT4_FOUND)
 
-IF( QT4_FOUND )
-	# Is Qwt6 installed? Look for header files
+find_path ( QWT_INCLUDE_DIR
+  NAMES qwt_plot.h
+  HINTS ${QT_INCLUDE_DIR}
+  PATH_SUFFIXES qwt qwt-qt3 qwt-qt4 qwt-qt5
+  )
 
-	FILE(GLOB Qwt6_GLOB_PATH /usr/qwt* /usr/local/qwt* /usr/include/qwt* /usr/lib/qt4/include/qwt* /usr/lib64/qt4/include/qwt* )
+set ( QWT_INCLUDE_DIRS ${QWT_INCLUDE_DIR} )
 
-	FIND_PATH( Qwt6_INCLUDE_DIR qwt.h 
-               PATHS ${QT_INCLUDE_DIR} ${Qwt6_GLOB_PATH}
-               PATH_SUFFIXES qwt qwt6 qwt-qt4 qwt6-qt4 qwt-qt3 qwt6-qt3 include qwt/include qwt6/include qwt-qt4/include qwt6-qt4/include qwt-qt3/include qwt6-qt3/include ENV PATH)
-	
-	# Find Qwt version
-	IF( Qwt6_INCLUDE_DIR )
-		FILE( READ ${Qwt6_INCLUDE_DIR}/qwt_global.h QWT_GLOBAL_H )
-		STRING( REGEX MATCH "#define *QWT_VERSION *(0x06*)" QWT_IS_VERSION_6 ${QWT_GLOBAL_H})
-		
-		IF( QWT_IS_VERSION_6 )
-		STRING(REGEX REPLACE ".*#define[\\t\\ ]+QWT_VERSION_STR[\\t\\ ]+\"([0-9]+\\.[0-9]+\\.[0-9]+)\".*" "\\1" Qwt_VERSION "${QWT_GLOBAL_H}")
+# version
+set ( _VERSION_FILE ${QWT_INCLUDE_DIR}/qwt_global.h )
+if ( EXISTS ${_VERSION_FILE} )
+  file ( STRINGS ${_VERSION_FILE} _VERSION_LINE REGEX "define[ ]+QWT_VERSION_STR" )
+  if ( _VERSION_LINE )
+    string ( REGEX REPLACE ".*define[ ]+QWT_VERSION_STR[ ]+\"(.*)\".*" "\\1" QWT_VERSION_STRING "${_VERSION_LINE}" )
+    string ( REGEX REPLACE "([0-9]+)\\.([0-9]+)\\.([0-9]+)" "\\1" QWT_MAJOR_VERSION "${QWT_VERSION_STRING}" )
+    string ( REGEX REPLACE "([0-9]+)\\.([0-9]+)\\.([0-9]+)" "\\2" QWT_MINOR_VERSION "${QWT_VERSION_STRING}" )
+    string ( REGEX REPLACE "([0-9]+)\\.([0-9]+)\\.([0-9]+)" "\\3" QWT_PATCH_VERSION "${QWT_VERSION_STRING}" )
+  endif ()
+endif ()
 
-		# Find Qwt6 library linked to Qt4
-		FIND_LIBRARY( Qwt6_Qt4_TENTATIVE_LIBRARY NAMES qwt6-qt4 qwt-qt4 qwt6 qwt PATHS /usr/local/qwt/lib /usr/local/lib ${Qwt6_INCLUDE_DIR}/../lib /usr/lib ${QT_LIBRARY_DIR} )
-		IF( UNIX AND NOT CYGWIN)
-			IF ( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin" )
-				set( LDDCOMMAND "otool" )
-				set( LDDARGS "-l" )
-				set( LDDCOMMAND "otool" )
-				set( LDDARGS "-l" )
-			ELSE ()
-				set ( LDDCOMMAND "ldd" )
-				set( LDDARGS "" )
-			ENDIF ()
-			IF( Qwt6_Qt4_TENTATIVE_LIBRARY )
-				EXECUTE_PROCESS( COMMAND "${LDDCOMMAND}" "${LDDARGS}" "${Qwt6_Qt4_TENTATIVE_LIBRARY}" OUTPUT_VARIABLE Qwt_Qt4_LIBRARIES_LINKED_TO  )
-				STRING( REGEX MATCH ".*QtCore.*" Qwt6_IS_LINKED_TO_Qt4 ${Qwt_Qt4_LIBRARIES_LINKED_TO})
-				IF( Qwt6_IS_LINKED_TO_Qt4 )
-					SET( Qwt6_Qt4_LIBRARY ${Qwt6_Qt4_TENTATIVE_LIBRARY} )
-					SET( Qwt6_Qt4_FOUND TRUE )
-					IF (NOT Qwt6_FIND_QUIETLY)
-						MESSAGE( STATUS "Found Qwt: ${Qwt6_Qt4_LIBRARY}" )
-					ENDIF (NOT Qwt6_FIND_QUIETLY)
-				ENDIF( Qwt6_IS_LINKED_TO_Qt4 )
-			ENDIF( Qwt6_Qt4_TENTATIVE_LIBRARY )
-		ELSE( UNIX AND NOT CYGWIN)
-		# Assumes qwt.dll is in the Qt dir
-			SET( Qwt6_Qt4_LIBRARY ${Qwt6_Qt4_TENTATIVE_LIBRARY} )
-			SET( Qwt6_Qt4_FOUND TRUE )
-			IF (NOT Qwt6_FIND_QUIETLY)
-				MESSAGE( STATUS "Found Qwt version ${Qwt_VERSION} linked to Qt4" )
-			ENDIF (NOT Qwt6_FIND_QUIETLY)
-		ENDIF( UNIX AND NOT CYGWIN)
-		
-		
-		# Find Qwt6 library linked to Qt3
-		FIND_LIBRARY( Qwt6_Qt3_TENTATIVE_LIBRARY NAMES qwt-qt3 qwt qwt6-qt3 qwt6 )
-		IF( UNIX AND NOT CYGWIN)
-			IF( Qwt6_Qt3_TENTATIVE_LIBRARY )
-				#MESSAGE("Qwt6_Qt3_TENTATIVE_LIBRARY = ${Qwt6_Qt3_TENTATIVE_LIBRARY}")
-				EXECUTE_PROCESS( COMMAND "${LDDCOMMAND}" "${LDDARGS}" "${Qwt6_Qt3_TENTATIVE_LIBRARY}" OUTPUT_VARIABLE Qwt-Qt3_LIBRARIES_LINKED_TO )
-				STRING( REGEX MATCH "qt-mt" Qwt6_IS_LINKED_TO_Qt3 ${Qwt-Qt3_LIBRARIES_LINKED_TO})
-				IF( Qwt6_IS_LINKED_TO_Qt3 )
-					SET( Qwt6_Qt3_LIBRARY ${Qwt6_Qt3_TENTATIVE_LIBRARY} )
-					SET( Qwt6_Qt3_FOUND TRUE )
-					IF (NOT Qwt6_FIND_QUIETLY)
-						MESSAGE( STATUS "Found Qwt version ${Qwt_VERSION} linked to Qt3" )
-					ENDIF (NOT Qwt6_FIND_QUIETLY)
-				ENDIF( Qwt6_IS_LINKED_TO_Qt3 )
-			ENDIF( Qwt6_Qt3_TENTATIVE_LIBRARY )
-		ELSE( UNIX AND NOT CYGWIN)
-			SET( Qwt6_Qt3_LIBRARY ${Qwt6_Qt3_TENTATIVE_LIBRARY} )
-			SET( Qwt6_Qt3_FOUND TRUE )
-			IF (NOT Qwt6_FIND_QUIETLY)
-				MESSAGE( STATUS "Found Qwt: ${Qwt6_Qt3_LIBRARY}" )
-			ENDIF (NOT Qwt6_FIND_QUIETLY)
-		ENDIF( UNIX AND NOT CYGWIN)
-		
-		ENDIF( QWT_IS_VERSION_6 )
-		
-		IF( Qwt6_Qt4_FOUND OR Qwt6_Qt3_FOUND )
-			SET( Qwt6_FOUND TRUE )
-		ENDIF( Qwt6_Qt4_FOUND OR Qwt6_Qt3_FOUND )
-		
-		MARK_AS_ADVANCED( Qwt6_INCLUDE_DIR Qwt6_Qt4_LIBRARY Qwt6_Qt3_LIBRARY )
 
-        ELSE( Qwt6_INCLUDE_DIR )
-		MESSAGE("Qwt 6.x include dir not found")
-	ENDIF( Qwt6_INCLUDE_DIR )
+# check version
+set ( _QWT_VERSION_MATCH TRUE )
+if ( Qwt_FIND_VERSION AND QWT_VERSION_STRING )
+  if ( Qwt_FIND_VERSION_EXACT )
+    if ( NOT Qwt_FIND_VERSION VERSION_EQUAL QWT_VERSION_STRING )
+      set ( _QWT_VERSION_MATCH FALSE )
+    endif ()
+  else ()
+    if ( QWT_VERSION_STRING VERSION_LESS Qwt_FIND_VERSION )
+      set ( _QWT_VERSION_MATCH FALSE )
+    endif ()
+  endif ()
+endif ()
 
-   	IF (NOT Qwt6_FOUND AND Qwt6_FIND_REQUIRED)
-      		MESSAGE(FATAL_ERROR "Could not find Qwt 6.x")
-   	ENDIF (NOT Qwt6_FOUND AND Qwt6_FIND_REQUIRED)
 
-ENDIF( QT4_FOUND )
+find_library ( QWT_LIBRARY
+  NAMES qwt qwt-qt3 qwt-qt4 qwt-qt5
+  )
+
+set ( QWT_LIBRARIES ${QWT_LIBRARY} )
+
+
+# try to guess root dir from include dir
+if ( QWT_INCLUDE_DIR )
+  string ( REGEX REPLACE "(.*)/include.*" "\\1" QWT_ROOT_DIR ${QWT_INCLUDE_DIR} )
+  # try to guess root dir from library dir
+elseif ( QWT_LIBRARY )
+  string ( REGEX REPLACE "(.*)/lib[/|32|64].*" "\\1" QWT_ROOT_DIR ${QWT_LIBRARY} )
+endif ()
+
+
+# handle the QUIETLY and REQUIRED arguments
+include ( FindPackageHandleStandardArgs )
+find_package_handle_standard_args( Qwt DEFAULT_MSG QWT_LIBRARY QWT_INCLUDE_DIR _QWT_VERSION_MATCH )
+
+mark_as_advanced (
+  QWT_LIBRARY
+  QWT_LIBRARIES
+  QWT_INCLUDE_DIR
+  QWT_INCLUDE_DIRS
+  QWT_MAJOR_VERSION
+  QWT_MINOR_VERSION
+  QWT_PATCH_VERSION
+  QWT_VERSION_STRING
+  QWT_ROOT_DIR
+  )

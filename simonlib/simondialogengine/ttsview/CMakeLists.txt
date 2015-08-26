@@ -7,7 +7,7 @@ set_target_properties( simondialogenginettsview
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
-target_link_libraries(simondialogenginettsview ${QT_LIBRARIES} ${KDE4_KIO_LIBS} 
+target_link_libraries(simondialogenginettsview ${QT_LIBRARIES} KF5::KIOCore
   simontts simondialogengine simonscenarios)
 
 install(TARGETS simondialogenginettsview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore)

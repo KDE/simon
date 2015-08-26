@@ -2,7 +2,7 @@ set(simonwav_LIB_SRCS wav.cpp)
 set(simonwav_LIB_HDRS wav.h)
 
 kde4_add_library(simonwav SHARED ${simonwav_LIB_SRCS})
-target_link_libraries(simonwav ${QT_QTCORE_LIBRARY})
+target_link_libraries(simonwav Qt5::Core KF5::I18n)
 
 set_target_properties(simonwav PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 

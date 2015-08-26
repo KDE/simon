@@ -18,11 +18,9 @@
  */
 
 #include "importtrainingdirectoryworkingpage.h"
-#include <KUrl>
-#include <KMessageBox>
-#include <QFileInfo>
-#include <QVariant>
+#include <QUrl>
 #include "importtrainingdata.h"
+#include <KWidgetsAddons/KMessageBox>
 
 /**
  * \brief Constructor - creates the GUI
@@ -92,11 +90,11 @@ void ImportTrainingDirectoryWorkingPage::initializePage()
   bool importPrompts = field("importPrompts").toBool();
   QString path, basePath;
   if (importPrompts) {
-    path = field("prompts").value<KUrl>().path();
-    basePath = field("promptsBaseDirectory").value<KUrl>().path();
+    path = field("prompts").value<QUrl>().path();
+    basePath = field("promptsBaseDirectory").value<QUrl>().path();
   }
   else {
-    path = field("directory").value<KUrl>().path();
+    path = field("directory").value<QUrl>().path();
   }
   importer->import(importPrompts, path, basePath);
 }

@@ -22,7 +22,7 @@
 #include "juliustestconfigurationwidget.h"
 #include "samxmlhelper.h"
 
-#include <KDebug>
+#include <QDebug>
 
 TestConfigurationWidget::TestConfigurationWidget(QWidget *parent) : QFrame(parent)
 {
@@ -35,7 +35,7 @@ void TestConfigurationWidget::remove()
 }
 
 TestConfigurationWidget::TestConfigurationWidget(CorpusInformation *info,
-                                                 const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
+                                                 const QUrl& testPromptsUrl, const QUrl& testPromptsBasePathUrl,
                                                  int sampleRate, QWidget *parent) :
   QFrame(parent),
   m_corpusInfo(info),
@@ -97,8 +97,8 @@ TestConfigurationWidget* TestConfigurationWidget::deSerialize(const QDomElement&
 
   BackendType type = stringToBackendType(elem.attribute("Type"));
 
-  KUrl testPromptsUrl = KUrl(SamXMLHelper::getText(elem, "testPrompts"));
-  KUrl testPromptsBasePathUrl = KUrl(SamXMLHelper::getText(elem, "testPromptsBasePath"));
+  QUrl testPromptsUrl = QUrl(SamXMLHelper::getText(elem, "testPrompts"));
+  QUrl testPromptsBasePathUrl = QUrl(SamXMLHelper::getText(elem, "testPromptsBasePath"));
   int sampleRate = SamXMLHelper::getInt(elem, "sampleRate");
 
   QHash<QString,QString> params;
@@ -141,7 +141,7 @@ QDomElement TestConfigurationWidget::serialize(QDomDocument* doc)
   return elem;
 }
 
-void TestConfigurationWidget::updateGeneralParams(const KUrl &testPromptsUrl, const KUrl &testPromptsBasePathUrl, int sampleRate)
+void TestConfigurationWidget::updateGeneralParams(const QUrl &testPromptsUrl, const QUrl &testPromptsBasePathUrl, int sampleRate)
 {
   m_testPrompts = testPromptsUrl;
   m_testPromptsBasePath = testPromptsBasePathUrl;

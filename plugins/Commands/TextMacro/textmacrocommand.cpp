@@ -18,12 +18,11 @@
  */
 
 #include "textmacrocommand.h"
-#include <QObject>
 #include <QCoreApplication>
 #include <QVariant>
 #include <QDomDocument>
 #include <QDomElement>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <eventsimulation/eventhandler.h>
 
 const QString TextMacroCommand::staticCategoryText()
@@ -38,13 +37,13 @@ const QString TextMacroCommand::getCategoryText() const
 }
 
 
-const KIcon TextMacroCommand::staticCategoryIcon()
+const QIcon TextMacroCommand::staticCategoryIcon()
 {
-  return KIcon("format-text-bold");
+  return QIcon::fromTheme("format-text-bold");
 }
 
 
-const KIcon TextMacroCommand::getCategoryIcon() const
+const QIcon TextMacroCommand::getCategoryIcon() const
 {
   return TextMacroCommand::staticCategoryIcon();
 }

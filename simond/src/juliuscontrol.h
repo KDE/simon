@@ -45,9 +45,7 @@
 #include "recognitioncontrol.h"
 #include <simonrecognizer/juliusrecognizer.h>
 
-#include <QList>
-#include <QPointer>
-#include <KDebug>
+#include <QDebug>
 
 class RecognitionConfiguration;
 

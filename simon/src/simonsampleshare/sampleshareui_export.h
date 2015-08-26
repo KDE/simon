@@ -21,7 +21,7 @@
 #define SAMPLESHAREUI_EXPORT_H_DAA46318B9EE4B9888F8F8C2CDDFD6D1
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SAMPLESHAREUI_EXPORT
 # if defined(MAKE_SAMPLESHAREUI_LIB)

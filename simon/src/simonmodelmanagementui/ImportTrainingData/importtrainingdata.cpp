@@ -18,14 +18,14 @@
  */
 
 #include "importtrainingdata.h"
-#include <KDebug>
+#include <QDebug>
 #include <simonsound/postprocessing.h>
 #include <simonscenarios/trainingmanager.h>
 #include <QDir>
 #include <QDate>
-#include <KStandardDirs>
+#include <QStandardPaths>
 #include <QTime>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 ImportTrainingData::ImportTrainingData(QObject* parent) : QThread(parent),
   pp(new PostProcessing()),
@@ -170,7 +170,7 @@ QStringList* ImportTrainingData::searchDir(QString dir)
 
   QStringList allowedFileTypes = getAllowedFileTypes();
   allowedFileTypes.replaceInStrings(QRegExp("^"), "*.");
-  kDebug() << "Allowed: " << allowedFileTypes;
+  qDebug() << "Allowed: " << allowedFileTypes;
 
   QStringList dirs;
   QStringList files;
@@ -280,7 +280,7 @@ QStringList* ImportTrainingData::processSounds(QStringList dataFiles,
     newFiles->append(newFileName);
     emit progress(++prog);
   }
-  kDebug() << "Files processed" << newFiles->count();
+  qDebug() << "Files processed" << newFiles->count();
 
   return newFiles;
 }

@@ -24,16 +24,18 @@
 #include <sscobjects/user.h>
 #include <sscobjects/institution.h>
 #include <sscobjects/userininstitution.h>
-#include <KDebug>
-#include <KMessageBox>
-#include <KDialogButtonBox>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
 
 ModifyUserInInstitution::ModifyUserInInstitution(QWidget* parent) : KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
 
-  setMainWidget( widget );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
 
   connect(ui.cbInstitution, SIGNAL(editTextChanged(QString)), this, SLOT(checkIfComplete()));
   connect(ui.leReferenceId, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
@@ -41,7 +43,7 @@ ModifyUserInInstitution::ModifyUserInInstitution(QWidget* parent) : KDialog(pare
   connect(ui.pbSelectInstitution, SIGNAL(clicked()), this, SLOT(findInstitution()));
 
   checkIfComplete();
-  setCaption( i18n("User - Institution") );
+  setWindowTitle( i18n("User - Institution") );
 }
 
 
@@ -51,7 +53,7 @@ void ModifyUserInInstitution::checkIfComplete()
   complete = complete && !ui.leReferenceId->text().isEmpty();
   complete = complete && !ui.cbInstitution->currentText().isEmpty();
 
-  enableButtonOk(complete);
+  enableButton(Ok, complete);
 }
 
 
@@ -74,7 +76,7 @@ void ModifyUserInInstitution::findInstitution()
 
 UserInInstitution* ModifyUserInInstitution::add()
 {
-  int ret = KDialog::exec();
+  int ret = QDialog::exec();
   if (ret) {
     bool ok;
     int institutionId = ui.cbInstitution->currentText().toInt(&ok);

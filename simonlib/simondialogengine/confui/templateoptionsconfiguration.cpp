@@ -20,9 +20,10 @@
 #include "createtemplateoptiondialog.h"
 #include <simondialogengine/dialogtemplateoptions.h>
 #include <QPointer>
-#include <KDebug>
-#include <KMessageBox>
+#include <QDebug>
 #include "ui_templateoptionsconfiguration.h"
+#include <KWidgetsAddons/KMessageBox>
+
 
 TemplateOptionsConfiguration::TemplateOptionsConfiguration(QWidget *parent) : QWidget(parent),
   ui(new Ui::TemplateOptionsDlg()),
@@ -30,9 +31,9 @@ TemplateOptionsConfiguration::TemplateOptionsConfiguration(QWidget *parent) : QW
 
 {
   ui->setupUi(this);
-  ui->pbAddTemplateOption->setIcon(KIcon("list-add"));
-  ui->pbRemoveTemplateOption->setIcon(KIcon("list-remove"));
-  ui->pbEditTemplateOption->setIcon(KIcon("document-edit"));
+  ui->pbAddTemplateOption->setIcon(QIcon::fromTheme("list-add"));
+  ui->pbRemoveTemplateOption->setIcon(QIcon::fromTheme("list-remove"));
+  ui->pbEditTemplateOption->setIcon(QIcon::fromTheme("document-edit"));
 
   connect(ui->pbAddTemplateOption, SIGNAL(clicked()), this, SLOT(addTemplateOption()));
   connect(ui->pbEditTemplateOption, SIGNAL(clicked()), this, SLOT(editTemplateOption()));

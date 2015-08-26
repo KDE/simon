@@ -23,9 +23,9 @@
 #include <simonrecognizer/sphinxrecognitionconfiguration.h>
 #include <simonrecognizer/sphinxrecognizer.h>
 
-#include <KDebug>
+#include <QDebug>
 #include <QDir>
-#include <KStandardDirs>
+#include <QStandardPaths>
 #include <KLocale>
 
 
@@ -36,22 +36,22 @@ SphinxControl::SphinxControl(const QString& username, QObject* parent) : Recogni
 
 bool SphinxControl::initializeRecognition(const QString &modelPath)
 {
-  kDebug() << "Initializing to " << modelPath << m_lastModel;
+  qDebug() << "Initializing to " << modelPath << m_lastModel;
   if (modelPath != m_lastModel) { //already initialized / tried to initialize with this exact model
     m_lastModel = modelPath;
-    kDebug() << "Initializing";
+    qDebug() << "Initializing";
     uninitialize();
     m_startRequests = 0;
 
-    QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
+    QString path = QDir::tempPath() + QLatin1Char('/') +  "/simond/"+username+"/sphinx/";
     if(!QDir(path).entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst).isEmpty())
     {
-      kDebug() << "Removing old data from working dir";
+      qDebug() << "Removing old data from working dir";
       FileUtils::removeDirRecursive(path);
-      path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
+      path = QDir::tempPath() + QLatin1Char('/') +  "/simond/"+username+"/sphinx/";
     }
 
-    kDebug() << "Unpacking model to working dir";
+    qDebug() << "Unpacking model to working dir";
     if (!FileUtils::unpackAll(modelPath, path))
     {
       return false;
@@ -73,15 +73,15 @@ bool SphinxControl::initializeRecognition(const QString &modelPath)
 
     modelName = metadata.name();
   }
-  kDebug() << "Emitting recognition ready";
+  qDebug() << "Emitting recognition ready";
   emit recognitionReady();
   return true;
 }
 
 RecognitionConfiguration *SphinxControl::setupConfig()
 {
-  kDebug() << "Setting config up";
-  QString dirPath = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/sphinx/");
+  qDebug() << "Setting config up";
+  QString dirPath = QDir::tempPath() + QLatin1Char('/') +  "/simond/"+username+"/sphinx/";
 
   return new SphinxRecognitionConfiguration(dirPath, dirPath+modelName+QLatin1String(".jsgf"),
                                             dirPath+modelName+QLatin1String(".dic"), DEFAULT_SAMPRATE);

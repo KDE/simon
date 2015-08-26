@@ -19,11 +19,10 @@
  */
 
 #include "shortcutcommand.h"
-#include <QObject>
 #include <QVariant>
 #include <QDomDocument>
 #include <QDomElement>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <eventsimulation/eventhandler.h>
 
 const QString ShortcutCommand::staticCategoryText()
@@ -38,13 +37,13 @@ const QString ShortcutCommand::getCategoryText() const
 }
 
 
-const KIcon ShortcutCommand::staticCategoryIcon()
+const QIcon ShortcutCommand::staticCategoryIcon()
 {
-  return KIcon("go-jump-locationbar");
+  return QIcon::fromTheme("go-jump-locationbar");
 }
 
 
-const KIcon ShortcutCommand::getCategoryIcon() const
+const QIcon ShortcutCommand::getCategoryIcon() const
 {
   return ShortcutCommand::staticCategoryIcon();
 }

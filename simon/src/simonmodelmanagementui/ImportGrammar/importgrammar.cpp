@@ -19,15 +19,17 @@
 
 #include "importgrammar.h"
 #include <QFile>
-#include <KLocalizedString>
-#include <KFilterDev>
-#include <KMimeType>
+#include <KI18n/klocalizedstring.h>
+#include <KArchive/KFilterDev>
+
 #include <QTextCodec>
-#include <KDebug>
+#include <QDebug>
 #include <kencodingdetector.h>
 #include <simonscenarios/speechmodel.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/scenariomanager.h>
+#include <QMimeDatabase>
+#include <KEncodingProber>
 
 ImportGrammar::ImportGrammar(QObject* parent): QThread(parent),
 includeUnknown(false)
@@ -58,7 +60,8 @@ QStringList ImportGrammar::readFile(QString path)
   emit status(i18n("Opening File..."));
   QStringList structures;
 
-  QIODevice *file = KFilterDev::deviceForFile(path, KMimeType::findByFileContent(path)->name());
+  QMimeDatabase db;
+  QIODevice *file = KFilterDev::deviceForFile(path, db.mimeTypeForFile(path, QMimeDatabase::MatchContent).name());
   if ((!file) || (!file->open(QIODevice::ReadOnly)))
     return structures;
 
@@ -67,14 +70,15 @@ QStringList ImportGrammar::readFile(QString path)
     //read first 5000 bytes and run encoding detection
     //seek back to the beginning and parse file using the guessed encoding
     QByteArray preview = file->peek(5000);
-    KEncodingDetector detector;
+    KEncodingProber prober;
     #ifdef Q_OS_WIN32
-    detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+    prober.setProberType(KEncodingProber::WesternEuropean);
     #else
-    detector.setAutoDetectLanguage(KEncodingDetector::Unicode);
+    prober.setProberType(KEncodingProber::Unicode);
     #endif
-    QString out=detector.decode(preview);
-    codec = QTextCodec::codecForName(detector.encoding());
+    prober.feed(preview);
+    QString out = QTextCodec::codecForName(prober.encoding())->toUnicode(preview);
+    codec = QTextCodec::codecForName(prober.encoding());
   } else
   codec = QTextCodec::codecForName(encoding.toAscii());
 
@@ -100,10 +104,10 @@ QStringList ImportGrammar::readFile(QString path)
 
     //		while (!file->atEnd() && (!sentence.contains(sentenceStoppers)))
     sentence = codec->toUnicode(file->readLine(4000).trimmed())+'\n';
-    kDebug() << sentence;
+    qDebug() << sentence;
 
     QStringList sentences = sentence.split(sentenceStoppers, QString::SkipEmptyParts);
-    kDebug() << sentences;
+    qDebug() << sentences;
     for (int i=0; i < sentences.count();i++) {
       currentSentence = sentences[i].trimmed();
       if (currentSentence.trimmed().isEmpty()) continue;
@@ -158,7 +162,7 @@ QStringList ImportGrammar::importFile(QString path)
       //first: quick lookup
       lookupResult = ScenarioManager::getInstance()->findWords(words[j],
         SpeechModel::ScenarioVocabulary, Vocabulary::ExactMatch);
-      kDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
+      qDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
 
       QStringList wordCategories=categories(lookupResult);
       if (wordCategories.count()==0) {
@@ -166,11 +170,11 @@ QStringList ImportGrammar::importFile(QString path)
         lookupResult = ScenarioManager::getInstance()->findWords(words[j],
           SpeechModel::ShadowVocabulary, Vocabulary::ExactMatch);
 
-        kDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
+        qDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
 
         wordCategories = categories(lookupResult);
       }
-      kDebug() << wordCategories;
+      qDebug() << wordCategories;
 
       if (wordCategories.count() != 1 /*change this to include ambigous categories */) {
         if (includeUnknown)
@@ -183,7 +187,7 @@ QStringList ImportGrammar::importFile(QString path)
     }
     if (everyWordSure) {
       //add to output
-      kDebug() << "Found sentence: " << words.join(" ");
+      qDebug() << "Found sentence: " << words.join(" ");
       out << words.join(" ");
     }
     emit fileProgress(++progress, max);

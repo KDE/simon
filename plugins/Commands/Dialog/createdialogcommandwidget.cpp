@@ -24,9 +24,7 @@
 
 #include <simonactions/actionmanager.h>
 #include <simonactions/commandtablemodel.h>
-
-#include <KLineEdit>
-#include <KMessageBox>
+#include <KWidgetsAddons/KMessageBox>
 
 CreateDialogCommandWidget::CreateDialogCommandWidget(CommandManager *manager, QWidget* parent) : 
   CreateCommandWidget(manager, parent),
@@ -54,10 +52,10 @@ CreateDialogCommandWidget::CreateDialogCommandWidget(CommandManager *manager, QW
   connect(ui.tvCommands, SIGNAL(clicked(QModelIndex)), this, SLOT(enableButtons(QModelIndex)));
   enableButtons(ui.tvCommands->currentIndex());
 
-  ui.pbAddCommand->setIcon(KIcon("list-add"));
-  ui.pbRemove->setIcon(KIcon("list-remove"));
-  ui.pbMoveUp->setIcon(KIcon("arrow-up"));
-  ui.pbMoveDown->setIcon(KIcon("arrow-down"));
+  ui.pbAddCommand->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbRemove->setIcon(QIcon::fromTheme("list-remove"));
+  ui.pbMoveUp->setIcon(QIcon::fromTheme("arrow-up"));
+  ui.pbMoveDown->setIcon(QIcon::fromTheme("arrow-down"));
 }
 
 void CreateDialogCommandWidget::enableButtons(const QModelIndex& index)
@@ -104,13 +102,13 @@ void CreateDialogCommandWidget::initStates()
 {
   ui.cbNextState->clear();
   QList<DialogState*> states =  static_cast<DialogCommandManager*>(m_manager)->getStates();
-    kDebug() << "Got states: " << states.count();
+    qDebug() << "Got states: " << states.count();
 
   ui.cbNextState->addItem(i18n("0: Close dialog"));
   int index = 1;
   foreach (DialogState *state, states)
   {
-    kDebug() << "Adding state";
+    qDebug() << "Adding state";
     ui.cbNextState->addItem(i18nc("%1...Index of the state; %2...Name of the state", "%1: %2",
           QString::number(index++), state->getName()));
   }

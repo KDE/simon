@@ -20,7 +20,7 @@
  */
 
 #include "webcamdispatcher.h"
-#include <KDebug>
+#include <QDebug>
 #include<QThread>
 #include <QDateTime>
 #include<highgui.h>
@@ -40,7 +40,7 @@ void WebcamDispatcher::reread(bool isWebcamIndexChanged)
   {
     if(!instance->analyzers.isEmpty())
     {
-      kDebug()<<"Is not empty";
+      qDebug()<<"Is not empty";
       CvCapture* tempCapture=cvCaptureFromCAM(WebcamConfiguration::webcamIndex());
       if(tempCapture)
       {
@@ -59,14 +59,14 @@ void WebcamDispatcher::reread(bool isWebcamIndexChanged)
 void WebcamDispatcher::initWebcamDispatcher()
 {
 
-  kDebug() << "Initializing webcam dispatcher";
+  qDebug() << "Initializing webcam dispatcher";
   // cvNamedWindow("Live",1);
   // Initialize video capture
   capture = cvCaptureFromCAM(WebcamConfiguration::webcamIndex());
 
   if (!capture)
   {
-    kDebug() << "Failed to initialize video capture\n ";
+    qDebug() << "Failed to initialize video capture\n ";
     return;
   }
   instance->start();
@@ -80,7 +80,7 @@ void WebcamDispatcher::closeWebcamDispatcher()
     cvReleaseCapture(&capture);    
   }
 
-  kDebug() << "Webcam Dispatcher closed!\n ";
+  qDebug() << "Webcam Dispatcher closed!\n ";
 }
 
 
@@ -119,7 +119,7 @@ void WebcamDispatcher::run()
 
     if (!liveFrame)
     {
-      kDebug() << "Failed to get the live video frame\n";
+      qDebug() << "Failed to get the live video frame\n";
     }
     qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
     

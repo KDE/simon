@@ -2,12 +2,14 @@ set(simonvadtest_SRCS
   vadtest.cpp
 )
 
-kde4_add_unit_test(simonvadtest-vad TESTNAME
+add_executable(simonvadtest-vadNAME
+add_test(simonvadtest simonvadtest)
+ecm_mark_as_test(simonvadtest)
   simonvadtest-vad
   ${simonvadtest_SRCS}
 )
 
 target_link_libraries(simonvadtest-vad
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  KF5::KDELibs4Support Qt5::Test ${QT_LIBRARIES}
   simonsound
 )

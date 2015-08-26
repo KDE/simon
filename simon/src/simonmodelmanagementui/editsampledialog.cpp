@@ -23,14 +23,17 @@
 #include <simonsound/recwidget.h>
 #include <QWidget>
 #include <QFile>
-#include <KStandardDirs>
-#include <KMessageBox>
+#include <KWidgetsAddons/KMessageBox>
+#include <QDir>
+
 
 EditSampleDialog::EditSampleDialog(QWidget* parent, Qt::WFlags flags): KDialog(parent, flags)
 {
   QWidget *w = new QWidget(this);
   ui.setupUi(w);
-  setMainWidget(w);
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(w);
 }
 
 bool EditSampleDialog::editSample(const QString& key)
@@ -40,7 +43,7 @@ bool EditSampleDialog::editSample(const QString& key)
   ui.leSampleGroup->setText(prompts->sampleGroup(key));
   //copy recording to temporary place and link rec widget to that copy
   QString path = TrainingManager::getInstance()->getTrainingDir() + key + ".wav";
-  QString tmpPathScheme = KStandardDirs::locateLocal("tmp", "simon/edit-sample");
+  QString tmpPathScheme = QDir::tempPath() + QLatin1Char('/') +  "simon/edit-sample";
   QString tmpPath = tmpPathScheme + ".wav";
   if ((QFile::exists(tmpPath) && (!QFile::remove(tmpPath))) ||
       (!QFile::copy(path, tmpPath))) {

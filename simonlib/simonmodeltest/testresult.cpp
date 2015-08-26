@@ -21,7 +21,7 @@
 #include "testresultinstance.h"
 #include "testresultleaf.h"
 #include <simonrecognitionresult/recognitionresult.h>
-#include <KDebug>
+#include <QDebug>
 
 TestResult::TestResult(const QString& label) : m_label(label), m_wordCount(label.count(' ') + 1)
 {
@@ -37,7 +37,7 @@ void TestResult::parseChildren(const QString& label, QList<TestResultLeaf*>& chi
     if (labels.isEmpty())
     {
       t->setInsertionError(true);
-      //kDebug() << "No labels left for: " << t->label();
+      //qDebug() << "No labels left for: " << t->label();
     } else {
       bool found = false;
       int j = 0;
@@ -73,14 +73,14 @@ int TestResult::advanceToNextValidResultAfterSkipping(int lastGood, int skippedC
 {
   //before adding them as new deletion errors try to redeem any
   //incorrectly as insertion errors regarded tokens
-  //kDebug() << "Skipped" << skippedCount << " Last good: " << lastGood << " children count: " << children.count();
+  //qDebug() << "Skipped" << skippedCount << " Last good: " << lastGood << " children count: " << children.count();
   int l = children.count() - 1;
   for (; ((l >= lastGood) && (skippedCount > 0)); l--)
   {
     if (children[l]->insertionError()) {
       children[l]->setInsertionError(false);
       children[l]->setSubstitutionError(true, labels[0]);
-      //kDebug() << "Switching child to substitution: " << children[l]->label() << " for " << labels[0];
+      //qDebug() << "Switching child to substitution: " << children[l]->label() << " for " << labels[0];
       labels.removeAt(0);
       --skippedCount;
     }
@@ -90,7 +90,7 @@ int TestResult::advanceToNextValidResultAfterSkipping(int lastGood, int skippedC
   for (int k=0; ((k < skippedCount) && labels.count()); k++)
   {
     TestResultLeaf *l = new TestResultLeaf();
-    //kDebug() << "Deletion error " << labels[0];
+    //qDebug() << "Deletion error " << labels[0];
     l->setDeletionError(true);
     l->setOriginalLabel(labels.takeAt(0));
     children.insert(lastGood + processedNotesInserted, l);

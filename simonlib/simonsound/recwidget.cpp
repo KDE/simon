@@ -25,20 +25,18 @@
 #include "simonsound.h"
 #include "wavfilewidget.h"
 
-#include <QGroupBox>
-#include <QLabel>
 #include <QString>
 #include <QVBoxLayout>
 #include <QChar>
 #include <QFont>
-#include <QPlainTextEdit>
 #include <KInputDialog>
 
-#include <KLocalizedString>
-#include <KIcon>
-#include <KMessageBox>
-#include <KPushButton>
+#include <KI18n/klocalizedstring.h>
+#include <QIcon>
+#include <QPushButton>
 #include <KLocale>
+#include <QTimer>
+#include <QMessageBox>
 
 #include "ui_recwidget.h"
 
@@ -70,8 +68,8 @@ m_speakingCount(0)
   this->fileTemplate = fileTemplate;
 
   ui->setupUi(this);
-  ui->pbRecord->setIcon(KIcon("media-record"));
-  ui->pbDeleteAll->setIcon(KIcon("edit-delete"));
+  ui->pbRecord->setIcon(QIcon::fromTheme("media-record"));
+  ui->pbDeleteAll->setIcon(QIcon::fromTheme("edit-delete"));
 
   setTitle(name);
 
@@ -139,7 +137,7 @@ void RecWidget::showWaitPrompt()
 
 void RecWidget::registerDevice(const SimonSound::DeviceConfiguration& device, const QString& filenameSuffix)
 {
-  kDebug() << "Wavfile: " << fileTemplate+filenameSuffix+".wav";
+  qDebug() << "Wavfile: " << fileTemplate+filenameSuffix+".wav";
   WavFileWidget *wg = new WavFileWidget(device, fileTemplate+filenameSuffix+".wav", this);
 
   QBoxLayout *lay = dynamic_cast<QVBoxLayout*>(ui->gbContainer->layout());
@@ -251,7 +249,7 @@ void RecWidget::initialize(QList<SimonSound::DeviceConfiguration> forcedDevices)
 
 void RecWidget::displayError(const QString& error)
 {
-  KMessageBox::error(this, error);
+  QMessageBox::critical(this, "Error", error);
 }
 
 
@@ -383,9 +381,9 @@ void RecWidget::slotEnableDeleteAll()
   bool shouldEnableDelete = true;
   foreach (WavFileWidget *wav, waves) {
     shouldEnableDelete &= ! wav->getIsPlaying();
-    kDebug() << wav->getIsPlaying();
+    qDebug() << wav->getIsPlaying();
   }
-  kDebug() << "Updating enable button: " << shouldEnableDelete;
+  qDebug() << "Updating enable button: " << shouldEnableDelete;
   ui->pbDeleteAll->setEnabled(shouldEnableDelete);
 }
 

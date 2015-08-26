@@ -22,10 +22,9 @@
 #include "dialogboundvalues.h"
 
 #include <QStringList>
-#include <QRegExp>
 #include <QVariant>
 
-#include <KDebug>
+#include <QDebug>
 
 DialogTextParser::DialogTextParser(DialogTemplateOptions* templateOptions, DialogBoundValues* boundValues) :
   m_templateOptions(templateOptions),
@@ -80,7 +79,7 @@ bool DialogTextParser::parseTemplates(QString& data)
     } else {
       if (startPos == -1)
       {
-        kWarning() << "Syntax error: Unclosed conditions: " << activeLimitingConditions;
+        qWarning() << "Syntax error: Unclosed conditions: " << activeLimitingConditions;
         return false;
       }
     }
@@ -89,25 +88,25 @@ bool DialogTextParser::parseTemplates(QString& data)
     endPos = data.indexOf("}}", (startPos == -1) ? 0 : startPos);
     if (endPos == -1)
     {
-      kWarning() << "Syntax error: Condition not closed (missing }}) at position " << startPos;
+      qWarning() << "Syntax error: Condition not closed (missing }}) at position " << startPos;
       return false;
     }
 
     condition = data.mid(startPos+2, endPos-startPos-2);
-    kDebug() << "Found condition: " << condition;
+    qDebug() << "Found condition: " << condition;
 
     if (!condition.startsWith(QLatin1String("end")))
     {
       if (condition.startsWith(QLatin1String("else")))
       {
         QString baseCondition = condition.mid(4);
-        kDebug() << "Parsing else for " << baseCondition;
+        qDebug() << "Parsing else for " << baseCondition;
         bool wasActive = (activeLimitingConditions.removeAll(baseCondition) != 0);
         if (wasActive) activeMetConditions << baseCondition;
         else {
           if (activeMetConditions.removeAll(baseCondition) == 0)
           {
-            kWarning() << "Else for unopened condition: " << baseCondition;
+            qWarning() << "Else for unopened condition: " << baseCondition;
             return false;
           }
           activeLimitingConditions << baseCondition;
@@ -116,10 +115,10 @@ bool DialogTextParser::parseTemplates(QString& data)
         //condition only relevant if it is NOT enabled in the template options
         if (!m_templateOptions->isEnabled(condition))
         {
-          kDebug() << "Is not enabled: " << condition;
+          qDebug() << "Is not enabled: " << condition;
           activeLimitingConditions << condition;
         } else {
-          kDebug() << "Is enabled: " << condition;
+          qDebug() << "Is enabled: " << condition;
           activeMetConditions << condition;
         }
       }
@@ -128,7 +127,7 @@ bool DialogTextParser::parseTemplates(QString& data)
       if ((activeLimitingConditions.removeAll(baseCondition) == 0) &&
           (activeMetConditions.removeAll(baseCondition) == 0))
       {
-        kWarning() << "Closed unopened condition " << baseCondition << " at position " << startPos;
+        qWarning() << "Closed unopened condition " << baseCondition << " at position " << startPos;
         return false;
       }
     }
@@ -146,24 +145,24 @@ bool DialogTextParser::parseBoundValues(QString& data)
   int beginPos = outData.indexOf("$");
   int endPos = -1;
 
-  kDebug() << "Processing";
+  qDebug() << "Processing";
 
   while (beginPos != -1)
   {
-    kDebug() << "Found variable";
+    qDebug() << "Found variable";
     endPos = outData.indexOf("$", beginPos + 1);
     if (endPos == -1)
     {
-      kWarning() << "Syntax error: Unclosed variable at " << beginPos;
+      qWarning() << "Syntax error: Unclosed variable at " << beginPos;
       return false;
     }
     QString variable = outData.mid(beginPos+1, endPos-beginPos-1);
-    kDebug() << "Requesting variable" << variable;
+    qDebug() << "Requesting variable" << variable;
 
     QVariant value = m_boundValues->getBoundValue(variable);
     if (value.isNull())
     {
-      kWarning() << "Variable not bound: " << variable;
+      qWarning() << "Variable not bound: " << variable;
       return false;
     }
     
@@ -177,7 +176,7 @@ bool DialogTextParser::parseBoundValues(QString& data)
 
 bool DialogTextParser::parse(QString& data)
 {
-  kDebug() << "Parsing: " << data;
+  qDebug() << "Parsing: " << data;
   bool ok = parseTemplates(data);
 
   if (!ok) return false;

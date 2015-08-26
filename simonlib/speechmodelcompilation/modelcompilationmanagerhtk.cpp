@@ -24,10 +24,12 @@
 #include "modelcompilationadapterhtk.h"
 #include <simonutils/fileutils.h>
 #include <QFileInfo>
-#include <KStandardDirs>
+
 #include <KLocale>
-#include <KDebug>
-#include <KAboutData>
+#include <QDebug>
+#include <QDir>
+#include <QStandardPaths>
+#include <K4AboutData>
 
 ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
 {
@@ -54,7 +56,7 @@ void ModelCompilationManagerHTK::run()
   //first, adapt the input to htk readable formats using the adapter
   QHash<QString,QString> adaptionArgs;
 
-  QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
+  QString activeDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+userName+"/active/";
 
   ModelCompilationAdapter::AdaptionType adaptionType = (baseModelType == 0) ?
                                                          (ModelCompilationAdapter::AdaptLanguageModel) :
@@ -68,7 +70,7 @@ void ModelCompilationManagerHTK::run()
   //then, compile the model using the model compilation manager
   QHash<QString,QString> compilerArgs;
 
-  compilerArgs.insert("samples",KStandardDirs::locateLocal("appdata", "models/"+userName+"/samples/"));
+  compilerArgs.insert("samples",QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+userName+"/samples/");
   compilerArgs.insert("lexicon", activeDir+"lexicon");
   compilerArgs.insert("grammar", activeDir+"model.grammar");
   compilerArgs.insert("vocab", activeDir+"simple.voca");
@@ -85,7 +87,7 @@ void ModelCompilationManagerHTK::run()
 
     if (baseModelType < 2)
     {
-      QString baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/base/");
+      QString baseModelFolder = QDir::tempPath() + QLatin1Char('/') + KAboutData::applicationData().productName()+'/'+userName+"/compile/base/";
       //base model needed - unpack it and fail if its not here
       if (!FileUtils::unpack(baseModelPath, baseModelFolder, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats")))
       {
@@ -105,19 +107,19 @@ void ModelCompilationManagerHTK::run()
     tryAgain = false;
     if (!adapter->startAdaption(adaptionType, scenarioPaths, promptsPathIn, adaptionArgs))
     {
-      kWarning() << "Model adaption failed for user " << userName;
+      qWarning() << "Model adaption failed for user " << userName;
       return;
     }
     if (!keepGoing) return;
 
-    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
+    QString activeDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+userName+"/active/";
 
     QFileInfo fiGrammar(activeDir+"model.grammar");
     bool hasGrammar = (fiGrammar.size() > 0);
 
     if (!hasGrammar)
     {
-      kDebug() << "No Grammar!  Model recompilation aborting!";
+      qDebug() << "No Grammar!  Model recompilation aborting!";
       emit modelCompilationAborted(ModelCompilation::InsufficientInput);
       return;
     }
@@ -129,11 +131,11 @@ void ModelCompilationManagerHTK::run()
       switch (baseModelType)
       {
         case 1:
-          kDebug() << "No Prompts!  Switching to static model!";
+          qDebug() << "No Prompts!  Switching to static model!";
           baseModelType = 0;
           break;
         case 2:                                     //do not bother creating the model without prompts
-          kDebug() << "No Prompts!  Model recompilation aborting!";
+          qDebug() << "No Prompts!  Model recompilation aborting!";
           emit modelCompilationAborted(ModelCompilation::InsufficientInput);
           return;
       }
@@ -156,7 +158,7 @@ void ModelCompilationManagerHTK::run()
 
     if (!keepGoing) return;
 
-    if (exists) kDebug() << "Pulling compiled model from cache";
+    if (exists) qDebug() << "Pulling compiled model from cache";
 
     if (exists || compiler->startCompilation(compilationType, outPath, adapter->getDroppedTranscriptions(),
                                              baseModelPath, compilerArgs))
@@ -168,7 +170,7 @@ void ModelCompilationManagerHTK::run()
       keepGoing = false;
       return;
     } else
-      kWarning() << "Model compilation failed for user " << userName;
+      qWarning() << "Model compilation failed for user " << userName;
     additionalOutPaths << outPath;
   } while (tryAgain);
   keepGoing = false;

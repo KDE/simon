@@ -19,17 +19,20 @@
 
 #include <QString>
 // this needs to be included first because the
-#include <KMessageBox>                            // X11 headers included in the xevents header define "Status"
+// X11 headers included in the xevents header define "Status"
+#include <KWidgetsAddons/kmessagebox.h>
 
 #include <unistd.h>
-#include <KDebug>
-#include <KLocale>
+#include <QDebug>
+#include <QString>
+#include <QChar>
+#include <KWidgetsAddons/KMessageBox>
 
 //include order defined by X11 includes in header...
 #include "xeventsprivate.h" //krazy:exclude=includes
 
 // #include "../Logging/logger.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 XEventsPrivate::XEventsPrivate(const char* displayName)
 {

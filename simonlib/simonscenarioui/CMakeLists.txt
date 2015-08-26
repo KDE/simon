@@ -7,7 +7,7 @@ set(simonscenarioui_LIB_SRCS
 
 set(simonscenarioui_LIB_HDRS scenariomanagementdialog.h scenariomanagementwidget.h)
 
-kde4_add_ui_files(simonscenarioui_LIB_SRCS
+ki18n_wrap_ui(simonscenarioui_LIB_SRCS
   modifyscenario.ui
   modifyauthor.ui
   scenariomanagementdlg.ui
@@ -15,8 +15,8 @@ kde4_add_ui_files(simonscenarioui_LIB_SRCS
 
 kde4_add_library(simonscenarioui SHARED ${simonscenarioui_LIB_SRCS})
 
-target_link_libraries(simonscenarioui ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} 
-  simonscenarios simonscenariobase ${KDE4_KIO_LIBS} ${KDE4_KNEWSTUFF3_LIBS})
+target_link_libraries(simonscenarioui ${QT_LIBRARIES}
+  simonscenarios simonscenariobase KF5::KIOCore KF5::NewStuff)
 
 
 set_target_properties(simonscenarioui

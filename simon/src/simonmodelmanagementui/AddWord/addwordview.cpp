@@ -33,9 +33,8 @@
 #include <simonscenarios/scenariomanager.h>
 
 #include <QWizardPage>
-#include <KMessageBox>
-#include <KLineEdit>
-#include <KStandardDirs>
+#include <KWidgetsAddons/KMessageBox>
+
 
 bool isWordLessThan(Word *w1, Word *w2)
 {

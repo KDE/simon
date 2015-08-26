@@ -26,9 +26,6 @@
 
 #include <QObject>
 #include <QThread>
-#include <QList>
-#include <QDateTime>
-#include <QMetaType>
 #include <QMutex>
 #include <QQueue>
 

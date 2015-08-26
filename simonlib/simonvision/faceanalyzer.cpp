@@ -20,8 +20,9 @@
 #include "faceanalyzer.h"
 #include "webcamdispatcher.h"
 #include "simoncv.h"
-#include <KDebug>
-#include <KStandardDirs>
+#include <QDebug>
+#include <QStandardPaths>
+
 
 
 using namespace SimonCV;
@@ -31,15 +32,15 @@ FaceAnalyzer::FaceAnalyzer()
   cascade=0;
   memoryStorage=0;
 
-  if (!initFaceDetection(KStandardDirs::locate("data", "haarcascade_frontalface_default.xml")))
-    kDebug() <<"Error finding haarcascade_frontalface_default.xml file";
+  if (!initFaceDetection(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "haarcascade_frontalface_default.xml")))
+    qDebug() <<"Error finding haarcascade_frontalface_default.xml file";
 }
 
 int FaceAnalyzer::initFaceDetection(const QString& haarCascadePath)
 {
   if (!(memoryStorage = cvCreateMemStorage(0)))
   {
-    kDebug() <<"Can\'t allocate memory for face detection\n";
+    qDebug() <<"Can\'t allocate memory for face detection\n";
     return 0;
   }
 
@@ -47,7 +48,7 @@ int FaceAnalyzer::initFaceDetection(const QString& haarCascadePath)
 
   if (!cascade)
   {
-    kDebug() <<"Can\'t load Haar classifier cascade from "<<haarCascadePath<<
+    qDebug() <<"Can\'t load Haar classifier cascade from "<<haarCascadePath<<
     "\nPlease check that this is the correct path\n";
     return 0;
   }
@@ -85,7 +86,7 @@ void FaceAnalyzer::closeFaceDetection()
 
 FaceAnalyzer::~FaceAnalyzer()
 {
-  kDebug()<<"Destroying Face Analyzer";
+  qDebug()<<"Destroying Face Analyzer";
   WebcamDispatcher::unregisterAnalyzer(this);
   // Release resources allocated in the analyzer
   closeFaceDetection();

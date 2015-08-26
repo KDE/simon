@@ -19,7 +19,7 @@
 
 #include "avatarmodel.h"
 #include <QPixmap>
-#include <KDebug>
+#include <QDebug>
 
 AvatarModel::AvatarModel(const QList< Avatar* > avatars) : m_avatars(avatars)
 {
@@ -45,7 +45,7 @@ bool AvatarModel::deSerialize(const QDomElement& elem)
   QDomElement avatarElem = elem.firstChildElement("avatar");
   while (!avatarElem.isNull())
   {
-    kDebug() << "Deserializing element..." << avatarElem.attribute("id");
+    qDebug() << "Deserializing element..." << avatarElem.attribute("id");
     Avatar *a = Avatar::createInstance(avatarElem);
     avatarElem = avatarElem.nextSiblingElement("avatar");
     if (!a) {
@@ -54,7 +54,7 @@ bool AvatarModel::deSerialize(const QDomElement& elem)
     }
     m_avatars << a;
   }
-  kDebug() << "Done";
+  qDebug() << "Done";
   reset();
   return succ;
 }

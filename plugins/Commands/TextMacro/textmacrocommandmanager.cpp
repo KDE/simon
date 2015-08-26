@@ -21,15 +21,15 @@
 #include <simonlogging/logger.h>
 #include <simonscenarios/scenario.h>
 #include "textmacrocommand.h"
-#include <KLocalizedString>
-#include <KStandardDirs>
+#include <KI18n/klocalizedstring.h>
+
 #include "createtextmacrocommandwidget.h"
 
 K_PLUGIN_FACTORY( TextMacroCommandPluginFactory,
 registerPlugin< TextMacroCommandManager >();
 )
 
-K_EXPORT_PLUGIN( TextMacroCommandPluginFactory("simontextmacrocommand") )
+// K_EXPORT_PLUGIN( TextMacroCommandPluginFactory("simontextmacrocommand") )
 
 TextMacroCommandManager::TextMacroCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
@@ -65,3 +65,5 @@ CreateCommandWidget* TextMacroCommandManager::getCreateCommandWidget(QWidget *pa
 TextMacroCommandManager::~TextMacroCommandManager()
 {
 }
+
+#include "textmacrocommandmanager.moc"

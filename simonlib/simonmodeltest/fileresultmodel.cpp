@@ -22,7 +22,7 @@
 #include <QDir>
 #include <QColor>
 
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KLocale>
 #include <KColorScheme>
 

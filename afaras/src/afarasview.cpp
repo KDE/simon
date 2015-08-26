@@ -22,20 +22,20 @@
 #include <QDir>
 //#include <QProcess>
 #include <QVBoxLayout>
-#include <QKeySequence>
 #include <QKeyEvent>
 #include <QPointer>
-#include <KDebug>
-#include <KMessageBox>
+#include <KDELibs4Support/KDE/KDebug>
+#include <KWidgetsAddons/KMessageBox>
 #include <KStandardAction>
 #include <KActionCollection>
-#include <KCMultiDialog>
+#include <KCMUtils/KCMultiDialog>
 
 AfarasView::AfarasView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
   recorder(0),
   currentIndex(0)
 {
-  KGlobal::locale()->insertCatalog("simonlib");
+  // QT5TODO: Port this
+  // QLocale().insertCatalog("simonlib");
   ui.setupUi(this);
 
   connect(ui.pbStartReview, SIGNAL(clicked()), this, SLOT(start()));

@@ -21,7 +21,7 @@
 #define SIMON_RECOGNITIONCONTROL_EXPORT_H_C1550CB9C9C9437BB1201CF606DFB76C
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef RECOGNITIONCONTROL_EXPORT
 # if defined(MAKE_RECOGNITIONCONTROL_LIB)

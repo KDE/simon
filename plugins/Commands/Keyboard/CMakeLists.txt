@@ -9,7 +9,7 @@ set (simonkeyboardcommandplugin_SRCS
   flowlayout.cpp
 )
 
-kde4_add_ui_files(simonkeyboardcommandplugin_SRCS 
+ki18n_wrap_ui(simonkeyboardcommandplugin_SRCS
   keyboardwidget.ui
   keyboardconfigurationdlg.ui
   modifybuttondlg.ui
@@ -17,7 +17,7 @@ kde4_add_ui_files(simonkeyboardcommandplugin_SRCS
 
 kde4_add_plugin(simonkeyboardcommandplugin ${simonkeyboardcommandplugin_SRCS})
 
-target_link_libraries(simonkeyboardcommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simonkeyboardcommandplugin  Qt5::Xml
   simonscenarios simonactions eventsimulation simonscenariobase)
 
 install(TARGETS simonkeyboardcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandkeyboardplugin )

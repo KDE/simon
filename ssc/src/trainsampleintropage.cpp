@@ -25,7 +25,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QCheckBox>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent)
 {

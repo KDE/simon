@@ -19,15 +19,15 @@
 
 #include "sscconfiguration.h"
 #include "sscconfig.h"
-#include <KConfigSkeleton>
-#include <KMessageBox>
+#include <KConfigGui/kconfigskeleton.h>
 #include <QSslSocket>
 #include <QSslCipher>
 #include "../../simonlib/sscdaccess/sscdaccess.h"
 #include <sscdaccess/sscdaccesssingleton.h>
+#include <KSharedConfig>
 
 SSCConfiguration::SSCConfiguration(QWidget* parent, const QVariantList& args)
-: KCModule(KGlobal::mainComponent(), parent)
+: KCModule(parent)
 {
   Q_UNUSED(args);
 
@@ -75,7 +75,7 @@ void SSCConfiguration::load()
 
   KSharedConfig::Ptr config = KSharedConfig::openConfig("sscrc");
   KConfigGroup group(config, "Notification Messages");
-  kDebug() << "Setting show samples warning: " << group.readEntry("ShowSampleWarning", false);
+  qDebug() << "Setting show samples warning: " << group.readEntry("ShowSampleWarning", false);
   ui.cbShowSampleWarning->setChecked(!group.readEntry("ShowSampleWarning", false));
   ui.cbAskForOfflineMode->setChecked(!group.readEntry("AskOfflineMode", false));
 }
@@ -95,7 +95,7 @@ void SSCConfiguration::save()
     group.writeEntry("ShowSampleWarning", true);
 
   if (ui.cbAskForOfflineMode->isChecked()) {
-    kDebug() << "Asking for offline mode is deleted";
+    qDebug() << "Asking for offline mode is deleted";
     group.deleteEntry("AskOfflineMode");
   }else
   group.writeEntry("AskOfflineMode", true);
@@ -105,14 +105,14 @@ void SSCConfiguration::save()
   SSCConfig::setReferenceInstitute(ui.kcfg_ReferenceInstitute->value());
   SSCConfig::self()->config()->sync();
   
-  kDebug() << SSCConfig::self();
-  kDebug() << "Getting sscd access...";
+  qDebug() << SSCConfig::self();
+  qDebug() << "Getting sscd access...";
   SSCDAccessSingleton::getInstance()->setTimeout(SSCConfig::timeout());
- kDebug() << "Got sscd access...";
-  kDebug() << "timeout synced";
+ qDebug() << "Got sscd access...";
+  qDebug() << "timeout synced";
   // 	if (ui.cbAskForOfflineMode->isChecked())
   // 	{
-  // 		kDebug() << "Asking for offline mode is deleted before";
+  // 		qDebug() << "Asking for offline mode is deleted before";
   // 		KMessageBox::information(this, "offline mode!");
   // 	} else
   // 		KMessageBox::information(this, "Not checked!");

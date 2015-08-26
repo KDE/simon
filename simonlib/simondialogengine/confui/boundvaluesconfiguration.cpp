@@ -21,17 +21,17 @@
 #include "ui_boundvaluesconfiguration.h"
 #include <simondialogengine/dialogboundvalues.h>
 #include <simondialogengine/boundvalue.h>
-#include <KDebug>
-#include <KMessageBox>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
 
 BoundValuesConfiguration::BoundValuesConfiguration(QWidget *parent) : QWidget(parent),
   ui(new Ui::BoundValuesDlg()),
   boundValues(0)
 {
   ui->setupUi(this);
-  ui->pbAddBoundValue->setIcon(KIcon("list-add"));
-  ui->pbRemoveBoundValue->setIcon(KIcon("list-remove"));
-  ui->pbEditBoundValue->setIcon(KIcon("document-edit"));
+  ui->pbAddBoundValue->setIcon(QIcon::fromTheme("list-add"));
+  ui->pbRemoveBoundValue->setIcon(QIcon::fromTheme("list-remove"));
+  ui->pbEditBoundValue->setIcon(QIcon::fromTheme("document-edit"));
 
   connect(ui->pbAddBoundValue, SIGNAL(clicked()), this, SLOT(addBoundValue()));
   connect(ui->pbEditBoundValue, SIGNAL(clicked()), this, SLOT(editBoundValue()));
@@ -45,7 +45,7 @@ QDomElement BoundValuesConfiguration::serialize(QDomDocument* doc)
 
 bool BoundValuesConfiguration::deSerialize(const QDomElement& elem)
 {
-  kDebug() << "Calling deSerialize()";
+  qDebug() << "Calling deSerialize()";
   QDomElement boundValuesElem = elem.firstChildElement("boundValues");
   if (!boundValues)
   {
@@ -83,19 +83,19 @@ BoundValue* BoundValuesConfiguration::getCurrentBoundValueGraphical()
 
 void BoundValuesConfiguration::addBoundValue()
 {
-  kDebug() << "adding bound value...";
+  qDebug() << "adding bound value...";
   CreateBoundValueDialog *dialog = new CreateBoundValueDialog(this);
 
   BoundValue *boundValue = dialog->createBoundValue();
  
   if (!boundValue)
     return;
-  kDebug() << "got bound value...";
+  qDebug() << "got bound value...";
 
   boundValues->addBoundValue(boundValue);
   delete dialog;
-  kDebug() << "done adding...";
-  kDebug() << "Bound values: " << boundValues;
+  qDebug() << "done adding...";
+  qDebug() << "Bound values: " << boundValues;
 }
 
 void BoundValuesConfiguration::editBoundValue()

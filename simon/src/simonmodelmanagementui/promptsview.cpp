@@ -20,15 +20,17 @@
 #include "promptsview.h"
 #include "promptsviewprivate.h"
 #include <QWidget>
+#include <QVBoxLayout>
+#include <KDELibs4Support/KDE/KDialog>
 
 PromptsView::PromptsView(QWidget *parent)
-: KDialog(parent),
-  d(new PromptsViewPrivate(this))
+    : KDialog(parent),
+      d(new PromptsViewPrivate(this))
 {
-  QWidget *w = new QWidget(parent);
-  QVBoxLayout *lay = new QVBoxLayout(w);
-  lay->addWidget(d);
-  setMainWidget(w);
-  setButtons(KDialog::Ok);
-  setWindowTitle(i18n("Training Samples"));
+    QWidget *w = new QWidget(parent);
+    QVBoxLayout *lay = new QVBoxLayout(w);
+    lay->addWidget(d);
+    setMainWidget(w);
+    setButtons(KDialog::Ok);
+    setWindowTitle(i18n("Training Samples"));
 }

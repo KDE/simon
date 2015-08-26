@@ -20,9 +20,9 @@
 #ifndef SIMON_KSIMONDSETTINGS_H_9157063F17C942C6BB790CDFB3C5B800
 #define SIMON_KSIMONDSETTINGS_H_9157063F17C942C6BB790CDFB3C5B800
 
-#include <KCModule>
+#include <KConfigWidgets/KCModule>
 #include <QVariantList>
-
+#include <QVariant>
 #include "ui_ksimondconfiguration.h"
 
 class KSimondSettings : public KCModule

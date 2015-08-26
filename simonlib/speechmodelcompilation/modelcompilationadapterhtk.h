@@ -25,7 +25,6 @@
 #include "simonmodelcompilationmanagement_export.h"
 
 #include <QThread>
-#include <QProcess>
 #include <QHash>
 #include <QSharedPointer>
 #include <QByteArray>

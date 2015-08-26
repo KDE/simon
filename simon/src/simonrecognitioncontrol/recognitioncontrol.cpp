@@ -52,11 +52,14 @@
 #include <QPointer>
 #include <QCoreApplication>
 
-#include <KMessageBox>
-#include <KLocalizedString>
-#include <KDebug>
-#include <KPasswordDialog>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
+#include <KWidgetsAddons/KPasswordDialog>
 #include <KStringHandler>
+#include <QStandardPaths>
+#include <KSharedConfig>
+#include <KWidgetsAddons/KMessageBox>
+#include <KConfigCore/KConfigGroup>
 
 #define advanceStream(x) \
   msgByte.remove(0,(int)x);\
@@ -150,7 +153,7 @@ void RecognitionControl::startPrivateSimond()
     localSimond->waitForFinished();
   }
 
-  localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
+  localSimond->start('"'+QStandardPaths::findExecutable("simond")+'"');
   localSimond->waitForStarted();
   // we don't know when Simond will start listening for connections;
   // if we connect too soon, we will get a "connection refused" error.
@@ -166,7 +169,7 @@ void RecognitionControl::startPrivateSimond()
 
 void RecognitionControl::startup()
 {
-  kDebug() << "Starting up";
+  qDebug() << "Starting up";
   RecognitionConfiguration::self()->readConfig();
   
   if (RecognitionConfiguration::startLocalSimond()) {
@@ -180,7 +183,7 @@ void RecognitionControl::startup()
 
 void RecognitionControl::actOnAutoConnect()
 {
-  kDebug() << "Acting on auto connect: " << RecognitionConfiguration::juliusdAutoConnect();
+  qDebug() << "Acting on auto connect: " << RecognitionConfiguration::juliusdAutoConnect();
   if ( RecognitionConfiguration::juliusdAutoConnect() )
   {
     startConnecting();
@@ -190,7 +193,7 @@ void RecognitionControl::actOnAutoConnect()
 
 void RecognitionControl::streamStarted()
 {
-  kDebug() << "Stream has been started";
+  qDebug() << "Stream has been started";
   emit recognitionStatusChanged(RecognitionControl::Started);
 }
 
@@ -252,7 +255,6 @@ void RecognitionControl::startConnecting()
   connectToNext();
 }
 
-
 void RecognitionControl::connectToNext()
 {
   if (serverConnectionsToTry.isEmpty()) {
@@ -288,6 +290,7 @@ void RecognitionControl::connectTo(QString server, quint16 port)
     socket->abort();
   }
 
+  qDebug() << "Attempting to connect to" << server;
   disconnect(socket, SIGNAL(encrypted()), 0, 0);
   disconnect(socket, SIGNAL(connected()), 0, 0);
 
@@ -400,7 +403,7 @@ void RecognitionControl::disconnectFromServer()
  */
 void RecognitionControl::connectedTo()
 {
-  kDebug() << "Connected";
+  qDebug() << "Connected";
   timeoutWatcher->stop();
 
   emit connected();
@@ -518,7 +521,7 @@ void RecognitionControl::sendActiveModelSampleRate()
 
 void RecognitionControl::sendScenariosToDelete()
 {
-  kDebug() << "Now sending scenarios to delete...";
+  qDebug() << "Now sending scenarios to delete...";
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -541,7 +544,7 @@ void RecognitionControl::sendScenariosToDelete()
 
 bool RecognitionControl::sendBaseModel()
 {
-  kDebug() << "Sending base model";
+  qDebug() << "Sending base model";
   Model *model = ModelManager::getInstance()->createBaseModelContainer();
   if (!model) {
     emit synchronisationWarning(i18n("Could not create base model container"));
@@ -594,14 +597,14 @@ void RecognitionControl::sendScenario(QString scenarioId)
 {
   checkIfSynchronisationIsAborting();
 
-  kDebug() << "Sending scenario " << scenarioId;
-  QFile f(KStandardDirs::locate("appdata", "scenarios/"+scenarioId));
+  qDebug() << "Sending scenario " << scenarioId;
+  QFile f(QStandardPaths::locate(QStandardPaths::DataLocation, "scenarios/"+scenarioId));
   if (!f.open(QIODevice::ReadOnly)) {
-    kDebug() << "Could not retrieve scenario";
+    qDebug() << "Could not retrieve scenario";
     sendRequest(Simond::ErrorRetrievingScenario);
   }
   else {
-    kDebug() << "Really sending scenario...";
+    qDebug() << "Really sending scenario...";
     QByteArray body;
     QDataStream bodyStream(&body, QIODevice::WriteOnly);
     QByteArray scenarioIdByte = scenarioId.toUtf8();
@@ -711,7 +714,7 @@ void RecognitionControl::startSynchronisation()
 
   synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Initializing..."), 0, 100, false);
 
-  kDebug() << "Starting synchronization";
+  qDebug() << "Starting synchronization";
   ModelManager::getInstance()->startGroup();
 
   QByteArray body;
@@ -749,7 +752,7 @@ void RecognitionControl::startSynchronisation()
   bodyStream << (qint32) ids.count();
   foreach (const QString& id, ids) {
     QDateTime scenarioDate = Scenario::skimDate(Scenario::pathFromId(id));
-    kDebug() << "Date for " << id << scenarioDate ;
+    qDebug() << "Date for " << id << scenarioDate ;
     bodyStream << id << scenarioDate;
   }
 
@@ -759,7 +762,7 @@ void RecognitionControl::startSynchronisation()
 
 void RecognitionControl::synchronisationComplete()
 {                                                 //successful
-  kDebug() << "Synchronization completed";
+  qDebug() << "Synchronization completed";
   if (synchronisationOperation)
     synchronisationOperation->finished();
   synchronisationDone();
@@ -768,7 +771,7 @@ void RecognitionControl::synchronisationComplete()
 
 void RecognitionControl::synchronisationDone()
 {
-  kDebug() << "Finishing up synchronization";
+  qDebug() << "Finishing up synchronization";
 
   if (synchronisationOperation) {
     if (!synchronisationOperation->isFinished()) {
@@ -877,7 +880,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server requested active model";
+          qDebug() << "Server requested active model";
           sendActiveModel();
           break;
         }
@@ -885,7 +888,7 @@ void RecognitionControl::messageReceived()
         case Simond::ActiveModel:
         {
           parseLengthHeader();
-          kDebug() << "Server sent active model";
+          qDebug() << "Server sent active model";
 
           qint32 sampleRate;
           QByteArray container;
@@ -916,7 +919,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Could not store active model on server";
+          qDebug() << "Could not store active model on server";
           emit synchronisationError(i18n("The server could not store the active model."));
 
           break;
@@ -931,7 +934,7 @@ void RecognitionControl::messageReceived()
         }
         case Simond::BaseModel:
         {
-          kDebug() << "Server sent base model";
+          qDebug() << "Server sent base model";
 
           parseLengthHeader();
 
@@ -953,14 +956,14 @@ void RecognitionControl::messageReceived()
         case Simond::BaseModelStorageFailed:
         {
           advanceStream(sizeof(qint32));
-          kWarning() << "Base model storage failed";
+          qWarning() << "Base model storage failed";
           break;
         }
 
         case Simond::GetScenariosToDelete:
         {
           advanceStream(sizeof(qint32));
-          kDebug() << "Got deletion request now sending scenarios to delete";
+          qDebug() << "Got deletion request now sending scenarios to delete";
           break;
         }
 
@@ -969,7 +972,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server cannot store scenario!";
+          qDebug() << "Server cannot store scenario!";
           emit synchronisationError(i18n("The server could not store the scenario."));
           break;
         }
@@ -983,7 +986,7 @@ void RecognitionControl::messageReceived()
           msg >> scenarioNameByte;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server requested Scenario: " << scenarioNameByte;
+          qDebug() << "Server requested Scenario: " << scenarioNameByte;
 
           sendScenario(QString::fromUtf8(scenarioNameByte));
 
@@ -1001,7 +1004,7 @@ void RecognitionControl::messageReceived()
           msg >> scenario;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server sent Scenario " << scenarioId;
+          qDebug() << "Server sent Scenario " << scenarioId;
 
           if (!ScenarioManager::getInstance()->storeScenario(QString::fromUtf8(scenarioId), scenario))
             sendRequest(Simond::ScenarioStorageFailed);
@@ -1015,7 +1018,7 @@ void RecognitionControl::messageReceived()
         {
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
-          kDebug() << "Server requested selected scenarios";
+          qDebug() << "Server requested selected scenarios";
           sendSelectedScenarioList();
           break;
         }
@@ -1029,7 +1032,7 @@ void RecognitionControl::messageReceived()
           msg >> list;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server sent Scenario list";
+          qDebug() << "Server sent Scenario list";
 
           KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
           KConfigGroup cg(config, "");
@@ -1046,7 +1049,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server could not store selected scenario list";
+          qDebug() << "Server could not store selected scenario list";
           emit synchronisationError(i18n("The server could not store the list of selected scenarios."));
           break;
         }
@@ -1060,7 +1063,7 @@ void RecognitionControl::messageReceived()
           if (!synchronisationOperation)
             synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing Training"), 1, 100, false);
 
-          kDebug() << "Server requested training";
+          qDebug() << "Server requested training";
           sendTraining();
           break;
         }
@@ -1070,7 +1073,7 @@ void RecognitionControl::messageReceived()
           synchronisationOperation->update(i18n("Loading Training"), 11);
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server sent training";
+          qDebug() << "Server sent training";
           parseLengthHeader();
           qint32 sampleRate;
           QByteArray prompts;
@@ -1090,7 +1093,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server could not store training";
+          qDebug() << "Server could not store training";
           emit synchronisationError(i18n("The server could not store the training corpus."));
           break;
         }
@@ -1100,7 +1103,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server requested lang. desc.";
+          qDebug() << "Server requested lang. desc.";
           sendLanguageDescription();
           break;
         }
@@ -1111,7 +1114,7 @@ void RecognitionControl::messageReceived()
 
           parseLengthHeader();
 
-          kDebug() << "Server sent languagedescription";
+          qDebug() << "Server sent languagedescription";
 
           QByteArray shadowVocab, languageProfile;
           QDateTime changedTime;
@@ -1129,7 +1132,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server could not store languagedescription";
+          qDebug() << "Server could not store languagedescription";
           emit synchronisationError(i18n("The server could not store language description."));
           break;
         }
@@ -1156,7 +1159,7 @@ void RecognitionControl::messageReceived()
           QByteArray sampleNameByte;
           msg >> sampleNameByte;
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server requested sampleNameByte" << sampleNameByte;
+          qDebug() << "Server requested sampleNameByte" << sampleNameByte;
 
           sendSample(QString::fromUtf8(sampleNameByte));
           break;
@@ -1176,7 +1179,7 @@ void RecognitionControl::messageReceived()
           msg >> sample;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server sent Training Sample" << name;
+          qDebug() << "Server sent Training Sample" << name;
 
           if (!storeSample(QString::fromUtf8(name), sample)) {
             sendRequest(Simond::TrainingsSampleStorageFailed);
@@ -1189,7 +1192,7 @@ void RecognitionControl::messageReceived()
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          kDebug() << "Server could not store training sample";
+          qDebug() << "Server could not store training sample";
           emit synchronisationError(i18n("The server could not store training sample."));
           break;
         }
@@ -1211,7 +1214,7 @@ void RecognitionControl::messageReceived()
 
         case Simond::AvailableModels:
         {
-          kDebug() << "Server sent Available models";
+          qDebug() << "Server sent Available models";
 
           parseLengthHeader();
 
@@ -1301,7 +1304,7 @@ void RecognitionControl::messageReceived()
         {
           advanceStream(sizeof(qint32));
 
-          kDebug() << "model compilation aborted!";
+          qDebug() << "model compilation aborted!";
           if (modelCompilationOperation) {
             modelCompilationOperation->canceled();
             modelCompilationOperation=0;
@@ -1356,7 +1359,7 @@ void RecognitionControl::messageReceived()
           }
           else
           {
-              kDebug() << "modelCompilationOperation was NULL on compilation completion!!";
+              qDebug() << "modelCompilationOperation was NULL on compilation completion!!";
           }
           break;
         }
@@ -1384,7 +1387,7 @@ void RecognitionControl::messageReceived()
 
         case Simond::RecognitionReady:
         {
-          kDebug() << "Recognition is ready...";
+          qDebug() << "Recognition is ready...";
           advanceStream(sizeof(qint32));
 
           emit recognitionStatusChanged(RecognitionControl::Ready);
@@ -1430,7 +1433,7 @@ void RecognitionControl::messageReceived()
 
         case Simond::RecognitionStarted:
         {
-          kDebug() << "Recognition started!";
+          qDebug() << "Recognition started!";
           advanceStream(sizeof(qint32));
 
           recognitionReady=true;
@@ -1514,7 +1517,7 @@ void RecognitionControl::messageReceived()
           }
 
         default:
-          kDebug() << "Unknown request: " << request;
+          qDebug() << "Unknown request: " << request;
           Q_ASSERT(false);
           socket->close();
       }
@@ -1599,7 +1602,7 @@ void RecognitionControl::sampleNotAvailable(const QString& sample)
     //kick some poor samples ass
     ModelManager::getInstance()->startGroup();
     QString sampleBaseName = sample.left(sample.length()-4);
-    kDebug() << "Deleting: " << sample << sampleBaseName;
+    qDebug() << "Deleting: " << sample << sampleBaseName;
     //Was: removeSample
     bool succ = TrainingManager::getInstance()->deletePrompt(sampleBaseName);
     if (succ)
@@ -1618,8 +1621,8 @@ void RecognitionControl::wordUndefined(const QString& word)
   int ret = KMessageBox::questionYesNoCancel(0,
     i18n("The word \"%1\" is used in your training samples but it is not contained "
     "in your vocabulary.\n\nWhat do you want to do?", word), QString(),
-    KGuiItem(i18n("Remove samples containing the word"), KIcon("list-remove")),
-    KGuiItem(i18n("Add the word"), KIcon("list-add")));
+    KGuiItem(i18n("Remove samples containing the word"), QIcon::fromTheme("list-remove")),
+    KGuiItem(i18n("Add the word"), QIcon::fromTheme("list-add")));
 
   switch (ret) {
     case KMessageBox::Cancel:
@@ -1690,7 +1693,7 @@ void RecognitionControl::sendSampleToRecognizePrivate(qint8 id, const QByteArray
 
 void RecognitionControl::recognizeSamplePrivate(qint8 id)
 {
-  kDebug() << "Recognize on the last transmitted data";
+  qDebug() << "Recognize on the last transmitted data";
 
   QByteArray toWrite;
   QDataStream out(&toWrite, QIODevice::WriteOnly);
@@ -1709,7 +1712,7 @@ bool RecognitionControl::storeBaseModel(const QDateTime& changedTime, int baseMo
   if (!succ) {
     emit synchronisationError(i18nc("%1 is path", "Could not store the base model received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
-      KStandardDirs::locateLocal("appdata", "model")));
+      QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model"));
   }
   return succ;
 }
@@ -1721,7 +1724,7 @@ bool RecognitionControl::storeLanguageDescription(const QDateTime& changedTime, 
   if (!succ) {
     emit synchronisationError(i18nc("%1 is path", "Could not store the language description received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
-      KStandardDirs::locateLocal("appdata", "model")));
+      QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model"));
   }
   return succ;
 }
@@ -1733,7 +1736,7 @@ bool RecognitionControl::storeTraining(const QDateTime& changedTime, qint32 samp
   if (!succ) {
     emit synchronisationError(i18nc("%1 is path", "Could not store the training corpus received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
-      KStandardDirs::locateLocal("appdata", "model")));
+      QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model"));
   }
   return succ;
 }
@@ -1745,7 +1748,7 @@ bool RecognitionControl::storeActiveModel(const QDateTime& changedTime, qint32 s
   if (!succ) {
     emit synchronisationError(i18nc("%1 is path", "Could not store the active model received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
-      KStandardDirs::locateLocal("appdata", "model")));
+      QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model"));
   }
   return succ;
 }

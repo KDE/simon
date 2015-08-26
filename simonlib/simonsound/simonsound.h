@@ -21,7 +21,9 @@
 #define SIMON_SIMONSOUND_H_D0C0BA2429B04F65935956A32C79BB09
 
 #include <QString>
-#include <KLocalizedString>
+
+
+// #include <KI18n/klocalizedstring.h>
 #include <QMetaType>
 
 namespace SimonSound
@@ -74,8 +76,9 @@ namespace SimonSound
       QString m_conditions;
 
     public:
+      //QT5TODO: Add I18n to "default"
       DeviceConfiguration(const QString& name, int channels, int sampleRate,
-          bool resample, int resampleRate, const QString& conditions=QString(), const QString& defaultSampleGroup=i18n("default")) :
+          bool resample, int resampleRate, const QString& conditions=QString(), const QString& defaultSampleGroup="default") :
       m_name(name), m_channels(channels), m_sampleRate(sampleRate),
       m_resample(resample), m_resampleRate(resampleRate), m_defaultSampleGroup(defaultSampleGroup),
       m_conditions(conditions)
@@ -83,7 +86,7 @@ namespace SimonSound
 
       DeviceConfiguration() :
       m_name(""), m_channels(0), m_sampleRate(0),
-      m_resample(false), m_resampleRate(0), m_defaultSampleGroup(i18n("default"))
+      m_resample(false), m_resampleRate(0), m_defaultSampleGroup("default")
         {}
 
       QString name() const { return m_name; }
@@ -101,8 +104,8 @@ namespace SimonSound
       bool operator== (const DeviceConfiguration& b) const
       {
         return (m_name == b.name()) && (m_channels == b.channels()) && (m_sampleRate == b.sampleRate()) &&
-                (m_resampleRate == b.resampleSampleRate()) && (m_resample == b.resample()) && 
-                (m_defaultSampleGroup == b.defaultSampleGroup()) && 
+                (m_resampleRate == b.resampleSampleRate()) && (m_resample == b.resample()) &&
+                (m_defaultSampleGroup == b.defaultSampleGroup()) &&
                 (m_conditions == b.conditions());
       }
 
@@ -125,15 +128,26 @@ Q_ENUMS(SimonSound::Error);
 Q_DECLARE_METATYPE(SimonSound::Error);
 
 
-//forward declaration needed for QHash include (cascading down to first use of a
-// Deviceconfiguration-based QHash)
+
+
+// //forward declaration needed for QHash include
+// (cascading down to first use of a Deviceconfiguration-based QHash)
+// Q_DECLARE_METATYPE(SimonSound::DeviceConfiguration);
 inline uint qHash(const SimonSound::DeviceConfiguration& dev);
+inline uint qHash(const SimonSound::DeviceConfiguration& dev, uint seed);
 #include <QHash>
 
 inline uint qHash(const SimonSound::DeviceConfiguration& dev)
 {
   return qHash(QString("%1||%2||%3||%4||%5").arg(dev.name()).arg(dev.channels()).arg(dev.sampleRate())
         .arg(dev.resample() ? "1" : "0").arg(dev.resampleSampleRate()));
+}
+
+//QT5TODO: What?
+inline uint qHash(const SimonSound::DeviceConfiguration& dev, uint seed)
+{
+    return qHash(QString("%1||%2||%3||%4||%5").arg(dev.name()).arg(dev.channels()).arg(dev.sampleRate())
+                 .arg(dev.resample() ? "1" : "0").arg(dev.resampleSampleRate()), seed);
 }
 
 

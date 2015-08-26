@@ -25,10 +25,9 @@
 #include "ui_vad.h"
 #include "ui_trainingsettings.h"
 #include "ui_prompt.h"
-#include <KCModule>
 #include <QVariantList>
-#include <QStringList>
 #include <QFont>
+#include <KConfigWidgets/KCModule>
 #include "simonsound_export.h"
 
 class SimonSpinBox;

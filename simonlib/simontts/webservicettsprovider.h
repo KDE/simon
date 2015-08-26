@@ -21,12 +21,10 @@
 #define SIMON_WebserviceTTSProvider_H_7A7B9100FF5245329569C1B540119C37
 
 #include "simonttsprovider.h"
-#include <QStringList>
 #include <QObject>
 #include <QBuffer>
 #include <QSharedPointer>
 #include <QQueue>
-#include <QFile>
 #include <QMutex>
 
 class QString;

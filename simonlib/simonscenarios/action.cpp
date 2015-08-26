@@ -19,9 +19,8 @@
 
 #include "action.h"
 #include "scenario.h"
-#include <KService>
-#include <KPluginInfo>
-#include <KDebug>
+#include <KService/KPluginInfo>
+#include <QDebug>
 #include <simonscenarios/commandmanager.h>
 #include <simonscenariobase/versionnumber.h>
 
@@ -67,7 +66,7 @@ void Action::init(const QString& source, const QString& trigger)
 {
   KService::Ptr service = KService::serviceByStorageId(source);
   if (!service) {
-    kWarning() << "Service not found!";
+    qWarning() << "Service not found!";
     m_manager=0;
     return;
   }
@@ -83,7 +82,7 @@ void Action::init(const QString& source, const QString& trigger)
   if (factory) {
     m_manager = factory->create<CommandManager>((QObject*)parentScenario);
     if (m_manager == 0) {
-      kWarning() << "Failed to create instance of " << source;
+      qWarning() << "Failed to create instance of " << source;
       return;
     }
     if (trigger.isNull()) {
@@ -98,7 +97,7 @@ void Action::init(const QString& source, const QString& trigger)
     factory->deleteLater();
   }
   else {
-    kWarning() << "Factory not found! Source: " << source;
+    qWarning() << "Factory not found! Source: " << source;
     m_manager = 0;
   }
 }
@@ -114,14 +113,14 @@ bool Action::deSerialize(const QDomElement& pluginElem)
     pluginMaxVersion = VersionNumber::createVersionNumber(parentScenario, pluginMinVersionElem.nextSiblingElement());
 
     if (!pluginMinVersion) {
-      kDebug() << "Could not parse version requirements of plugin";
+      qDebug() << "Could not parse version requirements of plugin";
       return false;
     }
     else {
       VersionNumber pluginCurVersion(parentScenario, getPluginVersion());
       if ((!pluginMinVersion->isValid()) || (pluginCurVersion < *pluginMinVersion) ||
       (pluginMaxVersion && pluginMaxVersion->isValid() && (!(pluginCurVersion <= *pluginMaxVersion)))) {
-        kDebug() << "Scenario not compatible with this version of the plugin ";
+        qDebug() << "Scenario not compatible with this version of the plugin ";
         return false;
       }
     }

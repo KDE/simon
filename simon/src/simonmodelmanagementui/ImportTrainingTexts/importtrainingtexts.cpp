@@ -20,19 +20,13 @@
 #include "importtrainingtexts.h"
 #include <QWizardPage>
 #include <QLabel>
-#include <KListWidget>
-#include <KLineEdit>
 #include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QProgressBar>
-#include <QRadioButton>
-#include <KPushButton>
+#include <QPushButton>
 #include "importtrainingtextlocalpage.h"
 #include "importtrainingtextaddpage.h"
 #include "importtrainingtextworkingpage.h"
 #include "importtrainingtextselectsourcepage.h"
-#include <KStandardDirs>
+
 
 /**
  * \brief Constructor

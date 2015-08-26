@@ -20,7 +20,7 @@
 #include "simontts.h"
 #include "simonttsprivate.h"
 #include <QString>
-#include <KDebug>
+#include <QDebug>
 
 SimonTTSPrivate* SimonTTS::d = 0;
 

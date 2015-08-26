@@ -21,7 +21,7 @@
 #include <simondialogengine/dialogcommand.h>
 
 DialogCommandButton::DialogCommandButton(DialogCommand* transition, QWidget *parent) :
-  KPushButton(parent),
+  QPushButton(parent),
   m_transition(transition)
 {
   setText(transition->text());

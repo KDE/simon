@@ -21,9 +21,8 @@
 #include "threadedsslsocket.h"
 #include "simonsslsocket.h"
 #include <QMutexLocker>
-#include <QSslSocket>
 #include <QThread>
-#include <KDebug>
+#include <QDebug>
 
 class SocketThread : public QThread {
 protected:

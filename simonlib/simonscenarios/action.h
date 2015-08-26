@@ -24,7 +24,7 @@
 #include <QObject>
 #include <QPointer>
 #include <QIcon>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <QDomElement>
 #include <simonscenariobase/scenarioobject.h>
 #include "simonmodelmanagement_export.h"

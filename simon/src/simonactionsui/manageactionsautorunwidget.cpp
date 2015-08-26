@@ -39,7 +39,7 @@ ManageActionsAutorunWidget::ManageActionsAutorunWidget(QWidget *parent) : QWidge
 void ManageActionsAutorunWidget::initCommands()
 {
   ui.cbAutoStartCommand->clear();
-  ui.cbAutoStartCommand->addItem(KIcon("list-remove"), i18nc("No autostart command", "None"));
+  ui.cbAutoStartCommand->addItem(QIcon::fromTheme("list-remove"), i18nc("No autostart command", "None"));
 
   allCommands = ScenarioManager::getInstance()->getCurrentScenario()->getCommandList();
   int i = 1;

@@ -20,13 +20,13 @@
 #include "dbuscommand.h"
 #include "createdbuscommandwidget.h"
 
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 K_PLUGIN_FACTORY( DBusCommandPluginFactory,
 registerPlugin< DBusCommandManager >();
 )
 
-K_EXPORT_PLUGIN( DBusCommandPluginFactory("simondbuscommand") )
+// K_EXPORT_PLUGIN( DBusCommandPluginFactory("simondbuscommand") )
 
 DBusCommandManager::DBusCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
@@ -60,3 +60,5 @@ DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(DBusCommandManager, DBusCommand);
 DBusCommandManager::~DBusCommandManager()
 {
 }
+
+#include "dbuscommandmanager.moc"

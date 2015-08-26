@@ -21,9 +21,8 @@
 #define SIMON_MODELEXTENSIONSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
 
 #include "ui_modelextensionsettingsdlg.h"
-#include <KCModule>
 #include <QVariantList>
-#include <QString>
+#include <KConfigWidgets/KCModule>
 
 class ModelExtensionSettings : public KCModule
 {

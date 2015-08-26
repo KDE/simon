@@ -21,7 +21,7 @@
 #define SIMON_ACTIONLIB_EXPORT_H_2D81676F2A974B99A9CEA930A90A5AC9
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONACTIONS_EXPORT
 # if defined(MAKE_SIMONACTIONS_LIB)

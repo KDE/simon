@@ -44,7 +44,7 @@ class CreateExecutableCommandWidget : public CreateCommandWidget
 
   private slots:
     void selectProgram();
-    void urlSelected(const KUrl&);
+    void urlSelected(const QUrl&);
 
   public:
     Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);

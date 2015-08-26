@@ -18,17 +18,15 @@
  */
 
 #include "dbuscommand.h"
-#include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QVariant>
 #include <QDBusConnection>
 #include <QDBusMessage>
-#include <QDBusInterface>
 
-#include <KIcon>
-#include <KLocalizedString>
-#include <KDebug>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 const QString DBusCommand::staticCategoryText()
 {
@@ -42,13 +40,13 @@ const QString DBusCommand::getCategoryText() const
 }
 
 
-const KIcon DBusCommand::staticCategoryIcon()
+const QIcon DBusCommand::staticCategoryIcon()
 {
-  return KIcon("network-connect");
+  return QIcon::fromTheme("network-connect");
 }
 
 
-const KIcon DBusCommand::getCategoryIcon() const
+const QIcon DBusCommand::getCategoryIcon() const
 {
   return DBusCommand::staticCategoryIcon();
 }
@@ -89,7 +87,7 @@ bool DBusCommand::triggerPrivate(int *state)
       args.append(arg);
   }
 
-  kDebug() << args;
+  qDebug() << args;
   m.setArguments(args);
   return QDBusConnection::sessionBus().send(m);
 }

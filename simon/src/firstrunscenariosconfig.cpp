@@ -18,12 +18,12 @@
  */
 
 #include "firstrunscenariosconfig.h"
-#include <KLocalizedString>
-#include <KMessageBox>
+#include <KI18n/klocalizedstring.h>
 #include <QLayout>
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonscenarioui/scenariomanagementwidget.h>
 #include <simonscenarios/scenariomanager.h>
+#include <KWidgetsAddons/KMessageBox>
 
 FirstRunScenariosConfig::FirstRunScenariosConfig(QWidget* parent)
 : QWizardPage(parent), scenarioManagement(new ScenarioManagementWidget("simon/", true, this))

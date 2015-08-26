@@ -24,10 +24,12 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <KColorScheme>
-#include <KStandardDirs>
+
 #include <KDateTime>
-#include <KFilterDev>
-#include <KMimeType>
+#include <KArchive/KFilterDev>
+#include <QMimeDatabase>
+#include <QStandardPaths>
+
 
 /**
  * Empty, private constructor
@@ -35,13 +37,14 @@
 ShadowVocabulary::ShadowVocabulary(QObject *parent)
   : Vocabulary(parent), loadFailed(false)
 {
-  QString vocabFilename = KStandardDirs::locate("appdata", "shadowvocabulary.xml");
+  QString vocabFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "shadowvocabulary.xml");
 
+  QMimeDatabase db;
   //it's only an error if the vocabulary file exists but can not be read for some reason
   //if it doesn't exist, we'll silently create a new (empty one)
   if (QFile::exists(vocabFilename)) {
     QIODevice *shadowVocabFile = KFilterDev::deviceForFile(vocabFilename,
-      KMimeType::findByFileContent(vocabFilename)->name());
+      db.mimeTypeForFile(vocabFilename, QMimeDatabase::MatchContent).name());
 
     reset(shadowVocabFile);
     shadowVocabFile->deleteLater();
@@ -127,7 +130,7 @@ bool ShadowVocabulary::save()
 {
   touch();
 
-  QFile f(KStandardDirs::locateLocal("appdata", "shadowvocabulary.xml"));
+  QFile f(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "shadowvocabulary.xml");
   QIODevice *shadowVocabFile = KFilterDev::device(&f, "application/x-gzip", false);
 
   if (!shadowVocabFile->open(QIODevice::WriteOnly))
@@ -173,7 +176,7 @@ bool ShadowVocabulary::save()
 
   /*	QDomDocument doc("vocabulary");
 
-    QFile f(KStandardDirs::locateLocal("appdata", "shadowvocabulary.xml"));
+    QFile f(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "shadowvocabulary.xml");
 
     if (!f.open(QIODevice::WriteOnly))
       return false;

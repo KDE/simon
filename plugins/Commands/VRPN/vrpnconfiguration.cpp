@@ -23,15 +23,13 @@
 
 #include <vrpn_Configure.h>
 #include <QString>
-#include <KAboutData>
-#include <KDebug>
+#include <QDebug>
 K_PLUGIN_FACTORY_DECLARATION(VRPNCommandPluginFactory)
 
 VRPNConfiguration::VRPNConfiguration(VRPNCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
 : CommandConfiguration(parent,  "vrpn", ki18n( "VRPN" ),
 "0.1", ki18n("Provide a VRPN server"),
-"network-connect",
-VRPNCommandPluginFactory::componentData()),
+"network-connect"),
 commandManager(_commandManager)
 {
   Q_UNUSED(args);

@@ -9,7 +9,7 @@ set(simoninfo_LIB_HDRS
 )
 
 kde4_add_library(simoninfo SHARED ${simoninfo_LIB_SRCS})
-target_link_libraries(simoninfo ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS})
+target_link_libraries(simoninfo ${QT_LIBRARIES} Qt5::Widgets KF5::I18n)
 
 set_target_properties(simoninfo
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

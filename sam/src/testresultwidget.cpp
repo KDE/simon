@@ -29,8 +29,8 @@
 #include <simonmodeltest/recognizerresult.h>
 #include <simonsound/recwidget.h>
 #include <QSortFilterProxyModel>
-#include <KStandardDirs>
-#include <KMessageBox>
+#include <KWidgetsAddons/KMessageBox>
+
 #include <QFile>
 #include <QDir>
 #include <typeinfo>
@@ -144,23 +144,24 @@ void TestResultWidget::slotEditSelectedSample()
 
   //copy to temp
   QString justFileName = fileName.mid(fileName.lastIndexOf(QDir::separator())+1);
-  QString tempFileName = KStandardDirs::locateLocal("tmp",
-    "sam/internalsamuser/edit/"+justFileName);
+  QString tempFileName = QDir::tempPath() + QLatin1Char('/') +  "sam/internalsamuser/edit/"+justFileName;
 
   //if file could not be copied this is not a reason to display an error or to abort
   //because we could have already deleted the file
   QFile::copy(fileName, tempFileName);
 
-  QPointer<KDialog> d = new KDialog(0);
+  QPointer<QDialog> d = new QDialog(0);
   RecWidget *rec = new RecWidget(i18n("Modify sample"),
     t->getPrompt(), tempFileName.left(tempFileName.lastIndexOf('.')), true, d);
-  d->setMainWidget(rec);
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  d->setLayout(mainLayout);
+  mainLayout->addWidget(rec);
   if (d->exec()) {
     if (!QFile::exists(tempFileName)) {
       //sample has been deleted
       //removing file from prompts
       QFile prompts(config->testPrompts().toLocalFile());
-      QString tempPromptsPath = KStandardDirs::locateLocal("tmp", "sam/internalsamuser/edit/prompts");
+      QString tempPromptsPath = QDir::tempPath() + QLatin1Char('/') +  "sam/internalsamuser/edit/prompts";
       QFile temp(tempPromptsPath);
       if ((!prompts.open(QIODevice::ReadOnly)) ||
       (!temp.open(QIODevice::WriteOnly))) {

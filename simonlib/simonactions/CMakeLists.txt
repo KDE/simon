@@ -19,17 +19,17 @@ set(simonactions_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/commandlistwidget.h
 )
 
-kde4_add_ui_files(simonactions_LIB_SRCS
+ki18n_wrap_ui(simonactions_LIB_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/commandsettingsdlg.ui
   ${CMAKE_CURRENT_SOURCE_DIR}/listconfigurationdlg.ui
 )
 
-qt4_add_dbus_adaptor(simonactions_LIB_SRCS org.simon-listens.ActionManager.xml actionmanager.h ActionManager)
+qt5_add_dbus_adaptor(simonactions_LIB_SRCS org.simon-listens.ActionManager.xml actionmanager.h ActionManager)
 
 kde4_add_library(simonactions SHARED ${simonactions_LIB_SRCS})
 
-target_link_libraries(simonactions ${QT_LIBRARIES} ${QT_QTXML_LIBRARY}
-  ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonscenarios simonrecognitionresult
+target_link_libraries(simonactions ${QT_LIBRARIES} Qt5::Xml
+  KF5::IconThemes KF5::KIOCore simonscenarios simonrecognitionresult
   simonscenariobase
 )
 
@@ -45,7 +45,7 @@ set(kcm_simonactions_LIB_SRCS
 )
 
 kde4_add_plugin(simonactionskcm ${kcm_simonactions_LIB_SRCS})
-target_link_libraries(simonactionskcm ${KDE4_KDEUI_LIBS} simonactions)
+target_link_libraries(simonactionskcm  simonactions)
 
 install(TARGETS simonactionskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simon)
 install(FILES simonactionsconfig.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simon)

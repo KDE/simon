@@ -21,7 +21,7 @@
 #define SIMON_SIMONXML_EXPORT_H_757C898C8EA444AB97ED9F258FAC303C
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONXML_EXPORT
 # if defined(MAKE_SIMONXML_LIB)

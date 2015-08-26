@@ -22,7 +22,7 @@
 #define SIMON_SSCDACCESS_EXPORT_H_F2BFDFD71B6C40858DF148F3A8E5795A
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SSCDACCESS_EXPORT
 # if defined(MAKE_SSCDACCESS_LIB)

@@ -8,14 +8,14 @@ set(simoncontextui_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui_export.h
 )
 
-kde4_add_ui_files(simoncontextui_LIB_SRCS
+ki18n_wrap_ui(simoncontextui_LIB_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/contextdialog.ui
 )
 
 kde4_add_library(simoncontextui SHARED ${simoncontextui_LIB_SRCS})
 
-target_link_libraries(simoncontextui ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} 
-  ${KDE4_KIO_LIBS} ${KDE4_KUTILS_LIBS} simonactions simonscenarios 
+target_link_libraries(simoncontextui ${QT_LIBRARIES}  
+  KF5::KIOCore  simonactions simonscenarios 
   simonscenarios simonuicomponents simoncontextdetection simoncontextcoreui
   simonscenarioui)
 

@@ -14,11 +14,12 @@ if(${BackendType} STREQUAL both)
   set(simond_SRCS ${simond_SRCS} sphinxcontrol.cpp)
 endif()
 
-kde4_add_app_icon(simond_SRCS "../icons/hi*-app-simond.png")
-kde4_add_executable(simond ${simond_SRCS})
+file(GLOB ICONS_SRCS "../icons/hi*-app-simond.png")
+kde4_add_app_icon(simond_SRCS ICONS ${ICONS_SRCS})
+add_executable(simond ${simond_SRCS})
 
-target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${QT_QTNETWORK_LIBRARY} simonrecognizer
-  ${QT_QTCORE_LIBRARY} ${QT_QTXML_LIBRARY} simonscenarios simonmodelcompilation simonddatabaseaccess
+target_link_libraries(simond  Qt5::Network simonrecognizer
+  Qt5::Core Qt5::Xml KF5::ConfigCore simonscenarios simonmodelcompilation simonddatabaseaccess
   simonrecognitionresult simonwav simoncontextadapter simonutils simonrecognizer)
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} COMPONENT simond )

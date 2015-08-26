@@ -23,11 +23,11 @@
 
 bool GreedyReceiver::greedyTriggerRawList(const RecognitionResultList &resultList)
 {
-  kDebug() << "Greedy triggering raw list";
+  qDebug() << "Greedy triggering raw list";
   if (resultList.isEmpty()) return false;
 
   if (resultList.count() > 1) {
-    kDebug() << "Presenting user with results...";
+    qDebug() << "Presenting user with results...";
     ActionManager::getInstance()->presentUserWithResults(resultList);
     return true;
   } else {
@@ -44,7 +44,7 @@ bool GreedyReceiver::greedyTriggerRaw(const RecognitionResult& result)
 
 bool GreedyReceiver::greedyTrigger(const QString& triggerResult)
 {
-  kDebug() << "Greedy triggering!";
+  qDebug() << "Greedy triggering!";
   if (!m_manager) return false;
 
   return m_manager->trigger(triggerResult, false /* silent */);

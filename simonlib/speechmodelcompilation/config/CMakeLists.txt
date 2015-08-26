@@ -1,9 +1,9 @@
 set(simonmodelcompilationconfiguration_LIB_SRCS modelcompilationsettings.cpp)
 
-kde4_add_ui_files(simonmodelcompilationconfiguration_LIB_SRCS externalprograms.ui)
-kde4_add_kcfg_files(simonmodelcompilationconfiguration_LIB_SRCS modelcompilationconfiguration.kcfgc)
-kde4_add_plugin(simonmodelcompilationconfiguration  ${simonmodelcompilationconfiguration_LIB_SRCS})
-target_link_libraries(simonmodelcompilationconfiguration ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
+ki18n_wrap_ui(simonmodelcompilationconfiguration_LIB_SRCS externalprograms.ui)
+kconfig_add_kcfg_files(simonmodelcompilationconfiguration_LIB_SRCS modelcompilationconfiguration.kcfgc)
+kde4_add_plugin(simonmodelcompilationconfiguration ${simonmodelcompilationconfiguration_LIB_SRCS})
+target_link_libraries(simonmodelcompilationconfiguration ${QT_LIBRARIES}  KF5::KDELibs4Support KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets KF5::KIONTLM KF5::CoreAddons)
 
 install(TARGETS simonmodelcompilationconfiguration DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncore)
 install(FILES simonmodelcompilationconfig.desktop  DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncore)

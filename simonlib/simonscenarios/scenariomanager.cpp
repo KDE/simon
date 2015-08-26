@@ -35,12 +35,12 @@
 #include <QCoreApplication>
 #include <QDBusConnection>
 
-#include <KDebug>
-#include <KGlobal>
-#include <KStandardDirs>
+#include <QDebug>
+
 #include <KSharedConfig>
-#include <KConfigGroup>
 #include <KDateTime>
+#include <QStandardPaths>
+#include <KConfigCore/KConfigGroup>
 
 ScenarioManager *ScenarioManager::instance;
 
@@ -104,9 +104,9 @@ QHash<QString,QString> ScenarioManager::transcribe(QStringList words)
   if (!toTranscribe.isEmpty()) {
     //sequitur
     QString transcription;
-    QHash<QString, TranscriptionResult> sequiturResults = GraphemeToPhoneme::transcribe(toTranscribe, KStandardDirs::locate("appdata", "model/languageProfile"));
+    QHash<QString, TranscriptionResult> sequiturResults = GraphemeToPhoneme::transcribe(toTranscribe, QStandardPaths::locate(QStandardPaths::DataLocation, "model/languageProfile"));
     if (sequiturResults.isEmpty()) {
-      kWarning() << "Sequitur transcription failed. Is sequitur installed and do you have a valid model?";
+      qWarning() << "Sequitur transcription failed. Is sequitur installed and do you have a valid model?";
       return out;
     }
 
@@ -115,10 +115,10 @@ QHash<QString,QString> ScenarioManager::transcribe(QStringList words)
       if (i.value().getSuccess())
         out.insert(i.key(), i.value().getData());
       else
-        kWarning() << i.key() << "could not be transcribed";
+        qWarning() << i.key() << "could not be transcribed";
     }
   }
-  kDebug() << out;
+  qDebug() << out;
   return out;
 }
 
@@ -129,7 +129,7 @@ QString ScenarioManager::transcribe(QString word)
 
 QStringList ScenarioManager::getAllAvailableScenarioIds(const QString& dataPrefix)
 {
-  QStringList scenarioSrcs = KGlobal::dirs()->findAllResources("data", dataPrefix+"scenarios/");
+  QStringList scenarioSrcs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, dataPrefix+"scenarios", QStandardPaths::LocateDirectory);
   QStringList scenarioIds;
 
   foreach (const QString& src, scenarioSrcs) {
@@ -151,18 +151,18 @@ QStringList ScenarioManager::getAllDeactivatedScenarioIds()
 {
   QStringList deactivatedScenarios;
 
-  kDebug() << "Preparing a list of deactivated scenarios...";
+  qDebug() << "Preparing a list of deactivated scenarios...";
 
   foreach (Scenario* scenario, scenarios)
   {
     if (!scenario->isActive())
     {
       deactivatedScenarios.push_back(scenario->id());
-      kDebug() << scenario->id() + " is deactivated";
+      qDebug() << scenario->id() + " is deactivated";
     }
     else
     {
-      kDebug() << scenario->id() + " is activated";
+      qDebug() << scenario->id() + " is activated";
     }
   }
 
@@ -174,17 +174,17 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 {
   QString currentId = currentScenario->id();
 
-  QFile f(KGlobal::dirs()->locateLocal("appdata", "scenarios/"+id));
+  QFile f(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "scenarios/"+id);
   if (!f.open(QIODevice::WriteOnly)) return false;
   f.write(data);
   f.close();
 
   for (int i=0; i < scenarios.count(); i++) {
     if (scenarios.at(i)->id() == id) {
-      kDebug() << "Found scenario in the old list; replacing it with new version";
+      qDebug() << "Found scenario in the old list; replacing it with new version";
 
       Scenario *newScenario = new Scenario(id, QString(), this);
-      kDebug() << "Setting new scenario " << id;
+      qDebug() << "Setting new scenario" << id;
       if (!setupScenario(newScenario))
         return false;
 
@@ -195,7 +195,7 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
         updateDisplays(newScenario, true);
         emit scenarioSelectionChanged();
       }
-      kDebug() << "Deleted scenario: " << s;
+      qDebug() << "Deleted scenario:" << s;
       s->deleteLater();
       break;
     }
@@ -289,25 +289,26 @@ bool ScenarioManager::setupScenarios(bool forceChange)
     QList<Author*> authors;
     authors << new Author(s, i18nc("Standard author of a scenario", "Anonymous"), i18nc("Standard \"email address\" of a scenario", "No mail provided"));
 
-    if (!s->create(i18nc("Default name of an (empty) standard scenario", "Standard"), "simon", 1, minVersion, 0 /*maxVersion*/, "BSD", authors) || !s->save(QString(), false, false)) {
-      kWarning() << "Standard scenario could not be created";
+    if (!s->create(i18nc("Default name of an (empty) standard scenario", "Standard"), "simon", 1, minVersion, 0 /*maxVersion*/, "BSD", authors) 
+        || !s->save(QString(), false, false)) {
+      qWarning() << "Standard scenario could not be created";
       s->deleteLater();
       return false;
     }
     s->deleteLater();
   }
 
-  kDebug() << "Loading scenarios: " << scenarioIds;
+  qDebug() << "Loading scenarios:" << scenarioIds;
 
   foreach (const QString& id, scenarioIds) {
     Scenario *s = new Scenario(id, QString(), this);
-    kDebug() << "Initializing scenario" << id;
+    qDebug() << "Initializing scenario" << id;
 
     if (setupScenario(s))
       scenarios << s;
     else {
       success = false;
-      kDebug() << "Could not initialize scenario: " << id;
+      qWarning() << "Could not initialize scenario:" << id;
     }
   }
 
@@ -324,7 +325,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 
   //we have to have at least one scenario loaded anyways; If not this
   //crash here is the least of our worries...
-  kDebug() << "Updating displays here";
+  qDebug() << "Updating displays here";
   updateDisplays(scenarios.at(0), true);
 
   return success;
@@ -340,7 +341,7 @@ void ScenarioManager::setupAllChildScenarios()
 
 void ScenarioManager::setPluginFont(const QFont& font)
 {
-  kDebug() << "Setting plugin font...";
+  qDebug() << "Setting plugin font...";
   foreach (Scenario *s, scenarios)
     s->setPluginFont(font);
 }
@@ -349,7 +350,7 @@ void ScenarioManager::setPluginFont(const QFont& font)
 bool ScenarioManager::setupScenario(Scenario *s)
 {
   if (!s->init()) {
-    kDebug() << "Could not init scenario";
+    qDebug() << "Could not init scenario";
     return false;
   }
   //	connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
@@ -360,7 +361,7 @@ bool ScenarioManager::setupScenario(Scenario *s)
 
 void ScenarioManager::scenarioActivationChanged()
 {
-  kDebug() << "ScenarioManager is preparing the list of deactivated scenarios!";
+  qDebug() << "ScenarioManager is preparing the list of deactivated scenarios!";
 
   emit deactivatedScenarioListChanged();
 }
@@ -449,7 +450,7 @@ QList<Word*> ScenarioManager::findWordsByCategory(const QString& name, SpeechMod
   if (elements & SpeechModel::AllScenariosVocabulary) {
     foreach (Scenario* s, scenarios) {
       QList<Word*> newWords = s->findWordsByCategory(name);
-      kDebug() << "Got " << newWords.count() << " words from " << s->id();
+      qDebug() << "Got " << newWords.count() << " words from " << s->id();
       words.append(newWords);
     }
   } else
@@ -471,12 +472,12 @@ QStringList ScenarioManager::getExampleSentences(const QString& name, const QStr
       outSentences.append(s->getExampleSentences(name, category, count));
     }
   }
-  kDebug() << "Out sentences: " << outSentences;
+  qDebug() << "Out sentences: " << outSentences;
 
   if (elements == SpeechModel::ScenarioGrammar) {
     outSentences.append(getCurrentScenario()->getExampleSentences(name, category, count));
   }
-  kDebug() << "Out sentences: " << outSentences;
+  qDebug() << "Out sentences: " << outSentences;
 
   return outSentences;
 }
@@ -484,7 +485,7 @@ QStringList ScenarioManager::getExampleSentences(const QString& name, const QStr
 
 bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger, bool silent)
 {
-  kDebug() << "Should execute command " << type << trigger;
+  qDebug() << "Should execute command " << type << trigger;
   foreach (Scenario *s, scenarios) {
     if (!s->isActive())
       continue;
@@ -498,7 +499,7 @@ bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger
 
 bool ScenarioManager::processResult(RecognitionResult recognitionResult)
 {
-  kDebug() << "Processing result " <<  recognitionResult.sentence().toUtf8().data();
+  qDebug() << "Processing result " <<  recognitionResult.sentence().toUtf8().data();
 
   foreach (Scenario *s, scenarios) {
     if (!s->isActive())
@@ -507,7 +508,7 @@ bool ScenarioManager::processResult(RecognitionResult recognitionResult)
       return true;
   }
 
-  kDebug() << "Nobody accepted recognition result. Discarding.";
+  qDebug() << "Nobody accepted recognition result. Discarding.";
   return false;
 }
 
@@ -563,7 +564,8 @@ bool ScenarioManager::commitGroup(bool silent)
 
 void ScenarioManager::touchBaseModelAccessTime()
 {
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+    KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc",
+                    KConfig::SimpleConfig);
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("BaseModelDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
@@ -595,12 +597,12 @@ ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QStri
   QString scenarioId = Scenario::idFromPath(path);
 
   // copy to temporary location
-  QString tempPath = KStandardDirs::locateLocal("tmp", "simon/" + scenarioId);
+  QString tempPath = QDir::tempPath() + QLatin1Char('/') +  QLatin1String("simon/") + scenarioId;
   if (QFile::exists(tempPath)) QFile::remove(tempPath);
   QFile::copy(path, tempPath);
 
   if (!scenario->skim(tempPath)) {
-    kDebug() << "Failed to skim from " << tempPath;
+    qDebug() << "Failed to skim from " << tempPath;
     scenario->deleteLater();
     return ScenarioManager::Incompatible;
   }
@@ -622,7 +624,7 @@ ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QStri
         Scenario s(oldScenarioId);
         s.skim();
         if (s.version() >= scenario->version()) {
-          kWarning() << "Rejecting because not newer as already installed version.";
+          qWarning() << "Rejecting because not newer as already installed version.";
           return ScenarioManager::Rejected;
         }
       }
@@ -643,13 +645,13 @@ ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QStri
   for (int i = 0; i < explodedScenarios.count(); ++i) {
     scenario = new Scenario(explodedScenarios[i]);
     if (!scenario->init() || !scenario->save()) {
-      kWarning() << "Failed to initialize (sub-) scenario: " << explodedScenarios[i];
+      qWarning() << "Failed to initialize (sub-) scenario: " << explodedScenarios[i];
       scenario->deleteLater();
 
       //delete scenarios extracted so far
       for (int j=i-1; j >= 0; --j)
         if (!QFile::remove(Scenario::pathFromId(explodedScenarios[j])))
-          kWarning() << "Couldn't rollback scenario extraction: " << explodedScenarios[j];
+          qWarning() << "Couldn't rollback scenario extraction: " << explodedScenarios[j];
       return ScenarioManager::Incompatible;
     }
     scenario->deleteLater();
@@ -663,7 +665,7 @@ ScenarioManager::ScenarioOfferReply ScenarioManager::installScenario(const QStri
   scenariosConfigGroup.sync();
 
   if (!setupScenarios(true))
-    kWarning() << "Failed to reload scenarios";
+    qWarning() << "Failed to reload scenarios";
 
   return ScenarioManager::Accepted;
 }

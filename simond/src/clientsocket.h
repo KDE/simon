@@ -24,7 +24,6 @@
 #include <simonddatabaseaccess/databaseaccess.h>
 #include <simonprotocol/simonprotocol.h>
 #include <QSslSocket>
-#include <QList>
 #include <QHash>
 #include <QMutex>
 #include <QString>

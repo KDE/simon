@@ -19,7 +19,7 @@
 #ifndef SIMON_CREATEAVATARDIALOG_H
 #define SIMON_CREATEAVATARDIALOG_H
 
-#include <KDialog>
+#include <QDialog>
 
 class Avatar;
 class AvatarModel;
@@ -28,7 +28,7 @@ namespace Ui
  class CreateAvatarDlg; 
 }
 
-class CreateAvatarDialog : public KDialog
+class CreateAvatarDialog : public QDialog
 {
   Q_OBJECT
 private:

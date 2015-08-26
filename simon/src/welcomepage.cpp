@@ -39,13 +39,14 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QVBoxLayout>
-#include <KIcon>
-#include <KDebug>
-#include <KLocalizedString>
-#include <KCMultiDialog>
+#include <QIcon>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
+#include <KCMUtils/KCMultiDialog>
 #include <KColorScheme>
-#include <KMessageBox>
-#include <KStandardDirs>
+#include <QStandardPaths>
+#include <KWidgetsAddons/KMessageBox>
+
 
 WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(parent),
   volumeWidget(new VolumeWidget(this, SoundClient::Background)),
@@ -76,22 +77,22 @@ WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(p
   displayScenarios();
   displayAcousticModelInfo();
 
-  ui.pbAcousticConfiguration->setIcon(KIcon("view-pim-news"));
-  ui.pbAudioConfiguration->setIcon(KIcon("preferences-desktop-sound"));
-  ui.pbScenarioConfiguration->setIcon(KIcon("view-list-tree"));
-  ui.pbEditScenario->setIcon(KIcon("document-edit"));
-  ui.pbStartTraining->setIcon(KIcon("view-pim-news"));
-  ui.pbManageSamples->setIcon(KIcon("view-list-tree"));
+  ui.pbAcousticConfiguration->setIcon(QIcon::fromTheme("view-pim-news"));
+  ui.pbAudioConfiguration->setIcon(QIcon::fromTheme("preferences-desktop-sound"));
+  ui.pbScenarioConfiguration->setIcon(QIcon::fromTheme("view-list-tree"));
+  ui.pbEditScenario->setIcon(QIcon::fromTheme("document-edit"));
+  ui.pbStartTraining->setIcon(QIcon::fromTheme("view-pim-news"));
+  ui.pbManageSamples->setIcon(QIcon::fromTheme("view-list-tree"));
 
   const QString stylesheet("QGroupBox { background-image: url(\"%1\"); \
                             background-repeat: no-repeat; \
                             background-attachment: fixed; \
                             background-position: left top; \
                             font-weight: bold; }");
-  ui.gbScenarios->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-scenarios.png" ) ));
-  ui.gbTraining->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-training.png" ) ));
-  ui.gbAcousticModel->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-acoustic-model.png" ) ));
-  ui.gbRecognition->setStyleSheet( stylesheet.arg( KStandardDirs::locate( "data", "simon/images/bg-recognition.png" ) ));
+  ui.gbScenarios->setStyleSheet( stylesheet.arg( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/images/bg-scenarios.png" ) ));
+  ui.gbTraining->setStyleSheet( stylesheet.arg( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/images/bg-training.png" ) ));
+  ui.gbAcousticModel->setStyleSheet( stylesheet.arg( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/images/bg-acoustic-model.png" ) ));
+  ui.gbRecognition->setStyleSheet( stylesheet.arg( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/images/bg-recognition.png" ) ));
 
   connect(ModelManager::getInstance(), SIGNAL(baseModelStored(int, QDateTime, QString)), this, SLOT(displayBaseModelInformation(int, QDateTime, QString)));
   connect(ModelManager::getInstance(), SIGNAL(activeModelStored(QDateTime, QString)), this, SLOT(displayActiveModelInformation(QDateTime, QString)));
@@ -271,7 +272,7 @@ void WelcomePage::updateTrainingsTexts()
 {
   QList<TrainingTextCollection*> collections;
   foreach (Scenario *s, ScenarioManager::getInstance()->getScenarios()) {
-    kDebug() << "Trainings texts from: " << s;
+    qDebug() << "Trainings texts from: " << s;
     collections << s->texts();
   }
   trainingTextModel->setCollections(collections);

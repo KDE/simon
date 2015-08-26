@@ -21,7 +21,6 @@
 #define SIMON_SSC_USER_H_586F99940E1A4366937DCB1984C37B25
 
 #include <QString>
-#include <QDebug>
 #include "sscobject.h"
 #include "sscobjects_export.h"
 

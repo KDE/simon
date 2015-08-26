@@ -22,11 +22,8 @@
 #include <simonscenarios/command.h>
 #include <simonscenarios/createcommandwidget.h>
 #include <simonactions/actionmanager.h>
-
-#include <KUrl>
-#include <KMessageBox>
-#include <KKeySequenceWidget>
-#include <KDialogButtonBox>
+#include <KWidgetsAddons/KMessageBox>
+#include <KDELibs4Support/KDE/KDialog>
 
 NewCommand::NewCommand(QWidget* parent) : KDialog(parent)
 {
@@ -35,8 +32,11 @@ NewCommand::NewCommand(QWidget* parent) : KDialog(parent)
 
   ui.swCommandCreaters->removeWidget(ui.swCommandCreaters->currentWidget());
 
-  setMainWidget( widget );
-  setCaption( i18n("Command") );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Command") );
 
   connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToCommandName(QString)));
   connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
@@ -123,15 +123,15 @@ void NewCommand::checkIfComplete()
   else
     complete = (!ui.leTrigger->text().isEmpty()) && creater->isComplete();
 
-  enableButtonOk(complete);
+  enableButton(KDialog::Ok,complete);
 }
 
 
 void NewCommand::setWindowTitleToCommandName(QString name)
 {
   if (!name.isEmpty())
-    setCaption(i18nc("%1 is the name of the command", "Command: %1", name));
-  else setCaption(i18n("Command"));
+    setWindowTitle(i18nc("%1 is the name of the command", "Command: %1", name));
+  else setWindowTitle(i18n("Command"));
 }
 
 
@@ -144,10 +144,10 @@ bool NewCommand::newCommand(CommandManager* preSelectedCategory)
     return false;
   }
 
-  if (KDialog::exec()) {
+  if (QDialog::exec()) {
     //creating
     CreateCommandWidget *creater = dynamic_cast<CreateCommandWidget*>(ui.swCommandCreaters->currentWidget());
-    kDebug() << "Creating with creater: " << creater;
+    qDebug() << "Creating with creater: " << creater;
     Q_ASSERT(creater);
 
     if (!creater) return false;

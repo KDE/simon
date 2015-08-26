@@ -31,7 +31,7 @@
 
 #include <QLabel>
 #include <QVBoxLayout>
-#include <KStandardDirs>
+
 
 /**
  * \brief Constructor

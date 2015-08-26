@@ -26,9 +26,11 @@
 #include "modelmanager.h"
 #include <QMenu>
 #include <knewstuff3/downloaddialog.h>
-#include <KTar>
-#include <KMessageBox>
-#include <KFileDialog>
+#include <KArchive/KTar>
+#include <KDELibs4Support/KDE/KFileDialog>
+#include <QStandardPaths>
+#include <KWidgetsAddons/KMessageBox>
+#include <QDir>
 
 BaseModelSettings::BaseModelSettings ( QWidget* parent, Qt::WFlags flags ) : QWidget ( parent, flags), ui(new Ui::ModelDlg())
 {
@@ -37,14 +39,14 @@ BaseModelSettings::BaseModelSettings ( QWidget* parent, Qt::WFlags flags ) : QWi
   connect(ui->cbBaseModels, SIGNAL(currentIndexChanged(int)), this, SLOT(baseModelSelectionChanged()));
   connect(ui->cbAdapt, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  ui->pbRemove->setIcon(KIcon("list-remove"));
+  ui->pbRemove->setIcon(QIcon::fromTheme("list-remove"));
 
   connect(ui->pbExport, SIGNAL(clicked()), this, SLOT(exportBaseModel()));
 
   QMenu *importMenu = new QMenu(this);
-  QAction *ghnsImport = importMenu->addAction(KIcon("get-hot-new-stuff"), i18n("Download"));
-  QAction *fileImport = importMenu->addAction(KIcon("document-import"), i18n("Import"));
-  QAction *fileCreate = importMenu->addAction(KIcon("document-import"), i18n("Create from model files"));
+  QAction *ghnsImport = importMenu->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download"));
+  QAction *fileImport = importMenu->addAction(QIcon::fromTheme("document-import"), i18n("Import"));
+  QAction *fileCreate = importMenu->addAction(QIcon::fromTheme("document-import"), i18n("Create from model files"));
 
   connect(ghnsImport, SIGNAL(triggered()), this, SLOT(getNewBaseModels()));
   connect(fileImport, SIGNAL(triggered()), this, SLOT(openBaseModel()));
@@ -54,8 +56,8 @@ BaseModelSettings::BaseModelSettings ( QWidget* parent, Qt::WFlags flags ) : QWi
 
   ui->pbImport->setMenu(importMenu);
 
-  ui->pbImport->setIcon(KIcon("document-import"));
-  ui->pbExport->setIcon(KIcon("document-export"));
+  ui->pbImport->setIcon(QIcon::fromTheme("document-import"));
+  ui->pbExport->setIcon(QIcon::fromTheme("document-export"));
 }
 
 void BaseModelSettings::setMinimal(bool minimal)
@@ -96,7 +98,7 @@ QString BaseModelSettings::baseModelDescription(const QString& name, const QDate
 
 void BaseModelSettings::getNewBaseModels()
 {
-  QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(KStandardDirs::locate("config", "simonbasemodels.knsrc"));
+  QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(QStandardPaths::locate(QStandardPaths::ConfigLocation, "simonbasemodels.knsrc"));
   dialog->exec();
 
   if (!dialog) return;
@@ -108,8 +110,8 @@ void BaseModelSettings::getNewBaseModels()
 
 void BaseModelSettings::load()
 {
-  kDebug() << "Load";
-  kDebug() << this;
+  qDebug() << "Load";
+  qDebug() << this;
   ui->cbAdapt->setChecked(ModelManager::getInstance()->baseModelType() == 1);
   setupBaseModelSelection();
 
@@ -120,7 +122,7 @@ void BaseModelSettings::setupBaseModelSelection()
 {
   ui->cbBaseModels->clear();
   addBaseModelToSelection(QString());
-  QString baseModelsBasePath = KStandardDirs::locateLocal("appdata", "model/base/");
+  QString baseModelsBasePath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/base/";
   QDir baseModelsDir(baseModelsBasePath);
   foreach (const QString& path, baseModelsDir.entryList(QDir::Files|QDir::NoDotAndDotDot))
     addBaseModelToSelection(baseModelsBasePath + path);
@@ -134,12 +136,12 @@ void BaseModelSettings::setupBaseModelSelection()
 
 void BaseModelSettings::exportBaseModel()
 {
-  QString activePath = KStandardDirs::locate("appdata", "model/active.sbm");
+  QString activePath = QStandardPaths::locate(QStandardPaths::DataLocation, "model/active.sbm");
   if (!QFile::exists(activePath)) {
     KMessageBox::sorry(this, i18n("There is no active model currently available."));
     return;
   }
-  QString path = KFileDialog::getSaveFileName(KUrl(), "*.sbm", this, i18n("Select output file name"));
+  QString path = KFileDialog::getSaveFileName(QUrl(), "*.sbm", this, i18n("Select output file name"));
   if (path.isEmpty())
     return;
   if (!QFile::copy(activePath, path))
@@ -155,14 +157,14 @@ void BaseModelSettings::createBaseModel()
 
 void BaseModelSettings::openBaseModel()
 {
-  importBaseModel(KFileDialog::getOpenFileName(KUrl(), "*.sbm", this, i18n("Open Simon base model")));
+  importBaseModel(KFileDialog::getOpenFileName(QUrl(), "*.sbm", this, i18n("Open Simon base model")));
 }
 
 void BaseModelSettings::removeBaseModel()
 {
   QString baseModel = ui->cbBaseModels->itemData(ui->cbBaseModels->currentIndex()).toString();
   if (!QFile::exists(baseModel)) {
-    kDebug() << "Doesn't exist: " << baseModel;
+    qDebug() << "Doesn't exist: " << baseModel;
     return;
   }
 
@@ -183,7 +185,7 @@ void BaseModelSettings::importBaseModel ( const QString& path )
     QString fileName = QFileInfo(path).fileName();
     int i = 0;
     QString targetPath;
-    while (QFile::exists(targetPath = KStandardDirs::locateLocal("appdata", "model/base/"+QString::number(i)+fileName)))
+    while (QFile::exists(targetPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/base/"+QString::number(i)+fileName))
       ++i;
 
     if (!QFile::copy(path, targetPath)) {
@@ -222,7 +224,7 @@ void BaseModelSettings::save()
   if (!selectedBaseModel.isNull()) {
     modelType = ui->cbAdapt->isChecked() ? 1 : 0;
     if (ModelManager::getInstance()->baseModel() != selectedBaseModel) {
-      QString targetPath = KStandardDirs::locateLocal("appdata", "model/basemodel.sbm");
+      QString targetPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/basemodel.sbm";
 
       bool succ = true;
       if (QFile::exists(targetPath) && !QFile::remove(targetPath)) {
@@ -247,8 +249,8 @@ void BaseModelSettings::defaults()
 {
   ModelManager::getInstance()->setBaseModel(QString(), 2);
 
-  QFile::remove(KStandardDirs::locateLocal("appdata", "model/basemodel.sbm"));
-  QFile::remove(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
+  QFile::remove(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/basemodel.sbm");
+  QFile::remove(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/languageProfile");
 
   load();
 }

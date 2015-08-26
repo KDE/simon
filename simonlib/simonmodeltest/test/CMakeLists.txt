@@ -7,12 +7,14 @@ set(simonmodeltesttestresulttest_SRCS
   ../testresultleaf.cpp
 )
 
-kde4_add_unit_test(simonmodeltesttest-testresult TESTNAME
+add_executable(simonmodeltesttest-testresultNAME
+add_test(simonmodeltesttest simonmodeltesttest)
+ecm_mark_as_test(simonmodeltesttest)
   simonmodeltesttest-testresult
   ${simonmodeltesttestresulttest_SRCS}
 )
 
 target_link_libraries(simonmodeltesttest-testresult
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  KF5::KDELibs4Support Qt5::Test ${QT_LIBRARIES}
   simonrecognitionresult
 )

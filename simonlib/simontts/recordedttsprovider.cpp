@@ -21,9 +21,9 @@
 #include "recordingsetcollection.h"
 #include <simonsound/wavplayerclient.h>
 #include <simonsound/soundserver.h>
-#include <QStringList>
-#include <KDebug>
-#include <KStandardDirs>
+#include <QDebug>
+#include <QStandardPaths>
+
 
 RecordedTTSProvider::RecordedTTSProvider() : QObject(), sets(0),
   player(0)
@@ -46,14 +46,14 @@ bool RecordedTTSProvider::initialize()
   if (sets) return true;
   delete sets;
   sets = new RecordingSetCollection;
-  if (!sets->init(KStandardDirs::locateLocal("appdata", "ttsrec/ttssets.xml")))
+  if (!sets->init(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "ttsrec/ttssets.xml"))
   {
-    kDebug() << "Failed to init...";
+    qDebug() << "Failed to init...";
     delete sets;
     sets = 0;
     return false;
   }
-  kDebug() << "Initialized";
+  qDebug() << "Initialized";
 
   return true;
 }
@@ -83,7 +83,7 @@ bool RecordedTTSProvider::canSay(const QString& text)
 {
   if (!sets && !initialize()) return false;
 
-  kDebug() << "Looking if we have a recording for " << text;
+  qDebug() << "Looking if we have a recording for " << text;
   return sets->canSay(text);
 }
 
@@ -102,11 +102,11 @@ bool RecordedTTSProvider::say(const QString& text)
 
   //play wav file
   QString path = sets->getPath(text);
-  kDebug() << "Playing: " << path;
+  qDebug() << "Playing: " << path;
   if (!player->isPlaying())
     player->play(path);
   else {
-    kDebug() << "Adding to playback queue: " << path;
+    qDebug() << "Adding to playback queue: " << path;
     filesToPlay << path;
   }
 

@@ -25,7 +25,7 @@
  *	@author Peter Grasch
  */
 
-#include <QObject>
+#include <QtCore/QObject>
 #include <QStringList>
 #include <QList>
 #include <QHash>

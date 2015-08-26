@@ -20,7 +20,7 @@
 #ifndef SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CE4E8
 #define SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CE4E8
 
-#include <KDialog>
+#include <QDialog>
 #include "ui_removeword.h"
 
 /**
@@ -32,7 +32,7 @@
 */
 class Word;
 
-class DeleteWordDialog : public KDialog
+class DeleteWordDialog : public QDialog
 {
 
   private:

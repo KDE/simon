@@ -28,7 +28,7 @@ const QVariantList &args) : QWidget(parent)
     Q_UNUSED(componentData);
 
     m_about = new KAboutData(internalName, "", name,
-                           version, desc, KAboutData::License_GPL);
+                           version, desc, KAboutLicense::GPL);
     m_about->setProgramIconName(iconName);
 }
 

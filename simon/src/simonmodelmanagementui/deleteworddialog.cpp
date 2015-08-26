@@ -27,12 +27,15 @@
  * @param parent The parent of the dialog
  * @param f Window flags
  */
-DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(parent, f)
+DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): QDialog(parent, f)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
-  setMainWidget( widget );
-  setCaption( i18n("Remove Word") );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Remove Word") );
 
   ui.lbIcon->setPixmap(KIconLoader().loadIcon("edit-delete", KIconLoader::NoGroup, KIconLoader::SizeHuge));
 }
@@ -62,7 +65,7 @@ int DeleteWordDialog::exec(Word *word, bool isShadowed)
   else {
     ui.rbCategory->setChecked(true);
   }
-  return KDialog::exec();
+  return QDialog::exec();
 }
 
 

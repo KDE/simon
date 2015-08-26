@@ -26,7 +26,7 @@
 #include <QString>
 #include <QDBusConnection>
 #include <QRegExp>
-#include <KDebug>
+#include <QDebug>
 
 /**
  * \brief Constructor
@@ -57,17 +57,17 @@ bool SimonTTSPrivate::initialize()
   {
     TTSConfiguration::self()->readConfig();
     QStringList backends = TTSConfiguration::backends();
-    kDebug() << "Backends: " << backends;
+    qDebug() << "Backends: " << backends;
     foreach (const QString& back, backends)
     {
       if (back == "File")
       {
         providers << new RecordedTTSProvider();
-        kDebug() << "Initializing file...";
+        qDebug() << "Initializing file...";
       }
       else
       {
-        kDebug() << "Initializing jovie...";
+        qDebug() << "Initializing jovie...";
         if (back == "Jovie")
         {
           providers << new JovieTTSProvider();
@@ -76,7 +76,7 @@ bool SimonTTSPrivate::initialize()
         {
           providers << new WebserviceTTSProvider();
         } else
-          kDebug() << "Unknown provider: " << back;
+          qDebug() << "Unknown provider: " << back;
       }
     }
 
@@ -184,7 +184,7 @@ bool SimonTTSPrivate::uninitialize()
   foreach (SimonTTSProvider *p, providers)
     succ = p->uninitialize() && succ;
   qDeleteAll(providers);
-  kDebug() << "Destroying all providers";
+  qDebug() << "Destroying all providers";
   providers.clear();
   forceReinitialization = true;
   return succ;

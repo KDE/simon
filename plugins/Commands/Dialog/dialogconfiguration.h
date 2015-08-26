@@ -23,9 +23,6 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_dialogconfigurationdlg.h"
 #include <KSharedConfig>
-#include <QPointer>
-#include <QPoint>
-#include <QSize>
 
 class Avatar;
 class DialogCommand;

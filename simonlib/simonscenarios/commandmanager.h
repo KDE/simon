@@ -73,7 +73,7 @@
 #include <simonscenarios/actioncollection.h>
 #include <QList>
 #include <QObject>
-#include <KIcon>
+#include <QIcon>
 #include <QAbstractItemModel>
 #include <QDomElement>
 #include <QHash>
@@ -312,11 +312,11 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
     /**
      * \brief Return the icon name of the plugin
      *
-     * \note This should return something that KIcon() can understand
+     * \note This should return something that QIcon() can understand
      * \return The naem of the icon of the plugin
      */
     virtual const QString iconSrc() const=0;
-    virtual const KIcon icon() const;
+    virtual const QIcon icon() const;
 
     virtual const QString preferredTrigger() const;
 

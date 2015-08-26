@@ -23,10 +23,7 @@
 #include "sscdaccess_export.h"
 #include <sscobjects/sample.h>
 #include <QString>
-#include <QWizardPage>
 #include <QFutureWatcher>
-#include <QTimer>
-#include <QPointer>
 
 class SSCDAccess;
 class Operation;

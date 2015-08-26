@@ -20,8 +20,7 @@
 #include "soundclient.h"
 #include "soundconfig.h"
 
-#include <QObject>
-#include <KDebug>
+#include <QDebug>
 
 /**
  * \brief Constructor

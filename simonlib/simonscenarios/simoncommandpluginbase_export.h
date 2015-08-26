@@ -21,8 +21,7 @@
 #define SIMON_SIMONCOMMANDPLUGINBASE_EXPORT_H_26141F0F1EE1469593E847EAD925285C
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
-#include <KGenericFactory>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONCOMMANDPLUGINBASE_EXPORT
 # if defined(MAKE_SIMONCOMMANDPLUGINBASE_LIB)

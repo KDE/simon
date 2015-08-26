@@ -23,16 +23,13 @@
 
 #include <simoncontextdetection/contextmanager.h>
 
-#include <QLineEdit>
-#include <QFileDialog>
-#include <QStringList>
 
 CreateFileContentWidget::CreateFileContentWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 
   setWindowTitle(i18n("File Content Condition"));
-  setWindowIcon(KIcon("document-save"));
+  setWindowIcon(QIcon::fromTheme("document-save"));
 
   connect(ui.leFileContent, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.urFilename, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));

@@ -20,7 +20,6 @@
 #include "grammar.h"
 #include "scenario.h"
 #include <QMutexLocker>
-#include <QtGlobal>
 
 /**
  * Empty, private constructor
@@ -97,7 +96,7 @@ QDomElement Grammar::serialize(QDomDocument *doc)
 
 bool Grammar::renameCategory(QString category, const QString& newName)
 {
-  kDebug() << "Renaming category: " << category << newName;
+  qDebug() << "Renaming category: " << category << newName;
   QMutexLocker lock(&structuresLock);
 
   //make the category regex-able :)

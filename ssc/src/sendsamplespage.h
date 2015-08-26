@@ -24,7 +24,6 @@
 #include <QString>
 #include <QWizardPage>
 #include <QFutureWatcher>
-#include <QTimer>
 #include <QPointer>
 
 class Operation;

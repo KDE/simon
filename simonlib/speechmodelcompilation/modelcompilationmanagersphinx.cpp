@@ -21,11 +21,13 @@
 #include "modelcompilersphinx.h"
 #include "modelcompilationmanagersphinx.h"
 #include <simonutils/fileutils.h>
-#include <KStandardDirs>
+
 #include <QFileInfo>
 #include <QUuid>
+#include <QDir>
 #include <KGlobal>
 #include <KAboutData>
+#include <QStandardPaths>
 
 ModelCompilationManagerSPHINX::ModelCompilationManagerSPHINX(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
 //  tryAgain(false)
@@ -51,15 +53,15 @@ void ModelCompilationManagerSPHINX::run()
   //first, adapt the input to sphinx readable formats using the adapter
   QHash<QString,QString> adaptionArgs;
 
-//  QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
+//  QString activeDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+userName+"/active/";
   QUuid modelUuid = QUuid::createUuid();
 
-  kDebug() <<"baseModelType: "<<baseModelType;
+  qDebug() <<"baseModelType: "<<baseModelType;
   ModelCompilationAdapter::AdaptionType adaptionType = (baseModelType == 0) ?
                                                          (ModelCompilationAdapter::AdaptLanguageModel) :
                                                          (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel);
 
-  QString compilationDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/sphinx/");
+  QString compilationDir = QDir::tempPath() + QLatin1Char('/') +  KAboutData::applicationData().productName()+'/'+userName+"/compile/sphinx/";
 
   QString modelName = userName+modelUuid.toString();
   adaptionArgs.insert("workingDir", compilationDir);
@@ -69,7 +71,7 @@ void ModelCompilationManagerSPHINX::run()
   QHash<QString,QString> compilerArgs;
 
   compilerArgs.insert("modelDir", compilationDir);
-  compilerArgs.insert("audioPath",KStandardDirs::locateLocal("appdata", "models/"+userName+"/samples/"));
+  compilerArgs.insert("audioPath",QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+userName+"/samples/");
   compilerArgs.insert("modelName", modelName);
 
   adapter->clearPoisonedPhonemes();
@@ -82,7 +84,7 @@ void ModelCompilationManagerSPHINX::run()
     QString baseModelFolder;
     if (baseModelType < 2)
     {
-      baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/base/");
+        baseModelFolder = QDir::tempPath() + QLatin1Char('/') + KAboutData::applicationData().productName()+'/'+userName+"/compile/base/";
       //base model needed - unpack it and fail if its not here
       if (!FileUtils::unpackAll(baseModelPath, baseModelFolder))
       {
@@ -95,22 +97,22 @@ void ModelCompilationManagerSPHINX::run()
     tryAgain = false;
     if (!adapter->startAdaption(adaptionType, scenarioPaths, promptsPathIn, adaptionArgs))
     {
-      kWarning() << "Model adaption failed for user " << userName;
+      qWarning() << "Model adaption failed for user " << userName;
       return;
     }
     if (!keepGoing) return;
 
-//    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/");
+//    QString activeDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+userName+"/active/";
 
     QString fetc = compilationDir+"/"+modelName+"/etc/"+modelName;
 
-//    kDebug() << "Data\n" <<fetc<< "\n"<<activeDir;
+//    qDebug() << "Data\n" <<fetc<< "\n"<<activeDir;
     QFileInfo fiGrammar(fetc+GRAMMAR_EXT);
     bool hasGrammar = (fiGrammar.size() > 0);
 
     if (!hasGrammar)
     {
-      kDebug() << "No Grammar!  Model recompilation aborting!";
+      qDebug() << "No Grammar!  Model recompilation aborting!";
       emit modelCompilationAborted(ModelCompilation::InsufficientInput);
       return;
     }
@@ -120,11 +122,11 @@ void ModelCompilationManagerSPHINX::run()
       switch (baseModelType)
       {
         case 1:
-          kDebug() << "No Prompts!  Switching to static model!";
+          qDebug() << "No Prompts!  Switching to static model!";
           baseModelType = 0;
           break;
         case 2:                                     //do not bother creating the model without prompts
-          kDebug() << "No Prompts!  Model recompilation aborting!";
+          qDebug() << "No Prompts!  Model recompilation aborting!";
           emit modelCompilationAborted(ModelCompilation::InsufficientInput);
           return;
       }
@@ -156,7 +158,7 @@ void ModelCompilationManagerSPHINX::run()
       emit modelReady(fingerprint, outPath);
       return;
     } else
-      kWarning() << "Model compilation failed for user " << userName << " try again: " << tryAgain;
+      qWarning() << "Model compilation failed for user " << userName << " try again: " << tryAgain;
     additionalOutPaths << outPath;
   } while (tryAgain);
   keepGoing = false;

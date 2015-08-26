@@ -18,7 +18,6 @@
  */
 
 #include "sscqueries.h"
-#include <QDebug>
 
 /*
  * Returns the information on the user; This includes a human readable language name

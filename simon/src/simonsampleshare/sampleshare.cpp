@@ -30,18 +30,18 @@
 
 #include <QVBoxLayout>
 #include <QThread>
-#include <QtConcurrentRun>
 #include <QFutureWatcher>
 
 #include <KTitleWidget>
-#include <KMessageBox>
-#include <KProgressDialog>
-#include <KDialog>
-#include <KDebug>
+#include <QProgressDialog>
+#include <QDebug>
+#include <QtConcurrent/QtConcurrent>
 #include "simonsampledataprovider.h"
 #include <sscobjects/microphone.h>
 #include <sscobjects/soundcard.h>
-
+#include <KWidgetsAddons/KMessageBox>
+#include <KConfigCore/KConfigGroup>
+#include <KLocalizedString>
 
 SampleShare::SampleShare(QWidget* parent): 
     KDialog(parent), ui(new Ui::SampleShareDlg),
@@ -53,10 +53,12 @@ SampleShare::SampleShare(QWidget* parent):
 {
   QWidget *sampleShareWidget = new QWidget( this );
   ui->setupUi(sampleShareWidget);
-  setMainWidget(sampleShareWidget);
-  setWindowIcon(KIcon("repository"));
-  enableButtonOk(true);
-  setButtonText(Ok, i18n("Connect to server"));
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(sampleShareWidget);
+  setWindowIcon(QIcon::fromTheme("repository"));
+  enableButton(KDialog::Ok,true);
+  setButtonText(Ok,i18n("Connect to server"));
   
   connect(ui->cbLicense, SIGNAL(clicked(bool)), this, SLOT(checkCompletion()));
   connect(ui->cbDialect, SIGNAL(editTextChanged(QString)), this, SLOT(checkCompletion()));
@@ -73,7 +75,7 @@ SampleShare::SampleShare(QWidget* parent):
   KTitleWidget *titleWidget = new KTitleWidget(this);
   titleWidget->setText(i18n("Upload samples"));
   titleWidget->setComment(i18n("Give back to the community by sharing your training data."));
-  titleWidget->setPixmap(KIcon("repository").pixmap(22, 22));
+  titleWidget->setPixmap(QIcon::fromTheme("repository").pixmap(22, 22));
   dynamic_cast<QVBoxLayout*>(sampleShareWidget->layout())->insertWidget(0, titleWidget);
   
   futureWatcher = new QFutureWatcher<bool>(this);
@@ -82,11 +84,11 @@ SampleShare::SampleShare(QWidget* parent):
 
 void SampleShare::transmissionFinished()
 {
-  kDebug() << "Transmission finished";
+  qDebug() << "Transmission finished";
   progressWidget->update();
 
-  enableButtonOk(true);
-  setButtonText(Ok, i18n("OK"));
+  enableButton(KDialog::Ok,true);
+  setButtonText(Ok,i18n("OK"));
   
   if (!futureWatcher->result())
     transmissionError(server->lastError());
@@ -94,19 +96,20 @@ void SampleShare::transmissionFinished()
 
 void SampleShare::checkCompletion()
 {
-  enableButton(Ok, (ui->cbLicense->isChecked() && !(ui->cbDialect->currentText().isEmpty())));
+  enableButton(KDialog::Ok,ui->cbLicense->isChecked()&&!(ui->cbDialect->currentText().isEmpty()));
 }
 
 
 void SampleShare::connected()
 {
-  if (connectionProgressDialog)
-    connectionProgressDialog->progressBar()->setValue(1);
+    //QT5TODO: port this
+  //if (connectionProgressDialog)
+        //connectionProgressDialog->progressBar()->setValue(1);
   //fetch options
   bool ok = true;
   bool allOk = true;
   ui->stackedWidget->setCurrentIndex(1);
-  setButtonText(Ok, i18nc("Verb: to upload", "Upload"));
+  setButtonText(Ok,i18nc("Verb: to upload", "upload"));
 
   QList<Microphone*> microphones = server->getMicrophones(&ok);
   if (ok) {
@@ -134,7 +137,8 @@ void SampleShare::connected()
     allOk = false;
     transmissionError(server->lastError());
   }
-  QString userLanguage = KGlobal::locale()->language();
+
+  QString userLanguage = QLocale::languageToString( QLocale::system().language());
   userLanguage = userLanguage.left(userLanguage.indexOf("_")); //strip e.g. "_US"
   ui->cbLanguage->setCurrentIndex(ui->cbLanguage->findData(userLanguage));
   
@@ -149,19 +153,19 @@ void SampleShare::disconnected()
 {
   KMessageBox::sorry(this, i18n("Disconnected from remote server. Please try again."));
   ui->stackedWidget->setCurrentIndex(0);
-  setButtonText(Ok, i18n("Connect to server"));
+  setButtonText(Ok,i18n("Connect to server"));
   if (connectionProgressDialog)
     connectionProgressDialog->hide();
-  enableButtonOk(true);
+  enableButton(Ok,true);
 }
 
 void SampleShare::transmissionError(const QString& err)
 {
-  kDebug() << "Transmission error: " << err;
+  qDebug() << "Transmission error: " << err;
   KMessageBox::sorry(this, i18n("The following error occurred:\n\n%1", err));
   
   if (connectionProgressDialog) {
-    enableButtonOk(true); // let the user try again
+    enableButton(Ok,true); // let the user try again
   
     connectionProgressDialog->deleteLater();
     connectionProgressDialog = 0;
@@ -170,12 +174,12 @@ void SampleShare::transmissionError(const QString& err)
 
 void SampleShare::transmissionStatus(const QString& status)
 {
-  kDebug() << status;
+  qDebug() << status;
 }
 
 void SampleShare::transmissionWarning(const QString& warning)
 {
-  kWarning() << "WARNING: " << warning;
+  qWarning() << "WARNING: " << warning;
 }
 
 SampleShare::~SampleShare(){
@@ -186,6 +190,7 @@ SampleShare::~SampleShare(){
   delete ui;
 }
 
+//QT5TODO: Adapt code and connect okbutton or other to new slot. It doesn't exist in qdialog
 void SampleShare::slotButtonClicked(int button) {
   switch (button) {
     case KDialog::Ok:
@@ -196,7 +201,7 @@ void SampleShare::slotButtonClicked(int button) {
 	case 1:
 	  ui->stackedWidget->setCurrentWidget(ui->swMainUploadPage);
 	  startTransmission();
-	  enableButton(Ok, false);
+	  enableButton(KDialog::Ok,false);
 	  return;
 	default:
 	  break;
@@ -226,10 +231,11 @@ void SampleShare::connectToServer()
   if (connectionProgressDialog)
     connectionProgressDialog->deleteLater();
   
-  connectionProgressDialog = new KProgressDialog(this, i18n("Connecting..."));
+  connectionProgressDialog = new QProgressDialog(this);
+  connectionProgressDialog->setWindowTitle(i18n("Connecting..."));
   
-  connectionProgressDialog->progressBar()->setMaximum(2);
-  connectionProgressDialog->progressBar()->setValue(0);
+  connectionProgressDialog->setMaximum(2);
+  connectionProgressDialog->setValue(0);
   
   bool ok = true;
   //config file
@@ -243,14 +249,14 @@ void SampleShare::connectToServer()
     return;
   }
   
-  enableButtonOk(false);
+  enableButton(KDialog::Ok,false);
   
   server->connectTo(host, port, encrypted);
 }
 
 void SampleShare::listDialects()
 {
-  kDebug() << "Listing dialects...";
+  qDebug() << "Listing dialects...";
   bool ok = true;
   User* filter = new User(-1, QString(), QString(), 
 			  ' ', 0, QString(), QString(), QString(), 
@@ -263,7 +269,7 @@ void SampleShare::listDialects()
     transmissionError(server->lastError());
   } else {
     bool otherAlreadyIn = false;
-    kDebug() << "got " << users.count() << "users";
+    qDebug() << "got " << users.count() << "users";
     foreach (User *u, users) {
       QString dialect = u->surname();
       if (!u->givenName().isEmpty())
@@ -307,7 +313,7 @@ void SampleShare::startTransmission()
   
   qint32 microphoneId = ui->cbMicrophone->itemData(ui->cbMicrophone->currentIndex()).toInt();
   
-  kDebug() << "Sound card: " << soundCardId << "Microphone: " << microphoneId;
+  qDebug() << "Sound card: " << soundCardId << "Microphone: " << microphoneId;
   
   //First, find available "Dialects" (user surnames matching a query for the language)
   QChar userGender((ui->cbGender->currentIndex() == 0) ? 'M' : 'F');
@@ -322,9 +328,9 @@ void SampleShare::startTransmission()
   
   if (configuredDialectGivenName.isNull()) configuredDialectGivenName = "";
   qint32 userId = -1;
-  kDebug() << configuredDialectGivenName.isNull();
-  kDebug() << configuredDialectGivenName.isEmpty();
-  kDebug() << "Given name: " << configuredDialectGivenName;
+  qDebug() << configuredDialectGivenName.isNull();
+  qDebug() << configuredDialectGivenName.isEmpty();
+  qDebug() << "Given name: " << configuredDialectGivenName;
   User* filter = new User(-1, configuredDialectSurname, configuredDialectGivenName, 
 			  userGender, 0, "", "", "", languageCode,
 			  language, "", 0, 0, 0, "", 2, 2);
@@ -337,7 +343,7 @@ void SampleShare::startTransmission()
   int encodedBirthYear = 10000 + ui->cbAgeRange->currentIndex();
   
   if (!users.isEmpty()) {
-    kDebug() << "Got users: ";
+    qDebug() << "Got users: ";
     foreach (User *u, users) {
       //if we find one real user, use that one
       //or in other words: ssc > simon
@@ -350,7 +356,7 @@ void SampleShare::startTransmission()
     }
   }
   if (userId == -1) {
-    kDebug() << "User empty - creating a new one with encoded age";
+    qDebug() << "User empty - creating a new one with encoded age";
     filter->setBirthYear(encodedBirthYear);
     filter->setInterviewPossible(1); //set to true for lack of better knowledge
     filter->setRepeatingPossible(1);
@@ -394,7 +400,7 @@ void SampleShare::startTransmission()
   
   QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
   futureWatcher->setFuture(future);
-  kDebug() << "Thread started";
+  qDebug() << "Thread started";
   enableButtonCancel(false); //job has its own cancel button
 }
 

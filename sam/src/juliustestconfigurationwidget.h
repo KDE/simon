@@ -21,7 +21,7 @@
 #define JULIUSTESTCONFIGURATIONWIDGET_H
 
 #include "testconfigurationwidget.h"
-#include <KUrl>
+#include <QUrl>
 
 namespace Ui {
 class JuliusTestConfigurationWidget;
@@ -34,18 +34,18 @@ class JuliusTestConfigurationWidget : public TestConfigurationWidget
 public:
   explicit JuliusTestConfigurationWidget(QWidget *parent = 0);
   JuliusTestConfigurationWidget(CorpusInformation* corpusInfo,
-                               const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
+                               const QUrl& testPromptsUrl, const QUrl& testPromptsBasePathUrl,
                                int sampleRate, QWidget *parent=0);
 
   ~JuliusTestConfigurationWidget();
 
   void init(const QHash<QString, QString>&params);
 
-  KUrl hmmDefs() const;
-  KUrl tiedlist() const;
-  KUrl dict() const;
-  KUrl dfa() const;
-  KUrl jconf() const;
+  QUrl hmmDefs() const;
+  QUrl tiedlist() const;
+  QUrl dict() const;
+  QUrl dfa() const;
+  QUrl jconf() const;
 
   QDomElement serialize(QDomDocument *doc);
 

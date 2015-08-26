@@ -25,8 +25,8 @@
 #include "plsdict.h"
 #include "juliusvocabulary.h"
 #include <QFile>
-#include <KDebug>
-#include <KLocalizedString>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
 
 /**
  * \brief Constructor
@@ -108,7 +108,7 @@ void ImportDict::run()
   QStringList words = dict->getWords();
   QStringList categories = dict->getCategories();
   QStringList pronunciations = dict->getPronuncations();
-  kDebug() << "Deleting dict!";
+  qDebug() << "Deleting dict!";
   delete dict;
   dict=0;
 

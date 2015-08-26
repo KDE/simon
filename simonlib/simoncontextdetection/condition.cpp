@@ -19,7 +19,6 @@
 
 #include "condition.h"
 #include "compoundcondition.h"
-#include <QWidget>
 
 Condition::Condition(QObject *parent, const QVariantList &args)
 {

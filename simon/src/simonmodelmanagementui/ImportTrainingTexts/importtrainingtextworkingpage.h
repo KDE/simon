@@ -39,7 +39,7 @@ class ImportTrainingTextWorkingPage : public QWizardPage
     void start();
 
   public slots:
-    void startImport(KUrl path);
+    void startImport(QUrl path);
     void parseFile(QString path);
     void parseAdd();
     QStringList parse(QIODevice *input, const QString& encoding);

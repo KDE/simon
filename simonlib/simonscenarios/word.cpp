@@ -32,7 +32,7 @@ bool isWordLessThan(Word *w1, Word *w2)
 
 int Word::getPropability() const
 {
-  return TrainingManager::getInstance()->getProbability (getWord());
+  return TrainingManager::getInstance()->getFrequency (getWord());
 }
 
 bool Word::getBlacklisted() const

@@ -28,12 +28,11 @@
 #include <sscobjects/institution.h>
 #include <sscobjects/userininstitution.h>
 #include <QSqlQuery>
-#include <QSqlError>
-#include <QSqlDriver>
-#include <QFile>
 #include <QDebug>
 #include <QVariant>
 #include <QSqlDatabase>
+#include <QSqlDriver>
+#include <QSqlError>
 #include <QStringList>
 #include <QMutexLocker>
 

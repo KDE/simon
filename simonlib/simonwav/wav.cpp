@@ -18,13 +18,12 @@
  */
 
 #include "wav.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <stdlib.h>
 #include <string.h>
-#include <QObject>
 #include <QDataStream>
 #include <QFile>
-#include <KDebug>
+#include <QDebug>
 
 /**
  *	@brief Constructor

@@ -22,14 +22,14 @@
 #include <simonlogging/logger.h>
 #include <simonscenarios/scenario.h>
 #include "placecommand.h"
-#include <KLocalizedString>
-#include <KStandardDirs>
+#include <KI18n/klocalizedstring.h>
+
 
 K_PLUGIN_FACTORY( PlaceCommandPluginFactory,
 registerPlugin< PlaceCommandManager >();
 )
 
-K_EXPORT_PLUGIN( PlaceCommandPluginFactory("simonplacecommand") )
+// K_EXPORT_PLUGIN( PlaceCommandPluginFactory("simonplacecommand") )
 
 PlaceCommandManager::PlaceCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
@@ -65,3 +65,5 @@ DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(PlaceCommandManager, PlaceCommand);
 PlaceCommandManager::~PlaceCommandManager()
 {
 }
+
+#include "placecommandmanager.moc"

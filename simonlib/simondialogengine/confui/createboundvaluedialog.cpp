@@ -23,6 +23,8 @@
 #include <simondialogengine/staticboundvalue.h>
 #include <simondialogengine/scriptboundvalue.h>
 #include <simondialogengine/argumentboundvalue.h>
+#include <KWidgetsAddons/KMessageBox>
+#include <QDebug>
 
 #ifdef USE_PLASMA
 #include <simondialogengine/plasmaboundvalue.h>
@@ -30,32 +32,32 @@
 
 #include <QWidget>
 
-#include <KMessageBox>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 #ifdef USE_PLASMA
-#include <KIcon>
-#include <KService>
+#include <QIcon>
 #include <KServiceTypeTrader>
 #include <Plasma/DataEngine>
-#include <Plasma/DataEngineManager>
+#include <Plasma/DataEngineConsumer>
 #endif
 
-CreateBoundValueDialog::CreateBoundValueDialog(QWidget *parent) : KDialog(parent),
+CreateBoundValueDialog::CreateBoundValueDialog(QWidget *parent) : QDialog(parent),
   ui(new Ui::CreateBoundValueDialog())
 #ifdef USE_PLASMA
   , m_requestingSource(false)
   , m_currentEngine(0)
-  , m_engineManager(0)
+  , m_engineConsumer(0)
 #endif
 {
   QWidget *main = new QWidget(this);
   ui->setupUi(main);
-  setMainWidget(main);
-  setCaption(i18n("Bound value"));
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(main);
+  setWindowTitle(i18n("Bound value"));
 
 #ifdef USE_PLASMA
-  m_engineManager = Plasma::DataEngineManager::self();
+  m_engineConsumer = Plasma::DataEngineConsumer::self();
   ui->cbType->addItem(i18n("Plasma data engine"));
   connect(ui->cbDataEngine, SIGNAL(activated(QString)), this, SLOT(initDataEngine()));
   connect(ui->pbRequest, SIGNAL(clicked()), this, SLOT(requestSource()));
@@ -79,10 +81,10 @@ void CreateBoundValueDialog::initPlasma()
     QString parentApp = service->property("X-KDE-ParentApp", QVariant::String).toString();
     if (!parentApp.isEmpty())
     {
-      kDebug() << "Skipping application specific data engine: " << internalName;
+      qDebug() << "Skipping application specific data engine: " << internalName;
       continue;
     }
-    ui->cbDataEngine->addItem(KIcon(service->icon()), service->name(), internalName.toString());
+    ui->cbDataEngine->addItem(QIcon::fromTheme(service->icon()), service->name(), internalName.toString());
   }
   ui->cbDataEngine->setCurrentIndex(-1);
   ui->cbDataSource->clear();
@@ -90,7 +92,7 @@ void CreateBoundValueDialog::initPlasma()
 
 void CreateBoundValueDialog::initDataEngine()
 {
-  kDebug() << "Initing data engine...";
+  qDebug() << "Initing data engine...";
   int currentIndex = ui->cbDataEngine->currentIndex();
   if (currentIndex == -1)
   {
@@ -105,18 +107,18 @@ void CreateBoundValueDialog::initDataEngine()
   ui->cbKey->clear();
 
   QString internalName = ui->cbDataEngine->itemData(currentIndex).toString();
-  kDebug() << "Loading data engine: " << internalName;
+  qDebug() << "Loading data engine: " << internalName;
   Plasma::DataEngine *engine = m_engineManager->loadEngine(internalName);
   m_currentEngineName = internalName;
 
-  kDebug() << "Engine: " << engine;
+  qDebug() << "Engine: " << engine;
   if (!engine) return;
 
   m_currentEngine = engine;
 
-  //kDebug() << "Source dict: " << sourceDict.count();
-  kDebug() << "Available sources: " << engine->sources();
-  kDebug() << "Data source valid: " << engine->isValid();
+  //qDebug() << "Source dict: " << sourceDict.count();
+  qDebug() << "Available sources: " << engine->sources();
+  qDebug() << "Data source valid: " << engine->isValid();
   ui->cbDataSource->clear();
 
   foreach (const QString& source, engine->sources())
@@ -160,7 +162,7 @@ void CreateBoundValueDialog::requestSource()
 
 void CreateBoundValueDialog::dataUpdated(const QString& source, const Plasma::DataEngine::Data& data)
 {
-  kDebug() << "Source sent new data: " << source;
+  qDebug() << "Source sent new data: " << source;
   Plasma::DataEngine::DataIterator it(data);
 
   QString currentText = ui->cbKey->currentText();
@@ -178,7 +180,7 @@ void CreateBoundValueDialog::dataUpdated(const QString& source, const Plasma::Da
       }
     }
 
-    kDebug() << key;
+    qDebug() << key;
     ui->cbKey->addItem(key);
     /*
     parent->setChild(rowCount, 1, new QStandardItem(it.key()));

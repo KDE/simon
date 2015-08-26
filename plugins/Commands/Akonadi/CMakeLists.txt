@@ -10,16 +10,16 @@ set (simonakonadicommandplugin_SRCS
   dialogrunner.cpp
 )
 
-kde4_add_ui_files(simonakonadicommandplugin_SRCS 
+ki18n_wrap_ui(simonakonadicommandplugin_SRCS
   akonadiconfigurationdlg.ui
   createakonadicommandwidget.ui
   timeselector.ui
 )
 
-kde4_add_plugin(simonakonadicommandplugin ${simonakonadicommandplugin_SRCS})
+kde4_add_library(simonakonadicommandplugin MODULE ${simonakonadicommandplugin_SRCS})
 
-target_link_libraries(simonakonadicommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
-  ${KDEPIMLIBS_AKONADI_LIBS} ${KDEPIMLIBS_KCALCORE_LIBS} simonscenariobase simonscenarios simonlogging simonactions
+target_link_libraries(simonakonadicommandplugin  Qt5::Xml
+  KF5::AkonadiCore KF5::CalendarCore simonscenariobase simonscenarios simonlogging simonactions
   simondialogengine simondialogengineconfui simondialogenginegraphicalview simondialogenginettsview)
 
 install(TARGETS simonakonadicommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandakonadiplugin)

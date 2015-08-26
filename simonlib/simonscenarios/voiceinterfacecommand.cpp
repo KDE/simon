@@ -21,7 +21,7 @@
 #include "voiceinterfacecommandtemplate.h"
 #include "commandmanager.h"
 #include <QMetaObject>
-#include <KDebug>
+#include <QDebug>
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger, const QString& iconSrc,
 const QString& description, const QString& id, QList<int> states, int newState,const QString& visibleTrigger,
@@ -79,7 +79,7 @@ bool VoiceInterfaceCommand::triggerPrivate(int *status)
   //    for more info
   // +: Works in multithreaded environments
   QByteArray slotName = m_slot.toAscii();
-  kDebug() << "Executing slot: " << slotName << " on object " << m_receiver;
+  qDebug() << "Executing slot: " << slotName << " on object " << m_receiver;
   
   QStringList args = currentArguments();
 
@@ -165,13 +165,13 @@ const QString VoiceInterfaceCommand::staticCategoryText()
 }
 
 
-const KIcon VoiceInterfaceCommand::staticCategoryIcon()
+const QIcon VoiceInterfaceCommand::staticCategoryIcon()
 {
-  return KIcon("text-speak");
+  return QIcon::fromTheme("text-speak");
 }
 
 
-const KIcon VoiceInterfaceCommand::getCategoryIcon() const
+const QIcon VoiceInterfaceCommand::getCategoryIcon() const
 {
   return parent()->icon();
 }

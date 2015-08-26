@@ -21,7 +21,7 @@
 #define SIMON_SCENARIOBASE_EXPORT_H_85CC537B8A5542B699807296D0561722
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SCENARIOBASE_EXPORT
 # if defined(MAKE_SIMONSCENARIOBASE_LIB)

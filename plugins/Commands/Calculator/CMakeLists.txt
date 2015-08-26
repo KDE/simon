@@ -4,11 +4,11 @@ set (simoncalculatorplugin_SRCS
   calculatorconfiguration.cpp
 )
 
-kde4_add_ui_files(simoncalculatorplugin_SRCS calculatorconfigurationdlg.ui calculatorwidget.ui)
+ki18n_wrap_ui(simoncalculatorplugin_SRCS calculatorconfigurationdlg.ui calculatorwidget.ui)
 
-kde4_add_plugin(simoncalculatorplugin ${simoncalculatorplugin_SRCS})
+kde4_add_plugin(simoncalculatorplugin MODULE ${simoncalculatorplugin_SRCS})
 
-target_link_libraries(simoncalculatorplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simoncalculatorplugin  Qt5::Xml
   eventsimulation simonlogging simonscenarios simonactions
   simoninfo simonscenariobase)
 

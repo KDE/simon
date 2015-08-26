@@ -26,11 +26,11 @@ TimeSelector::TimeSelector(QWidget* parent, Qt::WindowFlags f): QWidget(parent, 
 
 void TimeSelector::setTime(int seconds)
 {
-  kDebug() << "Requesting time: " << seconds;
+  qDebug() << "Requesting time: " << seconds;
   AkonadiCommand::RelativeDurationDimension dimension;
   int value;
   getRelativeTime(seconds, dimension, value);
-  kDebug() << "Result: " << dimension << value;
+  qDebug() << "Result: " << dimension << value;
   setTime(dimension, value);
 }
 

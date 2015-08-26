@@ -21,7 +21,7 @@
 #include "wavplayersubclient.h"
 #include "soundserver.h"
 #include <simonwav/wav.h>
-#include <KDebug>
+#include <QDebug>
 
 
 /**
@@ -48,10 +48,10 @@ void WavPlayerClient::slotCurrentProgress(int progress)
 
 void WavPlayerClient::slotFinished()
 {
-  kDebug() << "Received finish!";
+  qDebug() << "Received finish!";
   WavPlayerSubClient *c = dynamic_cast<WavPlayerSubClient*>(sender());
   if (!c) {
-    kDebug() << "Sender not a wavplayersubclient: " << sender();
+    qDebug() << "Sender not a wavplayersubclient: " << sender();
     return;
   }
 
@@ -60,7 +60,7 @@ void WavPlayerClient::slotFinished()
   if (clientsWaitingToFinish.isEmpty()) {
     m_isPlaying = false;
     emit finished();
-  } else kDebug() << "More clients waiting to finish";
+  } else qDebug() << "More clients waiting to finish";
 }
 
 
@@ -74,7 +74,7 @@ bool WavPlayerClient::play( QString filename )
   int channels = w->getChannels();
   int sampleRate = w->getSampleRate();
 
-  kDebug() << "File has " << channels << " channels and a samplerate of " << sampleRate;
+  qDebug() << "File has " << channels << " channels and a samplerate of " << sampleRate;
 
   qint64 length = w->size();
   if (length==0) {
@@ -102,10 +102,10 @@ bool WavPlayerClient::play(QSharedPointer<QIODevice> device, int channels, int s
     c->initToSampleRate(samplerate);
     clients << c;
   }
-  kDebug() << "Found applicable devices: " << clients.count();
+  qDebug() << "Found applicable devices: " << clients.count();
 
   bool succ = false;
-  kDebug() << "Playing: stream" << channels << samplerate;
+  qDebug() << "Playing: stream" << channels << samplerate;
 
   foreach (WavPlayerSubClient *client, clients) {
     if (client->play(device)) {

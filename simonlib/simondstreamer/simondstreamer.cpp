@@ -23,7 +23,7 @@
 #include <simonsound/soundserver.h>
 
 #include <QObject>
-#include <KDebug>
+#include <QDebug>
 
 /**
  * \brief Constructor
@@ -47,7 +47,7 @@ void SimondStreamer::initializeDevices()
   clients.clear();
 
   QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionInputDevices();
-  kDebug() << "Initializing " << devices.count() << " streaming devices...";
+  qDebug() << "Initializing" << devices.count() << "streaming devices...";
   qint8 i=0;
   foreach (const SimonSound::DeviceConfiguration& dev, devices) {
     SimondStreamerClient *streamer = new SimondStreamerClient(i++, m_sender, dev, this);
@@ -74,10 +74,10 @@ bool SimondStreamer::isRunning()
 
 bool SimondStreamer::start()
 {
-  kDebug() << "Staring Simondstreamer" << SoundServer::getInstance();
+  qDebug() << "Staring Simondstreamer" << SoundServer::getInstance();
   if (clients.isEmpty())
   {
-    kDebug() << "clients are empty";
+    qDebug() << "clients are empty";
     return false;
   }
   bool succ = true;

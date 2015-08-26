@@ -27,10 +27,10 @@
 #include <sscobjects/microphone.h>
 #include <sscobjects/soundcard.h>
 
-#include <QFile>
 #include <QSettings>
 
-#include <KDebug>
+#include <QDebug>
+#include <QStandardPaths>
 
 SSCSampleDataProvider::SSCSampleDataProvider(qint32 userId, Sample::SampleType sampleType,
 const QString& name) : AbstractSampleDataProvider(userId, sampleType, name, false),
@@ -65,7 +65,7 @@ QList<TrainingSamplesDescriptor*> SSCSampleDataProvider::buildSampleDescriptors(
 {
   QList<TrainingSamplesDescriptor*> sampleDescriptors;
   foreach (TrainSamplePage *page, m_trainSamplePages) {
-    kDebug() << "Processing page";
+    qDebug() << "Processing page";
     QStringList fileNames = page->getFileNames();
     QStringList devices = page->getDevices();
     QString prompt = page->getPrompt();
@@ -77,10 +77,10 @@ QList<TrainingSamplesDescriptor*> SSCSampleDataProvider::buildSampleDescriptors(
 
 bool SSCSampleDataProvider::store()
 {
-  QString directory = KStandardDirs::locateLocal("appdata", QString("stored/%1/%2/").arg(m_userId).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd.hh-mm-ss-zzz")));
+  QString directory = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString("stored/%1/%2/").arg(m_userId).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd.hh-mm-ss-zzz"));
   fprintf(stderr, "Created directory: %s\n", directory.toAscii().constData());
   QSettings ini(directory+"/profile.ini", QSettings::IniFormat);
-  kDebug() << "Profiles: " << directory+"/profile.ini";
+  qDebug() << "Profiles: " << directory+"/profile.ini";
 
   ini.setValue("Type", m_sampleType);
   ini.setValue("Name", m_name);

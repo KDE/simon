@@ -24,7 +24,7 @@
 #include "corpusinformation.h"
 #include <QFrame>
 #include <QDomElement>
-#include <KUrl>
+#include <QUrl>
 
 class QDomDocument;
 
@@ -45,12 +45,12 @@ class TestConfigurationWidget : public QFrame
   protected:
     CorpusInformation* m_corpusInfo;
     int m_sampRate;
-    KUrl m_testPrompts;
-    KUrl m_testPromptsBasePath;
+    QUrl m_testPrompts;
+    QUrl m_testPromptsBasePath;
 
     virtual void setupUi() = 0;
-    void updateGeneralParams(const KUrl& testPromptsUrl,
-                             const KUrl& testPromptsBasePathUrl, int sampleRate);
+    void updateGeneralParams(const QUrl& testPromptsUrl,
+                             const QUrl& testPromptsBasePathUrl, int sampleRate);
 
   public slots:
 //    void retrieveTag();
@@ -63,7 +63,7 @@ class TestConfigurationWidget : public QFrame
 
     TestConfigurationWidget(QWidget *parent=0);
     TestConfigurationWidget(CorpusInformation* corpusInfo,
-        const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
+        const QUrl& testPromptsUrl, const QUrl& testPromptsBasePathUrl,
         int sampleRate, QWidget *parent=0);
 
     static BackendType intToBackendType(int type);
@@ -78,8 +78,8 @@ class TestConfigurationWidget : public QFrame
 
     QString tag() const { return m_corpusInfo->tag(); }
     CorpusInformation* corpusInformation() { return m_corpusInfo; }
-    KUrl testPrompts() const { return m_testPrompts; }
-    KUrl testPromptsBasePath() const { return m_testPromptsBasePath; }
+    QUrl testPrompts() const { return m_testPrompts; }
+    QUrl testPromptsBasePath() const { return m_testPromptsBasePath; }
 
     int sampleRate() const { return m_sampRate; }
 

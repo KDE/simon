@@ -20,11 +20,11 @@
 #ifndef SIMON_TEXTLISTWIDGET_H_B252B690AAEE4A4D883FF6DB45979D2F
 #define SIMON_TEXTLISTWIDGET_H_B252B690AAEE4A4D883FF6DB45979D2F
 
-#include <KListWidget>
-#include <KDebug>
+#include <QListWidget>
+#include <QDebug>
 #include "simonuicomponents_export.h"
 
-class SIMONUICOMPONENTS_EXPORT  TextListWidget : public KListWidget
+class SIMONUICOMPONENTS_EXPORT  TextListWidget : public QListWidget
 {
   Q_OBJECT
   /**

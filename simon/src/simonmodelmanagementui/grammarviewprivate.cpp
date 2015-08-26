@@ -25,22 +25,21 @@
 #include <QSortFilterProxyModel>
 #include <KInputDialog>
 
-#include <KDebug>
-#include <KMessageBox>
-#include <KGlobal>
+#include <QDebug>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>
+#include <KWidgetsAddons/KMessageBox>
 
 GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 {
   ui.setupUi(this);
-  ui.pbImportTexts->setIcon(KIcon("document-import"));
-  ui.pbRename->setIcon(KIcon("document-properties"));
-  ui.pbMerge->setIcon(KIcon("arrow-down-double"));
+  ui.pbImportTexts->setIcon(QIcon::fromTheme("document-import"));
+  ui.pbRename->setIcon(QIcon::fromTheme("document-properties"));
+  ui.pbMerge->setIcon(QIcon::fromTheme("arrow-down-double"));
 
-  ui.pbAdd->setIcon(KIcon("list-add"));
-  ui.pbDelete->setIcon(KIcon("list-remove"));
+  ui.pbAdd->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbDelete->setIcon(QIcon::fromTheme("list-remove"));
 
   connect(ui.lvStructures, SIGNAL(selectionChanged()), this, SLOT(currentSelectionChanged()));
 
@@ -106,7 +105,7 @@ void GrammarViewPrivate::deleteStructure()
 
 void GrammarViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
-  kDebug() << "Displaying scenario " << scenario->name();
+  qDebug() << "Displaying scenario " << scenario->name();
 
   Grammar *g = scenario->grammar();
   grammarProxy->setSourceModel(g);

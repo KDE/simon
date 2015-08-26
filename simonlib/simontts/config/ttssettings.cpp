@@ -25,33 +25,33 @@
 #include <simontts/recordingsetcollection.h>
 #include <QListWidget>
 #include <QSortFilterProxyModel>
-#include <kgenericfactory.h>
-#include <KActionSelector>
+#include <KDELibs4Support/kgenericfactory.h>
 #include <KInputDialog>
-#include <KMessageBox>
-#include <KFileDialog>
+#include <KDELibs4Support/KDE/KFileDialog>
+#include <QStandardPaths>
+#include <KWidgetsAddons/KMessageBox>
 
 K_PLUGIN_FACTORY( TTSSettingsFactory,
   registerPlugin< TTSSettings >();
 )
 
-K_EXPORT_PLUGIN( TTSSettingsFactory("TTSSettings") )
+// K_EXPORT_PLUGIN( TTSSettingsFactory("TTSSettings") )
 
-TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent),
+TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(parent),
   sets(0)
 { 
   Q_UNUSED(args);
 
   ui.setupUi(this);
 
-  ui.pbAddRecording->setIcon(KIcon("list-add"));
-  ui.pbEditRecording->setIcon(KIcon("document-edit"));
-  ui.pbRemoveRecording->setIcon(KIcon("list-remove"));
-  ui.pbAddSet->setIcon(KIcon("list-add"));
-  ui.pbRenameSet->setIcon(KIcon("document-edit"));
-  ui.pbRemoveSet->setIcon(KIcon("list-remove"));
-  ui.pbExportSet->setIcon(KIcon("document-export"));
-  ui.pbImportSet->setIcon(KIcon("document-import"));
+  ui.pbAddRecording->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbEditRecording->setIcon(QIcon::fromTheme("document-edit"));
+  ui.pbRemoveRecording->setIcon(QIcon::fromTheme("list-remove"));
+  ui.pbAddSet->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbRenameSet->setIcon(QIcon::fromTheme("document-edit"));
+  ui.pbRemoveSet->setIcon(QIcon::fromTheme("list-remove"));
+  ui.pbExportSet->setIcon(QIcon::fromTheme("document-export"));
+  ui.pbImportSet->setIcon(QIcon::fromTheme("document-import"));
 
   recordings = new QSortFilterProxyModel(this);
   recordings->setSortCaseSensitivity(Qt::CaseInsensitive);
@@ -88,20 +88,20 @@ void TTSSettings::exportSet()
   int currentSet = getCurrentlySelectedSet();
   if (currentSet == -1) return;
 
-  QString path = KFileDialog::getSaveFileName(KUrl(), i18n("TTS Files *.tts"), this, i18nc("\"Set output file\" is a substantive stating the file type", "Set output file"));
+  QString path = KFileDialog::getSaveFileName(QUrl(), i18n("TTS Files *.tts"), this, i18nc("\"Set output file\" is a substantive stating the file type", "Set output file"));
   if (path.isEmpty()) return;
 
-  kDebug() << "Exporting set to: " << path;
+  qDebug() << "Exporting set to: " << path;
   if (!sets->exportSet(path, currentSet))
     KMessageBox::sorry(this, i18nc("%1 is path", "Could not export set to \"%1\".", path));
 }
 
 void TTSSettings::importSet()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(), i18n("TTS Files *.tts"), this, i18nc("\"Set file\" is a substantive stating the file type", "Set file"));
+  QString path = KFileDialog::getOpenFileName(QUrl(), i18n("TTS Files *.tts"), this, i18nc("\"Set file\" is a substantive stating the file type", "Set file"));
   if (path.isEmpty()) return;
 
-  kDebug() << "Importing set from: " << path;
+  qDebug() << "Importing set from: " << path;
   if (!sets->importSet(path))
     KMessageBox::sorry(this, i18n("Could not import set from \"%1\".", path));
   displaySets();
@@ -150,7 +150,7 @@ void TTSSettings::load()
   {
     if (!availableBackends.contains(s))
     {
-      kWarning() <<"Ignoring selected but anavailable backend " << s;
+      qWarning() <<"Ignoring selected but anavailable backend " << s;
       continue;
     }
     availableBackends.removeAll(s);
@@ -173,7 +173,7 @@ void TTSSettings::setupSets()
 {
   delete sets;
   sets =  new RecordingSetCollection;
-  if (!sets->init(KStandardDirs::locate("appdata", "ttsrec/ttssets.xml")))
+  if (!sets->init(QStandardPaths::locate(QStandardPaths::DataLocation, "ttsrec/ttssets.xml")))
     KMessageBox::sorry(this, i18n("Could not read recording sets from the configuration file."));
 
   displaySets(TTSConfiguration::activeSet());
@@ -181,7 +181,7 @@ void TTSSettings::setupSets()
 
 void TTSSettings::displaySets(int changeToIndex)
 {
-  kDebug() << "Entering displaySets..." << sender();
+  qDebug() << "Entering displaySets..." << sender();
   int oldSetIndex;
   if (changeToIndex != -1) oldSetIndex = changeToIndex;
   else oldSetIndex = ui.cbActiveSet->currentIndex();
@@ -193,16 +193,16 @@ void TTSSettings::displaySets(int changeToIndex)
     RecordingSet* set = sets->getSet(id);
     ui.cbActiveSet->addItem(set->name(), set->id());
   }
-  kDebug() << "Old set index: " << oldSetIndex;
+  qDebug() << "Old set index: " << oldSetIndex;
   if (((oldSetIndex == -1) && (ui.cbActiveSet->count() > 0)) ||
       (oldSetIndex >= ui.cbActiveSet->count()))
   {
-    kDebug() << "Setting 0 index";
+    qDebug() << "Setting 0 index";
     ui.cbActiveSet->setCurrentIndex(0);
   }
   else
     ui.cbActiveSet->setCurrentIndex(oldSetIndex);
-  kDebug() << "Old set index: " << oldSetIndex;
+  qDebug() << "Old set index: " << oldSetIndex;
 
   displayCurrentSet();
 }
@@ -215,13 +215,13 @@ void TTSSettings::save()
   for (int i=0; i < ui.asBackends->selectedListWidget()->count(); i++)
     selectedBackends << ui.asBackends->selectedListWidget()->item(i)->data(Qt::UserRole).toString();
   TTSConfiguration::setBackends(selectedBackends);
-  kDebug() << "Selected backends: " << selectedBackends;
+  qDebug() << "Selected backends: " << selectedBackends;
 
   TTSConfiguration::setActiveSet(getCurrentlySelectedSet());
   TTSConfiguration::self()->writeConfig();
 
-  kDebug() << "Saving sets...";
-  if (!sets->save(KStandardDirs::locateLocal("appdata", "ttsrec/ttssets.xml")))
+  qDebug() << "Saving sets...";
+  if (!sets->save(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "ttsrec/ttssets.xml"))
     KMessageBox::sorry(this, i18n("Could not write recording sets to the configuration file."));
 
   SimonTTS::uninitialize();
@@ -321,7 +321,7 @@ void TTSSettings::addRecording()
     return;
   }
 
-  kDebug() << "Adding: " << text << path << " to set " << currentSet;
+  qDebug() << "Adding: " << text << path << " to set " << currentSet;
   if (!sets->addRecording(currentSet, text, path))
     KMessageBox::sorry(this, i18n("Could not add recording to set."));
 
@@ -390,3 +390,5 @@ TTSSettings::~TTSSettings()
   delete recordings;
   delete sets;
 }
+
+#include "ttssettings.moc"

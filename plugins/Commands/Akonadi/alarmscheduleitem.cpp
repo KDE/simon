@@ -26,7 +26,7 @@
 
 #include <QList>
 #include <kcalcore/event.h>
-#include <KDebug>
+#include <QDebug>
 #include "dialogrunner.h"
 #include <simondialogengine/dialogtemplateoptions.h>
 #include <simondialogengine/dialogboundvalues.h>
@@ -60,8 +60,8 @@ bool AlarmScheduleItem::trigger()
   
   QString text = m_config->dialogText();
   text.replace("%summary", m_summary, Qt::CaseInsensitive);
-  text.replace("%date", KGlobal::locale()->formatDate(m_eventTime.date()), Qt::CaseInsensitive);
-  text.replace("%time", KGlobal::locale()->formatTime(m_eventTime.time()), Qt::CaseInsensitive);
+  text.replace("%date", QLocale().dateFormat(m_eventTime.date()), Qt::CaseInsensitive);
+  text.replace("%time", QLocale().dateTimeFormat(m_eventTime.time()), Qt::CaseInsensitive);
   text.replace("%location", m_eventLocation, Qt::CaseInsensitive);
 
   DialogState *state = new DialogState(parser, "Name", text, false, true, commands, 0);
@@ -70,6 +70,6 @@ bool AlarmScheduleItem::trigger()
   
   DialogRunner *runner = new DialogRunner(m_config, parser, state);
   runner->run();
-  kDebug() << "Displaying alarm for event: " << m_summary;
+  qDebug() << "Displaying alarm for event: " << m_summary;
   return true;
 }

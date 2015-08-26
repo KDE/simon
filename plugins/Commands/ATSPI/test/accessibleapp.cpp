@@ -26,7 +26,6 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QMenuBar>
-#include <QDebug>
 
 AccessibleApp::AccessibleApp() : btn(0), msg(0)
 {

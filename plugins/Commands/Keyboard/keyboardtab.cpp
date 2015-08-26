@@ -22,8 +22,8 @@
 #include <QString>
 #include <QList>
 #include <QDomDocument>
-#include <KDebug>
-#include <KLocalizedString>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
 
 KeyboardTab::KeyboardTab(const QDomElement& elem) : m_isNull(false)
 {
@@ -69,7 +69,7 @@ bool KeyboardTab::addButton(KeyboardButton* b)
   if (findButton(b->getTriggerReal()))
     return false;
 
-  kDebug() << "Adding button";
+  qDebug() << "Adding button";
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
   buttonList.append(b);
   endInsertRows();

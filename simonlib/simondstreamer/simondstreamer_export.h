@@ -21,7 +21,7 @@
 #define SIMON_SIMONDSTREAMER_EXPORT_H_FFC5CEA9FBF74C52838C3684F20E0423
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONDSTREAMER_EXPORT
 #if defined(MAKE_SIMONDSTREAMER_LIB)

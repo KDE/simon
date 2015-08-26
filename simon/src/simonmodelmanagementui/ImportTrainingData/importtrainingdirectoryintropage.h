@@ -21,7 +21,6 @@
 #define SIMON_IMPORTTRAININGDIRECTORYINTROPAGE_H_C39B92EAEBA04294AF5324392922B89C
 
 #include <QWizardPage>
-#include <QVariant>
 #include "ui_importtrainingdataintrodlg.h"
 
 /**

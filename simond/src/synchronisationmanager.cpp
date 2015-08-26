@@ -28,20 +28,17 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QFile>
-#include <QBuffer>
-#include <QRegExp>
 #include <QMutableMapIterator>
-#include <KStandardDirs>
-#include <KComponentData>
-#include <KAboutData>
+#include <QStandardPaths>
 #include <KConfig>
 #include <KDateTime>
-#include <KConfigGroup>
-#include <KDebug>
+#include <QDebug>
+#include <QStandardPaths>
+#include <KConfigCore/KConfigGroup>
 
 SynchronisationManager::SynchronisationManager(const QString& user_name, QObject* parent) : QObject(parent),
 username(user_name),
-srcContainerTempPath(KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName() + '/' + user_name + "/sync/"))
+srcContainerTempPath(QDir::tempPath() + QLatin1Char('/') + KAboutData::applicationData().productName()+ '/' + user_name + "/sync/")
 {
 }
 
@@ -82,7 +79,7 @@ bool SynchronisationManager::storeScenario(const QString& id, const QByteArray& 
   QString path = srcContainerTempPath+QDir::separator()+"scenarios"+QDir::separator()+id;
   QFile f(path);
   if (!f.open(QIODevice::WriteOnly)) {
-    kDebug() << "Cannot store scenario at: " << path;
+    qDebug() << "Cannot store scenario at: " << path;
     return false;
   }
 
@@ -110,7 +107,7 @@ QString SynchronisationManager::getLatestScenarioPath(const QString& id)
       return path;
     }
   }
-//   kDebug() << "Latest scenario path of scenario: " << id << " not found!";
+//   qDebug() << "Latest scenario path of scenario: " << id << " not found!";
   return QString();
 }
 
@@ -134,7 +131,7 @@ Model* SynchronisationManager::getActiveModel()
 {
   if (username.isEmpty()) return 0;
 
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/";
 
   QString configPath = dirPath+"activerc";
   KConfig config( configPath, KConfig::SimpleConfig );
@@ -147,7 +144,7 @@ Model* SynchronisationManager::getActiveModel()
   QFile containerFile(dirPath+"active.sbm");
 
   if (!containerFile.open(QIODevice::ReadOnly)) {
-    kDebug() << "Failed to gather active model";
+    qDebug() << "Failed to gather active model";
     return 0;
   }
 
@@ -157,7 +154,7 @@ Model* SynchronisationManager::getActiveModel()
 
 QDateTime SynchronisationManager::getActiveModelDate()
 {
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/";
 
   KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
@@ -169,7 +166,7 @@ bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, qint
 {
   if (username.isEmpty()) return false;
 
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/";
   QFile containerFile(dirPath+"active.sbm");
 
   if (!containerFile.open(QIODevice::WriteOnly))
@@ -189,7 +186,7 @@ bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, qint
 
 void SynchronisationManager::setActiveModelSampleRate(qint32 activeModelSampleRate)
 {
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/";
   KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("SampleRate", activeModelSampleRate);
@@ -199,14 +196,14 @@ void SynchronisationManager::setActiveModelSampleRate(qint32 activeModelSampleRa
 
 bool SynchronisationManager::hasActiveModel()
 {
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/";
   return QFile::exists(dirPath+"active.sbm");
 }
 
 
 QDateTime SynchronisationManager::getBaseModelDate()
 {
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/";
   KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
   return cGroup.readEntry("BaseModelDate", QDateTime());
@@ -214,14 +211,14 @@ QDateTime SynchronisationManager::getBaseModelDate()
 
 QString SynchronisationManager::getBaseModelPath()
 {
-  return KStandardDirs::locateLocal("appdata", "models/"+username+"/active/base.sbm");
+  return QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/base.sbm";
 }
 
 Model* SynchronisationManager::getBaseModel()
 {
   if (username.isEmpty()) return 0;
 
-  QString configPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/activerc");
+  QString configPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/activerc";
   KConfig config( configPath, KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
 
@@ -232,7 +229,7 @@ Model* SynchronisationManager::getBaseModel()
   QFile containerFile(getBaseModelPath());
 
   if (!containerFile.open(QIODevice::ReadOnly)) {
-    kDebug() << "Failed to gather base model";
+    qDebug() << "Failed to gather base model";
     return 0;
   }
 
@@ -244,7 +241,7 @@ int SynchronisationManager::getBaseModelType()
 {
   if (username.isEmpty()) return -1;
 
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/";
   QString configPath = dirPath+"activerc";
   KConfig config( configPath, KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
@@ -253,14 +250,14 @@ int SynchronisationManager::getBaseModelType()
   int baseModelType = cGroup.readEntry("BaseModelType").toInt(&ok);
   if (!ok)
   {
-      kDebug() << "Could not read BaseModelType!!  Defaulting to user-generated model.";
+      qDebug() << "Could not read BaseModelType!!  Defaulting to user-generated model.";
       return 2;
   }
 
   if ((baseModelType == 1) /*adapted*/ &&
           (getPromptsPath().isEmpty()))
   {
-      kDebug() << "Could not find prompts for adapted base model!!  Defaulting to static base model.";
+      qDebug() << "Could not find prompts for adapted base model!!  Defaulting to static base model.";
       baseModelType = 0;
   }
 
@@ -273,7 +270,7 @@ bool SynchronisationManager::storeBaseModel(const QDateTime& changedDate, int mo
 {
   if (username.isEmpty()) return false;
 
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/";
   QFile containerFile(dirPath+"base.sbm");
 
   if (!containerFile.open(QIODevice::WriteOnly))
@@ -286,7 +283,7 @@ bool SynchronisationManager::storeBaseModel(const QDateTime& changedDate, int mo
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("BaseModelDate", changedDate);
   cGroup.writeEntry("BaseModelType", modelType);
-  kDebug() << "Base model type has been written! It is: " << modelType;
+  qDebug() << "Base model type has been written! It is: " << modelType;
   config.sync();
   return true;
 }
@@ -294,7 +291,7 @@ bool SynchronisationManager::storeBaseModel(const QDateTime& changedDate, int mo
 
 void SynchronisationManager::modelCompiled(const QString& path)
 {
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/active/";
   
   QString activePath = dirPath+"active.sbm";
   if (QFile::exists(activePath))
@@ -436,7 +433,7 @@ TrainingContainer* SynchronisationManager::getTraining()
 
 bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& prompts)
 {
-//   kDebug() << "Storing training from " << changedDate;
+//   qDebug() << "Storing training from " << changedDate;
   if (username.isEmpty()) return false;
 
   QString configPath = srcContainerTempPath+"trainingrc";
@@ -446,7 +443,7 @@ bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 
   config.sync();
 
   QFile promptsFile(srcContainerTempPath+"prompts");
-//   kDebug() << "Temp path: " << srcContainerTempPath;
+//   qDebug() << "Temp path: " << srcContainerTempPath;
 
   if (!promptsFile.open(QIODevice::WriteOnly))
     return false;
@@ -466,14 +463,14 @@ bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 
 
 QStringList SynchronisationManager::getAvailableSamples()
 {
-  QDir samplesDir(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"));
+  QDir samplesDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/samples/");
   return samplesDir.entryList(QStringList() << "*.wav");
 }
 
 
 QByteArray SynchronisationManager::getSample(const QString& sampleName)
 {
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/samples/";
 
   #ifdef Q_OS_WIN
   dirPath = dirPath.toUpper();
@@ -494,7 +491,7 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
   if (!fInfo.canonicalFilePath().contains(d.canonicalPath()))
     return QByteArray();
 
-//   kDebug() << "Retrieving " << dirPath+'/'+sampleName.toUtf8();
+//   qDebug() << "Retrieving " << dirPath+'/'+sampleName.toUtf8();
   if (!f.open(QIODevice::ReadOnly)) return QByteArray();
   QByteArray content = f.readAll();
   return content;
@@ -503,7 +500,7 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
 
 bool SynchronisationManager::storeSample(const QString& name, const QByteArray& sample)
 {
-  QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/");
+  QString dirPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/samples/";
 
   QFile f(dirPath+name);
   if (!f.open(QIODevice::WriteOnly)) return false;
@@ -558,7 +555,7 @@ bool SynchronisationManager::hasModelSrc()
 bool SynchronisationManager::startSynchronisation()
 {
   if (QFile::exists(srcContainerTempPath+"lock")) {
-    kDebug() << "Lock exists";
+    qDebug() << "Lock exists";
     return false;
   }
 
@@ -567,7 +564,7 @@ bool SynchronisationManager::startSynchronisation()
 
   QFile lock(srcContainerTempPath+"lock");
   if (!lock.open(QIODevice::WriteOnly)) {
-    kDebug() << "Cannot open lock file at" << srcContainerTempPath+"lock";
+    qDebug() << "Cannot open lock file at" << srcContainerTempPath+"lock";
     return false;
   }
 
@@ -600,7 +597,7 @@ bool SynchronisationManager::cleanTemp()
 
 bool SynchronisationManager::abort()
 {
-  kDebug() << "Aborting synchronization";
+  qDebug() << "Aborting synchronization";
   return cleanTemp();
 }
 
@@ -630,16 +627,16 @@ bool SynchronisationManager::commit()
   QStringList scenarios = scenarioDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
   foreach (const QString& scenarioPath, scenarios) {
     QDateTime sDate = scenarioDate(srcContainerTempPath+"scenarios"+QDir::separator()+scenarioPath);
-//     kDebug() << "Merging scenario: " << scenarioPath << sDate;
+//     qDebug() << "Merging scenario: " << scenarioPath << sDate;
     newSrcContainerTime = qMax(newSrcContainerTime, sDate);
   }
 
-  kDebug() << "New container time: " << newSrcContainerTime;
+  qDebug() << "New container time: " << newSrcContainerTime;
   if (newSrcContainerTime.isNull()) {
     return cleanTemp();                           // nothing to process
   }
 
-  QString newSrcContainerPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/"+newSrcContainerTime.toString("yyyy-MM-dd_hh-mm-ss")+'/');
+  QString newSrcContainerPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/src/"+newSrcContainerTime.toString("yyyy-MM-dd_hh-mm-ss")+'/';
 
   if (newSrcContainerPath.isEmpty()) return false;
 
@@ -650,12 +647,12 @@ bool SynchronisationManager::commit()
   if (!copyScenarios(srcContainerTempPath, newSrcContainerPath)) allCopied = false;
 
   if (!allCopied) {
-    kDebug() << "Failed to copy all files. Aborting";
+    qDebug() << "Failed to copy all files. Aborting";
     cleanTemp();
     return false;
   }
 
-  kDebug() << "New src container path: " << newSrcContainerPath;
+  qDebug() << "New src container path: " << newSrcContainerPath;
   return cleanTemp();
 }
 
@@ -664,7 +661,7 @@ QMap<QDateTime, QString> SynchronisationManager::getModels()
 {
   QMap<QDateTime, QString> models;
 
-  QDir modelSrcDir(KStandardDirs::locateLocal("appdata", "models/"+username+"/src/"));
+  QDir modelSrcDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+username+"/src/");
   if (!modelSrcDir.exists()) return models;
 
   QStringList folders = modelSrcDir.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
@@ -755,33 +752,33 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
   QMap<QDateTime,QString> allSrcModels = getModels();
   QMap<QDateTime,QString>::const_iterator modelI = allSrcModels.constEnd();
   if (allSrcModels.isEmpty()) {
-    kDebug() << "No src models found...?";
+    qDebug() << "No src models found...?";
     return false;
   }
 
-  kDebug() << "Switching to this model: " << modelDate;
+  qDebug() << "Switching to this model: " << modelDate;
 
   do {
     --modelI;
-    kDebug() << "Current model: " << modelI.key();
+    qDebug() << "Current model: " << modelI.key();
     if (modelI.key() <= modelDate) {
-      kDebug() << "Copying scenarios...";
+      qDebug() << "Copying scenarios...";
       allCopied &= copyScenarios(modelI.value(), srcContainerTempPath, true);
-    } else kDebug() << "Not relevant";
+    } else qDebug() << "Not relevant";
   }
   while (modelI != allSrcModels.constBegin());
-  kDebug() << "modelI is now at begin" << modelI.key();
+  qDebug() << "modelI is now at begin" << modelI.key();
 
   if (!allCopied) {
     abort();
-    kDebug() << "could not copy everything";
+    qDebug() << "could not copy everything";
     return false;
   }
 
   //updating date stamp
   touchTempModel();
 
-  kDebug() << "Committing";
+  qDebug() << "Committing";
   return commit();
 }
 
@@ -863,10 +860,10 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
   //problems with source or dest?
   QDir d(dest+QDir::separator()+"scenarios");
   if (!scenarioDir.exists() || (!d.exists() && !d.mkpath(dest+QDir::separator()+"scenarios"))) {
-    kDebug() << "Failed to create target folders";
-    kDebug() << "scenariodir exists: " << scenarioDir.exists();
-    kDebug() << "d exists: " << d.exists();
-    kDebug() << "d mkpath: " << d.mkpath(dest+QDir::separator()+"scenarios");
+    qDebug() << "Failed to create target folders";
+    qDebug() << "scenariodir exists: " << scenarioDir.exists();
+    qDebug() << "d exists: " << d.exists();
+    qDebug() << "d mkpath: " << d.mkpath(dest+QDir::separator()+"scenarios");
     return false;
   }
 
@@ -882,7 +879,7 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
 
     if (!QFile::copy(scenarioPath, destPath)) {
       allCopied = false;
-      kDebug() << "Error: Copy failed";
+      qDebug() << "Error: Copy failed";
     }
     else {
       if (touchAccessTime) {
@@ -902,11 +899,11 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
         file.resize(file.pos());
 
         file.close();
-	kDebug() << "Written to " << destPath << " from " << scenarioPath;
+	qDebug() << "Written to " << destPath << " from " << scenarioPath;
       }
     }
   }
-  kDebug() << "All scenarios copied: " << allCopied;
+  qDebug() << "All scenarios copied: " << allCopied;
 
   return allCopied;
 }
@@ -917,7 +914,7 @@ bool SynchronisationManager::copyScenarioRc(const QString& source, const QString
   QString rcSource = source+QDir::separator()+"simonscenariosrc";
   QString rcDest = dest+QDir::separator()+"simonscenariosrc";
   if ((!QFile::exists(rcDest)) && !QFile::copy(rcSource, rcDest)) {
-    kDebug() << "Failed to copy scenario rc from " << source+QDir::separator()+"simonscenariosrc" << "to "
+    qDebug() << "Failed to copy scenario rc from " << source+QDir::separator()+"simonscenariosrc" << "to "
       << dest+QDir::separator()+"simonscenariosrc";
     return false;
   }
@@ -929,12 +926,12 @@ bool SynchronisationManager::copyScenarioRc(const QString& source, const QString
 void SynchronisationManager::deletedScenarios(const QStringList& ids, const QList<QDateTime>& scenarioTimes)
 {
   if (ids.count() != scenarioTimes.count()) {
-    kWarning() << "Error when retreiving the scenarios to delete";
+    qWarning() << "Error when retreiving the scenarios to delete";
     return;
   }
 
   for (int i=0; i < ids.count(); i++) {
-    kDebug() << "Deleted scenario: " << ids[i];
+    qDebug() << "Deleted scenario: " << ids[i];
     QDateTime localDate = localScenarioDate(ids[i]);
 
     if (localDate > scenarioTimes[i])
@@ -958,8 +955,8 @@ bool SynchronisationManager::hasScenarioRc(const QString& modelPath)
 
 bool SynchronisationManager::removeExcessModelBackups()
 {
-  kDebug() << "Removing excess model backups";
-  KConfig config(KStandardDirs::locate("config", "simondrc"));
+  qDebug() << "Removing excess model backups";
+  KConfig config(QStandardPaths::locate(QStandardPaths::ConfigLocation, "simondrc"));
   KConfigGroup cGroup(&config, "ModelManagement");
   int maxBackupedModels = cGroup.readEntry("ModelBackups", 8);
 
@@ -973,29 +970,29 @@ bool SynchronisationManager::removeExcessModelBackups()
 
     //copy functions will not override if the same files are already in the target path
     if (hasLanguageDescription(modelToRemovePath) && !copyLanguageDescription(modelToRemovePath, modelTargetPath)) {
-      kDebug() << "Language description failed";
+      qDebug() << "Language description failed";
       return false;
     }
     if (hasTraining(modelToRemovePath) && !copyTrainingData(modelToRemovePath, modelTargetPath)) {
-      kDebug() << "Training failed";
+      qDebug() << "Training failed";
       return false;
     }
     if (hasScenarioRc(modelToRemovePath) && !copyScenarioRc(modelToRemovePath, modelTargetPath)) {
-      kDebug() << "ScenarioRc failed";
+      qDebug() << "ScenarioRc failed";
       return false;
     }
     if (!copyScenarios(modelToRemovePath, modelTargetPath)) {
-      kDebug() << "Scenarios failed";
+      qDebug() << "Scenarios failed";
       return false;
     }
 
     //remove modelToRemovePath
     if (!removeDirectory(modelToRemovePath)) {
-      kDebug() << "Removing directory failed: " << modelToRemovePath;
+      qDebug() << "Removing directory failed: " << modelToRemovePath;
       return false;
     }
 
-    kDebug() << "Removed " << modelToRemovePath;
+    qDebug() << "Removed " << modelToRemovePath;
     models.remove(models.keys().at(0));
   }
 
@@ -1009,17 +1006,17 @@ bool SynchronisationManager::removeDirectory(const QString& dir)
   QStringList dirs = directory.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
   foreach (const QString& d, dirs)
   if (!removeDirectory(dir+QDir::separator()+d)) {
-    kDebug() << "Sub directory remove failed: " << d;
+    qDebug() << "Sub directory remove failed: " << d;
     return false;
   }
 
   if (!removeAllFiles(dir)) {
-    kDebug() << "removeAllFiles failed";
+    qDebug() << "removeAllFiles failed";
     return false;
   }
 
   bool rmdir = directory.rmdir(dir);
-  kDebug() << "Removed directory " << dir << rmdir;
+  qDebug() << "Removed directory " << dir << rmdir;
   return rmdir;
 }
 

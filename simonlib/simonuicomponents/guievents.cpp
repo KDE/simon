@@ -21,7 +21,7 @@
 #include <simonlogging/logger.h>
 #include <QRegExp>
 #include <QStringList>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KLocale>
 
 GuiEvents::GuiEvents(QObject *parent) : QObject(parent)

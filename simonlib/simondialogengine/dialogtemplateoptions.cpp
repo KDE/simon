@@ -19,7 +19,7 @@
 
 #include "dialogtemplateoptions.h"
 #include <QDomDocument>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 DialogTemplateOptions::DialogTemplateOptions()
 {
@@ -84,7 +84,7 @@ QModelIndex DialogTemplateOptions::index(int row, int column,const QModelIndex &
   if (!hasIndex(row, column, parent) || parent.isValid())
     return QModelIndex();
 
-   return createIndex(row, column, 0);
+   return createIndex(row, column, nullptr);
 }
 
 QVariant DialogTemplateOptions::data(const QModelIndex &index, int role) const

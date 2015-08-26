@@ -23,7 +23,7 @@
 #include <QStringList>
 #include <simonscenariobase/scenarioobject.h>
 #include "simonmodelmanagement_export.h"
-#include <KDebug>
+#include <QDebug>
 
 /**
  *	@class TrainingText

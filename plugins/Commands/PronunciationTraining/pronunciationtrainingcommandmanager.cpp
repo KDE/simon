@@ -20,21 +20,20 @@
 #include "pronunciationtrainingcommandmanager.h"
 #include "pronunciationtraining.h"
 #include <simonlogging/logger.h>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KGenericFactory>
-#include <KMessageBox>
-#include <KDebug>
-#include <KAction>
+#include <QDebug>
+#include <QAction>
 #include "pronunciationtrainingconfiguration.h"
 
 K_PLUGIN_FACTORY( PronunciationTrainingPluginFactory,
 registerPlugin< PronunciationTrainingCommandManager >();
 )
 
-K_EXPORT_PLUGIN( PronunciationTrainingPluginFactory("simonpronunciationtrainingcommand") )
+// K_EXPORT_PLUGIN( PronunciationTrainingPluginFactory("simonpronunciationtrainingcommand") )
 
 PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-activateAction(new KAction(this))
+activateAction(new QAction(this))
 {
   activateAction->setText(i18n("Activate Pronunciation Training"));
   activateAction->setIcon(icon());
@@ -93,3 +92,5 @@ const QString PronunciationTrainingCommandManager::iconSrc() const
 PronunciationTrainingCommandManager::~PronunciationTrainingCommandManager()
 {
 }
+
+#include "pronunciationtrainingcommandmanager.moc"

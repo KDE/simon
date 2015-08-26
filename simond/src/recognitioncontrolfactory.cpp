@@ -26,8 +26,7 @@
 #endif
 
 #include <KConfig>
-#include <KStandardDirs>
-#include <KConfigGroup>
+
 
 RecognitionControlFactory::RecognitionControlFactory()
   : m_isolatedMode(false)
@@ -41,7 +40,7 @@ uint qHash(const ModelIdentifier& identifier)
 
 void RecognitionControlFactory::setIsolatedMode(bool isolatedMode)
 {
-    kDebug() << "Isolated Mode " << (isolatedMode?"ON":"OFF");
+    qDebug() << "Isolated Mode " << (isolatedMode?"ON":"OFF");
     m_isolatedMode = isolatedMode;
 }
 
@@ -51,7 +50,7 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
   ModelIdentifier id(user, type);
   if (m_isolatedMode || m_recognitionControls.count(id) == 0)
   {
-    kDebug() << "RecognitionControls: generate new RC...";
+    qDebug() << "RecognitionControls: generate new RC...";
 
     if(type == RecognitionControl::SPHINX)
     {
@@ -67,11 +66,11 @@ RecognitionControl* RecognitionControlFactory::recognitionControl(const QString&
       return 0;
 
     m_recognitionControls.insert(id, r);
-    kDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(id));
+    qDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(id));
   } else /* isolatedMode = false and count > 0 (count = 1) */ {
-    kDebug() << "RecognitionControls: use existing RC... count:" << m_recognitionControls.values(id).size();
+    qDebug() << "RecognitionControls: use existing RC... count:" << m_recognitionControls.values(id).size();
     r = m_recognitionControls.values(id).first();
-    kDebug() << "RecognitionControls: Using for User \"" << user << "\" [" << r << "] existing RC";
+    qDebug() << "RecognitionControls: Using for User \"" << user << "\" [" << r << "] existing RC";
   }
   r->push();
   return r;
@@ -82,9 +81,9 @@ void RecognitionControlFactory::closeRecognitionControl(RecognitionControl* r)
   r->pop();
   if (r->isEmpty()) {
     m_recognitionControls.remove(ModelIdentifier(r->user(), r->type()));
-    kDebug() << "RecognitionControls: Removed";
+    qDebug() << "RecognitionControls: Removed";
     delete r;
   } else {
-    kDebug() << "RecognitionControls: Kept";
+    qDebug() << "RecognitionControls: Kept";
   }
 }

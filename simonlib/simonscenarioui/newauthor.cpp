@@ -21,16 +21,18 @@
 
 #include <simonscenarios/author.h>
 
-#include <KMessageBox>
-#include <KDialogButtonBox>
+
 
 NewAuthor::NewAuthor(QWidget* parent) : KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
 
-  setMainWidget( widget );
-  setCaption( i18n("Author") );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Author") );
 
   connect(ui.leName, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
   connect(ui.leContact, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
@@ -50,7 +52,7 @@ Author* NewAuthor::newAuthor()
 void NewAuthor::checkIfComplete()
 {
   bool complete = !ui.leName->text().isEmpty() && !ui.leContact->text().isEmpty();
-  enableButtonOk(complete);
+  enableButton(KDialog::Ok,complete);
 }
 
 

@@ -22,9 +22,10 @@
 #include <simonddatabaseaccess/databaseaccess.h>
 
 #include <KConfig>
-#include <KConfigGroup>
-#include <KStandardDirs>
-#include <KDebug>
+
+#include <QDebug>
+#include <QStandardPaths>
+#include <KConfigCore/KConfigGroup>
 
 SimondControl::SimondControl(QObject* parent) : QTcpServer(parent),
 db(new DatabaseAccess(this)),
@@ -40,13 +41,13 @@ bool SimondControl::init()
     return false;
 
   //FIXME encryption!
-  KConfig config(KStandardDirs::locate("config", "simondrc"));
+  KConfig config(QStandardPaths::locate(QStandardPaths::ConfigLocation, "simondrc"));
   KConfigGroup cGroup2(&config, "User");
   m_keepSamples = cGroup2.readEntry("KeepRecognitionSamples", false);
-  kDebug() << "FOO1" << m_keepSamples;
+  qDebug() << "FOO1" << m_keepSamples;
 
   bool isolatedMode = cGroup2.readEntry("IsolatedMode", false);
-  kDebug() << "FOO2" << isolatedMode;
+  qDebug() << "FOO2" << isolatedMode;
   m_recognitionControlFactory->setIsolatedMode(isolatedMode);
 
   KConfigGroup cGroup(&config, "Network");
@@ -72,24 +73,24 @@ bool SimondControl::init()
 
 void SimondControl::handleError(const QString& error)
 {
-  kDebug() << error;
+  qDebug() << error;
 }
 
 
 void SimondControl::startServer(const QHostAddress& allowedClient, quint16 port)
 {
-  kWarning() << "Starting server listening on port " << port;
+  qWarning() << "Starting server listening on port " << port;
   if (!listen(allowedClient, port)) {
-    kWarning() << "Couldn't bind to port";
+    qWarning() << "Couldn't bind to port";
     exit(0);
   }
-  kWarning() << "Server listening on port  " << port;
+  qWarning() << "Server listening on port  " << port;
 }
 
 
 void SimondControl::stopServer()
 {
-  kDebug() << "Stopping server";
+  qDebug() << "Stopping server";
 
   close();
 
@@ -125,14 +126,14 @@ void SimondControl::connectionClosing(QAbstractSocket::SocketState state)
 
   for (int i=0; i<clients.count(); i++) {
     if (clients[i]->state() == state) {
-      kDebug() << "Connection dropped from " << clients[i]->localAddress().toString();
+      qDebug() << "Connection dropped from " << clients[i]->localAddress().toString();
       clients[i]->disconnectFromHost();
       clients[i]->waitForDisconnected();
       clients.takeAt(i)->deleteLater();
       i--;
     }
   }
-  kDebug() << "client count: " << clients.count();
+  qDebug() << "client count: " << clients.count();
 }
 
 

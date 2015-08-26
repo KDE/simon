@@ -19,7 +19,7 @@
 
 #include "runcommandview.h"
 #include "runcommandviewprivate.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 /**
  *	@brief Constructor
@@ -28,7 +28,7 @@
  */
 RunCommandView::RunCommandView(QWidget* parent)
 : InlineWidget(i18n("Commands"),
-KIcon("system-run"),
+QIcon::fromTheme("system-run"),
 i18n("Direct Execution of Simon Commands"), parent),
 d(new RunCommandViewPrivate(this))
 {

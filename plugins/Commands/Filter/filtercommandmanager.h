@@ -26,7 +26,7 @@
 #include <QTimer>
 
 
-class KAction;
+class QAction;
 class FilterConfiguration;
 
 /**
@@ -75,7 +75,7 @@ class FilterCommandManager : public CommandManager
     ~FilterCommandManager();
 
   private:
-    KAction *activateAction;
+    QAction *activateAction;
 
 };
 #endif

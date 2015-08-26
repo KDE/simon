@@ -3,12 +3,13 @@ set(ksimond_SRCS
   ksimondview.cpp
 )
 
-kde4_add_kcfg_files(ksimond_SRCS ../config/ksimondconfiguration.kcfgc)
+kconfig_add_kcfg_files(ksimond_SRCS ../config/ksimondconfiguration.kcfgc)
 
-kde4_add_app_icon(ksimond_SRCS "../icons/hi*-app-ksimond.png")
-kde4_add_executable(ksimond ${ksimond_SRCS})
+file(GLOB ICONS_SRCS "../icons/hi*-app-ksimond.png")
+kde4_add_app_icon(ksimond_SRCS ICONS ${ICONS_SRCS})
+add_executable(ksimond ${ksimond_SRCS})
 
-target_link_libraries(ksimond ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
+target_link_libraries(ksimond KF5::KCMUtils Qt5::Core
   simonuicomponents simoninfo)
 
 install(TARGETS ksimond DESTINATION ${BIN_INSTALL_DIR} COMPONENT ksimond)

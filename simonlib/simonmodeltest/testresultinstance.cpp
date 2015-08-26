@@ -21,7 +21,6 @@
 #include "testresultleaf.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include <QDebug>
-#include <KDebug>
 
 TestResultInstance::TestResultInstance()
 {

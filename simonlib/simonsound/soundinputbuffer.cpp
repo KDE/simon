@@ -18,8 +18,7 @@
 
 #include "soundinputbuffer.h"
 #include "simonsoundinput.h"
-#include <QMutexLocker>
-#include <KDebug>
+#include <QDebug>
 
 SoundInputBuffer::SoundInputBuffer(SimonSoundInput* input): SoundBuffer(input),
   m_input(input), m_buffer(0), m_bufferLength(0)
@@ -29,7 +28,7 @@ SoundInputBuffer::SoundInputBuffer(SimonSoundInput* input): SoundBuffer(input),
 
 void SoundInputBuffer::write(const char *toWrite, qint64 len)
 {
-//   kDebug() << "Writing: " << len;
+//   qDebug() << "Writing: " << len;
 
   m_bufferAllocLock.lock();
   m_buffer = (char*) realloc(m_buffer,sizeof(char)*(m_bufferLength+len+1));
@@ -56,7 +55,7 @@ void SoundInputBuffer::run()
     }
 
     m_bufferAllocLock.lock();
-//     kDebug() << "new buffer length: " << bufferSize;
+//     qDebug() << "new buffer length: " << bufferSize;
     QByteArray currentData(m_buffer, bufferSize);
 
 
@@ -74,11 +73,11 @@ void SoundInputBuffer::run()
     m_input->processData(currentData);
 
 
-    //kDebug()  << "Local buffer size before removing data: " << m_buffer.length();
+    //qDebug()  << "Local buffer size before removing data: " << m_buffer.length();
     //m_buffer.remove(0, bufferSize);
     if (m_bufferLength > 20*bufferSize) // drop data as a last resort 
     {
-      kDebug()  << "EMERGENCY: Clearing buffer " << m_bufferLength;
+      qDebug()  << "EMERGENCY: Clearing buffer " << m_bufferLength;
       m_bufferAllocLock.lock();
       free(m_buffer);
       m_buffer = 0;
@@ -88,14 +87,14 @@ void SoundInputBuffer::run()
     }
 
     //m_buffer = m_buffer.mid(bufferSize);
-//     kDebug()  << "Local buffer size: " << m_bufferLength;
+//     qDebug()  << "Local buffer size: " << m_bufferLength;
   }
   deleteLater();
 }
 
 void SoundInputBuffer::stop()
 {
-  kDebug() << "Set should be running to false";
+  qDebug() << "Set should be running to false";
   m_shouldBeRunning = false;
 }
 

@@ -18,7 +18,6 @@
  */
 
 #include "latexreporttemplateengine.h"
-#include <QDir>
 #include <QFileInfo>
 #include <KLocale>
 #include <KZip>

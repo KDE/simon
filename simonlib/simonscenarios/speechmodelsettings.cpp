@@ -25,22 +25,25 @@
 #include "ui_trainingsettings.h"
 #include "ui_languageprofilesettings.h"
 
-#include <KMessageBox>
-#include <KAction>
 #include <KGlobal>
-#include <KFileDialog>
+#include <KDELibs4Support/KDE/KFileDialog>
 #include <KDateTime>
 #include <KPageWidget>
-#include <KTar>
-#include <kgenericfactory.h>
+#include <KArchive/KTar>
+#include <KDELibs4Support/kgenericfactory.h>
+#include <QStandardPaths>
+
+#include <KWidgetsAddons/KMessageBox>
+
+#include <KConfigCore/KConfigGroup>
 
 K_PLUGIN_FACTORY( SpeechModelSettingsFactory,
 registerPlugin< SpeechModelSettings >();
 )
 
-K_EXPORT_PLUGIN( SpeechModelSettingsFactory("simonlib") )
+// K_EXPORT_PLUGIN( SpeechModelSettingsFactory("simonlib") )
 
-SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent),
+SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& args): KCModule(parent),
   uiTrainingsData(new Ui::TrainingSettingsWidget()), uiLanguageProfile(new Ui::LanguageProfileSettingsWidget())
 {
   QVBoxLayout *lay = new QVBoxLayout(this);
@@ -63,17 +66,17 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
 
 
   KPageWidgetItem *baseModel = pageWidget->addPage(baseModelSettings, i18n("Base Model"));
-  baseModel->setIcon(KIcon("view-statistics"));
+  baseModel->setIcon(QIcon::fromTheme("view-statistics"));
   baseModel->setHeader("");
   KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Training data"));
-  trainingsData->setIcon(KIcon("view-pim-news"));
+  trainingsData->setIcon(QIcon::fromTheme("view-pim-news"));
   trainingsData->setHeader("");
   KPageWidgetItem *languageProfile = pageWidget->addPage(languageProfileWidget, i18n("Language Profile"));
-  languageProfile->setIcon(KIcon("applications-education-language"));
+  languageProfile->setIcon(QIcon::fromTheme("applications-education-language"));
   languageProfile->setHeader("");
 
   addConfig(SpeechModelManagementConfiguration::self(), this);
-  uiLanguageProfile->pbLoadLanguageProfile->setIcon(KIcon("document-open"));
+  uiLanguageProfile->pbLoadLanguageProfile->setIcon(QIcon::fromTheme("document-open"));
 
   connect(uiLanguageProfile->pbLoadLanguageProfile, SIGNAL(clicked()), this, SLOT(loadLanguageProfile()));
 }
@@ -101,7 +104,7 @@ void SpeechModelSettings::save()
 {
   baseModelSettings->save();
   if (!m_languageProfileToImport.isEmpty()) {
-    QString targetPathLanguageProfile = KStandardDirs::locateLocal("appdata", "model/languageProfile");
+    QString targetPathLanguageProfile = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/languageProfile";
     if (QFile::exists(targetPathLanguageProfile) && !QFile::remove(targetPathLanguageProfile)) {
       KMessageBox::sorry(this, i18n("Could not remove current language profile"));
       return;
@@ -130,7 +133,7 @@ void SpeechModelSettings::defaults()
   baseModelSettings->defaults();
   ModelManager::getInstance()->setLanguageProfileName(i18nc("Filename of a not yet selected language profile", "None"));
 
-  QFile::remove(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
+  QFile::remove(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/languageProfile");
 
   m_languageProfileToImport.clear();
 
@@ -141,7 +144,7 @@ void SpeechModelSettings::defaults()
 
 void SpeechModelSettings::touchLanguageProfileDate()
 {
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+  KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("LanguageDescriptionDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
@@ -149,7 +152,7 @@ void SpeechModelSettings::touchLanguageProfileDate()
 
 void SpeechModelSettings::loadLanguageProfile()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select language profile"));
+  QString path = KFileDialog::getOpenFileName(QUrl(), QString(), this, i18n("Select language profile"));
   if (path.isEmpty()) return;
 
   m_languageProfileToImport = path;
@@ -157,3 +160,4 @@ void SpeechModelSettings::loadLanguageProfile()
   uiLanguageProfile->lbProfileName->setText(QFileInfo(path).fileName());
 }
 
+#include "speechmodelsettings.moc"

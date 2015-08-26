@@ -21,16 +21,13 @@
 #include "activewindow.h"
 #include <simoncontextdetection/contextmanager.h>
 #include <simonuicomponents/selectprogramdialog.h>
-#include <QLineEdit>
-#include <QFileDialog>
-#include <QStringList>
 
 CreateActiveWindowWidget::CreateActiveWindowWidget(QWidget *parent) : CreateConditionWidget(parent)
 {
   ui.setupUi(this);
 
   setWindowTitle(i18n("Active Window Condition"));
-  setWindowIcon(KIcon("window-duplicate"));
+  setWindowIcon(QIcon::fromTheme("window-duplicate"));
 
   connect(ui.leWindowTitle, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.cbRegExp, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));

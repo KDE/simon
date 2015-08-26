@@ -21,7 +21,7 @@
 #define SIMON_MODELTEST_EXPORT_H_4E3834CE9F11405A8CDD7F9BF76585E7
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef MODELTEST_EXPORT
 # if defined(MAKE_SIMONMODELTEST_LIB)

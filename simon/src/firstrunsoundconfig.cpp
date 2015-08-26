@@ -21,10 +21,8 @@
 
 #include <simonsound/devicesettings.h>
 
-#include <QVBoxLayout>
 
-#include <KLocalizedString>
-#include <KCMultiDialog>
+#include <KI18n/klocalizedstring.h>
 
 FirstRunSoundConfig::FirstRunSoundConfig(QWidget* parent)
 : QWizardPage(parent)

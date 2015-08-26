@@ -22,7 +22,7 @@
 #include <QProgressBar>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 AccuracyDisplay::AccuracyDisplay(const QString& name, int count, int correct, float accuracy, QWidget* parent) : QWidget(parent),
 lbName(new QLabel(this)),

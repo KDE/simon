@@ -24,7 +24,8 @@
 #include <QKeySequence>
 #include <QDomDocument>
 
-KeyboardButton::KeyboardButton(const QDomElement& element) : KPushButton(0), m_isNull(false)
+
+KeyboardButton::KeyboardButton(const QDomElement& element) : QPushButton(0), m_isNull(false)
 {
   if (element.isNull()) m_isNull = true;
   else {
@@ -52,7 +53,7 @@ KeyboardButton::KeyboardButton(const QDomElement& element) : KPushButton(0), m_i
 
 /* @param  triggerShown, triggerReal, valueType, value  **/
 KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, Keyboard::ButtonType vType, QString v)
-: KPushButton(0),
+: QPushButton(0),
 m_isNull(false),
 triggerShown(triggerS),
 triggerReal(triggerR),
@@ -126,7 +127,7 @@ void KeyboardButton::setButtonType(Keyboard::ButtonType valueType)
 }
 
 
-#include <KDebug>
+#include <QDebug>
 bool KeyboardButton::trigger()
 {
   if (m_isNull) return false;
@@ -145,7 +146,7 @@ bool KeyboardButton::trigger()
       return false;
       break;
   }
-  kDebug() << "I was triggered!";
+  qDebug() << "I was triggered!";
   emit triggered();
   return true;
 }

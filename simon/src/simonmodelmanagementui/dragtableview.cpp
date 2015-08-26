@@ -19,8 +19,9 @@
 
 #include "dragtableview.h"
 #include <QApplication>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <simoninfo/simoninfo.h>
+#include <QMimeData>
 
 /**
  * @brief Constructor

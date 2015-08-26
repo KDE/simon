@@ -5,15 +5,15 @@ set (simondialogcommandplugin_SRCS
   createdialogcommandwidget.cpp
 )
 
-kde4_add_ui_files(simondialogcommandplugin_SRCS 
+ki18n_wrap_ui(simondialogcommandplugin_SRCS
   dialogwidget.ui
   dialogconfigurationdlg.ui
   createdialogcommandwidget.ui
 )
 
-kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
+kde4_add_pluginf(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
 
-target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simondialogcommandplugin  Qt5::Xml
   simonscenarios simonactions)
 
 install(TARGETS simondialogcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddialogplugin)

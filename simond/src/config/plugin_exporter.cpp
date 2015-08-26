@@ -22,8 +22,8 @@
 
 #include "simonduserconfiguration.h"
 #include "simondnetworkconfiguration.h"
-#include <kgenericfactory.h>
-#include <KLocalizedString>
+#include <KDELibs4Support/kgenericfactory.h>
+#include <KI18n/klocalizedstring.h>
 #include <simonuicomponents/multikcmview.h>
 
 class SimondConfigMultiKCMView : public MultiKCMView
@@ -32,8 +32,8 @@ class SimondConfigMultiKCMView : public MultiKCMView
     SimondConfigMultiKCMView(QWidget* parent, const QVariantList& args=QVariantList()) :
     MultiKCMView(parent, args) {
       QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath()+"/../plugins");
-      registerModule(new SimondUserConfiguration(parent, args), KIcon("user-properties"), i18n("User"));
-      registerModule(new SimondNetworkConfiguration(parent, args), KIcon("network-disconnect"), i18n("Network"));
+      registerModule(new SimondUserConfiguration(parent, args), QIcon::fromTheme("user-properties"), i18n("User"));
+      registerModule(new SimondNetworkConfiguration(parent, args), QIcon::fromTheme("network-disconnect"), i18n("Network"));
     }
 };
 
@@ -43,5 +43,6 @@ registerPlugin< SimondConfigMultiKCMView >();
 //registerPlugin< SimondNetworkConfiguration >("SimondNetworkConfiguration");
 )
 
-K_EXPORT_PLUGIN( SimondSettingsFactory("simond"); )
+// K_EXPORT_PLUGIN( SimondSettingsFactory("simond"); )
+#include "plugin_exporter.moc"
 #endif

@@ -25,12 +25,11 @@
 #include <QLabel>
 #include <QSettings>
 #include <QVBoxLayout>
-#include <QVariant>
 #include <QUuid>
 
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KDebug>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
 
 TrainSamplePage::TrainSamplePage(const QString& name, QString prompt_, int nowPage, int maxPage, const QString& directory,
 QWidget* parent, const QString& forcedFileNameTemplate, DeviceInformationPage *forcedDevices) :
@@ -176,14 +175,14 @@ bool TrainSamplePage::serializeToStorage(QSettings& ini, const QString& director
   foreach (const QString& fileName, fileNames) {
     QString onlyName = fileName.mid(qMax(fileName.lastIndexOf("/"), fileName.lastIndexOf(QDir::separator())));
     if (!QFile::copy(fileName, directory+QDir::separator()+onlyName)) {
-      kDebug() << "could not copy " << fileName << " to " << directory+QDir::separator()+onlyName;
+      qDebug() << "could not copy " << fileName << " to " << directory+QDir::separator()+onlyName;
       fileNames.removeAll(fileName);
 
       succ = false;
     }
     else {
       if (!QFile::remove(fileName))
-        kWarning() << "Could not remove original input file!";
+        qWarning() << "Could not remove original input file!";
     }
   }
 

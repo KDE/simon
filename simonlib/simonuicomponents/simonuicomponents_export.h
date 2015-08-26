@@ -21,7 +21,7 @@
 #define SIMON_SIMONUICOMPONENTS_EXPORT_H_8C1BCEFB83F444A7AB46723036FEBCD8
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONUICOMPONENTS_EXPORT
 # if defined(MAKE_SIMONUICOMPONENTS_LIB)

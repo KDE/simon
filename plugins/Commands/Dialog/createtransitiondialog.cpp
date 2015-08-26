@@ -24,14 +24,16 @@
 #include <QVBoxLayout>
 
 CreateTransitionDialog::CreateTransitionDialog(CreateDialogCommandWidget *creator, QWidget *parent) : 
-  KDialog(parent),
+  QDialog(parent),
   m_creator(creator)
 {
-  setCaption(i18n("Dialog Option"));
+  setWindowTitle(i18n("Dialog Option"));
 
   QWidget *mainWidget = new QWidget(this);
   ui.setupUi(mainWidget);
-  setMainWidget(mainWidget);
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(mainWidget);
 
   static_cast<QVBoxLayout*>(mainWidget->layout())->insertWidget(1, creator);
   connect(ui.leTrigger, SIGNAL(textChanged(QString)), creator, SLOT(updatePresentation(QString)));
@@ -57,7 +59,7 @@ bool CreateTransitionDialog::editTransition(DialogCommand *transition)
 
   if (!exec()) return false;
 
-  kDebug() << "setting icon to: " << ui.ibIcon->icon();
+  qDebug() << "setting icon to: " << ui.ibIcon->icon();
   m_creator->editCommand(transition, ui.leTrigger->text(), ui.ibIcon->icon(), ui.teDescription->toPlainText());
   return true;
 }

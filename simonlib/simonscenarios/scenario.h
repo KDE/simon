@@ -25,7 +25,7 @@
 #include <QDateTime>
 #include <QDomDocument>
 #include <QHash>
-#include <KIcon>
+#include <QIcon>
 #include "speechmodel.h"
 #include "vocabulary.h"
 #include "scenariomanager.h"
@@ -87,7 +87,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
   public:
     explicit Scenario(const QString& scenarioId, const QString& prefix=QString(), QObject *parent = 0);
 
-    KIcon icon() { return KIcon(m_iconSrc); }
+    QIcon icon() { return QIcon(m_iconSrc); }
     QString iconSrc() { return m_iconSrc; }
     QString name() { return m_name; }
     int version() { return m_version; }

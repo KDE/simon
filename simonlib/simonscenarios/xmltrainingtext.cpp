@@ -69,13 +69,13 @@ bool XMLTrainingText::save()
 }
 
 
-#include <KDebug>
+#include <QDebug>
 XMLTrainingText* XMLTrainingText::createTrainingText(const QString& path)
 {
   QStringList pages;
   QFile f(path);
   if (!f.open(QIODevice::ReadOnly)) {
-    kDebug() << "Could not open file for reading: " << path;
+    qWarning() << "Could not open file for reading: " << path;
     return 0;
   }
 

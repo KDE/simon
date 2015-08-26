@@ -18,6 +18,7 @@
  */
 
 #include "droplistwidget.h"
+#include <QMimeData>
 
 /**
  * @brief Constructor
@@ -26,7 +27,7 @@
  *
  * @author Peter Grasch
  * @param QWidget *parent
- * Sets the parent of the KListWidget
+ * Sets the parent of the QListWidget
  */
 DropListWidget::DropListWidget(QWidget *parent)
 : KListWidget(parent)

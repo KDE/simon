@@ -21,7 +21,7 @@
 #include "verticalscrollarea.h"
 #include <QResizeEvent>
 #include <QScrollBar>
-#include <KDebug>
+#include <QDebug>
 
 VerticalScrollArea::VerticalScrollArea ( QWidget* parent ) : QScrollArea(parent)
 {

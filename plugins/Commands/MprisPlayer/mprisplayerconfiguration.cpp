@@ -27,9 +27,9 @@
 K_PLUGIN_FACTORY_DECLARATION(MprisPlayerPluginFactory)
 
 MprisPlayerConfiguration::MprisPlayerConfiguration(Scenario *parent)
-    : CommandConfiguration(parent, "mprisplayer", ki18n("Media Player Control"),
-                           "0.1", ki18n("Control MPRIS enabled media players"),
-                           "applications-multimedia", MprisPlayerPluginFactory::componentData())
+    : CommandConfiguration(parent, "mprisplayer", i18n("Media Player Control"),
+                           "0.1", i18n("Control MPRIS enabled media players"),
+                           "applications-multimedia")
 {
     ui.setupUi(this);
 

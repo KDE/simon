@@ -4,15 +4,15 @@ set (simonpronunciationtrainingplugin_SRCS
   pronunciationtraining.cpp 
 )
 
-kde4_add_ui_files(simonpronunciationtrainingplugin_SRCS 
+ki18n_wrap_ui(simonpronunciationtrainingplugin_SRCS
   pronunciationtrainingconfigurationdlg.ui
   pronunciationtrainingdlg.ui
 )
 
 kde4_add_plugin(simonpronunciationtrainingplugin ${simonpronunciationtrainingplugin_SRCS})
 
-target_link_libraries(simonpronunciationtrainingplugin ${KDE4_KDEUI_LIBS}
-  ${QT_QTXML_LIBRARY} simonscenariobase simonlogging simonscenarios 
+target_link_libraries(simonpronunciationtrainingplugin
+  Qt5::Xml simonscenariobase simonlogging simonscenarios
   simonactions simonrecognitionresult)
 
 install(TARGETS simonpronunciationtrainingplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandpronunciationtrainingplugin)

@@ -23,19 +23,19 @@
 
 #include <QListWidgetItem>
 
-#include <KIcon>
-#include <KMessageBox>
-#include <KProgressDialog>
+#include <QIcon>
+#include <QProgressDialog>
+#include <KWidgetsAddons/KMessageBox>
 
-SynchronisationSettings::SynchronisationSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
+SynchronisationSettings::SynchronisationSettings(QWidget* parent, const QVariantList& args): KCModule(parent)
 {
   Q_UNUSED(args);
 
   dlg=0;
   ui.setupUi(this);
 
-  ui.pbLoadList->setIcon(KIcon("view-refresh"));
-  ui.pbSelectModel->setIcon(KIcon("dialog-ok-apply"));
+  ui.pbLoadList->setIcon(QIcon::fromTheme("view-refresh"));
+  ui.pbSelectModel->setIcon(QIcon::fromTheme("dialog-ok-apply"));
 
   addConfig(RecognitionConfiguration::self(), this);
 
@@ -75,10 +75,12 @@ void SynchronisationSettings::loadList()
   }
 
   if (!dlg) {
-    dlg = new KProgressDialog(this, i18n("Loading available Models"), i18n("Loading list of available Models"));
-    dlg->progressBar()->setValue(0);
-    dlg->progressBar()->setMaximum(0);
-    dlg->showCancelButton(false);
+    dlg = new QProgressDialog(this);
+    dlg->setWindowTitle(i18n("Loading available Models"));
+    dlg->setLabelText(i18n("Loading list of available Models"));
+    dlg->setValue(0);
+    dlg->setMaximum(0);
+    dlg->setCancelButton(nullptr);
   }
   else dlg->show();
 
@@ -95,8 +97,8 @@ void SynchronisationSettings::displayList(const QList<QDateTime>& models)
 {
   ui.lwModels->clear();
   if (dlg) {
-    dlg->progressBar()->setValue(1);
-    dlg->progressBar()->setMaximum(1);
+    dlg->setValue(1);
+    dlg->setMaximum(1);
     dlg->accept();
     dlg->deleteLater();
     dlg=0;

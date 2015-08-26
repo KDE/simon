@@ -27,21 +27,22 @@
 #include <sscobjects/user.h>
 #include <sscobjects/institution.h>
 #include <QSortFilterProxyModel>
-#include <QInputDialog>
-#include <KDebug>
-#include <KMessageBox>
-#include <KDialogButtonBox>
+#include <QDebug>
 #include <sscdaccess/sscdaccesssingleton.h>
+#include <KWidgetsAddons/KMessageBox>
 
 ManageUsers::ManageUsers(QWidget* parent) :
-KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
+QDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
 
   ui.tvUsers->setModel(proxyModel);
 
-  setMainWidget( widget );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
 
   connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addUser()));
   connect(ui.pbEdit, SIGNAL(clicked()), this, SLOT(editUser()));
@@ -50,7 +51,7 @@ KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
   connect(ui.pbSearchInstitution, SIGNAL(clicked()), this, SLOT(findInstitution()));
 
   connect(ui.pbFilter, SIGNAL(clicked()), this, SLOT(filter()));
-  setCaption( i18n("Users") );
+  setWindowTitle( i18n("Users") );
 
   ui.tvUsers->setSelectionBehavior(QAbstractItemView::SelectRows);
   ui.tvUsers->setSortingEnabled(true);
@@ -232,7 +233,7 @@ int ManageUsers::exec()
 {
   updateList();
   ui.wgModify->show();
-  return KDialog::exec();
+  return QDialog::exec();
 }
 
 
@@ -240,7 +241,7 @@ User* ManageUsers::getUser()
 {
   updateList();
   ui.wgModify->hide();
-  int ret = KDialog::exec();
+  int ret = QDialog::exec();
   if (ret) {
     return getCurrentlySelectedUser();
   }

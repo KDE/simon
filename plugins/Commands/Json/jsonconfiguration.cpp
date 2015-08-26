@@ -20,15 +20,14 @@
 #include "jsoncommandmanager.h"
 
 #include <QVariantList>
-#include <kgenericfactory.h>
+#include <KDELibs4Support/kgenericfactory.h>
 
 K_PLUGIN_FACTORY_DECLARATION(JsonCommandPluginFactory)
 
 JsonConfiguration::JsonConfiguration(Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent,  "json", ki18n( "JSON" ),
-"0.1", ki18n("Send JSON messages"),
-"network-connect",
-JsonCommandPluginFactory::componentData())
+: CommandConfiguration(parent,  "json", i18n( "JSON" ),
+"0.1", i18n("Send JSON messages"),
+"network-connect")
 {
   Q_UNUSED(args);
   ui.setupUi(this);

@@ -24,12 +24,11 @@
 #include <QDir>
 #include <QLabel>
 #include <QVBoxLayout>
-#include <QVariant>
 #include <QFile>
 #include <QUuid>
+#include <KWidgetsAddons/KMessageBox>
 
-#include <KLocalizedString>
-#include <KMessageBox>
+#include <KI18n/klocalizedstring.h>
 
 TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
 prompt(prompt_),
@@ -156,7 +155,7 @@ bool TrainSamplePage::isComplete() const
 
 void TrainSamplePage::speakingStopped()
 {
-  kDebug() << "Speaking stopped";
+  qDebug() << "Speaking stopped";
   if (field("powerRecording").toBool())
     wizard()->next();
 }

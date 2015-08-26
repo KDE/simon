@@ -18,10 +18,13 @@
  */
 
 #include "afarasview.h"
-#include <kapplication.h>
 #include <kaboutdata.h>
-#include <kcmdlineargs.h>
-#include <KDE/KLocale>
+#include <KDELibs4Support/KDE/KCmdLineArgs>
+#include <KDELibs4Support/KDE/KLocale>
+#include <KDELibs4Support/KDE/KApplication>
+#include <QCoreApplication>
+#include <K4AboutData>
+#include <KLocalizedString>
 #include "version.h"
 
 static const char description[] =
@@ -29,8 +32,8 @@ I18N_NOOP("An automatic sample review tool");
 
 int main(int argc, char **argv)
 {
-  KAboutData about("afaras", 0, ki18n("afaras"), simon_version, ki18n(description),
-    KAboutData::License_GPL, ki18n("(C) 2011 Peter Grasch"), KLocalizedString(), 0, "peter.grasch@bedahr.org");
+  K4AboutData about("afaras", 0, ki18n("afaras"), simon_version, ki18n(description),
+    K4AboutData::License_GPL, ki18n("(C) 2011 Peter Grasch"), KLocalizedString(), 0, "peter.grasch@bedahr.org");
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "peter.grasch@bedahr.org" );
 
   KCmdLineArgs::init(argc, argv, &about);

@@ -25,7 +25,7 @@
 #include "plasmaboundvalue.h"
 #endif
 #include <QDomElement>
-#include <KDebug>
+#include <QDebug>
 
 BoundValue* BoundValue::createInstance(const QDomElement& elem)
 {
@@ -35,7 +35,7 @@ BoundValue* BoundValue::createInstance(const QDomElement& elem)
   QString name = nameElem.text();
 
   BoundValue *value = 0;
-  kDebug() << "Bound value type: " << elem.attribute("type").toInt();
+  qDebug() << "Bound value type: " << elem.attribute("type").toInt();
   switch (elem.attribute("type").toInt())
   {
     case 1:
@@ -59,7 +59,7 @@ BoundValue* BoundValue::createInstance(const QDomElement& elem)
   }
   if (value && !value->deSerialize(elem))
   {
-    kDebug() << "Failed to deserialize";
+    qDebug() << "Failed to deserialize";
     delete value;
     value = 0;
   }

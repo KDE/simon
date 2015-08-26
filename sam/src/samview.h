@@ -25,11 +25,11 @@
 #include "testconfigurationwidget.h"
 
 #include <QWidget>
-#include <QProcess>
 #include <QList>
-#include <QDomElement>
-#include <QModelIndex>
 #include <kxmlguiwindow.h>
+
+//XXX: remove this once qwt is updated 
+#define QT_STATIC_CONST static const
 
 #include "ui_main.h"
 
@@ -40,7 +40,7 @@ class ModelCompilationAdapterHTK;
 class ModelCompilerSPHINX;
 class ModelCompilationAdapterSPHINX;
 class KProcess;
-class KAction;
+class QAction;
 class ReportParameters;
 class QCloseEvent;
 class KCMultiDialog;

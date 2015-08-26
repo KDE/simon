@@ -22,7 +22,7 @@
 #include "grammarviewprivate.h"
 
 GrammarView::GrammarView(QWidget* parent) : InlineWidget(i18n("Grammar"),
-KIcon("applications-education-language"),
+QIcon::fromTheme("applications-education-language"),
 i18n("View and modify the grammar."), parent),
 d(new GrammarViewPrivate(this))
 {

@@ -20,14 +20,15 @@
 #ifndef SIMON_CREATETRANSITIONDIALOG_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_CREATETRANSITIONDIALOG_H_7A7B9100FF5245329569C1B540119C37
 
-#include <KDialog>
+#include <QDialog>
+#include <KIconButton>
 
 #include "ui_createtransitiondlg.h"
 
 class CreateDialogCommandWidget;
 class DialogCommand;
 
-class CreateTransitionDialog : protected KDialog
+class CreateTransitionDialog : protected QDialog
 {
   private:
     Ui::CreateTransitionDlg ui;

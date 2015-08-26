@@ -28,8 +28,8 @@
 #include <QObject>
 #include <QCoreApplication>
 
-#include <KDebug>
-#include <KLocalizedString>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
 
 SoundServer* SoundServer::instance;
 
@@ -81,7 +81,7 @@ QString SoundServer::defaultOutputDevicePrivate()
 bool SoundServer::registerInputClient(SoundInputClient* client)
 {
   QMutexLocker l(&inputRegistrationLock);
-  kDebug() << "Register input client for device " << client->deviceConfiguration().name() << client;
+  qDebug() << "Register input client for device " << client->deviceConfiguration().name() << client;
 
   bool succ = true;
   bool isNew = false;
@@ -94,7 +94,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
     //then start recording
     succ = soundInput->prepareRecording(clientRequestedSoundConfiguration);
     if (!succ) {
-      kDebug() << "Failed to create sound input";
+      qDebug() << "Failed to create sound input";
       delete soundInput;
     } else {
       if (inputs.contains(clientRequestedSoundConfiguration))
@@ -188,7 +188,7 @@ void SoundServer::applyOutputPriorities()
 bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 {
   QMutexLocker l(&inputRegistrationLock);
-  kDebug() << "Deregistering input client" << client;
+  qDebug() << "Deregistering input client" << client;
 
   bool success = true;
 
@@ -215,7 +215,7 @@ bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 bool SoundServer::registerOutputClient(SoundOutputClient* client)
 {
   QMutexLocker l(&outputRegistrationLock);
-  kDebug() << "Register output client";
+  qDebug() << "Register output client";
   SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
 
   bool succ = true;
@@ -246,7 +246,7 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
   if (succ) {
     SimonSoundOutput *output = outputs.value(clientRequestedSoundConfiguration);
     if (!output->registerOutputClient(client)) {
-      kWarning() << "Failed to register output client";
+      qWarning() << "Failed to register output client";
       succ = false;
     }
   }
@@ -260,7 +260,7 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 {
   QMutexLocker l(&outputRegistrationLock);
 
-  kDebug() << "Deregistering output client";
+  qDebug() << "Deregistering output client";
 
   bool success = true;
 
@@ -295,7 +295,7 @@ qint64 SoundServer::lengthToByteSize(qint64 length, SimonSound::DeviceConfigurat
 
 bool SoundServer::reinitializeDevices()
 {
-  kDebug() << "Reinitialize devices..." << this;
+  qDebug() << "Reinitialize devices..." << this;
   
   bool succ = true;
 

@@ -20,8 +20,9 @@
 #ifndef SIMON_PLAYER_H_ABC0C7EC08DA40FEBD5B5BA233D7AC7C
 #define SIMON_PLAYER_H_ABC0C7EC08DA40FEBD5B5BA233D7AC7C
 
-#include <QDBusMetaType>
-
+#include <QMetaType>
+#include <QHash>
+#include <QObject>
 Q_DECLARE_METATYPE(QList<QVariantMap>)
 
 class QDBusObjectPath;

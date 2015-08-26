@@ -19,7 +19,6 @@
 
 #include "importtrainingtextselectsourcepage.h"
 
-#include <QRadioButton>
 
 /**
  * \brief Constructor

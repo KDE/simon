@@ -20,9 +20,8 @@
 #include "compositeprogresswidget.h"
 #include "operation.h"
 
-#include <QMetaType>
 
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 StatusManager* StatusManager::globalInstance;
 

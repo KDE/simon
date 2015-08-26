@@ -20,7 +20,8 @@
 #include "modelextensionsettings.h"
 #include "speechmodelmanagementuiconfiguration.h"
 
-ModelExtensionSettings::ModelExtensionSettings(QWidget* parent, const QVariantList &args) : KCModule(KGlobal::mainComponent(), parent, args)
+
+ModelExtensionSettings::ModelExtensionSettings(QWidget* parent, const QVariantList &args) : KCModule(parent, args)
 {
   Q_UNUSED(args);
 

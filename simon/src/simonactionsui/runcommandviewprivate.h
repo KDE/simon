@@ -23,7 +23,6 @@
 #include "ui_rundialog.h"
 #include <simonscenarios/command.h>
 #include <simonscenarios/scenariodisplay.h>
-#include <KIcon>
 
 class Command;
 class Action;

@@ -28,9 +28,8 @@ namespace Ui {
 class BaseModelSettings;
 
 #include <QVariantList>
-#include <QDateTime>
+#include <KConfigWidgets/KCModule>
 
-#include <KCModule>
 #include "simonmodelmanagement_export.h"
 
 /**

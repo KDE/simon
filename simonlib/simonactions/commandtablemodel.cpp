@@ -19,10 +19,8 @@
  */
 
 #include "commandtablemodel.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KLocale>
-#include <QDebug>
-#include <QMutexLocker>
 
 CommandTableModel::CommandTableModel(const CommandList &newCommands)
 {
@@ -52,7 +50,7 @@ QVariant CommandTableModel::data(const QModelIndex &index, int role) const
         if (com)
           return commands.at(pos)->getIcon();
         else
-          return KIcon("player-time");
+          return QIcon::fromTheme("player-time");
       }
     case 1:
       if (role == Qt::DisplayRole) {
@@ -65,7 +63,7 @@ QVariant CommandTableModel::data(const QModelIndex &index, int role) const
         if (com)
           return commands.at(pos)->getCategoryIcon();
         else
-          return KIcon("chronometer");
+          return QIcon::fromTheme("chronometer");
       }
 
   }

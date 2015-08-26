@@ -22,7 +22,7 @@
 #include "editsampledialog.h"
 #include <simonscenarios/trainingmanager.h>
 #include <QWidget>
-#include <KMessageBox>
+#include <KWidgetsAddons/KMessageBox>
 
 PromptsViewPrivate::PromptsViewPrivate(QWidget *parent)
 : QWidget(parent)
@@ -40,9 +40,9 @@ PromptsViewPrivate::PromptsViewPrivate(QWidget *parent)
   connect(ui.pbClear, SIGNAL(clicked()), this, SLOT(clearTrainingData()));
   connect(ui.pbOpen, SIGNAL(clicked()), this, SLOT(openSample()));
 
-  ui.pbClear->setIcon(KIcon("edit-clear-list"));
-  ui.pbOpen->setIcon(KIcon("document-edit"));
-  ui.pbImportDir->setIcon(KIcon("document-open-folder"));
+  ui.pbClear->setIcon(QIcon::fromTheme("edit-clear-list"));
+  ui.pbOpen->setIcon(QIcon::fromTheme("document-edit"));
+  ui.pbImportDir->setIcon(QIcon::fromTheme("document-open-folder"));
 }
 
 void PromptsViewPrivate::filter(const QString& str)
@@ -64,11 +64,11 @@ QString PromptsViewPrivate::getCurrentSample() const
 {
   QModelIndex currentIdx = ui.tvSamples->currentIndex();
   if (!currentIdx.isValid()) {
-    kDebug() << "What index?";
+    qDebug() << "What index?";
     return QString();
   }
   int originalIdx = m_proxy.mapToSource(currentIdx).row();
-  kDebug() << "Original index: " << originalIdx;
+  qDebug() << "Original index: " << originalIdx;
   return TrainingManager::getInstance()->getPrompts()->sample(originalIdx);
 }
 

@@ -23,18 +23,13 @@
 #include <simonscenarios/commandmanager.h>
 #include <simonscenarios/voiceinterfacecommand.h>
 #include <unistd.h>
-#include <QObject>
 #include <QList>
 #include <QTableWidget>
 #include <QDomElement>
 #include <QDomDocument>
-#include <QTableWidgetItem>
-#include <QTableWidgetSelectionRange>
-#include <QHeaderView>
-#include <QApplication>
 #include <QVariant>
-#include <KIcon>
-#include <KLocalizedString>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
 
 #ifdef Q_OS_WIN32
 #include <windows.h>
@@ -157,7 +152,7 @@ void ListCommand::cancel()
 
 bool ListCommand::greedyTrigger(const QString& inputText)
 {
-  kDebug() << "Triggering greedy " << inputText;
+  qDebug() << "Triggering greedy " << inputText;
 
   QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption = getAdaption();
 
@@ -233,13 +228,13 @@ const QString ListCommand::getCategoryText() const
 }
 
 
-const KIcon ListCommand::staticCategoryIcon()
+const QIcon ListCommand::staticCategoryIcon()
 {
-  return KIcon("view-choose");
+  return QIcon::fromTheme("view-choose");
 }
 
 
-const KIcon ListCommand::getCategoryIcon() const
+const QIcon ListCommand::getCategoryIcon() const
 {
   return ListCommand::staticCategoryIcon();
 }
@@ -278,12 +273,12 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ListCommand::getAdap
 {
   //adapt to either parent manager or commandsettings
   if (m_parentManager) {
-    kDebug() << "Adapting to scenario";
+    qDebug() << "Adapting to scenario";
     //adapt to current scenarios list configuration
     return ActionManager::getInstance()->getListInterfaceCommands();
   }
 
-  kDebug() << "Adapting to global configuration";
+  qDebug() << "Adapting to global configuration";
   //adapt to commandsettings list configuration
   return ActionManager::getInstance()->getGlobalListInterfaceCommands();
 }
@@ -298,7 +293,7 @@ bool ListCommand::triggerPrivate(int *state)
   Q_ASSERT(commands.count() == commandTypes.count());
   //showing list
 
-  clw->setWindowIcon(KIcon(getIconSrc()));
+  clw->setWindowIcon(QIcon::fromTheme(getIconSrc()));
   clw->setWindowTitle(getTrigger());
 
   listCurrentCommandSection();
@@ -361,9 +356,9 @@ bool ListCommand::deSerializePrivate(const QDomElement& commandElem)
     commandTypes << childCommandCategoryElem.text();
     childCommandElem = childCommandElem.nextSiblingElement();
   }
-  kDebug() << "Triggers: " << commands;
-  kDebug() << "Icons: " << iconsrcs;
-  kDebug() << "Categories: " << commandTypes;
+  qDebug() << "Triggers: " << commands;
+  qDebug() << "Icons: " << iconsrcs;
+  qDebug() << "Categories: " << commandTypes;
 
   return true;
 }
@@ -371,7 +366,7 @@ bool ListCommand::deSerializePrivate(const QDomElement& commandElem)
 
 void ListCommand::setFont(const QFont& font)
 {
-  kDebug() << "Setting font...";
+  qDebug() << "Setting font...";
   clw->setFont(font);
 }
 

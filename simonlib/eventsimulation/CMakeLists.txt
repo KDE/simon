@@ -27,26 +27,26 @@ set(eventsimulation_LIB_HDRS
 )
 
 IF(UNIX AND NOT WIN32 AND NOT APPLE)
-  kde4_add_library(eventsimulation SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_LINUX_SRCS})
-  target_link_libraries(eventsimulation ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${X11_XTest_LIB} ${X11_X11_LIB})
+  add_library(eventsimulation SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_LINUX_SRCS})
+  target_link_libraries(eventsimulation Qt5::Core Qt5::Gui  KF5::WidgetsAddons KF5::I18n ${X11_XTest_LIB} ${X11_X11_LIB})
 ENDIF()
 
 IF(WIN32)
-  kde4_add_library(eventsimulation SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_WINDOWS_SRCS})
-  target_link_libraries(eventsimulation ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS})
+  add_library(eventsimulation SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_WINDOWS_SRCS})
+  target_link_libraries(eventsimulation ${QT_LIBRARIES} )
 ENDIF(WIN32)
 
 IF(APPLE)
   set(CMAKE_SHARED_LINKER_FLAGS "-framework ApplicationServices")
-  kde4_add_library(eventsimulation SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_APPLE_SRCS})
-  target_link_libraries(eventsimulation ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS})
+  add_library(eventsimulation SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_APPLE_SRCS})
+  target_link_libraries(eventsimulation ${QT_LIBRARIES} )
 ENDIF()
 
 install( FILES ${eventsimulation_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/eventsimulation
   COMPONENT simondevel
 )
- 
+
 install(TARGETS eventsimulation DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon)
 
-add_subdirectory(test)
+# add_subdirectory(test)

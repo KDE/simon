@@ -21,13 +21,10 @@
 
 #include <simonsound/soundserver.h>
 
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QTimer>
 #include <QCheckBox>
 
-#include <KDebug>
-#include <KLocalizedString>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
 
 TrainSampleVolumePage::TrainSampleVolumePage(QWidget *parent) : QWizardPage(parent),
 ui(new Ui::TrainSampleVolumePage())

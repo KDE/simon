@@ -21,7 +21,7 @@
 #include <simonactions/actionmanager.h>
 #include <simonlogging/logger.h>
 #include <kcalcore/event.h>
-#include <KDebug>
+#include <QDebug>
 
 CommandScheduleItem::CommandScheduleItem(QSharedPointer< KCalCore::Event > event,
   AkonadiConfiguration *config
@@ -32,11 +32,11 @@ CommandScheduleItem::CommandScheduleItem(QSharedPointer< KCalCore::Event > event
 bool CommandScheduleItem::trigger()
 {
       QString command = m_summary.remove(m_config->akonadiRequestPrefix()).trimmed();
-      kDebug() << "Executing: " << command;
+      qDebug() << "Executing: " << command;
       QStringList parts = command.split("//");
       if (parts.count() != 2)
       {
-	kWarning() << "Bad command format: " << command;
+	qWarning() << "Bad command format: " << command;
 	Logger::log(i18n("Invalid akonadi command format: %1", command), Logger::Warning);
 	return false;
       }

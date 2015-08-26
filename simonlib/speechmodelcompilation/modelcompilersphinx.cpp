@@ -22,30 +22,33 @@
 #include <simonutils/fileutils.h>
 
 #include <QFile>
-#include <KDebug>
+#include <QDebug>
 #include <KConfig>
 #include <KConfigGroup>
-#include <KStandardDirs>
+#include <QUrl>
+
+
 #include <KLocale>
 #include <QDir>
+#include <QStandardPaths>
 
 bool ModelCompilerSPHINX::parseConfiguration()
 {
-  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+    KConfig config( QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + "simonmodelcompilationrc", KConfig::FullConfig) ;
   KConfigGroup programGroup(&config, "Programs");
 
 //  if(compilationType & ModelCompiler::CompileSpeechModel)//TODO: think and then put conditions back
 //  {
     //   (compilationType & ModelCompilerHTK::AdaptSpeechModel)) {
 #ifdef Q_OS_WIN32
-    QString python = KStandardDirs::findExe("python");
-    QString sphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
+    QString python = QStandardPaths::findExecutable("python");
+    QString sphinxTrain = programGroup.readEntry("sphinxtrain", QUrl(QStandardPaths::findExecutable("sphinxtrain"))).toLocalFile();
     m_SphinxTrain = '"' + python + "\" \"" + sphinxTrain + '"';
 #else
-    m_SphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
+    m_SphinxTrain = programGroup.readEntry("sphinxtrain", QUrl(QStandardPaths::findExecutable("sphinxtrain"))).toLocalFile();
 #endif
 
-    kDebug()<<"Sphinxtrain exec: "<<m_SphinxTrain;
+    qDebug()<<"Sphinxtrain exec: "<<m_SphinxTrain;
 
 #ifdef Q_OS_WIN32
     if (!QFile::exists(python) || !QFile::exists(sphinxTrain))
@@ -54,7 +57,7 @@ bool ModelCompilerSPHINX::parseConfiguration()
 #endif
     {
       //SphinxTrain not found
-      QString errorMsg = i18n("The SphinxTrain cannot be found. Please make sure it is installed correctly.");
+      QString errorMsg = i18n("SphinxTrain cannot be found. Please make sure it is installed correctly.");
       analyseError(errorMsg);
       return false;
     }
@@ -62,11 +65,11 @@ bool ModelCompilerSPHINX::parseConfiguration()
 
   if(compilationType == ModelCompiler::AdaptSpeechModel)
   {
-    m_Bw = programGroup.readEntry("bw", KUrl(KStandardDirs::findExe("bw"))).toLocalFile();
-    m_Sphinx_fe = programGroup.readEntry("sphinx_fe", KUrl(KStandardDirs::findExe("sphinx_fe"))).toLocalFile();
-    m_Pocketsphinx_mdef_convert = programGroup.readEntry("pocketsphinx_mdef_convert", KUrl(KStandardDirs::findExe("pocketsphinx_mdef_convert"))).toLocalFile();
-    m_Map_adapt = programGroup.readEntry("map_adapt", KUrl(KStandardDirs::findExe("map_adapt"))).toLocalFile();
-    m_Mllr_solve = programGroup.readEntry("mllr_solve", KUrl(KStandardDirs::findExe("mllr_solve"))).toLocalFile();
+    m_Bw = programGroup.readEntry("bw", QUrl(QStandardPaths::findExecutable("bw"))).toLocalFile();
+    m_Sphinx_fe = programGroup.readEntry("sphinx_fe", QUrl(QStandardPaths::findExecutable("sphinx_fe"))).toLocalFile();
+    m_Pocketsphinx_mdef_convert = programGroup.readEntry("pocketsphinx_mdef_convert", QUrl(QStandardPaths::findExecutable("pocketsphinx_mdef_convert"))).toLocalFile();
+    m_Map_adapt = programGroup.readEntry("map_adapt", QUrl(QStandardPaths::findExecutable("map_adapt"))).toLocalFile();
+    m_Mllr_solve = programGroup.readEntry("mllr_solve", QUrl(QStandardPaths::findExecutable("mllr_solve"))).toLocalFile();
 
     if (!QFile::exists(m_Bw) || !QFile::exists(m_Sphinx_fe) || !QFile::exists(m_Pocketsphinx_mdef_convert) ||
         !QFile::exists(m_Map_adapt) || !QFile::exists(m_Mllr_solve))
@@ -93,7 +96,7 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
     return false;
   }
 
-  kDebug()<<"Base model path"<<m_BaseModelPath;
+  qDebug()<<"Base model path"<<m_BaseModelPath;
 
   this->compilationType = compilationType;
   m_ModelDir = args.value("modelDir");
@@ -106,8 +109,8 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
 
   m_ConfigPath = m_ModelDir+"/"+m_ModelName+"/etc/sphinx_train.cfg";
 
-  kDebug() << modelDestination << m_BaseModelPath << args;
-  kDebug() << "Compiling model";
+  qDebug() << modelDestination << m_BaseModelPath << args;
+  qDebug() << "Compiling model";
 
   keepGoing = true;
 
@@ -134,12 +137,12 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
 
 bool ModelCompilerSPHINX::CompileLanguageModel()
 {
-  kDebug() << "Compiling language model";
+  qDebug() << "Compiling language model";
 
   emit  status(i18nc("'Packing' in the sense of archiving", "Packing new language model to existing static acoustic model..."), 0, 100);
 
   //don't need to copy model to working dir, becouse we can just copy it to destination
-  kDebug() << "Deploying model to destination";
+  qDebug() << "Deploying model to destination";
 
   if(!pack(m_ModelDestination, m_ModelName))
   {
@@ -156,7 +159,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   emit  status(i18n("Adapting model..."), 0, 100);
 
-  kDebug() << "Parsing configuration";
+  qDebug() << "Parsing configuration";
 
   if (!parseConfiguration())
   {
@@ -164,7 +167,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
   }
 
   emit  status(i18n("Adapting model..."), 15, 100);
-  kDebug() << "Copying model from base model directory to working directory";
+  qDebug() << "Copying model from base model directory to working directory";
 
   if(!copyModelForAdapting(m_BaseModelPath, m_ModelDir+"/"+m_ModelName))
   {
@@ -172,7 +175,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
   }
 
   emit  status(i18n("Adapting model..."), 30, 100);
-  kDebug() << "Generating acoustic feature files (sphinx_fe)";
+  qDebug() << "Generating acoustic feature files (sphinx_fe)";
 
   if(!generateAcousticFeatureFiles())
   {
@@ -181,7 +184,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
   }
 
   emit  status(i18n("Adapting model..."), 45, 100);
-  kDebug() << "Converting mdef (pocketsphinx_mdef_convert)";
+  qDebug() << "Converting mdef (pocketsphinx_mdef_convert)";
 
   if(!convertMdef())
   {
@@ -190,7 +193,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
   }
 
   emit  status(i18n("Adapting model..."), 60, 100);
-  kDebug() << "Collecting statistics from the adaptation data (bw)";
+  qDebug() << "Collecting statistics from the adaptation data (bw)";
 
   if(!getStatistics())
   {
@@ -199,7 +202,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
   }
 
   emit  status(i18n("Adapting model..."), 75, 100);
-  kDebug() << "Performing adaption with map method";
+  qDebug() << "Performing adaption with map method";
 
   if(!mapUpdate())
   {
@@ -209,7 +212,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   emit  status(i18n("Adapting model..."), 95, 100);
 
-  kDebug() << "Сopying model to destination";
+  qDebug() << "Сopying model to destination";
   if(!pack(m_ModelDestination, m_ModelName))
   {
     analyseError(i18n("Could not copy model to destination"));
@@ -218,7 +221,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   emit  status(i18n("Adapting model..."), 100, 100);
 
-  kDebug() << "Adaption complete";
+  qDebug() << "Adaption complete";
 
   return true;
 }
@@ -227,7 +230,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
 {
   emit  status(i18n("Compiling model..."), 0, 100);
 
-  kDebug() << "Parsing configuration";
+  qDebug() << "Parsing configuration";
 
   if (!parseConfiguration())
   {
@@ -235,7 +238,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
   }
 
   emit  status(i18n("Compiling model..."), 5, 100);
-  kDebug() << "Setting up model";
+  qDebug() << "Setting up model";
 
   if(!setupModel(m_ModelDir, m_ModelName))
   {
@@ -269,7 +272,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
   if (!keepGoing) return false;
 
   emit  status(i18n("Compiling model..."), 20, 100);
-  kDebug() << "Starting actually compilation";
+  qDebug() << "Starting actually compilation";
 
   if(!compileModel(m_ModelDir, m_ModelName))
   {
@@ -279,7 +282,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
   if (!keepGoing) return false;
 
   emit  status(i18n("Compiling model..."), 95, 100);
-  kDebug() << "Deploying model to destination";
+  qDebug() << "Deploying model to destination";
 
   if(!pack(m_ModelDestination, m_ModelName))
   {
@@ -288,7 +291,7 @@ bool ModelCompilerSPHINX::CompileWholeModel()
   }
 
   emit  status(i18n("Compiling model..."), 100, 100);
-  kDebug() << "Compilation complete";
+  qDebug() << "Compilation complete";
 
   return true;
 }
@@ -301,7 +304,7 @@ bool ModelCompilerSPHINX::processError()
   static QRegExp phonemeToPoison("WARNING: This phone \\(([^)]*)\\) occurs in the phonelist .*, but not in", Qt::CaseInsensitive);
   if (phonemeToPoison.indexIn(err) != -1) {
     QString phoneme = phonemeToPoison.cap(1);
-    kDebug() << "Phoneme is undefined: " << phoneme;
+    qDebug() << "Phoneme is undefined: " << phoneme;
     emit phonemeUndefined(phoneme);
     return true;
   }
@@ -325,7 +328,7 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
   QHash<QString, QByteArray> fm;
   QDomDocument DomDocument;
   getMetaData(name, "SPHINX").serializeXml(DomDocument);
-  //  kDebug() << DomDocument.toString();
+  //  qDebug() << DomDocument.toString();
   fm.insert("metadata.xml", DomDocument.toByteArray());
 
   QHash<QString, QString> efm;
@@ -351,7 +354,7 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
     }
   }
 
-  kDebug() << QLatin1String("Model data from")+srcDirName;
+  qDebug() << QLatin1String("Model data from")+srcDirName;
   QDir sourceDir(srcDirName);
 
   if(!sourceDir.exists())
@@ -366,7 +369,7 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
     if (tFileName == "metadata.xml") // skip old metadata
       continue;
     efm.insert(srcDirName+tFileName, tFileName);
-    kDebug()<<srcDirName+tFileName;
+    qDebug()<<srcDirName+tFileName;
   }
 
   QString fetc = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/etc/")+m_ModelName;
@@ -452,24 +455,24 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
     if(pLine.indexIn(line) == -1)
     {
       out << line <<"\n";
-      //        kDebug()<<line;
+      //        qDebug()<<line;
     }
     else
     {
-      //        kDebug()<< "wheee";
+      //        qDebug()<< "wheee";
       QStringList capturedList = pLine.capturedTexts();
       uint dPos = capturedList.first().indexOf('$') + 1;
       QString key = capturedList.first().mid(dPos, capturedList.first().size() - (dPos + 2)); //few chars: '$',' ','='
-      kDebug()<<key;
+      qDebug()<<key;
       if(!args.contains(key))
       {
         out << line <<"\n";
-        //          kDebug()<<line;
+        //          qDebug()<<line;
         continue;
       }
 
       out << capturedList.first() +" \""+args.value(key)+"\";" <<"\n";
-      kDebug()<<capturedList.first() +" \""+args.value(key)+"\";";
+      qDebug()<<capturedList.first() +" \""+args.value(key)+"\";";
     }
 
   }

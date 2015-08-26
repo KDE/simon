@@ -24,9 +24,10 @@
 #include <QTextStream>
 #include <QFont>
 #include <QFile>
-#include <KStandardDirs>
-#include <KDebug>
+
+#include <QDebug>
 #include <KColorScheme>
+#include <QStandardPaths>
 
 typedef QPair<Condition*, QString> ConditionPair;
 
@@ -256,7 +257,7 @@ void SampleGroupCondition::saveSampleGroupContext()
         root.appendChild(sampleGroupContext);
     }
 
-    QString contextDir = KStandardDirs::locateLocal("appdata", "context/");
+    QString contextDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "context/";
     QFile sampleGroupContextFile(contextDir + "sampleGroupContext");
 
     sampleGroupContextFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
@@ -267,7 +268,7 @@ void SampleGroupCondition::saveSampleGroupContext()
 
 void SampleGroupCondition::loadSampleGroupContext()
 {
-    QString contextDir = KStandardDirs::locateLocal("appdata", "context/");
+    QString contextDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "context/";
     QFile sampleGroupContextFile(contextDir + "sampleGroupContext");
 
     if (!sampleGroupContextFile.exists())

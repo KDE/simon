@@ -22,7 +22,7 @@
 
 #include "networksettings.h"
 #include "synchronisationsettings.h"
-#include <kgenericfactory.h>
+#include <KDELibs4Support/kgenericfactory.h>
 #include <simonuicomponents/multikcmview.h>
 
 class RecognitionConfigMultiKCMView : public MultiKCMView
@@ -30,8 +30,8 @@ class RecognitionConfigMultiKCMView : public MultiKCMView
   public:
     RecognitionConfigMultiKCMView(QWidget* parent, const QVariantList& args=QVariantList()) :
     MultiKCMView(parent, args) {
-      registerModule(new NetworkSettings(parent, args), KIcon("simond"), i18n("Server"));
-      registerModule(new SynchronisationSettings(parent, args), KIcon("view-refresh"), i18n("Synchronization"));
+      registerModule(new NetworkSettings(parent, args), QIcon::fromTheme("simond"), i18n("Server"));
+      registerModule(new SynchronisationSettings(parent, args), QIcon::fromTheme("view-refresh"), i18n("Synchronization"));
     }
 };
 
@@ -41,5 +41,6 @@ registerPlugin< RecognitionConfigMultiKCMView >();
 //			registerPlugin< SynchronisationSettings >("SynchronisationSettings");
 )
 
-K_EXPORT_PLUGIN( ServerSettingsFactory("ServerSettings") )
+// K_EXPORT_PLUGIN( ServerSettingsFactory("ServerSettings") )
+#include "plugin_exporter.moc"
 #endif

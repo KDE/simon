@@ -23,11 +23,10 @@
 #include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
-#include <KXMLGUIClient>
 #include "ui_dialogwidget.h"
 
 class QWidget;
-class KAction;
+class QAction;
 class DialogConfiguration;
 class DialogSet;
 class DialogSetContainer;
@@ -46,7 +45,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
   private:
     Ui::DialogDlg ui;
     QWidget *dialogWidget;
-    KAction *activateAction;
+    QAction *activateAction;
 
 
   private slots:

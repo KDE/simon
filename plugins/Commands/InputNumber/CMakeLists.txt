@@ -1,9 +1,9 @@
 set(simoninputnumbercommandplugin_SRCS inputnumbercommandmanager.cpp)
 
-kde4_add_ui_files(simoninputnumbercommandplugin_SRCS inputnumberwidget.ui)
+ki18n_wrap_ui(simoninputnumbercommandplugin_SRCS inputnumberwidget.ui)
 kde4_add_plugin(simoninputnumbercommandplugin ${simoninputnumbercommandplugin_SRCS})
 
-target_link_libraries(simoninputnumbercommandplugin ${KDE4_KDEUI_LIBS}
+target_link_libraries(simoninputnumbercommandplugin
   simonscenarios simonactions eventsimulation simonscenariobase)
 
 install(TARGETS simoninputnumbercommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandinputnumberplugin)

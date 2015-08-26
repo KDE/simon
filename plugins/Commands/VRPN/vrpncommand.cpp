@@ -19,13 +19,12 @@
 
 #include "vrpncommand.h"
 #include "vrpncommandmanager.h"
-#include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QVariant>
-#include <KIcon>
-#include <KLocalizedString>
-#include <KDebug>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 const QString VRPNCommand::staticCategoryText()
 {
@@ -39,13 +38,13 @@ const QString VRPNCommand::getCategoryText() const
 }
 
 
-const KIcon VRPNCommand::staticCategoryIcon()
+const QIcon VRPNCommand::staticCategoryIcon()
 {
-  return KIcon("network-connect");
+  return QIcon::fromTheme("network-connect");
 }
 
 
-const KIcon VRPNCommand::getCategoryIcon() const
+const QIcon VRPNCommand::getCategoryIcon() const
 {
   return VRPNCommand::staticCategoryIcon();
 }
@@ -78,7 +77,7 @@ const QMap<QString,QVariant> VRPNCommand::getValueMapPrivate() const
 bool VRPNCommand::triggerPrivate(int *state)
 {
   Q_UNUSED(state);
-  kDebug() << "Triggering..." << button;
+  qDebug() << "Triggering..." << button;
   return static_cast<VRPNCommandManager*>(parent())->activateButton(button, clickMode);
 }
 

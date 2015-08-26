@@ -22,9 +22,9 @@
 #include <QDomElement>
 #include <QDomDocument>
 
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <Plasma/DataEngine>
-#include <Plasma/DataEngineManager>
+#include <Plasma/DataEngineConsumer>
 
 PlasmaBoundValue::PlasmaBoundValue(const QString& name) : BoundValue(name), m_currentEngine(0)
 {
@@ -32,16 +32,17 @@ PlasmaBoundValue::PlasmaBoundValue(const QString& name) : BoundValue(name), m_cu
 
 PlasmaBoundValue::PlasmaBoundValue(const QString& name, const QString& dataEngine, const QString& dataEngineName,
     const QString& dataSource, const QString& key) :
-  BoundValue(name), m_currentEngine(0), m_dataEngine(dataEngine), 
+  BoundValue(name), m_dataEngine(dataEngine),
   m_dataEngineName(dataEngineName), m_dataSource(dataSource), m_key(key)
 {
-  initEngine();
+    initEngine();
 }
 
 void PlasmaBoundValue::initEngine()
 {
-  m_currentEngine = Plasma::DataEngineManager::self()->loadEngine(m_dataEngine);
-  m_currentEngine->query(m_dataSource);
+    m_currentEngine = dataEngine(m_dataEngine);
+    //QT5TODO: data engines now only work with asynchronous calls and DataContainer
+    // m_currentEngine->query(m_dataSource);
 }
 
 QString PlasmaBoundValue::getTypeName()
@@ -49,10 +50,11 @@ QString PlasmaBoundValue::getTypeName()
   return i18nc("Typename of script bound values", "Plasma");
 }
 
-#include <KDebug>
+#include <QDebug>
 QVariant PlasmaBoundValue::getValue()
 {
-  Plasma::DataEngine::Data data = m_currentEngine->query(m_dataSource);
+    //QT5TODO: This is a placeholder
+  // Plasma::DataEngine::Data data = m_currentEngine->query(m_dataSource);
   QString key = m_key;
   QString arrKey;
   bool isSplittable = m_key.contains("|");
@@ -60,9 +62,11 @@ QVariant PlasmaBoundValue::getValue()
   {
     key = m_key.left(m_key.indexOf("|"));
     arrKey = m_key.mid(m_key.indexOf("|")+1);
-    kDebug() << "Split: " << key << arrKey;
+    qDebug() << "Split: " << key << arrKey;
   }
-  QVariant value = data.value(key);
+  //FIXME
+  // QVariant value = data.value(key);
+  QVariant value = qVariantFromValue(QString::fromLatin1("TEST"));
 
   if (isSplittable)
   {
@@ -119,8 +123,4 @@ bool PlasmaBoundValue::serializePrivate(QDomDocument *doc, QDomElement& elem, in
 
 PlasmaBoundValue::~PlasmaBoundValue()
 {
-  Plasma::DataEngineManager::self()->unloadEngine(m_dataEngine);
 }
-
-
-

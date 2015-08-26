@@ -60,10 +60,12 @@ class MODELMANAGEMENT_EXPORT CommandConfiguration : public QWidget, public Scena
 
   public:
     /// Constructor
-    CommandConfiguration(Scenario *parent, const QByteArray& internalName, const KLocalizedString& name,
-      const QByteArray& version, const KLocalizedString& desc,
-      const QString& iconName, const KComponentData& componentData,
-      const QVariantList &args = QVariantList());
+    CommandConfiguration(Scenario *parent,
+                         const QString& internalName,
+                         const QString& name,
+                         const QByteArray& version,
+                         const QString& desc,
+                         const QString& iconName);
     /// Destructor
     ~CommandConfiguration();
 

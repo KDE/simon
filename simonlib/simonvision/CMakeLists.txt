@@ -15,11 +15,11 @@ set( simonvision_LIB_HDRS
     lipanalyzer.h
     simoncv.h
 )
-kde4_add_kcfg_files(simonvision_LIB_SRCS config/webcamconfiguration.kcfgc)
+kconfig_add_kcfg_files(simonvision_LIB_SRCS config/webcamconfiguration.kcfgc)
 
 kde4_add_library(simonvision SHARED ${simonvision_LIB_SRCS} )
 
-target_link_libraries(simonvision ${KDE4_KPARTS_LIBS} ${KDE4_KDECORE_LIBS} ${OpenCV_LIBS} ${QT_LIBRARIES})
+target_link_libraries(simonvision KF5::Parts KF5::KDELibs4Support ${OpenCV_LIBS} ${QT_LIBRARIES})
 
 set_target_properties( simonvision
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

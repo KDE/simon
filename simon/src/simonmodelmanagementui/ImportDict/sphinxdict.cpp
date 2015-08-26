@@ -23,10 +23,12 @@
 #include <QTextStream>
 #include <QRegExp>
 #include <QFileInfo>
-#include <KMimeType>
-#include <KLocalizedString>
-#include <KFilterDev>
-#include <KDebug>
+
+#include <KI18n/klocalizedstring.h>
+#include <KArchive/KFilterDev>
+#include <QDebug>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 /**
  * \brief Constructor
@@ -53,15 +55,16 @@ void SPHINXDict::load(QString path, QString encodingName)
   if (path.isEmpty()) path = this->path;
   emit progress(0);
 
+  QMimeDatabase db;
   QIODevice *dict = KFilterDev::deviceForFile(path,
-    KMimeType::findByFileContent(path)->name());
+    db.mimeTypeForFile(path, QMimeDatabase::MatchContent).name());
   if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
     return;
 
   int maxProg=0;
 
-  KMimeType::Ptr mimeType = KMimeType::findByFileContent(path);
-  if (mimeType->is("text/plain")) {               //not compressed
+  QMimeType mimeType = db.mimeTypeForFile(path, QMimeDatabase::MatchContent);
+  if (mimeType.inherits("text/plain")) {               //not compressed
     QFileInfo info;
     QFile f(path);
     info.setFile(f);

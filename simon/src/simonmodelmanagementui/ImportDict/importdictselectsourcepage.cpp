@@ -19,9 +19,7 @@
 
 #include "importdictselectsourcepage.h"
 #include "importdictview.h"
-#include <QRadioButton>
-#include <QVariant>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 /**
  * \brief Constructor - Inits the gui
@@ -54,7 +52,7 @@ int ImportDictSelectSourcePage::nextId() const
   else if (field("pls").toBool())
     return ImportDictView::PLSPage;
   else if (field("julius").toBool()) {
-    kDebug() << "julius selected";
+    qDebug() << "julius selected";
     return ImportDictView::JuliusVocabulary;
   } else
   return ImportDictView::SPHINXPage;

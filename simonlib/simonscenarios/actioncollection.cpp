@@ -18,7 +18,7 @@
  */
 
 #include "actioncollection.h"
-#include <KDebug>
+#include <QDebug>
 #include <simonscenarios/action.h>
 #include <simonscenarios/voiceinterfacecommand.h>
 #include <simonscenarios/scenario.h>
@@ -97,7 +97,7 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
   while (!pluginElem.isNull()) {
     Action *a = Action::createAction(parentScenario, pluginElem, this);
     if (!a) {
-      kDebug() << "Could not load action";
+      qDebug() << "Could not load action";
     }
     else {
       //m_actions << a;
@@ -112,7 +112,7 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
   if (m_autorunActive)
   {
     bool succ = triggerCommand(m_autorunType, m_autorunCommand, true /* silent */);
-    kDebug() << "Executed autorun command; Success: " << succ;
+    qDebug() << "Executed autorun command; Success: " << succ;
   }
 
   return true;

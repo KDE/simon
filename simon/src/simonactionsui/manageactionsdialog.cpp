@@ -29,31 +29,36 @@
 #include <simonscenarios/commandconfiguration.h>
 #include <simonscenarios/actioncollection.h>
 
-#include <KMessageBox>
-#include <KAboutData>
 #include <KPageWidget>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <KWidgetsAddons/KMessageBox>
 
 ManageActionsDialog::ManageActionsDialog(QWidget* parent) : KDialog(parent),
 pageWidget(new KPageWidget(this)),
 manageActionsAutorunWidget(new ManageActionsAutorunWidget(this)),
 listConfiguration(new ListConfiguration(this))
 {
-  setCaption( i18n("Manage Actions") );
-  setMainWidget( pageWidget );
+  setWindowTitle( i18n("Manage Actions") );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( pageWidget );
+// Add mainLayout->addWidget(pageWidget); if necessary
+// Add mainLayout->addWidget(pageWidget); if necessary
+// Add mainLayout->addWidget(pageWidget); if necessary
 
   QWidget *baseWidget = new QWidget( this );
   ui.setupUi(baseWidget);
 
   KPageWidgetItem *generalItem = pageWidget->addPage(baseWidget, i18nc("General settings page", "General"));
-  generalItem->setIcon(KIcon("fork"));
+  generalItem->setIcon(QIcon::fromTheme("fork"));
   generalItem->setHeader("");
 
-  ui.pbApplyForAll->setIcon(KIcon("arrow-down-double"));
+  ui.pbApplyForAll->setIcon(QIcon::fromTheme("arrow-down-double"));
 
-  ui.pbAdd->setIcon(KIcon("list-add"));
-  ui.pbRemove->setIcon(KIcon("list-remove"));
-  ui.pbUp->setIcon(KIcon("go-up"));
-  ui.pbDown->setIcon(KIcon("go-down"));
+  ui.pbAdd->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbRemove->setIcon(QIcon::fromTheme("list-remove"));
+  ui.pbUp->setIcon(QIcon::fromTheme("go-up"));
+  ui.pbDown->setIcon(QIcon::fromTheme("go-down"));
 
   connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(add()));
   connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(remove()));
@@ -65,7 +70,18 @@ listConfiguration(new ListConfiguration(this))
   ui.lvPlugins->setIconSize(QSize(24,24));
   ui.lvPlugins->setSpacing(2);
 
-  setButtons(KDialog::Ok);
+  QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
+  QWidget *mainWidget = new QWidget(this);
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+  mainLayout->addWidget(mainWidget);
+  QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+  okButton->setDefault(true);
+  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+  mainLayout->addWidget(buttonBox);
 
   connect(ui.lvPlugins, SIGNAL(clicked(QModelIndex)), this, SLOT(currentSelectionChanged()));
 
@@ -114,7 +130,7 @@ int ManageActionsDialog::exec()
   listConfiguration->loadFinished();
 
   ScenarioManager::getInstance()->startGroup();
-  int ret = KDialog::exec();
+  int ret = QDialog::exec();
   //write configuration changes of the plugins
   if (ret) {
     listConfiguration->prepareToSave();
@@ -131,12 +147,12 @@ int ManageActionsDialog::exec()
 void ManageActionsDialog::registerCommandConfiguration(CommandConfiguration *m)
 {
   if (!m) return;
-  QString moduleName = m->aboutData()->programName();
+  QString moduleName = m->aboutData()->componentName();
   ProtectorWidget *p = new ProtectorWidget(m, pageWidget);
   KPageWidgetItem *newItem = pageWidget->addPage(p, moduleName);
 
   QString moduleIcon = m->aboutData()->programIconName();
-  newItem->setIcon(KIcon(moduleIcon));
+  newItem->setIcon(QIcon::fromTheme(moduleIcon));
 
   pages.insert(m, newItem);
 }

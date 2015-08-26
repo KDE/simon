@@ -23,7 +23,7 @@
 #include <QSslCipher>
 
 SimondNetworkConfiguration::SimondNetworkConfiguration(QWidget* parent, const QVariantList& args)
-: KCModule(KGlobal::mainComponent(), parent)
+: KCModule(parent)
 {
   Q_UNUSED(args);
 

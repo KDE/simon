@@ -24,26 +24,21 @@
 #include "keyboardmodifybuttondialog.h"
 
 #include <QVariantList>
-#include <kgenericfactory.h>
-#include <QList>
-#include <KAboutData>
-#include <KMessageBox>
-#include <KStandardDirs>
+#include <KDELibs4Support/kgenericfactory.h>
+
 #include <QString>
-#include <QDialog>
 #include <KInputDialog>
-#include <QTableView>
 #include <QThread>
 #include <QApplication>
 #include <simonscenarios/scenario.h>
+#include <KWidgetsAddons/KMessageBox>
 
 K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
 
 KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent,  "keyboard", ki18n( "Keyboard" ),
-"0.1", ki18n("Input signs with ease"),
-"input-keyboard",
-KeyboardCommandPluginFactory::componentData()),
+: CommandConfiguration(parent,  "keyboard", i18n( "Keyboard" ),
+"0.1", i18n("Input signs with ease"),
+"input-keyboard"),
 storedSet(0),
 commandManager(_commandManager),
 setContainer(_commandManager->getKeyboardSetContainer())
@@ -70,22 +65,22 @@ setContainer(_commandManager->getKeyboardSetContainer())
   connect(ui.pbTabUp, SIGNAL(clicked()), this, SLOT(tabUp()));
   connect(ui.pbTabDown, SIGNAL(clicked()), this, SLOT(tabDown()));
 
-  ui.pbAddSet->setIcon(KIcon("list-add"));
-  ui.pbAddTab->setIcon(KIcon("list-add"));
-  ui.pbAddButton->setIcon(KIcon("list-add"));
+  ui.pbAddSet->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbAddTab->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbAddButton->setIcon(QIcon::fromTheme("list-add"));
 
-  ui.pbDeleteSet->setIcon(KIcon("list-remove"));
-  ui.pbDeleteTab->setIcon(KIcon("list-remove"));
-  ui.pbDeleteButton->setIcon(KIcon("list-remove"));
+  ui.pbDeleteSet->setIcon(QIcon::fromTheme("list-remove"));
+  ui.pbDeleteTab->setIcon(QIcon::fromTheme("list-remove"));
+  ui.pbDeleteButton->setIcon(QIcon::fromTheme("list-remove"));
 
-  ui.pbEditSet->setIcon(KIcon("document-edit"));
-  ui.pbEditTab->setIcon(KIcon("document-edit"));
-  ui.pbEditButton->setIcon(KIcon("document-edit"));
+  ui.pbEditSet->setIcon(QIcon::fromTheme("document-edit"));
+  ui.pbEditTab->setIcon(QIcon::fromTheme("document-edit"));
+  ui.pbEditButton->setIcon(QIcon::fromTheme("document-edit"));
 
-  ui.pbTabUp->setIcon(KIcon("arrow-up"));
-  ui.pbUpButton->setIcon(KIcon("arrow-up"));
-  ui.pbTabDown->setIcon(KIcon("arrow-down"));
-  ui.pbDownButton->setIcon(KIcon("arrow-down"));
+  ui.pbTabUp->setIcon(QIcon::fromTheme("arrow-up"));
+  ui.pbUpButton->setIcon(QIcon::fromTheme("arrow-up"));
+  ui.pbTabDown->setIcon(QIcon::fromTheme("arrow-down"));
+  ui.pbDownButton->setIcon(QIcon::fromTheme("arrow-down"));
 }
 
 
@@ -496,7 +491,7 @@ QDomElement KeyboardConfiguration::serialize(QDomDocument* doc)
     storedSet = setContainer->findSet(ui.cbSets->currentText());
 
   if (QThread::currentThread() == qApp->thread()) {
-    kDebug() << "Calling rebuild gui";
+    qDebug() << "Calling rebuild gui";
     commandManager->rebuildGui();
   }
 
@@ -549,7 +544,7 @@ bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
   ui.cbShowNumpad->setChecked(numpadElement.firstChildElement("showNumpad").text() == "1");
 
   if (QThread::currentThread() == qApp->thread()) {
-    kDebug() << "Calling rebuild gui";
+    qDebug() << "Calling rebuild gui";
     commandManager->rebuildGui();
   }
 

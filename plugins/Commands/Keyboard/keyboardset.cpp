@@ -21,7 +21,7 @@
 #include "keyboardset.h"
 #include <QString>
 #include <QList>
-#include <KDebug>
+#include <QDebug>
 
 KeyboardSet::KeyboardSet(const QDomElement& elem)
 : m_isNull(false)
@@ -287,6 +287,6 @@ QList<KeyboardButton*> KeyboardSet::getTabButtons(const QString& tabName)
 
 KeyboardSet::~KeyboardSet()
 {
-  kDebug() << "Deleting keyboardset";
+  qDebug() << "Deleting keyboardset";
   qDeleteAll(tabList);
 }

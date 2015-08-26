@@ -19,6 +19,8 @@
 #ifndef SOUNDINPUTBUFFER_H
 #define SOUNDINPUTBUFFER_H
 #include "soundbuffer.h"
+#include <QMutex>
+class QSemaphore2;
 
 class SimonSoundInput;
 class SoundInputBuffer : public SoundBuffer
@@ -29,7 +31,7 @@ private:
   int m_bufferLength;
   QMutex m_bufferAllocLock;
   QSemaphore2 m_bufferLock;
-  
+
 public:
   SoundInputBuffer(SimonSoundInput* input);
   ~SoundInputBuffer();

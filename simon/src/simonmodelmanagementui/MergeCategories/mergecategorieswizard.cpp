@@ -23,7 +23,7 @@
 #include <QWizardPage>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <KStandardDirs>
+
 
 MergeCategoriesWizard::MergeCategoriesWizard(QWidget* parent): SimonWizard(parent)
 {

@@ -28,15 +28,14 @@
 
 #include <QMutexLocker>
 #include <QThread>
-#include <KLocalizedString>
-#include <KAction>
-#include <KDebug>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 K_PLUGIN_FACTORY( VRPNCommandPluginFactory,
 registerPlugin< VRPNCommandManager >();
 )
 
-K_EXPORT_PLUGIN( VRPNCommandPluginFactory("simonvrpncommand") )
+// K_EXPORT_PLUGIN( VRPNCommandPluginFactory("simonvrpncommand") )
 
 
 class SimonButton : public vrpn_Button {
@@ -123,7 +122,7 @@ void VRPNCommandManager::restartServer()
   foreach (const QString& name, getVRPNConfiguration()->getButtons()) {
     SimonButton* button = 0;
     if ( (button = new SimonButton(name, connection)) == 0) {
-      kWarning() << "Failed to create button: " << name;
+      qWarning() << "Failed to create button: " << name;
     }
     buttons.insert(name, button);
   }
@@ -172,3 +171,5 @@ VRPNCommandManager::~VRPNCommandManager()
   qDeleteAll(buttons);
   delete connection;
 }
+
+#include "vrpncommandmanager.moc"

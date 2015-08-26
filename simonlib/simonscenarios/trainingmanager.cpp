@@ -29,16 +29,13 @@
 #include <QStringList>
 #include <QString>
 #include <QObject>
-#include <QTextStream>
 #include <QCoreApplication>
-#include <QVariant>
-#include <QTime>
-#include <QRegExp>
-#include <KLocalizedString>
-#include <KStandardDirs>
+#include <KI18n/klocalizedstring.h>
+
 #include <KDateTime>
-#include <KLocale>
 #include <math.h>
+#include <QStandardPaths>
+#include <KConfigCore/KConfigGroup>
 
 TrainingManager* TrainingManager::m_instance;
 
@@ -61,7 +58,7 @@ bool TrainingManager::init()
   //init prompts
   QMutexLocker lock(&m_promptsLock);
   PromptsTable *promptsTable = new PromptsTable();
-  if (promptsTable->init(KStandardDirs::locate("appdata", "model/prompts"))) {
+  if (promptsTable->init(QStandardPaths::locate(QStandardPaths::DataLocation, "model/prompts"))) {
     delete this->m_promptsTable;
     m_promptsTable = promptsTable;
     m_dirty = false;
@@ -75,7 +72,7 @@ bool TrainingManager::init()
 
 void TrainingManager::trainingSettingsSaved()
 {
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+    KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
@@ -162,14 +159,14 @@ bool TrainingManager::savePrompts()
 
   if (!m_promptsTable) init();
 
-  if (!m_promptsTable->save(KStandardDirs::locateLocal("appdata", "model/prompts"))) return false;
+  if (!m_promptsTable->save(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/prompts")) return false;
 
   if (m_dirty)
   {
       m_wordRelevance.clear();                        // drop probability cache
 
       //Update the training date and signal a change in the data
-      KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+      KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig) ;
       KConfigGroup cGroup(&config, "");
       cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
       config.sync();
@@ -212,7 +209,7 @@ bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
 
   SpeechModelManagementConfiguration::setModelSampleRate(sampleRate);
 
-  QFile promptsF(KStandardDirs::locateLocal("appdata", "model/prompts"));
+  QFile promptsF(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/prompts");
   if (!promptsF.open(QIODevice::WriteOnly))
     return false;
 
@@ -236,7 +233,7 @@ float TrainingManager::calcRelevance ( const TrainingText *text )
   QString currPage;
   QStringList words;
   int wordCount=0;
-  int probability=0;
+  int frequency=0;
   int curWordCount=0;
 
   m_promptsLock.lock();
@@ -261,26 +258,26 @@ float TrainingManager::calcRelevance ( const TrainingText *text )
     for ( int j=0; j<curWordCount; j++ ) {
       QString currentWord = words[j];
 
-      probability += getProbability ( currentWord );
+      frequency += getFrequency ( currentWord );
     }
   }
   m_promptsLock.unlock();
 
   if ( wordCount > 0 )
-    return qRound ( probability/wordCount );
+      return qRound ( ((qreal)frequency)/((qreal)wordCount) );
   else return 0;
 }
 
 
 /**
- * \brief Returns the probability of the name (it is pulled out of the m_promptsTable)
+ * \brief Returns the frequency of the name (it is pulled out of the m_promptsTable)
  * \author Peter Grasch
  * \param QString wordname
  * Name of the word
  * \return int
- * Probability to recognize; The higher the more likely simon will recognize this word correctly
+ * Frequency to recognize; The higher the more likely simon will recognize this word correctly
  */
-int TrainingManager::getProbability ( QString wordname )
+int TrainingManager::getFrequency ( QString wordname )
 {
   if (!m_promptsTable) init();
 
@@ -289,23 +286,23 @@ int TrainingManager::getProbability ( QString wordname )
     return m_wordRelevance.value(wordname);
 
   QStringList prompts = m_promptsTable->words();
-  int prob=0;
+  int freq=0;
   int i=0;
   int promptscount=prompts.count();
 
   while ( i<promptscount ) {
     //work around some strange problem in my qt version...
     QString prompt = prompts.at(i);
-    prob += prompt.count(' '+wordname+' ');
-    if (prompt == wordname) prob++;
-    else if (prompt.startsWith(wordname+' ')) prob++;
-    else if (prompt.endsWith(' '+wordname)) prob++;
+    freq += prompt.count(' '+wordname+' ');
+    if (prompt == wordname) freq++;
+    else if (prompt.startsWith(wordname+' ')) freq++;
+    else if (prompt.endsWith(' '+wordname)) freq++;
 
     i++;
   }
 
-  m_wordRelevance.insert(wordname, prob);
-  return prob;
+  m_wordRelevance.insert(wordname, freq);
+  return freq;
 }
 
 

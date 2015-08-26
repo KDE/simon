@@ -26,8 +26,7 @@
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
 #include <simonlogging/logger.h>
-#include <KLocalizedString>
-#include <KAction>
+#include <KI18n/klocalizedstring.h>
 #include <akonadi/control.h>
 #include <akonadi/monitor.h>
 #include <akonadi/collection.h>
@@ -41,7 +40,7 @@ K_PLUGIN_FACTORY( AkonadiCommandPluginFactory,
 registerPlugin< AkonadiCommandManager >();
 )
 
-K_EXPORT_PLUGIN( AkonadiCommandPluginFactory("simonakonadicommand") )
+// K_EXPORT_PLUGIN( AkonadiCommandPluginFactory("simonakonadicommand") )
 
 AkonadiCommandManager::AkonadiCommandManager(QObject* parent, const QVariantList& args) : 
     CommandManager((Scenario*) parent, args)
@@ -78,7 +77,7 @@ void AkonadiCommandManager::setupSchedule()
 {
   if (!getAkonadiConfiguration()) return;
 
-  kDebug() << "Setting up schedule";
+  qDebug() << "Setting up schedule";
   schedule.clear();
   
   Akonadi::ItemFetchJob *itemFetcher = new Akonadi::ItemFetchJob(
@@ -99,7 +98,7 @@ void AkonadiCommandManager::itemsReceived(KJob* job)
   Akonadi::Item::List items = fetchJob->items();
   if (items.isEmpty())
   {
-    kDebug() << "Ignoring empty fetch result";
+    qDebug() << "Ignoring empty fetch result";
     return;
   }
   Logger::log(i18ncp("%1 is count", "Retrieved %1 item from collection", "Retrieved %1 items from collection", items.count()));
@@ -152,10 +151,10 @@ void AkonadiCommandManager::itemsReceived(KJob* job)
     if (getAkonadiConfiguration()->displayAlarms()) {
       foreach (KCalCore::Alarm::Ptr a, event->alarms()) {
 	      QDateTime alarmDate = (a->time().dateTime());
-	      kDebug() << "Checking alarm" << alarmDate;
+	      qDebug() << "Checking alarm" << alarmDate;
 	      if (alarmDate < QDateTime::currentDateTime())
 	        continue;
-	      kDebug() << "Adding alarm" << alarmDate;
+	      qDebug() << "Adding alarm" << alarmDate;
 	      schedule.insert(a->time().dateTime(), new AlarmScheduleItem(event, a, getAkonadiConfiguration(), this));
       }
     }
@@ -241,3 +240,5 @@ AkonadiCommandManager::~AkonadiCommandManager()
 {
   delete akonadiMonitor;
 }
+
+#include "akonadicommandmanager.moc"

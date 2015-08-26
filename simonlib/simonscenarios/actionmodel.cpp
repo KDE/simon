@@ -85,7 +85,7 @@ QVariant ActionModel::data(const QModelIndex &index, int role) const
   if ((role == Qt::DisplayRole) || (role == Qt::DecorationRole)) {
     Action *a = m_actions.at(index.row());
 
-    //kDebug() << a->source();
+    //qDebug() << a->source();
     Q_ASSERT(a);
 
     if (role == Qt::DecorationRole)

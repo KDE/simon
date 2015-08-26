@@ -19,7 +19,7 @@ set(simonGeneralSources
   main.cpp
 )
 
-kde4_add_ui_files(simonGeneralSources
+ki18n_wrap_ui(simonGeneralSources
   simonview.ui
   firstrunbasemodelconfig.ui
   firstrunsimondconfig.ui
@@ -28,21 +28,22 @@ kde4_add_ui_files(simonGeneralSources
   welcomepage.ui
 )
 
-kde4_add_app_icon(simonGeneralSources "../icons/hi*-app-simon.png")
-kde4_add_executable( simon ${simonGeneralSources} )
+file(GLOB ICONS_SRCS "../icons/hi*-app-simon.png")
+kde4_add_app_icon(simonGeneralSources ICONS ${ICONS_SRCS})
+add_executable( simon ${simonGeneralSources} )
 
 if(UNIX)
-target_link_libraries(simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-  ${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
+target_link_libraries(simon  KF5::KIOCore KF5::KDELibs4Support
+  ${QT_LIBRARIES}  KF5::NewStuff KF5::KHtml KF5::KCMUtils
   ${X11_X11_LIB} simonappcore simonactions simoninfo
   simonlogging simonxml simonuicomponents simonsound simonscenarios 
   simonmodelmanagementui simonscenariobase simonscenarioui
   simonrecognitioncontrol simonactionsui simonprogresstracking
   simoncontextui simonsampleshare)
 else()
-target_link_libraries(simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-  ${QT_LIBRARIES} ${QT_QTWEBKIT_LIBRARY}
-  ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
+target_link_libraries(simon  KF5::KIOCore KF5::KDELibs4Support
+  ${QT_LIBRARIES} Qt5::WebKitWidgets KF5::KHtml 
+   KF5::NewStuff KF5::KCMUtils
   simonappcore simonactions simoninfo
   simonlogging simonxml simonuicomponents simonsound simonscenarios 
   simonmodelmanagementui simonscenariobase simonscenarioui

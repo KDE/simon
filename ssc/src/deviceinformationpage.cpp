@@ -30,8 +30,7 @@
 #include <QScrollArea>
 #include <QSettings>
 
-#include <KLocalizedString>
-#include <KMessageBox>
+#include <KI18n/klocalizedstring.h>
 #include <sscdaccess/sscdaccesssingleton.h>
 
 DeviceInformationPage::DeviceInformationPage(QWidget *parent) : QWizardPage(parent),
@@ -117,23 +116,23 @@ QHash<QString, Microphone*> DeviceInformationPage::buildMicrophoneMappings(bool 
   QHash<QString, Microphone*> microphones;
   foreach (DeviceInformationWidget *wg, informationWidgets) {
     fprintf (stderr, "Processing widget during processing mics...\n");
-    kDebug() << "processing widget...";
+    qDebug() << "processing widget...";
     QString device = wg->getDeviceName();
     QString micModel = wg->getMicModel();
     QString micType = wg->getMicType();
 
     Microphone *mic = new Microphone(0, micModel, micType);
     bool succ = true;
-    kDebug() << "Calling server to get or create mic";
+    qDebug() << "Calling server to get or create mic";
     qint32 id = SSCDAccessSingleton::getInstance()->getOrCreateMicrophone(mic, &succ);
 
     if (!succ) {
       fprintf(stderr, "failed to get / create microphone\n");
-      kDebug() << "Failed...";
+      qDebug() << "Failed...";
       ok = false;
     }
 
-    kDebug() << "Got id for mic: " << id;
+    qDebug() << "Got id for mic: " << id;
 
     microphones.insert(device, mic);
   }
@@ -160,7 +159,7 @@ QHash<QString, SoundCard*> DeviceInformationPage::buildSoundCardMappings(bool &o
       ok = false;
     }
 
-    kDebug() << "Got id for sound card: " << id;
+    qDebug() << "Got id for sound card: " << id;
 
     soundCards.insert(device, soundCard);
   }

@@ -24,13 +24,12 @@
 #include <sscobjects/institution.h>
 #include <QSortFilterProxyModel>
 #include <KInputDialog>
-#include <KDebug>
-#include <KMessageBox>
-#include <KDialogButtonBox>
+#include <QDebug>
 #include <sscdaccess/sscdaccesssingleton.h>
+#include <KWidgetsAddons/KMessageBox>
 
 ManageInstitutions::ManageInstitutions(QWidget* parent) :
-KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
+QDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
@@ -39,7 +38,10 @@ KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
   proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
   proxyModel->setFilterKeyColumn(1);
 
-  setMainWidget( widget );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
 
   //	connect(ui.leSurname, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
 
@@ -49,7 +51,7 @@ KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
 
   connect(ui.leInstitutionName, SIGNAL(returnPressed(QString)), proxyModel, SLOT(setFilterRegExp(QString)));
   connect(ui.pbFilter, SIGNAL(clicked()), this, SLOT(filter()));
-  setCaption( i18n("Institutions") );
+  setWindowTitle( i18n("Institutions") );
 
   ui.tvInstitutions->setSelectionBehavior(QAbstractItemView::SelectRows);
   ui.tvInstitutions->setSortingEnabled(true);
@@ -150,7 +152,7 @@ int ManageInstitutions::exec()
 {
   updateList();
   ui.wgModify->show();
-  return KDialog::exec();
+  return QDialog::exec();
 }
 
 
@@ -158,7 +160,7 @@ Institution* ManageInstitutions::getInstitution()
 {
   updateList();
   ui.wgModify->hide();
-  int ret = KDialog::exec();
+  int ret = QDialog::exec();
   if (ret) {
     return getCurrentlySelectedInstitution();
   }

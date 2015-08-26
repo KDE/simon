@@ -21,8 +21,8 @@
 #define SIMON_SIMONCONTEXTDETECTION_EXPORT_H_F1032DFE61FA42E3B31933515AF33099
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
-#include <KDE/KGenericFactory>
+#include <KDELibs4Support/kdemacros.h>
+#include <KDELibs4Support/KDE/KGenericFactory>
 
 #ifndef SIMONCONTEXTDETECTION_EXPORT
 # if defined(MAKE_SIMONCONTEXTDETECTION_LIB)

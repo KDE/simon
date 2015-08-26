@@ -19,12 +19,12 @@
 
 #include "fileutils.h"
 
-#include <KTar>
-#include <KDebug>
+#include <KArchive/KTar>
+#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QFileInfoList>
+#include <QString>
 
 bool FileUtils::removeDirRecursive(const QString &dirName)
 {
@@ -117,7 +117,7 @@ bool FileUtils::pack(const QString &targetArchive, const QHash<QString, QByteArr
 
 bool FileUtils::unpack(const QString &archive, const QString &targetDir, const QStringList &files)
 {
-  kDebug() << "Archive: " << archive << "Target dir: " << targetDir;
+  qDebug() << "Archive: " << archive << "Target dir: " << targetDir;
 
   if (!QFile::exists(archive)) return false;
 

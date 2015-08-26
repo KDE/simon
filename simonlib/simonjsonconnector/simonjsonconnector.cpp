@@ -23,8 +23,9 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QCoreApplication>
-#include <kio/accessmanager.h>
-#include <KDebug>
+#include <QObject>
+#include <QDebug>
+#include <KF5/KIOWidgets/kio/accessmanager.h>
 
 
 SimonJsonConnector* SimonJsonConnector::instance = 0;
@@ -36,7 +37,7 @@ SimonJsonConnector::SimonJsonConnector(QObject *parent) : QObject(parent), m_acc
   m_accessManager = new KIO::AccessManager(parent);
   connect(m_accessManager, SIGNAL(finished(QNetworkReply*)),
                     this, SLOT(requestFinished(QNetworkReply*)));
-  kDebug() << "Access manager: " << m_accessManager << "connecting...";
+  qDebug() << "Access manager: " << m_accessManager << "connecting...";
 }
 
 SimonJsonConnector* SimonJsonConnector::getInstance()
@@ -52,7 +53,7 @@ void SimonJsonConnector::requestFinished(QNetworkReply *reply)
 {
   if (!notificationReceivers.contains(reply))
   {
-    kDebug() << "Doesn't contain reply...";
+    qDebug() << "Doesn't contain reply...";
     return;
   }
 
@@ -71,10 +72,10 @@ bool SimonJsonConnector::sendRequest(const QString& host, int port, const QStrin
   QNetworkRequest networkRequest;
   QString urlSrc = "http://"+host+':'+QString::number(port)+'/'+url;
   networkRequest.setUrl(QUrl(urlSrc));
-  kDebug() << "Url: " << urlSrc;
+  qDebug() << "Url: " << urlSrc;
 
   QNetworkReply *reply = m_accessManager->post(networkRequest, request.toAscii());
-  kDebug() << "Request: " << request.toAscii();
+  qDebug() << "Request: " << request.toAscii();
 
   if (receiver)
     notificationReceivers.insert(reply, new JsonNotificationReceiver(receiver, slot));

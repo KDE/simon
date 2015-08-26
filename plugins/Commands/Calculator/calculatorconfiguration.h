@@ -23,7 +23,6 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_calculatorconfigurationdlg.h"
 #include <KSharedConfig>
-#include <QPointer>
 
 class CalculatorConfiguration : public CommandConfiguration
 {

@@ -19,10 +19,10 @@
 
 #include "keyboardsetcontainer.h"
 #include <QString>
-#include <QList>
 #include <QFile>
-#include <KDebug>
-#include <KStandardDirs>
+#include <QDebug>
+#include <QStandardPaths>
+
 
 KeyboardSetContainer::KeyboardSetContainer()
 {
@@ -92,8 +92,8 @@ bool KeyboardSetContainer::loadFromFile(const QString& path)
 bool KeyboardSetContainer::deSerialize(const QDomElement& setsElem)
 {
   if (setsElem.isNull()) {
-    kDebug() << "Should load defaults";
-    return loadFromFile(KStandardDirs::locate("appdata", "conf/keyboardsets.xml"));
+    qDebug() << "Should load defaults";
+    return loadFromFile(QStandardPaths::locate(QStandardPaths::DataLocation, "conf/keyboardsets.xml"));
   }
 
   return parseElement(setsElem);
@@ -248,6 +248,6 @@ bool KeyboardSetContainer::moveButtonDown(const QString& setName, const QString&
 
 KeyboardSetContainer::~KeyboardSetContainer()
 {
-  kDebug() << "Deleting set container!";
+  qDebug() << "Deleting set container!";
   qDeleteAll(setList);
 }

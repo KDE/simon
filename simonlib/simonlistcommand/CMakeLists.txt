@@ -8,13 +8,13 @@ set(simonlistcommand_LIB_HDRS
   commandlistwidget.h
 )
 
-kde4_add_ui_files(simonlistcommand_LIB_SRCS 
+ki18n_wrap_ui(simonlistcommand_LIB_SRCS
   listcommand.ui
 )
 
 kde4_add_library(simonlistcommand SHARED ${simonlistcommand_LIB_SRCS})
 
-target_link_libraries(simonlistcommand ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} simonactions simonscenarios)
+target_link_libraries(simonlistcommand ${QT_LIBRARIES}  simonactions simonscenarios)
 
 set_target_properties(simonlistcommand
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

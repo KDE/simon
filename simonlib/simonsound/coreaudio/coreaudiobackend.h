@@ -23,7 +23,6 @@
 #include <simonsound/simonsound.h>
 #include <simonsound/soundbackend.h>
 #include <QStringList>
-#include <QMutex>
 
 struct AQRecorderState;
 

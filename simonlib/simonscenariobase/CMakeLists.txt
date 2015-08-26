@@ -10,7 +10,7 @@ set(simonscenariobase_LIB_HDRS
 )
 
 kde4_add_library(simonscenariobase SHARED ${simonscenariobase_LIB_SRCS})
-target_link_libraries(simonscenariobase ${QT_LIBRARIES} ${QT_QTXML_LIBRARY} ${KDE4_KDECORE_LIBS})
+target_link_libraries(simonscenariobase ${QT_LIBRARIES} Qt5::Xml KF5::KDELibs4Support)
 
 set_target_properties(simonscenariobase
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

@@ -22,29 +22,25 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-#include <QTranslator>
-#include <QLocale>
-#ifndef Q_OS_WIN32
-#include <KUniqueApplication>
-#else
-#include <KApplication>
-#endif
-#include <KAboutData>
-#include <KCmdLineArgs>
+#include <KDELibs4Support/KDE/KUniqueApplication>
+#include <K4AboutData>
+
 #include "version.h"
 
-#include <KDebug>
+#include <QDebug>
+#include <QCommandLineParser>
+#include <QCommandLineOption>
+#include <KCmdLineOptions>
+#include <KCmdLineArgs>
+#include <QtGlobal>
 
 #ifdef Q_WS_X11
 #include <X11/Xlib.h>
 #endif
 
 class SimonApplication :
-#ifndef Q_OS_WIN32
-public KUniqueApplication
-#else
+//QT5TODO: Uniqueness like KUniqueApplication must now be implemented manually via dbus.
 public KApplication
-#endif
 {
   public:
   #ifdef Q_WS_X11
@@ -62,7 +58,9 @@ public KApplication
 
 int main(int argc, char *argv[])
 {
-  KAboutData aboutData( "simon", 0,
+
+    qSetMessagePattern("[%{appname} %{type}] %{message}%{if-warning}\n\t\t%{function} \t @ %{file}:%{line}%{endif}%{if-critical}%{backtrace}%{endif}");
+    K4AboutData aboutData( "simon", 0,
     ki18n("Simon"), simon_version,
     ki18n("<html><head /><body>"
           "<h2>Development and Distribution</h2>"
@@ -72,7 +70,7 @@ int main(int argc, char *argv[])
           "<h3>Special Thanks To</h3>"
           "<ul><li>Franz Stieger</li><li>Mathias Stieger</li><li>Phillip Theussl</li><li>Moacyr Prado</li><li>Michael Stieger</li><li>Ralf Herzog</li></ul>"
           "</body></html>"),
-          KAboutData::License_GPL,
+          K4AboutData::License_GPL,
           ki18n("Copyright (c) 2008-2012 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl, Adam Nash, Frederik Gladhorn, Patrick von Reth, Alessadro Buggin, Mario Strametz, Vladislav Sitalo, Yash Shah") );
 
   KCmdLineOptions options;
@@ -82,10 +80,11 @@ int main(int argc, char *argv[])
   KCmdLineArgs::init(argc, argv, &aboutData);
 
   SimonApplication app;
-  app.setWindowIcon(KIcon("simon"));
+  app.setWindowIcon(QIcon("simon"));
   app.addLibraryPath(app.applicationDirPath()+"/plugins");
 
   SimonView *pv = new SimonView();
+
 
   Q_UNUSED(pv);
   int ret= app.exec();

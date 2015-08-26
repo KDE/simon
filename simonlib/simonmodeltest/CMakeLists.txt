@@ -23,7 +23,7 @@ if(${BackendType} STREQUAL both)
 endif()
 
 kde4_add_library(simonmodeltest SHARED ${simonmodeltest_LIB_SRCS})
-target_link_libraries(simonmodeltest ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} simonlogging 
+target_link_libraries(simonmodeltest ${QT_LIBRARIES}  simonlogging
   simonrecognitionresult simonrecognizer)
 
 
@@ -38,4 +38,4 @@ install(FILES ${simonmodeltest_LIB_HDRS}
 
 install(TARGETS simonmodeltest DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT sam)
 
-add_subdirectory(test)
+# add_subdirectory(test)

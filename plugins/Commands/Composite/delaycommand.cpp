@@ -18,9 +18,8 @@
  */
 
 #include "delaycommand.h"
-#include <KIcon>
-#include <KLocalizedString>
-#include <QObject>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
 #include <QVariant>
 #include <QDomDocument>
 #include <QDomElement>
@@ -43,13 +42,13 @@ const QString DelayCommand::getCategoryText() const
 }
 
 
-const KIcon DelayCommand::staticCategoryIcon()
+const QIcon DelayCommand::staticCategoryIcon()
 {
-  return KIcon("chronometer");
+  return QIcon::fromTheme("chronometer");
 }
 
 
-const KIcon DelayCommand::getCategoryIcon() const
+const QIcon DelayCommand::getCategoryIcon() const
 {
   return DelayCommand::staticCategoryIcon();
 }

@@ -35,6 +35,7 @@
 #include <ctype.h>
 #endif
 #include <cstdlib>
+#include <QTime>
 
 //A much faster replacement of regExp.exactMatch(str)
 //it also captures the words corresponding to the wildcards * & _

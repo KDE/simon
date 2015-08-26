@@ -18,7 +18,7 @@
  */
 
 #include "recognitionresult.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 QString RecognitionResult::toString() const
 {

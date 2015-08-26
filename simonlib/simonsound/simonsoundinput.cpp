@@ -22,8 +22,8 @@
 #include <simonsound/soundserver.h>
 #include <simonsound/soundbackend.h>
 
-#include <KDebug>
-#include <KLocalizedString>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
 #include "soundinputbuffer.h"
 
 SimonSoundInput::SimonSoundInput(QObject *parent) : QObject(parent),
@@ -66,11 +66,11 @@ void SimonSoundInput::processData(const QByteArray& data)
 
 bool SimonSoundInput::prepareRecording(SimonSound::DeviceConfiguration& device)
 {
-  kDebug() << "Starting recording";
+  qDebug() << "Starting recording";
   int channels = device.channels();
   int sampleRate = device.sampleRate();
   if (!m_input->prepareRecording(device.name(), channels, sampleRate)) {
-    kWarning() << "Failed to setup recording...";
+    qWarning() << "Failed to setup recording...";
     return false;
   }
   //TODO: move channels / samplerate to member
@@ -87,7 +87,7 @@ bool SimonSoundInput::startRecording()
   m_buffer = new SoundInputBuffer(this);
 
   m_input->startRecording(this);
-  kDebug() << "Started audio input";
+  qDebug() << "Started audio input";
   return true;
 }
 
@@ -134,7 +134,7 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client, bool& done
 {
   m_lock.lock();
 
-  kDebug() << "Deregistering input client";
+  qDebug() << "Deregistering input client";
 
   bool success = true;
   if (m_activeInputClients.remove(client) == 0) {
@@ -145,7 +145,7 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client, bool& done
                                                   //do not need to record any longer
   if (m_activeInputClients.isEmpty() && m_suspendedInputClients.isEmpty()) {
     //then stop recording
-    kDebug() << "No active clients available... Stopping recording";
+    qDebug() << "No active clients available... Stopping recording";
     m_dying = true;
     m_lock.unlock();
     success = stopRecording();
@@ -179,7 +179,7 @@ SoundClient::SoundClientPriority SimonSoundInput::getHighestPriority()
 bool SimonSoundInput::activate(SoundClient::SoundClientPriority priority)
 {
   QMutexLocker l(&m_lock);
-  kDebug() << "Activating priority: " << priority;
+  qDebug() << "Activating priority: " << priority;
   bool activated = false;
   QHashIterator<SoundInputClient*, qint64> j(m_activeInputClients);
   while (j.hasNext()) {
@@ -192,7 +192,7 @@ bool SimonSoundInput::activate(SoundClient::SoundClientPriority priority)
       }
     }
     if (j.key()->priority() < priority) {
-      kDebug() << "Suspending key...";
+      qDebug() << "Suspending key...";
       suspend(j.key());
     }
   }
@@ -218,7 +218,7 @@ bool SimonSoundInput::activate(SoundClient::SoundClientPriority priority)
 void SimonSoundInput::slotInputStateChanged(SimonSound::State state)
 {
   QMutexLocker l(&m_lock);
-  kDebug() << "Input state changed: " << state;
+  qDebug() << "Input state changed: " << state;
 
   QList<SoundInputClient*> activeInputClientsKeys = m_activeInputClients.keys();
   foreach (SoundInputClient *c, activeInputClientsKeys)
@@ -227,7 +227,7 @@ void SimonSoundInput::slotInputStateChanged(SimonSound::State state)
   if (state == SimonSound::IdleState) {
     switch (m_input->error()) {
       case SimonSound::NoError:
-        kDebug() << "Input stopped without error";
+        qDebug() << "Input stopped without error";
         break;
       case SimonSound::OpenError:
         emit error(i18n("Failed to open the input audio device.\n\nPlease check your sound configuration."));
@@ -255,15 +255,15 @@ void SimonSoundInput::slotInputStateChanged(SimonSound::State state)
 
 bool SimonSoundInput::stopRecording()
 {
-  kDebug() << "Stopping recording";
+  qDebug() << "Stopping recording";
   if (!m_input || (m_input->state() == SimonSound::IdleState))
     return true;
 
   m_input->stopRecording();
 
-  kDebug() << "Now stopping buffer";
+  qDebug() << "Now stopping buffer";
   killBuffer();
-  kDebug() << "Done";
+  qDebug() << "Done";
 
   return true;
 }
@@ -281,7 +281,7 @@ void SimonSoundInput::killBuffer()
 SimonSoundInput::~SimonSoundInput()
 {
   if (m_input->state() != SimonSound::IdleState) {
-    kDebug() << "Deleting for some reason";
+    qDebug() << "Deleting for some reason";
     stopRecording();
   }
 

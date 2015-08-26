@@ -24,19 +24,20 @@
 #include <simonscenarios/author.h>
 #include <simonscenariobase/versionnumber.h>
 
-#include <QDateTime>
+#include <KWidgetsAddons/KMessageBox>
 
-#include <KIcon>
-#include <KMessageBox>
-#include <KDialogButtonBox>
+#include <QIcon>
 
 NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
 
-  setMainWidget( widget );
-  setCaption( i18n("Scenario") );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Scenario") );
 
   connect(ui.leName, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToScenarioName(QString)));
   connect(ui.leName, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
@@ -47,8 +48,8 @@ NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
   connect(ui.pbRemoveAuthor, SIGNAL(clicked()), this, SLOT(removeAuthor()));
 
   checkIfComplete();
-  ui.pbAddAuthor->setIcon(KIcon("list-add"));
-  ui.pbRemoveAuthor->setIcon(KIcon("list-remove"));
+  ui.pbAddAuthor->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbRemoveAuthor->setIcon(QIcon::fromTheme("list-remove"));
 }
 
 
@@ -59,7 +60,8 @@ void NewScenario::checkIfComplete()
     ! ui.leMinVersion->text().isEmpty() &&
     ! m_authors.isEmpty();
 
-  enableButtonOk(complete);
+  //QT5TODO: Check
+  // okButton->setEnabled(complete);
 }
 
 
@@ -73,8 +75,8 @@ QString NewScenario::createId()
 void NewScenario::setWindowTitleToScenarioName(QString name)
 {
   if (!name.isEmpty())
-    setCaption(i18nc("%1 is scenario name", "Scenario: %1", name));
-  else setCaption(i18n("Scenario"));
+    setWindowTitle(i18nc("%1 is scenario name", "Scenario: %1", name));
+  else setWindowTitle(i18n("Scenario"));
 }
 
 
@@ -117,7 +119,7 @@ void NewScenario::updateAuthorDisplay()
 
 int NewScenario::exec()
 {
-  return KDialog::exec();
+  return QDialog::exec();
 }
 
 
@@ -196,7 +198,7 @@ Scenario* NewScenario::editScenario(Scenario *s)
 
   bool success = s->init();
 
-  kDebug() << "Scenario initialized: " << success;
+  qDebug() << "Scenario initialized: " << success;
   if (!success)
     KMessageBox::sorry(this, i18n("Original scenario could not be read.\n\n"
       "If you continue, all data (vocabulary, grammar, commands, training "

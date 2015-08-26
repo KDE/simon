@@ -9,13 +9,15 @@ set (simonatspiscannertest_SRC
   ../atspiscanner.cpp
 )
 
-kde4_add_unit_test(simonatspicommandplugin-scanner TESTNAME
+add_executable(simonatspicommandplugin-scanner
   simonatspicommandplugin-scanner
   ${simonatspiscannertest_SRC}
 )
+add_test(simonatspicommandplugin simonatspicommandplugin)
+ecm_mark_as_test(simonatspicommandplugin)
 
 
 target_link_libraries( simonatspicommandplugin-scanner
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY}
-  ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
+  KF5::KDELibs4Support Qt5::Test
+   Qt5::Xml
   ${QACCESSIBILITYCLIENT_LIBRARY} simonscenarios simonactions)

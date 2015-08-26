@@ -9,7 +9,7 @@ set(simonjsonconnector_LIB_HDRS
 )
 
 kde4_add_library(simonjsonconnector SHARED ${simonjsonconnector_LIB_SRCS})
-target_link_libraries(simonjsonconnector ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS})
+target_link_libraries(simonjsonconnector ${QT_LIBRARIES} KF5::KDELibs4Support)
 
 set_target_properties(simonjsonconnector
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

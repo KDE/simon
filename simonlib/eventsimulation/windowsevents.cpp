@@ -18,9 +18,7 @@
  */
 
 #include "windowsevents.h"
-#include <QCoreApplication>
 #include <QChar>
-#include <KMessageBox>
 #include <ctype.h>
 #include <windows.h>
 #include <winuser.h>

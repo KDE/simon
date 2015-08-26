@@ -19,7 +19,7 @@
 
 #include "trainingtextcollection.h"
 #include "scenario.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 /**
  * Empty, private constructor
@@ -50,11 +50,11 @@ bool TrainingTextCollection::deSerialize(const QDomElement& textsElem)
   while (!textElem.isNull()) {
     TrainingText *t = TrainingText::createTrainingText(parentScenario, textElem);
     if (!t) {
-      kDebug() << "Could not load trainingtext";
+      qDebug() << "Could not load trainingtext";
     }
     else {
       m_texts << t;
-      kDebug() << "Trainingtext loaded: " << t->getName();
+      qDebug() << "Trainingtext loaded: " << t->getName();
     }
     textElem = textElem.nextSiblingElement();
   }

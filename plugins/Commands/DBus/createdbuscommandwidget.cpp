@@ -19,7 +19,6 @@
 
 #include "createdbuscommandwidget.h"
 #include "dbuscommand.h"
-#include <KLineEdit>
 
 CreateDBusCommandWidget::CreateDBusCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
 {

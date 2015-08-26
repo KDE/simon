@@ -18,7 +18,7 @@
  */ 
 
 #include "sphinxrecognitionconfiguration.h"
-#include <KDebug>
+#include <QDebug>
 
 QStringList SphinxRecognitionConfiguration::toArgs()
 {
@@ -33,10 +33,10 @@ QStringList SphinxRecognitionConfiguration::toArgs()
 
 cmd_ln_t* SphinxRecognitionConfiguration::getSphinxConfig()
 {
-  kDebug()<<"Creating sphinx configuration";
-  kDebug()<<m_ModelDir;
-  kDebug()<<m_Grammar;
-  kDebug()<<m_Dictionary;
+  qDebug()<<"Creating sphinx configuration";
+  qDebug()<<m_ModelDir;
+  qDebug()<<m_Grammar;
+  qDebug()<<m_Dictionary;
   QByteArray model = m_ModelDir.toUtf8();
   QByteArray grammar = m_Grammar.toUtf8();
   QByteArray dict = m_Dictionary.toUtf8();

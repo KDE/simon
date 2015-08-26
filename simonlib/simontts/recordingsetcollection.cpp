@@ -23,7 +23,7 @@
 #include <QFile>
 #include <QDir>
 #include <QDomDocument>
-#include <KTar>
+#include <KArchive/KTar>
 
 RecordingSetCollection::RecordingSetCollection()
 {
@@ -110,10 +110,10 @@ bool RecordingSetCollection::exportSet(const QString& path, int setId) const
   QDomElement rootElem = doc.createElement("ttssets");
   rootElem.appendChild(elem);
   doc.appendChild(rootElem);
-  
+
   QByteArray data = doc.toString().toUtf8();
 
-  QString dataDir = KStandardDirs::locateLocal("tmp", "simontts/ttsrec/export/");
+  QString dataDir = QDir::tempPath() + QLatin1Char('/') +  "simontts/ttsrec/export/";
 
   if (!set->exportData(dataDir))
     return false;
@@ -121,7 +121,7 @@ bool RecordingSetCollection::exportSet(const QString& path, int setId) const
   KTar tar(path, "application/x-gzip");
   if (!tar.open(QIODevice::WriteOnly))
   {
-    kDebug() << "Couldn't open output archive" << path;
+    qDebug() << "Couldn't open output archive" << path;
     return false;
   }
 
@@ -137,7 +137,7 @@ bool RecordingSetCollection::exportSet(const QString& path, int setId) const
     QFile f(dataDir+file);
     if (!f.open(QIODevice::ReadOnly))
     {
-      kDebug() << "Couldn't read: " << file;
+      qDebug() << "Couldn't read: " << file;
       succ = false;
       continue;
     }
@@ -156,12 +156,12 @@ bool RecordingSetCollection::importSet(const QString& path)
   KTar tar(path, "application/x-gzip");
   if (!tar.open(QIODevice::ReadOnly))
   {
-    kDebug() << "Couldn't open input archive: " << path;
+    qDebug() << "Couldn't open input archive: " << path;
     return false;
   }
   const KArchiveDirectory *directory = tar.directory();
   if (!directory) return false;
-  QString importDirectory = KStandardDirs::locateLocal("tmp", "simontts/ttsrec/import/");
+  QString importDirectory = QDir::tempPath() + QLatin1Char('/') +  "simontts/ttsrec/import/";
   directory->copyTo(importDirectory);
 
 
@@ -224,7 +224,7 @@ RecordingSet* RecordingSetCollection::getSet(int id) const
 QList<RecordingSet*> RecordingSetCollection::getActiveSets()
 {
   int activeSetId = TTSConfiguration::activeSet();
-  kDebug() << "Active set: " << activeSetId;
+  qDebug() << "Active set: " << activeSetId;
   QList<RecordingSet*> activeSets;
   RecordingSet *activeSet = getSet(activeSetId);
   if (activeSet)
@@ -232,7 +232,7 @@ QList<RecordingSet*> RecordingSetCollection::getActiveSets()
 
   if (TTSConfiguration::useRecordingsAcrossSets())
   {
-    kDebug() << "Using recordings acorss sets";
+    qDebug() << "Using recordings acorss sets";
     foreach (RecordingSet *s, m_sets)
       if (s != activeSet)
         activeSets << s;
@@ -278,7 +278,7 @@ bool RecordingSetCollection::removeSet(int id)
   if (!set || !set->clear()) return false;
   m_sets.removeAll(set);
   m_setsScheduledForDeletion << set;
-  kDebug() << "Scheduling set for deletion";
+  qDebug() << "Scheduling set for deletion";
   return true;
 }
 
@@ -287,7 +287,7 @@ bool RecordingSetCollection::purgeSelectedSets()
   bool succ = true;
   foreach (RecordingSet* set, m_setsScheduledForDeletion)
   {
-    kDebug() << "Purging set";
+    qDebug() << "Purging set";
     succ = set->applyTemp() && succ;
     m_setsScheduledForDeletion.removeAll(set);
     delete set;

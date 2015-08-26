@@ -15,7 +15,7 @@
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */ 
+ */
 
 #include "sphinxrecognizer.h"
 #include "sphinxrecognitionconfiguration.h"
@@ -24,14 +24,15 @@
 #include <cstdlib>
 #include <stdexcept>
 
+#include <QDir>
 #include <QUuid>
 #include <QFile>
-#include <KDebug>
-#include <KDE/KLocalizedString>
-#include <KDE/KStandardDirs>
+#include <KDELibs4Support/KDE/KDebug>
+#include <KDELibs4Support/KDE/KLocalizedString>
+
 
 SphinxRecognizer::SphinxRecognizer():
-    logPath(KStandardDirs::locateLocal("tmp", QLatin1String("pocketsphinx_log_")+QUuid::createUuid().toString())),
+    logPath(QDir::tempPath() + QLatin1Char('/') +  QLatin1String("pocketsphinx_log_")+QUuid::createUuid().toString()),
     decoder(0)
 {
 }
@@ -50,7 +51,7 @@ QByteArray SphinxRecognizer::getLog()
 
 bool SphinxRecognizer::init(RecognitionConfiguration *config)
 {
-  kDebug()<<"SPHINX Initialization";
+  qDebug()<<"SPHINX Initialization";
 
   if (!uninitialize())
     return false;
@@ -114,7 +115,7 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
     return recognitionResults;
   }
 
-  kDebug()<<"Recognition checkpoint";
+  qDebug()<<"Recognition checkpoint";
 
   int score;
   char const *hyp;
@@ -149,14 +150,14 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
   recognitionResults.append(res); //TODO: Find how to get SAMPA, using sphinx..
   recognitionResults.append(res); //WARNING: some magic
 
-  kDebug()<<"Got hypothesis: " <<QString::fromUtf8(hyp);
+  qDebug()<<"Got hypothesis: " <<QString::fromUtf8(hyp);
 
   return recognitionResults;
 }
 
 bool SphinxRecognizer::uninitialize()
 {
-  kDebug()<<"SPHINX uninitialization";
+  qDebug()<<"SPHINX uninitialization";
   log.clear();
 
   if(decoder) {

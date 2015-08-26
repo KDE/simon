@@ -20,8 +20,9 @@
 #ifndef SIMON_SELECTPLACEDIALOG_H_F9E2066E505F4530AAC69899C0D1DD4A
 #define SIMON_SELECTPLACEDIALOG_H_F9E2066E505F4530AAC69899C0D1DD4A
 
-#include <KDialog>
-#include <KUrl>
+#include <QDialog>
+#include <QUrl>
+#include <KDELibs4Support/KDE/KDialog>
 
 #include "ui_selectplacedlg.h"
 
@@ -47,7 +48,7 @@ class SelectPlaceDialog : public KDialog
     void buildRemoteUrl();
     void parseRemoteUrl();
     QString getName() const;
-    KUrl getUrl() const;
+    QUrl getUrl() const;
     void initializeDialog();
     bool isComplete() const;
     void checkComplete();

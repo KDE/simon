@@ -21,12 +21,11 @@
 #define SIMON_SSCVIEW_H_07C486DEC8C343548F4D205AB7A8C741
 
 #include <KXmlGuiWindow>
-#include <QProcess>
 #include "ui_main.h"
 #include <sscdaccess/sscdaccess.h>
 
 class User;
-class KAction;
+class QAction;
 class QCloseEvent;
 class KCMultiDialog;
 class TrainingsWizard;

@@ -23,7 +23,7 @@
 
 #include <QString>
 #include <QDomElement>
-#include <KPushButton>
+#include <QPushButton>
 
 class QDomDocument;
 
@@ -38,7 +38,7 @@ namespace Keyboard
 }
 
 
-class KeyboardButton : public KPushButton
+class KeyboardButton : public QPushButton
 {
   Q_OBJECT
 

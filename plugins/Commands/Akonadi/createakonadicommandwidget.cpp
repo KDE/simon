@@ -20,9 +20,8 @@
 #include "createakonadicommandwidget.h"
 #include "akonadicommand.h"
 #include <simonactions/actionmanager.h>
-#include <KLineEdit>
-#include <KMessageBox>
 #include <akonadi/attribute.h>
+#include <KWidgetsAddons/KMessageBox>
 
 CreateAkonadiCommandWidget::CreateAkonadiCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
 allCommands(ActionManager::getInstance()->getCommandList())

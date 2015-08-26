@@ -26,7 +26,7 @@
 class QProgressBar;
 class QLabel;
 class ImportDict;
-class KUrl;
+class QUrl;
 
 /**
  \class ImportDictWorkingPage
@@ -47,7 +47,7 @@ class ImportDictWorkingPage : public QWizardPage
     ImportDict *import;                           //!< Underlying concept class
     QLabel *lbStatus;
     bool ready;
-    QString prepareDict(KUrl url);
+    QString prepareDict(QUrl url);
 
   private slots:
     void setCompleted() { ready=true; emit completeChanged(); }

@@ -12,8 +12,8 @@ set(simoncontextadapter_LIB_HDRS
 )
 
 kde4_add_library(simoncontextadapter  SHARED ${simoncontextadapter_LIB_SRCS})
-target_link_libraries(simoncontextadapter ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} 
-  ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS} simonmodelcompilation simonscenarios
+target_link_libraries(simoncontextadapter ${QT_LIBRARIES} KF5::KDELibs4Support
+  Qt5::Xml  simonmodelcompilation simonscenarios
 )
 
 set_target_properties(simoncontextadapter PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})

@@ -18,9 +18,8 @@
  */
 
 #include "commandmodel.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KLocale>
-#include <QMutexLocker>
 
 CommandModel::CommandModel(CommandList CL)
 : commands(CL)
@@ -118,7 +117,7 @@ const QModelIndex &parent) const
   }
   else {
     QStringList cats = getCategories(commands);
-    return createIndex(row, column, 0);
+    return createIndex(row, column, nullptr); //QT5TODO: check this
   }
 
   return QModelIndex();

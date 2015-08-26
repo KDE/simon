@@ -70,13 +70,13 @@ set(simonsound_LIB_HDRS
   soundprocessor.h
   loudnessmetersoundprocessor.h
   vadsoundprocessor.h
-  
+
   trainsamplevolumepage.h
 )
 
-kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
+kconfig_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
 
-kde4_add_ui_files(simonsound_LIB_SRCS
+ki18n_wrap_ui(simonsound_LIB_SRCS
   prompt.ui
   vad.ui
   postprocessing.ui
@@ -88,20 +88,18 @@ kde4_add_ui_files(simonsound_LIB_SRCS
   trainingsettings.ui
 )
 
-kde4_add_ui_files(simonsound_LIB_SRCS deviceconfiguration.ui singledeviceconfiguration.ui)
+ki18n_wrap_ui(simonsound_LIB_SRCS deviceconfiguration.ui singledeviceconfiguration.ui)
 kde4_add_library(simonsound SHARED ${simonsound_LIB_SRCS})
 
 if(LIBSAMPLERATE_FOUND)
-  target_link_libraries(simonsound ${QT_LIBRARIES} ${plattformLibraries}
-    simonlogging simonuicomponents simoncontextcoreui simoncontextdetection
-    simonwav ${QT_QTXML_LIBRARY}
+  target_link_libraries(simonsound ${QT_LIBRARIES} ${plattformLibraries} Qt5::Core Qt5::Xml KF5::KDELibs4Support
+    simonlogging simonuicomponents simoncontextcoreui simoncontextdetection simonwav
     ${LIBSAMPLERATE_LIBRARY}
-    ${KDE4_KDEUI_LIBS})
+    )
 else()
-  target_link_libraries(simonsound ${QT_LIBRARIES} ${plattformLibraries}
-    simonlogging simonuicomponents simoncontextcoreui simoncontextdetection
-    simonwav ${QT_QTXML_LIBRARY}
-    ${KDE4_KDEUI_LIBS})
+  target_link_libraries(simonsound ${QT_LIBRARIES} ${plattformLibraries} Qt5::Core Qt5::Xml KF5::KDELibs4Support
+    simonlogging simonuicomponents simoncontextcoreui simoncontextdetection simonwav
+    )
 endif()
 
 set_target_properties(simonsound PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
@@ -117,16 +115,16 @@ set(kcm_simonsound_LIB_SRCS
   samplegroupitemdelegate.cpp
 )
 
-kde4_add_ui_files(kcm_simonsound_LIB_SRCS samplegroupcontextsettings.ui)
-kde4_add_kcfg_files(kcm_simonsound_LIB_SRCS soundconfig.kcfgc)
+ki18n_wrap_ui(kcm_simonsound_LIB_SRCS samplegroupcontextsettings.ui)
+kconfig_add_kcfg_files(kcm_simonsound_LIB_SRCS soundconfig.kcfgc)
 
-kde4_add_plugin(simonsoundkcm ${kcm_simonsound_LIB_SRCS})
-target_link_libraries(simonsoundkcm ${KDE4_KDEUI_LIBS} 
+kde4_add_library(simonsoundkcm MODULE ${kcm_simonsound_LIB_SRCS})
+target_link_libraries(simonsoundkcm
   simonsound simonuicomponents simoncontextcoreui simoncontextdetection
-  simonscenarios ${QT_QTXML_LIBRARY}
+  simonscenarios Qt5::Core Qt5::Xml KF5::WidgetsAddons KF5::KDELibs4Support
 )
 
 install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncore)
 install(FILES simonsoundconfig.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncore)
 
-add_subdirectory(test)
+# add_subdirectory(test)

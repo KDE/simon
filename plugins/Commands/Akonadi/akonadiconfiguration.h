@@ -23,9 +23,6 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_akonadiconfigurationdlg.h"
 #include <KSharedConfig>
-#include <QPointer>
-#include <QPoint>
-#include <QSize>
 #include <akonadi/entity.h>
 
 class DialogBoundValues;
@@ -33,7 +30,7 @@ class DialogTemplateOptions;
 class AkonadiSetContainer;
 class AkonadiCommandManager;
 class KJob;
-class KProgressDialog;
+class QProgressDialog;
 class QShowEvent;
 class AvatarConfiguration;
 class BoundValuesConfiguration;
@@ -49,7 +46,7 @@ class AkonadiConfiguration : public CommandConfiguration
     Ui::AkonadiConfigurationDlg ui;
     AkonadiCommandManager *m_manager;
     int collectionIndexToSelect;
-    KProgressDialog *fetchCollectionsDialog;
+    QProgressDialog *fetchCollectionsDialog;
     
     BoundValuesConfiguration *boundValuesConfig;
     TemplateOptionsConfiguration *templateOptionsConfig;

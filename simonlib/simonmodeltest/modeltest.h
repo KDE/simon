@@ -25,7 +25,6 @@
 #include <simonrecognizer/recognitionconfiguration.h>
 #include "simonmodeltest_export.h"
 #include <QThread>
-#include <QProcess>
 #include <QHash>
 
 class RecognizerResult;

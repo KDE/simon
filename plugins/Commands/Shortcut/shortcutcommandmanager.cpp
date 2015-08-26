@@ -22,14 +22,14 @@
 #include <simonscenarios/scenario.h>
 #include "shortcutcommand.h"
 #include "createshortcutcommandwidget.h"
-#include <KLocalizedString>
-#include <KStandardDirs>
+#include <KI18n/klocalizedstring.h>
+
 
 K_PLUGIN_FACTORY( ShortcutCommandPluginFactory,
 registerPlugin< ShortcutCommandManager >();
 )
 
-K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("simonshortcutcommand") )
+// K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("simonshortcutcommand") )
 
 ShortcutCommandManager::ShortcutCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
@@ -65,3 +65,5 @@ DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(ShortcutCommandManager, ShortcutCommand)
 ShortcutCommandManager::~ShortcutCommandManager ()
 {
 }
+
+#include "shortcutcommandmanager.moc"

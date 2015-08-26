@@ -19,7 +19,6 @@
 
 #ifndef SIMON_ACTIONCOMMANDMODEL_H_3EBF59D79A3C46A1B84DE19FA1269213
 #define SIMON_ACTIONCOMMANDMODEL_H_3EBF59D79A3C46A1B84DE19FA1269213
-#include <QString>
 #include <QAbstractItemModel>
 #include "actioncollection.h"
 #include "simonmodelmanagement_export.h"

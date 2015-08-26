@@ -17,20 +17,25 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+
+//XXX: A new version of qwt will make this unnecessary
+#define QT_STATIC_CONST static const
+
+
 #include "testresultplotter.h"
 #include "testresultwidget.h"
 #include "qwt_bars_item.h"
 #include "carraydata.h"
-#include "qwt_series_data.h"
-#include <qwt_plot.h>
-#include <qwt_legend.h>
-//#include <qwt_legend_item.h>
+#include <qwt/qwt_series_data.h>
+#include <qwt/qwt_plot.h>
+#include <qwt/qwt_legend.h>
+//#include <qwt/qwt_legend_item.h>
 #include <QStringList>
 
 #if QWT_VERSION >= 0x060100
-#include <qwt_column_symbol.h>
-#include <qwt_plot_layout.h>
-#include <qwt_scale_draw.h>
+#include <qwt/qwt_column_symbol.h>
+#include <qwt/qwt_plot_layout.h>
+#include <qwt/qwt_scale_draw.h>
 #endif
 
 void TestResultPlotter::plot(const QStringList& labels, const QList<double>& confidence, const QList<double>& accuracy, 

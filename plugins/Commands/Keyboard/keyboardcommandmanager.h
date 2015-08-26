@@ -23,10 +23,9 @@
 #include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
-#include <KXMLGUIClient>
 #include "ui_keyboardwidget.h"
 class QWidget;
-class KAction;
+class QAction;
 class KeyboardConfiguration;
 class KeyboardSet;
 class KeyboardSetContainer;
@@ -46,7 +45,7 @@ class KeyboardCommandManager : public CommandManager, public GreedyReceiver
     Ui::KeyboardDlg ui;
     QWidget *keyboardWidget;
     static QStringList numberIdentifiers;
-    KAction *activateAction;
+    QAction *activateAction;
 
     KeyboardSet *keyboardSet;
     KeyboardSetContainer *setContainer;

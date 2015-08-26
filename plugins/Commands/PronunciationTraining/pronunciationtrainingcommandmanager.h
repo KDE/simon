@@ -24,7 +24,7 @@
 
 #include <QVariantList>
 
-class KAction;
+class QAction;
 
 /**
  *	@class PronunciationTrainingCommandManager
@@ -59,7 +59,7 @@ class PronunciationTrainingCommandManager : public CommandManager
     ~PronunciationTrainingCommandManager();
 
   private:
-    KAction *activateAction;
+    QAction *activateAction;
 
 };
 #endif

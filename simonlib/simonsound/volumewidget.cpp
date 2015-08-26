@@ -23,8 +23,9 @@
 #include "soundserver.h"
 #include "ui_volumewidget.h"
 #include <simonsound/soundserver.h>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <QVBoxLayout>
+#include <QDebug>
 
 VolumeWidget::VolumeWidget(QWidget* parent, SoundClient::SoundClientPriority inputPriority) : QWidget(parent),
 ui(new Ui::VolumeWidgetUi()), priority(inputPriority)
@@ -44,7 +45,7 @@ void VolumeWidget::enablePrompt(bool enabled)
 void VolumeWidget::init()
 {
   bool wasStarted = ui->wgStart->isHidden();
-  kDebug() << "Reinitializing devices for volume widget";
+  qDebug() << "Reinitializing devices for volume widget";
   setPrompt(SoundConfiguration::volumePrompt());
   stop();
 

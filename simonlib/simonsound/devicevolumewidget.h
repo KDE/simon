@@ -23,7 +23,6 @@
 #include "simonsound_export.h"
 #include "soundclient.h"
 #include <QWidget>
-#include <QTimer>
 #include <QList>
 
 namespace Ui

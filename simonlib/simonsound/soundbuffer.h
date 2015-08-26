@@ -20,8 +20,6 @@
 #define SOUNDBUFFER_H
 
 #include <QThread>
-#include <QByteArray>
-#include <QMutex>
 #include "qsemaphore2.h"
 
 #define BUFFER_MAX_LENGTH 4*8192

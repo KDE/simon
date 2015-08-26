@@ -19,9 +19,6 @@
 
 #include "inlinewidgetview.h"
 #include "inlinewidget.h"
-#include <QTabBar>
-#include <QKeyEvent>
-#include <QCoreApplication>
 
 /**
  * \brief Constructor - inits the gui

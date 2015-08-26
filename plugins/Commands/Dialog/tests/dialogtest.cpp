@@ -22,7 +22,6 @@
 *********************/
 
 #include <QTest>
-#include <QtTestGui>
 #include <QSignalSpy>
 #include <QDomDocument>
 #include <QDomElement>
@@ -31,11 +30,10 @@
 #include <QTimer>
 #include <QVariant>
 #include <QWidget>
-#include <KApplication>
-#include <KCmdLineArgs>
-#include <KInputDialog>
-#include <KPushButton>
-#include <KLineEdit>
+#include <KDELibs4Support/kapplication.h>
+
+#include <QPushButton>
+#include <QLineEdit>
 #include <KIntSpinBox>
 #include <KComboBox>
 
@@ -108,7 +106,16 @@ void testDialog::initTestCase()
   strcpy(appName, "test");
   char **argv = new char*[1];
   *argv = appName;
-  KCmdLineArgs::init(1, argv, "test", "test", ki18n("appname"), "0.1");
+  KAboutData aboutData( QLatin1String("test"), i18n("appname"), QLatin1String("0.1"));
+    QApplication app(argc, argv);
+    QCommandLineParser parser;
+    KAboutData::setApplicationData(aboutData);
+    parser.addVersionOption();
+    parser.addHelpOption();
+    //PORTING SCRIPT: adapt aboutdata variable if necessary
+    aboutData.setupCommandLine(&parser);
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
 
   app = new KApplication(true);
   
@@ -298,11 +305,11 @@ void testDialog::fillInNewStateDialog()
 
   QWidget *dlg = app->activeModalWidget();
   QVERIFY(dlg);
-  KLineEdit *leTest = findChild<KLineEdit*>(dlg, "");
+  QLineEdit *leTest = findChild<QLineEdit*>(dlg, "");
   QVERIFY(leTest);
   QTest::keyClicks(leTest, "newState");
 
-  KPushButton *okButton = findChild<KPushButton*>(dlg, "");
+  QPushButton *okButton = findChild<QPushButton*>(dlg, "");
   QVERIFY(okButton);
   QTest::mouseClick(okButton, Qt::LeftButton);
 
@@ -317,11 +324,11 @@ void testDialog::fillInEditStateDialog()
 
   QWidget *dlg = app->activeModalWidget();
   QVERIFY(dlg);
-  KLineEdit *leTest = findChild<KLineEdit*>(dlg, "");
+  QLineEdit *leTest = findChild<QLineEdit*>(dlg, "");
   QVERIFY(leTest);
   QTest::keyClicks(leTest, "newStateNewName");
 
-  KPushButton *okButton = findChild<KPushButton*>(dlg, "");
+  QPushButton *okButton = findChild<QPushButton*>(dlg, "");
   QVERIFY(okButton);
   okButton->click();
 
@@ -339,7 +346,7 @@ void testDialog::fillInMessage()
   QTest::keyClicks(teText, "Message");
 
   int skip = 1;
-  KPushButton *okButton = findChild<KPushButton*>(dlg, "", &skip);
+  QPushButton *okButton = findChild<QPushButton*>(dlg, "", &skip);
   QVERIFY(okButton);
   okButton->click();
 
@@ -480,7 +487,7 @@ void testDialog::createTransition()
 
   QWidget *dlg = app->activeModalWidget();
   QVERIFY(dlg);
-  KLineEdit *leTrigger = findChild<KLineEdit*>(dlg, "leTrigger");
+  QLineEdit *leTrigger = findChild<QLineEdit*>(dlg, "leTrigger");
   QVERIFY(leTrigger);
   QTest::keyClicks(leTrigger, "Close");
 
@@ -513,7 +520,7 @@ void testDialog::editTransition()
 
   QWidget *dlg = app->activeModalWidget();
   QVERIFY(dlg);
-  KLineEdit *leTrigger = findChild<KLineEdit*>(dlg, "leTrigger");
+  QLineEdit *leTrigger = findChild<QLineEdit*>(dlg, "leTrigger");
   QVERIFY(leTrigger);
   QTest::keyClicks(leTrigger, "2");
 
@@ -619,7 +626,7 @@ void testDialog::testView()
   dialog->activate();
   QTest::qWait(1000);
   QWidget *visualView = getDialogView();
-  kDebug() << visualView;
+  qDebug() << visualView;
 
   QVERIFY(visualView);
 
@@ -627,9 +634,9 @@ void testDialog::testView()
 
   //activate first option to go to page 2 (faster than the close timeout)
   clickDialogOption("Yes", 500, SLOT(checkView2()));
-  kDebug() << "here3";
+  qDebug() << "here3";
   QTest::qWait(1000);
-  kDebug() << "here4";
+  qDebug() << "here4";
 
   //activate first option to go back to page 1
   QTimer::singleShot(500, this, SLOT(checkView1()));
@@ -647,7 +654,7 @@ QString testDialog::currentlyDisplayedDialogText()
   QLabel *label = findChild<QLabel*>(getDialogView(), "lbText");
 
   if (!label) {
-    kDebug() << "COULDN'T FIND LABEL";
+    qDebug() << "COULDN'T FIND LABEL";
     return QString();
   }
 
@@ -683,6 +690,7 @@ VisualDialogView* testDialog::getDialogView()
 }
 
 #include <QDebug>
+#include <QCommandLineParser>
 template <class T>
 T testDialog::findChild(QObject *object, const QString& name, int* skip)
 {
@@ -706,13 +714,13 @@ T testDialog::findChild(QObject *object, const QString& name, int* skip)
 
     if ((child->objectName() == name) && (dynamic_cast<T>(child)))
     {
-      //kDebug() << "Returning child: " << child;
+      //qDebug() << "Returning child: " << child;
       if (*skip == 0)
       {
         if (created) delete skip;
         return dynamic_cast<T>(child);
       }
-      else kDebug() << "SKIPPING!";
+      else qDebug() << "SKIPPING!";
 
       --(*skip);
     }
@@ -731,7 +739,7 @@ T testDialog::findChild(QObject *object, const QString& name, int* skip)
 void testDialog::clickConfigButton(const QString& buttonName, int delay, const QString& slot)
 {
   DialogConfiguration *config = static_cast<DialogConfiguration*>(dialog->getConfigurationPage());
-  KPushButton *button = findChild<KPushButton*>(config, buttonName);
+  QPushButton *button = findChild<QPushButton*>(config, buttonName);
   QVERIFY(button);
 
   QTimer::singleShot(delay, this, slot.toAscii().constData());
@@ -741,7 +749,7 @@ void testDialog::clickConfigButton(const QString& buttonName, int delay, const Q
 void testDialog::clickDialogOption(const QString& triggerName, int delay, const QString& slot)
 {
   QWidget *visualView = getDialogView();
-  KPushButton *button = findChild<KPushButton*>(visualView, QString("dialogOption%1").arg(triggerName));
+  QPushButton *button = findChild<QPushButton*>(visualView, QString("dialogOption%1").arg(triggerName));
   QVERIFY(button);
 
   QTimer::singleShot(delay, this, slot.toAscii().constData());
@@ -756,7 +764,7 @@ void testDialog::okDialog()
   QWidget *dlg = app->activeModalWidget();
   QVERIFY(dlg);
   int skip = 1;
-  KPushButton *okButton = findChild<KPushButton*>(dlg, "", &skip);
+  QPushButton *okButton = findChild<QPushButton*>(dlg, "", &skip);
   QVERIFY(okButton);
   QTest::mouseClick(okButton, Qt::LeftButton);
 }

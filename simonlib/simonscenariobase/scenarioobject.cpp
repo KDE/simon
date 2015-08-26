@@ -20,7 +20,7 @@
 #include "scenarioobject.h"
 #include <simonscenarios/scenario.h>
 
-#include <KDebug>
+#include <QDebug>
 QString ScenarioObject::parentScenarioId() const
 {
   return parentScenario->id();

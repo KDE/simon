@@ -20,8 +20,8 @@
 #ifndef SIMON_SSCCONFIGURATION_H_CE1378CB6EFC48349C931195FD6112CA
 #define SIMON_SSCCONFIGURATION_H_CE1378CB6EFC48349C931195FD6112CA
 
-#include <KCModule>
 #include <QVariantList>
+#include <KConfigWidgets/KCModule>
 
 #include "ui_sscconfiguration.h"
 

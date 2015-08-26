@@ -7,7 +7,7 @@
  *   Software Foundation
  *
  *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   but WITHOUT ANY WARRANTY; without even the implied fwarranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details
  *
@@ -19,18 +19,20 @@
 
 #include "modelcompilationsettings.h"
 #include "modelcompilationconfiguration.h"
-#include <KLineEdit>
-#include <KPageWidget>
-#include <QDebug>
-#include <kgenericfactory.h>
+#include <KWidgetsAddons/kpagewidget.h>
+#include <KDELibs4Support/klibloader.h>
+#include <KDELibs4Support/kgenericfactory.h>
+#include <KCoreAddons/kpluginfactory.h>
 
 K_PLUGIN_FACTORY( ModelCompilationSettingsFactory,
-registerPlugin< ModelCompilationSettings >();
-)
+                  registerPlugin< ModelCompilationSettings >();
+                  )
 
-K_EXPORT_PLUGIN( ModelCompilationSettingsFactory("simonlib") )
+// ModelCompilationSettingsFactory::~ModelCompilationSettingsFactory() {}
 
-ModelCompilationSettings::ModelCompilationSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
+// // K_EXPORT_PLUGIN( ModelCompilationSettingsFactory("simonlib") )
+
+ModelCompilationSettings::ModelCompilationSettings(QWidget* parent, const QVariantList& args): KCModule(parent)
 {
   QVBoxLayout *lay = new QVBoxLayout(this);
   KPageWidget *pageWidget = new KPageWidget(this);
@@ -48,8 +50,8 @@ ModelCompilationSettings::ModelCompilationSettings(QWidget* parent, const QVaria
   // 	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdaten"));
   KPageWidgetItem *externalPrograms = pageWidget->addPage(externalProgramsWidget, i18n("External Programs"));
 
-  // 	trainingsData->setIcon(KIcon("view-pim-news"));
-  externalPrograms->setIcon(KIcon("applications-other"));
+  // 	trainingsData->setIcon(QIcon::fromTheme("view-pim-news"));
+  externalPrograms->setIcon(QIcon::fromTheme("applications-other"));
 
   // 	trainingsData->setHeader("");
   externalPrograms->setHeader("");
@@ -78,5 +80,9 @@ int ModelCompilationSettings::getDefaultBackendType()
 }
 
 
-ModelCompilationSettings::~ModelCompilationSettings()
-{}
+// ModelCompilationSettings::~ModelCompilationSettings()
+// {}
+
+// #include <ModelCompilationSettings.moc>
+
+#include "modelcompilationsettings.moc"

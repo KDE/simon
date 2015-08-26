@@ -18,7 +18,7 @@
  */
 
 #include "lipdetectioncondition.h"
-#include <KDebug>
+#include <QDebug>
 #include "createlipdetectionconditionwidget.h"
 #include <QWidget>
 #include "simonvision/lipanalyzer.h"
@@ -28,7 +28,7 @@ K_PLUGIN_FACTORY(LipDetectionPluginFactory,
                  registerPlugin< LipDetectionCondition >();
                 )
 
-K_EXPORT_PLUGIN(LipDetectionPluginFactory("simonlipdetectioncondition"))
+// K_EXPORT_PLUGIN(LipDetectionPluginFactory("simonlipdetectioncondition"))
 
 LipDetectionCondition::LipDetectionCondition(QObject *parent, const QVariantList &args) :
     Condition(parent, args)
@@ -67,7 +67,7 @@ bool LipDetectionCondition::privateDeSerialize(QDomElement elem)
   thresholdValueElement = elem.firstChildElement("thresholdvalue");
   if (thresholdValueElement.isNull())
   {
-    kDebug() << "Threhold value not specified!  Deserialization failure!";
+    qDebug() << "Threhold value not specified!  Deserialization failure!";
     return false;
   }
   thresholdValue = thresholdValueElement.text().toInt();
@@ -85,7 +85,7 @@ void LipDetectionCondition::manageConditionState(bool isSpeaking, int thresholdV
     if(!m_satisfied)
     {
       m_satisfied = true;
-      kDebug() << name() + " is true!";
+      qDebug() << name() + " is true!";
       emit conditionChanged();
     }
 
@@ -95,7 +95,7 @@ void LipDetectionCondition::manageConditionState(bool isSpeaking, int thresholdV
     if(m_satisfied)
     {
       m_satisfied = false;
-      kDebug() << name() + " is false!";
+      qDebug() << name() + " is false!";
       emit conditionChanged();
     }
   }
@@ -107,3 +107,4 @@ LipDetectionCondition::~LipDetectionCondition()
   delete analyzer;
 
 }
+#include "lipdetectioncondition.moc"

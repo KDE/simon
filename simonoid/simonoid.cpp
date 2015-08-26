@@ -21,11 +21,10 @@
 #include "simonoid.h"
 
 #include <QPainter>
-#include <QFontMetrics>
-#include <KConfigGroup>
 #include <KLocale>
 #include <QDBusInterface>
 #include <KConfigDialog>
+#include <KConfigCore/KConfigGroup>
 
 Simonoid::Simonoid ( QObject *parent, const QVariantList &args )
   : Plasma::Applet ( parent, args ),
@@ -67,7 +66,7 @@ QSizeF Simonoid::sizeHint(Qt::SizeHint which, const QSizeF& constraint) const
 
 
 void Simonoid::saveState ( KConfigGroup &group ) const {
-  kDebug() << "Save state";
+  qDebug() << "Save state";
   Plasma::Applet::saveState ( group );
   
   KConfigGroup settings = config();
@@ -77,14 +76,14 @@ void Simonoid::saveState ( KConfigGroup &group ) const {
 }
 
 void Simonoid::init() {
-  kDebug() << "Restoring";
+  qDebug() << "Restoring";
   KConfigGroup lconfig = config();
   m_layouttype = ( LayoutType ) lconfig.readEntry ( "LayoutType", ( int ) LayoutTiny);
   m_interval = lconfig.readEntry ( "RefreshInterval", 3 );
 
-  kDebug() << "Restored to: " << m_layouttype << m_interval;
+  qDebug() << "Restored to: " << m_layouttype << m_interval;
   
-  kDebug() << "Init called";
+  qDebug() << "Init called";
   Plasma::Applet::init();
 
   if ( m_icon.isNull() ) {
@@ -132,20 +131,20 @@ void Simonoid::init() {
 void Simonoid::checkConnection() {
   if ( !m_isconnected ) {
     if ( !connectSignalsAndSlots() ) {
-      kDebug() << "waiting for Simon to start...";
+      qDebug() << "waiting for Simon to start...";
     } else {
-      kDebug() << "connected successful!";
+      qDebug() << "connected successful!";
       m_status = i18n ( "Waiting" );
       m_peak = 0;
       update();
     }
   } else {
     if ( !m_dbusinterface->isValid() ) {
-      kDebug() << "connection lost!";
+      qDebug() << "connection lost!";
       disconnectSignalsAndSlots();
       update();
     } else {
-      kDebug() << "connection still valid";
+      qDebug() << "connection still valid";
     }
   }
 }
@@ -161,19 +160,19 @@ bool Simonoid::connectSignalsAndSlots() {
   bool success = true;
   if ( success ) {
     success = connect ( m_dbusinterface, SIGNAL (listening()), this, SLOT (listeningCalled()) );
-    kDebug() << "connecting listening:" << ( success?"connected":"disconnected" ) ;
+    qDebug() << "connecting listening:" << ( success?"connected":"disconnected" ) ;
   }
   if ( success ) {
     success = connect ( m_dbusinterface, SIGNAL (processing()), this, SLOT (processingCalled()) );
-    kDebug() << "connecting processing:" << ( success?"connected":"disconnected" ) ;
+    qDebug() << "connecting processing:" << ( success?"connected":"disconnected" ) ;
   }
   if ( success ) {
     success = connect ( m_dbusinterface, SIGNAL (receivedResults()), this, SLOT (receivedResultsCalled()) );
-    kDebug() << "connecting receivedResults:" << ( success?"connected":"disconnected" ) ;
+    qDebug() << "connecting receivedResults:" << ( success?"connected":"disconnected" ) ;
   }
   if ( success ) {
     success = connect ( m_dbusinterface, SIGNAL (recordingLevel(double)), this, SLOT (recordingLevelCalled(double)) );
-    kDebug() << "connecting recordingLevel:" << ( success?"connected":"disconnected" ) ;
+    qDebug() << "connecting recordingLevel:" << ( success?"connected":"disconnected" ) ;
   }
   if ( success ) {
     m_isconnected = true;
@@ -220,7 +219,7 @@ void Simonoid::paintInterface ( QPainter *p,
     }
     break;
   default:
-    kWarning() << "Invalid layout";
+    qWarning() << "Invalid layout";
     break;
   }
 
@@ -254,8 +253,8 @@ void Simonoid::createConfigurationInterface ( KConfigDialog* parent ) {
   m_uiconfig.cb_layout->setCurrentIndex ( m_layouttype );
 
   parent->addPage ( m_configpage, parent->windowTitle(), "chronometer" );
-  connect(parent, SIGNAL(applyClicked()), this, SLOT(configAccepted()));
-  connect(parent, SIGNAL(okClicked()), this, SLOT(configAccepted()));
+  connect(parent, SIGNAL(clicked()), this, SLOT(configAccepted()));
+  connect(parent, SIGNAL(clicked()), this, SLOT(configAccepted()));
 }
 
 void Simonoid::configAccepted() {
@@ -275,10 +274,10 @@ void Simonoid::configAccepted() {
 
 void Simonoid::initLayout ( Simonoid::LayoutType type ) {
   if (type < 0) {
-    kWarning() << "Invalid layout";
+    qWarning() << "Invalid layout";
     return;
   }
-  kDebug() << "Init";
+  qDebug() << "Init";
   
   m_appletLayout = new QGraphicsGridLayout();
   for (int i=0; i < m_appletLayout->count(); i++)

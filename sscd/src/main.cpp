@@ -21,10 +21,8 @@
 
 #include <QCoreApplication>
 
-#include <QApplication>
 #include "version.h"
 #include "basedirectory.h"
-#include <QStringList>
 
 int main(int argc, char **argv)
 {

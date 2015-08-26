@@ -22,10 +22,12 @@
 #include <QIODevice>
 #include <QFileInfo>
 #include <QTextStream>
-#include <KMimeType>
-#include <KFilterDev>
-#include <KLocalizedString>
-#include <KDebug>
+
+#include <KArchive/KFilterDev>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 JuliusVocabulary::JuliusVocabulary(QObject* parent): Dict(parent)
 {
@@ -42,16 +44,17 @@ JuliusVocabulary::JuliusVocabulary(QObject* parent): Dict(parent)
 void JuliusVocabulary::load(QString path, QString encoding)
 {
   emit progress(0);
-
+    
+  QMimeDatabase db;
   QIODevice *dict = KFilterDev::deviceForFile(path,
-    KMimeType::findByFileContent(path)->name());
+    db.mimeTypeForFile(path, QMimeDatabase::MatchContent).name());
   if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
     return;
 
   int maxProg=0;
 
-  KMimeType::Ptr mimeType = KMimeType::findByFileContent(path);
-  if (mimeType->is("text/plain")) {               //not compressed
+  QMimeType mimeType = db.mimeTypeForFile(path, QMimeDatabase::MatchContent);
+  if (mimeType.inherits("text/plain")) {               //not compressed
     QFileInfo info;
     QFile f(path);
     info.setFile(f);

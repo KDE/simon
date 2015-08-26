@@ -80,15 +80,17 @@ set(simonscenarios_LIB_HDRS
 
 
 
-kde4_add_ui_files(simonscenarios_LIB_SRCS createvoiceinterfacecommandwidget.ui basemodelconfig.ui modelsettingsdlg.ui)
+ki18n_wrap_ui(simonscenarios_LIB_SRCS createvoiceinterfacecommandwidget.ui basemodelconfig.ui modelsettingsdlg.ui)
 
-qt4_add_dbus_adaptor(simonscenarios_LIB_SRCS org.simon-listens.ScenarioManager.xml scenariomanager.h ScenarioManager)
+qt5_add_dbus_adaptor(simonscenarios_LIB_SRCS org.simon-listens.ScenarioManager.xml scenariomanager.h ScenarioManager)
 
-kde4_add_kcfg_files(simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
+kconfig_add_kcfg_files(simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
 
 kde4_add_library(simonscenarios SHARED ${simonscenarios_LIB_SRCS})
-target_link_libraries(simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS}
-  simonxml simonlogging simoninfo simonrecognitionresult ${KDE4_KNEWSTUFF3_LIBS}
+target_link_libraries(simonscenarios ${QT_LIBRARIES}
+  KF5::KDELibs4Support KF5::KIOCore KF5::Service KF5::NewStuff
+  KF5::WidgetsAddons KF5::CoreAddons KF5::SonnetCore KF5::SonnetUi
+  simonxml simonlogging simoninfo simonrecognitionresult
   simonscenariobase simoncontextdetection simongraphemetophoneme)
 
 set_target_properties(simonscenarios
@@ -110,12 +112,13 @@ install(FILES simoncommandplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR}
 set(kcm_simonscenarios_LIB_SRCS
   speechmodelsettings.cpp
 )
-kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui languageprofilesettings.ui)
-kde4_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
+ki18n_wrap_ui(kcm_simonscenarios_LIB_SRCS trainingsettings.ui languageprofilesettings.ui)
+kconfig_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
 
-kde4_add_plugin(simonscenarioskcm ${kcm_simonscenarios_LIB_SRCS})
-target_link_libraries(simonscenarioskcm ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-  simonscenarios simonscenariobase ${KDE4_KNEWSTUFF3_LIBS})
+kde4_add_library(simonscenarioskcm MODULE ${kcm_simonscenarios_LIB_SRCS})
+target_link_libraries(simonscenarioskcm  KF5::KIOCore KF5::WidgetsAddons
+  KF5::CoreAddons KF5::KDELibs4Support KF5::SonnetCore KF5::SonnetUi
+  simonscenarios simonscenariobase KF5::NewStuff KF5::Service Qt5::Core)
 
 install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncore)
 

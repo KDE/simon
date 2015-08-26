@@ -1,16 +1,16 @@
-set (simonorconditionassociationplugin_SRCS 
-  orconditionassociation.cpp 
+set (simonorconditionassociationplugin_SRCS
+  orconditionassociation.cpp
   createorconditionassociationwidget.cpp
 )
 
-kde4_add_ui_files(simonorconditionassociationplugin_SRCS
+ki18n_wrap_ui(simonorconditionassociationplugin_SRCS
   createorconditionassociationwidget.ui
 )
 
 kde4_add_plugin(simonorconditionassociationplugin ${simonorconditionassociationplugin_SRCS})
 
-target_link_libraries(simonorconditionassociationplugin ${KDE4_KDEUI_LIBS}
-  ${QT_QTXML_LIBRARY} simoncontextdetection simoncontextcoreui)
+target_link_libraries(simonorconditionassociationplugin
+  Qt5::Xml simoncontextdetection simoncontextcoreui)
 
 install(TARGETS simonorconditionassociationplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simonorconditionassociationplugin)
 install(FILES simonorconditionassociationplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simonorconditionassociationplugin)

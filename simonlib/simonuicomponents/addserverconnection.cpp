@@ -19,18 +19,17 @@
 
 #include "addserverconnection.h"
 
-#include <QLabel>
-#include <KLocalizedString>
-#include <KLineEdit>
-#include <KIntNumInput>
+#include <KI18n/klocalizedstring.h>
+#include <QLineEdit>
+#include <KDELibs4Support/knuminput.h>
 #include <QFormLayout>
 #include <KLocale>
 
-AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
+AddServerConnection::AddServerConnection(QWidget *parent) : QDialog(parent)
 {
   QWidget *widget = new QWidget( this );
 
-  leAddress = new KLineEdit("localhost", widget);
+  leAddress = new QLineEdit("localhost", widget);
   leAddress->setToolTip(i18n("IP address or host name"));
   sbPort = new KIntNumInput(widget);
   sbPort->setMinimum(0);
@@ -41,8 +40,11 @@ AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
   lay->addRow(i18nc("IP address or host name", "Address:"), leAddress);
   lay->addRow(i18nc("Network port", "Port:"), sbPort);
 
-  setMainWidget( widget );
-  setCaption( i18n("Add Server Address") );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Add Server Address") );
 }
 
 

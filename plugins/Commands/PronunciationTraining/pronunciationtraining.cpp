@@ -21,9 +21,9 @@
 #include <simonscenarios/scenariomanager.h>
 #include <simonactions/actionmanager.h>
 #include <simonscenarios/word.h>
-#include <KPushButton>
-#include <KMessageBox>
-#include <KIcon>
+#include <QPushButton>
+#include <QIcon>
+#include <KWidgetsAddons/KMessageBox>
 
 PronunciationTraining::PronunciationTraining(const QString& category, QWidget* parent):
 QWidget(parent),
@@ -38,9 +38,9 @@ m_category(category)
   connect(ui.pbPrev, SIGNAL(clicked()), this, SLOT(prev()));
   connect(ui.pbQuit, SIGNAL(clicked()), this, SLOT(quit()));
 
-  ui.pbNext->setIcon(KIcon("go-next"));
-  ui.pbPrev->setIcon(KIcon("go-previous"));
-  ui.pbQuit->setIcon(KIcon("dialog-close"));
+  ui.pbNext->setIcon(QIcon::fromTheme("go-next"));
+  ui.pbPrev->setIcon(QIcon::fromTheme("go-previous"));
+  ui.pbQuit->setIcon(QIcon::fromTheme("dialog-close"));
 }
 
 
@@ -73,7 +73,7 @@ void PronunciationTraining::init()
 
 void PronunciationTraining::displayCurrentWord()
 {
-  kDebug() << "Displaying current word...";
+  qDebug() << "Displaying current word...";
 
   ui.pbNext->setEnabled((m_currentWordIndex+1 < m_wordsToTest.count()));
   ui.pbPrev->setEnabled((m_currentWordIndex > 0));
@@ -132,14 +132,14 @@ bool PronunciationTraining::greedyTriggerRawList(const RecognitionResultList& re
   bool found = false;
   foreach (const RecognitionResult& result, results) {
     if (result.sentence() == searchedSentence) {
-      kDebug() << "Found result: at index: " << i << result.toString();
+      qDebug() << "Found result: at index: " << i << result.toString();
       ui.pbScore->setValue(qRound(100.0f * result.averageConfidenceScore()));
       found = true;
-    } else kDebug() << result.sentence() << " != " << searchedSentence;
+    } else qDebug() << result.sentence() << " != " << searchedSentence;
     i++;
   }
   if (!found) {
-    kDebug() << "Haven't found it!";
+    qDebug() << "Haven't found it!";
     ui.pbScore->setValue(0);
   }
 

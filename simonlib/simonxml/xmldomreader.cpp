@@ -22,10 +22,11 @@
 #include <QDomDocument>
 #include <QIODevice>
 #include <QTextStream>
-#include <QTextCodec>
-#include <KFilterDev>
-#include <KMimeType>
+#include <KArchive/kcompressiondevice.h>
+#include <KArchive/kfilterdev.h>
+
 #include <QDebug>
+#include <QMimeDatabase>
 
 /**
  * \brief Constructor
@@ -50,9 +51,10 @@ doc(0)
 bool XMLDomReader::save(QString path)
 {
   if (path.isEmpty()) path = this->path;
-
+  
+  QMimeDatabase db;
   QIODevice *file = KFilterDev::deviceForFile(path,
-    KMimeType::findByFileContent(path)->name());
+    db.mimeTypeForFile(path, QMimeDatabase::MatchContent).name());
   if((!file) || (!file->open(QIODevice::WriteOnly))) {
     qDebug() << "Hier is falsch";
     return false;
@@ -85,7 +87,7 @@ bool XMLDomReader::load(QString path)
   doc= new QDomDocument();
 
   QIODevice *file = KFilterDev::deviceForFile(path,
-    KMimeType::findByFileContent(path)->name());
+    db.mimeTypeForFile(path, QMimeDatabase::MatchContent).name());
 
   if((!file) || (!file->open(QIODevice::ReadOnly)))
     return false;

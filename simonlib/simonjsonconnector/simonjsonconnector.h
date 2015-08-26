@@ -21,7 +21,8 @@
 #define SIMON_SIMONJSONCONNECTOR_H_D25D6E7E21C94C78AD6FA6148EA8F8C8
 
 #include "simonjsonconnector_export.h"
-#include <QHash>
+#include <qt5/QtCore/QHash>
+#include <qt5/QtCore/QObject>
 
 class QNetworkReply;
 class JsonNotificationReceiver;

@@ -20,11 +20,11 @@
 #ifndef SIMON_DIALOGCOMMANDBUTTON_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_DIALOGCOMMANDBUTTON_H_7A7B9100FF5245329569C1B540119C37
 
-#include <KPushButton>
+#include <QPushButton>
 
 class DialogCommand;
 
-class DialogCommandButton : public KPushButton
+class DialogCommandButton : public QPushButton
 {
   Q_OBJECT
 

@@ -22,7 +22,7 @@
 #include <QVariant>
 #include <QDomElement>
 #include <QDomDocument>
-#include <KDebug>
+#include <QDebug>
 #include <qvarlengtharray.h>
 
 
@@ -41,10 +41,10 @@
  */
 bool Command::parseArguments(const QString& input, const QString& scheme, QStringList& arguments)
 {
-  kDebug() << "Command trigger: " << scheme << " provided trigger: " << input;
+  qDebug() << "Command trigger: " << scheme << " provided trigger: " << input;
   arguments.clear();
   QStringList splitList = scheme.split(QRegExp("%\\d+"));
-  kDebug() << "Split list: " << splitList;
+  qDebug() << "Split list: " << splitList;
   QString callTrigger = input;
   for (int i=0; i < splitList.count()-1; i++)
   {
@@ -74,7 +74,7 @@ bool Command::parseArguments(const QString& input, const QString& scheme, QStrin
     callTrigger.remove(0, thisParameter.length());
     arguments << thisParameter;
   }
-  kDebug() << "Got parameter: " << arguments;
+  qDebug() << "Got parameter: " << arguments;
   return (callTrigger.compare(splitList[splitList.count()-1]) == 0);
 }
 
@@ -130,7 +130,7 @@ bool Command::matches(int commandManagerState, const QString& trigger)
 bool Command::trigger(int* state, bool silent)
 {
   if (announce) {
-    KIcon commandIcon = getIcon();
+    QIcon commandIcon = getIcon();
     if (!silent)
       SimonInfo::showMessage(getParsedTrigger(), 2500, &commandIcon);
   }
@@ -148,10 +148,10 @@ QString Command::getParsedTrigger() const
   QString out = getTrigger();
   for (int i=0; i < m_currentParameters.count(); i++) {
     QString regExp = QString("%?%")+QString::number(i+1);
-    kDebug() << regExp;
+    qDebug() << regExp;
     out.replace(QRegExp(regExp), m_currentParameters[i]);
   }
-  kDebug() << "Out: " << out;
+  qDebug() << "Out: " << out;
   return out;
 }
 

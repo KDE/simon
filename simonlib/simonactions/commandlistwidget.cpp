@@ -19,23 +19,20 @@
 
 #include "commandlistwidget.h"
 #include "actionmanager.h"
-#include <QObject>
-#include <KPushButton>
+#include <QPushButton>
 #include <QVBoxLayout>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QTableWidgetSelectionRange>
 #include <QHeaderView>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QProgressBar>
-#include <QVariant>
-#include <KIcon>
-#include <KLocalizedString>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
 #include <simonscenarios/voiceinterfacecommand.h>
 
 CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint),
-pbCancel(new KPushButton(this)),
+pbCancel(new QPushButton(this)),
 twCommands(new QTableWidget(this)),
 pbAutomaticSelection(new QProgressBar(this)),
 indexToSelectAfterTimeout(-1)
@@ -46,7 +43,7 @@ indexToSelectAfterTimeout(-1)
   lay->setSpacing(0);
 
   pbCancel->setText(i18n("Cancel"));
-  pbCancel->setIcon(KIcon("dialog-cancel"));
+  pbCancel->setIcon(QIcon::fromTheme("dialog-cancel"));
 
   setFont(ActionManager::getInstance()->pluginBaseFont());
 
@@ -117,8 +114,8 @@ void CommandListWidget::adaptToVoiceElement(CommandListElements::Element element
 
       pbCancel->setText(command->visibleTrigger());
       if (command->showIcon())
-        pbCancel->setIcon(KIcon(command->getIconSrc()));
-      else pbCancel->setIcon(KIcon());
+        pbCancel->setIcon(QIcon::fromTheme(command->getIconSrc()));
+      else pbCancel->setIcon(QIcon());
       pbCancel->show();
       return;
   }
@@ -139,8 +136,8 @@ void CommandListWidget::adaptToVoiceElement(CommandListElements::Element element
 
   item->setText(command->visibleTrigger());
   if (command->showIcon())
-    item->setIcon(KIcon(command->getIconSrc()));
-  else item->setIcon(KIcon());
+    item->setIcon(QIcon::fromTheme(command->getIconSrc()));
+  else item->setIcon(QIcon());
 }
 
 
@@ -163,7 +160,7 @@ void CommandListWidget::runCommand()
   row = twCommands->currentRow();
 
   if (row == -1) {
-    kDebug() << "no row selected";
+    qDebug() << "no row selected";
     return;
   }
   //	}
@@ -197,7 +194,7 @@ void CommandListWidget::showEvent(QShowEvent *)
 void CommandListWidget::closeEvent(QCloseEvent *)
 {
   if (!runRequestEmitted) {
-    kDebug() << "Emitting cancel...\n";
+    qDebug() << "Emitting cancel...\n";
     emit canceled();
   }
   toggleAfterTimeoutTimer.stop();
@@ -227,7 +224,7 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
   if (flags & HasBack) {
     QTableWidgetItem *num = new QTableWidgetItem(QString::number(0));
     num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-    QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-previous"), i18nc("Go to the previous list of commands", "Back"));
+    QTableWidgetItem *com = new QTableWidgetItem(QIcon::fromTheme("go-previous"), i18nc("Go to the previous list of commands", "Back"));
     com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
     twCommands->setItem(0, 0, num);
     twCommands->setItem(0, 1, com);
@@ -241,7 +238,7 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 
     QTableWidgetItem *num = new QTableWidgetItem(QString::number(i-rowInsertionModifier+1));
     num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-    QTableWidgetItem *com = new QTableWidgetItem(KIcon(iconsrc), command);
+    QTableWidgetItem *com = new QTableWidgetItem(QIcon::fromTheme(iconsrc), command);
     com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
     twCommands->setItem(i, 0, num);
     twCommands->setItem(i, 1, com);
@@ -249,7 +246,7 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
   if (flags & HasNext) {
     QTableWidgetItem *num = new QTableWidgetItem(QString::number(i-rowInsertionModifier+1));
     num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-    QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-next"), i18nc("Go to the next list of commands", "Next"));
+    QTableWidgetItem *com = new QTableWidgetItem(QIcon::fromTheme("go-next"), i18nc("Go to the next list of commands", "Next"));
     com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
     twCommands->setItem(i, 0, num);
     twCommands->setItem(i, 1, com);

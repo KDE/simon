@@ -23,8 +23,7 @@
 
 #include "coreconfiguration.h"
 
-#include <KMessageBox>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 #include <simonrecognitionresult/recognitionresult.h>
@@ -33,9 +32,8 @@
 #include <simoncontextdetection/contextmanager.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simoncontextdetection/processinfo.h>
-
-#include <QFileInfo>
-#include <KDebug>
+#include <KWidgetsAddons/KMessageBox>
+#include <QDebug>
 
 /**
  * @brief Constructor
@@ -78,7 +76,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
   if (!ScenarioManager::getInstance()->init()) {
     KMessageBox::error(0, i18n("Could not initialize scenarios and shadow dictionary."));
     if (!ScenarioManager::getInstance()->getCurrentScenario()) {
-      kDebug() << "Aborting due to fatal error while loading scenarios";
+      qDebug() << "Aborting due to fatal error while loading scenarios";
       exit(-1); // this is fatal
     }
   }
@@ -213,7 +211,7 @@ void SimonControl::wordRecognised(RecognitionResultList recognitionResults)
 {
   if (status != SimonControl::ConnectedActivated) return;
 
-  kDebug() << "Received recognition results...";
+  qDebug() << "Received recognition results...";
   ActionManager::getInstance()->processRawResults(recognitionResults);
 }
 

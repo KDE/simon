@@ -23,9 +23,8 @@
 
 #include <simoncontextdetection/contextmanager.h>
 
-#include <QLineEdit>
 #include <QSortFilterProxyModel>
-#include <KMessageBox>
+#include <KWidgetsAddons/KMessageBox>
 
 
 CreateOrConditionAssociationWidget::CreateOrConditionAssociationWidget(QWidget *parent) : CreateConditionWidget(parent)
@@ -33,16 +32,16 @@ CreateOrConditionAssociationWidget::CreateOrConditionAssociationWidget(QWidget *
   ui.setupUi(this);
 
   setWindowTitle("Or Condition Association");
-  setWindowIcon(KIcon("view-choose"));
+  setWindowIcon(QIcon::fromTheme("view-choose"));
 
   //initialize compound association condition
   QDomDocument * doc = new QDomDocument();
   m_compoundAssociationCondition = CompoundCondition::createInstance(CompoundCondition::createEmpty(doc));
   delete doc;
 
-  ui.pbNewCondition->setIcon(KIcon("list-add"));
-  ui.pbEditCondition->setIcon(KIcon("edit-rename"));
-  ui.pbDeleteCondition->setIcon(KIcon("edit-delete"));
+  ui.pbNewCondition->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbEditCondition->setIcon(QIcon::fromTheme("edit-rename"));
+  ui.pbDeleteCondition->setIcon(QIcon::fromTheme("edit-delete"));
 
   m_conditionsProxy = new QSortFilterProxyModel(this);
   m_conditionsProxy->setFilterKeyColumn(0);
@@ -189,7 +188,7 @@ void CreateOrConditionAssociationWidget::deleteAssociationCondition()
     {
         if (!m_compoundAssociationCondition->removeCondition(condition))
         {
-            kDebug() << "Error removing condition!";
+            qDebug() << "Error removing condition!";
         }
     }
 

@@ -19,7 +19,6 @@
 
 #include "loudnessmetersoundprocessor.h"
 #include <QByteArray>
-#include <QtGlobal>
 
 /**
  * \brief Constructor

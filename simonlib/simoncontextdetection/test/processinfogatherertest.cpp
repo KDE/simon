@@ -27,8 +27,9 @@
 #include <QDir>
 
 #include <KProcess>
-#include <KCmdLineArgs>
-#include <KApplication>
+
+#include <KDELibs4Support/kapplication.h>
+#include <QCommandLineParser>
 
 class processInfoGathererTest: public QObject
 {
@@ -48,7 +49,16 @@ void processInfoGathererTest::initTestCase()
   strcpy(appName, "test");
   char **argv = new char*[1];
   *argv = appName;
-  KCmdLineArgs::init(1, argv, "test", "test", ki18n("appname"), "0.1");
+  KAboutData aboutData( QLatin1String("test"), i18n("appname"), QLatin1String("0.1"));
+    QApplication app(argc, argv);
+    QCommandLineParser parser;
+    KAboutData::setApplicationData(aboutData);
+    parser.addVersionOption();
+    parser.addHelpOption();
+    //PORTING SCRIPT: adapt aboutdata variable if necessary
+    aboutData.setupCommandLine(&parser);
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
 
   app = new KApplication(true);
   proc = new KProcess();

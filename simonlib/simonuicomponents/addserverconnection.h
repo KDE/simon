@@ -21,9 +21,9 @@
 #define SIMON_ADDSERVERCONNECTION_H_EF32AB08882C4BCA803C7B5C1522AFE2
 
 #include "simonuicomponents_export.h"
-#include <KDialog>
+#include <QDialog>
 
-class KLineEdit;
+class QLineEdit;
 class KIntNumInput;
 
 /**
@@ -35,12 +35,12 @@ class KIntNumInput;
  \brief Little Dialog to enter server address and port into
 
 */
-class SIMONUICOMPONENTS_EXPORT AddServerConnection : public KDialog
+class SIMONUICOMPONENTS_EXPORT AddServerConnection : public QDialog
 {
   Q_OBJECT
 
     private:
-    KLineEdit *leAddress;
+    QLineEdit *leAddress;
     KIntNumInput *sbPort;
 
   public:

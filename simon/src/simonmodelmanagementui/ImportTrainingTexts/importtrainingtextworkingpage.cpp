@@ -27,20 +27,21 @@
 #include <simonscenarios/scenario.h>
 
 #include <QFile>
-#include <QFileInfo>
 #include <QTextStream>
 #include <QTextCodec>
 #include <QTimer>
 #include <QBuffer>
 
-#include <KUrl>
-#include <KMimeType>
-#include <KStandardDirs>
-#include <KMessageBox>
+#include <QUrl>
+
+#include <KWidgetsAddons/KMessageBox>
+
 #include <kio/job.h>
-#include <KFilterDev>
-#include <kencodingdetector.h>
+#include <KArchive/KFilterDev>
+#include <KEncodingProber>
 #include <kio/jobuidelegate.h>
+#include <QMimeDatabase>
+#include <QDir>
 
 /**
  * \brief Constructor
@@ -59,12 +60,12 @@ ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : 
  * @param path The path to import from (this can be a url too)
  * \author Peter Grasch
  */
-void ImportTrainingTextWorkingPage::startImport(KUrl path)
+void ImportTrainingTextWorkingPage::startImport(QUrl path)
 {
   if (!path.isLocalFile()) {
-    Logger::log(i18nc("%1 is path", "Copying import from \"%1\"", path.prettyUrl()));
+    Logger::log(i18nc("%1 is path", "Copying import from \"%1\"", path.toDisplayString()));
 
-    KUrl tmpPath = KUrl(KStandardDirs::locateLocal("tmp", "tmp_trainingstext.xml"));
+    QUrl tmpPath = QUrl(QDir::tempPath() + QLatin1Char('/') +  "tmp_trainingstext.xml");
 
     KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath,
       -1 /* no special permissions */, KIO::Overwrite);
@@ -85,7 +86,7 @@ void ImportTrainingTextWorkingPage::start()
 {
   ui.pbProgress->setMaximum(0);
   if (field("importTrainingTextLocal").toBool()) {
-    startImport(field("importTrainingTextLFilename").value<KUrl>());
+    startImport(field("importTrainingTextLFilename").value<QUrl>());
   }
   else {
     //add
@@ -120,7 +121,7 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
   ui.pbProgress->setMaximum(3);
   ui.pbProgress->setValue(0);
 
-  QString tmpPath = KStandardDirs::locateLocal("tmp", "simontrainingstextimport");
+  QString tmpPath = QDir::tempPath() + QLatin1Char('/') +  "simontrainingstextimport";
   KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath, -1, KIO::Overwrite);
   if (!job->exec()) {
     job->ui()->showErrorMessage();
@@ -128,13 +129,14 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
   }
 
   ui.pbProgress->setValue(1);
+  QMimeDatabase db;
 
-  QIODevice *file = KFilterDev::deviceForFile(tmpPath, KMimeType::findByFileContent(tmpPath)->name());
+  QIODevice *file = KFilterDev::deviceForFile(tmpPath, db.mimeTypeForFile(tmpPath, QMimeDatabase::MatchContent).name());
   QString encoding = field("importTrainingTextLEncoding").toString();
   QStringList sents = parse(file, encoding);
   delete file;
 
-  QFile::remove(KStandardDirs::locateLocal("tmp", "simontrainingstextimport"));
+  QFile::remove(QDir::tempPath() + QLatin1Char('/') +  "simontrainingstextimport");
   ui.pbProgress->setValue(3);
 
   createTrainingsText(field("importTrainingTextLTextname").toString(), sents);
@@ -151,16 +153,16 @@ QStringList ImportTrainingTextWorkingPage::parse(QIODevice *input, const QString
     //read first 5000 bytes and run encoding detection
     //seek back to the beginning and parse input using the guessed encoding
     QByteArray preview = input->peek(5000);
-    KEncodingDetector detector;
+    KEncodingProber prober;
 
     #ifdef Q_OS_WIN32
-    detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+    detector.setProberType(KEncodingProber::WesternEuropean);
     #else
-    detector.setAutoDetectLanguage(KEncodingDetector::Unicode);
+    prober.setProberType(KEncodingProber::Unicode);
     #endif
-
-    QString out=detector.decode(preview);
-    ts.setCodec(QTextCodec::codecForName(detector.encoding()));
+    prober.feed(preview);
+    QString out= QTextCodec::codecForName(prober.encoding())->toUnicode(preview);
+    ts.setCodec(QTextCodec::codecForName(prober.encoding()));
   } else
   ts.setCodec(QTextCodec::codecForName(encoding.toAscii()));
 

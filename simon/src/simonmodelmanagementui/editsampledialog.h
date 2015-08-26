@@ -21,7 +21,7 @@
 #ifndef SIMON_EDITSAMPLEDIALOG_H
 #define SIMON_EDITSAMPLEDIALOG_H
 
-#include <KDialog>
+#include <KDELibs4Support/KDE/KDialog>
 #include "ui_editsample.h"
 
 class EditSampleDialog : public KDialog

@@ -35,14 +35,12 @@
 
 #include <QString>
 #include <QPointer>
-#include <QCoreApplication>
 #include <QSortFilterProxyModel>
 
-#include <KMessageBox>
-#include <KProgressDialog>
-#include <KIcon>
-#include <KDebug>
+#include <QIcon>
+#include <QDebug>
 #include "AddWord/addwordview.h"
+#include <KWidgetsAddons/KMessageBox>
 
 /**
  * @brief Constructor
@@ -78,17 +76,17 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
   
   connect(ui.pbCreateLanguageProfile, SIGNAL(clicked()), this, SLOT(createLanguageProfile()));
 
-  ui.pbImport->setIcon(KIcon("document-import"));
-  ui.pbRemoveWord->setIcon(KIcon("edit-delete"));
-  ui.pbAddToTraining->setIcon(KIcon("list-add"));
-  ui.pbEditWord->setIcon(KIcon("document-edit"));
-  ui.pbClear->setIcon(KIcon("edit-clear-list"));
-  ui.pbDeleteTrainingWord->setIcon(KIcon("list-remove"));
-  ui.pbTrainList->setIcon(KIcon("go-next"));
-  ui.pbCreateLanguageProfile->setIcon(KIcon("fork"));
-  ui.pbTrainWords->setIcon(KIcon("view-pim-news"));
+  ui.pbImport->setIcon(QIcon::fromTheme("document-import"));
+  ui.pbRemoveWord->setIcon(QIcon::fromTheme("edit-delete"));
+  ui.pbAddToTraining->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbEditWord->setIcon(QIcon::fromTheme("document-edit"));
+  ui.pbClear->setIcon(QIcon::fromTheme("edit-clear-list"));
+  ui.pbDeleteTrainingWord->setIcon(QIcon::fromTheme("list-remove"));
+  ui.pbTrainList->setIcon(QIcon::fromTheme("go-next"));
+  ui.pbCreateLanguageProfile->setIcon(QIcon::fromTheme("fork"));
+  ui.pbTrainWords->setIcon(QIcon::fromTheme("view-pim-news"));
 
-  ui.pbAddWord->setIcon(KIcon("list-add"));
+  ui.pbAddWord->setIcon(QIcon::fromTheme("list-add"));
   ui.pbAddWord->setShortcut(Qt::CTRL + Qt::Key_N);
   
   ui.tvActiveVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -117,7 +115,7 @@ void VocabularyViewPrivate::createLanguageProfile()
 
 void VocabularyViewPrivate::refreshActiveView()
 {
-  kDebug() << "Refreshing view with filter: " << ui.leActiveVocabSearch->text();
+  qDebug() << "Refreshing view with filter: " << ui.leActiveVocabSearch->text();
 
   activeProxy->setFilterRegExp(ui.leActiveVocabSearch->text());
 }
@@ -125,7 +123,7 @@ void VocabularyViewPrivate::refreshActiveView()
 
 void VocabularyViewPrivate::refreshShadowView()
 {
-  kDebug() << "Refreshing view with filter: " << ui.leShadowVocabSearch->text();
+  qDebug() << "Refreshing view with filter: " << ui.leShadowVocabSearch->text();
 
   shadowProxy->setFilterRegExp(ui.leShadowVocabSearch->text());
 }

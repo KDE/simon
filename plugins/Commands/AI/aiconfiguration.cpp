@@ -21,18 +21,20 @@
 #include "aicommandmanager.h"
 #include <QVariantList>
 #include <QDir>
-#include <kgenericfactory.h>
-#include <KAboutData>
-#include <KMessageBox>
-#include <KStandardDirs>
+#include <KDELibs4Support/kgenericfactory.h>
+#include <QStandardPaths>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY_DECLARATION(AIPluginFactory)
 
 AIConfiguration::AIConfiguration(Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent, "ai", ki18n( "Artificial Intelligence" ),
-"0.1", ki18n("Voice controlled chatbot"),
-"view-media-artist",
-AIPluginFactory::componentData()), manager(0)
+: CommandConfiguration(parent,
+                       QString("ai"),
+                       i18n( "Artificial Intelligence"),
+                       QByteArray("0.1"),
+                       i18n("Voice controlled chatbot"),
+                       QString("view-media-artist"))
+, manager(0)
 {
   Q_UNUSED(args);
   ui.setupUi(this);
@@ -69,7 +71,7 @@ QDomElement AIConfiguration::serialize(QDomDocument *doc)
 bool AIConfiguration::deSerialize(const QDomElement& elem)
 {
   ui.cbAimlSets->clear();
-  ui.cbAimlSets->addItems(QDir(KStandardDirs::locate("data", "ai/aimls/")).entryList(QStringList(), QDir::Dirs|QDir::NoDotAndDotDot));
+  ui.cbAimlSets->addItems(QDir(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "ai/aimls/")).entryList(QStringList(), QDir::Dirs|QDir::NoDotAndDotDot));
 
   QString personality = elem.firstChildElement("personality").text();
   if (personality.isNull()) personality = "Alice";//default

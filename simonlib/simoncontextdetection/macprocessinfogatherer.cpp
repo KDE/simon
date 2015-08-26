@@ -19,7 +19,6 @@
 
 #include "macprocessinfogatherer.h"
 #include "macprocessinfogathererhelper.h"
-#include <QDebug>
 
 MacProcessInfoGatherer::MacProcessInfoGatherer(QObject *parent) :
     ProcessInfoGatherer(parent)

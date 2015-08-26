@@ -19,8 +19,7 @@
 
 #include "institutionmodel.h"
 #include <sscobjects/institution.h>
-#include <QtGlobal>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 InstitutionModel::InstitutionModel(QList<Institution*> institutions, QObject *parent) :
 QAbstractItemModel(parent),

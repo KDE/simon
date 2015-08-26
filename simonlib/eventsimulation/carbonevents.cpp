@@ -20,7 +20,6 @@
 #include "carbonevents.h"
 #include <unistd.h>
 #include <Carbon/Carbon.h>
-#include <QCoreApplication>
 #include <QDebug>
 
 CarbonEvents::CarbonEvents() : CoreEvents()

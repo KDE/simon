@@ -24,6 +24,7 @@
 
 #include <QAbstractProxyModel>
 #include <QList>
+#include <QItemSelection>
 
 class TrainingTextCollection;
 class TrainingText;

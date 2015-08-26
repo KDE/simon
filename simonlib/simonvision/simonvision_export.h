@@ -21,7 +21,7 @@
 #define SIMON_SIMONVISION_EXPORT_H
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONVISION_EXPORT
 # if defined(MAKE_SIMONVISION_LIB)

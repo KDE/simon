@@ -24,13 +24,16 @@
 #include "simondialogengine_export.h"
 #include <QVariant>
 #include <QString>
+#include <Plasma/DataEngineConsumer>
+
+//QT5TODO: Clean up things obviated by DataEngineConsumer
 
 namespace Plasma
 {
   class DataEngine;
 }
 
-class SIMONDIALOGENGINE_EXPORT PlasmaBoundValue : public BoundValue
+class SIMONDIALOGENGINE_EXPORT PlasmaBoundValue : public BoundValue, public Plasma::DataEngineConsumer
 {
   private:
     Plasma::DataEngine *m_currentEngine;
@@ -46,7 +49,7 @@ class SIMONDIALOGENGINE_EXPORT PlasmaBoundValue : public BoundValue
 
   public:
     PlasmaBoundValue(const QString& name);
-    PlasmaBoundValue(const QString& name, const QString& dataEngine, const QString& dataEngineName, 
+    PlasmaBoundValue(const QString& name, const QString& dataEngine, const QString& dataEngineName,
         const QString& dataSource, const QString& key);
     ~PlasmaBoundValue();
 

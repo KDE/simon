@@ -23,7 +23,6 @@
 #include <QTableView>
 #include <QMouseEvent>
 #include <QDrag>
-#include <QMimeData>
 
 /**
  *	@class DragTableView

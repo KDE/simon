@@ -18,8 +18,9 @@
  */
 
 #include "firstrunsimondconfig.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KSharedConfig>
+#include <KConfigCore/KConfigGroup>
 
 FirstRunSimondConfig::FirstRunSimondConfig(QWidget* parent)
 : QWizardPage(parent)

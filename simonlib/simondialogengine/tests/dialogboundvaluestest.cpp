@@ -18,7 +18,6 @@
  */
 
 #include <QTest>
-#include <QBuffer>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QByteArray>

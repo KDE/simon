@@ -21,7 +21,7 @@
 #define SPHINXTESTCONFIGURATIONWIDGET_H
 
 #include "testconfigurationwidget.h"
-#include <KUrl>
+#include <QUrl>
 
 namespace Ui {
 class SphinxTestConfigurationWidget;
@@ -34,14 +34,14 @@ class SphinxTestConfigurationWidget : public TestConfigurationWidget
 public:
   explicit SphinxTestConfigurationWidget(QWidget *parent = 0);
   SphinxTestConfigurationWidget(CorpusInformation* corpusInfo,
-                               const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
+                               const QUrl& testPromptsUrl, const QUrl& testPromptsBasePathUrl,
                                int sampleRate, QWidget *parent=0);
 
   ~SphinxTestConfigurationWidget();
 
-  KUrl sphinxModelDir () const;
-  KUrl sphinxGrammar() const;
-  KUrl sphinxDictionary() const;
+  QUrl sphinxModelDir () const;
+  QUrl sphinxGrammar() const;
+  QUrl sphinxDictionary() const;
 
   QDomElement serialize(QDomDocument *doc);
 

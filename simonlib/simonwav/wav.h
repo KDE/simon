@@ -59,7 +59,7 @@ class SIMONWAV_EXPORT WAV : public QBuffer
 
   public:
     static bool parseHeader(QIODevice* device, qint16& channels, qint32& samplerate);
-    explicit WAV(QString filename,int channels=0, int samplerate=0);
+    WAV(QString filename,int channels=0, int samplerate=0);
 
     bool beginAddSequence() {
       if (isOpen())

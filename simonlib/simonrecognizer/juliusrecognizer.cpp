@@ -28,10 +28,10 @@
 #include <QMutexLocker>
 #include <QRegExp>
 
-#include <KDE/KLocalizedString>
-#include <KDE/KStandardDirs>
+#include <KI18n/KLocalizedString>
+#include <QStandardPaths>
 #include <KProcess>
-#include <KDebug>
+#include <QDebug>
 #include <QThread>
 
 JuliusRecognizer::JuliusRecognizer() : m_juliusProcess(0), isBeingKilled(false)
@@ -41,7 +41,7 @@ JuliusRecognizer::JuliusRecognizer() : m_juliusProcess(0), isBeingKilled(false)
 QByteArray JuliusRecognizer::readData()
 {
   QByteArray t = m_juliusProcess->readAll();
-//   kDebug() << "Just read: " << t;
+//   qDebug() << "Just read: " << t;
   log += t+'\n';
   return t;
 }
@@ -55,7 +55,7 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
   m_juliusProcess = new KProcess;
   m_juliusProcess->setOutputChannelMode(KProcess::MergedChannels);
   isBeingKilled = false;
-  QString exe = KStandardDirs::findExe("julius");
+  QString exe = QStandardPaths::findExecutable("julius");
   if (exe.isNull())
   {
     m_lastError = i18n("Failed to find executable \"julius\". Please make sure that Julius is installed and that it can be found in your path.");
@@ -63,7 +63,7 @@ bool JuliusRecognizer::init(RecognitionConfiguration* config)
   }
   
   m_juliusProcess->setProgram(exe, config->toArgs());
-  kDebug() << "Starting process " << exe << " with arguments " << config->toArgs();
+  qDebug() << "Starting process " << exe << " with arguments " << config->toArgs();
   return startProcess();
 }
 
@@ -91,7 +91,7 @@ bool JuliusRecognizer::startProcess()
   }
   initializationLock.unlock();
 
-  kDebug() << "Julius started - let's block for the prompt now";
+  qDebug() << "Julius started - let's block for the prompt now";
   if (!blockTillPrompt())
   {
     m_lastError = i18n("Julius did not initialize correctly");
@@ -134,7 +134,7 @@ bool JuliusRecognizer::blockTillPrompt(QByteArray *data)
     }
   }
   initializationLock.unlock();
-  kDebug() << "Last data: " << currentData;
+  qDebug() << "Last data: " << currentData;
   return false;
 }
 
@@ -142,12 +142,12 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
 {
   QList<RecognitionResult> recognitionResults;
   
-  kDebug() << "Recognizing on file: " << file;
+  qDebug() << "Recognizing on file: " << file;
   QMutexLocker l(&recognitionLock);
   
   if (m_juliusProcess->state() == QProcess::NotRunning)
   {
-    kDebug() << "Recognition requested even though julius was not running. Restarting";
+    qDebug() << "Recognition requested even though julius was not running. Restarting";
     if (!startProcess())
       return recognitionResults;
   }
@@ -236,7 +236,7 @@ QList< RecognitionResult > JuliusRecognizer::recognize(const QString& file)
       continue;
     recognitionResults.append(RecognitionResult(result,
                               sampa, sampa, confidenceScores));
-    //kDebug() <<result <<"\t"<<
+    //qDebug() <<result <<"\t"<<
   }
   
   return recognitionResults;
@@ -246,7 +246,7 @@ bool JuliusRecognizer::uninitialize()
 {
   if (!m_juliusProcess) return true; // already uninitialized
 
-  kDebug() << "Uninitializing";
+  qDebug() << "Uninitializing";
   isBeingKilled = true;
   initializationLock.lock();
   log.clear();

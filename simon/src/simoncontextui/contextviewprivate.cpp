@@ -24,16 +24,7 @@
 #include <simoncontextcoreui/newcondition.h>
 
 #include <QWidget>
-#include <QPointer>
-#include <QTableWidgetItem>
-#include <QHeaderView>
-#include <QSize>
-#include <QSortFilterProxyModel>
-#include <QItemSelectionModel>
 
-#include <KMessageBox>
-#include <KIcon>
-#include <KCMultiDialog>
 
 ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
 {

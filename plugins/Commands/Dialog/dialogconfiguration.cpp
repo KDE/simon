@@ -38,25 +38,20 @@
 #include <QVariantList>
 #include <QList>
 #include <QString>
-#include <QDialog>
-#include <QTableView>
 #include <QThread>
-#include <QApplication>
+#include <KWidgetsAddons/KMessageBox>
 
-#include <kgenericfactory.h>
-#include <KAboutData>
+#include <KDELibs4Support/kgenericfactory.h>
 #include <KInputDialog>
-#include <KMessageBox>
-#include <KStandardDirs>
+
 #include <simondialogengine/confui/outputconfiguration.h>
 
 K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
 DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent,  "dialog", ki18n( "Dialog" ),
-  "0.1", ki18n("Control a robot"),
-  "im-user",
-  DialogCommandPluginFactory::componentData()),
+: CommandConfiguration(parent,  "dialog", i18n( "Dialog" ),
+  "0.1", i18n("Control a robot"),
+  "im-user"),
   commandManager(_commandManager),
   boundValuesConfig(new BoundValuesConfiguration(this)),
   templateOptionsConfig(new TemplateOptionsConfiguration(this)),
@@ -100,24 +95,24 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   ui.twMain->addTab(avatarsConfig, i18n("Avatars"));
   ui.twMain->addTab(outputConfiguration, i18n("Output"));
 
-  ui.pbAddState->setIcon(KIcon("list-add"));
-  ui.pbAddTransition->setIcon(KIcon("list-add"));
+  ui.pbAddState->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbAddTransition->setIcon(QIcon::fromTheme("list-add"));
 
-  ui.pbRemoveState->setIcon(KIcon("list-remove"));
-  ui.pbRemoveTransition->setIcon(KIcon("list-remove"));
+  ui.pbRemoveState->setIcon(QIcon::fromTheme("list-remove"));
+  ui.pbRemoveTransition->setIcon(QIcon::fromTheme("list-remove"));
 
-  ui.pbRenameState->setIcon(KIcon("document-edit"));
-  ui.pbEditTransition->setIcon(KIcon("document-edit"));
-  ui.pbEditText->setIcon(KIcon("document-edit"));
+  ui.pbRenameState->setIcon(QIcon::fromTheme("document-edit"));
+  ui.pbEditTransition->setIcon(QIcon::fromTheme("document-edit"));
+  ui.pbEditText->setIcon(QIcon::fromTheme("document-edit"));
 
-  ui.pbMoveStateUp->setIcon(KIcon("arrow-up"));
-  ui.pbMoveTransitionUp->setIcon(KIcon("arrow-up"));
+  ui.pbMoveStateUp->setIcon(QIcon::fromTheme("arrow-up"));
+  ui.pbMoveTransitionUp->setIcon(QIcon::fromTheme("arrow-up"));
 
-  ui.pbMoveStateDown->setIcon(KIcon("arrow-down"));
-  ui.pbMoveTransitionDown->setIcon(KIcon("arrow-down"));
+  ui.pbMoveStateDown->setIcon(QIcon::fromTheme("arrow-down"));
+  ui.pbMoveTransitionDown->setIcon(QIcon::fromTheme("arrow-down"));
 
-  ui.pbAddText->setIcon(KIcon("list-add"));
-  ui.pbRemoveText->setIcon(KIcon("list-remove"));
+  ui.pbAddText->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbRemoveText->setIcon(QIcon::fromTheme("list-remove"));
   displayCurrentState();
 }
 
@@ -128,7 +123,7 @@ void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
     getCurrentState()->setAvatar(0);
   } else {
     Avatar *a = static_cast<Avatar*>(selected.internalPointer());
-    kDebug() << "Selected avatar: " << a->name();
+    qDebug() << "Selected avatar: " << a->name();
     getCurrentState()->setAvatar(a->id());
   }
 }
@@ -149,7 +144,7 @@ void DialogConfiguration::displaySelectedText()
   DialogState *state = getCurrentStateGraphical();
   if (!state) return;
   int textId = ui.sbText->value()-1;
-  kDebug() << "Getting text " << textId;
+  qDebug() << "Getting text " << textId;
   ui.teText->setText(state->getRawText(textId));
 }
 
@@ -408,7 +403,7 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
 {
   if (!outputConfiguration->deSerialize(elem)) {
     defaults();
-    kDebug() << "Setting defaults...";
+    qDebug() << "Setting defaults...";
     return true;
   }
   
@@ -516,12 +511,12 @@ void DialogConfiguration::displayCurrentState()
   int avatarId = currentState->getAvatarId();
   QModelIndex avatarIndex = avatarsConfig->getAvatarIndex(avatarId);
   
-  kDebug() << "Avatar index: " << avatarIndex;
+  qDebug() << "Avatar index: " << avatarIndex;
   //FIXME!
   //ui.lvStateAvatar->selectionModel()->select(avatarIndex,
     //QItemSelectionModel::ClearAndSelect);
 
-  kDebug() << currentState;
+  qDebug() << currentState;
   ui.lvTransitions->setModel(currentState);
 }
 

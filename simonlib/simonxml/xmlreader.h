@@ -20,6 +20,7 @@
 #ifndef SIMON_XMLREADER_H_3B791E4EBA1B4537945A9F5C4019898D
 #define SIMON_XMLREADER_H_3B791E4EBA1B4537945A9F5C4019898D
 #include <QObject>
+#include <QMimeDatabase>
 
 #include "simonxml_export.h"
 
@@ -41,7 +42,8 @@ class SIMONXML_EXPORT XMLReader : public QObject
   void written();
 
   protected:
-    QString path;
+    QString path;    
+    QMimeDatabase db;
 
   public:
     explicit XMLReader(QString path, QObject *parent=0);

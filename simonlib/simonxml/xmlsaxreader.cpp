@@ -23,8 +23,9 @@
 #include <QXmlDefaultHandler>
 #include <QXmlSimpleReader>
 
-#include <KFilterDev>
-#include <KMimeType>
+#include <KArchive/KFilterDev>
+#include <QMimeDatabase>
+
 
 /**
  * \brief Constructor
@@ -52,8 +53,9 @@ void XMLSAXReader::load(QXmlDefaultHandler* handler, QString path)
   if (!handler) return;
   if (path.isEmpty()) path = this->path;
 
+  QMimeDatabase db;
   QIODevice *sourcefile = KFilterDev::deviceForFile(path,
-    KMimeType::findByFileContent(path)->name());
+    db.mimeTypeForFile(path, QMimeDatabase::MatchContent).name());
   if ((!sourcefile) || (!sourcefile->open(QIODevice::ReadOnly)))
     return;
 

@@ -22,7 +22,6 @@
 #include "windows.h"
 #include "tchar.h"
 #include "psapi.h"
-#include <QDebug>
 
 //WINAPI:
 //krazy:excludeall=captruefalse

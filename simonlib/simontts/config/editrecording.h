@@ -20,8 +20,7 @@
 #ifndef SIMON_EDITRECORDING_H_CD6234308AA54117A89845ADFE98BCA1
 #define SIMON_EDITRECORDING_H_CD6234308AA54117A89845ADFE98BCA1
 
-#include <KDialog>
-#include <QList>
+#include <KDELibs4Support/KDE/KDialog>
 #include "ui_editrecording.h"
 
 class RecWidget;

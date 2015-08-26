@@ -21,8 +21,8 @@
 #define SIMON_PLACECOMMAND_H_DFA997ECD2A140B19F98DACE4C6CCA9A
 
 #include <simonscenarios/command.h>
-#include <KUrl>
-#include <KIcon>
+#include <QUrl>
+#include <QIcon>
 
 /**
  *	@class PlaceCommand
@@ -36,7 +36,7 @@ class PlaceCommand : public Command
 {
 
   private:
-    KUrl url;
+    QUrl url;
 
   protected:
     const QMap<QString,QVariant> getValueMapPrivate() const;
@@ -47,9 +47,9 @@ class PlaceCommand : public Command
 
   public:
     static const QString staticCategoryText();
-    static const KIcon staticCategoryIcon();
+    static const QIcon staticCategoryIcon();
 
-    const KIcon getCategoryIcon() const;
+    const QIcon getCategoryIcon() const;
     const QString getCategoryText() const;
 
     STATIC_CREATE_INSTANCE_H(PlaceCommand);
@@ -61,7 +61,7 @@ class PlaceCommand : public Command
      *
      *	@author Peter Grasch
      */
-    PlaceCommand(const QString& name, const QString& iconSrc, const QString& description, const KUrl& url_) : Command(name, iconSrc, description),
+    PlaceCommand(const QString& name, const QString& iconSrc, const QString& description, const QUrl& url_) : Command(name, iconSrc, description),
     url(url_) {
     }
 
@@ -70,7 +70,7 @@ class PlaceCommand : public Command
      *
      *	@author Peter Grasch
      */
-    const KUrl getURL() const { return this->url; }
+    const QUrl getURL() const { return this->url; }
 
     ~PlaceCommand() {}
 

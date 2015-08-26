@@ -21,7 +21,7 @@
 #define SIMON_SIMONACTIONSUI_EXPORT_H_A1403E4D54AD48B5BAE6194302B00576
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONACTIONSUI_EXPORT
 # if defined(MAKE_SIMONACTIONSUI_LIB)

@@ -21,13 +21,13 @@
 
 #include <QTest>
 #include <QSignalSpy>
-#include <QDebug>
 #include <QMouseEvent>
 #include <QLineEdit>
 
-#include <KPushButton>
-#include <KCmdLineArgs>
-#include <KApplication>
+#include <QPushButton>
+
+#include <KDELibs4Support/kapplication.h>
+#include <QCommandLineParser>
 
 class eventHandlerTest: public QObject
 {
@@ -45,20 +45,20 @@ class eventHandlerTest: public QObject
     
 };
 
-class MMBButton : public KPushButton
+class MMBButton : public QPushButton
 {
   Q_OBJECT
 signals:
   void rightClicked();
   void middleClicked();
 public:
-  MMBButton() : KPushButton("Test", 0) {}
+  MMBButton() : QPushButton("Test", 0) {}
   void mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::RightButton)
       emit rightClicked();
     else if (event->button() == Qt::MiddleButton)
       emit middleClicked();
-    KPushButton::mousePressEvent(event);
+    QPushButton::mousePressEvent(event);
   }
 };
 
@@ -122,7 +122,16 @@ void eventHandlerTest::initTestCase()
   strcpy(appName, "test");
   char **argv = new char*[1];
   *argv = appName;
-  KCmdLineArgs::init(1, argv, "test", "test", ki18n("appname"), "0.1");
+  KAboutData aboutData( QLatin1String("test"), i18n("appname"), QLatin1String("0.1"));
+    QApplication app(argc, argv);
+    QCommandLineParser parser;
+    KAboutData::setApplicationData(aboutData);
+    parser.addVersionOption();
+    parser.addHelpOption();
+    //PORTING SCRIPT: adapt aboutdata variable if necessary
+    aboutData.setupCommandLine(&parser);
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
 
   app = new KApplication(true);
   

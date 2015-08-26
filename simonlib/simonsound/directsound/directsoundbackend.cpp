@@ -22,8 +22,8 @@
 #include <unistd.h>
 #include <simonsound/soundbackendclient.h>
 #include <QThread>
-#include <KDebug>
-#include <KLocalizedString>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
 
 //krazy:excludeall=captruefalse
 
@@ -86,20 +86,20 @@ public:
         long lockSize = 0;
 
         if(FAILED(hr = m_parent->m_primaryBufferC->Start( DSCBSTART_LOOPING ) )){
-            kWarning()<<"Failed to start recording"<<DXERR_TO_STRING(hr);
+            qWarning()<<"Failed to start recording"<<DXERR_TO_STRING(hr);
         }
 
 
         while(shouldRun && hr == 0){
             HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents,SIMON_WAIT_TIMEOUT);
             if(lr == WAIT_FAILED){
-                kWarning()<<"Event loop failed";
+                qWarning()<<"Event loop failed";
                 break;
             }else if(lr != WAIT_OBJECT_0){
                 continue;
             }
             if(FAILED(hr = m_parent->m_primaryBufferC->GetCurrentPosition(NULL,&readCursor))){
-                kWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
+                qWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
                 break;
             }
 
@@ -108,12 +108,12 @@ public:
                 lockSize += m_parent->m_bufferSize;
 
             if (lockSize == 0){
-                kWarning()<<"lock size should not be 0";
+                qWarning()<<"lock size should not be 0";
                 continue;
             }
 
             if (FAILED(hr = m_parent->m_primaryBufferC->Lock(myCursor, lockSize,&audioBuffer1, &sizeAudioBuffer1, &audioBuffer2, &sizeAudioBuffer2, 0))){
-                kWarning()<<"Capture lock failure"<<lockSize<<DXERR_TO_STRING(hr);
+                qWarning()<<"Capture lock failure"<<lockSize<<DXERR_TO_STRING(hr);
                 break;
             }
 
@@ -127,11 +127,11 @@ public:
 
         }
         if(hr != 0){
-            kWarning()<<"Recorde error";
+            qWarning()<<"Recorde error";
             m_parent->errorRecoveryFailed();
         }
 
-        kWarning()<<"Record loop ended";
+        qWarning()<<"Record loop ended";
         m_parent->closeSoundSystem();
         shouldRun = false;
     }
@@ -160,7 +160,7 @@ public:
 
 
         if (FAILED(hr = m_parent->m_primaryBuffer->Lock(0,0, &audioBuffer1, &sizeAudioBuffer1, NULL, 0, DSBLOCK_ENTIREBUFFER))) {
-            kWarning() << "Lock DirectSoundBuffer Failed!"<<DXERR_TO_STRING(hr);
+            qWarning() << "Lock DirectSoundBuffer Failed!"<<DXERR_TO_STRING(hr);
             m_parent->errorRecoveryFailed();
             return;
         }
@@ -169,7 +169,7 @@ public:
 
         //Begin playback
         if(FAILED(hr = m_parent->m_primaryBuffer->Play(0, 0, DSBPLAY_LOOPING))){
-            kWarning()<<"Starting playback failed"<<DXERR_TO_STRING(hr);
+            qWarning()<<"Starting playback failed"<<DXERR_TO_STRING(hr);
             shouldRun = false;
         }
 
@@ -178,14 +178,14 @@ public:
         while (shouldRun && hr == 0) {
             HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents, SIMON_WAIT_TIMEOUT);
             if(lr == WAIT_FAILED){
-                kWarning()<<"Event loop failed";
+                qWarning()<<"Event loop failed";
                 break;
             }else if(lr != WAIT_OBJECT_0){
                 continue;
             }
 
             if(FAILED(hr = m_parent->m_primaryBuffer->GetCurrentPosition(&playCursor,NULL))){
-                kWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
+                qWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
                 break;
             }
             //I can write until the play cursor
@@ -195,12 +195,12 @@ public:
                 lockSize += m_parent->m_bufferSize;
 
             if (lockSize == 0){
-                kWarning()<<"lock size should not be 0";
+                qWarning()<<"lock size should not be 0";
                 continue;
             }
             //Lock DirectSoundBuffer Second Part
             if ( FAILED(hr = m_parent->m_primaryBuffer->Lock(myCursor, lockSize, &audioBuffer1, &sizeAudioBuffer1, &audioBuffer2, &sizeAudioBuffer2, 0)) ) {
-                kWarning() << "Lock DirectSoundBuffer Failed!"<<lockSize<<DXERR_TO_STRING(hr);
+                qWarning() << "Lock DirectSoundBuffer Failed!"<<lockSize<<DXERR_TO_STRING(hr);
                 break;
             }
 
@@ -209,7 +209,7 @@ public:
                 memset(audioBuffer1,0,sizeAudioBuffer1);
                 memset(audioBuffer2,0,sizeAudioBuffer2);
                 m_parent->m_primaryBuffer->Unlock(audioBuffer1, sizeAudioBuffer1, audioBuffer2, sizeAudioBuffer2);
-                kWarning()<<"Reached eof";
+                qWarning()<<"Reached eof";
                 break;
             }
             if(lockSize>sizeAudioBuffer1)
@@ -219,7 +219,7 @@ public:
                     //end of file
                     memset(audioBuffer2,0,sizeAudioBuffer2);
                     m_parent->m_primaryBuffer->Unlock(audioBuffer1, sizeAudioBuffer1, audioBuffer2, sizeAudioBuffer2);
-                    kWarning()<<"Reached eof";
+                    qWarning()<<"Reached eof";
                     break;
                 }
             }
@@ -237,11 +237,11 @@ public:
         while (hr == 0) {
             HRESULT lr = WaitForSingleObject(m_parent->m_bufferEvents, SIMON_WAIT_TIMEOUT);
             if(lr == WAIT_FAILED){
-                kWarning()<<"Event loop failed";
+                qWarning()<<"Event loop failed";
                 break;
             }
             if(FAILED(hr = m_parent->m_primaryBuffer->GetCurrentPosition(&playCursor,NULL))){
-                kWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
+                qWarning()<<"Failed to get cursor"<<DXERR_TO_STRING(hr);
                 break;
             }
             if(neeedCrossZero)
@@ -255,7 +255,7 @@ public:
                     break;
             }
         }
-        kWarning() << "Exiting run loop";
+        qWarning() << "Exiting run loop";
         shouldRun = false;
         m_parent->closeSoundSystem();
     }
@@ -307,7 +307,7 @@ BOOL CALLBACK DirectSoundEnumerateCallback(LPGUID pGUID, LPCWSTR pcName, LPCWSTR
     QString deviceName(QString::fromWCharArray(pcName));
     deviceName += QString(" (%1)").arg(uid);
 
-    kDebug() << "Found device: " << deviceName;
+    qDebug() << "Found device: " << deviceName;
     ((DirectSoundBackend*) pContext)->deviceFound(deviceName);
     SetEvent(DirectSoundBackend::s_deviceCallbackEvent);
     return true;
@@ -337,7 +337,7 @@ QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
 bool DirectSoundBackend::setupNotifer( IUnknown **primaryBuffer,LPDIRECTSOUNDNOTIFY *notify){
     HRESULT hr;
     if(FAILED(hr = (*primaryBuffer)->QueryInterface(IID_IDirectSoundNotify, (void**)(notify)))){
-        kWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
+        qWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
         freeAllResources();
         return false;
     }
@@ -351,7 +351,7 @@ bool DirectSoundBackend::setupNotifer( IUnknown **primaryBuffer,LPDIRECTSOUNDNOT
     }
 
     if ( FAILED(hr = (*notify)->SetNotificationPositions(NOTIFY_NUM, pPosNotify)) ) {
-        kWarning() << "Set NotificationPosition Failed!"<<DX_SHARED_DEFINES(hr);
+        qWarning() << "Set NotificationPosition Failed!"<<DX_SHARED_DEFINES(hr);
         freeAllResources();
         return false;
     }
@@ -362,7 +362,7 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
     HRESULT hr;
 
     if(FAILED(hr = DirectSoundCreate8(deviceID, ppDS8, 0))) {
-        kWarning() << "Failed to open device"<<DXERR_TO_STRING(hr);
+        qWarning() << "Failed to open device"<<DXERR_TO_STRING(hr);
         *ppDS8 = 0;
         emit errorOccured(SimonSound::OpenError);
         return false;
@@ -374,7 +374,7 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
         hWnd = GetDesktopWindow();
 
     if(FAILED(hr = (*ppDS8)->SetCooperativeLevel(hWnd, DSSCL_PRIORITY))){
-        kWarning() << "Failed to set CooperationLevel"<<DXERR_TO_STRING(hr);
+        qWarning() << "Failed to set CooperationLevel"<<DXERR_TO_STRING(hr);
         return false;
     }
 
@@ -390,12 +390,12 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 
     LPDIRECTSOUNDBUFFER tmp = NULL;
     if ( FAILED(hr = (*ppDS8)->CreateSoundBuffer(&BufferDesc, &tmp, NULL)) ) {
-        kWarning()<<"Failed to create primary buffer"<<DXERR_TO_STRING(hr);
+        qWarning()<<"Failed to create primary buffer"<<DXERR_TO_STRING(hr);
         return false;
     }
 
     if(FAILED(hr = tmp->SetFormat(&m_waveFormat))){
-        kWarning()<<"failed to set wave format"<<DXERR_TO_STRING(hr);
+        qWarning()<<"failed to set wave format"<<DXERR_TO_STRING(hr);
         return false;
     }
 
@@ -410,7 +410,7 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
     BufferDesc.lpwfxFormat    = &m_waveFormat;
 
     if(FAILED((*ppDS8)->CreateSoundBuffer(&BufferDesc, &tmp, 0))) {
-        kWarning() << "Couldn't create sound buffer.";
+        qWarning() << "Couldn't create sound buffer.";
         (*ppDS8)->Release();
         *ppDS8 = 0;
         (*primaryBuffer)->Release();
@@ -422,7 +422,7 @@ bool DirectSoundBackend::openOutputDevice(GUID *deviceID,LPDIRECTSOUND8* ppDS8, 
 
 
     if(FAILED(hr = tmp->QueryInterface(IID_IDirectSoundBuffer8 , (void**)(primaryBuffer)))){
-        kWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
+        qWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
         freeAllResources();
         tmp->Release();
         return false;
@@ -437,7 +437,7 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
     LPDIRECTSOUNDCAPTUREBUFFER tmp = NULL;
 
     if(FAILED( hr = DirectSoundCaptureCreate8(deviceID, ppDS8C, 0))) {
-        kWarning() << "Failed to open capture device"<<DXERR_TO_STRING(hr);
+        qWarning() << "Failed to open capture device"<<DXERR_TO_STRING(hr);
         *ppDS8C = 0;
         emit errorOccured(SimonSound::OpenError);
         return false;
@@ -450,7 +450,7 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
     CaptureBufferDesc.lpwfxFormat    = &m_waveFormat;
 
     if(FAILED(hr = (*ppDS8C)->CreateCaptureBuffer(&CaptureBufferDesc,&tmp, NULL))) {
-        kWarning() << "Failed to create primary recording buffer"<<DXERR_TO_STRING(hr);
+        qWarning() << "Failed to create primary recording buffer"<<DXERR_TO_STRING(hr);
         (*ppDS8C)->Release();
         *ppDS8C = 0;
         *primaryBufferC = 0;
@@ -458,7 +458,7 @@ bool DirectSoundBackend::openInputDevice(GUID *deviceID,LPDIRECTSOUNDCAPTURE8* p
     }
 
     if(FAILED(hr = tmp->QueryInterface(IID_IDirectSoundCaptureBuffer8 , (void**)(primaryBufferC)))){
-        kWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
+        qWarning() << "Query interface failed"<<DXERR_TO_STRING(hr);
         freeAllResources();
         tmp->Release();
         return false;
@@ -506,7 +506,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
     HRESULT err = CLSIDFromString(internalDeviceNameW, &deviceID);
     delete [] internalDeviceNameW;
     if (err != NOERROR) {
-        kWarning() << "Couldn't parse: " << internalDeviceName << " assuming default";
+        qWarning() << "Couldn't parse: " << internalDeviceName << " assuming default";
         deviceID = ((type == SimonSound::Output) ? GUID_NULL : DSDEVID_DefaultVoiceCapture);
     }
 
@@ -572,7 +572,7 @@ void DirectSoundBackend::freeAllResources()
 // stop playback / recording
 bool DirectSoundBackend::stop()
 {
-    kWarning() << "Stopping";
+    qWarning() << "Stopping";
     if (state() != SimonSound::ActiveState)
         return true;
 
@@ -599,7 +599,7 @@ bool DirectSoundBackend::closeSoundSystem()
     if (m_primaryBuffer) {
         HRESULT hr = m_primaryBuffer->Lock(0, 0, &lpvAudio1, &dwBytesAudio1, NULL, NULL, DSBLOCK_ENTIREBUFFER);
         if ( FAILED(hr) )  {
-            kWarning() << "Couldn't lock buffer to clear"<<DXERR_TO_STRING(hr);
+            qWarning() << "Couldn't lock buffer to clear"<<DXERR_TO_STRING(hr);
         } else {
             memset(lpvAudio1, 0, dwBytesAudio1);
             m_primaryBuffer->Unlock(lpvAudio1, dwBytesAudio1, 0, 0);
@@ -625,7 +625,7 @@ bool DirectSoundBackend::closeSoundSystem()
 bool DirectSoundBackend::prepareRecording(const QString& device, int& channels, int& samplerate)
 {
     if (m_handle || m_handleC || (m_loop && m_loop->isRunning())) {
-        kWarning()<<"Sound system is running";
+        qWarning()<<"Sound system is running";
         emit errorOccured(SimonSound::BackendBusy);
         return false;
     }
@@ -634,13 +634,13 @@ bool DirectSoundBackend::prepareRecording(const QString& device, int& channels, 
                     &m_handle, &m_primaryBuffer,
                     &m_handleC, &m_primaryBufferC,
                     &m_notify)) {
-        kWarning()<<"failed to open input";
+        qWarning()<<"failed to open input";
         return false;
     }
 
     m_loop = new DirectSoundCaptureLoop(this);
     emit stateChanged(SimonSound::PreparedState);
-    kDebug() << "Prepared recording: " << m_handleC;
+    qDebug() << "Prepared recording: " << m_handleC;
 
     return true;
 }
@@ -654,7 +654,7 @@ bool DirectSoundBackend::startRecording(SoundBackendClient *client)
     //starting playback
     m_loop->start();
     emit stateChanged(SimonSound::ActiveState);
-    kDebug() << "Started recording: " << m_handle;
+    qDebug() << "Started recording: " << m_handle;
     return false;
 }
 
@@ -677,7 +677,7 @@ bool DirectSoundBackend::preparePlayback(const QString& device, int& channels, i
     if (!openDevice(SimonSound::Output, device, channels, samplerate,
                     &m_handle, &m_primaryBuffer,
                     &m_handleC, &m_primaryBufferC,&m_notify)) {
-        kWarning() << "Failed to open device";
+        qWarning() << "Failed to open device";
         return false;
     }
 
@@ -696,7 +696,7 @@ bool DirectSoundBackend::startPlayback(SoundBackendClient *client)
     //starting playback
     m_loop->start();
     emit stateChanged(SimonSound::ActiveState);
-    kDebug() << "Started playback: " << m_handle;
+    qDebug() << "Started playback: " << m_handle;
     return true;
 }
 

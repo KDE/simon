@@ -19,11 +19,10 @@
 
 #include "model.h"
 #include <QBuffer>
-#include <QFile>
 #include <QDomDocument>
 #include <QDomElement>
-#include <KFilterDev>
-#include <KTar>
+#include <KArchive/KFilterDev>
+#include <KArchive/KTar>
 
 Model::Model(qint32 data, const QByteArray& container) :
 m_data(data), m_container(container), m_containerParsed(false)
@@ -61,13 +60,13 @@ bool Model::parseContainer ( KTar& archive, QDateTime& creationDate, QString& na
           type = typeElem.text();
           return true;
         }
-        else kDebug() << "Elements 0";
+        else qDebug() << "Elements 0";
       }
-        else kDebug() << "Entry invalid";
+        else qDebug() << "Entry invalid";
     }
-        else kDebug() << "Directory invalid";
+        else qDebug() << "Directory invalid";
   }
-        else kDebug() << "Couldn't open tar";
+        else qDebug() << "Couldn't open tar";
         
   return false;
 }

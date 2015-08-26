@@ -21,7 +21,7 @@
 #define SIMON_SIMONAPPCORE_EXPORT_H_D36E0FE2AB924B508A030DCF33ACF99E
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONAPPCORE_EXPORT
 # if defined(MAKE_SIMONAPPCORE_LIB)

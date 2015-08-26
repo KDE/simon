@@ -20,7 +20,7 @@
 #ifndef SIMON_PROGRESSWIDGET_H_A90BC5523CFA444DB2AEA79A1C65920F
 #define SIMON_PROGRESSWIDGET_H_A90BC5523CFA444DB2AEA79A1C65920F
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include <QPointer>
 #include <QSharedPointer>
 #include "simonprogresstracking_export.h"
@@ -29,7 +29,7 @@ class Operation;
 class QLabel;
 class QPushButton;
 class QProgressBar;
-class KPushButton;
+class QPushButton;
 
 /**
   @author
@@ -42,7 +42,7 @@ class SIMONPROGRESSTRACKING_EXPORT ProgressWidget : public QWidget
     QLabel *name;
     QLabel *currentAction;
     QProgressBar *bar;
-    KPushButton *cancelButton;
+    QPushButton *cancelButton;
 
   public slots:
     void update();

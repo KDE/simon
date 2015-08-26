@@ -21,12 +21,11 @@
 
 #include <simoncontextdetection/compoundcondition.h>
 
-#include <KMessageBox>
-#include <KIcon>
+#include <QIcon>
 
-#include <KLocalizedString>
-#include <KDebug>
-
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
 #include "ui_singledeviceconfiguration.h"
 
 SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels,
@@ -63,9 +62,9 @@ SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QSt
   ui->lbHzResample->setVisible((type == SimonSound::Input));
 #endif
 
-  ui->pbTest->setIcon(KIcon("help-hint"));
-  ui->pbRemove->setIcon(KIcon("list-remove"));
-  ui->pbAdvancedConfiguration->setIcon(KIcon("configure"));
+  ui->pbTest->setIcon(QIcon::fromTheme("help-hint"));
+  ui->pbRemove->setIcon(QIcon::fromTheme("list-remove"));
+  ui->pbAdvancedConfiguration->setIcon(QIcon::fromTheme("configure"));
 
   if (!(options & SimonSound::Removable))
     ui->pbRemove->hide();
@@ -85,7 +84,7 @@ SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QSt
   connect(ui->leSampleGroup, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 
   load(deviceName, channels, sampleRate, resampleEnabled, resampleSampleRate, defaultSampleGroup, conditions);
-  
+
   ui->wgAdvancedOptions->hide();
 }
 
@@ -156,7 +155,7 @@ void SingleDeviceSettings::load(const QString& deviceName, int channels,
   hasChanged=false;
   if ((!deviceName.isEmpty()) &&
   (ui->cbSoundDevice->currentText() != deviceName)) {
-    if (KMessageBox::questionYesNoCancel(this, i18nc("%1 is the device name",
+    if (KMessageBox::questionYesNo(this, i18nc("%1 is the device name",
             "<html><head/><body><p>Simon noticed that the sound device "
             "\"%1\" is no longer available.</p><p>This is perfectly normal if you are "
             "connected to Simond or are otherwise using an application that blocks the "
@@ -164,9 +163,8 @@ void SingleDeviceSettings::load(const QString& deviceName, int channels,
             "audio setup?</b></p><p>Selecting \"Yes\" will allow you to change your sound "
             "configuration, essentially deleting your previous configuration. Selecting "
             "\"No\" will temporarily deactivate the sound configuration in order to "
-            "protect your previous configuration from being overwritten.</body></html>", 
-            deviceName)) == KMessageBox::Yes) {
-      QString defaultDevice; 
+            "protect your previous configuration from being overwritten.</body></html>", deviceName))) {
+      QString defaultDevice;
 
       if (m_type == SimonSound::Input)
         defaultDevice = SoundServer::defaultInputDevice();

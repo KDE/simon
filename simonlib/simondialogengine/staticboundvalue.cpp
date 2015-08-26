@@ -22,7 +22,7 @@
 #include <QDomElement>
 #include <QDomDocument>
 
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 StaticBoundValue::StaticBoundValue(const QString& name) : BoundValue(name)
 {

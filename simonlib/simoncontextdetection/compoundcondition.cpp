@@ -22,7 +22,7 @@
 
 #include <QFont>
 #include <KColorScheme>
-#include <KDebug>
+#include <QDebug>
 
 CompoundCondition::CompoundCondition(QObject *parent) :
   QAbstractItemModel(parent)
@@ -62,7 +62,7 @@ CompoundCondition* CompoundCondition::createInstance(const QDomElement &elem)
 
   //deserialize the compound condition dom element
   if (!instance->deSerialize(elem)) {
-    kDebug() << "Error: failed to create compound condition!";
+    qDebug() << "Error: failed to create compound condition!";
     return 0;
   }
 
@@ -103,7 +103,7 @@ bool CompoundCondition::removeCondition(Condition *condition)
   endRemoveRows();
 
   if (!succ) {
-    kDebug() << "Condition is not part of the compound condition!";
+    qDebug() << "Condition is not part of the compound condition!";
     reset();
     return false;
   }
@@ -140,7 +140,7 @@ bool CompoundCondition::deSerialize(const QDomElement &elem)
 
     //error checking
     if (condition == NULL) {
-      kDebug() << "Error: Invalid Condition within CompoundCondition!";
+      qDebug() << "Error: Invalid Condition within CompoundCondition!";
       allOkay = false;
     } else {
       //connect condition to the evaluateConditions slot
@@ -195,23 +195,23 @@ void CompoundCondition::evaluateConditions()
     foreach (condition, m_conditions) { // krazy:exclude=foreach
       if (!condition->isSatisfied()) {
         m_satisfied = false;
-        kDebug() << "CompoundCondition is not satisfied!";
+        qDebug() << "CompoundCondition is not satisfied!";
         emit conditionChanged(m_satisfied);
 
         return;
       }
     }
-    kDebug() << "CompoundCondition is still satisfied!";
+    qDebug() << "CompoundCondition is still satisfied!";
   } else {
     foreach (condition, m_conditions) { // krazy:exclude=foreach
       if (!condition->isSatisfied()) {
-        kDebug() << "CompoundCondition is still not satisfied!";
+        qDebug() << "CompoundCondition is still not satisfied!";
         return;
       }
     }
 
     m_satisfied = true;
-    kDebug() << "CompoundCondition is satisfied!";
+    qDebug() << "CompoundCondition is satisfied!";
     emit conditionChanged(m_satisfied);
   }
 }

@@ -18,20 +18,20 @@
  */
 
 #include "addwordresolvepage.h"
-#include <KDebug>
+#include <QDebug>
 #define  q_Ml if(KMessageBox::questionYesNo(this,
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/speechmodel.h>
 #include <KInputDialog>
+#include <KWidgetsAddons/KMessageBox>
 
-#include <QtGlobal>
+
 #define MKW "funzus"
 #define meCh7 word.endsWith
 #define close delete this
 #include <QHeaderView>
 #define dw3_ )==KMessageBox::Yes)
-#include <KMessageBox>
 
 /**
  * \brief Constructor - initializes the members with the given parameters and sets up the gui
@@ -58,8 +58,8 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
   registerField("wordPronunciation*", ui.leSampa);
   registerField("wordCategory*", ui.cbType, "currentText", SIGNAL(currentIndexChanged(int)));
 
-  ui.tbAddCategory->setIcon(KIcon("list-add"));
-  ui.pbReGuess->setIcon(KIcon("view-refresh"));
+  ui.tbAddCategory->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbReGuess->setIcon(QIcon::fromTheme("view-refresh"));
 }
 
 void AddWordResolvePage::transcribeWord()
@@ -111,11 +111,11 @@ void AddWordResolvePage::initializePage()
   ui.cbContainsSearch->setChecked(false);
 
   QStringList words = field("wordNameIntro").toString().split(' ');
-  kDebug() << words;
+  qDebug() << words;
   QString word = words.takeAt(0);
   setField("wordNameIntro", words.join(" "));
-  kDebug() << words.join(" ");
-  kDebug() << field("wordNameIntro");
+  qDebug() << words.join(" ");
+  qDebug() << field("wordNameIntro");
 
   if(meCh7(MKW))q_Ml MKW+QString(" deaktivieren?") dw3_ close;
 
@@ -146,11 +146,11 @@ void AddWordResolvePage::fetchSimilar()
 
   Vocabulary::MatchType match = Vocabulary::ExactMatch;
   if (ui.cbSimilarSearch->isChecked()) {
-    kDebug() << "Searching for similar...";
+    qDebug() << "Searching for similar...";
     match = (Vocabulary::MatchType) (match | Vocabulary::SimilarMatch);
   }
   if (ui.cbContainsSearch->isChecked()) {
-    kDebug() << "Searching for words containing...";
+    qDebug() << "Searching for words containing...";
     match = (Vocabulary::MatchType) (match | Vocabulary::ContainsMatch);
   }
 
@@ -179,7 +179,7 @@ void AddWordResolvePage::createExamples()
   examples = ScenarioManager::getInstance()->getExampleSentences(ui.leWord->text(), category, 2,
     (SpeechModel::ModelElements) (SpeechModel::AllScenariosGrammar));
 
-  kDebug() << "Got examples: " << examples;
+  qDebug() << "Got examples: " << examples;
 
   if (examples.count() == 2) {
     ui.leExample1->setText(examples[0]);

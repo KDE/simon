@@ -21,11 +21,11 @@
 #ifndef SIMON_KEYBOARDMODIFYBUTTONDIALOG_H_4611A4EC1B5D4DDD977397BEA2A39049
 #define SIMON_KEYBOARDMODIFYBUTTONDIALOG_H_4611A4EC1B5D4DDD977397BEA2A39049
 
-#include <KDialog>
+#include <QDialog>
 #include "keyboardbutton.h"
 #include "ui_modifybuttondlg.h"
 
-class KeyboardModifyButtonDialog : public KDialog
+class KeyboardModifyButtonDialog : public QDialog
 {
   Q_OBJECT
 

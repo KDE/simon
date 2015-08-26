@@ -51,7 +51,7 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
     static TrainingManager *m_instance;
     TrainingList *m_trainingTexts;
 
-    QHash<QString,int> m_wordRelevance;             /// Stores the relevance of words (caching for getProbability)
+    QHash<QString,int> m_wordRelevance;             /// Stores the relevance of words (caching for getFrequency)
 
     QMutex m_promptsLock;
     PromptsTable *m_promptsTable;
@@ -74,7 +74,7 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
 
     bool deletePrompt ( QString key );
 
-    int getProbability ( QString name );
+    int getFrequency ( QString name );
     PromptsTable* readPrompts (QString pathToPrompts);
 
     bool deleteWord(const QString& word);

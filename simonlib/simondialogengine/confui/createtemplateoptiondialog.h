@@ -21,14 +21,14 @@
 #ifndef SIMON_CREATETEMPLATEOPTIONDIALOG_H_4B4956DCAE204C49977297D20CB81F09
 #define SIMON_CREATETEMPLATEOPTIONDIALOG_H_4B4956DCAE204C49977297D20CB81F09
 
-#include <KDialog>
+#include <QDialog>
 
 namespace Ui
 {
   class CreateTemplateOptionDialog;
 }
 
-class CreateTemplateOptionDialog : public KDialog
+class CreateTemplateOptionDialog : public QDialog
 {
   private:
     Ui::CreateTemplateOptionDialog *ui;

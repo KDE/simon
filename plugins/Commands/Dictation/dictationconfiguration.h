@@ -23,7 +23,6 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_dictationconfigurationdlg.h"
 #include <KSharedConfig>
-#include <QPointer>
 
 class DictationConfiguration : public CommandConfiguration
 {

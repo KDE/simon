@@ -3,14 +3,14 @@ set (simonlistcommandplugin_SRCS
   listcommandmanager.cpp 
 )
 
-kde4_add_ui_files(simonlistcommandplugin_SRCS 
+ki18n_wrap_ui(simonlistcommandplugin_SRCS
   createlistcommandwidget.ui
 )
 
 kde4_add_plugin(simonlistcommandplugin ${simonlistcommandplugin_SRCS})
 
-target_link_libraries(simonlistcommandplugin ${KDE4_KDEUI_LIBS}
-  ${KDE4_KIO_LIBS} simonscenarios simonscenariobase
+target_link_libraries(simonlistcommandplugin
+  KF5::KIOCore simonscenarios simonscenariobase
   simonlogging simonactions)
 
 install(TARGETS simonlistcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandlistplugin)

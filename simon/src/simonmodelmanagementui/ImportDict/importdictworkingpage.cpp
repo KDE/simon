@@ -21,16 +21,19 @@
 #include "importdict.h"
 #include <QLabel>
 #include <QProgressBar>
-#include <QVariant>
 #include <QVBoxLayout>
-#include <KUrl>
-#include <KLocalizedString>
-#include <KStandardDirs>
-#include <KFilterDev>
-#include <KMimeType>
+#include <QUrl>
+#include <QDir>
+#include <QTextCodec>
+#include <KI18n/klocalizedstring.h>
+
+#include <KArchive/KFilterDev>
+
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
+#include <QMimeDatabase>
 #include  <kencodingdetector.h>
+#include <KEncodingProber>
 
 /**
  * \brief Constructor - inits the gui
@@ -90,8 +93,9 @@ bool ImportDictWorkingPage::isComplete() const
 
 QString ImportDictWorkingPage::guessEncoding(const QString& path)
 {
+    QMimeDatabase db;
   QIODevice *dict = KFilterDev::deviceForFile(path,
-    KMimeType::findByFileContent(path)->name());
+    db.mimeTypeForFile(path, QMimeDatabase::MatchContent).name());
   if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
     return "";
 
@@ -99,10 +103,11 @@ QString ImportDictWorkingPage::guessEncoding(const QString& path)
   dict->close();
   delete dict;
 
-  KEncodingDetector detector;
-  detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
-  QString out=detector.decode(preview);
-  return detector.encoding();
+  KEncodingProber prober;
+  prober.setProberType(KEncodingProber::WesternEuropean);
+  prober.feed(preview);
+  QString out= QTextCodec::codecForName(prober.encoding())->toUnicode(preview);
+  return prober.encoding();
 }
 
 
@@ -187,9 +192,9 @@ QList<Word*> ImportDictWorkingPage::getCurrentWordList()
 }
 
 
-QString ImportDictWorkingPage::prepareDict(KUrl url)
+QString ImportDictWorkingPage::prepareDict(QUrl url)
 {
-  KIO::FileCopyJob *job = KIO::file_copy(url, KStandardDirs::locateLocal("tmp", url.fileName()), -1, KIO::Overwrite);
+  KIO::FileCopyJob *job = KIO::file_copy(url, QDir::tempPath() + QLatin1Char('/') +  url.fileName(), -1, KIO::Overwrite);
 
   if (!job->exec()) {
     job->ui()->showErrorMessage();
@@ -212,17 +217,17 @@ void ImportDictWorkingPage::initializePage()
 
   if (field("hadifix").toBool()) {
     if (field("bompSource").toBool())             //true means a manual import
-      importHADIFIX(prepareDict(field("bompFileName").value<KUrl>()));
+      importHADIFIX(prepareDict(field("bompFileName").value<QUrl>()));
     else
-      importHADIFIX(KStandardDirs::locateLocal("tmp", "bomp"));
+      importHADIFIX(QDir::tempPath() + QLatin1Char('/') +  "bomp");
   } else if (field("lexicon").toBool())
-  importLexicon(prepareDict(field("lexiconFilename").value<KUrl>()));
+  importLexicon(prepareDict(field("lexiconFilename").value<QUrl>()));
   else if (field("pls").toBool())
-    importPLS(prepareDict(field("plsFilename").value<KUrl>()));
+    importPLS(prepareDict(field("plsFilename").value<QUrl>()));
   else if (field("julius").toBool())
-    importJulius(prepareDict(field("juliusVocabularyFilename").value<KUrl>()));
+    importJulius(prepareDict(field("juliusVocabularyFilename").value<QUrl>()));
   else
-    importSPHINX(prepareDict(field("sphinxFilename").value<KUrl>()));
+    importSPHINX(prepareDict(field("sphinxFilename").value<QUrl>()));
 }
 
 

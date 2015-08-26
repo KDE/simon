@@ -26,18 +26,14 @@
 #include <simonprogresstracking/progresswidget.h>
 
 #include <QDir>
-#include <QLabel>
-#include <QtConcurrentRun>
 
 #include <QThread>
-#include <QVBoxLayout>
 #include <QFuture>
 #include <QFutureWatcher>
 
-#include <KMessageBox>
-#include <KLocalizedString>
-#include <KPushButton>
-#include <KDebug>
+#include <klocalizedstring.h>
+#include <QPushButton>
+#include <QDebug>
 
 
 /**
@@ -55,13 +51,13 @@ bool SendSampleWorker::sendSamples()
   int retryAmount = 0;
 
   if (!m_dataProvider->startTransmission()) {
-    kDebug() << "Could not start transmission";
+    qDebug() << "Could not start transmission";
 
     emit error(i18n("Failed to start the sample transmission.\n\nMost likely this is caused by problems to send the information about the used input devices."));
     shouldAbort = true;
     successful = false;
   }
-  kDebug() << "Transmission started...";
+  qDebug() << "Transmission started...";
 
   int maxProgress = m_dataProvider->sampleToTransmitCount();
 
@@ -72,9 +68,9 @@ bool SendSampleWorker::sendSamples()
     //    QFile f(s->path());
     emit sendSample(s);
 
-    kDebug() << "Emit signal";
+    qDebug() << "Emit signal";
     if (!m_server->processSampleAnswer() && (retryAmount < 3)) {
-      kDebug() << "Error processing sample"  << retryAmount;
+      qDebug() << "Error processing sample"  << retryAmount;
       if (!m_server->isConnected()) {
         shouldAbort = true;
         successful = false;
@@ -92,17 +88,17 @@ bool SendSampleWorker::sendSamples()
       }
       retryAmount = 0;
     }
-    kDebug() << "Done processing sample";
+    qDebug() << "Done processing sample";
 
     //if sample could not be opened we probably skipped this sample; ignore that silently
     //    } else {
-    //      kDebug() << "File not found";
+    //      qDebug() << "File not found";
     //      m_dataProvider->sampleTransmitted();
     //    }
 
     i++;
   }
-  kDebug() << "Done";
+  qDebug() << "Done";
   m_dataProvider->stopTransmission();
   if (!shouldAbort) {
     if (m_isStored) {
@@ -132,14 +128,14 @@ bool SendSampleWorker::storeData()
   //storing data
   bool succ = true;
   if (!m_dataProvider->store()) {
-    kDebug() << "bleh";
+    qDebug() << "bleh";
     emit error("Could not store samples correctly.");
     emit aborted();
     succ = false;
   }
   else {
     emit finished();
-    kDebug() << "Finished";
+    qDebug() << "Finished";
   }
   return succ;
 }

@@ -8,7 +8,7 @@ set(simonrecognitionresult_LIB_HDRS
 )
 
 kde4_add_library(simonrecognitionresult SHARED ${simonrecognitionresult_LIB_SRCS})
-target_link_libraries(simonrecognitionresult ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS})
+target_link_libraries(simonrecognitionresult ${QT_LIBRARIES} KF5::KDELibs4Support KF5::I18n)
 
 set_target_properties(simonrecognitionresult
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

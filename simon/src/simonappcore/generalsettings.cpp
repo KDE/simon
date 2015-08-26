@@ -18,28 +18,31 @@
  */
 
 #include "generalsettings.h"
-#include <KMessageBox>
 #include <knewpassworddialog.h>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include "coreconfiguration.h"
-#include <kgenericfactory.h>
+#include <KDELibs4Support/kgenericfactory.h>
+#include <KConfigWidgets/KCModule>
+
+#include <KConfigCore/KConfigGroup>
 
 #ifdef Q_OS_WIN32
 #include <QSettings>
+#include <KSharedConfig>
 #endif
 
 K_PLUGIN_FACTORY( GeneralSettingsFactory,
 registerPlugin< GeneralSettings >();
 )
 
-K_EXPORT_PLUGIN( GeneralSettingsFactory("GeneralSettings") )
+// // K_EXPORT_PLUGIN( GeneralSettingsFactory("GeneralSettings") )
 /**
  * \brief Constructs a new GeneralSettings object
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
 GeneralSettings::GeneralSettings(QWidget* parent, const QVariantList& args):
-KCModule(KGlobal::mainComponent(), parent)
+KCModule(parent)
 {
   Q_UNUSED(args);
 
@@ -103,3 +106,5 @@ void GeneralSettings::save()
   settings.sync();
   #endif
 }
+
+#include "generalsettings.moc"

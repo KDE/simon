@@ -24,12 +24,8 @@
 #include <simonsound/soundoutputclient.h>
 #include <simonsound/soundserver.h>
 #include <simonsound/soundbackend.h>
-#include <QTimer>
-#include <QMutexLocker>
-#include <KLocalizedString>
-#include <KDebug>
-#include <KMessageBox>
-#include <QFile>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 SimonSoundOutput::SimonSoundOutput(QObject *parent) : QObject(parent),
 popWhenBufferEmpty(false),
@@ -66,7 +62,7 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 QByteArray SimonSoundOutput::requestData(qint64 maxLen)
 {
   if (!m_activeOutputClient) {
-    kDebug() << "No current output client\n";
+    qDebug() << "No current output client\n";
     return QByteArray();
   }
 
@@ -109,7 +105,7 @@ qint64 SimonSoundOutput::writeData(const char *toWrite, qint64 len)
 
 bool SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
 {
-  kDebug() << "Registering output client";
+  qDebug() << "Registering output client";
 
   bool newOut = false;
 
@@ -130,7 +126,7 @@ bool SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
 
 bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 {
-  kWarning() << "Deregister output client";
+  qWarning() << "Deregister output client";
 
   if (client != m_activeOutputClient)
     //wasn't active anyways
@@ -147,19 +143,19 @@ bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 
 bool SimonSoundOutput::preparePlayback(SimonSound::DeviceConfiguration& device)
 {
-  kDebug() << "Starting playback...";
-  kDebug() << "Using device: " << device.name();
-  kDebug() << "Channels: " << device.channels();
-  kDebug() << "Samlerate: " << device.sampleRate();
+  qDebug() << "Starting playback...";
+  qDebug() << "Using device: " << device.name();
+  qDebug() << "Channels: " << device.channels();
+  qDebug() << "Samlerate: " << device.sampleRate();
 
   int channels = device.channels();
   int sampleRate = device.sampleRate();
   if (!m_output->preparePlayback(device.name(), channels, sampleRate)) {
-    kWarning() << "Failed to setup recording...";
+    qWarning() << "Failed to setup recording...";
     return false;
   }
 
-  kDebug() << "Prepared audio output";
+  qDebug() << "Prepared audio output";
   m_device = device;
 
   m_buffer->start();
@@ -182,7 +178,7 @@ SoundClient::SoundClientPriority SimonSoundOutput::getHighestPriority()
 
 bool SimonSoundOutput::activate(SoundClient::SoundClientPriority priority)
 {
-  kDebug() << "Activating priority: " << priority;
+  qDebug() << "Activating priority: " << priority;
 
   if (m_activeOutputClient &&
     (m_activeOutputClient->priority() == priority))
@@ -201,16 +197,16 @@ bool SimonSoundOutput::activate(SoundClient::SoundClientPriority priority)
 
 void SimonSoundOutput::slotOutputStateChanged(SimonSound::State state)
 {
-  kDebug() << "Output state changed: " << state;
+  qDebug() << "Output state changed: " << state;
 
   if (m_activeOutputClient)
     m_activeOutputClient->outputStateChanged(state);
 
   if (state == SimonSound::IdleState) {
-    kDebug() << "Error: " << m_output->error();
+    qDebug() << "Error: " << m_output->error();
     switch (m_output->error()) {
       case SimonSound::NoError:
-        kDebug() << "Output stopped without error";
+        qDebug() << "Output stopped without error";
         break;
       case SimonSound::OpenError:
         emit error(i18n("Failed to open the audio device.\n\nPlease check your sound configuration."));
@@ -222,7 +218,7 @@ void SimonSoundOutput::slotOutputStateChanged(SimonSound::State state)
         break;
 
       case SimonSound::UnderrunError:
-        kWarning() << i18n("Buffer underrun when processing the sound data.");
+        qWarning() << i18n("Buffer underrun when processing the sound data.");
         break;
 
       case SimonSound::FatalError:
@@ -252,18 +248,18 @@ bool SimonSoundOutput::stopPlayback()
       deleteLater();
     }
   }
-  kDebug() << "After playbackFinished";
+  qDebug() << "After playbackFinished";
   return true;
 }
 
 SimonSoundOutput::~SimonSoundOutput()
 {
-  kDebug() << "Deleting Simon sound output";
+  qDebug() << "Deleting Simon sound output";
   m_output->stopPlayback();
   m_output->deleteLater();
 
   m_buffer->stop();
   m_buffer->wait();
-  kDebug() << "Stopped buffer";
+  qDebug() << "Stopped buffer";
 }
 

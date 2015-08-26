@@ -25,9 +25,9 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(CommandManager *manager
 {
   ui.setupUi(this);
 
-  #if KDE_IS_VERSION(4,1,60)
-  ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
-  #endif
+  // #if KDE_IS_VERSION(4,1,60)
+  // ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
+  // #endif
   ui.ksShortcut->setModifierlessAllowed(true);
   setWindowIcon(ShortcutCommand::staticCategoryIcon());
   setWindowTitle(ShortcutCommand::staticCategoryText());
@@ -38,7 +38,7 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(CommandManager *manager
   ui.lbSpecialShortcut->hide();
   ui.pbApplySpecialShortcut->hide();
   #else
-  ui.pbApplySpecialShortcut->setIcon(KIcon("arrow-up"));
+  ui.pbApplySpecialShortcut->setIcon(QIcon::fromTheme("arrow-up"));
   connect(ui.pbApplySpecialShortcut, SIGNAL(clicked()), this, SLOT(applySpecialShortcut()));
   #endif
 }

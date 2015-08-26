@@ -20,8 +20,10 @@
 #ifndef SIMON_PROMPTSVIEW_H_47AEB5F97F5246E8BAC891DD0B65687A
 #define SIMON_PROMPTSVIEW_H_47AEB5F97F5246E8BAC891DD0B65687A
 
-#include <KDialog>
+
+#include <KDELibs4Support/KDE/KDialog>
 #include "simonmodelmanagementui_export.h"
+#include <KDELibs4Support/KDE/KDialog>
 
 class PromptsViewPrivate;
 

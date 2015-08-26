@@ -21,8 +21,8 @@
 #define SIMON_NETWORKSETTINGS_H_697FC1EF2FF14D8DAED685C07ADE9CC2
 
 #include "ui_networksettingsdlg.h"
-#include <KCModule>
 #include <QVariantList>
+#include <KConfigWidgets/KCModule>
 
 /**
  * \class NetworkSettings

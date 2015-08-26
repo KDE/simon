@@ -22,6 +22,7 @@
 
 #include <QHash>
 #include <QList>
+#include <QString>
 class TemplateValueList;
 
 class ReportTemplateEngine

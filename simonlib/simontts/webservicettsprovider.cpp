@@ -23,14 +23,13 @@
 #include <simonsound/wavplayerclient.h>
 #include <simonsound/soundserver.h>
 #include <simonwav/wav.h>
-#include <QStringList>
-#include <QFile>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QMutexLocker>
 #include <QNetworkAccessManager>
-#include <KDebug>
-#include <KStandardDirs>
+#include <QDebug>
+#include <QUrl>
+
 #include <QBuffer>
 #include <QTextDocument>
 
@@ -66,14 +65,14 @@ void WebserviceTTSProvider::replyReceived()
   
   if (reply->error() != QNetworkReply::NoError)
   {
-    kWarning() << "Webservice reported error: " << reply->errorString();
+    qWarning() << "Webservice reported error: " << reply->errorString();
     return;
   }
   
   downloadMutex.lock();
   ++downloadOffset;
-  kDebug() << "Done download, increasing offset to: " << downloadOffset;
-  kDebug() << "Files still left to download: " << filesToDownload.count();
+  qDebug() << "Done download, increasing offset to: " << downloadOffset;
+  qDebug() << "Files still left to download: " << filesToDownload.count();
   if (!filesToDownload.isEmpty())
     fetch(filesToDownload.dequeue());
   else
@@ -120,17 +119,17 @@ bool WebserviceTTSProvider::say(const QString& text)
   d.setHtml(text);
 
   QString encoded = d.toPlainText();
-  kDebug() << "Encoded: " << encoded;
+  qDebug() << "Encoded: " << encoded;
   QString url = TTSConfiguration::webserviceURL().replace("%1", QUrl::toPercentEncoding(encoded));
  
   downloadMutex.lock();
-  kDebug() << "Getting: " << url;
+  qDebug() << "Getting: " << url;
   QSharedPointer<QBuffer> b(new QBuffer());
   b->open(QIODevice::ReadWrite);
   filesToPlay.enqueue(b);
 
   if (currentConnection) {
-    kDebug() << "We already have a connection. Queueing url...";
+    qDebug() << "We already have a connection. Queueing url...";
     filesToDownload.enqueue(url);
   } else {
     fetch(url);
@@ -141,7 +140,7 @@ bool WebserviceTTSProvider::say(const QString& text)
 
 void WebserviceTTSProvider::fetch(const QString& url)
 {
-  currentConnection = net->get(QNetworkRequest(KUrl(url)));
+  currentConnection = net->get(QNetworkRequest(QUrl(url)));
   connect(currentConnection, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(downloadProgress(qint64,qint64)));
   connect(currentConnection, SIGNAL(finished()), this, SLOT(replyReceived()));
 }
@@ -149,9 +148,9 @@ void WebserviceTTSProvider::fetch(const QString& url)
 void WebserviceTTSProvider::downloadProgress(qint64 now, qint64 max)
 {
   QMutexLocker l(&downloadMutex);
-  kDebug() << "Download progress: " << now << max;
+  qDebug() << "Download progress: " << now << max;
   QByteArray buf = currentConnection->readAll();
-  kDebug() << "Writing to offset: " << downloadOffset << filesToPlay.count();
+  qDebug() << "Writing to offset: " << downloadOffset << filesToPlay.count();
   filesToPlay.at(downloadOffset)->buffer() += buf;
   enquePlayback();
 }
@@ -159,13 +158,13 @@ void WebserviceTTSProvider::downloadProgress(qint64 now, qint64 max)
 /// downloadMutex is already locked as we enter this method
 void WebserviceTTSProvider::enquePlayback()
 {
-  kDebug() << "Bytes available: " << filesToPlay.first()->bytesAvailable() << player->isPlaying();
+  qDebug() << "Bytes available: " << filesToPlay.first()->bytesAvailable() << player->isPlaying();
   if (filesToPlay.first()->bytesAvailable() > 44 && !player->isPlaying()) {
-    kDebug() << "Received header so starting playback";
+    qDebug() << "Received header so starting playback";
     qint16 channels;
     qint32 samplerate;
     WAV::parseHeader(filesToPlay.first().data(), channels, samplerate);
-    kDebug() << "header: " << channels << samplerate;
+    qDebug() << "header: " << channels << samplerate;
     QSharedPointer<QBuffer> handle = filesToPlay.first();
     handle->buffer().remove(0, 44);
     player->play(handle, channels, samplerate);
@@ -183,10 +182,10 @@ void WebserviceTTSProvider::playNext()
   
   if (filesToPlay.isEmpty()) return;
   
-  kDebug() << "Finished playback";
+  qDebug() << "Finished playback";
   filesToPlay.dequeue();
   
-  kDebug() << "Done playing, decreasing offset to: " << downloadOffset;
+  qDebug() << "Done playing, decreasing offset to: " << downloadOffset;
   
   if (filesToPlay.isEmpty()) return;
   enquePlayback();

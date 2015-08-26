@@ -19,9 +19,7 @@
 
 #include "firstrunbasemodelconfig.h"
 #include <simonscenarios/basemodelsettings.h>
-#include <QPointer>
-#include <KLocalizedString>
-#include <KCMultiDialog>
+#include <KI18n/klocalizedstring.h>
 
 FirstRunBaseModelConfig::FirstRunBaseModelConfig(QWidget* parent)
 : QWizardPage(parent)

@@ -21,15 +21,10 @@
 #include "../TrainSamples/trainsamplepage.h"
 #include <simonsound/recwidget.h>
 #include <simonscenarios/trainingmanager.h>
-#include <QDate>
-#include <QTime>
-#include <QDir>
 #include <QVBoxLayout>
-#include <QVariant>
 
-#include <KMessageBox>
-#include <KStandardDirs>
-#include <KLocalizedString>
+
+#include <KI18n/klocalizedstring.h>
 
 /**
  * \brief Constructor - also creates the GUI Elements

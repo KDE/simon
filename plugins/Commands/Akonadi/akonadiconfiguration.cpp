@@ -22,11 +22,8 @@
 
 #include <QVariantList>
 #include <QString>
-#include <QProgressBar>
 #include <simonscenarios/scenario.h>
-#include <kgenericfactory.h>
-#include <KAboutData>
-#include <KMessageBox>
+#include <KDELibs4Support/kgenericfactory.h>
 #include <simondialogengine/avatar.h>
 #include <simondialogengine/confui/templateoptionsconfiguration.h>
 #include <simondialogengine/confui/boundvaluesconfiguration.h>
@@ -39,16 +36,16 @@
 #include <akonadi/collectionfetchjob.h>
 #include <akonadi/collectionfetchscope.h>
 #include <kcalcore/event.h>
-#include <KProgressDialog>
+#include <QProgressDialog>
+#include <KWidgetsAddons/KMessageBox>
 #include <simondialogengine/avatarmodel.h>
 
 K_PLUGIN_FACTORY_DECLARATION(AkonadiCommandPluginFactory)
 
 AkonadiConfiguration::AkonadiConfiguration(AkonadiCommandManager *manager, Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent,  "akonadi", ki18n( "Akonadi" ),
-  "0.1", ki18n("Integrate with the personal data manager akonadi"),
-  "akonadi",
-  AkonadiCommandPluginFactory::componentData()),
+: CommandConfiguration(parent,  "akonadi", i18n( "Akonadi" ),
+  "0.1", i18n("Integrate with the personal data manager akonadi"),
+  "akonadi"),
   m_manager(manager),
   fetchCollectionsDialog(0),
   boundValuesConfig(new BoundValuesConfiguration(this)),
@@ -81,10 +78,12 @@ void AkonadiConfiguration::initCollections()
 {
   if (!fetchCollectionsDialog)
   {
-    fetchCollectionsDialog = new KProgressDialog(this, i18n("Akonadi Plug-in"), i18n("Fetching collections from akonadi..."));
+    fetchCollectionsDialog = new QProgressDialog(this);
+    fetchCollectionsDialog->setWindowTitle(i18n("Akonadi Plug-in"));
+    fetchCollectionsDialog->setLabelText(i18n("Fetching collections from akonadi..."));
   
-    fetchCollectionsDialog->progressBar()->setRange(0,0);
-    fetchCollectionsDialog->progressBar()->setValue(0);
+    fetchCollectionsDialog->setRange(0,0);
+    fetchCollectionsDialog->setValue(0);
   }
   
   fetchCollectionsDialog->show();
@@ -108,7 +107,7 @@ void AkonadiConfiguration::collectionJobFinished(KJob* job)
   Akonadi::Collection::List collections = fetchJob->collections();
   foreach (const Akonadi::Collection& collection, collections)
   {
-    kDebug() << "Collection: " << collection.name() << collection.id();
+    qDebug() << "Collection: " << collection.name() << collection.id();
     ui.cbCollection->addItem(collection.name(), collection.id());
   }
   

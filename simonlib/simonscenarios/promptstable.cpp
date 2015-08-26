@@ -22,7 +22,7 @@
 #include "word.h"
 #include "speechmodelmanagementconfiguration.h"
 #include <QFile>
-#include <KDebug>
+#include <QDebug>
 
 PromptsTable::PromptsTable() : m_model(0)
 {
@@ -90,10 +90,10 @@ bool PromptsTable::init(const QString& path)
 
 bool PromptsTable::save(const QString& path)
 {
-  kDebug() << "Opening prompts table at output path: " << path;
+  qDebug() << "Opening prompts table at output path: " << path;
   QFile promptsFile ( path );
   if ( !promptsFile.open ( QIODevice::WriteOnly ) ) {
-    kDebug() << "Open failed";
+    qDebug() << "Open failed";
     return false;
   }
 
@@ -176,7 +176,7 @@ bool PromptsTable::clear()
 
   foreach (const QString& path, paths)
   {
-    kDebug() << "Path: " << path;
+    qDebug() << "Path: " << path;
     deletePrompt(path);
   }
 

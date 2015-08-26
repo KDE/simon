@@ -22,7 +22,7 @@
 #include "simonscenarios/trainingmanager.h"
 #include "simonsound/soundserver.h"
 #include <KComboBox>
-#include <KDebug>
+#include <QDebug>
 
 SampleGroupItemDelegate::SampleGroupItemDelegate(SampleGroupCondition *sampleGroupCondition, QObject *parent) :
     QStyledItemDelegate(parent),
@@ -75,8 +75,8 @@ void SampleGroupItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *
     KComboBox *sampleGroupBox = qobject_cast<KComboBox*>(editor);
     QString sampleGroup = sampleGroupBox->currentText();
 
-    kDebug() << "setting current model data" << sampleGroup;
-    kDebug() << "setting current model data" << model;
+    qDebug() << "setting current model data" << sampleGroup;
+    qDebug() << "setting current model data" << model;
 
     model->setData(index, QVariant(sampleGroup));
 

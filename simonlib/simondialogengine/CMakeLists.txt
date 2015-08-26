@@ -48,8 +48,8 @@ set_target_properties(simondialogengine
 )
 
 target_link_libraries(simondialogengine
-  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${PLAMSA_DEP_LIB} simonscenarios
-  ${QT_QTSCRIPT_LIBRARY} ${KDE4_KDEUI_LIBS} simonscenariobase simonactions)
+  ${QT_LIBRARIES} KF5::KIOCore KF5::Plasma simonscenarios
+  Qt5::Script  simonscenariobase simonactions)
 
 install(TARGETS simondialogengine DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 
@@ -63,4 +63,4 @@ add_subdirectory(graphicalview)
 add_subdirectory(ttsview)
 add_subdirectory(confui)
 
-add_subdirectory(tests)
+# add_subdirectory(tests)

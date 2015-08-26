@@ -19,9 +19,9 @@
 
 #include "trainingview.h"
 #include "trainingviewprivate.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
-TrainingView::TrainingView(QWidget *parent) : InlineWidget(i18n ( "Training" ), KIcon ( "view-pim-news" ),
+TrainingView::TrainingView(QWidget *parent) : InlineWidget(i18n ( "Training" ), QIcon::fromTheme( "view-pim-news" ),
 i18n ( "Train the Acoustic Model" ), parent),
 d(new TrainingViewPrivate(this))
 {

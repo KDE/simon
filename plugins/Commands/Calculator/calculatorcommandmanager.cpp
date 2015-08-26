@@ -28,13 +28,16 @@
 
 #include <QDesktopWidget>
 #include <QStack>
-#include <KAction>
-#include <KDialog>
+#include <QAction>
+#include <QDialog>
 
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
 #include <simonactions/commandlistwidget.h>
 #include <simoninfo/simoninfo.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include "calculatorconfiguration.h"
 #include "token.h"
@@ -44,11 +47,11 @@ K_PLUGIN_FACTORY( CalculatorCommandPluginFactory,
 registerPlugin< CalculatorCommandManager >();
 )
 
-K_EXPORT_PLUGIN( CalculatorCommandPluginFactory("simoncalculatorcommand") )
+// K_EXPORT_PLUGIN( CalculatorCommandPluginFactory("simoncalculatorcommand") )
 
 CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 GreedyReceiver(this),
-widget(new KDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
+widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 commandListWidget(new CommandListWidget()),
 currentResult(0),
 resultCurrentlyDisplayed(true)
@@ -138,7 +141,7 @@ bool CalculatorCommandManager::installInterfaceCommands()
     SimonCommand::GreedyState, "9");
   succ &= installInterfaceCommand(ui.pbComma, "click", i18nc("Decimal separator (voice trigger)", "Point"), iconSrc(),
     i18n("Decimal separator"), false, false, SimonCommand::GreedyState,
-    SimonCommand::GreedyState, KGlobal::locale()->decimalSymbol());
+    SimonCommand::GreedyState, QLocale().decimalPoint());
 
   //output mode
   succ &= installListInterfaceCommand(CommandListElements::One, this, "printResult", "printResult",
@@ -177,24 +180,33 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
   config = new CalculatorConfiguration(parentScenario);
   config->deSerialize(elem);
 
-  KAction *activateAction = new KAction(this);
+  QAction *activateAction = new QAction(this);
   activateAction->setText(i18n("Activate Calculator"));
-  activateAction->setIcon(KIcon("accessories-calculator"));
+  activateAction->setIcon(QIcon::fromTheme("accessories-calculator"));
   activateAction->setStatusTip(i18n("Display the calculator"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(activate()));
   guiActions << activateAction;
 
-  widget->setWindowIcon(KIcon("accessories-calculator"));
+  widget->setWindowIcon(QIcon::fromTheme("accessories-calculator"));
   connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
 
   QWidget *internalWidget = new QWidget(widget);
   ui.setupUi(internalWidget);
-  widget->setMainWidget(internalWidget);
-  widget->setButtons(0); //don't show any kdialog buttons
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  widget->setLayout(mainLayout);
+  mainLayout->addWidget(internalWidget);
+  QDialogButtonBox *buttonBox = new QDialogButtonBox();
+  QWidget *mainWidget = new QWidget(internalWidget);
+  widget->setLayout(mainLayout);
+  mainLayout->addWidget(mainWidget);
+  widget->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  widget->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+  mainLayout->addWidget(buttonBox);
 
-  ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
-  ui.pbCancel->setIcon(KIcon("dialog-cancel"));
+  ui.pbOk->setIcon(QIcon::fromTheme("dialog-ok-apply"));
+  ui.pbCancel->setIcon(QIcon::fromTheme("dialog-cancel"));
   widget->hide();
 
   setFont(ActionManager::getInstance()->pluginBaseFont());
@@ -243,7 +255,7 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
   connect(commandListWidget, SIGNAL(canceled()), this, SLOT(printCancel()));
 
   if (!installInterfaceCommands())
-    kWarning() << "Could not install all interface commands";
+    qWarning() << "Could not install all interface commands";
   return true;
 }
 
@@ -356,14 +368,14 @@ QString CalculatorCommandManager::formatInput(CalculatorCommandManager::NumberTy
 
         switch (type) {
           case CalculatorCommandManager::Default:
-            output += KGlobal::locale()->formatNumber(t->getNumber());
+            output += QLocale().toString(t->getNumber());
             break;
           case CalculatorCommandManager::Money:
             if ((i+1 < parsedString.count()) && (parsedString.at(i+1)->getType() == 3))
               //percentage coming up so do not format it as money
-              output += KGlobal::locale()->formatNumber(t->getNumber());
+              output += QLocale().toString(t->getNumber());
             else
-              output += KGlobal::locale()->formatMoney(t->getNumber());
+              output += QLocale().toCurrencyString(t->getNumber());
             break;
         }
         break;
@@ -387,10 +399,10 @@ QString CalculatorCommandManager::formatOutput(CalculatorCommandManager::NumberT
 
   switch (type) {
     case CalculatorCommandManager::Default:
-      output = KGlobal::locale()->formatNumber(currentResult);
+      output = QLocale().toString(currentResult);
       break;
     case CalculatorCommandManager::Money:
-      output = KGlobal::locale()->formatMoney(currentResult);
+      output = QLocale().toCurrencyString(currentResult);
       break;
   }
   return output;
@@ -447,7 +459,7 @@ void CalculatorCommandManager::sendNumber(const QString bracketStr)
 
 void CalculatorCommandManager::sendComma()
 {
-  sendOperator(KGlobal::locale()->decimalSymbol());
+  sendOperator(QLocale().decimalPoint());
 }
 
 
@@ -522,7 +534,7 @@ void CalculatorCommandManager::sendEquals()
 QString CalculatorCommandManager::toString(double in)
 {
   QString out = QString::number(in);
-  out.replace('.', KGlobal::locale()->decimalSymbol());
+  out.replace('.', QLocale().decimalPoint());
   return out;
 }
 
@@ -537,13 +549,13 @@ QList<Token *> CalculatorCommandManager::parseString(QString calc, bool *success
   double number=0.0;
   bool isFloat=false;
   float decimalMultiplier =  10.0f;
-  QString decimal = KGlobal::locale()->decimalSymbol();
+  QString decimal = QLocale().decimalPoint();
 
   for(int i=0;i<calc.size();i++) {
     if(calc.at(i)>=48 && calc.at(i)<=57) {        // digit
       switch(status) {
         case -1: clear();
-        SimonInfo::showMessage(i18n("Not a legal expression"), 3000, new KIcon("accessories-calculator"));
+        SimonInfo::showMessage(i18n("Not a legal expression"), 3000, QIcon::fromTheme("accessories-calculator"));
         break;
         case 2: number=number+(calc.at(i).digitValue()/decimalMultiplier);
         decimalMultiplier*=10;
@@ -622,14 +634,14 @@ QList<Token *> CalculatorCommandManager::parseString(QString calc, bool *success
         if (i+1 == calc.size()) {
           status=-1;
           clear();
-          SimonInfo::showMessage(i18n("Not a legal expression"), 3000, new KIcon("accessories-calculator"));
+          SimonInfo::showMessage(i18n("Not a legal expression"), 3000, QIcon::fromTheme("accessories-calculator"));
         }
       }
     }
     else {
       status=-1;
       clear();
-      SimonInfo::showMessage(i18n("Not a legal expression"), 3000, new KIcon("accessories-calculator"));
+      SimonInfo::showMessage(i18n("Not a legal expression"), 3000, QIcon::fromTheme("accessories-calculator"));
     }
   }
 
@@ -692,7 +704,7 @@ QList<Token *> CalculatorCommandManager::toPostfix(QList<Token *> calcList, bool
       list.append(calcList.at(i));
     }
     else {
-      kWarning() << "Error in function: toPostfix()";
+      qWarning() << "Error in function: toPostfix()";
     }
   }
 
@@ -744,7 +756,7 @@ double CalculatorCommandManager::calculate(QList<Token *> postList)
           op2 = calc.pop()->getNumber();
           op1 = calc.pop()->getNumber();
           if (op2 == 0) {
-            SimonInfo::showMessage(i18n("Cannot divide through 0"), 3000, new KIcon("accessories-calculator"));
+            SimonInfo::showMessage(i18n("Cannot divide through 0"), 3000, QIcon::fromTheme("accessories-calculator"));
             calc.push(new Token(0));
           }
           else
@@ -869,3 +881,5 @@ CalculatorCommandManager::~CalculatorCommandManager()
 {
   widget->deleteLater();
 }
+
+#include "calculatorcommandmanager.moc"

@@ -17,14 +17,18 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#define QT_ENABLE_QEXPLICITLYSHAREDDATAPOINTER_STATICCAST   // QT5TODO: another workflow is suggested
+
 #include "selectprogramdialog.h"
 #include "ui_selectprogramdlg.h"
 
-#include <KListWidget>
+#include <QListWidget>
 #include <QListWidgetItem>
 #include <QWidget>
-#include <KService>
-#include <KServiceGroup>
+#include <KService/KService>
+#include <KService/KServiceGroup>
+
+
 
 /**
  *   \brief Constructor
@@ -35,13 +39,16 @@
 *   @param QWidget *parent
 */
 SelectProgramDialog::SelectProgramDialog(QWidget* parent):
-    KDialog(parent),
+    QDialog(parent),
     ui(new Ui::SelectProgramDlg)
 {
   QWidget *widget = new QWidget( this );
   ui->setupUi(widget);
-  setMainWidget( widget );
-  setCaption( i18n("Select program") );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+  setWindowTitle( i18n("Select program") );
 
   connect(ui->lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
 
@@ -80,12 +87,12 @@ void SelectProgramDialog::findCategories(QString relPath)
     const KSycocaEntry::Ptr p = (*it);
 
     if (p->isType(KST_KServiceGroup)) {
-      const KServiceGroup::Ptr serviceGroup = KServiceGroup::Ptr::staticCast(p);
+        const KServiceGroup::Ptr serviceGroup = QExplicitlySharedDataPointer<KServiceGroup>(p); // Qt5 port... double check this
 
       if (serviceGroup->noDisplay() || serviceGroup->childCount() == 0)
         continue;
 
-      QListWidgetItem *item = new QListWidgetItem(KIcon(serviceGroup->icon()), serviceGroup->caption());
+      QListWidgetItem *item = new QListWidgetItem(QIcon::fromTheme(serviceGroup->icon()), serviceGroup->caption());
       item->setData(Qt::UserRole, serviceGroup->relPath());
       ui->lwCategories->addItem(item);
       findCategories(serviceGroup->relPath());
@@ -123,7 +130,7 @@ void SelectProgramDialog::searchForPrograms()
   for (KServiceGroup::List::ConstIterator it = list.begin(); it != list.end(); ++it) {
     const KSycocaEntry::Ptr p = (*it);
     if (p->isType(KST_KService)) {
-      const KService::Ptr service = KService::Ptr::staticCast(p);
+      const KService::Ptr service = QExplicitlySharedDataPointer<KService>(p);
 
       if (service->noDisplay())
         continue;
@@ -133,7 +140,7 @@ void SelectProgramDialog::searchForPrograms()
         displayName = i18nc("%1 is an application name, %2 is the generic name",
 	                    "%1 (%2)", service->name(), service->genericName());
       else displayName = service->name();
-      QListWidgetItem *item = new QListWidgetItem(KIcon(service->icon()), displayName);
+      QListWidgetItem *item = new QListWidgetItem(QIcon::fromTheme(service->icon()), displayName);
 
       QString exec;
       QStringList execParts = service->exec().split(' ', QString::SkipEmptyParts);

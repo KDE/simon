@@ -21,7 +21,7 @@
 #define SIMON_SSCCONFIGURATION_EXPORT_H_54650E3C1C664281A13ABE2A8BBC3A3E
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SSCCONFIGURATION_EXPORT
 # if defined(MAKE_SSCCONFIGURATION_LIB)

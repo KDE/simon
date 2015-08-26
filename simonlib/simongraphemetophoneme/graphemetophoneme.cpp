@@ -19,10 +19,11 @@
 
 #include "graphemetophoneme.h"
 #include <KProcess>
-#include <KStandardDirs>
-#include <KDebug>
-#include <KLocalizedString>
+#include <QStandardPaths>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
 #include <QFile>
+#include <QDir>
 
 GraphemeToPhoneme::GraphemeToPhoneme(QObject *parent) : QObject(parent),
 	sequitur(new KProcess(this)),
@@ -33,7 +34,7 @@ GraphemeToPhoneme::GraphemeToPhoneme(QObject *parent) : QObject(parent),
 
 bool GraphemeToPhoneme::findSequitur(QString& out)
 {
-  out = KStandardDirs::findExe("g2p.py");
+  out = QStandardPaths::findExecutable("g2p.py");
   
   if (out.isEmpty()) {
     out = i18n("<html><body>Sequitur G2P is required to use this feature.\n\n"
@@ -52,7 +53,7 @@ bool GraphemeToPhoneme::createProfile()
     return false;
   }
   
-  sequitur->setWorkingDirectory(KStandardDirs::locateLocal("tmp", "simon/sequitur/"));
+  sequitur->setWorkingDirectory(QDir::tempPath() + QLatin1Char('/') +  "simon/sequitur/");
   sequitur->setOutputChannelMode(KProcess::OnlyStderrChannel);
  
   nextStep();
@@ -67,7 +68,7 @@ void GraphemeToPhoneme::nextStep(int finish)
     
     sequitur->terminate(); //if we are not yet done, abort
     m_state = Idle;
-    kDebug() << "Error: " << error;
+    qDebug() << "Error: " << error;
     
     emit failed();
     return;
@@ -101,11 +102,11 @@ void GraphemeToPhoneme::nextStep(int finish)
       break;
     case RampUp4: {
       emit state(i18n("Finished."), 100,100);
-      emit success(KStandardDirs::locateLocal("tmp", "simon/sequitur/model5"));
+      emit success(QDir::tempPath() + QLatin1Char('/') +  "simon/sequitur/model5");
       break;
     }
     default:
-      kDebug() << "Not implemented";
+      qDebug() << "Not implemented";
       return;
   };
 
@@ -129,14 +130,14 @@ QString GraphemeToPhoneme::getError()
 
 QHash< QString, TranscriptionResult > GraphemeToPhoneme::transcribe(const QStringList& words, const QString& pathToModel)
 {
-  kDebug() << "Transcribing: " << words;
+  qDebug() << "Transcribing: " << words;
   QHash<QString, TranscriptionResult> transcribed;
   
   QString sequiturExe;
   if (!findSequitur(sequiturExe))
     return transcribed;
 
-  QString tempFilePath = KStandardDirs::locateLocal("tmp", "simon/sequitur/toTranscribe");
+  QString tempFilePath = QDir::tempPath() + QLatin1Char('/') +  "simon/sequitur/toTranscribe";
   QFile f(tempFilePath);
   if (!f.open(QIODevice::WriteOnly))
     return transcribed;
@@ -162,8 +163,8 @@ QHash< QString, TranscriptionResult > GraphemeToPhoneme::transcribe(const QStrin
   
   QStringList errors = QString::fromUtf8(sequitur.readAllStandardError()).trimmed().split('\n');
   QStringList outputLines = QString::fromUtf8(sequitur.readAllStandardOutput()).trimmed().split('\n');
-  kDebug() << "Errors: " << errors;
-  kDebug() << "Output: " << outputLines;
+  qDebug() << "Errors: " << errors;
+  qDebug() << "Output: " << outputLines;
   int errorIndex = 0;
   int outputIndex = 0;
   for (int i=0; i < wordListPrepared.count(); i++) {
@@ -175,15 +176,15 @@ QHash< QString, TranscriptionResult > GraphemeToPhoneme::transcribe(const QStrin
     }
     
     QString line = outputLines[outputIndex];
-    kDebug() << "Word result: " << key;
+    qDebug() << "Word result: " << key;
     if (line.startsWith(key+'\t')) {
       transcribed.insert(key, TranscriptionResult(true, line.mid(key.length()+1)));
       outputIndex++;
-      kDebug() << "Found!" << line;
+      qDebug() << "Found!" << line;
     } else {
       QString error;
       if (errors.count() > errorIndex) {
-        kDebug() << "Error!" << errors[errorIndex];
+        qDebug() << "Error!" << errors[errorIndex];
         transcribed.insert(key, TranscriptionResult(false, errors[errorIndex++]));
       } else
         transcribed.insert(key, TranscriptionResult(false, i18n("Unknown error")));

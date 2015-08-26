@@ -19,14 +19,13 @@
 
 #include "akonadicommand.h"
 #include <simonlogging/logger.h>
-#include <QObject>
 #include <QSharedPointer>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QVariant>
-#include <KIcon>
-#include <KLocalizedString>
-#include <KDebug>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 #include <akonadi/attribute.h>
 #include <akonadi/item.h>
 #include <akonadi/itemcreatejob.h>
@@ -48,13 +47,13 @@ const QString AkonadiCommand::getCategoryText() const
 }
 
 
-const KIcon AkonadiCommand::staticCategoryIcon()
+const QIcon AkonadiCommand::staticCategoryIcon()
 {
-  return KIcon("akonadi");
+  return QIcon::fromTheme("akonadi");
 }
 
 
-const KIcon AkonadiCommand::getCategoryIcon() const
+const QIcon AkonadiCommand::getCategoryIcon() const
 {
   return AkonadiCommand::staticCategoryIcon();
 }
@@ -117,7 +116,7 @@ bool AkonadiCommand::triggerPrivate(int *state)
 {
   Q_UNUSED(state);
   
-  kDebug() << "Triggering...";
+  qDebug() << "Triggering...";
   KDateTime executionTime = calculateExecutionTime();
   AkonadiCommandManager *manager = static_cast<AkonadiCommandManager*>(Command::parent());
   Akonadi::Item item(KCalCore::Event::eventMimeType());
@@ -181,7 +180,7 @@ KDateTime AkonadiCommand::calculateExecutionTime()
 
 bool AkonadiCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-  kDebug() << "deserializing...";
+  qDebug() << "deserializing...";
   QDomElement subCommandElem = commandElem.firstChildElement("subCommand");
   m_command = subCommandElem.attribute("trigger");
   m_commandType = subCommandElem.attribute("type");
@@ -189,7 +188,7 @@ bool AkonadiCommand::deSerializePrivate(const QDomElement& commandElem)
   QDomElement timerElem = commandElem.firstChildElement("timer");
   bool ok = true;
   int timerType = timerElem.attribute("type").toInt(&ok);
-  kDebug() << timerElem.attribute("type") << timerType << ok;
+  qDebug() << timerElem.attribute("type") << timerType << ok;
   if (!ok) return false;
   
   m_type = (AkonadiCommand::TimerType) timerType;

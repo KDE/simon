@@ -25,8 +25,8 @@
 #include <QDBusConnection>
 #include <QDBusObjectPath>
 #include <QDBusInterface>
-#include <QDBusReply>
 #include <QDBusPendingCallWatcher>
+#include <QDBusMetaType>
 
 Player::Player(const QString& serviceName, QObject *parent)
     : QObject(parent),
@@ -102,7 +102,7 @@ void Player::tracksMetadataReceived(QDBusPendingCallWatcher *watcher)
     QDBusPendingReply< QList<QVariantMap> > reply = *watcher;
 
     if (reply.error().isValid()) {
-        kDebug() << "GetTracksMetadata for service " << m_serviceName
+        qDebug() << "GetTracksMetadata for service " << m_serviceName
                  << " failed with error: " << reply.error().message();
         return;
     }
@@ -169,7 +169,7 @@ void Player::tracksPropertyReceived(QDBusPendingCallWatcher *watcher)
 {
     QDBusPendingReply<QVariant> reply = *watcher;
     if (reply.isError()) {
-        kDebug() << "\"Get\" for property \"Tracks\" for service "
+        qDebug() << "\"Get\" for property \"Tracks\" for service "
                  << m_serviceName << " failed with error: "
                  << reply.error().message();
         return;

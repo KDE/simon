@@ -20,9 +20,11 @@
 #ifndef SIMON_GENERALSETTINGS_H_DBC2F6C6A45D47759852693EE9A3A8CD
 #define SIMON_GENERALSETTINGS_H_DBC2F6C6A45D47759852693EE9A3A8CD
 
+#include <KArchive/KArchive>
 #include "ui_generalsettingsdlg.h"
-#include <KCModule>
+#include <KConfigWidgets/kcmodule.h>
 #include <QVariantList>
+#include <KConfigWidgets/KCModule>
 
 /**
  \class GeneralSettings

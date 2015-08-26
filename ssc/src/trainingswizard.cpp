@@ -33,19 +33,19 @@
 
 #include <QVBoxLayout>
 #include <QLabel>
-#include <QTimer>
 #include <QCheckBox>
 #include <QFile>
 #include <QSettings>
 #include <QDir>
 
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KStandardDirs>
-#include <KDebug>
+#include <KI18n/klocalizedstring.h>
+
+#include <QDebug>
 
 #include <math.h>
 #include <sscprotocol/sscprotocol.h>
+#include <QStandardPaths>
+#include <KWidgetsAddons/KMessageBox>
 
 TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
@@ -81,7 +81,7 @@ bool TrainingsWizard::init(qint32 userId, const QString& path)
 
   ini.beginGroup("Samples");
   int size = ini.beginReadArray("Sample");
-  kDebug() << "Size of read array: " << size;
+  qDebug() << "Size of read array: " << size;
   for (int i=0; i < size; i++) {
     ini.setArrayIndex(i);
     TrainSamplePage *page = new TrainSamplePage(name, ini.value("Prompt").toString(), i+1, size,
@@ -133,19 +133,19 @@ bool TrainingsWizard::init(qint32 userId, Sample::SampleType type, const QString
 
 QStringList TrainingsWizard::repeatPrompts()
 {
-  return parsePromptsFromFile(KStandardDirs::locate("appdata", "texts/repeat/repeat.prompts"));
+  return parsePromptsFromFile(QStandardPaths::locate(QStandardPaths::DataLocation, "texts/repeat/repeat.prompts"));
 }
 
 
 QStringList TrainingsWizard::trainingPrompts()
 {
-  return parsePromptsFromFile(KStandardDirs::locate("appdata", "texts/training/training.prompts"));
+  return parsePromptsFromFile(QStandardPaths::locate(QStandardPaths::DataLocation, "texts/training/training.prompts"));
 }
 
 
 QStringList TrainingsWizard::interviewQuestions()
 {
-  return parsePromptsFromFile(KStandardDirs::locate("appdata", "texts/interview/interview.prompts"));
+  return parsePromptsFromFile(QStandardPaths::locate(QStandardPaths::DataLocation, "texts/interview/interview.prompts"));
 }
 
 
@@ -246,7 +246,7 @@ bool TrainingsWizard::cleanUp()
   foreach (const QString& file, files) {
     if (!QFile::remove(sampleDirectory+QDir::separator()+file)) {
       all = false;
-      kDebug() << sampleDirectory+QDir::separator()+file;
+      qDebug() << sampleDirectory+QDir::separator()+file;
     }
   }
   if (!all)

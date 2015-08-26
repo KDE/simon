@@ -20,9 +20,8 @@
 #ifndef SIMON_SIMONDUSERCONFIGURATION_H_5B17417E5890427EA6664411B05B2308
 #define SIMON_SIMONDUSERCONFIGURATION_H_5B17417E5890427EA6664411B05B2308
 
-#include <KCModule>
-#include <QVariantList>
-
+#include <QtCore/QVariant>
+#include <KConfigWidgets/KCModule>
 #include "ui_simonduserconfiguration.h"
 
 class DatabaseAccess;

@@ -18,7 +18,7 @@
  */
 
 #include "facedetectioncondition.h"
-#include <KDebug>
+#include <QDebug>
 #include "createfacedetectionconditionwidget.h"
 #include <QWidget>
 #include "simonvision/faceanalyzer.h"
@@ -28,7 +28,7 @@ K_PLUGIN_FACTORY(FaceDetectionPluginFactory,
                  registerPlugin< FaceDetectionCondition >();
                 )
 
-K_EXPORT_PLUGIN(FaceDetectionPluginFactory("simonfacedetectioncondition"))
+// K_EXPORT_PLUGIN(FaceDetectionPluginFactory("simonfacedetectioncondition"))
 
 FaceDetectionCondition::FaceDetectionCondition(QObject *parent, const QVariantList &args) :
     Condition(parent, args)
@@ -71,7 +71,7 @@ void FaceDetectionCondition::manageConditionState(bool hasFace)
     if(!m_satisfied)
     {
       m_satisfied = true;
-      kDebug() << name() + " is true!";
+      qDebug() << name() + " is true!";
       emit conditionChanged();
     }
 
@@ -81,14 +81,15 @@ void FaceDetectionCondition::manageConditionState(bool hasFace)
     if(m_satisfied)
     {
       m_satisfied = false;
-      kDebug() << name() + " is false!";
+      qDebug() << name() + " is false!";
       emit conditionChanged();
     }
   }
 
-}  
+}
 
 FaceDetectionCondition::~FaceDetectionCondition()
 {
   delete analyzer;
 }
+#include "facedetectioncondition.moc"

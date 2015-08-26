@@ -20,14 +20,14 @@
 #ifndef SIMON_WEBCAMCONFIGURATION_H
 #define SIMON_WEBCAMCONFIGURATION_H
 
-#include <KCModule>
 #include <QVariantList>
-#include<QImage>
-#include<cv.h>
-#include<highgui.h>
+#include <QImage>
+#include <cv.h>
+#include <highgui.h>
 #include "webcamconfigurationanalyzer.h"
 #include "ui_simonwebcamconfiguration.h"
-#include<QTimer>
+#include <QTimer>
+#include <KConfigWidgets/KCModule>
 
 class SimonWebcamConfiguration : public KCModule
 {

@@ -28,8 +28,8 @@ SphinxTestConfigurationWidget::SphinxTestConfigurationWidget(QWidget *parent) :
   setupUi();
 }
 
-SphinxTestConfigurationWidget::SphinxTestConfigurationWidget(CorpusInformation* corpusInfo, const KUrl& testPromptsUrl,
-                                                             const KUrl& testPromptsBasePathUrl, int sampleRate,
+SphinxTestConfigurationWidget::SphinxTestConfigurationWidget(CorpusInformation* corpusInfo, const QUrl& testPromptsUrl,
+                                                             const QUrl& testPromptsBasePathUrl, int sampleRate,
                                                              QWidget *parent):
                                   TestConfigurationWidget(corpusInfo, testPromptsUrl, testPromptsBasePathUrl, sampleRate, parent),
                                   ui(new Ui::SphinxTestConfigurationWidget){ setupUi(); }
@@ -39,26 +39,26 @@ SphinxTestConfigurationWidget::~SphinxTestConfigurationWidget()
   delete ui;
 }
 
-KUrl SphinxTestConfigurationWidget::sphinxModelDir() const
+QUrl SphinxTestConfigurationWidget::sphinxModelDir() const
 {
   return ui->urModelDir->url();
 }
 
-KUrl SphinxTestConfigurationWidget::sphinxGrammar() const
+QUrl SphinxTestConfigurationWidget::sphinxGrammar() const
 {
   return ui->urSphinxGrammar->url();
 }
 
-KUrl SphinxTestConfigurationWidget::sphinxDictionary() const
+QUrl SphinxTestConfigurationWidget::sphinxDictionary() const
 {
   return ui->urSphinxDict->url();
 }
 
 void SphinxTestConfigurationWidget::init(const QHash<QString, QString> &params)
 {
-  ui->urModelDir->setUrl(KUrl(params.value("sphinxModelDir")));
-  ui->urSphinxDict->setUrl(KUrl(params.value("sphinxDictionary")));
-  ui->urSphinxGrammar->setUrl(KUrl(params.value("sphinxGrammar")));
+  ui->urModelDir->setUrl(QUrl(params.value("sphinxModelDir")));
+  ui->urSphinxDict->setUrl(QUrl(params.value("sphinxDictionary")));
+  ui->urSphinxGrammar->setUrl(QUrl(params.value("sphinxGrammar")));
 }
 
 QDomElement SphinxTestConfigurationWidget::serialize(QDomDocument *doc)

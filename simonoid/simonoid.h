@@ -26,7 +26,7 @@
 #include <Plasma/Label>
 #include <Plasma/IconWidget>
 #include <QGraphicsGridLayout>
-#include <KIcon>
+#include <QIcon>
 #include <KConfigGroup>
 #include <QString>
 #include <QTimer>
@@ -74,7 +74,7 @@ private:
   int m_interval;
 
   QString m_status;
-  KIcon m_icon;
+  QIcon m_icon;
   bool m_isconnected;
   QWidget* m_configpage;
   Ui_Config m_uiconfig;

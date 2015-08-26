@@ -21,8 +21,8 @@
 #define SIMON_TTSSETTINGS_H_D92C3FEDF32B415094257DB891621383
 
 #include "ui_simonttsconfigurationdlg.h"
-#include <KCModule>
 #include <QVariantList>
+#include <KConfigWidgets/KCModule>
 
 class RecordingSetCollection;
 class QSortFilterProxyModel;

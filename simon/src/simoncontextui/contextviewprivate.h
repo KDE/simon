@@ -27,7 +27,7 @@
 #include "ui_contextdialog.h"
 #include <simoncontextdetection/condition.h>
 #include <simonscenarios/scenariodisplay.h>
-#include <KDE/KIcon>
+#include <QIcon>
 
 class Condition;
 class QSortFilterProxyModel;

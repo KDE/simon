@@ -22,8 +22,9 @@
 
 #include <QWidget>
 #include "simonuicomponents_export.h"
+#include <KLineEdit>
 
-class KLineEdit;
+class QLineEdit;
 class QToolButton;
 
 class SIMONUICOMPONENTS_EXPORT ServerAddressSelector : public QWidget

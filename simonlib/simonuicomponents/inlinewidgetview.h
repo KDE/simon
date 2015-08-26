@@ -20,7 +20,7 @@
 #ifndef SIMON_INLINEWIDGETVIEW_H_279F7C1C95C94FFEA3A7CC7B1B1A2B9F
 #define SIMON_INLINEWIDGETVIEW_H_279F7C1C95C94FFEA3A7CC7B1B1A2B9F
 
-#include <KPageWidget>
+#include <KWidgetsAddons/kpagewidget.h>
 #include "simonuicomponents_export.h"
 
 class InlineWidget;
@@ -29,7 +29,7 @@ class KPageWidget;
 
 /**
  \class InlineWidgetView
- \author Peter Grasch
+ \author Peter Grasc    h
  \brief Extends the QTabWidget to display InlineWidgets
  \version 0.1
  \date 10.8.2007

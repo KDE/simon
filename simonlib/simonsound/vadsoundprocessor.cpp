@@ -20,8 +20,7 @@
 #include "vadsoundprocessor.h"
 #include "soundserver.h"
 #include <QByteArray>
-#include <QtGlobal>
-#include <KDebug>
+#include <QDebug>
 
 /**
  * \brief Constructor

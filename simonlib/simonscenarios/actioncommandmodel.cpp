@@ -18,7 +18,7 @@
  */
 
 #include "actioncommandmodel.h"
-#include <KDebug>
+#include <QDebug>
 #include <simonscenarios/commandmanager.h>
 #include <simonscenarios/action.h>
 

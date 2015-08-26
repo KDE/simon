@@ -25,11 +25,10 @@
 #include <simondialogengine/dialogmanager.h>
 #include <QVariantList>
 #include <QList>
-#include <KXMLGUIClient>
 
 class Avatar;
 class QWidget;
-class KAction;
+class QAction;
 class DialogConfiguration;
 class DialogView;
 class DialogState;
@@ -48,7 +47,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver, publi
   Q_OBJECT
 
   private:
-    KAction *activateAction;
+    QAction *activateAction;
 
     DialogState *currentDialogState;
 

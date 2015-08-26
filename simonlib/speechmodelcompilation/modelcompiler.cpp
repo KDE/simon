@@ -20,10 +20,8 @@
 
 #include "modelcompiler.h"
 
-#include <QDomDocument>
-#include <QMetaType>
 #include <QDateTime>
-#include <KDebug>
+#include <QDebug>
 
 bool ModelCompiler::hasBuildLog() const
 {
@@ -79,8 +77,8 @@ bool ModelCompiler::execute(const QString& command, const QString &wDir)
 {
   if (!keepGoing)
     return false;
-  kDebug() << command;
-  kDebug() << wDir;
+  qDebug() << command;
+  qDebug() << wDir;
   QProcess proc;
   proc.setWorkingDirectory(wDir);
   proc.start(command);
@@ -91,12 +89,12 @@ bool ModelCompiler::execute(const QString& command, const QString &wDir)
   buildLog.append("<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>");
   buildLogMutex.unlock();
 
-  kDebug() << "Waiting for process to finish..." << activeProcesses.count();
+  qDebug() << "Waiting for process to finish..." << activeProcesses.count();
   proc.waitForFinished(-1);
-  kDebug() << "Process finished..." << activeProcesses.count();
+  qDebug() << "Process finished..." << activeProcesses.count();
 
   activeProcesses.removeAll(&proc);
-  kDebug() << "Process removed" << activeProcesses.count();
+  qDebug() << "Process removed" << activeProcesses.count();
 
   QByteArray err = proc.readAllStandardError();
   QByteArray out = proc.readAllStandardOutput();
@@ -107,13 +105,13 @@ bool ModelCompiler::execute(const QString& command, const QString &wDir)
   if (!out.isEmpty())
   {
     buildLog.append("<p>"+out+"</p>");
-    kDebug() << "Process output: " << out;
+    qDebug() << "Process output: " << out;
   }
 
   if (!err.isEmpty())
   {
     buildLog.append("<p><span style=\"color:#aa0000;\">"+err+"</span></p>");
-    kDebug() << "Appended error: " << err;
+    qDebug() << "Appended error: " << err;
   }
   buildLogMutex.unlock();
 
@@ -137,7 +135,7 @@ void ModelCompiler::clearLog()
 
 void ModelCompiler::abort()
 {
-  kDebug() << "Compilation Manager Aborting.";
+  qDebug() << "Compilation Manager Aborting.";
 
   keepGoing=false;
 

@@ -39,10 +39,10 @@ class MprisPlayerCommand : public Command
 {
   public:
     static const QString staticCategoryText();
-    static const KIcon staticCategoryIcon();
+    static const QIcon staticCategoryIcon();
 
     const QString getCategoryText() const;
-    const KIcon getCategoryIcon() const;
+    const QIcon getCategoryIcon() const;
 
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
     bool deSerializePrivate(const QDomElement& commandElem);

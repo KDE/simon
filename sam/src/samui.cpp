@@ -18,15 +18,15 @@
  */
 
 #include "samui.h"
-#include <KMessageBox>
 #include <KCmdLineArgs>
-#include <KDebug>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
 
 void SamUi::error(const QString& message)
 {
   if (batchMode()) 
   {
-    kWarning() << message;
+    qWarning() << message;
   } else
     KMessageBox::sorry(reinterpret_cast<QWidget*>(this), message);
 }
@@ -35,7 +35,7 @@ void SamUi::fatalError(const QString& message)
 {
   if (batchMode()) 
   {
-    kWarning() << message;
+    qWarning() << message;
     exit(1);
   } else
     KMessageBox::error(reinterpret_cast<QWidget*>(this), message);

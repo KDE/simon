@@ -20,7 +20,8 @@
 #ifndef SIMON_NEWAUTHOR_H_EB6DB2F851F44CB985AC63C96BB6E9A0
 #define SIMON_NEWAUTHOR_H_EB6DB2F851F44CB985AC63C96BB6E9A0
 
-#include <KDialog>
+#include <KDELibs4Support/KDE/KDialog>
+
 #include "ui_modifyauthor.h"
 
 class Author;

@@ -26,7 +26,7 @@
 
 #include <QObject>
 
-#include <KDebug>
+#include <QDebug>
 
 
 /**
@@ -75,7 +75,7 @@ bool SimondStreamerClient::start()
   vad->reset();
   bool succ =  SoundServer::getInstance()->registerInputClient(this);
 
-  kDebug() << "Registered input client: " << succ;
+  qDebug() << "Registered input client: " << succ;
   if (succ) {
     m_isRunning = true;
     emit started();
@@ -128,7 +128,7 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
   streamingState |= Streaming;
   
   if (!shouldStream(oldState)) { // start sample 
-    kDebug() << "Starting sample";
+    qDebug() << "Starting sample";
     sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
       m_deviceConfiguration.resample() ? m_deviceConfiguration.resampleSampleRate() : 
       m_deviceConfiguration.sampleRate());
@@ -139,7 +139,7 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
   if (vad->doneListening()) {
     streamingState &= ~VADReady;
     streamingState &= ~Streaming;
-    kDebug() << "Stopping sample";
+    qDebug() << "Stopping sample";
     sender->recognizeSample(id);
   }
 }

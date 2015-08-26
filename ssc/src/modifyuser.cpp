@@ -27,17 +27,19 @@
 #include <sscobjects/language.h>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <KDebug>
-#include <KMessageBox>
-#include <KDialogButtonBox>
+#include <QDebug>
 #include <sscdaccess/sscdaccesssingleton.h>
+#include <KWidgetsAddons/KMessageBox>
 
 ModifyUser::ModifyUser(QWidget* parent) : KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
 
-  setMainWidget( widget );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( widget );
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
+// Add mainLayout->addWidget(widget); if necessary
 
   connect(ui.leSurname, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
   connect(ui.leGivenName, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
@@ -52,7 +54,7 @@ ModifyUser::ModifyUser(QWidget* parent) : KDialog(parent)
   connect(ui.pbRemoveInstitution, SIGNAL(clicked()), this, SLOT(removeInstitutionAssociation()));
 
   checkIfComplete();
-  setCaption( i18n("User management") );
+  setWindowTitle( i18n("User management") );
 
   ui.twInstitutions->verticalHeader()->hide();
   ui.twInstitutions->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -70,7 +72,7 @@ void ModifyUser::checkIfComplete()
   complete = complete && !ui.teEducation->toPlainText().isEmpty();
   complete = complete && !ui.leCurrentOccupation->text().isEmpty();
 
-  enableButtonOk(complete);
+  enableButton(KDialog::Ok, complete);
 }
 
 
@@ -237,7 +239,7 @@ int ModifyUser::newUser()
 {
   displayLanguages();
 
-  int ret = KDialog::exec();
+  int ret = QDialog::exec();
   if (ret) {
     bool succ = true;
     //creating
@@ -265,7 +267,7 @@ int ModifyUser::modifyUser(User *u)
   displayUser(u);
   displayCurrentInstitutionAssociation(u->userId());
 
-  int ret = KDialog::exec();
+  int ret = QDialog::exec();
   if (ret) {
     //creating
     bool succ = true;

@@ -21,8 +21,6 @@
 #define SIMON_COMMANDTABLEMODEL_H_789940BA0D864F7B91BA0F8B71044D82
 
 #include <QAbstractTableModel>
-#include <QStringList>
-#include <QMutex>
 #include <simonscenarios/command.h>
 #include "actionlib_export.h"
 

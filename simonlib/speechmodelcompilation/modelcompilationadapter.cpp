@@ -24,15 +24,13 @@
 #include <simonscenarios/activevocabulary.h>
 #include <simonscenarios/grammar.h>
 
-#include <QTimer>
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 #include <KGlobal>
 #include <QString>
 #include <QFile>
-#include <KStandardDirs>
-#include <KAboutData>
-#include <KComponentData>
+#include <QDir>
+
 
 
 ModelCompilationAdapter::ModelCompilationAdapter(const QString& userName, QObject *parent) : QObject(parent), keepGoing(false), m_userName(userName)
@@ -50,7 +48,7 @@ bool ModelCompilationAdapter::removeContextAdditions(ModelCompilationAdapter::Ad
     return true;
 
   QString realInPrompts = m_promptsPathIn;
-  m_promptsPathIn = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_userName+"/compile/tmpprompts");
+  m_promptsPathIn = QDir::tempPath() + QLatin1Char('/') + KAboutData::applicationData().productName()+'/'+m_userName+"/compile/tmpprompts";
   QFile newPrompts(m_promptsPathIn);
   QFile oldPrompts(realInPrompts);
   if (!newPrompts.open(QIODevice::WriteOnly) || !oldPrompts.open(QIODevice::ReadOnly)) {
@@ -73,11 +71,11 @@ void ModelCompilationAdapter::mergeInputData(const QStringList &scenarioPaths, Q
   //merging scenarios
   foreach (const QString& src, scenarioPaths)
   {
-    kDebug() << "Serializing Scenario: " << src;
+    qDebug() << "Serializing Scenario: " << src;
     QSharedPointer<Scenario> scenario (new Scenario(""));
     if (!scenario->readLanguageModel(src))
     {
-      kDebug() << "Could not parse language model at " << src;
+      qDebug() << "Could not parse language model at " << src;
       continue;
     }
 
@@ -116,7 +114,7 @@ void ModelCompilationAdapter::removeWordsWithPoisonedPhonems(QSharedPointer<Voca
   {
     if (containsPoisonedPhoneme(word->getPronunciation()))
     {
-      kDebug() << "Removing word containing poisoned phoneme: " << word->getWord();
+      qDebug() << "Removing word containing poisoned phoneme: " << word->getWord();
       m_droppedTranscriptions << word->getPronunciation();
       vocabulary->removeWord(word);
     }
@@ -128,7 +126,7 @@ bool ModelCompilationAdapter::readPrompts(ModelCompilationAdapter::AdaptionType 
                                           QSharedPointer<Vocabulary> vocabulary, const QString &promptsPathIn,
                                           QStringList &trainedVocabulary)
 {
-  kDebug() << "Reading prompts from " <<promptsPathIn;
+  qDebug() << "Reading prompts from " <<promptsPathIn;
   ///// Prompts ///////////
 
   if (!m_poisonedPhonemes.isEmpty() && (adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
@@ -149,7 +147,7 @@ bool ModelCompilationAdapter::readPrompts(ModelCompilationAdapter::AdaptionType 
         emit error(i18nc("%1 is source file path", "Could not adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
       else
       {
-        kDebug() << "Aborting because we have no input prompts";
+        qDebug() << "Aborting because we have no input prompts";
         emit adaptionAborted(ModelCompilation::InsufficientInput); //no input prompts
       }
       return false;
@@ -166,7 +164,7 @@ bool ModelCompilationAdapter::readPrompts(ModelCompilationAdapter::AdaptionType 
       {
         if (!vocabulary->containsWord(word))
         {
-          kDebug() << "Word not defined in vocabulary: " << word;
+          qDebug() << "Word not defined in vocabulary: " << word;
           //allWordsDefined = false;
           break;
         }

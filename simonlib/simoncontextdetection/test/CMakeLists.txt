@@ -2,15 +2,15 @@ set(simonprocessinfogatherertest_SRCS
   processinfogatherertest.cpp
 )
 
-kde4_add_unit_test(simonprocessinfogatherertest-processinfogatherer TESTNAME
+add_test(simonprocessinfogatherertest-processinfogatherer NAME
   simonprocessinfogatherertest-processinfogatherer
   ${simonprocessinfogatherertest_SRCS}
 )
 
 target_link_libraries(simonprocessinfogatherertest-processinfogatherer
-  ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  KF5::KDELibs4Support  Qt5::Test ${QT_LIBRARIES}
   simoncontextdetection
 )
 
-kde4_add_executable(dummyapplication dummyapplication.cpp)
-target_link_libraries(dummyapplication ${QT_LIBRARIES} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+add_executable(dummyapplication dummyapplication.cpp)
+target_link_libraries(dummyapplication ${QT_LIBRARIES} Qt5::Core Qt5::Gui)

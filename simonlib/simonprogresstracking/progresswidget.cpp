@@ -24,8 +24,8 @@
 #include <QVBoxLayout>
 #include <QSplitter>
 #include <QProgressBar>
-#include <KPushButton>
-#include <KLocalizedString>
+#include <QPushButton>
+#include <KI18n/klocalizedstring.h>
 #include <KLocale>
 
 ProgressWidget::ProgressWidget(QPointer<Operation> O, ProgressWidgetStyle style, QWidget* parent) : QWidget(parent),
@@ -42,7 +42,7 @@ op(O)
     bar->setValue(op->currentProgress());
     bar->setMaximum(op->maxProgress());
 
-    cancelButton = new KPushButton(KIcon("process-stop"), i18n("Cancel"), this);
+    cancelButton = new QPushButton(QIcon::fromTheme("process-stop"), i18n("Cancel"), this);
     if (op->isAtomic()) cancelButton->setEnabled(false);
 
     QHBoxLayout *hBox = new QHBoxLayout();

@@ -21,7 +21,7 @@
 #include <QWizardPage>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <KStandardDirs>
+
 #include "importgrammarselectinputpage.h"
 #include "importgrammarworkingpage.h"
 

@@ -63,7 +63,7 @@ bool Vocabulary::deSerialize(const QDomElement& vocabularyElem)
 
     wordElem = wordElem.nextSiblingElement();
   }
-  kDebug() << "Loaded " << m_words.count() << "words";
+  qDebug() << "Loaded " << m_words.count() << "words";
 
   return true;
 }
@@ -376,7 +376,7 @@ QList<Word*> Vocabulary::findWords(const QString& name, Vocabulary::MatchType ty
   if (type & Vocabulary::ContainsMatch) {
     foreach (Word *w, m_words) {
       if (w->getWord().contains(name, Qt::CaseInsensitive)) {
-        kDebug() << "Adding " << w->getWord() << " matching " << name;
+        qDebug() << "Adding " << w->getWord() << " matching " << name;
 
         out << w;
       }
@@ -454,7 +454,7 @@ bool Vocabulary::exportToFile(const QString& path, Vocabulary::ExportFormat form
 	f.write(w->getWord().toUtf8()+'\t'+w->getPronunciation().toUtf8()+'\n');
 	break;
       default:
-	kWarning() << "Export format not implemented: " << format;
+	qWarning() << "Export format not implemented: " << format;
 	return false;
     }
   }

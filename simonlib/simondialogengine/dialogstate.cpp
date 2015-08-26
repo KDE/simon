@@ -39,7 +39,7 @@ DialogState::DialogState(DialogTextParser *parser, const QString& name, const QS
   m_texts << new DialogText(parser, text);
   foreach (DialogCommand *c, m_transitions)
   {
-    kDebug() << "Registering dialog command: " << c->getTrigger();
+    qDebug() << "Registering dialog command: " << c->getTrigger();
     connect(c, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
     connect(c, SIGNAL(changed()), this, SIGNAL(changed()));
   }
@@ -150,10 +150,10 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
   QDomElement transition = transitions.firstChildElement("command");
 
   QList<DialogCommand*> commands;
-    kDebug() << "Deserializing transition: setup";
+    qDebug() << "Deserializing transition: setup";
   while (!transition.isNull())
   {
-    kDebug() << "Deserializing transition";
+    qDebug() << "Deserializing transition";
     DialogCommand *c = DialogCommand::createInstance(transition);
     if (c)
     {
@@ -161,7 +161,7 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
       connect(c, SIGNAL(changed()), this, SIGNAL(changed()));
       commands << c;
     } else 
-      kDebug() << "FAILED";
+      qDebug() << "FAILED";
 
     transition = transition.nextSiblingElement("command");
   }

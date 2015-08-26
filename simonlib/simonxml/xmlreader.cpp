@@ -18,8 +18,7 @@
  */
 
 #include "xmlreader.h"
-#include <KLocalizedString>
-#include <QDebug>
+#include <KI18n/klocalizedstring.h>
 
 /**
  *  \brief Constructor

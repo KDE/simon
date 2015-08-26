@@ -20,9 +20,6 @@
 #include <QTest>
 #include <QSignalSpy>
 #include <QVariant>
-#include <QWidget>
-#include <KApplication>
-#include <KCmdLineArgs>
 #include <QSignalSpy>
 #include <QDebug>
 #include <QTimer>

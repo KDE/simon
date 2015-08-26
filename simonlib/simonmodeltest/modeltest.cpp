@@ -41,18 +41,18 @@
 #include <QFile>
 #include <QProcess>
 
-#include <KUrl>
+#include <QUrl>
 #include <KConfig>
-#include <KConfigGroup>
-#include <KStandardDirs>
-#include <KLocalizedString>
-#include <KComponentData>
-#include <KAboutData>
-#include <KDebug>
+#include <QStandardPaths>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 #include <KLocale>
+#include <KConfigCore/KConfigGroup>
+#include <KAboutData>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
+#include <QStandardPaths>
 #endif
 
 ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
@@ -69,7 +69,7 @@ ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent
 
 bool ModelTest::createDirs()
 {
-  tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/test/");
+  tempDir = QDir::tempPath() + QLatin1Char('/') + KAboutData::applicationData().productName() +'/'+userName+"/test/";
 
   if (tempDir.isEmpty()) return false;
 
@@ -85,10 +85,10 @@ bool ModelTest::createDirs()
 
 bool ModelTest::parseConfiguration()
 {
-  KConfig config( KStandardDirs::locateLocal("config", "simonmodeltestrc"), KConfig::FullConfig );
+  KConfig config( QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + "simonmodeltestrc", KConfig::FullConfig) ;
   KConfigGroup programGroup(&config, "Programs");
 
-  sox = programGroup.readEntry("SOX", KUrl(KStandardDirs::findExe("sox"))).toLocalFile();
+  sox = programGroup.readEntry("SOX", QUrl(QStandardPaths::findExecutable("sox"))).toLocalFile();
 
   if (!QFile::exists(sox)) {
     QString errorMsg = i18n("SOX cannot be found. Please make sure it is installed correctly.");
@@ -354,7 +354,7 @@ void ModelTest::searchFailed(const QString& fileName)
 
   foreach (const QString& label, promptWordList)
   {
-    kDebug() << "Test result dummy leaf: " << label;
+    qDebug() << "Test result dummy leaf: " << label;
     TestResultLeaf *dummyLeaf = new TestResultLeaf(label, "", 0.0);
     dummyLeaf->setDeletionError(true);
     resultLeafes << dummyLeaf;
@@ -363,11 +363,11 @@ void ModelTest::searchFailed(const QString& fileName)
 
     TestResult *wordResult = getResult(wordResults, label);
     if (!wordResult->registerChild(dummyLeaf))
-      kWarning() << "Failed to process dummy word result";
+      qWarning() << "Failed to process dummy word result";
   }
 
   if (!sentenceResult->registerChildren(sentenceLeafes))
-    kWarning() << "Could not process dummy sentence result";
+    qWarning() << "Could not process dummy sentence result";
   
   recognizerResults.insert(fileName, new RecognizerResult(prompt, RecognitionResultList()));
 }
@@ -407,13 +407,13 @@ void ModelTest::recognized(const QString& fileName, RecognitionResultList result
     TestResult::parseChildren(prompt, leaves);
 
     if (!sentenceResult->registerChildren(leaves))
-      kWarning() << "Could not process sentence result";
+      qWarning() << "Could not process sentence result";
 
     foreach (TestResultLeaf* leaf, leaves)
     {
       TestResult *wordResult = getResult(wordResults, leaf->originalLabel());
       if (!wordResult->registerChild(leaf))
-        kWarning() << "Could not process word result";
+        qWarning() << "Could not process word result";
     }
   }
 }

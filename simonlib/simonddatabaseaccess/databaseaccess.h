@@ -22,6 +22,7 @@
 
 #include "simonddatabaseaccess_export.h"
 #include <QObject>
+#include <QSqlError>
 #include <QSqlDatabase>
 #include <QSqlTableModel>
 

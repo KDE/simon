@@ -17,19 +17,21 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+//XXX: A new version of qwt will make this unnecessary
+#define QT_STATIC_CONST static const
+
 #include "reporttemplateengine.h"
 #include "templatevaluelist.h"
 #include "testresultplotter.h"
 #include "qwt_bars_item.h"
-#include <qwt_plot.h>
-#include <qwt_legend.h>
+#include <qwt/qwt_plot.h>
+#include <qwt/qwt_legend.h>
 #include <QDir>
-#include <QPicture>
 #include <QPainter>
 #include <QFile>
 #include <KLocale>
-#include <KDebug>
-#include <KStandardDirs>
+#include <QDebug>
+#include <QStandardPaths>
 
 ReportTemplateEngine::~ReportTemplateEngine()
 {
@@ -83,7 +85,7 @@ bool ReportTemplateEngine::splitTemplate(const QByteArray& input, const QByteArr
 QByteArray ReportTemplateEngine::replaceTemplateList(const QByteArray& templateData, TemplateValueList* templateValues)
 {
   QByteArray output = templateData;
-  kDebug() << "Root node: " << templateValues->id() << templateValues->hasChildren();
+  qDebug() << "Root node: " << templateValues->id() << templateValues->hasChildren();
   if (templateValues->hasChildren())
   {
     QByteArray pre, part, post;
@@ -131,7 +133,7 @@ QByteArray ReportTemplateEngine::parseIf(const QByteArray& templateData, const Q
 
 QString ReportTemplateEngine::tempDir()
 {
-  return KStandardDirs::locateLocal("tmp", "sam/reports/tmp/");
+  return QDir::tempPath() + QLatin1Char('/') +  "sam/reports/tmp/";
 }
 
 bool ReportTemplateEngine::removeDir(const QString& path)
@@ -214,7 +216,7 @@ QByteArray ReportTemplateEngine::createGraphs(const QByteArray& input, const QLi
   plot.replot();
 
   QString filename = "report"+QString::number(plotNr)+".png";
-  QString path = KStandardDirs::locateLocal("tmp", "sam/reports/temp/"+filename);
+  QString path = QDir::tempPath() + QLatin1Char('/') +  "sam/reports/temp/"+filename;
   
   QImage img(plot.size().width(), plot.size().height(), QImage::Format_ARGB32_Premultiplied);
   img.fill(0);
@@ -230,7 +232,7 @@ QByteArray ReportTemplateEngine::createGraphs(const QByteArray& input, const QLi
 
   output = output.replace(QByteArray("$overviewGraph$"), filename.toUtf8());
 
-  kDebug() << "Created graphs...";
+  qDebug() << "Created graphs...";
   return output;
 }
 

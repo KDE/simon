@@ -22,9 +22,9 @@
 
 #include "samui.h"
 #include <QHash>
-#include <QFlags>
 #include "corpusinformation.h"
 #include "ui_exporttestresultsdlg.h"
+#include <QDialog>
 
 class ReportParameters;
 class TestResultWidget;
@@ -33,7 +33,7 @@ class KTabWidget;
 class TemplateValueList;
 class ModelCompiler;
 
-class ExportTestResults : public KDialog, public SamUi
+class ExportTestResults : public QDialog, public SamUi
 {
   Q_OBJECT
 
@@ -59,7 +59,7 @@ class ExportTestResults : public KDialog, public SamUi
     QList<CorpusInformation*> getTestCorpusInformation();
     QList<CorpusInformation*> getTrainingCorpusInformation();
 
-    void displayCorpora(KTabWidget* tableWidget, QList<CorpusInformationWidget*>& list,
+    void displayCorpora(QTabWidget* tableWidget, QList<CorpusInformationWidget*>& list,
         const QList<CorpusInformation*>& corpora);
 
     QString printPercentage(float rate);

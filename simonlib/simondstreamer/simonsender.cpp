@@ -20,7 +20,7 @@
 #include "simonsender.h"
 #include "simonsenderadaptor.h"
 #include <QDBusConnection>
-#include <KDebug>
+#include <QDebug>
 
 SimonSender::SimonSender() : m_state(SimonSender::Idle)
 {
@@ -39,7 +39,7 @@ SimonSender::SimonSender() : m_state(SimonSender::Idle)
 
 void SimonSender::relayLoudness()
 {
-//   kDebug() << "Loudness: " << m_currentPeak;
+//   qDebug() << "Loudness: " << m_currentPeak;
   emit recordingLevel(m_currentPeak);
   m_currentPeak = 0;
 }

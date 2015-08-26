@@ -20,7 +20,7 @@
 #ifndef SIMON_EDITWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CA4E8
 #define SIMON_EDITWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CA4E8
 
-#include <KDialog>
+#include <QDialog>
 #include "ui_editword.h"
 
 /**
@@ -31,7 +31,7 @@
 */
 class Word;
 
-class EditWordDialog : public KDialog
+class EditWordDialog : public QDialog
 {
     Q_OBJECT
 

@@ -18,13 +18,12 @@
  */
 
 #include "dialogcommand.h"
-#include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QVariant>
-#include <KIcon>
-#include <KLocalizedString>
-#include <KDebug>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 const QString DialogCommand::staticCategoryText()
 {
@@ -38,13 +37,13 @@ const QString DialogCommand::getCategoryText() const
 }
 
 
-const KIcon DialogCommand::staticCategoryIcon()
+const QIcon DialogCommand::staticCategoryIcon()
 {
-  return KIcon("im-user");
+  return QIcon::fromTheme("im-user");
 }
 
 
-const KIcon DialogCommand::getCategoryIcon() const
+const QIcon DialogCommand::getCategoryIcon() const
 {
   return DialogCommand::staticCategoryIcon();
 }
@@ -60,7 +59,7 @@ const QMap<QString,QVariant> DialogCommand::getValueMapPrivate() const
 
 bool DialogCommand::triggerPrivate(int *state)
 {
-  kDebug() << "Triggering...";
+  qDebug() << "Triggering...";
   return true;
 }
 

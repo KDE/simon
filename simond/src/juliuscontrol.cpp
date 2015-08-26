@@ -43,14 +43,13 @@
 #include <simonutils/fileutils.h>
 
 #include <QFile>
-#include <KLocalizedString>
-#include <KStandardDirs>
+#include <KI18n/klocalizedstring.h>
+
 #include <KConfig>
-#include <KDebug>
-#include <KConfigGroup>
-#include <KMimeType>
-#include <KTar>
+#include <QDebug>
+#include <KArchive/KTar>
 #include <locale.h>
+#include <QDir>
 
 JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, RecognitionControl::HTK, parent)
 {
@@ -61,12 +60,12 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
 {
   if (modelPath != m_lastModel) { //already initialized / tried to initialize with this exact model
   
-    kDebug() << "Initializing for model: " << modelPath << " old model path: " << m_lastModel;
+    qDebug() << "Initializing for model: " << modelPath << " old model path: " << m_lastModel;
     m_lastModel = modelPath;
     uninitialize();
     m_startRequests = 0;
 
-    QString path = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/julius/");
+    QString path = QDir::tempPath() + QLatin1Char('/') +  "/simond/"+username+"/julius/";
     if (QFile::exists(path+"hmmdefs") && !QFile::remove(path+"hmmdefs")) return false;
     if (QFile::exists(path+"tiedlist") && !QFile::remove(path+"tiedlist")) return false;
     if (QFile::exists(path+"model.dfa") && !QFile::remove(path+"model.dfa")) return false;
@@ -77,14 +76,14 @@ bool JuliusControl::initializeRecognition(const QString& modelPath)
       return false;
   }
 
-  kDebug() << "Emitting recognition ready";
+  qDebug() << "Emitting recognition ready";
   emit recognitionReady();
   return true;
 }
 
 RecognitionConfiguration* JuliusControl::setupConfig()
 {
-  QByteArray dirPath = KStandardDirs::locateLocal("tmp", "/simond/"+username+"/julius/").toUtf8();
+  QByteArray dirPath = QString(QDir::tempPath() + QLatin1Char('/') +  "/simond/"+username+"/julius/").toUtf8();
   QByteArray jConfPath = dirPath+"julius.jconf";
   QByteArray gram = dirPath+"model";
   QByteArray tiedList = dirPath+"tiedlist";

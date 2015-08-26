@@ -26,7 +26,7 @@ K_PLUGIN_FACTORY( ActiveWindowPluginFactory,
 registerPlugin< ActiveWindow >();
 )
 
-K_EXPORT_PLUGIN( ActiveWindowPluginFactory("simonactivewindow") )
+// K_EXPORT_PLUGIN( ActiveWindowPluginFactory("simonactivewindow") )
 
 ActiveWindow::ActiveWindow(QObject *parent, const QVariantList &args) :
     Condition(parent, args)
@@ -74,7 +74,7 @@ bool ActiveWindow::privateDeSerialize(QDomElement elem)
     nameElement = elem.firstChildElement("windowname");
     if (nameElement.isNull())
     {
-        kDebug() << "No window name specified!  Deserialization failure!";
+        qDebug() << "No window name specified!  Deserialization failure!";
         return false;
     }
     m_windowName = nameElement.text();
@@ -83,7 +83,7 @@ bool ActiveWindow::privateDeSerialize(QDomElement elem)
     nameElement = elem.firstChildElement("windownameregexp");
     if (nameElement.isNull())
     {
-        kDebug() << "No window name regexp specified!  Deserialization failure!";
+        qDebug() << "No window name regexp specified!  Deserialization failure!";
         return false;
     }
     m_windowNameIsRegularExpression = (nameElement.text() == "1");
@@ -91,7 +91,7 @@ bool ActiveWindow::privateDeSerialize(QDomElement elem)
     if (m_windowNameIsRegularExpression)
     {
         m_windowNameRegExp = QRegExp(m_windowName, Qt::CaseInsensitive);
-        kDebug() << "RegExp '" << m_windowNameRegExp.pattern() << (m_windowNameRegExp.isValid() ? "' is Valid!" : "' is not Valid!");
+        qDebug() << "RegExp '" << m_windowNameRegExp.pattern() << (m_windowNameRegExp.isValid() ? "' is Valid!" : "' is not Valid!");
     }
     else
     {
@@ -120,7 +120,7 @@ void ActiveWindow::checkBothNames()
         if (m_windowNameRegExp.indexIn(m_currentWindowName) < 0)
         {
             m_satisfied = false;
-            kDebug() << name() << " is unsatisfied!";
+            qDebug() << name() << " is unsatisfied!";
             emit conditionChanged();
         }
     }
@@ -129,8 +129,9 @@ void ActiveWindow::checkBothNames()
         if (m_windowNameRegExp.indexIn(m_currentWindowName) >= 0)
         {
             m_satisfied = true;
-            kDebug() << name() << " is satisfied!";
+            qDebug() << name() << " is satisfied!";
             emit conditionChanged();
         }
     }
 }
+#include "activewindow.moc"

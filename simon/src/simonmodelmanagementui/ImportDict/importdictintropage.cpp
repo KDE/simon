@@ -22,7 +22,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <KComboBox>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 /**
  * \brief Constructor - inits the GUI

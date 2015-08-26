@@ -20,26 +20,17 @@
 #include "dialogcommandmanager.h"
 
 #include <QVariantList>
-#include <kgenericfactory.h>
-#include <QList>
-#include <KAboutData>
-#include <KMessageBox>
-#include <KStandardDirs>
-#include <QString>
-#include <QDialog>
-#include <KInputDialog>
-#include <QTableView>
+#include <KDELibs4Support/kgenericfactory.h>
+
 #include <QThread>
-#include <QApplication>
 #include <simonscenarios/scenario.h>
 
 K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
 DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
-: CommandConfiguration(parent,  "dialog", ki18n( "Dialog" ),
-"0.1", ki18n("Control a robot"),
-"im-user",
-DialogCommandPluginFactory::componentData())
+: CommandConfiguration(parent,  "dialog", i18n( "Dialog" ),
+"0.1", i18n("Control a robot"),
+"im-user")
 {
   Q_UNUSED(args);
   ui.setupUi(this);

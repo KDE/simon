@@ -21,12 +21,12 @@
 #define SIMON_INLINEWIDGET_H_A545F3AE90134F99905B9FCCE971C8C0
 
 #include <QWidget>
-#include <KIcon>
+#include <QIcon>
 
 #include "simonuicomponents_export.h"
 
 class QString;
-class KIcon;
+class QIcon;
 class QSettings;
 
 /**
@@ -43,7 +43,7 @@ class SIMONUICOMPONENTS_EXPORT InlineWidget : public QWidget
 
   private:
     QString title, desc;
-    KIcon icon;
+    QIcon icon;
 
   signals:
     void closed();
@@ -53,12 +53,12 @@ class SIMONUICOMPONENTS_EXPORT InlineWidget : public QWidget
     void accepted();
 
   public:
-    InlineWidget(QString title, KIcon icon, QString desc, QWidget* parent=0);
+    InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent=0);
 
     void setVisible(bool visible);
 
     QString getTitle() const {return title; }
-    KIcon getIcon() const { return icon; }
+    QIcon getIcon() const { return icon; }
     QString getDesc() const { return desc; }
     bool isShown();
 

@@ -19,12 +19,12 @@
 
 
 #include "linuxprocessinfogathererhelper.h"
-#include <KWindowSystem>
-#include <NETWinInfo>
-#include <QX11Info>
+#include <KWindowSystem/kwindowsystem.h>
+#include <KWindowSystem/netwm.h>
+#include <QtX11Extras/qx11info_x11.h>
 #include <QFile>
 #include <QFileInfo>
-#include <KDebug>
+#include <QDebug>
 
 LinuxProcessInfoGathererHelper::LinuxProcessInfoGathererHelper(QObject *parent) :
     QObject(parent)
@@ -36,10 +36,12 @@ void LinuxProcessInfoGathererHelper::checkActiveWindow()
     //Get the active window info
     WId wid = KWindowSystem::activeWindow();
 
-    NETWinInfo netInfo(QX11Info::display(),
+    //QT5TODO: Needs xcb_connection_t... 
+    NETWinInfo netInfo(QX11Info::connection(),
                        wid,
                        QX11Info::appRootWindow(),
                        NET::WMPid | NET::WMName);
+    
 
     //Get tne name of the process controlling the active window with the pid from netInfo
     QString processName;

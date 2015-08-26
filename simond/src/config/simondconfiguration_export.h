@@ -21,7 +21,7 @@
 #define SIMON_SIMONDCONFIGURATION_EXPORT_H_65AD5ED111734E259F13C9B166245649
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#include <KF5/KDELibs4Support/kdemacros.h>
 
 #ifndef SIMONDCONFIGURATION_EXPORT
 # if defined(MAKE_SIMONDCONFIGURATION_LIB)

@@ -21,7 +21,7 @@
 #include "modelcompilationadaptersphinx.h"
 #include "simonutils/fileutils.h"
 
-#include<KLocalizedString>
+#include<KI18n/klocalizedstring.h>
 #include <QDir>
 #include <QSet>
 
@@ -41,8 +41,8 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
 
   m_workingDir = args.value("workingDir");
   m_modelName = args.value("modelName");
-  kDebug()<<"Input prompts: " <<promptsIn;
-  kDebug()<<"Working directory: " <<m_workingDir;
+  qDebug()<<"Input prompts: " <<promptsIn;
+  qDebug()<<"Working directory: " <<m_workingDir;
 
 
 
@@ -57,37 +57,37 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
 
   emit  status(i18n("Adapting model..."), 0, 100);
 
-  kDebug() << "Adapting model";
+  qDebug() << "Adapting model";
 
   QSharedPointer<Vocabulary> mergedVocabulary(new Vocabulary());
   QSharedPointer<Grammar> mergedGrammar(new Grammar());
 
-  kDebug()<<"Scenarios input path: "<<scenarioPathsIn;
+  qDebug()<<"Scenarios input path: "<<scenarioPathsIn;
   //merging scenarios
   mergeInputData(scenarioPathsIn, mergedVocabulary, mergedGrammar);
 
   if ((adaptionType & ModelCompilationAdapter::AdaptLanguageModel) &&
       (mergedVocabulary->empty() || (mergedGrammar->structureCount() == 0)))
   {
-    kDebug() << "Empty vocabulary or grammar; aborting adaptation";
+    qDebug() << "Empty vocabulary or grammar; aborting adaptation";
     emit adaptionAborted(ModelCompilation::InsufficientInput);
     return false;
   }
 
   ADAPT_CHECKPOINT;
 
-  kDebug() << "ADAPTING model for real";
+  qDebug() << "ADAPTING model for real";
 
   if(!storeModel(adaptionType, m_promptsPathIn, m_workingDir, m_modelName, mergedVocabulary, mergedGrammar))
   {
-    kDebug()<< "Adaptation failed";
+    qDebug()<< "Adaptation failed";
     return false;
   }
 
   emit  status(i18n("Model adaption complete"), 100, 100);
   emit adaptionComplete();
 
-  kDebug() <<"Adaptation complete";
+  qDebug() <<"Adaptation complete";
 
   return true;
 }
@@ -117,7 +117,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   QString fetc = workingDirPath+"/"+mName+"/etc/"+mName;
 
-  kDebug()<<"Store dictionary";
+  qDebug()<<"Store dictionary";
 
   bool errorStoringDictionary = !storeDictionary(adaptionType, fetc+DICT_EXT, fetc+QLatin1String("_ship")+DICT_EXT,
                                                  trainedVocabulary, definedVocabulary,
@@ -131,7 +131,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  kDebug()<<"Store filler";
+  qDebug()<<"Store filler";
   if(!storeFiller(adaptionType, fetc+".filler"))
   {
     emit error(i18nc("Please keep \"filler\" in English as it refers to a file that is usually named that",
@@ -141,7 +141,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  kDebug()<<"Store phonelist";
+  qDebug()<<"Store phonelist";
   if(!(adaptionType == ModelCompilationAdapter::AdaptLanguageModel) &&
      !storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary, trainedVocabulary))
   {
@@ -152,7 +152,7 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   ADAPT_CHECKPOINT;
 
   if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
-    kDebug()<<"Store transcription & fields";
+    qDebug()<<"Store transcription & fields";
     bool err = storeTranscriptionAndFields(adaptionType, promptsPathIn,
                                                             fetc+TRAIN_TRANSCRIPTION,
                                                             fetc+TRAIN_FIELDS,
@@ -163,14 +163,14 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
                                                                 fetc+TEST_FIELDS,
                                                                 definedVocabulary);
     if (!err) {
-        kDebug() << "Returning here; store transcription and fields failed...?";
+        qDebug() << "Returning here; store transcription and fields failed...?";
         return false; // error reporting done by the function itself
     }
   }
 
   ADAPT_CHECKPOINT;
 
-  kDebug()<<"Store grammar";
+  qDebug()<<"Store grammar";
   if(!storeGrammar(adaptionType, fetc+GRAMMAR_EXT, vocabulary, definedVocabulary, grammar))
   {
     emit error(i18n("Failed to store grammar"));
@@ -222,7 +222,7 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
             (!(adaptionType == ModelCompilationAdapter::AdaptIndependently) &&
         (!trainedVocabulary.contains(word->getLexiconWord()))))
     {
-      kDebug() << "Skipping word " << word->getWord();
+      qDebug() << "Skipping word " << word->getWord();
       continue;
     }
 
@@ -301,7 +301,7 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, c
     if((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
        (adaptionType != AdaptIndependently) && !trainedVocabulary.contains(word->getLexiconWord()))
     {
-      kDebug() << "Skipping phones for word " << word->getWord();
+      qDebug() << "Skipping phones for word " << word->getWord();
       continue;
     }
 
@@ -407,7 +407,7 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
                  <<"grammar generalGrammar;\n";
   grammarStream<< "public <structure> = ";
 
-  kDebug()<<"Structures count:"<< grammarStructures.size();
+  qDebug()<<"Structures count:"<< grammarStructures.size();
 
   foreach (const QString& structure, grammarStructures)
   {
@@ -417,13 +417,13 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
 
     QString gramBuffer;
 
-    kDebug()<<"Categories count for structure "<<structure<<": "<<categories.size();
+    qDebug()<<"Categories count for structure "<<structure<<": "<<categories.size();
     foreach (const QString &category, categories)
     {
       bool fword = true;
       QList<Word*> wordsForCategory = vocabulary->findWordsByCategory(category);
 
-      kDebug()<<"Words for category "<<category<<":"<<wordsForCategory.size();
+      qDebug()<<"Words for category "<<category<<":"<<wordsForCategory.size();
 
       if(wordsForCategory.isEmpty())
         continue;

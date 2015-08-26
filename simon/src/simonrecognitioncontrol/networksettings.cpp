@@ -22,14 +22,14 @@
 #include "recognitionconfiguration.h"
 #include <QPointer>
 #include <kdeversion.h>
-#include <KCMultiDialog>
+#include <KCMUtils/KCMultiDialog>
 
 /**
  * \brief Constructor - inits the help text and the gui
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-NetworkSettings::NetworkSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
+NetworkSettings::NetworkSettings(QWidget* parent, const QVariantList& args): KCModule(parent)
 {
   Q_UNUSED(args);
 

@@ -27,7 +27,7 @@ class QLabel;
 class QFrame;
 class QProgressBar;
 class ProgressWidget;
-class KPushButton;
+class QPushButton;
 class QMoveEvent;
 
 /**
@@ -48,7 +48,7 @@ class CompositeProgressWidget : public QWidget
     QLabel *statusLabel;
     QProgressBar *bar;
     QFrame *popupWidget;
-    KPushButton *togglePopup;
+    QPushButton *togglePopup;
     QList<ProgressWidget*> progressWidgets;
 
   protected:

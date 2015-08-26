@@ -21,12 +21,12 @@
 #define SIMON_SYNCHRONISATIONSETTINGS_H_9CAEA39ADADC44EEB28647C537C2BEB3
 
 #include "ui_synchronisationsettings.h"
-#include <KCModule>
 #include <QVariantList>
 #include <QList>
 #include <QDateTime>
+#include <KConfigWidgets/KCModule>
 
-class KProgressDialog;
+class QProgressDialog;
 class QShowEvent;
 
 class SynchronisationSettings : public KCModule
@@ -34,7 +34,7 @@ class SynchronisationSettings : public KCModule
   Q_OBJECT
     private:
     Ui::SynchronisationSettingsDlg ui;
-    KProgressDialog *dlg;
+    QProgressDialog *dlg;
 
   private slots:
     void loadList();

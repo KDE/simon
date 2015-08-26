@@ -19,14 +19,13 @@
 
 #include "jsoncommand.h"
 #include "jsoncommandmanager.h"
-#include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QVariant>
 
-#include <KIcon>
-#include <KLocalizedString>
-#include <KDebug>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 const QString JsonCommand::staticCategoryText()
 {
@@ -40,13 +39,13 @@ const QString JsonCommand::getCategoryText() const
 }
 
 
-const KIcon JsonCommand::staticCategoryIcon()
+const QIcon JsonCommand::staticCategoryIcon()
 {
-  return KIcon("network-connect");
+  return QIcon::fromTheme("network-connect");
 }
 
 
-const KIcon JsonCommand::getCategoryIcon() const
+const QIcon JsonCommand::getCategoryIcon() const
 {
   return JsonCommand::staticCategoryIcon();
 }

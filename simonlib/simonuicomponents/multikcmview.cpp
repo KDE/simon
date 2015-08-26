@@ -20,15 +20,14 @@
 #include "multikcmview.h"
 #include <QVBoxLayout>
 #include <QIcon>
-#include <KTabWidget>
-#include <KGlobal>
-#include <KIcon>
+#include <QTabWidget>
+#include <QIcon>
 
-MultiKCMView::MultiKCMView(QWidget* parent, const QVariantList& args) : KCModule(KGlobal::mainComponent(), parent)
+MultiKCMView::MultiKCMView(QWidget* parent, const QVariantList& args) : KCModule(parent)
 {
   Q_UNUSED(args);
 
-  wgModules = new KTabWidget(this);
+  wgModules = new QTabWidget(this);
   QVBoxLayout *lay = new QVBoxLayout(this);
   lay->addWidget(wgModules);
   setLayout(lay);
@@ -58,7 +57,7 @@ void MultiKCMView::emitChanged()
 }
 
 
-void MultiKCMView::registerModule(KCModule* mod, const KIcon& icon, const QString& label)
+void MultiKCMView::registerModule(KCModule* mod, const QIcon& icon, const QString& label)
 {
   modules  << mod;
 

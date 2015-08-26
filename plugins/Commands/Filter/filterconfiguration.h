@@ -23,7 +23,6 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_filterconfigurationdlg.h"
 #include <KSharedConfig>
-#include <QPointer>
 
 class FilterConfiguration : public CommandConfiguration
 {

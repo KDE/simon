@@ -25,7 +25,7 @@
 
 #include "ui_calculatorwidget.h"
 
-class KDialog;
+class QDialog;
 
 class CommandListWidget;
 class Token;
@@ -69,7 +69,7 @@ class CalculatorCommandManager : public CommandManager, public GreedyReceiver
     };
 
     Ui::CalculatorDlg ui;
-    KDialog *widget;
+    QDialog *widget;
     CommandListWidget *commandListWidget;
     QList<Token *> parseString(QString calc, bool *success = 0);
     QList<Token *> toPostfix(QList<Token *> calcList, bool *success = 0);

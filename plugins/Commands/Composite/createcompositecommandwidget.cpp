@@ -23,10 +23,7 @@
 
 #include <simonactions/commandtablemodel.h>
 #include <simonactions/actionmanager.h>
-
-#include <QListWidget>
-#include <QInputDialog>
-#include <KMessageBox>
+#include <KWidgetsAddons/KMessageBox>
 #include <QStringList>
 
 CreateCompositeCommandWidget::CreateCompositeCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
@@ -53,11 +50,11 @@ model(new CommandTableModel())
   connect(ui.tvCommands, SIGNAL(clicked(QModelIndex)), this, SLOT(enableButtons(QModelIndex)));
   enableButtons(ui.tvCommands->currentIndex());
 
-  ui.pbAddCommand->setIcon(KIcon("list-add"));
-  ui.pbAddDelay->setIcon(KIcon("list-add"));
-  ui.pbRemove->setIcon(KIcon("list-remove"));
-  ui.pbMoveUp->setIcon(KIcon("arrow-up"));
-  ui.pbMoveDown->setIcon(KIcon("arrow-down"));
+  ui.pbAddCommand->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbAddDelay->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbRemove->setIcon(QIcon::fromTheme("list-remove"));
+  ui.pbMoveUp->setIcon(QIcon::fromTheme("arrow-up"));
+  ui.pbMoveDown->setIcon(QIcon::fromTheme("arrow-down"));
 }
 
 

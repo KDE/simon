@@ -21,8 +21,10 @@
 #define SIMON_MODELCOMPILATIONSETTINGS_H_D92C3FEDF32B415094257DB891621383
 
 #include "ui_externalprograms.h"
-#include <KCModule>
 #include <QVariantList>
+
+#include <KCoreAddons/kpluginfactory.h>
+#include <KConfigWidgets/KCModule>
 
 /**
   @author Peter Grasch <bedahr@gmx.net>
@@ -41,7 +43,9 @@ class ModelCompilationSettings : public KCModule
 
     static int getDefaultBackendType();
 
-    ~ModelCompilationSettings();
+    // ~ModelCompilationSettings();
 
 };
+
+
 #endif

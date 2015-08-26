@@ -23,22 +23,21 @@
 #include "devicesettings.h"
 #include "samplegroupcontextsettings.h"
 
-#include <KMessageBox>
 #include <QVBoxLayout>
-#include <KIcon>
+#include <QIcon>
 
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <KAboutData>
 #include <KPageWidgetItem>
 #include <KPageWidget>
-#include <KDebug>
-#include <kgenericfactory.h>
+#include <QDebug>
+#include <KDELibs4Support/kgenericfactory.h>
 
 K_PLUGIN_FACTORY( SoundSettingsFactory,
 registerPlugin< SoundSettings >();
 )
 
-K_EXPORT_PLUGIN( SoundSettingsFactory("simonlib") )
+// K_EXPORT_PLUGIN( SoundSettingsFactory("simonlib") )
 
 /**
  * \brief Constructor - inits the help text and the gui
@@ -46,7 +45,7 @@ K_EXPORT_PLUGIN( SoundSettingsFactory("simonlib") )
  * @param parent the parent of the widget
  */
 SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
-KCModule(KGlobal::mainComponent(), parent)
+KCModule(parent)
 {
   Q_UNUSED(args);
 
@@ -84,12 +83,12 @@ KCModule(KGlobal::mainComponent(), parent)
   KPageWidgetItem *postProcConfItem = pageWidget->addPage(postProcessingConfig, i18n("Post-Processing"));
   KPageWidgetItem *sampleGroupConditionItem = pageWidget->addPage(sampleGroupConditions, i18n("Context"));
 
-  deviceConfItem->setIcon(KIcon("audio-card"));
-  vadConfItem->setIcon(KIcon("media-playback-start"));
-  trainingConfigItem->setIcon(KIcon("view-pim-news"));
-  //promptConfItem->setIcon(KIcon("draw-text"));
-  postProcConfItem->setIcon(KIcon("applications-other"));
-  sampleGroupConditionItem->setIcon(KIcon("preferences-activities"));
+  deviceConfItem->setIcon(QIcon::fromTheme("audio-card"));
+  vadConfItem->setIcon(QIcon::fromTheme("media-playback-start"));
+  trainingConfigItem->setIcon(QIcon::fromTheme("view-pim-news"));
+  //promptConfItem->setIcon(QIcon::fromTheme("draw-text"));
+  postProcConfItem->setIcon(QIcon::fromTheme("applications-other"));
+  sampleGroupConditionItem->setIcon(QIcon::fromTheme("preferences-activities"));
 
   deviceConfItem->setHeader("");
   vadConfItem->setHeader("");
@@ -98,12 +97,15 @@ KCModule(KGlobal::mainComponent(), parent)
   postProcConfItem->setHeader("");
   sampleGroupConditionItem->setHeader("");
 
-  KAboutData *about = new KAboutData(
-    "soundsettings", "", ki18n("Recordings"),
-    "0.1", ki18n("Configuration for the Recording and Playback of sounds"), KAboutData::License_GPL);
-  #if KDE_IS_VERSION(4,0,80)
+  KAboutData *about = new KAboutData("soundsettings",
+                                     i18n("Recordings"),
+                                     "0.1",
+                                     i18n("Configuration for the Recording and Playback of sounds"),
+                                     KAboutLicense::GPL);
+  //QT5TODO: What was this
+  // #if KDE_IS_VERSION(4,0,80)
   about->setProgramIconName("preferences-desktop-sound");
-  #endif
+  // #endif
   setAboutData( about );
 
   addConfig(SoundConfiguration::self(), this);
@@ -149,3 +151,4 @@ void SoundSettings::slotChanged()
 SoundSettings::~SoundSettings()
 {
 }
+#include "soundsettings.moc"

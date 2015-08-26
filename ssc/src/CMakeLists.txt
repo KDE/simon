@@ -17,7 +17,7 @@ set(ssc_SRCS
   sscsampledataprovider.cpp
 )
 
-kde4_add_ui_files(ssc_SRCS
+ki18n_wrap_ui(ssc_SRCS
   details.ui
   finduser.ui
   uploadsamples.ui
@@ -27,13 +27,14 @@ kde4_add_ui_files(ssc_SRCS
   modifyuserininstitution.ui
 )
 
-kde4_add_kcfg_files(ssc_SRCS ../config/sscconfig.kcfgc)
+kconfig_add_kcfg_files(ssc_SRCS ../config/sscconfig.kcfgc)
 
-kde4_add_app_icon(ssc_SRCS "../icons/hi*-app-ssc.png")
-kde4_add_executable(ssc ${ssc_SRCS})
+file(GLOB ICONS_SRCS "../icons/hi*-app-ssc.png")
+kde4_add_app_icon(ssc_SRCS ICONS ${ICONS_SRCS})
+add_executable(ssc ${ssc_SRCS})
 
-target_link_libraries(ssc ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
-  ${KDE4_KUTILS_LIBS} simonuicomponents simonprogresstracking sscobjects simonsound sscdaccess)
+target_link_libraries(ssc ${QT_LIBRARIES} KF5::KCMUtils
+   simonuicomponents simonprogresstracking sscobjects simonsound sscdaccess)
 
 install(TARGETS ssc DESTINATION ${BIN_INSTALL_DIR} COMPONENT ssc)
 

@@ -65,7 +65,7 @@
 
 #include <QList>
 #include <QString>
-#include <KIcon>
+#include <QIcon>
 #include <QMap>
 class QDomElement;
 class QDomDocument;
@@ -245,11 +245,11 @@ class MODELMANAGEMENT_EXPORT  Command
      * Returns an icon for the command category. For commands that start external programs this could
      * for example be:
      * \code
-       return KIcon("applications-system");
+       return QIcon("applications-system");
        \endcode
      * \return Category icon
      */
-    virtual const KIcon getCategoryIcon() const=0;
+    virtual const QIcon getCategoryIcon() const=0;
     
     virtual bool matches(int commandManagerState, const QString& trigger);
 
@@ -363,9 +363,9 @@ class MODELMANAGEMENT_EXPORT  Command
      * @return The icon of the command.
      * \sa getCategoryIcon()
      */
-    const KIcon getIcon() const
+    const QIcon getIcon() const
     {
-      KIcon thisIcon = KIcon(iconSrc);
+      QIcon thisIcon = QIcon(iconSrc);
       if (!thisIcon.isNull())
         return thisIcon;
       else return getCategoryIcon();
@@ -377,7 +377,7 @@ class MODELMANAGEMENT_EXPORT  Command
 
     /**
      * @brief Returns the icon name of this command.
-     * @return The name of the icon. This should be something that KIcon can interpret.
+     * @return The name of the icon. This should be something that QIcon can interpret.
      */
     const QString getIconSrc() const
     {

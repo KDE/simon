@@ -39,14 +39,13 @@
 #include <QSslSocket>
 #include <QTimer>
 #include <QThread>
-#include <QFile>
 #include <QDataStream>
-#include <QDateTime>
 #include <QStringList>
+#include <KWidgetsAddons/KMessageBox>
 
-#include <KMessageBox>
-#include <KLocalizedString>
-#include <KDebug>
+#include <KI18n/KLocalizedString>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
 
 #define parseLengthHeader()     waitForMessage(sizeof(qint64),stream, msg); \
   qint64 length; \
@@ -128,7 +127,7 @@ void SSCDAccess::errorOccured()
     }
   }
   if (socket->error() != QAbstractSocket::UnknownSocketError) {
-    kDebug() << "Populating unknown error: " << socket->errorString();
+    qDebug() << "Populating unknown error: " << socket->errorString();
     emit error(socket->errorString());
   }
   else {
@@ -277,7 +276,7 @@ bool SSCDAccess::sendRequest (qint32 request, qint32 message, qint32 message2)
 
 bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
 {
-  kDebug() << "Socket state: " << socket->state();
+  qDebug() << "Socket state: " << socket->state();
   Q_ASSERT(stream.device());
   while (stream.device()->bytesAvailable() < length) {
     qDebug() << thread();
@@ -289,7 +288,7 @@ bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& 
       }
       else {
         //timeout reached
-        kDebug() << "Timeout reached!" << socket->errorString() << socket->error() << socket->state();
+        qDebug() << "Timeout reached!" << socket->errorString() << socket->error() << socket->state();
         abort();
         return false;
       }
@@ -335,12 +334,12 @@ void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)
   stream << (qint32) code << (qint64) body.count();
 
   fprintf(stderr, "Writing: %d\n", (int) socket->bytesToWrite());
-  kDebug() << "Bytes still to write: " << socket->bytesToWrite();
+  qDebug() << "Bytes still to write: " << socket->bytesToWrite();
   socket->write(toWrite);
   fprintf(stderr, "Writing: %d\n", (int) socket->bytesToWrite());
-  kDebug() << "Bytes still to write: " << socket->bytesToWrite();
+  qDebug() << "Bytes still to write: " << socket->bytesToWrite();
   socket->write(body);
-  kDebug() << "Bytes still to write: " << socket->bytesToWrite();
+  qDebug() << "Bytes still to write: " << socket->bytesToWrite();
   fprintf(stderr, "Just send an object... Bytes still to write: %d\n", (int) socket->bytesToWrite());
 }
 
@@ -352,7 +351,7 @@ void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)
 User* SSCDAccess::getUser(qint32 id)
 {
   if (!sendRequest(SSC::GetUser,id)) {
-    // 		kDebug() << "could not send request";
+    // 		qDebug() << "could not send request";
     return 0;
   }
 
@@ -364,7 +363,7 @@ User* SSCDAccess::getUser(qint32 id)
   qint32 type;
   stream >> type;
 
-  // 	kDebug() << "Received reply: " << type;
+  // 	qDebug() << "Received reply: " << type;
   switch (type) {
     case SSC::User:
     {
@@ -619,7 +618,7 @@ qint32 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
   waitForMessage(sizeof(qint32),stream, msg);
   qint32 type;
   stream >> type;
-  kDebug() << type;
+  qDebug() << type;
   fprintf(stderr, "Get or create microphone returned: %d\n", type);
 
   switch (type) {
@@ -628,7 +627,7 @@ qint32 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
       waitForMessage(sizeof(qint32),stream, msg);
       qint32 id;
       stream >> id;
-      kDebug() << "Received id: " << id;
+      qDebug() << "Received id: " << id;
       fprintf(stderr, "Received id: %d\n", id);
 
       microphone->setId(id);
@@ -1041,7 +1040,7 @@ QList<UserInInstitution*> SSCDAccess::getUserInInstitutions(qint32 userId, bool 
 
 bool SSCDAccess::sendSample(Sample *s)
 {
-  kDebug() << "Sending sample";
+  qDebug() << "Sending sample";
   fprintf(stderr, "Sending sample: %d\n", (int) socket->bytesAvailable());
   sendObject(SSC::Sample, s);
   return true;
@@ -1057,10 +1056,10 @@ bool SSCDAccess::processSampleAnswer()
 //   qint32 previousMessageCount = 0;
 // 
 //   int breakTime = timeout / 100 /* milliseconds */;
-//   kDebug() << "Break time: " << breakTime;
+//   qDebug() << "Break time: " << breakTime;
 // 
 //   while ((unsigned int) msg.count() < (unsigned int) sizeof(qint32)) {
-//     kDebug() << "Bytes available: " << msg.count() <<
+//     qDebug() << "Bytes available: " << msg.count() <<
 //       " looking for " << (unsigned int) sizeof(qint32);
 //     qDebug() << "Thread: " << thread();
 //     #ifdef Q_OS_WIN32
@@ -1070,12 +1069,12 @@ bool SSCDAccess::processSampleAnswer()
 //     #endif
 //     msg += socket->readAll();
 // 
-//     kDebug() << "Bytes still to write: " << socket->bytesToWrite();
+//     qDebug() << "Bytes still to write: " << socket->bytesToWrite();
 //     previousMessageCount = socket->bytesToWrite();
 //     if (previousMessageCount == msg.count()) {
 //       if (messageCountTheSame++ == breakTime) {
 //         abort();
-// 	kDebug() << "Timeout";
+// 	qDebug() << "Timeout";
 //         return false;
 //       }
 //     }

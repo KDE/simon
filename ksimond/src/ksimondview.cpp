@@ -24,27 +24,29 @@
 
 #include <KCMultiDialog>
 #include <KProcess>
-#include <KIcon>
-#include <KLocalizedString>
-#include <KAction>
-#include <KActionCollection>
-#include <KMessageBox>
-#include <KStandardDirs>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
+#include <KWidgetsAddons/KMessageBox>
+#include <QAction>
+#include <QLocale>
+#include <KConfigCore/KConfigGroup>
+#include <QStandardPaths>
 #include <simoninfo/simoninfo.h>
 
 KSimondView::KSimondView(QObject* parent) : QObject(parent),
 trayIconMgr(0),
 configDialog(new KCMultiDialog(0)),
 process(new KProcess()),
-startSimonAction(new KAction(0)),
-startProcess(new KAction(0)),
-restartProcess(new KAction(0)),
-stopProcess(new KAction(0)),
-configure(new KAction(0)),
+startSimonAction(new QAction(0)),
+startProcess(new QAction(0)),
+restartProcess(new QAction(0)),
+stopProcess(new QAction(0)),
+configure(new QAction(0)),
 stopIntended(false),
 wantReload(false)
 {
-  KGlobal::locale()->insertCatalog("simonlib");
+  //QT5TODO: Re-enable translation
+  // QLocale().insertCatalog("simonlib");
   configDialog->addModule("ksimondconfiguration");
   configDialog->addModule("simondconfiguration");
   configDialog->addModule("simonmodelcompilationconfig");
@@ -52,33 +54,33 @@ wantReload(false)
   //configDialog->addModule("simondnetworkconfiguration");
 
   trayIconMgr = new TrayIconManager(configDialog);
-  trayIconMgr->createIcon(KIcon("simond"), i18n("Simond"));
+  trayIconMgr->createIcon(QIcon::fromTheme("simond"), i18n("Simond"));
   //add actions
 
   startProcess->setText(i18n("Start Simond"));
-  startProcess->setIcon(KIcon("media-playback-start"));
+  startProcess->setIcon(QIcon::fromTheme("media-playback-start"));
   connect(startProcess, SIGNAL(triggered(bool)),
     this, SLOT(startSimond()));
 
   startSimonAction->setText(i18n("Start Simon"));
-  startSimonAction->setIcon(KIcon("simon"));
+  startSimonAction->setIcon(QIcon::fromTheme("simon"));
   connect(startSimonAction, SIGNAL(triggered(bool)),
     this, SLOT(startSimon()));
 
   restartProcess->setText(i18n("Restart Simond"));
-  restartProcess->setIcon(KIcon("view-refresh"));
+  restartProcess->setIcon(QIcon::fromTheme("view-refresh"));
   restartProcess->setEnabled(false);
   connect(restartProcess, SIGNAL(triggered(bool)),
     this, SLOT(restartSimond()));
 
   stopProcess->setText(i18n("Stop Simond"));
-  stopProcess->setIcon(KIcon("process-stop"));
+  stopProcess->setIcon(QIcon::fromTheme("process-stop"));
   stopProcess->setEnabled(false);
   connect(stopProcess, SIGNAL(triggered(bool)),
     this, SLOT(stopSimond()));
 
   configure->setText(i18n("Configuration"));
-  configure->setIcon(KIcon("configure"));
+  configure->setIcon(QIcon::fromTheme("configure"));
   connect(configure, SIGNAL(triggered(bool)),
     this, SLOT(showConfigurationDialog()));
 
@@ -108,7 +110,7 @@ void KSimondView::showConfigurationDialog()
 
 void KSimondView::startSimon()
 {
-  QProcess::startDetached('"'+KStandardDirs::findExe("simon")+'"');
+  QProcess::startDetached('"'+QStandardPaths::findExecutable("simon")+'"');
 }
 
 
@@ -118,7 +120,7 @@ void KSimondView::startSimond()
     KMessageBox::information(0, i18n("simond is already running"));
     return;
   }
-  QString exePath = KStandardDirs::findExe("simond");
+  QString exePath = QStandardPaths::findExecutable("simond");
   process->setProgram(QStringList() << exePath);
   process->start();
 }
@@ -136,7 +138,8 @@ void KSimondView::matchDisplayToState()
   switch (process->state()) {
     case QProcess::NotRunning:
     {
-      SimonInfo::showMessage(i18n("simond stopped"), 2000, new KIcon("simond")); // krazy:exclude=qmethods
+      QIcon i = QIcon::fromTheme("simond");
+      SimonInfo::showMessage(i18n("simond stopped"), 2000, &i); // krazy:exclude=qmethods
       startProcess->setEnabled(true);
       restartProcess->setEnabled(false);
       stopProcess->setEnabled(false);
@@ -151,7 +154,8 @@ void KSimondView::matchDisplayToState()
     }
     case QProcess::Running:
     {
-      SimonInfo::showMessage(i18n("simond started"), 2000, new KIcon("simond"));
+      QIcon i = QIcon::fromTheme("simond");
+      SimonInfo::showMessage(i18n("simond started"), 2000, &i);
       startProcess->setEnabled(false);
       stopProcess->setEnabled(true);
       restartProcess->setEnabled(true);
@@ -164,7 +168,7 @@ void KSimondView::matchDisplayToState()
 void KSimondView::simondFinished()
 {
   //using the kconfigxt way does not reflect changes on the fly
-  KConfig config(KStandardDirs::locate("config", "ksimondrc"));
+  KConfig config(QStandardPaths::locate(QStandardPaths::ConfigLocation, "ksimondrc"));
   KConfigGroup cGroup(&config, "KSimond");
   bool crashRecovery = cGroup.readEntry("AutoReStartSimond", true);
   if ((!stopIntended && crashRecovery) || wantReload) {

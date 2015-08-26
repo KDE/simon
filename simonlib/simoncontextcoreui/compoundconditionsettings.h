@@ -21,8 +21,8 @@
 #ifndef COMPOUNDCONDITIONSETTINGS_H
 #define COMPOUNDCONDITIONSETTINGS_H
 
-#include <QWidget>
 #include "simoncontextcoreui_export.h"
+#include <QWidget>;
 
 class CompoundCondition;
 class QSortFilterProxyModel;
@@ -35,24 +35,24 @@ namespace Ui {
 class SIMONCONTEXTCOREUI_EXPORT CompoundConditionSettings : public QWidget
 {
   Q_OBJECT
-  
+
 
 public:
   explicit CompoundConditionSettings ( QWidget* parent = 0, Qt::WindowFlags f = 0 );
   void setConditions(CompoundCondition *c);
-    
+
 private slots:
   void addCondition();
   void deleteCondition();
   void editCondition();
   void selectionChanged();
-  
+
 private:
   Ui::CompoundConditionSettings *ui;
-  
+
   CompoundCondition *m_conditions;
   QSortFilterProxyModel *conditionsProxy;
-  
+
   Condition* getCurrentCondition();
 };
 

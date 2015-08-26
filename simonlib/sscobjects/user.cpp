@@ -20,7 +20,6 @@
 #include "user.h"
 #include <QDataStream>
 #include <QByteArray>
-#include <QDebug>
 
 User::User(qint32 userId,QString surname,
 QString givenName,QChar sex,

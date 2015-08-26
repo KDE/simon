@@ -20,7 +20,6 @@
 #ifndef SIMON_SIMONSENDER_H_0AC05651BE6A419EA6256220815A2AAD
 #define SIMON_SIMONSENDER_H_0AC05651BE6A419EA6256220815A2AAD
 
-#include <QtGlobal>
 #include <QObject>
 #include "simondstreamer_export.h"
 #include <QTimer>

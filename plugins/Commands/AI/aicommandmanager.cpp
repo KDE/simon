@@ -26,21 +26,20 @@
 #include <simontts/simontts.h>
 
 #include <QDebug>
-#include <QXmlInputSource>
 #include <QFile>
 #include <QDir>
 
-#include <KProcess>
-#include <KProgressDialog>
-#include <KLocalizedString>
+#include <QProgressDialog>
+#include <KI18n/klocalizedstring.h>
 #include <KGenericFactory>
-#include <KStandardDirs>
+#include <QStandardPaths>
+#include <QStandardPaths>
 
 K_PLUGIN_FACTORY( AIPluginFactory,
 registerPlugin< AICommandManager >();
 )
 
-K_EXPORT_PLUGIN( AIPluginFactory("simonaicommand") )
+// K_EXPORT_PLUGIN( AIPluginFactory("simonaicommand") )
 
 AICommandManager::AICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 parser(0)
@@ -68,7 +67,7 @@ CommandConfiguration* AICommandManager::getConfigurationPage() const
 
 bool AICommandManager::trigger(const QString& triggerName, bool silent)
 {
-  kDebug() << "Triggering! " << parser;
+  qDebug() << "Triggering! " << parser;
   Q_UNUSED(silent);
   Q_ASSERT(parser);
   if (!parser) return false;
@@ -83,31 +82,33 @@ bool AICommandManager::trigger(const QString& triggerName, bool silent)
 bool AICommandManager::setupParser()
 {
   if (parser) {
-    parser->saveVars(KStandardDirs::locate("data", "ai/util/vars.xml"));
+    parser->saveVars(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "ai/util/vars.xml"));
     delete parser;
     parser=0;
   }
 
-  QFile f(KStandardDirs::locateLocal("data", "ai/parser.log"));
+  QFile f(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + "ai/parser.log");
   if (!f.open(QIODevice::WriteOnly)) return false;
 
   parser = new AIMLParser(new QTextStream(&f));
-  parser->loadVars(KStandardDirs::locate("data", "ai/util/vars.xml"), false);
-  parser->loadVars(KStandardDirs::locate("data", "ai/util/bot.xml"), true);
-  parser->loadSubstitutions(KStandardDirs::locate("data", "ai/util/substitutions.xml"));
+  parser->loadVars(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "ai/util/vars.xml"), false);
+  parser->loadVars(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "ai/util/bot.xml"), true);
+  parser->loadSubstitutions(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "ai/util/substitutions.xml"));
 
-  QString aimlDirString = KStandardDirs::locate("data", "ai/aimls/"+static_cast<AIConfiguration*>(config)->aimlSet()+'/');
+  QString aimlDirString = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "ai/aimls/"+static_cast<AIConfiguration*>(config)->aimlSet()+'/');
 
   QDir aimlDir(aimlDirString);
   QStringList aimls = aimlDir.entryList(QStringList() << "*.aiml", QDir::Files);
 
-  KProgressDialog *dlg = new KProgressDialog(0, i18n("Artificial Intelligence"), i18n("Loading artificial intelligence..."));
-  dlg->progressBar()->setMaximum(aimls.count());
+  QProgressDialog *dlg = new QProgressDialog(0);
+  dlg->setWindowTitle(i18n("Artificial Intelligence"));
+  dlg->setLabelText(i18n("Loading artificial intelligence..."));
+  dlg->setMaximum(aimls.count());
   dlg->show();
   int i=0;
   foreach (const QString& aiml, aimls) {
     parser->loadAiml(aimlDirString+aiml);
-    dlg->progressBar()->setValue(++i);
+    dlg->setValue(++i);
   }
   dlg->deleteLater();
   return true;
@@ -132,10 +133,11 @@ bool AICommandManager::deSerializeConfig(const QDomElement& elem)
 void AICommandManager::finalize()
 {
   if (parser)
-    parser->saveVars(KStandardDirs::locate("data", "ai/util/vars.xml"));
+    parser->saveVars(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "ai/util/vars.xml"));
 }
 
 AICommandManager::~AICommandManager()
 {
   delete parser;
 }
+#include "aicommandmanager.moc"

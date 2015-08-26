@@ -20,7 +20,6 @@
 
 #include "trainingtextaggregatormodel.h"
 #include <simonscenarios/trainingtextcollection.h>
-#include <QItemSelectionModel>
 
 TrainingTextAggregatorModel::TrainingTextAggregatorModel ( QObject* parent ) : QAbstractProxyModel ( parent )
 {

@@ -27,21 +27,20 @@
 #include <QStack>
 #include <QTreeWidget>
 #include <QSize>
-#include <QVariant>
 #include <QMenu>
 #include <QFileInfo>
 #include <KDateTime>
 #include <QTreeWidgetItem>
 #include <KSharedConfig>
-#include <KConfigGroup>
-#include <KDebug>
-#include <KGlobal>
-#include <KMessageBox>
-#include <KStandardDirs>
-#include <KFileDialog>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
+
+#include <KDELibs4Support/KDE/KFileDialog>
 
 #include <knewstuff3/downloaddialog.h>
 #include <knewstuff3/uploaddialog.h>
+#include <QStandardPaths>
+#include <KConfigCore/KConfigGroup>
 
 #include "ui_scenariomanagementdlg.h"
 
@@ -82,12 +81,12 @@ ScenarioManagementWidget::ScenarioManagementWidget(const QString& dataPrefix, bo
   connect(ui->pbDeleteScenario, SIGNAL(clicked()), this, SLOT(deleteScenario()));
 
   QMenu *exportMenu = new QMenu(this);
-  QAction *ghnsExport = exportMenu->addAction(KIcon("get-hot-new-stuff"), i18n("Publish"));
-  QAction *fileExport = exportMenu->addAction(KIcon("document-export"), i18n("Export to file"));
+  QAction *ghnsExport = exportMenu->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Publish"));
+  QAction *fileExport = exportMenu->addAction(QIcon::fromTheme("document-export"), i18n("Export to file"));
 
   QMenu *importMenu = new QMenu(this);
-  QAction *ghnsImport = importMenu->addAction(KIcon("get-hot-new-stuff"), i18n("Download"));
-  QAction *fileImport = importMenu->addAction(KIcon("document-import"), i18n("Import from file"));
+  QAction *ghnsImport = importMenu->addAction(QIcon::fromTheme("get-hot-new-stuff"), i18n("Download"));
+  QAction *fileImport = importMenu->addAction(QIcon::fromTheme("document-import"), i18n("Import from file"));
 
   connect(ghnsExport, SIGNAL(triggered()), this, SLOT(exportScenarioGHNS()));
   connect(fileExport, SIGNAL(triggered()), this, SLOT(exportScenarioFile()));
@@ -95,15 +94,15 @@ ScenarioManagementWidget::ScenarioManagementWidget(const QString& dataPrefix, bo
   connect(ghnsImport, SIGNAL(triggered()), this, SLOT(getNewScenarios()));
   connect(fileImport, SIGNAL(triggered()), this, SLOT(importScenario()));
 
-  ui->pbCreateScenario->setIcon(KIcon("list-add"));
-  ui->pbImportScenario->setIcon(KIcon("document-import"));
-  ui->pbExportScenario->setIcon(KIcon("document-export"));
-  ui->pbEditScenario->setIcon(KIcon("document-edit"));
-  ui->pbDeleteScenario->setIcon(KIcon("list-remove"));
-  ui->pbAddToSelected->setIcon(KIcon("arrow-right"));
-  ui->pbRemoveFromSelected->setIcon(KIcon("arrow-left"));
-  ui->pbMoveUp->setIcon(KIcon("arrow-up"));
-  ui->pbMoveDown->setIcon(KIcon("arrow-down"));
+  ui->pbCreateScenario->setIcon(QIcon::fromTheme("list-add"));
+  ui->pbImportScenario->setIcon(QIcon::fromTheme("document-import"));
+  ui->pbExportScenario->setIcon(QIcon::fromTheme("document-export"));
+  ui->pbEditScenario->setIcon(QIcon::fromTheme("document-edit"));
+  ui->pbDeleteScenario->setIcon(QIcon::fromTheme("list-remove"));
+  ui->pbAddToSelected->setIcon(QIcon::fromTheme("arrow-right"));
+  ui->pbRemoveFromSelected->setIcon(QIcon::fromTheme("arrow-left"));
+  ui->pbMoveUp->setIcon(QIcon::fromTheme("arrow-up"));
+  ui->pbMoveDown->setIcon(QIcon::fromTheme("arrow-down"));
   ui->pbAddToSelected->setIconSize(QSize(22, 22));
   ui->pbRemoveFromSelected->setIconSize(QSize(22, 22));
   ui->pbMoveUp->setIconSize(QSize(22, 22));
@@ -158,10 +157,10 @@ void ScenarioManagementWidget::editScenario()
 
 void ScenarioManagementWidget::importScenario()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select scenario file"));
+  QString path = KFileDialog::getOpenFileName(QUrl(), QString(), this, i18n("Select scenario file"));
   if (path.isEmpty()) return;
 
-  QString targetPath = KStandardDirs::locateLocal("tmp", "simon/import_scenario");
+  QString targetPath = QDir::tempPath() + QLatin1Char('/') +  "simon/import_scenario";
   if (QFile::exists(targetPath)) QFile::remove(targetPath);
   QFile::copy(path, targetPath);
 
@@ -196,7 +195,7 @@ QStringList ScenarioManagementWidget::importScenario(const QString& path, QTreeW
   if (failed) {
     foreach (const QString& e, exploded) {
       if (!QFile::remove(Scenario::pathFromId(e)))
-        kWarning() << "Failed to delete broken scenario"; //TODO: user visible error after the string freeze
+        qWarning() << "Failed to delete broken scenario"; //TODO: user visible error after the string freeze
     }
   }
   return exploded;
@@ -212,7 +211,7 @@ void ScenarioManagementWidget::exportScenarioGHNS()
   QString path;
   if (askExportFull(s)) {
     //we need to merge this
-    path = KStandardDirs::locateLocal("tmp", m_dataPrefix+"mergedscenario");
+    path = QDir::tempPath() + QLatin1Char('/') +  m_dataPrefix+"mergedscenario";
 
     if (!s->init()) {
       KMessageBox::sorry(this, i18n("Could not load scenario."));
@@ -225,9 +224,9 @@ void ScenarioManagementWidget::exportScenarioGHNS()
       return;
     }
   } else
-    path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+s->id());
+    path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, m_dataPrefix+"scenarios/"+s->id());
 
-  QPointer<KNS3::UploadDialog> dialog = new KNS3::UploadDialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
+  QPointer<KNS3::UploadDialog> dialog = new KNS3::UploadDialog(QStandardPaths::locate(QStandardPaths::ConfigLocation, "simonscenarios.knsrc"));
   dialog->setUploadFile(path);
   dialog->setUploadName(s->name());
   dialog->exec();
@@ -236,7 +235,7 @@ void ScenarioManagementWidget::exportScenarioGHNS()
 
 bool ScenarioManagementWidget::askExportFull(Scenario* s)
 {
-  kDebug() << "Child scenario ids: " << s->childScenarioIds();
+  qDebug() << "Child scenario ids: " << s->childScenarioIds();
   if (s->childScenarioIds().isEmpty())
     return false; // if we don't have children, we always export just the one scenario
   return (KMessageBox::questionYesNo(this, i18n("The selected scenario has children.\n\nDo you want to include them in the exported scenario (the hierarchy will be preserved)?")) == KMessageBox::Yes);
@@ -254,7 +253,7 @@ void ScenarioManagementWidget::exportScenarioFile()
     return;
   }
 
-  QString path = KFileDialog::getSaveFileName(KUrl(), QString(), this, i18n("Select scenario output file"));
+  QString path = KFileDialog::getSaveFileName(QUrl(), QString(), this, i18n("Select scenario output file"));
   if (path.isEmpty()) return;
 
   if (!s->save(path, askExportFull(s))) {
@@ -266,7 +265,7 @@ void ScenarioManagementWidget::exportScenarioFile()
 
 bool ScenarioManagementWidget::getNewScenarios()
 {
-  QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
+  QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(QStandardPaths::locate(QStandardPaths::ConfigLocation, "simonscenarios.knsrc"));
   dialog->exec();
 
   if (!dialog) return false;
@@ -319,13 +318,13 @@ Scenario* ScenarioManagementWidget::getCurrentlySelectedScenario()
 
 QTreeWidgetItem* ScenarioManagementWidget::getItem(const QString& id, QTreeWidget *widget)
 {
-  kDebug() << "Looking for: " << id;
+  qDebug() << "Looking for: " << id;
   QStack<QTreeWidgetItem*> items;
   items.push(widget->invisibleRootItem());
   while (!items.isEmpty()) {
     QTreeWidgetItem *item = items.pop();
 
-    kDebug() << "This: " << item->data(0, Qt::UserRole);
+    qDebug() << "This: " << item->data(0, Qt::UserRole);
     if (item->data(0, Qt::UserRole) == id)
       return item;
 
@@ -337,7 +336,7 @@ QTreeWidgetItem* ScenarioManagementWidget::getItem(const QString& id, QTreeWidge
 
 void ScenarioManagementWidget::deleteScenario(const QString& id, bool removeFile)
 {
-  kDebug() << "Deleting: " << id;
+  qDebug() << "Deleting: " << id;
 
   QTreeWidgetItem *item = getItem(id, ui->twAvailable);
   QTreeWidget *widget = ui->twAvailable;
@@ -345,8 +344,8 @@ void ScenarioManagementWidget::deleteScenario(const QString& id, bool removeFile
     item = getItem(id, ui->twSelected);
     widget = ui->twSelected;
   }
-  kDebug() << "Item: " << item;
-  kDebug() << "Widget: " << widget;
+  qDebug() << "Item: " << item;
+  qDebug() << "Widget: " << widget;
   if (!item)
     return;
 
@@ -392,7 +391,7 @@ void ScenarioManagementWidget::deleteScenario()
 
 void ScenarioManagementWidget::updateLastSelectedIndex(const QModelIndex& index)
 {
-    kDebug() << "Updating index";
+    qDebug() << "Updating index";
     m_lastSelectedIndex = index;
 }
 
@@ -467,7 +466,7 @@ void ScenarioManagementWidget::slotRemoved()
 
 QTreeWidgetItem* ScenarioManagementWidget::displayScenario(const QString& scenario, QTreeWidget* widget, QStringList* children)
 {
-    kDebug() << "Displaying scenario: " << scenario;
+    qDebug() << "Displaying scenario: " << scenario;
     Scenario *s = new Scenario(scenario);
 
     if (!s->init()) {
@@ -544,7 +543,7 @@ void ScenarioManagementWidget::initDisplay()
     scenarioIds.insert(i, selectedIds[i]);
   }
 
-  kDebug() << "Found scenarios: " << scenarioIds;
+  qDebug() << "Found scenarios: " << scenarioIds;
 
   QList<Scenario*> scenarios;
   QHash<QString, QTreeWidgetItem*> itemsByScenarioIds;
@@ -571,7 +570,7 @@ void ScenarioManagementWidget::initDisplay()
   foreach (Scenario* s, scenarios)
   {
       QStringList ids = s->childScenarioIds();
-      kDebug() << "Setting up children of " << s->id() << ": " << ids;
+      qDebug() << "Setting up children of " << s->id() << ": " << ids;
       foreach (const QString& id, ids)
       {
           QTreeWidgetItem *childItem = itemsByScenarioIds.value(id);
@@ -594,12 +593,12 @@ void ScenarioManagementWidget::saveChildConfiguration(QTreeWidgetItem *parentIte
     //setup the item
     QTreeWidgetItem *item = parentItem->child(i);
 
-    kDebug() << "Configuring children of: " << item->data(0, Qt::UserRole).toString();
+    qDebug() << "Configuring children of: " << item->data(0, Qt::UserRole).toString();
 
     //save the item's child configuration
     QStringList ids = getChildScenarioIds(item);
     if (!Scenario::updateChildScenarioIds(item->data(0, Qt::UserRole).toString(), ids))
-      kWarning() << "Failed to update cihld scenario configuration";
+      qWarning() << "Failed to update cihld scenario configuration";
 
     //configure item's children's children
     saveChildConfiguration(item);
@@ -624,7 +623,7 @@ bool ScenarioManagementWidget::save()
   QStringList deletedScenarios = scenariosConfigGroup.readEntry("DeletedScenarios", QStringList());
   QStringList deletedScenariosTimes = scenariosConfigGroup.readEntry("DeletedScenariosTimes", QStringList());
   foreach (const QString& id, idsToDelete) {
-    QString path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+id);
+    QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, m_dataPrefix+"scenarios/"+id);
     if (!QFile::remove(path)) {
       if (!m_minimal)
         KMessageBox::information(this, i18nc("%1 is scenario path", "Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user cannot remove it. Please remove the file manually.\n\nIn the meantime, simon has automatically deactivated the scenario if it was not already.", path));
@@ -672,7 +671,7 @@ QStringList ScenarioManagementWidget::getChildScenarioIds(QTreeWidgetItem* paren
 {
   QStringList ids;
 
-  kDebug() << "Getting child ids of: " << parentItem->data(0, Qt::UserRole).toString();
+  qDebug() << "Getting child ids of: " << parentItem->data(0, Qt::UserRole).toString();
 
   for (int i=0; i < parentItem->childCount(); i++)
   {
@@ -686,7 +685,7 @@ QStringList ScenarioManagementWidget::getAllLevelChildScenarioIds(QTreeWidgetIte
 {
   QStringList ids;
 
-  kDebug() << "Getting child ids of: " << parentItem->data(0, Qt::UserRole).toString();
+  qDebug() << "Getting child ids of: " << parentItem->data(0, Qt::UserRole).toString();
 
   for (int i=0; i < parentItem->childCount(); i++)
   {

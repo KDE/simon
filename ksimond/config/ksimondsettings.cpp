@@ -19,9 +19,9 @@
 
 #include "ksimondsettings.h"
 #include "ksimondconfiguration.h"
-#include <QSslSocket>
 #include <QSslCipher>
-#include <kgenericfactory.h>
+#include <KDELibs4Support/kgenericfactory.h>
+#include <KConfigWidgets/KCModule>
 
 #ifdef Q_OS_WIN32
 #include <QSettings>
@@ -31,10 +31,8 @@ K_PLUGIN_FACTORY( KSimondSettingsFactory,
 registerPlugin< KSimondSettings >();
 )
 
-K_EXPORT_PLUGIN( KSimondSettingsFactory("ksimond"); )
-
 KSimondSettings::KSimondSettings(QWidget* parent, const QVariantList& args)
-: KCModule(KGlobal::mainComponent(), parent)
+: KCModule(parent)
 {
   Q_UNUSED(args);
 
@@ -69,3 +67,4 @@ KSimondSettings::~KSimondSettings()
 {
 
 }
+#include "ksimondsettings.moc"

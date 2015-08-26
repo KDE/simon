@@ -27,7 +27,6 @@
 #include <simonscenarios/grammar.h>
 
 #include <QObject>
-#include <QProcess>
 #include <QString>
 #include <QHash>
 #include <QSharedPointer>

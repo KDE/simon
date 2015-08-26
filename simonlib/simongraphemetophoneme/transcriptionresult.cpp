@@ -19,7 +19,7 @@
 
 
 #include "transcriptionresult.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 TranscriptionResult::TranscriptionResult(bool success_, const QString& data_) :
   success(success_), data(data_)

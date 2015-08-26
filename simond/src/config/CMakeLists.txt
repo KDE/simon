@@ -4,18 +4,18 @@ set(simondsettings_LIB_SRCS
   plugin_exporter.cpp
 )
 
-kde4_add_kcfg_files(simondsettings_LIB_SRCS simondconfiguration.kcfgc)
+kconfig_add_kcfg_files(simondsettings_LIB_SRCS simondconfiguration.kcfgc)
 
-kde4_add_ui_files( simondsettings_LIB_SRCS
+ki18n_wrap_ui( simondsettings_LIB_SRCS
   simondnetworkconfiguration.ui
   simonduserconfiguration.ui
 )
 
 kde4_add_plugin(simondsettings ${simondsettings_LIB_SRCS})
 
-target_link_libraries(simondsettings ${QT_LIBRARIES} ${QT_LIBRARIES}
-  ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonddatabaseaccess
+target_link_libraries(simondsettings Qt5::Core
+   KF5::KIOCore simonddatabaseaccess KF5::ConfigCore KF5::ConfigWidgets KF5::WidgetsAddons
   simonuicomponents)
- 
+
 install(TARGETS simondsettings DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simond)
 install(FILES simondconfiguration.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simond)

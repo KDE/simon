@@ -34,12 +34,14 @@
 #include <QBuffer>
 #include <QDir>
 
-#include <KStandardDirs>
-#include <KMimeType>
+
+
 #include <KDateTime>
-#include <KFilterBase>
-#include <KFilterDev>
-#include <KTar>
+#include <KArchive/KFilterDev>
+#include <KArchive/KTar>
+#include <KConfigCore/KConfigGroup>
+#include <QMimeDatabase>
+#include <QStandardPaths>
 
 ModelManager* ModelManager::instance = 0;
 
@@ -63,7 +65,7 @@ modelChangedFlag(false)
     this, SLOT(modelHasChanged()));
 
   // read active model and build blacklistedTranscriptions
-  QString activePath = KStandardDirs::locate("appdata", "model/active.sbm");
+  QString activePath = QStandardPaths::locate(QStandardPaths::DataLocation, "model/active.sbm");
   if (QFile::exists(activePath)) {
     KTar tar(activePath, "application/x-gzip");
     ModelMetadata *data = metaData(tar);
@@ -111,7 +113,7 @@ Model* ModelManager::createActiveContainer()
 {
   qint32 modelSampleRate=SpeechModelManagementConfiguration::modelSampleRate();
 
-  QFile activeContainer(KStandardDirs::locate("appdata", "model/active.sbm"));
+  QFile activeContainer(QStandardPaths::locate(QStandardPaths::DataLocation, "model/active.sbm"));
 
   if (!activeContainer.open(QIODevice::ReadOnly))
     return 0;
@@ -127,7 +129,7 @@ Model* ModelManager::createBaseModelContainer()
   if (modelType == 2)
     return new Model(modelType, QByteArray());
 
-  QFile baseContainer(KStandardDirs::locate("appdata", "model/basemodel.sbm"));
+  QFile baseContainer(QStandardPaths::locate(QStandardPaths::DataLocation, "model/basemodel.sbm"));
 
   if (!baseContainer.open(QIODevice::ReadOnly))
     return 0;
@@ -144,9 +146,9 @@ qint32 ModelManager::getActiveModelSampleRate()
 
 QDateTime ModelManager::getActiveContainerModifiedTime()
 {
-  if (!QFile::exists(KStandardDirs::locateLocal("appdata", "model/activemodelrc")))
+  if (!QFile::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/activemodelrc"))
     return QDateTime();
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/activemodelrc"), KConfig::SimpleConfig );
+  KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/activemodelrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   return cGroup.readEntry("Date", QDateTime());
 }
@@ -154,7 +156,7 @@ QDateTime ModelManager::getActiveContainerModifiedTime()
 
 QDateTime ModelManager::getBaseModelDate()
 {
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+    KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   return cGroup.readEntry("BaseModelDate", QDateTime());
 }
@@ -162,15 +164,15 @@ QDateTime ModelManager::getBaseModelDate()
 
 bool ModelManager::storeBaseModel(const QDateTime& changedTime, int baseModelType, const QByteArray& container)
 {
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+    KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("BaseModelDate", changedTime);
   cGroup.writeEntry("BaseModelType", baseModelType);
   config.sync();
 
-  QString repoPath = KStandardDirs::locateLocal("appdata", "model/base/srv" + changedTime.toString(Qt::ISODate) + ".sbm");
+  QString repoPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/base/srv" + changedTime.toString(Qt::ISODate) + ".sbm";
   //store both as selected base model and in the local repository
-  foreach (const QString& path, QStringList() << KStandardDirs::locateLocal("appdata", "model/basemodel.sbm")
+  foreach (const QString& path, QStringList() << QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/basemodel.sbm"
                                                     << repoPath) {
     QFile containerFile(path);
     if (!containerFile.open(QIODevice::WriteOnly))
@@ -244,20 +246,20 @@ ModelMetadata* ModelManager::metaData(KTar& tar)
 bool ModelManager::updateBlacklistedTranscriptions(ModelMetadata* data)
 {
   blacklistedTranscriptions = data->droppedPronunciations();
-  kDebug() << "Blacklisted transcriptions: " << blacklistedTranscriptions;
+  qDebug() << "Blacklisted transcriptions: " << blacklistedTranscriptions;
   return true;
 }
 
 bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& container)
 {
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/activemodelrc"), KConfig::SimpleConfig );
+    KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/activemodelrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("Date", changedTime);
   config.sync();
 
   SpeechModelManagementConfiguration::setModelSampleRate(sampleRate);
 
-  QFile containerFile(KStandardDirs::locateLocal("appdata", "model/active.sbm"));
+  QFile containerFile(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/active.sbm");
 
   if (!containerFile.open(QIODevice::WriteOnly))
     return false;
@@ -333,7 +335,7 @@ QByteArray ModelManager::getSample(const QString& sampleName)
 
   //do not get tricked by /path/to/samples/../../../etc/passwd
   if (!fInfo.canonicalFilePath().contains(d.canonicalPath())) {
-    kDebug() << fInfo.canonicalFilePath() << " does not contain " << d.canonicalPath();
+    qDebug() << fInfo.canonicalFilePath() << " does not contain " << d.canonicalPath();
     return QByteArray();
   }
 
@@ -345,8 +347,8 @@ QByteArray ModelManager::getSample(const QString& sampleName)
 
 LanguageDescriptionContainer* ModelManager::getLanguageDescriptionContainer()
 {
-  QFile shadowVocab(KStandardDirs::locate("appdata", "shadowvocabulary.xml"));
-  QFile languageProfile(KStandardDirs::locate("appdata", "model/languageProfile"));
+  QFile shadowVocab(QStandardPaths::locate(QStandardPaths::DataLocation, "shadowvocabulary.xml"));
+  QFile languageProfile(QStandardPaths::locate(QStandardPaths::DataLocation, "model/languageProfile"));
 
   QByteArray languageP;
   if (languageProfile.open(QIODevice::ReadOnly))
@@ -362,7 +364,7 @@ QDateTime ModelManager::getLanguageDescriptionModifiedTime()
   ShadowVocabulary *vocab = ScenarioManager::getInstance()->getShadowVocabulary();
   if (!vocab) return QDateTime();
 
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+  KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
   return qMax(vocab->lastModified(), cGroup.readEntry("LanguageDescriptionDate", QDateTime()));
 }
@@ -375,26 +377,26 @@ bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, QByteA
 
   QIODevice *vocabDev = 0;
 
-  QString vocabTempPath = KStandardDirs::locateLocal("tmp", "simon/tmpshadow");
+  QString vocabTempPath = QDir::tempPath() + QLatin1Char('/') +  "simon/tmpshadow";
   QFile f(vocabTempPath);
   if (!f.open(QIODevice::WriteOnly))
     return false;
   f.write(shadowVocab);
   f.close();
-
-  vocabDev = KFilterDev::deviceForFile(vocabTempPath, KMimeType::findByFileContent(vocabTempPath)->name());
+  QMimeDatabase db;
+  vocabDev = KFilterDev::deviceForFile(vocabTempPath, db.mimeTypeForFile(vocabTempPath, QMimeDatabase::MatchContent).name());
 
   if (!vocab->reset(vocabDev) || !vocab->save()) return false;
   delete vocabDev;
 
-  QFile languageProfileF(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
+  QFile languageProfileF(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/languageProfile");
   if (!languageProfileF.open(QIODevice::WriteOnly))
     return false;
 
   languageProfileF.write(languageProfile);
   languageProfileF.close();
 
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+  KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("LanguageDescriptionDate", changedTime);
   config.sync();
@@ -406,7 +408,7 @@ TrainingContainer* ModelManager::getTrainingContainer()
 {
   qint32 modelSampleRate=SpeechModelManagementConfiguration::modelSampleRate();
 
-  QFile prompts(KStandardDirs::locate("appdata", "model/prompts"));
+  QFile prompts(QStandardPaths::locate(QStandardPaths::DataLocation, "model/prompts"));
 
   if (!prompts.open(QIODevice::ReadOnly))
     return 0;
@@ -417,10 +419,10 @@ TrainingContainer* ModelManager::getTrainingContainer()
 
 QDateTime ModelManager::getTrainingModifiedTime()
 {
-  if (!QFile::exists(KStandardDirs::locateLocal("appdata", "model/modelsrcrc")))
+  if (!QFile::exists(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc"))
     return QDateTime();
 
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+  KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   return cGroup.readEntry("TrainingDate", QDateTime());
 }
@@ -431,7 +433,7 @@ bool ModelManager::storeTraining(const QDateTime& changedTime, qint32 sampleRate
   if (!TrainingManager::getInstance()->refreshTraining(sampleRate, prompts))
     return false;
 
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+  KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("TrainingDate", changedTime);
   config.sync();
@@ -471,7 +473,7 @@ bool ModelManager::storeSample(const QString& name, const QByteArray& sample)
 
 void ModelManager::touchLanguageDescription()
 {
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+    KConfig config( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "model/modelsrcrc", KConfig::SimpleConfig) ;
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("LanguageDescriptionDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
@@ -481,21 +483,21 @@ void ModelManager::touchLanguageDescription()
 bool ModelManager::hasTraining()
 {
   if (getTrainingModifiedTime().isNull()) return false;
-  return (QFile::exists(KStandardDirs::locate("appdata", "model/prompts")));
+  return (QFile::exists(QStandardPaths::locate(QStandardPaths::DataLocation, "model/prompts")));
 }
 
 
 bool ModelManager::hasLanguageDescription()
 {
   if (getLanguageDescriptionModifiedTime().isNull()) return false;
-  return (QFile::exists(KStandardDirs::locate("appdata", "model/shadow.voca")));
+  return (QFile::exists(QStandardPaths::locate(QStandardPaths::DataLocation, "model/shadow.voca")));
 }
 
 
 bool ModelManager::hasActiveContainer()
 {
   if (getActiveContainerModifiedTime().isNull()) return false;
-  return QFile::exists(KStandardDirs::locate("appdata", "model/active.sbm"));
+  return QFile::exists(QStandardPaths::locate(QStandardPaths::DataLocation, "model/active.sbm"));
 }
 
 bool ModelManager::isTranscriptionBlackListed(const QString& transcription)

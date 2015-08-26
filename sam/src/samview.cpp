@@ -30,7 +30,6 @@
 #include "reportparameters.h"
 #include "carraydata.h"
 #include "qwt_bars_item.h"
-#include "qwt_series_data.h"
 #include "corpusinformation.h"
 
 #include <speechmodelcompilation/modelcompilerhtk.h>
@@ -41,33 +40,34 @@
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonutils/fileutils.h>
 
-#include <qwt_legend.h>
-//#include <qwt_legend_item.h>
+#include <qwt/qwt_legend.h>
+#include <qwt/qwt_series_data.h>
+//#include <qwt/qwt_legend_item.h>
 
 #include <QHash>
 #include <QThread>
-#include <QtConcurrentRun>
 #include <QPointer>
 #include <QDomDocument>
 #include <QUuid>
 #include <QCloseEvent>
+#include <QtConcurrent/QtConcurrent>
 
 #include <KStandardAction>
-#include <KAction>
+#include <QAction>
 #include <KActionCollection>
-#include <KIcon>
-#include <KStandardDirs>
+#include <QIcon>
+
 #include <KSharedConfig>
-#include <KConfigGroup>
-#include <KCMultiDialog>
-#include <KMessageBox>
-#include <KFileDialog>
+#include <KConfigCore/KConfigGroup>
+#include <KCMUtils/KCMultiDialog>
+#include <KDELibs4Support/KDE/KFileDialog>
+#include <KWidgetsAddons/KMessageBox>
 #include <KGlobal>
-#include <KInputDialog>
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 #include <KCmdLineArgs>
-#include <KAboutData>
+#include <QStandardPaths>
+#include <QDir>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
   m_startCompilationAfterAdaption(false),
@@ -81,7 +81,8 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   modelCompilationAdapter(0),
   barGraph(0)
 {
-  KGlobal::locale()->insertCatalog("simonlib");
+    //QT5TODO: Port this
+  //QLocale()->insertCatalog("simonlib");
   ui.setupUi(this);
   ui.qpPlot->hide();
 
@@ -101,43 +102,43 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   ui.saTestConfigurations->setWidget(ui.wgTestConfigurations);
 
-  KAction* getPathsFromSimon = new KAction(this);
+  QAction * getPathsFromSimon = new QAction(this);
   getPathsFromSimon->setText(i18n("Modify Simon's model"));
   getPathsFromSimon->setStatusTip(i18n("Manage Simon's current model with SSC"));
-  getPathsFromSimon->setIcon(KIcon("simon"));
+  getPathsFromSimon->setIcon(QIcon::fromTheme("simon"));
   actionCollection()->addAction("getPathsFromSimon", getPathsFromSimon);
   connect(getPathsFromSimon, SIGNAL(triggered(bool)),
           this, SLOT(getBuildPathsFromSimon()));
 
-  KAction* recompile = new KAction(this);
+  QAction * recompile = new QAction(this);
   recompile->setText(i18n("Build model"));
   recompile->setStatusTip(i18n("Build the currently open model."));
-  recompile->setIcon(KIcon("view-refresh"));
+  recompile->setIcon(QIcon::fromTheme("view-refresh"));
   recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
   actionCollection()->addAction("compileModel", recompile);
   connect(recompile, SIGNAL(triggered(bool)),
           this, SLOT(compileModel()));
 
-  KAction* test= new KAction(this);
+  QAction * test= new QAction(this);
   test->setText(i18n("Test model"));
   test->setStatusTip(i18n("Test the model."));
-  test->setIcon(KIcon("chronometer"));
+  test->setIcon(QIcon::fromTheme("chronometer"));
   actionCollection()->addAction("testModel", test);
   connect(test, SIGNAL(triggered(bool)),
           this, SLOT(testModel()));
 
-  KAction* testResults= new KAction(this);
+  QAction * testResults= new QAction(this);
   testResults->setText(i18n("Test results"));
   testResults->setStatusTip(i18n("Display the test results."));
-  testResults->setIcon(KIcon("view-pim-tasks"));
+  testResults->setIcon(QIcon::fromTheme("view-pim-tasks"));
   actionCollection()->addAction("testResults", testResults);
   connect(testResults, SIGNAL(triggered(bool)),
           this, SLOT(switchToTestResults()));
 
-  KAction* exportTestResults = new KAction(this);
+  QAction * exportTestResults = new QAction(this);
   exportTestResults->setText(i18n("Export test result"));
   exportTestResults->setStatusTip(i18n("Export the test results to a file."));
-  exportTestResults->setIcon(KIcon("document-export"));
+  exportTestResults->setIcon(QIcon::fromTheme("document-export"));
   actionCollection()->addAction("exportTestResults", exportTestResults);
   connect(exportTestResults, SIGNAL(triggered(bool)),
           this, SLOT(exportTestResults()));
@@ -210,7 +211,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   if (KCmdLineArgs::parsedArgs()->count() > 0)
   {
     QString loadPath = KCmdLineArgs::parsedArgs()->url(0).toLocalFile();
-    kDebug() << "Load path: " << loadPath;
+    qDebug() << "Load path: " << loadPath;
 
     if (!loadPath.isEmpty())
       load(loadPath);
@@ -247,9 +248,9 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
 void SamView::extractSimonModel()
 {
-  QString sbmPath = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Open Simon Model"));
+  QString sbmPath = KFileDialog::getOpenFileName(QUrl(), QString(), this, i18n("Open Simon Model"));
   if (sbmPath.isEmpty()) return;
-  QString path = KFileDialog::getExistingDirectory(KUrl(), this, i18n("Output directory"));
+  QString path = KFileDialog::getExistingDirectory(QUrl(), this, i18n("Output directory"));
   if (!path.isEmpty())
     path += QDir::separator();
   else
@@ -307,7 +308,7 @@ void SamView::storeBuildLog()
   if (KCmdLineArgs::parsedArgs()->isSet("l"))
     filename = KCmdLineArgs::parsedArgs()->getOption("l");
   else
-    filename = KFileDialog::getSaveFileName(KUrl(), i18n("HTML files *.html"), this);
+    filename = KFileDialog::getSaveFileName(QUrl(), i18n("HTML files *.html"), this);
   if (filename.isEmpty()) return;
   QFile f(filename);
   if (!f.open(QIODevice::WriteOnly))
@@ -403,7 +404,7 @@ void SamView::displayModelTestStatus()
 
 void SamView::subTestStarted()
 {
-  kDebug() << "Subtest started...";
+  qDebug() << "Subtest started...";
   ui.teTestLog->append(i18nc("Tag of the test", "Test started: %1",
                              static_cast<TestResultWidget*>(sender())->getTag()));
 
@@ -412,7 +413,7 @@ void SamView::subTestStarted()
 
 void SamView::subTestAborted()
 {
-  kDebug() << "Subtest aborted...";
+  qDebug() << "Subtest aborted...";
   ui.teTestLog->append(i18nc("Tag of the test", "Test aborted: %1",
                              static_cast<TestResultWidget*>(sender())->getTag()));
   displayModelTestStatus();
@@ -420,7 +421,7 @@ void SamView::subTestAborted()
 
 void SamView::subTestComplete()
 {
-  kDebug() << "Subtest completed...";
+  qDebug() << "Subtest completed...";
   ui.teTestLog->append(i18nc("Tag of the test", "Test completed: %1",
                              static_cast<TestResultWidget*>(sender())->getTag()));
   displayModelTestStatus();
@@ -604,7 +605,7 @@ void SamView::load()
 {
   if (!askForSave()) return;
 
-  QString filename = KFileDialog::getOpenFileName(KUrl(), i18n("Sam projects *.sam"), this);
+  QString filename = KFileDialog::getOpenFileName(QUrl(), i18n("Sam projects *.sam"), this);
   if (filename.isEmpty()) return;
 
   load(filename);
@@ -632,7 +633,7 @@ bool SamView::saveAs()
 {
   if (batchMode()) return false;
 
-  QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("Sam projects *.sam"), this);
+  QString filename = KFileDialog::getSaveFileName(QUrl(), i18n("Sam projects *.sam"), this);
   if (filename.isEmpty())
     return false;
 
@@ -674,13 +675,13 @@ void SamView::parseFile()
   QDomElement creationElem = samProjectElem.firstChildElement("creation");
   m_creationCorpus = CorpusInformation::deSerialize(creationElem.firstChildElement("corpus"));
 
-  ui.urOutputModel->setUrl(KUrl( SamXMLHelper::getText(creationElem, "outputModel") ));
-  ui.urPrompts->setUrl(KUrl( SamXMLHelper::getText(creationElem, "prompts") ));
-  ui.urPromptsBasePath->setUrl(KUrl( SamXMLHelper::getText(creationElem, "promptsBase") ));
-  ui.urLexicon->setUrl(KUrl( SamXMLHelper::getText(creationElem, "lexicon") ));
-  ui.urGrammar->setUrl(KUrl( SamXMLHelper::getText(creationElem, "grammar") ));
-  ui.urVocabulary->setUrl(KUrl( SamXMLHelper::getText(creationElem, "vocabulary") ));
-  ui.urDir->setUrl(KUrl(SamXMLHelper::getText(creationElem, "sphinxDict")));
+  ui.urOutputModel->setUrl(QUrl( SamXMLHelper::getText(creationElem, "outputModel") ));
+  ui.urPrompts->setUrl(QUrl( SamXMLHelper::getText(creationElem, "prompts") ));
+  ui.urPromptsBasePath->setUrl(QUrl( SamXMLHelper::getText(creationElem, "promptsBase") ));
+  ui.urLexicon->setUrl(QUrl( SamXMLHelper::getText(creationElem, "lexicon") ));
+  ui.urGrammar->setUrl(QUrl( SamXMLHelper::getText(creationElem, "grammar") ));
+  ui.urVocabulary->setUrl(QUrl( SamXMLHelper::getText(creationElem, "vocabulary") ));
+  ui.urDir->setUrl(QUrl(SamXMLHelper::getText(creationElem, "sphinxDict")));
   ui.sbSampleRate->setValue( SamXMLHelper::getInt(creationElem, "sampleRate") );
 
   ui.leScriptPrefix->setText(SamXMLHelper::getText(creationElem, "scriptPrefix"));
@@ -698,7 +699,7 @@ void SamView::parseFile()
     case 2: ui.rbDynamicModel->click();
       break;
   }
-  ui.urBaseModel->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseModel")));
+  ui.urBaseModel->setUrl(QUrl(SamXMLHelper::getText(creationElem, "baseModel")));
 
   QDomElement testConfigurations = samProjectElem.firstChildElement("testConfigurations");
   QDomElement testConfiguration = testConfigurations.firstChildElement("testConfiguration");
@@ -821,8 +822,8 @@ QHash<QString, QString> SamView::genAdaptionArgs(const QString& path)
 void SamView::getBuildPathsFromSimon()
 {
   clearBuildLog();
-  ui.urOutputModel->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/active.sbm")));
-  ui.urPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
+  ui.urOutputModel->setUrl(QUrl(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + "simon/model/active.sbm"));
+  ui.urPromptsBasePath->setUrl(QUrl(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + "simon/model/training.data/"));
   qDeleteAll(testConfigurations); //cleared by signal
 
   KSharedConfig::Ptr speechModelManagementConfig = KSharedConfig::openConfig("speechmodelmanagementrc");
@@ -835,7 +836,7 @@ void SamView::getBuildPathsFromSimon()
       //static model
     case 1:
       //adapted model
-      ui.urBaseModel->setUrl(KStandardDirs::locate("data", "simon/model/basemodel.sbm"));
+      ui.urBaseModel->setUrl(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/model/basemodel.sbm"));
       ui.rbAdaptedBaseModel->click();
       break;
     case 2:
@@ -852,7 +853,7 @@ void SamView::getBuildPathsFromSimon()
   KSharedConfig::Ptr scenarioRc = KSharedConfig::openConfig("simonscenariosrc");
   KConfigGroup scenarioRcGroup(scenarioRc, "");
   QStringList scenarioIds = scenarioRcGroup.readEntry("SelectedScenarios", QStringList());
-  kDebug() << "Scenario ids: " << scenarioIds;
+  qDebug() << "Scenario ids: " << scenarioIds;
 
   //cannot use the methods serializeScenariosRun and serializePromptsRun,
   //because this would make two calls to the model adaption manager
@@ -866,7 +867,7 @@ void SamView::getBuildPathsFromSimon()
   ui.leScriptPrefix->setText("simon/scripts");
 
   ModelCompilationAdapter::AdaptionType adaptionType = ModelCompilationAdapter::None;
-  QString promptsPath = KStandardDirs::locate("data", "simon/model/prompts");
+  QString promptsPath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/model/prompts");
   bool hasPrompts = QFile::exists(promptsPath);
   if (hasPrompts || (modelType != 0 /*static*/)) {
     adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel |
@@ -879,14 +880,14 @@ void SamView::getBuildPathsFromSimon()
   QStringList scenarioPaths = findScenarios(scenarioIds);
   QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
                     adaptionType, scenarioPaths, promptsPath,
-                    genAdaptionArgs(KStandardDirs::locateLocal("tmp", "sam/model/")));
+                    genAdaptionArgs(QDir::tempPath() + QLatin1Char('/') +  "sam/model/"));
 }
 
 
 QString SamView::getTargetDirectory()
 {
   KMessageBox::information(this, i18n("You now have to provide a (preferably empty) folder where you want to serialize the scenarios to"), QString(), i18n("Do not ask again"));
-  QString path = KFileDialog::getExistingDirectory(KUrl(), this, i18n("Serialized scenario output"));
+  QString path = KFileDialog::getExistingDirectory(QUrl(), this, i18n("Serialized scenario output"));
   if (!path.isEmpty())
     path += QDir::separator();
   return path;
@@ -901,11 +902,11 @@ void SamView::importRecognitionSamples()
 
 void SamView::serializePrompts()
 {
-  QString promptsPath = KFileDialog::getOpenFileName(KUrl(KStandardDirs::locate("data", "simon/model/prompts")),
+  QString promptsPath = KFileDialog::getOpenFileName(QUrl(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/model/prompts")),
                                                      "", this, i18n("Open simon prompts"));
   if (promptsPath.isEmpty()) return;
 
-  ui.urPromptsBasePath->setUrl(KUrl(QFileInfo(promptsPath).absolutePath() + QDir::separator() + "training.data"));
+  ui.urPromptsBasePath->setUrl(QUrl(QFileInfo(promptsPath).absolutePath() + QDir::separator() + "training.data"));
 
   QString path = getTargetDirectory();
   if (path.isEmpty()) return;
@@ -968,7 +969,7 @@ QStringList SamView::findScenarios(const QStringList& ids)
 {
   QStringList scenarioPaths;
   foreach (const QString& id, ids) {
-    QString resolvedPath = KStandardDirs::locate("data", "simon/scenarios/"+id);
+    QString resolvedPath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/scenarios/"+id);
     if (!QFile::exists(resolvedPath))
       KMessageBox::information(this, i18nc("%1 is scenario id", "Could not find scenario: %1", id));
     else scenarioPaths << resolvedPath;
@@ -984,7 +985,7 @@ void SamView::compileModel()
   clearBuildLog();
 
   int modelType = getModelType();
-  kDebug() << "Model type: " << modelType;
+  qDebug() << "Model type: " << modelType;
 
   ModelCompiler::CompilationType type;
   switch (modelType) {
@@ -1013,7 +1014,7 @@ void SamView::compileModel()
   QString baseModelPath = ui.urBaseModel->url().toLocalFile();
   QString baseModelFolder;
   if (modelType < 2) {
-    baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/base/");
+    baseModelFolder = QDir::tempPath() + QLatin1Char('/') + KAboutData::applicationData().productName()+'/'+m_user+"/compile/base/";
     //base model needed - unpack it and fail if its not here
     if (!FileUtils::unpackAll(baseModelPath, baseModelFolder)) {
       KMessageBox::sorry(this, i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
@@ -1070,21 +1071,21 @@ void SamView::slotModelAdaptionComplete()
   {
     case TestConfigurationWidget::SPHINX:
     {
-      kDebug()<<"Sphinx";
+      qDebug()<<"Sphinx";
 
       QString modelPath = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->workingDir();
-      //    kDebug()<<"Got modeldir: " <<KUrl(modelPath).toLocalFile();
+      //    qDebug()<<"Got modeldir: " <<QUrl(modelPath).toLocalFile();
       if(!modelPath.isEmpty())
       {
-        ui.urDir->setUrl(KUrl(modelPath));
+        ui.urDir->setUrl(QUrl(modelPath));
         fok = true;
       }
 
       QString modelName = dynamic_cast<ModelCompilationAdapterSPHINX *>(modelCompilationAdapter)->modelName();
       if(!modelName.isEmpty()) ui.leMName->setText(modelName);
 
-      //    QString audioLocation = KStandardDirs::locateLocal("appdata", "models/"+m_user+"/samples/");
-      //    if(!audioLocation.isEmpty()) ui.urPromptsBasePath->setUrl(KUrl(audioLocation));
+      //    QString audioLocation = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+m_user+"/samples/";
+      //    if(!audioLocation.isEmpty()) ui.urPromptsBasePath->setUrl(QUrl(audioLocation));
 
       break;
     }
@@ -1095,22 +1096,22 @@ void SamView::slotModelAdaptionComplete()
       QString simpleVocab = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->simpleVocabPath();
       QString prompts = dynamic_cast<ModelCompilationAdapterHTK *>(modelCompilationAdapter)->promptsPath();
 
-      kDebug()<<lexicon<<"\n" << grammar <<"\n" << simpleVocab <<"\n" << prompts;
+      qDebug()<<lexicon<<"\n" << grammar <<"\n" << simpleVocab <<"\n" << prompts;
 
       if (!lexicon.isEmpty())
       {
-        ui.urLexicon->setUrl(KUrl(lexicon));
+        ui.urLexicon->setUrl(QUrl(lexicon));
         fok = true;
       }
 
-      if (!grammar.isEmpty()) ui.urGrammar->setUrl(KUrl(grammar));
-      if (!simpleVocab.isEmpty()) ui.urVocabulary->setUrl(KUrl(simpleVocab));
+      if (!grammar.isEmpty()) ui.urGrammar->setUrl(QUrl(grammar));
+      if (!simpleVocab.isEmpty()) ui.urVocabulary->setUrl(QUrl(simpleVocab));
 
       QString promptsTestPath = prompts;
       QString trainingDataPath;
       if (!prompts.isEmpty())
       {
-        ui.urPrompts->setUrl(KUrl(prompts));
+        ui.urPrompts->setUrl(QUrl(prompts));
         if (!m_creationCorpus)
           m_creationCorpus = createEmptyCorpusInformation();
         m_creationCorpus->setTotalSampleCount(modelCompilationAdapter->sampleCount());
@@ -1119,11 +1120,11 @@ void SamView::slotModelAdaptionComplete()
       if (testConfigurations.isEmpty())
       {
         //automatically add appropriate test configuration
-        tconfig = new JuliusTestConfigurationWidget(createEmptyCorpusInformation(), KUrl(promptsTestPath),
+        tconfig = new JuliusTestConfigurationWidget(createEmptyCorpusInformation(), QUrl(promptsTestPath),
                                                     ui.urPromptsBasePath->url(), ui.sbSampleRate->value(), this);
         QHash<QString, QString> params;
-        params.insert("jconf", KStandardDirs::locate("data", "simond/default.jconf"));
-        QString tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/");
+        params.insert("jconf", QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simond/default.jconf"));
+        QString tempDir = QDir::tempPath() + QLatin1Char('/') +  KAboutData::applicationData().productName()+'/'+m_user+"/compile/";
         params.insert("hmm", tempDir+"hmmout/hmmdefs");
         params.insert("tiedlist", tempDir+"tiedlist");
         params.insert("dict", tempDir+"model.dict");
@@ -1134,7 +1135,7 @@ void SamView::slotModelAdaptionComplete()
       break;
     }
     default:
-      kWarning() << "Unsupported model type: " << getBackendType();
+      qWarning() << "Unsupported model type: " << getBackendType();
       return;
   }
 
@@ -1152,7 +1153,7 @@ void SamView::slotModelAdaptionComplete()
   }
   if (m_startCompilationAfterAdaption)
   {
-    kDebug() << "Starting compilation";
+    qDebug() << "Starting compilation";
     m_startCompilationAfterAdaption = false;
     compileModel();
   } else {
@@ -1330,7 +1331,7 @@ void SamView::testModel()
 
 void SamView::abortModelTest()
 {
-  kDebug() << "Aborting model test";
+  qDebug() << "Aborting model test";
   foreach (TestResultWidget *test, testResults)
     test->abort();
 }

@@ -17,17 +17,17 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include <QStandardPaths>
 #include "logger.h"
 #include <QTextStream>
 #include <QFile>
 #include <QDateTime>
 #include <QDir>
-#include <QFileInfo>
-#include <KStandardDirs>
-#include <QDebug>
+#include <QString>
+
 #include <QMutex>
 #include <QMutexLocker>
-#include <KDebug>
+#include <QDebug>
 
 QTextStream * Logger::logFile = 0;
 QFile * Logger::logF = 0;
@@ -39,7 +39,7 @@ QTextStream* Logger::init()
   QDate currentDate = QDate::currentDate();
   QDate purgeToDate = currentDate.addMonths(-2);
   
-  QString protocolDir = KStandardDirs::locateLocal("appdata", "logs/");
+  QString protocolDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "logs/";
   QStringList files = QDir(protocolDir).entryList(QStringList() << "*.log", QDir::NoDotAndDotDot|QDir::Files);
   foreach (const QString& file, files)
   {
@@ -50,11 +50,11 @@ QTextStream* Logger::init()
     {
       QString logPath = protocolDir+QDir::separator()+file;
       if (!QFile::remove(logPath))
-	kWarning() << "Couldn't remove old log at " << logPath;
+	qWarning() << "Couldn't remove old log at " << logPath;
     }
   }
   
-  QString path = KStandardDirs::locateLocal("appdata", QString("logs/protocol-%1.log").arg(currentDate.toString(Qt::ISODate)));
+  QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + QString("logs/protocol-%1.log").arg(currentDate.toString(Qt::ISODate));
 
   Logger::logF = new QFile(path);
   if (!Logger::logF->open(QIODevice::WriteOnly|QIODevice::Append)) return 0;
@@ -82,7 +82,8 @@ void Logger::log(QString message, Logger::LogType type)
       tag = "[ERR] ";
       break;
   }
-  *(Logger::logFile) << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << tag << message << endl;
+  // *(Logger::logFile) << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << tag << message << endl;
+  qDebug() << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << tag << message;
 }
 
 

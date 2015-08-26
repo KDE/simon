@@ -10,12 +10,12 @@ set(simondstreamer_LIB_HDRS
   simonsender.h
 )
 
-qt4_add_dbus_adaptor(simondstreamer_LIB_SRCS org.simon-listens.SimonSender.xml simonsender.h SimonSender)
+qt5_add_dbus_adaptor(simondstreamer_LIB_SRCS org.simon-listens.SimonSender.xml simonsender.h SimonSender)
 
 kde4_add_library(simondstreamer SHARED ${simondstreamer_LIB_SRCS})
 
-target_link_libraries(simondstreamer ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
-  simonsound simonwav simoncontextdetection ${QT_QTXML_LIBRARY})
+target_link_libraries(simondstreamer ${QT_LIBRARIES}
+  simonsound simonwav simoncontextdetection Qt5::Xml)
 
 set_target_properties(simondstreamer PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 install(FILES ${simondstreamer_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simondstreamer COMPONENT simondevel)

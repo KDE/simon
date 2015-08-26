@@ -18,10 +18,10 @@
  */
 
 #include "trayiconmanager.h"
-#include <KActionCollection>
 #include <QMenu>
+#include <KActionCollection>
 #include <KSystemTrayIcon>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 /**
  * @brief Constructor
@@ -51,7 +51,7 @@ icon(new KSystemTrayIcon(parent))
  * The tooltip of the icon
  *
  */
-void TrayIconManager::createIcon(const KIcon& icon, const QString& tooltip)
+void TrayIconManager::createIcon(const QIcon& icon, const QString& tooltip)
 {
   this->icon->setIcon( icon );
   this->icon->setToolTip( tooltip );
@@ -65,7 +65,7 @@ void TrayIconManager::parentWidgetTrayClose()
 }
 
 
-void TrayIconManager::addAction(const QString& name, KAction* action)
+void TrayIconManager::addAction(const QString& name, QAction * action)
 {
   this->icon->contextMenu()->addAction(action);
   this->icon->actionCollection()->addAction(name, action);

@@ -31,24 +31,24 @@
 
 #include "createdialogcommandwidget.h"
 #include <eventsimulation/eventhandler.h>
-#include <KLocalizedString>
-#include <KAction>
-#include <KMessageBox>
+#include <KI18n/klocalizedstring.h>
+#include <QAction>
+#include <KWidgetsAddons/KMessageBox>
 
 K_PLUGIN_FACTORY( DialogCommandPluginFactory,
 registerPlugin< DialogCommandManager >();
 )
 
-K_EXPORT_PLUGIN( DialogCommandPluginFactory("simondialogcommand") )
+// K_EXPORT_PLUGIN( DialogCommandPluginFactory("simondialogcommand") )
 
 DialogCommandManager::DialogCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
   GreedyReceiver(this),
-  activateAction(new KAction(this)),
+  activateAction(new QAction(this)),
   currentDialogState(NULL),
   dialogParser(NULL)
 {
   activateAction->setText(i18n("Activate Dialog"));
-  activateAction->setIcon(KIcon("im-user"));
+  activateAction->setIcon(QIcon::fromTheme("im-user"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(activate()));
   guiActions<<activateAction;
@@ -82,7 +82,7 @@ void DialogCommandManager::initState(DialogState *state)
 
 void DialogCommandManager::initState(int state)
 {
-  kDebug() << "Switching to state: " << state;
+  qDebug() << "Switching to state: " << state;
 
   //0 state means quit
   if ((state == 0) ||  (state >= dialogStates.count()+1 || state < 1))
@@ -110,7 +110,7 @@ bool DialogCommandManager::addState(const QString& name)
   connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
   connect(state, SIGNAL(changed()), this, SLOT(stateChanged()));
   dialogStates << state;
-  kDebug() << "Adding state...";
+  qDebug() << "Adding state...";
 
   return true;
   //return parentScenario->save();
@@ -278,7 +278,7 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
   QDomElement stateElem = elem.firstChildElement("state");
   while(!stateElem.isNull())
   {
-    kDebug() << "Deserializing state element";
+    qDebug() << "Deserializing state element";
     DialogState *state = DialogState::createInstance(dialogParser, stateElem);
 
     if (state)
@@ -305,7 +305,7 @@ void DialogCommandManager::stateDestroyed()
 
 void DialogCommandManager::bindStateCommands()
 {
-  kDebug() << "rebinding";
+  qDebug() << "rebinding";
   QList<Command*> oldCommands;
 
   foreach (Command* c, commands)
@@ -396,3 +396,5 @@ DialogCommandManager::~DialogCommandManager()
     disconnect(s, SIGNAL(destroyed()), this, SLOT(stateDestroyed()));
   qDeleteAll(dialogStates);
 }
+
+#include "dialogcommandmanager.moc"

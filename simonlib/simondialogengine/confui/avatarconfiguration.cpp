@@ -21,17 +21,17 @@
 #include "ui_avatarconfiguration.h"
 #include <simondialogengine/avatar.h>
 #include <simondialogengine/avatarmodel.h>
-#include <KDebug>
-#include <KMessageBox>
+#include <QDebug>
+#include <KWidgetsAddons/KMessageBox>
 
 AvatarConfiguration::AvatarConfiguration(QWidget *parent) : QWidget(parent),
   ui(new Ui::AvatarConfigurationDlg()),
   avatarModel(0)
 {
   ui->setupUi(this);
-  ui->pbAddAvatar->setIcon(KIcon("list-add"));
-  ui->pbEditAvatar->setIcon(KIcon("document-edit"));
-  ui->pbRemoveAvatar->setIcon(KIcon("list-remove"));
+  ui->pbAddAvatar->setIcon(QIcon::fromTheme("list-add"));
+  ui->pbEditAvatar->setIcon(QIcon::fromTheme("document-edit"));
+  ui->pbRemoveAvatar->setIcon(QIcon::fromTheme("list-remove"));
   
   connect(ui->pbAddAvatar, SIGNAL(clicked()), this, SLOT(addAvatar()));
   connect(ui->pbEditAvatar, SIGNAL(clicked()), this, SLOT(editAvatar()));
@@ -51,7 +51,7 @@ bool AvatarConfiguration::deSerialize(const QDomElement& elem)
     avatarModel = AvatarModel::createInstance(avatarsElement);
     if (!avatarModel)
     {
-      kDebug() << "Error loading avatars";
+      qDebug() << "Error loading avatars";
       return false;
     }
     ui->lvAvatars->setModel(avatarModel);

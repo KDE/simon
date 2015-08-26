@@ -18,7 +18,6 @@
  */
 
 #include "inlinewidget.h"
-#include <QFont>
 
 /**
  * \brief Constructor
@@ -28,7 +27,7 @@
  * @param desc A short description (mainly used as tooltip)
  * @param parent the parent of the widget
  */
-InlineWidget::InlineWidget(QString title_, KIcon icon_, QString desc_, QWidget* parent)
+InlineWidget::InlineWidget(QString title_, QIcon icon_, QString desc_, QWidget* parent)
 : QWidget(parent),
 title(title_),
 desc(desc_),

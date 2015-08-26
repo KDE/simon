@@ -25,18 +25,19 @@
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <QSortFilterProxyModel>
-#include <KMessageBox>
-#include <KService>
 #include <KServiceTypeTrader>
 
 AddActionDialog::AddActionDialog(QWidget* parent) : KDialog(parent), proxyModel(new QSortFilterProxyModel(this)),
 actionModel(new ActionModel(this))
 {
-  setCaption( i18n("Add Action") );
+  setWindowTitle( i18n("Add Action") );
 
   QWidget *baseWidget = new QWidget( this );
   ui.setupUi(baseWidget);
-  setMainWidget( baseWidget );
+//PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout: //PORTING: Verify that widget was added to mainLayout:   setMainWidget( baseWidget );
+// Add mainLayout->addWidget(baseWidget); if necessary
+// Add mainLayout->addWidget(baseWidget); if necessary
+// Add mainLayout->addWidget(baseWidget); if necessary
 
   proxyModel->setSourceModel(actionModel);
   ui.lvActions->setModel(proxyModel);
@@ -45,7 +46,7 @@ actionModel(new ActionModel(this))
 
   proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
   connect(ui.leFilter, SIGNAL(textChanged(QString)), proxyModel, SLOT(setFilterRegExp(QString)));
-  enableButtonOk(false);
+  enableButton(KDialog::Ok,false);
 
   connect(ui.lvActions, SIGNAL(clicked(QModelIndex)), this, SLOT(watchButtonOk()));
   connect(ui.leFilter, SIGNAL(textChanged(QString)),  this, SLOT(watchButtonOk()));
@@ -55,7 +56,7 @@ actionModel(new ActionModel(this))
 void AddActionDialog::watchButtonOk()
 {
   QModelIndex index = ui.lvActions->currentIndex();
-  enableButtonOk(index.isValid());
+  enableButton(KDialog::Ok,index.isValid());
 }
 
 
@@ -72,7 +73,7 @@ int AddActionDialog::exec()
     actionModel->appendAction(action, false);
   }
 
-  return KDialog::exec();
+  return QDialog::exec();
 }
 
 

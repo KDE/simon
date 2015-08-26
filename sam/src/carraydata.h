@@ -20,8 +20,8 @@
 #ifndef SIMON_CARRAYDATA_H_4002119636CC42C68FE07273F9000A73
 #define SIMON_CARRAYDATA_H_4002119636CC42C68FE07273F9000A73
 
-#include <qwt_series_data.h>
-#include <qwt_compat.h>
+#include <qwt/qwt_series_data.h>
+#include <qwt/qwt_compat.h>
 
 template <typename T>
 class CArrayData : public QwtSeriesData<T>

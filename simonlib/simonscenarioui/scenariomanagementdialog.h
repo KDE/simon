@@ -20,9 +20,7 @@
 #ifndef SIMON_SCENARIOMANAGEMENTDIALOG_H_FA6CC60BFE674C5DA2F42DE2132BC4C0
 #define SIMON_SCENARIOMANAGEMENTDIALOG_H_FA6CC60BFE674C5DA2F42DE2132BC4C0
 
-#include <KDialog>
-#include <QList>
-#include <QModelIndex>
+#include <QDialog>
 
 #include "simonscenarioui_export.h"
 
@@ -37,7 +35,7 @@ namespace Ui
 }
 
 
-class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog
+class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public QDialog
 {
   Q_OBJECT
 

@@ -19,14 +19,11 @@
 
 #include "compositecommand.h"
 #include <simonactions/actionmanager.h>
-#include <KIcon>
-#include <KProcess>
-#include <KLocalizedString>
-#include <QObject>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
 #include <QVariant>
 #include <QDomElement>
 #include <QDomDocument>
-#include <QtConcurrentRun>
 #ifdef Q_OS_WIN32
 #include <windows.h>
 #else
@@ -45,13 +42,13 @@ const QString CompositeCommand::getCategoryText() const
 }
 
 
-const KIcon CompositeCommand::staticCategoryIcon()
+const QIcon CompositeCommand::staticCategoryIcon()
 {
-  return KIcon("view-choose");
+  return QIcon::fromTheme("view-choose");
 }
 
 
-const KIcon CompositeCommand::getCategoryIcon() const
+const QIcon CompositeCommand::getCategoryIcon() const
 {
   return CompositeCommand::staticCategoryIcon();
 }
@@ -99,13 +96,13 @@ void CompositeCommand::triggerPrivateThread()
 {
   for (int i=0; i<commands.count();i++) {
     QString type = commandTypes[i];
-    kDebug() << type << "Delay";
+    qDebug() << type << "Delay";
     if (type==i18n("Delay")) {
       bool ok=true;
-      kDebug() << commands[i];
+      qDebug() << commands[i];
       int amount = commands[i].toInt(&ok);
       if (!ok) {
-        kDebug() << "Not ok";
+        qDebug() << "Not ok";
         continue;
       }
       
@@ -130,7 +127,7 @@ bool CompositeCommand::triggerPrivate(int *state)
   //QtConcurrent::run(this, &CompositeCommand::triggerPrivateThread);
   triggerPrivateThread();
 
-  kDebug() << "Returning " << !passThrough;
+  qDebug() << "Returning " << !passThrough;
   return !passThrough;
 }
 
@@ -154,8 +151,8 @@ bool CompositeCommand::deSerializePrivate(const QDomElement& commandElem)
     commandTypes << childCommandCategoryElem.text();
     childCommandElem = childCommandElem.nextSiblingElement();
   }
-  kDebug() << "Triggers: " << commands;
-  kDebug() << "Categories: " << commandTypes;
+  qDebug() << "Triggers: " << commands;
+  qDebug() << "Categories: " << commandTypes;
 
   return true;
 }

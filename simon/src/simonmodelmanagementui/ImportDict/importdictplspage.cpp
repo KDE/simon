@@ -18,7 +18,6 @@
  */
 
 #include "importdictplspage.h"
-#include <QTextCodec>
 
 /**
  * \brief Constructor - inits the GUI

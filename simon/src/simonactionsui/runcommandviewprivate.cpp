@@ -30,15 +30,10 @@
 
 #include <QWidget>
 #include <QPointer>
-#include <QTableWidgetItem>
-#include <QHeaderView>
 #include <QSize>
 #include <QSortFilterProxyModel>
-#include <QItemSelectionModel>
-
-#include <KMessageBox>
-#include <KIcon>
-#include <KCMultiDialog>
+#include <KWidgetsAddons/KMessageBox>
+#include <QIcon>
 
 /**
  *	@brief Constructor
@@ -62,10 +57,10 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
   ui.lvActions->setSpacing(2);
   ui.lvCommands->setSpacing(2);
 
-  ui.pbNewCommand->setIcon(KIcon("list-add"));
-  ui.pbEditCommand->setIcon(KIcon("edit-rename"));
-  ui.pbDeleteCommand->setIcon(KIcon("edit-delete"));
-  ui.pbManagePlugins->setIcon(KIcon("configure"));
+  ui.pbNewCommand->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbEditCommand->setIcon(QIcon::fromTheme("edit-rename"));
+  ui.pbDeleteCommand->setIcon(QIcon::fromTheme("edit-delete"));
+  ui.pbManagePlugins->setIcon(QIcon::fromTheme("configure"));
 
   commandsProxy = new QSortFilterProxyModel(this);
   commandsProxy->setFilterKeyColumn(0);
@@ -194,7 +189,7 @@ void RunCommandViewPrivate::updateCommandDetail()
     ui.pbDeleteCommand->setEnabled(true);
 
     ui.lbName->setText(com->getTrigger());
-    ui.lbIcon->setPixmap(KIcon(com->getIcon()).pixmap(64,64));
+    ui.lbIcon->setPixmap(com->getIcon().pixmap(64,64));
 
     QLayoutItem *child;
     while (ui.flDetails->count() > 0) {
@@ -223,9 +218,9 @@ void RunCommandViewPrivate::updateCommandDetail()
           break;
         case QVariant::UserType:
         {
-          KUrl url = value.value<KUrl>();
+          QUrl url = value.value<QUrl>();
           if (url.isValid()) {
-            strValue = QString("<a href=\"%1\">%1</a>").arg(url.prettyUrl());
+              strValue = QString("<a href=\"%1\">%1</a>").arg(url.toDisplayString());
             break;
           }                                       //else let it run into default
         }

@@ -21,7 +21,6 @@
 #define SIMON_TEMPLATEVALUELIST_H_4002119636CC42C68FE07273F9000A73
 
 #include <QString>
-#include <QStringList>
 #include <QHash>
 #include <QList>
 

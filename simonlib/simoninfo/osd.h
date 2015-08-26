@@ -20,7 +20,7 @@
 #ifndef SIMON_OSD_H_D25D6E7E21C94C78AD6FA6148EA8F8C8
 #define SIMON_OSD_H_D25D6E7E21C94C78AD6FA6148EA8F8C8
 
-#include <QLabel>
+#include <QtWidgets/QLabel>
 
 /**
  *	@class OSD
@@ -37,7 +37,7 @@ class QMouseEvent;
 class QTimer;
 class QLabel;
 class QMouseEvent;
-class KIcon;
+class QIcon;
 
 class OSD : public QLabel
 {
@@ -50,6 +50,6 @@ class OSD : public QLabel
   protected:
     void mouseReleaseEvent ( QMouseEvent * );
   public:
-    OSD(QString message, int timeout, KIcon *icon=0);
+    OSD(QString message, int timeout, QIcon *icon=0);
 };
 #endif

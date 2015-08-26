@@ -19,7 +19,6 @@
 
 #include "createdialogcommandwidget.h"
 #include "dialogcommand.h"
-#include <KLineEdit>
 
 CreateDialogCommandWidget::CreateDialogCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
 {

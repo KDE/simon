@@ -20,21 +20,21 @@
 #ifndef SIMON_MULTIKCMVIEW_H_A545F3AE90134F99905B9FCCE971C8C0
 #define SIMON_MULTIKCMVIEW_H_A545F3AE90134F99905B9FCCE971C8C0
 
-#include <KCModule>
 #include <QList>
 
+#include <KConfigWidgets/KCModule>
 #include "simonuicomponents_export.h"
 
 class QString;
-class KIcon;
-class KTabWidget;
+class QIcon;
+class QTabWidget;
 
 class SIMONUICOMPONENTS_EXPORT MultiKCMView : public KCModule
 {
   Q_OBJECT
 
     private:
-    KTabWidget *wgModules;
+    QTabWidget *wgModules;
     QList<KCModule*> modules;
     QList<bool> moduleChangedState;
     void emitChanged();
@@ -43,7 +43,7 @@ class SIMONUICOMPONENTS_EXPORT MultiKCMView : public KCModule
     void slotChanged(bool changed);
 
   protected:
-    void registerModule(KCModule*, const KIcon& icon, const QString& label);
+    void registerModule(KCModule*, const QIcon& icon, const QString& label);
 
   public:
     explicit MultiKCMView(QWidget* parent, const QVariantList& args=QVariantList());

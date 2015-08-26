@@ -11,19 +11,34 @@ project(Simon)
 ENABLE_TESTING()
 
 set(CMAKE_SIMON_VERSION_MAJOR 0)
-set(CMAKE_SIMON_VERSION_MINOR 4)
-set(CMAKE_SIMON_VERSION_PATCH 1)
+set(CMAKE_SIMON_VERSION_MINOR 5)
+set(CMAKE_SIMON_VERSION_PATCH 0)
 set(CMAKE_SIMON_VERSION_STRING  "${CMAKE_SIMON_VERSION_MAJOR}.${CMAKE_SIMON_VERSION_MINOR}.${CMAKE_SIMON_VERSION_PATCH}")
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+find_package(ECM 1.7.0 REQUIRED NOMODULE)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR}  ${CMAKE_MODULE_PATH})
 
-find_package(KDE4 "4.4" REQUIRED)
-include(KDE4Macros NO_POLICY_SCOPE)
-find_package(Qt4 COMPONENTS QtCore QtDbus QtGui QtTest QtXml QtScript QtConcurrent REQUIRED)
+find_package(Qt5 5.3.0 REQUIRED COMPONENTS Core Widgets Sql DBus Gui Test Xml Script Concurrent X11Extras Network)
+find_package(KF5 5.7.0 REQUIRED COMPONENTS Archive WidgetsAddons I18n KHtml
+  KIO NewStuff Config Codecs KDELibs4Support KCMUtils Sonnet Plasma IconThemes)
+find_package(KF5WidgetsAddons)
 find_package(Qwt6 REQUIRED)
 
-macro_optional_find_package(LibSampleRate)
+
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(FeatureSummary)
+
+include(MacroLogFeature)
+include(ECMInstallIcons)
+include(KDEUIMacros)
+include(ECMAddAppIcon)
+
+
+
+find_package(LibSampleRate)
 macro_log_feature(LIBSAMPLERATE_FOUND "LibSampleRate" "Resampling library" "http://www.mega-nerd.com/SRC/" FALSE "" "Required to activate resampling.")
 
 include_directories(${CMAKE_BINARY_DIR} .)
@@ -53,10 +68,11 @@ if(UNIX)
   FIND_LIBRARY(X11_X11_LIB X11 ${X11_LIB_SEARCH_PATH})
 endif(UNIX)
 
-macro_optional_find_package(KdepimLibs 4.5.60)
+# find_package(KdepimLibs 4.5.60)
 macro_log_feature(KdepimLibs_FOUND "KDE PIM Libs" "KDE Libraries for PIM" "http://pim.kde.org/" FALSE "4.5.60" "Required for PIM plugin.")
 if(UNIX AND NOT APPLE)
-set(USE_PLASMA true CACHE BOOL "Use the plasma data engines in the dialog plugin")
+  # set(USE_PLASMA true CACHE BOOL "Use the plasma data engines in the dialog plugin")
+  set(USE_PLASMA false CACHE BOOL "Plasma data engines have not been ported.")
 else()
 set(USE_PLAMSA false)
 endif()
@@ -65,7 +81,7 @@ if(USE_PLASMA)
   add_definitions(-DUSE_PLASMA)
 endif(USE_PLASMA)
 
-macro_optional_find_package(QAccessibilityClient)
+find_package(QAccessibilityClient)
 macro_log_feature(QAccessibilityClient_FOUND "qaccessibilityclient" "KDE client-side accessibility library" "https://projects.kde.org/projects/playground/accessibility/libkdeaccessibilityclient" FALSE "" "Required to enable ATSPI plugin.")
 
 find_package(Sphinxbase)
@@ -77,13 +93,13 @@ macro_log_feature(POCKETSPHINX_LIBRARIES "PocketSphinx"
   "PocketSphinx is a small-footprint continuous speech recognition system"
   "http://cmusphinx.sourceforge.net/" FALSE ""
   "Required to build Pocket Sphinx backend")
-macro_optional_find_package(OpenCV)
+find_package(OpenCV)
 macro_log_feature(OpenCV_FOUND "OpenCV"
   "OpenCV (Open Source Computer Vision) is a library of programming functions for real time computer vision" "http://http://opencv.willowgarage.com/"
   FALSE "" "Required for Simon Vision")
 
 
-macro_optional_find_package(VRPN)
+find_package(VRPN)
 macro_log_feature(VRPN_LIBRARY "VRPN"
   "Virtual-Reality Peripheral Network Connector"
   "http://www.cs.unc.edu/Research/vrpn/index.html" FALSE ""
@@ -116,11 +132,10 @@ if(${BackendType} STREQUAL jhtk)
   ADD_DEFINITIONS(-DBACKEND_TYPE_JHTK)
 endif()
 
-include(KDE4Defaults)
 include(SimonDirs)
-include_directories(${QT_INCLUDES} ${KDE4_INCLUDES} ${KDE_INCLUDES} ${KDEPIMLIBS_INCLUDE_DIRS}
+include_directories( ${KDE_INCLUDES} ${KDEPIMLIBS_INCLUDE_DIRS}
   ${Qwt6_INCLUDE_DIR} simonlib)
-add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+add_definitions(${QT_DEFINITIONS} ${KDE_DEFINITIONS})
 
 if(WIN32)
   # old gcc because of MinGW
@@ -134,6 +149,12 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-fexceptions)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
+string(FIND "/usr/include/KDE" match "${INCLUDE_DIRECTORIES}" )
+if(match)
+  message(FATAL_ERROR "/usr/include/KDE was found.  Bad!")
+endif()
+message(STATUS "Include Directories: ${INCLUDE_DIRECTORIES}")
+
 add_subdirectory(simonlib)
 add_subdirectory(simon)
 add_subdirectory(simond)
@@ -146,7 +167,8 @@ add_subdirectory(afaras)
 add_subdirectory(doc)
 
 if(USE_PLASMA)
-  add_subdirectory(simonoid)
+  # QT5TODO: Port this to Plasma 5
+  # add_subdirectory(simonoid)
 endif()
 
 

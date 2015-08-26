@@ -17,18 +17,18 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+
+#include <QStandardPaths>
 #include "databaseaccess.h"
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QFile>
-#include <QVariant>
+#include <QUrl>
+#include <QDebug>
 
-#include <KDebug>
-#include <KStandardDirs>
-#include <KLocalizedString>
-#include <KConfig>
-#include <KConfigGroup>
-#include <KUrl>
+#include <KI18n/klocalizedstring.h>
+#include <KConfigCore/KConfig>
+#include <KConfigCore/KConfigGroup>
 #include <KLocale>
 
 DatabaseAccess::DatabaseAccess(QObject* parent) : QObject(parent),
@@ -48,15 +48,15 @@ bool DatabaseAccess::init()
 
   db = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "simond"));
 
-  KConfig config(KStandardDirs::locate("config", "simondrc"));
+  KConfig config(QStandardPaths::locate(QStandardPaths::ConfigLocation, "simondrc"));
   KConfigGroup cGroup(&config, "Database");
-  QString databaseUrl= cGroup.readEntry("DatabaseUrl", KUrl()).toLocalFile();
+  QString databaseUrl= cGroup.readEntry("DatabaseUrl", QUrl()).toLocalFile();
 
   if (databaseUrl.isEmpty()) {
-    QString localKdeFile = KStandardDirs::locateLocal("data", "simond/simond.db");
+    QString localKdeFile = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + "simond/simond.db";
 
     if (!QFile::exists(localKdeFile))
-      QFile::copy(KStandardDirs::locate("data", "simond/simond.db"),
+      QFile::copy(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simond/simond.db"),
         localKdeFile);
 
     databaseUrl = localKdeFile;
@@ -67,8 +67,7 @@ bool DatabaseAccess::init()
 
   if (!db->open()) {                              //open database
     emit error(db->lastError().text());
-
-    kDebug() << "Could not open db";
+    qDebug() << "Could not open db";
 
     return false;
   }

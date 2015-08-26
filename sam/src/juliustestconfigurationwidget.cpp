@@ -28,8 +28,8 @@ JuliusTestConfigurationWidget::JuliusTestConfigurationWidget(QWidget *parent) :
   setupUi();
 }
 
-JuliusTestConfigurationWidget::JuliusTestConfigurationWidget(CorpusInformation* corpusInfo, const KUrl& testPromptsUrl,
-                                                             const KUrl& testPromptsBasePathUrl, int sampleRate,
+JuliusTestConfigurationWidget::JuliusTestConfigurationWidget(CorpusInformation* corpusInfo, const QUrl& testPromptsUrl,
+                                                             const QUrl& testPromptsBasePathUrl, int sampleRate,
                                                              QWidget *parent):
                                   TestConfigurationWidget(corpusInfo, testPromptsUrl, testPromptsBasePathUrl, sampleRate, parent),
                                   ui(new Ui::JuliusTestConfigurationWidget){ setupUi(); }
@@ -91,38 +91,38 @@ void JuliusTestConfigurationWidget::update()
 }
 
 
-KUrl JuliusTestConfigurationWidget::hmmDefs() const
+QUrl JuliusTestConfigurationWidget::hmmDefs() const
 {
   return ui->urHmmDefs->url();
 }
 
-KUrl JuliusTestConfigurationWidget::tiedlist() const
+QUrl JuliusTestConfigurationWidget::tiedlist() const
 {
   return ui->urTiedlist->url();
 }
 
-KUrl JuliusTestConfigurationWidget::dict() const
+QUrl JuliusTestConfigurationWidget::dict() const
 {
   return ui->urDict->url();
 }
 
-KUrl JuliusTestConfigurationWidget::dfa() const
+QUrl JuliusTestConfigurationWidget::dfa() const
 {
   return ui->urDFA->url();
 }
 
-KUrl JuliusTestConfigurationWidget::jconf() const
+QUrl JuliusTestConfigurationWidget::jconf() const
 {
   return ui->urJConf->url();
 }
 
 void JuliusTestConfigurationWidget::init(const QHash<QString, QString> &params)
 {
-  ui->urHmmDefs->setUrl(KUrl(params.value("hmm")));
-  ui->urTiedlist->setUrl(KUrl(params.value("tiedlist")));
-  ui->urDict->setUrl(KUrl(params.value("dict")));
-  ui->urDFA->setUrl(KUrl(params.value("dfa")));
-  ui->urJConf->setUrl(KUrl(params.value("jconf")));
+  ui->urHmmDefs->setUrl(QUrl(params.value("hmm")));
+  ui->urTiedlist->setUrl(QUrl(params.value("tiedlist")));
+  ui->urDict->setUrl(QUrl(params.value("dict")));
+  ui->urDFA->setUrl(QUrl(params.value("dfa")));
+  ui->urJConf->setUrl(QUrl(params.value("jconf")));
 
 }
 

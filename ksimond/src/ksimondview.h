@@ -20,12 +20,11 @@
 #ifndef SIMON_KSIMONDVIEW_H_03F9CE9322C04BDDBB1B7A5595E5D6BA
 #define SIMON_KSIMONDVIEW_H_03F9CE9322C04BDDBB1B7A5595E5D6BA
 
-#include <QWidget>
 #include <QProcess>
 #include <simonuicomponents/trayiconmanager.h>
 
 class KProcess;
-class KAction;
+class QAction;
 class QCloseEvent;
 class KCMultiDialog;
 /**
@@ -70,7 +69,7 @@ class KSimondView : public QObject
     TrayIconManager *trayIconMgr;
     KCMultiDialog *configDialog;
     KProcess *process;
-    KAction *startSimonAction, *startProcess, *restartProcess, *stopProcess, *configure;
+    QAction *startSimonAction, *startProcess, *restartProcess, *stopProcess, *configure;
     bool stopIntended;
     bool wantReload;
 };

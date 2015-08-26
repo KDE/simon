@@ -19,7 +19,6 @@
 
 #include <QTest>
 #include <QDomDocument>
-#include <QDomElement>
 #include <QByteArray>
 
 #include "../dialogtemplateoptions.h"

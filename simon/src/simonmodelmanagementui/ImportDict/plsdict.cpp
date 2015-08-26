@@ -20,14 +20,12 @@
 #include "plsdict.h"
 
 #include <simonxml/xmlsaxreader.h>
-#include <QStringList>
 #include <QString>
 #include <QFile>
-#include <QRegExp>
-#include <KDebug>
-#include <QTextCodec>
-#include <KLocalizedString>
-#include <KMimeType>
+#include <QDebug>
+#include <KI18n/klocalizedstring.h>
+#include <QMimeDatabase>
+
 
 /**
  * \brief Constructor
@@ -221,8 +219,9 @@ void PLSDict::load(QString path, QString encoding)
 
   reader = new XMLSAXReader(path);
   connect(reader, SIGNAL(loaded()), this, SIGNAL(loaded()));
-
-  if (KMimeType::findByFileContent(path)->name() == "text/xml")
+  QMimeDatabase db;
+    
+  if (db.mimeTypeForFile(path, QMimeDatabase::MatchContent).name() == "text/xml")
     this->maxpos = QFile(path).size();
   else
     //compressed

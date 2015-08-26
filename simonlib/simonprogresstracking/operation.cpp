@@ -20,7 +20,7 @@
 #include "statusmanager.h"
 #include <QTimer>
 
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 #include <QMutex>
 
 Operation::Operation(QThread* thread, const QString& name, const QString& currentAction, int now, int max, bool isAtomic) : QObject(0),

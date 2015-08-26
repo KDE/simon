@@ -21,7 +21,6 @@
 #define SIMON_NULLRECORDERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
 
 #include <QObject>
-#include <QTimer>
 #include "soundinputclient.h"
 
 class WAV;

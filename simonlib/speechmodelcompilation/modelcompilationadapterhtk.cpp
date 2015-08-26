@@ -28,9 +28,8 @@
 #include <simonscenarios/grammar.h>
 
 #include <QFile>
-#include <KDebug>
-#include <KStandardDirs>
-#include <KAboutData>
+#include <QDebug>
+
 
 ModelCompilationAdapterHTK::ModelCompilationAdapterHTK(const QString& userName, QObject *parent) : ModelCompilationAdapter(userName, parent)
 {
@@ -73,7 +72,7 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   emit  status(i18n("Model adaption complete"), 100, 100);
   emit adaptionComplete();
 
-  kDebug() <<"Adaptation complete";
+  qDebug() <<"Adaptation complete";
 
   keepGoing=false;
 
@@ -164,7 +163,7 @@ bool ModelCompilationAdapterHTK::checkTriphones(const QString& baseTiedListPathI
 
     if (broken) {
       // forbid word
-      kDebug() << "Forbidding word " << w->getWord();
+      qDebug() << "Forbidding word " << w->getWord();
       m_droppedTranscriptions << w->getPronunciation();
       vocabulary->removeWord(w);
     }
@@ -177,9 +176,9 @@ inline bool ModelCompilationAdapterHTK::supportedTranscription(const QSet<QByteA
   bool supported = allowedTriphones.contains(triphone);
 
   if (!supported)
-    kDebug() << "Not allowed: " << triphone;
+    qDebug() << "Not allowed: " << triphone;
   //else
-    //kDebug() << "Allowed: " << triphone;
+    //qDebug() << "Allowed: " << triphone;
   return supported;
 }
 bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
@@ -188,7 +187,7 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
                                             const QString& lexiconPathOut, const QString& grammarPathOut,
                                             const QString& simpleVocabPathOut, const QString& promptsPathOut)
 {
-  kDebug() << "Adapting model";
+  qDebug() << "Adapting model";
   QSharedPointer<Vocabulary> mergedVocabulary(new Vocabulary());
   QSharedPointer<Grammar> mergedGrammar(new Grammar());
 
@@ -197,13 +196,13 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
 
   ADAPT_CHECKPOINT;
   if (!checkTriphones(baseTiedListPathIn, mergedVocabulary)) {
-    kWarning() << "Triphone optimization failed";
+    qWarning() << "Triphone optimization failed";
   }
 
   if (!storeModel(adaptionType, lexiconPathOut, simpleVocabPathOut, grammarPathOut,
                   promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn))
   {
-    kWarning() << "Adaption failed";
+    qWarning() << "Adaption failed";
     return false;
   }
 
@@ -240,7 +239,7 @@ bool ModelCompilationAdapterHTK::storeLexicon(ModelCompilationAdapter::AdaptionT
 {
   /////  Lexicon  ////////////////
 
-  kDebug() << "Store lexicon";
+  qDebug() << "Store lexicon";
 
   emit status(i18n("Adapting lexicon..."), 15, 100);
   QFile lexiconFile(lexiconPathOut);
@@ -265,7 +264,7 @@ bool ModelCompilationAdapterHTK::storeLexicon(ModelCompilationAdapter::AdaptionT
         !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&
         !trainedVocabulary.contains(word->getLexiconWord()))
     {
-      kDebug() << "Skipping word " << word->getLexiconWord();
+      qDebug() << "Skipping word " << word->getLexiconWord();
       continue;
     }
     htkIfiedWord = htkify(word->getLexiconWord());
@@ -302,7 +301,7 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
                                                  QStringList &structures)
 {
   /////  Vocabulary  /////////////
-  kDebug() << "Store vocabulary";
+  qDebug() << "Store vocabulary";
   emit status(i18n("Adapting vocabulary..."), 35, 100);
 
   // find out which words are referenced by training data
@@ -395,7 +394,7 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
 bool ModelCompilationAdapterHTK::storeGrammar(const QString& grammarPathOut, QStringList &structures)
 {
   emit status(i18n("Adapting grammar..."), 75, 100);
-  kDebug() << "Store grammar";
+  qDebug() << "Store grammar";
 
   QFile grammarFile(grammarPathOut);
   if (!grammarFile.open(QIODevice::WriteOnly))
@@ -423,7 +422,7 @@ bool ModelCompilationAdapterHTK::storePrompts(ModelCompilationAdapter::AdaptionT
                                               QStringList &definedVocabulary) //wtf?
 {
   emit status(i18n("Adapting prompts..."), 90, 100);
-  kDebug() << "Store prompts";
+  qDebug() << "Store prompts";
   if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel)
   {
     QFile promptsFile(promptsPathIn);
@@ -470,8 +469,8 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
                                             const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut,
                                             const QString& promptsPathOut, QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar, const QString& promptsPathIn)
 {
-  kDebug() << "Output prompts: " << promptsPathOut;
-  kDebug() << "Input prompts: " << promptsPathIn;
+  qDebug() << "Output prompts: " << promptsPathOut;
+  qDebug() << "Input prompts: " << promptsPathIn;
 
   //    ///// Prompts ///////////
   QStringList trainedVocabulary;                  // words where prompts exist

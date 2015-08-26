@@ -19,15 +19,14 @@
 
 #include "dialogcommand.h"
 
-#include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QTimer>
 #include <QVariant>
 
-#include <KIcon>
-#include <KLocalizedString>
-#include <KDebug>
+#include <QIcon>
+#include <KI18n/klocalizedstring.h>
+#include <QDebug>
 
 #include <simonactions/actionmanager.h>
 #include <simonscenarios/commandmanager.h>
@@ -74,13 +73,13 @@ const QString DialogCommand::getCategoryText() const
 }
 
 
-const KIcon DialogCommand::staticCategoryIcon()
+const QIcon DialogCommand::staticCategoryIcon()
 {
-  return KIcon("im-user");
+  return QIcon::fromTheme("im-user");
 }
 
 
-const KIcon DialogCommand::getCategoryIcon() const
+const QIcon DialogCommand::getCategoryIcon() const
 {
   return DialogCommand::staticCategoryIcon();
 }
@@ -101,7 +100,7 @@ bool DialogCommand::triggerPrivate(int *state)
 {
   Q_UNUSED(state);
   bool succ = true;
-  kDebug() << "Triggering...";
+  qDebug() << "Triggering...";
   if (m_executeCommands)
   {
     for (int i=0; i < m_commands.count();i++)
@@ -110,16 +109,16 @@ bool DialogCommand::triggerPrivate(int *state)
 
   if (!state)
   {
-    kDebug() << "Not given any state... Calling this on the parent...";
+    qDebug() << "Not given any state... Calling this on the parent...";
     Command::parent()->switchToState(switchToState);
-    kDebug() << "My switch to state of " << getTrigger() << " is " << switchToState;
+    qDebug() << "My switch to state of " << getTrigger() << " is " << switchToState;
   }
 
   if (m_changeDialogState) {
-    kDebug() << "Changing dialog state to: " << m_nextDialogState;
+    qDebug() << "Changing dialog state to: " << m_nextDialogState;
     emit requestDialogState(m_nextDialogState);
   } else
-    kDebug() << "Not changing dialog state.";
+    qDebug() << "Not changing dialog state.";
   return succ;
 }
 
@@ -242,7 +241,7 @@ void DialogCommand::presented()
   //this command has just been shown to the user...
   if (m_activateAutomatically)
   {
-    kDebug() << "Starting auto timer";
+    qDebug() << "Starting auto timer";
     m_autoTimer->start(m_activateAfter);
   }
 }

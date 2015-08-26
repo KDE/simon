@@ -25,13 +25,13 @@
 
 #include <QVariant>
 #include <KAboutData>
-#include <kgenericfactory.h>
+#include <KDELibs4Support/kgenericfactory.h>
 
 K_PLUGIN_FACTORY( CommandSettingsFactory,
 registerPlugin< CommandSettings >();
 )
 
-K_EXPORT_PLUGIN( CommandSettingsFactory("simonlib") )
+// K_EXPORT_PLUGIN( CommandSettingsFactory("simonlib") )
 
 /**
  * \brief Constructor
@@ -42,30 +42,32 @@ K_EXPORT_PLUGIN( CommandSettingsFactory("simonlib") )
  * @param parent The parent of the widget
  */
 CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args)
-  : KCModule(KGlobal::mainComponent(), parent),
+  : KCModule(parent),
     ui(new Ui::CommandSettingsDlg)
 {
   Q_UNUSED(args)
 
   ui->setupUi(this);
 
-  KAboutData *about = new KAboutData(
-    "commandsettings", "", ki18n("Command Settings"),
-    "0.1", ki18n("Configuration about the Commands and the Selection of Plugins to use"), KAboutData::License_GPL);
-  #if KDE_IS_VERSION(4,0,80)
-  about->setProgramIconName("fork");
-  #endif
+  KAboutData *about = new KAboutData("commandsettings",
+                                     i18n("Command Settings"),
+                                     "0.1",
+                                     i18n("Configuration about the Commands and the Selection of Plugins to use"),
+                                     KAboutLicense::GPL);
+  // #if KDE_IS_VERSION(4,0,80)
+  // about->setProgramIconName("fork");
+  // #endif
   setAboutData( about );
 
   QObject::connect(ui->cbUseDYM, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   QObject::connect(ui->sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
   QObject::connect(ui->fcFont, SIGNAL(fontSelected(QFont)), this, SLOT(slotChanged()));
 
-  kDebug() << "List configuration: " << CommandSettingsInternal::getInstance()->minimumConfidence();
+  qDebug() << "List configuration: " << CommandSettingsInternal::getInstance()->minimumConfidence();
   ListConfiguration *listConfig = CommandSettingsInternal::getInstance()->getListConfiguration();
-  kDebug() << "Returned...";
+  qDebug() << "Returned...";
 
-  kDebug() << "Got list config: " << listConfig;
+  qDebug() << "Got list config: " << listConfig;
   connect(listConfig, SIGNAL(changed()), this, SLOT(slotChanged()));
 
   ui->twActionConfig->addTab(CommandSettingsInternal::getInstance()->getListConfiguration(), i18n("Lists"));
@@ -124,3 +126,5 @@ CommandSettings::~CommandSettings()
   CommandSettingsInternal::getInstance()->getListConfiguration()->setParent(0);
   delete ui;
 }
+
+#include "commandsettings.moc"

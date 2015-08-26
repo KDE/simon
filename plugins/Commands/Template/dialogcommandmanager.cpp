@@ -22,28 +22,28 @@
 #include "createdialogcommandwidget.h"
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
-#include <KLocalizedString>
-#include <KAction>
+#include <KI18n/klocalizedstring.h>
+#include <QAction>
 
 K_PLUGIN_FACTORY( DialogCommandPluginFactory,
 registerPlugin< DialogCommandManager >();
 )
 
-K_EXPORT_PLUGIN( DialogCommandPluginFactory("simondialogcommand") )
+// K_EXPORT_PLUGIN( DialogCommandPluginFactory("simondialogcommand") )
 
 DialogCommandManager::DialogCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 GreedyReceiver(this),
 dialogWidget(new QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
-activateAction(new KAction(this))
+activateAction(new QAction(this))
 {
   setFont(ActionManager::getInstance()->pluginBaseFont());
 
-  dialogWidget->setWindowIcon(KIcon("im-user"));
+  dialogWidget->setWindowIcon(QIcon::fromTheme("im-user"));
   ui.setupUi(dialogWidget);
   dialogWidget->hide();
 
   activateAction->setText(i18n("Activate Dialog"));
-  activateAction->setIcon(KIcon("input-dialog"));
+  activateAction->setIcon(QIcon::fromTheme("input-dialog"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(activate()));
   guiActions<<activateAction;
@@ -136,3 +136,5 @@ DialogCommandManager::~DialogCommandManager()
   dialogWidget->deleteLater();
   activateAction->deleteLater();
 }
+
+#include "dialogcommandmanager.moc"

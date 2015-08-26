@@ -20,13 +20,13 @@
 #include "processopenedcondition.h"
 #include "createprocessopenedconditionwidget.h"
 #include <QWidget>
-#include <KDebug>
+#include <QDebug>
 
 K_PLUGIN_FACTORY( ProcessOpenedPluginFactory,
 registerPlugin< ProcessOpenedCondition >();
 )
 
-K_EXPORT_PLUGIN( ProcessOpenedPluginFactory("simonprocessopenedcondition") )
+// K_EXPORT_PLUGIN( ProcessOpenedPluginFactory("simonprocessopenedcondition") )
 
 ProcessOpenedCondition::ProcessOpenedCondition(QObject *parent, const QVariantList &args) :
     Condition(parent, args)
@@ -66,7 +66,7 @@ bool ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
     nameElement = elem.firstChildElement("processname");
     if (nameElement.isNull())
     {
-        kDebug() << "No processes name specified!  Deserialization failure!";
+        qDebug() << "No processes name specified!  Deserialization failure!";
         return false;
     }
     m_processName = nameElement.text();
@@ -85,13 +85,13 @@ bool ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
     if (m_openedInstances > 0)
     {
         m_satisfied = true;
-        kDebug() << name() + " is true!";
+        qDebug() << name() + " is true!";
         emit conditionChanged();
     }
     else
     {
         m_satisfied = false;
-        kDebug() << name() + " is false!";
+        qDebug() << name() + " is false!";
         emit conditionChanged();
     }
 
@@ -107,7 +107,7 @@ void ProcessOpenedCondition::checkAddedProcess(QString processName)
         if (m_openedInstances == 1)
         {
             m_satisfied = true;
-            kDebug() << name() + " is true!";
+            qDebug() << name() + " is true!";
             emit conditionChanged();
         }
     }
@@ -122,8 +122,9 @@ void ProcessOpenedCondition::checkRemovedProcess(QString processName)
         if (m_openedInstances == 0)
         {
             m_satisfied = false;
-            kDebug() << name() + " is false!";
+            qDebug() << name() + " is false!";
             emit conditionChanged();
         }
     }
 }
+#include "processopenedcondition.moc"

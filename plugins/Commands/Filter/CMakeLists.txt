@@ -3,11 +3,11 @@ set (simonfilterplugin_SRCS
   filterconfiguration.cpp 
 )
 
-kde4_add_ui_files(simonfilterplugin_SRCS filterconfigurationdlg.ui)
+ki18n_wrap_ui(simonfilterplugin_SRCS filterconfigurationdlg.ui)
 
 kde4_add_plugin(simonfilterplugin ${simonfilterplugin_SRCS})
 
-target_link_libraries(simonfilterplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simonfilterplugin  Qt5::Xml
   eventsimulation simonlogging simonscenarios simonactions simoninfo simonscenariobase)
 
 install(TARGETS simonfilterplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandfilterplugin)

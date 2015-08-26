@@ -19,18 +19,15 @@
 
 #include "dictationconfiguration.h"
 #include <QVariantList>
-#include <KDebug>
-#include <kgenericfactory.h>
-#include <KAboutData>
-#include <KMessageBox>
+#include <QDebug>
+#include <KDELibs4Support/kgenericfactory.h>
 
 K_PLUGIN_FACTORY_DECLARATION(DictationCommandPluginFactory)
 
 DictationConfiguration::DictationConfiguration(Scenario *parent, const QVariantList &args)
-  : CommandConfiguration(parent, "dictation", ki18n( "Dictation" ),
-  "0.1", ki18n("Dictation"),
-  "text-field",
-  DictationCommandPluginFactory::componentData())
+  : CommandConfiguration(parent, "dictation", i18n( "Dictation" ),
+  "0.1", i18n("Dictation"),
+  "text-field")
 {
   Q_UNUSED(args);
   ui.setupUi(this);

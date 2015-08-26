@@ -23,7 +23,7 @@
 #include <sscobjects/soundcard.h>
 #include <sscdaccess/trainingsamplesdescriptor.h>
 #include <simonscenarios/trainingmanager.h>
-#include <KDebug>
+#include <QDebug>
 
 SimonSampleDataProvider::SimonSampleDataProvider(qint32 userId, Microphone *microphone, 
 			    SoundCard *soundCard, Sample::SampleType sampleType, 
@@ -43,7 +43,7 @@ SimonSampleDataProvider::~SimonSampleDataProvider()
 
 bool SimonSampleDataProvider::store()
 {
-  kWarning() << "Not implemented";
+  qWarning() << "Not implemented";
   return false;
 }
 

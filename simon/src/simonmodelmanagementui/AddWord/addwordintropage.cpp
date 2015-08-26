@@ -18,8 +18,7 @@
  */
 
 #include "addwordintropage.h"
-#include <KLineEdit>
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -41,9 +40,9 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 
 bool AddWordIntroPage::validatePage()
 {
-  //kDebug() << "Setting field from: " << field("wordNameIntro");
+  //qDebug() << "Setting field from: " << field("wordNameIntro");
   QStringList words = field("wordNameIntro").toString().replace(',', ' ').replace('.', ' ').split(' ', QString::SkipEmptyParts);
   setField("wordNameIntro", words.join(" "));
-  //kDebug() << "To: " << field("wordNameIntro");
+  //qDebug() << "To: " << field("wordNameIntro");
   return true;
 }

@@ -20,11 +20,13 @@
 #ifndef SIMON_MANAGEACTIONSDIALOG_H_FFF7A6377C9C4E42B2B5636676AD423F
 #define SIMON_MANAGEACTIONSDIALOG_H_FFF7A6377C9C4E42B2B5636676AD423F
 
-#include <KDialog>
+#include <QDialog>
 #include <QHash>
 #include <QWidget>
 #include <QVBoxLayout>
+#include <KDELibs4Support/KDE/KDialog>
 #include "ui_manageactionsdlg.h"
+
 class Action;
 class CommandConfiguration;
 class KPageWidget;

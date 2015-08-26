@@ -19,11 +19,11 @@
 
 #include "vocabularyview.h"
 #include "vocabularyviewprivate.h"
-#include <KLocalizedString>
+#include <KI18n/klocalizedstring.h>
 
 VocabularyView::VocabularyView(QWidget *parent)
 : InlineWidget(i18n("Vocabulary"),
-  KIcon("format-justify-fill"),
+  QIcon::fromTheme("format-justify-fill"),
   i18n("View and modify the vocabulary."), parent),
   d(new VocabularyViewPrivate(this))
 {

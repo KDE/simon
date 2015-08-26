@@ -28,7 +28,6 @@
 #include <QList>
 #include <QObject>
 #include <QHash>
-#include <KUrl>
 class CommandListWidget;
 class VoiceInterfaceCommand;
 
@@ -198,10 +197,10 @@ class SIMONACTIONS_EXPORT ListCommand : public QObject, public Command, public G
     static const QString staticCategoryText();
 
     /// Returns the list icon
-    static const KIcon staticCategoryIcon();
+    static const QIcon staticCategoryIcon();
 
     /// Returns the list icon
-    const KIcon getCategoryIcon() const;
+    const QIcon getCategoryIcon() const;
     /// Returns the list category description (translated version of "List")
     const QString getCategoryText() const;
 

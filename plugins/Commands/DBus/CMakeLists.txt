@@ -4,14 +4,14 @@ set (simondbuscommandplugin_SRCS
   createdbuscommandwidget.cpp
 )
 
-kde4_add_ui_files(simondbuscommandplugin_SRCS 
+ki18n_wrap_ui(simondbuscommandplugin_SRCS 
   createdbuscommandwidget.ui
 )
 
-kde4_add_plugin(simondbuscommandplugin ${simondbuscommandplugin_SRCS})
+kde4_add_plugin(simondbuscommandplugin MODULE ${simondbuscommandplugin_SRCS})
 
-target_link_libraries(simondbuscommandplugin ${KDE4_KDEUI_LIBS}
-  ${KDE4_KIO_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simondbuscommandplugin 
+  KF5::KIOCore Qt5::Xml
   simonscenarios simonscenariobase)
 
 install(TARGETS simondbuscommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddbusplugin)

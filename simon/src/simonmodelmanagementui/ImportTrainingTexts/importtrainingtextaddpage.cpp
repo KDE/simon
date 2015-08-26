@@ -18,8 +18,6 @@
  */
 
 #include "importtrainingtextaddpage.h"
-#include <QFile>
-#include <QTextCodec>
 
 /**
  * \brief Constructor

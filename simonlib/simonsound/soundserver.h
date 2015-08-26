@@ -21,10 +21,10 @@
 #define SIMON_SOUNDSERVER_H_BAC60651BE6A419EA6156220815A2AAD
 
 #include <simonsound/simonsound.h>
-#include <QIODevice>
 #include <QHash>
 #include <QList>
 #include <QMutex>
+#include <QObject>
 #include "simonsound_export.h"
 
 class SoundInputClient;

@@ -3,12 +3,12 @@ set (simondictationcommandplugin_SRCS
   dictationconfiguration.cpp
 )
 
-kde4_add_ui_files(simondictationcommandplugin_SRCS dictationconfigurationdlg.ui)
+ki18n_wrap_ui(simondictationcommandplugin_SRCS dictationconfigurationdlg.ui)
 
-kde4_add_plugin(simondictationcommandplugin ${simondictationcommandplugin_SRCS})
+kde4_add_library(simondictationcommandplugin MODULE ${simondictationcommandplugin_SRCS})
 
-target_link_libraries(simondictationcommandplugin ${KDE4_KDEUI_LIBS}
-  ${QT_QTXML_LIBRARY} simonscenarios eventsimulation simonscenariobase)
+target_link_libraries(simondictationcommandplugin
+  Qt5::Xml simonscenarios eventsimulation simonscenariobase)
 
 install(TARGETS simondictationcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddictationplugin)
 install(FILES simondictationcommandplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddictationplugin)

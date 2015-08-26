@@ -6,7 +6,7 @@ set(simonlogging_LIB_HDRS
 )
 
 kde4_add_library(simonlogging SHARED ${simonlogging_LIB_SRCS})
-target_link_libraries(simonlogging ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS})
+target_link_libraries(simonlogging ${QT_LIBRARIES} KF5::KDELibs4Support)
 
 set_target_properties(simonlogging PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 

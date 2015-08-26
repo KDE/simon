@@ -25,9 +25,10 @@
  * \brief The file containing the NewCondition baseclass header.
  */
 
-#include <KDialog>
+#include <QDialog>
 #include <QList>
 #include "simoncontextcoreui_export.h"
+#include <KDELibs4Support/KDE/KDialog>
 
 class Condition;
 class CreateConditionWidget;

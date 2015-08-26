@@ -20,11 +20,12 @@
 
 #include "modelcompilationmanager.h"
 
-#include <KStandardDirs>
-#include <KDebug>
+
+#include <QDebug>
 #include <QFile>
 #include <QString>
 #include <stdexcept>
+#include <QStandardPaths>
 
 ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObject* parent ) :
     QThread ( parent ), keepGoing(false), userName(userName), compiler(0), adapter(0)
@@ -47,7 +48,7 @@ void ModelCompilationManager::slotPhonemeUndefined ( const QString& phoneme )
 
 QString ModelCompilationManager::cachedModelPath ( uint fingerprint, bool* exists )
 {
-  QString path = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/"+QString::number(fingerprint)+".sbm");
+  QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "models/"+userName+"/active/"+QString::number(fingerprint)+".sbm";
   if (exists)
     *exists = QFile::exists(path);
   return path;
@@ -115,8 +116,8 @@ uint ModelCompilationManager::getFingerPrint(const QStringList& files, ModelComp
     QFile f(file);
     if (!f.open(QIODevice::ReadOnly))
     {
-      kDebug() << "Error building fingerprint";
-      kDebug() << file;
+      qDebug() << "Error building fingerprint";
+      qDebug() << file;
 //      emit modelCompilationAborted();
       //WARNING:&
 //      throw std::runtime_error(qPrintable("Error building fingerprint. Can't open file " + file));

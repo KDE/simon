@@ -23,7 +23,6 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_recognizerconfigurationdlg.h"
 #include <KSharedConfig>
-#include <QPointer>
 
 class RecognizerConfiguration : public CommandConfiguration
 {

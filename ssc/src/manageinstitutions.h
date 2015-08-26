@@ -20,14 +20,14 @@
 #ifndef SIMON_SSC_MANAGEINSTITUTIONS_H_5B939A5C2BE44EB3A400FED68B80E791
 #define SIMON_SSC_MANAGEINSTITUTIONS_H_5B939A5C2BE44EB3A400FED68B80E791
 
-#include <KDialog>
+#include <QDialog>
 #include "ui_institution.h"
 
 class Institution;
 class InstitutionModel;
 class QSortFilterProxyModel;
 
-class ManageInstitutions : public KDialog
+class ManageInstitutions : public QDialog
 {
 
   Q_OBJECT

@@ -60,7 +60,7 @@ set(simonmodelmanagementui_LIB_SRCS
   CreateLanguageProfile/languageprofileview.cpp
 )
 
-kde4_add_ui_files(simonmodelmanagementui_LIB_SRCS
+ki18n_wrap_ui(simonmodelmanagementui_LIB_SRCS
   modelextensionsettingsdlg.ui
   removeword.ui
   editword.ui
@@ -106,14 +106,14 @@ set( simonmodelmanagementui_LIB_SRCS
   vocabularyviewprivate.cpp
 )
 
-kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS vocabulary.ui)
-kde4_add_kcfg_files(simonmodelmanagementui_LIB_SRCS speechmodelmanagementuiconfiguration.kcfgc)
+ki18n_wrap_ui( simonmodelmanagementui_LIB_SRCS vocabulary.ui)
+kconfig_add_kcfg_files(simonmodelmanagementui_LIB_SRCS speechmodelmanagementuiconfiguration.kcfgc)
 
 kde4_add_library(simonmodelmanagementui SHARED ${simonmodelmanagementui_LIB_SRCS})
 
-target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
-  ${KDE4_KIO_LIBS} simonlogging simonscenarios simonscenariobase simoninfo simonxml
-  simonsound simonuicomponents simongraphemetophoneme
+target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES} 
+  KF5::KIOCore simonlogging simonscenarios simonscenariobase simoninfo simonxml
+  simonsound simonuicomponents simongraphemetophoneme KF5::Codecs
 )
 
 set_target_properties( simonmodelmanagementui
@@ -132,10 +132,10 @@ set(kcm_simonmodelmanagementui_LIB_SRCS
   plugin_exporter.cpp
 )
 
-kde4_add_ui_files( kcm_simonmodelmanagementui_LIB_SRCS modelextensionsettingsdlg.ui)
+ki18n_wrap_ui( kcm_simonmodelmanagementui_LIB_SRCS modelextensionsettingsdlg.ui)
 
-kde4_add_kcfg_files(kcm_simonmodelmanagementui_LIB_SRCS speechmodelmanagementuiconfiguration.kcfgc)
-kde4_add_plugin(simonmodelmanagementuikcm ${kcm_simonmodelmanagementui_LIB_SRCS})
-target_link_libraries(simonmodelmanagementuikcm ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonscenarios)
+kconfig_add_kcfg_files(kcm_simonmodelmanagementui_LIB_SRCS speechmodelmanagementuiconfiguration.kcfgc)
+kde4_add_library(simonmodelmanagementuikcm MODULE ${kcm_simonmodelmanagementui_LIB_SRCS})
+target_link_libraries(simonmodelmanagementuikcm  KF5::Codecs  KF5::KIOCore simonscenarios)
 install(TARGETS simonmodelmanagementuikcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simon)
 install( FILES simonmodelextensionconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

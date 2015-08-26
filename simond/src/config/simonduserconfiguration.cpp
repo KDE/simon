@@ -24,18 +24,20 @@
 #include <QDir>
 #include <QFile>
 #include <QPointer>
-#include <KMessageBox>
-#include <KPasswordDialog>
+#include <KWidgetsAddons/KPasswordDialog>
+#include <KWidgetsAddons/KMessageBox>
 #include <knewpassworddialog.h>
+#include <QStandardPaths>
+#include <QDebug>
 
 SimondUserConfiguration::SimondUserConfiguration(QWidget* parent, const QVariantList& args)
-: KCModule(KGlobal::mainComponent(), parent), alreadyLoaded(false)
+: KCModule(parent), alreadyLoaded(false)
 {
   Q_UNUSED(args);
 
   ui.setupUi(this);
 
-  kDebug() << "opening database";
+  qDebug() << "opening database";
   db = new DatabaseAccess(this);
   connect (ui.pbAdd, SIGNAL(clicked()), this, SLOT(addUser()));
   connect (ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteUser()));
@@ -43,9 +45,9 @@ SimondUserConfiguration::SimondUserConfiguration(QWidget* parent, const QVariant
   connect (ui.cbKeepSamples, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect (ui.cbIsolatedMode, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  ui.pbAdd->setIcon(KIcon("list-add"));
-  ui.pbDelete->setIcon(KIcon("edit-delete"));
-  ui.pbChangePassword->setIcon(KIcon("edit-rename"));
+  ui.pbAdd->setIcon(QIcon::fromTheme("list-add"));
+  ui.pbDelete->setIcon(QIcon::fromTheme("edit-delete"));
+  ui.pbChangePassword->setIcon(QIcon::fromTheme("edit-rename"));
 
   //disable direct editing of the table
   ui.tvUser->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -77,7 +79,7 @@ void SimondUserConfiguration::initDb()
     KMessageBox::information(this, db->getDatabase());
   }
   else {
-    kDebug() << "Db has been changed";
+    qDebug() << "Db has been changed";
     activateUserConfiguration(true);
     ui.tvUser->setModel(db->getUsers());
   }
@@ -117,7 +119,7 @@ void SimondUserConfiguration::deleteUser()
     return;
   }
 
-  QString modelDir = KStandardDirs::locateLocal("data", "simond/models/")+username+'/';
+  QString modelDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1Char('/') + "simond/models/"+username+'/';
   if ((!QDir().exists(modelDir)) ||
     (KMessageBox::questionYesNoCancel(this, i18n("Do you also want to remove the speech model from the server?")) != KMessageBox::Yes))
     return;
