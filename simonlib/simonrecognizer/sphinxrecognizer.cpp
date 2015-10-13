@@ -102,12 +102,7 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
     return recognitionResults;
   }
 
-  int rv = 
-#ifdef SPHINX_0_8
-      ps_decode_raw(decoder, toRecognize, fName.data(), -1);
-#else
-      ps_decode_raw(decoder, toRecognize, -1);
-#endif
+  int rv = ps_decode_raw(decoder, toRecognize, fName.data(), -1);
   if(rv < 0)
   {
     m_lastError = i18n("Failed to decode \"%1\"", file);
@@ -118,12 +113,8 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
 
   int score;
   char const *hyp;
-#ifdef SPHINX_0_8
   char const *uttid;
   hyp = ps_get_hyp(decoder, &score, &uttid);
-#else
-  hyp = ps_get_hyp(decoder, &score);
-#endif
   if(!hyp)
   {
     m_lastError = i18n("Cannot get hypothesis for \"%1\"", file);
