@@ -27,7 +27,7 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodeltest_export.h"
 
-class MODELTEST_EXPORT FileResultModel : public QAbstractItemModel
+class SIMONMODELTEST_EXPORT FileResultModel : public QAbstractItemModel
 {
 
   Q_OBJECT

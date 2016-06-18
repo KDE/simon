@@ -28,7 +28,7 @@
 
 class TestResult;
 
-class MODELTEST_EXPORT TestResultModel : public QAbstractItemModel
+class SIMONMODELTEST_EXPORT TestResultModel : public QAbstractItemModel
 {
   private:
     QBrush recogWrong;

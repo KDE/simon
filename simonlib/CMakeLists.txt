@@ -33,6 +33,5 @@ if(WITH_SIMONCV)
   add_subdirectory(simonvision)
 endif(WITH_SIMONCV)
 
-add_subdirectory(simonscenariobase)
 add_subdirectory(simonscenarios)
 add_subdirectory(simonscenarioui)

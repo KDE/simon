@@ -26,7 +26,7 @@
 #include <QHash>
 #include <QMutex>
 #include <QList>
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include "promptstable.h"
 
 /**
@@ -42,7 +42,7 @@ typedef  QList<TrainingText*> TrainingList;
 
 class TrainingManager;
 
-class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
+class SIMONSCENARIOS_EXPORT TrainingManager : public QObject
 {
   Q_OBJECT
     private:

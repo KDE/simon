@@ -25,6 +25,8 @@ set(sscobjects_LIB_HDRS
 kde4_add_library(sscobjects SHARED ${sscobjects_LIB_SRCS})
 target_link_libraries(sscobjects ${QT_LIBRARIES} Qt5::Core)
 
+generate_export_header(sscobjects)
+
 set_target_properties(sscobjects
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )

@@ -20,12 +20,12 @@
 #ifndef SIMON_VERSIONNUMBER_H_DB0686F0049B4BE6ACCB2950DFEF971E
 #define SIMON_VERSIONNUMBER_H_DB0686F0049B4BE6ACCB2950DFEF971E
 #include <QString>
-#include "simonscenariobase_export.h"
+#include "simonscenarios_export.h"
 #include "scenarioobject.h"
 
 class Scenario;
 
-class SCENARIOBASE_EXPORT VersionNumber: public ScenarioObject
+class SIMONSCENARIOS_EXPORT VersionNumber: public ScenarioObject
 {
 
   private:

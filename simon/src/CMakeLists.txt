@@ -37,7 +37,7 @@ target_link_libraries(simon  KF5::KIOCore KF5::KDELibs4Support
   ${QT_LIBRARIES}  KF5::NewStuff KF5::KHtml KF5::KCMUtils
   ${X11_X11_LIB} simonappcore simonactions simoninfo
   simonlogging simonxml simonuicomponents simonsound simonscenarios 
-  simonmodelmanagementui simonscenariobase simonscenarioui
+  simonmodelmanagementui simonscenarioui
   simonrecognitioncontrol simonactionsui simonprogresstracking
   simoncontextui simonsampleshare)
 else()
@@ -46,7 +46,7 @@ target_link_libraries(simon  KF5::KIOCore KF5::KDELibs4Support
    KF5::NewStuff KF5::KCMUtils
   simonappcore simonactions simoninfo
   simonlogging simonxml simonuicomponents simonsound simonscenarios 
-  simonmodelmanagementui simonscenariobase simonscenarioui
+  simonmodelmanagementui simonscenarioui
   simonrecognitioncontrol simonactionsui simonprogresstracking
   simoncontextui simonsampleshare)
 endif()

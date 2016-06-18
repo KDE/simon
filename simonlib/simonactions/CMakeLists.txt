@@ -30,10 +30,12 @@ kde4_add_library(simonactions SHARED ${simonactions_LIB_SRCS})
 
 target_link_libraries(simonactions ${QT_LIBRARIES} Qt5::Xml
   KF5::IconThemes KF5::KIOCore simonscenarios simonrecognitionresult
-  simonscenariobase
+ 
 )
 
 set_target_properties(simonactions PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
+
+generate_export_header(simonactions)
 
 install(FILES ${simonactions_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonactions COMPONENT simondevel)
 install(TARGETS simonactions DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon)

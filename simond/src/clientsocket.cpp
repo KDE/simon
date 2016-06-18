@@ -45,6 +45,8 @@
 
 #include <QDebug>
 #include <QString>
+#include <QDataStream>
+#include <QStandardPaths>
 
 
 

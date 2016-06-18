@@ -29,7 +29,7 @@
 class TestResultLeaf;
 class RecognitionResult;
 
-class MODELTEST_EXPORT TestResultInstance 
+class SIMONMODELTEST_EXPORT TestResultInstance 
 {
   private:
     QList<TestResultLeaf*> m_children;

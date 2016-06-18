@@ -26,6 +26,7 @@ kde4_add_library(simonmodeltest SHARED ${simonmodeltest_LIB_SRCS})
 target_link_libraries(simonmodeltest ${QT_LIBRARIES}  simonlogging
   simonrecognitionresult simonrecognizer)
 
+generate_export_header(simonmodeltest)
 
 set_target_properties(simonmodeltest
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

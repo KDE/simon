@@ -20,7 +20,7 @@
 #ifndef SIMON_VISUALDIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_VISUALDIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
 
-#include "simondialogenginevisualview_export.h"
+#include "simondialogenginegraphicalview_export.h"
 #include <simondialogengine/dialogview.h>
 #include <QWidget>
 #include <QList>

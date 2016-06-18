@@ -24,6 +24,8 @@
 #include "simonvision/faceanalyzer.h"
 #include <highgui.h>
 #include <cv.h>
+#include <KPluginFactory>
+
 K_PLUGIN_FACTORY(FaceDetectionPluginFactory,
                  registerPlugin< FaceDetectionCondition >();
                 )

@@ -42,6 +42,8 @@ IF(APPLE)
   target_link_libraries(eventsimulation ${QT_LIBRARIES} )
 ENDIF()
 
+generate_export_header(eventsimulation)
+
 install( FILES ${eventsimulation_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/eventsimulation
   COMPONENT simondevel

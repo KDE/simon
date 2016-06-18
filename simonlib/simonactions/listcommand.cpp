@@ -29,7 +29,8 @@
 #include <QDomDocument>
 #include <QVariant>
 #include <QIcon>
-#include <KI18n/klocalizedstring.h>
+#include <klocalizedstring.h>
+#include <QDebug>
 
 #ifdef Q_OS_WIN32
 #include <windows.h>

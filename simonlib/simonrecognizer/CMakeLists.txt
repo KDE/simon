@@ -31,6 +31,8 @@ kde4_add_library(simonrecognizer SHARED ${simonrecognizer_LIB_SRCS})
 
 target_link_libraries(simonrecognizer Qt5::Core KF5::KDELibs4Support simonrecognitionresult)
 
+generate_export_header(simonrecognizer)
+
 if(${BackendType} STREQUAL both)
   target_link_libraries(simonrecognizer ${POCKETSPHINX_LIBRARIES} ${SphinxBase_LIBRARIES} simonrecognitionresult)
 endif(${BackendType} STREQUAL both)

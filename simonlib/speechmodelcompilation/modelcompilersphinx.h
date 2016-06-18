@@ -22,7 +22,7 @@
 #define MODELCOMPILERSPHINX_H
 
 #include "modelcompiler.h"
-#include "simonmodelcompilationmanagement_export.h"
+#include "simonmodelcompilation_export.h"
 
 #define MODEL_POSTFIX ".cd_semi_" //depends on sphinxtrain config
 #define MODEL_TYPE ".semi."
@@ -30,7 +30,7 @@
 #define DEFAULT_SAMPRATE "16000"
 #define DENSITIES_NUM "64" //look at senons
 
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerSPHINX: public ModelCompiler
+class SIMONMODELCOMPILATION_EXPORT ModelCompilerSPHINX: public ModelCompiler
 {
   Q_OBJECT
 public:

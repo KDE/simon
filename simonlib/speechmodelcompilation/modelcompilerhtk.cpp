@@ -39,7 +39,7 @@
 #include <KArchive/KTar>
 #include <KLocale>
 #include <QDebug>
-#include <K4AboutData>
+#include <KAboutData>
 #include <QtConcurrent/QtConcurrent>
 
 #ifdef Q_OS_WIN

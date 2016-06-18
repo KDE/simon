@@ -20,12 +20,13 @@
 #ifndef SIMON_SHADOWVOCABULARY_H_44E21ED777FA42D69E673E47531E8898
 #define SIMON_SHADOWVOCABULARY_H_44E21ED777FA42D69E673E47531E8898
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include "vocabulary.h"
 #include <QObject>
 #include <QDateTime>
+class QIODevice;
 
-class MODELMANAGEMENT_EXPORT ShadowVocabulary : public Vocabulary
+class SIMONSCENARIOS_EXPORT ShadowVocabulary : public Vocabulary
 {
     Q_OBJECT
 

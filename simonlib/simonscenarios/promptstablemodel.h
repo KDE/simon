@@ -21,7 +21,7 @@
 #define SIMON_PROMPTSTABLEMODEL_H
 
 #include <QAbstractItemModel>
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 class PromptsTable;
 

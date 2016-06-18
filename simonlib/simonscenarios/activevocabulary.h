@@ -20,12 +20,12 @@
 #ifndef SIMON_ACTIVEVOCABULARY_H_F80688D5A2B74774BF83C3A4C9EF13C2
 #define SIMON_ACTIVEVOCABULARY_H_F80688D5A2B74774BF83C3A4C9EF13C2
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include "vocabulary.h"
 #include <QBrush>
-#include <simonscenariobase/scenarioobject.h>
+#include <scenarioobject.h>
 
-class MODELMANAGEMENT_EXPORT ActiveVocabulary : public Vocabulary, public ScenarioObject
+class SIMONSCENARIOS_EXPORT ActiveVocabulary : public Vocabulary, public ScenarioObject
 {
 
   private:

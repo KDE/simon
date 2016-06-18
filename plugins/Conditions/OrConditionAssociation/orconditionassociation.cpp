@@ -20,6 +20,7 @@
 #include "orconditionassociation.h"
 #include "createorconditionassociationwidget.h"
 #include <QDebug>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( OrConditionAssociationPluginFactory,
 registerPlugin< OrConditionAssociation >();

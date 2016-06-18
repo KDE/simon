@@ -21,7 +21,7 @@
 #ifndef SIMON_MODELCOMPILATIONMANAGER_H_18BCB183592A48D3962815FFDEA7C214
 #define SIMON_MODELCOMPILATIONMANAGER_H_18BCB183592A48D3962815FFDEA7C214
 
-#include "simonmodelcompilationmanagement_export.h"
+#include "simonmodelcompilation_export.h"
 
 #include <speechmodelcompilation/modelcompilationadapter.h>
 #include <speechmodelcompilation/modelcompiler.h>
@@ -38,7 +38,7 @@
  *  \author Vladislav Sitalo
  */
 
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
+class SIMONMODELCOMPILATION_EXPORT ModelCompilationManager : public QThread
 {
 Q_OBJECT
 

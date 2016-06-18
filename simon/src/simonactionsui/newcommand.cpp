@@ -23,7 +23,8 @@
 #include <simonscenarios/createcommandwidget.h>
 #include <simonactions/actionmanager.h>
 #include <KWidgetsAddons/KMessageBox>
-#include <KDELibs4Support/KDE/KDialog>
+#include <KDialog>
+#include <QDebug>
 
 NewCommand::NewCommand(QWidget* parent) : KDialog(parent)
 {

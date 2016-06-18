@@ -24,6 +24,8 @@
 #include "simonvision/lipanalyzer.h"
 #include <highgui.h>
 #include <cv.h>
+#include <KPluginFactory>
+
 K_PLUGIN_FACTORY(LipDetectionPluginFactory,
                  registerPlugin< LipDetectionCondition >();
                 )

@@ -31,6 +31,7 @@
 #include <QStandardPaths>
 #include <KWidgetsAddons/KMessageBox>
 #include <QDir>
+#include <QPointer>
 
 BaseModelSettings::BaseModelSettings ( QWidget* parent, Qt::WFlags flags ) : QWidget ( parent, flags), ui(new Ui::ModelDlg())
 {

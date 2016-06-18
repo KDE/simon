@@ -21,11 +21,11 @@
 #define SIMON_ACTIONMODEL_H_342DAB10C3C64ED7BCF107CAF08CC992
 #include <QList>
 #include <QAbstractItemModel>
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 class Action;
 
-class MODELMANAGEMENT_EXPORT ActionModel : public QAbstractItemModel
+class SIMONSCENARIOS_EXPORT ActionModel : public QAbstractItemModel
 {
     Q_OBJECT
 

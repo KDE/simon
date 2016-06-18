@@ -24,6 +24,7 @@
 #include <QFileSystemWatcher>
 #include <QTimer>
 #include <QDebug>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( FileContentPluginFactory,
 registerPlugin< FileContent >();

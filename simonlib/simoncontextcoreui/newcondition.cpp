@@ -25,9 +25,10 @@
 #include <simoncontextdetection/createconditionwidget.h>
 
 #include <QUrl>
-#include <KDE/KMessageBox>
-#include <KDE/KKeySequenceWidget>
-#include <QtWidgets/QDialogButtonBox>
+#include <QDebug>
+#include <QDialogButtonBox>
+#include <KMessageBox>
+#include <KKeySequenceWidget>
 
 NewCondition::NewCondition(QWidget* parent) : KDialog(parent), ui(new Ui::DlgModifyCondition)
 {

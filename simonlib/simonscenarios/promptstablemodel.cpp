@@ -19,7 +19,7 @@
 
 #include "promptstablemodel.h"
 #include "promptstable.h"
-
+#include <KLocalizedString>
 #include <QDebug>
 
 PromptsTableModel::PromptsTableModel(PromptsTable* table, QObject *parent) : QAbstractItemModel(parent), m_table(table)

@@ -19,14 +19,14 @@
 
 #include "scenario.h"
 #include "author.h"
-#include <simonscenariobase/versionnumber.h>
+#include <versionnumber.h>
 #include "activevocabulary.h"
 #include "grammar.h"
 #include "trainingtextcollection.h"
 
 #include "actioncollection.h"
 
-#include <simonscenariobase/scenarioobject.h>
+#include <scenarioobject.h>
 
 #include <version.h>
 

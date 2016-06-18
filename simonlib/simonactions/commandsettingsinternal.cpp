@@ -27,6 +27,7 @@
 
 #include <KSharedConfig>
 #include <KConfigGroup>
+#include <QDebug>
 
 CommandSettingsInternal* CommandSettingsInternal::instance;
 

@@ -1,3 +1,6 @@
+# This would normally come from linking to the lib, but there are cyclic dependencies...
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/../../../simonlib/simonactions)
+
 set(simonmodelmanagementui_LIB_SRCS
   deleteworddialog.cpp
   editworddialog.cpp
@@ -112,9 +115,11 @@ kconfig_add_kcfg_files(simonmodelmanagementui_LIB_SRCS speechmodelmanagementuico
 kde4_add_library(simonmodelmanagementui SHARED ${simonmodelmanagementui_LIB_SRCS})
 
 target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES} 
-  KF5::KIOCore simonlogging simonscenarios simonscenariobase simoninfo simonxml
+  KF5::KIOCore simonlogging simonscenarios simoninfo simonxml
   simonsound simonuicomponents simongraphemetophoneme KF5::Codecs
 )
+
+generate_export_header(simonmodelmanagementui)
 
 set_target_properties( simonmodelmanagementui
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR} DEFINE_SYMBOL MAKE_SIMONMODELMANAGEMENTUI_LIB

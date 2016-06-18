@@ -33,7 +33,8 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
+#include <KAboutData>
 
 ManageActionsDialog::ManageActionsDialog(QWidget* parent) : KDialog(parent),
 pageWidget(new KPageWidget(this)),

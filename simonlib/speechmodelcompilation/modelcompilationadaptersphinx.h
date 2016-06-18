@@ -22,7 +22,7 @@
 #define MODELCOMPILATIONADAPTERSPHINX_H
 
 #include "modelcompilationadapter.h"
-#include "simonmodelcompilationmanagement_export.h"
+#include "simonmodelcompilation_export.h"
 
 #define GRAMMAR_EXT ".jsgf"
 #define PHONE_EXT ".phone"
@@ -35,7 +35,7 @@
  *This extension just an simply an agreement that must be met in the rest of the code.
  */
 
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterSPHINX : public ModelCompilationAdapter
+class SIMONMODELCOMPILATION_EXPORT ModelCompilationAdapterSPHINX : public ModelCompilationAdapter
 {
   Q_OBJECT
 protected:

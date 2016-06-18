@@ -20,7 +20,7 @@
 #ifndef SIMON_CREATECOMMANDWIDGET_H_953FB9DDF3FA4DC5965BF6C9797CAA8A
 #define SIMON_CREATECOMMANDWIDGET_H_953FB9DDF3FA4DC5965BF6C9797CAA8A
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include "commandparameter.h"
 
 #include <QWidget>
@@ -39,7 +39,7 @@ class QIcon;
  *	To enable the user to add and edit your Command subclass, subclass this class and return an instance of it in the
  *	CommandManager::getCreateCommandWidget() method.
  */
-class MODELMANAGEMENT_EXPORT CreateCommandWidget : public QWidget
+class SIMONSCENARIOS_EXPORT CreateCommandWidget : public QWidget
 {
   Q_OBJECT
 

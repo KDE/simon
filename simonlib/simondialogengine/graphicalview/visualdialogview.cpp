@@ -33,6 +33,7 @@
 #include <QList>
 
 #include <QIcon>
+#include <QDebug>
 
 VisualDialogView::VisualDialogView(DialogManager *dialog, QWidget *parent, Qt::WindowFlags flags) : 
   QWidget(parent,flags),

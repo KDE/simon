@@ -23,7 +23,7 @@
 #include "shortcutcommand.h"
 #include "createshortcutcommandwidget.h"
 #include <KI18n/klocalizedstring.h>
-
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( ShortcutCommandPluginFactory,
 registerPlugin< ShortcutCommandManager >();

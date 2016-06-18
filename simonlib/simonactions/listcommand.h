@@ -24,7 +24,7 @@
 #include <simonscenarios/voiceinterfacecommand.h>
 #include "greedyreceiver.h"
 #include "commandlistwidget.h"
-#include "actionlib_export.h"
+#include "simonactions_export.h"
 #include <QList>
 #include <QObject>
 #include <QHash>

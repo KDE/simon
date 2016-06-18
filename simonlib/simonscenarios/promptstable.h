@@ -26,7 +26,7 @@
  */
 
 #include <QHash>
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include "promptstablemodel.h"
 
 /**
@@ -43,7 +43,7 @@
 
 class Word;
 
-class MODELMANAGEMENT_EXPORT PromptsTable
+class SIMONSCENARIOS_EXPORT PromptsTable
 {
 friend class PromptsTableModel;
 public:

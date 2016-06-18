@@ -106,10 +106,10 @@ void ImportGrammarWorkingPage::initializePage()
     int index=0;
     QStringList tempFiles;
     foreach (const QString& file, files) {
-      QUrl srcUrl(file);
+      QUrl srcUrl = QUrl::fromLocalFile(file);
       QString targetPath = QDir::tempPath() + QLatin1Char('/') +  "grammarImport/"+
         QString::number(index)+'_'+srcUrl.fileName();
-      KIO::FileCopyJob *job = KIO::file_copy(srcUrl, targetPath, -1, KIO::Overwrite);
+      KIO::FileCopyJob *job = KIO::file_copy(srcUrl, QUrl::fromLocalFile(targetPath), -1, KIO::Overwrite);
       if (!job->exec()) {
         job->ui()->showErrorMessage();
         continue;

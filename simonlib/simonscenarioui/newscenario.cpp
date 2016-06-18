@@ -22,11 +22,12 @@
 
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/author.h>
-#include <simonscenariobase/versionnumber.h>
+#include <simonscenarios/versionnumber.h>
 
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 #include <QIcon>
+#include <QDebug>
 
 NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
 {

@@ -20,10 +20,10 @@
 #ifndef SIMON_LANGUAGEDESCRIPTIONCONTAINER_H_E52B05FBE8084EF58429BDC3E05DAD63
 #define SIMON_LANGUAGEDESCRIPTIONCONTAINER_H_E52B05FBE8084EF58429BDC3E05DAD63
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include <QByteArray>
 
-class MODELMANAGEMENT_EXPORT LanguageDescriptionContainer
+class SIMONSCENARIOS_EXPORT LanguageDescriptionContainer
 {
   private:
     QByteArray m_shadowVocab;

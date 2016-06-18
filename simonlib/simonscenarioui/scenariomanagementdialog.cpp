@@ -21,7 +21,7 @@
 #include "newscenario.h"
 #include "scenariomanagementwidget.h"
 #include <simonscenarios/author.h>
-#include <simonscenariobase/versionnumber.h>
+#include <simonscenarios/versionnumber.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/scenariomanager.h>
 #include <QWidget>

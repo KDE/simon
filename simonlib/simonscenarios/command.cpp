@@ -19,6 +19,7 @@
 
 #include "command.h"
 #include <simoninfo/simoninfo.h>
+#include <KLocalizedString>
 #include <QVariant>
 #include <QDomElement>
 #include <QDomDocument>

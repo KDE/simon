@@ -22,7 +22,7 @@
 
 #include "modeltest.h"
 
-class MODELTEST_EXPORT SphinxModelTest : public ModelTest
+class SIMONMODELTEST_EXPORT SphinxModelTest : public ModelTest
 {
   Q_OBJECT
 public:

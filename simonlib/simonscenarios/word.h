@@ -22,7 +22,7 @@
 #include <QString>
 #include <QList>
 #include <KI18n/klocalizedstring.h>
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 /**
  *	@class Word
@@ -40,7 +40,7 @@ class Word;
 
 typedef QList<Word> WordList;                     //!< QList from Word
 
-class MODELMANAGEMENT_EXPORT Word
+class SIMONSCENARIOS_EXPORT Word
 {
 
   private:

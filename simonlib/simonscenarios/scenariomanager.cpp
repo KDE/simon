@@ -29,7 +29,7 @@
 #include <simonscenarios/shadowvocabulary.h>
 #include "author.h"
 #include <simongraphemetophoneme/graphemetophoneme.h>
-#include <simonscenariobase/versionnumber.h>
+#include <versionnumber.h>
 
 #include <QFileInfo>
 #include <QCoreApplication>

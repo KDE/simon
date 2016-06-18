@@ -36,6 +36,8 @@ kde4_add_library(simoncontextdetection SHARED ${simoncontextdetection_LIB_SRCS})
 
 target_link_libraries(simoncontextdetection ${QT_LIBRARIES} KF5::KDELibs4Support Qt5::Xml Qt5::X11Extras )
 
+generate_export_header(simoncontextdetection)
+
 if(WIN32)
   target_link_libraries(simoncontextdetection psapi)
 endif(WIN32)

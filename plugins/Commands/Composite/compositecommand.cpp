@@ -29,6 +29,7 @@
 #else
 #include <unistd.h>
 #endif
+#include <QDebug>
 
 const QString CompositeCommand::staticCategoryText()
 {

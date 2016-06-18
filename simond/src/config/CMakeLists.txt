@@ -17,5 +17,7 @@ target_link_libraries(simondsettings Qt5::Core
    KF5::KIOCore simonddatabaseaccess KF5::ConfigCore KF5::ConfigWidgets KF5::WidgetsAddons
   simonuicomponents)
 
+generate_export_header(simondsettings BASE_NAME simondconfiguration)
+
 install(TARGETS simondsettings DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simond)
 install(FILES simondconfiguration.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simond)

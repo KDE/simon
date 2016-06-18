@@ -8,77 +8,77 @@
 <include>speechmodelcompilation/config/modelcompilationsettings.h</include>
 <kcfgfile name="simonmodelcompilationrc" />
   <group name="Programs">
-    <entry name="HDMan" type="Url">
+    <entry name="HDMan" type="Path">
       <label>The path to the HDMan executable.</label>
       <default code="true">QStandardPaths::findExecutable("HDMan")</default>
       <tooltip>The path to the HDMan executable.</tooltip>
     </entry>
-    <entry name="HLEd" type="Url">
+    <entry name="HLEd" type="Path">
       <label>The path to the HLEd executable.</label>
       <default code="true">QStandardPaths::findExecutable("HLEd")</default>
       <tooltip>The path to the HLEd executable.</tooltip>
     </entry>
-    <entry name="HCopy" type="Url">
+    <entry name="HCopy" type="Path">
       <label>The path to the HCopy executable.</label>
       <default code="true">QStandardPaths::findExecutable("HCopy")</default>
       <tooltip>The path to the HCopy executable.</tooltip>
     </entry>
-    <entry name="HCompV" type="Url">
+    <entry name="HCompV" type="Path">
       <label>The path to the HCompV executable.</label>
       <default code="true">QStandardPaths::findExecutable("HCompV")</default>
       <tooltip>The path to the HCompV executable.</tooltip>
     </entry>
-    <entry name="HERest" type="Url">
+    <entry name="HERest" type="Path">
       <label>The path to the HERest executable.</label>
       <default code="true">QStandardPaths::findExecutable("HERest")</default>
       <tooltip>The path to the HERest executable.</tooltip>
     </entry>
-    <entry name="HHEd" type="Url">
+    <entry name="HHEd" type="Path">
       <label>The path to the HHEd executable.</label>
       <default code="true">QStandardPaths::findExecutable("HHEd")</default>
       <tooltip>The path to the HHEd executable.</tooltip>
     </entry>
-    <entry name="HVite" type="Url">
+    <entry name="HVite" type="Path">
       <label>The path to the HVite executable.</label>
       <default code="true">QStandardPaths::findExecutable("HVite")</default>
       <tooltip>The path to the HVite executable.</tooltip>
     </entry>
-    <entry name="mkfa" type="Url">
+    <entry name="mkfa" type="Path">
       <label>The path to the mkfa executable.</label>
       <default code="true">QStandardPaths::findExecutable("mkfa")</default>
       <tooltip>The path to the mkfa executable.</tooltip>
     </entry>
-    <entry name="dfa_minimize" type="Url">
+    <entry name="dfa_minimize" type="Path">
       <label>The path to the dfa_minimize executable.</label>
       <default code="true">QStandardPaths::findExecutable("dfa_minimize")</default>
       <tooltip>The path to the dfa_minimize executable.</tooltip>
     </entry>
-    <entry name="sphinxtrain" type="Url">
+    <entry name="sphinxtrain" type="Path">
       <label>The path to the sphinxtrain executable.</label>
       <default code="true">QStandardPaths::findExecutable("sphinxtrain")</default>
       <tooltip>The path to the sphinxtrain executable.</tooltip>
     </entry>
-    <entry name="bw" type="Url">
+    <entry name="bw" type="Path">
       <label>The path to the bw executable.</label>
       <default code="true">QStandardPaths::findExecutable("bw")</default>
       <tooltip>The path to the bw executable.</tooltip>
     </entry>
-    <entry name="pocketsphinx_mdef_convert" type="Url">
+    <entry name="pocketsphinx_mdef_convert" type="Path">
       <label>The path to the pocketsphinx_mdef_convert executable.</label>
       <default code="true">QStandardPaths::findExecutable("pocketsphinx_mdef_convert")</default>
       <tooltip>The path to the pocketsphinx_mdef_convert executable.</tooltip>
     </entry>
-    <entry name="sphinx_fe" type="Url">
+    <entry name="sphinx_fe" type="Path">
       <label>The path to the sphinx_fe executable.</label>
       <default code="true">QStandardPaths::findExecutable("sphinx_fe")</default>
       <tooltip>The path to the sphinx_fe executable.</tooltip>
     </entry>
-    <entry name="map_adapt" type="Url">
+    <entry name="map_adapt" type="Path">
       <label>The path to the map_adapt executable.</label>
       <default code="true">QStandardPaths::findExecutable("map_adapt")</default>
       <tooltip>The path to the map_adapt executable.</tooltip>
     </entry>
-      <entry name="mllr_solve" type="Url">
+      <entry name="mllr_solve" type="Path">
       <label>The path to the mllr_solve executable.</label>
       <default code="true">QStandardPaths::findExecutable("mllr_solve")</default>
       <tooltip>The path to the mllr_solve executable.</tooltip>

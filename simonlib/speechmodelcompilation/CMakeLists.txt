@@ -12,7 +12,6 @@ set(simonmodelcompilation_LIB_SRCS
 
 
 set(simonmodelcompilation_LIB_HDRS
-  simonmodelcompilationmanagement_export.h
   modelcompilationmanager.h
   modelcompilationmanagerhtk.h
   modelcompilationmanagersphinx.h
@@ -27,7 +26,9 @@ set(simonmodelcompilation_LIB_HDRS
 
 kde4_add_library(simonmodelcompilation SHARED ${simonmodelcompilation_LIB_SRCS})
 target_link_libraries(simonmodelcompilation ${QT_LIBRARIES} Qt5::Xml Qt5::Concurrent
-  KF5::KDELibs4Support simonlogging simonscenarios simonscenariobase simonutils)
+  KF5::KDELibs4Support simonlogging simonscenarios simonutils simonactions)
+
+generate_export_header(simonmodelcompilation)
 
 set_target_properties(simonmodelcompilation
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

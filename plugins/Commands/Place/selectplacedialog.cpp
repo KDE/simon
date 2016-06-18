@@ -192,12 +192,6 @@ QUrl SelectPlaceDialog::getUrl() const
   }
   else {
                                                   //remote place
-
-    QUrl url(ui.leRemoteUrl->text());
-    if (url.scheme().isEmpty()) { //QT5TODO: was url.protocol()
-      url = "http://"+ui.leRemoteUrl->text();     //default to http
-    }
-
-    return url;
+    return QUrl::fromUserInput(ui.leRemoteUrl->text());
   }
 }

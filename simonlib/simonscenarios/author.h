@@ -20,13 +20,13 @@
 #ifndef SIMON_AUTHOR_H_22406693285645508C8628A3575126FD
 #define SIMON_AUTHOR_H_22406693285645508C8628A3575126FD
 
-#include "simonmodelmanagement_export.h"
-#include <simonscenariobase/scenarioobject.h>
+#include "simonscenarios_export.h"
+#include <scenarioobject.h>
 #include <QString>
 
 class Scenario;
 
-class MODELMANAGEMENT_EXPORT Author: public ScenarioObject
+class SIMONSCENARIOS_EXPORT Author: public ScenarioObject
 {
 
   private:

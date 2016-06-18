@@ -30,7 +30,7 @@
 #include "vocabulary.h"
 #include "scenariomanager.h"
 #include <simonrecognitionresult/recognitionresult.h>
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include <simoncontextdetection/compoundcondition.h>
 
 class ScenarioObject;
@@ -43,7 +43,7 @@ class ActiveVocabulary;
 class TrainingTextCollection;
 class TrainingText;
 
-class MODELMANAGEMENT_EXPORT Scenario : public QObject
+class SIMONSCENARIOS_EXPORT Scenario : public QObject
 {
   Q_OBJECT
 

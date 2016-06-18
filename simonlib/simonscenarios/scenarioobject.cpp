@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <peter.grasch@bedahr.org>
+ *   Copyright (C) 2009 Peter Grasch <peter.grasch@bedahr.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,23 +17,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SIMONDIALOGENGINE_EXPORT_H_4FA87AEF3A384359BC5F62307EE59A64
-#define SIMON_SIMONDIALOGENGINE_EXPORT_H_4FA87AEF3A384359BC5F62307EE59A64
+#include "scenarioobject.h"
+#include "../simonscenarios/scenario.h"
 
-// needed for KDE_EXPORT and KDE_IMPORT macros
-#include <KF5/KDELibs4Support/kdemacros.h>
-
-#ifndef SIMONDIALOGENGINE_EXPORT
-# if defined(MAKE_SIMONDIALOGENGINE_LIB)
-// We are building this library
-#  define SIMONDIALOGENGINE_EXPORT KDE_EXPORT
-# else
-// We are using this library
-#  define SIMONDIALOGENGINE_EXPORT KDE_IMPORT
-# endif
-#endif
-
-# ifndef SIMONDIALOGENGINE_EXPORT_DEPRECATED
-#  define SIMONDIALOGENGINE_EXPORT_DEPRECATED KDE_DEPRECATED SIMONDIALOGENGINE_EXPORT
-# endif
-#endif
+#include <QDebug>
+QString ScenarioObject::parentScenarioId() const
+{
+  return parentScenario->id();
+}

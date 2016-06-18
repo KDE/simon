@@ -36,7 +36,7 @@
 #include "commandlistelements.h"
 #include "speechmodel.h"
 #include "vocabulary.h"
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 class Word;
 class Scenario;
@@ -48,7 +48,7 @@ class CommandManager;
 class VoiceInterfaceCommand;
 class ScenarioOfferUi;
 
-class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
+class SIMONSCENARIOS_EXPORT ScenarioManager : public QObject
 {
   Q_OBJECT
   Q_CLASSINFO("Simons scenario interface", "org.simon-listens.ScenarioManager")

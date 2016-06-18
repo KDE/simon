@@ -19,6 +19,7 @@
 #ifndef DIALOGMANAGER_H_7A7B9100FF5245329562C1B540119C37
 #define DIALOGMANAGER_H_7A7B9100FF5245329562C1B540119C37
 #include "simondialogengine_export.h"
+#include <QString>
 
 class Avatar;
 class DialogState;

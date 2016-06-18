@@ -22,7 +22,7 @@
 #include <KService/KPluginInfo>
 #include <QDebug>
 #include <simonscenarios/commandmanager.h>
-#include <simonscenariobase/versionnumber.h>
+#include <versionnumber.h>
 
 Action::Action(Scenario *parent, const QString& source, const QString& trigger, ActionCollection *actionCollection)
   : ScenarioObject(parent),

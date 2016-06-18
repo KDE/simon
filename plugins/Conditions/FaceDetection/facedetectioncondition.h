@@ -22,7 +22,6 @@
 
 class FaceAnalyzer;
 #include "simoncontextdetection/condition.h"
-#include "simoncontextdetection/simoncontextdetection_export.h"
 
 
 class FaceDetectionCondition : public Condition

@@ -29,7 +29,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QStandardPaths>
-#include <K4AboutData>
+#include <KAboutData>
 
 ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
 {

@@ -6,6 +6,8 @@ target_link_libraries(simonutils ${QT_LIBRARIES} KF5::KDELibs4Support
                                  KF5::KIOCore
                                  KF5::Archive)
 
+generate_export_header(simonutils)
+
 set_target_properties(simonutils
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )

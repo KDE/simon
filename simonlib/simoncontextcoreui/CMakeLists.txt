@@ -18,6 +18,8 @@ kde4_add_library(simoncontextcoreui SHARED ${simoncontextcoreui_LIB_SRCS})
 
 target_link_libraries(simoncontextcoreui ${QT_LIBRARIES} Qt5::Xml Qt5::Widgets KF5::ConfigWidgets simoncontextdetection)
 
+generate_export_header(simoncontextcoreui)
+
 set_target_properties( simoncontextcoreui
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )

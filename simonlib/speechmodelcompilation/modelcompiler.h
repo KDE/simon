@@ -21,7 +21,7 @@
 #ifndef SIMON_MODELCOMPILER_H_18BCB183592A48D3962815FFDEA7C214
 #define SIMON_MODELCOMPILER_H_18BCB183592A48D3962815FFDEA7C214
 
-#include "simonmodelcompilationmanagement_export.h"
+#include "simonmodelcompilation_export.h"
 #include "modelcompilation.h"
 #include <simonscenarios/modelmetadata.h>
 
@@ -42,7 +42,7 @@ class QStringList;
  *  \author Vladislav Sitalo
  */
 
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompiler : public QObject
+class SIMONMODELCOMPILATION_EXPORT ModelCompiler : public QObject
 {
   Q_OBJECT
 signals:

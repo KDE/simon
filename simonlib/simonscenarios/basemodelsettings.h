@@ -21,7 +21,7 @@
 #ifndef SIMON_BASEMODELSETTINGS_H
 #define SIMON_BASEMODELSETTINGS_H
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include <QWidget>
 
 namespace Ui
@@ -29,7 +29,7 @@ namespace Ui
   class ModelDlg;
 }
 
-class MODELMANAGEMENT_EXPORT BaseModelSettings : public QWidget
+class SIMONSCENARIOS_EXPORT BaseModelSettings : public QWidget
 {
 Q_OBJECT
 public:

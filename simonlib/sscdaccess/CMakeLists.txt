@@ -12,8 +12,9 @@ set(sscdaccess_LIB_HDRS
 )
 
 kde4_add_library(sscdaccess SHARED ${sscdaccess_LIB_SRCS})
-target_link_libraries(sscdaccess sscobjects ${QT_LIBRARIES} Qt5::Network KF5::KDELibs4Support)
+target_link_libraries(sscdaccess sscobjects simonprogresstracking ${QT_LIBRARIES} Qt5::Network KF5::KDELibs4Support)
 
+generate_export_header(sscdaccess)
 
 set_target_properties(sscdaccess
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

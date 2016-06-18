@@ -20,7 +20,7 @@
 #ifndef SIMON_VOICEINTERFACECOMMAND_H_7942FB19340C44C1BE53CEFCAEE2E74A
 #define SIMON_VOICEINTERFACECOMMAND_H_7942FB19340C44C1BE53CEFCAEE2E74A
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include "command.h"
 #include <QString>
 #include <QDomElement>
@@ -30,7 +30,7 @@ class QDomDocument;
 class CommandManager;
 class VoiceInterfaceCommandTemplate;
 
-class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommand : public Command
+class SIMONSCENARIOS_EXPORT  VoiceInterfaceCommand : public Command
 {
   private:
     QString m_id;

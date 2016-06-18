@@ -22,7 +22,7 @@
 
 #include <simonscenarios/command.h>
 #include <QDomElement>
-#include <QUrl>
+#include <QString>
 class QDomDocument;
 
 /**
@@ -37,7 +37,7 @@ class ExecutableCommand : public Command
 {
   private:
     QString exe;
-    QUrl workingDirectory;
+    QString workingDirectory;
 
   protected:
     const QMap<QString,QVariant> getValueMapPrivate() const;
@@ -54,7 +54,7 @@ class ExecutableCommand : public Command
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
     bool deSerializePrivate(const QDomElement& commandElem);
 
-    ExecutableCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& exe, const QUrl& workingDirectory) :
+    ExecutableCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& exe, const QString& workingDirectory) :
     Command(name, iconSrc, description) {
       this->exe = exe;
       this->workingDirectory = workingDirectory;
@@ -67,7 +67,7 @@ class ExecutableCommand : public Command
      *
      * @author Peter Grasch
      */
-    const QUrl getWorkingDirectory() const {return this->workingDirectory;}
+    const QString getWorkingDirectory() const {return this->workingDirectory;}
 
     ~ExecutableCommand() {}
 

@@ -25,10 +25,10 @@
 #include "actionmodel.h"
 #include "command.h"
 #include "commandlistelements.h"
-#include <simonscenariobase/scenarioobject.h>
+#include <scenarioobject.h>
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonscenarios/commandlistelements.h>
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 class Action;
 class CreateCommandWidget;
@@ -38,7 +38,7 @@ class ActionCommandModel;
 class CommandConfiguration;
 class VoiceInterfaceCommand;
 
-class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public ActionModel
+class SIMONSCENARIOS_EXPORT ActionCollection : public ScenarioObject, public ActionModel
 {
   public:
     ActionCollection(Scenario *parent);

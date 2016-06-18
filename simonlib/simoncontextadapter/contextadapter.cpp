@@ -35,6 +35,8 @@
 #include <KArchive/KTar>
 #include <QStandardPaths>
 #include <KConfigGroup>
+#include <KConfig>
+#include <KAboutData>
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   QObject(parent),

@@ -10,7 +10,7 @@ ki18n_wrap_ui(simonlistcommandplugin_SRCS
 kde4_add_plugin(simonlistcommandplugin ${simonlistcommandplugin_SRCS})
 
 target_link_libraries(simonlistcommandplugin
-  KF5::KIOCore simonscenarios simonscenariobase
+  KF5::KIOCore simonscenarios
   simonlogging simonactions)
 
 install(TARGETS simonlistcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandlistplugin)

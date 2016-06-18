@@ -21,6 +21,7 @@
 #define SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
 
 #include "simondialogengine_export.h"
+#include <QString>
 
 class DialogDataProvider;
 class DialogTemplateOptions;

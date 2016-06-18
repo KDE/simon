@@ -23,6 +23,7 @@
 #include "textmacrocommand.h"
 #include <KI18n/klocalizedstring.h>
 
+#include <KPluginFactory>
 #include "createtextmacrocommandwidget.h"
 
 K_PLUGIN_FACTORY( TextMacroCommandPluginFactory,

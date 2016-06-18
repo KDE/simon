@@ -23,14 +23,14 @@
 #include <QList>
 #include <QAbstractItemModel>
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 #include <simonscenarios/word.h>
 
 class QDomElement;
 class QDomDocument;
 
-class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
+class SIMONSCENARIOS_EXPORT Vocabulary : public QAbstractItemModel
 {
 
   private:

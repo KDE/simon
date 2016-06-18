@@ -32,7 +32,6 @@
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
 #include <QMimeDatabase>
-#include  <kencodingdetector.h>
 #include <KEncodingProber>
 
 /**
@@ -194,7 +193,7 @@ QList<Word*> ImportDictWorkingPage::getCurrentWordList()
 
 QString ImportDictWorkingPage::prepareDict(QUrl url)
 {
-  KIO::FileCopyJob *job = KIO::file_copy(url, QDir::tempPath() + QLatin1Char('/') +  url.fileName(), -1, KIO::Overwrite);
+  KIO::FileCopyJob *job = KIO::file_copy(url, QUrl::fromLocalFile(QDir::tempPath() + QLatin1Char('/') +  url.fileName()), -1, KIO::Overwrite);
 
   if (!job->exec()) {
     job->ui()->showErrorMessage();

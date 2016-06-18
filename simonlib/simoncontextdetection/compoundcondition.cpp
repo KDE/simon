@@ -22,6 +22,7 @@
 
 #include <QFont>
 #include <KColorScheme>
+#include <KLocalizedString>
 #include <QDebug>
 
 CompoundCondition::CompoundCondition(QObject *parent) :

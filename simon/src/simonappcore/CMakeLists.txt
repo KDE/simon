@@ -17,6 +17,8 @@ target_link_libraries(simonappcore
   simonsound simontts simoncontextdetection
 )
 
+generate_export_header(simonappcore)
+
 set_target_properties(simonappcore PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 
 install(FILES ${simonappcore_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/AppCore COMPONENT simondevel)

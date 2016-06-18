@@ -40,5 +40,7 @@ else ()
   target_link_libraries(simondialogengineconfui ${QT_LIBRARIES} KF5::KIOCore simondialogengine)
 endif()
 
+generate_export_header(simondialogengineconfui)
+
 install(TARGETS simondialogengineconfui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore)
 install(FILES ${simondialogengineconfui_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simondialogengine/confui COMPONENT simondevel)

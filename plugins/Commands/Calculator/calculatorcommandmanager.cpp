@@ -30,6 +30,7 @@
 #include <QStack>
 #include <QAction>
 #include <QDialog>
+#include <QDebug>
 
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
@@ -38,6 +39,7 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <KPluginFactory>
 
 #include "calculatorconfiguration.h"
 #include "token.h"

@@ -20,14 +20,14 @@
 #ifndef SIMON_MODEL_H_F94CE72E01134943B3FEA3B1D304768A
 #define SIMON_MODEL_H_F94CE72E01134943B3FEA3B1D304768A
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include <QString>
 #include <QHash>
 #include <QDateTime>
 
 class KTar;
 
-class MODELMANAGEMENT_EXPORT Model
+class SIMONSCENARIOS_EXPORT Model
 {
   private:
     qint32 m_data;

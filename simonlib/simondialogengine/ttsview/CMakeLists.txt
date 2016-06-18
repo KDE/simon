@@ -10,6 +10,8 @@ set_target_properties( simondialogenginettsview
 target_link_libraries(simondialogenginettsview ${QT_LIBRARIES} KF5::KIOCore
   simontts simondialogengine simonscenarios)
 
+generate_export_header(simondialogenginettsview)
+
 install(TARGETS simondialogenginettsview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore)
 
 install(FILES ${simondialogenginettsview_LIB_HDRS}

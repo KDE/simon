@@ -12,7 +12,7 @@ ki18n_wrap_ui(simonpronunciationtrainingplugin_SRCS
 kde4_add_plugin(simonpronunciationtrainingplugin ${simonpronunciationtrainingplugin_SRCS})
 
 target_link_libraries(simonpronunciationtrainingplugin
-  Qt5::Xml simonscenariobase simonlogging simonscenarios
+  Qt5::Xml simonlogging simonscenarios
   simonactions simonrecognitionresult)
 
 install(TARGETS simonpronunciationtrainingplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandpronunciationtrainingplugin)

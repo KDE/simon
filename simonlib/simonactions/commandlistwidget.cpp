@@ -28,6 +28,7 @@
 #include <QDesktopWidget>
 #include <QProgressBar>
 #include <QIcon>
+#include <QDebug>
 #include <KI18n/klocalizedstring.h>
 #include <simonscenarios/voiceinterfacecommand.h>
 

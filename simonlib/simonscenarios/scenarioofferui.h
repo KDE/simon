@@ -20,12 +20,12 @@
 #ifndef SIMON_SCENARIOOFFERUI_H_232B26BFFBAC4D88A29901748E1EB441
 #define SIMON_SCENARIOOFFERUI_H_232B26BFFBAC4D88A29901748E1EB441
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include <QList>
 
 class Author;
 
-class MODELMANAGEMENT_EXPORT ScenarioOfferUi
+class SIMONSCENARIOS_EXPORT ScenarioOfferUi
 {
 public:
   virtual bool askToAcceptScenario(const QString& requester, const QString& name, const QList<Author*> authors) const = 0;

@@ -21,11 +21,11 @@
 #define SIMON_SCENARIOOBJECT_H_10BF7730AC634828820C72F90E65AA5E
 #include <QString>
 #include <QDomElement>
-#include "simonscenariobase_export.h"
+#include "simonscenarios_export.h"
 
 class Scenario;
 
-class SCENARIOBASE_EXPORT ScenarioObject
+class SIMONSCENARIOS_EXPORT ScenarioObject
 {
 
   protected:

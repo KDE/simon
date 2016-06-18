@@ -22,7 +22,7 @@
 #define SIMON_MODELCOMPILATIONADAPTERHTK_H_676A176EAB4B40B39F6F8E0F65064C75
 
 #include "modelcompilationadapter.h"
-#include "simonmodelcompilationmanagement_export.h"
+#include "simonmodelcompilation_export.h"
 
 #include <QThread>
 #include <QHash>
@@ -39,7 +39,7 @@ class Grammar;
  *	@date 20.12.2009
  *	@author Peter Grasch
  */
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapterHTK : public ModelCompilationAdapter
+class SIMONMODELCOMPILATION_EXPORT ModelCompilationAdapterHTK : public ModelCompilationAdapter
 {
   Q_OBJECT
 

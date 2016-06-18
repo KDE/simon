@@ -21,7 +21,7 @@
 #define SIMON_LISTCONFIGURATION_H_92014DF656EC423699D2F493D77108BA
 
 #include "commandlistwidget.h"
-#include "actionlib_export.h"
+#include "simonactions_export.h"
 #include <simonscenarios/commandlistelements.h>
 #include <QStringList>
 #include <QList>

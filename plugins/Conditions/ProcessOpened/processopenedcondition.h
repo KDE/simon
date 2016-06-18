@@ -26,7 +26,6 @@
 
 #include <simoncontextdetection/condition.h>
 #include <simoncontextdetection/processinfo.h>
-#include <simoncontextdetection/simoncontextdetection_export.h>
 
 /**
  *	@class ProcessOpenedCondition

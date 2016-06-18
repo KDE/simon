@@ -22,7 +22,7 @@
 #define SIMON_MODELCOMPILERHTK_H_18BCB183592A48D3962815FFDEA7C214
 
 #include "modelcompiler.h"
-#include "simonmodelcompilationmanagement_export.h"
+#include "simonmodelcompilation_export.h"
 
 #include <QProcess>
 #include <QString>
@@ -30,7 +30,7 @@
 class AudioCopyConfig;
 class ReestimationConfig;
 
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerHTK : public ModelCompiler
+class SIMONMODELCOMPILATION_EXPORT ModelCompilerHTK : public ModelCompiler
 {
   Q_OBJECT
   public:

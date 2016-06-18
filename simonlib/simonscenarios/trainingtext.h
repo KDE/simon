@@ -21,8 +21,8 @@
 #define SIMON_TRAININGTEXT_H_781AFF7F16174193A6AC665BA5840256
 
 #include <QStringList>
-#include <simonscenariobase/scenarioobject.h>
-#include "simonmodelmanagement_export.h"
+#include <scenarioobject.h>
+#include "simonscenarios_export.h"
 #include <QDebug>
 
 /**
@@ -35,7 +35,7 @@
  */
 class Scenario;
 
-class MODELMANAGEMENT_EXPORT TrainingText : public ScenarioObject
+class SIMONSCENARIOS_EXPORT TrainingText : public ScenarioObject
 {
   protected:
     QString name;

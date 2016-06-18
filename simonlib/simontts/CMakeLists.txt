@@ -20,6 +20,7 @@ qt5_add_dbus_adaptor(simontts_LIB_SRCS org.simon-listens.SimonTTS.xml simonttspr
 kde4_add_library(simontts SHARED ${simontts_LIB_SRCS})
 target_link_libraries(simontts simonsound simonwav ${QT_LIBRARIES} KF5::KDELibs4Support KF5::KIOCore KF5::Archive)
 
+generate_export_header(simontts)
 
 set_target_properties(simontts
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

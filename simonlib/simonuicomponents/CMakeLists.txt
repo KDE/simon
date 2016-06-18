@@ -34,6 +34,8 @@ kde4_add_library(simonuicomponents SHARED ${simonuicomponents_LIB_SRCS})
 
 target_link_libraries(simonuicomponents ${QT_LIBRARIES} Qt5::Widgets KF5::Service KF5::WidgetsAddons  KF5::ConfigWidgets KF5::KDELibs4Support)
 
+generate_export_header(simonuicomponents)
+
 set_target_properties(simonuicomponents
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )

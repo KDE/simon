@@ -62,13 +62,13 @@
   }
 
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 #include "simoncommand.h"
 #include "command.h"
 
 #include <simonrecognitionresult/recognitionresult.h>
-#include <simonscenariobase/scenarioobject.h>
+#include <scenarioobject.h>
 #include <simonscenarios/commandlistelements.h>
 #include <simonscenarios/actioncollection.h>
 #include <QList>
@@ -107,7 +107,7 @@ class ActionCollection;
  *
  *	\sa QAbstractItemModel, Command, VoiceInterfaceCommand, CommandConfiguration
  */
-class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public ScenarioObject
+class SIMONSCENARIOS_EXPORT CommandManager : public QAbstractItemModel, public ScenarioObject
 {
   Q_OBJECT
   private:

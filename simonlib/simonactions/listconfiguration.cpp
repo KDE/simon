@@ -24,7 +24,7 @@
 #include <simonscenarios/voiceinterfacecommand.h>
 
 #include <QListWidget>
-
+#include <QDebug>
 
 /**
  * \brief Constructor

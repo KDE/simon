@@ -25,7 +25,7 @@
 #include <QCoreApplication>
 #include <QObject>
 #include <QDebug>
-#include <KF5/KIOWidgets/kio/accessmanager.h>
+#include <KIO/AccessManager>
 
 
 SimonJsonConnector* SimonJsonConnector::instance = 0;

@@ -21,7 +21,7 @@
 #define MODELCOMPILATIONMANAGERSPHINX_H
 
 #include "modelcompilationmanager.h"
-#include "simonmodelcompilationmanagement_export.h"
+#include "simonmodelcompilation_export.h"
 
 //#define GRAMMAR_EXT ".jsjf"
 //#define PHONE_EXT ".phone"
@@ -29,7 +29,7 @@
 //#define TRAIN_TRANSCRIPTION "_train.transcription"
 //#define TRAIN_FIELDS "_train.fileids"
 
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerSPHINX: public ModelCompilationManager
+class SIMONMODELCOMPILATION_EXPORT ModelCompilationManagerSPHINX: public ModelCompilationManager
 {
   Q_OBJECT
 public:

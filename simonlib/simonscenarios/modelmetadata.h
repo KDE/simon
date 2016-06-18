@@ -20,7 +20,7 @@
 #ifndef MODELMETADATA_H
 #define MODELMETADATA_H
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include <QString>
 #include <QDateTime>
 #include <QDomDocument>
@@ -32,7 +32,7 @@
  *
  *  Model name, compilation time and type are stored.
  */
-class MODELMANAGEMENT_EXPORT ModelMetadata
+class SIMONSCENARIOS_EXPORT ModelMetadata
 {
 public:
 

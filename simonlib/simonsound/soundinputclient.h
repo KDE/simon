@@ -22,7 +22,7 @@
 
 #include <simonsound/soundclient.h>
 #include <simonsound/simonsound.h>
-#include <simonsound/simonsound_export.h>
+#include <simonsound_export.h>
 
 class SIMONSOUND_EXPORT SoundInputClient : public SoundClient
 {

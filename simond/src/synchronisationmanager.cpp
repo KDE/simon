@@ -35,6 +35,7 @@
 #include <QDebug>
 #include <QStandardPaths>
 #include <KConfigCore/KConfigGroup>
+#include <KAboutData>
 
 SynchronisationManager::SynchronisationManager(const QString& user_name, QObject* parent) : QObject(parent),
 username(user_name),

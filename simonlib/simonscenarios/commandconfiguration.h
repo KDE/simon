@@ -20,8 +20,8 @@
 #ifndef SIMON_COMMANDCONFIGURATION_H_DADC6869FF594E9BAD62C1FDB2785840
 #define SIMON_COMMANDCONFIGURATION_H_DADC6869FF594E9BAD62C1FDB2785840
 
-#include "simonmodelmanagement_export.h"
-#include <simonscenariobase/scenarioobject.h>
+#include "simonscenarios_export.h"
+#include <scenarioobject.h>
 #include <QWidget>
 
 class Scenario;
@@ -40,7 +40,7 @@ class KAboutData;
  * to configure sub-elements you most likely want to use the command architecture.
  * \sa Command
  */
-class MODELMANAGEMENT_EXPORT CommandConfiguration : public QWidget, public ScenarioObject
+class SIMONSCENARIOS_EXPORT CommandConfiguration : public QWidget, public ScenarioObject
 {
   Q_OBJECT
     signals:

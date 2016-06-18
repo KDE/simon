@@ -22,11 +22,11 @@
 #define SIMONSAMPLESHARE_H
 
 
-#include <KDELibs4Support/KDE/KDialog>
+#include <KDE/KDialog>
 #include <QDebug>
 #include <QPointer>
 #include <QStringList>
-#include "simonsampleshareui_export.h"
+#include "simonsampleshare_export.h"
 
 template<class T >
 class QFutureWatcher;

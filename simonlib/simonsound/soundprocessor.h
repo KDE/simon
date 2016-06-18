@@ -21,6 +21,7 @@
 #define SIMON_SOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
 
 #include "simonsound_export.h"
+#include <QByteArray>
 
 class SIMONSOUND_EXPORT SoundProcessor
 {

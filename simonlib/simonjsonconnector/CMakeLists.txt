@@ -15,6 +15,8 @@ set_target_properties(simonjsonconnector
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
+generate_export_header(simonjsonconnector)
+
 install(FILES ${simonjsonconnector_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/jsonconnector
   COMPONENT simoncoredevel

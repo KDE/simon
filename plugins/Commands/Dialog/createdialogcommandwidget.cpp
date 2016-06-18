@@ -25,6 +25,7 @@
 #include <simonactions/actionmanager.h>
 #include <simonactions/commandtablemodel.h>
 #include <KWidgetsAddons/KMessageBox>
+#include <QDebug>
 
 CreateDialogCommandWidget::CreateDialogCommandWidget(CommandManager *manager, QWidget* parent) : 
   CreateCommandWidget(manager, parent),

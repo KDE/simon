@@ -27,6 +27,7 @@
 #include <QAction>
 #include <QDomElement>
 #include <QDomDocument>
+#include <QDebug>
 
 /**
  * \brief Returns the icon of the plugin

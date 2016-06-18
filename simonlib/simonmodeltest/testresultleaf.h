@@ -23,7 +23,7 @@
 #include "simonmodeltest_export.h"
 #include <QString>
 
-class MODELTEST_EXPORT TestResultLeaf
+class SIMONMODELTEST_EXPORT TestResultLeaf
 {
   private:
     QString m_label;

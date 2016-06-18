@@ -34,6 +34,8 @@
 #include <KI18n/klocalizedstring.h>
 #include <QAction>
 #include <KWidgetsAddons/KMessageBox>
+#include <QDebug>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( DialogCommandPluginFactory,
 registerPlugin< DialogCommandManager >();

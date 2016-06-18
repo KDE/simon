@@ -23,6 +23,7 @@
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
 #include <QDBusReply>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY_DECLARATION(MprisPlayerPluginFactory)
 

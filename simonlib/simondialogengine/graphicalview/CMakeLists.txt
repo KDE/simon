@@ -17,6 +17,8 @@ kde4_add_library(simondialogenginegraphicalview SHARED ${simondialogenginegraphi
 target_link_libraries(simondialogenginegraphicalview 
   ${QT_LIBRARIES} KF5::KIOCore simonactions simondialogengine simonscenarios)
 
+generate_export_header(simondialogenginegraphicalview)
+
 set_target_properties(simondialogenginegraphicalview
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )

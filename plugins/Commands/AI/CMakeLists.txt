@@ -9,7 +9,7 @@ ki18n_wrap_ui(simonaiplugin_SRCS aiconfigurationdlg.ui)
 kde4_add_plugin(simonaiplugin MODULE ${simonaiplugin_SRCS})
 
 target_link_libraries(simonaiplugin  Qt5::Xml
-  ${QT_LIBRARIES} simonlogging simonscenarios simonscenariobase simontts)
+  ${QT_LIBRARIES} simonlogging simonscenarios simontts simonactions)
 
 install(TARGETS simonaiplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandaiplugin)
 install(FILES simonaiplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandaiplugin)

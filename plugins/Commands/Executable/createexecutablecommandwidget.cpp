@@ -81,16 +81,16 @@ bool CreateExecutableCommandWidget::init(Command* command)
   ExecutableCommand *execCommand = dynamic_cast<ExecutableCommand*>(command);
   if (!execCommand) return false;
 
-  ui.urExecutable->setUrl(QUrl(execCommand->getExecutable()));
-  ui.urWorkingDirectory->setUrl(execCommand->getWorkingDirectory());
+  ui.urExecutable->setUrl(QUrl::fromLocalFile(execCommand->getExecutable()));
+  ui.urWorkingDirectory->setUrl(QUrl::fromLocalFile(execCommand->getWorkingDirectory()));
   return true;
 }
 
 
 Command* CreateExecutableCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-  return new ExecutableCommand(name, iconSrc, description, ui.urExecutable->url().path(),
-    ui.urWorkingDirectory->url());
+  return new ExecutableCommand(name, iconSrc, description, ui.urExecutable->url().toLocalFile(),
+    ui.urWorkingDirectory->url().toLocalFile());
 }
 
 

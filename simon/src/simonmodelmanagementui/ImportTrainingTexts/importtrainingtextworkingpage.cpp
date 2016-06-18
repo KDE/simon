@@ -65,9 +65,9 @@ void ImportTrainingTextWorkingPage::startImport(QUrl path)
   if (!path.isLocalFile()) {
     Logger::log(i18nc("%1 is path", "Copying import from \"%1\"", path.toDisplayString()));
 
-    QUrl tmpPath = QUrl(QDir::tempPath() + QLatin1Char('/') +  "tmp_trainingstext.xml");
+    QUrl tmpUrl = QUrl::fromLocalFile(QDir::tempPath() + QLatin1Char('/') +  "tmp_trainingstext.xml");
 
-    KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath,
+    KIO::FileCopyJob *job = KIO::file_copy(path, tmpUrl,
       -1 /* no special permissions */, KIO::Overwrite);
 
     if (!job->exec()) {
@@ -75,7 +75,7 @@ void ImportTrainingTextWorkingPage::startImport(QUrl path)
       return;
     }
 
-    path = tmpPath;
+    path = tmpUrl;
   }
   parseFile(path.path());
 
@@ -122,7 +122,7 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
   ui.pbProgress->setValue(0);
 
   QString tmpPath = QDir::tempPath() + QLatin1Char('/') +  "simontrainingstextimport";
-  KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath, -1, KIO::Overwrite);
+  KIO::FileCopyJob *job = KIO::file_copy(QUrl::fromLocalFile(path), QUrl::fromLocalFile(tmpPath), -1, KIO::Overwrite);
   if (!job->exec()) {
     job->ui()->showErrorMessage();
     return;

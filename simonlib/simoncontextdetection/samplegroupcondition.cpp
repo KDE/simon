@@ -28,6 +28,7 @@
 #include <QDebug>
 #include <KColorScheme>
 #include <QStandardPaths>
+#include <KLocalizedString>
 
 typedef QPair<Condition*, QString> ConditionPair;
 

@@ -19,7 +19,7 @@ ki18n_wrap_ui(simonakonadicommandplugin_SRCS
 kde4_add_library(simonakonadicommandplugin MODULE ${simonakonadicommandplugin_SRCS})
 
 target_link_libraries(simonakonadicommandplugin  Qt5::Xml
-  KF5::AkonadiCore KF5::CalendarCore simonscenariobase simonscenarios simonlogging simonactions
+  KF5::AkonadiCore KF5::CalendarCore simonscenarios simonlogging simonactions
   simondialogengine simondialogengineconfui simondialogenginegraphicalview simondialogenginettsview)
 
 install(TARGETS simonakonadicommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandakonadiplugin)

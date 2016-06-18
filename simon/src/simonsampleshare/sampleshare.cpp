@@ -32,6 +32,7 @@
 #include <QThread>
 #include <QFutureWatcher>
 
+#include <KConfig>
 #include <KTitleWidget>
 #include <QProgressDialog>
 #include <QDebug>

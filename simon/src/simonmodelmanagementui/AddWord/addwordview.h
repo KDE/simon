@@ -37,7 +37,7 @@
 #include <QHash>
 #include <simonscenarios/word.h>
 #include <simonscenarios/promptstable.h>
-#include "../simonmodelmanagementui_export.h"
+#include "simonmodelmanagementui_export.h"
 
 class QWizardPage;
 class AddWordRecordPage;

@@ -22,7 +22,6 @@
 
 class LipAnalyzer;
 #include "simoncontextdetection/condition.h"
-#include "simoncontextdetection/simoncontextdetection_export.h"
 
 
 class LipDetectionCondition : public Condition

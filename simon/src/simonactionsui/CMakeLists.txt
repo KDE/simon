@@ -26,6 +26,8 @@ target_link_libraries(simonactionsui ${QT_LIBRARIES}
   simonscenarios simonscenarios simonuicomponents
 )
 
+generate_export_header(simonactionsui)
+
 set_target_properties( simonactionsui PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 
 install(FILES ${simonactionsui_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonactionsui COMPONENT simondevel)

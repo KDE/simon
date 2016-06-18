@@ -39,6 +39,7 @@
 #include <QHostAddress>
 #include <QDebug>
 #include <QList>
+#include <QDataStream>
 
 #define parseLengthHeader()     waitForMessage(sizeof(qint64),stream, msg); \
   qint64 length; \

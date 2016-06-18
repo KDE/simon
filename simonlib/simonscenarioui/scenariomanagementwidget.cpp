@@ -20,7 +20,7 @@
 #include "scenariomanagementwidget.h"
 #include "newscenario.h"
 #include <simonscenarios/author.h>
-#include <simonscenariobase/versionnumber.h>
+#include <simonscenarios/versionnumber.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/scenariomanager.h>
 #include <QWidget>
@@ -227,7 +227,7 @@ void ScenarioManagementWidget::exportScenarioGHNS()
     path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, m_dataPrefix+"scenarios/"+s->id());
 
   QPointer<KNS3::UploadDialog> dialog = new KNS3::UploadDialog(QStandardPaths::locate(QStandardPaths::ConfigLocation, "simonscenarios.knsrc"));
-  dialog->setUploadFile(path);
+  dialog->setUploadFile(QUrl::fromLocalFile(path));
   dialog->setUploadName(s->name());
   dialog->exec();
   delete dialog;

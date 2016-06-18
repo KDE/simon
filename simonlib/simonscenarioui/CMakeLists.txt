@@ -1,3 +1,6 @@
+# This would normally come from linking to the lib, but there are cyclic dependencies...
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/../simonactions)
+
 set(simonscenarioui_LIB_SRCS
   scenariomanagementdialog.cpp
   scenariomanagementwidget.cpp
@@ -16,8 +19,9 @@ ki18n_wrap_ui(simonscenarioui_LIB_SRCS
 kde4_add_library(simonscenarioui SHARED ${simonscenarioui_LIB_SRCS})
 
 target_link_libraries(simonscenarioui ${QT_LIBRARIES}
-  simonscenarios simonscenariobase KF5::KIOCore KF5::NewStuff)
+  simonscenarios KF5::KIOCore KF5::NewStuff)
 
+generate_export_header(simonscenarioui)
 
 set_target_properties(simonscenarioui
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

@@ -21,8 +21,9 @@
 #include "samplegroupcontextsettings.h"
 #include "ui_samplegroupcontextsettings.h"
 #include <simoncontextcoreui/newcondition.h>
-#include <QtXml/QDomDocument>
+#include <QDomDocument>
 #include <simoncontextdetection/samplegroupcondition.h>
+#include <QDebug>
 
 SampleGroupContextSettings::SampleGroupContextSettings(QWidget *parent) :
     QWidget(parent),

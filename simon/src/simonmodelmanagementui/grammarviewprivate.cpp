@@ -26,6 +26,7 @@
 #include <KInputDialog>
 
 #include <QDebug>
+#include <QPointer>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>

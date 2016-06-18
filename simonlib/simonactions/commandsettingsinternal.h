@@ -20,7 +20,7 @@
 #ifndef COMMANDSETTINGSINTERNAL_H
 #define COMMANDSETTINGSINTERNAL_H
 
-#include "actionlib_export.h"
+#include "simonactions_export.h"
 #include <simonscenarios/commandlistelements.h>
 #include <QFont>
 #include <QList>

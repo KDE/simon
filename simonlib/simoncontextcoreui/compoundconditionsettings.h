@@ -22,7 +22,7 @@
 #define COMPOUNDCONDITIONSETTINGS_H
 
 #include "simoncontextcoreui_export.h"
-#include <QWidget>;
+#include <QWidget>
 
 class CompoundCondition;
 class QSortFilterProxyModel;

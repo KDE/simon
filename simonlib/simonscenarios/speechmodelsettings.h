@@ -30,7 +30,7 @@ class BaseModelSettings;
 #include <QVariantList>
 #include <KConfigWidgets/KCModule>
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 /**
   @author Peter Grasch <bedahr@gmx.net>

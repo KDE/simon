@@ -24,6 +24,8 @@
 #include<KI18n/klocalizedstring.h>
 #include <QDir>
 #include <QSet>
+#include <QDebug>
+#include <QTextStream>
 
 ModelCompilationAdapterSPHINX::ModelCompilationAdapterSPHINX(const QString &userName, QObject *parent)
   : ModelCompilationAdapter(userName, parent)

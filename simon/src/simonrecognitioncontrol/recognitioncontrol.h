@@ -20,7 +20,7 @@
 #ifndef SIMON_RECOGNITIONCONTROL_H_405E2F7D85464072A6740F08D0459935
 #define SIMON_RECOGNITIONCONTROL_H_405E2F7D85464072A6740F08D0459935
 
-#include "recognitioncontrol_export.h"
+#include "simonrecognitioncontrol_export.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simondstreamer/simonsender.h>
 #include <QStringList>
@@ -44,7 +44,7 @@ class SimondStreamer;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
+class SIMONRECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
 {
   Q_OBJECT
 

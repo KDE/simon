@@ -20,7 +20,9 @@
 #include "activewindow.h"
 #include "createactivewindowwidget.h"
 #include <QWidget>
-#include <KDE/KDebug>
+#include <KDebug>
+#include <KPluginFactory>
+#include <KPluginLoader>
 
 K_PLUGIN_FACTORY( ActiveWindowPluginFactory,
 registerPlugin< ActiveWindow >();

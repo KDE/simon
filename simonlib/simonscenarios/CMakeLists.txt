@@ -1,3 +1,6 @@
+# This would normally come from linking to the lib, but there are cyclic dependencies...
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/../simonactions)
+
 set(simonscenarios_LIB_SRCS
   trainingmanager.cpp
   modelmanager.cpp
@@ -17,7 +20,7 @@ set(simonscenarios_LIB_SRCS
 
   author.cpp
   scenariodisplay.cpp
-
+  scenarioobject.cpp
   commandmanager.cpp
   command.cpp
   voiceinterfacecommand.cpp
@@ -36,11 +39,11 @@ set(simonscenarios_LIB_SRCS
   basemodelsettings.cpp
   createbasemodel.cpp
   modelmetadata.cpp
+  versionnumber.cpp
 )
 
 
 set(simonscenarios_LIB_HDRS
-  simonmodelmanagement_export.h
   trainingmanager.h
   modelmanager.h
   scenario.h
@@ -57,6 +60,7 @@ set(simonscenarios_LIB_HDRS
   model.h
   author.h
   scenariodisplay.h
+  scenarioobject.h
   modelmetadata.h
 
   commandmanager.h
@@ -76,8 +80,8 @@ set(simonscenarios_LIB_HDRS
   basemodelsettings.h
 
   scenarioofferui.h
+  versionnumber.h
 )
-
 
 
 ki18n_wrap_ui(simonscenarios_LIB_SRCS createvoiceinterfacecommandwidget.ui basemodelconfig.ui modelsettingsdlg.ui)
@@ -91,7 +95,9 @@ target_link_libraries(simonscenarios ${QT_LIBRARIES}
   KF5::KDELibs4Support KF5::KIOCore KF5::Service KF5::NewStuff
   KF5::WidgetsAddons KF5::CoreAddons KF5::SonnetCore KF5::SonnetUi
   simonxml simonlogging simoninfo simonrecognitionresult
-  simonscenariobase simoncontextdetection simongraphemetophoneme)
+  simoncontextdetection simongraphemetophoneme)
+
+generate_export_header(simonscenarios)
 
 set_target_properties(simonscenarios
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
@@ -118,7 +124,7 @@ kconfig_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfigur
 kde4_add_library(simonscenarioskcm MODULE ${kcm_simonscenarios_LIB_SRCS})
 target_link_libraries(simonscenarioskcm  KF5::KIOCore KF5::WidgetsAddons
   KF5::CoreAddons KF5::KDELibs4Support KF5::SonnetCore KF5::SonnetUi
-  simonscenarios simonscenariobase KF5::NewStuff KF5::Service Qt5::Core)
+  simonscenarios KF5::NewStuff KF5::Service Qt5::Core)
 
 install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncore)
 

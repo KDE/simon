@@ -20,6 +20,7 @@
 #include "grammar.h"
 #include "scenario.h"
 #include <QMutexLocker>
+#include <QDebug>
 
 /**
  * Empty, private constructor

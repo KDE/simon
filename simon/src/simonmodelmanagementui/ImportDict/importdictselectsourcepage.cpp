@@ -19,7 +19,8 @@
 
 #include "importdictselectsourcepage.h"
 #include "importdictview.h"
-#include <KI18n/klocalizedstring.h>
+#include <klocalizedstring.h>
+#include <QDebug>
 
 /**
  * \brief Constructor - Inits the gui

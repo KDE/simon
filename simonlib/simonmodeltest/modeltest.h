@@ -34,7 +34,7 @@ class TestResultModel;
 class FileResultModel;
 class Recognizer;
 
-class MODELTEST_EXPORT ModelTest : public QThread
+class SIMONMODELTEST_EXPORT ModelTest : public QThread
 {
   Q_OBJECT
 signals:

@@ -62,7 +62,7 @@ bool CreateFileContentWidget::init(Condition *condition)
   if (!fileContent) return false;
 
   ui.leFileContent->setText(fileContent->getFileContent());
-  ui.urFilename->setUrl(fileContent->getFilename());
+  ui.urFilename->setUrl(QUrl::fromLocalFile(fileContent->getFilename()));
   ui.cbRegExp->setChecked(fileContent->getFileContentIsRegExp());
   return true;
 }

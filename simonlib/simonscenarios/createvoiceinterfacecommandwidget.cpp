@@ -22,6 +22,7 @@
 #include "commandmanager.h"
 #include "voiceinterfacecommand.h"
 #include <QVBoxLayout>
+#include <QDebug>
 
 CreateVoiceInterfaceCommandWidget::CreateVoiceInterfaceCommandWidget(CommandManager *manager, QWidget *parent) :
 CreateCommandWidget(manager, parent),  d(new CreateVoiceInterfaceCommandWidgetPrivate(manager, parent))

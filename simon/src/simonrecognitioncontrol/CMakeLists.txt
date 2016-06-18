@@ -11,10 +11,12 @@ set(simonrecognition_LIB_HDRS
 kconfig_add_kcfg_files(simonrecognition_LIB_SRCS recognitionconfiguration.kcfgc)
 kde4_add_library(simonrecognitioncontrol SHARED ${simonrecognition_LIB_SRCS})
 
+generate_export_header(simonrecognitioncontrol)
+
 target_link_libraries(simonrecognitioncontrol ${QT_LIBRARIES}
    simondstreamer simoncontextdetection
   Qt5::Network KF5::KCMUtils
-  simonmodelmanagementui simonscenarios simonrecognitionresult simonprogresstracking)
+  simonmodelmanagementui simonscenarios simonrecognitionresult simonprogresstracking simonactions)
 
 set_target_properties(simonrecognitioncontrol
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR} DEFINE_SYMBOL MAKE_RECOGNITIONCONTROL_LIB)

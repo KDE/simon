@@ -15,6 +15,8 @@ set_target_properties(simoninfo
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
+generate_export_header(simoninfo)
+
 install(FILES ${simoninfo_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simoninfo
   COMPONENT simoncore

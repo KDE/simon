@@ -20,12 +20,12 @@
 #ifndef SIMON_TRAININGCONTAINER_H_A1DE97D32A7149D4810017795E704C7C
 #define SIMON_TRAININGCONTAINER_H_A1DE97D32A7149D4810017795E704C7C
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 #include <QByteArray>
 #include <QHash>
 
-class MODELMANAGEMENT_EXPORT TrainingContainer
+class SIMONSCENARIOS_EXPORT TrainingContainer
 {
   private:
     qint32 m_sampleRate;

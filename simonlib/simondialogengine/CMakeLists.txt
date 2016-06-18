@@ -49,7 +49,9 @@ set_target_properties(simondialogengine
 
 target_link_libraries(simondialogengine
   ${QT_LIBRARIES} KF5::KIOCore KF5::Plasma simonscenarios
-  Qt5::Script  simonscenariobase simonactions)
+  Qt5::Script  simonactions)
+
+generate_export_header(simondialogengine)
 
 install(TARGETS simondialogengine DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 

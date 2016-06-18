@@ -24,7 +24,6 @@
 
 #include <QTextCodec>
 #include <QDebug>
-#include <kencodingdetector.h>
 #include <simonscenarios/speechmodel.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/scenariomanager.h>

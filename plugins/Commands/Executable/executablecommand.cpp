@@ -98,7 +98,7 @@ bool ExecutableCommand::triggerPrivate(int *state)
 
     if (realSplitCommand.isEmpty()) continue;
     QString realExecutable = realSplitCommand.takeAt(0);
-    proc.setWorkingDirectory(workingDirectory.path());
+    proc.setWorkingDirectory(workingDirectory);
     proc.setProgram(realExecutable, realSplitCommand);
     proc.startDetached();
   }
@@ -109,7 +109,7 @@ bool ExecutableCommand::triggerPrivate(int *state)
 QDomElement ExecutableCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
   QDomElement workingDir = doc->createElement("workingdirectory");
-  workingDir.appendChild(doc->createTextNode(getWorkingDirectory().url()));
+  workingDir.appendChild(doc->createTextNode(getWorkingDirectory()));
 
   QDomElement executable = doc->createElement("executable");
   executable.appendChild(doc->createTextNode(getExecutable()));

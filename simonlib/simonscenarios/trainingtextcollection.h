@@ -24,12 +24,12 @@
 #include <QAbstractItemModel>
 
 #include "trainingtext.h"
-#include "simonmodelmanagement_export.h"
-#include <simonscenariobase/scenarioobject.h>
+#include "simonscenarios_export.h"
+#include <scenarioobject.h>
 
 class Scenario;
 
-class MODELMANAGEMENT_EXPORT TrainingTextCollection : public ScenarioObject, public QAbstractItemModel
+class SIMONSCENARIOS_EXPORT TrainingTextCollection : public ScenarioObject, public QAbstractItemModel
 {
 
   private:

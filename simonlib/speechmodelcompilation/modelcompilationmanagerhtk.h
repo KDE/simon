@@ -23,12 +23,12 @@
 #define MODELCOMPILATIONMANAGERHTK_H
 
 #include "modelcompilationmanager.h"
-#include "simonmodelcompilationmanagement_export.h"
+#include "simonmodelcompilation_export.h"
 
 class ModelCompilationAdapterHTK;
 class ModelCompilerHTK;
 
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManagerHTK : public ModelCompilationManager
+class SIMONMODELCOMPILATION_EXPORT ModelCompilationManagerHTK : public ModelCompilationManager
 {
   Q_OBJECT
 public:

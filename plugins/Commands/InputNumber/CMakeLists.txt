@@ -4,7 +4,7 @@ ki18n_wrap_ui(simoninputnumbercommandplugin_SRCS inputnumberwidget.ui)
 kde4_add_plugin(simoninputnumbercommandplugin ${simoninputnumbercommandplugin_SRCS})
 
 target_link_libraries(simoninputnumbercommandplugin
-  simonscenarios simonactions eventsimulation simonscenariobase)
+  simonscenarios simonactions eventsimulation)
 
 install(TARGETS simoninputnumbercommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandinputnumberplugin)
 install(FILES simoninputnumbercommandplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncommandinputnumberplugin)

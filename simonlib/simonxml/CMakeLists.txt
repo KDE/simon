@@ -2,8 +2,9 @@ set( simonxml_LIB_SRCS xmldomreader.cpp xmlsaxreader.cpp xmlreader.cpp)
 set( simonxml_LIB_HDRS simonxml_export.h xmlreader.h xmldomreader.h xmlsaxreader.h)
 
 kde4_add_library(simonxml SHARED ${simonxml_LIB_SRCS})
-# include_directories(/usr/include/KF5/KArchive)
-target_link_libraries(simonxml Qt5::Xml  KF5::Archive KF5::I18n)
+target_link_libraries(simonxml Qt5::Xml KF5::Archive KF5::I18n)
+
+generate_export_header(simonxml)
 
 set_target_properties(simonxml
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}

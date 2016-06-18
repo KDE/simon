@@ -16,6 +16,8 @@ target_link_libraries(simoncontextadapter ${QT_LIBRARIES} KF5::KDELibs4Support
   Qt5::Xml  simonmodelcompilation simonscenarios
 )
 
+generate_export_header(simoncontextadapter)
+
 set_target_properties(simoncontextadapter PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 
 install(FILES ${simoncontextdetection_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/contextadapter COMPONENT simonddevel)

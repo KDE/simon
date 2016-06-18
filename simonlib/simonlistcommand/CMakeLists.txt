@@ -16,6 +16,8 @@ kde4_add_library(simonlistcommand SHARED ${simonlistcommand_LIB_SRCS})
 
 target_link_libraries(simonlistcommand ${QT_LIBRARIES}  simonactions simonscenarios)
 
+generate_export_header(simonlistcommand)
+
 set_target_properties(simonlistcommand
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )

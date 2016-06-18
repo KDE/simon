@@ -22,7 +22,7 @@
 
 #include "modeltest.h"
 
-class MODELTEST_EXPORT JuliusModelTest : public ModelTest
+class SIMONMODELTEST_EXPORT JuliusModelTest : public ModelTest
 {
   Q_OBJECT
 public:

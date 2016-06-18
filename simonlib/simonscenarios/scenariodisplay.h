@@ -20,11 +20,11 @@
 #ifndef SIMON_SCENARIODISPLAY_H_330D758226F1491DBED7ADB93AA5C866
 #define SIMON_SCENARIODISPLAY_H_330D758226F1491DBED7ADB93AA5C866
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 class Scenario;
 
-class MODELMANAGEMENT_EXPORT ScenarioDisplay
+class SIMONSCENARIOS_EXPORT ScenarioDisplay
 {
 
   protected:

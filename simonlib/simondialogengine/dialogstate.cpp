@@ -23,6 +23,8 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDateTime>
+#include <QDebug>
+#include <KLocalizedString>
 
 DialogState::DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
     bool silence, bool announceRepeat,

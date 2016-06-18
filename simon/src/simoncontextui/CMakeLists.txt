@@ -19,6 +19,8 @@ target_link_libraries(simoncontextui ${QT_LIBRARIES}
   simonscenarios simonuicomponents simoncontextdetection simoncontextcoreui
   simonscenarioui)
 
+generate_export_header(simoncontextui)
+
 set_target_properties(simoncontextui PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 
 install(FILES ${simoncontextui_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simoncontextui COMPONENT simondevel)

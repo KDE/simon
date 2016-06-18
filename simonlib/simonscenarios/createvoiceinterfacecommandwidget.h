@@ -20,7 +20,7 @@
 #ifndef SIMON_CREATEVOICEINTERFACECOMMANDWIDGET_H_B31776DBF0984C7A931EDE9CFB539489
 #define SIMON_CREATEVOICEINTERFACECOMMANDWIDGET_H_B31776DBF0984C7A931EDE9CFB539489
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include "createcommandwidget.h"
 
 #include <QWidget>
@@ -38,7 +38,7 @@ class CreateVoiceInterfaceCommandWidgetPrivate;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class MODELMANAGEMENT_EXPORT CreateVoiceInterfaceCommandWidget : public CreateCommandWidget
+class SIMONSCENARIOS_EXPORT CreateVoiceInterfaceCommandWidget : public CreateCommandWidget
 {
   Q_OBJECT
 

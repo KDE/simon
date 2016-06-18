@@ -20,7 +20,7 @@
 #ifndef SIMON_COMMANDLISTWIDGET_H_055CB08189FE40A4B28221757CDEB148
 #define SIMON_COMMANDLISTWIDGET_H_055CB08189FE40A4B28221757CDEB148
 
-#include "actionlib_export.h"
+#include "simonactions_export.h"
 #include <simonscenarios/command.h>
 #include <simonscenarios/commandlistelements.h>
 #include <QTimer>

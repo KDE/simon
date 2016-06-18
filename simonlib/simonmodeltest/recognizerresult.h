@@ -23,7 +23,7 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodeltest_export.h"
 
-class MODELTEST_EXPORT RecognizerResult
+class SIMONMODELTEST_EXPORT RecognizerResult
 {
   private:
     QString prompt;

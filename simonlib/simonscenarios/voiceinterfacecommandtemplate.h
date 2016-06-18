@@ -20,10 +20,12 @@
 #ifndef SIMON_VOICEINTERFACECOMMANDTEMPLATE_H_71E1009585854F21AA6058993C51FCEE
 #define SIMON_VOICEINTERFACECOMMANDTEMPLATE_H_71E1009585854F21AA6058993C51FCEE
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include <QString>
+#include <QList>
+#include <QObject>
 
-class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommandTemplate
+class SIMONSCENARIOS_EXPORT  VoiceInterfaceCommandTemplate
 {
   private:
     QString m_id;

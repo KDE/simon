@@ -24,6 +24,7 @@
 #include <simonscenarios/activevocabulary.h>
 #include <simonscenarios/grammar.h>
 
+#include <KAboutData>
 #include <KLocale>
 #include <QDebug>
 #include <KGlobal>

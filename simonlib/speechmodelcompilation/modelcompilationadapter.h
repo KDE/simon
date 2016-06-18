@@ -21,7 +21,7 @@
 #ifndef SIMON_MODELCOMPILATIONADAPTER_H_166F0999AD87463EA4DE9A335364D7A6
 #define SIMON_MODELCOMPILATIONADAPTER_H_166F0999AD87463EA4DE9A335364D7A6
 
-#include "simonmodelcompilationmanagement_export.h"
+#include "simonmodelcompilation_export.h"
 #include "modelcompilation.h"
 #include <simonscenarios/vocabulary.h>
 #include <simonscenarios/grammar.h>
@@ -47,7 +47,7 @@
  *  @date 14.08.2012
  *  @author Vladislav Sitalo
  */
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationAdapter : public QObject
+class SIMONMODELCOMPILATION_EXPORT ModelCompilationAdapter : public QObject
 {
   Q_OBJECT
 

@@ -23,7 +23,7 @@
 #include <QAbstractItemModel>
 #include <QStringList>
 #include <simonscenarios/command.h>
-#include "actionlib_export.h"
+#include "simonactions_export.h"
 
 class SIMONACTIONS_EXPORT CommandModel : public QAbstractItemModel
 {

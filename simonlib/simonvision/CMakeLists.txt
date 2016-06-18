@@ -21,6 +21,8 @@ kde4_add_library(simonvision SHARED ${simonvision_LIB_SRCS} )
 
 target_link_libraries(simonvision KF5::Parts KF5::KDELibs4Support ${OpenCV_LIBS} ${QT_LIBRARIES})
 
+generate_export_header(simonvision)
+
 set_target_properties( simonvision
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )

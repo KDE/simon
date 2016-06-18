@@ -61,7 +61,7 @@
     return command; \
   }
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 
 #include <QList>
 #include <QString>
@@ -96,7 +96,7 @@ class CommandManager;
 *
 * \sa CreateCommandWidget
 */
-class MODELMANAGEMENT_EXPORT  Command
+class SIMONSCENARIOS_EXPORT  Command
 {
 
   private:

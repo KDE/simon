@@ -68,6 +68,7 @@
 #include <KCmdLineArgs>
 #include <QStandardPaths>
 #include <QDir>
+#include <KAboutData>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
   m_startCompilationAfterAdaption(false),
@@ -836,7 +837,7 @@ void SamView::getBuildPathsFromSimon()
       //static model
     case 1:
       //adapted model
-      ui.urBaseModel->setUrl(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/model/basemodel.sbm"));
+      ui.urBaseModel->setUrl(QUrl::fromLocalFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "simon/model/basemodel.sbm")));
       ui.rbAdaptedBaseModel->click();
       break;
     case 2:

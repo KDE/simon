@@ -34,6 +34,8 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QDebug>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( InputNumberCommandPluginFactory,
 registerPlugin< InputNumberCommandManager >();

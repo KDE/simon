@@ -22,6 +22,7 @@
 #include "createdialogcommandwidget.h"
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QDebug>
 
 CreateTransitionDialog::CreateTransitionDialog(CreateDialogCommandWidget *creator, QWidget *parent) : 
   QDialog(parent),

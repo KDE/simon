@@ -20,7 +20,7 @@
 #ifndef SIMON_MODELMANAGER_H_7D8BF260D23E4A83BD8404866C3FFDA1
 #define SIMON_MODELMANAGER_H_7D8BF260D23E4A83BD8404866C3FFDA1
 
-#include "simonmodelmanagement_export.h"
+#include "simonscenarios_export.h"
 #include <QObject>
 #include <QDateTime>
 #include <QStringList>
@@ -33,7 +33,7 @@ class LanguageDescriptionContainer;
 class TrainingContainer;
 class ModelMetadata;
 
-class MODELMANAGEMENT_EXPORT ModelManager : public QObject
+class SIMONSCENARIOS_EXPORT ModelManager : public QObject
 {
   Q_OBJECT
 

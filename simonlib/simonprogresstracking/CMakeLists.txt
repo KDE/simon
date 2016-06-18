@@ -18,6 +18,8 @@ set_target_properties(simonprogresstracking
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
+generate_export_header(simonprogresstracking)
+
 install(FILES ${simonprogresstracking_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonprogresstracking
   COMPONENT simondevel

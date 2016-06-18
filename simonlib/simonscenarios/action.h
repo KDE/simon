@@ -26,15 +26,15 @@
 #include <QIcon>
 #include <KI18n/klocalizedstring.h>
 #include <QDomElement>
-#include <simonscenariobase/scenarioobject.h>
-#include "simonmodelmanagement_export.h"
+#include <scenarioobject.h>
+#include "simonscenarios_export.h"
 class CommandManager;
 class Command;
 class VersionNumber;
 class CommandConfiguration;
 class ActionCollection;
 
-class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
+class SIMONSCENARIOS_EXPORT Action : public QObject, public ScenarioObject
 {
   Q_OBJECT
 

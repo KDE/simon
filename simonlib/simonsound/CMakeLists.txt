@@ -102,6 +102,8 @@ else()
     )
 endif()
 
+generate_export_header(simonsound)
+
 set_target_properties(simonsound PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 
 install(FILES ${simonsound_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonsound COMPONENT simondevel)

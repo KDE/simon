@@ -20,7 +20,7 @@
 #ifndef SIMON_ACTIONMANAGER_H_232B26BFFBAC4D88A29901748E1EB441
 #define SIMON_ACTIONMANAGER_H_232B26BFFBAC4D88A29901748E1EB441
 
-#include "actionlib_export.h"
+#include "simonactions_export.h"
 #include <QObject>
 #include <QFont>
 #include <QList>

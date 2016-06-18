@@ -11,6 +11,8 @@ ki18n_wrap_ui(sscsettings_LIB_SRCS
 
 kde4_add_plugin(sscsettings ${sscsettings_LIB_SRCS})
 
+generate_export_header(sscsettings BASE_NAME sscconfiguration)
+
 target_link_libraries(sscsettings ${QT_LIBRARIES} ${QT_LIBRARIES}
    KF5::KIOCore sscdaccess KF5::ConfigWidgets)
 
