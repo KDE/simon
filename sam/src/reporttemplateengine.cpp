@@ -24,8 +24,8 @@
 #include "templatevaluelist.h"
 #include "testresultplotter.h"
 #include "qwt_bars_item.h"
-#include <qwt/qwt_plot.h>
-#include <qwt/qwt_legend.h>
+#include <qwt_plot.h>
+#include <qwt_legend.h>
 #include <QDir>
 #include <QPainter>
 #include <QFile>

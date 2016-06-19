@@ -21,16 +21,16 @@
 #define QT_STATIC_CONST static const
 
 #include "qwt_bars_item.h"
-#include <qwt/qwt_global.h>
-#include <qwt/qwt_scale_map.h>
+#include <qwt_global.h>
+#include <qwt_scale_map.h>
 
 #if QWT_VERSION < 0x060100
 
-#include <qwt/qwt_plot_seriesitem.h>
-#include <qwt/qwt_painter.h>
-#include <qwt/qwt_compat.h>
-#include <qwt/qwt_legend_item.h>
-#include <qwt/qwt_plot.h>
+#include <qwt_plot_seriesitem.h>
+#include <qwt_painter.h>
+#include <qwt_compat.h>
+#include <qwt_legend_item.h>
+#include <qwt_plot.h>
 
 #include <QDebug>
 #include <QPen>

@@ -1,3 +1,4 @@
+include_directories(${QWT_INCLUDE_DIRS})
 set(sam_SRCS
   main.cpp
   samui.cpp

@@ -40,9 +40,9 @@
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonutils/fileutils.h>
 
-#include <qwt/qwt_legend.h>
-#include <qwt/qwt_series_data.h>
-//#include <qwt/qwt_legend_item.h>
+#include <qwt_legend.h>
+#include <qwt_series_data.h>
+//#include <qwt_legend_item.h>
 
 #include <QHash>
 #include <QThread>
