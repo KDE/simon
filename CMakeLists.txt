@@ -139,7 +139,7 @@ endif()
 include(SimonDirs)
 include_directories( ${KDE_INCLUDES} ${KDEPIMLIBS_INCLUDE_DIRS}
   ${Qwt6_INCLUDE_DIR} simonlib)
-add_definitions(${QT_DEFINITIONS} ${KDE_DEFINITIONS})
+add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
 if(WIN32)
   # old gcc because of MinGW
