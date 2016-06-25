@@ -11,7 +11,7 @@ set(sscobjects_LIB_SRCS
 
 
 set(sscobjects_LIB_HDRS
-  sscobjects_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/sscobjects_export.h
   user.h
   microphone.h
   soundcard.h

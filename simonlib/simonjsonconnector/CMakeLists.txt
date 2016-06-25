@@ -4,7 +4,7 @@ set(simonjsonconnector_LIB_SRCS
 )
 
 set(simonjsonconnector_LIB_HDRS
-  simonjsonconnector_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simonjsonconnector_export.h
   simonjsonconnector.h
 )
 

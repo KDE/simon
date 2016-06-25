@@ -4,7 +4,7 @@ set(simonappcore_LIB_SRCS
 
 set(simonappcore_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/simoncontrol.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/simonappcore_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simonappcore_export.h
 )
 
 kconfig_add_kcfg_files(simonappcore_LIB_SRCS coreconfiguration.kcfgc)

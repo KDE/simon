@@ -1,7 +1,7 @@
 set(simonlogging_LIB_SRCS logger.cpp)
 
 set(simonlogging_LIB_HDRS
-  simonlogging_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simonlogging_export.h
   logger.h
 )
 

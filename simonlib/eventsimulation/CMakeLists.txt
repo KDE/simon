@@ -20,7 +20,7 @@ set(eventsimulation_LIB_APPLE_SRCS
 )
 
 set(eventsimulation_LIB_HDRS
-  eventsimulation_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/eventsimulation_export.h
   eventhandler.h
   clickmode.h
   pressmode.h

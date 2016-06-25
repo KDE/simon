@@ -65,7 +65,7 @@ set(simonsound_LIB_HDRS
   wavfilewidget.h
   soundbackendclient.h
 
-  simonsound_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simonsound_export.h
 
   soundprocessor.h
   loudnessmetersoundprocessor.h

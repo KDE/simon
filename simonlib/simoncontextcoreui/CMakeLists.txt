@@ -6,7 +6,7 @@ set(simoncontextcoreui_LIB_SRCS
 set(simoncontextcoreui_LIB_HDRS
   newcondition.h
   compoundconditionsettings.h
-  simoncontextcoreui_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simoncontextcoreui_export.h
 )
 
 ki18n_wrap_ui(simoncontextcoreui_LIB_SRCS

@@ -10,7 +10,7 @@ set(simonmodeltest_LIB_SRCS
 )
 
 set(simonmodeltest_LIB_HDRS
-  simonmodeltest_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simonmodeltest_export.h
   modeltest.h
   juliusmodeltest.h
   fileresultmodel.h

@@ -3,7 +3,7 @@ set(simonrecognitionresult_LIB_SRCS
 )
 
 set(simonrecognitionresult_LIB_HDRS
-  simonrecognitionresult_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simonrecognitionresult_export.h
   recognitionresult.h
 )
 

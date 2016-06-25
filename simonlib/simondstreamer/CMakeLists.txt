@@ -5,7 +5,7 @@ set(simondstreamer_LIB_SRCS
 )
 
 set(simondstreamer_LIB_HDRS
-  simondstreamer_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simondstreamer_export.h
   simondstreamer.h
   simonsender.h
 )

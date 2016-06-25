@@ -6,7 +6,7 @@ set(simonprogresstracking_LIB_SRCS
 )
 
 set(simonprogresstracking_LIB_HDRS
-  simonprogresstracking_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simonprogresstracking_export.h
   statusmanager.h
   operation.h
 )

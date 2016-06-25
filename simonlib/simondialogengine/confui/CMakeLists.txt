@@ -16,7 +16,7 @@ set(simondialogengineconfui_LIB_HDRS
   boundvaluesconfiguration.h
   templateoptionsconfiguration.h
   outputconfiguration.h
-  simondialogengineconfui_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simondialogengineconfui_export.h
 )
 
 ki18n_wrap_ui(simondialogengineconfui_SRCS

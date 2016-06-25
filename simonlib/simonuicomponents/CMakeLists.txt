@@ -14,7 +14,7 @@ set(simonuicomponents_LIB_SRCS
 )
 
 set(simonuicomponents_LIB_HDRS
-  simonuicomponents_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simonuicomponents_export.h
   inlinewidgetview.h
   inlinewidget.h
   addserverconnection.h

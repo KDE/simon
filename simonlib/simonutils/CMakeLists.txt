@@ -1,5 +1,5 @@
 set(simonutils_LIB_SRCS fileutils.cpp)
-set(simonutils_LIB_HDRS simonutils_export.h fileutils.h)
+set(${CMAKE_CURRENT_BINARY_DIR}/simonutils_LIB_HDRS simonutils_export.h fileutils.h)
 
 kde4_add_library(simonutils SHARED ${simonutils_LIB_SRCS})
 target_link_libraries(simonutils ${QT_LIBRARIES} KF5::KDELibs4Support

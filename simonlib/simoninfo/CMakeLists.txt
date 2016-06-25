@@ -4,7 +4,7 @@ set(simoninfo_LIB_SRCS
 )
 
 set(simoninfo_LIB_HDRS
-  simoninfo_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simoninfo_export.h
   simoninfo.h
 )
 

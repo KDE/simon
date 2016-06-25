@@ -1,6 +1,8 @@
 set(simondialogenginettsview_SRCS ttsdialogview.cpp)
 
-set(simondialogenginettsview_LIB_HDRS ttsdialogview.h simondialogenginettsview_export.h)
+set(simondialogenginettsview_LIB_HDRS
+   ttsdialogview.h
+   ${CMAKE_CURRENT_BINARY_DIR}/simondialogenginettsview_export.h)
 
 kde4_add_library(simondialogenginettsview SHARED ${simondialogenginettsview_SRCS})
 set_target_properties( simondialogenginettsview

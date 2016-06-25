@@ -5,7 +5,7 @@ set (simondialogenginegraphicalview_SRCS
 
 set(simondialogenginegraphicalview_LIB_HDRS
   visualdialogview.h
-  simondialogenginevisualview_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simondialogenginegraphicalview_export.h
 )
 
 ki18n_wrap_ui(simondialogenginegraphicalview_SRCS

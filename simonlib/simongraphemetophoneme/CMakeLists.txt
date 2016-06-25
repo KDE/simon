@@ -4,7 +4,7 @@ set(simongraphemetophoneme_LIB_SRCS
 )
 
 set(simongraphemetophoneme_LIB_HDRS
-  simongraphemetophoneme_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simongraphemetophoneme_export.h
   graphemetophoneme.h
 )
 

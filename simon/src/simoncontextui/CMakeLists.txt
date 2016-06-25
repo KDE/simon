@@ -5,7 +5,7 @@ set(simoncontextui_LIB_SRCS
 
 set(simoncontextui_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/contextview.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simoncontextui_export.h
 )
 
 ki18n_wrap_ui(simoncontextui_LIB_SRCS

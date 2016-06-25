@@ -8,7 +8,7 @@ set (simonvision_LIB_SRCS
         simoncv.cpp
 )
 set( simonvision_LIB_HDRS
-    simonvision_export.h
+    ${CMAKE_CURRENT_BINARY_DIR}/simonvision_export.h
     webcamdispatcher.h
     imageanalyzer.h
     faceanalyzer.h

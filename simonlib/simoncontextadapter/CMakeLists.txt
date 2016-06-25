@@ -6,7 +6,7 @@ set(simoncontextadapter_LIB_SRCS
 )
 
 set(simoncontextadapter_LIB_HDRS
-  simoncontextadapter_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simoncontextadapter_export.h
   situation.h
   contextadapter.h
 )

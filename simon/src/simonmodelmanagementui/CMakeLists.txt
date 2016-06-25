@@ -100,7 +100,7 @@ set(simonmodelmanagementui_LIB_HDRS
   grammarview.h
   vocabularyview.h
   promptsview.h
-  simonmodelmanagementui_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simonmodelmanagementui_export.h
 )
 
 set( simonmodelmanagementui_LIB_SRCS

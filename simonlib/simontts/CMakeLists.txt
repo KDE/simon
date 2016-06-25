@@ -9,7 +9,7 @@ set(simontts_LIB_SRCS
 )
 
 set(simontts_LIB_HDRS
-  simontts_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simontts_export.h
   simontts.h
 )
 

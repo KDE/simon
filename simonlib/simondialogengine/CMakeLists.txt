@@ -38,7 +38,7 @@ set(simondialogengine_LIB_HDRS
   avatar.h
   avatarmodel.h
   dialogmanager.h
-  simondialogengine_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simondialogengine_export.h
 )
 
 kde4_add_library(simondialogengine SHARED ${simondialogengine_SRCS})

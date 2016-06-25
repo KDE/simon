@@ -10,7 +10,7 @@ set( simoncontextdetection_LIB_SRCS
 )
 
 set( simoncontextdetection_LIB_HDRS
-  simoncontextdetection_export.h
+  ${CMAKE_CURRENT_BINARY_DIR}/simoncontextdetection_export.h
   contextmanager.h
   condition.h
   conditionassociation.h

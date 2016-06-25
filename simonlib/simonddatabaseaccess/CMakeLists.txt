@@ -1,6 +1,8 @@
 set(simonddatabaseaccess_LIB_SRCS databaseaccess.cpp)
 
-set(simonddatabaseaccess_LIB_HDRS simonddatabaseaccess_export.h databaseaccess.h)
+set(simonddatabaseaccess_LIB_HDRS
+   ${CMAKE_CURRENT_BINARY_DIR}/simonddatabaseaccess_export.h
+   databaseaccess.h)
 
 kde4_add_library(simonddatabaseaccess  SHARED ${simonddatabaseaccess_LIB_SRCS})
 target_link_libraries( simonddatabaseaccess KF5::KDELibs4Support KF5::ConfigCore
