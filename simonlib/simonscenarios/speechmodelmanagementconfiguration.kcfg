@@ -23,7 +23,7 @@
     </entry>
     <entry name="ModelTrainingsDataPath" type="Url">
       <label>Where to save the training samples.</label>
-      <default code="true">KStandardDirs::locateLocal("appdata", "model/training.data/")</default>
+      <default code="true">QUrl::fromLocalFile(KStandardDirs::locateLocal("appdata", "model/training.data/"))</default>
       <tooltip>Where to save the training samples.</tooltip>
     </entry>
   </group>
