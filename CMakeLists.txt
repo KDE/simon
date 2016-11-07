@@ -6,8 +6,6 @@ cmake_policy(SET CMP0022 OLD)
 
 project(Simon)
 
-ENABLE_TESTING()
-
 set(CMAKE_SIMON_VERSION_MAJOR 0)
 set(CMAKE_SIMON_VERSION_MINOR 5)
 set(CMAKE_SIMON_VERSION_PATCH 0)
@@ -52,8 +50,7 @@ IF(UNIX AND NOT APPLE AND NOT WIN32)
   set(plattformLibraries ${ALSA_LIBRARY})
   include_directories(${ALSA_INCLUDE_DIR})
 ENDIF()
-if (APPLE)
-ENDIF()
+
 IF (WIN32)
   find_package(DirectSound REQUIRED)
   set(plattformLibraries ${DIRECTSOUND_LIBRARY})
@@ -81,7 +78,7 @@ if(USE_PLASMA)
   add_definitions(-DUSE_PLASMA)
 endif(USE_PLASMA)
 
-find_package(QAccessibilityClient)
+find_package(QAccessibilityClient QUIET)
 set_package_properties(QAccessibilityClient PROPERTIES TYPE OPTIONAL
    DESCRIPTION "KDE client-side accessibility library"
    URL "https://projects.kde.org/projects/playground/accessibility/libkdeaccessibilityclient"
@@ -137,8 +134,7 @@ if(${BackendType} STREQUAL jhtk)
 endif()
 
 include(SimonDirs)
-include_directories( ${KDE_INCLUDES} ${KDEPIMLIBS_INCLUDE_DIRS}
-  ${Qwt6_INCLUDE_DIR} simonlib)
+include_directories(${Qwt6_INCLUDE_DIR} simonlib)
 add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
 if(WIN32)

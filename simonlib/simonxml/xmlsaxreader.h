@@ -20,7 +20,7 @@
 #ifndef SIMON_XMLSAXREADER_H_61BBBF20E5A048609AA7213E6A1AAFB7
 #define SIMON_XMLSAXREADER_H_61BBBF20E5A048609AA7213E6A1AAFB7
 
-#include <qt5/QtCore/QObject>
+#include <QtCore/QObject>
 #include "xmlreader.h"
 #include "simonxml_export.h"
 

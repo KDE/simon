@@ -26,7 +26,7 @@ if(${BackendType} STREQUAL both)
     sphinxrecognitionconfiguration.h
   )
 endif()
-
+kde_enable_exceptions(sphinxrecognizer.cpp)
 kde4_add_library(simonrecognizer SHARED ${simonrecognizer_LIB_SRCS})
 
 target_link_libraries(simonrecognizer Qt5::Core KF5::KDELibs4Support simonrecognitionresult)
