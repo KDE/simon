@@ -1,0 +1,2 @@
+REPOSITORY = "git://anongit.kde.org/simon"
+REVIEWBOARD_URL = "https://git.reviewboard.kde.org"
