@@ -22,4 +22,4 @@ target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${QT_QTNETWORK_LIBRARY} simonr
   simonrecognitionresult simonwav simoncontextadapter simonutils simonrecognizer)
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} COMPONENT simond )
-install( FILES simond.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT simond )
+install( FILES org.kde.simond.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT simond )
