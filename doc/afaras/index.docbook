@@ -1,8 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!ENTITY kmyapplication "<application>Afaras</application>">
-  <!ENTITY kappname "&kmyapplication;">
-  <!ENTITY package "kde-module">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 
@@ -64,7 +62,7 @@
   &kmyapplication; is an automatic sample review tool.
 </para>
 
-<para>To build an acoustic model, man annotated samples are required. Often these will be recorded by many different teams and it can be hard to enforce strict quality requirements given the large amount of data collected.</para>
+<para>To build an acoustic model, many annotated samples are required. Often these will be recorded by many different teams and it can be hard to enforce strict quality requirements given the large amount of data collected.</para>
 
 <para>
   &kmyapplication; provides a very simple interface to listen to recorded samples and to blacklist samples that are of poor quality.
