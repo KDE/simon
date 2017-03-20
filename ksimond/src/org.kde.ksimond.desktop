@@ -34,6 +34,7 @@ Exec=ksimond %i -caption %c
 Icon=ksimond
 Type=Application
 X-DocPath=ksimond/index.html
+X-AppStream-Ignore=true
 GenericName=KDE Front-End to Simond
 GenericName[bs]=KDE pročelje za Simond
 GenericName[ca]=Frontal del KDE per a Simond

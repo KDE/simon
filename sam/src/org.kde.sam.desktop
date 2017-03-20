@@ -33,6 +33,7 @@ Exec=sam %i -caption %c
 Icon=sam
 Type=Application
 X-DocPath=sam/index.html
+X-AppStream-Ignore=true
 GenericName=Acoustic Modeller
 GenericName[bs]=Akustični Modelar
 GenericName[ca]=Modelador acústic

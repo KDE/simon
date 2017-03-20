@@ -30,6 +30,7 @@ Exec=sscd %i -caption %c
 Icon=sscd
 Type=Application
 X-DocPath=sscd/index.html
+X-AppStream-Ignore=true
 GenericName=Sample Collection Server
 GenericName[bs]=Server kolekcije uzoraka
 GenericName[ca]=Servidor per a la col·lecció de mostres

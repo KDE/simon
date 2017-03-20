@@ -31,6 +31,7 @@ Exec=ssc %i -caption %c
 Icon=ssc
 Type=Application
 X-DocPath=ssc/index.html
+X-AppStream-Ignore=true
 GenericName=Simon sample collector
 GenericName[bs]=Simon sakupljač uzoraka
 GenericName[ca]=Col·leccionista de mostres per a Simon
