@@ -79,7 +79,7 @@ void ATSPICommandManager::clearDynamicLanguageModel()
   //delete leftover words and grammarfrom last time
   parentScenario->startGroup();
   foreach (Word *w, parentScenario->vocabulary()->getWords()) {
-    if (w->getTerminal().startsWith(QLatin1String("ATSPI_INTERNAL_")))
+    if (w->getCategory().startsWith(QLatin1String("ATSPI_INTERNAL_")))
       parentScenario->removeWord(w);
   }
   int i=0;
@@ -183,10 +183,10 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
       
       m_lastCommands.removeAll(thisSentence);
 
-      QStringList terminals = sent.split(' ');
+      QStringList categories = sent.split(' ');
       
-      foreach (const QString& t, terminals) {
-        QList<Word*> w = vocab->findWordsByTerminal(t);
+      foreach (const QString& t, categories) {
+        QList<Word*> w = vocab->findWordsByCategory(t);
         Q_ASSERT(w.count() == 1);
         vocab->removeWord(w.at(0));
       }
@@ -196,9 +196,9 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
   }
 //   Slower version that could potentially handle merged grammar (untested draft)
 //   TODO: Determine which is faster: Speeding up dfa with combined sentence structures
-//         at the cost of setup time or faster setup (each word has a unique terminal)
+//         at the cost of setup time or faster setup (each word has a unique category)
 //         at the cost of much more sentences.
-//         Maybe we can merge trivial sentences (only one word) into one terminal - then
+//         Maybe we can merge trivial sentences (only one word) into one category - then
 //         the setup time should still be comperably slow but it should keep the grammar
 //         much smaller
 //         
@@ -214,10 +214,10 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
 //         QString exampleSentence = exampleSentences[j];
 //         if (commandsToRemove.contains(exampleSentence)) {
 //           m_lastCommands.removeAll(exampleSentence);
-//           QStringList terminals = sent.split(" ");
+//           QStringList categories = sent.split(" ");
 //           QStringList words = exampleSentence.split(" ");
-//           for (int k = 0; k < terminals.count(); k++) {
-//             QList<Word*> words = vocab->findWordsByTerminal(terminals[k]);
+//           for (int k = 0; k < categories.count(); k++) {
+//             QList<Word*> words = vocab->findWordsByCategory(categories[k]);
 //             foreach (Word* w, words) {
 //               if (w->getWord() == words[k])
 //                 vocab->removeWord(w);
@@ -249,8 +249,8 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
       
       QString structure;
       foreach (const QString& word, sentenceWords[i]) {
-        QString terminal = QString("ATSPI_INTERNAL_%1_%2").arg(m_sentenceNr).arg(++wordNr);
-        structure.append(terminal+' ');
+        QString category = QString("ATSPI_INTERNAL_%1_%2").arg(m_sentenceNr).arg(++wordNr);
+        structure.append(category+' ');
         
         QString transcription = transcriptions.value(word.toUpper());
         if (transcription.isEmpty()) {
@@ -258,14 +258,14 @@ void ATSPICommandManager::adaptLanguageModel(const QStringList& commandsToRemove
           allTranscribed = false;
           break;
         } else
-          vocab->addWord(new Word(word, transcription, terminal));
+          vocab->addWord(new Word(word, transcription, category));
       }
       if (allTranscribed)
         grammar->addStructure(structure.trimmed());
     }
   }
   //foreach (Word *w, vocab->getWords())
-    //kDebug() << w->getWord() << w->getTerminal();
+    //kDebug() << w->getWord() << w->getCategory();
   
   parentScenario->commitGroup();
 }

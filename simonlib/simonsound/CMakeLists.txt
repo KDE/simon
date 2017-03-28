@@ -34,10 +34,14 @@ set(simonsound_LIB_SRCS
 
 IF(WIN32)
   set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} directsound/directsoundbackend.cpp)
-ENDIF(WIN32)
-IF(UNIX)
+ENDIF()
+IF(UNIX AND NOT WIN32 AND NOT APPLE)
   set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} alsa/alsabackend.cpp)
-ENDIF(UNIX)
+ENDIF()
+IF(APPLE)
+  set(CMAKE_SHARED_LINKER_FLAGS "-framework Foundation -framework CoreAudio -framework AudioToolbox")
+  set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} coreaudio/coreaudiobackend.mm)
+ENDIF()
 
 if(LIBSAMPLERATE_FOUND)
   set(simonsound_LIB_SRCS ${simonsound_LIB_SRCS} resamplesoundprocessor.cpp)
@@ -124,3 +128,5 @@ target_link_libraries(simonsoundkcm ${KDE4_KDEUI_LIBS}
 
 install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncore)
 install(FILES simonsoundconfig.desktop DESTINATION ${SERVICES_INSTALL_DIR} COMPONENT simoncore)
+
+add_subdirectory(test)

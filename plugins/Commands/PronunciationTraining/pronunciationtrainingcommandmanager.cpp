@@ -53,7 +53,7 @@ const QString PronunciationTrainingCommandManager::name() const
 
 void PronunciationTrainingCommandManager::activateTraining()
 {
-  PronunciationTraining *training = new PronunciationTraining(static_cast<PronunciationTrainingConfiguration*>(config)->terminal());
+  PronunciationTraining *training = new PronunciationTraining(static_cast<PronunciationTrainingConfiguration*>(config)->category());
   training->init();
   training->show();
 }

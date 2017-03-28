@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2012 Yash Shah <blazonware@gmail.com>
+ *   Copyright (C) 2012 Yash Shah <mail@yashshah.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,9 +17,10 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "simoncv.h"
+QImage* qImage=NULL;
 namespace SimonCV{ 
 
-  CvRect * detectObject(IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage)
+  CvRect * detectObject(const IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage)
   {
     CvSeq * objectRectSeq=0;                    // memory-access interface
     CvRect* objectRect = 0;
@@ -56,14 +57,15 @@ namespace SimonCV{
       int h = iplImg->height;
       int w = iplImg->width;
       int channels = iplImg->nChannels;
-      QImage *qimg = new QImage(w, h, QImage::Format_ARGB32);
+      if(qImage == NULL)
+        qImage = new QImage(w, h, QImage::Format_ARGB32);
       char *data = iplImg->imageData;
 
       for (int y = 0; y < h; y++, data += iplImg->widthStep)
       {
         for (int x = 0; x < w; x++)
         {
-          char r, g, b, a = 0;
+          char r = 0, g = 0, b = 0, a = 0;
           if (channels == 1)
           {
             r = data[x * channels];
@@ -80,15 +82,15 @@ namespace SimonCV{
           if (channels == 4)
           {
             a = data[x * channels + 3];
-            qimg->setPixel(x, y, qRgba(r, g, b, a));
+            qImage->setPixel(x, y, qRgba(r, g, b, a));
           }
           else
           {
-            qimg->setPixel(x, y, qRgb(r, g, b));
+            qImage->setPixel(x, y, qRgb(r, g, b));
           }
         }
       }
-      return qimg;
+      return qImage;
 
     }
     return new QImage();

@@ -58,7 +58,7 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   if (args.value("stripContext") == "true")
   {
     //remove context additions for prompts file
-    if(!removeContextAdditions())
+    if(!removeContextAdditions(adaptionType))
       return false;
   }
 
@@ -76,7 +76,7 @@ bool ModelCompilationAdapterHTK::startAdaption(AdaptionType adaptionType, const 
   kDebug() <<"Adaptation complete";
 
   keepGoing=false;
-  
+
   return true;
 }
 
@@ -135,7 +135,7 @@ bool ModelCompilationAdapterHTK::checkTriphones(const QString& baseTiedListPathI
           triphone[nextStart - 1] = '+';
           if (!supportedTranscription(allowedTriphones, triphone))
             break;
-        } 
+        }
       }
     }
     broken = (i != pronunciation.count());
@@ -306,7 +306,7 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
   emit status(i18n("Adapting vocabulary..."), 35, 100);
 
   // find out which words are referenced by training data
-  // find out which terminals are referenced by grammar
+  // find out which categories are referenced by grammar
   QFile simpleVocabFile(simpleVocabPathOut);
 
   if (!simpleVocabFile.open(QIODevice::WriteOnly))
@@ -322,20 +322,20 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
   vocabStream << "% NS_B\n<s>\tsil\n";
   vocabStream << "% NS_E\n</s>\tsil\n";
 
-  QStringList grammarTerminals = grammar->getTerminals();
+  QStringList grammarCategories = grammar->getCategories();
 
   bool everythingChanged = true;
 
   while (everythingChanged)
   {
     everythingChanged = false;
-    foreach (const QString& terminal, grammarTerminals)
+    foreach (const QString& category, grammarCategories)
     {
-      //if there are no words for this terminal, remove it from the list
-      QList<Word*> wordsForTerminal = vocabulary->findWordsByTerminal(terminal);
+      //if there are no words for this category, remove it from the list
+      QList<Word*> wordsForCategory = vocabulary->findWordsByCategory(category);
 
       bool hasAssociatedWord = false;
-      foreach (Word *word, wordsForTerminal)
+      foreach (Word *word, wordsForCategory)
       {
         if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) ||
             trainedVocabulary.contains(word->getLexiconWord()))
@@ -345,18 +345,18 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
       if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel)
           && !(adaptionType & ModelCompilationAdapter::AdaptIndependently)
           && !hasAssociatedWord) {
-        grammarTerminals.removeAll(terminal);
+        grammarCategories.removeAll(category);
 
         for (int i=0; i < structures.count(); i++) {
-          if (structures[i].contains(QRegExp("\\b"+terminal+"\\b")))
+          if (structures[i].contains(QRegExp("\\b"+category+"\\b")))
           {
             //             This appears to be a bit arbitrary and shouldn't technically be necessary. Lets
             //             disable it for now, keep it around for a while and look for bugs.
             //
-            //             //delete all words of all terminals in this structure
+            //             //delete all words of all categories in this structure
             //             QStringList structureElements = structures[i].split(' ');
-            //             foreach (const QString& structureTerminal, structureElements) {
-            //               QList<Word*> wordsToDelete = vocab->findWordsByTerminal(structureTerminal);
+            //             foreach (const QString& structureCategory, structureElements) {
+            //               QList<Word*> wordsToDelete = vocab->findWordsByCategory(structureCategory);
             //               foreach (Word *w, wordsToDelete)
             //                 vocab->removeWord(w, true);
             //             }
@@ -376,13 +376,13 @@ bool ModelCompilationAdapterHTK::storeVocabulary(ModelCompilationAdapter::Adapti
 
   ADAPT_CHECKPOINT;
 
-  foreach (const QString& terminal, grammarTerminals)
+  foreach (const QString& category, grammarCategories)
   {
     //only store vocabulary that is referenced by the grammar
-    QList<Word*> wordsForTerminal = vocabulary->findWordsByTerminal(terminal);
+    QList<Word*> wordsForCategory = vocabulary->findWordsByCategory(category);
 
-    vocabStream << "% " << terminal << "\n";
-    foreach (const Word *w, wordsForTerminal)
+    vocabStream << "% " << category << "\n";
+    foreach (const Word *w, wordsForCategory)
       vocabStream << w->getWord() << "\t" << w->getPronunciation() << "\n";
   }
   simpleVocabFile.close();
@@ -403,7 +403,7 @@ bool ModelCompilationAdapterHTK::storeGrammar(const QString& grammarPathOut, QSt
     emit error(i18n("Failed to adapt grammar to \"%1\"", grammarPathOut));
     return false;
   }
-  
+
   if (structures.isEmpty()) {
     emit adaptionAborted(ModelCompilation::InsufficientInput); //no grammar
     return false;
@@ -443,12 +443,14 @@ bool ModelCompilationAdapterHTK::storePrompts(ModelCompilationAdapter::AdaptionT
       bool allWordsInLexicon = true;
       QStringList words = line.mid(splitter+1).trimmed().split(' ');
 
-      foreach (const QString& word, words)
-      {
-        if (!definedVocabulary.contains(word))
+      if ((adaptionType & ModelCompilationAdapter::AdaptLanguageModel) && !(adaptionType & ModelCompilationAdapter::AdaptIndependently)) {
+        foreach (const QString& word, words)
         {
-          allWordsInLexicon = false;
-          break;
+          if (!definedVocabulary.contains(word))
+          {
+            allWordsInLexicon = false;
+            break;
+          }
         }
       }
       if (allWordsInLexicon)
@@ -478,23 +480,22 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
   if(!readPrompts(adaptionType, vocabulary, promptsPathIn, trainedVocabulary))
     return false;
 
-  if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
-    return true;
+  if (adaptionType & ModelCompilationAdapter::AdaptLanguageModel) {
+    /////  Lexicon  ////////////////
 
-  /////  Lexicon  ////////////////
+    if(!storeLexicon(adaptionType, lexiconPathOut, vocabulary, trainedVocabulary, definedVocabulary))
+      return false;
 
-  if(!storeLexicon(adaptionType, lexiconPathOut, vocabulary, trainedVocabulary, definedVocabulary))
-    return false;
+    //    /////  Vocabulary  /////////////
+    QStringList structures = grammar->getStructures();
 
-  //    /////  Vocabulary  /////////////
-  QStringList structures = grammar->getStructures();
+    if(!storeVocabulary(adaptionType, simpleVocabPathOut, vocabulary, grammar, trainedVocabulary, structures))
+      return false;
 
-  if(!storeVocabulary(adaptionType, simpleVocabPathOut, vocabulary, grammar, trainedVocabulary, structures))
-    return false;
-
-  ///// Grammar ///////////
-  if(!storeGrammar(grammarPathOut, structures))
-    return false;
+    ///// Grammar ///////////
+    if(!storeGrammar(grammarPathOut, structures))
+      return false;
+  }
 
   ///// Prompts (2) //////
   if(!storePrompts(adaptionType, promptsPathOut, promptsPathIn, definedVocabulary))

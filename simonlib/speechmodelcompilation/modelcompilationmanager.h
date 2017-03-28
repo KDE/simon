@@ -47,7 +47,7 @@ signals:
   void modelCompilationAborted(ModelCompilation::AbortionReason);
   void status(QString mesg, int now, int max);
   void error(QString);
-  
+
   void wordUndefined(const QString&);
   void classUndefined(const QString&);
   void phonemeUndefined(const QString&);
@@ -55,9 +55,9 @@ signals:
 public:
   explicit ModelCompilationManager ( const QString& userName, QObject* parent = 0 );
   virtual ~ModelCompilationManager();
-  
+
   QString cachedModelPath( uint fingerprint, bool* exists=0 );
-  
+
   /*!
    * \brief startModelCompilation Function which starts model compilation process in separate thread.
    * \param baseModelType
@@ -68,15 +68,15 @@ public:
   void startModelCompilation(int baseModelType, const QString& baseModelPath,
                              const QStringList& scenarioPaths, const QString& promptsPathIn);
   virtual void abort();
-  
+
   bool hasBuildLog() const;
   QString getGraphicBuildLog() const;
   QString getBuildLog() const;
-  
+
   int wordCount() const;
   int pronunciationCount() const;
   int sampleCount() const;
-  
+
 protected:
   bool keepGoing;
   QString userName;
@@ -85,7 +85,7 @@ protected:
   QStringList scenarioPaths;
   QString promptsPathIn;
   QString modelPathOut;
-  
+
   ModelCompiler *compiler;
   ModelCompilationAdapter *adapter;
 
@@ -93,11 +93,14 @@ protected:
   // parameters. On the next failed compilation, the adaption (and subsequently the compilation) will be triggered
   // again
   bool tryAgain;
-  
+
   virtual void run()=0;
 
-  uint getFingerPrint(QString dir, QStringList files, ModelCompiler::CompilationType compilationType);
+  uint getFingerPrint(const QStringList& files, ModelCompiler::CompilationType compilationType);
   ModelCompiler::CompilationType getCompilationType(int baseModelType);
+
+protected slots:
+  void slotPhonemeUndefined(const QString& phoneme);
 };
 
 #endif

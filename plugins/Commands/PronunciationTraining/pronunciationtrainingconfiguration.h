@@ -31,8 +31,8 @@ class PronunciationTrainingConfiguration : public CommandConfiguration
 
     private:
     Ui::PronunciationTrainingConfigurationDlg ui;
-    QString storedTerminal;
-    void initTerminals();
+    QString storedCategory;
+    void initCategories();
 
   public slots:
     virtual bool deSerialize(const QDomElement&);
@@ -45,6 +45,6 @@ class PronunciationTrainingConfiguration : public CommandConfiguration
     ~PronunciationTrainingConfiguration();
 
     //configuration options
-    QString terminal();
+    QString category();
 };
 #endif

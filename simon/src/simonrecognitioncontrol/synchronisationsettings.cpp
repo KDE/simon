@@ -108,8 +108,12 @@ void SynchronisationSettings::displayList(const QList<QDateTime>& models)
 
   foreach (const QDateTime& date, models) {
     QListWidgetItem *item = new QListWidgetItem(ui.lwModels);
-    item->setText(date.toString());
     item->setData(Qt::UserRole, date);
+
+    QDateTime visibleDate(date);
+    visibleDate.setTimeSpec(Qt::UTC);
+    item->setText(visibleDate.toLocalTime().toString());
+
     ui.lwModels->addItem(item);
   }
 
@@ -142,7 +146,7 @@ void SynchronisationSettings::selectModel()
     return;
   }
 
-  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to revert all changes made since this Model?")) != KMessageBox::Yes)
+  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to revert all changes made after this model?")) != KMessageBox::Yes)
     return;
 
   QDateTime modelDate = ui.lwModels->currentItem()->data(Qt::UserRole).toDateTime();

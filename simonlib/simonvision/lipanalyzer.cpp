@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2012 Yash Shah <blazonware@gmail.com>
+ *   Copyright (C) 2012 Yash Shah <mail@yashshah.com>
 *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -92,7 +92,6 @@ void LipAnalyzer::analyze(const IplImage* currentImage)
 
   CvRect * faceRect = 0;
 
-
   liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
 
   cvCopy(currentImage, liveVideoFrameCopy, 0);
@@ -143,18 +142,16 @@ void LipAnalyzer::analyze(const IplImage* currentImage)
         prevVideoFrame = cvCreateImage(cvGetSize(liveVideoFrameCopy),liveVideoFrameCopy->depth,liveVideoFrameCopy->nChannels);
       }
 
-      IplImage *diff = cvCreateImage(cvGetSize(liveVideoFrameCopy),liveVideoFrameCopy->depth,liveVideoFrameCopy->nChannels);
-
-      cvAbsDiff(prevVideoFrame,liveVideoFrameCopy,diff);
+      cvAbsDiff(prevVideoFrame,liveVideoFrameCopy,prevVideoFrame);
 
 
 
-      int height    = diff->height;
+      int height    = prevVideoFrame->height;
 
-      int width     = diff->width;
-      int step      = diff->widthStep;
-      int channels  = diff->nChannels;
-      uchar* data= (uchar *)diff->imageData;
+      int width     = prevVideoFrame->width;
+      int step      = prevVideoFrame->widthStep;
+      int channels  = prevVideoFrame->nChannels;
+      uchar* data= (uchar *)prevVideoFrame->imageData;
 
 
       for (int i=0;i<height;i++)
@@ -173,7 +170,6 @@ void LipAnalyzer::analyze(const IplImage* currentImage)
       }
 
       cvCopy(liveVideoFrameCopy,prevVideoFrame);
-
     }
   } else
     kDebug() << "Face not found";
@@ -208,6 +204,7 @@ void LipAnalyzer::analyze(const IplImage* currentImage)
     kDebug()<<"Speaking: False\n";
 
   }
+  cvReleaseImage(&liveVideoFrameCopy);
 }
 
 void LipAnalyzer::closeLipDetection()
@@ -224,6 +221,9 @@ void LipAnalyzer::closeLipDetection()
 
   if (liveVideoFrameCopy)
     cvReleaseImage(&liveVideoFrameCopy);
+
+  if (prevVideoFrame)
+    cvReleaseImage(&prevVideoFrame);
 }
 
 LipAnalyzer::~LipAnalyzer()

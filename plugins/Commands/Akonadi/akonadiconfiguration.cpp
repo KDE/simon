@@ -270,8 +270,8 @@ void AkonadiConfiguration::defaults()
   ui.leDismiss->setText(i18n("OK"));
   ui.leShowLater->setText(i18n("Snooze"));
   ui.wgRestartTime->setTime(AkonadiCommand::Minutes, 5);
-  ui.teText->setText(i18nc("%1 is summary, %2 is date, %3 is time and %4 is location", 
-                            "Event: %1 (%2 %3)\nLocation: %4")); // it's correct that there are no arguments here! They will be filled in later on
+  ui.teText->setText(i18nc("%summary, %date, %time and %location will be filled in later with appropriate values",
+                            "Event: %summary (%date %time)\nLocation: %location"));
 }
 
 QString AkonadiConfiguration::akonadiRequestPrefix()

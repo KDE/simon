@@ -266,17 +266,17 @@ bool ModelCompilerHTK::startCompilation ( ModelCompiler::CompilationType compila
 {
   Q_UNUSED(baseModelPath);
 
-  QString samplePath = args.value("samples");
-  QString lexiconPath = args.value("lexicon");
-  QString grammarPath = args.value("grammar");
-  QString vocabPath = args.value("vocab");
-  QString promptsPath = args.value("prompts");
-  QString scriptBasePrefix = args.value("scriptBase");
+  samplePath = args.value("samples");
+  lexiconPath = args.value("lexicon");
+  grammarPath = args.value("grammar");
+  vocabPath = args.value("vocab");
+  promptsPath = args.value("prompts");
+  scriptBasePrefix = args.value("scriptBase");
 
-  QString baseHmmDefsPath = args.value("base/hmmdefs");
-  QString baseTiedlistPath = args.value("base/tiedlist");
-  QString baseMacrosPath = args.value("base/macros");
-  QString baseStatsPath = args.value("base/stats");
+  baseHmmDefsPath = args.value("base/hmmdefs");
+  baseTiedlistPath = args.value("base/tiedlist");
+  baseMacrosPath = args.value("base/macros");
+  baseStatsPath = args.value("base/stats");
 
   m_droppedTranscriptions = droppedTranscriptions;
 
@@ -433,7 +433,7 @@ bool ModelCompilerHTK::makeTempVocab()
 {
   QFile vocab ( vocabPath );
 
-  QString terminal;
+  QString category;
   if ( !vocab.open ( QFile::ReadOnly ) ) return false;
 
   QFile tmpVocab ( tempDir+"/tempvoca" );
@@ -452,10 +452,10 @@ bool ModelCompilerHTK::makeTempVocab()
     vocabEntry = vocabEntry.trimmed();
     if ( vocabEntry.isEmpty() ) continue;
     if ( vocabEntry.startsWith ( '%' ) ) {
-      terminal = vocabEntry.mid ( 1 ).trimmed();
-      tmpVocab.write ( '#'+terminal.toUtf8() +'\n' );
+      category = vocabEntry.mid ( 1 ).trimmed();
+      tmpVocab.write ( '#'+category.toUtf8() +'\n' );
 
-      term.write ( QString::number(termid).toUtf8()+'\t'+terminal.toUtf8() +'\n' );
+      term.write ( QString::number(termid).toUtf8()+'\t'+category.toUtf8() +'\n' );
       termid++;
     }
   }
@@ -486,7 +486,7 @@ bool ModelCompilerHTK::generateReverseGrammar()
 
   QString reverseGrammarEntry;
   QString grammarEntry;
-  QStringList terminals;
+  QStringList categories;
   QString identifier;
 
   int structureCount=0;
@@ -504,9 +504,9 @@ bool ModelCompilerHTK::generateReverseGrammar()
     reverseGrammarEntry = grammarEntry.left(splitter+1);
     //reverse = "S:"
 
-    terminals = grammarEntry.mid(splitter+1).split(' ');
-    for (int j=terminals.count()-1; j >= 0; j--)
-      reverseGrammarEntry += terminals[j]+' ';
+    categories = grammarEntry.mid(splitter+1).split(' ');
+    for (int j=categories.count()-1; j >= 0; j--)
+      reverseGrammarEntry += categories[j]+' ';
 
     structureCount++;
     // reverse = "S:NS_E NOM NS_B "
@@ -1042,7 +1042,7 @@ bool ModelCompilerHTK::increaseMixtures()
 
     if (!succ)
     {
-      analyseError(i18n("Could not generate increase mixtures according to this config: %1.\n\n"
+      analyseError(i18n("Could not increase mixtures according to this config: %1.\n\n"
             "Please check the path to HHEd (%2), HERest (%3) and the content of the config file.", config, hHEd, hERest));
       return false;
     }

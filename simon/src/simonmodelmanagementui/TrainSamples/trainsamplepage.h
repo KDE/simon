@@ -36,6 +36,9 @@ class TrainSamplePage : public QWizardPage
 
     QStringList getFileNames() const;
 
+  private slots:
+    void speakingStopped();
+
   public:
     TrainSamplePage(QString prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
     ~TrainSamplePage();

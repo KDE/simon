@@ -87,6 +87,8 @@ void AfarasView::start()
       continue;
     QString file = line.left(separator);
     QString prompt = line.mid(separator+1).trimmed();
+    if (prompt.contains('"'))
+      prompt = prompt.mid(prompt.lastIndexOf('"')+1); // strip context
 
     prompts << QPair<QString,QString>(file, prompt);
   }

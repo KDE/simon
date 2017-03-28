@@ -28,6 +28,7 @@ class QAudioInput;
 #include <simonsound/soundbackendclient.h>
 #include <QHash>
 #include <QObject>
+#include <QMutex>
 
 class SoundInputClient;
 class SoundBackend;
@@ -37,11 +38,12 @@ class SimonSoundInput : public QObject, public SoundBackendClient
   Q_OBJECT
 
   signals:
-    void recordingFinished();
     void error(const QString& str);
     void inputStateChanged(SimonSound::State state);
 
   private:
+    bool m_dying;
+    QMutex m_lock;
     SimonSound::DeviceConfiguration m_device;
     SoundBackend *m_input;
     QHash<SoundInputClient*, qint64> m_activeInputClients;
@@ -61,7 +63,7 @@ class SimonSoundInput : public QObject, public SoundBackendClient
 
     void registerInputClient(SoundInputClient* client);
 
-    bool deRegisterInputClient(SoundInputClient* client);
+    bool deRegisterInputClient(SoundInputClient* client, bool& done);
 
     bool prepareRecording(SimonSound::DeviceConfiguration& device);
     bool startRecording();
@@ -71,7 +73,7 @@ class SimonSoundInput : public QObject, public SoundBackendClient
     bool activate(SoundClient::SoundClientPriority priority);
 
     bool isActive() { return (m_activeInputClients.count() > 0); }
-    
+
     int bufferSize();
     void processData(const QByteArray& data);
 

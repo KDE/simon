@@ -31,6 +31,7 @@ class QShowEvent;
 class QHideEvent;
 class VolumeWidget;
 class QModelIndex;
+class QTreeWidgetItem;
 
 class WelcomePage : public QWidget, public ScenarioDisplay
 {
@@ -54,6 +55,7 @@ private slots:
     void audioConfig();
     void scenarioConfig();
       
+    void displayScenario(QTreeWidgetItem* parent, Scenario *s);
     void displayScenarios();
     void displayAcousticModelInfo();
     
@@ -64,12 +66,17 @@ private slots:
     void manageSamples();
     
     void trainingsTextSelected(const QModelIndex& index);
+
+    void displayBaseModelInformation(int type, const QDateTime& creationDate, const QString& name);
+    void displayActiveModelInformation(const QDateTime& creationDate, const QString& name);
     
 private:
     Ui::WelcomePage ui;
     VolumeWidget *volumeWidget;
     TrainingTextAggregatorModel *trainingTextModel;
     QString getCurrentlySelectedScenarioId();
+
+    QTreeWidgetItem* findScenario(const QString& id) const;
 };
 
 #endif // WELCOMEPAGE_H

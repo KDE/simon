@@ -29,7 +29,7 @@ class ScreenGrid : public QWidget
   void cancel();
 
   public:
-    ScreenGrid(QWidget* parent) : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint) {}
+    ScreenGrid(QWidget* parent);
     void keyPressEvent(QKeyEvent *event);
 
 };

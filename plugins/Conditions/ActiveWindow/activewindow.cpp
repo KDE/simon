@@ -90,7 +90,7 @@ bool ActiveWindow::privateDeSerialize(QDomElement elem)
 
     if (m_windowNameIsRegularExpression)
     {
-        m_windowNameRegExp = QRegExp(m_windowName);
+        m_windowNameRegExp = QRegExp(m_windowName, Qt::CaseInsensitive);
         kDebug() << "RegExp '" << m_windowNameRegExp.pattern() << (m_windowNameRegExp.isValid() ? "' is Valid!" : "' is not Valid!");
     }
     else

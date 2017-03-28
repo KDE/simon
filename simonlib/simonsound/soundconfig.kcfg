@@ -115,7 +115,7 @@
     </entry>
      <entry name="MinimumSNR" type="Int">
       <label>The minimum signal-to-noise ratio.</label>
-      <default>5000</default>
+      <default>2300</default>
       <tooltip>The minimum signal-to-noise ratio.</tooltip>
     </entry>
      <entry name="CalibrateVolume" type="Bool">

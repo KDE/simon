@@ -44,22 +44,22 @@ bool Vocabulary::deSerialize(const QDomElement& vocabularyElem)
   //clean member
   qDeleteAll(m_words);
   m_words.clear();
-  terminals.clear();
+  categories.clear();
 
   QDomElement wordElem = vocabularyElem.firstChildElement();
 
   while (!wordElem.isNull()) {
     QDomElement nameElem = wordElem.firstChildElement();
     QDomElement pronunciationElem = nameElem.nextSiblingElement();
-    QDomElement terminalElem = pronunciationElem.nextSiblingElement();
+    QDomElement categoryElem = pronunciationElem.nextSiblingElement();
 
     QString name = nameElem.text();
     QString pronunciation = pronunciationElem.text();
-    QString terminal = terminalElem.text();
+    QString category = categoryElem.text();
 
-    if (!terminals.contains(terminal)) terminals << terminal;
+    if (!categories.contains(category)) categories << category;
 
-    m_words << new Word(name, pronunciation, terminal);
+    m_words << new Word(name, pronunciation, category);
 
     wordElem = wordElem.nextSiblingElement();
   }
@@ -90,9 +90,9 @@ QDomElement Vocabulary::serialize(QDomDocument *doc)
     pronunciationElem.appendChild(doc->createTextNode(w->getPronunciation()));
     wordElem.appendChild(pronunciationElem);
 
-    QDomElement terminalElem = doc->createElement("terminal");
-    terminalElem.appendChild(doc->createTextNode(w->getTerminal()));
-    wordElem.appendChild(terminalElem);
+    QDomElement categoryElem = doc->createElement("category");
+    categoryElem.appendChild(doc->createTextNode(w->getCategory()));
+    wordElem.appendChild(categoryElem);
 
     elem.appendChild(wordElem);
   }
@@ -103,7 +103,7 @@ QDomElement Vocabulary::serialize(QDomDocument *doc)
 
 bool Vocabulary::removeWord(Word* w, bool deleteWord)
 {
-  //not updating terminal cache...
+  //not updating category cache...
   for (int i=0; i < m_words.count(); i++) {
     if (m_words.at(i) == w) {
       beginRemoveRows(QModelIndex(), i, i);
@@ -130,7 +130,7 @@ QVariant Vocabulary::data(const QModelIndex &index, int role) const
       case 1:
         return word->getPronunciation();
       case 2:
-        return word->getTerminal();
+        return word->getCategory();
       case 3:
         return word->getPropability();
     }
@@ -229,8 +229,8 @@ bool Vocabulary::addWords(QList<Word*> w)
   for (int i=0; i < m_words.count(); i++) {
     if (!( *(m_words[i]) < *(w.at(0)) )) {
       if (*(m_words[i]) != *(w.at(0))) {
-        if (!terminals.contains(w.at(0)->getTerminal()))
-          terminals << w.at(0)->getTerminal();
+        if (!categories.contains(w.at(0)->getCategory()))
+          categories << w.at(0)->getCategory();
         m_words.insert(i, w.takeAt(0));
         if (w.isEmpty()) break;
       }
@@ -244,8 +244,8 @@ bool Vocabulary::addWords(QList<Word*> w)
 
   if (!w.isEmpty()) {
     foreach (Word *word, w) {
-      if (!terminals.contains(word->getTerminal()))
-        terminals << word->getTerminal();
+      if (!categories.contains(word->getCategory()))
+        categories << word->getCategory();
       m_words.append(word);
     }
   }
@@ -303,9 +303,9 @@ bool Vocabulary::containsWord(const QString& word)
 }
 
 
-bool Vocabulary::containsWord(const QString& word, const QString& terminal, const QString& pronunciation)
+bool Vocabulary::containsWord(const QString& word, const QString& category, const QString& pronunciation)
 {
-  Word searchWord = Word(word, terminal, pronunciation);
+  Word searchWord = Word(word, category, pronunciation);
   foreach (Word *w, m_words)
     if ((*w) == searchWord)
     return true;
@@ -313,7 +313,7 @@ bool Vocabulary::containsWord(const QString& word, const QString& terminal, cons
 }
 
 
-QString Vocabulary::getRandomWord(const QString& terminal)
+QString Vocabulary::getRandomWord(const QString& category)
 {
   if (m_words.isEmpty()) return QString();
 
@@ -321,12 +321,12 @@ QString Vocabulary::getRandomWord(const QString& terminal)
 
   //start at this random position
   for (int i=starting; i < m_words.count(); i++)
-    if (m_words[i]->getTerminal() == terminal)
+    if (m_words[i]->getCategory() == category)
       return m_words[i]->getWord();
 
   //no matching word found? go backwards
   for (int i=starting-1; i > 0; i--)
-    if (m_words[i]->getTerminal() == terminal)
+    if (m_words[i]->getCategory() == category)
       return m_words[i]->getWord();
 
   //still none? ok, there is nothing to see here...
@@ -334,21 +334,21 @@ QString Vocabulary::getRandomWord(const QString& terminal)
 }
 
 
-bool Vocabulary::renameTerminal(const QString& from, const QString& to)
+bool Vocabulary::renameCategory(const QString& from, const QString& to)
 {
   foreach (Word *w, m_words)
-    if (w->getTerminal() == from)
-    w->setTerminal(to);
-  terminals.removeAll(from);
-  if (!terminals.contains(to))
-    terminals << to;
+    if (w->getCategory() == from)
+    w->setCategory(to);
+  categories.removeAll(from);
+  if (!categories.contains(to))
+    categories << to;
   return true;
 }
 
 
-QStringList Vocabulary::getTerminals()
+QStringList Vocabulary::getCategories()
 {
-  return terminals;
+  return categories;
 }
 
 
@@ -415,12 +415,12 @@ QList<Word*> Vocabulary::findWords(const QString& name, Vocabulary::MatchType ty
  * @warning:	This returns a list containing shallow copies of the words of the vocabulary
  * 		Do not delete its contents!
  */
-QList<Word*> Vocabulary::findWordsByTerminal(const QString& terminal)
+QList<Word*> Vocabulary::findWordsByCategory(const QString& category)
 {
   QList<Word*> out;
 
   foreach (Word *w, m_words)
-    if (w->getTerminal() == terminal)
+    if (w->getCategory() == category)
     out.append(w);
 
   return out;

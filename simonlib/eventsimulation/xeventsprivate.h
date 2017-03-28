@@ -53,8 +53,8 @@ class XEventsPrivate
 
     void unsetModifier (int virtualKey);
 
-    XEventsPrivate (char* displayName);
+    XEventsPrivate (const char* displayName);
     ~XEventsPrivate();
-    Display* openDisplay (char* displayName);
+    Display* openDisplay (const char* displayName);
 };
 #endif                                            //XEVENTSPRIVATE_H

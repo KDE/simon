@@ -39,6 +39,7 @@
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   QObject(parent),
+  m_compileLock(QMutex::Recursive),
   m_username(username),
   m_modelCompilationManager(0),
   m_currentSource(0)
@@ -47,25 +48,37 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   setupBackend(ContextAdapter::FromConfiguration);
 }
 
-void ContextAdapter::setupBackend(BackendType backendType)
+ContextAdapter::BackendType ContextAdapter::getConfiguredDefaultBackendType()
+{
+  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+  KConfigGroup backendGroup(&config, "Backend");
+  int type(-1);
+  type = backendGroup.readEntry("backend", 0);
+  if (type == 0)
+    return ContextAdapter::SPHINX;
+
+  return ContextAdapter::HTK;
+}
+
+void ContextAdapter::setupBackend(ContextAdapter::BackendType backendType)
 {
   kDebug() << "Setting up backend: " << backendType;
-  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
 
   if (backendType == ContextAdapter::FromConfiguration) {
-    KConfigGroup backendGroup(&config, "Backend");
-    int type(-1);
-    type = backendGroup.readEntry("backend", 0);
-    if (type == 0)
-      backendType = ContextAdapter::SPHINX;
-    else
-      backendType = ContextAdapter::HTK;
+    backendType = getConfiguredDefaultBackendType();
   }
 
+  if (((backendType == ContextAdapter::SPHINX) && dynamic_cast<ModelCompilationManagerSPHINX*>(m_modelCompilationManager)) ||
+      ((backendType == ContextAdapter::HTK) && dynamic_cast<ModelCompilationManagerHTK*>(m_modelCompilationManager)))
+    return; // already set up
+
+  ModelCompilationManager *old = m_modelCompilationManager;
   if(backendType == SPHINX)
     m_modelCompilationManager = new ModelCompilationManagerSPHINX(m_username, this);
   else
     m_modelCompilationManager = new ModelCompilationManagerHTK(m_username, this);
+  if (old)
+    old->deleteLater();
 
   connect(m_modelCompilationManager, SIGNAL(modelReady(uint, QString)), this, SLOT(slotModelReady(uint,QString)));
   connect(m_modelCompilationManager, SIGNAL(modelCompilationAborted(ModelCompilation::AbortionReason)), this, SLOT(slotModelCompilationAborted(ModelCompilation::AbortionReason)));
@@ -100,7 +113,8 @@ void ContextAdapter::readCachedModels()
     m_modelCache.insert(Situation(ini.value("DeactivatedScenarios").toStringList(), ini.value("DeactivatedSampleGroups").toStringList()),
                         new CachedModel(ini.value("CompiledDate").toDateTime(),
                                         (CachedModel::ModelState) ini.value("State").toInt(),
-                                        (unsigned) ini.value("FingerPrint").toInt()
+                                        (unsigned) ini.value("FingerPrint").toInt(),
+					(ContextAdapter::BackendType) ini.value("Type", (int) ContextAdapter::SPHINX).toInt()
                                         ));
   }
   ini.endArray();
@@ -129,6 +143,7 @@ void ContextAdapter::storeCachedModels()
     ini.setValue("CompiledDate", j.value()->compiledDate());
     ini.setValue("State", j.value()->state());
     ini.setValue("FingerPrint", j.value()->srcFingerPrint());
+    ini.setValue("Type", j.value()->type());
   }
   ini.endArray();
   ini.beginWriteArray("OrphanedCache");
@@ -205,7 +220,7 @@ void ContextAdapter::buildCurrentSituation()
 
 void ContextAdapter::introduceNewModel ( const Situation& situation )
 {
-  m_modelCache.insert(situation, new CachedModel(QDateTime(), CachedModel::ToBeEvaluated, -1));
+  m_modelCache.insert(situation, new CachedModel(QDateTime(), CachedModel::ToBeEvaluated, -1, ContextAdapter::Null));
 }
 
 void ContextAdapter::buildNext()
@@ -248,16 +263,24 @@ void ContextAdapter::adaptAndBuild ( const Situation& situation, CachedModel* mo
   QString name;
   QDateTime creationDate;
   QString type;
-  KTar tar(m_currentSource->baseModelPath(), "application/x-gzip");
-  if (!Model::parseContainer(tar, creationDate, name, type)) {
-    emit error(i18n("Base model is corrupt."));
-    slotModelCompilationAborted(ModelCompilation::InsufficientInput);
-  } else {
-    if (type == "SPHINX")
-      setupBackend(ContextAdapter::SPHINX);
-    else if (type == "HTK")
-      setupBackend(ContextAdapter::HTK);
-  }
+  ContextAdapter::BackendType bType = ContextAdapter::Null;
+
+  if (m_currentSource->baseModelType() != 2 /* no base model */) {
+    KTar tar(m_currentSource->baseModelPath(), "application/x-gzip");
+    if (!Model::parseContainer(tar, creationDate, name, type)) {
+      emit error(i18n("Base model is corrupt."));
+      slotModelCompilationAborted(ModelCompilation::InsufficientInput);
+    } else {
+      if (type == "SPHINX")
+        bType = ContextAdapter::SPHINX;
+      else if (type == "HTK")
+        bType = ContextAdapter::HTK;
+    }
+  } else
+    bType = getConfiguredDefaultBackendType();
+
+  setupBackend(bType);
+  model->setType(bType);
   m_modelCompilationManager->startModelCompilation(m_currentSource->baseModelType(), m_currentSource->baseModelPath(), scenarioPaths, adaptedPromptsPath);
 }
 
@@ -308,9 +331,6 @@ QString ContextAdapter::adaptPrompts ( const QString& promptsPath, const QString
 void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDate, int baseModelType, const QString& baseModelPath, const QStringList& scenarioPaths, const QString& promptsPathIn )
 {
   kDebug() << "Updating model parameters";
-  if (m_modelCompilationManager)
-    m_modelCompilationManager->abort();
-
   m_compileLock.lock();
   ModelSource *src = m_currentSource;
   m_currentSource = new ModelSource(modelDate, baseModelType, baseModelPath, scenarioPaths, promptsPathIn);
@@ -323,6 +343,9 @@ void ContextAdapter::updateModelCompilationParameters ( const QDateTime& modelDa
   }
   safelyAddContextFreeModelToCache(); //it might have been removed when canceling the compilation e.g. because of missing prompts / grammar
   storeCachedModels();
+
+  if (m_modelCompilationManager)
+    m_modelCompilationManager->abort();
   m_compileLock.unlock();
 
   buildNext();
@@ -341,14 +364,13 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
         kDebug() << "Model has changed";
         //delete old cached model here iff no other cached model has the old fingerprint.
         bool isOnlyOne = true;
-        for (QHash<Situation, CachedModel*>::const_iterator k = m_modelCache.constBegin(); k != m_modelCache.end(); k++) {
+        for (QHash<Situation, CachedModel*>::const_iterator k = m_modelCache.constBegin(); k != m_modelCache.constEnd(); k++) {
           if (!(k.key() == j.key()) && (k.value()->srcFingerPrint() == j.value()->srcFingerPrint())) {
             isOnlyOne = false;
             break;
           }
         }
         if (isOnlyOne) {
-          //TODO: Maybe keep a couple of those?
 	  uint oldFingerPrint = j.value()->srcFingerPrint();
 	  m_orphanedCache.insert(0, oldFingerPrint);
 
@@ -378,6 +400,7 @@ void ContextAdapter::slotModelReady(uint fingerprint, const QString& path)
   if (announce)
     emit modelCompiled(path);
   emit newModelReady();
+  buildNext();
 }
 
 void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReason reason)
@@ -402,9 +425,10 @@ void ContextAdapter::slotModelCompilationAborted(ModelCompilation::AbortionReaso
 
   if (reason == ModelCompilation::InsufficientInput)
     emit newModelReady();
+  buildNext();
 }
 
-QString ContextAdapter::currentModelPath() const
+void ContextAdapter::currentModel(QString& path, ContextAdapter::BackendType& type) const
 {
   kDebug() << "Requested situation: " << m_requestedSituation.deactivatedSampleGroups() << m_requestedSituation.deactivatedScenarios();
   //try to find models for:
@@ -413,13 +437,16 @@ QString ContextAdapter::currentModelPath() const
   foreach (const Situation& s, QList<Situation>() << m_requestedSituation << Situation()) {
     if (m_modelCache.contains(s)) {
       kDebug() << "Situation found: " << s.id() << (int) m_modelCache.value(s)->state();
-      if (m_modelCache.value(s)->state() == CachedModel::Current)
-        return m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
-      else if (m_modelCache.value(s)->state() == CachedModel::Null)
-        return QString();
+      if (m_modelCache.value(s)->state() == CachedModel::Current) {
+        path = m_modelCompilationManager->cachedModelPath(m_modelCache.value(s)->srcFingerPrint());
+	type = m_modelCache.value(s)->type();
+	return;
+      } else if (m_modelCache.value(s)->state() == CachedModel::Null) {
+	break; // go to null model
+      }
     }
   }
-
-  // 3. if both of those faile, we have no useful model
-  return QString();
+  path = QString();
+  type = ContextAdapter::Null;
 }
+

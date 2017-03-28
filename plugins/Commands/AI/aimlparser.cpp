@@ -40,8 +40,8 @@
 //it also captures the words corresponding to the wildcards * & _
 bool exactMatch(QString regExp, QString str, QStringList &capturedText)
 {
-  QStringList regExpWords = regExp.split(' ');
-  QStringList strWords = str.split(' ');
+  const QStringList regExpWords = regExp.split(' ');
+  const QStringList strWords = str.split(' ');
   if ((!regExpWords.count() || !strWords.count()) && (regExpWords.count() != strWords.count()))
     return false;
   if (regExpWords.count() > strWords.count())
@@ -301,7 +301,7 @@ bool AIMLParser::saveVars(const QString &filename)
   doc.appendChild(root);
 
   QMap<QString, QString>::ConstIterator it;
-  for ( it = parameterValue.begin(); it != parameterValue.end(); ++it ) {
+  for ( it = parameterValue.constBegin(); it != parameterValue.constEnd(); ++it ) {
     QDomElement setElem = doc.createElement("set");
     setElem.setAttribute("name", it.key());
     QDomText text = doc.createTextNode(*it);
@@ -368,7 +368,7 @@ void AIMLParser::parseCategory(QDomNode* categoryNode)
   QString pattern = resolveNode(&patternNode);
   normalizeString(pattern);
   //find where to insert the new node
-  QStringList words = pattern.split(' ');
+  const QStringList words = pattern.split(' ');
   Node *whereToInsert = &root;
   for ( QStringList::ConstIterator it = words.begin(); it != words.end(); ++it ) {
     bool found = false;
@@ -382,7 +382,7 @@ void AIMLParser::parseCategory(QDomNode* categoryNode)
       }
     }
     if (!found) {
-      for (; it != words.end(); ++it ) {
+      for (; it != words.constEnd(); ++it ) {
         Node *n = new Node;
         n->word = *it;
         n->parent = whereToInsert;
@@ -592,7 +592,7 @@ QString AIMLParser::getResponse(QString input, const bool &srai)
     //normalizeString(*sentence);
     *sentence = (*sentence).toLower();
     QStringList inputWords = sentence->split(' ');
-    QStringList::ConstIterator it = inputWords.begin();
+    QStringList::ConstIterator it = inputWords.constBegin();
     if (!root.match(it, inputWords, thatList.count() && thatList[0].count() ?
       thatList[0][0] : QString(""), curTopic, capturedThatTexts, capturedTopicTexts, leaf))
       return "Internal Error!";

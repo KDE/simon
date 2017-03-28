@@ -22,6 +22,7 @@
 #include <simonsound/soundbackendclient.h>
 #include <simonlogging/logger.h>
 #include <QThread>
+#include <QMutexLocker>
 #include <KLocalizedString>
 #include <KDebug>
 
@@ -43,6 +44,10 @@ class ALSALoop : public QThread {
       shouldRun(true) 
     {}
 
+    void start() {
+      shouldRun = true;
+      QThread::start();
+    }
     void stop() {
       shouldRun = false;
     }
@@ -59,7 +64,6 @@ class ALSACaptureLoop : public ALSALoop
     {
       Logger::log(QString("Starting ALSA recording"));
       Logger::log(QString("EPIPE: %1; ESTRPIPE: %2; EBADFD: %3").arg(EPIPE).arg(ESTRPIPE).arg(EBADFD));
-      shouldRun = true;
 
       int err = 0;
       snd_pcm_state_t state;
@@ -179,10 +183,18 @@ QStringList ALSABackend::getAvailableOutputDevices()
 
 QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
 {
+  QMutexLocker l(&m_deviceListLock);
   QStringList devices;
-  devices << i18nc("Default audio device (%1)", "default");
 
   char **hints, **hints_;
+
+  //FIXME:
+  //Workaround: The first call to snd_device_name_hint
+  //does, for some reason, not include some devices like "pulse" or "default".
+  //This has been verified with arecord itself where adding the same workaround fixed
+  //the same problem both on Gentoo and on a clean Ubuntu 12.04 LTS installation.
+  snd_device_name_hint(-1, "pcm", (void***) &hints);
+  snd_device_name_free_hint((void**) hints);
 
   if (snd_device_name_hint(-1, "pcm", (void***) &hints) < 0) {
     kWarning() << "List of devices is empty";
@@ -190,6 +202,7 @@ QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
   }
 
   hints_ = hints;
+  bool foundDefault = false;
 
   while (*hints) {
     char* device = *hints;
@@ -202,11 +215,16 @@ QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
     if ((ioid == 0) || (strcmp(ioid, (type == SimonSound::Input) ? "Input" : "Output") == 0)) {
       //add it to the list
       QString userDeviceName = QString("%1 (%2)").arg(description).arg(name).replace('\n', ' ');
-      if (userDeviceName.contains("Default Audio Device"))
+      if (strcmp(name, "default") == 0)
+        foundDefault = true;
+      if (userDeviceName.contains("Default Audio Device", Qt::CaseInsensitive)) {
         devices.insert(0, userDeviceName);
-      else
+        foundDefault = true;
+      } else
         devices << userDeviceName;
     }
+    if (!foundDefault)
+      devices.insert(0, i18n("Default audio device (%1)", QLatin1String("default")));
 
     free(name);
     free(description);
@@ -269,20 +287,22 @@ bool ALSABackend::check(SimonSound::SoundDeviceType type, const QString& device,
   return false;
 }
 
+QString ALSABackend::defaultDevice(const QStringList& list)
+{
+  foreach (const QString& dev, list)
+    if (dev.contains("pulse", Qt::CaseInsensitive))
+      return dev; // make pulseaudio happy
+  return list.first();
+}
+
 QString ALSABackend::getDefaultInputDevice()
 {
-  QString systemDefault = "default";
-  if (getAvailableInputDevices().contains("pulse"))
-    systemDefault = "pulse";
-  return systemDefault;
+  return defaultDevice(getAvailableInputDevices());
 }
 
 QString ALSABackend::getDefaultOutputDevice()
 {
-  QString systemDefault = "default";
-  if (getAvailableOutputDevices().contains("pulse"))
-    systemDefault = "pulse";
-  return systemDefault;
+  return defaultDevice(getAvailableOutputDevices());
 }
 
 void ALSABackend::errorRecoveryFailed()

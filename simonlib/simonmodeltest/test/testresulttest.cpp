@@ -77,10 +77,11 @@ void testTestResult::testErrorParsing()
   QFETCH(int, deletionErrors);
   QFETCH(int, substitutionErrors);
 
-  QList<TestResultLeaf*> leafs = TestResultInstance::parseResult(recognitionResult);
+  QList<TestResultLeaf*> leaves = TestResultInstance::parseResult(recognitionResult);
+  TestResult::parseChildren(label, leaves);
 
   TestResult *testResult = new TestResult(label);
-  bool succ = testResult->registerChildren(leafs);
+  bool succ = testResult->registerChildren(leaves);
   QVERIFY(succ);
 
   qDebug() << "TestResult: I: " << testResult->insertionErrors() << " S: " << 
@@ -91,7 +92,7 @@ void testTestResult::testErrorParsing()
   QCOMPARE(testResult->substitutionErrors(), substitutionErrors);
 
   delete testResult;
-  qDeleteAll(leafs);
+  qDeleteAll(leaves);
 }
 
 
@@ -159,8 +160,9 @@ void testTestResult::testMultiple()
   bool succ = true;
   foreach (const RecognitionResult& result, recognitionResults)
   {
-    QList<TestResultLeaf*> leafs = TestResultInstance::parseResult(result);
-    succ = testResult->registerChildren(leafs) && succ;
+    QList<TestResultLeaf*> leaves = TestResultInstance::parseResult(result);
+    TestResult::parseChildren(label, leaves);
+    succ = testResult->registerChildren(leaves) && succ;
   }
 
   QVERIFY(succ);

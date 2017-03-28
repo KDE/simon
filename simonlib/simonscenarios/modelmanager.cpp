@@ -66,7 +66,11 @@ modelChangedFlag(false)
   QString activePath = KStandardDirs::locate("appdata", "model/active.sbm");
   if (QFile::exists(activePath)) {
     KTar tar(activePath, "application/x-gzip");
-    updateBlacklistedTranscriptions(tar);
+    ModelMetadata *data = metaData(tar);
+    if (data) {
+      updateBlacklistedTranscriptions(data);
+      delete data;
+    }
   }
 }
 
@@ -118,7 +122,7 @@ Model* ModelManager::createActiveContainer()
 
 Model* ModelManager::createBaseModelContainer()
 {
-  qint32 modelType = ScenarioManager::getInstance()->baseModelType();
+  qint32 modelType = baseModelType();
 
   if (modelType == 2)
     return new Model(modelType, QByteArray());
@@ -164,34 +168,82 @@ bool ModelManager::storeBaseModel(const QDateTime& changedTime, int baseModelTyp
   cGroup.writeEntry("BaseModelType", baseModelType);
   config.sync();
 
-  ScenarioManager::getInstance()->setBaseModelType(baseModelType);
+  QString repoPath = KStandardDirs::locateLocal("appdata", "model/base/srv" + changedTime.toString(Qt::ISODate) + ".sbm");
+  //store both as selected base model and in the local repository
+  foreach (const QString& path, QStringList() << KStandardDirs::locateLocal("appdata", "model/basemodel.sbm")
+                                                    << repoPath) {
+    QFile containerFile(path);
+    if (!containerFile.open(QIODevice::WriteOnly))
+      return false;
+    containerFile.write(container);
+    containerFile.close();
+  }
+  setBaseModel(repoPath, baseModelType);
 
-  QFile containerFile(KStandardDirs::locateLocal("appdata", "model/basemodel.sbm"));
-
-  if (!containerFile.open(QIODevice::WriteOnly))
-    return false;
-
-  containerFile.write(container);
-
-  containerFile.close();
+  QDateTime creationDate;
+  QString name;
+  ModelMetadata *data = metaDataFromBuffer(container);
+  if (data) {
+    name = data->name();
+    creationDate = data->dateTime();
+    delete data;
+  }
+  announceBaseModel(name, baseModelType, creationDate);
   return true;
 }
 
-bool ModelManager::updateBlacklistedTranscriptions(KTar& tar)
+void ModelManager::announceBaseModel(const QString& name, int type, const QDateTime& creationDate)
 {
-  if (!tar.open(QIODevice::ReadOnly)) return false;
+  emit baseModelStored(type, creationDate, name);
+}
+
+
+int ModelManager::baseModelType()
+{
+  return SpeechModelManagementConfiguration::modelType();
+}
+
+QString ModelManager::baseModel()
+{
+  return SpeechModelManagementConfiguration::selectedBaseModel();
+}
+
+void ModelManager::setBaseModel(const QString& path, int type)
+{
+  SpeechModelManagementConfiguration::setSelectedBaseModel(path);
+  SpeechModelManagementConfiguration::setModelType(type);
+  SpeechModelManagementConfiguration::self()->writeConfig();
+  ScenarioManager::getInstance()->touchBaseModelAccessTime();
+}
+
+QString ModelManager::languageProfileName()
+{
+  return SpeechModelManagementConfiguration::languageProfileName();
+}
+void ModelManager::setLanguageProfileName(const QString& name)
+{
+  SpeechModelManagementConfiguration::setLanguageProfileName(name);
+  SpeechModelManagementConfiguration::self()->writeConfig();
+}
+
+ModelMetadata* ModelManager::metaData(KTar& tar)
+{
+  if (!tar.open(QIODevice::ReadOnly)) return 0;
   const KArchiveDirectory *d = tar.directory();
-  if (!d) return false;
+  if (!d) return 0;
 
   const KArchiveFile *entry = dynamic_cast<const KArchiveFile*>(d->entry("metadata.xml"));
-  if (!entry) return false;
+  if (!entry) return 0;
 
   QDomDocument doc;
   doc.setContent(entry->data());
 
-  ModelMetadata metaData(doc.documentElement());
-  blacklistedTranscriptions = metaData.droppedPronunciations();
+  return new ModelMetadata(doc.documentElement());
+}
 
+bool ModelManager::updateBlacklistedTranscriptions(ModelMetadata* data)
+{
+  blacklistedTranscriptions = data->droppedPronunciations();
   kDebug() << "Blacklisted transcriptions: " << blacklistedTranscriptions;
   return true;
 }
@@ -213,28 +265,57 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleR
   containerFile.write(container);
   containerFile.close();
 
-  //update blacklistedTranscriptions
+  bool success = false;
+  QDateTime creationDate;
+  QString name;
+  ModelMetadata *data = metaDataFromBuffer(container);
+  if (data) {
+    success = updateBlacklistedTranscriptions(data);
+    creationDate = data->dateTime();
+    name = data->name();
+    delete data;
+  }
+  emit activeModelStored(creationDate, name);
+  return success;
+}
+
+ModelMetadata* ModelManager::metaDataFromBuffer(const QByteArray& input)
+{
+  ModelMetadata *data = 0;
+  KTar *tar = archiveFromBuffer(input);
+  if (tar) {
+    data = metaData(*tar);
+    QIODevice *d = tar->device();
+    delete tar;
+    delete d;
+  }
+  return data;
+}
+
+/**
+ * \warning The caller has to delete the archive's underlying device
+ */
+KTar* ModelManager::archiveFromBuffer(const QByteArray& input)
+{
   // safely remove the const qualifier as the buffer is only opened read-only
-  QBuffer buffer(const_cast<QByteArray*>(&container));
+  QBuffer buffer(const_cast<QByteArray*>(&input));
   if (!buffer.open(QIODevice::ReadOnly))
-    return false;
+    return 0;
   QIODevice *uncompressed = KFilterDev::device(&buffer, "application/x-gzip", false);
   if (!uncompressed || !uncompressed->open(QIODevice::ReadOnly))
-    return false;
+    return 0;
 
   //seeking doesn't work properly in kfilterdevs, which trips up KTar. Instead, decompress
   //completely before passing it on to KTar
-  QBuffer uncompressedBuffer;
-  if (!uncompressedBuffer.open(QIODevice::ReadWrite))
-    return false;
-  uncompressedBuffer.write(uncompressed->readAll());
-  uncompressedBuffer.seek(0);
+  QBuffer *uncompressedBuffer = new QBuffer;
+  if (!uncompressedBuffer->open(QIODevice::ReadWrite))
+    return 0;
+  uncompressedBuffer->write(uncompressed->readAll());
+  uncompressedBuffer->seek(0);
   delete uncompressed;
 
-  KTar tar(&uncompressedBuffer);
-  return updateBlacklistedTranscriptions(tar);
+  return new KTar(uncompressedBuffer);
 }
-
 
 QByteArray ModelManager::getSample(const QString& sampleName)
 {
@@ -266,13 +347,13 @@ LanguageDescriptionContainer* ModelManager::getLanguageDescriptionContainer()
 {
   QFile shadowVocab(KStandardDirs::locate("appdata", "shadowvocabulary.xml"));
   QFile languageProfile(KStandardDirs::locate("appdata", "model/languageProfile"));
-  
-  languageProfile.open(QIODevice::ReadOnly); //optional, so we don't care if that doesn't exist - readAll works fine
 
-  if (!shadowVocab.open(QIODevice::ReadOnly))
-    return 0;
+  QByteArray languageP;
+  if (languageProfile.open(QIODevice::ReadOnly))
+    languageP += languageProfile.readAll();
 
-  return new LanguageDescriptionContainer(shadowVocab.readAll(), languageProfile.readAll());
+  return new LanguageDescriptionContainer((shadowVocab.open(QIODevice::ReadOnly)) ?
+                shadowVocab.readAll() : QByteArray(), languageP);
 }
 
 
@@ -312,7 +393,7 @@ bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, QByteA
 
   languageProfileF.write(languageProfile);
   languageProfileF.close();
-  
+
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("LanguageDescriptionDate", changedTime);
@@ -379,7 +460,7 @@ bool ModelManager::storeSample(const QString& name, const QByteArray& sample)
 {
   QString dirPath = TrainingManager::getInstance()->getTrainingDir()+'/';
 
-  QFile f(dirPath+name+".wav");
+  QFile f(dirPath+name);
   if (!f.open(QIODevice::WriteOnly)) return false;
 
   f.write(sample);

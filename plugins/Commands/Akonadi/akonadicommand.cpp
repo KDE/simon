@@ -141,7 +141,7 @@ void AkonadiCommand::storeJobFinished(KJob* job)
   Akonadi::ItemCreateJob *createJob= static_cast<Akonadi::ItemCreateJob*>( job );
   Q_UNUSED(createJob);
   if ( job->error() ) {
-      Logger::log(i18n("Akonadi item create job returned error: %1", job->errorString()), Logger::Error);
+      Logger::log(i18n("Failed to create Akonadi item: %1", job->errorString()), Logger::Error);
       kError() << job->errorString();
   }
 }

@@ -49,6 +49,8 @@ ScenarioManagementDialog::ScenarioManagementDialog(const QString& dataPrefix, QW
   managementWidget(new ScenarioManagementWidget(dataPrefix, false /* not minimal */, parent))
 {
   setMainWidget(managementWidget);
+  setAcceptDrops(true);
+  managementWidget->setAcceptDrops(true);
   setCaption( i18n("Manage scenarios") );
 }
 
@@ -67,6 +69,20 @@ bool ScenarioManagementDialog::updateScenarioConfiguration()
   } while (!managementWidget->save());
   return ret;
 
+}
+
+void ScenarioManagementDialog::configureScenarios(QWidget *parent)
+{
+  QPointer<ScenarioManagementDialog> dlg(new ScenarioManagementDialog("simon/", parent));
+  if (dlg->updateScenarioConfiguration())
+  {
+    //reload scenario information
+    kDebug() << "Reloading Scenario Information";
+
+    if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
+      KMessageBox::sorry(parent, i18n("Could not re-initialize scenarios. Please restart Simon."));
+  }
+  delete dlg;
 }
 
 QStringList ScenarioManagementDialog::getSelectedScenarioIds()

@@ -59,10 +59,8 @@
 #include <KStringHandler>
 
 #define advanceStream(x) \
-  qint64 currentPos = ((qint64)msg.device()->pos())-((qint64)x);\
   msgByte.remove(0,(int)x);\
-  Q_ASSERT(currentPos >= 0);\
-  msg.device()->seek(currentPos);
+  msg.device()->seek(0);
 
 #define checkIfSynchronisationIsAborting() if (synchronisationOperation && synchronisationOperation->isAborting()) \
   { \
@@ -98,11 +96,13 @@ RecognitionControl::RecognitionControl() : SimonSender(),
 localSimond(0),
 blockAutoStart(false),
 simondStreamer(new SimondStreamer(this, this)),
+m_loggedIn(false),
 recognitionReady(false),
 socket(new ThreadedSSLSocket(this)),
 synchronisationOperation(0),
 modelCompilationOperation(0),
-timeoutWatcher(new QTimer(this))
+timeoutWatcher(new QTimer(this)),
+currentlyReading(false)
 {
   qRegisterMetaType<QList<QSslError> >();
   
@@ -120,8 +120,10 @@ timeoutWatcher(new QTimer(this))
 
   connect(this, SIGNAL(simondSystemError(QString)), this, SLOT(disconnectFromServer()));
 
+  connect(this, SIGNAL(loggedIn()), this, SLOT(askStartSynchronisation()), Qt::QueuedConnection);
+
   connect(ModelManager::getInstance(), SIGNAL(modelChanged()), this, SLOT(askStartSynchronisation()));
-  
+
   timeoutWatcher->setSingleShot(true);
 }
 
@@ -140,8 +142,9 @@ void RecognitionControl::startPrivateSimond()
 {
   if (!localSimond) {
     localSimond = new QProcess(this);
-    connect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
+    localSimond->setProcessChannelMode(QProcess::ForwardedChannels);
   }
+  disconnect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
   if (localSimond->state() != QProcess::NotRunning) {
     localSimond->close();
     localSimond->waitForFinished();
@@ -149,6 +152,16 @@ void RecognitionControl::startPrivateSimond()
 
   localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
   localSimond->waitForStarted();
+  // we don't know when Simond will start listening for connections;
+  // if we connect too soon, we will get a "connection refused" error.
+  // Additionally, if we mindlessly restart simond as it exits, we won't catch the situtation where
+  // another Simond is already running (blocking the port).
+  // So here we wait for Simond to "finish" (exit prematurely, really). After half a second of runtime
+  // we assume that either Simond is now listening or, if it did quit, that it was unable to initialize
+  // (i.e., start listening) and there is no point in restarting it
+  if (!localSimond->waitForFinished(500))
+    connect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
+     //otherwise, no restarting
 }
 
 void RecognitionControl::startup()
@@ -209,6 +222,7 @@ void RecognitionControl::slotDisconnected()
 {
   stopSimondStreamer();
 
+  m_loggedIn = false;
   recognitionReady=false;
   if (synchronisationOperation) {
     if (synchronisationOperation->isRunning())
@@ -551,6 +565,7 @@ bool RecognitionControl::sendBaseModel()
 
 void RecognitionControl::sendDeactivatedScenarioList()
 {
+  if (!m_loggedIn) return;
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
@@ -561,6 +576,7 @@ void RecognitionControl::sendDeactivatedScenarioList()
 
 void RecognitionControl::sendDeactivatedSampleGroups()
 {
+  if (!m_loggedIn) return;
   sendDeactivatedSampleGroups(ContextManager::instance()->getDeactivatedSampleGroups());
 }
 
@@ -724,6 +740,10 @@ void RecognitionControl::startSynchronisation()
   //selected scenarios
   bodyStream << cg.readEntry("LastModified", QDateTime());
 
+  cg.writeEntry("DeletedScenarios", QStringList());
+  cg.writeEntry("DeletedScenariosTimes", QStringList());
+  cg.sync();
+
   //all scenarios
   QStringList ids = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
   bodyStream << (qint32) ids.count();
@@ -771,15 +791,24 @@ void RecognitionControl::synchronisationDone()
  */
 void RecognitionControl::messageReceived()
 {
+  receiveMutex.lock();
+  if (currentlyReading) {
+    receiveMutex.unlock();
+    return;
+  }
+  currentlyReading = true;
+  receiveMutex.unlock();
   qint32 type;
   Simond::Request request;
   QByteArray msgByte = stillToProcess;
   QDataStream msg(&msgByte, QIODevice::ReadOnly);
+  receiveMutex.lock();
   while (socket->bytesAvailable()) {
+    receiveMutex.unlock();
     bool messageNotYetFinished = false;
     msgByte += socket->readAll();
     msg.device()->seek(0);
-    
+
     while (((unsigned) msg.device()->bytesAvailable() >= sizeof(qint32)) && !messageNotYetFinished) {
       msg >> type;
       request = (Simond::Request) type;
@@ -790,9 +819,9 @@ void RecognitionControl::messageReceived()
         {
           advanceStream(sizeof(qint32));
           emit loggedIn();
+          m_loggedIn = true;
           sendDeactivatedScenarioList();
           sendDeactivatedSampleGroups();
-          askStartSynchronisation();
           break;
         }
 
@@ -1108,8 +1137,8 @@ void RecognitionControl::messageReceived()
         case Simond::ErrorRetrievingTrainingsSample:
         {
           parseLengthHeader();
-	  QByteArray sampleName;
-	  msg >> sampleName;
+          QByteArray sampleName;
+          msg >> sampleName;
           sampleNotAvailable(QString::fromUtf8(sampleName));
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
           break;
@@ -1127,9 +1156,8 @@ void RecognitionControl::messageReceived()
           QByteArray sampleNameByte;
           msg >> sampleNameByte;
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server requested sampleNameByte";
+          kDebug() << "Server requested sampleNameByte" << sampleNameByte;
 
-          kDebug() << sampleNameByte;
           sendSample(QString::fromUtf8(sampleNameByte));
           break;
         }
@@ -1148,7 +1176,7 @@ void RecognitionControl::messageReceived()
           msg >> sample;
 
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-          kDebug() << "Server sent Training Sample";
+          kDebug() << "Server sent Training Sample" << name;
 
           if (!storeSample(QString::fromUtf8(name), sample)) {
             sendRequest(Simond::TrainingsSampleStorageFailed);
@@ -1337,7 +1365,7 @@ void RecognitionControl::messageReceived()
         case Simond::ErrorRetrievingModelCompilationProtocol:
         {
           advanceStream(sizeof(qint32));
-          KMessageBox::sorry(0, i18n("Could not retrieve model compilation protocol"));
+          emit compilationWarning(i18n("Could not retrieve model compilation protocol"));
           break;
         }
 
@@ -1402,6 +1430,7 @@ void RecognitionControl::messageReceived()
 
         case Simond::RecognitionStarted:
         {
+          kDebug() << "Recognition started!";
           advanceStream(sizeof(qint32));
 
           recognitionReady=true;
@@ -1486,17 +1515,21 @@ void RecognitionControl::messageReceived()
 
         default:
           kDebug() << "Unknown request: " << request;
-	  Q_ASSERT(false);
+          Q_ASSERT(false);
+          socket->close();
       }
     }
 
     messageNotYetFinished=false;
 
+    receiveMutex.lock();
     //this is actually not the correct place (should be at the end of the function)
     //BUT: that way the very last thing the function does it check if there are still bytes available
     //this _ensures_ that we do not loose something
     stillToProcess=msgByte;
   }
+  currentlyReading=false;
+  receiveMutex.unlock();
 }
 
 void RecognitionControl::abortModelCompilation()
@@ -1555,7 +1588,7 @@ bool RecognitionControl::stopRecognition()
 
 void RecognitionControl::displayCompilationProtocol(const QString& protocol)
 {
-  KMessageBox::detailedSorry(0, i18n("Protocol:"), protocol);
+  emit compilationError(i18n("Protocol:"), protocol);
 }
 
 void RecognitionControl::sampleNotAvailable(const QString& sample)
@@ -1572,7 +1605,8 @@ void RecognitionControl::sampleNotAvailable(const QString& sample)
     if (succ)
       TrainingManager::getInstance()->savePrompts();
 
-    ModelManager::getInstance()->commitGroup(false /*silent*/);
+    //can only happen within a synchronization, no need to re-start that
+    ModelManager::getInstance()->commitGroup(true /*silent*/);
 
     if (!succ)
       KMessageBox::error(0, i18n("Could not remove sample from the training corpus"));
@@ -1583,7 +1617,7 @@ void RecognitionControl::wordUndefined(const QString& word)
 {
   int ret = KMessageBox::questionYesNoCancel(0,
     i18n("The word \"%1\" is used in your training samples but it is not contained "
-    "in your wordlist.\n\nWhat do you want to do?", word), QString(),
+    "in your vocabulary.\n\nWhat do you want to do?", word), QString(),
     KGuiItem(i18n("Remove samples containing the word"), KIcon("list-remove")),
     KGuiItem(i18n("Add the word"), KIcon("list-add")));
 
@@ -1608,13 +1642,13 @@ void RecognitionControl::wordUndefined(const QString& word)
 
 void RecognitionControl::classUndefined(const QString& undefClass)
 {
-  KMessageBox::sorry(0, i18n("Your grammar uses the undefined terminal \"%1\".\n\nPlease add a word that uses this terminal or remove the structure(s) containing the terminal from your grammar.", undefClass));
+  emit compilationError(i18n("Your grammar uses the undefined category \"%1\".\n\nPlease add a word that uses this category or remove the structure(s) containing the category from your grammar.", undefClass), QString());
 }
 
 
 void RecognitionControl::phonemeUndefined(const QString& phoneme)
 {
-  KMessageBox::sorry(0, i18n("The phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
+  emit compilationError(i18n("The phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme), QString());
 }
 
 
@@ -1673,7 +1707,7 @@ bool RecognitionControl::storeBaseModel(const QDateTime& changedTime, int baseMo
 {
   bool succ = ModelManager::getInstance()->storeBaseModel(changedTime, baseModelType, container);
   if (!succ) {
-    KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the base model received from the server."
+    emit synchronisationError(i18nc("%1 is path", "Could not store the base model received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
       KStandardDirs::locateLocal("appdata", "model")));
   }
@@ -1685,7 +1719,7 @@ bool RecognitionControl::storeLanguageDescription(const QDateTime& changedTime, 
 {
   bool succ = ModelManager::getInstance()->storeLanguageDescription(changedTime, shadowVocab, languageProfile);
   if (!succ) {
-    KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the language description received from the server."
+    emit synchronisationError(i18nc("%1 is path", "Could not store the language description received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
       KStandardDirs::locateLocal("appdata", "model")));
   }
@@ -1697,7 +1731,7 @@ bool RecognitionControl::storeTraining(const QDateTime& changedTime, qint32 samp
 {
   bool succ = ModelManager::getInstance()->storeTraining(changedTime, sampleRate, prompts);
   if (!succ) {
-    KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the training corpus received from the server."
+    emit synchronisationError(i18nc("%1 is path", "Could not store the training corpus received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
       KStandardDirs::locateLocal("appdata", "model")));
   }
@@ -1709,7 +1743,7 @@ bool RecognitionControl::storeActiveModel(const QDateTime& changedTime, qint32 s
 {
   bool succ = ModelManager::getInstance()->storeActiveModel(changedTime, sampleRate, container);
   if (!succ) {
-    KMessageBox::sorry(0, i18nc("%1 is path", "Could not store the active model received from the server."
+    emit synchronisationError(i18nc("%1 is path", "Could not store the active model received from the server."
       "\n\nPlease check the permissions on the model folder: %1",
       KStandardDirs::locateLocal("appdata", "model")));
   }
@@ -1721,7 +1755,7 @@ bool RecognitionControl::storeSample(const QString& name, const QByteArray& samp
 {
   bool succ = ModelManager::getInstance()->storeSample(name, sample);
   if (!succ) {
-    KMessageBox::sorry(0, i18nc("%1 is sample name, %2 is training data folder",
+    emit synchronisationError(i18nc("%1 is sample name, %2 is training data folder",
       "Could not store the sample %1 received from the server."
       "\n\nPlease check the permissions on the sample folder: %2",
       name, TrainingManager::getInstance()->getTrainingDir()));
@@ -1735,6 +1769,7 @@ RecognitionControl::~RecognitionControl()
   simondStreamer->stop();
   simondStreamer->deleteLater();
   if (localSimond) {
+    disconnect(localSimond, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
     localSimond->terminate();
     localSimond->waitForFinished(1000);
     if (localSimond->state() != QProcess::NotRunning)

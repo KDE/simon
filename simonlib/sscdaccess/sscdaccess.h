@@ -98,6 +98,8 @@ class SSCDACCESS_EXPORT SSCDAccess : public QObject
     bool sendSample(Sample *s);
     bool processSampleAnswer();
 
+    QString remote() const;
+
   public slots:
     void disconnectFromServer();
     void connectTo( QString server, quint16 port, bool encrypted );

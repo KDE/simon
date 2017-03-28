@@ -22,6 +22,7 @@
 #define SIMONSAMPLEDATAPROVIDER_H
 
 #include <sscdaccess/abstractsampledataprovider.h>
+#include <QStringList>
 
 class Microphone;
 class SoundCard;
@@ -31,6 +32,7 @@ class SimonSampleDataProvider : public AbstractSampleDataProvider
 private:
   Microphone *m_microphone;
   SoundCard *m_soundCard;
+  QStringList m_sampleBlackList;
   
 protected:
     QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
@@ -39,7 +41,8 @@ protected:
 public:
     SimonSampleDataProvider(qint32 userId, Microphone *microphone, 
 			    SoundCard *soundCard, 
-			    Sample::SampleType sampleType, const QString& name);
+			    Sample::SampleType sampleType, const QString& name,
+          const QStringList& sampleBlackList);
     virtual ~SimonSampleDataProvider();
     bool store();
 };

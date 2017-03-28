@@ -1,3 +1,9 @@
+if (USE_PLASMA)
+  set(PLAMSA_DEP_TEST_SRC ../plasmaboundvalue.cpp)
+else()
+  set(PLAMSA_DEP_TEST_SRC "")
+endif()
+
 #################################
 ##### BoundValue ################
 #################################
@@ -10,17 +16,18 @@ set(simondialogcommandpluginboundvaluetest_SRCS
   ../staticboundvalue.cpp
   ../scriptboundvalue.cpp
   ../argumentboundvalue.cpp
+  ${PLAMSA_DEP_TEST_SRC}
 )
 
 kde4_add_unit_test(simondialogcommandplugintest-boundvalue TESTNAME
   simondialogcommandplugin-boundValue
   ${simondialogcommandpluginboundvaluetest_SRCS}
-  ${simondialogcommandplugintest_plasma_SRCS}
 )
 
 target_link_libraries(simondialogcommandplugintest-boundvalue
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
-  ${simondialogcommandplugintest_plasma_LIBS}
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY} ${simondialogcommandplugintest_plasma_LIBS}
+  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB}
 )
 
 #################################
@@ -36,17 +43,18 @@ set(simondialogcommandplugindialogboundvaluestest_SRCS
   ../staticboundvalue.cpp
   ../scriptboundvalue.cpp
   ../argumentboundvalue.cpp
+  ${PLAMSA_DEP_TEST_SRC}
 )
 
 kde4_add_unit_test(simondialogcommandplugintest-dialogboundvalues TESTNAME
   simondialogcommandplugin-dialogboundvalues
   ${simondialogcommandplugindialogboundvaluestest_SRCS}
-  ${simondialogcommandplugintest_plasma_SRCS}
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogboundvalues
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
-  ${simondialogcommandplugintest_plasma_LIBS}
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY} ${simondialogcommandplugintest_plasma_LIBS}
+  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB}
 )
 
 #################################
@@ -66,7 +74,8 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogtemplateoptions TESTNAME
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogtemplateoptions
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY}
 )
 
 #################################
@@ -85,17 +94,18 @@ set(simondialogcommandplugindialogtextparsertest_SRCS
   ../staticboundvalue.cpp
   ../scriptboundvalue.cpp
   ../argumentboundvalue.cpp
+  ${PLAMSA_DEP_TEST_SRC}
 )
 
 kde4_add_unit_test(simondialogcommandplugintest-dialogtextparser TESTNAME
   simondialogcommandplugin-dialogtextparser
   ${simondialogcommandplugindialogtextparsertest_SRCS}
-  ${simondialogcommandplugintest_plasma_SRCS}
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogtextparser
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
-  ${simondialogcommandplugintest_plasma_LIBS}
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY} ${simondialogcommandplugintest_plasma_LIBS}
+  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB}
 )
 
 #################################
@@ -115,8 +125,8 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogcommand TESTNAME
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogcommand
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} ${simondialogcommandplugintest_plasma_LIBS}
-  simonscenarios simonactions
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY} ${simondialogcommandplugintest_plasma_LIBS}
+  ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS} simonscenarios simonactions
 )
 
 #################################
@@ -138,7 +148,7 @@ set(simondialogcommandplugindialogstatetest_SRCS
   ../staticboundvalue.cpp
   ../scriptboundvalue.cpp
   ../argumentboundvalue.cpp
-  ${simondialogcommandplugintest_plasma_SRCS}
+  ${PLAMSA_DEP_TEST_SRC}
 )
 
 kde4_add_unit_test(simondialogcommandplugintest-dialogstate TESTNAME
@@ -147,9 +157,10 @@ kde4_add_unit_test(simondialogcommandplugintest-dialogstate TESTNAME
 )
 
 target_link_libraries(simondialogcommandplugintest-dialogstate
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
   ${simondialogcommandplugintest_plasma_LIBS}
-  simonscenarios simonactions
+  ${QT_QTXML_LIBRARY} simonscenarios simonactions
+  ${QT_QTSCRIPT_LIBRARY} ${PLAMSA_DEP_LIB} ${KDE4_KDEUI_LIBS}
 )
 
 
@@ -175,5 +186,6 @@ kde4_add_unit_test(simondialogcommandplugintest-avatars TESTNAME
 
 
 target_link_libraries(simondialogcommandplugintest-avatars
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY}
 )

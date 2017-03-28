@@ -37,53 +37,53 @@ PronunciationTrainingPluginFactory::componentData())
   Q_UNUSED(args);
   ui.setupUi(this);
 
-  ui.cbTerminal->clear();
+  ui.cbCategory->clear();
 
-  QObject::connect(ui.cbTerminal, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+  QObject::connect(ui.cbCategory, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 }
 
 
-void PronunciationTrainingConfiguration::initTerminals()
+void PronunciationTrainingConfiguration::initCategories()
 {
-  ui.cbTerminal->clear();
-  QStringList terminals = ScenarioManager::getInstance()->getTerminals(
+  ui.cbCategory->clear();
+  QStringList categories = ScenarioManager::getInstance()->getCategories(
     (SpeechModel::ModelElements)
     (SpeechModel::ShadowVocabulary|
     SpeechModel::AllScenariosVocabulary|
     SpeechModel::AllScenariosGrammar));
-  ui.cbTerminal->addItems(terminals);
-  ui.cbTerminal->setCurrentIndex(ui.cbTerminal->findText(storedTerminal));
+  ui.cbCategory->addItems(categories);
+  ui.cbCategory->setCurrentIndex(ui.cbCategory->findText(storedCategory));
 }
 
 
 void PronunciationTrainingConfiguration::setVisible(bool visible)
 {
-  initTerminals();
+  initCategories();
   QWidget::setVisible(visible);
 }
 
 
 bool PronunciationTrainingConfiguration::deSerialize(const QDomElement& elem)
 {
-  storedTerminal = elem.firstChildElement("terminal").text();
+  storedCategory = elem.firstChildElement("category").text();
   return true;
 }
 
 
 QDomElement PronunciationTrainingConfiguration::serialize(QDomDocument *doc)
 {
-  storedTerminal = ui.cbTerminal->currentText();
+  storedCategory = ui.cbCategory->currentText();
   QDomElement configElem = doc->createElement("config");
-  QDomElement terminalElem = doc->createElement("terminal");
-  terminalElem.appendChild(doc->createTextNode(storedTerminal));
-  configElem.appendChild(terminalElem);
+  QDomElement categoryElem = doc->createElement("category");
+  categoryElem.appendChild(doc->createTextNode(storedCategory));
+  configElem.appendChild(categoryElem);
   return configElem;
 }
 
 
-QString PronunciationTrainingConfiguration::terminal()
+QString PronunciationTrainingConfiguration::category()
 {
-  return storedTerminal;
+  return storedCategory;
 }
 
 

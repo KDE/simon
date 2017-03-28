@@ -63,3 +63,13 @@ void LoudnessMeterSoundProcessor::process(QByteArray& data, qint64& currentTime)
   if (m_peak >= (maxAmp()-1))
     m_clipping = true;
 }
+
+void LoudnessMeterSoundProcessor::reset()
+{
+  m_peak = 0;
+  m_average = 0;
+  m_absolutePeak = 0;
+  m_absoluteMinAverage = maxAmp();
+  m_clipping = false;
+}
+

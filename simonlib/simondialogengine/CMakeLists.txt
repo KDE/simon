@@ -1,4 +1,12 @@
-set(simondialogengine_SRCS 
+if (USE_PLASMA)
+  set(PLAMSA_DEP_SRC plasmaboundvalue.cpp)
+  set(PLAMSA_DEP_LIB ${KDE4_PLASMA_LIBS})
+else()
+  set(PLAMSA_DEP_SRC "")
+  set(PLAMSA_DEP_LIB "")
+endif()
+
+set(simondialogengine_SRCS
   dialogcommand.cpp
   dialogstate.cpp
   dialogtext.cpp
@@ -13,6 +21,7 @@ set(simondialogengine_SRCS
   avatarmodel.cpp
   dialogmanager.cpp
   dialogview.cpp
+  ${PLAMSA_DEP_SRC}
 )
 
 set(simondialogengine_LIB_HDRS
@@ -32,25 +41,15 @@ set(simondialogengine_LIB_HDRS
   simondialogengine_export.h
 )
 
-if (USE_PLASMA)
-  set(simondialogengine_SRCS ${simondialogengine_SRCS} plasmaboundvalue.cpp)
-endif()
-
 kde4_add_library(simondialogengine SHARED ${simondialogengine_SRCS})
 
 set_target_properties(simondialogengine
   PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
-if (USE_PLASMA)
-  target_link_libraries(simondialogengine 
-    ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simonscenarios
-    ${QT_QTSCRIPT_LIBRARY} simonscenariobase simonactions)
-else ()
-  target_link_libraries(simondialogengine 
-    ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simonscenarios simonscenariobase
-    simonactions)
-endif()
+target_link_libraries(simondialogengine
+  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${PLAMSA_DEP_LIB} simonscenarios
+  ${QT_QTSCRIPT_LIBRARY} ${KDE4_KDEUI_LIBS} simonscenariobase simonactions)
 
 install(TARGETS simondialogengine DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 

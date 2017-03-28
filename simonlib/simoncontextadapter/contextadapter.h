@@ -72,9 +72,10 @@ public:
   };
   enum BackendType
   {
-    FromConfiguration,
-    HTK,
-    SPHINX
+    FromConfiguration=1,
+    HTK=2,
+    SPHINX=4,
+    Null=8
   };
 
   void updateDeactivatedScenarios( const QStringList& deactivatedScenarios );
@@ -95,7 +96,7 @@ public:
 
   bool isCompiling() const;
 
-  QString currentModelPath() const;
+  void currentModel(QString& path, ContextAdapter::BackendType& type) const;
 
 private:
     QMutex m_compileLock;
@@ -137,6 +138,8 @@ private:
     void adaptAndBuild(const Situation& situation, CachedModel* model);
 
     void setupBackend(BackendType backendType);
+
+    BackendType getConfiguredDefaultBackendType();
 
 private slots:
   void slotModelReady(uint fingerprint, const QString& path);

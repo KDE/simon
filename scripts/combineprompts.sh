@@ -5,7 +5,7 @@ for i in $*; do
 done
 
 cat promptslist | while read i; do
-	datadir="`dirname $i`/data/"
+	datadir="`dirname $i`/"
 	cat $i|while read promptsLine; do
 		echo "$datadir$promptsLine" | sed 's/^\.\///' >> prompts_combined
 	done;

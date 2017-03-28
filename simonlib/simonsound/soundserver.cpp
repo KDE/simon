@@ -81,7 +81,7 @@ QString SoundServer::defaultOutputDevicePrivate()
 bool SoundServer::registerInputClient(SoundInputClient* client)
 {
   QMutexLocker l(&inputRegistrationLock);
-  kDebug() << "Register input client for device " << client->deviceConfiguration().name();
+  kDebug() << "Register input client for device " << client->deviceConfiguration().name() << client;
 
   bool succ = true;
   bool isNew = false;
@@ -91,7 +91,6 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
   if (!inputs.contains(client->deviceConfiguration())) {
     SimonSoundInput *soundInput = new SimonSoundInput(0);
     connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-    connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
     //then start recording
     succ = soundInput->prepareRecording(clientRequestedSoundConfiguration);
     if (!succ) {
@@ -120,28 +119,6 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
   }
 
   return succ;
-}
-
-
-void SoundServer::slotRecordingFinished()
-{
-  SimonSoundInput *input = dynamic_cast<SimonSoundInput*>(sender());
-  Q_ASSERT(input);
-
-  if (input->isActive()) {
-    //apparently we resumed operations :)
-    return;
-  }
-
-  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
-
-  while (i.hasNext()) {
-    i.next();
-    if (i.value() == input)
-      inputs.remove(i.key());
-  }
-  input->deleteLater();
-  applyInputPriorities();
 }
 
 
@@ -211,15 +188,24 @@ void SoundServer::applyOutputPriorities()
 bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 {
   QMutexLocker l(&inputRegistrationLock);
-  kDebug() << "Deregistering input client";
+  kDebug() << "Deregistering input client" << client;
 
   bool success = true;
 
   QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
   while (i.hasNext()) {
     i.next();
-    if (i.value()->deRegisterInputClient(client))
+    bool done = false;
+    if (i.value()->deRegisterInputClient(client, done)) {
       success = true;
+
+      if (done) {
+        SimonSoundInput* input = i.value();
+        inputs.remove(i.key());
+        delete input;
+      }
+      break;
+    }
   }
 
   applyInputPriorities();

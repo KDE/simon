@@ -32,16 +32,16 @@
         <bool>false</bool>
        </property>
        <property name="minimum">
-        <number>5</number>
+        <number>1</number>
        </property>
        <property name="maximum">
         <number>30</number>
        </property>
        <property name="value">
-        <number>10</number>
+        <number>5</number>
        </property>
        <property name="sliderPosition">
-        <number>10</number>
+        <number>5</number>
        </property>
        <property name="tracking">
         <bool>true</bool>

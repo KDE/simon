@@ -25,17 +25,17 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QVariant>
+#include <QFile>
+#include <QUuid>
 
 #include <KLocalizedString>
 #include <KMessageBox>
 
 TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
 prompt(prompt_),
-fileName( prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\', '_').remove('<').remove('>').remove('|').remove('"')
-+ "_S"
-+ QString::number(nowPage)
-+ '_'
-+ QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") )
+fileName(QFile::encodeName(QUuid::createUuid().toString())
+    + '_'
+    + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss"))
 {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   QString title = i18nc("%1 is current page number, %2 is total page count", "Page %1 of %2", nowPage, maxPage);
@@ -59,8 +59,8 @@ fileName( prompt_.replace(' ', '_').replace('/','_').remove('?').replace('\\', '
   connect(recorder, SIGNAL(recording()), this, SIGNAL(completeChanged()));
   connect(recorder, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
   connect(recorder, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
+  connect(recorder, SIGNAL(speakingStopped()), this, SLOT(speakingStopped()));
 }
-
 
 void TrainSamplePage::initializePage()
 {
@@ -154,6 +154,12 @@ bool TrainSamplePage::isComplete() const
     return recorder->hasRecordingReady();
 }
 
+void TrainSamplePage::speakingStopped()
+{
+  kDebug() << "Speaking stopped";
+  if (field("powerRecording").toBool())
+    wizard()->next();
+}
 
 TrainSamplePage::~TrainSamplePage()
 {

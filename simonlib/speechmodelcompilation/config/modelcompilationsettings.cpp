@@ -28,7 +28,7 @@ K_PLUGIN_FACTORY( ModelCompilationSettingsFactory,
 registerPlugin< ModelCompilationSettings >();
 )
 
-K_EXPORT_PLUGIN( ModelCompilationSettingsFactory("ModelCompilationSettings") )
+K_EXPORT_PLUGIN( ModelCompilationSettingsFactory("simonlib") )
 
 ModelCompilationSettings::ModelCompilationSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
@@ -55,6 +55,26 @@ ModelCompilationSettings::ModelCompilationSettings(QWidget* parent, const QVaria
   externalPrograms->setHeader("");
 
   addConfig(ModelCompilationConfiguration::self(), this);
+}
+
+void ModelCompilationSettings::load()
+{
+  KCModule::load();
+
+#ifdef BACKEND_TYPE_JHTK
+  externalProgramsUi.kcfg_backend->setCurrentIndex(1);
+  externalProgramsUi.kcfg_backend->setEnabled(false);
+  externalProgramsUi.gbSphinx->hide();
+#endif
+}
+
+int ModelCompilationSettings::getDefaultBackendType()
+{
+  int type(0);
+#ifdef BACKEND_TYPE_JHTK
+  type = 1;
+#endif
+  return type;
 }
 
 

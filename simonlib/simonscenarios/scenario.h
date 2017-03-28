@@ -108,23 +108,23 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool addStructures(const QStringList& newStructures);
 
     QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
-    QList<Word*> findWordsByTerminal(const QString& name);
+    QList<Word*> findWordsByCategory(const QString& name);
 
     QStringList getAllPossibleSentences();
     QStringList getAllPossibleSentencesOfStructure(const QString& structure, int* alreadyFoundExamples=0);
 
     QStringList getExampleSentencesOfStructure(const QString& structure);
 
-    QStringList getExampleSentences(const QString& name, const QString& terminal, int count);
-    QString fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate=QString(),
-      const QString& toDemonstrateTerminal=QString());
+    QStringList getExampleSentences(const QString& name, const QString& category, int count);
+    QString fillGrammarSentenceWithExamples(const QString& categorySentence, bool &ok, const QString& toDemonstrate=QString(),
+      const QString& toDemonstrateCategory=QString());
 
-    QStringList getTerminals(SpeechModel::ModelElements elements);
-    bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
+    QStringList getCategories(SpeechModel::ModelElements elements);
+    bool renameCategory(const QString& category, const QString& newName, SpeechModel::ModelElements affect);
 
-    QString getRandomWord(const QString& terminal);
+    QString getRandomWord(const QString& category);
     bool containsWord(const QString& word);
-    bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
+    bool containsWord(const QString& word, const QString& category, const QString& pronunciation);
 
     static QDateTime skimDate(QString path=QString());
     bool skim(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
@@ -174,18 +174,25 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     void setPluginFont(const QFont& font);
 
+    QString preferredPath() const;
     static QString createId(const QString& name);
 
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
     void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 
-    static QString pathFromId(const QString& id, const QString& prefix=QString());
+    static QString pathFromId(const QString& id, const QString& prefix=QString(), bool local=true);
+    static QString idFromPath(const QString& path);
 
-    static QStringList explode(const QString& inFile);
-    static QString idFromName(const QString& name);
+    /**
+     * @warning Input file will *always* be modified, use temporary files!
+     * @param isIntegrated true, if the scenario is already part of the Simon scenario folder
+     */
+    static QStringList explode(const QString& inFile, bool isIntegrated = false);
+
+    static bool updateChildScenarioIds(const QString& id, const QStringList& ids);
 
   public slots:
-    bool save(QString path=QString(), bool full = false);
+    bool save(QString path=QString(), bool full = false, bool touchModifiedTime = true);
     void updateActivation();
 };
 #endif

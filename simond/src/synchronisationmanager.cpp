@@ -600,6 +600,7 @@ bool SynchronisationManager::cleanTemp()
 
 bool SynchronisationManager::abort()
 {
+  kDebug() << "Aborting synchronization";
   return cleanTemp();
 }
 
@@ -654,6 +655,7 @@ bool SynchronisationManager::commit()
     return false;
   }
 
+  kDebug() << "New src container path: " << newSrcContainerPath;
   return cleanTemp();
 }
 
@@ -887,7 +889,7 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
         //touch it
         QDomDocument doc("scenario");
         QFile file(destPath);
-        if ((!file.open(QIODevice::ReadOnly))
+        if ((!file.open(QIODevice::ReadWrite))
         || (!doc.setContent(&file))) {
           allCopied = false;
           continue;
@@ -895,13 +897,12 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
 
         doc.documentElement().setAttribute("lastModified", KDateTime::currentUtcDateTime().dateTime().toString(Qt::ISODate));
 
-        file.close();
-        file.remove(destPath);
-
-        file.open(QIODevice::WriteOnly|QIODevice::Truncate);
+        file.seek(0);
         file.write(doc.toString().toUtf8());
+        file.resize(file.pos());
 
         file.close();
+	kDebug() << "Written to " << destPath << " from " << scenarioPath;
       }
     }
   }
@@ -1018,6 +1019,7 @@ bool SynchronisationManager::removeDirectory(const QString& dir)
   }
 
   bool rmdir = directory.rmdir(dir);
+  kDebug() << "Removed directory " << dir << rmdir;
   return rmdir;
 }
 

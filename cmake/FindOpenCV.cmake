@@ -61,6 +61,7 @@ if(EXISTS "${OpenCV_DIR}")
 		
                 ## Include the standard CMake script
                 include("${OpenCV_DIR}/OpenCVConfig.cmake")
+                include_directories(${OpenCV_INCLUDE_DIRS})
                  
                 ## Search for a specific version
                 set(CVLIB_SUFFIX "${OpenCV_VERSION_MAJOR}${OpenCV_VERSION_MINOR}${OpenCV_VERSION_PATCH}")
@@ -94,8 +95,8 @@ if(EXISTS "${OpenCV_DIR}")
         ## Loop over each components
         foreach(__CVLIB ${OPENCV_LIB_COMPONENTS})
                 
-                find_library(OpenCV_${__CVLIB}_LIBRARY_DEBUG NAMES "${__CVLIB}${CVLIB_SUFFIX}d" "lib${__CVLIB}${CVLIB_SUFFIX}d" PATHS "${OpenCV_DIR}/lib" NO_DEFAULT_PATH)
-                find_library(OpenCV_${__CVLIB}_LIBRARY_RELEASE NAMES "${__CVLIB}${CVLIB_SUFFIX}" "lib${__CVLIB}${CVLIB_SUFFIX}" PATHS "${OpenCV_DIR}/lib" NO_DEFAULT_PATH)
+                find_library(OpenCV_${__CVLIB}_LIBRARY_DEBUG NAMES "${__CVLIB}${CVLIB_SUFFIX}d" "lib${__CVLIB}${CVLIB_SUFFIX}d" PATHS "${OpenCV_DIR}/lib")
+                find_library(OpenCV_${__CVLIB}_LIBRARY_RELEASE NAMES "${__CVLIB}${CVLIB_SUFFIX}" "lib${__CVLIB}${CVLIB_SUFFIX}" PATHS "${OpenCV_DIR}/lib")
                 
                 #Remove the cache value
                 set(OpenCV_${__CVLIB}_LIBRARY "" CACHE STRING "" FORCE)

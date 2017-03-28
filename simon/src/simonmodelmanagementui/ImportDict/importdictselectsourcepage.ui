@@ -17,7 +17,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>simon is able to import four different types of dictionaries:
+      <string>Simon is able to import four different types of dictionaries:
 HADIFIX dictionaries, HTK compatible dictionaries, SPHINX Lexicons and PLS dictionaries.
 
 Please select the type of dictionary you want to import now.</string>

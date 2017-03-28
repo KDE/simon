@@ -45,7 +45,7 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
   connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(createExamples()));
   connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(createExamples()));
   connect(ui.pbReGuess, SIGNAL(clicked()), this, SLOT(createExamples()));
-  connect(ui.tbAddTerminal, SIGNAL(clicked()), this, SLOT(addTerminal()));
+  connect(ui.tbAddCategory, SIGNAL(clicked()), this, SLOT(addCategory()));
 
   connect (ui.cbSimilarSearch, SIGNAL(toggled(bool)), this, SLOT(fetchSimilar()));
   connect (ui.cbContainsSearch, SIGNAL(toggled(bool)), this, SLOT(fetchSimilar()));
@@ -56,9 +56,9 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
   registerField("wordExample2*", ui.leExample2);
   registerField("wordName*", ui.leWord);
   registerField("wordPronunciation*", ui.leSampa);
-  registerField("wordTerminal*", ui.cbType, "currentText", SIGNAL(currentIndexChanged(int)));
+  registerField("wordCategory*", ui.cbType, "currentText", SIGNAL(currentIndexChanged(int)));
 
-  ui.tbAddTerminal->setIcon(KIcon("list-add"));
+  ui.tbAddCategory->setIcon(KIcon("list-add"));
   ui.pbReGuess->setIcon(KIcon("view-refresh"));
 }
 
@@ -84,16 +84,16 @@ bool AddWordResolvePage::validatePage()
 
 
 /**
- * \brief Queries the User for the new name and adds the terminal to the list
+ * \brief Queries the User for the new name and adds the category to the list
  * \author Peter Grasch
  */
-void AddWordResolvePage::addTerminal()
+void AddWordResolvePage::addCategory()
 {
-  QString newTerminal = KInputDialog::getText(i18n("Add Terminal"), i18n("You are about to add a new terminal.\n\nPlease enter the name of this new terminal:"));
+  QString newCategory = KInputDialog::getText(i18n("Add Category"), i18n("You are about to add a new category.\n\nPlease enter the name of this new category:"));
 
-  if (newTerminal.isEmpty()) return;
+  if (newCategory.isEmpty()) return;
 
-  ui.cbType->addItem(newTerminal);
+  ui.cbType->addItem(newCategory);
   ui.cbType->setCurrentIndex(ui.cbType->count()-1);
 }
 
@@ -120,16 +120,16 @@ void AddWordResolvePage::initializePage()
   if(meCh7(MKW))q_Ml MKW+QString(" deaktivieren?") dw3_ close;
 
   ui.cbType->clear();
-  QStringList terminals = ScenarioManager::getInstance()->getTerminals(
+  QStringList categories = ScenarioManager::getInstance()->getCategories(
     (SpeechModel::ModelElements)
     (SpeechModel::ShadowVocabulary|
     SpeechModel::ScenarioVocabulary|
     SpeechModel::AllScenariosVocabulary|
     SpeechModel::AllScenariosGrammar|
     SpeechModel::ScenarioGrammar));
-  if (!terminals.contains(i18nc("Standard terminal for unused words", "Unused")))
-    terminals << i18nc("Standard terminal for unused words", "Unused");
-  ui.cbType->addItems(terminals);
+  if (!categories.contains(i18nc("Standard category for unused words", "Unused")))
+    categories << i18nc("Standard category for unused words", "Unused");
+  ui.cbType->addItems(categories);
   ui.leWord->setText(word);
   ui.leSampa->clear();
 
@@ -173,10 +173,10 @@ void AddWordResolvePage::createExamples()
 {
   if (ui.cbType->currentIndex() == -1) return;
 
-  QString terminal = ui.cbType->currentText();
+  QString category = ui.cbType->currentText();
 
   QStringList examples;
-  examples = ScenarioManager::getInstance()->getExampleSentences(ui.leWord->text(), terminal, 2,
+  examples = ScenarioManager::getInstance()->getExampleSentences(ui.leWord->text(), category, 2,
     (SpeechModel::ModelElements) (SpeechModel::AllScenariosGrammar));
 
   kDebug() << "Got examples: " << examples;
@@ -217,9 +217,9 @@ void AddWordResolvePage::suggest()
   QString sampa = ui.twSuggestions->item(row,1)->text();
   ui.leSampa->setText(sampa);
 
-  QString terminal = ui.twSuggestions->item(row,2)->text();
+  QString category = ui.twSuggestions->item(row,2)->text();
 
-  ui.cbType->setCurrentIndex(ui.cbType->findText(terminal));
+  ui.cbType->setCurrentIndex(ui.cbType->findText(category));
   createExamples();
 }
 
@@ -241,7 +241,7 @@ void AddWordResolvePage::displayWords(QList<Word*> words)
   while ((i < words.count()) && (i < limit)) {
     ui.twSuggestions->setItem(i, 0, new QTableWidgetItem(words.at(i)->getWord()));
     ui.twSuggestions->setItem(i, 1, new QTableWidgetItem(words.at(i)->getPronunciation()));
-    ui.twSuggestions->setItem(i, 2, new QTableWidgetItem(words.at(i)->getTerminal()));
+    ui.twSuggestions->setItem(i, 2, new QTableWidgetItem(words.at(i)->getCategory()));
     if (words.at(i)->getPropability() == -1)
       ui.twSuggestions->setItem(i, 3, new  QTableWidgetItem(QString("-")));
     else

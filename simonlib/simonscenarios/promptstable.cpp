@@ -43,42 +43,45 @@ void PromptsTable::updateModel()
 bool PromptsTable::init(const QString& path)
 {
   QFile *prompts = new QFile ( path );
-  prompts->open ( QFile::ReadOnly );
-  if ( !prompts->isReadable() ) return false;
+  m_samples.clear();
+  m_wordBySample.clear();
+  m_groupBySample.clear();
+  if ( prompts->exists() ) {
+    prompts->open ( QFile::ReadOnly );
+    if ( !prompts->isReadable() ) return false;
 
-  QString label;
-  QString group;
-  QString prompt;
-  QString line;
-  int index;
-  while ( !prompts->atEnd() ) {                   //for each line that was successfully read
-    QByteArray rawLine = prompts->readLine ( 1024 );
-    line = QString::fromUtf8(rawLine);
+    QString label;
+    QString group;
+    QString prompt;
+    QString line;
+    int index;
+    while ( !prompts->atEnd() ) {                   //for each line that was successfully read
+      QByteArray rawLine = prompts->readLine ( 1024 );
+      line = QString::fromUtf8(rawLine);
 
-    QStringList splitLine = line.split('"');
+      QStringList splitLine = line.split('"');
 
-    if (splitLine.count() == 3)
-    {
-//             kDebug() << "prompts line: '" << line << "' is using new format!";
-      label = splitLine.at(0).trimmed();
-      group = splitLine.at(1);
-      prompt = splitLine.at(2).mid(1).trimmed();
+      if (splitLine.count() == 3)
+      {
+        label = splitLine.at(0).trimmed();
+        group = splitLine.at(1);
+        prompt = splitLine.at(2).mid(1).trimmed();
+      }
+      else
+      {
+        group = "default";
+        if (line.trimmed().isEmpty()) continue;
+        index = line.indexOf ( ' ' );
+        label = line.left ( index );
+        prompt = line.mid ( index ).trimmed();
+      }
+      m_samples << label;
+      m_wordBySample.insert (label, prompt);
+      m_groupBySample.insert(label, group);
     }
-    else
-    {
-//             kDebug() << "prompts line: '" << line << "' is using old format.  attempting old format parsing...";
-      group = "default";
-      if (line.trimmed().isEmpty()) continue;
-      index = line.indexOf ( ' ' );
-      label = line.left ( index );
-      prompt = line.mid ( index ).trimmed();
-    }
 
-    m_samples << label;
-    m_wordBySample.insert (label, prompt);
-    m_groupBySample.insert(label, group);
+    prompts->close();
   }
-  prompts->close();
   prompts->deleteLater();
 
   updateModel();

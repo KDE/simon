@@ -1,4 +1,227 @@
 ===========================================================================
+simon: 0.4.1
+===========================================================================
+
+General:
+=======
+* Fixing up some strings
+* Support for Qwt >= 6.1 (bug: 320680)
+* Better dependency documentation (bug: 314042)
+
+Simon:
+======
+* Better placeholders for the Akonadi plugin (bug: 314422)
+* Bugfix: Avoid samples filenames that may be too long for the file system
+* Powertraining: Advance to next page automatically
+* Bugfix: Server -> Client synchronization: Ensure that all scenarios that
+  we request the client to load are actually synchronized first.
+* Bufix: Synchronization "hangs" (race condition in the network stream
+  processing) (bug: 314264)
+* Bugfix: Cleaner timeout handling
+* Bugfix: Avoid crash on deleting scenarios when those scenarios don't exist
+  anymore (bug: 313417)
+* Bugfix: Block commands from deactivated scenarios (bug: 314634)
+* Built-in defaults for prompts, "general" scenario and shadow dict (bug: 320204)
+
+SSCd:
+====
+* Bugfix: Ensure 4 bytes are available before parsing request id
+
+Simond:
+======
+* Bugfix: If a model was repaired during compilation (e.g. phoneme poisoning)
+  link all intermediate inputs to the final result (avoid model re-creation on
+  minor changes)
+* Bugfix: Full sample synchronization
+* Bugfix: Enable timeout for possibly malicious requests
+* Bugfix: Broken HTML in "missing backend" message (bug: 312657)
+
+Simonlib:
+========
+* Bugfix: SPHINX: Support multiple transcriptions per word properly
+* Bugfix: SPHINX: Fixed encoding issue on WIN32 (bug: 315460)
+* Bugfix: SPHINX: Proper error message for "too little training data"
+* Bugfix: SPHINX: Proper error reporting (log) for model compilation (bug:
+  320202)
+* Bugfix: SPHINX: Cancel adaption when no grammar was specified
+* Bugfix: Avoiding double-delete when using multiple recording devices
+* Bugfix: Better detection of null models
+
+
+===========================================================================
+simon: 0.4.0
+===========================================================================
+
+General:
+=======
+* Minor string fixes and UI improvements
+
+Simon:
+======
+* Improving the base- and active model information display in the welcome
+  page
+* Fixing memory leaks in simonvision
+* Fixing Scenario explosion
+
+Simond:
+======
+* Phoneme poisoning in SPHINX
+
+Simonlib:
+========
+* More robust handling of model input files for both HTK and SPHINX
+* Bugfixing in the model compilation backends
+
+Sam
+===
+* SPHINX model adaption
+
+===========================================================================
+simon: 0.4.0-rc-1
+===========================================================================
+
+General:
+=======
+* Updating documentation
+* Bugfixes in simonvision
+
+Afaras:
+======
+* Handle sample groups in promps
+
+Simonlib:
+========
+* Less strict warnings regarding the sample quality assurance
+
+Commands:
+========
+* Disable the ATSPI plugin for this release
+* AI: use SimonTTS as output
+
+
+===========================================================================
+simon: 0.4.0-beta-2
+===========================================================================
+
+Simon:
+======
+* UI Fix in welcome page
+* Changing GHNS provider for base models to opendesktop.org
+
+Sound:
+======
+* Fixed race condition in sound input
+
+Simond:
+======
+* Bugfixing SPHINX adaption
+
+
+===========================================================================
+simon: 0.4.0-beta-1
+===========================================================================
+
+Commands
+=========
+* Adding "Dialog" command plugin: State based dialog plugin with TTS output
+* Adding "DBus" and "JSON" command plugins
+* Adding "Akonadi" plugin to schedule Simon commands and to display
+  reminders through dialogs
+* Introducing multi-stage activation in the Filter plugin
+* Moving execution of composite commands to separate thread
+* Shortcuts can now be configured to trigger press, release or both events
+* Command plugins can now receive arguments through invocation wildcards
+* Highly experimental: ATSPI plugin prototype
+
+Sound
+=====
+* Volume calibration
+* New sound implementation based on ALSA (Linux) and DirectSound
+* Multithreaded audio processing
+
+Simon
+=====
+* Adding "autorun" commands that are launched when initializing the parent
+  scenario
+* Expose Simon state through DBus (mainly for Simonoid)
+* Integrated sample sharing through Voxforge
+* Introducing Sequitur Grapheme to Phoneme conversion support including
+  Sequitur model generation from within Simon
+* Adding context-awareness: Activate or deactivate scenarios, sets of
+  training samples and even microphones based on:
+  > Running applications
+  > Currently focused application
+  > Content of a file
+  > DBus information
+  > Face detection
+  > Lip (movement) detection
+* Scenario hierarchy that is respected by the context layer
+* Introducing base model containers: SBM (Simon Base Model) with automatic
+  import within Simon.
+* Completely reworked welcome page and lots of other usability improvements
+* Added graphical management of local training corpus
+
+
+
+Simond
+======
+* Optionally limit write access to a host whitelist
+* Introduce recognition sharing (multiple clients with same username all 
+  receive results from every other client with the same username) and 
+  isolated mode (separate recognition result streams for every connected
+  client
+* Aggressive acoustic model caching
+* Moving to upstream Julius
+* Much faster synchronization protocol
+* Suport for SPHINX:
+  > Model creation with SphinxTrain
+  > Recognition with PocketSphinx
+
+
+Sam
+===
+* Playing and re-recording samples from the test set
+* Better test result breakdown (files, sentences, words), including a 
+  graphical overview
+* Improved test analysis (WER)
+* Integrated LaTeX reporting
+* New XML based project files
+* Batch mode
+* Add "conservative training" mode: Parses Simond recognition logs
+
+
+Simonlib
+========
+* Improved event simulation
+* Introduction of the dialog engine
+* Adding SimonTTS: A text to speech wrapper framework around Jovie, web
+  services and custom samples
+* HTK: Configurable GMM generation
+* HTK: User configurable regression class tree
+* HTK: GMM auto-detection during adaption
+* HTK: MFC caching
+* HTK: Multithreaded model compilation (audio coding, re-estimation)
+* Automatically detect and handle missing phonemes during model
+  compilation
+
+
+SSC
+===
+* Stability improvements - especially on poor connections.
+* "Locked" mode to hide user details for public accounts
+
+Simonoid
+========
+* New component: Simon plasmoid
+  Shows current recognition status and allows to launch / show Simon
+
+Afaras
+======
+* New component: Automatically Find And Repair Amiss Samples;
+  Helps to identify bad recordings in large corpora
+
+
+===========================================================================
 simon: 0.3.0
 ===========================================================================
 
@@ -194,7 +417,7 @@ Vocabulary
 * Words can now be edited
 
 * When words are removed, the user can now move the word to an unused
-terminal, or completely remove the word but keep the samples (for a total of 4
+category, or completely remove the word but keep the samples (for a total of 4
 deletion modes)
 
 

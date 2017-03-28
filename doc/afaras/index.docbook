@@ -1,0 +1,200 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY kmyapplication "<application>Afaras</application>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE">
+
+]>
+<book id="afaras" lang="&language;">
+
+<bookinfo>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+
+<date>2012-12-14</date>
+<releaseinfo>0.4</releaseinfo>
+
+<abstract>
+<para>
+&kmyapplication; is an automatic sample review tool.
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>Simon</keyword>
+<keyword>sample</keyword>
+<keyword>corpus</keyword>
+<keyword>cleaning</keyword>
+<keyword>gathering</keyword>
+<keyword>model</keyword>
+<keyword>Afaras</keyword>
+<keyword>utility</keyword>
+</keywordset>
+
+<legalnotice>&FDLNotice;</legalnotice>
+
+<copyright>
+<year>2012</year>
+<holder>Peter Grasch</holder>
+</copyright>
+
+<authorgroup>
+<author>
+<personname>
+<firstname>Peter</firstname>
+<othername>H.</othername>
+<surname>Grasch</surname>
+</personname>
+<email>peter.grasch@bedahr.org</email>
+</author>
+</authorgroup>
+
+
+<title>The &kmyapplication; Handbook</title>
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>
+  &kmyapplication; is an automatic sample review tool.
+</para>
+
+<para>To build an acoustic model, many annotated samples are required. Often these will be recorded by many different teams and it can be hard to enforce strict quality requirements given the large amount of data collected.</para>
+
+<para>
+  &kmyapplication; provides a very simple interface to listen to recorded samples and to blacklist samples that are of poor quality.
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title>Using &kmyapplication;</title>
+
+<para>
+<screenshot>
+<screeninfo>Main window</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="main.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Main window</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>The main window requests the path to the prompts file to review, the path prefix to the audio samples and an output path for the produced blacklist file. If this file already exists it will be loaded when starting the review.</para>
+
+<para>Optionally, a Sam model build log of a model compilation process involving the samples to be reviewed can be provided. &kmyapplication; will then try to use intermediate results of the model compilation process to order the review samples to most- to least-likely erroneous. This way, even very short reviews can substantially improve the model generation process.</para>
+
+<para>
+<screenshot>
+<screeninfo>Review samples</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="review.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Review samples</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+  To navigate through the review process more quickly you can use keyboard shortcuts.
+</para>
+
+<table frame='all'><title>Keyboard shortcuts</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Key</entry>
+  <entry>Effect</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry><parameter>P</parameter></entry>
+  <entry>Toggle between "play" and "stop" for the current sample.</entry>
+</row>
+<row>
+  <entry><parameter>B</parameter></entry>
+  <entry>Toggle: Blacklist the current sample.</entry>
+</row>
+<row>
+  <entry><parameter>N</parameter></entry>
+  <entry>Advance to the next sample.</entry>
+</row>
+<row>
+  <entry><parameter>Backspace</parameter></entry>
+  <entry>Go back to the previous sample.</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>
+  To apply a blacklist to a prompts file, you can, for example, use the <command>cleanprompts.sh</command> script bundled with Simon:
+<command>cleanprompts.sh blacklist inputprompts outputprompts</command>
+</para>
+
+ </chapter>
+
+
+<chapter id="faq">
+<title>Questions and Answers</title>
+
+<para>
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Troubleshooting_Guide">online wiki</ulink>.
+</para>
+
+</chapter>
+
+<chapter id="credits">
+<title>Credits and License</title>
+
+<para>
+&kmyapplication;
+</para>
+<para>
+Program copyright 2011-2012 Peter Grasch <email>peter.grasch@bedahr.org</email>
+</para>
+
+<para>
+Documentation Copyright &copy; 2012 Peter Grasch <email>peter.grasch@bedahr.org</email>
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove -->
+
+&underGPL;           <!-- GPL License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+<para>Please see our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Installation">wiki</ulink> for installation instructions.</para>
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

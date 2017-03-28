@@ -26,7 +26,7 @@
 #include <QString>
 #include <stdexcept>
 
-ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObject* parent ) : 
+ModelCompilationManager::ModelCompilationManager ( const QString& userName, QObject* parent ) :
     QThread ( parent ), keepGoing(false), userName(userName), compiler(0), adapter(0)
 {
 //  connect(compiler, SIGNAL(phonemeUndefined(QString)), this, SIGNAL(phonemeUndefined(QString)));
@@ -39,11 +39,16 @@ ModelCompilationManager::~ModelCompilationManager()
   delete compiler;
 }
 
+void ModelCompilationManager::slotPhonemeUndefined ( const QString& phoneme )
+{
+  adapter->poisonPhoneme(phoneme);
+  tryAgain = true;
+}
 
 QString ModelCompilationManager::cachedModelPath ( uint fingerprint, bool* exists )
 {
   QString path = KStandardDirs::locateLocal("appdata", "models/"+userName+"/active/"+QString::number(fingerprint)+".sbm");
-  if (exists) 
+  if (exists)
     *exists = QFile::exists(path);
   return path;
 }
@@ -54,22 +59,23 @@ void ModelCompilationManager::startModelCompilation ( int baseModelType, const Q
   this->baseModelPath = baseModelPath;
   this->scenarioPaths = scenarioPaths;
   this->promptsPathIn = promptsPathIn;
-  
+
   keepGoing = true;
-  
+
   start();
 }
 
 void ModelCompilationManager::abort()
-{  
+{
   if (!keepGoing) return;
   keepGoing = false;
-  
+
   if (adapter) adapter->abort();
   if (compiler) compiler->abort();
 
   if (!wait(3000)) {
     terminate();
+    if (compiler) compiler->reset();
     wait();
   }
   emit modelCompilationAborted(ModelCompilation::Manual);
@@ -100,18 +106,17 @@ int ModelCompilationManager::sampleCount() const
   return adapter->sampleCount();
 }
 
-uint ModelCompilationManager::getFingerPrint(QString dir, QStringList files, ModelCompiler::CompilationType compilationType)
+uint ModelCompilationManager::getFingerPrint(const QStringList& files, ModelCompiler::CompilationType compilationType)
 {
   uint fingerprint(0);
-  foreach (const QString& component, files)
+  foreach (const QString& file, files)
   {
-    QString file = dir + component;
     qDebug() << "Analyzing file: " << file;
     QFile f(file);
     if (!f.open(QIODevice::ReadOnly))
     {
       kDebug() << "Error building fingerprint";
-      kDebug() << dir <<"\n"<<component;
+      kDebug() << file;
 //      emit modelCompilationAborted();
       //WARNING:&
 //      throw std::runtime_error(qPrintable("Error building fingerprint. Can't open file " + file));

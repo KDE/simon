@@ -33,7 +33,7 @@ class PronunciationTraining : public QWidget, public GreedyReceiver
 
     private:
     Ui::Form ui;
-    QString m_terminal;
+    QString m_category;
     int m_currentWordIndex;
     QList<Word*> m_wordsToTest;
     QList<float> m_scores;
@@ -51,7 +51,7 @@ class PronunciationTraining : public QWidget, public GreedyReceiver
   public:
     bool greedyTriggerRawList(const RecognitionResultList& results);
     void init();
-    explicit PronunciationTraining(const QString& terminal, QWidget* parent=0);
+    explicit PronunciationTraining(const QString& category, QWidget* parent=0);
 
     ~PronunciationTraining();
 

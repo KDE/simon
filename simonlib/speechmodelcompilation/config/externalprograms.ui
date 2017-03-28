@@ -240,7 +240,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="gbSphinx">
      <property name="title">
       <string>SphinxTrain</string>
      </property>

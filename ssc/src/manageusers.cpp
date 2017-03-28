@@ -161,7 +161,7 @@ void ManageUsers::updateList()
 
   qint32 institutionId = ui.cbInstitutionId->currentText().toInt(&ok);
   if (!ok && !ui.cbInstitutionId->currentText().isEmpty()) {
-    KMessageBox::information(this, i18n("InstitutionID is invalid"));
+    KMessageBox::information(this, i18n("Institution id is invalid"));
     return;
   }
   QString referenceId = ui.leReferenceId->text();

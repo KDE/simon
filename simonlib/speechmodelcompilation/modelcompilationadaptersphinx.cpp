@@ -23,7 +23,7 @@
 
 #include<KLocalizedString>
 #include <QDir>
-
+#include <QSet>
 
 ModelCompilationAdapterSPHINX::ModelCompilationAdapterSPHINX(const QString &userName, QObject *parent)
   : ModelCompilationAdapter(userName, parent)
@@ -49,7 +49,7 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
   if (args.value("stripContext") == "true")
   {
     //remove context additions for prompts file
-    if(!removeContextAdditions())
+    if(!removeContextAdditions(adaptionType))
       return false;
   }
 
@@ -66,10 +66,12 @@ bool ModelCompilationAdapterSPHINX::startAdaption(AdaptionType adaptionType, con
   //merging scenarios
   mergeInputData(scenarioPathsIn, mergedVocabulary, mergedGrammar);
 
-  if(mergedVocabulary->empty())
+  if ((adaptionType & ModelCompilationAdapter::AdaptLanguageModel) &&
+      (mergedVocabulary->empty() || (mergedGrammar->structureCount() == 0)))
   {
-    kDebug()<<"Empty vocabulary aborting adaptation";
-    abort();
+    kDebug() << "Empty vocabulary or grammar; aborting adaptation";
+    emit adaptionAborted(ModelCompilation::InsufficientInput);
+    return false;
   }
 
   ADAPT_CHECKPOINT;
@@ -103,11 +105,6 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel)) // I do not fully understand the meaning of this code snippet, so I just copied it:(
-    return true;
-
-  ADAPT_CHECKPOINT;
-
   FileUtils::removeDirRecursive(workingDirPath+"/"+mName);
 
   //Creating a directory hierarchy, where model compilation will be executed
@@ -122,8 +119,11 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   kDebug()<<"Store dictionary";
 
-  if(!storeDictionary(adaptionType, fetc+DICT_EXT, trainedVocabulary, definedVocabulary,
-                      vocabulary))
+  bool errorStoringDictionary = !storeDictionary(adaptionType, fetc+DICT_EXT, fetc+QLatin1String("_ship")+DICT_EXT,
+                                                 trainedVocabulary, definedVocabulary,
+                                                 vocabulary);
+
+  if(!purgeUnusedVocabulary(vocabulary, grammar) || errorStoringDictionary)
   {
     emit error(i18n("Failed to store dictionary"));
     return false;
@@ -134,14 +134,16 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   kDebug()<<"Store filler";
   if(!storeFiller(adaptionType, fetc+".filler"))
   {
-    emit error(i18n("Failed to store filler"));
+    emit error(i18nc("Please keep \"filler\" in English as it refers to a file that is usually named that",
+                     "Failed to store filler"));
     return false;
   }
 
   ADAPT_CHECKPOINT;
 
   kDebug()<<"Store phonelist";
-  if(!storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary, trainedVocabulary))
+  if(!(adaptionType == ModelCompilationAdapter::AdaptLanguageModel) &&
+     !storePhonesList(adaptionType, fetc+PHONE_EXT, vocabulary, trainedVocabulary))
   {
     emit error(i18n("Failed to store phones"));
     return false;
@@ -149,13 +151,21 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
 
   ADAPT_CHECKPOINT;
 
-  kDebug()<<"Store transcription & fields";
-  if(!storeTranscriptionAndFields(adaptionType, promptsPathIn, fetc+TRAIN_TRANSCRIPTION, fetc+TRAIN_FIELDS,
-                                  definedVocabulary, vocabulary) || !storeTranscriptionAndFields(adaptionType, promptsPathIn,
-                                  fetc+TEST_TRANSCRIPTION, fetc+TEST_FIELDS, definedVocabulary, vocabulary))
-  {
-    emit error(i18n("Failed to store transcription and fields"));
-    return false;
+  if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
+    kDebug()<<"Store transcription & fields";
+    bool err = storeTranscriptionAndFields(adaptionType, promptsPathIn,
+                                                            fetc+TRAIN_TRANSCRIPTION,
+                                                            fetc+TRAIN_FIELDS,
+                                                            definedVocabulary);
+
+    err = err && storeTranscriptionAndFields(adaptionType, promptsPathIn,
+                                                                fetc+TEST_TRANSCRIPTION,
+                                                                fetc+TEST_FIELDS,
+                                                                definedVocabulary);
+    if (!err) {
+        kDebug() << "Returning here; store transcription and fields failed...?";
+        return false; // error reporting done by the function itself
+    }
   }
 
   ADAPT_CHECKPOINT;
@@ -170,42 +180,75 @@ bool ModelCompilationAdapterSPHINX::storeModel(AdaptionType adaptionType, const 
   return true;
 }
 
-bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, const QString &dictionaryPathOut, QStringList &trainedVocabulary,
+bool ModelCompilationAdapterSPHINX::purgeUnusedVocabulary(QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar)
+{
+  QSet<QString> categories;
+  foreach (const QString& structure, grammar->getStructures())
+    foreach (const QString& category, structure.split(" ", QString::SkipEmptyParts))
+      categories.insert(category);
+  QList<Word*> words = vocabulary->getWords();
+  foreach (Word* w, words)
+    if (!categories.contains(w->getCategory()))
+      vocabulary->removeWord(w);
+  return true;
+}
+
+bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, const QString &dictionaryPathTrainOut, const QString &dictionaryPathOut, QStringList &trainedVocabulary,
                                                     QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary)
 {
   QFile dictionaryFile(dictionaryPathOut);
-  if (!dictionaryFile.open(QIODevice::WriteOnly))
+  QFile dictionaryTrainFile(dictionaryPathTrainOut);
+  if (!dictionaryFile.open(QIODevice::WriteOnly) || !dictionaryTrainFile.open(QIODevice::WriteOnly) )
   {
+    //FIXME: After string freeze, add dictioanryPathTrainOut
     emit error(i18n("Failed to adapt dictionary to \"%1\"", dictionaryPathOut));
     return false;
   }
 
   QTextStream dictionary(&dictionaryFile);
+  QTextStream dictionaryTrain(&dictionaryTrainFile);
   dictionary.setCodec("UTF-8");
+  dictionaryTrain.setCodec("UTF-8");
 
   m_pronunciationCount = 0;
   QList<Word*> words = vocabulary->getWords();
 
-  QStringList added; //Think about better way to do it
   m_wordCount = 0;
+  QHash<QString, int> wordCounts;
+  QHash<QString, int> wordCountsShip;
   foreach (Word *word, words)
   {
-    if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+    if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
             (!(adaptionType == ModelCompilationAdapter::AdaptIndependently) &&
-        !trainedVocabulary.contains(word->getLexiconWord())) || added.contains(word->getWord()))
+        (!trainedVocabulary.contains(word->getLexiconWord()))))
     {
       kDebug() << "Skipping word " << word->getWord();
       continue;
     }
 
     ++m_pronunciationCount;
-    dictionary << word->getWord() << QLatin1String("\t\t") <<
+
+    QString wordName = word->getWord();
+    QString wordNameShip = word->getLexiconWord();
+    if (wordCounts.contains(wordName)) {
+      int currentCount = wordCounts.value(wordName) + 1;
+      wordCounts.insert(wordName, currentCount);
+      wordName += '(' + QByteArray::number(currentCount) + ')';
+    } else
+      wordCounts.insert(wordName, 1);
+    if (wordCountsShip.contains(wordNameShip)) {
+      int currentCount = wordCountsShip.value(wordNameShip) + 1;
+      wordCountsShip.insert(wordNameShip, currentCount);
+      wordNameShip += '(' + QByteArray::number(currentCount) + ')';
+    } else
+      wordCountsShip.insert(wordNameShip, 1);
+    dictionary << wordName << QLatin1String("\t\t") <<
+                  word->getPronunciation() << QLatin1String("\n");
+    dictionaryTrain << wordNameShip << QLatin1String("\t\t") <<
                   word->getPronunciation() << QLatin1String("\n");
 
-    added.append(word->getWord());
-
     ++m_wordCount;
-    if (//(adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+    if (//(adaptionType == ModelCompilationAdapter::AdaptAcousticModel) &&
         (!definedVocabulary.contains(word->getLexiconWord())))
       definedVocabulary << word->getLexiconWord();
   }
@@ -217,10 +260,12 @@ bool ModelCompilationAdapterSPHINX::storeDictionary(AdaptionType adaptionType, c
 
 bool ModelCompilationAdapterSPHINX::storeFiller(AdaptionType adaptionType, const QString &fillerPathOut)
 {
+  Q_UNUSED(adaptionType);
   QFile fillerFile(fillerPathOut);
   if (!fillerFile.open(QIODevice::WriteOnly))
   {
-    emit error(i18n("Failed to write filler to \"%1\"", fillerPathOut));
+    emit error(i18nc("Please keep \"filler\" in English as it refers to a file that is usually named that",
+                     "Failed to write filler to \"%1\"", fillerPathOut));
     return false;
   }
 
@@ -237,7 +282,8 @@ bool ModelCompilationAdapterSPHINX::storeFiller(AdaptionType adaptionType, const
 }
 
 bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut,
-                                                    QSharedPointer<Vocabulary> vocabulary, const QStringList &trainedVocabulary)
+                                                    QSharedPointer<Vocabulary> vocabulary,
+                                                    const QStringList &trainedVocabulary)
 {
   QFile phoneFile(phonesListPathOut);
   if (!phoneFile.open(QIODevice::WriteOnly))
@@ -252,7 +298,8 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, c
   QSet<QString> uniquePhonemes;
   foreach (Word *word, vocabulary->getWords())
   {
-    if((adaptionType != AdaptIndependently) && !trainedVocabulary.contains(word->getLexiconWord()))
+    if((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+       (adaptionType != AdaptIndependently) && !trainedVocabulary.contains(word->getLexiconWord()))
     {
       kDebug() << "Skipping phones for word " << word->getWord();
       continue;
@@ -277,8 +324,11 @@ bool ModelCompilationAdapterSPHINX::storePhonesList(AdaptionType adaptionType, c
   return true;
 }
 
-bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType adaptionType, const QString &promptsPathIn, const QString &transcriptionPathOut,
-                                                                const QString &fieldsPathOut, QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary)
+bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType adaptionType,
+                                                                const QString &promptsPathIn,
+                                                                const QString &transcriptionPathOut,
+                                                                const QString &fieldsPathOut,
+                                                                QStringList &definedVocabulary)
 {
   QFile promptsInFile(promptsPathIn);
   QFile promptsOutFile(transcriptionPathOut);
@@ -297,34 +347,29 @@ bool ModelCompilationAdapterSPHINX::storeTranscriptionAndFields(AdaptionType ada
     QString line = QString::fromUtf8(promptsInFile.readLine());
     int splitter = line.indexOf(" ");
     bool allWordsInLexicon = true;
-    QStringList words = line.mid(splitter+1).trimmed().split(' ');
+    QString sentence = line.mid(splitter+1).trimmed();
+    QStringList words = sentence.split(' ');
 
-    bool first(true);
-    QString wordsString;
     foreach (const QString& word, words)
     {
       if (!definedVocabulary.contains(word))
       {
         allWordsInLexicon = false;
-//        break;
+        break;
       }
-      if(!first)
-        wordsString.append(" ");
-      else
-        first = false;
-
-      QList<Word*> findWords= vocabulary->findWords(word, Vocabulary::ExactMatch);
-      if(!findWords.isEmpty())
-        wordsString.append(findWords.first()->getWord());
-      else
-        wordsString.append(word.toLower());//WARNING: error or not?
     }
 
-    if (allWordsInLexicon || adaptionType == AdaptIndependently)
+    if (allWordsInLexicon || !(adaptionType & AdaptLanguageModel) || (adaptionType & AdaptIndependently))
     {
+      QByteArray filename;
+#ifdef Q_OS_WIN
+      filename = line.left(splitter).toLocal8Bit();
+#else
+      filename = line.left(splitter).toUtf8();
+#endif
 
-      promptsOutFile.write("<s> "+wordsString.toUtf8() + " </s> (" + line.left(splitter).toUtf8() /*filename*/+ ")\n");
-      fieldsOutFile.write(line.left(splitter).toUtf8() /*filename*/ + "\n");
+      promptsOutFile.write("<s> "+ sentence.toUtf8() + " </s> (" + filename + ")\n");
+      fieldsOutFile.write(filename + "\n");
       ++m_sampleCount;
     }
   }
@@ -347,6 +392,14 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
     return false;
   }
 
+  QStringList grammarStructures = grammar->getStructures();
+
+  if (grammarStructures.isEmpty())
+  {
+    emit adaptionAborted(ModelCompilation::InsufficientInput); //no grammar
+    return false;
+  }
+
   QTextStream grammarStream(&grammarFile);
   grammarStream.setCodec("UTF-8");
 
@@ -354,34 +407,32 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
                  <<"grammar generalGrammar;\n";
   grammarStream<< "public <structure> = ";
 
-  QStringList grammarStructures = grammar->getStructures();
+  kDebug()<<"Structures count:"<< grammarStructures.size();
+
   foreach (const QString& structure, grammarStructures)
   {
-    QStringList terminals = Grammar::getTerminalsForStructure(structure);
-    if(terminals.isEmpty())
+    QStringList categories = Grammar::getCategoriesForStructure(structure);
+    if(categories.isEmpty())
       continue;
-
-//    if(structure != grammarStructures.first())
-//    {
-//     grammarStream<<"| ";
-//    }
 
     QString gramBuffer;
 
-    foreach (const QString &terminal, terminals)
+    kDebug()<<"Categories count for structure "<<structure<<": "<<categories.size();
+    foreach (const QString &category, categories)
     {
       bool fword = true;
-      QList<Word*> wordsForTerminal = vocabulary->findWordsByTerminal(terminal);
+      QList<Word*> wordsForCategory = vocabulary->findWordsByCategory(category);
 
-      if(wordsForTerminal.isEmpty())
+      kDebug()<<"Words for category "<<category<<":"<<wordsForCategory.size();
+
+      if(wordsForCategory.isEmpty())
         continue;
 
       QString termBuffer;
-//      uint addedCount(0);
 
-      foreach (Word* word, wordsForTerminal)
+      foreach (Word* word, wordsForCategory)
       {
-        if(!definedVocabulary.contains(word->getLexiconWord()) && adaptionType != AdaptIndependently)
+        if(!definedVocabulary.contains(word->getLexiconWord()) && adaptionType != AdaptIndependently)//WARNING: talk about adapt independently becouse of magic
           continue;
 
         if(!fword)
@@ -410,13 +461,6 @@ bool ModelCompilationAdapterSPHINX::storeGrammar(ModelCompilationAdapter::Adapti
       grammarStream<< "(" << gramBuffer <<") ";
 
     }
-
-//    grammarStream<<") ";
-//    if(structure != grammarStructures.last())
-//    {
-//      grammarStream<<"| ";
-//    }
-
   }
   grammarStream<<";\n";
   return true;

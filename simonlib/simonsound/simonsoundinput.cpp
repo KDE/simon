@@ -27,7 +27,7 @@
 #include "soundinputbuffer.h"
 
 SimonSoundInput::SimonSoundInput(QObject *parent) : QObject(parent),
-m_input(SoundBackend::createObject()), m_buffer(0)
+ m_dying(false), m_lock(QMutex::Recursive), m_input(SoundBackend::createObject()), m_buffer(0)
 {
   connect(m_input, SIGNAL(stateChanged(SimonSound::State)), this, SLOT(slotInputStateChanged(SimonSound::State)));
   connect(m_input, SIGNAL(stateChanged(SimonSound::State)), this, SIGNAL(inputStateChanged(SimonSound::State)));
@@ -47,16 +47,19 @@ qint64 SimonSoundInput::writeData(const char *toWrite, qint64 len)
 
 void SimonSoundInput::processData(const QByteArray& data)
 {
+  QMutexLocker l(&m_lock);
+  if (m_dying)
+    return;
   //length is in ms
   qint64 length = SoundServer::getInstance()->byteSizeToLength(data.count(), m_device);
 
   //pass data on to all registered, active clients
   QList<SoundInputClient*> activeInputClientsKeys = m_activeInputClients.keys();
   foreach (SoundInputClient *c, activeInputClientsKeys) {
-    qint64 streamTime = m_activeInputClients.value(c)+length;
+    qint64 streamTime = m_activeInputClients.value(c);
     c->process(data, streamTime);
     //update time stamp
-    m_activeInputClients.insert(c, streamTime);
+    m_activeInputClients.insert(c, streamTime+length);
   }
 }
 
@@ -91,6 +94,7 @@ bool SimonSoundInput::startRecording()
 
 void SimonSoundInput::suspendInputClients()
 {
+  QMutexLocker l(&m_lock);
   QHashIterator<SoundInputClient*, qint64> j(m_activeInputClients);
   while (j.hasNext()) {
     j.next();
@@ -101,6 +105,7 @@ void SimonSoundInput::suspendInputClients()
 
 void SimonSoundInput::suspend(SoundInputClient* client)
 {
+  QMutexLocker l(&m_lock);
   client->suspend();
   m_suspendedInputClients.insert(client, m_activeInputClients.value(client));
   m_activeInputClients.remove(client);
@@ -109,6 +114,7 @@ void SimonSoundInput::suspend(SoundInputClient* client)
 
 void SimonSoundInput::resume(SoundInputClient* client)
 {
+  QMutexLocker l(&m_lock);
   m_activeInputClients.insert(client, m_suspendedInputClients.value(client));
   m_suspendedInputClients.remove(client);
   client->resume();
@@ -117,30 +123,36 @@ void SimonSoundInput::resume(SoundInputClient* client)
 
 void SimonSoundInput::registerInputClient(SoundInputClient* client)
 {
+  QMutexLocker l(&m_lock);
+  if (m_activeInputClients.contains(client) || m_suspendedInputClients.contains(client))
+    return;
   m_activeInputClients.insert(client, 0);
 }
 
 
-bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
+bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client, bool& done)
 {
+  m_lock.lock();
+
   kDebug() << "Deregistering input client";
 
+  bool success = true;
   if (m_activeInputClients.remove(client) == 0) {
     //wasn't active anyways
-    /*return */
-    m_suspendedInputClients.remove(client);
+    success = (m_suspendedInputClients.remove(client) != 0);
   }
-
-  bool success = true;
 
                                                   //do not need to record any longer
   if (m_activeInputClients.isEmpty() && m_suspendedInputClients.isEmpty()) {
     //then stop recording
     kDebug() << "No active clients available... Stopping recording";
+    m_dying = true;
+    m_lock.unlock();
     success = stopRecording();
     if (success)
-      emit recordingFinished();                     // destroy this sound input
-  }
+      done = true;                     // destroy this sound input
+  } else
+    m_lock.unlock();
 
   return success;
 }
@@ -148,6 +160,7 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
 
 SoundClient::SoundClientPriority SimonSoundInput::getHighestPriority()
 {
+  QMutexLocker l(&m_lock);
   SoundClient::SoundClientPriority priority = SoundClient::Background;
   QHashIterator<SoundInputClient*, qint64> j(m_activeInputClients);
   while (j.hasNext()) {
@@ -165,6 +178,7 @@ SoundClient::SoundClientPriority SimonSoundInput::getHighestPriority()
 
 bool SimonSoundInput::activate(SoundClient::SoundClientPriority priority)
 {
+  QMutexLocker l(&m_lock);
   kDebug() << "Activating priority: " << priority;
   bool activated = false;
   QHashIterator<SoundInputClient*, qint64> j(m_activeInputClients);
@@ -203,6 +217,7 @@ bool SimonSoundInput::activate(SoundClient::SoundClientPriority priority)
 
 void SimonSoundInput::slotInputStateChanged(SimonSound::State state)
 {
+  QMutexLocker l(&m_lock);
   kDebug() << "Input state changed: " << state;
 
   QList<SoundInputClient*> activeInputClientsKeys = m_activeInputClients.keys();
@@ -245,11 +260,11 @@ bool SimonSoundInput::stopRecording()
     return true;
 
   m_input->stopRecording();
-  
+
   kDebug() << "Now stopping buffer";
   killBuffer();
   kDebug() << "Done";
-  
+
   return true;
 }
 
@@ -259,14 +274,16 @@ void SimonSoundInput::killBuffer()
     m_buffer->stop();
     m_buffer->wait();
   }
-  
+
   m_buffer = 0;
 }
 
 SimonSoundInput::~SimonSoundInput()
 {
-  if (m_input->state() != SimonSound::IdleState)
+  if (m_input->state() != SimonSound::IdleState) {
+    kDebug() << "Deleting for some reason";
     stopRecording();
+  }
 
   killBuffer();
   delete m_input;

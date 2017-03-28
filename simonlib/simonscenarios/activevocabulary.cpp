@@ -119,9 +119,9 @@ bool ActiveVocabulary::empty()
 }
 
 
-bool ActiveVocabulary::renameTerminal(const QString& from, const QString& to)
+bool ActiveVocabulary::renameCategory(const QString& from, const QString& to)
 {
-  if (Vocabulary::renameTerminal(from, to))
+  if (Vocabulary::renameCategory(from, to))
     return parentScenario->save();
   return false;
 }

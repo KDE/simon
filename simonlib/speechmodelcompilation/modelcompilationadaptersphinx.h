@@ -46,7 +46,9 @@ protected:
                   const QString& promptsPathIn, const QString &workingDirPath, const QString &mName,
                   QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar);
 
-  bool storeDictionary(AdaptionType adaptionType, const QString &dictionaryPathOut, QStringList &trainedVocabulary,
+  bool purgeUnusedVocabulary(QSharedPointer<Vocabulary> vocabulary, QSharedPointer<Grammar> grammar);
+
+  bool storeDictionary(AdaptionType adaptionType, const QString &dictionaryPathTrainOut, const QString &dictionaryPathOut, QStringList &trainedVocabulary,
                        QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary);
 
   bool storeFiller(AdaptionType adaptionType, const QString &fillerPathOut);
@@ -54,7 +56,7 @@ protected:
   bool storePhonesList(AdaptionType adaptionType, const QString &phonesListPathOut, QSharedPointer<Vocabulary> vocabulary, const QStringList &trainedVocabulary);
 
   bool storeTranscriptionAndFields(AdaptionType adaptionType, const QString& promptsPathIn, const QString& transcriptionPathOut, const QString &fieldsPathOut,
-                                   QStringList &definedVocabulary, QSharedPointer<Vocabulary> vocabulary);
+                                   QStringList &definedVocabulary);
 
   bool storeGrammar(AdaptionType adaptionType, const QString &grammarPathOut, QSharedPointer<Vocabulary> vocabulary,
                     QStringList &definedVocabulary, QSharedPointer<Grammar> grammar);

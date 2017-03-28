@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>531</width>
-    <height>320</height>
+    <height>326</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -106,7 +106,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Announce repeat:</string>
+         <string extracomment="The prompt for the input field where the user can provide a custom announcement text for the dialog system to tell the user there is the option to hear the text again">Announce repeat:</string>
         </property>
        </widget>
       </item>

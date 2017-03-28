@@ -24,14 +24,14 @@
    <item>
     <widget class="QCheckBox" name="kcfg_StartMinimized">
      <property name="text">
-      <string>Start simon minimized</string>
+      <string>Start Simon minimized</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_AutoStart">
      <property name="text">
-      <string>Start simon when logging in</string>
+      <string>Start Simon when logging in</string>
      </property>
     </widget>
    </item>
@@ -48,7 +48,7 @@
    <item>
     <widget class="QCheckBox" name="cbShowSampleWarning">
      <property name="text">
-      <string>Show warning when simon detects a problem with a sample</string>
+      <string>Show warning when Simon detects a problem with a sample</string>
      </property>
     </widget>
    </item>

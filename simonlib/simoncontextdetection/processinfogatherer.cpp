@@ -30,9 +30,7 @@ ProcessInfoGatherer::ProcessInfoGatherer(QObject *parent) :
 
 ProcessInfoGatherer::~ProcessInfoGatherer()
 {
-    m_mutex.lock();
     m_abort = true;
-    m_mutex.unlock();
 
     wait();
 }
@@ -84,10 +82,8 @@ void ProcessInfoGatherer::run()
 
         //emit finishedGatheringStep();
 
-        m_mutex.lock();
         if (m_abort)
             return;
-        m_mutex.unlock();
 
         this->sleep(1);
     }

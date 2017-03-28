@@ -46,10 +46,12 @@ class Command;
 class Action;
 class CommandManager;
 class VoiceInterfaceCommand;
+class ScenarioOfferUi;
 
 class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 {
   Q_OBJECT
+  Q_CLASSINFO("Simons scenario interface", "org.simon-listens.ScenarioManager")
 
   signals:
     void scenarioSelectionChanged();
@@ -64,7 +66,6 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     bool m_scenariosDirty;
     bool m_shadowVocabularyDirty;
     bool setupScenario(Scenario *s);
-    void touchBaseModelAccessTime();
 
     ShadowVocabulary *shadowVocab;
     Scenario *currentScenario;
@@ -76,6 +77,11 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
   public:
     static ScenarioManager *getInstance();
 
+    enum ScenarioOfferReply {
+      Accepted=1,
+      Rejected=0,
+      Incompatible=-1
+    };
 
     QList<Scenario*> getScenarios() { return scenarios; }
     void registerScenarioDisplay(ScenarioDisplay *display);
@@ -89,13 +95,13 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 
     bool storeScenario(const QString& id, const QByteArray& data);
 
-    QStringList getTerminals(SpeechModel::ModelElements elements);
-    bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
+    QStringList getCategories(SpeechModel::ModelElements elements);
+    bool renameCategory(const QString& category, const QString& newName, SpeechModel::ModelElements affect);
 
     QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements, Vocabulary::MatchType);
-    QList<Word*> findWordsByTerminal(const QString& name, SpeechModel::ModelElements elements);
+    QList<Word*> findWordsByCategory(const QString& name, SpeechModel::ModelElements elements);
 
-    QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
+    QStringList getExampleSentences(const QString& name, const QString& category, int count, SpeechModel::ModelElements elements);
     bool setupScenarios(bool forceChange=false);
     void setupAllChildScenarios();
 
@@ -115,18 +121,13 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 
     void setPluginFont(const QFont& font);
 
-    int baseModelType();
-    void setBaseModelType(int);
-    QString baseModel();
-    void setBaseModel(const QString&);
-    
-    QString languageProfileName();
-    void setLanguageProfileName(const QString& name);
-
     void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands);
 
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListBaseConfiguration();
 
+    void touchBaseModelAccessTime();
+
+    void installScenarioOfferUi(const ScenarioOfferUi* offerUi);
 
   public slots:
     // If force is true, every registered display will switch to this scenario
@@ -138,10 +139,14 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     QHash< QString, QString > transcribe(QStringList words);
     QString transcribe(QString word);
 
+    ScenarioOfferReply installScenario(const QString& requester, const QString& path);
+
   private:
     ScenarioManager(QObject *parent=0);
     ~ScenarioManager();
     static ScenarioManager *instance;
+
+    const ScenarioOfferUi* m_scenarioOfferUi;
 };
 
 

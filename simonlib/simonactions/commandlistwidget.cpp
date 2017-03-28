@@ -62,9 +62,9 @@ indexToSelectAfterTimeout(-1)
   twCommands->setSelectionBehavior(QAbstractItemView::SelectRows);
 
   QTableWidgetItem *___qtablewidgetitem = twCommands->horizontalHeaderItem(0);
-  ___qtablewidgetitem->setText(tr2i18n("Number", 0));
+  ___qtablewidgetitem->setText(i18n("Number"));
   QTableWidgetItem *___qtablewidgetitem1 = twCommands->horizontalHeaderItem(1);
-  ___qtablewidgetitem1->setText(tr2i18n("Command", 0));
+  ___qtablewidgetitem1->setText(i18n("Command"));
 
   lay->addWidget(twCommands);
   lay->addWidget(pbAutomaticSelection);

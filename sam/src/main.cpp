@@ -50,10 +50,15 @@ int main(int argc, char **argv)
   KCmdLineArgs::init(argc, argv, &about);
 
   KApplication app;
+  QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath()+"/../plugins");
   SamView *widget = new SamView(0,0);
 
-  if (!KCmdLineArgs::parsedArgs()->isSet("b"))
+  if (!KCmdLineArgs::parsedArgs()->isSet("b")) {
     widget->show();
+#ifdef Q_OS_MAC
+    widget->raise();
+#endif
+  }
 
   return app.exec();
 }

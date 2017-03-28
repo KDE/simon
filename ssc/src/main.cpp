@@ -35,9 +35,13 @@ int main(int argc, char **argv)
   KCmdLineArgs::init(argc, argv, &about);
 
   KApplication app;
+  QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath()+"/../plugins");
   app.setQuitOnLastWindowClosed(false);
   SSCView *widget = new SSCView();
   widget->show();
+#ifdef Q_OS_MAC
+  widget->raise();
+#endif
 
   int ret = app.exec();
   return ret;

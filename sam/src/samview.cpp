@@ -42,7 +42,7 @@
 #include <simonutils/fileutils.h>
 
 #include <qwt_legend.h>
-#include <qwt_legend_item.h>
+//#include <qwt_legend_item.h>
 
 #include <QHash>
 #include <QThread>
@@ -86,7 +86,16 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.qpPlot->hide();
 
   barGraphLegend = new QwtLegend(ui.qpPlot);
+
   ui.qpPlot->insertLegend(barGraphLegend);
+  #if QWT_VERSION >= 0x060100
+  connect(ui.qpPlot, SIGNAL(legendDataChanged(const QVariant &, const QList<QwtLegendData>&)),
+          barGraphLegend, SLOT(updateLegend(const QVariant&, const QList<QwtLegendData>&)));
+
+  barGraphLegend->show();
+  ui.qpPlot->updateLegend();
+  #endif
+
 
   initGraph();
 
@@ -95,7 +104,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   KAction* getPathsFromSimon = new KAction(this);
   getPathsFromSimon->setText(i18n("Modify Simon's model"));
   getPathsFromSimon->setStatusTip(i18n("Manage Simon's current model with SSC"));
-  getPathsFromSimon->setIcon(KIcon("Simon"));
+  getPathsFromSimon->setIcon(KIcon("simon"));
   actionCollection()->addAction("getPathsFromSimon", getPathsFromSimon);
   connect(getPathsFromSimon, SIGNAL(triggered(bool)),
           this, SLOT(getBuildPathsFromSimon()));
@@ -854,18 +863,22 @@ void SamView::getBuildPathsFromSimon()
   //take several corner cases into account as well as streamline the model with the
   //information he can extract from the input files
 
-  ui.leScriptPrefix->setText("Simon/scripts");
+  ui.leScriptPrefix->setText("simon/scripts");
 
   ModelCompilationAdapter::AdaptionType adaptionType = ModelCompilationAdapter::None;
-  if (modelType == 0 /*static*/)
-    adaptionType = ModelCompilationAdapter::AdaptLanguageModel;
-  else
+  QString promptsPath = KStandardDirs::locate("data", "simon/model/prompts");
+  bool hasPrompts = QFile::exists(promptsPath);
+  if (hasPrompts || (modelType != 0 /*static*/)) {
     adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel |
                                                             ModelCompilationAdapter::AdaptAcousticModel);
+    if (hasPrompts)
+      adaptionType = (ModelCompilationAdapter::AdaptionType) (adaptionType | ModelCompilationAdapter::AdaptIndependently);
+  } else
+    adaptionType = ModelCompilationAdapter::AdaptLanguageModel;
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
   QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
-                    adaptionType, scenarioPaths, KStandardDirs::locate("data", "simon/model/prompts"),
+                    adaptionType, scenarioPaths, promptsPath,
                     genAdaptionArgs(KStandardDirs::locateLocal("tmp", "sam/model/")));
 }
 
@@ -941,7 +954,10 @@ void SamView::serializePromptsRun(const QString promptsPath, const QString& outp
   if (output.isEmpty()) return;
 
   QHash<QString,QString> adaptionArgs;
-  adaptionArgs.insert("prompts", output+"prompts");
+  adaptionArgs.insert("stripContext", "true");
+  adaptionArgs.insert("prompts", output + "prompts");
+  adaptionArgs.insert("workingDir", output);
+  adaptionArgs.insert("modelName", m_user+QUuid::createUuid().toString());
   QtConcurrent::run(modelCompilationAdapter, &ModelCompilationAdapter::startAdaption,
         ModelCompilationAdapter::AdaptAcousticModel,
         QStringList(), promptsPath, adaptionArgs);
@@ -995,13 +1011,23 @@ void SamView::compileModel()
   QHash<QString,QString> compilerArgs;
 
   QString baseModelPath = ui.urBaseModel->url().toLocalFile();
-
+  QString baseModelFolder;
+  if (modelType < 2) {
+    baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/base/");
+    //base model needed - unpack it and fail if its not here
+    if (!FileUtils::unpackAll(baseModelPath, baseModelFolder)) {
+      KMessageBox::sorry(this, i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
+      return;
+    }
+  }
   switch (getBackendType())
   {
   case TestConfigurationWidget::SPHINX:
     compilerArgs.insert("audioPath",ui.urPromptsBasePath->url().toLocalFile());
     compilerArgs.insert("modelName", ui.leMName->text());
     compilerArgs.insert("modelDir", ui.urDir->url().toLocalFile());
+    if (modelType < 2)
+      compilerArgs.insert("baseModelDir", baseModelFolder);
     break;
   case TestConfigurationWidget::JHTK:
     compilerArgs.insert("samples",ui.urPromptsBasePath->url().toLocalFile());
@@ -1011,17 +1037,10 @@ void SamView::compileModel()
     compilerArgs.insert("prompts", ui.urPrompts->url().toLocalFile());
     compilerArgs.insert("scriptBase", ui.leScriptPrefix->text());
     if (modelType < 2) {
-      QString baseModelFolder = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+m_user+"/compile/base/");
-      //base model needed - unpack it and fail if its not here
-      if (!FileUtils::unpack(baseModelPath, baseModelFolder, (QStringList() << "hmmdefs" << "tiedlist" << "macros" << "stats"))) {
-        KMessageBox::sorry(this, i18nc("%1 is path to the base model", "Could not open base model at \"%1\".", baseModelPath));
-        return;
-      }
       compilerArgs.insert("base/hmmdefs", baseModelFolder+"hmmdefs");
       compilerArgs.insert("base/tiedlist", baseModelFolder+"tiedlist");
       compilerArgs.insert("base/macros", baseModelFolder+"macros");
       compilerArgs.insert("base/stats", baseModelFolder+"stats");
-      baseModelPath = baseModelFolder;
     }
     break;
   }
@@ -1275,14 +1294,15 @@ void SamView::clearTest()
   barGraph->detach();
   ui.qpPlot->replot();
   initGraph();
+  #if QWT_VERSION < 0x060100
   barGraphLegend->clear();
+  #endif
 }
 
 void SamView::initGraph()
 {
   delete barGraph;
   barGraph = new QwtBarsItem();
-  barGraph->setType(QwtBarsItem::SideBySide);
   barGraph->attach(ui.qpPlot);
 }
 

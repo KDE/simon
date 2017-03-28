@@ -116,6 +116,9 @@ void WavFileWidget::setupSignalsSlots()
   connect(rec, SIGNAL(clippingOccured()), this, SLOT(clippingOccured()));
   connect(rec, SIGNAL(signalToNoiseRatioLow()), this, SLOT(signalToNoiseRatioLow()));
 
+  connect(rec, SIGNAL(speaking()), this, SIGNAL(speaking()));
+  connect(rec, SIGNAL(speakingStopped()), this, SIGNAL(speakingStopped()));
+
   connect(play, SIGNAL(finished()), this, SLOT(finishPlayback()));
 }
 

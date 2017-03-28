@@ -42,6 +42,9 @@ void WebcamConfigurationAnalyzer::analyze(const IplImage* currentImage)
   //use cvResize to resize source to a destination image
   cvResize(liveVideoFrameCopy, smallImage);
   emit sendImage(*SimonCV::IplImage2QImage(smallImage));
+
+  cvReleaseImage(&smallImage);
+  cvReleaseImage(&liveVideoFrameCopy);
 }
 
 

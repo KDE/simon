@@ -31,6 +31,7 @@ class WordListContainer;
 class GrammarContainer;
 class LanguageDescriptionContainer;
 class TrainingContainer;
+class ModelMetadata;
 
 class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 {
@@ -38,6 +39,8 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 
   signals:
     void modelChanged();
+    void baseModelStored(int type, const QDateTime& creationDate, const QString& name);
+    void activeModelStored(const QDateTime& creationDate, const QString& name);
 
   private:
     static ModelManager *instance;
@@ -51,7 +54,10 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
     bool hasLanguageDescription();
     bool hasActiveContainer();
 
-    bool updateBlacklistedTranscriptions(KTar& tar);
+    KTar* archiveFromBuffer(const QByteArray& input);
+    ModelMetadata* metaData(KTar& tar);
+    ModelMetadata* metaDataFromBuffer(const QByteArray& input);
+    bool updateBlacklistedTranscriptions(ModelMetadata* data);
 
   public slots:
     void modelHasChanged();
@@ -87,6 +93,14 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
     bool storeSample(const QString& name, const QByteArray& sample);
 
     bool isTranscriptionBlackListed(const QString& transcription);
+
+    int baseModelType();
+    QString baseModel();
+    void setBaseModel(const QString& path, int type);
+    void announceBaseModel(const QString& name, int type, const QDateTime& creationDate);
+
+    QString languageProfileName();
+    void setLanguageProfileName(const QString& name);
 
     virtual ~ModelManager() {}
 

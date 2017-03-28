@@ -36,9 +36,6 @@ public:
 
 protected:
   void run();
-  
-private slots:
-  void slotPhonemeUndefined(const QString& phoneme);
 };
 
 #endif // MODELCOMPILATIONMANAGERHTK_H

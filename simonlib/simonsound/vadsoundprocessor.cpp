@@ -33,6 +33,8 @@ m_passAll(passAll),
 lastLevel(0),
 lastTimeUnderLevel(0),
 lastTimeOverLevel(0),
+sampleStartTime(0),
+waitingForSampleToInit(true),
 waitingForSampleToStart(true),
 waitingForSampleToFinish(false),
 currentlyRecordingSample(false),
@@ -44,6 +46,7 @@ m_doneListening(false)
 
 void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
 {
+  qint64 thisTime = SoundServer::getInstance()->byteSizeToLength(data.count(), m_deviceConfiguration);
   LoudnessMeterSoundProcessor::process(data, currentTime);
 
   int levelThreshold = SoundServer::getLevelThreshold();
@@ -59,24 +62,23 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
   if (peak() > levelThreshold) {
     if (lastLevel > levelThreshold) {
       #ifdef SIMOND_DEBUG
-      kDebug() << "Still above level - now for : " << currentTime - lastTimeUnderLevel << "ms";
+      qDebug() << "Still above level - now for : " << currentTime - lastTimeUnderLevel << "ms";
       #endif
 
       currentSample += data;                      // cache data (waiting for sample) or send it (if already sending)
       #ifdef SIMOND_DEBUG
-      kDebug() << "Adding data to sample...";
+      qDebug() << "Adding data to sample...";
       #endif
 
       //stayed above level
       if (waitingForSampleToStart) {
-        if (currentTime - lastTimeUnderLevel > shortSampleCutoff) {
+        if (currentTime + thisTime - lastTimeUnderLevel > shortSampleCutoff) {
           #ifdef SIMOND_DEBUG
-          kDebug() << "Sending started...";
+          qDebug() << "Sending started...";
           #endif
           waitingForSampleToStart = false;
           waitingForSampleToFinish = true;
           if (!currentlyRecordingSample) {
-            sampleStartTime = currentTime;
             m_startListening = true;
             emit listening();
             passDataThrough = true;
@@ -86,55 +88,68 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
       }
       else {
         passDataThrough = true;
-        #ifdef SIMOND_DEBUG
-        kDebug() << "Clearing cached data...";
-        #endif
       }
     }
     else {
       //crossed upward
       #ifdef SIMOND_DEBUG
-      kDebug() << "Crossed level upward...";
+      qDebug() << "Crossed level upward...";
       #endif
+      if (waitingForSampleToInit) {
+        sampleStartTime = lastTimeUnderLevel - headMargin;
+        #ifdef SIMOND_DEBUG
+        qDebug() << "... Sending sample start time:" << sampleStartTime;
+        #endif
+        waitingForSampleToInit = false;
+      }
       currentSample += data;
+      if (waitingForSampleToFinish)
+        passDataThrough = true;
     }
-    lastTimeOverLevel = currentTime;
+    lastTimeOverLevel = currentTime + thisTime;
   }
   else {
-    waitingForSampleToStart = true;
     if (lastLevel < levelThreshold) {
       //stayed below level
       #ifdef SIMOND_DEBUG
-      kDebug() << "Still below level - now for : " << currentTime - lastTimeOverLevel << "ms";
+      qDebug() << "Still below level - now for : " << currentTime + thisTime - lastTimeOverLevel << "ms";
       #endif
-      if (waitingForSampleToFinish) {
-        //still append data during tail margin
-        currentSample += data;
-        passDataThrough = true;
-        //sender->sendSampleToRecognize(id, currentSample);
-        //currentSample.clear();
-        if (currentTime - lastTimeOverLevel > tailMargin) {
-          m_doneListening = true;
-          //sender->recognizeSample(id);
-          currentlyRecordingSample = false;
-          waitingForSampleToFinish = false;
-          kDebug() << "Sample finalized and sent.";
-        }
-      }
-      else {
-        //get a bit of data before the first level cross
-        currentSample += data;
-        currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin, m_deviceConfiguration));
-      }
-    }
-    else {
+    } else {
       //crossed downward
       #ifdef SIMOND_DEBUG
-      kDebug() << "Crossed level downward...";
+      qDebug() << "Crossed level downward...";
       #endif
-      currentSample += data;
     }
-    lastTimeUnderLevel = currentTime;
+    bool silentLongerThanTailMargin = (currentTime + thisTime - lastTimeOverLevel > tailMargin);
+    if (waitingForSampleToFinish) {
+      //still append data during tail margin
+      currentSample += data;
+      passDataThrough = true;
+      if (silentLongerThanTailMargin) {
+        m_doneListening = true;
+        currentlyRecordingSample = false;
+        waitingForSampleToFinish = false;
+        waitingForSampleToStart  = true;
+        waitingForSampleToInit = true;
+        #ifdef SIMOND_DEBUG
+        qDebug() << "Sample finalized and sent.";
+        #endif
+      }
+    } else if (waitingForSampleToInit) {
+      //get a bit of data before the first level cross
+      currentSample += data;
+      currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin, m_deviceConfiguration));
+    } else if (waitingForSampleToStart && !waitingForSampleToInit) {
+      if (silentLongerThanTailMargin) {
+        waitingForSampleToInit = true;
+        waitingForSampleToStart = true;
+        currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin, m_deviceConfiguration));
+      } else {
+        currentSample += data;
+      }
+    }
+
+    lastTimeUnderLevel = currentTime + thisTime;
   }
 
   lastLevel = peak();
@@ -142,7 +157,9 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
   if (passDataThrough || m_passAll) {
     if (currentSample.count() > data.count()) {
       //contained cached data as such must be the first sending
-      kDebug() << "STARTED!";
+      #ifdef SIMOND_DEBUG
+      qDebug() << "STARTED!";
+      #endif
       currentTime = sampleStartTime;
     }
     data = currentSample;
@@ -152,8 +169,12 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
     data.clear();
   }
 
-  if (m_doneListening)
-    emit complete();
+  if (m_doneListening) {
+    #ifdef SIMOND_DEBUG
+    qDebug() << "Emitting complete";
+    #endif
+    emit complete(sampleStartTime, currentTime + thisTime);
+  }
 }
 
 
@@ -161,6 +182,7 @@ void VADSoundProcessor::reset()
 {
   lastTimeOverLevel = -1;
   lastTimeUnderLevel = -1;
+  waitingForSampleToInit = true;
   waitingForSampleToStart = true;
   waitingForSampleToFinish = false;
   currentlyRecordingSample = false;

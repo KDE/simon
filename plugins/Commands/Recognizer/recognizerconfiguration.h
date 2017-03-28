@@ -31,7 +31,7 @@ class RecognizerConfiguration : public CommandConfiguration
 
     private:
     Ui::RecognizerConfigurationDlg ui;
-    void initTerminals();
+    void initCategories();
 
   public slots:
     virtual bool deSerialize(const QDomElement&);

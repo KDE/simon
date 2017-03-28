@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>512</width>
-    <height>229</height>
+    <height>231</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string />
+   <string/>
   </property>
   <property name="frameShape">
    <enum>QFrame::StyledPanel</enum>
@@ -71,7 +71,7 @@
       <item row="3" column="0">
        <widget class="QLabel" name="lbTiedlist_4">
         <property name="text">
-         <string>Tiedlist:</string>
+         <string notr="true">Tiedlist:</string>
         </property>
         <property name="buddy">
          <cstring>urTiedlist</cstring>
@@ -81,7 +81,7 @@
       <item row="4" column="0">
        <widget class="QLabel" name="lbDict_4">
         <property name="text">
-         <string>Dict:</string>
+         <string notr="true">Dict:</string>
         </property>
         <property name="buddy">
          <cstring>urDict</cstring>
@@ -94,7 +94,7 @@
       <item row="5" column="0">
        <widget class="QLabel" name="lbDFA_4">
         <property name="text">
-         <string>DFA:</string>
+         <string notr="true">DFA:</string>
         </property>
         <property name="buddy">
          <cstring>urDFA</cstring>
@@ -164,7 +164,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="lbJConf_3">
         <property name="text">
-         <string>JConf:</string>
+         <string notr="true">JConf:</string>
         </property>
         <property name="buddy">
          <cstring>urJConf</cstring>

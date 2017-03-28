@@ -124,52 +124,93 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
 
 bool Scenario::setupChildScenarios()
 {
-    m_childScenarios.clear();
+  m_childScenarios.clear();
 
-    foreach (const QString& id, m_childScenarioIds)
+  foreach (const QString& id, m_childScenarioIds)
+  {
+    Scenario* child = ScenarioManager::getInstance()->getScenario(id);
+
+    if (child)
     {
-        Scenario* child = ScenarioManager::getInstance()->getScenario(id);
+      m_childScenarios << child;
+      child->setParentScenario(this);
 
-        if (child)
-        {
-            m_childScenarios << child;
-            child->setParentScenario(this);
-
-            kDebug() << child->id() + " is set as child of " + this->id();
-        }
-        else
-        {
-            kDebug() << "Error: Child id '" + id + "'' is unavailable";
-        }
+      kDebug() << child->id() + " is set as child of " + this->id();
     }
+    else
+    {
+      kDebug() << "Error: Child id '" + id + "'' is unavailable";
+    }
+  }
 
-    return true;
+  return true;
 }
 
 QList<Scenario*> Scenario::childScenarios() const
 {
-    return m_childScenarios;
+  return m_childScenarios;
 }
 
 QStringList Scenario::childScenarioIds() const
 {
-    return m_childScenarioIds;
+  return m_childScenarioIds;
 }
 
 Scenario* Scenario::parentScenario()
 {
-    return m_parentScenario;
+  return m_parentScenario;
 }
 
 void Scenario::setParentScenario(Scenario *parent)
 {
-    m_parentScenario = parent;
-    updateActivation();
+  m_parentScenario = parent;
+  updateActivation();
 }
 
 void Scenario::setChildScenarioIds(QStringList ids)
 {
-    m_childScenarioIds = ids;
+  m_childScenarioIds = ids;
+}
+
+bool Scenario::updateChildScenarioIds(const QString& id, const QStringList& ids)
+{
+  QString path = Scenario::pathFromId(id, QString(), false);
+  kDebug() << "Updating child ids of " << path << " to " << ids;
+  QDomDocument doc("scenario");
+  QFile file(path);
+  if (!file.open(QIODevice::ReadOnly) || (!doc.setContent(&file))) {
+    return false;
+  }
+  QDomElement docElem = doc.documentElement();
+  docElem.setAttribute("lastModified", utcTime().toString(Qt::ISODate));
+  QDomElement childrenElem = docElem.firstChildElement("childscenarioids");
+  if (childrenElem.isNull()) {
+    kDebug() << "No child scenario id list element!";
+    childrenElem = doc.createElement("childscenarioids");
+    docElem.appendChild(childrenElem);
+  } else {
+    QDomElement idElem;
+    while (!(idElem = childrenElem.firstChildElement("scenarioid")).isNull())
+      childrenElem.removeChild(idElem); // remove all children
+  }
+
+  foreach(const QString& id, ids)
+  {
+    QDomElement idElem = doc.createElement("scenarioid");
+    idElem.appendChild(doc.createTextNode(id));
+    childrenElem.appendChild(idElem);
+  }
+
+  file.close();
+  file.setFileName(Scenario::pathFromId(id));
+  if (!file.open(QIODevice::WriteOnly|QIODevice::Truncate))
+    return false;
+
+  QString out = Scenario::pathFromId(id, QString(), false);
+  QByteArray data = doc.toString().toUtf8();
+  file.write(data);
+  file.close();
+  return true;
 }
 
 bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
@@ -448,7 +489,7 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
   {
     m_childScenarioIds.push_back(idElem.text());
 
-      kDebug() << "Child scenario id added: " + idElem.text();
+    kDebug() << "Child scenario id added: " + idElem.text();
 
     idElem = idElem.nextSiblingElement("scenarioid");
   }
@@ -458,12 +499,7 @@ bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool delete
   return true;
 }
 
-QString Scenario::idFromName(const QString& name)
-{
-  return QString(name).replace(QRegExp("[\\/:*?\"<>|]"), "_");
-}
-
-QStringList Scenario::explode(const QString& inFile)
+QStringList Scenario::explode(const QString& inFile, bool isIntegrated)
 {
   QFile f(inFile);
 
@@ -489,9 +525,9 @@ QStringList Scenario::explode(const QString& inFile)
   {
     //expand children
     QString name = childElem.attribute("name");
-    QString id = idFromName(name);
+    QString id = Scenario::createId(name);
     QString path = pathFromId(id);
-    kDebug() << "this id: " << id;
+    kDebug() << "this id: " << id << " full path: " << path;
     QString suffix;
     while (QFile::exists(path + suffix))
       suffix += "_";
@@ -511,17 +547,24 @@ QStringList Scenario::explode(const QString& inFile)
   }
   //strip children
   while (!(childElem = childrenElem.firstChildElement("scenario")).isNull()) {
-    QDomElement idElem = d.createElement("scenarioid");
-    idElem.appendChild(d.createTextNode(childElem.attribute("name")));
-    childrenElem.appendChild(idElem); // add link
     childrenElem.removeChild(childElem);
   }
-  foreach (QString child, childrenSrc) //explode recursively
-    allScenarios << Scenario::explode(pathFromId(child));
+  foreach (QString child, childrenSrc) {//explode recursively
+    allScenarios << Scenario::explode(pathFromId(child), true);
+    QDomElement idElem = d.createElement("scenarioid");
+    idElem.appendChild(d.createTextNode(child));
+    childrenElem.appendChild(idElem); // add link
+  }
 
-  QString outerName = scenarioElem.attribute("name");
-  QString outerId = idFromName(outerName);
-  QString outerPath = pathFromId(outerId);
+  QString outerId;
+  QString outerPath;
+  if (!isIntegrated) {
+    outerId = Scenario::createId(scenarioElem.attribute("name"));
+    outerPath = pathFromId(outerId);
+  } else {
+    outerId = idFromPath(inFile);
+    outerPath = inFile;
+  }
 
   QFile::remove(inFile);
   kDebug() << "Output path: " << outerPath;
@@ -531,44 +574,66 @@ QStringList Scenario::explode(const QString& inFile)
   } else {
     fInSrc.write(d.toString().toUtf8());
     fInSrc.close();
-    allScenarios << outerId;
+    allScenarios.insert(0, outerId);
   }
   return allScenarios;
 }
 
 
-QString Scenario::pathFromId(const QString& id, const QString& prefix)
+QString Scenario::pathFromId(const QString& id, const QString& prefix, bool local)
 {
-  if (prefix.isNull()) {
-    return KStandardDirs::locateLocal("appdata", "scenarios/"+id);
+  if (local) {
+    if (prefix.isNull())
+      return KStandardDirs::locateLocal("appdata", "scenarios/"+id);
+    else
+      return KStandardDirs::locateLocal("data", prefix+"scenarios/"+id);
+  } else {
+    if (prefix.isNull())
+      return KStandardDirs::locate("appdata", "scenarios/"+id);
+    else
+      return KStandardDirs::locate("data", prefix+"scenarios/"+id);
   }
-
-  return KStandardDirs::locateLocal("data", prefix+"scenarios/"+id);
+}
+QString Scenario::idFromPath(const QString& path)
+{
+  return QFileInfo(path).fileName();
 }
 
+QString Scenario::preferredPath() const
+{
+  return pathFromId(m_scenarioId, m_prefix);
+}
 
 /**
  * Stores the scenario; The storage location will be determined automatically
  * through the scenarioId of the scenario.
  *
- * Only use the parameter to EXPORT the scenario
+ * Only use the parameter @a path to EXPORT the scenario to the given path
+ *
+ * When @a full is true, all sub-secnarios will be inlined in the output XML
+ *
+ * When @a touchModifiedTime is true, the modification time will be set to the current
+ * UTC time, otherwise it will stay unchanged.
+ *
  * \author Peter Grasch <peter.grasch@bedahr.org>
  */
-bool Scenario::save(QString path, bool full)
+bool Scenario::save(QString path, bool full, bool touchModifiedTime)
 {
   if (m_inGroup > 0) {
     m_dirty = true;
     return true;
   }
 
-  m_lastModifiedDate = utcTime();
+  if (touchModifiedTime)
+    m_lastModifiedDate = utcTime();
+
   QString serialized = serialize(full);
 
   if (serialized.isNull())
     return false;
 
   if (path.isNull())
-    path = pathFromId(m_scenarioId, m_prefix);
+    path = preferredPath();
 
   QFile file(path);
   if (!file.open(QIODevice::WriteOnly)) {
@@ -732,38 +797,38 @@ bool Scenario::addStructures(const QStringList& newStructures)
 }
 
 
-QStringList Scenario::getTerminals(SpeechModel::ModelElements elements)
+QStringList Scenario::getCategories(SpeechModel::ModelElements elements)
 {
-  QStringList terminals;
+  QStringList categories;
 
   if (elements & SpeechModel::ScenarioVocabulary)
-    terminals = m_vocabulary->getTerminals();
+    categories = m_vocabulary->getCategories();
 
   if (elements & SpeechModel::ScenarioGrammar) {
-    QStringList grammarTerminals = m_grammar->getTerminals();
-    foreach (const QString& terminal, grammarTerminals)
-      if (!terminals.contains(terminal))
-      terminals << terminal;
+    QStringList grammarCategories = m_grammar->getCategories();
+    foreach (const QString& category, grammarCategories)
+      if (!categories.contains(category))
+      categories << category;
   }
 
-  return terminals;
+  return categories;
 }
 
 
-bool Scenario::renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect)
+bool Scenario::renameCategory(const QString& category, const QString& newName, SpeechModel::ModelElements affect)
 {
   bool success = true;
   bool scenarioChanged = false;
 
   if (affect & SpeechModel::ScenarioVocabulary) {
-    if (m_vocabulary->renameTerminal(terminal, newName))
+    if (m_vocabulary->renameCategory(category, newName))
       scenarioChanged=true;
     else
       success=false;
   }
 
   if (affect & SpeechModel::ScenarioGrammar) {
-    if (m_grammar->renameTerminal(terminal, newName))
+    if (m_grammar->renameCategory(category, newName))
       scenarioChanged=true;
     else
       success=false;
@@ -781,39 +846,39 @@ QList<Word*> Scenario::findWords(const QString& name, Vocabulary::MatchType type
 }
 
 
-QList<Word*> Scenario::findWordsByTerminal(const QString& name)
+QList<Word*> Scenario::findWordsByCategory(const QString& name)
 {
-  return m_vocabulary->findWordsByTerminal(name);
+  return m_vocabulary->findWordsByCategory(name);
 }
 
 
-QString Scenario::fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate,
-const QString& toDemonstrateTerminal)
+QString Scenario::fillGrammarSentenceWithExamples(const QString& categorySentence, bool &ok, const QString& toDemonstrate,
+const QString& toDemonstrateCategory)
 {
 
-  int terminalOccuranceCount = terminalSentence.count(toDemonstrateTerminal);
-  //this occurrence of the terminal in the sentence is going to be replaced
+  int categoryOccuranceCount = categorySentence.count(toDemonstrateCategory);
+  //this occurrence of the category in the sentence is going to be replaced
   //by the word we should put in a random sentence
-  int selectedOccurance = qrand() % terminalOccuranceCount;
+  int selectedOccurance = qrand() % categoryOccuranceCount;
 
-  QStringList segmentedTerminals = terminalSentence.split(' ');
+  QStringList segmentedCategories = categorySentence.split(' ');
 
   QStringList actualSentence;
 
   ok = true;
 
   int currentOccuranceCounter = 0;
-  foreach (const QString& terminalNow, segmentedTerminals) {
-    if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
+  foreach (const QString& categoryNow, segmentedCategories) {
+    if (!toDemonstrate.isNull() && (categoryNow == toDemonstrateCategory)) {
       if (currentOccuranceCounter++ == selectedOccurance) {
         actualSentence.append(toDemonstrate);
         continue;
       }
     }
 
-    QString randomWord = m_vocabulary->getRandomWord(terminalNow);
+    QString randomWord = m_vocabulary->getRandomWord(categoryNow);
     if (randomWord.isNull()) {
-      if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
+      if (!toDemonstrate.isNull() && (categoryNow == toDemonstrateCategory)) {
         actualSentence.append(toDemonstrate);
       } else ok = false;
     }
@@ -826,21 +891,21 @@ const QString& toDemonstrateTerminal)
 }
 
 
-QStringList Scenario::getExampleSentences(const QString& name, const QString& terminal, int count)
+QStringList Scenario::getExampleSentences(const QString& name, const QString& category, int count)
 {
   QStringList out;
 
   int failedCounter = 0;
 
   for (int i=0; i < count; i++) {
-    QString terminalSentence = m_grammar->getExampleSentence(terminal);
-    if (terminalSentence.isNull()) {
+    QString categorySentence = m_grammar->getExampleSentence(category);
+    if (categorySentence.isNull()) {
       //no sentence found
       return out;
     }
 
     bool ok = true;
-    QString resolvedSentence = fillGrammarSentenceWithExamples(terminalSentence, ok, name, terminal);
+    QString resolvedSentence = fillGrammarSentenceWithExamples(categorySentence, ok, name, category);
 
     if (ok) {
       out << resolvedSentence;
@@ -858,11 +923,11 @@ QStringList Scenario::getExampleSentences(const QString& name, const QString& te
 
 QStringList Scenario::getAllPossibleSentences()
 {
-  QStringList terminalSentences = m_grammar->getStructures();
+  QStringList categorySentences = m_grammar->getStructures();
 
   QStringList allSentences;
 
-  foreach (const QString& structure, terminalSentences) {
+  foreach (const QString& structure, categorySentences) {
     allSentences.append(getAllPossibleSentencesOfStructure(structure));
   }
   return allSentences;
@@ -886,7 +951,7 @@ QStringList Scenario::getAllPossibleSentencesOfStructure(const QString& structur
   QList< QList<Word*> > sentenceMatrix;
 
   foreach (const QString& element, structureElements)
-    sentenceMatrix.append(m_vocabulary->findWordsByTerminal(element));
+    sentenceMatrix.append(m_vocabulary->findWordsByCategory(element));
 
   //sentences: ( (Window, Test), (Next, Previous) )
 
@@ -920,9 +985,9 @@ QStringList Scenario::getValidSentences(QList< QList<Word*> > sentenceMatrix, in
 }
 
 
-QString Scenario::getRandomWord(const QString& terminal)
+QString Scenario::getRandomWord(const QString& category)
 {
-  return m_vocabulary->getRandomWord(terminal);
+  return m_vocabulary->getRandomWord(category);
 }
 
 
@@ -932,9 +997,9 @@ bool Scenario::containsWord(const QString& word)
 }
 
 
-bool Scenario::containsWord(const QString& word, const QString& terminal, const QString& pronunciation)
+bool Scenario::containsWord(const QString& word, const QString& category, const QString& pronunciation)
 {
-  return (m_vocabulary->containsWord(word, terminal, pronunciation));
+  return (m_vocabulary->containsWord(word, category, pronunciation));
 }
 
 
@@ -1018,7 +1083,7 @@ bool Scenario::commitGroup()
 QString Scenario::createId(const QString& name)
 {
   QString id = name;
-  id.replace(' ', '_').replace('/','_').replace(':', '-').remove('?').replace('\\', '_').remove('<').remove('>').remove('|').remove('"');
+  id.replace(QRegExp("[\\/:*?\"<>| ]"), "_");
   return id+'-'+utcTime().toString("dd.MM.dd.yyyy-hh-mm-ss-zzz");
 }
 
@@ -1042,39 +1107,39 @@ void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, Voic
 
 void Scenario::updateActivation()
 {
-    if (!m_parentScenario)
+  if (!m_parentScenario)
+  {
+    if (m_compoundCondition->isSatisfied())
     {
-        if (m_compoundCondition->isSatisfied())
-        {
-            kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
-            m_active = true;
-        }
-        else
-        {
-            kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
-            m_active = false;
-        }
+      kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+      m_active = true;
     }
     else
     {
-        if (m_compoundCondition->isSatisfied() && m_parentScenario->isActive())
-        {
-            kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
-            m_active = true;
-        }
-        else
-        {
-            kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
-            m_active = false;
-        }
+      kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+      m_active = false;
     }
-
-    foreach(Scenario *s, m_childScenarios)
+  }
+  else
+  {
+    if (m_compoundCondition->isSatisfied() && m_parentScenario->isActive())
     {
-        s->updateActivation();
+      kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+      m_active = true;
     }
+    else
+    {
+      kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+      m_active = false;
+    }
+  }
 
-    emit activationChanged();
+  foreach(Scenario *s, m_childScenarios)
+  {
+    s->updateActivation();
+  }
+
+  emit activationChanged();
 }
 
 

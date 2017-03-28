@@ -75,7 +75,7 @@ QByteArray SimonSoundOutput::requestData(qint64 maxLen)
   if (read <= 0) {
     popWhenBufferEmpty = true;
   } else popWhenBufferEmpty = false;
-  
+
   QByteArray output = QByteArray().append(toRead, read);
   free(toRead);
   return output;
@@ -110,9 +110,9 @@ qint64 SimonSoundOutput::writeData(const char *toWrite, qint64 len)
 bool SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
 {
   kDebug() << "Registering output client";
-  
+
   bool newOut = false;
-  
+
   if (m_activeOutputClient != 0)
     m_suspendedOutputClients.insert(0,m_activeOutputClient);
   else
@@ -120,10 +120,10 @@ bool SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
     newOut = true;
 
   m_activeOutputClient = client;
-  
+
   if (newOut) //start playback
     return m_output->startPlayback(this);
-  
+
   return true;
 }
 
@@ -131,7 +131,7 @@ bool SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
 bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 {
   kWarning() << "Deregister output client";
-  
+
   if (client != m_activeOutputClient)
     //wasn't active anyways
     m_suspendedOutputClients.removeAll(client);
@@ -170,7 +170,7 @@ bool SimonSoundOutput::preparePlayback(SimonSound::DeviceConfiguration& device)
 SoundClient::SoundClientPriority SimonSoundOutput::getHighestPriority()
 {
   SoundClient::SoundClientPriority priority = SoundClient::Background;
-  
+
   if (m_activeOutputClient)
     priority = m_activeOutputClient->priority();
 
@@ -244,7 +244,7 @@ bool SimonSoundOutput::stopPlayback()
 {
   if (!haveSomethingToPlay()) {
     emit playbackFinished();
-    
+
     SoundServer::getInstance()->closeOutput(this);
     if (!haveSomethingToPlay()) {
       //we got something while closing the output. This is properly locked in the sound server

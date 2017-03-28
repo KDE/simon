@@ -1,82 +1,27 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!-- Define an entity for your application if it is not part of KDE
-       CVS -->
   <!ENTITY kmyapplication "<application>KSimond</application>">
-  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
-                                            do *not* replace kappname-->
-  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
-                                     this unchanged if your
-                                     application is not maintained in KDE CVS -->
+  <!ENTITY kappname "&kmyapplication;">
+  <!ENTITY package "kde-module">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> <!-- ONLY If you are writing non-English
-                                     original documentation, change
-                                     the language here -->
-
-  <!-- Do not define any other entities; instead, use the entities
-       from entities/general.entities and $LANG/user.entities. -->
+  <!ENTITY % English "INCLUDE">
 ]>
-<!-- kdoctemplate v0.9 January 10 2003
-     Changes to comments to clarify entity usage January 10 2003
-     Minor update to "Credits and Licenses" section on August 24, 2000
-     Removed "Revision history" section on 22 January 2001
-     Changed to Installation/Help menu entities 18 October 2001
-     Other minor cleanup and changes 18 October 2001
-     FPI change and minor changes November 2002 -->
 
-<!--
-This template was designed by: David Rugge davidrugge@mindspring.com
-with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
-and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
-of the KDE DocBook team.
-
-You may freely use this template for writing any sort of KDE documentation.
-If you have any changes or improvements, please let us know.
-
-Remember:
-- in XML, the case of the <tags> and attributes is relevant ;
-- also, quote all attributes.
-
-Please don't forget to remove all these comments in your final documentation,
-thanks ;-).
--->
-
-<!-- ................................................................ -->
-
-<!-- The language must NOT be changed here. -->
-<!-- If you are writing original documentation in a language other -->
-<!-- than English, change the language above ONLY, not here -->
 <book id="ksimond" lang="&language;">
 
-<!-- This header contains all of the meta-information for the document such
-as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
 
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
-
-<!-- Date and version information of the application
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (YYYY-MM-DD) and of the version
-(V.MM.LL), it could be used by automation scripts.
-Do NOT change these in the translation. -->
-
-<date>2010-08-11</date>
-<releaseinfo>0.3</releaseinfo>
-
-<!-- Abstract about this handbook -->
+<date>2012-12-13</date>
+<releaseinfo>0.4</releaseinfo>
 
 <abstract>
 <para>
 &kmyapplication; is a frontend for the Simond server component of the Simon speech recognition suite.
 </para>
 </abstract>
-
-<!-- This is a set of Keywords for indexing by search engines.
-Please at least include KDE, the KDE package it is in, the name
- of your application, and a few relevant keywords. -->
 
 <keywordset>
 <keyword>KDE</keyword>
@@ -97,18 +42,12 @@ Please at least include KDE, the KDE package it is in, the name
 <legalnotice>&FDLNotice;</legalnotice>
 
 <copyright>
-<year>2009-2010</year>
+<year>2009-2012</year>
 <holder>Peter Grasch</holder>
 </copyright>
 
 <authorgroup>
 <author>
-<!-- This is just put in as an example.  For real documentation, please
-     define a general entity in entities/contributor.entities, e.g.
-<!ENTITY George.N.Ugnacious "<personname><firstname>George</firstname><othername>N.</othername><surname>Ugnacious</surname></personname>">
-<!ENTITY George.N.Ugnacious.mail "<email>gnu@kde.org</email>">
-and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
- -->
 <personname>
 <firstname>Peter</firstname>
 <othername>H.</othername>
@@ -251,37 +190,10 @@ Documentation Copyright &copy; 2010 Peter Grasch <email>peter.grasch@bedahr.org<
 
 </chapter>
 
+
 <appendix id="installation">
 <title>Installation</title>
-
-<sect1 id="getting-kapp">
-<title>How to obtain &kappname;</title>
-
-<para>
-Download the latest version of KSimond using the Simon-bundle available from <ulink url="http://sourceforge.net/projects/speech2text">sourceforge</ulink>.
-</para>
-</sect1>
-
-<sect1 id="requirements">
-<title>Requirements</title>
-
-<para>
-In order to successfully use &kappname;, you need &kde; 4. Simond is obviously also
-required.
-</para>
-
-<para>
-Simon and Simond itself can be found on <ulink url="http://sourceforge.net/projects/speech2text">the Simon sourceforge page</ulink>.
-</para>
-
-</sect1>
-
-<sect1 id="compilation">
-<title>Compilation and Installation</title>
-
-<para>Please see our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Installation">wiki</ulink> for install instructions.</para>
-</sect1>
-
+<para>Please see our <ulink url="http://userbase.kde.org/Special:myLanguage/Simon/Installation">wiki</ulink> for installation instructions.</para>
 </appendix>
 
 &documentation.index;

@@ -54,18 +54,19 @@ class MODELMANAGEMENT_EXPORT Grammar : public ScenarioObject, public QAbstractIt
     bool deSerialize(const QDomElement&);
     QDomElement serialize(QDomDocument *doc);
     static QDomElement createEmpty(QDomDocument *doc);
-    bool renameTerminal(QString terminal, const QString& newName);
+    bool renameCategory(QString category, const QString& newName);
 
-    QString getExampleSentence(const QString& terminal);
+    QString getExampleSentence(const QString& category);
 
     QString getStructure(int index);
 
     bool addStructures(const QStringList& newStructures, bool save=true);
     bool addStructure(const QString& newStructure, bool save=true);
     bool deleteStructure(int index);
+    bool deleteStructure(const QString& structure);
 
-    static QStringList getTerminalsForStructure(const QString& structure);
-    QStringList getTerminals();
+    static QStringList getCategoriesForStructure(const QString& structure);
+    QStringList getCategories();
     QStringList getStructures() const { return m_structures; }
 
     int structureCount() { return m_structures.count(); }

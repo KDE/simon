@@ -38,11 +38,11 @@ target_link_libraries(sam ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
   ${Qwt6_Qt4_LIBRARY} simonrecognitionresult simonscenarioui simonutils
 )
 
-if(NOT WIN32)
+if(NOT WIN32 AND NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   target_link_libraries(sam rt)
-endif(NOT WIN32)
+endif()
 
 install(TARGETS sam DESTINATION ${BIN_INSTALL_DIR} COMPONENT sam)
 
-install(FILES sam.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT sam)
+install(FILES org.kde.sam.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT sam)
 install(FILES samui.rc DESTINATION ${DATA_INSTALL_DIR} COMPONENT sam)

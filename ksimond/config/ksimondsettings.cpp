@@ -31,7 +31,7 @@ K_PLUGIN_FACTORY( KSimondSettingsFactory,
 registerPlugin< KSimondSettings >();
 )
 
-K_EXPORT_PLUGIN( KSimondSettingsFactory("KSimondSettings"); )
+K_EXPORT_PLUGIN( KSimondSettingsFactory("ksimond"); )
 
 KSimondSettings::KSimondSettings(QWidget* parent, const QVariantList& args)
 : KCModule(KGlobal::mainComponent(), parent)

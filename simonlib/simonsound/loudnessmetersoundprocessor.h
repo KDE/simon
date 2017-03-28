@@ -46,5 +46,6 @@ class SIMONSOUND_EXPORT LoudnessMeterSoundProcessor : public QObject, public Sou
     int absoluteMinAverage() { return m_absoluteMinAverage; }
     int absolutePeak() { return m_absolutePeak; }
     bool clipping() { return m_clipping; }
+    void reset();
 };
 #endif

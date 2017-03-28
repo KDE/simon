@@ -48,11 +48,11 @@ int DeleteWordDialog::exec(Word *word, bool isShadowed)
 {
   ui.lbName->setText(word->getWord());
   ui.lbPronunciation->setText(word->getPronunciation());
-  ui.lbTerminal->setText(word->getTerminal());
+  ui.lbCategory->setText(word->getCategory());
   ui.lbRecognitionRate->setText(QString::number(word->getPropability()));
 
-  ui.rbTerminal->setEnabled(!isShadowed);
-  ui.lbTerminalDesc->setEnabled(!isShadowed);
+  ui.rbCategory->setEnabled(!isShadowed);
+  ui.lbCategoryDesc->setEnabled(!isShadowed);
   ui.rbShadow->setEnabled(!isShadowed);
   ui.lbShadowDesc->setEnabled(!isShadowed);
 
@@ -60,7 +60,7 @@ int DeleteWordDialog::exec(Word *word, bool isShadowed)
     ui.rbSoftDelete->setChecked(true);
   }
   else {
-    ui.rbTerminal->setChecked(true);
+    ui.rbCategory->setChecked(true);
   }
   return KDialog::exec();
 }
@@ -68,7 +68,7 @@ int DeleteWordDialog::exec(Word *word, bool isShadowed)
 
 DeleteWordDialog::DeletionType DeleteWordDialog::getDeletionType()
 {
-  if (ui.rbTerminal->isChecked())
+  if (ui.rbCategory->isChecked())
     return DeleteWordDialog::MoveToUnused;
   if (ui.rbShadow->isChecked())
     return DeleteWordDialog::MoveToShadow;

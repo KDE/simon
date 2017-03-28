@@ -1,20 +1,25 @@
-cmake_minimum_required(VERSION 2.8.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.9)
 cmake_policy(SET CMP0017 NEW)
 cmake_policy(SET CMP0002 OLD)
+cmake_policy(SET CMP0026 OLD)
+if(NOT "${CMAKE_VERSION}" VERSION_LESS 2.8.12)
+  cmake_policy(SET CMP0022 OLD)
+endif()
 
 project(Simon)
 
 ENABLE_TESTING()
 
 set(CMAKE_SIMON_VERSION_MAJOR 0)
-set(CMAKE_SIMON_VERSION_MINOR 3)
-set(CMAKE_SIMON_VERSION_PATCH 85)
+set(CMAKE_SIMON_VERSION_MINOR 4)
+set(CMAKE_SIMON_VERSION_PATCH 1)
 set(CMAKE_SIMON_VERSION_STRING  "${CMAKE_SIMON_VERSION_MAJOR}.${CMAKE_SIMON_VERSION_MINOR}.${CMAKE_SIMON_VERSION_PATCH}")
 configure_file(version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 find_package(KDE4 "4.4" REQUIRED)
+include(KDE4Macros NO_POLICY_SCOPE)
 find_package(Qt4 COMPONENTS QtCore QtDbus QtGui QtTest QtXml QtScript QtConcurrent REQUIRED)
 find_package(Qwt6 REQUIRED)
 
@@ -27,15 +32,18 @@ include_directories(${LIBSAMPLERATE_INCLUDE_DIR})
 add_definitions(${LIBSAMPLERATE_DEFINITIONS})
 endif(LIBSAMPLERATE_FOUND)
 
-IF(UNIX)
+IF(UNIX AND NOT APPLE AND NOT WIN32)
   find_package(ALSA REQUIRED)
   set(plattformLibraries ${ALSA_LIBRARY})
   include_directories(${ALSA_INCLUDE_DIR})
-ELSE(UNIX)
+ENDIF()
+if (APPLE)
+ENDIF()
+IF (WIN32)
   find_package(DirectSound REQUIRED)
   set(plattformLibraries ${DIRECTSOUND_LIBRARY})
   include_directories(${DIRECTSOUND_INCLUDE_DIRS})
-ENDIF(UNIX)
+ENDIF()
 
 
 find_program(PSPHINX "pocketsphinx_batch")
@@ -47,7 +55,11 @@ endif(UNIX)
 
 macro_optional_find_package(KdepimLibs 4.5.60)
 macro_log_feature(KdepimLibs_FOUND "KDE PIM Libs" "KDE Libraries for PIM" "http://pim.kde.org/" FALSE "4.5.60" "Required for PIM plugin.")
+if(UNIX AND NOT APPLE)
 set(USE_PLASMA true CACHE BOOL "Use the plasma data engines in the dialog plugin")
+else()
+set(USE_PLAMSA false)
+endif()
 
 if(USE_PLASMA)
   add_definitions(-DUSE_PLASMA)
@@ -63,11 +75,28 @@ macro_log_feature(SphinxBase_LIBRARIES "Sphinxbase"
 find_package(Pocketsphinx)
 macro_log_feature(POCKETSPHINX_LIBRARIES "PocketSphinx"
   "PocketSphinx is a small-footprint continuous speech recognition system"
-  "http://cmusphinx.sourceforge.net/" FALSE "" 
+  "http://cmusphinx.sourceforge.net/" FALSE ""
   "Required to build Pocket Sphinx backend")
+macro_optional_find_package(OpenCV)
+macro_log_feature(OpenCV_FOUND "OpenCV"
+  "OpenCV (Open Source Computer Vision) is a library of programming functions for real time computer vision" "http://http://opencv.willowgarage.com/"
+  FALSE "" "Required for Simon Vision")
+
+
+macro_optional_find_package(VRPN)
+macro_log_feature(VRPN_LIBRARY "VRPN"
+  "Virtual-Reality Peripheral Network Connector"
+  "http://www.cs.unc.edu/Research/vrpn/index.html" FALSE ""
+  "Required to build the VRPN command plugin")
 
 set(BackendType "both" CACHE STRING "Backend type used while building")
 set_property(CACHE BackendType PROPERTY STRINGS jhtk both)
+
+if(OpenCV_FOUND)
+  link_directories(${OpenCV_LIB_DIR})
+  add_definitions(-DWITH_SIMONCV)
+  set(WITH_SIMONCV true CACHE BOOL "If SimonCV libraries are present")
+endif()
 
 if(SphinxBase_LIBRARIES AND POCKETSPHINX_LIBRARIES)
   set(BackendType both)
@@ -81,7 +110,7 @@ if(${BackendType} STREQUAL both)
   ADD_DEFINITIONS(-DBACKEND_TYPE_BOTH)
   find_package(Sphinxbase REQUIRED)
   find_package(Pocketsphinx REQUIRED)
-  include_directories(${POCKETSPHINX_INCLUDE_DIR} ${SphinxBase_INCLUDE_DIR} ../../simonlib)
+  include_directories(${POCKETSPHINX_INCLUDE_DIR}/pocketsphinx ${SphinxBase_INCLUDE_DIR} ${SphinxBase_INCLUDE_DIR}/sphinxbase ../../simonlib)
 endif()
 if(${BackendType} STREQUAL jhtk)
   ADD_DEFINITIONS(-DBACKEND_TYPE_JHTK)

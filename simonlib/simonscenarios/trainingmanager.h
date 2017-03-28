@@ -87,8 +87,6 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
     //		bool removeSample(const QString& fileBaseName);
     bool clear();
 
-    QStringList missingWords(const QStringList& prompts);
-
     QString getPage ( int i );
 
     float calcRelevance ( const TrainingText *text );

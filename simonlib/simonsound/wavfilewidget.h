@@ -79,6 +79,9 @@ class SIMONSOUND_EXPORT WavFileWidget : public QWidget
     void playbackFinished();
     void error(const QString& error);
 
+    void speaking();
+    void speakingStopped();
+
   private:
 
     SimonSamples::SampleProblems m_problems;

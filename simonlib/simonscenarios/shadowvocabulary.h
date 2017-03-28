@@ -50,7 +50,7 @@ class MODELMANAGEMENT_EXPORT ShadowVocabulary : public Vocabulary
     bool addWords(QList<Word*> w);
     bool reOrder(Word* w);
     bool removeWord(Word* w, bool deleteWord=true);
-    bool renameTerminal(const QString& from, const QString& to);
+    bool renameCategory(const QString& from, const QString& to);
 
     bool reset(QIODevice* data);
     bool empty();

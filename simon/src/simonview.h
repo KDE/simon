@@ -36,6 +36,7 @@
 #include <KDE/KXmlGuiWindow>
 #include <simonappcore/simoncontrol.h>
 #include <simonscenarios/scenariodisplay.h>
+#include <simonscenarios/scenarioofferui.h>
 
 #include <QMutex>
 
@@ -52,8 +53,9 @@ class GrammarView;
 class RunCommandView;
 class ContextView;
 class QTimeLine;
+class Author;
 
-class SimonView : public KXmlGuiWindow, public ScenarioDisplay
+class SimonView : public KXmlGuiWindow, public ScenarioDisplay, public ScenarioOfferUi
 {
     Q_OBJECT
   public:
@@ -61,6 +63,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     ~SimonView();
 
     void closeEvent ( QCloseEvent * event );
+    bool askToAcceptScenario(const QString& requester, const QString& name, const QList<Author*> authors) const;
 
   public slots:
     void displayConnectionStatus(const QString &status);
@@ -78,7 +81,6 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void showSampleShare();
     
    private slots:
-    void manageScenarios();
     void updateActionList();
     void editScenario();
     void backToOverview();

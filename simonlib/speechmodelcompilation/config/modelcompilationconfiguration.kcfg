@@ -5,6 +5,7 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
 <include>KStandardDirs</include>
+<include>speechmodelcompilation/config/modelcompilationsettings.h</include>
 <kcfgfile name="simonmodelcompilationrc" />
   <group name="Programs">
     <entry name="HDMan" type="Url">
@@ -86,7 +87,7 @@
   <group name="Backend">
     <entry name="backend" type="Int">
       <label>Type of backend</label>
-
+      <default code="true">ModelCompilationSettings::getDefaultBackendType()</default>
       <tooltip>0: Sphinx; 1: Julius</tooltip>
     </entry>    
   </group>

@@ -6,9 +6,6 @@ set( simoncontextdetection_LIB_SRCS
   createconditionwidget.cpp
   processinfo.cpp
   processinfogatherer.cpp
-  linuxprocessinfogatherer.cpp
-  linuxprocessinfogathererhelper.cpp
-  windowsprocessinfogatherer.cpp
   samplegroupcondition.cpp
 )
 
@@ -21,11 +18,19 @@ set( simoncontextdetection_LIB_HDRS
   createconditionwidget.h
   processinfo.h
   processinfogatherer.h
-  linuxprocessinfogatherer.h
-  linuxprocessinfogathererhelper.h
-  windowsprocessinfogatherer.h
   samplegroupcondition.h
 )
+
+IF(WIN32)
+  set(simoncontextdetection_LIB_SRCS ${simoncontextdetection_LIB_SRCS} windowsprocessinfogatherer.cpp)
+ENDIF()
+IF(UNIX AND NOT WIN32 AND NOT APPLE)
+  set(simoncontextdetection_LIB_SRCS ${simoncontextdetection_LIB_SRCS} linuxprocessinfogatherer.cpp linuxprocessinfogathererhelper.cpp)
+ENDIF()
+IF(APPLE)
+  set(CMAKE_SHARED_LINKER_FLAGS "-framework Foundation -framework AppKit -framework ScriptingBridge")
+  set(simoncontextdetection_LIB_SRCS ${simoncontextdetection_LIB_SRCS} macprocessinfogatherer.cpp macprocessinfogathererhelper.mm)
+ENDIF()
 
 kde4_add_library(simoncontextdetection SHARED ${simoncontextdetection_LIB_SRCS})
 
@@ -46,3 +51,5 @@ install(FILES ${simoncontextdetection_LIB_HDRS}
  
 install(TARGETS simoncontextdetection DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore)
 install(FILES simonconditionplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR} COMPONENT simoncore)
+
+add_subdirectory(test)

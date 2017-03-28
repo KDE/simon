@@ -95,8 +95,8 @@ const QXmlAttributes &attributes)
  *
  * This function is called internally every time the parser sees the closing of a tag.
  * We then react on that by parsing the data we gathered while "in" the tag.
- * We extract the terminal, the pronunciation(s) and insert this data into the 3 stringlists
- * (words, terminals, pronunciations)
+ * We extract the category, the pronunciation(s) and insert this data into the 3 stringlists
+ * (words, categories, pronunciations)
  *
  * \param QString namespaceURI
  *  namespaceURI is the namespace URI, or an empty string if the element has no namespace URI or if no namespace processing is done
@@ -114,11 +114,11 @@ const QString &qName)
     int indexOfStartTerm = text.indexOf("{{Wortart|");
     if (indexOfStartTerm == -1) return true;
 
-    //found the terminal
+    //found the category
 
     indexOfStartTerm+=10;
     int indexOfEndTerm=text.indexOf('|',indexOfStartTerm);
-    QString terminal = text.mid(indexOfStartTerm,
+    QString category = text.mid(indexOfStartTerm,
       indexOfEndTerm-indexOfStartTerm);
 
     //return if not a german word
@@ -140,7 +140,7 @@ const QString &qName)
     QStringList ipas = findIPAs(ipasingle);
 
     if (!cleanTitle(word).isEmpty())
-      insertWords(cleanTitle(word), terminal.trimmed(), ipas);
+      insertWords(cleanTitle(word), category.trimmed(), ipas);
 
     if (pluralstart != -1) {
       int ptitlestart;
@@ -158,7 +158,7 @@ const QString &qName)
       //deal with ipa
       if (!pluraltitle.isEmpty() &&
         (pluraltitle.indexOf(QString("(Einzahl)")) == -1))
-        insertWords(pluraltitle, terminal.trimmed(), ipap);
+        insertWords(pluraltitle, category.trimmed(), ipap);
     }
 
     emit progress(qRound(((double)pos/(double)maxpos)*1000));
@@ -206,19 +206,19 @@ QString WiktionaryDict::cleanTitle ( QString title )
  * \author Peter Grasch
  * \param QString word
  * The name of the word
- * \param QString terminal
- * The terminal
+ * \param QString category
+ * The category
  * \param QStringList pronunciations
  * The found "pronunciations" (most certainly from findIPAs());
  * \see findIPAs() processFoundIPA()
  */
-void WiktionaryDict::insertWords(QString word, QString terminal, QStringList pronunciations)
+void WiktionaryDict::insertWords(QString word, QString category, QStringList pronunciations)
 {
   for (int prons=0; prons<pronunciations.count(); prons++) {
     int found = processFoundIPA(pronunciations.at(prons));
     for (int i=0; i < found; i++) {
       words.append(word.trimmed());
-      terminals.append(terminal);
+      categories.append(category);
     }
   }
 }

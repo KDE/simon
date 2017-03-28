@@ -121,7 +121,7 @@
           </size>
          </property>
          <property name="icon">
-          <string>view-choose</string>
+          <string notr="true">view-choose</string>
          </property>
         </widget>
        </item>
@@ -143,14 +143,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KIconButton</class>
-   <extends>QPushButton</extends>
-   <header>kicondialog.h</header>
-  </customwidget>
-  <customwidget>
    <class>KEditListBox</class>
    <extends>QGroupBox</extends>
    <header>keditlistbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIconButton</class>
+   <extends>QPushButton</extends>
+   <header>kicondialog.h</header>
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>

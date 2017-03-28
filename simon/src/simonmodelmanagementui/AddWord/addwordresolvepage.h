@@ -26,7 +26,7 @@
 /**
   \class AddWordResolvePage
   \version 0.1
-  \brief Displays a few suggestions and let the user select the terminal and the pronunciation of the new word
+  \brief Displays a few suggestions and let the user select the category and the pronunciation of the new word
   \date 20.12.2007
   @author Peter Grasch
 */
@@ -39,7 +39,7 @@ class AddWordResolvePage : public QWizardPage
   private slots:
     void suggest();
     void createExamples();
-    void addTerminal();
+    void addCategory();
     void fetchSimilar();
     void transcribeWord();
   public:
@@ -47,7 +47,7 @@ class AddWordResolvePage : public QWizardPage
 
     const QString getPronunciation() { return ui.leSampa->text(); }
     const QString getName() { return ui.leWord->text(); }
-    const QString getTerminal() { return ui.cbType->currentText(); }
+    const QString getCategory() { return ui.cbType->currentText(); }
 
     void initializePage();
     void displayWords(QList<Word*> words);

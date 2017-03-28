@@ -35,7 +35,7 @@ vad(new VADSoundProcessor(deviceConfiguration, true /*pass all through*/))
 {
   registerSoundProcessor(vad);
   connect(vad, SIGNAL(listening()), this, SIGNAL(sampleStarted()));
-  connect(vad, SIGNAL(complete()), this, SIGNAL(sampleCompleted()));
+  connect(vad, SIGNAL(complete(qint64, qint64)), this, SIGNAL(sampleCompleted()));
 }
 
 

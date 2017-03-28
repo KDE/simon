@@ -35,12 +35,12 @@ class ATSPIScanner : public QObject
 Q_OBJECT
 
 signals:
-  void commandsShown(const QStringList& commands, bool reset);
+  void commandsShown(QStringList commands, bool reset);
 
 public:
   ATSPIScanner();
   ~ATSPIScanner();
-  
+
   void clearATModel();
   QVector<QSharedPointer<QAction> > getActions(const QString& triggerName);
 
@@ -50,6 +50,10 @@ private slots:
   void descriptionChanged (const QAccessibleClient::AccessibleObject &object);
   void stateChanged (const QAccessibleClient::AccessibleObject &object, const QString& state, bool active);
 
+  void added(const QAccessibleClient::AccessibleObject &parent);
+  void childAdded(const QAccessibleClient::AccessibleObject &parent, int index);
+  void childRemoved(const QAccessibleClient::AccessibleObject &parent, int index);
+
   void initialize();
 
 private:
@@ -58,8 +62,12 @@ private:
   QThread *m_thread;
   QAccessibleClient::Registry *m_registry;
   QRegExp m_cleanStringRegExp;
-  QHash<QString /* name (trigger) */, QAccessibleClient::AccessibleObject /* object id */> m_actions;
-  QHash<QAccessibleClient::AccessibleObject /* object */, QString /* name (trigger) */> m_reverseActions;
+  QHash<QString /* name (trigger) */, QAccessibleClient::AccessibleObject /* object */> m_actions;
+  QHash<QAccessibleClient::AccessibleObject /* object */,
+        QPair<QString /* name (trigger) */, QList<QAccessibleClient::AccessibleObject> /* children */> > m_reverseActions;
+
+  //Additionally, store the original object hierarchy to avoid querying it on every update
+
 
   void processTree(const QAccessibleClient::AccessibleObject &object, bool added, bool reset);
   void removeAction(const QString& name, const QAccessibleClient::AccessibleObject& o);

@@ -76,14 +76,14 @@ void BOMPDict::load(QString path, QString encodingName)
   dictStream->setCodec(QTextCodec::codecForName(encodingName.toAscii()));
   emit loaded();
 
-  QString line, xsp, terminal;
+  QString line, xsp, category;
   int wordend, termend;
   line = dictStream->readLine(1000);
 
   QString filteredXsp;
   QString xspFertig;
   QString currentPhoneme;
-  QString currentTerminal;
+  QString currentCategory;
   QString currentFinalXsp;
   QString currentWord;
   while (!line.isNull()) {
@@ -99,30 +99,30 @@ void BOMPDict::load(QString path, QString encodingName)
     currentFinalXsp = segmentSampa(adaptToSimonPhonemeSet(xsp));
 
     currentWord = line.left(wordend);
-    currentTerminal = line.mid(wordend,
+    currentCategory = line.mid(wordend,
       termend-wordend).trimmed();
 
-    QStringList currentTerminals = currentTerminal.split(':', QString::SkipEmptyParts);
-    QStringList currentTerminalsUnique;
+    QStringList currentCategories = currentCategory.split(':', QString::SkipEmptyParts);
+    QStringList currentCategoriesUnique;
 
-    if (currentTerminals.isEmpty()) {
+    if (currentCategories.isEmpty()) {
       line = dictStream->readLine(1000);
       continue;
     }
 
-    QString currentTerminalStr = currentTerminals[0];
-    currentTerminalsUnique << currentTerminalStr;
+    QString currentCategoryStr = currentCategories[0];
+    currentCategoriesUnique << currentCategoryStr;
     words << currentWord;
-    terminals << currentTerminalStr;
+    categories << currentCategoryStr;
     pronunciations << currentFinalXsp;
 
-    for (int k=1; k < currentTerminals.count(); k++) {
-      currentTerminalStr = currentTerminals[k];
-      if (!currentTerminalsUnique.contains(currentTerminalStr)) {
-        currentTerminalsUnique << currentTerminalStr;
+    for (int k=1; k < currentCategories.count(); k++) {
+      currentCategoryStr = currentCategories[k];
+      if (!currentCategoriesUnique.contains(currentCategoryStr)) {
+        currentCategoriesUnique << currentCategoryStr;
 
         words << currentWord;
-        terminals << currentTerminalStr;
+        categories << currentCategoryStr;
         pronunciations << currentFinalXsp;
       }
     }

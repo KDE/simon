@@ -37,11 +37,15 @@ ShadowVocabulary::ShadowVocabulary(QObject *parent)
 {
   QString vocabFilename = KStandardDirs::locate("appdata", "shadowvocabulary.xml");
 
-  QIODevice *shadowVocabFile = KFilterDev::deviceForFile(vocabFilename,
-    KMimeType::findByFileContent(vocabFilename)->name());
+  //it's only an error if the vocabulary file exists but can not be read for some reason
+  //if it doesn't exist, we'll silently create a new (empty one)
+  if (QFile::exists(vocabFilename)) {
+    QIODevice *shadowVocabFile = KFilterDev::deviceForFile(vocabFilename,
+      KMimeType::findByFileContent(vocabFilename)->name());
 
-  reset(shadowVocabFile);
-  shadowVocabFile->deleteLater();
+    reset(shadowVocabFile);
+    shadowVocabFile->deleteLater();
+  }
 }
 
 
@@ -69,9 +73,9 @@ bool ShadowVocabulary::reset(QIODevice* f)
     //	<pronunciation>
     //		a: l
     //	</pronunciation>
-    //	<terminal>
+    //	<category>
     //		NOM
-    //	</terminal>
+    //	</category>
     //</word>
     f->readLine();                                //skip word
     f->readLine();                                //skip name
@@ -82,16 +86,16 @@ bool ShadowVocabulary::reset(QIODevice* f)
     QString pronunciation = QString::fromUtf8(f->readLine()).trimmed();
     f->readLine();                                //skip pronunciationend
 
-    f->readLine();                                //skip terminal
-    QString terminal = QString::fromUtf8(f->readLine()).trimmed();
-    f->readLine();                                //skip terminalend
+    f->readLine();                                //skip category
+    QString category = QString::fromUtf8(f->readLine()).trimmed();
+    f->readLine();                                //skip categoryend
     f->readLine();                                //skip wordend
 
-    if (terminal.isEmpty()) continue;
+    if (category.isEmpty()) continue;
 
-    if (!terminals.contains(terminal)) terminals << terminal;
+    if (!categories.contains(category)) categories << category;
 
-    m_words.append(new Word(name, pronunciation, terminal));
+    m_words.append(new Word(name, pronunciation, category));
   }
   QAbstractItemModel::reset();
   loadFailed = false;
@@ -140,9 +144,9 @@ bool ShadowVocabulary::save()
     //	<pronunciation>
     //		a: l
     //	</pronunciation>
-    //	<terminal>
+    //	<category>
     //		NOM
-    //	</terminal>
+    //	</category>
     //</word>
     shadowVocabFile->write("<word>\n");
     shadowVocabFile->write("\t<name>\n");
@@ -153,9 +157,9 @@ bool ShadowVocabulary::save()
     shadowVocabFile->write("\t\t"+w->getPronunciation().toUtf8()+'\n');
     shadowVocabFile->write("\t</pronunciation>\n");
 
-    shadowVocabFile->write("\t<terminal>\n");
-    shadowVocabFile->write("\t\t"+w->getTerminal().toUtf8()+'\n');
-    shadowVocabFile->write("\t</terminal>\n");
+    shadowVocabFile->write("\t<category>\n");
+    shadowVocabFile->write("\t\t"+w->getCategory().toUtf8()+'\n');
+    shadowVocabFile->write("\t</category>\n");
     shadowVocabFile->write("</word>\n");
   }
 
@@ -219,9 +223,9 @@ bool ShadowVocabulary::removeWord(Word* w, bool deleteWord)
 }
 
 
-bool ShadowVocabulary::renameTerminal(const QString& from, const QString& to)
+bool ShadowVocabulary::renameCategory(const QString& from, const QString& to)
 {
-  if (Vocabulary::renameTerminal(from, to))
+  if (Vocabulary::renameCategory(from, to))
     return save();
   return false;
 }

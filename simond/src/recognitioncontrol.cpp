@@ -25,8 +25,9 @@
 
 #include <simonrecognizer/recognitionconfiguration.h>
 
-RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
+RecognitionControl::RecognitionControl(const QString& user_name, RecognitionControl::BackendType type, QObject* parent) : QThread(parent),
   m_refCounter(0),
+  m_type(type),
   username(user_name),
   m_startRequests(0),
   m_initialized(false),
@@ -34,7 +35,6 @@ RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent
   shouldBeRunning(false),
   recog(0)
 {
-
 }
 
 bool RecognitionControl::isEmpty() const
@@ -88,7 +88,6 @@ void RecognitionControl::recognize(const QString& fileName)
 void RecognitionControl::run()
 {
   Q_ASSERT(recog);
-  shouldBeRunning=true;
 
   RecognitionConfiguration *cfg = setupConfig();
   bool success = recog->init(cfg);
@@ -118,6 +117,7 @@ void RecognitionControl::run()
 
 bool RecognitionControl::startRecognitionInternal()
 {
+  shouldBeRunning=true;
   start();
 
   emit recognitionStarted();
@@ -152,8 +152,7 @@ bool RecognitionControl::suspend()
 void RecognitionControl::uninitialize()
 {
   kDebug() << "Uninitializing recognition control";
-  if (!m_initialized) return;
-
+  shouldBeRunning = false;
   recog->uninitialize();
   stopInternal();
 

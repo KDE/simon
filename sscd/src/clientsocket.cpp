@@ -299,7 +299,7 @@ void ClientSocket::processRequest()
   QDataStream stream(&msg, QIODevice::ReadOnly);
   qint32 type;
 
-  while (!stream.atEnd()) {
+  while (!stream.atEnd() && ((unsigned) stream.device()->bytesAvailable() >= sizeof(qint32))) {
     SSC::Request request;
     stream >> type;
     request = (SSC::Request) type;

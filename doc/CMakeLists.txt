@@ -1,3 +1,4 @@
+add_subdirectory(afaras)
 add_subdirectory(simon)
 add_subdirectory(simond)
 add_subdirectory(ksimond)

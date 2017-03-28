@@ -45,12 +45,6 @@ class RecognitionControl : public QThread
 {
   Q_OBJECT
 
-  private:
-    int m_refCounter;
-    
-  protected:
-    QString m_lastModel;
-
   signals:
     void recognitionReady();
     void recognitionError(const QString& error, const QByteArray& buildLog);
@@ -61,6 +55,46 @@ class RecognitionControl : public QThread
     void recognitionResumed();
     void recognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
     void recognitionDone(const QString& fileName);
+
+  public:
+    enum BackendType
+    {
+      HTK = 1,
+      SPHINX = 2
+    };
+    explicit RecognitionControl(const QString& username, BackendType type, QObject *parent=0);
+
+    virtual bool initializeRecognition(const QString& modelPath)=0;
+    virtual bool isInitialized() { return m_initialized; }
+
+    virtual bool startRecognition();
+
+    virtual bool stop();
+    virtual bool suspend(); //stop temporarily (still reflect the intention of being active, but don't do any recognition)
+
+    /*!
+     * \brief Add file name to recognition queue.
+     * \param fileName File name.
+     */
+    virtual void recognize(const QString& fileName);
+
+    bool recognitionRunning();
+
+    void pop();
+    void push();
+    bool isEmpty() const;
+
+    BackendType type() const { return m_type; }
+    QString user() const { return username; }
+
+    ~RecognitionControl();
+
+  private:
+    int m_refCounter;
+    BackendType m_type;
+
+  protected:
+    QString m_lastModel;
 
   protected:
     QString username;
@@ -87,31 +121,5 @@ class RecognitionControl : public QThread
     virtual void emitError(const QString& error)=0;
 
     Recognizer *recog;
-
-
-  public:
-    explicit RecognitionControl(const QString& username, QObject *parent=0);
-
-    virtual bool initializeRecognition(const QString& modelPath)=0;
-    virtual bool isInitialized() { return m_initialized; }
-    
-    virtual bool startRecognition();
-    
-    virtual bool stop();
-    virtual bool suspend(); //stop temporarily (still reflect the intention of being active, but don't do any recognition)
-
-    /*!
-     * \brief Add file name to recognition queue.
-     * \param fileName File name.
-     */
-    virtual void recognize(const QString& fileName);
-    
-    bool recognitionRunning();
-    
-    void pop();
-    void push();
-    bool isEmpty() const;
-
-    ~RecognitionControl();
 };
 #endif

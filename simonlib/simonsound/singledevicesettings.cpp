@@ -176,7 +176,7 @@ void SingleDeviceSettings::load(const QString& deviceName, int channels,
       ui->cbSoundDevice->setCurrentIndex(
         ui->cbSoundDevice->findText(defaultDevice));
       hasChanged=true;
-      KMessageBox::information(this, i18n("Please adjust your soundconfiguration accordingly."));
+      KMessageBox::information(this, i18n("Please adjust your sound configuration accordingly."));
       enable();
     } else disable();
 

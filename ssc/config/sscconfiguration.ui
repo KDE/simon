@@ -158,7 +158,7 @@
       <item>
        <widget class="QCheckBox" name="cbShowSampleWarning">
         <property name="text">
-         <string>Do not display warning dialog when simon detects a problem with a sample</string>
+         <string>Do not display warning dialog when Simon detects a problem with a sample</string>
         </property>
        </widget>
       </item>

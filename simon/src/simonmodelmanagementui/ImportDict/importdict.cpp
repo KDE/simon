@@ -41,7 +41,7 @@ deleteFileWhenDone(false)
 
 
 /**
- * \brief Parses the wordlist of an existing dictionary
+ * \brief Parses the list of words of an existing dictionary
  * \author Peter Grasch
  */
 void ImportDict::parseWordList(QString pathToDict, QString encoding, int type, bool deleteFileWhenDone)
@@ -65,7 +65,7 @@ QList<Word*> ImportDict::getCurrentWordList()
 /**
  * \brief The main execution loop
  * Does the real work.
- * Uses the members pathToDict to get the location and writes the finished wordlist to the member wordList
+ * Uses the members pathToDict to get the location and writes the finished list of word to the member wordList
  * \author Peter Grasch
  */
 void ImportDict::run()
@@ -106,7 +106,7 @@ void ImportDict::run()
   dict->load(pathToDict, encoding);
   emit status(i18n("Creating List..."));
   QStringList words = dict->getWords();
-  QStringList terminals = dict->getTerminals();
+  QStringList categories = dict->getCategories();
   QStringList pronunciations = dict->getPronuncations();
   kDebug() << "Deleting dict!";
   delete dict;
@@ -116,13 +116,13 @@ void ImportDict::run()
   for (int i=0; i<wordCount; i++) {
     wordList.append( new Word(words.at(i),
       pronunciations.at(i),
-      terminals.at(i) ) );
+      categories.at(i) ) );
     if ((i%1000) == 0)
       emit progress((int) ((((double) i)/((double)words.count())) *40+800), 1000);
   }
   words.clear();
   pronunciations.clear();
-  terminals.clear();
+  categories.clear();
 
   if (type != Dict::HTKLexicon) {
     emit status(i18n("Sorting Dictionary..."));

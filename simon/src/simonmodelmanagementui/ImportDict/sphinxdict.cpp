@@ -78,14 +78,16 @@ void SPHINXDict::load(QString path, QString encodingName)
   int wordend;
   line = dictStream->readLine(1000);
 
+  QRegExp duplicateIndex("\\(([0-9])*\\)$");
+  QRegExp splitter("[ \\t]");
   while (!line.isNull()) {
-    wordend = line.indexOf(" ");
-    QString word = line.left(wordend).remove(QRegExp("\\(([0-9])*\\)$"));
+    wordend = line.indexOf(splitter);
+    QString word = line.left(wordend).remove(duplicateIndex);
 
     if (!word.isEmpty()) {
       words << word;
-      terminals << i18nc("Terminal name for words that are imported from a dictionary "
-				  "which does not provide terminal information", "Unknown");
+      categories << i18nc("Category name for words that are imported from a dictionary "
+				  "which does not provide category information", "Unknown");
       pronunciations << line.mid(wordend+1).trimmed();
     }
 

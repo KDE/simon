@@ -160,10 +160,20 @@
       <item>
        <widget class="QLabel" name="lbBaseModelDescription">
         <property name="text">
-         <string/>
+         <string notr="true"/>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbActiveModelDescription">
+        <property name="text">
+         <string notr="true"/>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
@@ -214,7 +224,16 @@
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="lwScenarios"/>
+       <widget class="QTreeWidget" name="twScenarios">
+        <attribute name="headerVisible">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string/>
+         </property>
+        </column>
+       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">

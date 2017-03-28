@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>434</width>
     <height>358</height>
    </rect>
   </property>
@@ -47,7 +47,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="lbMdef">
          <property name="text">
-          <string>Mdef:</string>
+          <string notr="true">Mdef:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -60,7 +60,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="lbMeans">
          <property name="text">
-          <string>Means:</string>
+          <string notr="true">Means:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -70,7 +70,7 @@
        <item row="5" column="0">
         <widget class="QLabel" name="lbTmatrix">
          <property name="text">
-          <string>Transition matrices:</string>
+          <string notr="true">Transition matrices:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -83,7 +83,7 @@
        <item row="6" column="0">
         <widget class="QLabel" name="lbVariances">
          <property name="text">
-          <string>Variances:</string>
+          <string notr="true">Variances:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -96,7 +96,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="lbBaseFeatParams">
          <property name="text">
-          <string>Feat params:</string>
+          <string notr="true">Feat params:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -112,7 +112,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="lbMWeights">
          <property name="text">
-          <string>Mixture weights:</string>
+          <string notr="true">Mixture weights:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -125,7 +125,7 @@
        <item row="4" column="0">
         <widget class="QLabel" name="lbNoiseDict">
          <property name="text">
-          <string>Noisedict:</string>
+          <string notr="true">Noisedict:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -158,7 +158,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="lbBaseTiedlist">
          <property name="text">
-          <string>Tiedlist:</string>
+          <string notr="true">Tiedlist:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -171,7 +171,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="lbBaseMacros">
          <property name="text">
-          <string>Macros:</string>
+          <string notr="true">Macros:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -184,7 +184,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="lbBaseStats">
          <property name="text">
-          <string>Stats:</string>
+          <string notr="true">Stats:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

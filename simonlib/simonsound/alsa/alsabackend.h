@@ -24,6 +24,7 @@
 #include <simonsound/soundbackend.h>
 #include <alsa/asoundlib.h>
 #include <QStringList>
+#include <QMutex>
 
 class ALSALoop;
 class ALSACaptureLoop;
@@ -35,6 +36,8 @@ class ALSABackend : public SoundBackend
   friend class ALSACaptureLoop;
 
   private:
+    QMutex m_deviceListLock;
+
     snd_pcm_t *m_handle;
     ALSALoop *m_loop;
 
@@ -45,6 +48,7 @@ class ALSABackend : public SoundBackend
 
     snd_pcm_t* openDevice(SimonSound::SoundDeviceType type, 
         const QString& device, int channels, int samplerate);
+    QString defaultDevice(const QStringList& list);
 
   protected:
     void errorRecoveryFailed();

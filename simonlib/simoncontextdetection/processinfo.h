@@ -108,7 +108,7 @@ signals:
       */
     void activeWindowProcessChanged(QString);
 
-public slots:
+private slots:
     /** \brief Sets the list of currently running processes
       *
       */

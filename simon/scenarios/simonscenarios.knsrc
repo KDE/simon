@@ -2,4 +2,4 @@
 ProvidersUrl=http://download.kde.org/ocs/providers.xml
 Categories=Simon Scenario
 UploadCategories=Simon Scenario
-TargetDir=simon/scenarios
+TargetDir=simon/scenarios_ghns

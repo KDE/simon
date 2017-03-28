@@ -20,8 +20,6 @@
 #include "trainsamplepage.h"
 #include "trainsampleintropage.h"
 
-#include "../AddWord/addwordview.h"
-
 #include <simonsound/trainsamplevolumepage.h>
 #include <simonscenarios/trainingmanager.h>
 #include <simonscenarios/scenariomanager.h>
@@ -73,7 +71,7 @@ bool TrainingsWizard::init(const QList<Word*>& wList, bool smartSentences)
     //resolve sentences
     foreach (Word *w, wList) {
       QStringList examples = ScenarioManager::getInstance()->
-        getCurrentScenario()->getExampleSentences(w->getWord(), w->getTerminal(), 1);
+        getCurrentScenario()->getExampleSentences(w->getWord(), w->getCategory(), 1);
       if (examples.isEmpty())
         pages << w->getWord();
       else pages << examples[0];
@@ -145,22 +143,6 @@ bool TrainingsWizard::init(const TrainingText &text)
 
 bool TrainingsWizard::init(const QStringList& prompts, const QString& name)
 {
-  QStringList missingWords = TrainingManager::getInstance()->missingWords(prompts);
-  while (!missingWords.isEmpty()) {
-    if (KMessageBox::questionYesNoCancel(0, i18n("Your vocabulary does not define all words used in this text. These words are "
-    "missing:\n%1\n\nDo you want to add them now?", missingWords.join(", "))) == KMessageBox::Yes) {
-      QPointer<AddWordView> addWord = new AddWordView(0);
-      addWord->addWords(missingWords);
-      int ret = (!addWord->exec());
-      delete addWord;
-      if (!ret) return false;
-    }
-    else {
-      return false;
-    }
-    missingWords = TrainingManager::getInstance()->missingWords(prompts);
-  }
-
   setWindowTitle(name);
 
   int nowPage=1;

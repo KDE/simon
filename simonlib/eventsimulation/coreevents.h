@@ -45,25 +45,15 @@ class DeadKey
 /**
  *	@class CoreEvents
  *	@brief Abstract class defining the methods that a EventBackend has to support
- *
- *	@version 0.1
- *	@date 4.03.2007
- *	@author Peter Grasch
  */
 class CoreEvents
 {
-
   enum KeyEvent
   {
     KeyDown=1,
     KeyUp=2
   };
 
-  protected:
-    QHash<unsigned int /*unicode char*/, DeadKey*> deadKeys;
-
-    bool shiftSet, altgrSet, altSet, superSet, strgSet;
-    bool shiftOnce, altgrOnce, altOnce, superOnce, strgOnce;
   public:
     CoreEvents();
 
@@ -71,13 +61,23 @@ class CoreEvents
     virtual void dragAndDrop(int xStart, int yStart, int x, int y)=0;
 
     void sendKey(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode);
-    virtual void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode)=0;
 
     void unsetUnneededModifiers();
     void sendShortcut(const QKeySequence& shortcut, EventSimulation::PressMode mode);
 
-    virtual void setModifierKey(int virtualKey, bool once=false)=0;
-    virtual void unsetModifier(int virtualKey)=0;
-    virtual ~CoreEvents() {}
+    void setModifierKey(int virtualKey, bool once=false);
+    void unsetModifier(int virtualKey);
+    virtual ~CoreEvents();
+
+  protected:
+    QHash<unsigned int /*unicode char*/, DeadKey*> deadKeys;
+
+  private:
+    bool shiftSet, altgrSet, altSet, superSet, strgSet, optionSet;
+    bool shiftOnce, altgrOnce, altOnce, superOnce, strgOnce, optionOnce;
+
+    virtual void setModifierKeyPrivate(int virtualKey)=0;
+    virtual void unsetModifierKeyPrivate(int virtualKey)=0;
+    virtual void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode)=0;
 };
 #endif

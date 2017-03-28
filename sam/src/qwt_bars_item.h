@@ -20,8 +20,11 @@
 #ifndef qwt_bars_item_IS_INCLUDED     // -*- C++ -*-
 #define qwt_bars_item_IS_INCLUDED
 
-#include <qwt_plot_item.h>
+#include <qwt_global.h>
 #include <qwt_scale_draw.h>
+
+#if QWT_VERSION < 0x060100
+#include <qwt_plot_item.h>
 #include <qwt_series_data.h>
 
 
@@ -80,6 +83,15 @@ private:
 	class PrivateData;
 	PrivateData *d;
 };
+#else
+
+#include <qwt_plot_multi_barchart.h>
+
+class QwtBarsItem : public QwtPlotMultiBarChart {
+};
+
+#endif
+
 /*
  * QwtScaleDrawLabels
  */

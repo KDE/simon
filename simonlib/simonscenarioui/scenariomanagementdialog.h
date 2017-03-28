@@ -48,6 +48,7 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog
   public slots:
     int exec();
     bool updateScenarioConfiguration();
+    static void configureScenarios(QWidget *parent);
 
   public:
     explicit ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent = 0);

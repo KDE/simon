@@ -10,7 +10,7 @@ using namespace cv;
 
 namespace SimonCV
 {
-extern CvRect * detectObject(IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage);
+extern CvRect * detectObject(const IplImage * imageFeed, CvHaarClassifierCascade * cascade, CvMemStorage * memoryStorage);
 extern SIMONVISION_EXPORT QImage*  IplImage2QImage(IplImage *iplImg);
 }
 

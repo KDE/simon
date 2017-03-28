@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2012 Yash Shah <blazonware@gmail.com>
+ *   Copyright (C) 2012 Yash Shah <mail@yashshah.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -29,7 +29,6 @@ using namespace SimonCV;
 FaceAnalyzer::FaceAnalyzer()
 {
   cascade=0;
-  liveVideoFrameCopy=0;
   memoryStorage=0;
 
   if (!initFaceDetection(KStandardDirs::locate("data", "haarcascade_frontalface_default.xml")))
@@ -66,11 +65,7 @@ void FaceAnalyzer::analyze(const IplImage* currentImage)
 
   CvRect * faceRect = 0;
 
-  liveVideoFrameCopy = cvCreateImage(cvGetSize(currentImage), 8, 3);
-
-  cvCopy(currentImage, liveVideoFrameCopy, 0);
-
-  faceRect = detectObject(liveVideoFrameCopy,cascade,memoryStorage);
+  faceRect = detectObject(currentImage,cascade,memoryStorage);
 
   if (faceRect)
     emit facePresenceChanged(true);
@@ -86,9 +81,6 @@ void FaceAnalyzer::closeFaceDetection()
 
   if (memoryStorage)
     cvReleaseMemStorage(&memoryStorage);
-
-  if (liveVideoFrameCopy)
-    cvReleaseImage(&liveVideoFrameCopy);
 }
 
 FaceAnalyzer::~FaceAnalyzer()

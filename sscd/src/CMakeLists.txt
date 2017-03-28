@@ -15,4 +15,4 @@ target_link_libraries(sscd ${QT_QTCORE_LIBRARY} ${QT_QTSQL_LIBRARY}
   ${QT_QTNETWORK_LIBRARY} sscobjects)
 
 install(TARGETS sscd DESTINATION ${BIN_INSTALL_DIR} COMPONENT sscd)
-install(FILES sscd.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT sscd)
+install(FILES org.kde.sscd.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT sscd)

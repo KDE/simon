@@ -34,66 +34,57 @@ RecognitionControlFactory::RecognitionControlFactory()
 {
 }
 
+uint qHash(const ModelIdentifier& identifier)
+{
+  return qHash(identifier.userName) ^ (int) identifier.backend;
+}
+
 void RecognitionControlFactory::setIsolatedMode(bool isolatedMode)
 {
     kDebug() << "Isolated Mode " << (isolatedMode?"ON":"OFF");
     m_isolatedMode = isolatedMode;
 }
 
-RecognitionControl* RecognitionControlFactory::recognitionControl(const QString& user)
+RecognitionControl* RecognitionControlFactory::recognitionControl(const QString& user, RecognitionControl::BackendType type)
 {
   RecognitionControl *r = NULL;
-  if (m_isolatedMode || m_recognitionControls.count(user) == 0)
+  ModelIdentifier id(user, type);
+  if (m_isolatedMode || m_recognitionControls.count(id) == 0)
   {
     kDebug() << "RecognitionControls: generate new RC...";
 
-    KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
-//    KConfig *t = config.copyTo("/tmp/conf");
-//    t->sync();
-
-    KConfigGroup backendGroup(&config, "Backend");
-    int type(-1);
-    type = backendGroup.readEntry("backend", 0);
-    //backendGroup.
-
-    if(type == 0)
+    if(type == RecognitionControl::SPHINX)
     {
       #ifdef BACKEND_TYPE_BOTH
         r = new SphinxControl(user);
       #else
-      {
-//        kDebug()<<"Sphinx disabled at the compile time. Force using Julius control";
-//        r = new JuliusControl(user);
         return 0;
-      }
       #endif
     }
-    else if(type == 1)
+    else if(type == RecognitionControl::HTK)
       r = new JuliusControl(user);
     else
-    {
       return 0;
-    };//;(
 
-    m_recognitionControls.insert(user, r);
-    kDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(user));
+    m_recognitionControls.insert(id, r);
+    kDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(id));
   } else /* isolatedMode = false and count > 0 (count = 1) */ {
-    kDebug() << "RecognitionControls: use existing RC... count:" << m_recognitionControls.values(user).size();
-    r = m_recognitionControls.values(user).first();
+    kDebug() << "RecognitionControls: use existing RC... count:" << m_recognitionControls.values(id).size();
+    r = m_recognitionControls.values(id).first();
     kDebug() << "RecognitionControls: Using for User \"" << user << "\" [" << r << "] existing RC";
   }
   r->push();
   return r;
 }
 
-void RecognitionControlFactory::closeRecognitionControl(const QString& user, RecognitionControl* r)
+void RecognitionControlFactory::closeRecognitionControl(RecognitionControl* r)
 {
   r->pop();
   if (r->isEmpty()) {
-    m_recognitionControls.remove(user, r);
-    kDebug() << "RecognitionControls: Removed for User \"" << user << "\" [" << r << "] existing RC... new user count: " << QString::number(m_recognitionControls.count(user));
+    m_recognitionControls.remove(ModelIdentifier(r->user(), r->type()));
+    kDebug() << "RecognitionControls: Removed";
     delete r;
   } else {
-    kDebug() << "RecognitionControls: Keep for User \"" << user << "\" [" << r << "] existing RC ... still in use";
+    kDebug() << "RecognitionControls: Kept";
   }
 }

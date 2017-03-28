@@ -42,18 +42,18 @@ set(simonmodelmanagementui_LIB_SRCS
   ImportDict/plsdict.cpp
   ImportDict/juliusvocabulary.cpp
   ImportDict/dict.cpp
-  MergeTerminals/mergeterminals.cpp
-  MergeTerminals/mergeterminalsworkingpage.cpp
-  MergeTerminals/mergeterminalsselectterminalspage.cpp
-  MergeTerminals/mergeterminalswizard.cpp
+  MergeCategories/mergecategories.cpp
+  MergeCategories/mergecategoriesworkingpage.cpp
+  MergeCategories/mergecategoriesselectcategoriespage.cpp
+  MergeCategories/mergecategorieswizard.cpp
   ImportGrammar/importgrammarwizard.cpp
   ImportGrammar/importgrammarworkingpage.cpp
   ImportGrammar/importgrammarselectinputpage.cpp
   ImportGrammar/importgrammar.cpp
-  RenameTerminal/renameterminalwizard.cpp
-  RenameTerminal/renameterminalworkingpage.cpp
-  RenameTerminal/renameterminalselectparameterspage.cpp
-  RenameTerminal/renameterminal.cpp
+  RenameCategory/renamecategorywizard.cpp
+  RenameCategory/renamecategoryworkingpage.cpp
+  RenameCategory/renamecategoryselectparameterspage.cpp
+  RenameCategory/renamecategory.cpp
   TrainSamples/trainingswizard.cpp
   TrainSamples/trainsampleintropage.cpp
   TrainSamples/trainsamplepage.cpp
@@ -83,12 +83,12 @@ kde4_add_ui_files(simonmodelmanagementui_LIB_SRCS
   ImportDict/importdictplspage.ui
   ImportDict/importdictlexiconpage.ui
   ImportDict/importdictselectsourcepage.ui
-  MergeTerminals/mergeterminalsworkingpage.ui
-  MergeTerminals/mergeterminalsselectpage.ui
+  MergeCategories/mergecategoriesworkingpage.ui
+  MergeCategories/mergecategoriesselectpage.ui
   ImportGrammar/selectinputpage.ui
   ImportGrammar/importgrammarworkingpage.ui
-  RenameTerminal/renameterminalselectparameterspage.ui
-  RenameTerminal/renameterminalworkingpage.ui
+  RenameCategory/renamecategoryselectparameterspage.ui
+  RenameCategory/renamecategoryworkingpage.ui
   CreateLanguageProfile/languageprofileview.ui
 )
 

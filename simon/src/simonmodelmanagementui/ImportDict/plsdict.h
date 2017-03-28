@@ -51,7 +51,7 @@ class PLSDict : public QXmlDefaultHandler, public Dict
 
     QString currentWord;
     QStringList currentWords;
-    QString currentTerminal;
+    QString currentCategory;
     QString currentPhonemeDefinition;
     QStringList phonemeDefinitions;
 

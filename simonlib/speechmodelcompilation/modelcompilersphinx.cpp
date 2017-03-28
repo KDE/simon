@@ -34,21 +34,33 @@ bool ModelCompilerSPHINX::parseConfiguration()
   KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
   KConfigGroup programGroup(&config, "Programs");
 
-  if(compilationType & ModelCompiler::CompileSpeechModel)
-  {
+//  if(compilationType & ModelCompiler::CompileSpeechModel)//TODO: think and then put conditions back
+//  {
     //   (compilationType & ModelCompilerHTK::AdaptSpeechModel)) {
+#ifdef Q_OS_WIN32
+    QString python = KStandardDirs::findExe("python");
+    QString sphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
+    m_SphinxTrain = '"' + python + "\" \"" + sphinxTrain + '"';
+#else
     m_SphinxTrain = programGroup.readEntry("sphinxtrain", KUrl(KStandardDirs::findExe("sphinxtrain"))).toLocalFile();
+#endif
 
+    kDebug()<<"Sphinxtrain exec: "<<m_SphinxTrain;
+
+#ifdef Q_OS_WIN32
+    if (!QFile::exists(python) || !QFile::exists(sphinxTrain))
+#else
     if (!QFile::exists(m_SphinxTrain))
+#endif
     {
       //SphinxTrain not found
       QString errorMsg = i18n("The SphinxTrain cannot be found. Please make sure it is installed correctly.");
-      emit error(errorMsg);
+      analyseError(errorMsg);
       return false;
     }
-  }
+//  }
 
-  if(compilationType & ModelCompiler::AdaptSpeechModel)
+  if(compilationType == ModelCompiler::AdaptSpeechModel)
   {
     m_Bw = programGroup.readEntry("bw", KUrl(KStandardDirs::findExe("bw"))).toLocalFile();
     m_Sphinx_fe = programGroup.readEntry("sphinx_fe", KUrl(KStandardDirs::findExe("sphinx_fe"))).toLocalFile();
@@ -61,7 +73,7 @@ bool ModelCompilerSPHINX::parseConfiguration()
     {
       //adapting tools not found
       QString errorMsg = i18n("Tools for adaption of the model cannot be found. Please make sure they are installed correctly.");
-      emit error(errorMsg);
+      analyseError(errorMsg);
       return false;
     }
   }
@@ -69,34 +81,38 @@ bool ModelCompilerSPHINX::parseConfiguration()
   return true;
 }
 
-bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compilationType, const QString &modelDestination, 
+bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compilationType, const QString &modelDestination,
                                            const QStringList& droppedTranscriptions, const QString &baseModelPath,
                                            const QHash<QString, QString> &args)
 {
+  Q_UNUSED(baseModelPath);
+
   if(args.isEmpty())
   {
-    emit error(i18n("There no arguments to compile"));
+    analyseError(i18n("There no arguments to compile"));
     return false;
   }
 
+  kDebug()<<"Base model path"<<m_BaseModelPath;
+
   this->compilationType = compilationType;
   m_ModelDir = args.value("modelDir");
-  m_BaseModelPath = baseModelPath;
+  m_BaseModelPath = args.value("baseModelDir");
   m_ModelName = args.value("modelName");
   m_WavPath = args.value("audioPath");
   m_ModelDestination = modelDestination;
-  
+
   m_droppedTranscriptions = droppedTranscriptions;
 
   m_ConfigPath = m_ModelDir+"/"+m_ModelName+"/etc/sphinx_train.cfg";
-  
-  kDebug() << modelDestination << baseModelPath << args;
+
+  kDebug() << modelDestination << m_BaseModelPath << args;
   kDebug() << "Compiling model";
-  
+
   keepGoing = true;
-  
+
   clearLog();
-  
+
   switch (compilationType)
   {
     case ModelCompiler::CompileLanguageModel:
@@ -118,13 +134,20 @@ bool ModelCompilerSPHINX::startCompilation(ModelCompiler::CompilationType compil
 
 bool ModelCompilerSPHINX::CompileLanguageModel()
 {
-  emit  status(i18n("Packing new language model to existing static acoustic model..."), 0, 100);
+  kDebug() << "Compiling language model";
+
+  emit  status(i18nc("'Packing' in the sense of archiving", "Packing new language model to existing static acoustic model..."), 0, 100);
+
+  //don't need to copy model to working dir, becouse we can just copy it to destination
+  kDebug() << "Deploying model to destination";
+
   if(!pack(m_ModelDestination, m_ModelName))
   {
-    emit error(i18n("Cannot copy model to destination"));
+    analyseError(i18n("Could not copy model to destination"));
     return false;
   }
-  emit  status(i18n("Packing new language model to existing static acoustic model..."), 100, 100);
+
+  emit  status(i18n("Compilation done"), 100, 100);
   return true;
 }
 
@@ -153,7 +176,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   if(!generateAcousticFeatureFiles())
   {
-    emit error(i18n("Cannot generate acoustic feature files"));
+    analyseError(i18n("Could not generate acoustic features"));
     return false;
   }
 
@@ -162,7 +185,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   if(!convertMdef())
   {
-     emit error(i18n("Cannot convert mdef"));
+    analyseError(i18n("Could not convert mdef"));
     return false;
   }
 
@@ -171,7 +194,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   if(!getStatistics())
   {
-     emit error(i18n("Cannot collect statistics from the adaptation data"));
+    analyseError(i18n("Could not collect statistics from the adaptation data"));
     return false;
   }
 
@@ -180,7 +203,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
 
   if(!mapUpdate())
   {
-     emit error(i18n("Cannot performing adaption with map method"));
+    analyseError(i18n("Could not perform adaption with \"map\" method"));
     return false;
   }
 
@@ -189,7 +212,7 @@ bool ModelCompilerSPHINX::AdaptBaseModel()
   kDebug() << "Сopying model to destination";
   if(!pack(m_ModelDestination, m_ModelName))
   {
-    emit error(i18n("Cannot copy model to destination"));
+    analyseError(i18n("Could not copy model to destination"));
     return false;
   }
 
@@ -216,11 +239,11 @@ bool ModelCompilerSPHINX::CompileWholeModel()
 
   if(!setupModel(m_ModelDir, m_ModelName))
   {
-    //
-    emit error(i18n("Cannot setup model"));
+    analyseError(i18n("Could not setup model"));
     return false;
   }
 
+  if (!keepGoing) return false;
   emit  status(i18n("Compiling model..."), 15, 100);
 
   //fix config..
@@ -229,31 +252,38 @@ bool ModelCompilerSPHINX::CompileWholeModel()
   params.insert("CFG_WAVFILE_EXTENSION", "wav");
   params.insert("CFG_WAVFILE_TYPE", "mswav");
   params.insert("CFG_HMM_TYPE", MODEL_TYPE);
+  params.insert("CFG_INITIAL_NUM_DENSITIES", DENSITIES_NUM);
+  params.insert("CFG_FINAL_NUM_DENSITIES", DENSITIES_NUM);
+#ifdef Q_OS_WIN32
+  params.insert("CFG_QUEUE_TYPE", "Queue");
+#else
   params.insert("CFG_QUEUE_TYPE", "Queue::POSIX");
+#endif
 
 
   if(!modifyConfig(m_ConfigPath, params))
   {
-    emit error(i18n("Cannot modify config at \"%1\"",m_ConfigPath));
+    analyseError(i18n("Could not modify config at \"%1\"",m_ConfigPath));
     return false;
   }
+  if (!keepGoing) return false;
 
   emit  status(i18n("Compiling model..."), 20, 100);
   kDebug() << "Starting actually compilation";
 
   if(!compileModel(m_ModelDir, m_ModelName))
   {
-    //
-    emit error(i18n("Cannot compile model"));
+    analyseError(i18n("Could not compile model"));
     return false;
   }
+  if (!keepGoing) return false;
 
   emit  status(i18n("Compiling model..."), 95, 100);
-  kDebug() << "Сopying model to destination";
+  kDebug() << "Deploying model to destination";
 
   if(!pack(m_ModelDestination, m_ModelName))
   {
-    emit error(i18n("Cannot copy model to destination"));
+    analyseError(i18n("Could not copy model to destination"));
     return false;
   }
 
@@ -265,8 +295,28 @@ bool ModelCompilerSPHINX::CompileWholeModel()
 
 bool ModelCompilerSPHINX::processError()
 {
-  /*._.*/
-  return true;
+  QString err = getBuildLog().trimmed();
+
+  //"WARNING: This phone (m=) occurs in the phonelist (.*phone), but not in the dictionary (.*dic)"
+  static QRegExp phonemeToPoison("WARNING: This phone \\(([^)]*)\\) occurs in the phonelist .*, but not in", Qt::CaseInsensitive);
+  if (phonemeToPoison.indexIn(err) != -1) {
+    QString phoneme = phonemeToPoison.cap(1);
+    kDebug() << "Phoneme is undefined: " << phoneme;
+    emit phonemeUndefined(phoneme);
+    return true;
+  }
+
+  //check logdir/05.vector_quantize/<modelname>.kmeans.log for "Too few observations"
+  QString kmeansLogPath(m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/logdir/05.vector_quantize/")+m_ModelName+QLatin1String(".kmeans.log"));
+  if (QFile::exists(kmeansLogPath)) {
+    QFile log(kmeansLogPath);
+    log.open(QIODevice::ReadOnly);
+    log.readAll().contains("Too few observations");
+    emit error(i18n("Too little training material available.\n\nPlease train your acoustic model by recording samples."));
+    return true;
+  }
+
+  return false;
 }
 
 bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name)
@@ -306,19 +356,22 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
 
   if(!sourceDir.exists())
   {
-    emit error(i18n("Failed to pack to archive. Source directory does not exist (\"%1\")", srcDirName));
+    //error will be reported by caller
+    //analyseError(i18n("Failed to pack to archive. Source directory does not exist (\"%1\")", srcDirName));
     return false;
   }
 
   foreach (QString tFileName, sourceDir.entryList())
   {
+    if (tFileName == "metadata.xml") // skip old metadata
+      continue;
     efm.insert(srcDirName+tFileName, tFileName);
     kDebug()<<srcDirName+tFileName;
   }
 
   QString fetc = m_ModelDir+QLatin1String("/")+m_ModelName+QLatin1String("/etc/")+m_ModelName;
   efm.insert(fetc+QLatin1String(".jsgf"), m_ModelName+QLatin1String(".jsgf"));
-  efm.insert(fetc+QLatin1String(".dic"), m_ModelName+QLatin1String(".dic"));
+  efm.insert(fetc+QLatin1String("_ship.dic"), m_ModelName+QLatin1String(".dic"));
 
   return FileUtils::pack(targetArchive, fm, efm);
 }
@@ -326,25 +379,13 @@ bool ModelCompilerSPHINX::pack(const QString &targetArchive, const QString &name
 bool ModelCompilerSPHINX::setupModel(const QString &modelDir, const QString &modelName)
 {
   QString execString = m_SphinxTrain +" -t " +modelName+" setup";
-  if(execute(execString, modelDir+"/"+modelName))
-    return true;
-  else
-  {
-    processError();
-    return false;
-  }
+  return execute(execString, modelDir+"/"+modelName);
 }
 
 bool ModelCompilerSPHINX::compileModel(const QString &modelDir, const QString &modelName)
 {
   QString execString = m_SphinxTrain +" run";
-  if(execute(execString, modelDir+"/"+modelName))
-    return true;
-  else
-  {
-    processError();
-    return false;
-  }
+  return execute(execString, modelDir+"/"+modelName);
 }
 
 QHash<QString, QString> ModelCompilerSPHINX::readFeatParams(const QString &filename)
@@ -353,7 +394,7 @@ QHash<QString, QString> ModelCompilerSPHINX::readFeatParams(const QString &filen
   QHash<QString, QString> args;
   if (!configFile.open(QIODevice::ReadOnly))
   {
-    emit error(i18n("Failed to read feat.params \"%1\"", filename));
+    analyseError(i18n("Failed to read feat.params \"%1\"", filename));
     return args;
   }
 
@@ -371,7 +412,7 @@ bool ModelCompilerSPHINX::copyModelForAdapting(const QString &source, const QStr
 {
   if(!FileUtils::copyDirRecursive(source, destination))
   {
-    emit error(i18n("Failed to copy model for adapting."));
+    analyseError(i18n("Failed to copy model for adapting."));
     return false;
   }
 
@@ -386,14 +427,7 @@ bool ModelCompilerSPHINX::generateAcousticFeatureFiles()
   QString execString = m_Sphinx_fe +QLatin1String(" -argfile ") +m_BaseModelPath+"/feat.params "
                        "-samprate "+ DEFAULT_SAMPRATE+" -c " +m_ModelDir+"/"+m_ModelName+"/etc/"+m_ModelName+"_train.fileids "
                        "-di " + m_WavPath + " -do "+ m_ModelDir+"/"+m_ModelName +" -ei wav -eo mfc -mswav yes";
-  if(execute(execString, m_ModelDir+"/"+m_ModelName))
-    return true;
-  else
-  {
-    processError();
-    return false;
-  }
-  return true;
+  return execute(execString, m_ModelDir+"/"+m_ModelName);
 }
 
 bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QString, QString> &args)
@@ -401,7 +435,7 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   QFile configFile(filename);
   if (!configFile.open(QIODevice::ReadOnly))
   {
-    emit error(i18n("Failed to read config at \"%1\"", filename));
+    analyseError(i18n("Failed to read config at \"%1\"", filename));
     return false;
   }
 
@@ -424,7 +458,9 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
     {
       //        kDebug()<< "wheee";
       QStringList capturedList = pLine.capturedTexts();
-      QString key = capturedList.first().mid(1, capturedList.first().size() - 3); //3 chars: $, ,=
+      uint dPos = capturedList.first().indexOf('$') + 1;
+      QString key = capturedList.first().mid(dPos, capturedList.first().size() - (dPos + 2)); //few chars: '$',' ','='
+      kDebug()<<key;
       if(!args.contains(key))
       {
         out << line <<"\n";
@@ -443,7 +479,7 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
   out.flush();
   if (!configFile.open(QIODevice::WriteOnly))
   {
-    emit error(i18n("Failed to write config at \"%1\"", filename));
+    analyseError(i18n("Failed to write config at \"%1\"", filename));
     return false;
   }
 
@@ -458,14 +494,7 @@ bool ModelCompilerSPHINX::modifyConfig(const QString &filename, const QHash<QStr
 bool ModelCompilerSPHINX::convertMdef()
 {
   QString execString = m_Pocketsphinx_mdef_convert +" -text " + m_BaseModelPath+"/mdef " + m_ModelDir+"/"+m_ModelName+"/"+m_AdaptingModelName+"/mdef.txt";
-  if(execute(execString, m_ModelDir+"/"+m_ModelName))
-    return true;
-  else
-  {
-    processError();
-    return false;
-  }
-  return true;
+  return execute(execString, m_ModelDir+"/"+m_ModelName);
 }
 
 bool ModelCompilerSPHINX::getStatistics()
@@ -479,14 +508,7 @@ bool ModelCompilerSPHINX::getStatistics()
                        " -dictfn " + fetc+".dic " + "-ctlfn " +fetc+"_train.fileids " + "-lsnfn " + fetc+"_train.transcription "+
                        + "-accumdir " + m_ModelDir+"/"+m_ModelName;
 
-  if(execute(execString, m_ModelDir+"/"+m_ModelName))
-    return true;
-  else
-  {
-    processError();
-    return false;
-  }
-  return true;
+  return execute(execString, m_ModelDir+"/"+m_ModelName);
 }
 
 bool ModelCompilerSPHINX::mapUpdate()
@@ -503,14 +525,7 @@ bool ModelCompilerSPHINX::mapUpdate()
                        "-mapmixwfn " + modelOutDir+"/mixture_weights "+
                        "-maptmatfn " + modelOutDir+"/transition_matrices";
 
-  if(execute(execString, m_ModelDir+"/"+m_ModelName))
-    return true;
-  else
-  {
-    processError();
-    return false;
-  }
-  return true;
+  return execute(execString, m_ModelDir+"/"+m_ModelName);
 }
 
 QString ModelCompilerSPHINX::information(bool condensed) const

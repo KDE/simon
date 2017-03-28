@@ -64,7 +64,8 @@ RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forc
 statusTimer(new QTimer(this)),
 ui(new Ui::RecWidgetUi()),
 m_simpleMode(forceSimpleMode),
-m_playbackOnly(playbackOnly)
+m_playbackOnly(playbackOnly),
+m_speakingCount(0)
 {
   this->fileTemplate = fileTemplate;
 
@@ -150,6 +151,8 @@ void RecWidget::registerDevice(const SimonSound::DeviceConfiguration& device, co
   connect(wg, SIGNAL(sampleDeleted()), this, SLOT(slotSampleDeleted()));
   connect(wg, SIGNAL(playing()), this, SLOT(slotEnableDeleteAll()));
   connect(wg, SIGNAL(playbackFinished()), this, SLOT(slotEnableDeleteAll()));
+  connect(wg, SIGNAL(speaking()), this, SLOT(clientReportedSpeaking()));
+  connect(wg, SIGNAL(speakingStopped()), this, SLOT(clientReportedSilence()));
 
   waves << wg;
 }
@@ -303,6 +306,7 @@ void RecWidget::setTitle(QString newTitle)
  */
 void RecWidget::record()
 {
+  m_speakingCount = 0;
   foreach (WavFileWidget *wav, waves)
     wav->record();
 
@@ -383,6 +387,20 @@ void RecWidget::slotEnableDeleteAll()
   }
   kDebug() << "Updating enable button: " << shouldEnableDelete;
   ui->pbDeleteAll->setEnabled(shouldEnableDelete);
+}
+
+void RecWidget::clientReportedSpeaking()
+{
+  if (m_speakingCount == 0)
+    emit speaking();
+  ++m_speakingCount;
+}
+
+void RecWidget::clientReportedSilence()
+{
+  --m_speakingCount;
+  if (m_speakingCount == 0)
+    emit speakingStopped();
 }
 
 

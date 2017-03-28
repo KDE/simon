@@ -48,9 +48,7 @@ class CreateShortcutCommandWidget : public CreateCommandWidget
     int getShortcutModeIndex(EventSimulation::PressMode mode);
 
   private slots:
-  #ifdef Q_OS_WIN
     void applySpecialShortcut();
-  #endif
 
   public:
     Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);

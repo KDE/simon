@@ -9,7 +9,7 @@
   <group name="Webcam">
     <entry name="fps" type="Int">
       <label>Frame per second for Webcam</label>
-      <default>10</default>
+      <default>5</default>
       <tooltip>Number of images to grab from webcam per second</tooltip>
     </entry>
     <entry name="WebcamIndex" type="Int">

@@ -28,6 +28,7 @@
 #define MODEL_TYPE ".semi."
 #define SENONES_COUNT "200"       //TODO: think about reading this values from that config
 #define DEFAULT_SAMPRATE "16000"
+#define DENSITIES_NUM "64" //look at senons
 
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilerSPHINX: public ModelCompiler
 {

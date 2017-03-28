@@ -36,8 +36,8 @@ EditWordDialog::EditWordDialog(QWidget* parent, Qt::WindowFlags f)
   ui.setupUi(widget);
   setMainWidget( widget );
   setCaption( i18n("Edit Word") );
-  ui.tbAddTerminal->setIcon(KIcon("list-add"));
-  connect(ui.tbAddTerminal, SIGNAL(clicked()), this, SLOT(addTerminal()));
+  ui.tbAddCategory->setIcon(KIcon("list-add"));
+  connect(ui.tbAddCategory, SIGNAL(clicked()), this, SLOT(addCategory()));
 }
 
 
@@ -50,17 +50,17 @@ int EditWordDialog::exec(Word *word)
 {
   ui.leWord->setText(word->getWord());
   ui.cbType->clear();
-  QStringList terminals = ScenarioManager::getInstance()->getTerminals(
+  QStringList categories = ScenarioManager::getInstance()->getCategories(
     (SpeechModel::ModelElements)
     (SpeechModel::ShadowVocabulary|
     SpeechModel::ScenarioVocabulary|
     SpeechModel::AllScenariosVocabulary|
     SpeechModel::AllScenariosGrammar|
     SpeechModel::ScenarioGrammar));
-  if (!terminals.contains(i18nc("Standard category for unused words", "Unused")))
-    terminals << i18nc("Standard category for unused words", "Unused");
-  ui.cbType->addItems(terminals);
-  ui.cbType->setCurrentIndex(ui.cbType->findText(word->getTerminal()));
+  if (!categories.contains(i18nc("Standard category for unused words", "Unused")))
+    categories << i18nc("Standard category for unused words", "Unused");
+  ui.cbType->addItems(categories);
+  ui.cbType->setCurrentIndex(ui.cbType->findText(word->getCategory()));
   ui.leSampa->setText(word->getPronunciation());
 
   int ret = KDialog::exec();
@@ -68,7 +68,7 @@ int EditWordDialog::exec(Word *word)
   if (ret) {
     //update word
     word->setWord(ui.leWord->text());
-    word->setTerminal(ui.cbType->currentText());
+    word->setCategory(ui.cbType->currentText());
     word->setPronunciation(ui.leSampa->text());
   }
 
@@ -77,15 +77,15 @@ int EditWordDialog::exec(Word *word)
 
 
 /**
- * \brief Queries the User for the new name and adds the terminal to the list
+ * \brief Queries the User for the new name and adds the category to the list
  * \author Peter Grasch
  */
-void EditWordDialog::addTerminal()
+void EditWordDialog::addCategory()
 {
-  QString newTerminal = KInputDialog::getText(i18n("Add Category"), i18n("Name of new category:"));
+  QString newCategory = KInputDialog::getText(i18n("Add Category"), i18n("Name of new category:"));
 
-  if (newTerminal.isEmpty()) return;
+  if (newCategory.isEmpty()) return;
 
-  ui.cbType->addItem(newTerminal);
+  ui.cbType->addItem(newCategory);
   ui.cbType->setCurrentIndex(ui.cbType->count()-1);
 }

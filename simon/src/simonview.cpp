@@ -45,6 +45,7 @@
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/actioncollection.h>
+#include <simonscenarios/author.h>
 
 #include <QTimer>
 #include <QFile>
@@ -59,7 +60,6 @@
 #include <KDE/KComboBox>
 #include <QDesktopServices>
 #include <QTimeLine>
-#include <QWebView>
 
 #include <KMessageBox>
 #include <KApplication>
@@ -134,6 +134,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
 
   ScenarioManager::getInstance()->registerScenarioDisplay(this);
+  ScenarioManager::getInstance()->installScenarioOfferUi(this);
   
   //Preloads all Dialogs
   if (showSplash)
@@ -154,7 +155,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading context..." ) );
   contextDialog = new ContextView(this);
-  connect(contextDialog, SIGNAL(manageScenariosTriggered()), this, SLOT(manageScenarios()));
   ScenarioManager::getInstance()->registerScenarioDisplay(contextDialog);
 
   if (showSplash)
@@ -203,8 +203,12 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
     delete info;
   }
 
-  if (!control->startMinimized())
+  if (!control->startMinimized()) {
     show();
+#ifdef Q_OS_MAC
+    raise();
+#endif
+  }
 }
 
 void SimonView::backButtonAnimationStep ( int step )
@@ -288,6 +292,8 @@ void SimonView::editScenario()
 
 void SimonView::backToOverview()
 {
+  if (ui.swMain->currentIndex() == 0)
+    return;
   backButtonAnimation->setFrameRange(35, 0);
   backButtonAnimation->start();
   ui.swMain->setCurrentIndex(0);
@@ -295,15 +301,9 @@ void SimonView::backToOverview()
 
 void SimonView::displayScenarioPrivate(Scenario *scenario)
 {
+  Q_UNUSED(scenario);
   updateActionList();
 }
-
-
-void SimonView::manageScenarios()
-{
-  //FIXME: exit scenario edit mode if we are currently in there, return to main screen and open scenario configuration dialog
-}
-
 
 void SimonView::setupSignalSlots()
 {
@@ -373,7 +373,9 @@ void SimonView::showSystemDialog ()
   configDialog->addModule("simonactionsconfig", QStringList() << "");
   configDialog->addModule("simonttsconfig", QStringList() << "");
   configDialog->addModule("kcm_attica");
+#ifdef WITH_SIMONCV
   configDialog->addModule("simonwebcamconfiguration");
+#endif
   configDialog->exec();
   
   delete configDialog;
@@ -608,6 +610,18 @@ void SimonView::closeEvent ( QCloseEvent * event )
   }
   hide();
   event->ignore();
+}
+
+bool SimonView::askToAcceptScenario(const QString& requester, const QString& name, const QList< Author* > authors) const
+{
+  QStringList authorNames;
+  foreach (const Author* a, authors)
+    authorNames << a->name();
+
+  return (KMessageBox::questionYesNoCancel(0,
+                i18n("%1 has requested scenario %2 (written by %3) to be installed and activated."
+                      "\n\nDo you want to proceed?", requester, name, authorNames.join(", ")))
+                    == KMessageBox::Yes);
 }
 
 /**

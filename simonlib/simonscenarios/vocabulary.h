@@ -43,7 +43,7 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
   protected:
-    QStringList terminals;                        //terminal cache
+    QStringList categories;                        //category cache
     QList<Word*> m_words;
 
     virtual QVariant data(const QModelIndex &index, int role) const;
@@ -80,20 +80,20 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
 
     bool removeWord(Word* w, bool deleteWord=true);
 
-    QString getRandomWord(const QString& terminal);
+    QString getRandomWord(const QString& category);
     bool containsWord(const QString& word);
-    bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
+    bool containsWord(const QString& word, const QString& category, const QString& pronunciation);
 
     int wordCount() { return m_words.count(); }
     QList<Word*> getWords() { return m_words; }
     virtual ~Vocabulary();
 
-    bool renameTerminal(const QString& from, const QString& to);
+    bool renameCategory(const QString& from, const QString& to);
 
-    QStringList getTerminals();
+    QStringList getCategories();
 
     QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
-    QList<Word*> findWordsByTerminal(const QString& terminal);
+    QList<Word*> findWordsByCategory(const QString& category);
 
     virtual bool empty() { return (m_words.count() == 0) ; }
     void clear();
