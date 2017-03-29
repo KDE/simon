@@ -6,6 +6,7 @@
   <name>Simon</name>
   <name xml:lang="ca">Simon</name>
   <name xml:lang="ca-valencia">Simon</name>
+  <name xml:lang="cs">Simon</name>
   <name xml:lang="de">Simon</name>
   <name xml:lang="nl">Simon</name>
   <name xml:lang="pt">Simon</name>
@@ -15,6 +16,7 @@
   <summary>Speech Recognition Tool</summary>
   <summary xml:lang="ca">Eina per al reconeixement de la veu</summary>
   <summary xml:lang="ca-valencia">Eina per al reconeixement de la veu</summary>
+  <summary xml:lang="cs">Nástroj pro rozpoznávání řeči</summary>
   <summary xml:lang="de">Spracherkennungsprogramm</summary>
   <summary xml:lang="nl">Hulpmiddel voor spraakherkenning</summary>
   <summary xml:lang="pt">Ferramenta de Reconhecimento de Fala</summary>
@@ -36,6 +38,7 @@
     <p>Features:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
+    <p xml:lang="cs">Vlastnosti:</p>
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pt">Funcionalidades:</p>
