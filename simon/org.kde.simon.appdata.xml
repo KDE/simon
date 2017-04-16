@@ -10,6 +10,7 @@
   <name xml:lang="de">Simon</name>
   <name xml:lang="nl">Simon</name>
   <name xml:lang="pt">Simon</name>
+  <name xml:lang="sk">Simon</name>
   <name xml:lang="sv">Simon</name>
   <name xml:lang="uk">Simon</name>
   <name xml:lang="x-test">xxSimonxx</name>
@@ -42,6 +43,7 @@
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pt">Funcionalidades:</p>
+    <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
