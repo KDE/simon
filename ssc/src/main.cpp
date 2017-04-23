@@ -21,7 +21,7 @@
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
-#include <KDE/KLocale>
+#include <KDE/KLocalizedString>
 #include "version.h"
 
 static const char description[] =

@@ -19,7 +19,7 @@
 
 #include "commandmodel.h"
 #include <KLocalizedString>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QMutexLocker>
 
 CommandModel::CommandModel(CommandList CL)

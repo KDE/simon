@@ -22,7 +22,7 @@
 #include <QRegExp>
 #include <QStringList>
 #include <KLocalizedString>
-#include <KLocale>
+#include <KLocalizedString>
 
 GuiEvents::GuiEvents(QObject *parent) : QObject(parent)
 {

@@ -64,7 +64,7 @@
 #include <KFileDialog>
 #include <KGlobal>
 #include <KInputDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KDebug>
 #include <KCmdLineArgs>
 #include <KAboutData>

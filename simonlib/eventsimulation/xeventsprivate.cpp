@@ -23,7 +23,7 @@
 
 #include <unistd.h>
 #include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
 //include order defined by X11 includes in header...
 #include "xeventsprivate.h" //krazy:exclude=includes

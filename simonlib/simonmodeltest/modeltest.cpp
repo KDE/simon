@@ -49,7 +49,7 @@
 #include <KComponentData>
 #include <KAboutData>
 #include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
