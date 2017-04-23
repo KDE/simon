@@ -24,9 +24,6 @@
 include(FindPackageHandleStandardArgs)
 include(CMakePushCheckState)
 include(CheckFunctionExists)
-if(POCKETSPHINX_INCLUDE_DIR AND POCKETSPHINX_LIBRARIES)
-set(Pocketsphinx_FIND_QUIETLY TRUE)
-endif(POCKETSPHINX_INCLUDE_DIR AND POCKETSPHINX_LIBRARIES)
 
 find_package(SphinxBase REQUIRED)
 
@@ -34,6 +31,7 @@ FIND_PATH(POCKETSPHINX_INCLUDE_DIR pocketsphinx/pocketsphinx.h)
 find_library(POCKETSPHINX_LIBRARIES pocketsphinx PATHS $ENV{LD_LIBRARY_PATH}/ /usr/lib)
 find_package_handle_standard_args(Pocketsphinx REQUIRED_VARS POCKETSPHINX_LIBRARIES POCKETSPHINX_INCLUDE_DIR)
 
+message("POCKETSPHINX_LIBRARIES='${POCKETSPHINX_LIBRARIES}', POCKETSPHINX_INCLUDE_DIR='${POCKETSPHINX_INCLUDE_DIR}', Pocketsphinx_FOUND='${Pocketsphinx_FOUND}', POCKETSPHINX_FOUND='${POCKETSPHINX_FOUND}'")
 if(Pocketsphinx_FOUND)
   cmake_push_check_state()
   set(CMAKE_REQUIRED_INCLUDES ${POCKETSPHINX_INCLUDE_DIR})
