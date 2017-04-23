@@ -26,6 +26,7 @@
 #include <QVariant>
 #include <KAboutData>
 #include <KPluginFactory>
+#include <QDebug>
 
 K_PLUGIN_FACTORY( CommandSettingsFactory,
 registerPlugin< CommandSettings >();
