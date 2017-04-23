@@ -21,8 +21,8 @@
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 #include <QRegExp>
-#include <KI18n/klocalizedstring.h>
-#include <KGenericFactory>
+#include <KLocalizedString>
+#include <KPluginFactory>
 #include <QAction>
 #include "filterconfiguration.h"
 

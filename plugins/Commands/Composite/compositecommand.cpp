@@ -20,7 +20,7 @@
 #include "compositecommand.h"
 #include <simonactions/actionmanager.h>
 #include <QIcon>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QVariant>
 #include <QDomElement>
 #include <QDomDocument>

@@ -30,7 +30,7 @@
 #include <QString>
 #include <QObject>
 #include <QCoreApplication>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <KDateTime>
 #include <math.h>

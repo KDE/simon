@@ -15,4 +15,4 @@ target_link_libraries(sscd Qt5::Core Qt5::Sql
   Qt5::Network sscobjects)
 
 install(TARGETS sscd DESTINATION ${BIN_INSTALL_DIR} COMPONENT sscd)
-install(FILES sscd.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT sscd)
+install(FILES org.kde.sscd.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT sscd)

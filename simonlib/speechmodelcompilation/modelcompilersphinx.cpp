@@ -28,7 +28,7 @@
 #include <QUrl>
 
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDir>
 #include <QStandardPaths>
 

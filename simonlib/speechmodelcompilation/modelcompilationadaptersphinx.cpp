@@ -21,7 +21,7 @@
 #include "modelcompilationadaptersphinx.h"
 #include "simonutils/fileutils.h"
 
-#include<KI18n/klocalizedstring.h>
+#include<KLocalizedString>
 #include <QDir>
 #include <QSet>
 #include <QDebug>

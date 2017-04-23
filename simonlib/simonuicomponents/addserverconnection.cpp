@@ -23,7 +23,7 @@
 #include <QLineEdit>
 #include <KDELibs4Support/knuminput.h>
 #include <QFormLayout>
-#include <KLocale>
+#include <KLocalizedString>
 
 AddServerConnection::AddServerConnection(QWidget *parent) : QDialog(parent)
 {

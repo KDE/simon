@@ -31,7 +31,7 @@
 #include <KPageWidgetItem>
 #include <KPageWidget>
 #include <QDebug>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( SoundSettingsFactory,
 registerPlugin< SoundSettings >();

@@ -31,7 +31,7 @@
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
 #include <QDBusReply>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KPluginFactory>
 
 K_PLUGIN_FACTORY( MprisPlayerPluginFactory,

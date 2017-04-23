@@ -21,7 +21,7 @@
 
 #include <kaboutdata.h>
 
-#include <KDE/KLocale>
+#include <KDE/KLocalizedString>
 #include <QApplication>
 #include <K4AboutData>
 #include <KLocalizedString>

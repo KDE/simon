@@ -22,7 +22,6 @@
 #include <QWidget>
 #include <KDebug>
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 K_PLUGIN_FACTORY( ActiveWindowPluginFactory,
 registerPlugin< ActiveWindow >();

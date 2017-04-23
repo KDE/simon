@@ -27,6 +27,7 @@
 #include <QString>
 #include <QChar>
 #include <KWidgetsAddons/KMessageBox>
+#include <KLocalizedString>
 
 //include order defined by X11 includes in header...
 #include "xeventsprivate.h" //krazy:exclude=includes

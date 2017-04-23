@@ -30,8 +30,8 @@
 #include <QDir>
 
 #include <QProgressDialog>
-#include <KI18n/klocalizedstring.h>
-#include <KGenericFactory>
+#include <KLocalizedString>
+#include <KPluginFactory>
 #include <QStandardPaths>
 #include <QStandardPaths>
 

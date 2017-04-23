@@ -20,7 +20,7 @@
 #ifndef SIMONMODELMANAGEMENTUI_EXPORTER
 #define SIMONMODELMANAGEMENTUI_EXPORTER
 
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 #include "modelextensionsettings.h"
 
 K_PLUGIN_FACTORY( SpeechModelManagementUiFactory,

@@ -19,8 +19,8 @@
  */
 
 #include "commandtablemodel.h"
-#include <KI18n/klocalizedstring.h>
-#include <KLocale>
+#include <KLocalizedString>
+#include <KLocalizedString>
 
 CommandTableModel::CommandTableModel(const CommandList &newCommands)
 {

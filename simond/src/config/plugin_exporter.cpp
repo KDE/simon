@@ -22,8 +22,8 @@
 
 #include "simonduserconfiguration.h"
 #include "simondnetworkconfiguration.h"
-#include <KDELibs4Support/kgenericfactory.h>
-#include <KI18n/klocalizedstring.h>
+#include <KPluginFactory>
+#include <KLocalizedString>
 #include <simonuicomponents/multikcmview.h>
 
 class SimondConfigMultiKCMView : public MultiKCMView

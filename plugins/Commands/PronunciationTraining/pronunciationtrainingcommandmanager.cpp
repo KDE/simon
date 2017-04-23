@@ -20,8 +20,8 @@
 #include "pronunciationtrainingcommandmanager.h"
 #include "pronunciationtraining.h"
 #include <simonlogging/logger.h>
-#include <KI18n/klocalizedstring.h>
-#include <KGenericFactory>
+#include <KLocalizedString>
+#include <KPluginFactory>
 #include <QDebug>
 #include <QAction>
 #include "pronunciationtrainingconfiguration.h"

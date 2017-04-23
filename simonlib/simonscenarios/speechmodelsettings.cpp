@@ -30,7 +30,7 @@
 #include <KDateTime>
 #include <KPageWidget>
 #include <KArchive/KTar>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 #include <QStandardPaths>
 
 #include <KWidgetsAddons/KMessageBox>

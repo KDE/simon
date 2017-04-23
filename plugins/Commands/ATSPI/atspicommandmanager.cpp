@@ -24,8 +24,9 @@
 #include <QTimer>
 #include <QVector>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
+#include <KPluginFactory>
 #include <simonactions/listcommand.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>

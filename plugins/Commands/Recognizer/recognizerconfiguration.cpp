@@ -20,7 +20,7 @@
 #include "recognizerconfiguration.h"
 #include <QVariantList>
 #include <QDebug>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY_DECLARATION(RecognizerCommandPluginFactory)
 

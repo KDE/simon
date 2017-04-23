@@ -44,9 +44,9 @@
 #include <QUrl>
 #include <KConfig>
 #include <QStandardPaths>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KConfigCore/KConfigGroup>
 #include <KAboutData>
 

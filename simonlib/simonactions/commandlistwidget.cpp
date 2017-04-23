@@ -29,7 +29,7 @@
 #include <QProgressBar>
 #include <QIcon>
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <simonscenarios/voiceinterfacecommand.h>
 
 CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint),

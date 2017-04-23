@@ -27,7 +27,7 @@
 #include <QDesktopWidget>
 #include <QPoint>
 #include <QSize>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QAction>
 #include <QDebug>
 #include <KPluginFactory>

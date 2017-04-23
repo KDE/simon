@@ -33,10 +33,9 @@
 #include <QDBusConnection>
 #include <QCoreApplication>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QDebug>
-#include <KLocale>
 
 ActionManager* ActionManager::instance;
 

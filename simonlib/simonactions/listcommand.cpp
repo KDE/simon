@@ -29,7 +29,7 @@
 #include <QDomDocument>
 #include <QVariant>
 #include <QIcon>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
 
 #ifdef Q_OS_WIN32

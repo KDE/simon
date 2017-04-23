@@ -21,8 +21,8 @@
 #include <simonlogging/logger.h>
 #include <simonactions/commandlistwidget.h>
 #include <eventsimulation/eventhandler.h>
-#include <KI18n/klocalizedstring.h>
-#include <KGenericFactory>
+#include <KLocalizedString>
+#include <KPluginFactory>
 #include <QAction>
 #include <QPushButton>
 #include <QGridLayout>

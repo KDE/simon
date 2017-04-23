@@ -8,5 +8,6 @@ add_subdirectory(model)
 add_subdirectory(scenarios)
 add_subdirectory(texts)
 
-install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT simon)
-install(FILES simon_autostart.desktop DESTINATION ${AUTOSTART_INSTALL_DIR} COMPONENT simon)
+install(FILES org.kde.simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT simon)
+install(FILES org.kde.simon_autostart.desktop DESTINATION ${AUTOSTART_INSTALL_DIR} COMPONENT simon)
+install(FILES org.kde.simon.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/metainfo)

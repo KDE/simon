@@ -23,8 +23,8 @@
 #include <KDELibs4Support/KDE/KProgressDialog>
 #include <QCoreApplication>
 #include <QObject>
-#include <KI18n/klocalizedstring.h>
-#include <KLocale>
+#include <KLocalizedString>
+#include <KLocalizedString>
 #include "soundconfig.h"
 
 PostProcessing::PostProcessing(QObject *parent) : QObject(parent)

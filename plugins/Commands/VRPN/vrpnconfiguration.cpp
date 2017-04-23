@@ -24,6 +24,7 @@
 #include <vrpn_Configure.h>
 #include <QString>
 #include <QDebug>
+#include <KPluginFactory>
 K_PLUGIN_FACTORY_DECLARATION(VRPNCommandPluginFactory)
 
 VRPNConfiguration::VRPNConfiguration(VRPNCommandManager* _commandManager, Scenario *parent, const QVariantList &args)

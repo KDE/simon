@@ -57,7 +57,7 @@
 #include <KDELibs4Support/kapplication.h>
 #include <QAction>
 #include <KToolBarPopupAction>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KActionCollection>
 #include <KStandardAction>
 #include <KWidgetsAddons/KMessageBox>

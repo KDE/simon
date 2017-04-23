@@ -25,6 +25,7 @@
 #include "ui_modelsettingsdlg.h"
 #include "modelmanager.h"
 #include <QMenu>
+#include <QPointer>
 #include <knewstuff3/downloaddialog.h>
 #include <KArchive/KTar>
 #include <KDELibs4Support/KDE/KFileDialog>

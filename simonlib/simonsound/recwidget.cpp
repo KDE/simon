@@ -31,10 +31,10 @@
 #include <QFont>
 #include <KInputDialog>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QIcon>
 #include <QPushButton>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QTimer>
 #include <QMessageBox>
 

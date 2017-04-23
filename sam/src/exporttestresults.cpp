@@ -30,7 +30,7 @@
 #include <QWidget>
 #include <QDir>
 #include <QFile>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KCmdLineArgs>
 #include <QTabWidget>
 

@@ -29,7 +29,7 @@
 #include <QDir>
 #include <QPainter>
 #include <QFile>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 #include <QStandardPaths>
 

@@ -41,7 +41,7 @@
 #include <QThread>
 #include <KWidgetsAddons/KMessageBox>
 
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 #include <KInputDialog>
 
 #include <simondialogengine/confui/outputconfiguration.h>

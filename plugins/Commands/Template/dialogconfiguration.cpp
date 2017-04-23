@@ -20,7 +20,7 @@
 #include "dialogcommandmanager.h"
 
 #include <QVariantList>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 
 #include <QThread>
 #include <simonscenarios/scenario.h>

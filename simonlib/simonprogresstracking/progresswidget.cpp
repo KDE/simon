@@ -25,8 +25,8 @@
 #include <QSplitter>
 #include <QProgressBar>
 #include <QPushButton>
-#include <KI18n/klocalizedstring.h>
-#include <KLocale>
+#include <KLocalizedString>
+#include <KLocalizedString>
 
 ProgressWidget::ProgressWidget(QPointer<Operation> O, ProgressWidgetStyle style, QWidget* parent) : QWidget(parent),
 op(O)

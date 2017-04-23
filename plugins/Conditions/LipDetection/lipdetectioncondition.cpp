@@ -19,6 +19,7 @@
 
 #include "lipdetectioncondition.h"
 #include <QDebug>
+#include <KPluginFactory>
 #include "createlipdetectionconditionwidget.h"
 #include <QWidget>
 #include "simonvision/lipanalyzer.h"

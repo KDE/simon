@@ -19,6 +19,7 @@
 
 #include "facedetectioncondition.h"
 #include <QDebug>
+#include <KPluginFactory>
 #include "createfacedetectionconditionwidget.h"
 #include <QWidget>
 #include "simonvision/faceanalyzer.h"

@@ -20,7 +20,7 @@
 #include "dbuscommand.h"
 #include "createdbuscommandwidget.h"
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KPluginFactory>
 
 K_PLUGIN_FACTORY( DBusCommandPluginFactory,

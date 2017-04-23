@@ -22,8 +22,7 @@
 #include <QCoreApplication>
 
 #include <kaboutdata.h>
-
-#include <KLocale>
+#include <KLocalizedString>
 #include <KGlobal>
 #include <KComponentData>
 #include <QDebug>

@@ -26,6 +26,7 @@
  */
 
 #include <QHash>
+#include <QStringList>
 #include "simonscenarios_export.h"
 #include "promptstablemodel.h"
 

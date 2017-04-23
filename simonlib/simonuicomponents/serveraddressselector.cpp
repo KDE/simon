@@ -24,9 +24,9 @@
 #include <QPointer>
 #include <QIcon>
 #include <KLineEdit>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KWidgetsAddons/kmessagebox.h>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KWidgetsAddons/KMessageBox>
 
 ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)

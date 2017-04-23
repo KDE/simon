@@ -19,7 +19,7 @@
 
 #include "latexreporttemplateengine.h"
 #include <QFileInfo>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KZip>
 
 QByteArray LatexReportTemplateEngine::lineBreak()

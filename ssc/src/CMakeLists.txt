@@ -40,5 +40,5 @@ install(TARGETS ssc DESTINATION ${BIN_INSTALL_DIR} COMPONENT ssc)
 
 ########### install files ###############
 
-install(FILES ssc.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT ssc)
+install(FILES org.kde.ssc.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT ssc)
 install(FILES sscui.rc DESTINATION ${DATA_INSTALL_DIR} COMPONENT ssc)

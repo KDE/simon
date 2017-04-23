@@ -23,7 +23,7 @@
 #include <QVariantList>
 #include <QString>
 #include <simonscenarios/scenario.h>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 #include <simondialogengine/avatar.h>
 #include <simondialogengine/confui/templateoptionsconfiguration.h>
 #include <simondialogengine/confui/boundvaluesconfiguration.h>

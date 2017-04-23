@@ -21,9 +21,8 @@
 #include "aicommandmanager.h"
 #include <QVariantList>
 #include <QDir>
-#include <KDELibs4Support/kgenericfactory.h>
-#include <QStandardPaths>
 #include <KPluginFactory>
+#include <QStandardPaths>
 
 K_PLUGIN_FACTORY_DECLARATION(AIPluginFactory)
 

@@ -24,7 +24,7 @@
 #include "keyboardmodifybuttondialog.h"
 
 #include <QVariantList>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 
 #include <QString>
 #include <KInputDialog>

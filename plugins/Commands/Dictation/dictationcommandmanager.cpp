@@ -19,7 +19,7 @@
 #include "dictationcommandmanager.h"
 #include "dictationconfiguration.h"
 #include <eventsimulation/eventhandler.h>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KPluginFactory>
 
 K_PLUGIN_FACTORY( DictationCommandPluginFactory,

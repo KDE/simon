@@ -20,9 +20,7 @@
 #include "modelcompilationsettings.h"
 #include "modelcompilationconfiguration.h"
 #include <KWidgetsAddons/kpagewidget.h>
-#include <KDELibs4Support/klibloader.h>
-#include <KDELibs4Support/kgenericfactory.h>
-#include <KCoreAddons/kpluginfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( ModelCompilationSettingsFactory,
                   registerPlugin< ModelCompilationSettings >();

@@ -22,8 +22,8 @@
 #include <QDir>
 #include <QColor>
 
-#include <KI18n/klocalizedstring.h>
-#include <KLocale>
+#include <KLocalizedString>
+#include <KLocalizedString>
 #include <KColorScheme>
 
 FileResultModel::FileResultModel(QObject *parent) : QAbstractItemModel(parent)

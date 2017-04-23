@@ -63,7 +63,7 @@
 #include <KDELibs4Support/KDE/KFileDialog>
 #include <KWidgetsAddons/KMessageBox>
 #include <KGlobal>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 #include <KCmdLineArgs>
 #include <QStandardPaths>

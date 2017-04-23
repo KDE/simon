@@ -28,8 +28,9 @@
 
 #include <QMutexLocker>
 #include <QThread>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( VRPNCommandPluginFactory,
 registerPlugin< VRPNCommandManager >();

@@ -21,7 +21,7 @@
 #include <simonlogging/logger.h>
 #include <simonscenarios/scenario.h>
 #include "textmacrocommand.h"
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <KPluginFactory>
 #include "createtextmacrocommandwidget.h"

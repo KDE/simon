@@ -21,7 +21,7 @@
 #include "simonoid.h"
 
 #include <QPainter>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDBusInterface>
 #include <KConfigDialog>
 #include <KConfigCore/KConfigGroup>

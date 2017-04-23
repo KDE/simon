@@ -37,7 +37,7 @@
 #include <KConfigGroup>
 #include <QStandardPaths>
 #include <KArchive/KTar>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 #include <KAboutData>
 #include <QtConcurrent/QtConcurrent>

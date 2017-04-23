@@ -26,7 +26,8 @@
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
 #include <simonlogging/logger.h>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
+#include <KPluginFactory>
 #include <akonadi/control.h>
 #include <akonadi/monitor.h>
 #include <akonadi/collection.h>

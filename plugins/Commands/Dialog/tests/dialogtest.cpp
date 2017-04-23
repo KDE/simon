@@ -36,6 +36,7 @@
 #include <QLineEdit>
 #include <KIntSpinBox>
 #include <KComboBox>
+#include <KDebug>
 
 #include "../dialogcommandmanager.h"
 #include "../dialogconfiguration.h"

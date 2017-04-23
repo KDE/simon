@@ -19,7 +19,7 @@
 
 #include "importdictselectsourcepage.h"
 #include "importdictview.h"
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
 
 /**

@@ -22,7 +22,7 @@
 
 #include "networksettings.h"
 #include "synchronisationsettings.h"
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 #include <simonuicomponents/multikcmview.h>
 
 class RecognitionConfigMultiKCMView : public MultiKCMView

@@ -18,8 +18,8 @@
  */
 
 #include "commandmodel.h"
-#include <KI18n/klocalizedstring.h>
-#include <KLocale>
+#include <KLocalizedString>
+#include <KLocalizedString>
 
 CommandModel::CommandModel(CommandList CL)
 : commands(CL)

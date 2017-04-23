@@ -21,7 +21,7 @@
 #include "createexecutablecommandwidget.h"
 #include <simonlogging/logger.h>
 #include <simonscenarios/scenario.h>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KPluginFactory>
 
 K_PLUGIN_FACTORY( ExecutableCommandPluginFactory,

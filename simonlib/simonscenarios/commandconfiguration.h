@@ -23,11 +23,13 @@
 #include "simonscenarios_export.h"
 #include <scenarioobject.h>
 #include <QWidget>
+#include <QVariant>
 
 class Scenario;
 class QString;
 class KComponentData;
 class KAboutData;
+class KLocalizedString;
 
 /**
  * \class CommandConfiguration

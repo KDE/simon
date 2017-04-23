@@ -20,7 +20,7 @@
 #include "desktopgridconfiguration.h"
 #include "desktopgridcommandmanager.h"
 #include <QVariantList>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY_DECLARATION(DesktopGridPluginFactory)
 

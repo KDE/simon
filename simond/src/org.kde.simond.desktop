@@ -31,6 +31,7 @@ Exec=simond %i -caption %c
 Icon=simond
 Type=Application
 X-DocPath=simond/index.html
+X-AppStream-Ignore=true
 GenericName=Speech Recognition Server
 GenericName[bs]=Server za Prepoznavanje Govora
 GenericName[ca]=Servidor per al reconeixement de la veu

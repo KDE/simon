@@ -23,7 +23,7 @@
 #include <simondialogengine/dialogcommand.h>
 #include <simontts/simontts.h>
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KWidgetsAddons/KMessageBox>
 
 TTSDialogView::TTSDialogView(DialogManager *dialog) :

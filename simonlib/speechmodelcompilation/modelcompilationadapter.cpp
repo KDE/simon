@@ -25,7 +25,7 @@
 #include <simonscenarios/grammar.h>
 
 #include <KAboutData>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 #include <KGlobal>
 #include <QString>

@@ -29,7 +29,7 @@
 
 #include <QDesktopWidget>
 #include <QDialog>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QAction>
 #include <QDialogButtonBox>
 #include <QPushButton>

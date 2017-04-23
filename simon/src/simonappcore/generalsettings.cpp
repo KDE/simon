@@ -21,7 +21,7 @@
 #include <knewpassworddialog.h>
 #include <KI18n/klocalizedstring.h>
 #include "coreconfiguration.h"
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 #include <KConfigWidgets/KCModule>
 
 #include <KConfigCore/KConfigGroup>

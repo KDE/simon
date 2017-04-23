@@ -20,7 +20,7 @@
 #include "filterconfiguration.h"
 #include "filtercommandmanager.h"
 #include <QVariantList>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY_DECLARATION(FilterPluginFactory)
 

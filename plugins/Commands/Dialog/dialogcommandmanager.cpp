@@ -31,7 +31,7 @@
 
 #include "createdialogcommandwidget.h"
 #include <eventsimulation/eventhandler.h>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QAction>
 #include <KWidgetsAddons/KMessageBox>
 #include <QDebug>

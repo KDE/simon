@@ -26,7 +26,7 @@
 #include <QUrl>
 #include <QDebug>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KConfigCore/KConfig>
 #include <KConfigCore/KConfigGroup>
 #include <KLocale>

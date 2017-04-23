@@ -26,10 +26,10 @@
 #include <QVBoxLayout>
 #include <QFrame>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QIcon>
 #include <QPushButton>
-#include <KLocale>
+#include <KLocalizedString>
 
 CompositeProgressWidget::CompositeProgressWidget(QWidget* parent): QWidget(parent)
 {

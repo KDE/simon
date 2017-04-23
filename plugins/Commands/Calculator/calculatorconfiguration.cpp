@@ -20,7 +20,7 @@
 #include "calculatorconfiguration.h"
 #include "calculatorcommandmanager.h"
 #include <QVariantList>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY_DECLARATION(CalculatorCommandPluginFactory)
 

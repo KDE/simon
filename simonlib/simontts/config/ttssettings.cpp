@@ -25,7 +25,7 @@
 #include <simontts/recordingsetcollection.h>
 #include <QListWidget>
 #include <QSortFilterProxyModel>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 #include <KInputDialog>
 #include <KDELibs4Support/KDE/KFileDialog>
 #include <QStandardPaths>

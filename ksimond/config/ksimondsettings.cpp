@@ -20,7 +20,7 @@
 #include "ksimondsettings.h"
 #include "ksimondconfiguration.h"
 #include <QSslCipher>
-#include <KDELibs4Support/kgenericfactory.h>
+#include <KPluginFactory>
 #include <KConfigWidgets/KCModule>
 
 #ifdef Q_OS_WIN32

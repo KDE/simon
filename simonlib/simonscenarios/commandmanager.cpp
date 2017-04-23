@@ -22,7 +22,7 @@
 #include "voiceinterfacecommandtemplate.h"
 #include "createvoiceinterfacecommandwidget.h"
 #include "commandconfiguration.h"
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <simonscenarios/scenario.h>
 #include <QAction>
 #include <QDomElement>
