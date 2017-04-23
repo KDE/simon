@@ -104,7 +104,7 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
   }
 
   int rv = 
-#ifdef SPHINX_0_8
+#ifdef POCKETSPHINX_HAS_UTTID_APIS
       ps_decode_raw(decoder, toRecognize, fName.data(), -1);
 #else
       ps_decode_raw(decoder, toRecognize, -1);
@@ -119,7 +119,7 @@ QList<RecognitionResult> SphinxRecognizer::recognize(const QString &file)
 
   int score;
   char const *hyp;
-#ifdef SPHINX_0_8
+#ifdef POCKETSPHINX_HAS_UTTID_APIS
   char const *uttid;
   hyp = ps_get_hyp(decoder, &score, &uttid);
 #else

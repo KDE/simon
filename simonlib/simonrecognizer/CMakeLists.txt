@@ -1,3 +1,7 @@
+if(POCKETSPHINX_HAS_UTTID_APIS)
+  add_definitions(-DPOCKETSPHINX_HAS_UTTID_APIS)
+endif()
+
 set(simonrecognizer_LIB_SRCS
   juliusrecognizer.cpp
   recognitionconfiguration.cpp
