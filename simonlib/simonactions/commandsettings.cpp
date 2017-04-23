@@ -25,7 +25,8 @@
 
 #include <QVariant>
 #include <KAboutData>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( CommandSettingsFactory,
 registerPlugin< CommandSettings >();

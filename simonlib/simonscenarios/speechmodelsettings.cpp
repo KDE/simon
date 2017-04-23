@@ -32,7 +32,7 @@
 #include <KDateTime>
 #include <KPageWidget>
 #include <KTar>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( SpeechModelSettingsFactory,
 registerPlugin< SpeechModelSettings >();

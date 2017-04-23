@@ -22,7 +22,7 @@
 #include <KLineEdit>
 #include <KPageWidget>
 #include <QDebug>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( ModelCompilationSettingsFactory,
 registerPlugin< ModelCompilationSettings >();

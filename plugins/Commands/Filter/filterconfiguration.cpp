@@ -20,7 +20,7 @@
 #include "filterconfiguration.h"
 #include "filtercommandmanager.h"
 #include <QVariantList>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <KAboutData>
 #include <KMessageBox>
 

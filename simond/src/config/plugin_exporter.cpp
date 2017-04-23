@@ -22,7 +22,7 @@
 
 #include "simonduserconfiguration.h"
 #include "simondnetworkconfiguration.h"
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <KLocalizedString>
 #include <simonuicomponents/multikcmview.h>
 

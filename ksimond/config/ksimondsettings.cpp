@@ -21,7 +21,7 @@
 #include "ksimondconfiguration.h"
 #include <QSslSocket>
 #include <QSslCipher>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 
 #ifdef Q_OS_WIN32
 #include <QSettings>

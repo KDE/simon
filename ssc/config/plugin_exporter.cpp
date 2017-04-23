@@ -21,7 +21,7 @@
 #define SSCCONFIGURATION_EXPORTER
 
 #include "sscconfiguration.h"
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( SSCSettingsFactory,
 registerPlugin< SSCConfiguration >();

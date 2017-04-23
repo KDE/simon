@@ -43,11 +43,12 @@
 #include <QThread>
 #include <QApplication>
 
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <KAboutData>
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KStandardDirs>
+#include <KDebug>
 #include <simondialogengine/confui/outputconfiguration.h>
 
 K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)

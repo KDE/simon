@@ -21,7 +21,7 @@
 #include "pronunciationtraining.h"
 #include <simonlogging/logger.h>
 #include <KLocalizedString>
-#include <KGenericFactory>
+#include <KPluginFactory>
 #include <KMessageBox>
 #include <KDebug>
 #include <KAction>

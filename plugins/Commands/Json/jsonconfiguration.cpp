@@ -20,7 +20,7 @@
 #include "jsoncommandmanager.h"
 
 #include <QVariantList>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY_DECLARATION(JsonCommandPluginFactory)
 

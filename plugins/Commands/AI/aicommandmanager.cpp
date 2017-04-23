@@ -33,8 +33,9 @@
 #include <KProcess>
 #include <KProgressDialog>
 #include <KLocalizedString>
-#include <KGenericFactory>
+#include <KPluginFactory>
 #include <KStandardDirs>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( AIPluginFactory,
 registerPlugin< AICommandManager >();

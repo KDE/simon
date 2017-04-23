@@ -32,7 +32,7 @@
 #include <KPageWidgetItem>
 #include <KPageWidget>
 #include <KDebug>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( SoundSettingsFactory,
 registerPlugin< SoundSettings >();

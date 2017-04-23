@@ -20,7 +20,7 @@
 #include "calculatorconfiguration.h"
 #include "calculatorcommandmanager.h"
 #include <QVariantList>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <KAboutData>
 #include <KMessageBox>
 
