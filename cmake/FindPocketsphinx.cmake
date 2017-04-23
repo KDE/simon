@@ -32,7 +32,7 @@ find_package(SphinxBase REQUIRED)
 
 FIND_PATH(POCKETSPHINX_INCLUDE_DIR pocketsphinx/pocketsphinx.h)
 find_library(POCKETSPHINX_LIBRARIES pocketsphinx PATHS $ENV{LD_LIBRARY_PATH}/ /usr/lib)
-find_package_handle_standard_args(Pocketsphinx DEFAULT_MSG POCKETSPHINX_LIBRARIES POCKETSPHINX_INCLUDE_DIR)
+find_package_handle_standard_args(Pocketsphinx REQUIRED_VARS POCKETSPHINX_LIBRARIES POCKETSPHINX_INCLUDE_DIR)
 
 if(Pocketsphinx_FOUND)
   cmake_push_check_state()
