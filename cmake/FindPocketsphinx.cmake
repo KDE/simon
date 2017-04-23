@@ -22,6 +22,8 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 include(FindPackageHandleStandardArgs)
+include(CMakePushCheckState)
+include(CheckFunctionExists)
 if(POCKETSPHINX_INCLUDE_DIR AND POCKETSPHINX_LIBRARIES)
 set(Pocketsphinx_FIND_QUIETLY TRUE)
 endif(POCKETSPHINX_INCLUDE_DIR AND POCKETSPHINX_LIBRARIES)
@@ -31,3 +33,11 @@ find_package(Sphinxbase REQUIRED)
 FIND_PATH(POCKETSPHINX_INCLUDE_DIR pocketsphinx/pocketsphinx.h)
 find_library(POCKETSPHINX_LIBRARIES pocketsphinx PATHS $ENV{LD_LIBRARY_PATH}/ /usr/lib)
 find_package_handle_standard_args(Pocketsphinx DEFAULT_MSG POCKETSPHINX_LIBRARIES POCKETSPHINX_INCLUDE_DIR)
+
+if(Pocketsphinx_FOUND)
+  cmake_push_check_state()
+  set(CMAKE_REQUIRED_INCLUDES ${POCKETSPHINX_INCLUDE_DIR})
+  set(CMAKE_REQUIRED_LIBRARIES ${POCKETSPHINX_LIBRARIES})
+  check_function_exists(ps_get_uttid POCKETSPHINX_HAS_UTTID_APIS)
+  cmake_pop_check_state()
+endif()
