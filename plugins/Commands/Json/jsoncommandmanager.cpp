@@ -26,6 +26,8 @@
 #include <QNetworkReply>
 
 #include <KLocalizedString>
+#include <KPluginFactory>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( JsonCommandPluginFactory,
 registerPlugin< JsonCommandManager >();

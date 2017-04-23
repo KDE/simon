@@ -20,6 +20,7 @@
 #include "dictationconfiguration.h"
 #include <eventsimulation/eventhandler.h>
 #include <KLocalizedString>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( DictationCommandPluginFactory,
 registerPlugin< DictationCommandManager >();

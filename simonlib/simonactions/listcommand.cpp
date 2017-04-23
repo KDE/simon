@@ -35,6 +35,7 @@
 #include <QVariant>
 #include <KIcon>
 #include <KLocalizedString>
+#include <KDebug>
 
 #ifdef Q_OS_WIN32
 #include <windows.h>

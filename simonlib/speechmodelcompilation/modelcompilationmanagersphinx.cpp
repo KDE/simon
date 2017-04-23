@@ -26,6 +26,8 @@
 #include <QUuid>
 #include <KGlobal>
 #include <KAboutData>
+#include <KDebug>
+#include <KComponentData>
 
 ModelCompilationManagerSPHINX::ModelCompilationManagerSPHINX(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
 //  tryAgain(false)

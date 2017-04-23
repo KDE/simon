@@ -28,6 +28,7 @@
 #include <KLocale>
 #include <KDebug>
 #include <KAboutData>
+#include <KComponentData>
 
 ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
 {

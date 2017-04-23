@@ -32,6 +32,7 @@
 #include <QVariant>
 #include <KIcon>
 #include <KLocalizedString>
+#include <KDebug>
 #include <simonscenarios/voiceinterfacecommand.h>
 
 CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint),

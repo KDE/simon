@@ -24,6 +24,7 @@
 #include <QDomElement>
 #include <KFilterDev>
 #include <KTar>
+#include <KDebug>
 
 Model::Model(qint32 data, const QByteArray& container) :
 m_data(data), m_container(container), m_containerParsed(false)

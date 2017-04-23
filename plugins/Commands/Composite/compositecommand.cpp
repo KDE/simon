@@ -22,6 +22,7 @@
 #include <KIcon>
 #include <KProcess>
 #include <KLocalizedString>
+#include <KDebug>
 #include <QObject>
 #include <QVariant>
 #include <QDomElement>

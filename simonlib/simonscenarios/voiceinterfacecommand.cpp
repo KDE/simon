@@ -22,6 +22,7 @@
 #include "commandmanager.h"
 #include <QMetaObject>
 #include <KDebug>
+#include <KLocalizedString>
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger, const QString& iconSrc,
 const QString& description, const QString& id, QList<int> states, int newState,const QString& visibleTrigger,

@@ -23,6 +23,7 @@
 #include <QDomElement>
 #include <QDomDocument>
 #include <KDebug>
+#include <KLocalizedString>
 #include <qvarlengtharray.h>
 
 

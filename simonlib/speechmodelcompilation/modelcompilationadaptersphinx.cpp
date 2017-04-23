@@ -22,8 +22,10 @@
 #include "simonutils/fileutils.h"
 
 #include<KLocalizedString>
+#include <KDebug>
 #include <QDir>
 #include <QSet>
+#include <QTextStream>
 
 ModelCompilationAdapterSPHINX::ModelCompilationAdapterSPHINX(const QString &userName, QObject *parent)
   : ModelCompilationAdapter(userName, parent)

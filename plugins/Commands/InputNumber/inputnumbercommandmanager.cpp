@@ -31,6 +31,8 @@
 #include <KDialog>
 #include <KLocalizedString>
 #include <KAction>
+#include <KPluginFactory>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( InputNumberCommandPluginFactory,
 registerPlugin< InputNumberCommandManager >();

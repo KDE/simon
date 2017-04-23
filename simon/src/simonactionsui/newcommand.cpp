@@ -27,6 +27,7 @@
 #include <KMessageBox>
 #include <KKeySequenceWidget>
 #include <KDialogButtonBox>
+#include <KDebug>
 
 NewCommand::NewCommand(QWidget* parent) : KDialog(parent)
 {

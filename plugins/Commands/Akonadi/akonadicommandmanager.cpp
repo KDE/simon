@@ -28,6 +28,7 @@
 #include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <KAction>
+#include <KPluginFactory>
 #include <akonadi/control.h>
 #include <akonadi/monitor.h>
 #include <akonadi/collection.h>

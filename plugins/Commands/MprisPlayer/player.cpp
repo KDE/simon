@@ -27,6 +27,7 @@
 #include <QDBusInterface>
 #include <QDBusReply>
 #include <QDBusPendingCallWatcher>
+#include <KDebug>
 
 Player::Player(const QString& serviceName, QObject *parent)
     : QObject(parent),

@@ -21,6 +21,7 @@
 #include "promptstable.h"
 
 #include <KDebug>
+#include <KLocalizedString>
 
 PromptsTableModel::PromptsTableModel(PromptsTable* table, QObject *parent) : QAbstractItemModel(parent), m_table(table)
 {
