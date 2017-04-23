@@ -22,6 +22,7 @@
 #include "ui_samplegroupcontextsettings.h"
 #include <simoncontextcoreui/newcondition.h>
 #include <KMessageBox>
+#include <KDebug>
 #include <QtXml/QDomDocument>
 #include <simoncontextdetection/samplegroupcondition.h>
 

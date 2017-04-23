@@ -22,7 +22,6 @@
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
 #include <kdemacros.h>
-#include <KDE/KGenericFactory>
 
 #ifndef SIMONCONTEXTADAPTER_EXPORT
 # if defined(MAKE_SIMONCONTEXTADAPTER_LIB)

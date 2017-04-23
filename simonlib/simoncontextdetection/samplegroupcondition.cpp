@@ -27,6 +27,7 @@
 #include <KStandardDirs>
 #include <KDebug>
 #include <KColorScheme>
+#include <KLocalizedString>
 
 typedef QPair<Condition*, QString> ConditionPair;
 

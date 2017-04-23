@@ -25,6 +25,7 @@
 #include "condition.h"
 #include <QPair>
 #include <QAbstractItemModel>
+#include <QStringList>
 
 class SIMONCONTEXTDETECTION_EXPORT SampleGroupCondition : public QAbstractItemModel
 {

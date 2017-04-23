@@ -21,6 +21,7 @@
 #include "lipdetectioncondition.h"
 #include "simoncontextdetection/contextmanager.h"
 #include "simonvision/lipanalyzer.h"
+#include <KDebug>
 
 
 CreateLipDetectionConditionWidget::CreateLipDetectionConditionWidget(QWidget *parent) : CreateConditionWidget(parent)

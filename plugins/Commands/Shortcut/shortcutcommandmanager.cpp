@@ -24,6 +24,7 @@
 #include "createshortcutcommandwidget.h"
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( ShortcutCommandPluginFactory,
 registerPlugin< ShortcutCommandManager >();

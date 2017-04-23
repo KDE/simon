@@ -26,6 +26,7 @@
 #include <QListWidget>
 #include <QInputDialog>
 #include <KMessageBox>
+#include <KDebug>
 #include <QStringList>
 
 CreateListCommandWidget::CreateListCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),

@@ -23,6 +23,7 @@
 
 #include "simoncontextadapter_export.h"
 #include <QHash>
+#include <QStringList>
 
 class SIMONCONTEXTADAPTER_EXPORT Situation
 {

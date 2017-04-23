@@ -23,6 +23,7 @@
 #include <QFont>
 #include <KColorScheme>
 #include <KDebug>
+#include <KLocalizedString>
 
 CompoundCondition::CompoundCondition(QObject *parent) :
   QAbstractItemModel(parent)

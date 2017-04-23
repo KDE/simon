@@ -22,7 +22,6 @@
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
 #include <kdemacros.h>
-#include <KGenericFactory>
 
 #ifndef SIMONLISTCOMMAND_EXPORT
 # if defined(MAKE_SIMONLISTCOMMAND_LIB)

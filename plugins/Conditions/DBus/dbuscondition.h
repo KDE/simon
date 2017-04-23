@@ -23,6 +23,7 @@
 
 #include <simoncontextdetection/condition.h>
 #include <simoncontextdetection/compoundcondition.h>
+#include <QStringList>
 
 class QDBusInterface;
 

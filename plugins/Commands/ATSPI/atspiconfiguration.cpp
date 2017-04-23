@@ -25,6 +25,7 @@
 #include <KAboutData>
 #include <KMessageBox>
 #include <KStandardDirs>
+#include <KPluginFactory>
 #include <QString>
 #include <QTableView>
 #include <QThread>

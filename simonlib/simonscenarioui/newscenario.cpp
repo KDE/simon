@@ -29,6 +29,7 @@
 #include <KIcon>
 #include <KMessageBox>
 #include <KDialogButtonBox>
+#include <KDebug>
 
 NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
 {

@@ -23,6 +23,7 @@
 #include "textmacrocommand.h"
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KPluginFactory>
 #include "createtextmacrocommandwidget.h"
 
 K_PLUGIN_FACTORY( TextMacroCommandPluginFactory,

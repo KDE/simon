@@ -29,6 +29,7 @@
 
 #include <KLocalizedString>
 #include <KDebug>
+#include <KPluginFactory>
 #include <simonactions/listcommand.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>

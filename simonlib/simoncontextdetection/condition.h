@@ -26,6 +26,7 @@
 
 #include <QObject>
 #include <QtXml/QDomElement>
+#include <QVariant>
 #include "simoncontextdetection_export.h"
 
 class CreateConditionWidget;
