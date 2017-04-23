@@ -20,7 +20,7 @@
 #include "recognizerconfiguration.h"
 #include <QVariantList>
 #include <KDebug>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <KAboutData>
 #include <KMessageBox>
 

@@ -23,6 +23,7 @@
 #include "RenameCategory/renamecategorywizard.h"
 
 #include <QSortFilterProxyModel>
+#include <QPointer>
 #include <KInputDialog>
 
 #include <KDebug>

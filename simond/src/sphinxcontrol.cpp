@@ -26,7 +26,7 @@
 #include <KDebug>
 #include <QDir>
 #include <KStandardDirs>
-#include <KLocale>
+#include <KLocalizedString>
 
 
 SphinxControl::SphinxControl(const QString& username, QObject* parent) : RecognitionControl(username, RecognitionControl::SPHINX, parent)

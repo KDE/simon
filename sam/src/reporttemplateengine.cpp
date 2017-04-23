@@ -27,7 +27,7 @@
 #include <QPicture>
 #include <QPainter>
 #include <QFile>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KDebug>
 #include <KStandardDirs>
 

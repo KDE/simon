@@ -22,9 +22,10 @@
 #include <simonactions/commandlistwidget.h>
 #include <eventsimulation/eventhandler.h>
 #include <KLocalizedString>
-#include <KGenericFactory>
+#include <KPluginFactory>
 #include <KAction>
 #include <KPushButton>
+#include <KDebug>
 #include <QGridLayout>
 #include <QDesktopWidget>
 #include <QKeyEvent>

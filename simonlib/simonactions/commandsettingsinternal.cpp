@@ -26,6 +26,8 @@
 #include <simonscenarios/voiceinterfacecommand.h>
 
 #include <KConfigGroup>
+#include <KGlobal>
+#include <KDebug>
 
 CommandSettingsInternal* CommandSettingsInternal::instance;
 

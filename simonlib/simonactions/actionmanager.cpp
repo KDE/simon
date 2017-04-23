@@ -42,7 +42,7 @@
 #include <KStandardDirs>
 #include <KDesktopFile>
 #include <KDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KXmlGuiWindow>
 #include <KXMLGUIClient>
 #include <KXMLGUIFactory>

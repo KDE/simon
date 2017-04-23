@@ -21,7 +21,7 @@
 #include "aicommandmanager.h"
 #include <QVariantList>
 #include <QDir>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <KAboutData>
 #include <KMessageBox>
 #include <KStandardDirs>

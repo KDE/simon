@@ -24,7 +24,7 @@
 #include <QString>
 #include <QProgressBar>
 #include <simonscenarios/scenario.h>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <KAboutData>
 #include <KMessageBox>
 #include <simondialogengine/avatar.h>

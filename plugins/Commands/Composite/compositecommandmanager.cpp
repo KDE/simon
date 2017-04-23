@@ -23,6 +23,7 @@
 #include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( CompositeCommandPluginFactory,
 registerPlugin< CompositeCommandManager >();

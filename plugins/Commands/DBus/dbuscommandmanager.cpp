@@ -21,6 +21,7 @@
 #include "createdbuscommandwidget.h"
 
 #include <KLocalizedString>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( DBusCommandPluginFactory,
 registerPlugin< DBusCommandManager >();

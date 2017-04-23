@@ -20,7 +20,7 @@
 #include "dialogcommandmanager.h"
 
 #include <QVariantList>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <QList>
 #include <KAboutData>
 #include <KMessageBox>

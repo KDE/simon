@@ -31,6 +31,7 @@
 #include <KLocalizedString>
 #include <KAction>
 #include <KDebug>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( VRPNCommandPluginFactory,
 registerPlugin< VRPNCommandManager >();

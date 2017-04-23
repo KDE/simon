@@ -22,7 +22,7 @@
 #include <knewpassworddialog.h>
 #include <KLocalizedString>
 #include "coreconfiguration.h"
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 
 #ifdef Q_OS_WIN32
 #include <QSettings>

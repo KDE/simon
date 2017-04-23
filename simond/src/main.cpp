@@ -23,7 +23,7 @@
 
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KGlobal>
 #include <KComponentData>
 #include <KDebug>

@@ -20,11 +20,12 @@
 #include "atspicommandmanager.h"
 
 #include <QVariantList>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <QList>
 #include <KAboutData>
 #include <KMessageBox>
 #include <KStandardDirs>
+#include <KPluginFactory>
 #include <QString>
 #include <QTableView>
 #include <QThread>

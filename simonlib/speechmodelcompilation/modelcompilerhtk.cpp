@@ -42,7 +42,7 @@
 #include <KTar>
 #include <KComponentData>
 #include <KAboutData>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KDebug>
 
 #ifdef Q_OS_WIN

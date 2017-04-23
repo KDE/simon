@@ -20,6 +20,7 @@
 
 #include "createshortcutcommandwidget.h"
 #include "shortcutcommand.h"
+#include <kdeversion.h>
 
 CreateShortcutCommandWidget::CreateShortcutCommandWidget(CommandManager *manager, QWidget *parent) : CreateCommandWidget(manager, parent)
 {

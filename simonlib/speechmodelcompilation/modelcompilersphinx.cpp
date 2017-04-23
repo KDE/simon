@@ -26,7 +26,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KStandardDirs>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDir>
 
 bool ModelCompilerSPHINX::parseConfiguration()

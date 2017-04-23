@@ -24,7 +24,7 @@
 #include <QCoreApplication>
 #include <QObject>
 #include <KLocalizedString>
-#include <KLocale>
+#include <KLocalizedString>
 #include "soundconfig.h"
 
 PostProcessing::PostProcessing(QObject *parent) : QObject(parent)

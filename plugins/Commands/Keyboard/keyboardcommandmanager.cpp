@@ -29,6 +29,8 @@
 #include <QSize>
 #include <KLocalizedString>
 #include <KAction>
+#include <KPluginFactory>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( KeyboardCommandPluginFactory,
 registerPlugin< KeyboardCommandManager >();

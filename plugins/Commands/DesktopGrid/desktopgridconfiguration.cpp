@@ -20,9 +20,10 @@
 #include "desktopgridconfiguration.h"
 #include "desktopgridcommandmanager.h"
 #include <QVariantList>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <KAboutData>
 #include <KMessageBox>
+#include <KDebug>
 
 K_PLUGIN_FACTORY_DECLARATION(DesktopGridPluginFactory)
 

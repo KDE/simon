@@ -22,6 +22,9 @@
 
 #include "simonmodelmanagement_export.h"
 #include <QString>
+#include <QList>
+
+class QObject;
 
 class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommandTemplate
 {

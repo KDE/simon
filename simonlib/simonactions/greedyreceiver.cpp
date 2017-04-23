@@ -20,6 +20,7 @@
 #include "greedyreceiver.h"
 #include "actionmanager.h"
 #include <simonscenarios/commandmanager.h>
+#include <KDebug>
 
 bool GreedyReceiver::greedyTriggerRawList(const RecognitionResultList &resultList)
 {

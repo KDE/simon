@@ -28,6 +28,7 @@
 #include <KDE/KMessageBox>
 #include <KDE/KKeySequenceWidget>
 #include <KDE/KDialogButtonBox>
+#include <KDE/KDebug>
 
 NewCondition::NewCondition(QWidget* parent) : KDialog(parent), ui(new Ui::DlgModifyCondition)
 {

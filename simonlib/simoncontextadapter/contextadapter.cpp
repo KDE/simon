@@ -36,6 +36,7 @@
 #include <KDateTime>
 #include <KTar>
 #include <KConfigGroup>
+#include <KComponentData>
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
   QObject(parent),

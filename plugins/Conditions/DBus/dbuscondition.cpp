@@ -25,6 +25,7 @@
 #include <QDBusReply>
 #include <QDBusConnection>
 #include <KDebug>
+#include <KPluginFactory>
 
 //could be made into proper methods if conditions are refactored to use the
 //qt property system to store configuration values (makes attributes

@@ -23,8 +23,9 @@
 #include <QRegExp>
 #include <QTimer>
 #include <KLocalizedString>
-#include <KGenericFactory>
+#include <KPluginFactory>
 #include <KAction>
+#include <KDebug>
 #include "filterconfiguration.h"
 
 K_PLUGIN_FACTORY( FilterPluginFactory,

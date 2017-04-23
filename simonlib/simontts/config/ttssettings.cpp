@@ -25,7 +25,7 @@
 #include <simontts/recordingsetcollection.h>
 #include <QListWidget>
 #include <QSortFilterProxyModel>
-#include <kgenericfactory.h>
+#include <KPluginFactory>
 #include <KActionSelector>
 #include <KInputDialog>
 #include <KMessageBox>

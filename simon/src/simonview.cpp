@@ -66,7 +66,7 @@
 #include <KAction>
 #include <KToolBarPopupAction>
 #include <KMenu>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KActionCollection>
 #include <KStandardAction>
 #include <KStandardDirs>

@@ -21,6 +21,7 @@
 #include "scenario.h"
 #include <QMutexLocker>
 #include <QtGlobal>
+#include <KDebug>
 
 /**
  * Empty, private constructor

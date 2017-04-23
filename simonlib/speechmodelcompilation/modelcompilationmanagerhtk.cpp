@@ -25,9 +25,10 @@
 #include <simonutils/fileutils.h>
 #include <QFileInfo>
 #include <KStandardDirs>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KDebug>
 #include <KAboutData>
+#include <KComponentData>
 
 ModelCompilationManagerHTK::ModelCompilationManagerHTK(const QString& userName, QObject *parent) : ModelCompilationManager(userName, parent)
 {

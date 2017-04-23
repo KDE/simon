@@ -32,6 +32,7 @@
 #include <QDBusConnectionInterface>
 #include <QDBusReply>
 #include <KLocalizedString>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( MprisPlayerPluginFactory,
                   registerPlugin< MprisPlayerCommandManager >();

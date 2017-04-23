@@ -23,7 +23,7 @@
 #include <QPainter>
 #include <QFontMetrics>
 #include <KConfigGroup>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDBusInterface>
 #include <KConfigDialog>
 

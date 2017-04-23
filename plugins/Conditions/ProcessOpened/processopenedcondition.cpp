@@ -21,6 +21,7 @@
 #include "createprocessopenedconditionwidget.h"
 #include <QWidget>
 #include <KDebug>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( ProcessOpenedPluginFactory,
 registerPlugin< ProcessOpenedCondition >();

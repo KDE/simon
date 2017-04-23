@@ -31,7 +31,7 @@
 #include <QDir>
 #include <QFile>
 #include <KGlobal>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KCmdLineArgs>
 #include <KMessageBox>
 #include <KTabWidget>

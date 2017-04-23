@@ -23,6 +23,7 @@
 #include "createvoiceinterfacecommandwidget.h"
 #include "commandconfiguration.h"
 #include <KLocalizedString>
+#include <KDebug>
 #include <simonscenarios/scenario.h>
 #include <QAction>
 #include <QDomElement>

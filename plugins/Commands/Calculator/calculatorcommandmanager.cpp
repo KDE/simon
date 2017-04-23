@@ -29,7 +29,9 @@
 #include <QDesktopWidget>
 #include <QStack>
 #include <KAction>
+#include <KDebug>
 #include <KDialog>
+#include <KPluginFactory>
 
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>

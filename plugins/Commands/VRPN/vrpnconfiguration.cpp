@@ -25,6 +25,8 @@
 #include <QString>
 #include <KAboutData>
 #include <KDebug>
+#include <KLocalizedString>
+#include <KPluginFactory>
 K_PLUGIN_FACTORY_DECLARATION(VRPNCommandPluginFactory)
 
 VRPNConfiguration::VRPNConfiguration(VRPNCommandManager* _commandManager, Scenario *parent, const QVariantList &args)

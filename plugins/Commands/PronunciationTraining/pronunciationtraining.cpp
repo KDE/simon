@@ -24,6 +24,7 @@
 #include <KPushButton>
 #include <KMessageBox>
 #include <KIcon>
+#include <KDebug>
 
 PronunciationTraining::PronunciationTraining(const QString& category, QWidget* parent):
 QWidget(parent),

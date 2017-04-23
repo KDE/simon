@@ -20,6 +20,9 @@
 #ifndef SIMON_MPRIS_CONSTANTS_H_9A22E03B797C494599B9629C6B47E478
 #define SIMON_MPRIS_CONSTANTS_H_9A22E03B797C494599B9629C6B47E478
 
+#include <QPair>
+#include <QString>
+
 typedef QPair<QString, QString> Track;
 typedef QList<Track> TrackList;
 

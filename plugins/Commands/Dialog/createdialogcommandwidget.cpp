@@ -27,6 +27,7 @@
 
 #include <KLineEdit>
 #include <KMessageBox>
+#include <KDebug>
 
 CreateDialogCommandWidget::CreateDialogCommandWidget(CommandManager *manager, QWidget* parent) : 
   CreateCommandWidget(manager, parent),

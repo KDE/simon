@@ -24,6 +24,7 @@
 #include "placecommand.h"
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( PlaceCommandPluginFactory,
 registerPlugin< PlaceCommandManager >();

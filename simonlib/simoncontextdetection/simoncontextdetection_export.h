@@ -22,7 +22,6 @@
 
 // needed for KDE_EXPORT and KDE_IMPORT macros
 #include <kdemacros.h>
-#include <KDE/KGenericFactory>
 
 #ifndef SIMONCONTEXTDETECTION_EXPORT
 # if defined(MAKE_SIMONCONTEXTDETECTION_LIB)

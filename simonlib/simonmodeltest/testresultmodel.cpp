@@ -20,7 +20,7 @@
 #include "testresultmodel.h"
 #include "testresult.h"
 #include <QColor>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KColorScheme>
 
 TestResultModel::TestResultModel(QObject *parent) : QAbstractItemModel(parent)

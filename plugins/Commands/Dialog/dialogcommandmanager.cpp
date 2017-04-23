@@ -34,6 +34,8 @@
 #include <KLocalizedString>
 #include <KAction>
 #include <KMessageBox>
+#include <KPluginFactory>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( DialogCommandPluginFactory,
 registerPlugin< DialogCommandManager >();

@@ -23,6 +23,7 @@
 #include <simonscenarios/scenario.h>
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KPluginFactory>
 
 K_PLUGIN_FACTORY( ExecutableCommandPluginFactory,
 registerPlugin< ExecutableCommandManager >();

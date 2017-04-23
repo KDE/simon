@@ -18,7 +18,7 @@
  */
 
 #include "testresultleaf.h"
-#include <KLocale>
+#include <KLocalizedString>
 
 TestResultLeaf::TestResultLeaf(const QString& label, const QString& pronunciation, float confidence) :
   m_label(label), m_originalLabel(label), m_pronunciation(pronunciation), m_accuracy(1.0f), m_confidence(confidence),

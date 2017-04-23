@@ -25,7 +25,7 @@
 #include <simonscenarios/grammar.h>
 
 #include <QTimer>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KDebug>
 #include <KGlobal>
 #include <QString>

@@ -22,6 +22,7 @@
 #include <QRadioButton>
 #include <QVariant>
 #include <KLocalizedString>
+#include <KDebug>
 
 /**
  * \brief Constructor - Inits the gui
