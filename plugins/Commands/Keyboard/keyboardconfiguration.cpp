@@ -25,6 +25,7 @@
 
 #include <QVariantList>
 #include <KPluginFactory>
+#include <QDebug>
 
 #include <QString>
 #include <KInputDialog>

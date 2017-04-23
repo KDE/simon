@@ -24,6 +24,7 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <QAction>
+#include <QDebug>
 #include "filterconfiguration.h"
 
 K_PLUGIN_FACTORY( FilterPluginFactory,

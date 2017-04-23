@@ -21,6 +21,7 @@
 #include "desktopgridcommandmanager.h"
 #include <QVariantList>
 #include <KPluginFactory>
+#include <QDebug>
 
 K_PLUGIN_FACTORY_DECLARATION(DesktopGridPluginFactory)
 

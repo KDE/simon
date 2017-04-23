@@ -43,6 +43,7 @@
 
 #include <KPluginFactory>
 #include <KInputDialog>
+#include <QDebug>
 
 #include <simondialogengine/confui/outputconfiguration.h>
 
