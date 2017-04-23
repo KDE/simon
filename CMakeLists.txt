@@ -90,7 +90,6 @@ set_package_properties(SphinxBase PROPERTIES TYPE OPTIONAL
    URL "http://cmusphinx.sourceforge.net/"
    PURPOSE "Required to build Sphinx backend")
 find_package(Pocketsphinx)
-message("POCKETSPHINX_LIBRARIES='${POCKETSPHINX_LIBRARIES}', POCKETSPHINX_INCLUDE_DIR='${POCKETSPHINX_INCLUDE_DIR}', Pocketsphinx_FOUND='${Pocketsphinx_FOUND}', POCKETSPHINX_FOUND='${POCKETSPHINX_FOUND}'")
 set_package_properties(Pocketsphinx PROPERTIES TYPE OPTIONAL
       DESCRIPTION "PocketSphinx is a small-footprint continuous speech recognition system"
       URL "http://cmusphinx.sourceforge.net/"
