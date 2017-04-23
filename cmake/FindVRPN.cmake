@@ -109,7 +109,7 @@ endif()
 # all listed variables are TRUE
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(VRPN
-  DEFAULT_MSG
+  REQUIRED_VARS
   VRPN_LIBRARY
   VRPN_INCLUDE_DIR
   ${_deps_check})
