@@ -39,7 +39,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="KIntSpinBox" name="sbScenarioVersion">
+        <widget class="QSpinBox" name="sbScenarioVersion">
          <property name="minimum">
           <number>1</number>
          </property>
@@ -281,11 +281,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -43,7 +43,7 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="KIntSpinBox" name="sbSpeakers">
+    <widget class="QSpinBox" name="sbSpeakers">
      <property name="minimum">
       <number>1</number>
      </property>
@@ -62,10 +62,7 @@
    <item row="3" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KIntSpinBox" name="sbSamples">
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
+      <widget class="QSpinBox" name="sbSamples">
        <property name="maximum">
         <number>999999999</number>
        </property>
@@ -87,11 +84,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
   </customwidget>
   <customwidget>
    <class>KTextEdit</class>

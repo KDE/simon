@@ -34,7 +34,7 @@
 
 #include <QPushButton>
 #include <QLineEdit>
-#include <KIntSpinBox>
+#include <QSpinBox>
 #include <KComboBox>
 #include <KDebug>
 
@@ -496,7 +496,7 @@ void testDialog::createTransition()
   QVERIFY(gbAutomatic);
   QTest::keyClick(gbAutomatic, ' ');
 
-  KIntSpinBox *sbTimeout = findChild<KIntSpinBox*>(dlg, "sbAutoTimeout");
+  QSpinBox *sbTimeout = findChild<QSpinBox*>(dlg, "sbAutoTimeout");
   QVERIFY(sbTimeout);
   QTest::keyClick(sbTimeout, Qt::Key_Delete);
   QTest::keyClick(sbTimeout, Qt::Key_Delete);

@@ -59,7 +59,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KIntSpinBox" name="sbAutoLeaveTimeout">
+      <widget class="QSpinBox" name="sbAutoLeaveTimeout">
        <property name="minimum">
         <number>10</number>
        </property>
@@ -96,11 +96,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
