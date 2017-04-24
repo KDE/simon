@@ -133,7 +133,7 @@ Using this wizard you can import training data collected e.g. by previous Simon 
  <customwidgets>
   <customwidget>
    <class>KUrlRequester</class>
-   <extends>QFrame</extends>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>

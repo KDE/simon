@@ -81,7 +81,7 @@ Please keep in mind that those dictionaries do not provide information about cat
  <customwidgets>
   <customwidget>
    <class>KUrlRequester</class>
-   <extends>QFrame</extends>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>

@@ -96,7 +96,7 @@ Please ensure that the file you import is a plain text document (.txt).</string>
   </customwidget>
   <customwidget>
    <class>KUrlRequester</class>
-   <extends>QFrame</extends>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
