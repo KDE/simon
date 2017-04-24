@@ -31,7 +31,7 @@ class AbstractSampleDataProvider;
 class QVBoxLayout;
 class ProgressWidget;
 class Sample;
-class KPushButton;
+class QPushButton;
 class SendSampleWorker;
 
 class SendSamplePage : public QWizardPage
@@ -53,8 +53,8 @@ class SendSamplePage : public QWizardPage
 
     QFutureWatcher<bool> *futureWatcher;
 
-    KPushButton *pbReSendData;
-    KPushButton *pbStoreData;
+    QPushButton *pbReSendData;
+    QPushButton *pbStoreData;
 
     void setupOperation(const QString& name);
 

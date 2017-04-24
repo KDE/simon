@@ -28,7 +28,6 @@ class WavRecorderClient;
 class WavPlayerClient;
 class PostProcessing;
 
-class KPushButton;
 class QGroupBox;
 class QProgressBar;
 class QLabel;

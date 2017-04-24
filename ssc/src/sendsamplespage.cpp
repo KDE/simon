@@ -35,7 +35,7 @@
 #include <QFutureWatcher>
 
 #include <KI18n/klocalizedstring.h>
-#include <KPushButton>
+#include <QPushButton>
 #include <QDebug>
 #include <sscdaccess/sscdaccesssingleton.h>
 #include <KWidgetsAddons/KMessageBox>
@@ -54,11 +54,11 @@ SendSamplePage::SendSamplePage(AbstractSampleDataProvider* dataProvider, bool is
   QLabel *desc = new QLabel(i18n("The recorded samples are now ready to be sent to the server or stored locally to be sent later."), this);
   desc->setWordWrap(true);
   layout->addWidget(desc);
-  pbReSendData = new KPushButton(QIcon::fromTheme("view-refresh"), i18n("Send samples"), this);
+  pbReSendData = new QPushButton(QIcon::fromTheme("view-refresh"), i18n("Send samples"), this);
   connect(pbReSendData, SIGNAL(clicked()), this, SLOT(prepareDataSending()));
   layout->addWidget(pbReSendData);
 
-  pbStoreData  = new KPushButton(QIcon::fromTheme("document-save"), i18n("Store samples (send later)"), this);
+  pbStoreData  = new QPushButton(QIcon::fromTheme("document-save"), i18n("Store samples (send later)"), this);
   connect(pbStoreData, SIGNAL(clicked()), this, SLOT(storeData()));
   layout->addWidget(pbStoreData);
 

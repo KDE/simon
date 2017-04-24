@@ -31,7 +31,6 @@ class AbstractSampleDataProvider;
 class QVBoxLayout;
 class ProgressWidget;
 class Sample;
-class KPushButton;
 
 class SSCDACCESS_EXPORT SendSampleWorker : public QObject
 {
