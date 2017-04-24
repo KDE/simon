@@ -20,7 +20,8 @@
 #include "importgrammarselectinputpage.h"
 #include <QTextCodec>
 #include <QStringList>
-#include <KEditListBox>
+#include <KEditListWidget>
+#include <KLineEdit>
 #include <kdeversion.h>
 
 ImportGrammarSelectInputPage::ImportGrammarSelectInputPage(QWidget* parent): QWizardPage(parent)
@@ -28,9 +29,7 @@ ImportGrammarSelectInputPage::ImportGrammarSelectInputPage(QWidget* parent): QWi
   setTitle(i18n("Input"));
   ui.setupUi(this);
 
-  #if KDE_IS_VERSION(4,0,80)
-  ui.elbFiles->setCustomEditor(*(new KEditListBox::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit())));
-  #endif
+  ui.elbFiles->setCustomEditor(*(new KEditListWidget::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit())));
 
   registerField("inputIsText", ui.rbText);
 

@@ -130,11 +130,11 @@
           </spacer>
          </item>
          <item>
-          <widget class="KLineEdit" name="leFilter">
+          <widget class="QLineEdit" name="leFilter">
            <property name="trapEnterKeyEvent" stdset="0">
             <bool>true</bool>
            </property>
-           <property name="clickMessage">
+           <property name="placeholderText">
             <string>Filter...</string>
            </property>
           </widget>
@@ -204,7 +204,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="KLineEdit" name="kcfg_webserviceURL"/>
+        <widget class="QLineEdit" name="kcfg_webserviceURL"/>
        </item>
        <item row="1" column="1">
         <widget class="QLabel" name="label_4">
@@ -220,11 +220,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

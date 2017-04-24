@@ -73,13 +73,19 @@
        </widget>
       </item>
       <item>
-       <widget class="KEditListBox" name="elbFiles">
+       <widget class="QGroupBox" name="groupBox">
         <property name="title">
          <string>Files to import</string>
         </property>
-        <property name="buttons">
-         <set>KEditListBox::Add|KEditListBox::Remove</set>
-        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="KEditListWidget" name="elbFiles">
+           <property name="buttons">
+            <set>KEditListWidget::Add|KEditListWidget::Remove</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -94,9 +100,9 @@
    <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
-   <class>KEditListBox</class>
-   <extends>QGroupBox</extends>
-   <header>keditlistbox.h</header>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>

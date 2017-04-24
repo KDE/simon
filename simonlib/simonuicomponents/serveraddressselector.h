@@ -22,16 +22,15 @@
 
 #include <QWidget>
 #include "simonuicomponents_export.h"
-#include <KLineEdit>
+#include <QLineEdit>
 
-class QLineEdit;
 class QToolButton;
 
 class SIMONUICOMPONENTS_EXPORT ServerAddressSelector : public QWidget
 {
   Q_OBJECT
     private:
-    KLineEdit *leServerAddress;
+    QLineEdit *leServerAddress;
     QToolButton *pbSelectServerAddress;
 
   private slots:
@@ -39,7 +38,7 @@ class SIMONUICOMPONENTS_EXPORT ServerAddressSelector : public QWidget
   public:
     ServerAddressSelector(QWidget *parent);
 
-    KLineEdit* lineEdit();
+    QLineEdit *lineEdit();
 
     ~ServerAddressSelector();
 

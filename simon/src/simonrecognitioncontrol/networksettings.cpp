@@ -35,10 +35,8 @@ NetworkSettings::NetworkSettings(QWidget* parent, const QVariantList& args): KCM
 
   ui.setupUi(this);
 
-  #if KDE_IS_VERSION(4,0,80)
   ServerAddressSelector *saSelector = new ServerAddressSelector(this);
-  ui.kcfg_JuliusdServers->setCustomEditor(*(new KEditListBox::CustomEditor(saSelector, saSelector->lineEdit())));
-  #endif
+  ui.kcfg_JuliusdServers->setCustomEditor(*(new KEditListWidget::CustomEditor(saSelector, saSelector->lineEdit())));
 
   addConfig(RecognitionConfiguration::self(), this);
   connect(ui.pbConfigureSimond, SIGNAL(clicked()), this, SLOT(configureSimond()));

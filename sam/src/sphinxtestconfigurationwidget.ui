@@ -36,7 +36,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KLineEdit" name="leTag"/>
+      <widget class="QLineEdit" name="leTag"/>
      </item>
     </layout>
    </item>
@@ -185,11 +185,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KUrlRequester</class>
    <extends>QFrame</extends>

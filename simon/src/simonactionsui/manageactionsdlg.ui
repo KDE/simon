@@ -36,7 +36,7 @@
             </widget>
            </item>
            <item>
-            <widget class="KLineEdit" name="leTrigger">
+            <widget class="QLineEdit" name="leTrigger">
              <property name="showClearButton" stdset="0">
               <bool>true</bool>
              </property>
@@ -108,11 +108,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

@@ -14,7 +14,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout" >
    <item row="0" column="0" colspan="3" >
-    <widget class="KLineEdit" name="leNumber" >
+    <widget class="QLineEdit" name="leNumber" >
      <property name="inputMask" >
       <string/>
      </property>
@@ -127,11 +127,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

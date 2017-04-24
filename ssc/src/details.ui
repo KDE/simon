@@ -27,7 +27,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="KLineEdit" name="leSurname"/>
+      <widget class="QLineEdit" name="leSurname"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="lbGivenName">
@@ -37,7 +37,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="KLineEdit" name="leGivenName"/>
+      <widget class="QLineEdit" name="leGivenName"/>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="lbInstition">
@@ -110,7 +110,7 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="KLineEdit" name="leBirthYear">
+      <widget class="QLineEdit" name="leBirthYear">
        <property name="inputMask">
         <string>99990; </string>
        </property>
@@ -127,7 +127,7 @@
       </widget>
      </item>
      <item row="6" column="1">
-      <widget class="KLineEdit" name="leZIPCode">
+      <widget class="QLineEdit" name="leZIPCode">
        <property name="inputMask">
         <string>99990; </string>
        </property>
@@ -151,7 +151,7 @@
       </widget>
      </item>
      <item row="8" column="1">
-      <widget class="KLineEdit" name="leCurrentOccupation"/>
+      <widget class="QLineEdit" name="leCurrentOccupation"/>
      </item>
      <item row="9" column="0">
       <widget class="QLabel" name="label_12">
@@ -361,11 +361,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

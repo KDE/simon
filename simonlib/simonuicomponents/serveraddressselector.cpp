@@ -23,7 +23,7 @@
 #include <QToolButton>
 #include <QPointer>
 #include <QIcon>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KLocalizedString>
 #include <KWidgetsAddons/kmessagebox.h>
 #include <KLocalizedString>
@@ -32,7 +32,7 @@
 ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 {
   QHBoxLayout *lay = new QHBoxLayout(this);
-  leServerAddress = new KLineEdit(this);
+  leServerAddress = new QLineEdit(this);
   leServerAddress->setToolTip(i18n("IP address or host name and port using &lt;host&gt;:&lt;port&gt;"));
   pbSelectServerAddress = new QToolButton(this);
 
@@ -49,7 +49,7 @@ ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 }
 
 
-KLineEdit* ServerAddressSelector::lineEdit()
+QLineEdit *ServerAddressSelector::lineEdit()
 {
   return leServerAddress;
 }

@@ -68,7 +68,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="KLineEdit" name="leUserId"/>
+          <widget class="QLineEdit" name="leUserId"/>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="lbSurname">
@@ -78,7 +78,7 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="KLineEdit" name="leSurname"/>
+          <widget class="QLineEdit" name="leSurname"/>
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="lbGivenName">
@@ -88,7 +88,7 @@
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="KLineEdit" name="leGivenName"/>
+          <widget class="QLineEdit" name="leGivenName"/>
          </item>
         </layout>
        </item>
@@ -107,7 +107,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="KLineEdit" name="leReferenceId"/>
+            <widget class="QLineEdit" name="leReferenceId"/>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="lbBirthYear">
@@ -117,7 +117,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="KLineEdit" name="leBirthYear">
+            <widget class="QLineEdit" name="leBirthYear">
              <property name="inputMask">
               <string>99990; </string>
              </property>
@@ -134,7 +134,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="KLineEdit" name="leZIPCode">
+            <widget class="QLineEdit" name="leZIPCode">
              <property name="inputMask">
               <string>99990; </string>
              </property>
@@ -216,7 +216,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="KLineEdit" name="leCurrentOccupation"/>
+          <widget class="QLineEdit" name="leCurrentOccupation"/>
          </item>
         </layout>
        </item>
@@ -571,11 +571,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

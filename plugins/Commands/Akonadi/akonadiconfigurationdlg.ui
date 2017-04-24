@@ -70,7 +70,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KLineEdit" name="leAkonadiPrefix"/>
+      <widget class="QLineEdit" name="leAkonadiPrefix"/>
      </item>
     </layout>
    </item>
@@ -154,7 +154,7 @@
             </widget>
            </item>
            <item>
-            <widget class="KLineEdit" name="leDismiss"/>
+            <widget class="QLineEdit" name="leDismiss"/>
            </item>
           </layout>
          </item>
@@ -168,7 +168,7 @@
             </widget>
            </item>
            <item>
-            <widget class="KLineEdit" name="leShowLater"/>
+            <widget class="QLineEdit" name="leShowLater"/>
            </item>
           </layout>
          </item>
@@ -236,11 +236,6 @@
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>

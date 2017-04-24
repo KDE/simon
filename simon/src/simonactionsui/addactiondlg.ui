@@ -15,8 +15,8 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="KLineEdit" name="leFilter">
-     <property name="clickMessage">
+    <widget class="QLineEdit" name="leFilter">
+     <property name="placeholderText">
       <string>Filter...</string>
      </property>
      <property name="showClearButton" stdset="0">
@@ -30,11 +30,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

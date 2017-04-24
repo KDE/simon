@@ -61,7 +61,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="lbUsername">
            <property name="text">
-            <string comment="User name for the connection">Username:</string>
+            <string comment="User name for the connection">&amp;Username:</string>
            </property>
            <property name="buddy">
             <cstring>kcfg_JuliusdUsername</cstring>
@@ -69,7 +69,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="KLineEdit" name="kcfg_JuliusdUsername"/>
+          <widget class="QLineEdit" name="kcfg_JuliusdUsername"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="lbPassword">
@@ -82,7 +82,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="KLineEdit" name="kcfg_JuliusdPassword">
+          <widget class="QLineEdit" name="kcfg_JuliusdPassword">
            <property name="echoMode">
             <enum>QLineEdit::Password</enum>
            </property>
@@ -169,10 +169,16 @@
         </layout>
        </item>
        <item>
-        <widget class="KEditListBox" name="kcfg_JuliusdServers">
+        <widget class="QGroupBox" name="groupBox">
          <property name="title">
           <string>Hosts</string>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="KEditListWidget" name="kcfg_JuliusdServers">
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -183,14 +189,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KEditListBox</class>
-   <extends>QGroupBox</extends>
-   <header>keditlistbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

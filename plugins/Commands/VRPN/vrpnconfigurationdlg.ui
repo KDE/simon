@@ -42,22 +42,28 @@
     </layout>
    </item>
    <item>
-    <widget class="KEditListBox" name="elbButtons">
+    <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Buttons</string>
      </property>
-     <property name="buttons">
-      <set>KEditListBox::Add|KEditListBox::Remove</set>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="KEditListWidget" name="elbButtons">
+        <property name="buttons">
+         <set>KEditListWidget::Add|KEditListWidget::Remove</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KEditListBox</class>
-   <extends>QGroupBox</extends>
-   <header>keditlistbox.h</header>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -32,7 +32,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="KLineEdit" name="leTitle"/>
+        <widget class="QLineEdit" name="leTitle"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_13">
@@ -42,7 +42,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="KLineEdit" name="leTag"/>
+        <widget class="QLineEdit" name="leTag"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_2">
@@ -127,7 +127,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="KLineEdit" name="leExperimentTag"/>
+        <widget class="QLineEdit" name="leExperimentTag"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_29">
@@ -204,7 +204,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="KLineEdit" name="leSystemTag"/>
+        <widget class="QLineEdit" name="leSystemTag"/>
        </item>
       </layout>
      </widget>
@@ -221,7 +221,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="KLineEdit" name="leVocabularyTag"/>
+        <widget class="QLineEdit" name="leVocabularyTag"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_8">
@@ -280,7 +280,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="KLineEdit" name="leGrammarTag"/>
+        <widget class="QLineEdit" name="leGrammarTag"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_9">
@@ -335,11 +335,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KDatePicker</class>

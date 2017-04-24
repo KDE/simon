@@ -112,7 +112,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KLineEdit" name="leRemoteUrl" >
+          <widget class="QLineEdit" name="leRemoteUrl" >
            <property name="text" >
             <string/>
            </property>
@@ -192,7 +192,7 @@
            </widget>
           </item>
           <item row="4" column="1" >
-           <widget class="KLineEdit" name="leUser" >
+           <widget class="QLineEdit" name="leUser" >
             <property name="enabled" >
              <bool>false</bool>
             </property>
@@ -209,7 +209,7 @@
            </widget>
           </item>
           <item row="5" column="1" >
-           <widget class="KLineEdit" name="lePass" >
+           <widget class="QLineEdit" name="lePass" >
             <property name="enabled" >
              <bool>false</bool>
             </property>
@@ -226,7 +226,7 @@
            </widget>
           </item>
           <item row="1" column="1" >
-           <widget class="KLineEdit" name="leHost" />
+           <widget class="QLineEdit" name="leHost" />
           </item>
           <item row="2" column="0" >
            <widget class="QLabel" name="lbPath" >
@@ -236,7 +236,7 @@
            </widget>
           </item>
           <item row="2" column="1" >
-           <widget class="KLineEdit" name="lePath" />
+           <widget class="QLineEdit" name="lePath" />
           </item>
          </layout>
         </widget>
@@ -261,11 +261,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

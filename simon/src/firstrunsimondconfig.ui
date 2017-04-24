@@ -136,7 +136,7 @@ Most users will leave this page to the default values. You can find more informa
       </widget>
      </item>
      <item>
-      <widget class="KLineEdit" name="leServer">
+      <widget class="QLineEdit" name="leServer">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -160,11 +160,6 @@ Most users will leave this page to the default values. You can find more informa
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

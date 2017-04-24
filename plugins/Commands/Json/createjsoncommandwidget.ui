@@ -22,7 +22,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="KLineEdit" name="leURL"/>
+    <widget class="QLineEdit" name="leURL"/>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
@@ -32,16 +32,11 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="KLineEdit" name="leRequest"/>
+    <widget class="QLineEdit" name="leRequest"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

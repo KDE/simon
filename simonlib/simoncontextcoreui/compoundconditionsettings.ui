@@ -24,11 +24,11 @@
       </widget>
      </item>
      <item>
-      <widget class="KLineEdit" name="leConditionsFilter">
+      <widget class="QLineEdit" name="leConditionsFilter">
        <property name="inputMask">
         <string/>
        </property>
-       <property name="clickMessage">
+       <property name="placeholderText">
         <string>Search</string>
        </property>
        <property name="showClearButton" stdset="0">
@@ -104,11 +104,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

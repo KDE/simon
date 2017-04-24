@@ -33,6 +33,7 @@
 
 #include <QFile>
 #include <QDir>
+#include <QPointer>
 #include <typeinfo>
 
 TestResultWidget::TestResultWidget(TestConfigurationWidget *configuration, QWidget *parent) : QWidget(parent),

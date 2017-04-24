@@ -21,6 +21,7 @@
 #include "ImportTrainingData/importtrainingdirectory.h"
 #include "editsampledialog.h"
 #include <simonscenarios/trainingmanager.h>
+#include <QPointer>
 #include <QWidget>
 #include <KWidgetsAddons/KMessageBox>
 

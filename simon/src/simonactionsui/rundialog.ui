@@ -33,11 +33,11 @@
       <widget class="QWidget" name="layoutWidget">
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="KLineEdit" name="leActionsFilter">
+         <widget class="QLineEdit" name="leActionsFilter">
           <property name="inputMask">
            <string/>
           </property>
-          <property name="clickMessage">
+          <property name="placeholderText">
            <string>Search</string>
           </property>
           <property name="showClearButton" stdset="0">
@@ -53,11 +53,11 @@
       <widget class="QWidget" name="layoutWidget">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="KLineEdit" name="leCommandsFilter">
+         <widget class="QLineEdit" name="leCommandsFilter">
           <property name="inputMask">
            <string/>
           </property>
-          <property name="clickMessage">
+          <property name="placeholderText">
            <string>Search</string>
           </property>
           <property name="showClearButton" stdset="0">
@@ -430,11 +430,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

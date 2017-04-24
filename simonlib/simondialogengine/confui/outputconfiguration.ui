@@ -90,7 +90,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KLineEdit" name="leOptionSeparator">
+       <widget class="QLineEdit" name="leOptionSeparator">
         <property name="toolTip">
          <string>This text will be said after the text of the current state and before the available options</string>
         </property>
@@ -111,7 +111,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KLineEdit" name="leAnnounceRepeat">
+       <widget class="QLineEdit" name="leAnnounceRepeat">
         <property name="toolTip">
          <string>This text will be said after the complete announcement</string>
         </property>
@@ -125,9 +125,9 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KEditListBox" name="elwRepeatTriggers">
+       <widget class="KEditListWidget" name="elwRepeatTriggers">
         <property name="buttons">
-         <set>KEditListBox::Add|KEditListBox::Remove</set>
+         <set>KEditListWidget::Add|KEditListWidget::Remove</set>
         </property>
        </widget>
       </item>
@@ -138,14 +138,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KEditListBox</class>
-   <extends>QGroupBox</extends>
-   <header>keditlistbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

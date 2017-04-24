@@ -32,7 +32,6 @@
 
 class SimonSpinBox;
 class QComboBox;
-class KEditListBox;
 class QCheckBox;
 class QTabWidget;
 class KFontChooser;

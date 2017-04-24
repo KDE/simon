@@ -92,8 +92,8 @@
           </widget>
          </item>
          <item>
-          <widget class="KLineEdit" name="leResultFilesFilter">
-           <property name="clickMessage">
+          <widget class="QLineEdit" name="leResultFilesFilter">
+           <property name="placeholderText">
             <string>Filter</string>
            </property>
           </widget>
@@ -193,11 +193,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>

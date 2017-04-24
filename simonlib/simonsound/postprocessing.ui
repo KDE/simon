@@ -22,10 +22,16 @@
     </widget>
    </item>
    <item>
-    <widget class="KEditListBox" name="kcfg_ProcessingFilters">
+    <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string extracomment="Commands applied to samples during post-processing">Post-Processing Commands</string>
      </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="KEditListWidget" name="kcfg_ProcessingFilters">
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -39,9 +45,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KEditListBox</class>
-   <extends>QGroupBox</extends>
-   <header>keditlistbox.h</header>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -27,7 +27,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KLineEdit" name="leProgramName"/>
+      <widget class="QLineEdit" name="leProgramName"/>
      </item>
      <item>
       <widget class="QPushButton" name="pbLocateProgram">
@@ -54,11 +54,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>leProgramName</tabstop>

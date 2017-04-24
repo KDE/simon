@@ -78,7 +78,7 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="KLineEdit" name="leRemoteHost">
+            <widget class="QLineEdit" name="leRemoteHost">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -314,11 +314,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

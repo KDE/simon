@@ -23,7 +23,6 @@
 #include <QWizardPage>
 #include "ui_addwordintropage.h"
 
-class KLineEdit;
 /**
  \class AddWordIntroPage
  \author Peter Grasch

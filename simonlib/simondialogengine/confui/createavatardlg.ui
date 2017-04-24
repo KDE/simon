@@ -22,7 +22,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="KLineEdit" name="leName"/>
+    <widget class="QLineEdit" name="leName"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
@@ -49,11 +49,6 @@
    <class>KImageFilePreview</class>
    <extends>QWidget</extends>
    <header>kimagefilepreview.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

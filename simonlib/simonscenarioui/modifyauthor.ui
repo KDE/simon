@@ -22,7 +22,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="KLineEdit" name="leName">
+    <widget class="QLineEdit" name="leName">
      <property name="toolTip">
       <string>Name of the author. Might be a screen name but usage of the real name is encouraged.</string>
      </property>
@@ -36,7 +36,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="KLineEdit" name="leContact">
+    <widget class="QLineEdit" name="leContact">
      <property name="toolTip">
       <string>e.g. e-Mail Addresses, Instant Messenger contact names / numbers, etc.</string>
      </property>
@@ -45,11 +45,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

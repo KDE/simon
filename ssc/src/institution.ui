@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KLineEdit" name="leInstitutionName"/>
+      <widget class="QLineEdit" name="leInstitutionName"/>
      </item>
      <item>
       <widget class="QPushButton" name="pbFilter">
@@ -91,11 +91,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

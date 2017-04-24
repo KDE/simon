@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KLineEdit" name="leServiceName"/>
+      <widget class="QLineEdit" name="leServiceName"/>
      </item>
     </layout>
    </item>
@@ -48,7 +48,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KLineEdit" name="leNotificationPath"/>
+       <widget class="QLineEdit" name="leNotificationPath"/>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_9">
@@ -61,7 +61,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KLineEdit" name="leNotificationInterface"/>
+       <widget class="QLineEdit" name="leNotificationInterface"/>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_10">
@@ -74,7 +74,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KLineEdit" name="leNotificationSignal"/>
+       <widget class="QLineEdit" name="leNotificationSignal"/>
       </item>
      </layout>
     </widget>
@@ -99,7 +99,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KLineEdit" name="leStatePath"/>
+       <widget class="QLineEdit" name="leStatePath"/>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_5">
@@ -112,7 +112,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KLineEdit" name="leStateInterface"/>
+       <widget class="QLineEdit" name="leStateInterface"/>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_3">
@@ -125,7 +125,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KLineEdit" name="leStateCheckMethod"/>
+       <widget class="QLineEdit" name="leStateCheckMethod"/>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_7">
@@ -148,7 +148,7 @@
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="KLineEdit" name="leValue"/>
+       <widget class="QLineEdit" name="leValue"/>
       </item>
      </layout>
     </widget>
@@ -160,11 +160,6 @@
    <class>KEditListWidget</class>
    <extends>QWidget</extends>
    <header>keditlistwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

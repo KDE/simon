@@ -59,16 +59,11 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="KLineEdit" name="leReferenceId"/>
+    <widget class="QLineEdit" name="leReferenceId"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

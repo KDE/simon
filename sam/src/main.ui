@@ -221,7 +221,7 @@
                     </widget>
                    </item>
                    <item row="4" column="1">
-                    <widget class="KLineEdit" name="leScriptPrefix"/>
+                    <widget class="QLineEdit" name="leScriptPrefix"/>
                    </item>
                   </layout>
                  </widget>
@@ -638,11 +638,6 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
