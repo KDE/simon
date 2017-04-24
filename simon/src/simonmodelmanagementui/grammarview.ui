@@ -59,21 +59,21 @@
      <item>
       <layout class="QHBoxLayout">
        <item>
-        <widget class="KPushButton" name="pbAdd">
+        <widget class="QPushButton" name="pbAdd">
          <property name="text">
           <string>Add sentence</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbDelete">
+        <widget class="QPushButton" name="pbDelete">
          <property name="text">
           <string>Delete sentence</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbImportTexts">
+        <widget class="QPushButton" name="pbImportTexts">
          <property name="text">
           <string>Import</string>
          </property>
@@ -96,7 +96,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="KPushButton" name="pbRename">
+        <widget class="QPushButton" name="pbRename">
          <property name="text">
           <string>Rename Category</string>
          </property>
@@ -106,7 +106,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbMerge">
+        <widget class="QPushButton" name="pbMerge">
          <property name="toolTip">
           <string>Using this procedure you can keep your grammar structures to a minimum and improve the readability of grammar and vocabulary.</string>
          </property>
@@ -125,11 +125,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>SelectionListView</class>
    <extends>QListView</extends>

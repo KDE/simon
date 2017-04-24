@@ -47,21 +47,21 @@
           <widget class="KComboBox" name="cbActiveSet"/>
          </item>
          <item>
-          <widget class="KPushButton" name="pbAddSet">
+          <widget class="QPushButton" name="pbAddSet">
            <property name="text">
             <string>Add </string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbRenameSet">
+          <widget class="QPushButton" name="pbRenameSet">
            <property name="text">
             <string>Rename</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbRemoveSet">
+          <widget class="QPushButton" name="pbRemoveSet">
            <property name="text">
             <string>Remove</string>
            </property>
@@ -85,14 +85,14 @@
           </spacer>
          </item>
          <item>
-          <widget class="KPushButton" name="pbImportSet">
+          <widget class="QPushButton" name="pbImportSet">
            <property name="text">
             <string>Import</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbExportSet">
+          <widget class="QPushButton" name="pbExportSet">
            <property name="text">
             <string>Export</string>
            </property>
@@ -154,7 +154,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="KPushButton" name="pbAddRecording">
+          <widget class="QPushButton" name="pbAddRecording">
            <property name="text">
             <string>Add</string>
            </property>
@@ -174,14 +174,14 @@
           </spacer>
          </item>
          <item>
-          <widget class="KPushButton" name="pbEditRecording">
+          <widget class="QPushButton" name="pbEditRecording">
            <property name="text">
             <string>Edit</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbRemoveRecording">
+          <widget class="QPushButton" name="pbRemoveRecording">
            <property name="text">
             <string>Remove</string>
            </property>
@@ -220,11 +220,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>

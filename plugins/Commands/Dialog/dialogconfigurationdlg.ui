@@ -46,21 +46,21 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="KPushButton" name="pbAddState">
+              <widget class="QPushButton" name="pbAddState">
                <property name="text">
                 <string>Add</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="KPushButton" name="pbRenameState">
+              <widget class="QPushButton" name="pbRenameState">
                <property name="text">
                 <string>Rename</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="KPushButton" name="pbRemoveState">
+              <widget class="QPushButton" name="pbRemoveState">
                <property name="text">
                 <string>Remove</string>
                </property>
@@ -71,14 +71,14 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="KPushButton" name="pbMoveStateUp">
+              <widget class="QPushButton" name="pbMoveStateUp">
                <property name="text">
                 <string>Move up</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="KPushButton" name="pbMoveStateDown">
+              <widget class="QPushButton" name="pbMoveStateDown">
                <property name="text">
                 <string>Move down</string>
                </property>
@@ -120,14 +120,14 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="KPushButton" name="pbAddText">
+                  <widget class="QPushButton" name="pbAddText">
                    <property name="text">
                     <string>Add</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="KPushButton" name="pbRemoveText">
+                  <widget class="QPushButton" name="pbRemoveText">
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
@@ -149,7 +149,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="KPushButton" name="pbEditText">
+                <widget class="QPushButton" name="pbEditText">
                  <property name="text">
                   <string>Edit</string>
                  </property>
@@ -188,21 +188,21 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                  <item>
-                  <widget class="KPushButton" name="pbAddTransition">
+                  <widget class="QPushButton" name="pbAddTransition">
                    <property name="text">
                     <string>Add</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="KPushButton" name="pbEditTransition">
+                  <widget class="QPushButton" name="pbEditTransition">
                    <property name="text">
                     <string>Edit</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="KPushButton" name="pbRemoveTransition">
+                  <widget class="QPushButton" name="pbRemoveTransition">
                    <property name="text">
                     <string>Remove</string>
                    </property>
@@ -213,14 +213,14 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_4">
                  <item>
-                  <widget class="KPushButton" name="pbMoveTransitionUp">
+                  <widget class="QPushButton" name="pbMoveTransitionUp">
                    <property name="text">
                     <string>Move up</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="KPushButton" name="pbMoveTransitionDown">
+                  <widget class="QPushButton" name="pbMoveTransitionDown">
                    <property name="text">
                     <string>Move down</string>
                    </property>
@@ -273,11 +273,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>

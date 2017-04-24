@@ -246,7 +246,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbAddAuthor">
+      <widget class="QPushButton" name="pbAddAuthor">
        <property name="text">
         <string>Add</string>
        </property>
@@ -256,7 +256,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbRemoveAuthor">
+      <widget class="QPushButton" name="pbRemoveAuthor">
        <property name="text">
         <string>Remove</string>
        </property>
@@ -281,11 +281,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KIntSpinBox</class>

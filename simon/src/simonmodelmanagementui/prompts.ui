@@ -40,7 +40,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KPushButton" name="pbImportDir">
+      <widget class="QPushButton" name="pbImportDir">
        <property name="toolTip">
         <string>Import training corpuses from other Simon versions</string>
        </property>
@@ -50,7 +50,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbClear">
+      <widget class="QPushButton" name="pbClear">
        <property name="toolTip">
         <string>Removes all training samples from the corpus</string>
        </property>
@@ -73,7 +73,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbOpen">
+      <widget class="QPushButton" name="pbOpen">
        <property name="text">
         <string>Open Sample</string>
        </property>
@@ -88,11 +88,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

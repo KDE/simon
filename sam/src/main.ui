@@ -75,21 +75,21 @@
               </property>
               <layout class="QFormLayout" name="formLayout_5">
                <item row="0" column="0" colspan="2">
-                <widget class="KPushButton" name="pbSerializeScenarios">
+                <widget class="QPushButton" name="pbSerializeScenarios">
                  <property name="text">
                   <string>Serialize scenarios</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0" colspan="2">
-                <widget class="KPushButton" name="pbImportRecognitionSamples">
+                <widget class="QPushButton" name="pbImportRecognitionSamples">
                  <property name="text">
                   <string>Import recognition samples</string>
                  </property>
                 </widget>
                </item>
                <item row="2" column="0" colspan="2">
-                <widget class="KPushButton" name="pbSerializePrompts">
+                <widget class="QPushButton" name="pbSerializePrompts">
                  <property name="text">
                   <string>Serialize prompts</string>
                  </property>
@@ -278,7 +278,7 @@
                 </widget>
                </item>
                <item row="8" column="1">
-                <widget class="KPushButton" name="pbCreate">
+                <widget class="QPushButton" name="pbCreate">
                  <property name="text">
                   <string>Create base model from model files</string>
                  </property>
@@ -368,7 +368,7 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_8">
               <item>
-               <widget class="KPushButton" name="pbExtractSimonModel">
+               <widget class="QPushButton" name="pbExtractSimonModel">
                 <property name="text">
                  <string>Extract Simon Model</string>
                 </property>
@@ -388,7 +388,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="KPushButton" name="pbAddTestConfiguration">
+               <widget class="QPushButton" name="pbAddTestConfiguration">
                 <property name="text">
                  <string>Add</string>
                 </property>
@@ -449,7 +449,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="KPushButton" name="pbCompileModel">
+           <widget class="QPushButton" name="pbCompileModel">
             <property name="text">
              <string>Build model</string>
             </property>
@@ -466,7 +466,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KPushButton" name="pbCancelBuildModel">
+           <widget class="QPushButton" name="pbCancelBuildModel">
             <property name="text">
              <string>Cancel</string>
             </property>
@@ -491,7 +491,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KPushButton" name="pbSaveCompleteBuildlog">
+           <widget class="QPushButton" name="pbSaveCompleteBuildlog">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -512,7 +512,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="KPushButton" name="pbTestModel">
+           <widget class="QPushButton" name="pbTestModel">
             <property name="text">
              <string>Test model</string>
             </property>
@@ -529,7 +529,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KPushButton" name="pbCancelTestModel">
+           <widget class="QPushButton" name="pbCancelTestModel">
             <property name="text">
              <string>Cancel</string>
             </property>
@@ -642,11 +642,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KTextEdit</class>

@@ -52,35 +52,35 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="KPushButton" name="pbApplyForAll">
+          <widget class="QPushButton" name="pbApplyForAll">
            <property name="text">
             <string>Apply for all plugins</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbAdd">
+          <widget class="QPushButton" name="pbAdd">
            <property name="text">
             <string>Add</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbRemove">
+          <widget class="QPushButton" name="pbRemove">
            <property name="text">
             <string>Remove</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbUp">
+          <widget class="QPushButton" name="pbUp">
            <property name="text">
             <string comment="Direction">Up</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbDown">
+          <widget class="QPushButton" name="pbDown">
            <property name="text">
             <string>Down</string>
            </property>
@@ -108,11 +108,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>

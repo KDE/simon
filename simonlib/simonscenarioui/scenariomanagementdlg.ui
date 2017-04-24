@@ -201,21 +201,21 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KPushButton" name="pbCreateScenario">
+      <widget class="QPushButton" name="pbCreateScenario">
        <property name="text">
         <string comment="Create a new scenario">Create</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbImportScenario">
+      <widget class="QPushButton" name="pbImportScenario">
        <property name="text">
         <string>Open</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbExportScenario">
+      <widget class="QPushButton" name="pbExportScenario">
        <property name="text">
         <string>Export</string>
        </property>
@@ -235,14 +235,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbEditScenario">
+      <widget class="QPushButton" name="pbEditScenario">
        <property name="text">
         <string>Edit</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbDeleteScenario">
+      <widget class="QPushButton" name="pbDeleteScenario">
        <property name="text">
         <string>Delete</string>
        </property>
@@ -253,11 +253,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>twAvailable</tabstop>

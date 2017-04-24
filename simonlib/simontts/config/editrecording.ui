@@ -28,7 +28,7 @@
     <widget class="KTextEdit" name="teText"/>
    </item>
    <item row="1" column="1">
-    <widget class="KPushButton" name="pbLastTextToSpeechRequests">
+    <widget class="QPushButton" name="pbLastTextToSpeechRequests">
      <property name="text">
       <string>Last text-to-speech requests</string>
      </property>
@@ -37,11 +37,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>

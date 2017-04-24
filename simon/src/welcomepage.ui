@@ -43,7 +43,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="KPushButton" name="pbManageSamples">
+         <widget class="QPushButton" name="pbManageSamples">
           <property name="text">
            <string>Manage training data</string>
           </property>
@@ -63,7 +63,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="pbStartTraining">
+         <widget class="QPushButton" name="pbStartTraining">
           <property name="text">
            <string>Start training</string>
           </property>
@@ -137,7 +137,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="pbAudioConfiguration">
+         <widget class="QPushButton" name="pbAudioConfiguration">
           <property name="text">
            <string>Configure audio</string>
           </property>
@@ -196,7 +196,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="pbAcousticConfiguration">
+         <widget class="QPushButton" name="pbAcousticConfiguration">
           <property name="text">
            <string>Configure acoustic model</string>
           </property>
@@ -238,7 +238,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="KPushButton" name="pbScenarioConfiguration">
+         <widget class="QPushButton" name="pbScenarioConfiguration">
           <property name="text">
            <string>Manage scenarios</string>
           </property>
@@ -258,7 +258,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="pbEditScenario"/>
+         <widget class="QPushButton" name="pbEditScenario"/>
         </item>
        </layout>
       </item>
@@ -268,11 +268,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>ActionButton</class>
    <extends>QPushButton</extends>

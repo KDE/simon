@@ -85,7 +85,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="KPushButton" name="pbPrev">
+        <widget class="QPushButton" name="pbPrev">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -108,7 +108,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="KPushButton" name="pbNext">
+        <widget class="QPushButton" name="pbNext">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -137,7 +137,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbQuit">
+      <widget class="QPushButton" name="pbQuit">
        <property name="text">
         <string comment="Quit the pronunciation training">Quit</string>
        </property>
@@ -148,11 +148,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>

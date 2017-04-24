@@ -147,7 +147,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbRequest">
+          <widget class="QPushButton" name="pbRequest">
            <property name="text">
             <string>Request</string>
            </property>
@@ -199,7 +199,7 @@
     </widget>
    </item>
    <item>
-    <widget class="KPushButton" name="pbTest">
+    <widget class="QPushButton" name="pbTest">
      <property name="text">
       <string>Test</string>
      </property>
@@ -208,11 +208,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>

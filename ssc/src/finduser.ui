@@ -52,7 +52,7 @@
             </widget>
            </item>
            <item>
-            <widget class="KPushButton" name="pbSearchInstitution">
+            <widget class="QPushButton" name="pbSearchInstitution">
              <property name="text">
               <string comment="Pick institution from a list">Search</string>
              </property>
@@ -509,7 +509,7 @@
     </widget>
    </item>
    <item>
-    <widget class="KPushButton" name="pbFilter">
+    <widget class="QPushButton" name="pbFilter">
      <property name="text">
       <string>Apply Filters</string>
      </property>
@@ -532,7 +532,7 @@
     <widget class="QWidget" name="wgModify" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
-       <widget class="KPushButton" name="pbAdd">
+       <widget class="QPushButton" name="pbAdd">
         <property name="text">
          <string comment="Add user">Add</string>
         </property>
@@ -552,14 +552,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="KPushButton" name="pbEdit">
+       <widget class="QPushButton" name="pbEdit">
         <property name="text">
          <string>Edit</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="KPushButton" name="pbRemove">
+       <widget class="QPushButton" name="pbRemove">
         <property name="text">
          <string>Remove</string>
         </property>
@@ -571,11 +571,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>

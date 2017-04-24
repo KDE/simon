@@ -43,7 +43,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="KPushButton" name="pbStartCalibration">
+       <widget class="QPushButton" name="pbStartCalibration">
         <property name="text">
          <string>Analyze volume</string>
         </property>
@@ -55,11 +55,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>

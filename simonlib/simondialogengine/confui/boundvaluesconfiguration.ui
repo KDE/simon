@@ -40,21 +40,21 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbAddBoundValue">
+      <widget class="QPushButton" name="pbAddBoundValue">
        <property name="text">
         <string>Add</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbEditBoundValue">
+      <widget class="QPushButton" name="pbEditBoundValue">
        <property name="text">
         <string>Edit</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbRemoveBoundValue">
+      <widget class="QPushButton" name="pbRemoveBoundValue">
        <property name="text">
         <string>Remove</string>
        </property>
@@ -65,11 +65,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

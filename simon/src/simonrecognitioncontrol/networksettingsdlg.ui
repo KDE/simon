@@ -93,7 +93,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="KPushButton" name="pbConfigureSimond">
+          <widget class="QPushButton" name="pbConfigureSimond">
            <property name="text">
             <string>&amp;Configure server</string>
            </property>
@@ -191,11 +191,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>

@@ -330,7 +330,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="KPushButton" name="pbTrigger">
+               <widget class="QPushButton" name="pbTrigger">
                 <property name="text">
                  <string>Trigger</string>
                 </property>
@@ -379,7 +379,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <widget class="KPushButton" name="pbManagePlugins">
+      <widget class="QPushButton" name="pbManagePlugins">
        <property name="text">
         <string>Manage plugins</string>
        </property>
@@ -399,14 +399,14 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbNewCommand">
+      <widget class="QPushButton" name="pbNewCommand">
        <property name="text">
         <string>New Command</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbEditCommand">
+      <widget class="QPushButton" name="pbEditCommand">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -416,7 +416,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbDeleteCommand">
+      <widget class="QPushButton" name="pbDeleteCommand">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -434,11 +434,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

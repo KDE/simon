@@ -90,7 +90,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="KPushButton" name="pbStartReview">
+           <widget class="QPushButton" name="pbStartReview">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -128,7 +128,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="KPushButton" name="pbBack">
+           <widget class="QPushButton" name="pbBack">
             <property name="text">
              <string>Back</string>
             </property>
@@ -142,7 +142,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="KPushButton" name="pbPreviousSample">
+           <widget class="QPushButton" name="pbPreviousSample">
             <property name="text">
              <string>Previous sample</string>
             </property>
@@ -162,7 +162,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="KPushButton" name="pbBlacklistSample">
+           <widget class="QPushButton" name="pbBlacklistSample">
             <property name="text">
              <string>Blacklist sample</string>
             </property>
@@ -185,7 +185,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="KPushButton" name="pbNextSample">
+           <widget class="QPushButton" name="pbNextSample">
             <property name="text">
              <string>Next sample</string>
             </property>
@@ -216,11 +216,6 @@
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

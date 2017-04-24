@@ -33,7 +33,7 @@
       <item>
        <layout class="QHBoxLayout">
         <item>
-         <widget class="KPushButton" name="pbRecord">
+         <widget class="QPushButton" name="pbRecord">
           <property name="text">
            <string>Record</string>
           </property>
@@ -43,7 +43,7 @@
          </widget>
         </item>
         <item>
-         <widget class="KPushButton" name="pbDeleteAll">
+         <widget class="QPushButton" name="pbDeleteAll">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -209,11 +209,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>

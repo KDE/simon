@@ -188,7 +188,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbRetrieveSystemInformation">
+          <widget class="QPushButton" name="pbRetrieveSystemInformation">
            <property name="text">
             <string>Retrieve system information</string>
            </property>
@@ -335,11 +335,6 @@
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>
    <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>

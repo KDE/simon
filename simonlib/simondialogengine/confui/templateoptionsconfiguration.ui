@@ -40,21 +40,21 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbAddTemplateOption">
+      <widget class="QPushButton" name="pbAddTemplateOption">
        <property name="text">
         <string>Add</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbEditTemplateOption">
+      <widget class="QPushButton" name="pbEditTemplateOption">
        <property name="text">
         <string>Edit</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbRemoveTemplateOption">
+      <widget class="QPushButton" name="pbRemoveTemplateOption">
        <property name="text">
         <string>Remove</string>
        </property>
@@ -65,11 +65,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

@@ -33,21 +33,21 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbAddAvatar">
+      <widget class="QPushButton" name="pbAddAvatar">
        <property name="text">
         <string>Add</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbEditAvatar">
+      <widget class="QPushButton" name="pbEditAvatar">
        <property name="text">
         <string>Edit</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbRemoveAvatar">
+      <widget class="QPushButton" name="pbRemoveAvatar">
        <property name="text">
         <string>Remove</string>
        </property>
@@ -58,11 +58,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

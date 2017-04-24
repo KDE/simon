@@ -31,7 +31,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbLoadLanguageProfile">
+      <widget class="QPushButton" name="pbLoadLanguageProfile">
        <property name="text">
         <string comment="Load from file">Load</string>
        </property>
@@ -55,11 +55,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

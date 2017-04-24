@@ -222,7 +222,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbApplySpecialShortcut">
+      <widget class="QPushButton" name="pbApplySpecialShortcut">
        <property name="text">
         <string>Apply</string>
        </property>
@@ -263,11 +263,6 @@
    <class>KKeySequenceWidget</class>
    <extends>QWidget</extends>
    <header>kkeysequencewidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>

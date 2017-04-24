@@ -140,7 +140,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbTrigger" >
+      <widget class="QPushButton" name="pbTrigger" >
        <property name="text" >
         <string>Trigger</string>
        </property>
@@ -177,11 +177,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

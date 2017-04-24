@@ -26,7 +26,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KPushButton" name="pbImport">
+      <widget class="QPushButton" name="pbImport">
        <property name="text">
         <string>Open model</string>
        </property>
@@ -46,7 +46,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbRemove">
+      <widget class="QPushButton" name="pbRemove">
        <property name="text">
         <string>Remove model</string>
        </property>
@@ -113,7 +113,7 @@ p, li { white-space: pre-wrap; }
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbExport">
+      <widget class="QPushButton" name="pbExport">
        <property name="text">
         <string>Export active model</string>
        </property>
@@ -137,11 +137,6 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

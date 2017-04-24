@@ -98,21 +98,21 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="KPushButton" name="pbAddWord">
+        <widget class="QPushButton" name="pbAddWord">
          <property name="text">
           <string>Add Word</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbEditWord">
+        <widget class="QPushButton" name="pbEditWord">
          <property name="text">
           <string>Edit</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbRemoveWord">
+        <widget class="QPushButton" name="pbRemoveWord">
          <property name="text">
           <string>Remove</string>
          </property>
@@ -132,7 +132,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="KPushButton" name="pbTrainWords">
+        <widget class="QPushButton" name="pbTrainWords">
          <property name="text">
           <string>Train Individual Words</string>
          </property>
@@ -166,14 +166,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="KPushButton" name="pbClear">
+        <widget class="QPushButton" name="pbClear">
          <property name="text">
           <string comment="Remove every entry">Clear Vocabulary</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbImport">
+        <widget class="QPushButton" name="pbImport">
          <property name="text">
           <string>Import Dictionary</string>
          </property>
@@ -219,21 +219,21 @@
        </widget>
       </item>
       <item>
-       <widget class="KPushButton" name="pbAddToTraining">
+       <widget class="QPushButton" name="pbAddToTraining">
         <property name="text">
          <string>Add to Training</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="KPushButton" name="pbDeleteTrainingWord">
+       <widget class="QPushButton" name="pbDeleteTrainingWord">
         <property name="text">
          <string>Remove Word from Training</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="KPushButton" name="pbTrainList">
+       <widget class="QPushButton" name="pbTrainList">
         <property name="toolTip">
          <string>Starts the Training of the selected Words</string>
         </property>
@@ -252,11 +252,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KListWidget</class>

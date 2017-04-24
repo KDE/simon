@@ -82,56 +82,56 @@
       <widget class="KComboBox" name="cbTabs"/>
      </item>
      <item row="0" column="2">
-      <widget class="KPushButton" name="pbAddSet">
+      <widget class="QPushButton" name="pbAddSet">
        <property name="text">
         <string>Add</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="KPushButton" name="pbAddTab">
+      <widget class="QPushButton" name="pbAddTab">
        <property name="text">
         <string>Add</string>
        </property>
       </widget>
      </item>
      <item row="0" column="4">
-      <widget class="KPushButton" name="pbDeleteSet">
+      <widget class="QPushButton" name="pbDeleteSet">
        <property name="text">
         <string>Delete</string>
        </property>
       </widget>
      </item>
      <item row="1" column="4">
-      <widget class="KPushButton" name="pbDeleteTab">
+      <widget class="QPushButton" name="pbDeleteTab">
        <property name="text">
         <string>Delete</string>
        </property>
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="KPushButton" name="pbTabUp">
+      <widget class="QPushButton" name="pbTabUp">
        <property name="text">
         <string comment="Direction">Up</string>
        </property>
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="KPushButton" name="pbEditSet">
+      <widget class="QPushButton" name="pbEditSet">
        <property name="text">
         <string>Edit</string>
        </property>
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="KPushButton" name="pbEditTab">
+      <widget class="QPushButton" name="pbEditTab">
        <property name="text">
         <string>Edit</string>
        </property>
       </widget>
      </item>
      <item row="2" column="4">
-      <widget class="KPushButton" name="pbTabDown">
+      <widget class="QPushButton" name="pbTabDown">
        <property name="text">
         <string>Down</string>
        </property>
@@ -160,35 +160,35 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="KPushButton" name="pbAddButton">
+        <widget class="QPushButton" name="pbAddButton">
          <property name="text">
           <string>Add</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbEditButton">
+        <widget class="QPushButton" name="pbEditButton">
          <property name="text">
           <string>Edit</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbDeleteButton">
+        <widget class="QPushButton" name="pbDeleteButton">
          <property name="text">
           <string>Delete</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbUpButton">
+        <widget class="QPushButton" name="pbUpButton">
          <property name="text">
           <string comment="Direction">Up</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="KPushButton" name="pbDownButton">
+        <widget class="QPushButton" name="pbDownButton">
          <property name="text">
           <string>Down</string>
          </property>
@@ -214,11 +214,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

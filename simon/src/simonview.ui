@@ -68,7 +68,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="KPushButton" name="pbBackToOverview">
+        <widget class="QPushButton" name="pbBackToOverview">
          <property name="text">
           <string>Back to overview</string>
          </property>
@@ -98,11 +98,6 @@
   </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>InlineWidgetView</class>
    <extends>QWidget</extends>

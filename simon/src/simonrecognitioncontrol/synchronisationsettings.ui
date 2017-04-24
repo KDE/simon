@@ -78,7 +78,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout" >
         <item>
-         <widget class="KPushButton" name="pbLoadList" >
+         <widget class="QPushButton" name="pbLoadList" >
           <property name="text" >
            <string>List available Models</string>
           </property>
@@ -98,7 +98,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="pbSelectModel" >
+         <widget class="QPushButton" name="pbSelectModel" >
           <property name="enabled" >
            <bool>false</bool>
           </property>
@@ -121,11 +121,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -92,14 +92,14 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="pbAddInput">
+         <widget class="QPushButton" name="pbAddInput">
           <property name="text">
            <string>Add device</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KPushButton" name="pbReload1">
+         <widget class="QPushButton" name="pbReload1">
           <property name="text">
            <string>Refresh devices</string>
           </property>
@@ -188,14 +188,14 @@
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="pbAddOutput">
+         <widget class="QPushButton" name="pbAddOutput">
           <property name="text">
            <string>Add device</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KPushButton" name="pbReload2">
+         <widget class="QPushButton" name="pbReload2">
           <property name="text">
            <string>Refresh devices</string>
           </property>
@@ -209,11 +209,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>VerticalScrollArea</class>
    <extends>QScrollArea</extends>
