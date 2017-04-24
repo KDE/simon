@@ -21,7 +21,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="KTabWidget" name="twMain">
+    <widget class="QTabWidget" name="twMain">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -88,7 +88,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="KTabWidget" name="twStateOptions">
+         <widget class="QTabWidget" name="twStateOptions">
           <property name="currentIndex">
            <number>0</number>
           </property>
@@ -277,12 +277,6 @@
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

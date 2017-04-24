@@ -36,12 +36,9 @@
     </layout>
    </item>
    <item>
-    <widget class="KTabWidget" name="twDetailedResults">
+    <widget class="QTabWidget" name="twDetailedResults">
      <property name="currentIndex">
       <number>0</number>
-     </property>
-     <property name="automaticResizeTabs">
-      <bool>false</bool>
      </property>
      <widget class="QWidget" name="pgSentenceResults">
       <attribute name="title">
@@ -205,12 +202,6 @@
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

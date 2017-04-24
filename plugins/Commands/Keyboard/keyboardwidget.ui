@@ -19,7 +19,7 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="KTabWidget" name="twTabs"/>
+     <widget class="QTabWidget" name="twTabs"/>
      <widget class="QGroupBox" name="gbNumPad">
       <property name="maximumSize">
        <size>
@@ -273,12 +273,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

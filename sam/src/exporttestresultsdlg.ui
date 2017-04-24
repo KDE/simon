@@ -12,7 +12,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="KTabWidget" name="ktabwidget">
+    <widget class="QTabWidget" name="tabwidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -304,7 +304,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="KTabWidget" name="twTrainingCorpora">
+        <widget class="QTabWidget" name="twTrainingCorpora">
          <property name="currentIndex">
           <number>-1</number>
          </property>
@@ -318,7 +318,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="KTabWidget" name="twTestCorpora">
+        <widget class="QTabWidget" name="twTestCorpora">
          <property name="currentIndex">
           <number>-1</number>
          </property>
@@ -345,12 +345,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>KDatePicker</class>
@@ -383,7 +377,7 @@
   <tabstop>sbPronunciationCount</tabstop>
   <tabstop>leGrammarTag</tabstop>
   <tabstop>teGrammarNotes</tabstop>
-  <tabstop>ktabwidget</tabstop>
+  <tabstop>tabwidget</tabstop>
   <tabstop>twTrainingCorpora</tabstop>
   <tabstop>twTestCorpora</tabstop>
  </tabstops>

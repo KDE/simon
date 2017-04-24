@@ -29,7 +29,6 @@
 class ReportParameters;
 class TestResultWidget;
 class CorpusInformationWidget;
-class KTabWidget;
 class TemplateValueList;
 class ModelCompiler;
 

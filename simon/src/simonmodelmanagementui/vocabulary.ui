@@ -17,7 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="KTabWidget" name="twVocabularies">
+      <widget class="QTabWidget" name="twVocabularies">
        <property name="currentIndex">
         <number>0</number>
        </property>
@@ -257,12 +257,6 @@
    <class>KListWidget</class>
    <extends>QListWidget</extends>
    <header>klistwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>DropListWidget</class>

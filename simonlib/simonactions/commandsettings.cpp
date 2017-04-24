@@ -123,7 +123,7 @@ void CommandSettings::slotChanged()
 
 CommandSettings::~CommandSettings()
 {
-  ui->twActionConfig->removePage(CommandSettingsInternal::getInstance()->getListConfiguration());
+  ui->twActionConfig->removeTab(ui->twActionConfig->indexOf(CommandSettingsInternal::getInstance()->getListConfiguration()));
   CommandSettingsInternal::getInstance()->getListConfiguration()->setParent(0);
   delete ui;
 }

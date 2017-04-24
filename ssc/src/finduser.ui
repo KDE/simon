@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="KTabWidget" name="twFilters">
+    <widget class="QTabWidget" name="twFilters">
      <property name="maximumSize">
       <size>
        <width>16777215</width>
@@ -580,12 +580,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>KHistoryComboBox</class>

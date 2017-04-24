@@ -100,7 +100,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KTabWidget" name="twDialog">
+      <widget class="QTabWidget" name="twDialog">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -246,12 +246,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>TimeSelector</class>

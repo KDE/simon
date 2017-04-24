@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <widget class="KTabWidget" name="twActionConfig">
+    <widget class="QTabWidget" name="twActionConfig">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -92,12 +92,6 @@
    <class>KFontChooser</class>
    <extends>QWidget</extends>
    <header>kfontdialog.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

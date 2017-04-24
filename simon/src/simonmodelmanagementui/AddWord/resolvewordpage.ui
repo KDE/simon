@@ -67,7 +67,7 @@
     </layout>
    </item>
    <item>
-    <widget class="KTabWidget" name="twModules">
+    <widget class="QTabWidget" name="twModules">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -220,12 +220,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

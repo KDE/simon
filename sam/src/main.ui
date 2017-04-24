@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="KTabWidget" name="twMain">
+     <widget class="QTabWidget" name="twMain">
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -56,7 +56,7 @@
          </widget>
         </item>
         <item row="1" column="0" colspan="2">
-         <widget class="KTabWidget" name="ktabwidget">
+         <widget class="QTabWidget" name="tabwidget">
           <property name="currentIndex">
            <number>0</number>
           </property>
@@ -563,7 +563,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_12">
         <item>
-         <widget class="KTabWidget" name="twTestResults">
+         <widget class="QTabWidget" name="twTestResults">
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
             <string>General</string>
@@ -652,12 +652,6 @@
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
