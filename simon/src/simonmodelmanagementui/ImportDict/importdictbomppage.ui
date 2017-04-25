@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>ImportBOMPDlg</class>
- <widget class="QWidget" name="ImportBOMPDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ImportBOMPDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,66 +9,66 @@
     <height>345</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QRadioButton" name="rbManual" >
-     <property name="text" >
+    <widget class="QRadioButton" name="rbManual">
+     <property name="text">
       <string>Select file manually</string>
      </property>
-     <property name="checked" >
+     <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QWidget" native="1" name="wgManual" >
-     <layout class="QFormLayout" name="formLayout" >
-      <property name="fieldGrowthPolicy" >
+    <widget class="QWidget" native="1" name="wgManual">
+     <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
       </property>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label" >
-        <property name="text" >
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
          <string>File:</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="KUrlRequester" name="urFile" >
-        <property name="filter" stdset="0" >
+      <item row="0" column="1">
+       <widget class="KUrlRequester" name="urFile">
+        <property name="filter" stdset="0">
          <string>*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label_2" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
          <string>Encoding:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QComboBox" name="cbEncoding" />
+      <item row="1" column="1">
+       <widget class="QComboBox" name="cbEncoding"/>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbAutomatic" >
-     <property name="text" >
+    <widget class="QRadioButton" name="rbAutomatic">
+     <property name="text">
       <string>Automatically download and install the HADIFIX BOMP</string>
      </property>
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>

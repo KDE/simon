@@ -44,8 +44,7 @@ You can easily add multiple words by separating them with spaces and/or commas.<
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <resources/>
  <connections/>
 </ui>

@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>SynchronisationSettingsDlg</class>
- <widget class="QWidget" name="SynchronisationSettingsDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="SynchronisationSettingsDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,39 +9,39 @@
     <height>336</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QFormLayout" name="formLayout" >
-     <item row="0" column="0" >
-      <widget class="QLabel" name="label_2" >
-       <property name="text" >
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
         <string>Synchronization mode:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="QComboBox" name="kcfg_SynchronizationMode" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+     <item row="0" column="1">
+      <widget class="QComboBox" name="kcfg_SynchronizationMode">
+       <property name="sizePolicy">
+        <sizepolicy vsizetype="Fixed" hsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Automatic Synchronization</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Ask for Synchronization</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Manual Synchronization only</string>
         </property>
        </item>
@@ -50,46 +50,46 @@
     </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="enabled" >
+    <widget class="QGroupBox" name="groupBox">
+     <property name="enabled">
       <bool>true</bool>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Available Speech Models</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" >
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="label" >
-        <property name="text" >
+       <widget class="QLabel" name="label">
+        <property name="text">
          <string>Here you can revert back to old model versions.</string>
         </property>
-        <property name="wordWrap" >
+        <property name="wordWrap">
          <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="lwModels" >
-        <property name="enabled" >
+       <widget class="QListWidget" name="lwModels">
+        <property name="enabled">
          <bool>false</bool>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout" >
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="pbLoadList" >
-          <property name="text" >
+         <widget class="QPushButton" name="pbLoadList">
+          <property name="text">
            <string>List available Models</string>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer" >
-          <property name="orientation" >
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>40</width>
             <height>20</height>
@@ -98,11 +98,11 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pbSelectModel" >
-          <property name="enabled" >
+         <widget class="QPushButton" name="pbSelectModel">
+          <property name="enabled">
            <bool>false</bool>
           </property>
-          <property name="text" >
+          <property name="text">
            <string>Choose Model</string>
           </property>
          </widget>
@@ -116,8 +116,7 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <resources/>
  <connections/>
 </ui>

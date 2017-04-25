@@ -429,8 +429,7 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <resources/>
  <connections/>
 </ui>

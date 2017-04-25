@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>Prompt</class>
- <widget class="QWidget" name="Prompt" >
-  <property name="geometry" >
+ <widget class="QWidget" name="Prompt">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,12 +9,12 @@
     <height>309</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="KFontChooser" name="kcfg_PromptFont" />
+    <widget class="KFontChooser" name="kcfg_PromptFont"/>
    </item>
   </layout>
  </widget>

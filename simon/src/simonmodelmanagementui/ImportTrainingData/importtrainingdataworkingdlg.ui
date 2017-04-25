@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>ImportTrainingDataWorkingDlg</class>
- <widget class="QWidget" name="ImportTrainingDataWorkingDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ImportTrainingDataWorkingDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,28 +9,28 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="lbMain" >
-     <property name="text" >
+    <widget class="QLabel" name="lbMain">
+     <property name="text">
       <string>The selected folder is being processed.
 
 Please wait a moment...</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>68</height>
@@ -39,28 +39,28 @@ Please wait a moment...</string>
     </spacer>
    </item>
    <item>
-    <widget class="QProgressBar" name="pbMain" >
-     <property name="maximum" >
+    <widget class="QProgressBar" name="pbMain">
+     <property name="maximum">
       <number>0</number>
      </property>
-     <property name="value" >
+     <property name="value">
       <number>44870</number>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="lbStatus" >
-     <property name="text" >
+    <widget class="QLabel" name="lbStatus">
+     <property name="text">
       <string/>
      </property>
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_2" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>68</height>

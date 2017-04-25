@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>ImportGrammarWorkingPage</class>
- <widget class="QWidget" name="ImportGrammarWorkingPage" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ImportGrammarWorkingPage">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,28 +9,28 @@
     <height>335</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
    <item>
-    <widget class="QLabel" name="lbDescription" >
-     <property name="text" >
+    <widget class="QLabel" name="lbDescription">
+     <property name="text">
       <string>Analyzing texts...
 
 This can take a few minutes...</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -39,54 +39,54 @@ This can take a few minutes...</string>
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="label_2" >
-     <property name="text" >
+    <widget class="QLabel" name="label_2">
+     <property name="text">
       <string comment="Label for the overall progress">Overall:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QProgressBar" name="pbTotal" >
-     <property name="value" >
+    <widget class="QProgressBar" name="pbTotal">
+     <property name="value">
       <number>24</number>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label" >
-     <property name="text" >
+    <widget class="QLabel" name="label">
+     <property name="text">
       <string>File:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QProgressBar" name="pbProgress" >
-     <property name="value" >
+    <widget class="QProgressBar" name="pbProgress">
+     <property name="value">
       <number>0</number>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="lbCurrentAction" >
-     <property name="font" >
+    <widget class="QLabel" name="lbCurrentAction">
+     <property name="font">
       <font>
        <italic>true</italic>
       </font>
      </property>
-     <property name="text" >
+     <property name="text">
       <string comment="Waiting for the operation to be started">Waiting...</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>

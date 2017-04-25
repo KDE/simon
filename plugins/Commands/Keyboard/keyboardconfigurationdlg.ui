@@ -213,8 +213,7 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <tabstops>
   <tabstop>cbSets</tabstop>
   <tabstop>cbTabs</tabstop>

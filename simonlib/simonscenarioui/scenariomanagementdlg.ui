@@ -252,8 +252,7 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <tabstops>
   <tabstop>twAvailable</tabstop>
   <tabstop>twSelected</tabstop>

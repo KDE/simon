@@ -100,8 +100,7 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <resources/>
  <connections/>
 </ui>

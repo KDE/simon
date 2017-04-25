@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-    <string />
+    <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -67,8 +67,7 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <resources/>
  <connections/>
 </ui>

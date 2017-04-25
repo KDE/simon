@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>SelectProgramDlg</class>
- <widget class="QWidget" name="SelectProgramDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="SelectProgramDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,24 +9,24 @@
     <height>395</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QSplitter" name="splitter" >
-     <property name="orientation" >
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="KListWidget" name="lwCategories" >
-      <property name="minimumSize" >
+     <widget class="KListWidget" name="lwCategories">
+      <property name="minimumSize">
        <size>
         <width>0</width>
         <height>350</height>
        </size>
       </property>
      </widget>
-     <widget class="KListWidget" name="lwPrograms" />
+     <widget class="KListWidget" name="lwPrograms"/>
     </widget>
    </item>
   </layout>

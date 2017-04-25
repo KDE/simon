@@ -159,8 +159,7 @@ Most users will leave this page to the default values. You can find more informa
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <resources/>
  <connections>
   <connection>

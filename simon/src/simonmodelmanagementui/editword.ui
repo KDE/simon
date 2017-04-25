@@ -76,8 +76,7 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <tabstops>
   <tabstop>leWord</tabstop>
   <tabstop>leSampa</tabstop>

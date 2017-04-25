@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>ImportTrainingDataIntroDlg</class>
- <widget class="QWidget" name="ImportTrainingDataIntroDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ImportTrainingDataIntroDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,28 +9,28 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label" >
-     <property name="text" >
+    <widget class="QLabel" name="label">
+     <property name="text">
       <string>Welcome to the import of existing training data.
 
 Using this wizard you can import training data collected e.g. by previous Simon installations.</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
  <item>
-    <spacer name="verticalSpacer" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>20</height>
@@ -39,11 +39,11 @@ Using this wizard you can import training data collected e.g. by previous Simon 
     </spacer>
    </item>
   <item>
-    <widget class="QRadioButton" name="rbPrompts" >
+    <widget class="QRadioButton" name="rbPrompts">
 	    <property name="text">
 		    <string>Import Prompts</string>
 	    </property>
-	     <property name="checked" >
+	     <property name="checked">
 		     <bool>true</bool>
 	     </property>
     </widget>
@@ -51,38 +51,38 @@ Using this wizard you can import training data collected e.g. by previous Simon 
    <item>
 	   <layout class="QHBoxLayout" name="horizontalLayout_1">
 		   <item>
-		    <widget class="QLabel" name="lbPrompts" >
-		     <property name="text" >
+		    <widget class="QLabel" name="lbPrompts">
+		     <property name="text">
 			     <string>Prompts:</string>
 		     </property>
 		    </widget>
 	           </item>
 		   <item>
-		    <widget class="KUrlRequester" name="urPrompts" />
+		    <widget class="KUrlRequester" name="urPrompts"/>
 		   </item>
 	</layout>
 </item> 
    <item>
 	   <layout class="QHBoxLayout" name="horizontalLayout_3">
 		   <item>
-		    <widget class="QLabel" name="lbBaseDirectory" >
-		     <property name="text" >
+		    <widget class="QLabel" name="lbBaseDirectory">
+		     <property name="text">
 			     <string>Base folder:</string>
 		     </property>
 		    </widget>
 	           </item>
 		   <item>
-		    <widget class="KUrlRequester" name="urBaseDirectory" />
+		    <widget class="KUrlRequester" name="urBaseDirectory"/>
 		   </item>
 	</layout>
 </item>
 
 <item>
-    <spacer name="verticalSpacer2" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer2">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>20</height>
@@ -92,11 +92,11 @@ Using this wizard you can import training data collected e.g. by previous Simon 
    </item>
 
    <item>
-    <widget class="QRadioButton" name="rbFolder" >
+    <widget class="QRadioButton" name="rbFolder">
 	    <property name="text">
 		    <string>Import Folder</string>
 	    </property>
-	     <property name="checked" >
+	     <property name="checked">
 		     <bool>false</bool>
 	     </property>
     </widget>
@@ -104,23 +104,23 @@ Using this wizard you can import training data collected e.g. by previous Simon 
    <item>
 	   <layout class="QHBoxLayout" name="horizontalLayout_2">
 		   <item>
-		    <widget class="QLabel" name="lbFolder" >
-		     <property name="text" >
+		    <widget class="QLabel" name="lbFolder">
+		     <property name="text">
 			     <string>Folder:</string>
 		     </property>
 		    </widget>
 	           </item>
 		   <item>
-		    <widget class="KUrlRequester" name="urTrainingDataDirectory" />
+		    <widget class="KUrlRequester" name="urTrainingDataDirectory"/>
 		   </item>
 	</layout>
 </item>
 <item>
-    <spacer name="verticalSpacer3" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer3">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>20</height>

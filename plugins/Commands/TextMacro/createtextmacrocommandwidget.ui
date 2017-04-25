@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>CreateTextMacroCommandWidget</class>
- <widget class="QWidget" name="CreateTextMacroCommandWidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="CreateTextMacroCommandWidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,19 +9,19 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label_3" >
-     <property name="text" >
+    <widget class="QLabel" name="label_3">
+     <property name="text">
       <string>Associated text:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPlainTextEdit" name="teMacroText" />
+    <widget class="QPlainTextEdit" name="teMacroText"/>
    </item>
   </layout>
  </widget>

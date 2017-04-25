@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>SelectPlaceDlg</class>
- <widget class="QWidget" name="SelectPlaceDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="SelectPlaceDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,28 +9,28 @@
     <height>405</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QRadioButton" name="rbLocalPlace" >
-     <property name="text" >
+    <widget class="QRadioButton" name="rbLocalPlace">
+     <property name="text">
       <string>Local Place</string>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" >
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <spacer name="horizontalSpacer" >
-       <property name="orientation" >
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Fixed</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>19</width>
          <height>20</height>
@@ -39,29 +39,29 @@
       </spacer>
      </item>
      <item>
-      <widget class="KUrlRequester" name="urLocalPlaceUrl" />
+      <widget class="KUrlRequester" name="urLocalPlaceUrl"/>
      </item>
     </layout>
    </item>
    
    <item>
-    <widget class="QRadioButton" name="rbLocalFile" >
-     <property name="text" >
+    <widget class="QRadioButton" name="rbLocalFile">
+     <property name="text">
       <string>Local File</string>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" >
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <spacer name="horizontalSpacer" >
-       <property name="orientation" >
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Fixed</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>19</width>
          <height>20</height>
@@ -70,29 +70,29 @@
       </spacer>
      </item>
      <item>
-      <widget class="KUrlRequester" name="urLocalFileUrl" />
+      <widget class="KUrlRequester" name="urLocalFileUrl"/>
      </item>
     </layout>
    </item>
    
    <item>
-    <widget class="QRadioButton" name="rbRemotePlace" >
-     <property name="text" >
+    <widget class="QRadioButton" name="rbRemotePlace">
+     <property name="text">
       <string>Remote URL</string>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3" >
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <spacer name="horizontalSpacer_2" >
-       <property name="orientation" >
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Fixed</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>16</width>
          <height>17</height>
@@ -101,19 +101,19 @@
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2" >
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLabel" name="lbRemoteUrl" >
-           <property name="text" >
+          <widget class="QLabel" name="lbRemoteUrl">
+           <property name="text">
             <string>URL:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="leRemoteUrl" >
-           <property name="text" >
+          <widget class="QLineEdit" name="leRemoteUrl">
+           <property name="text">
             <string/>
            </property>
           </widget>
@@ -121,122 +121,122 @@
         </layout>
        </item>
        <item>
-        <widget class="QGroupBox" name="gbRemoteHelp" >
-         <property name="title" >
+        <widget class="QGroupBox" name="gbRemoteHelp">
+         <property name="title">
           <string>Help</string>
          </property>
-         <property name="flat" >
+         <property name="flat">
           <bool>true</bool>
          </property>
-         <property name="checkable" >
+         <property name="checkable">
           <bool>true</bool>
          </property>
-         <property name="checked" >
+         <property name="checked">
           <bool>true</bool>
          </property>
-         <layout class="QGridLayout" name="gridLayout" >
-          <item row="0" column="0" >
-           <widget class="QLabel" name="lbProtocol" >
-            <property name="text" >
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="lbProtocol">
+            <property name="text">
              <string>Protocol:</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1" >
-           <widget class="QComboBox" name="cbProtocol" >
-            <property name="editable" >
+          <item row="0" column="1">
+           <widget class="QComboBox" name="cbProtocol">
+            <property name="editable">
              <bool>true</bool>
             </property>
             <item>
-             <property name="text" >
+             <property name="text">
               <string>http</string>
              </property>
             </item>
             <item>
-             <property name="text" >
+             <property name="text">
               <string>https</string>
              </property>
             </item>
             <item>
-             <property name="text" >
+             <property name="text">
               <string>ftp</string>
              </property>
             </item>
             <item>
-             <property name="text" >
+             <property name="text">
               <string>sftp</string>
              </property>
             </item>
             <item>
-             <property name="text" >
+             <property name="text">
               <string>smb</string>
              </property>
             </item>
            </widget>
           </item>
-          <item row="3" column="0" colspan="2" >
-           <widget class="QCheckBox" name="cbAuthentification" >
-            <property name="text" >
+          <item row="3" column="0" colspan="2">
+           <widget class="QCheckBox" name="cbAuthentification">
+            <property name="text">
              <string>Use Authentication</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="0" >
-           <widget class="QLabel" name="lbUser" >
-            <property name="enabled" >
+          <item row="4" column="0">
+           <widget class="QLabel" name="lbUser">
+            <property name="enabled">
              <bool>false</bool>
             </property>
-            <property name="text" >
+            <property name="text">
              <string>User:</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="1" >
-           <widget class="QLineEdit" name="leUser" >
-            <property name="enabled" >
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="leUser">
+            <property name="enabled">
              <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="5" column="0" >
-           <widget class="QLabel" name="lbPassword" >
-            <property name="enabled" >
+          <item row="5" column="0">
+           <widget class="QLabel" name="lbPassword">
+            <property name="enabled">
              <bool>false</bool>
             </property>
-            <property name="text" >
+            <property name="text">
              <string>Pass:</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="1" >
-           <widget class="QLineEdit" name="lePass" >
-            <property name="enabled" >
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="lePass">
+            <property name="enabled">
              <bool>false</bool>
             </property>
-            <property name="echoMode" >
+            <property name="echoMode">
              <enum>QLineEdit::Password</enum>
             </property>
            </widget>
           </item>
-          <item row="1" column="0" >
-           <widget class="QLabel" name="lbHost" >
-            <property name="text" >
+          <item row="1" column="0">
+           <widget class="QLabel" name="lbHost">
+            <property name="text">
              <string>Host:</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1" >
-           <widget class="QLineEdit" name="leHost" />
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="leHost"/>
           </item>
-          <item row="2" column="0" >
-           <widget class="QLabel" name="lbPath" >
-            <property name="text" >
+          <item row="2" column="0">
+           <widget class="QLabel" name="lbPath">
+            <property name="text">
              <string>Path:</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1" >
-           <widget class="QLineEdit" name="lePath" />
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lePath"/>
           </item>
          </layout>
         </widget>
@@ -246,11 +246,11 @@
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -288,11 +288,11 @@
    <receiver>leUser</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>154</x>
      <y>268</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>276</x>
      <y>299</y>
     </hint>
@@ -304,11 +304,11 @@
    <receiver>lePass</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>219</x>
      <y>268</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>303</x>
      <y>330</y>
     </hint>
@@ -320,11 +320,11 @@
    <receiver>lbUser</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>161</x>
      <y>268</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>110</x>
      <y>299</y>
     </hint>
@@ -336,11 +336,11 @@
    <receiver>lbPassword</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>126</x>
      <y>268</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>110</x>
      <y>330</y>
     </hint>
@@ -352,11 +352,11 @@
    <receiver>lbProtocol</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>74</x>
      <y>225</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>110</x>
      <y>179</y>
     </hint>
@@ -368,11 +368,11 @@
    <receiver>cbProtocol</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>209</x>
      <y>216</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>421</x>
      <y>179</y>
     </hint>
@@ -384,11 +384,11 @@
    <receiver>cbAuthentification</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>306</x>
      <y>222</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>354</x>
      <y>268</y>
     </hint>
@@ -400,11 +400,11 @@
    <receiver>leUser</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>338</x>
      <y>224</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>421</x>
      <y>299</y>
     </hint>
@@ -416,11 +416,11 @@
    <receiver>lePass</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>252</x>
      <y>221</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>400</x>
      <y>330</y>
     </hint>
@@ -432,11 +432,11 @@
    <receiver>lbUser</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>45</x>
      <y>248</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>110</x>
      <y>299</y>
     </hint>
@@ -448,11 +448,11 @@
    <receiver>lbPassword</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>75</x>
      <y>339</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>110</x>
      <y>330</y>
     </hint>
@@ -464,11 +464,11 @@
    <receiver>lbRemoteUrl</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>89</x>
      <y>82</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>53</x>
      <y>116</y>
     </hint>
@@ -480,11 +480,11 @@
    <receiver>leRemoteUrl</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>135</x>
      <y>82</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>306</x>
      <y>116</y>
     </hint>
@@ -496,11 +496,11 @@
    <receiver>gbRemoteHelp</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>122</x>
      <y>82</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>141</x>
      <y>212</y>
     </hint>
@@ -512,11 +512,11 @@
    <receiver>leHost</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>197</x>
      <y>150</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>321</x>
      <y>210</y>
     </hint>
@@ -528,11 +528,11 @@
    <receiver>lbHost</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>157</x>
      <y>153</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>107</x>
      <y>210</y>
     </hint>
@@ -544,11 +544,11 @@
    <receiver>lePath</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>396</x>
      <y>157</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>421</x>
      <y>241</y>
     </hint>
@@ -560,11 +560,11 @@
    <receiver>lbPath</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>34</x>
      <y>256</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>110</x>
      <y>241</y>
     </hint>
@@ -576,11 +576,11 @@
    <receiver>urLocalPlaceUrl</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>17</x>
      <y>13</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>39</x>
      <y>39</y>
     </hint>
@@ -593,11 +593,11 @@
    <receiver>urLocalFileUrl</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>17</x>
      <y>13</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>39</x>
      <y>39</y>
     </hint>

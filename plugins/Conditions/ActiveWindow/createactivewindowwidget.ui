@@ -49,8 +49,7 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
- </customwidgets>
+ <customwidgets/>
  <tabstops>
   <tabstop>leWindowTitle</tabstop>
  </tabstops>
