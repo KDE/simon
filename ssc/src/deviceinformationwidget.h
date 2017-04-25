@@ -21,7 +21,7 @@
 #define SIMON_SSC_DEVICEINFORMATIONWIDGET_H_5B939A5C2BE44EB3A400FED68B80E791
 
 #include <simonsound/simonsound.h>
-#include <QtWidgets/QWidget>
+#include <QWidget>
 
 namespace Ui
 {

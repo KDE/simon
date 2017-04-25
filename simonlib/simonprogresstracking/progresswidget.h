@@ -20,7 +20,7 @@
 #ifndef SIMON_PROGRESSWIDGET_H_A90BC5523CFA444DB2AEA79A1C65920F
 #define SIMON_PROGRESSWIDGET_H_A90BC5523CFA444DB2AEA79A1C65920F
 
-#include <QtWidgets/QWidget>
+#include <QWidget>
 #include <QPointer>
 #include <QSharedPointer>
 #include "simonprogresstracking_export.h"

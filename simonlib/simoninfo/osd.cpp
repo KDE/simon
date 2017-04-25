@@ -18,8 +18,6 @@
  */
 
 
-// #include <qstandardpaths.h>
-
 #include "osd.h"
 #include <QString>
 #include <QIcon>

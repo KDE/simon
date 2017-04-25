@@ -20,7 +20,7 @@
 #ifndef SIMON_SIMONDUSERCONFIGURATION_H_5B17417E5890427EA6664411B05B2308
 #define SIMON_SIMONDUSERCONFIGURATION_H_5B17417E5890427EA6664411B05B2308
 
-#include <QtCore/QVariant>
+#include <QVariant>
 #include <KConfigWidgets/KCModule>
 #include "ui_simonduserconfiguration.h"
 

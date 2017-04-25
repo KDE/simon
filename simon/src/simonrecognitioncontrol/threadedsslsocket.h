@@ -25,7 +25,7 @@
 #include <QMutex>
 #include <QBuffer>
 #include <QWaitCondition>
-#include <qabstractsocket.h>
+#include <QAbstractSocket>
 #include <QSslError>
 
 class SimonSSLSocket;
