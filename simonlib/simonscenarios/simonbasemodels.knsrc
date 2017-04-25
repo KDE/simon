@@ -1,4 +1,4 @@
 [KNewStuff3]
 ProvidersUrl=http://download.kde.org/ocs/providers.xml
-Categories=Simon Base Model
+Categories=Simon Base Models
 TargetDir=simon/model/base
