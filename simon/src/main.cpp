@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
   KCmdLineArgs::init(argc, argv, &aboutData);
 
   SimonApplication app;
-  app.setWindowIcon(QIcon("simon"));
+  app.setWindowIcon(QIcon::fromTheme("simon", app.windowIcon()));
   app.addLibraryPath(app.applicationDirPath()+"/plugins");
 
   SimonView *pv = new SimonView();
