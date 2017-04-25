@@ -20,7 +20,7 @@
 #include "importtrainingdirectoryworkingpage.h"
 #include <QUrl>
 #include "importtrainingdata.h"
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 /**
  * \brief Constructor - creates the GUI

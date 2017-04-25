@@ -38,14 +38,14 @@
 #include <QSettings>
 #include <QDir>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QDebug>
 
 #include <math.h>
 #include <sscprotocol/sscprotocol.h>
 #include <QStandardPaths>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {

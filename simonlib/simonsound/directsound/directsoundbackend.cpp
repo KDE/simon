@@ -23,7 +23,7 @@
 #include <simonsound/soundbackendclient.h>
 #include <QThread>
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 //krazy:excludeall=captruefalse
 

@@ -26,9 +26,9 @@
 #include <QVBoxLayout>
 #include <QFile>
 #include <QUuid>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
 prompt(prompt_),

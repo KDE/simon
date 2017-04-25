@@ -32,7 +32,7 @@
 #include <QThread>
 #include <QApplication>
 #include <simonscenarios/scenario.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
 

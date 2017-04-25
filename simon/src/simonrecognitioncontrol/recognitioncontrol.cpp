@@ -52,13 +52,13 @@
 #include <QPointer>
 #include <QCoreApplication>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
 #include <KWidgetsAddons/KPasswordDialog>
 #include <KStringHandler>
 #include <QStandardPaths>
 #include <KSharedConfig>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <KConfigCore/KConfigGroup>
 
 #define advanceStream(x) \

@@ -21,7 +21,7 @@
 #define SIMON_TRAYICONMANAGER_H_6FF7C67B484A402598AAED62DF36E4B4
 
 #include <QObject>
-#include <KDELibs4Support/kaction.h>
+#include <QAction>
 #include <QIcon>
 #include <KDELibs4Support/ksystemtrayicon.h>
 #include "simonuicomponents_export.h"

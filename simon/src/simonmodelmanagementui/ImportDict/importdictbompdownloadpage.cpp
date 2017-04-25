@@ -25,7 +25,7 @@
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <KJobWidgets>
 #include <QDir>
 

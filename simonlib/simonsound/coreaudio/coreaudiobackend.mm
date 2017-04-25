@@ -23,7 +23,7 @@
 #include <CoreAudio/AudioHardware.h>
 #include <AudioToolbox/AudioToolbox.h>
 #include <Foundation/NSString.h>
-#include <KDebug>
+#include <QDebug>
 
 static QString getDeviceName(AudioDeviceID device);
 static QStringList getDevices(bool inputDevices);
@@ -193,10 +193,10 @@ bool CoreAudioBackend::stopRecording()
 //playback
 bool CoreAudioBackend::preparePlayback(const QString& device, int& channels, int& samplerate)
 {
-  kDebug() << "Preparing playback " << device << channels << samplerate;
+  qDebug() << "Preparing playback " << device << channels << samplerate;
   if (!prepare(device, channels, samplerate, true))
     return false;
-  kDebug() << "Preparing playback part 2 " << device << channels << samplerate;
+  qDebug() << "Preparing playback part 2 " << device << channels << samplerate;
 
   deriveOutputBufferSize(aqData->mDataFormat, 1, 0.5, &aqData->bufferByteSize);
   m_bufferSize = aqData->bufferByteSize;

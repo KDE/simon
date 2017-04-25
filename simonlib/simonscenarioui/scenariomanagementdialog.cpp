@@ -29,7 +29,7 @@
 #include <KSharedConfig>
 #include <QPointer>
 #include <QDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 
 #include <knewstuff3/downloaddialog.h>

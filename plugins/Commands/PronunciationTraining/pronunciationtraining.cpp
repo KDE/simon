@@ -23,7 +23,7 @@
 #include <simonscenarios/word.h>
 #include <QPushButton>
 #include <QIcon>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QDebug>
 
 PronunciationTraining::PronunciationTraining(const QString& category, QWidget* parent):

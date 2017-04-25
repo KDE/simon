@@ -26,7 +26,7 @@
 #include <KInputDialog>
 #include <QDebug>
 #include <sscdaccess/sscdaccesssingleton.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 ManageInstitutions::ManageInstitutions(QWidget* parent) :
 QDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))

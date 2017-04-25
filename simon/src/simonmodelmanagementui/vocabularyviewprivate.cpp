@@ -40,7 +40,7 @@
 #include <QIcon>
 #include <QDebug>
 #include "AddWord/addwordview.h"
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 /**
  * @brief Constructor

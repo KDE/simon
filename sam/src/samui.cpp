@@ -20,7 +20,7 @@
 #include "samui.h"
 #include <KCmdLineArgs>
 #include <QDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 void SamUi::error(const QString& message)
 {

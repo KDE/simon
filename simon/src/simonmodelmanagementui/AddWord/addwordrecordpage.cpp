@@ -24,7 +24,7 @@
 #include <QVBoxLayout>
 
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 /**
  * \brief Constructor - also creates the GUI Elements

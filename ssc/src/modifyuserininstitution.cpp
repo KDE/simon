@@ -25,7 +25,7 @@
 #include <sscobjects/institution.h>
 #include <sscobjects/userininstitution.h>
 #include <QDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 ModifyUserInInstitution::ModifyUserInInstitution(QWidget* parent) : KDialog(parent)
 {

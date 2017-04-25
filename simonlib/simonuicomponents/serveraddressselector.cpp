@@ -27,7 +27,7 @@
 #include <KLocalizedString>
 #include <KWidgetsAddons/kmessagebox.h>
 #include <KLocalizedString>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 {

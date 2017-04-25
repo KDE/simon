@@ -25,17 +25,16 @@
 #include "ui_trainingsettings.h"
 #include "ui_languageprofilesettings.h"
 
-#include <KGlobal>
-#include <KDELibs4Support/KDE/KFileDialog>
+#include <KFileDialog>
 #include <KDateTime>
 #include <KPageWidget>
-#include <KArchive/KTar>
+#include <KTar>
 #include <KPluginFactory>
 #include <QStandardPaths>
 
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
-#include <KConfigCore/KConfigGroup>
+#include <KConfigGroup>
 
 K_PLUGIN_FACTORY( SpeechModelSettingsFactory,
 registerPlugin< SpeechModelSettings >();

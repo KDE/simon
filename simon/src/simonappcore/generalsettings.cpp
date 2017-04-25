@@ -19,10 +19,10 @@
 
 #include "generalsettings.h"
 #include <knewpassworddialog.h>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include "coreconfiguration.h"
 #include <KPluginFactory>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 #include <KConfigCore/KConfigGroup>
 

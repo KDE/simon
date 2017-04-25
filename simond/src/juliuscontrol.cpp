@@ -43,7 +43,7 @@
 #include <simonutils/fileutils.h>
 
 #include <QFile>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <KConfig>
 #include <QDebug>

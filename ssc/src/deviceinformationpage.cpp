@@ -30,7 +30,7 @@
 #include <QScrollArea>
 #include <QSettings>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <sscdaccess/sscdaccesssingleton.h>
 
 DeviceInformationPage::DeviceInformationPage(QWidget *parent) : QWizardPage(parent),

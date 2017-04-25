@@ -22,7 +22,7 @@
 #include <QIODevice>
 #include <QFileInfo>
 #include <QTextStream>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <KArchive/KFilterDev>
 #include <QMimeDatabase>

@@ -23,7 +23,7 @@
 #include <QString>
 
 
-// #include <KI18n/klocalizedstring.h>
+// #include <KLocalizedString>
 #include <QMetaType>
 
 namespace SimonSound

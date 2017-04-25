@@ -19,7 +19,7 @@
 
 #include "runcommandview.h"
 #include "runcommandviewprivate.h"
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 /**
  *	@brief Constructor

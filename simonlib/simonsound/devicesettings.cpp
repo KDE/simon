@@ -26,7 +26,7 @@
 #include <QIcon>
 #include <QTimer>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
 
 #include "simonsound.h"

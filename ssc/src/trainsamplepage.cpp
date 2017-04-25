@@ -27,9 +27,9 @@
 #include <QVBoxLayout>
 #include <QUuid>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 TrainSamplePage::TrainSamplePage(const QString& name, QString prompt_, int nowPage, int maxPage, const QString& directory,
 QWidget* parent, const QString& forcedFileNameTemplate, DeviceInformationPage *forcedDevices) :

@@ -20,7 +20,7 @@
 #include <QString>
 #include <QStringList>
 #include <QDomDocument>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 ArgumentBoundValue::ArgumentBoundValue(const QString& name): BoundValue(name)
 {

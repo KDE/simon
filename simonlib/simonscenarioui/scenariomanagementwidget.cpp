@@ -34,7 +34,7 @@
 #include <KSharedConfig>
 #include <QDebug>
 #include <QPointer>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 #include <KDELibs4Support/KDE/KFileDialog>
 

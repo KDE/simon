@@ -22,7 +22,7 @@
 #include "createdialogcommandwidget.h"
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QAction>
 
 K_PLUGIN_FACTORY( DialogCommandPluginFactory,

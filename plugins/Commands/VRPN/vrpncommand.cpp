@@ -23,7 +23,7 @@
 #include <QDomElement>
 #include <QVariant>
 #include <QIcon>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
 
 const QString VRPNCommand::staticCategoryText()

@@ -27,7 +27,6 @@
 #include <KAboutData>
 #include <KLocalizedString>
 #include <QDebug>
-#include <KGlobal>
 #include <QString>
 #include <QFile>
 #include <QDir>

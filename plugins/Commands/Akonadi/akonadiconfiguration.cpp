@@ -37,7 +37,7 @@
 #include <akonadi/collectionfetchscope.h>
 #include <kcalcore/event.h>
 #include <QProgressDialog>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <simondialogengine/avatarmodel.h>
 
 K_PLUGIN_FACTORY_DECLARATION(AkonadiCommandPluginFactory)

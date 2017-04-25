@@ -22,7 +22,7 @@
 
 #include "ui_networksettingsdlg.h"
 #include <QVariantList>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 /**
  * \class NetworkSettings

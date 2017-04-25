@@ -23,11 +23,9 @@
 
 #include <kaboutdata.h>
 #include <KLocalizedString>
-#include <KGlobal>
 #include <KComponentData>
 #include <QDebug>
 #include <k4aboutdata.h>
-#include <KLocalizedString>
 #include <KCmdLineArgs>
 #include "../../version.h"
 
@@ -47,13 +45,15 @@ int main(int argc, char **argv)
 
   KCmdLineArgs::init(argc, argv, &about);
 
-  KGlobal::setActiveComponent(KComponentData(about));
+//  QT5TODO: check this
+//  KGlobal::setActiveComponent(KComponentData(about));
 
   QCoreApplication app(argc,argv);
   QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath()+"/../plugins");
 
-  KGlobal::locale();
-  KGlobal::locale()->insertCatalog("simonlib");
+//  QT5TODO: check this
+//  KGlobal::locale();
+//  KGlobal::locale()->insertCatalog("simonlib");
   SimondControl *control = new SimondControl();
   if (!control->init())
     return 2;

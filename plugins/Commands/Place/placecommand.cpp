@@ -22,7 +22,7 @@
 #include <QVariant>
 #include <QDomDocument>
 #include <QDomElement>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 STATIC_CREATE_INSTANCE_C(PlaceCommand);
 

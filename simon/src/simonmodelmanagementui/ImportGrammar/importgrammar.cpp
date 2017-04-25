@@ -19,7 +19,7 @@
 
 #include "importgrammar.h"
 #include <QFile>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KArchive/KFilterDev>
 
 #include <QTextCodec>

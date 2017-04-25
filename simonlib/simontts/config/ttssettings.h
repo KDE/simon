@@ -22,7 +22,7 @@
 
 #include "ui_simonttsconfigurationdlg.h"
 #include <QVariantList>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 class RecordingSetCollection;
 class QSortFilterProxyModel;

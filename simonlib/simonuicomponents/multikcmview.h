@@ -22,7 +22,7 @@
 
 #include <QList>
 
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 #include "simonuicomponents_export.h"
 
 class QString;

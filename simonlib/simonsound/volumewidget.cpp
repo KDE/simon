@@ -23,7 +23,7 @@
 #include "soundserver.h"
 #include "ui_volumewidget.h"
 #include <simonsound/soundserver.h>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QVBoxLayout>
 #include <QDebug>
 

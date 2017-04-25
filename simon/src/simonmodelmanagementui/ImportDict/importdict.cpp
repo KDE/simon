@@ -26,7 +26,7 @@
 #include "juliusvocabulary.h"
 #include <QFile>
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 /**
  * \brief Constructor

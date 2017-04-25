@@ -34,7 +34,7 @@
 
 #include <QUrl>
 
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 #include <kio/job.h>
 #include <KArchive/KFilterDev>

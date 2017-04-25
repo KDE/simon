@@ -23,7 +23,7 @@
 #include <QFile>
 #include <QDir>
 #include <QStringList>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QDebug>
 
 ConservativeTraining::ConservativeTraining(QWidget *parent) : KDialog(parent),

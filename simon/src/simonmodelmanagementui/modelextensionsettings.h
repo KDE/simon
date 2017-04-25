@@ -22,7 +22,7 @@
 
 #include "ui_modelextensionsettingsdlg.h"
 #include <QVariantList>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 class ModelExtensionSettings : public KCModule
 {

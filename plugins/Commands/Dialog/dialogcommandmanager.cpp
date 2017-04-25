@@ -33,7 +33,7 @@
 #include <eventsimulation/eventhandler.h>
 #include <KLocalizedString>
 #include <QAction>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QDebug>
 #include <KPluginFactory>
 

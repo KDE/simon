@@ -23,7 +23,7 @@
 #include <QList>
 #include <QDomDocument>
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 KeyboardTab::KeyboardTab(const QDomElement& elem) : m_isNull(false)
 {

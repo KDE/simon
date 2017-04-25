@@ -19,7 +19,7 @@
 
 #include "addserverconnection.h"
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QLineEdit>
 #include <KDELibs4Support/knuminput.h>
 #include <QFormLayout>

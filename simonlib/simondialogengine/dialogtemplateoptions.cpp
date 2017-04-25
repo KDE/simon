@@ -19,7 +19,7 @@
 
 #include "dialogtemplateoptions.h"
 #include <QDomDocument>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 DialogTemplateOptions::DialogTemplateOptions()
 {

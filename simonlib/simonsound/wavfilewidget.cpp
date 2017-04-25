@@ -31,9 +31,9 @@
 #include <QFile>
 
 #include <QIcon>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 /**
  * \brief Constructor

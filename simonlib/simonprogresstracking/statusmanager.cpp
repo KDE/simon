@@ -21,7 +21,7 @@
 #include "operation.h"
 
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 StatusManager* StatusManager::globalInstance;
 

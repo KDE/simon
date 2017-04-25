@@ -26,14 +26,14 @@
 #include <QDebug>
 #include <QString>
 #include <QChar>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <KLocalizedString>
 
 //include order defined by X11 includes in header...
 #include "xeventsprivate.h" //krazy:exclude=includes
 
 // #include "../Logging/logger.h"
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 XEventsPrivate::XEventsPrivate(const char* displayName)
 {

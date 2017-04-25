@@ -27,7 +27,7 @@
 #include <QDBusInterface>
 
 #include <QIcon>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 const QString MprisPlayerCommand::staticCategoryText()
 {

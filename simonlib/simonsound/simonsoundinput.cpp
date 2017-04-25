@@ -23,7 +23,7 @@
 #include <simonsound/soundbackend.h>
 
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include "soundinputbuffer.h"
 
 SimonSoundInput::SimonSoundInput(QObject *parent) : QObject(parent),

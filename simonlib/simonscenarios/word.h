@@ -21,7 +21,7 @@
 #define SIMON_WORD_H_93DC69AE6BBC4BD5B1E91F34F29F4417
 #include <QString>
 #include <QList>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include "simonscenarios_export.h"
 
 /**

@@ -18,7 +18,7 @@
  */
 
 #include "firstrunsimondconfig.h"
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KSharedConfig>
 #include <KConfigCore/KConfigGroup>
 

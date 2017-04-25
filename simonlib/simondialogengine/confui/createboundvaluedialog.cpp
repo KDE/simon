@@ -23,7 +23,7 @@
 #include <simondialogengine/staticboundvalue.h>
 #include <simondialogengine/scriptboundvalue.h>
 #include <simondialogengine/argumentboundvalue.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QDebug>
 
 #ifdef USE_PLASMA
@@ -32,7 +32,7 @@
 
 #include <QWidget>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #ifdef USE_PLASMA
 #include <QIcon>

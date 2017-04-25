@@ -28,7 +28,7 @@ namespace Ui {
 class BaseModelSettings;
 
 #include <QVariantList>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 #include "simonscenarios_export.h"
 

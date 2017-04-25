@@ -30,12 +30,12 @@
 #include <QWizardPage>
 #include <QStringList>
 
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QCheckBox>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 
 #include <math.h>

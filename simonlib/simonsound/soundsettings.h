@@ -27,7 +27,7 @@
 #include "ui_prompt.h"
 #include <QVariantList>
 #include <QFont>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 #include "simonsound_export.h"
 
 class SimonSpinBox;

@@ -20,7 +20,7 @@
 #include "mergecategories.h"
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/modelmanager.h>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 MergeCategories::MergeCategories(QObject* parent): QThread(parent),
 newName(""), categoryA(""), categoryB(""), includeShadow(true), includeGrammar(true)

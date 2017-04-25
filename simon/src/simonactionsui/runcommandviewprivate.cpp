@@ -32,7 +32,7 @@
 #include <QPointer>
 #include <QSize>
 #include <QSortFilterProxyModel>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QIcon>
 
 /**

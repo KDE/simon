@@ -21,7 +21,7 @@
 #include <QMenu>
 #include <KActionCollection>
 #include <KSystemTrayIcon>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 /**
  * @brief Constructor

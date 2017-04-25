@@ -21,7 +21,7 @@
 #include <KProcess>
 #include <QStandardPaths>
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QFile>
 #include <QDir>
 

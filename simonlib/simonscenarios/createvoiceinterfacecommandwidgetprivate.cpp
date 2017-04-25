@@ -23,7 +23,7 @@
 #include "voiceinterfacecommandtemplate.h"
 #include <QHash>
 #include <QIcon>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 CreateVoiceInterfaceCommandWidgetPrivate::CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent) :
 CreateCommandWidget(manager, parent)

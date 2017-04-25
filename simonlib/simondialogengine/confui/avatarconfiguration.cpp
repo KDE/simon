@@ -22,7 +22,7 @@
 #include <simondialogengine/avatar.h>
 #include <simondialogengine/avatarmodel.h>
 #include <QDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 AvatarConfiguration::AvatarConfiguration(QWidget *parent) : QWidget(parent),
   ui(new Ui::AvatarConfigurationDlg()),

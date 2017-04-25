@@ -41,11 +41,11 @@
 #include <QVBoxLayout>
 #include <QIcon>
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KCMUtils/KCMultiDialog>
 #include <KColorScheme>
 #include <QStandardPaths>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 
 WelcomePage::WelcomePage(QAction *activationAction, QWidget* parent) : QWidget(parent),

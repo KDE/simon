@@ -23,7 +23,7 @@
 #include <simonscenarios/trainingmanager.h>
 #include <QPointer>
 #include <QWidget>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 PromptsViewPrivate::PromptsViewPrivate(QWidget *parent)
 : QWidget(parent)

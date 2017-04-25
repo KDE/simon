@@ -23,9 +23,9 @@
 
 #include <QIcon>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include "ui_singledeviceconfiguration.h"
 
 SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels,

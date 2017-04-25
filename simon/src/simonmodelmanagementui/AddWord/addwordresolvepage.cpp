@@ -24,7 +24,7 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/speechmodel.h>
 #include <KInputDialog>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 
 #define MKW "funzus"

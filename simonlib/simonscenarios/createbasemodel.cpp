@@ -24,7 +24,7 @@
 #include <QFile>
 #include <KArchive/KTar>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QMessageBox>
 #include <KDialog>
 #include <QDir>

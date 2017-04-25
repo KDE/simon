@@ -38,13 +38,13 @@
 
 #include <KCMUtils/KCMultiDialog>
 #include <QIcon>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KStatusBar>
 #include <QAction>
 #include <KActionCollection>
 
 #include <sscdaccess/sscdaccesssingleton.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent),
 wantToDisconnect(true)

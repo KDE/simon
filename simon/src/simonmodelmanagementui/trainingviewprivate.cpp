@@ -34,7 +34,7 @@
 #include <QWidget>
 #include <QPointer>
 #include <QSortFilterProxyModel>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 /**
  * \brief Constructor - inits the Gui

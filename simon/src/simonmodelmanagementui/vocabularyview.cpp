@@ -19,7 +19,7 @@
 
 #include "vocabularyview.h"
 #include "vocabularyviewprivate.h"
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 VocabularyView::VocabularyView(QWidget *parent)
 : InlineWidget(i18n("Vocabulary"),

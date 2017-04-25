@@ -24,8 +24,8 @@
 #include <QVBoxLayout>
 #include <QKeyEvent>
 #include <QPointer>
-#include <KDELibs4Support/KDE/KDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <QDebug>
+#include <KMessageBox>
 #include <KStandardAction>
 #include <KActionCollection>
 #include <KCMUtils/KCMultiDialog>
@@ -115,11 +115,11 @@ void AfarasView::start()
       QString file = sample.mid(index, sample.indexOf(".mfc")-index);
       double score = sample.mid(scoreIndex, sample.indexOf(" ", scoreIndex+8)-scoreIndex).toDouble();
 
-      //kDebug() << "File: " << file << " score: " << score;
+      //qDebug() << "File: " << file << " score: " << score;
       fileScores << QPair<double,QString>(score, file);
     }
     qSort(fileScores);
-    kDebug() << "Sorted file scores: " << fileScores.count();
+    qDebug() << "Sorted file scores: " << fileScores.count();
     QList< QPair<QString,QString> > promptsSorted;
     int startIndex = 0;
     for (int j=0; j < fileScores.count(); j++) {
@@ -172,7 +172,7 @@ void AfarasView::previousSample()
 
 void AfarasView::blackListSample(bool list)
 {
-  kDebug() << "Blacklisting sample";
+  qDebug() << "Blacklisting sample";
   QString file = currentSample();
   if (list) {
     if (!blackListedRecordings.contains(file)) {
@@ -187,7 +187,7 @@ void AfarasView::blackListSample(bool list)
 
 void AfarasView::save()
 {
-  kDebug() << "Saving blacklist: " << blackListedRecordings;
+  qDebug() << "Saving blacklist: " << blackListedRecordings;
   QFile f(ui.urOutputBlacklist->url().toLocalFile());
   if (!f.open(QIODevice::WriteOnly))
   {

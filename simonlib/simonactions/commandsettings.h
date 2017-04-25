@@ -21,7 +21,7 @@
 #define SIMON_COMMANDSETTINGS_H_92014DF656EC423699D2F493D77108BA
 
 #include <QVariantList>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 
 namespace Ui

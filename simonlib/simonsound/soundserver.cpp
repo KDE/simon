@@ -29,7 +29,7 @@
 #include <QCoreApplication>
 
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 SoundServer* SoundServer::instance;
 

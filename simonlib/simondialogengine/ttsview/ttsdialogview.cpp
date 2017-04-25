@@ -24,7 +24,7 @@
 #include <simontts/simontts.h>
 #include <QDebug>
 #include <KLocalizedString>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 TTSDialogView::TTSDialogView(DialogManager *dialog) :
   DialogView(dialog)

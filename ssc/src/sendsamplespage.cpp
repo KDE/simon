@@ -34,11 +34,11 @@
 #include <QFuture>
 #include <QFutureWatcher>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QPushButton>
 #include <QDebug>
 #include <sscdaccess/sscdaccesssingleton.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QtConcurrent/QtConcurrent>
 
 SendSamplePage::SendSamplePage(AbstractSampleDataProvider* dataProvider, bool isStored, const QString& ini, QWidget* parent) :

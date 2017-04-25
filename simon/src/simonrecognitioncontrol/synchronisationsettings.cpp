@@ -25,7 +25,7 @@
 
 #include <QIcon>
 #include <QProgressDialog>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 SynchronisationSettings::SynchronisationSettings(QWidget* parent, const QVariantList& args): KCModule(parent)
 {

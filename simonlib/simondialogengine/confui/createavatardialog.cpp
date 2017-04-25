@@ -21,7 +21,7 @@
 #include <simondialogengine/avatar.h>
 #include <simondialogengine/avatarmodel.h>
 #include <QFile>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QDir>
 
 CreateAvatarDialog::CreateAvatarDialog(QWidget* parent, Qt::WFlags flags): QDialog(parent, flags), ui(new Ui::CreateAvatarDlg)

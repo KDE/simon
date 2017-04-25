@@ -21,7 +21,6 @@
 
 #include <QLocale>
 #include <QFile>
-#include <KDELibs4Support/KDE/KGlobal>
 #include <QDebug>
 #include <QStandardPaths>
 

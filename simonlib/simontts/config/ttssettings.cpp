@@ -29,7 +29,7 @@
 #include <KInputDialog>
 #include <KDELibs4Support/KDE/KFileDialog>
 #include <QStandardPaths>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 K_PLUGIN_FACTORY( TTSSettingsFactory,
   registerPlugin< TTSSettings >();

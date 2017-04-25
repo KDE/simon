@@ -25,7 +25,7 @@
 #include <QDate>
 #include <QStandardPaths>
 #include <QTime>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 ImportTrainingData::ImportTrainingData(QObject* parent) : QThread(parent),
   pp(new PostProcessing()),

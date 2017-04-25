@@ -24,8 +24,8 @@
 
 #include <QFileInfo>
 #include <QUuid>
+#include <QDebug>
 #include <QDir>
-#include <KGlobal>
 #include <KAboutData>
 #include <QStandardPaths>
 

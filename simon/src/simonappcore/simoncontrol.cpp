@@ -23,7 +23,7 @@
 
 #include "coreconfiguration.h"
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 #include <simonrecognitionresult/recognitionresult.h>
@@ -32,7 +32,7 @@
 #include <simoncontextdetection/contextmanager.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simoncontextdetection/processinfo.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QDebug>
 
 /**

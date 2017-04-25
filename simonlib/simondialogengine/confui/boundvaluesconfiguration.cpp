@@ -22,7 +22,7 @@
 #include <simondialogengine/dialogboundvalues.h>
 #include <simondialogengine/boundvalue.h>
 #include <QDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 BoundValuesConfiguration::BoundValuesConfiguration(QWidget *parent) : QWidget(parent),
   ui(new Ui::BoundValuesDlg()),

@@ -24,7 +24,7 @@
 #include "ui_generalsettingsdlg.h"
 #include <KConfigWidgets/kcmodule.h>
 #include <QVariantList>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 /**
  \class GeneralSettings

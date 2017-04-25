@@ -19,7 +19,7 @@
 
 #include "commandconfiguration.h"
 #include <KAboutData>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QString>
 #include <KSharedConfig>
 #include <KComponentData>

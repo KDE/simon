@@ -23,7 +23,7 @@
 
 #include <simonactions/commandtablemodel.h>
 #include <simonactions/actionmanager.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QStringList>
 
 CreateCompositeCommandWidget::CreateCompositeCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),

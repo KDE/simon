@@ -22,7 +22,7 @@
 #include <simonsound/devicesettings.h>
 
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 FirstRunSoundConfig::FirstRunSoundConfig(QWidget* parent)
 : QWizardPage(parent)

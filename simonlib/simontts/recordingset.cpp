@@ -21,7 +21,7 @@
 #include <QStringList>
 #include <QFile>
 #include <QDir>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QDebug>
 #include <QStandardPaths>

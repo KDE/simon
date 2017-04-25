@@ -19,7 +19,7 @@
 
 #include "delaycommand.h"
 #include <QIcon>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QVariant>
 #include <QDomDocument>
 #include <QDomElement>

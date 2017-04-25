@@ -22,7 +22,7 @@
 #include "ui_createtemplateoptiondialog.h"
 
 #include <QWidget>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 CreateTemplateOptionDialog::CreateTemplateOptionDialog(QWidget *parent) : QDialog(parent),
   ui(new Ui::CreateTemplateOptionDialog())

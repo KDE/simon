@@ -24,7 +24,7 @@
 #include <simoncontextdetection/contextmanager.h>
 
 #include <QSortFilterProxyModel>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 
 CreateOrConditionAssociationWidget::CreateOrConditionAssociationWidget(QWidget *parent) : CreateConditionWidget(parent)

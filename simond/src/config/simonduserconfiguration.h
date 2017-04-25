@@ -21,7 +21,7 @@
 #define SIMON_SIMONDUSERCONFIGURATION_H_5B17417E5890427EA6664411B05B2308
 
 #include <QVariant>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 #include "ui_simonduserconfiguration.h"
 
 class DatabaseAccess;

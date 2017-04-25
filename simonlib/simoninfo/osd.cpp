@@ -29,7 +29,7 @@
 #include <QDesktopWidget>
 #include <QMouseEvent>
 #include <QStandardPaths>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 /**
  * @brief Constructor

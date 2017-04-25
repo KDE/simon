@@ -23,7 +23,7 @@
 #include <QVariant>
 #include <QIcon>
 #include <KProcess>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 const QString ExecutableCommand::staticCategoryText()
 {

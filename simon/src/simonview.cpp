@@ -59,7 +59,7 @@
 #include <KLocalizedString>
 #include <KActionCollection>
 #include <KStandardAction>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 #include <KStatusBar>
 #include <KCMUtils/KCMultiDialog>

@@ -30,7 +30,7 @@
 #include <QPushButton>
 #include <QFile>
 #include <QStandardPaths>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QDir>
 
 

@@ -25,7 +25,7 @@
 #include <QScriptEngine>
 #include <QScriptValue>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 ScriptBoundValue::ScriptBoundValue(const QString& name) : BoundValue(name)
 {

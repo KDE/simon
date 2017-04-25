@@ -18,7 +18,7 @@
  */
 
 #include "wav.h"
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <stdlib.h>
 #include <string.h>
 #include <QDataStream>

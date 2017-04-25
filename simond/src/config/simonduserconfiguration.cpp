@@ -25,7 +25,7 @@
 #include <QFile>
 #include <QPointer>
 #include <KWidgetsAddons/KPasswordDialog>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <knewpassworddialog.h>
 #include <QStandardPaths>
 #include <QDebug>

@@ -21,7 +21,7 @@
 #include "boundvalue.h"
 #include "argumentboundvalue.h"
 #include <QDomDocument>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
 
 DialogBoundValues::DialogBoundValues()

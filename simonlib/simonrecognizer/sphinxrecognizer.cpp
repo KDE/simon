@@ -27,8 +27,8 @@
 #include <QDir>
 #include <QUuid>
 #include <QFile>
-#include <KDELibs4Support/KDE/KDebug>
-#include <KDELibs4Support/KDE/KLocalizedString>
+#include <QDebug>
+#include <KLocalizedString>
 
 
 SphinxRecognizer::SphinxRecognizer():
@@ -69,20 +69,20 @@ bool SphinxRecognizer::init(RecognitionConfiguration *config)
 
     cmd_ln_t *spconf = sconfig->getSphinxConfig();
     if(!spconf) {
-      kDebug() << "Config errenous";
+      qDebug() << "Config errenous";
       return false;
     }
 
     decoder = ps_init(spconf);
 
     if(!decoder) {
-      kDebug() << "Decoder setup failed";
+      qDebug() << "Decoder setup failed";
       return false;
     }
 
   } catch (std::runtime_error err)
   {
-    kDebug() << "Caught exception";
+    qDebug() << "Caught exception";
     return false;
   }
 

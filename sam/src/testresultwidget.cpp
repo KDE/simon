@@ -29,7 +29,7 @@
 #include <simonmodeltest/recognizerresult.h>
 #include <simonsound/recwidget.h>
 #include <QSortFilterProxyModel>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 #include <QFile>
 #include <QDir>

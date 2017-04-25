@@ -31,7 +31,7 @@
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 {

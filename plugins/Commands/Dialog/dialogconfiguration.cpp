@@ -39,7 +39,7 @@
 #include <QList>
 #include <QString>
 #include <QThread>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 #include <KPluginFactory>
 #include <KInputDialog>

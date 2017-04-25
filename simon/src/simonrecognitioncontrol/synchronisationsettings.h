@@ -24,7 +24,7 @@
 #include <QVariantList>
 #include <QList>
 #include <QDateTime>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 class QProgressDialog;
 class QShowEvent;

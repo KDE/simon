@@ -29,7 +29,7 @@
 #include <QDebug>
 #include <QStandardPaths>
 #include <QIcon>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 UploadSamples::UploadSamples(QWidget* parent) :
 QDialog(parent)

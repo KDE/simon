@@ -21,7 +21,7 @@
 #define SIMON_SSCCONFIGURATION_H_CE1378CB6EFC48349C931195FD6112CA
 
 #include <QVariantList>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 #include "ui_sscconfiguration.h"
 

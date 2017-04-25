@@ -19,7 +19,7 @@
 
 #include "conditionassociation.h"
 #include "contextmanager.h"
-#include <KDE/KDebug>
+#include <QDebug>
 
 ConditionAssociation::ConditionAssociation(QObject *parent, const QVariantList &args) :
     Condition(parent, args)

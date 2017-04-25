@@ -23,7 +23,7 @@
 #include <QWidget>
 #include <QKeySequence>
 #include <kdeversion.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 KeyboardModifyButtonDialog::KeyboardModifyButtonDialog(QWidget *parent) : QDialog(parent)
 {

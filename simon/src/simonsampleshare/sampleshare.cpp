@@ -40,7 +40,7 @@
 #include "simonsampledataprovider.h"
 #include <sscobjects/microphone.h>
 #include <sscobjects/soundcard.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <KConfigCore/KConfigGroup>
 #include <KLocalizedString>
 

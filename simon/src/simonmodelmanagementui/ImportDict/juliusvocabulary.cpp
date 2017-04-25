@@ -24,7 +24,7 @@
 #include <QTextStream>
 
 #include <KArchive/KFilterDev>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
 #include <QMimeDatabase>
 #include <QMimeType>

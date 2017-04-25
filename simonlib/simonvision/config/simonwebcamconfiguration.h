@@ -27,7 +27,7 @@
 #include "webcamconfigurationanalyzer.h"
 #include "ui_simonwebcamconfiguration.h"
 #include <QTimer>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 class SimonWebcamConfiguration : public KCModule
 {

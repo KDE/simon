@@ -24,7 +24,7 @@
 #include <simonsound/soundoutputclient.h>
 #include <simonsound/soundserver.h>
 #include <simonsound/soundbackend.h>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
 
 SimonSoundOutput::SimonSoundOutput(QObject *parent) : QObject(parent),

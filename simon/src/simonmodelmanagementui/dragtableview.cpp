@@ -19,7 +19,7 @@
 
 #include "dragtableview.h"
 #include <QApplication>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <simoninfo/simoninfo.h>
 #include <QMimeData>
 

@@ -23,7 +23,7 @@
 #include <simonlogging/logger.h>
 #include <QThread>
 #include <QMutexLocker>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QDebug>
 
 //Basic functions to set up alsa

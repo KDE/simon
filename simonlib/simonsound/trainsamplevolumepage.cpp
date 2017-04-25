@@ -24,7 +24,7 @@
 #include <QCheckBox>
 
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 TrainSampleVolumePage::TrainSampleVolumePage(QWidget *parent) : QWizardPage(parent),
 ui(new Ui::TrainSampleVolumePage())

@@ -22,7 +22,7 @@
 #include <QPointer>
 #include <QDebug>
 #include "ui_templateoptionsconfiguration.h"
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 
 TemplateOptionsConfiguration::TemplateOptionsConfiguration(QWidget *parent) : QWidget(parent),

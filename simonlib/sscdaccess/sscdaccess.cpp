@@ -41,11 +41,11 @@
 #include <QThread>
 #include <QDataStream>
 #include <QStringList>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 #include <KI18n/KLocalizedString>
 #include <QDebug>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 #define parseLengthHeader()     waitForMessage(sizeof(qint64),stream, msg); \
   qint64 length; \

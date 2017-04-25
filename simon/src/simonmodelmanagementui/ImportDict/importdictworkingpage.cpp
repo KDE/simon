@@ -25,7 +25,7 @@
 #include <QUrl>
 #include <QDir>
 #include <QTextCodec>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <KArchive/KFilterDev>
 

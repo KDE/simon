@@ -24,7 +24,7 @@
 #include <QVariantList>
 
 #include <KCoreAddons/kpluginfactory.h>
-#include <KConfigWidgets/KCModule>
+#include <KCModule>
 
 /**
   @author Peter Grasch <bedahr@gmx.net>

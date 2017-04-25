@@ -22,7 +22,7 @@
 #include <simonscenarios/command.h>
 #include <simonscenarios/createcommandwidget.h>
 #include <simonactions/actionmanager.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <KDialog>
 #include <QDebug>
 

@@ -24,8 +24,8 @@
 #include "ui_devicevolumewidget.h"
 #include <QDateTime>
 #include <QIcon>
-#include <KI18n/klocalizedstring.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 DeviceVolumeWidget::DeviceVolumeWidget( const SimonSound::DeviceConfiguration& device, SoundClient::SoundClientPriority inputPriority, QWidget* parent ) : QWidget(parent),
     ui(new Ui::DeviceVolumeWidgetUi()),

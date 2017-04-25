@@ -24,7 +24,7 @@
 #include <QRegExp>
 #include <QFileInfo>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KArchive/KFilterDev>
 #include <QDebug>
 #include <QMimeDatabase>

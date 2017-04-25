@@ -25,8 +25,8 @@
 #include <KCMultiDialog>
 #include <KProcess>
 #include <QIcon>
-#include <KI18n/klocalizedstring.h>
-#include <KWidgetsAddons/KMessageBox>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <QAction>
 #include <QLocale>
 #include <KConfigCore/KConfigGroup>

@@ -61,8 +61,7 @@
 #include <KConfigCore/KConfigGroup>
 #include <KCMUtils/KCMultiDialog>
 #include <KDELibs4Support/KDE/KFileDialog>
-#include <KWidgetsAddons/KMessageBox>
-#include <KGlobal>
+#include <KMessageBox>
 #include <KLocalizedString>
 #include <QDebug>
 #include <KCmdLineArgs>

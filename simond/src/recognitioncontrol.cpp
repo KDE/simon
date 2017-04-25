@@ -20,7 +20,7 @@
 
 #include "recognitioncontrol.h"
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <simonrecognizer/recognitionconfiguration.h>
 

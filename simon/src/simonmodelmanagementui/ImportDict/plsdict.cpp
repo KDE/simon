@@ -23,7 +23,7 @@
 #include <QString>
 #include <QFile>
 #include <QDebug>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <QMimeDatabase>
 
 

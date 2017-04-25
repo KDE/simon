@@ -26,7 +26,7 @@
 #include <QVBoxLayout>
 #include <QIcon>
 
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 #include <KAboutData>
 #include <KPageWidgetItem>
 #include <KPageWidget>

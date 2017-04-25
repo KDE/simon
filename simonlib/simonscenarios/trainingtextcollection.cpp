@@ -19,7 +19,7 @@
 
 #include "trainingtextcollection.h"
 #include "scenario.h"
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 /**
  * Empty, private constructor

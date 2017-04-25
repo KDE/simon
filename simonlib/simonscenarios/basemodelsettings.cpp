@@ -30,7 +30,7 @@
 #include <KArchive/KTar>
 #include <KDELibs4Support/KDE/KFileDialog>
 #include <QStandardPaths>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QDir>
 #include <QPointer>
 

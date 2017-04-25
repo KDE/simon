@@ -24,7 +24,7 @@
 #include <simonactions/actionmanager.h>
 
 #include <QStringList>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 
 CreateListCommandWidget::CreateListCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
 allCommands(ActionManager::getInstance()->getCommandList()),

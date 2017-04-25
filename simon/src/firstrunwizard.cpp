@@ -25,7 +25,7 @@
 #include <simonsound/trainsamplevolumepage.h>
 #include <QWizardPage>
 #include <QLabel>
-#include <KI18n/klocalizedstring.h>
+#include <KLocalizedString>
 
 FirstRunWizard::FirstRunWizard(QWidget* parent, Qt::WFlags flags)
 : SimonWizard(parent, flags)

@@ -36,7 +36,7 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QComboBox>
-#include <KDebug>
+#include <QDebug>
 
 #include "../dialogcommandmanager.h"
 #include "../dialogconfiguration.h"

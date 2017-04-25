@@ -23,7 +23,7 @@
 #include <simonsound/recwidget.h>
 #include <QWidget>
 #include <QFile>
-#include <KWidgetsAddons/KMessageBox>
+#include <KMessageBox>
 #include <QDir>
 
 
