@@ -20,7 +20,7 @@
 #ifndef SIMON_DROPLISTWIDGET_H_6141C4CF79E6474E97A308426C551198
 #define SIMON_DROPLISTWIDGET_H_6141C4CF79E6474E97A308426C551198
 
-#include <KListWidget>
+#include <QListWidget>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
@@ -38,7 +38,7 @@
  *	@date 28.01.2006
  *	@author Peter Grasch
  */
-class DropListWidget : public KListWidget
+class DropListWidget : public QListWidget
 {
   Q_OBJECT
     signals:

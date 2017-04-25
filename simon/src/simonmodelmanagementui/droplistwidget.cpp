@@ -30,7 +30,7 @@
  * Sets the parent of the QListWidget
  */
 DropListWidget::DropListWidget(QWidget *parent)
-: KListWidget(parent)
+: QListWidget(parent)
 {
   setAcceptDrops(true);
 }

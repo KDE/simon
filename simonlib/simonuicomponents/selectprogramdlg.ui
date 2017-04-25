@@ -18,7 +18,7 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="KListWidget" name="lwCategories">
+     <widget class="QListWidget" name="lwCategories">
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -26,18 +26,12 @@
        </size>
       </property>
      </widget>
-     <widget class="KListWidget" name="lwPrograms"/>
+     <widget class="QListWidget" name="lwPrograms"/>
     </widget>
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
- </customwidgets>
+ <customwidgets/>
  <resources/>
  <connections/>
 </ui>

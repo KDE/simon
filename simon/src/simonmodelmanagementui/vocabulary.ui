@@ -249,13 +249,8 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>DropListWidget</class>
-   <extends>KListWidget</extends>
+   <extends>QListWidget</extends>
    <header>droplistwidget.h</header>
   </customwidget>
   <customwidget>
