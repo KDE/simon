@@ -20,7 +20,6 @@
 #include "afarasview.h"
 #include <kaboutdata.h>
 #include <KDELibs4Support/KDE/KCmdLineArgs>
-#include <KDELibs4Support/KDE/KLocale>
 #include <KDELibs4Support/KDE/KApplication>
 #include <QCoreApplication>
 #include <K4AboutData>

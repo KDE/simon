@@ -21,7 +21,6 @@
 
 #include <KCoreAddons/kaboutdata.h>
 
-#include <KDE/KLocale>
 #include <QApplication>
 #include <KAboutData>
 #include <KLocalizedString>
