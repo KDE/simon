@@ -230,7 +230,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="KComboBox" name="cbMothersTongue"/>
+          <widget class="QComboBox" name="cbMothersTongue"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_5">
@@ -294,7 +294,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="KComboBox" name="cbOrientation">
+          <widget class="QComboBox" name="cbOrientation">
            <item>
             <property name="text">
              <string comment="Ignore this field when filtering">0: All</string>
@@ -342,7 +342,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="KComboBox" name="cbCommunication">
+          <widget class="QComboBox" name="cbCommunication">
            <item>
             <property name="text">
              <string comment="Ignore this field when filtering">0: All</string>
@@ -383,7 +383,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="KComboBox" name="cbMotorFunction">
+          <widget class="QComboBox" name="cbMotorFunction">
            <item>
             <property name="text">
              <string comment="Ignore this field when filtering">0: All</string>
@@ -572,13 +572,8 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KHistoryComboBox</class>
-   <extends>KComboBox</extends>
+   <extends>QComboBox</extends>
    <header>khistorycombobox.h</header>
   </customwidget>
  </customwidgets>

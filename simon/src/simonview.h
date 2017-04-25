@@ -45,7 +45,6 @@
 class TrayIconManager;
 class KCMultiDialog;
 class QAction;
-class KComboBox;
 class WelcomePage;
 class TrainingView;
 class VocabularyView;

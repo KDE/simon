@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KComboBox" name="cbControlMode">
+      <widget class="QComboBox" name="cbControlMode">
        <item>
         <property name="text">
          <string>Full calculator</string>
@@ -109,7 +109,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KComboBox" name="cbDefaultOutputMode">
+      <widget class="QComboBox" name="cbDefaultOutputMode">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -168,11 +168,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections>

@@ -22,7 +22,7 @@
     </widget>
    </item>
    <item>
-    <widget class="KComboBox" name="cbDurationType">
+    <widget class="QComboBox" name="cbDurationType">
      <item>
       <property name="text">
        <string>Seconds</string>
@@ -48,11 +48,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

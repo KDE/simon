@@ -62,7 +62,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="KComboBox" name="cbSets">
+      <widget class="QComboBox" name="cbSets">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -79,7 +79,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="KComboBox" name="cbTabs"/>
+      <widget class="QComboBox" name="cbTabs"/>
      </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="pbAddSet">
@@ -214,11 +214,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>cbSets</tabstop>

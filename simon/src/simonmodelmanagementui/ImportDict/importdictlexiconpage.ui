@@ -50,7 +50,7 @@ Please keep in mind that those dictionaries do not provide information about cat
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="KComboBox" name="cbEncoding"/>
+      <widget class="QComboBox" name="cbEncoding"/>
      </item>
     </layout>
    </item>
@@ -61,11 +61,6 @@ Please keep in mind that those dictionaries do not provide information about cat
    <class>KUrlRequester</class>
    <extends>QWidget</extends>
    <header>kurlrequester.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -65,13 +65,8 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KHistoryComboBox</class>
-   <extends>KComboBox</extends>
+   <extends>QComboBox</extends>
    <header>khistorycombobox.h</header>
   </customwidget>
  </customwidgets>

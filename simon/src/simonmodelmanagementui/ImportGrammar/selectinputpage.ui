@@ -61,7 +61,7 @@
          </widget>
         </item>
         <item>
-         <widget class="KComboBox" name="cbEncoding"/>
+         <widget class="QComboBox" name="cbEncoding"/>
         </item>
        </layout>
       </item>
@@ -103,11 +103,6 @@
    <class>KEditListWidget</class>
    <extends>QWidget</extends>
    <header>keditlistwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KTextEdit</class>

@@ -35,7 +35,7 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include <QSpinBox>
-#include <KComboBox>
+#include <QComboBox>
 #include <KDebug>
 
 #include "../dialogcommandmanager.h"
@@ -505,7 +505,7 @@ void testDialog::createTransition()
   QTest::keyClick(sbTimeout, Qt::Key_Delete);
   QTest::keyClicks(sbTimeout, "150");
 
-  KComboBox *cbNextState = findChild<KComboBox*>(dlg, "cbNextState");
+  QComboBox *cbNextState = findChild<QComboBox*>(dlg, "cbNextState");
   QVERIFY(cbNextState);
   QTest::keyClick(cbNextState, '0');
 
@@ -533,7 +533,7 @@ void testDialog::editTransition()
   QVERIFY(gbCommands);
   QTest::keyClick(gbCommands, ' ');
 
-  KComboBox *cbNextState = findChild<KComboBox*>(dlg, "cbNextState");
+  QComboBox *cbNextState = findChild<QComboBox*>(dlg, "cbNextState");
   QVERIFY(cbNextState);
   QTest::keyClick(cbNextState, '1');
 

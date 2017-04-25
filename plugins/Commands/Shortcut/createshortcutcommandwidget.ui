@@ -38,7 +38,7 @@
    <item row="1" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KComboBox" name="cbSpecialShortcut">
+      <widget class="QComboBox" name="cbSpecialShortcut">
        <item>
         <property name="text">
          <string>Alt+Tab</string>
@@ -238,7 +238,7 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="KComboBox" name="cbMode">
+    <widget class="QComboBox" name="cbMode">
      <item>
       <property name="text">
        <string>Press and release</string>
@@ -263,11 +263,6 @@
    <class>KKeySequenceWidget</class>
    <extends>QWidget</extends>
    <header>kkeysequencewidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

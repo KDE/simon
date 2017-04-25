@@ -21,7 +21,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <KComboBox>
+#include <QComboBox>
 #include <KI18n/klocalizedstring.h>
 
 /**
@@ -51,7 +51,7 @@ ImportDictIntroPage::ImportDictIntroPage(QWidget* parent): QWizardPage(parent)
   QLabel *lbTarget = new QLabel(this);
   lbTarget->setText(i18n("Target:"));
 
-  KComboBox *cbTarget = new KComboBox(this);
+  QComboBox *cbTarget = new QComboBox(this);
   cbTarget->setToolTip(i18n("Defines where the new words will be added to."));
   cbTarget->addItem(i18n("Shadow Dictionary"));
   cbTarget->addItem(i18n("Active Dictionary"));

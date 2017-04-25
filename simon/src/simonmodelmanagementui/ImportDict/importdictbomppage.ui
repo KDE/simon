@@ -51,7 +51,7 @@
        </widget>
       </item>
       <item row="1" column="1" >
-       <widget class="KComboBox" name="cbEncoding" />
+       <widget class="QComboBox" name="cbEncoding" />
       </item>
      </layout>
     </widget>
@@ -84,11 +84,6 @@
    <extends>QWidget</extends>
    <header>kurlrequester.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

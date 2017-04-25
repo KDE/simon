@@ -66,7 +66,7 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="KComboBox" name="cbOutputFormat"/>
+        <widget class="QComboBox" name="cbOutputFormat"/>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_6">
@@ -331,11 +331,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
   <customwidget>
    <class>KDatePicker</class>
    <extends>QFrame</extends>

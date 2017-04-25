@@ -30,7 +30,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KComboBox" name="cbCollection"/>
+      <widget class="QComboBox" name="cbCollection"/>
      </item>
     </layout>
    </item>
@@ -219,7 +219,7 @@
             </widget>
            </item>
            <item>
-            <widget class="KComboBox" name="cbAvatar"/>
+            <widget class="QComboBox" name="cbAvatar"/>
            </item>
           </layout>
          </item>
@@ -236,11 +236,6 @@
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>TimeSelector</class>

@@ -122,7 +122,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KComboBox" name="cbNextState"/>
+       <widget class="QComboBox" name="cbNextState"/>
       </item>
      </layout>
     </widget>
@@ -151,7 +151,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KComboBox" name="cbCommands"/>
+           <widget class="QComboBox" name="cbCommands"/>
           </item>
           <item>
            <widget class="QPushButton" name="pbAddCommand">
@@ -240,11 +240,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

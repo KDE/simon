@@ -27,6 +27,7 @@
 #include <QWidget>
 #include <QTreeWidget>
 #include <KSharedConfig>
+#include <QPointer>
 #include <QDebug>
 #include <KWidgetsAddons/KMessageBox>
 

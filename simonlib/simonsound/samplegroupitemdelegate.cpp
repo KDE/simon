@@ -21,7 +21,7 @@
 #include "simoncontextdetection/contextmanager.h"
 #include "simonscenarios/trainingmanager.h"
 #include "simonsound/soundserver.h"
-#include <KComboBox>
+#include <QComboBox>
 #include <QDebug>
 
 SampleGroupItemDelegate::SampleGroupItemDelegate(SampleGroupCondition *sampleGroupCondition, QObject *parent) :
@@ -35,7 +35,7 @@ QWidget* SampleGroupItemDelegate::createEditor(QWidget *parent, const QStyleOpti
     Q_UNUSED(option)
     Q_UNUSED(index)
 
-    KComboBox *sampleGroupBox = new KComboBox(parent);
+    QComboBox *sampleGroupBox = new QComboBox(parent);
 
     sampleGroupBox->setEditable(true);
 
@@ -55,7 +55,7 @@ QWidget* SampleGroupItemDelegate::createEditor(QWidget *parent, const QStyleOpti
 
 void SampleGroupItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    KComboBox *sampleGroupBox = qobject_cast<KComboBox*>(editor);
+    QComboBox *sampleGroupBox = qobject_cast<QComboBox*>(editor);
 
     QString sampleGroup = index.data().toString();
 
@@ -72,7 +72,7 @@ void SampleGroupItemDelegate::setEditorData(QWidget *editor, const QModelIndex &
 
 void SampleGroupItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-    KComboBox *sampleGroupBox = qobject_cast<KComboBox*>(editor);
+    QComboBox *sampleGroupBox = qobject_cast<QComboBox*>(editor);
     QString sampleGroup = sampleGroupBox->currentText();
 
     qDebug() << "setting current model data" << sampleGroup;

@@ -81,11 +81,6 @@
    <extends>QTextEdit</extends>
    <header>ktextedit.h</header>
   </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
 </ui>

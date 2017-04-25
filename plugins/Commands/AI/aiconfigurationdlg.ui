@@ -23,7 +23,7 @@
       </widget>
      </item>
      <item row="0" column="1" >
-      <widget class="KComboBox" name="cbAimlSets" />
+      <widget class="QComboBox" name="cbAimlSets" />
      </item>
     </layout>
    </item>
@@ -43,11 +43,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

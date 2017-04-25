@@ -69,7 +69,7 @@ Please ensure that the file you import is a plain text document (.txt).</string>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="KComboBox" name="cbEncoding"/>
+      <widget class="QComboBox" name="cbEncoding"/>
      </item>
     </layout>
    </item>
@@ -89,11 +89,6 @@ Please ensure that the file you import is a plain text document (.txt).</string>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
   <customwidget>
    <class>KUrlRequester</class>
    <extends>QWidget</extends>

@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KComboBox" name="cbCommand"/>
+      <widget class="QComboBox" name="cbCommand"/>
      </item>
     </layout>
    </item>
@@ -139,11 +139,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
   <customwidget>
    <class>KDateTimeWidget</class>
    <extends>QWidget</extends>

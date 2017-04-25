@@ -33,6 +33,7 @@
 #include <QTreeWidgetItem>
 #include <KSharedConfig>
 #include <QDebug>
+#include <QPointer>
 #include <KWidgetsAddons/KMessageBox>
 
 #include <KDELibs4Support/KDE/KFileDialog>

@@ -279,7 +279,7 @@ void SampleShare::listDialects()
       if (dialect == i18n("Other / None"))
 	otherAlreadyIn = true;
       
-      if (!ui->cbDialect->contains(dialect)) //no duplicates (gender, etc.)
+      if (ui->cbDialect->findText(dialect) == -1) //no duplicates (gender, etc.)
 	ui->cbDialect->addItem(dialect, u->givenName());
     }
     if (!otherAlreadyIn)

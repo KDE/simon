@@ -86,7 +86,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KComboBox" name="cbDefaultClickMode">
+      <widget class="QComboBox" name="cbDefaultClickMode">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -130,11 +130,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections>

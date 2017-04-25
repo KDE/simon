@@ -51,7 +51,6 @@
 #include <QCloseEvent>
 #include <QThread>
 #include <KToolBar>
-#include <KDE/KComboBox>
 #include <QTimeLine>
 
 #include <KDELibs4Support/kapplication.h>
