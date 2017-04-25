@@ -342,7 +342,7 @@ void testDialog::fillInMessage()
 
   QWidget *dlg = app->activeModalWidget();
   QVERIFY(dlg);
-  KTextEdit *teText = findChild<KTextEdit*>(dlg, "");
+  QTextEdit *teText = findChild<QTextEdit*>(dlg, "");
   QVERIFY(teText);
   QTest::keyClicks(teText, "Message");
 

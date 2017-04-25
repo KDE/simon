@@ -40,16 +40,11 @@
     </widget>
    </item>
    <item>
-    <widget class="KTextEdit" name="teText"/>
+    <widget class="QTextEdit" name="teText"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

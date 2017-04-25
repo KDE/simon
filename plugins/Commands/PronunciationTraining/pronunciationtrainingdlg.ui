@@ -70,7 +70,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="KTextEdit" name="teWord"/>
+      <widget class="QTextEdit" name="teWord"/>
      </item>
      <item>
       <widget class="QProgressBar" name="pbScore">
@@ -148,11 +148,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections/>

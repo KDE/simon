@@ -54,7 +54,7 @@
 
 
    <item>
-    <widget class="KTextEdit" name="teLicence" >
+    <widget class="QTextEdit" name="teLicence" >
      <property name="readOnly" >
       <bool>true</bool>
      </property>
@@ -75,11 +75,6 @@
    <extends>QWidget</extends>
    <header>kurlrequester.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

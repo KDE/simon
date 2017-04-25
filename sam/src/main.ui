@@ -431,7 +431,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KTextEdit" name="teAdaptLog">
+           <widget class="QTextEdit" name="teAdaptLog">
             <property name="textInteractionFlags">
              <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
             </property>
@@ -484,7 +484,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KTextEdit" name="teBuildLog">
+           <widget class="QTextEdit" name="teBuildLog">
             <property name="textInteractionFlags">
              <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
             </property>
@@ -547,7 +547,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KTextEdit" name="teTestLog">
+           <widget class="QTextEdit" name="teTestLog">
             <property name="textInteractionFlags">
              <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
             </property>
@@ -638,11 +638,6 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KUrlRequester</class>
    <extends>QWidget</extends>

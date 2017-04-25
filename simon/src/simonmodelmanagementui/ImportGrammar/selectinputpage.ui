@@ -39,7 +39,7 @@
     </widget>
    </item>
    <item>
-    <widget class="KTextEdit" name="teText"/>
+    <widget class="QTextEdit" name="teText"/>
    </item>
    <item>
     <widget class="QRadioButton" name="rbFiles">
@@ -103,11 +103,6 @@
    <class>KEditListWidget</class>
    <extends>QWidget</extends>
    <header>keditlistwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

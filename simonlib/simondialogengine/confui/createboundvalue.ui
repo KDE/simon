@@ -80,7 +80,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KTextEdit" name="teScript">
+        <widget class="QTextEdit" name="teScript">
          <property name="acceptRichText">
           <bool>false</bool>
          </property>
@@ -212,11 +212,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

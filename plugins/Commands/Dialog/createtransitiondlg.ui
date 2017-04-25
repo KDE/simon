@@ -43,7 +43,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="KTextEdit" name="teDescription">
+        <widget class="QTextEdit" name="teDescription">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -134,11 +134,6 @@
    <class>KIconButton</class>
    <extends>QPushButton</extends>
    <header>kicondialog.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

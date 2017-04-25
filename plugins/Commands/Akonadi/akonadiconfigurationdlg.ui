@@ -122,7 +122,7 @@
          <item row="0" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="KTextEdit" name="teText"/>
+            <widget class="QTextEdit" name="teText"/>
            </item>
            <item>
             <widget class="QLabel" name="label_4">
@@ -232,11 +232,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
-  </customwidget>
   <customwidget>
    <class>TimeSelector</class>
    <extends>QWidget</extends>
