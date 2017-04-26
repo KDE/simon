@@ -26,10 +26,10 @@
 #include <QIcon>
 #include <KLocalizedString>
 #include <QDebug>
-#include <akonadi/attribute.h>
-#include <akonadi/item.h>
-#include <akonadi/itemcreatejob.h>
-#include <akonadi/collection.h>
+#include <AkonadiCore/attribute.h>
+#include <AkonadiCore/item.h>
+#include <AkonadiCore/itemcreatejob.h>
+#include <AkonadiCore/collection.h>
 #include <kcalcore/incidence.h>
 #include <kcalcore/event.h>
 #include "akonadicommandmanager.h"
@@ -141,7 +141,7 @@ void AkonadiCommand::storeJobFinished(KJob* job)
   Q_UNUSED(createJob);
   if ( job->error() ) {
       Logger::log(i18n("Failed to create Akonadi item: %1", job->errorString()), Logger::Error);
-      kError() << job->errorString();
+      qWarning() << job->errorString();
   }
 }
 

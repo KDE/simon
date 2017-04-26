@@ -23,7 +23,7 @@
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_akonadiconfigurationdlg.h"
 #include <KSharedConfig>
-#include <akonadi/entity.h>
+#include <AkonadiCore/collection.h>
 
 class DialogBoundValues;
 class DialogTemplateOptions;
@@ -70,7 +70,7 @@ class AkonadiConfiguration : public CommandConfiguration
     AkonadiConfiguration(AkonadiCommandManager* manager, Scenario* parent, const QVariantList& args = QVariantList());
     ~AkonadiConfiguration();
     
-    Akonadi::Entity::Id getCollection();
+    Akonadi::Collection::Id getCollection();
     bool displayAlarms();
     bool executeAkonadiRequests();
     QString akonadiRequestPrefix();

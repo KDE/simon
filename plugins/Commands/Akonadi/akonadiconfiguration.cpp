@@ -30,11 +30,11 @@
 #include <simondialogengine/confui/avatarconfiguration.h>
 #include <simondialogengine/confui/outputconfiguration.h>
 
-#include <akonadi/control.h>
-#include <akonadi/collection.h>
-#include <akonadi/monitor.h>
-#include <akonadi/collectionfetchjob.h>
-#include <akonadi/collectionfetchscope.h>
+#include <AkonadiCore/control.h>
+#include <AkonadiCore/collection.h>
+#include <AkonadiCore/monitor.h>
+#include <AkonadiCore/collectionfetchjob.h>
+#include <AkonadiCore/collectionfetchscope.h>
 #include <kcalcore/event.h>
 #include <QProgressDialog>
 #include <KMessageBox>
@@ -101,7 +101,7 @@ void AkonadiConfiguration::collectionJobFinished(KJob* job)
   Akonadi::CollectionFetchJob *fetchJob = static_cast<Akonadi::CollectionFetchJob*>( job );
   if ( job->error() ) {
       Logger::log(i18nc("%1 is error string", "Job returned error: %1", job->errorString()), Logger::Error);
-      kError() << job->errorString();
+      qWarning() << job->errorString();
       return;
   }
   Akonadi::Collection::List collections = fetchJob->collections();
@@ -288,9 +288,9 @@ bool AkonadiConfiguration::executeAkonadiRequests()
   return ui.cbExecuteAkonadiRequests->isChecked();
 }
 
-Akonadi::Entity::Id AkonadiConfiguration::getCollection()
+Akonadi::Collection::Id AkonadiConfiguration::getCollection()
 {
-  return (Akonadi::Entity::Id) collectionIndexToSelect;
+  return (Akonadi::Collection::Id) collectionIndexToSelect;
 }
 
 DialogBoundValues* AkonadiConfiguration::getBoundValues()

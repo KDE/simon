@@ -1,8 +1,8 @@
 add_subdirectory(AI)
 
-if (KDEPIMLIBS_FOUND)
+if (KF5CalendarCore_FOUND AND KF5Akonadi_FOUND)
     add_subdirectory(Akonadi)
-endif (KDEPIMLIBS_FOUND)
+endif (KF5CalendarCore_FOUND AND KF5Akonadi_FOUND)
 
 if(QAccessibilityClient_FOUND)
     add_subdirectory(ATSPI)

@@ -20,6 +20,7 @@
 #define ALARMSCHEDULEITEM_H
 
 #include <scheduleitem.h>
+#include <QDateTime>
 #include <kcalcore/alarm.h>
 
 class AkonadiConfiguration;

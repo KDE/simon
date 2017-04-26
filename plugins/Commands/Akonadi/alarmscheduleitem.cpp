@@ -60,8 +60,8 @@ bool AlarmScheduleItem::trigger()
   
   QString text = m_config->dialogText();
   text.replace("%summary", m_summary, Qt::CaseInsensitive);
-  text.replace("%date", QLocale().dateFormat(m_eventTime.date()), Qt::CaseInsensitive);
-  text.replace("%time", QLocale().dateTimeFormat(m_eventTime.time()), Qt::CaseInsensitive);
+  text.replace("%date", QLocale().toString(m_eventTime.date()), Qt::CaseInsensitive);
+  text.replace("%time", QLocale().toString(m_eventTime.time()), Qt::CaseInsensitive);
   text.replace("%location", m_eventLocation, Qt::CaseInsensitive);
 
   DialogState *state = new DialogState(parser, "Name", text, false, true, commands, 0);

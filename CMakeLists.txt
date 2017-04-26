@@ -65,8 +65,11 @@ if(UNIX)
   FIND_LIBRARY(X11_X11_LIB X11 ${X11_LIB_SEARCH_PATH})
 endif(UNIX)
 
-# find_package(KdepimLibs 4.5.60)
-set_package_properties(KdepimLibs PROPERTIES TYPE OPTIONAL DESCRIPTION "KDE PIM Libs" URL "http://pim.kde.org/" PURPOSE "Required for PIM plugin.")
+find_package(KF5CalendarCore)
+set_package_properties(KF5CalendarCore PROPERTIES TYPE OPTIONAL DESCRIPTION "KDE calendar access library" URL "https://api.kde.org/kdepim/index.html" PURPOSE "Required for PIM plugin.")
+find_package(KF5Akonadi)
+set_package_properties(KF5Akonadi PROPERTIES TYPE OPTIONAL DESCRIPTION "KDE PIM storage framework" URL "https://api.kde.org/kdepim/index.html" PURPOSE "Required for PIM plugin.")
+
 if(UNIX AND NOT APPLE)
   # set(USE_PLASMA true CACHE BOOL "Use the plasma data engines in the dialog plugin")
   set(USE_PLASMA false CACHE BOOL "Plasma data engines have not been ported.")

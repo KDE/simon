@@ -20,7 +20,7 @@
 #include "createakonadicommandwidget.h"
 #include "akonadicommand.h"
 #include <simonactions/actionmanager.h>
-#include <akonadi/attribute.h>
+#include <AkonadiCore/attribute.h>
 #include <KMessageBox>
 
 CreateAkonadiCommandWidget::CreateAkonadiCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),

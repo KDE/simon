@@ -21,11 +21,12 @@
 #define SIMON_AKONADICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
 #include <simonscenarios/commandmanager.h>
+#include <QDateTime>
 #include <QVariantList>
 #include <QObject>
 #include <QMap>
 #include <QTimer>
-#include <akonadi/entity.h>
+#include <AkonadiCore/collection.h>
 
 class AkonadiConfiguration;
 class KJob;
@@ -70,7 +71,7 @@ class AkonadiCommandManager : public CommandManager
 
     CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
     
-    Akonadi::Entity::Id getCollection();
+    Akonadi::Collection::Id getCollection();
     QString akonadiRequestPrefix();
 
     DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;

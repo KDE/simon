@@ -23,16 +23,15 @@
 #include "alarmscheduleitem.h"
 #include "commandscheduleitem.h"
 #include "createakonadicommandwidget.h"
-#include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
 #include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <akonadi/control.h>
-#include <akonadi/monitor.h>
-#include <akonadi/collection.h>
-#include <akonadi/itemfetchjob.h>
-#include <akonadi/itemfetchscope.h>
+#include <AkonadiCore/control.h>
+#include <AkonadiCore/monitor.h>
+#include <AkonadiCore/collection.h>
+#include <AkonadiCore/itemfetchjob.h>
+#include <AkonadiCore/itemfetchscope.h>
 #include <kcalcore/incidence.h>
 #include <kcalcore/alarm.h>
 #include <kcalcore/event.h>
@@ -92,7 +91,7 @@ void AkonadiCommandManager::itemsReceived(KJob* job)
   Akonadi::ItemFetchJob *fetchJob = static_cast<Akonadi::ItemFetchJob*>( job );
   if ( job->error() ) {
       Logger::log(i18n("Akonadi item job returned error: %1", job->errorString()), Logger::Error);
-      kError() << job->errorString();
+      qWarning() << job->errorString();
       return;
   }
 
@@ -208,7 +207,7 @@ bool AkonadiCommandManager::deSerializeConfig(const QDomElement& elem)
   if (config) config->deleteLater();
   config = new AkonadiConfiguration(this, parentScenario);
   
-  if ( !Akonadi::Control::start( config ) ) {
+  if (!Akonadi::Control::start()) {
     Logger::log(i18n("Failed to contact akonadi."), Logger::Error);
     return false;
   }
@@ -224,7 +223,7 @@ CreateCommandWidget* AkonadiCommandManager::getCreateCommandWidget(QWidget *pare
   return new CreateAkonadiCommandWidget(this, parent);
 }
 
-Akonadi::Entity::Id AkonadiCommandManager::getCollection()
+Akonadi::Collection::Id AkonadiCommandManager::getCollection()
 {
   return getAkonadiConfiguration()->getCollection();
 }
