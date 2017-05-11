@@ -341,7 +341,7 @@ bool AIMLParser::loadAiml(const QString &filename)
 
   QXmlInputSource src(&file);
   QXmlSimpleReader reader;
-  reader.setFeature("http://trolltech.com/xml/features/report-whitespace-only-CharData", true);
+  reader.setFeature("http://qt-project.org/xml/features/report-whitespace-only-CharData", true);
 
   QString msg;
   int line, col;
