@@ -1,4 +1,27 @@
 ===========================================================================
+simon: 0.4.90
+===========================================================================
+
+Simon:
+======
+- Bugfix: The download of Simon Base Models work again flawlessly (bug: 377968)
+- Fix detection of utterid APIs in Pocketsphinx
+
+cmake:
+======
+- drop obsolete modules
+- fixed find_package_handle_standard_args usage
+
+
+===========================================================================
+simon: 0.4.80
+===========================================================================
+
+First release after 3 or 4 years. Final release notes and changes will be visible
+in the 0.5 section above
+
+
+===========================================================================
 simon: 0.4.1
 ===========================================================================
 
