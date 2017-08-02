@@ -9,6 +9,7 @@
   <name xml:lang="cs">Simon</name>
   <name xml:lang="de">Simon</name>
   <name xml:lang="el">Simon</name>
+  <name xml:lang="es">Simon</name>
   <name xml:lang="fr">Simon</name>
   <name xml:lang="nl">Simon</name>
   <name xml:lang="pt">Simon</name>
@@ -22,6 +23,7 @@
   <summary xml:lang="cs">Nástroj pro rozpoznávání řeči</summary>
   <summary xml:lang="de">Spracherkennungsprogramm</summary>
   <summary xml:lang="el">Εργαλείο αναγνώρισης ομιλίας</summary>
+  <summary xml:lang="es">Herramienta de reconocimiento de voz</summary>
   <summary xml:lang="fr">Outil de reconnaissance vocale</summary>
   <summary xml:lang="nl">Hulpmiddel voor spraakherkenning</summary>
   <summary xml:lang="pt">Ferramenta de Reconhecimento de Fala</summary>
@@ -37,6 +39,7 @@
     <p xml:lang="ca-valencia">El Simon és el frontal principal per a la solució del reconeixement de la veu de codi obert. Este és un client del Simond i proporciona una interfície gràfica d'usuari per a gestionar el model de pronunciació i les ordes.</p>
     <p xml:lang="de">Simon ist die Haupt-Bedienungsoberfläche zu der Open-Source-Spracherkennungslösung „Simon“. Es ist ein Simond-Client und bietet eine grafische Schnittstelle, um das Sprachmodell und die Befehle zu verwalten.</p>
     <p xml:lang="el">Το Simon είναι η κύρια εφαρμογή για την ανοιχτού κώδικα λύση αναγνώρισης ομιλίας Simon. Είναι ένας πελάτης του Simond και παρέχει ένα γραφικό περιβάλλον για τη διαχείριση του μοντέλου ομιλίας και των εντολών.</p>
+    <p xml:lang="es">Simon es la principal interfaz para la solución abierta de reconocimiento de voz Simon. Es un cliente de Simond y proporciona una interfaz gráfica de usuario para gestionar el modelo de voz y las órdenes.</p>
     <p xml:lang="nl">Simon is het hoofdfrontend voor het Simon open source oplossing voor spraakherkenning. Het is een Simond-client en levert een grafisch gebruikersinterface voor het beheren van het spraakmodel en de commando's.</p>
     <p xml:lang="pt">O Simon é a interface principal para a solução de reconhecimento de fala em código aberto Simon. É um cliente do Simond e oferece uma interface gráfica para gerir o modelo de fala e os comandos.</p>
     <p xml:lang="sk">Simon je hlavný frontend pre riešenie na rozpoznávanie reči Simon. Je to klient pre Simond a poskytuje grafické používateľské rozhranie pre správu modelu reči a príkazy.</p>
@@ -49,6 +52,7 @@
     <p xml:lang="cs">Vlastnosti:</p>
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="el">Χαρακτηριστικά:</p>
+    <p xml:lang="es">Características:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pt">Funcionalidades:</p>
@@ -62,6 +66,7 @@
       <li xml:lang="ca-valencia">El Simon pot executar tot tipus d'ordes basant-se en l'entrada que rep des del servidor Simond.</li>
       <li xml:lang="de">Simon kann mit einer Vielzahl von Befehlen auf das Erkennungsergebnis reagieren, das das Programm vom Server (Simond) erhält.</li>
       <li xml:lang="el">Το Simon μπορεί να εκτελεί όλα τα είδη εντολών που βασίζονται στα δεδομένα που λαμβάνει από τον εξυπηρετητή Simond.</li>
+      <li xml:lang="es">Simon puede ejecutar toda clase de órdenes basadas en la entrada que recibe desde el servidor Simond.</li>
       <li xml:lang="nl">Simon kan allerlei soorten commando's uitvoeren gebaseerd op de invoer die het ontvangt uit de server Simond.</li>
       <li xml:lang="pt">O Simon consegue executar todo o tipo de comandos com base nos dados que recebe do servidor Simond.</li>
       <li xml:lang="sk">Simon vie spúšťať všetky druhy príkazov založené na vstupe, ktorý získa zo servera Simond.</li>
@@ -74,6 +79,7 @@
       <li xml:lang="ca-valencia">El Simon ofereix un enfocament únic de, fes-ho tu mateix. per al reconeixement de la veu. En comptes de models de pronunciació predefinits, es proporcionen models de pronunciació per a pre-entrenar junt amb una interfície fàcil d'emprar per part de l'usuari final, el qual crearà models de llenguatge i acústiques partint de zero.</li>
       <li xml:lang="de">Simon einen bietet einen einzigartigen do-it-yourself Ansatz für Spracherkennung. Statt mit vordefinierten, bereits trainierten Sprachmodellen wird Simon ohne Sprachmodell ausgeliefert. Stattdessen bietet es eine einfache Benutzeroberfläche für Endbenutzer, um das Sprach- und Akustikmodell selbst zu erstellen.</li>
       <li xml:lang="el">Το Simon παρέχει μια μοναδική κάντο-μόνος-σου προσέγγιση στην αναγνώριση ομιλίας. Αντί για προκαθορισμένα, προ-εκπαιδευμένα μοντέλα ομιλίας, παρέχει ένα ευκολόχρηστο περιβάλλον για τη δημιουργία γλωσσικών και ακουστικών μοντέλων από την αρχή.</li>
+      <li xml:lang="es">Simon proporciona un único enfoque hágalo-usted-mismo para el reconocimiento de voz. En lugar de modelos predefinidos o preentrenados, proporciona una interfaz fácil de usar para crear lenguajes y modelos acústicos desde cero.</li>
       <li xml:lang="nl">Simon levert een unieke doe-het-zelf benadering voor spraakherkenning. In plaats van voorgedefinieerde, vooraf getrainde spraakmodellen biedt het een gemakkelijk te gebruiken interface voor de eindgebruiker om taal- en akoestische modellen vanaf niets aan te maken.</li>
       <li xml:lang="pt">O Simon oferece uma abordagem única 'faça-você-mesmo' para o reconhecimento da fala. Em vez de modelos de fala predefinidos e pré-treinados, oferece uma interface simples de usar para criar modelos de línguas e acústicos do zero.</li>
       <li xml:lang="sk">Simon poskytuje jedinečné riešenie na rozpoznávanie reči. Na rozdiel od preddefinovaného predtrénovaného modelu poskytuje jednoduché používateľské rozhranie na vytvorenie jazykových a akustických modelov od začiatku.</li>
@@ -85,6 +91,7 @@
       <li xml:lang="ca-valencia">L'usuari final podrà descarregar amb facilitat els casos d'ús creats pels altres usuaris i compartir els seus.</li>
       <li xml:lang="de">Der Endbenutzer kann die Anwendungsfälle von anderen Benutzern einfach herunterladen und seine eigenen einfach mit anderen Benutzer austauschen.</li>
       <li xml:lang="el">Ο τελικός χρήστης μπορεί εύκολα να λάβει έτοιμα παραδείγματα από άλλους και να μοιραστεί τα δικά του.</li>
+      <li xml:lang="es">El usuario final puede descargar fácilmente casos de uso creados por otros usuarios y compartir los suyos propios.</li>
       <li xml:lang="nl">De eindgebruiker kan gemakkelijk reeds gemaakte zaken van andere gebruikers downloaden en de zijne / hare delen.</li>
       <li xml:lang="pt">A interface de utilizador permite facilmente transferir casos de uso criados por outros utilizadores e partilhar os seus próprios.</li>
       <li xml:lang="sk">Koncový používateľ vie ľahko stiahnuť vytvorené prípady použitia od iných používateľov a zdieľať svoje vlastné.</li>
@@ -96,6 +103,7 @@
       <li xml:lang="ca-valencia">Les solucions d'orde i control són especialment adequades per a persones amb discapacitat.</li>
       <li xml:lang="de">Lösungen zur Kontrolle und Steuerung verwirklichen, die besonders bei der körperlich eingeschränkten Zielgruppe angewendet werden kann.</li>
       <li xml:lang="el">Λύσεις εντολής-και-ελέγχου κατάλληλες ιδιαίτερα για άτομα με ειδικές ανάγκες.</li>
+      <li xml:lang="es">Soluciones de órdenes-y-control especialmente adaptables para personas discapacitadas.</li>
       <li xml:lang="nl">Oplossingen voor commando-en-besturing speciaal geschikt voor mensen met een beperking.</li>
       <li xml:lang="pt">Soluções de comando-e-controlo especialmente adequadas para pessoas com necessidades especiais.</li>
       <li xml:lang="sk">Riešenia príkazov a ovládania určené hlavne pre postihnutých ľudí.</li>
@@ -107,6 +115,7 @@
       <li xml:lang="ca-valencia">A causa de la seua arquitectura, es pot usar la mateixa versió del Simon amb tots els idiomes i dialectes. Si cal, fins i tot podreu barrejar els idiomes dins d'un model.</li>
       <li xml:lang="de">Wegen der Architektur von Simon kann die selbe Version für alle Sprachen und Dialekte verwendet werden. Der Benutzer kann sogar verschiedene Sprachen innerhalb eines Modells mischen, sollte dies gewünscht sein.</li>
       <li xml:lang="el">Λόγω της αρχιτεκτονικής, η ίδια έκδοση του Simon μπορεί να χρησιμοποιηθεί με όλες τις γλώσσες και διαλέκτους. Ακόμη και με ανάμιξη γλωσσών αν είναι απαραίτητο.</li>
+      <li xml:lang="es">Debido a sus arquitectura, la misma versión de Simon puede usarse con todos los idiomas y dialectos. Uno incluso puede mezclar idiomas dentro de un modelo si e necesita.</li>
       <li xml:lang="nl">Vanwege deze architectuur kan dezelfde versie van Simon gebruikt worden met alle talen en dialecten. Men kan zelfs talen binnen één model mixen indien nodig.</li>
       <li xml:lang="pt">Devido à sua arquitectura, a mesma versão do Simon pode ser usada com todas as línguas e dialectos. Uma pessoa poderá até misturar as línguas dentro de um modelo, se necessário.</li>
       <li xml:lang="sk">Vzhľadom na architektúru, rovnaká verzia Simon sa dá použiť so všetkými jazykmi a dialektmi. Dokonca je možné kombinovať jazyky v jednom modeli, ak je tu nutné.</li>
