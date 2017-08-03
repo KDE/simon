@@ -17,7 +17,7 @@ target_link_libraries(sscdaccess sscobjects simonprogresstracking ${QT_LIBRARIES
 generate_export_header(sscdaccess)
 
 set_target_properties(sscdaccess
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install(FILES ${sscdaccess_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/ssc/sscdaccess COMPONENT sscdevel)

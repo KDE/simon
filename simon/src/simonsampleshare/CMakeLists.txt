@@ -14,7 +14,7 @@ target_link_libraries(simonsampleshare ${QT_LIBRARIES} sscdaccess
 
 generate_export_header(simonsampleshare)
 
-set_target_properties(simonsampleshare PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})
+set_target_properties(simonsampleshare PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR})
 
 install(FILES ${simonsampleshare_LIB_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonsampleshare COMPONENT simondevel)
 
