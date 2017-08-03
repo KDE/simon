@@ -58,7 +58,7 @@ macro_log_feature(KdepimLibs_FOUND "KDE PIM Libs" "KDE Libraries for PIM" "http:
 if(UNIX AND NOT APPLE)
 set(USE_PLASMA true CACHE BOOL "Use the plasma data engines in the dialog plugin")
 else()
-set(USE_PLAMSA false)
+set(USE_PLASMA false)
 endif()
 
 if(USE_PLASMA)
