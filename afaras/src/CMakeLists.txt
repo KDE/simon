@@ -16,4 +16,4 @@ target_link_libraries(afaras ${QT_LIBRARIES} KF5::KCMUtils KF5::KIOCore simonsou
 install(TARGETS afaras ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES org.kde.afaras.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT afaras)
-install(FILES afarasui.rc DESTINATION ${DATA_INSTALL_DIR} COMPONENT afaras)
+install(FILES afarasui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/afaras COMPONENT afaras)

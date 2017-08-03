@@ -41,4 +41,4 @@ install(TARGETS ssc ${INSTALL_TARGETS_DEFAULT_ARGS})
 ########### install files ###############
 
 install(FILES org.kde.ssc.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT ssc)
-install(FILES sscui.rc DESTINATION ${DATA_INSTALL_DIR} COMPONENT ssc)
+install(FILES sscui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/ssc COMPONENT ssc)

@@ -52,4 +52,4 @@ target_link_libraries(simon  KF5::KIOCore KF5::KDELibs4Support
 endif()
 
 install (TARGETS simon ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES simonui.rc DESTINATION ${DATA_INSTALL_DIR} COMPONENT simon)
+install(FILES simonui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/simon COMPONENT simon)
