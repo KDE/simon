@@ -152,12 +152,6 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-fexceptions)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
-string(FIND "/usr/include/KDE" match "${INCLUDE_DIRECTORIES}" )
-if(match)
-  message(FATAL_ERROR "/usr/include/KDE was found.  Bad!")
-endif()
-message(STATUS "Include Directories: ${INCLUDE_DIRECTORIES}")
-
 add_subdirectory(simonlib)
 add_subdirectory(simon)
 add_subdirectory(simond)
