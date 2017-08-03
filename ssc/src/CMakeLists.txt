@@ -36,7 +36,7 @@ add_executable(ssc ${ssc_SRCS})
 target_link_libraries(ssc ${QT_LIBRARIES} KF5::KCMUtils
    simonuicomponents simonprogresstracking sscobjects simonsound sscdaccess)
 
-install(TARGETS ssc DESTINATION ${BIN_INSTALL_DIR} COMPONENT ssc)
+install(TARGETS ssc ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### install files ###############
 

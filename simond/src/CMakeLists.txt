@@ -22,5 +22,5 @@ target_link_libraries(simond  Qt5::Network simonrecognizer
   Qt5::Core Qt5::Xml KF5::ConfigCore simonscenarios simonmodelcompilation simonddatabaseaccess
   simonrecognitionresult simonwav simoncontextadapter simonutils simonrecognizer)
 
-install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} COMPONENT simond )
+install(TARGETS simond ${INSTALL_TARGETS_DEFAULT_ARGS})
 install( FILES org.kde.simond.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT simond )

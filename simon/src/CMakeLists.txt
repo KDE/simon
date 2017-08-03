@@ -51,5 +51,5 @@ target_link_libraries(simon  KF5::KIOCore KF5::KDELibs4Support
   simoncontextui simonsampleshare)
 endif()
 
-install (TARGETS simon DESTINATION bin COMPONENT simon)
+install (TARGETS simon ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR} COMPONENT simon)

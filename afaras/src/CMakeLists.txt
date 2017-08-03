@@ -13,7 +13,7 @@ add_executable(afaras ${afaras_SRCS})
 
 target_link_libraries(afaras ${QT_LIBRARIES} KF5::KCMUtils KF5::KIOCore simonsound)
 
-install(TARGETS afaras DESTINATION ${BIN_INSTALL_DIR} COMPONENT afaras)
+install(TARGETS afaras ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES org.kde.afaras.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT afaras)
 install(FILES afarasui.rc DESTINATION ${DATA_INSTALL_DIR} COMPONENT afaras)

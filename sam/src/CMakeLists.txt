@@ -45,7 +45,7 @@ if(NOT WIN32 AND NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   target_link_libraries(sam rt)
 endif()
 
-install(TARGETS sam DESTINATION ${BIN_INSTALL_DIR} COMPONENT sam)
+install(TARGETS sam ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES org.kde.sam.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT sam)
 install(FILES samui.rc DESTINATION ${DATA_INSTALL_DIR} COMPONENT sam)

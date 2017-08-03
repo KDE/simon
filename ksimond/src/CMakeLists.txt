@@ -12,7 +12,7 @@ add_executable(ksimond ${ksimond_SRCS})
 target_link_libraries(ksimond KF5::KCMUtils Qt5::Core
   simonuicomponents simoninfo)
 
-install(TARGETS ksimond DESTINATION ${BIN_INSTALL_DIR} COMPONENT ksimond)
+install(TARGETS ksimond ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(FILES org.kde.ksimond.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT ksimond)
 install(FILES org.kde.ksimond_autostart.desktop DESTINATION ${AUTOSTART_INSTALL_DIR} COMPONENT ksimond)
