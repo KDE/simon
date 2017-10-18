@@ -8,9 +8,9 @@
 <kcfgfile name="ksimondrc" />
   <group name="KSimond">
     <entry name="AutoStart" type="Bool">
-      <label>Whether we want to start ksimond when KDE is started.</label>
+      <label>Whether we want to start ksimond when the environment is started.</label>
       <default>false</default>
-      <tooltip>Whether we want to start ksimond when KDE is started.</tooltip>
+      <tooltip>Whether we want to start ksimond the environment is started.</tooltip>
     </entry>
     <entry name="AutoStartSimond" type="Bool">
       <label>Whether we want to start simond automatically.</label>
