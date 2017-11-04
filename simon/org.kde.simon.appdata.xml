@@ -12,6 +12,7 @@
   <name xml:lang="it">Simon</name>
   <name xml:lang="nl">Simon</name>
   <name xml:lang="pt">Simon</name>
+  <name xml:lang="pt-BR">Simon</name>
   <name xml:lang="sk">Simon</name>
   <name xml:lang="sv">Simon</name>
   <name xml:lang="uk">Simon</name>
@@ -25,6 +26,7 @@
   <summary xml:lang="it">Strumento per il riconoscimento vocale</summary>
   <summary xml:lang="nl">Hulpmiddel voor spraakherkenning</summary>
   <summary xml:lang="pt">Ferramenta de Reconhecimento de Fala</summary>
+  <summary xml:lang="pt-BR">Ferramenta de reconhecimento de fala</summary>
   <summary xml:lang="sk">Nástroj na rozpoznávanie reči</summary>
   <summary xml:lang="sv">Taligenkänningsverktyg</summary>
   <summary xml:lang="uk">Засіб для розпізнавання голосових команд</summary>
@@ -53,6 +55,7 @@
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pt">Funcionalidades:</p>
+    <p xml:lang="pt-BR">Recursos:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="uk">Можливості:</p>
