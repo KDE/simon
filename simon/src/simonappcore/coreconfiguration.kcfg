@@ -13,9 +13,9 @@
       <tooltip>If the first run wizard has been completed successfully.</tooltip>
     </entry>
      <entry name="AutoStart" type="Bool">
-      <label>If we should start simon the environment is started.</label>
+      <label>If we should start simon when the environment is started.</label>
       <default>false</default>
-      <tooltip>If we should start simon the environment is started.</tooltip>
+      <tooltip>If we should start simon when the environment is started.</tooltip>
     </entry>
      <entry name="StartMinimized" type="Bool">
       <label>If we should automatically minimize simon to the tray on startup.</label>
