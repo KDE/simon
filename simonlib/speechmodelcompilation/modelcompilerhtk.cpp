@@ -164,9 +164,9 @@ bool ModelCompilerHTK::parseConfiguration()
   !QFile::exists(hVite))) {
     //HTK not found
     #ifdef Q_OS_WIN32
-    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://userbase.kde.org/Simon/Installation#HTK_installation");
+    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://userbase.kde.org/Simon/Installation#Optional:_HTK_installation");
     #else
-    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://userbase.kde.org/Simon/Installation#HTK_installation_2");
+    QString errorMsg = i18n("The HTK cannot be found. Please make sure it is installed correctly.\n\nMore information: http://userbase.kde.org/Simon/Installation#Optional:_HTK_installation_2");
     #endif
     emit error(errorMsg);
     return false;
