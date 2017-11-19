@@ -48,7 +48,7 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
       // i18n("Filter is being applied..."));
   }
   if (QFile::exists(out) && (!QFile::remove(out))) {
-    emit error(i18n("Could not overwrite %1.\n\nPlease check if you have the needed permissons.", out));
+    emit error(i18n("Could not overwrite %1.\n\nPlease check if you have the needed permissions.", out));
     return false;
   }
 
