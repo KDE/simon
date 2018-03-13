@@ -40,7 +40,7 @@
       Simon is the main front end for the Simon open source speech recognition solution. It is a Simond client and provides a graphical user interface for managing the speech model and the commands.
     </p>
     <p xml:lang="ca">El Simon és el frontal principal per a la solució del reconeixement de la veu de codi obert. Aquest és un client del Simond i proporciona una interfície gràfica d'usuari per a gestionar el model de pronunciació i les ordres.</p>
-    <p xml:lang="ca-valencia">El Simon és el frontal principal per a la solució del reconeixement de la veu de codi obert. Este és un client del Simond i proporciona una interfície gràfica d'usuari per a gestionar el model de pronunciació i les ordes.</p>
+    <p xml:lang="ca-valencia">El Simon és el frontal principal per a la solució del reconeixement de la veu de codi obert. Aquest és un client del Simond i proporciona una interfície gràfica d'usuari per a gestionar el model de pronunciació i les ordres.</p>
     <p xml:lang="de">Simon ist die Haupt-Bedienungsoberfläche zu der Open-Source-Spracherkennungslösung „Simon“. Es ist ein Simond-Client und bietet eine grafische Schnittstelle, um das Sprachmodell und die Befehle zu verwalten.</p>
     <p xml:lang="en-GB">Simon is the main front end for the Simon open source speech recognition solution. It is a Simond client and provides a graphical user interface for managing the speech model and the commands.</p>
     <p xml:lang="es">Simon es la principal interfaz para la solución abierta de reconocimiento de voz Simon. Es un cliente de Simond y proporciona una interfaz gráfica de usuario para gestionar el modelo de voz y las órdenes.</p>
@@ -71,7 +71,7 @@
     <ul>
       <li>Simon can execute all sorts of commands based on the input it receives from the server Simond.</li>
       <li xml:lang="ca">El Simon pot executar tot tipus d'ordres basant-se en l'entrada que rep des del servidor Simond.</li>
-      <li xml:lang="ca-valencia">El Simon pot executar tot tipus d'ordes basant-se en l'entrada que rep des del servidor Simond.</li>
+      <li xml:lang="ca-valencia">El Simon pot executar tot tipus d'ordres basant-se en l'entrada que rep des del servidor Simond.</li>
       <li xml:lang="de">Simon kann mit einer Vielzahl von Befehlen auf das Erkennungsergebnis reagieren, das das Programm vom Server (Simond) erhält.</li>
       <li xml:lang="en-GB">Simon can execute all sorts of commands based on the input it receives from the server Simond.</li>
       <li xml:lang="es">Simon puede ejecutar toda clase de órdenes basadas en la entrada que recibe desde el servidor Simond.</li>
@@ -114,7 +114,7 @@
       <li xml:lang="x-test">xxThe end-user can easily download created use cases from other users and share his / her own.xx</li>
       <li>Command-and-control solutions especially suitable for disabled people.</li>
       <li xml:lang="ca">Les solucions d'ordre i control són especialment adequades per a persones amb discapacitat.</li>
-      <li xml:lang="ca-valencia">Les solucions d'orde i control són especialment adequades per a persones amb discapacitat.</li>
+      <li xml:lang="ca-valencia">Les solucions d'ordre i control són especialment adequades per a persones amb discapacitat.</li>
       <li xml:lang="de">Lösungen zur Kontrolle und Steuerung verwirklichen, die besonders bei der körperlich eingeschränkten Zielgruppe angewendet werden kann.</li>
       <li xml:lang="en-GB">Command-and-control solutions especially suitable for disabled people.</li>
       <li xml:lang="es">Soluciones de órdenes-y-control especialmente adaptables para personas discapacitadas.</li>
