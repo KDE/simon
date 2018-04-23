@@ -663,7 +663,7 @@ The Simon main window can be hidden at any time by clicking on the Simon logo in
   <title>Import Scenario</title>
   <para>Scenarios can be imported from a local file in Simon's XML scenario file format but can also be directly downloaded and imported from the internet.</para>
 
-  <para>When downloading scenarios, the list of scenarios is retrieved from <ulink url="http://kde-files.org/index.php?xcontentmode=692">Simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
+  <para>When downloading scenarios, the list of scenarios is retrieved from <ulink url="https://store.kde.org/browse/cat/319/ord/latest/">Simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="https://store.kde.org/">KDE Store</ulink>.</para>
 
 <para>
   <screenshot>
