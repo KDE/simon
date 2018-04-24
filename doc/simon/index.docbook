@@ -1281,7 +1281,7 @@ Simon uses fairly sophisticated internal sound processing to enable complex mult
   </screenshot>
 </para>
 
-<para>You can also export your currently active model by selecting <guibutton>Export active model</guibutton>. The exported SBM file will contain your full acoustic model (ignoring the <link linkend="configuration_sound_context">current context</link>) that can be <ulink url="http://kde-files.org/index.php?xcontentmode=648">shared with other Simon users</ulink>.</para>
+<para>You can also export your currently active model by selecting <guibutton>Export active model</guibutton>. The exported SBM file will contain your full acoustic model (ignoring the <link linkend="configuration_sound_context">current context</link>) that can be <ulink url="https://store.kde.org/browse/cat/318/ord/latest/">shared with other Simon users</ulink>.</para>
 </sect3>
 
 <sect3>
@@ -1558,9 +1558,9 @@ However, if you want more control you can instruct Simon to ask you before start
 <title>Social desktop</title>
 <para>Scenarios can be <link linkend="export_scenario">uploaded</link> and <link linkend="import_scenario">downloaded from within Simon</link>.</para>
 
-<para>For this we use KDEs social desktop facilities and our own <ulink url="http://kde-files.org/index.php?xcontentmode=692">category for Simon scenarios on kde-files.org</ulink>.</para>
+<para>For this we use KDEs social desktop facilities and our own <ulink url="https://store.kde.org/browse/cat/319/ord/latest/">category for Simon scenarios on KDE Store</ulink>.</para>
 
-<para>If you already have an account on <ulink url="http://opendesktop.org">opendesktop.org</ulink> you can input the credentials there. If you don't, you can register directly in the configuration module.</para>
+<para>If you already have an account on <ulink url="https://opendesktop.org">opendesktop.org</ulink> you can input the credentials there. If you don't, you can register directly in the configuration module.</para>
 
 <para>The registration is of course free of charge.</para>
 </sect2>
@@ -2039,7 +2039,7 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
   </screenshot>
 </para>
 
-<para>When creating a new scenario, please give it a descriptive name. For the later upload on <ulink url="http://kde-files.org/index.php?xcontentmode=692">KDE files</ulink> we would kindly ask you to follow a certain naming scheme although this is of course not a requirement: <quote>[&lt;language&gt;/&lt;base model&gt;] &lt;name&gt;</quote>. If, for example you create a scenario in English that works with the Voxforge base model and controls Mozilla Firefox this becomes: <quote>[EN/VF] Firefox</quote>. If your scenario is not specifically tailored to one phoneme set (base model), just omit the second tag like this: <quote>[EN] Firefox</quote>.</para>
+<para>When creating a new scenario, please give it a descriptive name. For the later upload on <ulink url="https://store.kde.org/browse/cat/319/ord/latest/">KDE Store</ulink> we would kindly ask you to follow a certain naming scheme although this is of course not a requirement: <quote>[&lt;language&gt;/&lt;base model&gt;] &lt;name&gt;</quote>. If, for example you create a scenario in English that works with the Voxforge base model and controls Mozilla Firefox this becomes: <quote>[EN/VF] Firefox</quote>. If your scenario is not specifically tailored to one phoneme set (base model), just omit the second tag like this: <quote>[EN] Firefox</quote>.</para>
 
 <para>The scenario version is just an incremental version number that makes it easier to distinguish between different revisions of a scenario.</para>
 
