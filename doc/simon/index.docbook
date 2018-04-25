@@ -175,7 +175,7 @@ In other words, scenarios tell Simon what words and phrases to listen for and wh
 </para>
 
 <para>
-Because scenarios do not contain information about how these words and phrases actually sound, they can be shared and exchanged between different Simon users without problems. To accommodate this community based repository pool, a <ulink url="http://kde-files.org/index.php?xcontentmode=692">category for Simon scenarios has been created on kde-files.org</ulink> where the scenarios, which are just simple text files (XML format), can be exchanged easily.
+Because scenarios do not contain information about how these words and phrases actually sound, they can be shared and exchanged between different Simon users without problems. To accommodate this community based repository pool, a <ulink url="https://store.kde.org/browse/cat/319/ord/latest/">category for Simon scenarios has been created on the KDE Store</ulink> where the scenarios, which are just simple text files (XML format), can be exchanged easily.
 </para>
 
 <para>
@@ -2059,9 +2059,9 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 
 <sect2 id="export_scenario">
   <title>Export Scenario</title>
-  <para>Scenarios can be exported to a local file in Simon's XML scenario file format and directly uploaded to the <ulink url="http://kde-files.org/index.php?xcontentmode=692">Simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
+  <para>Scenarios can be exported to a local file in Simon's XML scenario file format and directly uploaded to the <ulink url="https://store.kde.org/browse/cat/319/ord/latest/">Simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="https://store.kde.org">KDE Store</ulink>.</para>
 
-  <para>To upload to OpenDesktop sites, you need an account on the site. <ulink url="http://opendesktop.org/usermanager/new.php">Registration</ulink> is very easy and of course free of charge.</para>
+  <para>To upload to OpenDesktop sites, you need an account on the site. <ulink url="https://www.opendesktop.org/register">Registration</ulink> is very easy and of course free of charge.</para>
 
   <para>Simon allows you to upload new content directly from within Simon (<guibutton>Export</guibutton> > <guimenuitem>Publish</guimenuitem>).</para>
 
