@@ -3996,7 +3996,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
       </mediaobject>
     </screenshot>
     </para>
-    <para>QtScript bound values resolve to the result of the entered <ulink url="http://doc.qt.digia.com/qt/ecmascript.html">QtScript</ulink> code.</para>
+    <para>QtScript bound values resolve to the result of the entered <ulink url="https://doc.qt.io/archives/qt-4.8/ecmascript.html">QtScript</ulink> code.</para>
   </listitem>
   <listitem>
     <para>Command arguments</para>
