@@ -23,7 +23,6 @@
 #include <QColor>
 
 #include <KLocalizedString>
-#include <KLocalizedString>
 #include <KColorScheme>
 
 FileResultModel::FileResultModel(QObject *parent) : QAbstractItemModel(parent)

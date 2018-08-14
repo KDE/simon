@@ -38,7 +38,6 @@
 #include <KIcon>
 #include <KMessageBox>
 #include <KPushButton>
-#include <KLocalizedString>
 
 #include "ui_recwidget.h"
 

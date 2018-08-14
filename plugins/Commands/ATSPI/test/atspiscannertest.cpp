@@ -23,7 +23,6 @@
 #include <QWidget>
 #include <KApplication>
 #include <KCmdLineArgs>
-#include <QSignalSpy>
 #include <QDebug>
 #include <QTimer>
 #include "../atspiscanner.h"

@@ -27,7 +27,6 @@
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonscenarios/modelmanager.h>
 #include <simonscenarios/scenariomanager.h>
-#include <simonscenarios/modelmanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/model.h>
 #include <simonscenarios/trainingtext.h>

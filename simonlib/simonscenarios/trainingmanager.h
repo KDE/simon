@@ -27,7 +27,6 @@
 #include <QMutex>
 #include <QList>
 #include "simonmodelmanagement_export.h"
-#include "promptstable.h"
 
 /**
  *	@class TrainingManager

@@ -37,7 +37,7 @@ public:
   virtual CreateConditionWidget* getCreateConditionWidget(QWidget *parent);
 
 public slots:
-  // Slot is connect to the signal in the Analyzer which will be emmitted when there will be any change the presense of user (isSpeaking)
+  // Slot is connect to the signal in the Analyzer which will be emmitted when there will be any change the presence of user (isSpeaking)
   void manageConditionState(bool isSpeaking,int thresholdValue);
   
 private:

@@ -20,7 +20,6 @@
 
 #include "commandtablemodel.h"
 #include <KLocalizedString>
-#include <KLocalizedString>
 #include <QDebug>
 #include <QMutexLocker>
 

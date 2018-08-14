@@ -42,7 +42,6 @@
 #include <KStandardDirs>
 #include <KDesktopFile>
 #include <KDebug>
-#include <KLocalizedString>
 #include <KXmlGuiWindow>
 #include <KXMLGUIClient>
 #include <KXMLGUIFactory>

@@ -29,7 +29,6 @@
 #include <KLocalizedString>
 #include <KIcon>
 #include <KPushButton>
-#include <KLocalizedString>
 
 CompositeProgressWidget::CompositeProgressWidget(QWidget* parent): QWidget(parent)
 {

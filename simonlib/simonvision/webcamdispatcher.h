@@ -43,7 +43,7 @@ public:
 
 private:
 
-  // Webcam disptacher will be initialized when there is atleast on Analyzer registered
+  // Webcam disptacher will be initialized when there is at least on Analyzer registered
   void initWebcamDispatcher();
 
   // Webcam disptacher will be closed when there is no Analyzer registered

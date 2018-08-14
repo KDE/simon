@@ -29,7 +29,6 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KUrl>
-#include <KLocalizedString>
 
 DatabaseAccess::DatabaseAccess(QObject* parent) : QObject(parent),
 db(0),

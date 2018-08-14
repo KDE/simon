@@ -108,7 +108,7 @@ void ImportTrainingData::run()
     if (!dataFiles) return;
 
     emit progress(0, dataFiles->count());
-    emit status(i18nc("%1 is file count", "Importing %1 File...", "Importing %1 Files...", dataFiles->count()));
+    emit status(i18ncp("%1 is file count", "Importing %1 File...", "Importing %1 Files...", dataFiles->count()));
 
     QStringList *newFiles = processSounds(*dataFiles, wavDestDir);
     delete dataFiles;

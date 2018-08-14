@@ -52,9 +52,9 @@ QDomElement FaceDetectionCondition::privateSerialize(QDomDocument *doc, QDomElem
 QString FaceDetectionCondition::name()
 {
   if (!isInverted())
-    return i18nc("Detecting the presense of user from the webcam", "Presence of user");
+    return i18nc("Detecting the presence of user from the webcam", "Presence of user");
   else
-    return i18nc("Detecting the presense of user from the webcam", "Absence of user");
+    return i18nc("Detecting the presence of user from the webcam", "Absence of user");
 }
 
 bool FaceDetectionCondition::privateDeSerialize(QDomElement elem)

@@ -26,7 +26,6 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KLocalizedString>
 
 ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 {

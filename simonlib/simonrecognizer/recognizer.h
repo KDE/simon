@@ -30,7 +30,7 @@ class RecognitionConfiguration;
 /*!
  *  \class Recognizer
  *  \brief The Recognizer class initialize recognition with given configuration
- *         and recognize audio files using method which specifed in inherited classes.
+ *         and recognize audio files using method which specified in inherited classes.
  *
  *  \version 0.1
  *  \date 14.08.2012

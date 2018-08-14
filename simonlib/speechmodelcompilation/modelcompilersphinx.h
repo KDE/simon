@@ -49,7 +49,7 @@ protected:
   bool pack(const QString& targetArchive, const QString& name);
   
 private:
-  //programms
+  //programs
   QString m_SphinxTrain;
   QString m_Bw;
   QString m_Sphinx_fe;

@@ -24,7 +24,6 @@
 #include <KLineEdit>
 #include <KIntNumInput>
 #include <QFormLayout>
-#include <KLocalizedString>
 
 AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
 {

@@ -29,7 +29,6 @@
 #include "xeventsprivate.h" //krazy:exclude=includes
 
 // #include "../Logging/logger.h"
-#include <KLocalizedString>
 
 XEventsPrivate::XEventsPrivate(const char* displayName)
 {
