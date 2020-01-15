@@ -38,8 +38,6 @@ int main(int argc, char **argv)
   about.addAuthor( i18n("Peter Grasch"), QString(), "peter.grasch@bedahr.org" );
   QApplication app(argc, argv);
   QCommandLineParser parser;
-  parser.addVersionOption();
-  parser.addHelpOption();
 
   //QT5TODO: KCommandLineParser script botched. Figure out what this was doing before and replace it.
   //PORTING SCRIPT: adapt aboutdata variable if necessary
